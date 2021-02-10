@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html layout:decorate="~{layout}">
+<head><meta charset="UTF-8"/></head>
+<body>
+	
+	    <section class="layout-content" layout:fragment="corpo">
+	
+	        <nav class="navbar navbar-expand-md bg-light">
+	            <div class="collapse navbar-collapse" id="navbarsExampleDefault">
+	                <ul class="navbar-nav mr-auto">
+	                    <li class="nav-item active">
+	                        <i class="oi oi-caret-right"></i>
+	                        <span>Cadastrar Bancos</span>
+	                    </li>
+	                </ul>
+	                <a class="btn btn-primary btn-md" href="/bancos/listar" role="button">
+	                    <span class="oi oi-spreadsheet" title="Listar" aria-hidden="true"></span>
+	                    <span>Listar Bancos</span>
+	                </a>
+	            </div>
+	        </nav>
+	
+	        <div class="container" id="cadastro">
+	        
+	        	<div th:replace="fragments/alert"></div>
+	        	
+	            <form th:action="${bancos.id == null} ? @{/bancos/salvar} : @{/bancos/editar}" 
+	                  th:object="${bancos}" method="POST">
+	                <div class="form-row">
+	                    <div class="form-group col-md-6">
+	                        <label for="nome">Código do Banco</label>
+	                        <input type="text" class="form-control" id="codigo"
+	                               placeholder="Codigo do Banco" autofocus="autofocus" th:field="*{codigoBanco}"/>
+	                    </div>
+	                </div>
+	                
+	                <div class="form-row">
+	                    <div class="form-group col-md-6">
+	                        <label for="nome">Nome do Banco</label>
+	                        <input type="text" class="form-control" id="nome"
+	                               placeholder="Nome Banco" autofocus="autofocus" th:field="*{nomeBanco}"/>
+	                    </div>
+	                </div>
+	                
+	                <div class="form-row">
+	                    <div class="form-group col-md-6">
+	                        <label for="nome">Sigla do Banco</label>
+	                        <input type="text" class="form-control" id="sigla"
+	                               placeholder="Codigo do Banco" autofocus="autofocus" th:field="*{siglaBanco}"/>
+	                    </div>
+	                </div>
+	                
+	                <input type="hidden" id="id" th:field="*{id}"/>
+	                <button type="submit" class="btn btn-primary btn-sm">Salvar</button>
+	            </form>
+	        </div>
+	    </section>
+</body>
+</html>
