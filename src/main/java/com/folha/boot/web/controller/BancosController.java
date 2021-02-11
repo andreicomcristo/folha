@@ -15,7 +15,6 @@ import com.folha.boot.service.BancosService;
 @Controller
 @RequestMapping("/bancos")
 public class BancosController {
-
 	
 	@Autowired
 	private BancosService service;
@@ -36,7 +35,7 @@ public class BancosController {
 	public String salvar(Bancos banco, RedirectAttributes attr) {
 		
 		service.salvar(banco);
-		attr.addFlashAttribute("success", "Banco inserido com sucesso.");
+		attr.addFlashAttribute("success", "Inserido com sucesso.");
 		return "redirect:/bancos/cadastrar";
 	}
 	
@@ -49,7 +48,7 @@ public class BancosController {
 	@PostMapping("/editar")
 	public String editar(Bancos banco, RedirectAttributes attr) {
 		service.editar(banco);
-		attr.addFlashAttribute("success", "Banco editado com sucesso.");
+		attr.addFlashAttribute("success", "Editado com sucesso.");
 		return "redirect:/bancos/cadastrar";
 	}
 	
@@ -63,7 +62,7 @@ public class BancosController {
 			model.addAttribute("success", "Departamento excluído com sucesso.");
 		}*/
 		service.excluir(id); //Caso implemente a regra acima, apagar essa linha. 
-		model.addAttribute("success", "Departamento excluído com sucesso.");
+		model.addAttribute("success", "Excluído com sucesso.");
 		return listar(model);
 	}
 }
