@@ -3,8 +3,7 @@
 <head>
     <!-- Somehow I got an error, so I comment the title, just uncomment to show -->
     <!-- <title>Sidebar Menu with sub-menu | CodingNepal</title> -->
-    
-    
+      
     <title>GENTE-WEB</title>
 	<meta charset="UTF-8" />
 	<meta http-equiv="X-UA-Compatible" content="IE=edge" />
@@ -16,8 +15,7 @@
 	<!-- Bootstrap core CSS -->
 	<link href="/webjars/bootstrap/css/bootstrap.min.css" rel="stylesheet" />
 	<link href="/webjars/open-iconic/font/css/open-iconic-bootstrap.min.css" rel="stylesheet" />
-	
-	
+		
 	<!-- Custom styles for this template -->
 	<link href="/css/style.css" rel="stylesheet" />
     
@@ -32,9 +30,6 @@
 
   </head>
 
-
-
-
 <body>
 
 <header th:replace="fragments/header :: cabecalho">
@@ -48,7 +43,6 @@
 	</nav>
 	</aside>
 	
-	
 	<section layout:fragment = "corpo">
 		<div>Conteudo principal das paginas</div>
 	</section>
@@ -58,7 +52,6 @@
 	<div>footer</div>
 </footer>
 
-
 <!-- Bootstrap core JavaScript
     ================================================== -->
 	<!-- Placed at the end of the document so the pages load faster -->
@@ -67,9 +60,17 @@
 	<script	src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
 	<script src="/webjars/bootstrap/js/bootstrap.min.js"></script>
 	<script type="text/javascript">
-	
-	
-	
+	    
+	    var url = '';
+		
+		$('button[id*="btn_"]').click(function() {
+			url = "http://localhost:8080/" + $(this).attr('id').split("_")[1];
+		});
+		
+		$('#ok_confirm').click(function() {
+			document.location.href = url;
+		});
+	    
 	    
 		$(function() {
 			$('[data-toggle="popover"]').popover();
@@ -80,10 +81,6 @@
 		        $(".sidebar").toggleClass("sidebar-open");
 		    })
 		});
-
-
-
-
 
 	    $('.btn').click(function(){
 	      $(this).toggleClass("click");
@@ -189,21 +186,11 @@
 	        $('nav ul .t-show').toggleClass("show19");
 	        $('nav ul .twentyth').toggleClass("rotate");
 	      });
-	     
-	      
-	      
+	     	      
 	      $('nav ul li').click(function(){
 	        $(this).addClass("active").siblings().removeClass("active");
 	      });
-	      
-	      
-	      
+	            
 	</script>
-
-
-
-
-
-
 </body>
 </html>
