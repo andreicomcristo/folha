@@ -28,18 +28,19 @@
 				<div class="form-row">
 
 					<div class="form-group col-md-6">
-						<label for="nome" class="fonte-tutulos-tamanho">Cadastro
-							de Bancos </label> <input type="text"
-							class="form-control form-control-md" autofocus="autofocus"
-							id="codigo" placeholder="Código do Banco (somente os números)"
-							th:field="*{codigoBanco}" /> <input type="text"
-							class="form-control form-control-md" autofocus="autofocus"
-							id="nome" placeholder="Nome do Banco" th:field="*{nomeBanco}" />
-
-						<input type="text" class="form-control form-control-md"
-							autofocus="autofocus" id="sigla" placeholder="Sigla do Banco"
-							th:field="*{siglaBanco}" /> <input type="hidden" id="id"
-							th:field="*{id}" />
+						<label for="nome" class="fonte-tutulos-tamanho">Cadastro de Bancos </label>
+							<input type="text"
+								class="form-control form-control-md" autofocus="autofocus"
+								id="codigo" placeholder="Código do Banco (somente os números)" th:field="*{codigoBanco}" /> 
+							
+							<input type="text"
+								class="form-control form-control-md" autofocus="autofocus"
+								id="nome" placeholder="Nome do Banco" th:field="*{nomeBanco}" />
+							
+							<input type="text" class="form-control form-control-md"
+								autofocus="autofocus" id="sigla" placeholder="Sigla do Banco" th:field="*{siglaBanco}" />
+							
+							<input type="hidden" id="id" th:field="*{id}" />
 						<button class="btn btn-outline-dark">Cadastrar</button>
 
 					</div>
