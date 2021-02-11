@@ -49,7 +49,7 @@ public class BancosController {
 	public String editar(Bancos banco, RedirectAttributes attr) {
 		service.editar(banco);
 		attr.addFlashAttribute("success", "Editado com sucesso.");
-		return "redirect:/bancos/cadastrar";
+		return "redirect:/bancos/listar";
 	}
 	
 	@GetMapping("/excluir/{id}")
