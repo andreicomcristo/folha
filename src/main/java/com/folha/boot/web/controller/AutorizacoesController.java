@@ -37,7 +37,7 @@ public class AutorizacoesController {
 	public String salvar(Autorizacoes autorizacoes, RedirectAttributes attr) {
 
 		service.salvar(autorizacoes);
-		attr.addFlashAttribute("success", "Autorização inserida com sucesso.");
+		attr.addFlashAttribute("success", "Inserido com sucesso.");
 		return "redirect:/autorizacoes/cadastrar";
 	}
 
@@ -50,7 +50,7 @@ public class AutorizacoesController {
 	@PostMapping("/editar")
 	public String editar(Autorizacoes autorizacoes, RedirectAttributes attr) {
 		service.editar(autorizacoes);
-		attr.addFlashAttribute("success", "Autorização editada com sucesso.");
+		attr.addFlashAttribute("success", "Editado com sucesso.");
 		return "redirect:/autorizacoes/cadastrar";
 	}
 
@@ -64,7 +64,7 @@ public class AutorizacoesController {
 		 * "Departamento excluído com sucesso."); }
 		 */
 		service.excluir(id); // Caso implemente a regra acima, apagar essa linha.
-		model.addAttribute("success", "Autorização excluída com sucesso.");
+		model.addAttribute("success", "Excluído com sucesso.");
 		return listar(model);
 	}
 }
