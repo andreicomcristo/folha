@@ -281,10 +281,6 @@ nav ul li b span.rotate{
   font-weight: 500;
 }
 
-
-
-
-
 .btn-2{
   position: absolute;
   right: 80px;
@@ -310,13 +306,6 @@ nav ul li b span.rotate{
   cursor: pointer;
   transition: left 0.4s ease;
 }
-
-
-
-
-
-
-
 
 .margem{
   left: 300px;
@@ -359,10 +348,6 @@ body {
 	
 }
 
-
-
-
-
 /*
  * nav-pills home
  */
@@ -399,7 +384,3 @@ body {
 	color: #777777;
 	text-align: center;
 }
-
-
-
-
