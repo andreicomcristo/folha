@@ -20,8 +20,7 @@ public class CargosEspecialidadeController {
 	private CargosEspecialidadeService service;
 
 	@GetMapping("/cadastrar")
-	public String cadastrar(CargosEspecialidade especialidade) {
-		
+	public String cadastrar(CargosEspecialidade especialidade) {		
 		return "/especialidade/cadastro";
 	}
 	
@@ -35,34 +34,27 @@ public class CargosEspecialidadeController {
 	public String salvar(CargosEspecialidade especialidade, RedirectAttributes attr) {
 		
 		service.salvar(especialidade);
-		attr.addFlashAttribute("success", "Especialidade inserida com sucesso.");
-		return "redirect:/especialidade/cadastrar";
+		attr.addFlashAttribute("success", "Inserido com sucesso.");
+		return "redirect:/especialidades/cadastrar";
 	}
 	
 	@GetMapping("/editar/{id}")
 	public String preEditar(@PathVariable("id") Long id, ModelMap model) {
-		model.addAttribute("especialidade", service.buscarPorId(id));
+		model.addAttribute("especialidades", service.buscarPorId(id));
 		return "/especialidade/cadastro";
 	}
 	
 	@PostMapping("/editar")
 	public String editar(CargosEspecialidade especialidade, RedirectAttributes attr) {
 		service.editar(especialidade);
-		attr.addFlashAttribute("success", "Especialidade editada com sucesso.");
-		return "redirect:/especialidade/cadastrar";
+		attr.addFlashAttribute("success", "Editado com sucesso.");
+		return "redirect:/especialidades/cadastrar";
 	}
-	//Implementação futura
-	/*@GetMapping("/excluir/{id}")
-	public String excluir(@PathVariable("id") Long id, ModelMap model) {
-		
-		if (service.depertamentoTemCargos(id)) {
-			model.addAttribute("fail", "Departamento não removido. Possui cargo(s) vinculado(s).");
-		} else {
-			service.excluir(id);
-			model.addAttribute("success", "Departamento excluído com sucesso.");
-		}
-		
-		return listar(model);
-	}*/
 	
+	@GetMapping("/excluir/{id}")
+	public String excluir(@PathVariable("id") Long id, ModelMap model) {
+		service.excluir(id);  
+		model.addAttribute("success", "Excluído com sucesso.");
+		return listar(model);
+	}
 }

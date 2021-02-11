@@ -9,50 +9,53 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-import com.folha.boot.domain.Carreiras;
-import com.folha.boot.service.CarreirasService;
+import com.folha.boot.domain.Bancos;
+import com.folha.boot.domain.Classes;
+import com.folha.boot.service.BancosService;
+import com.folha.boot.service.ClassesService;
 
 @Controller
-@RequestMapping("/carreiras")
-public class CarreirasController {
+@RequestMapping("/classes")
+public class ClassesController {
 
 	@Autowired
-	private CarreirasService service;
+	private ClassesService service;
 
 	@GetMapping("/cadastrar")
-	public String cadastrar(Carreiras carreira) {
-		return "/carreira/cadastro";
+	public String cadastrar(Classes classe) {
+		
+		return "/classe/cadastro";
 	}
 	
 	@GetMapping("/listar")
 	public String listar(ModelMap model) {
-		model.addAttribute("carreiras", service.buscarTodos());
-		return "/carreira/lista"; 
+		model.addAttribute("classes", service.buscarTodos());
+		return "/classe/lista"; 
 	}
 	
 	@PostMapping("/salvar")
-	public String salvar(Carreiras carreira, RedirectAttributes attr) {		
-		service.salvar(carreira);
+	public String salvar(Classes classe, RedirectAttributes attr) {
+		service.salvar(classe);
 		attr.addFlashAttribute("success", "Inserido com sucesso.");
-		return "redirect:/carreiras/cadastrar";
+		return "redirect:/classes/cadastrar";
 	}
 	
 	@GetMapping("/editar/{id}")
 	public String preEditar(@PathVariable("id") Long id, ModelMap model) {
-		model.addAttribute("carreiras", service.buscarPorId(id));
-		return "/banco/cadastro";
+		model.addAttribute("classes", service.buscarPorId(id));
+		return "/classe/cadastro";
 	}
 	
 	@PostMapping("/editar")
-	public String editar(Carreiras carreira, RedirectAttributes attr) {
-		service.editar(carreira);
+	public String editar(Classes classe, RedirectAttributes attr) {
+		service.editar(classe);
 		attr.addFlashAttribute("success", "Editado com sucesso.");
-		return "redirect:/carreiras/listar";
+		return "redirect:/classes/listar";
 	}
 	
 	@GetMapping("/excluir/{id}")
 	public String excluir(@PathVariable("id") Long id, ModelMap model) {
-		service.excluir(id); 
+		service.excluir(id);  
 		model.addAttribute("success", "Excluído com sucesso.");
 		return listar(model);
 	}
