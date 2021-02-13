@@ -37,9 +37,10 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
 		// Usuário inicial comentar após a ciração do usuário
 		
-		  /*UserDetails user = User.builder() .username("marcos")
-		  .password(encoder.encode("123")) .roles("ADM") .build();*/
-		
+		/*
+		  UserDetails user = User.builder() .username("marcos")
+		  .password(encoder.encode("123")) .roles("ADM") .build();
+		*/
 
 		auth.jdbcAuthentication().dataSource(dataSource).passwordEncoder(encoder);
 		//.withUser(user);

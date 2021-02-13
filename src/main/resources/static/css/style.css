@@ -36,6 +36,14 @@
 .btna.click span:before{
   content: '\f00d';
 }
+
+
+/*SIDEBAR*/
+.icones-sidebar-tamanho{
+  font-size:13px;
+  vertical-align: middle;
+}
+
 .sidebar{
   position: fixed;
   width: 350px;
