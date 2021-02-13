@@ -6,5 +6,7 @@ import com.folha.boot.domain.Bancos;
 
 @Repository
 public interface BancosReposytory extends JpaRepository<Bancos, Long> {
+	
+	
 
 }
