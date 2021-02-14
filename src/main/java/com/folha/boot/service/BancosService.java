@@ -15,5 +15,7 @@ public interface BancosService {
 	Bancos buscarPorId(Long id);
 
 	List<Bancos> buscarTodos();
+	
+	List<Bancos> buscarPorNome(String nomeBanco);
 
 }

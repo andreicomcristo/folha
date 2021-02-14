@@ -46,5 +46,12 @@ public class BancosServiceImpl implements BancosService {
 		// TODO Auto-generated method stub
 		return reposytory.findAllByOrderByNomeBancoAsc();
 	}
+	
+	@Override
+	public List<Bancos> buscarPorNome(String nomeBanco) {
+		
+		return reposytory.findByNomeBancoContainingOrderByNomeBancoAsc(nomeBanco);
+	}
+	
 
 }
