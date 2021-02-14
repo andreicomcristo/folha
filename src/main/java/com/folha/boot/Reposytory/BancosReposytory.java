@@ -12,4 +12,6 @@ public interface BancosReposytory extends JpaRepository<Bancos, Long> {
 	
 	public List<Bancos> findAllByOrderByNomeBancoAsc();
 	
+	public List<Bancos> findByNomeBancoContainingOrderByNomeBancoAsc(String nomeBanco);
+	
 }

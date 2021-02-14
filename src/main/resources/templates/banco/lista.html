@@ -11,7 +11,39 @@
 	        </a>
 	            <label for="nome" class= "fonte-tutulos-tamanho">Lista de Bancos </label>
 	    </nav>
-	    <div class="container" id="listagem">	        
+	    
+	    
+	    <div class="container">
+	
+	            <p>
+	                
+	                <button class=" oi oi-magnifying-glass btn btn-outline-success my-2 my-sm-0" type="button" data-toggle="collapse" data-target="#collapseNome"
+	                        aria-controls="collapseNome">Filtrar
+	                </button>
+	            </p>
+	            <div class="row">
+	                <div class="col">
+	                    <div class="collapse" id="collapseNome">
+	
+	                        <nav class="navbar navbar-light bg-light">
+	                            <form class="form-inline" method="GET" th:action="@{/bancos/buscar/nomebanco}">
+	                                <input class="form-control mr-sm-2" type="search" placeholder="Nome do Banco" aria-label="Search"
+	                                       th:name="nomeBanco" />
+	                                <button class="btn btn-outline-success my-2 my-sm-0">Buscar</button>
+	                            </form>
+	                        </nav>
+	
+	                    </div>
+	                </div>
+	            </div>
+	    
+	    
+	    
+	    
+	    
+	    
+	    <div class="container" id="listagem">
+	    	        
 	    	<div th:replace="fragments/alert"></div>
 	    	
 	        <div style="height: 500px; overflow-y: auto;" class="table-responsive">
