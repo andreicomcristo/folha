@@ -1,5 +1,5 @@
 package com.folha.boot.web.controller;
 
-public class TiposDeFiliacaoontroller {
+public class TiposDeFiliacaoController {
 
 }

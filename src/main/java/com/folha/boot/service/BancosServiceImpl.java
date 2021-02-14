@@ -44,7 +44,7 @@ public class BancosServiceImpl implements BancosService {
 	@Override
 	public List<Bancos> buscarTodos() {
 		// TODO Auto-generated method stub
-		return reposytory.findAll();
+		return reposytory.findAllByOrderByNomeBancoAsc();
 	}
 
 }
