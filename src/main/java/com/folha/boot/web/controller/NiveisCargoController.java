@@ -20,14 +20,14 @@ public class NiveisCargoController {
 	private NiveisCargoService service;
 
 	@GetMapping("/cadastrar")
-	public String cadastrar(NiveisCargo nivel) {
-		
+	public String cadastrar(NiveisCargo nivel) {		
 		return "/nivel/cadastro";
 	}
 	
 	@GetMapping("/listar")
 	public String listar(ModelMap model) {
 		model.addAttribute("niveis", service.buscarTodos());
+		System.out.println(service.buscarTodos().toString());
 		return "/nivel/lista"; 
 	}
 	

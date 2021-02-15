@@ -9,8 +9,8 @@ import javax.persistence.*;
 @Table(name = "niveis_cargo")
 public class NiveisCargo extends AbstractEntity<Long> {
 
-	@Column(name = "id", nullable = false)
-	private Long id;
+	/*@Column(name = "id", nullable = false)
+	private Long id;*/
 
 	@Column(name = "sigla_nivel_cargo", nullable = false, length = 10)
 	private String siglaNivelCargo;
@@ -24,13 +24,13 @@ public class NiveisCargo extends AbstractEntity<Long> {
 	@OneToMany(cascade = CascadeType.ALL, mappedBy = "idNivelCargoFk")
 	private List<Cargos> cargosCollection;
 
-	public Long getId() {
+	/*public Long getId() {
 		return id;
 	}
 
 	public void setId(Long id) {
 		this.id = id;
-	}
+	}*/
 
 	public String getSiglaNivelCargo() {
 		return siglaNivelCargo;
