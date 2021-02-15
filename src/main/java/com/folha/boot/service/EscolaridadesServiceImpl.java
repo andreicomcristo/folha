@@ -8,11 +8,14 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.folha.boot.Reposytory.EscolaridadesReposytory;
 import com.folha.boot.domain.Escolaridades;
+import com.folha.boot.util.UtilidadesDeTexto;
 
 @Service
 @Transactional(readOnly = false)
 public class EscolaridadesServiceImpl implements EscolaridadesService{
 
+	UtilidadesDeTexto utilidadesDeTexto = new UtilidadesDeTexto();
+	
 	@Autowired
 	private EscolaridadesReposytory reposytory;
 	
@@ -48,4 +51,15 @@ public class EscolaridadesServiceImpl implements EscolaridadesService{
 		return reposytory.findAll();
 	}
 
+	@Override
+	public List<Escolaridades> buscarPorNome(String nomeEscolaridade) {
+		return reposytory.findByNomeEscolaridadeContainingOrderByNomeEscolaridadeAsc(nomeEscolaridade);
+	}
+	
+	@Override
+	public Escolaridades converteEmMaiusculo(Escolaridades escolaridades) {
+		escolaridades.setNomeEscolaridade( utilidadesDeTexto.retiraEspacosDuplosAcentosEConverteEmMaiusculo(escolaridades.getNomeEscolaridade()));
+		escolaridades.setDescricaoEscolaridade( utilidadesDeTexto.retiraEspacosDuplosAcentosEConverteEmMaiusculo(escolaridades.getDescricaoEscolaridade()));
+	return escolaridades;
+	}
 }

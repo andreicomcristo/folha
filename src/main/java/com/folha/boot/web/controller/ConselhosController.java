@@ -7,6 +7,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.folha.boot.domain.Bancos;
@@ -15,7 +16,7 @@ import com.folha.boot.service.BancosService;
 import com.folha.boot.service.ConselhosServices;
 
 @Controller
-@RequestMapping("/concelhos")
+@RequestMapping("/conselhos")
 public class ConselhosController {
 
 	@Autowired
@@ -23,7 +24,6 @@ public class ConselhosController {
 
 	@GetMapping("/cadastrar")
 	public String cadastrar(Conselhos conselho) {
-		
 		return "/conselho/cadastro";
 	}
 	
@@ -35,6 +35,8 @@ public class ConselhosController {
 	
 	@PostMapping("/salvar")
 	public String salvar(Conselhos conselho, RedirectAttributes attr) {
+		
+		conselho = service.converteEmMaiusculo(conselho);
 		
 		service.salvar(conselho);
 		attr.addFlashAttribute("success", "Inserido com sucesso.");
@@ -49,6 +51,9 @@ public class ConselhosController {
 	
 	@PostMapping("/editar")
 	public String editar(Conselhos conselho, RedirectAttributes attr) {
+		
+		conselho = service.converteEmMaiusculo(conselho);
+		
 		service.editar(conselho);
 		attr.addFlashAttribute("success", "Editado com sucesso.");
 		return "redirect:/conselhos/listar";
@@ -60,4 +65,11 @@ public class ConselhosController {
 		model.addAttribute("success", "Excluído com sucesso.");
 		return listar(model);
 	}
+	
+	@GetMapping("/buscar/descricaoconselho")
+	public String getPorNome(@RequestParam("descricaoConselho") String descricaoConselho, ModelMap model) {		
+		model.addAttribute("conselhos", service.buscarPorDescricao(descricaoConselho.toUpperCase().trim()));
+		return "/conselho/lista";
+	}
+	
 }

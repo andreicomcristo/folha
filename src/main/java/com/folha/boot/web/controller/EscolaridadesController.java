@@ -7,6 +7,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.folha.boot.domain.Escolaridades;
@@ -34,6 +35,8 @@ public class EscolaridadesController {
 	@PostMapping("/salvar")
 	public String salvar(Escolaridades escolaridade, RedirectAttributes attr) {
 		
+		escolaridade = service.converteEmMaiusculo(escolaridade);
+		
 		service.salvar(escolaridade);
 		attr.addFlashAttribute("success", "Inserido com sucesso.");
 		return "redirect:/escolaridades/cadastrar";
@@ -47,6 +50,9 @@ public class EscolaridadesController {
 	
 	@PostMapping("/editar")
 	public String editar(Escolaridades escolaridade, RedirectAttributes attr) {
+		
+		escolaridade = service.converteEmMaiusculo(escolaridade);
+		
 		service.editar(escolaridade);
 		attr.addFlashAttribute("success", "Editado com sucesso.");
 		return "redirect:/escolaridades/listar";
@@ -57,5 +63,11 @@ public class EscolaridadesController {
 		service.excluir(id);  
 		model.addAttribute("success", "Excluído com sucesso.");
 		return listar(model);
+	}
+	
+	@GetMapping("/buscar/nomeescolaridade")
+	public String getPorNome(@RequestParam("nomeEscolaridade") String nomeEscolaridade, ModelMap model) {		
+		model.addAttribute("escolaridades", service.buscarPorNome(nomeEscolaridade.toUpperCase().trim()));
+		return "/escolaridade/lista";
 	}
 }
