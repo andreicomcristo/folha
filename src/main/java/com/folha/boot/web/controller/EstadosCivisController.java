@@ -27,7 +27,7 @@ public class EstadosCivisController {
 	
 	@GetMapping("/listar")
 	public String listar(ModelMap model) {
-		model.addAttribute("estadoscivis", service.buscarTodos());
+		model.addAttribute("estadosCivis", service.buscarTodos());
 		return "/estadoCivil/lista"; 
 	}
 	
@@ -41,7 +41,7 @@ public class EstadosCivisController {
 	
 	@GetMapping("/editar/{id}")
 	public String preEditar(@PathVariable("id") Long id, ModelMap model) {
-		model.addAttribute("estadoscivis", service.buscarPorId(id));
+		model.addAttribute("estadosCivis", service.buscarPorId(id));
 		return "/estadocivil/cadastro";
 	}
 	

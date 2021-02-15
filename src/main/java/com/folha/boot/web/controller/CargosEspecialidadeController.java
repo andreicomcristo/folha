@@ -26,7 +26,7 @@ public class CargosEspecialidadeController {
 	
 	@GetMapping("/listar")
 	public String listar(ModelMap model) {
-		model.addAttribute("especialidades", service.buscarTodos());
+		model.addAttribute("cargosEspecialidade", service.buscarTodos());
 		return "/especialidade/lista"; 
 	}
 	
@@ -40,7 +40,7 @@ public class CargosEspecialidadeController {
 	
 	@GetMapping("/editar/{id}")
 	public String preEditar(@PathVariable("id") Long id, ModelMap model) {
-		model.addAttribute("especialidades", service.buscarPorId(id));
+		model.addAttribute("cargosEspecialidade", service.buscarPorId(id));
 		return "/especialidade/cadastro";
 	}
 	

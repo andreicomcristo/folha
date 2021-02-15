@@ -27,7 +27,7 @@ public class PessoaBancosController {
 	
 	@GetMapping("/listar")
 	public String listar(ModelMap model) {
-		model.addAttribute("pessoabancos", service.buscarTodos());
+		model.addAttribute("pessoaBancos", service.buscarTodos());
 		return "/pessoananco/lista"; 
 	}
 	
@@ -41,7 +41,7 @@ public class PessoaBancosController {
 	
 	@GetMapping("/editar/{id}")
 	public String preEditar(@PathVariable("id") Long id, ModelMap model) {
-		model.addAttribute("pessoabancos", service.buscarPorId(id));
+		model.addAttribute("pessoaBancos", service.buscarPorId(id));
 		return "/pessoabanco/cadastro";
 	}
 	

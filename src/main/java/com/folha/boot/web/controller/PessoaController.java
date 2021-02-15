@@ -27,7 +27,7 @@ public class PessoaController {
 	
 	@GetMapping("/listar")
 	public String listar(ModelMap model) {
-		model.addAttribute("pessoas", service.buscarTodos());
+		model.addAttribute("pessoa", service.buscarTodos());
 		return "/pessoa/lista"; 
 	}
 	
@@ -41,7 +41,7 @@ public class PessoaController {
 	
 	@GetMapping("/editar/{id}")
 	public String preEditar(@PathVariable("id") Long id, ModelMap model) {
-		model.addAttribute("pessoas", service.buscarPorId(id));
+		model.addAttribute("pessoa", service.buscarPorId(id));
 		return "/pessoa/cadastro";
 	}
 	

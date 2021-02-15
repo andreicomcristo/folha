@@ -6,5 +6,5 @@ import com.folha.boot.domain.NiveisCargo;
 
 @Repository
 public interface NiveisCargoReposytory extends JpaRepository<NiveisCargo, Long> {
-
+	
 }

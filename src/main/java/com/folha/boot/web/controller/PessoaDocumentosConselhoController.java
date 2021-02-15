@@ -13,22 +13,22 @@ import com.folha.boot.domain.PessoaDocumentosConselho;
 import com.folha.boot.service.PessoaDocumentosConselhoService;
 
 @Controller
-@RequestMapping("/documentoconselhos")
+@RequestMapping("/conselhodocs")
 public class PessoaDocumentosConselhoController {
 
 	@Autowired
-	private PessoaDocumentosConselhoService service;
+	private PessoaDocumentosConselhoService service; 
 
 	@GetMapping("/cadastrar")
 	public String cadastrar(PessoaDocumentosConselho DocConselho) {
 		
-		return "/conselhodoc/cadastro";
+		return "/docconselho/cadastro";
 	}
 	
 	@GetMapping("/listar")
 	public String listar(ModelMap model) {
-		model.addAttribute("bancos", service.buscarTodos());
-		return "/conselhodoc/lista"; 
+		model.addAttribute("pessoaDocumentosConselho", service.buscarTodos());
+		return "/docconselho/lista"; 
 	}
 	
 	@PostMapping("/salvar")
@@ -36,20 +36,20 @@ public class PessoaDocumentosConselhoController {
 		
 		service.salvar(docConselho);
 		attr.addFlashAttribute("success", "Inserido com sucesso.");
-		return "redirect:/documentoconselhos/cadastrar";
+		return "redirect:/conselhodocs/cadastrar";
 	}
 	
 	@GetMapping("/editar/{id}")
 	public String preEditar(@PathVariable("id") Long id, ModelMap model) {
-		model.addAttribute("documentosconselhos", service.buscarPorId(id));
-		return "/conselhodoc/cadastro";
+		model.addAttribute("pessoaDocumentosConselho", service.buscarPorId(id));
+		return "/docconselho/cadastro";
 	}
 	
 	@PostMapping("/editar")
-	public String editar(PessoaDocumentosConselho docConselho, RedirectAttributes attr) {
-		service.editar(docConselho);
+	public String editar(PessoaDocumentosConselho Conselho, RedirectAttributes attr) {
+		service.editar(Conselho);
 		attr.addFlashAttribute("success", "Editado com sucesso.");
-		return "redirect:/documentoconselhos/listar";
+		return "redirect:/conselhodocs/listar";
 	}
 	
 	@GetMapping("/excluir/{id}")

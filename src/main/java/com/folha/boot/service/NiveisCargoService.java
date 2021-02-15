@@ -15,4 +15,5 @@ public interface NiveisCargoService {
 	NiveisCargo buscarPorId(Long id);
 
 	List<NiveisCargo> buscarTodos();
+	
 }
