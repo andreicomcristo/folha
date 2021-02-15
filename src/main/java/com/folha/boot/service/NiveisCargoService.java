@@ -2,6 +2,7 @@ package com.folha.boot.service;
 
 import java.util.List;
 
+import com.folha.boot.domain.Bancos;
 import com.folha.boot.domain.NiveisCargo;
 
 public interface NiveisCargoService {
@@ -15,5 +16,7 @@ public interface NiveisCargoService {
 	NiveisCargo buscarPorId(Long id);
 
 	List<NiveisCargo> buscarTodos();
+	
+	List<NiveisCargo> buscarPorNome(String nomeNivelCargo);
 	
 }

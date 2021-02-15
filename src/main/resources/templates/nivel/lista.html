@@ -9,10 +9,28 @@
 	        	<span class="oi oi-plus" title="Cadastro" aria-hidden="true"></span>
 	            <span>Novo</span>
 	        </a>
-	            <label for="nome" class= "fonte-tutulos-tamanho">Lista de Níveis </label>
+	            <label for="nome" class= "fonte-tutulos-tamanho">Lista de Níveis de Cargo </label>
 	    </nav>
 	    
-	    
+	    <div class="container">
+	    	<p>                
+	        	<button class=" oi oi-magnifying-glass btn btn-outline-success my-2 my-sm-0" type="button" data-toggle="collapse" data-target="#collapseNome"
+	            		aria-controls="collapseNome">Filtrar
+	            </button>
+	      </p>
+	      <div class="row">
+	      	<div class="col">
+	        	<div class="collapse" id="collapseNome">
+		            <nav class="navbar navbar-light bg-light">
+	    	           <form class="form-inline" method="GET" th:action="@{/niveis/buscar/nomeNivelCargo}">
+	        	           <input class="form-control mr-sm-2" type="search" placeholder="Nivel" aria-label="Search"
+	                              th:name="nomeNivelCargo" />
+	                       <button class="btn btn-outline-success my-2 my-sm-0">Buscar</button>
+	                   </form>
+	                </nav>
+	            </div>
+	    	</div>
+	    </div>
 	    
 	    <div class="container" id="listagem">	        
 	    	<div th:replace="fragments/alert"></div>

@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.folha.boot.Reposytory.NiveisCargoReposytory;
+import com.folha.boot.domain.Bancos;
 import com.folha.boot.domain.NiveisCargo;
 
 @Service
@@ -45,7 +46,14 @@ public class NiveisCargoServiceImpl implements NiveisCargoService{
 	@Override
 	public List<NiveisCargo> buscarTodos() {
 		// TODO Auto-generated method stub
-		return reposytory.findAll();
+		return reposytory.findAllByOrderByNomeNivelCargoAsc();
 	}
+	
+	@Override
+	public List<NiveisCargo> buscarPorNome(String nomeNivelCargo) {
+		
+		return reposytory.findByNomeNivelCargoContainingOrderByNomeNivelCargoAsc(nomeNivelCargo);
+	}
+	
 
 }
