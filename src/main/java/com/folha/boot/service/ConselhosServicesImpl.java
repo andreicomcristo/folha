@@ -7,12 +7,16 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.folha.boot.Reposytory.ConselhosReposytory;
+import com.folha.boot.domain.Bancos;
 import com.folha.boot.domain.Conselhos;
+import com.folha.boot.util.UtilidadesDeTexto;
 
 @Service
 @Transactional(readOnly = false)
 public class ConselhosServicesImpl implements ConselhosServices{
 
+	UtilidadesDeTexto utilidadesDeTexto = new UtilidadesDeTexto();
+	
 	@Autowired
 	private ConselhosReposytory reposytory;
 
@@ -47,6 +51,19 @@ public class ConselhosServicesImpl implements ConselhosServices{
 	public List<Conselhos> buscarTodos() {
 		// TODO Auto-generated method stub
 		return reposytory.findAll();
+	}
+	
+	@Override
+	public List<Conselhos> buscarPorDescricao(String descricaoConselho) {
+		return reposytory.findByDescricaoConselhoContainingOrderByDescricaoConselhoAsc(descricaoConselho);
+	}
+	
+	@Override
+	public Conselhos converteEmMaiusculo(Conselhos conselhos) {
+		conselhos.setNomeConselho( utilidadesDeTexto.retiraEspacosDuplosAcentosEConverteEmMaiusculo(conselhos.getNomeConselho()));
+		conselhos.setDescricaoConselho( utilidadesDeTexto.retiraEspacosDuplosAcentosEConverteEmMaiusculo(conselhos.getDescricaoConselho()));
+		
+	return conselhos;
 	}
 
 }

@@ -1,7 +1,6 @@
 package com.folha.boot.service;
 
 import java.util.List;
-
 import com.folha.boot.domain.Escolaridades;
 
 public interface EscolaridadesService {
@@ -15,4 +14,8 @@ public interface EscolaridadesService {
 	Escolaridades buscarPorId(Long id);
 
 	List<Escolaridades> buscarTodos();
+
+	List<Escolaridades> buscarPorNome(String nomeEscolaridade);
+	
+	Escolaridades converteEmMaiusculo(Escolaridades escolaridades);
 }
