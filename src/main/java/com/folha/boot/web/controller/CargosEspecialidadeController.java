@@ -11,6 +11,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.folha.boot.domain.CargosEspecialidade;
 import com.folha.boot.service.CargosEspecialidadeService;
+import com.folha.boot.util.UtilidadesDeTexto;
 
 @Controller
 @RequestMapping("/especialidades")
@@ -18,6 +19,8 @@ public class CargosEspecialidadeController {
 	
 	@Autowired
 	private CargosEspecialidadeService service;
+	
+	UtilidadesDeTexto utilidadesDeTexto = new UtilidadesDeTexto();
 
 	@GetMapping("/cadastrar")
 	public String cadastrar(CargosEspecialidade especialidade) {		
@@ -33,6 +36,9 @@ public class CargosEspecialidadeController {
 	@PostMapping("/salvar")
 	public String salvar(CargosEspecialidade especialidade, RedirectAttributes attr) {
 		
+		especialidade.setNomeEspecialidadeCargo( utilidadesDeTexto.retiraEspacosDuplosAcentosEConverteEmMaiusculo(especialidade.getNomeEspecialidadeCargo()));
+		especialidade.setDescricaoEspecialidadeCargo( utilidadesDeTexto.retiraEspacosDuplosAcentosEConverteEmMaiusculo(especialidade.getDescricaoEspecialidadeCargo()));
+		
 		service.salvar(especialidade);
 		attr.addFlashAttribute("success", "Inserido com sucesso.");
 		return "redirect:/especialidades/cadastrar";
@@ -46,6 +52,10 @@ public class CargosEspecialidadeController {
 	
 	@PostMapping("/editar")
 	public String editar(CargosEspecialidade especialidade, RedirectAttributes attr) {
+		
+		especialidade.setNomeEspecialidadeCargo( utilidadesDeTexto.retiraEspacosDuplosAcentosEConverteEmMaiusculo(especialidade.getNomeEspecialidadeCargo()));
+		especialidade.setDescricaoEspecialidadeCargo( utilidadesDeTexto.retiraEspacosDuplosAcentosEConverteEmMaiusculo(especialidade.getDescricaoEspecialidadeCargo()));
+		
 		service.editar(especialidade);
 		attr.addFlashAttribute("success", "Editado com sucesso.");
 		return "redirect:/especialidades/cadastrar";

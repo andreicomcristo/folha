@@ -7,10 +7,12 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.folha.boot.domain.Carreiras;
 import com.folha.boot.service.CarreirasService;
+import com.folha.boot.util.UtilidadesDeTexto;
 
 @Controller
 @RequestMapping("/carreiras")
@@ -18,6 +20,8 @@ public class CarreirasController {
 
 	@Autowired
 	private CarreirasService service;
+	
+	UtilidadesDeTexto utilidadesDeTexto = new UtilidadesDeTexto();
 
 	@GetMapping("/cadastrar")
 	public String cadastrar(Carreiras carreira) {
@@ -32,6 +36,11 @@ public class CarreirasController {
 	
 	@PostMapping("/salvar")
 	public String salvar(Carreiras carreira, RedirectAttributes attr) {		
+		
+		carreira.setSiglaCarreira( utilidadesDeTexto.retiraEspacosDuplosAcentosEConverteEmMaiusculo(carreira.getSiglaCarreira()));
+		carreira.setNomeCarreira( utilidadesDeTexto.retiraEspacosDuplosAcentosEConverteEmMaiusculo(carreira.getNomeCarreira()));
+		carreira.setDescricaoCarreira( utilidadesDeTexto.retiraEspacosDuplosAcentosEConverteEmMaiusculo(carreira.getDescricaoCarreira()));
+		
 		service.salvar(carreira);
 		attr.addFlashAttribute("success", "Inserido com sucesso.");
 		return "redirect:/carreiras/cadastrar";
@@ -40,12 +49,17 @@ public class CarreirasController {
 	@GetMapping("/editar/{id}")
 	public String preEditar(@PathVariable("id") Long id, ModelMap model) {
 		model.addAttribute("carreiras", service.buscarPorId(id));
-		return "/banco/cadastro";
+		return "/carreira/cadastro";
 	}
 	
 	@PostMapping("/editar")
-	public String editar(Carreiras carreira, RedirectAttributes attr) {
-		service.editar(carreira);
+	public String editar(Carreiras carreiras, RedirectAttributes attr) {
+		
+		carreiras.setSiglaCarreira( utilidadesDeTexto.retiraEspacosDuplosAcentosEConverteEmMaiusculo(carreiras.getSiglaCarreira()));
+		carreiras.setNomeCarreira( utilidadesDeTexto.retiraEspacosDuplosAcentosEConverteEmMaiusculo(carreiras.getNomeCarreira()));
+		carreiras.setDescricaoCarreira( utilidadesDeTexto.retiraEspacosDuplosAcentosEConverteEmMaiusculo(carreiras.getDescricaoCarreira()));
+		
+		service.editar(carreiras);
 		attr.addFlashAttribute("success", "Editado com sucesso.");
 		return "redirect:/carreiras/listar";
 	}
@@ -56,4 +70,11 @@ public class CarreirasController {
 		model.addAttribute("success", "Excluído com sucesso.");
 		return listar(model);
 	}
+	
+	@GetMapping("/buscar/nomecarreira")
+	public String getPorNome(@RequestParam("nomeCarreira") String nomeCarreira, ModelMap model) {		
+		model.addAttribute("carreiras", service.buscarPorNome(nomeCarreira.toUpperCase().trim()));
+		return "/carreira/lista";
+	}
+	
 }

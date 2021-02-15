@@ -11,6 +11,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.folha.boot.domain.Cargos;
 import com.folha.boot.service.CargosService;
+import com.folha.boot.util.UtilidadesDeTexto;
 
 @Controller
 @RequestMapping("/cargos")
@@ -18,6 +19,8 @@ public class CargosController {
 
 	@Autowired
 	private CargosService service;
+	
+	UtilidadesDeTexto utilidadesDeTexto = new UtilidadesDeTexto();
 
 	@GetMapping("/cadastrar")
 	public String cadastrar(Cargos Cargos) {
@@ -34,6 +37,9 @@ public class CargosController {
 	@PostMapping("/salvar")
 	public String salvar(Cargos cargos, RedirectAttributes attr) {
 		
+		cargos.setNomeCargo( utilidadesDeTexto.retiraEspacosDuplosAcentosEConverteEmMaiusculo(cargos.getNomeCargo()));
+		cargos.setDescricaoCargo( utilidadesDeTexto.retiraEspacosDuplosAcentosEConverteEmMaiusculo(cargos.getDescricaoCargo()));
+		
 		service.salvar(cargos);
 		attr.addFlashAttribute("success", "Inserido com sucesso.");
 		return "redirect:/cargos/cadastrar";
@@ -47,6 +53,10 @@ public class CargosController {
 	
 	@PostMapping("/editar")
 	public String editar(Cargos cargos, RedirectAttributes attr) {
+		
+		cargos.setNomeCargo( utilidadesDeTexto.retiraEspacosDuplosAcentosEConverteEmMaiusculo(cargos.getNomeCargo()));
+		cargos.setDescricaoCargo( utilidadesDeTexto.retiraEspacosDuplosAcentosEConverteEmMaiusculo(cargos.getDescricaoCargo()));
+		
 		service.editar(cargos);
 		attr.addFlashAttribute("success", "Editado com sucesso.");
 		return "redirect:/cargos/listar";

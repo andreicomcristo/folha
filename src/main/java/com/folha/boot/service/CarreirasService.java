@@ -15,5 +15,7 @@ public interface CarreirasService {
 	Carreiras buscarPorId(Long id);
 
 	List<Carreiras> buscarTodos();
+	
+	List<Carreiras> buscarPorNome(String nomeCarreira);
 
 }

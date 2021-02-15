@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.folha.boot.Reposytory.CarreirasReposytory;
+import com.folha.boot.domain.Bancos;
 import com.folha.boot.domain.Carreiras;
 
 @Service
@@ -45,7 +46,13 @@ public class CarreirasServiceImpl implements CarreirasService{
 	@Override
 	public List<Carreiras> buscarTodos() {
 		// TODO Auto-generated method stub
-		return reposytory.findAll();
+		return reposytory.findAllByOrderByNomeCarreiraAsc();
 	}
 
+	@Override
+	public List<Carreiras> buscarPorNome(String nomeCarreira) {
+		
+		return reposytory.findByNomeCarreiraContainingOrderByNomeCarreiraAsc(nomeCarreira);
+	}
+	
 }

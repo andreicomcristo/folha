@@ -12,6 +12,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.folha.boot.domain.CargaHorariaSemanal;
 import com.folha.boot.service.CargaHorariaSemanalService;
+import com.folha.boot.util.UtilidadesDeTexto;
 
 @Controller
 @RequestMapping("/cargahorariasemanais")
@@ -19,6 +20,9 @@ public class CargaHorariaSemanalController {
 	
 	@Autowired
 	private CargaHorariaSemanalService service;
+	
+	
+	private UtilidadesDeTexto utilidadesDeTexto = new UtilidadesDeTexto();
 
 	@GetMapping("/cadastrar")
 	public String cadastrar(CargaHorariaSemanal cargaHorariaSemanal) {
@@ -36,6 +40,8 @@ public class CargaHorariaSemanalController {
 	@PostMapping("/salvar")
 	public String salvar(CargaHorariaSemanal cargaHorariaSemanal, RedirectAttributes attr) {
 		
+		cargaHorariaSemanal.setDescricaoCargaHoraria( utilidadesDeTexto.retiraEspacosDuplosAcentosEConverteEmMaiusculo(cargaHorariaSemanal.getDescricaoCargaHoraria()));
+		
 		service.salvar(cargaHorariaSemanal);
 		attr.addFlashAttribute("success", "Inserido com sucesso.");
 		return "redirect:/cargahorariasemanais/cadastrar";
@@ -49,6 +55,9 @@ public class CargaHorariaSemanalController {
 	
 	@PostMapping("/editar")
 	public String editar(CargaHorariaSemanal cargaHorariaSemanal, RedirectAttributes attr) {
+		
+		cargaHorariaSemanal.setDescricaoCargaHoraria( utilidadesDeTexto.retiraEspacosDuplosAcentosEConverteEmMaiusculo(cargaHorariaSemanal.getDescricaoCargaHoraria()));
+		
 		service.editar(cargaHorariaSemanal);
 		attr.addFlashAttribute("success", "Editado com sucesso.");
 		return "redirect:/cargahorariasemanais/listar";
@@ -70,8 +79,12 @@ public class CargaHorariaSemanalController {
 	}
 	
 	@GetMapping("/buscar/cargahoraria")
-	public String getPorNome(@RequestParam("cargaHoraria") String cargaHoraria, ModelMap model) {		
-		model.addAttribute("cargaHorariaSemanal", service.buscarPorCargaHorariaSemanal(  Integer.parseInt(cargaHoraria.toUpperCase().trim())  ));
-		return "/cargahoraria/lista";
+	public String getPorNome(@RequestParam("cargaHoraria") String cargaHoraria, ModelMap model) {
+		String retorno = "/cargahoraria/lista";
+		if(cargaHoraria.length()!=0) {
+			model.addAttribute("cargaHorariaSemanal", service.buscarPorCargaHorariaSemanal(  Integer.parseInt(cargaHoraria.toUpperCase().trim())  ));
+		}else {retorno = "/cargahoraria/lista";}
+		
+		return retorno;
 	}
 }
