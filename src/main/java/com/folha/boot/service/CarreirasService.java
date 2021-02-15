@@ -17,5 +17,7 @@ public interface CarreirasService {
 	List<Carreiras> buscarTodos();
 	
 	List<Carreiras> buscarPorNome(String nomeCarreira);
+	
+	Carreiras converteEmMaiusculo(Carreiras carreiras);
 
 }

@@ -8,11 +8,15 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.folha.boot.Reposytory.BancosReposytory;
 import com.folha.boot.domain.Bancos;
+import com.folha.boot.domain.Carreiras;
+import com.folha.boot.util.UtilidadesDeTexto;
 
 @Service
 @Transactional(readOnly = false)
 public class BancosServiceImpl implements BancosService {
 
+	UtilidadesDeTexto utilidadesDeTexto = new UtilidadesDeTexto();
+	
 	@Autowired
 	private BancosReposytory reposytory;
 
@@ -49,9 +53,15 @@ public class BancosServiceImpl implements BancosService {
 	
 	@Override
 	public List<Bancos> buscarPorNome(String nomeBanco) {
-		
 		return reposytory.findByNomeBancoContainingOrderByNomeBancoAsc(nomeBanco);
 	}
 	
+	@Override
+	public Bancos converteEmMaiusculo(Bancos bancos) {
+		bancos.setCodigoBanco( utilidadesDeTexto.retiraEspacosDuplosAcentosEConverteEmMaiusculo(bancos.getCodigoBanco()));
+		bancos.setNomeBanco( utilidadesDeTexto.retiraEspacosDuplosAcentosEConverteEmMaiusculo(bancos.getNomeBanco()));
+		bancos.setSiglaBanco( utilidadesDeTexto.retiraEspacosDuplosAcentosEConverteEmMaiusculo(bancos.getSiglaBanco()));
+	return bancos;
+	}
 
 }

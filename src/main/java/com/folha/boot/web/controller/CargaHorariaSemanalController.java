@@ -40,7 +40,7 @@ public class CargaHorariaSemanalController {
 	@PostMapping("/salvar")
 	public String salvar(CargaHorariaSemanal cargaHorariaSemanal, RedirectAttributes attr) {
 		
-		cargaHorariaSemanal.setDescricaoCargaHoraria( utilidadesDeTexto.retiraEspacosDuplosAcentosEConverteEmMaiusculo(cargaHorariaSemanal.getDescricaoCargaHoraria()));
+		cargaHorariaSemanal = service.converteEmMaiusculo(cargaHorariaSemanal);
 		
 		service.salvar(cargaHorariaSemanal);
 		attr.addFlashAttribute("success", "Inserido com sucesso.");
@@ -56,7 +56,7 @@ public class CargaHorariaSemanalController {
 	@PostMapping("/editar")
 	public String editar(CargaHorariaSemanal cargaHorariaSemanal, RedirectAttributes attr) {
 		
-		cargaHorariaSemanal.setDescricaoCargaHoraria( utilidadesDeTexto.retiraEspacosDuplosAcentosEConverteEmMaiusculo(cargaHorariaSemanal.getDescricaoCargaHoraria()));
+		cargaHorariaSemanal = service.converteEmMaiusculo(cargaHorariaSemanal);
 		
 		service.editar(cargaHorariaSemanal);
 		attr.addFlashAttribute("success", "Editado com sucesso.");

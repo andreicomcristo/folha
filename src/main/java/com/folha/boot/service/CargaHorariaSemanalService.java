@@ -4,6 +4,7 @@ import java.util.List;
 
 import com.folha.boot.domain.Bancos;
 import com.folha.boot.domain.CargaHorariaSemanal;
+import com.folha.boot.domain.Carreiras;
 
 public interface CargaHorariaSemanalService {
 
@@ -18,5 +19,7 @@ public interface CargaHorariaSemanalService {
 	List<CargaHorariaSemanal> buscarTodos();
 	
 	List<CargaHorariaSemanal> buscarPorCargaHorariaSemanal(int cargaHoraria);
+	
+	CargaHorariaSemanal converteEmMaiusculo(CargaHorariaSemanal cargaHorariaSemanal);
 
 }

@@ -39,9 +39,7 @@ public class BancosController {
 	@PostMapping("/salvar")
 	public String salvar(Bancos banco, RedirectAttributes attr) {
 		
-		banco.setCodigoBanco( utilidadesDeTexto.retiraEspacosDuplosAcentosEConverteEmMaiusculo(banco.getCodigoBanco()));
-		banco.setNomeBanco( utilidadesDeTexto.retiraEspacosDuplosAcentosEConverteEmMaiusculo(banco.getNomeBanco()));
-		banco.setSiglaBanco( utilidadesDeTexto.retiraEspacosDuplosAcentosEConverteEmMaiusculo(banco.getSiglaBanco()));
+		banco = service.converteEmMaiusculo(banco);
 		
 		service.salvar(banco);
 		attr.addFlashAttribute("success", "Inserido com sucesso.");
@@ -57,9 +55,7 @@ public class BancosController {
 	@PostMapping("/editar")
 	public String editar(Bancos banco, RedirectAttributes attr) {
 		
-		banco.setCodigoBanco( utilidadesDeTexto.retiraEspacosDuplosAcentosEConverteEmMaiusculo(banco.getCodigoBanco()));
-		banco.setNomeBanco( utilidadesDeTexto.retiraEspacosDuplosAcentosEConverteEmMaiusculo(banco.getNomeBanco()));
-		banco.setSiglaBanco( utilidadesDeTexto.retiraEspacosDuplosAcentosEConverteEmMaiusculo(banco.getSiglaBanco()));
+		banco = service.converteEmMaiusculo(banco);
 		
 		service.editar(banco);
 		attr.addFlashAttribute("success", "Editado com sucesso.");

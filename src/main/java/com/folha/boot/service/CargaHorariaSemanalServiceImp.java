@@ -9,11 +9,15 @@ import org.springframework.transaction.annotation.Transactional;
 import com.folha.boot.Reposytory.CargaHorariaSemanalReposytory;
 import com.folha.boot.domain.Bancos;
 import com.folha.boot.domain.CargaHorariaSemanal;
+import com.folha.boot.domain.Carreiras;
+import com.folha.boot.util.UtilidadesDeTexto;
 
 @Service
 @Transactional(readOnly = false)
 public class CargaHorariaSemanalServiceImp implements CargaHorariaSemanalService{
 
+	UtilidadesDeTexto utilidadesDeTexto = new UtilidadesDeTexto();
+	
 	@Autowired
 	private CargaHorariaSemanalReposytory reposytory;
 	
@@ -52,8 +56,13 @@ public class CargaHorariaSemanalServiceImp implements CargaHorariaSemanalService
 
 	@Override
 	public List<CargaHorariaSemanal> buscarPorCargaHorariaSemanal(int cargaHoraria) {
-		
 		return reposytory.findByCargaHorariaOrderByCargaHorariaAsc(cargaHoraria);
+	}
+	
+	@Override
+	public CargaHorariaSemanal converteEmMaiusculo(CargaHorariaSemanal cargaHorariaSemanal) {
+		cargaHorariaSemanal.setDescricaoCargaHoraria( utilidadesDeTexto.retiraEspacosDuplosAcentosEConverteEmMaiusculo(cargaHorariaSemanal.getDescricaoCargaHoraria()));
+		return cargaHorariaSemanal;
 	}
 	
 }

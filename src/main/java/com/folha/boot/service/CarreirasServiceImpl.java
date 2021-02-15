@@ -9,11 +9,14 @@ import org.springframework.transaction.annotation.Transactional;
 import com.folha.boot.Reposytory.CarreirasReposytory;
 import com.folha.boot.domain.Bancos;
 import com.folha.boot.domain.Carreiras;
+import com.folha.boot.util.UtilidadesDeTexto;
 
 @Service
 @Transactional(readOnly = false)
 public class CarreirasServiceImpl implements CarreirasService{
 
+	UtilidadesDeTexto utilidadesDeTexto = new UtilidadesDeTexto();
+	
 	@Autowired
 	private CarreirasReposytory reposytory;
 	
@@ -54,5 +57,15 @@ public class CarreirasServiceImpl implements CarreirasService{
 		
 		return reposytory.findByNomeCarreiraContainingOrderByNomeCarreiraAsc(nomeCarreira);
 	}
+	
+	@Override
+	public Carreiras converteEmMaiusculo(Carreiras carreiras) {
+		
+		carreiras.setSiglaCarreira( utilidadesDeTexto.retiraEspacosDuplosAcentosEConverteEmMaiusculo(carreiras.getSiglaCarreira()));
+		carreiras.setNomeCarreira( utilidadesDeTexto.retiraEspacosDuplosAcentosEConverteEmMaiusculo(carreiras.getNomeCarreira()));
+		carreiras.setDescricaoCarreira( utilidadesDeTexto.retiraEspacosDuplosAcentosEConverteEmMaiusculo(carreiras.getDescricaoCarreira()));
+		
+		return carreiras;
+	};
 	
 }

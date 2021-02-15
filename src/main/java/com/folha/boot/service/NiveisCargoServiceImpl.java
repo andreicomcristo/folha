@@ -9,11 +9,14 @@ import org.springframework.transaction.annotation.Transactional;
 import com.folha.boot.Reposytory.NiveisCargoReposytory;
 import com.folha.boot.domain.Bancos;
 import com.folha.boot.domain.NiveisCargo;
+import com.folha.boot.util.UtilidadesDeTexto;
 
 @Service
 @Transactional(readOnly = false)
 public class NiveisCargoServiceImpl implements NiveisCargoService{
 
+	UtilidadesDeTexto utilidadesDeTexto = new UtilidadesDeTexto();
+	
 	@Autowired
 	private NiveisCargoReposytory reposytory;
 	
@@ -51,9 +54,16 @@ public class NiveisCargoServiceImpl implements NiveisCargoService{
 	
 	@Override
 	public List<NiveisCargo> buscarPorNome(String nomeNivelCargo) {
-		
 		return reposytory.findByNomeNivelCargoContainingOrderByNomeNivelCargoAsc(nomeNivelCargo);
 	}
 	
+	@Override
+	public NiveisCargo converteEmMaiusculo(NiveisCargo niveisCargo) {
+		niveisCargo.setSiglaNivelCargo( utilidadesDeTexto.retiraEspacosDuplosAcentosEConverteEmMaiusculo(niveisCargo.getSiglaNivelCargo()));
+		niveisCargo.setNomeNivelCargo( utilidadesDeTexto.retiraEspacosDuplosAcentosEConverteEmMaiusculo(niveisCargo.getNomeNivelCargo()));
+		niveisCargo.setDescricaoNivelCargo( utilidadesDeTexto.retiraEspacosDuplosAcentosEConverteEmMaiusculo(niveisCargo.getDescricaoNivelCargo()));
+		
+		return niveisCargo;
+	}
 
 }

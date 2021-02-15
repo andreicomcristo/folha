@@ -3,6 +3,7 @@ package com.folha.boot.service;
 import java.util.List;
 
 import com.folha.boot.domain.Cargos;
+import com.folha.boot.domain.Carreiras;
 
 public interface CargosService {
 	
@@ -15,5 +16,7 @@ public interface CargosService {
 	Cargos buscarPorId(Long id);
 
 	List<Cargos> buscarTodos();
+	
+	Cargos converteEmMaiusculo(Cargos cargos);
 
 }

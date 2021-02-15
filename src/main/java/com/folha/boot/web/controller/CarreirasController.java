@@ -37,9 +37,7 @@ public class CarreirasController {
 	@PostMapping("/salvar")
 	public String salvar(Carreiras carreira, RedirectAttributes attr) {		
 		
-		carreira.setSiglaCarreira( utilidadesDeTexto.retiraEspacosDuplosAcentosEConverteEmMaiusculo(carreira.getSiglaCarreira()));
-		carreira.setNomeCarreira( utilidadesDeTexto.retiraEspacosDuplosAcentosEConverteEmMaiusculo(carreira.getNomeCarreira()));
-		carreira.setDescricaoCarreira( utilidadesDeTexto.retiraEspacosDuplosAcentosEConverteEmMaiusculo(carreira.getDescricaoCarreira()));
+		carreira = service.converteEmMaiusculo(carreira);
 		
 		service.salvar(carreira);
 		attr.addFlashAttribute("success", "Inserido com sucesso.");
@@ -55,9 +53,7 @@ public class CarreirasController {
 	@PostMapping("/editar")
 	public String editar(Carreiras carreiras, RedirectAttributes attr) {
 		
-		carreiras.setSiglaCarreira( utilidadesDeTexto.retiraEspacosDuplosAcentosEConverteEmMaiusculo(carreiras.getSiglaCarreira()));
-		carreiras.setNomeCarreira( utilidadesDeTexto.retiraEspacosDuplosAcentosEConverteEmMaiusculo(carreiras.getNomeCarreira()));
-		carreiras.setDescricaoCarreira( utilidadesDeTexto.retiraEspacosDuplosAcentosEConverteEmMaiusculo(carreiras.getDescricaoCarreira()));
+		carreiras = service.converteEmMaiusculo(carreiras);
 		
 		service.editar(carreiras);
 		attr.addFlashAttribute("success", "Editado com sucesso.");

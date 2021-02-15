@@ -34,6 +34,8 @@ public class NiveisCargoController {
 	@PostMapping("/salvar")
 	public String salvar(NiveisCargo nivel, RedirectAttributes attr) {
 		
+		nivel = service.converteEmMaiusculo(nivel);
+		
 		service.salvar(nivel);
 		attr.addFlashAttribute("success", "Inserido com sucesso.");
 		return "redirect:/niveis/cadastrar";
@@ -47,6 +49,9 @@ public class NiveisCargoController {
 	
 	@PostMapping("/editar")
 	public String editar(NiveisCargo nivel, RedirectAttributes attr) {
+		
+		nivel = service.converteEmMaiusculo(nivel);
+		
 		service.editar(nivel);
 		attr.addFlashAttribute("success", "Editado com sucesso.");
 		return "redirect:/niveis/listar";

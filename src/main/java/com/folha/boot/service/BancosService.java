@@ -3,6 +3,7 @@ package com.folha.boot.service;
 import java.util.List;
 
 import com.folha.boot.domain.Bancos;
+import com.folha.boot.domain.Carreiras;
 
 public interface BancosService {
 
@@ -17,5 +18,7 @@ public interface BancosService {
 	List<Bancos> buscarTodos();
 	
 	List<Bancos> buscarPorNome(String nomeBanco);
+	
+	Bancos converteEmMaiusculo(Bancos bancos);
 
 }
