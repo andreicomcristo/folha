@@ -1,16 +1,21 @@
 package com.folha.boot.web.controller;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.folha.boot.domain.Cargos;
+import com.folha.boot.domain.NiveisCargo;
 import com.folha.boot.service.CargosService;
+import com.folha.boot.service.NiveisCargoService;
 import com.folha.boot.util.UtilidadesDeTexto;
 
 @Controller
@@ -19,6 +24,9 @@ public class CargosController {
 
 	@Autowired
 	private CargosService service;
+	
+	@Autowired
+	private NiveisCargoService niveisCargoService;
 	
 	UtilidadesDeTexto utilidadesDeTexto = new UtilidadesDeTexto();
 
@@ -37,8 +45,7 @@ public class CargosController {
 	@PostMapping("/salvar")
 	public String salvar(Cargos cargos, RedirectAttributes attr) {
 		
-		cargos = service.converteEmMaiusculo(cargos);
-		
+		cargos = service.converteEmMaiusculo(cargos);		
 		service.salvar(cargos);
 		attr.addFlashAttribute("success", "Inserido com sucesso.");
 		return "redirect:/cargos/cadastrar";
@@ -65,6 +72,11 @@ public class CargosController {
 		service.excluir(id); 
 		model.addAttribute("success", "Excluído com sucesso.");
 		return listar(model);
+	}
+	
+	@ModelAttribute("idNivelCargoFk")
+	public List<NiveisCargo> listaDeNiveisCargo() {
+		return niveisCargoService.buscarTodos();
 	}
 
 }
