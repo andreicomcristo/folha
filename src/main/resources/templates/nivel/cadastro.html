@@ -20,8 +20,8 @@
 
 			<div th:replace="fragments/alert"></div>
 			<form
-				th:action="${niveiscargo.id == null} ? @{/niveis/salvar} : @{/niveis/editar}"
-				th:object="${niveiscargo}" method="POST">
+				th:action="${niveisCargo.id == null} ? @{/niveis/salvar} : @{/niveis/editar}"
+				th:object="${niveisCargo}" method="POST">
 				<div class="form-row">
 
 					<div class="form-group col-md-6">
@@ -29,14 +29,14 @@
 							
 							<input type="text"
 								class="form-control form-control-md" autofocus="autofocus"
-								id="codigo" placeholder="Sigla do Nível" th:field="*{siglaNivelCargo}" /> 
+								id="sigla" placeholder="Nome do Nível" th:field="*{nomeNivelCargo}" /> 
 							<p></p>
 							<input type="text"
 								class="form-control form-control-md" autofocus="autofocus"
-								id="nome" placeholder="Nome do Nível" th:field="*{nomeNivelCargo}" />						
+								id="nome" placeholder="Sigla do Nível" th:field="*{siglaNivelCargo}" />						
 							<p></p>
 							<input type="text" class="form-control form-control-md"
-								autofocus="autofocus" id="sigla" placeholder="Descrição" th:field="*{descricaoNivelCargo}" />
+								autofocus="autofocus" id="Descrição" placeholder="Descrição" th:field="*{descricaoNivelCargo}" />
 							
 							<input type="hidden" id="id" th:field="*{id}" />
 								<p></p>					

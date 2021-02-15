@@ -5,12 +5,15 @@
 	<section class="layout-content" layout:fragment="corpo">		
 		<nav class="navbar navbar-expand-md bg-light">
 	            
-	    	<a class="btn btn-outline-dark btn-md" href="/bancos/cadastrar" role="button">
+	    	<a class="btn btn-outline-dark btn-md" href="/niveis/cadastrar" role="button">
 	        	<span class="oi oi-plus" title="Cadastro" aria-hidden="true"></span>
 	            <span>Novo</span>
 	        </a>
-	            <label for="nome" class= "fonte-tutulos-tamanho">Lista de Bancos </label>
+	            <label for="nome" class= "fonte-tutulos-tamanho">Lista de Níveis </label>
 	    </nav>
+	    
+	    
+	    
 	    <div class="container" id="listagem">	        
 	    	<div th:replace="fragments/alert"></div>
 	    	
@@ -19,23 +22,23 @@
 	            	<thead>
 	          			<tr>
 		                	<th>#</th>
-		                    <th>Código</th>
 		                    <th>Nome</th>
 		                    <th>Sigla</th>
+		                    <th>Descrição</th>
 		                    <th>Ações</th>
 	                    </tr>
 	                </thead>                  
 	                <tbody>
-		            	<tr th:each="d : ${bancos}">
+		            	<tr th:each="d : ${niveisCargo}">
 		                	<td th:text="${d.id}"></td>
-		                    <td th:text="${d.codigoBanco}"></td>
-		                    <td th:text="${d.nomeBanco}"></td>
-		                    <td th:text="${d.siglaBanco}"></td>
+		                    <td th:text="${d.nomeNivelCargo}"></td>
+		                    <td th:text="${d.siglaNivelCargo}"></td>
+		                    <td th:text="${d.descricaoNivelCargo}"></td>
 		                    <td colspan="2">
-		                    	<a class="btn btn-outline-info btn-sm" th:href="@{/bancos/editar/{id} (id=${d.id}) }" role="button">
+		                    	<a class="btn btn-outline-info btn-sm" th:href="@{/niveis/editar/{id} (id=${d.id}) }" role="button">
 		                        	<span class="oi oi-brush" title="Editar" aria-hidden="true"></span>
 		                        </a>
-		                        <button th:id="${ 'btn_bancos/excluir/' + d.id}" type="button" class="btn btn btn-outline-danger btn-sm" 
+		                        <button th:id="${ 'btn_niveis/excluir/' + d.id}" type="button" class="btn btn btn-outline-danger btn-sm" 
 		                            		data-toggle="modal" data-target="#myModal">
 		                                <span class="oi oi-circle-x" title="Exclusão habilitada" aria-hidden="true"></span>
 		                        </button>
@@ -48,4 +51,4 @@
 	        <div th:replace="fragments/modal :: modal"></div>   
 	</section>	
 </body>
-</html>		
+</html>	
