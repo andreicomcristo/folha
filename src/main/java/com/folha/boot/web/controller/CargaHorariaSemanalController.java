@@ -7,6 +7,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.folha.boot.domain.CargaHorariaSemanal;
@@ -27,7 +28,8 @@ public class CargaHorariaSemanalController {
 	
 	@GetMapping("/listar")
 	public String listar(ModelMap model) {
-		model.addAttribute("bancos", service.buscarTodos());
+		model.addAttribute("cargaHorariaSemanal", service.buscarTodos());
+		
 		return "/cargahoraria/lista"; 
 	}
 	
@@ -36,12 +38,12 @@ public class CargaHorariaSemanalController {
 		
 		service.salvar(cargaHorariaSemanal);
 		attr.addFlashAttribute("success", "Inserido com sucesso.");
-		return "redirect:/cargahoraria/cadastrar";
+		return "redirect:/cargahorariasemanais/cadastrar";
 	}
 	
 	@GetMapping("/editar/{id}")
 	public String preEditar(@PathVariable("id") Long id, ModelMap model) {
-		model.addAttribute("CargaHorariaSemanal", service.buscarPorId(id));
+		model.addAttribute("cargaHorariaSemanal", service.buscarPorId(id));
 		return "/cargahoraria/cadastro";
 	}
 	
@@ -49,7 +51,7 @@ public class CargaHorariaSemanalController {
 	public String editar(CargaHorariaSemanal cargaHorariaSemanal, RedirectAttributes attr) {
 		service.editar(cargaHorariaSemanal);
 		attr.addFlashAttribute("success", "Editado com sucesso.");
-		return "redirect:/cargahoraria/listar";
+		return "redirect:/cargahorariasemanais/listar";
 	}
 	
 	@GetMapping("/excluir/{id}")
@@ -65,5 +67,11 @@ public class CargaHorariaSemanalController {
 		model.addAttribute("success", "Excluído com sucesso.");
 		return listar(model);
 
+	}
+	
+	@GetMapping("/buscar/cargahoraria")
+	public String getPorNome(@RequestParam("cargaHoraria") String cargaHoraria, ModelMap model) {		
+		model.addAttribute("cargaHorariaSemanal", service.buscarPorCargaHorariaSemanal(  Integer.parseInt(cargaHoraria.toUpperCase().trim())  ));
+		return "/cargahoraria/lista";
 	}
 }

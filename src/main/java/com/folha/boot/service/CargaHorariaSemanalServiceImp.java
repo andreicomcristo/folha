@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.folha.boot.Reposytory.CargaHorariaSemanalReposytory;
+import com.folha.boot.domain.Bancos;
 import com.folha.boot.domain.CargaHorariaSemanal;
 
 @Service
@@ -46,7 +47,13 @@ public class CargaHorariaSemanalServiceImp implements CargaHorariaSemanalService
 	@Override
 	public List<CargaHorariaSemanal> buscarTodos() {
 		// TODO Auto-generated method stub
-		return reposytory.findAll();
+		return reposytory.findAllByOrderByCargaHorariaAsc();
 	}
 
+	@Override
+	public List<CargaHorariaSemanal> buscarPorCargaHorariaSemanal(int cargaHoraria) {
+		
+		return reposytory.findByCargaHorariaOrderByCargaHorariaAsc(cargaHoraria);
+	}
+	
 }

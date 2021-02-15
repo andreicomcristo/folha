@@ -2,6 +2,7 @@ package com.folha.boot.service;
 
 import java.util.List;
 
+import com.folha.boot.domain.Bancos;
 import com.folha.boot.domain.CargaHorariaSemanal;
 
 public interface CargaHorariaSemanalService {
@@ -15,5 +16,7 @@ public interface CargaHorariaSemanalService {
 	CargaHorariaSemanal buscarPorId(Long id);
 
 	List<CargaHorariaSemanal> buscarTodos();
+	
+	List<CargaHorariaSemanal> buscarPorCargaHorariaSemanal(int cargaHoraria);
 
 }
