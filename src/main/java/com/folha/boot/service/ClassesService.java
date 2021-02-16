@@ -15,4 +15,8 @@ public interface ClassesService {
 	Classes buscarPorId(Long id);
 
 	List<Classes> buscarTodos();
+	
+	List<Classes> buscarPorNome(String nomeClasse);
+	
+	Classes converteEmMaiusculo(Classes classes);
 }

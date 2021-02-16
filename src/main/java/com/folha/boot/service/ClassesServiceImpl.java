@@ -7,7 +7,9 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.folha.boot.Reposytory.ClassesReposytory;
+import com.folha.boot.domain.Bancos;
 import com.folha.boot.domain.Classes;
+import com.folha.boot.service.util.UtilidadesDeTexto;
 
 @Service
 @Transactional(readOnly = false)
@@ -45,7 +47,19 @@ public class ClassesServiceImpl implements ClassesService{
 	@Override
 	public List<Classes> buscarTodos() {
 		// TODO Auto-generated method stub
-		return reposytory.findAll();
+		return reposytory.findAllByOrderByNomeClasseAsc();
 	}
 
+	@Override
+	public List<Classes> buscarPorNome(String nomeClasse) {
+		return reposytory.findByNomeClasseContainingOrderByNomeClasseAsc(nomeClasse);
+	}
+	
+	@Override
+	public Classes converteEmMaiusculo(Classes classes) {
+		classes.setNomeClasse(UtilidadesDeTexto.retiraEspacosDuplosAcentosEConverteEmMaiusculo(classes.getNomeClasse()));
+		classes.setDescricaoClasse(UtilidadesDeTexto.retiraEspacosDuplosAcentosEConverteEmMaiusculo(classes.getDescricaoClasse()));
+	return classes;
+	}
+	
 }
