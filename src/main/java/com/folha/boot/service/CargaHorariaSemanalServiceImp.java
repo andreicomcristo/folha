@@ -14,7 +14,8 @@ import com.folha.boot.service.util.UtilidadesDeTexto;
 @Transactional(readOnly = false)
 public class CargaHorariaSemanalServiceImp implements CargaHorariaSemanalService{
 
-	UtilidadesDeTexto utilidadesDeTexto = new UtilidadesDeTexto();
+	@Autowired
+	UtilidadesDeTexto utilidadesDeTexto;
 	
 	@Autowired
 	private CargaHorariaSemanalReposytory reposytory;

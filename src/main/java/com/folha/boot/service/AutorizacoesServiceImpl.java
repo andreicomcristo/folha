@@ -8,11 +8,14 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.folha.boot.Reposytory.AutorizacoesReposytory;
 import com.folha.boot.domain.Autorizacoes;
+import com.folha.boot.service.util.UtilidadesDeTexto;
 
 @Service
 @Transactional(readOnly = false)
 public class AutorizacoesServiceImpl implements AutorizacoesService {
 
+	
+	
 	@Autowired
 	private AutorizacoesReposytory reposytory;
 
