@@ -8,7 +8,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.folha.boot.Reposytory.TiposDeFiliacaoReposytory;
 import com.folha.boot.domain.TiposDeFiliacao;
-import com.folha.boot.util.UtilidadesDeTexto;
+import com.folha.boot.service.util.*;
 
 @Service
 @Transactional(readOnly = false)

@@ -8,7 +8,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.folha.boot.Reposytory.SituacoesReposytory;
 import com.folha.boot.domain.Situacoes;
-import com.folha.boot.util.UtilidadesDeTexto;
+import com.folha.boot.service.util.*;
 
 @Service
 @Transactional(readOnly = false)
