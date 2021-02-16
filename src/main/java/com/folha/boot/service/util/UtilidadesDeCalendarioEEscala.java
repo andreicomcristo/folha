@@ -1,11 +1,14 @@
 package com.folha.boot.service.util;
 
 import java.text.DateFormat;
+
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import javax.swing.JOptionPane;
+import org.springframework.stereotype.Component;
 
+@Component
 public class UtilidadesDeCalendarioEEscala {
 
 	//UTILIDADES DE CALENDÁRIO E ESCALA      

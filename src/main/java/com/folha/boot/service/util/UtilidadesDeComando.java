@@ -5,6 +5,10 @@ import java.io.File;
 import java.io.IOException;
 import javax.swing.JOptionPane;
 
+import org.springframework.stereotype.Component;
+
+
+@Component
 public class UtilidadesDeComando {
 
 	//UTILIDADES DE COMANDO

@@ -15,8 +15,8 @@ public interface TiposLogradouroService {
 	TiposLogradouro buscarPorId(Long id);
 
 	List<TiposLogradouro> buscarTodos();
-	
+
 	List<TiposLogradouro> buscarPorNome(String nomeTipoLogradouro);
-	
+
 	TiposLogradouro converteEmMaiusculo(TiposLogradouro tiposLogradouro);
 }

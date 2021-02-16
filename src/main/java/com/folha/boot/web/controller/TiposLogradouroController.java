@@ -69,4 +69,9 @@ public class TiposLogradouroController {
 		model.addAttribute("tiposLogradouro", service.buscarPorNome(nomeTipoLogradouro.toUpperCase().trim()));
 		return "/tipologradouro/lista";
 	}
+
+		
+	
+	
+
 }

@@ -11,6 +11,7 @@ import com.folha.boot.domain.TiposLogradouro;
 public interface TiposLogradouroReposytory extends JpaRepository<TiposLogradouro, Long> {
 
 	public List<TiposLogradouro> findAllByOrderByNomeTipoLogradouroAsc();
-	
-	public List<TiposLogradouro> findByNomeTipoLogradouroContainingOrderByNomeTipoLogradouroAsc(String nomeTipoLogradouro);	
+
+	public List<TiposLogradouro> findByNomeTipoLogradouroContainingOrderByNomeTipoLogradouroAsc(String nomeTipoLogradouro);
+
 }
