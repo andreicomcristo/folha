@@ -14,8 +14,6 @@ import com.folha.boot.service.util.UtilidadesDeTexto;
 @Transactional(readOnly = false)
 public class PrivilegiosServiceImpl implements PrivilegiosService {
 
-	UtilidadesDeTexto utilidadesDeTexto = new UtilidadesDeTexto();
-	
 	@Autowired
 	private PrivilegiosReposytory reposytory;
 	@Override
@@ -57,8 +55,8 @@ public class PrivilegiosServiceImpl implements PrivilegiosService {
 	
 	@Override
 	public Privilegios converteEmMaiusculo(Privilegios privilegios) {
-		privilegios.setNomePrivilegio( utilidadesDeTexto.retiraEspacosDuplosAcentosEConverteEmMaiusculo(privilegios.getNomePrivilegio()));
-		privilegios.setDescricaoPrivilegio( utilidadesDeTexto.retiraEspacosDuplosAcentosEConverteEmMaiusculo(privilegios.getDescricaoPrivilegio()));
+		privilegios.setNomePrivilegio(UtilidadesDeTexto.retiraEspacosDuplosAcentosEConverteEmMaiusculo(privilegios.getNomePrivilegio()));
+		privilegios.setDescricaoPrivilegio(UtilidadesDeTexto.retiraEspacosDuplosAcentosEConverteEmMaiusculo(privilegios.getDescricaoPrivilegio()));
 		
 	return privilegios;
 	}

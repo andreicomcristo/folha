@@ -15,9 +15,6 @@ import com.folha.boot.service.util.UtilidadesDeTexto;
 public class VinculosServiceImpl implements VinculosService{
 
 	@Autowired
-	private UtilidadesDeTexto utilidadesDeTexto;
-	
-	@Autowired
 	private VinculosReposytory reposytory;
 	
 	@Override
@@ -59,8 +56,8 @@ public class VinculosServiceImpl implements VinculosService{
 	
 	@Override
 	public Vinculos converteEmMaiusculo(Vinculos vinculos) {
-		vinculos.setNomeVinculo( utilidadesDeTexto.retiraEspacosDuplosAcentosEConverteEmMaiusculo(vinculos.getNomeVinculo()));
-		vinculos.setDescricaoVinculo( utilidadesDeTexto.retiraEspacosDuplosAcentosEConverteEmMaiusculo(vinculos.getDescricaoVinculo()));
+		vinculos.setNomeVinculo(UtilidadesDeTexto.retiraEspacosDuplosAcentosEConverteEmMaiusculo(vinculos.getNomeVinculo()));
+		vinculos.setDescricaoVinculo(UtilidadesDeTexto.retiraEspacosDuplosAcentosEConverteEmMaiusculo(vinculos.getDescricaoVinculo()));
 	return vinculos;
 	}
 }

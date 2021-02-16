@@ -14,8 +14,6 @@ import com.folha.boot.service.util.UtilidadesDeTexto;
 @Transactional(readOnly = false)
 public class HabilitacaoCategoriasServiceImpl implements HabilitacaoCategoriasService{
 
-	UtilidadesDeTexto utilidadesDeTexto = new UtilidadesDeTexto();
-	
 	@Autowired
 	private HabilitacaoCategoriasReposytory reposytory;
 
@@ -58,8 +56,8 @@ public class HabilitacaoCategoriasServiceImpl implements HabilitacaoCategoriasSe
 	
 	@Override
 	public HabilitacaoCategorias converteEmMaiusculo(HabilitacaoCategorias habilitacaoCategorias) {
-		habilitacaoCategorias.setNomeHabilitacaoCategoria( utilidadesDeTexto.retiraEspacosDuplosAcentosEConverteEmMaiusculo(habilitacaoCategorias.getNomeHabilitacaoCategoria()));
-		habilitacaoCategorias.setDescricaoHabilitacaoCategoria( utilidadesDeTexto.retiraEspacosDuplosAcentosEConverteEmMaiusculo(habilitacaoCategorias.getDescricaoHabilitacaoCategoria()));
+		habilitacaoCategorias.setNomeHabilitacaoCategoria(UtilidadesDeTexto.retiraEspacosDuplosAcentosEConverteEmMaiusculo(habilitacaoCategorias.getNomeHabilitacaoCategoria()));
+		habilitacaoCategorias.setDescricaoHabilitacaoCategoria(UtilidadesDeTexto.retiraEspacosDuplosAcentosEConverteEmMaiusculo(habilitacaoCategorias.getDescricaoHabilitacaoCategoria()));
 	return habilitacaoCategorias;
 	}
 	

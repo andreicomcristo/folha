@@ -13,8 +13,6 @@ import com.folha.boot.service.util.UtilidadesDeTexto;
 @Service
 @Transactional(readOnly = false)
 public class PaisesSeviceImpl implements PaisesSevice{
-
-	UtilidadesDeTexto utilidadesDeTexto = new UtilidadesDeTexto();
 	
 	@Autowired
 	private PaisesReposytoty reposytory;
@@ -58,7 +56,7 @@ public class PaisesSeviceImpl implements PaisesSevice{
 	
 	@Override
 	public Paises converteEmMaiusculo(Paises paises) {
-		paises.setNomePais( utilidadesDeTexto.retiraEspacosDuplosAcentosEConverteEmMaiusculo(paises.getNomePais()));
+		paises.setNomePais(UtilidadesDeTexto.retiraEspacosDuplosAcentosEConverteEmMaiusculo(paises.getNomePais()));
 	return paises;
 	}
 	

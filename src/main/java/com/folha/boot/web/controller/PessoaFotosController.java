@@ -31,8 +31,7 @@ public class PessoaFotosController {
 	}
 	
 	@PostMapping("/salvar")
-	public String salvar(PessoaFotos fotos, RedirectAttributes attr) {
-		
+	public String salvar(PessoaFotos fotos, RedirectAttributes attr) {	
 		service.salvar(fotos);
 		attr.addFlashAttribute("success", "Inserido com sucesso.");
 		return "redirect:/fotos/cadastrar";

@@ -35,10 +35,8 @@ public class CargaHorariaSemanalController {
 	
 	@PostMapping("/salvar")
 	public String salvar(CargaHorariaSemanal cargaHorariaSemanal, RedirectAttributes attr) {
-		
-		cargaHorariaSemanal = service.converteEmMaiusculo(cargaHorariaSemanal);
-		
-		service.salvar(cargaHorariaSemanal);
+					
+		service.salvar(service.converteEmMaiusculo(cargaHorariaSemanal));
 		attr.addFlashAttribute("success", "Inserido com sucesso.");
 		return "redirect:/cargahorariasemanais/cadastrar";
 	}
@@ -52,9 +50,7 @@ public class CargaHorariaSemanalController {
 	@PostMapping("/editar")
 	public String editar(CargaHorariaSemanal cargaHorariaSemanal, RedirectAttributes attr) {
 		
-		cargaHorariaSemanal = service.converteEmMaiusculo(cargaHorariaSemanal);
-		
-		service.editar(cargaHorariaSemanal);
+		service.editar(service.converteEmMaiusculo(cargaHorariaSemanal));
 		attr.addFlashAttribute("success", "Editado com sucesso.");
 		return "redirect:/cargahorariasemanais/listar";
 	}
@@ -78,7 +74,7 @@ public class CargaHorariaSemanalController {
 	public String getPorNome(@RequestParam("cargaHoraria") String cargaHoraria, ModelMap model) {
 		String retorno = "/cargahoraria/lista";
 		if(cargaHoraria.length()!=0) {
-			model.addAttribute("cargaHorariaSemanal", service.buscarPorCargaHorariaSemanal(  Integer.parseInt(cargaHoraria.toUpperCase().trim())  ));
+			model.addAttribute("cargaHorariaSemanal",service.buscarPorCargaHorariaSemanal(Integer.parseInt(cargaHoraria.toUpperCase().trim())));
 		}else {retorno = "/cargahoraria/lista";}
 		
 		return retorno;

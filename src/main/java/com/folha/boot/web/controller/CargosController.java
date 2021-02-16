@@ -17,20 +17,16 @@ import com.folha.boot.domain.Cargos;
 import com.folha.boot.domain.NiveisCargo;
 import com.folha.boot.service.CargosService;
 import com.folha.boot.service.NiveisCargoService;
-import com.folha.boot.service.util.UtilidadesDeTexto;
 
 @Controller
 @RequestMapping("/cargos")
 public class CargosController {
 
 	@Autowired
-	private CargosService service;
-	
+	private CargosService service;	
 	@Autowired
 	private NiveisCargoService niveisCargoService;
 	
-	UtilidadesDeTexto utilidadesDeTexto = new UtilidadesDeTexto();
-
 	@GetMapping("/cadastrar")
 	public String cadastrar(Cargos Cargos) {
 		
@@ -45,9 +41,8 @@ public class CargosController {
 	
 	@PostMapping("/salvar")
 	public String salvar(Cargos cargos, RedirectAttributes attr) {
-		
-		cargos = service.converteEmMaiusculo(cargos);		
-		service.salvar(cargos);
+				
+		service.salvar(service.converteEmMaiusculo(cargos));
 		attr.addFlashAttribute("success", "Inserido com sucesso.");
 		return "redirect:/cargos/cadastrar";
 	}
@@ -60,10 +55,8 @@ public class CargosController {
 	
 	@PostMapping("/editar")
 	public String editar(Cargos cargos, RedirectAttributes attr) {
-		
-		cargos = service.converteEmMaiusculo(cargos);
-		
-		service.editar(cargos);
+			
+		service.editar(service.converteEmMaiusculo(cargos));
 		attr.addFlashAttribute("success", "Editado com sucesso.");
 		return "redirect:/cargos/listar";
 	}

@@ -33,10 +33,7 @@ public class SexosController {
 	
 	@PostMapping("/salvar")
 	public String salvar(Sexos sexos, RedirectAttributes attr) {
-		
-		sexos = service.converteEmMaiusculo(sexos);
-		
-		service.salvar(sexos);
+		service.salvar(service.converteEmMaiusculo(sexos));
 		attr.addFlashAttribute("success", "Inserido com sucesso.");
 		return "redirect:/sexos/cadastrar";
 	}

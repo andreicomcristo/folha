@@ -13,8 +13,6 @@ import com.folha.boot.service.util.UtilidadesDeTexto;
 @Service
 @Transactional(readOnly = false)
 public class CarreirasServiceImpl implements CarreirasService{
-
-	UtilidadesDeTexto utilidadesDeTexto = new UtilidadesDeTexto();
 	
 	@Autowired
 	private CarreirasReposytory reposytory;
@@ -59,10 +57,9 @@ public class CarreirasServiceImpl implements CarreirasService{
 	
 	@Override
 	public Carreiras converteEmMaiusculo(Carreiras carreiras) {
-		
-		carreiras.setSiglaCarreira( utilidadesDeTexto.retiraEspacosDuplosAcentosEConverteEmMaiusculo(carreiras.getSiglaCarreira()));
-		carreiras.setNomeCarreira( utilidadesDeTexto.retiraEspacosDuplosAcentosEConverteEmMaiusculo(carreiras.getNomeCarreira()));
-		carreiras.setDescricaoCarreira( utilidadesDeTexto.retiraEspacosDuplosAcentosEConverteEmMaiusculo(carreiras.getDescricaoCarreira()));
+		carreiras.setSiglaCarreira(UtilidadesDeTexto.retiraEspacosDuplosAcentosEConverteEmMaiusculo(carreiras.getSiglaCarreira()));
+		carreiras.setNomeCarreira(UtilidadesDeTexto.retiraEspacosDuplosAcentosEConverteEmMaiusculo(carreiras.getNomeCarreira()));
+		carreiras.setDescricaoCarreira(UtilidadesDeTexto.retiraEspacosDuplosAcentosEConverteEmMaiusculo(carreiras.getDescricaoCarreira()));
 		
 		return carreiras;
 	};

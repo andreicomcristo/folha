@@ -33,10 +33,7 @@ public class UfController {
 	
 	@PostMapping("/salvar")
 	public String salvar(Uf uf, RedirectAttributes attr) {
-		
-		uf = service.converteEmMaiusculo(uf);
-		
-		service.salvar(uf);
+		service.salvar(service.converteEmMaiusculo(uf));
 		attr.addFlashAttribute("success", "Inserido com sucesso.");
 		return "redirect:/ufs/cadastrar";
 	}
@@ -49,10 +46,7 @@ public class UfController {
 	
 	@PostMapping("/editar")
 	public String editar(Uf uf, RedirectAttributes attr) {
-		
-		uf = service.converteEmMaiusculo(uf);
-		
-		service.editar(uf);
+		service.editar(service.converteEmMaiusculo(uf));
 		attr.addFlashAttribute("success", "Editado com sucesso.");
 		return "redirect:/ufs/listar";
 	}

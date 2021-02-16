@@ -32,11 +32,8 @@ public class SituacoesController {
 	}
 	
 	@PostMapping("/salvar")
-	public String salvar(Situacoes situacoes, RedirectAttributes attr) {
-		
-		situacoes = service.converteEmMaiusculo(situacoes);
-		
-		service.salvar(situacoes);
+	public String salvar(Situacoes situacoes, RedirectAttributes attr) {		
+		service.salvar(service.converteEmMaiusculo(situacoes));
 		attr.addFlashAttribute("success", "Inserido com sucesso.");
 		return "redirect:/situacoes/cadastrar";
 	}
@@ -49,10 +46,7 @@ public class SituacoesController {
 	
 	@PostMapping("/editar")
 	public String editar(Situacoes situacoes, RedirectAttributes attr) {
-		
-		situacoes = service.converteEmMaiusculo(situacoes);
-		
-		service.editar(situacoes);
+		service.editar(service.converteEmMaiusculo(situacoes));
 		attr.addFlashAttribute("success", "Editado com sucesso.");
 		return "redirect:/situacoes/listar";
 	}

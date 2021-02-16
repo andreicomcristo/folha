@@ -33,11 +33,8 @@ public class EscolaridadesController {
 	}
 	
 	@PostMapping("/salvar")
-	public String salvar(Escolaridades escolaridade, RedirectAttributes attr) {
-		
-		escolaridade = service.converteEmMaiusculo(escolaridade);
-		
-		service.salvar(escolaridade);
+	public String salvar(Escolaridades escolaridade, RedirectAttributes attr) {	
+		service.salvar(service.converteEmMaiusculo(escolaridade));
 		attr.addFlashAttribute("success", "Inserido com sucesso.");
 		return "redirect:/escolaridades/cadastrar";
 	}
@@ -50,10 +47,7 @@ public class EscolaridadesController {
 	
 	@PostMapping("/editar")
 	public String editar(Escolaridades escolaridade, RedirectAttributes attr) {
-		
-		escolaridade = service.converteEmMaiusculo(escolaridade);
-		
-		service.editar(escolaridade);
+		service.editar(service.converteEmMaiusculo(escolaridade));
 		attr.addFlashAttribute("success", "Editado com sucesso.");
 		return "redirect:/escolaridades/listar";
 	}

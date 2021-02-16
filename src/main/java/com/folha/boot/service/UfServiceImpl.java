@@ -15,9 +15,6 @@ import com.folha.boot.service.util.UtilidadesDeTexto;
 public class UfServiceImpl implements UfService{
 
 	@Autowired
-	private UtilidadesDeTexto utilidadesDeTexto;
-	
-	@Autowired
 	private UfReposytory reposytory;
 	
 	@Override
@@ -59,8 +56,8 @@ public class UfServiceImpl implements UfService{
 	
 	@Override
 	public Uf converteEmMaiusculo(Uf uf) {
-		uf.setSiglaUf( utilidadesDeTexto.retiraEspacosDuplosAcentosEConverteEmMaiusculo(uf.getSiglaUf()));
-		uf.setNomeUf( utilidadesDeTexto.retiraEspacosDuplosAcentosEConverteEmMaiusculo(uf.getNomeUf()));
+		uf.setSiglaUf(UtilidadesDeTexto.retiraEspacosDuplosAcentosEConverteEmMaiusculo(uf.getSiglaUf()));
+		uf.setNomeUf(UtilidadesDeTexto.retiraEspacosDuplosAcentosEConverteEmMaiusculo(uf.getNomeUf()));
 	return uf;
 	}
 

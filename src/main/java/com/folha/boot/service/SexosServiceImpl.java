@@ -13,8 +13,6 @@ import com.folha.boot.service.util.UtilidadesDeTexto;
 @Service
 @Transactional(readOnly = false)
 public class SexosServiceImpl implements SexosService {
-
-	UtilidadesDeTexto utilidadesDeTexto = new UtilidadesDeTexto();
 	
 	@Autowired
 	private SexosReposytory reposytory;
@@ -58,8 +56,8 @@ public class SexosServiceImpl implements SexosService {
 	
 	@Override
 	public Sexos converteEmMaiusculo(Sexos sexos) {
-		sexos.setNomeSexo( utilidadesDeTexto.retiraEspacosDuplosAcentosEConverteEmMaiusculo(sexos.getNomeSexo()));
-		sexos.setDescricaoSexo( utilidadesDeTexto.retiraEspacosDuplosAcentosEConverteEmMaiusculo(sexos.getDescricaoSexo()));
+		sexos.setNomeSexo(UtilidadesDeTexto.retiraEspacosDuplosAcentosEConverteEmMaiusculo(sexos.getNomeSexo()));
+		sexos.setDescricaoSexo(UtilidadesDeTexto.retiraEspacosDuplosAcentosEConverteEmMaiusculo(sexos.getDescricaoSexo()));
 		
 	return sexos;
 	}

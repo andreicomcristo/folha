@@ -27,7 +27,6 @@ public class PessoaDocumentosHabilitacaoController {
 	@GetMapping("/listar")
 	public String listar(ModelMap model) {
 		model.addAttribute("pessoaDocumentosHabilitacao", service.buscarTodos());
-		System.out.println(service.buscarTodos().toString());
 		return "/dochabilitacao/lista"; 
 	}
 	

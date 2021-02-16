@@ -14,8 +14,6 @@ import com.folha.boot.service.util.UtilidadesDeTexto;
 @Transactional(readOnly = false)
 public class NiveisCargoServiceImpl implements NiveisCargoService{
 
-	UtilidadesDeTexto utilidadesDeTexto = new UtilidadesDeTexto();
-	
 	@Autowired
 	private NiveisCargoReposytory reposytory;
 	
@@ -58,9 +56,9 @@ public class NiveisCargoServiceImpl implements NiveisCargoService{
 	
 	@Override
 	public NiveisCargo converteEmMaiusculo(NiveisCargo niveisCargo) {
-		niveisCargo.setSiglaNivelCargo( utilidadesDeTexto.retiraEspacosDuplosAcentosEConverteEmMaiusculo(niveisCargo.getSiglaNivelCargo()));
-		niveisCargo.setNomeNivelCargo( utilidadesDeTexto.retiraEspacosDuplosAcentosEConverteEmMaiusculo(niveisCargo.getNomeNivelCargo()));
-		niveisCargo.setDescricaoNivelCargo( utilidadesDeTexto.retiraEspacosDuplosAcentosEConverteEmMaiusculo(niveisCargo.getDescricaoNivelCargo()));
+		niveisCargo.setSiglaNivelCargo(UtilidadesDeTexto.retiraEspacosDuplosAcentosEConverteEmMaiusculo(niveisCargo.getSiglaNivelCargo()));
+		niveisCargo.setNomeNivelCargo(UtilidadesDeTexto.retiraEspacosDuplosAcentosEConverteEmMaiusculo(niveisCargo.getNomeNivelCargo()));
+		niveisCargo.setDescricaoNivelCargo(UtilidadesDeTexto.retiraEspacosDuplosAcentosEConverteEmMaiusculo(niveisCargo.getDescricaoNivelCargo()));
 		
 		return niveisCargo;
 	}

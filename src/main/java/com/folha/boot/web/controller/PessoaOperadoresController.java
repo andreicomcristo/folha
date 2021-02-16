@@ -31,8 +31,7 @@ public class PessoaOperadoresController {
 	}
 	
 	@PostMapping("/salvar")
-	public String salvar(PessoaOperadores operadores, RedirectAttributes attr) {
-		
+	public String salvar(PessoaOperadores operadores, RedirectAttributes attr) {		
 		service.salvar(operadores);
 		attr.addFlashAttribute("success", "Inserido com sucesso.");
 		return "redirect:/operadores/cadastrar";

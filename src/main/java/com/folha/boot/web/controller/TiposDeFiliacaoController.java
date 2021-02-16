@@ -33,10 +33,7 @@ public class TiposDeFiliacaoController {
 	
 	@PostMapping("/salvar")
 	public String salvar(TiposDeFiliacao tiposDeFiliacao, RedirectAttributes attr) {
-		
-		tiposDeFiliacao= service.converteEmMaiusculo(tiposDeFiliacao);
-		
-		service.salvar(tiposDeFiliacao);
+		service.salvar(service.converteEmMaiusculo(tiposDeFiliacao));
 		attr.addFlashAttribute("success", "Inserido com sucesso.");
 		return "redirect:/tipostefiliacoes/cadastrar";
 	}
@@ -49,10 +46,7 @@ public class TiposDeFiliacaoController {
 	
 	@PostMapping("/editar")
 	public String editar(TiposDeFiliacao tiposDeFiliacao, RedirectAttributes attr) {
-		
-		tiposDeFiliacao= service.converteEmMaiusculo(tiposDeFiliacao);
-		
-		service.editar(tiposDeFiliacao);
+		service.editar(service.converteEmMaiusculo(tiposDeFiliacao));
 		attr.addFlashAttribute("success", "Editado com sucesso.");
 		return "redirect:/tipostefiliacoes/listar";
 	}

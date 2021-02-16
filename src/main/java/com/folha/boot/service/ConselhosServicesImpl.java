@@ -13,8 +13,6 @@ import com.folha.boot.service.util.UtilidadesDeTexto;
 @Service
 @Transactional(readOnly = false)
 public class ConselhosServicesImpl implements ConselhosServices{
-
-	UtilidadesDeTexto utilidadesDeTexto = new UtilidadesDeTexto();
 	
 	@Autowired
 	private ConselhosReposytory reposytory;
@@ -59,8 +57,8 @@ public class ConselhosServicesImpl implements ConselhosServices{
 	
 	@Override
 	public Conselhos converteEmMaiusculo(Conselhos conselhos) {
-		conselhos.setNomeConselho( utilidadesDeTexto.retiraEspacosDuplosAcentosEConverteEmMaiusculo(conselhos.getNomeConselho()));
-		conselhos.setDescricaoConselho( utilidadesDeTexto.retiraEspacosDuplosAcentosEConverteEmMaiusculo(conselhos.getDescricaoConselho()));
+		conselhos.setNomeConselho(UtilidadesDeTexto.retiraEspacosDuplosAcentosEConverteEmMaiusculo(conselhos.getNomeConselho()));
+		conselhos.setDescricaoConselho(UtilidadesDeTexto.retiraEspacosDuplosAcentosEConverteEmMaiusculo(conselhos.getDescricaoConselho()));
 		
 	return conselhos;
 	}

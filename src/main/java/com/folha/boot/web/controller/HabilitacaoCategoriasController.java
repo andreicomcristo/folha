@@ -34,10 +34,7 @@ public class HabilitacaoCategoriasController {
 	
 	@PostMapping("/salvar")
 	public String salvar(HabilitacaoCategorias habilitacaoCategorias, RedirectAttributes attr) {
-		
-		habilitacaoCategorias = service.converteEmMaiusculo(habilitacaoCategorias);
-		
-		service.salvar(habilitacaoCategorias);
+		service.salvar(service.converteEmMaiusculo(habilitacaoCategorias));
 		attr.addFlashAttribute("success", "Inserido com sucesso.");
 		return "redirect:/habilitacaocategorias/cadastrar";
 	}
@@ -50,10 +47,7 @@ public class HabilitacaoCategoriasController {
 	
 	@PostMapping("/editar")
 	public String editar(HabilitacaoCategorias habilitacaoCategorias, RedirectAttributes attr) {
-		
-		habilitacaoCategorias = service.converteEmMaiusculo(habilitacaoCategorias);
-		
-		service.editar(habilitacaoCategorias);
+		service.editar(service.converteEmMaiusculo(habilitacaoCategorias));
 		attr.addFlashAttribute("success", "Editado com sucesso.");
 		return "redirect:/habilitacaocategorias/listar";
 	}

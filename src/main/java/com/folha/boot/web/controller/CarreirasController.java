@@ -12,7 +12,6 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.folha.boot.domain.Carreiras;
 import com.folha.boot.service.CarreirasService;
-import com.folha.boot.service.util.UtilidadesDeTexto;
 
 @Controller
 @RequestMapping("/carreiras")
@@ -20,8 +19,6 @@ public class CarreirasController {
 
 	@Autowired
 	private CarreirasService service;
-	
-	UtilidadesDeTexto utilidadesDeTexto = new UtilidadesDeTexto();
 
 	@GetMapping("/cadastrar")
 	public String cadastrar(Carreiras carreira) {
@@ -35,11 +32,8 @@ public class CarreirasController {
 	}
 	
 	@PostMapping("/salvar")
-	public String salvar(Carreiras carreira, RedirectAttributes attr) {		
-		
-		carreira = service.converteEmMaiusculo(carreira);
-		
-		service.salvar(carreira);
+	public String salvar(Carreiras carreira, RedirectAttributes attr) {				
+		service.salvar(service.converteEmMaiusculo(carreira));
 		attr.addFlashAttribute("success", "Inserido com sucesso.");
 		return "redirect:/carreiras/cadastrar";
 	}
@@ -52,19 +46,16 @@ public class CarreirasController {
 	
 	@PostMapping("/editar")
 	public String editar(Carreiras carreiras, RedirectAttributes attr) {
-		
-		carreiras = service.converteEmMaiusculo(carreiras);
-		
-		service.editar(carreiras);
+		service.editar(service.converteEmMaiusculo(carreiras));
 		attr.addFlashAttribute("success", "Editado com sucesso.");
 		return "redirect:/carreiras/listar";
 	}
 	
-	@GetMapping("/excluir/{id}")
+	@GetMapping("/excluir/{id}") 
 	public String excluir(@PathVariable("id") Long id, ModelMap model) {
 		service.excluir(id); 
 		model.addAttribute("success", "Excluído com sucesso.");
-		return listar(model);
+		return listar(model); 
 	}
 	
 	@GetMapping("/buscar/nomecarreira")

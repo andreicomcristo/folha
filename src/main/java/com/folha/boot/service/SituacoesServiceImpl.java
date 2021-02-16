@@ -13,8 +13,6 @@ import com.folha.boot.service.util.*;
 @Service
 @Transactional(readOnly = false)
 public class SituacoesServiceImpl implements SituacoesService {
-
-	UtilidadesDeTexto utilidadesDeTexto = new UtilidadesDeTexto();
 	
 	@Autowired
 	private SituacoesReposytory reposytory;
@@ -57,8 +55,8 @@ public class SituacoesServiceImpl implements SituacoesService {
 	
 	@Override
 	public Situacoes converteEmMaiusculo(Situacoes situacoes) {
-		situacoes.setNomeSituacao( utilidadesDeTexto.retiraEspacosDuplosAcentosEConverteEmMaiusculo(situacoes.getNomeSituacao()));
-		situacoes.setDescricaoSituacao( utilidadesDeTexto.retiraEspacosDuplosAcentosEConverteEmMaiusculo(situacoes.getDescricaoSituacao()));
+		situacoes.setNomeSituacao(UtilidadesDeTexto.retiraEspacosDuplosAcentosEConverteEmMaiusculo(situacoes.getNomeSituacao()));
+		situacoes.setDescricaoSituacao(UtilidadesDeTexto.retiraEspacosDuplosAcentosEConverteEmMaiusculo(situacoes.getDescricaoSituacao()));
 	return situacoes;
 	}
 

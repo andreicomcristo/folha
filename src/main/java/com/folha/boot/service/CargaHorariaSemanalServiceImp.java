@@ -15,9 +15,6 @@ import com.folha.boot.service.util.UtilidadesDeTexto;
 public class CargaHorariaSemanalServiceImp implements CargaHorariaSemanalService{
 
 	@Autowired
-	UtilidadesDeTexto utilidadesDeTexto;
-	
-	@Autowired
 	private CargaHorariaSemanalReposytory reposytory;
 	
 	@Override
@@ -60,7 +57,7 @@ public class CargaHorariaSemanalServiceImp implements CargaHorariaSemanalService
 	
 	@Override
 	public CargaHorariaSemanal converteEmMaiusculo(CargaHorariaSemanal cargaHorariaSemanal) {
-		cargaHorariaSemanal.setDescricaoCargaHoraria( utilidadesDeTexto.retiraEspacosDuplosAcentosEConverteEmMaiusculo(cargaHorariaSemanal.getDescricaoCargaHoraria()));
+		cargaHorariaSemanal.setDescricaoCargaHoraria(UtilidadesDeTexto.retiraEspacosDuplosAcentosEConverteEmMaiusculo(cargaHorariaSemanal.getDescricaoCargaHoraria()));
 		return cargaHorariaSemanal;
 	}
 	

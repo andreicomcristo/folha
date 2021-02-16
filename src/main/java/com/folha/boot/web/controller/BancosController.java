@@ -13,7 +13,6 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.folha.boot.domain.Bancos;
 import com.folha.boot.service.BancosService;
-import com.folha.boot.service.util.UtilidadesDeTexto;
 
 @Controller
 @RequestMapping("/bancos")
@@ -22,8 +21,6 @@ public class BancosController {
 	@Autowired
 	private BancosService service;
 	
-	UtilidadesDeTexto utilidadesDeTexto = new UtilidadesDeTexto();
-
 	@GetMapping("/cadastrar")
 	public String cadastrar(Bancos banco) {
 		return "/banco/cadastro";
@@ -37,10 +34,8 @@ public class BancosController {
 	
 	@PostMapping("/salvar")
 	public String salvar(Bancos banco, RedirectAttributes attr) {
-		
-		banco = service.converteEmMaiusculo(banco);
-		
-		service.salvar(banco);
+			
+		service.salvar(service.converteEmMaiusculo(banco));
 		attr.addFlashAttribute("success", "Inserido com sucesso.");
 		return "redirect:/bancos/cadastrar";
 	}
@@ -53,10 +48,8 @@ public class BancosController {
 	
 	@PostMapping("/editar")
 	public String editar(Bancos banco, RedirectAttributes attr) {
-		
-		banco = service.converteEmMaiusculo(banco);
-		
-		service.editar(banco);
+				
+		service.editar(service.converteEmMaiusculo(banco));
 		attr.addFlashAttribute("success", "Editado com sucesso.");
 		return "redirect:/bancos/listar";
 	}

@@ -27,7 +27,6 @@ public class PessoaDocumentosRgController {
 	@GetMapping("/listar")
 	public String listar(ModelMap model) {
 		model.addAttribute("pessoaDocumentosRg", service.buscarTodos());
-		System.out.println(service.buscarTodos().toString());
 		return "/docrg/lista"; 
 	}
 	

@@ -15,9 +15,6 @@ import com.folha.boot.service.util.*;
 public class TiposDeFiliacaoServiceImpl implements TiposDeFiliacaoService {
 
 	@Autowired
-	private UtilidadesDeTexto utilidadesDeTexto;
-	
-	@Autowired
 	private TiposDeFiliacaoReposytory reposytory;
 	
 	@Override
@@ -59,8 +56,8 @@ public class TiposDeFiliacaoServiceImpl implements TiposDeFiliacaoService {
 	
 	@Override
 	public TiposDeFiliacao converteEmMaiusculo(TiposDeFiliacao tiposDeFiliacao) {
-		tiposDeFiliacao.setNomeTipoFiliacao( utilidadesDeTexto.retiraEspacosDuplosAcentosEConverteEmMaiusculo(tiposDeFiliacao.getNomeTipoFiliacao()));
-		tiposDeFiliacao.setDescricaoTipoFiliacao( utilidadesDeTexto.retiraEspacosDuplosAcentosEConverteEmMaiusculo(tiposDeFiliacao.getDescricaoTipoFiliacao()));
+		tiposDeFiliacao.setNomeTipoFiliacao(UtilidadesDeTexto.retiraEspacosDuplosAcentosEConverteEmMaiusculo(tiposDeFiliacao.getNomeTipoFiliacao()));
+		tiposDeFiliacao.setDescricaoTipoFiliacao(UtilidadesDeTexto.retiraEspacosDuplosAcentosEConverteEmMaiusculo(tiposDeFiliacao.getDescricaoTipoFiliacao()));
 	return tiposDeFiliacao;
 	}
 

@@ -13,8 +13,6 @@ import com.folha.boot.service.util.UtilidadesDeTexto;
 @Service
 @Transactional(readOnly = false)
 public class CargosServiceImpl implements CargosService{
-
-	UtilidadesDeTexto utilidadesDeTexto = new UtilidadesDeTexto();
 	
 	@Autowired
 	private CargosReposytory reposytory;
@@ -54,10 +52,9 @@ public class CargosServiceImpl implements CargosService{
 	}
 
 	@Override 
-	public Cargos converteEmMaiusculo(Cargos cargos) {
-		
-		cargos.setNomeCargo( utilidadesDeTexto.retiraEspacosDuplosAcentosEConverteEmMaiusculo(cargos.getNomeCargo()));
-		cargos.setDescricaoCargo( utilidadesDeTexto.retiraEspacosDuplosAcentosEConverteEmMaiusculo(cargos.getDescricaoCargo()));
+	public Cargos converteEmMaiusculo(Cargos cargos) {	
+		cargos.setNomeCargo(UtilidadesDeTexto.retiraEspacosDuplosAcentosEConverteEmMaiusculo(cargos.getNomeCargo()));
+		cargos.setDescricaoCargo(UtilidadesDeTexto.retiraEspacosDuplosAcentosEConverteEmMaiusculo(cargos.getDescricaoCargo()));
 		
 		return cargos;
 	}

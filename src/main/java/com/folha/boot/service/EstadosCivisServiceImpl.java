@@ -14,8 +14,6 @@ import com.folha.boot.service.util.UtilidadesDeTexto;
 @Transactional(readOnly = false)
 public class EstadosCivisServiceImpl implements EstadosCivisService {
 
-	UtilidadesDeTexto utilidadesDeTexto = new UtilidadesDeTexto();
-	
 	@Autowired
 	private EstadosCivisReposytory reposytory;
 	
@@ -58,8 +56,8 @@ public class EstadosCivisServiceImpl implements EstadosCivisService {
 	
 	@Override
 	public EstadosCivis converteEmMaiusculo(EstadosCivis estadosCivis) {
-		estadosCivis.setNomeEstadoCivil( utilidadesDeTexto.retiraEspacosDuplosAcentosEConverteEmMaiusculo(estadosCivis.getNomeEstadoCivil()));
-		estadosCivis.setDescricaoEstadoCivil( utilidadesDeTexto.retiraEspacosDuplosAcentosEConverteEmMaiusculo(estadosCivis.getDescricaoEstadoCivil()));
+		estadosCivis.setNomeEstadoCivil(UtilidadesDeTexto.retiraEspacosDuplosAcentosEConverteEmMaiusculo(estadosCivis.getNomeEstadoCivil()));
+		estadosCivis.setDescricaoEstadoCivil(UtilidadesDeTexto.retiraEspacosDuplosAcentosEConverteEmMaiusculo(estadosCivis.getDescricaoEstadoCivil()));
 	return estadosCivis;
 	}
 	

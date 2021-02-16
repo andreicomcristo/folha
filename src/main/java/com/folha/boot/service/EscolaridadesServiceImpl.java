@@ -13,8 +13,6 @@ import com.folha.boot.service.util.UtilidadesDeTexto;
 @Service
 @Transactional(readOnly = false)
 public class EscolaridadesServiceImpl implements EscolaridadesService{
-
-	UtilidadesDeTexto utilidadesDeTexto = new UtilidadesDeTexto();
 	
 	@Autowired
 	private EscolaridadesReposytory reposytory;
@@ -58,8 +56,8 @@ public class EscolaridadesServiceImpl implements EscolaridadesService{
 	
 	@Override
 	public Escolaridades converteEmMaiusculo(Escolaridades escolaridades) {
-		escolaridades.setNomeEscolaridade( utilidadesDeTexto.retiraEspacosDuplosAcentosEConverteEmMaiusculo(escolaridades.getNomeEscolaridade()));
-		escolaridades.setDescricaoEscolaridade( utilidadesDeTexto.retiraEspacosDuplosAcentosEConverteEmMaiusculo(escolaridades.getDescricaoEscolaridade()));
+		escolaridades.setNomeEscolaridade(UtilidadesDeTexto.retiraEspacosDuplosAcentosEConverteEmMaiusculo(escolaridades.getNomeEscolaridade()));
+		escolaridades.setDescricaoEscolaridade(UtilidadesDeTexto.retiraEspacosDuplosAcentosEConverteEmMaiusculo(escolaridades.getDescricaoEscolaridade()));
 	return escolaridades;
 	}
 }

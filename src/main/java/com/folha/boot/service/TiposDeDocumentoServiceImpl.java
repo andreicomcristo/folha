@@ -14,8 +14,6 @@ import com.folha.boot.service.util.*;
 @Transactional(readOnly = false)
 public class TiposDeDocumentoServiceImpl implements TiposDeDocumentoService {
 
-	UtilidadesDeTexto utilidadesDeTexto = new UtilidadesDeTexto();
-	
 	@Autowired
 	private TiposDeDocumentoReposytory reposytory;
 	
@@ -58,8 +56,8 @@ public class TiposDeDocumentoServiceImpl implements TiposDeDocumentoService {
 	
 	@Override
 	public TiposDeDocumento converteEmMaiusculo(TiposDeDocumento tiposDeDocumento) {
-		tiposDeDocumento.setSiglaDocumento( utilidadesDeTexto.retiraEspacosDuplosAcentosEConverteEmMaiusculo(tiposDeDocumento.getSiglaDocumento()));
-		tiposDeDocumento.setNomeDocumento( utilidadesDeTexto.retiraEspacosDuplosAcentosEConverteEmMaiusculo(tiposDeDocumento.getNomeDocumento()));
+		tiposDeDocumento.setSiglaDocumento(UtilidadesDeTexto.retiraEspacosDuplosAcentosEConverteEmMaiusculo(tiposDeDocumento.getSiglaDocumento()));
+		tiposDeDocumento.setNomeDocumento(UtilidadesDeTexto.retiraEspacosDuplosAcentosEConverteEmMaiusculo(tiposDeDocumento.getNomeDocumento()));
 	return tiposDeDocumento;
 	}
 
