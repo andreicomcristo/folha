@@ -2,6 +2,7 @@ package com.folha.boot.service;
 
 import java.util.List;
 
+import com.folha.boot.domain.Bancos;
 import com.folha.boot.domain.Privilegios;
 
 public interface PrivilegiosService {
@@ -15,4 +16,8 @@ public interface PrivilegiosService {
 	Privilegios buscarPorId(Long id);
 
 	List<Privilegios> buscarTodos();
+	
+	List<Privilegios> buscarPorNome(String nomePrivilegio);
+	
+	Privilegios converteEmMaiusculo(Privilegios privilegios);
 }

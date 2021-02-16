@@ -7,6 +7,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.folha.boot.domain.Sexos;
@@ -33,6 +34,8 @@ public class SexosController {
 	@PostMapping("/salvar")
 	public String salvar(Sexos sexos, RedirectAttributes attr) {
 		
+		sexos = service.converteEmMaiusculo(sexos);
+		
 		service.salvar(sexos);
 		attr.addFlashAttribute("success", "Inserido com sucesso.");
 		return "redirect:/sexos/cadastrar";
@@ -46,6 +49,9 @@ public class SexosController {
 	
 	@PostMapping("/editar")
 	public String editar(Sexos sexos, RedirectAttributes attr) {
+		
+		sexos = service.converteEmMaiusculo(sexos);
+		
 		service.editar(sexos);
 		attr.addFlashAttribute("success", "Editado com sucesso.");
 		return "redirect:/sexos/listar";
@@ -57,4 +63,11 @@ public class SexosController {
 		model.addAttribute("success", "Excluído com sucesso.");
 		return listar(model);
 	}
+	
+	@GetMapping("/buscar/nomeSexo")
+	public String getPorNome(@RequestParam("nomeSexo") String nomeSexo, ModelMap model) {		
+		model.addAttribute("sexos", service.buscarPorNome(nomeSexo.toUpperCase().trim()));
+		return "/sexo/lista";
+	}
+	
 }

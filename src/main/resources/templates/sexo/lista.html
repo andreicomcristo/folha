@@ -5,11 +5,15 @@
 	<section class="layout-content" layout:fragment="corpo">		
 		<nav class="navbar navbar-expand-md bg-light">
 	            
-	    	<a class="btn btn-outline-dark btn-md" href="/bancos/cadastrar" role="button">
+	    	<a class="btn btn-outline-dark btn-md" href="/sexos/cadastrar" role="button">
 	        	<span class="oi oi-plus" title="Cadastro" aria-hidden="true"></span>
 	            <span>Novo</span>
 	        </a>
-	            <label for="nome" class= "fonte-tutulos-tamanho">Lista de Bancos </label>
+	        <a class="btn btn-outline-dark btn-md" href="/sexos/listar" role="button">
+	        	<span class="oi oi-loop-square" title="Atualizar" aria-hidden="true"></span>
+	            <span>Atualizar</span>
+	        </a>
+	            <label for="nome" class= "fonte-tutulos-tamanho">Lista de Sexos </label>
 	    </nav>
 	  	<div class="container">
 	    	<p>                
@@ -21,9 +25,9 @@
 	      	<div class="col">
 	        	<div class="collapse" id="collapseNome">
 		            <nav class="navbar navbar-light bg-light">
-	    	           <form class="form-inline" method="GET" th:action="@{/bancos/buscar/nomebanco}">
-	        	           <input class="form-control mr-sm-2" type="search" placeholder="Nome do Banco" aria-label="Search"
-	                              th:name="nomeBanco" />
+	    	           <form class="form-inline" method="GET" th:action="@{/sexos/buscar/nomeSexo}">
+	        	           <input class="form-control mr-sm-2" type="search" placeholder="Sexo" aria-label="Search"
+	                              th:name="nomeSexo" />
 	                       <button class="btn btn-outline-success my-2 my-sm-0">Buscar</button>
 	                   </form>
 	                </nav>
@@ -40,23 +44,21 @@
 	            	<thead>
 	          			<tr>
 		                	<th>#</th>
-		                    <th>Código</th>
 		                    <th>Nome</th>
-		                    <th>Sigla</th>
+		                    <th>Descrição</th>
 		                    <th>Ações</th>
 	                    </tr>
 	                </thead>                  
 	                <tbody>
-		            	<tr th:each="d : ${bancos}">
+		            	<tr th:each="d : ${sexos}">
 		                	<td th:text="${d.id}"></td>
-		                    <td th:text="${d.codigoBanco}"></td>
-		                    <td th:text="${d.nomeBanco}"></td>
-		                    <td th:text="${d.siglaBanco}"></td>
+		                    <td th:text="${d.nomeSexo}"></td>
+		                    <td th:text="${d.descricaoSexo}"></td>
 		                    <td colspan="2">
-		                    	<a class="btn btn-outline-info btn-sm" th:href="@{/bancos/editar/{id} (id=${d.id}) }" role="button">
+		                    	<a class="btn btn-outline-info btn-sm" th:href="@{/sexos/editar/{id} (id=${d.id}) }" role="button">
 		                        	<span class="oi oi-brush" title="Editar" aria-hidden="true"></span>
 		                        </a>
-		                        <button th:id="${ 'btn_bancos/excluir/' + d.id}" type="button" class="btn btn btn-outline-danger btn-sm" 
+		                        <button th:id="${ 'btn_sexos/excluir/' + d.id}" type="button" class="btn btn btn-outline-danger btn-sm" 
 		                            		data-toggle="modal" data-target="#myModal">
 		                                <span class="oi oi-circle-x" title="Exclusão habilitada" aria-hidden="true"></span>
 		                        </button>

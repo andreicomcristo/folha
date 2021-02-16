@@ -8,11 +8,14 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.folha.boot.Reposytory.PaisesReposytoty;
 import com.folha.boot.domain.Paises;
+import com.folha.boot.util.UtilidadesDeTexto;
 
 @Service
 @Transactional(readOnly = false)
 public class PaisesSeviceImpl implements PaisesSevice{
 
+	UtilidadesDeTexto utilidadesDeTexto = new UtilidadesDeTexto();
+	
 	@Autowired
 	private PaisesReposytoty reposytory;
 	
@@ -45,7 +48,18 @@ public class PaisesSeviceImpl implements PaisesSevice{
 	@Override
 	public List<Paises> buscarTodos() {
 		// TODO Auto-generated method stub
-		return reposytory.findAll();
+		return reposytory.findAllByOrderByNomePaisAsc();
 	}
 
+	@Override
+	public List<Paises> buscarPorNome(String nomePais) {
+		return reposytory.findByNomePaisContainingOrderByNomePaisAsc(nomePais);
+	}
+	
+	@Override
+	public Paises converteEmMaiusculo(Paises paises) {
+		paises.setNomePais( utilidadesDeTexto.retiraEspacosDuplosAcentosEConverteEmMaiusculo(paises.getNomePais()));
+	return paises;
+	}
+	
 }

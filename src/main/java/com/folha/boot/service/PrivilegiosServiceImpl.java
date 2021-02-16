@@ -8,11 +8,14 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.folha.boot.Reposytory.PrivilegiosReposytory;
 import com.folha.boot.domain.Privilegios;
+import com.folha.boot.util.UtilidadesDeTexto;
 
 @Service
 @Transactional(readOnly = false)
 public class PrivilegiosServiceImpl implements PrivilegiosService {
 
+	UtilidadesDeTexto utilidadesDeTexto = new UtilidadesDeTexto();
+	
 	@Autowired
 	private PrivilegiosReposytory reposytory;
 	@Override
@@ -44,7 +47,20 @@ public class PrivilegiosServiceImpl implements PrivilegiosService {
 	@Override
 	public List<Privilegios> buscarTodos() {
 		// TODO Auto-generated method stub
-		return reposytory.findAll();
+		return reposytory.findAllByOrderByNomePrivilegioAsc();
+	}
+	
+	@Override
+	public List<Privilegios> buscarPorNome(String nomePrivilegio) {
+		return reposytory.findByNomePrivilegioContainingOrderByNomePrivilegioAsc(nomePrivilegio);
+	}
+	
+	@Override
+	public Privilegios converteEmMaiusculo(Privilegios privilegios) {
+		privilegios.setNomePrivilegio( utilidadesDeTexto.retiraEspacosDuplosAcentosEConverteEmMaiusculo(privilegios.getNomePrivilegio()));
+		privilegios.setDescricaoPrivilegio( utilidadesDeTexto.retiraEspacosDuplosAcentosEConverteEmMaiusculo(privilegios.getDescricaoPrivilegio()));
+		
+	return privilegios;
 	}
 
 }

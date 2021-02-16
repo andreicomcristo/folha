@@ -7,12 +7,16 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.folha.boot.Reposytory.SexosReposytory;
+import com.folha.boot.domain.Bancos;
 import com.folha.boot.domain.Sexos;
+import com.folha.boot.util.UtilidadesDeTexto;
 
 @Service
 @Transactional(readOnly = false)
 public class SexosServiceImpl implements SexosService {
 
+	UtilidadesDeTexto utilidadesDeTexto = new UtilidadesDeTexto();
+	
 	@Autowired
 	private SexosReposytory reposytory;
 
@@ -45,6 +49,19 @@ public class SexosServiceImpl implements SexosService {
 	@Override
 	public List<Sexos> buscarTodos() {
 		// TODO Auto-generated method stub
-		return reposytory.findAll();
+		return reposytory.findAllByOrderByNomeSexoAsc();
+	}
+	
+	@Override
+	public List<Sexos> buscarPorNome(String nomeSexo) {
+		return reposytory.findByNomeSexoContainingOrderByNomeSexoAsc(nomeSexo);
+	}
+	
+	@Override
+	public Sexos converteEmMaiusculo(Sexos sexos) {
+		sexos.setNomeSexo( utilidadesDeTexto.retiraEspacosDuplosAcentosEConverteEmMaiusculo(sexos.getNomeSexo()));
+		sexos.setDescricaoSexo( utilidadesDeTexto.retiraEspacosDuplosAcentosEConverteEmMaiusculo(sexos.getDescricaoSexo()));
+		
+	return sexos;
 	}
 }

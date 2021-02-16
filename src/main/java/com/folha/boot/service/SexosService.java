@@ -2,6 +2,7 @@ package com.folha.boot.service;
 
 import java.util.List;
 
+import com.folha.boot.domain.Bancos;
 import com.folha.boot.domain.Sexos;
 
 public interface SexosService {
@@ -15,4 +16,8 @@ public interface SexosService {
 	Sexos buscarPorId(Long id);
 
 	List<Sexos> buscarTodos();
+	
+	List<Sexos> buscarPorNome(String nomeSexo);
+	
+	Sexos converteEmMaiusculo(Sexos sexos);
 }

@@ -7,6 +7,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.folha.boot.domain.Privilegios;
@@ -33,6 +34,8 @@ public class PrivilegiosController {
 	@PostMapping("/salvar")
 	public String salvar(Privilegios privilegios , RedirectAttributes attr) {
 		
+		privilegios = service.converteEmMaiusculo(privilegios);
+		
 		service.salvar(privilegios);
 		attr.addFlashAttribute("success", "Inserido com sucesso.");
 		return "redirect:/privilegios/cadastrar";
@@ -40,12 +43,15 @@ public class PrivilegiosController {
 	
 	@GetMapping("/editar/{id}")
 	public String preEditar(@PathVariable("id") Long id, ModelMap model) {
-		model.addAttribute("Privilegios", service.buscarPorId(id));
+		model.addAttribute("privilegios", service.buscarPorId(id));
 		return "/privilegio/cadastro";
 	}
 	
 	@PostMapping("/editar")
 	public String editar(Privilegios privilegios, RedirectAttributes attr) {
+		
+		privilegios = service.converteEmMaiusculo(privilegios);
+		
 		service.editar(privilegios);
 		attr.addFlashAttribute("success", "Editado com sucesso.");
 		return "redirect:/privilegios/listar";
@@ -56,6 +62,12 @@ public class PrivilegiosController {
 		service.excluir(id);  
 		model.addAttribute("success", "Excluído com sucesso.");
 		return listar(model);
+	}
+	
+	@GetMapping("/buscar/nomePrivilegio")
+	public String getPorNome(@RequestParam("nomePrivilegio") String nomePrivilegio, ModelMap model) {		
+		model.addAttribute("privilegios", service.buscarPorNome(nomePrivilegio.toUpperCase().trim()));
+		return "/privilegio/lista";
 	}
 	
 }
