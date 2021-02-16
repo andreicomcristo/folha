@@ -15,4 +15,8 @@ public interface EstadosCivisService {
 	EstadosCivis buscarPorId(Long id);
 
 	List<EstadosCivis> buscarTodos();
+	
+	List<EstadosCivis> buscarPorNome(String nomeEstadosCivis);
+	
+	EstadosCivis converteEmMaiusculo(EstadosCivis estadosCivis);
 }

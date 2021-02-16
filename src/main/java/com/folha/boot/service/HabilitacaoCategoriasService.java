@@ -16,4 +16,7 @@ public interface HabilitacaoCategoriasService {
 
 	List<HabilitacaoCategorias > buscarTodos();
 	
+	List<HabilitacaoCategorias> buscarPorNome(String nomeHabilitacaoCategorias);
+	
+	HabilitacaoCategorias converteEmMaiusculo(HabilitacaoCategorias habilitacaoCategorias);
 }

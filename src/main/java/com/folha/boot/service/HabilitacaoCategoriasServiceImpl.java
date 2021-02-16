@@ -8,11 +8,14 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.folha.boot.Reposytory.HabilitacaoCategoriasReposytory;
 import com.folha.boot.domain.HabilitacaoCategorias;
+import com.folha.boot.util.UtilidadesDeTexto;
 
 @Service
 @Transactional(readOnly = false)
 public class HabilitacaoCategoriasServiceImpl implements HabilitacaoCategoriasService{
 
+	UtilidadesDeTexto utilidadesDeTexto = new UtilidadesDeTexto();
+	
 	@Autowired
 	private HabilitacaoCategoriasReposytory reposytory;
 
@@ -45,7 +48,19 @@ public class HabilitacaoCategoriasServiceImpl implements HabilitacaoCategoriasSe
 	@Override
 	public List<HabilitacaoCategorias> buscarTodos() {
 		// TODO Auto-generated method stub
-		return reposytory.findAll();
+		return reposytory.findAllByOrderByNomeHabilitacaoCategoriaAsc();
 	}
 
+	@Override
+	public List<HabilitacaoCategorias> buscarPorNome(String nomeHabilitacaoCategoria) {
+		return reposytory.findByNomeHabilitacaoCategoriaContainingOrderByNomeHabilitacaoCategoriaAsc(nomeHabilitacaoCategoria);
+	}
+	
+	@Override
+	public HabilitacaoCategorias converteEmMaiusculo(HabilitacaoCategorias habilitacaoCategorias) {
+		habilitacaoCategorias.setNomeHabilitacaoCategoria( utilidadesDeTexto.retiraEspacosDuplosAcentosEConverteEmMaiusculo(habilitacaoCategorias.getNomeHabilitacaoCategoria()));
+		habilitacaoCategorias.setDescricaoHabilitacaoCategoria( utilidadesDeTexto.retiraEspacosDuplosAcentosEConverteEmMaiusculo(habilitacaoCategorias.getDescricaoHabilitacaoCategoria()));
+	return habilitacaoCategorias;
+	}
+	
 }

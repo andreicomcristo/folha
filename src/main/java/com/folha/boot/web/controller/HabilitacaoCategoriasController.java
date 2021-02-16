@@ -7,6 +7,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.folha.boot.domain.HabilitacaoCategorias;
@@ -20,7 +21,7 @@ public class HabilitacaoCategoriasController {
 	private HabilitacaoCategoriasService service;
 
 	@GetMapping("/cadastrar")
-	public String cadastrar(HabilitacaoCategorias habilitacaoCategoria) {
+	public String cadastrar(HabilitacaoCategorias habilitacaoCategorias) {
 		
 		return "/habilitacaocategoria/cadastro";
 	}
@@ -32,9 +33,11 @@ public class HabilitacaoCategoriasController {
 	}
 	
 	@PostMapping("/salvar")
-	public String salvar(HabilitacaoCategorias habilitacaoCategoria, RedirectAttributes attr) {
+	public String salvar(HabilitacaoCategorias habilitacaoCategorias, RedirectAttributes attr) {
 		
-		service.salvar(habilitacaoCategoria);
+		habilitacaoCategorias = service.converteEmMaiusculo(habilitacaoCategorias);
+		
+		service.salvar(habilitacaoCategorias);
 		attr.addFlashAttribute("success", "Inserido com sucesso.");
 		return "redirect:/habilitacaocategorias/cadastrar";
 	}
@@ -46,8 +49,11 @@ public class HabilitacaoCategoriasController {
 	}
 	
 	@PostMapping("/editar")
-	public String editar(HabilitacaoCategorias habilitacaoCategoria, RedirectAttributes attr) {
-		service.editar(habilitacaoCategoria);
+	public String editar(HabilitacaoCategorias habilitacaoCategorias, RedirectAttributes attr) {
+		
+		habilitacaoCategorias = service.converteEmMaiusculo(habilitacaoCategorias);
+		
+		service.editar(habilitacaoCategorias);
 		attr.addFlashAttribute("success", "Editado com sucesso.");
 		return "redirect:/habilitacaocategorias/listar";
 	}
@@ -57,5 +63,11 @@ public class HabilitacaoCategoriasController {
 		service.excluir(id);  
 		model.addAttribute("success", "Excluído com sucesso.");
 		return listar(model);
+	}
+	
+	@GetMapping("/buscar/nomeHabilitacaoCategoria")
+	public String getPorNome(@RequestParam("nomeHabilitacaoCategoria") String nomeHabilitacaoCategoria, ModelMap model) {		
+		model.addAttribute("habilitacaoCategorias", service.buscarPorNome(nomeHabilitacaoCategoria.toUpperCase().trim()));
+		return "/habilitacaocategoria/lista";
 	}
 }

@@ -8,11 +8,13 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.folha.boot.Reposytory.EstadosCivisReposytory;
 import com.folha.boot.domain.EstadosCivis;
+import com.folha.boot.util.UtilidadesDeTexto;
 
 @Service
 @Transactional(readOnly = false)
 public class EstadosCivisServiceImpl implements EstadosCivisService {
 
+	UtilidadesDeTexto utilidadesDeTexto = new UtilidadesDeTexto();
 	
 	@Autowired
 	private EstadosCivisReposytory reposytory;
@@ -46,7 +48,19 @@ public class EstadosCivisServiceImpl implements EstadosCivisService {
 	@Override
 	public List<EstadosCivis> buscarTodos() {
 		// TODO Auto-generated method stub
-		return reposytory.findAll();
+		return reposytory.findAllByOrderByNomeEstadoCivilAsc();
 	}
 
+	@Override
+	public List<EstadosCivis> buscarPorNome(String nomeEstadoCivil) {
+		return reposytory.findByNomeEstadoCivilContainingOrderByNomeEstadoCivilAsc(nomeEstadoCivil);
+	}
+	
+	@Override
+	public EstadosCivis converteEmMaiusculo(EstadosCivis estadosCivis) {
+		estadosCivis.setNomeEstadoCivil( utilidadesDeTexto.retiraEspacosDuplosAcentosEConverteEmMaiusculo(estadosCivis.getNomeEstadoCivil()));
+		estadosCivis.setDescricaoEstadoCivil( utilidadesDeTexto.retiraEspacosDuplosAcentosEConverteEmMaiusculo(estadosCivis.getDescricaoEstadoCivil()));
+	return estadosCivis;
+	}
+	
 }
