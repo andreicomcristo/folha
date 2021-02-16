@@ -16,4 +16,7 @@ public interface TiposDeDocumentoService {
 
 	List<TiposDeDocumento> buscarTodos();
 
+	List<TiposDeDocumento> buscarPorNome(String siglaDocumento);
+	
+	TiposDeDocumento converteEmMaiusculo(TiposDeDocumento tiposDeDocumento);
 }

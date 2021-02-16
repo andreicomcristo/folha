@@ -8,11 +8,14 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.folha.boot.Reposytory.TiposDeFiliacaoReposytory;
 import com.folha.boot.domain.TiposDeFiliacao;
+import com.folha.boot.util.UtilidadesDeTexto;
 
 @Service
 @Transactional(readOnly = false)
 public class TiposDeFiliacaoServiceImpl implements TiposDeFiliacaoService {
 
+	UtilidadesDeTexto utilidadesDeTexto = new UtilidadesDeTexto();
+	
 	@Autowired
 	private TiposDeFiliacaoReposytory reposytory;
 	
@@ -45,7 +48,19 @@ public class TiposDeFiliacaoServiceImpl implements TiposDeFiliacaoService {
 	@Override
 	public List<TiposDeFiliacao> buscarTodos() {
 		// TODO Auto-generated method stub
-		return reposytory.findAll();
+		return reposytory.findAllByOrderByNomeTipoFiliacaoAsc();
+	}
+	
+	@Override
+	public List<TiposDeFiliacao> buscarPorNome(String nomeTipoFiliacao) {
+		return reposytory.findByNomeTipoFiliacaoContainingOrderByNomeTipoFiliacaoAsc(nomeTipoFiliacao);
+	}
+	
+	@Override
+	public TiposDeFiliacao converteEmMaiusculo(TiposDeFiliacao tiposDeFiliacao) {
+		tiposDeFiliacao.setNomeTipoFiliacao( utilidadesDeTexto.retiraEspacosDuplosAcentosEConverteEmMaiusculo(tiposDeFiliacao.getNomeTipoFiliacao()));
+		tiposDeFiliacao.setDescricaoTipoFiliacao( utilidadesDeTexto.retiraEspacosDuplosAcentosEConverteEmMaiusculo(tiposDeFiliacao.getDescricaoTipoFiliacao()));
+	return tiposDeFiliacao;
 	}
 
 }

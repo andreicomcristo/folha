@@ -7,6 +7,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.folha.boot.domain.TiposDeDocumento;
@@ -21,17 +22,19 @@ public class TiposDeDocumentoController {
 
 	@GetMapping("/cadastrar")
 	public String cadastrar(TiposDeDocumento tiposDeDocumento) {		
-		return "/doctipo/cadastro";
+		return "/tipodocumento/cadastro";
 	}
 	
 	@GetMapping("/listar")
 	public String listar(ModelMap model) {
-		model.addAttribute("TiposDeDocumento", service.buscarTodos());
-		return "/doctipo/lista"; 
+		model.addAttribute("tiposDeDocumento", service.buscarTodos());
+		return "/tipodocumento/lista"; 
 	}
 	
 	@PostMapping("/salvar")
 	public String salvar(TiposDeDocumento tiposDeDocumento, RedirectAttributes attr) {
+		
+		tiposDeDocumento= service.converteEmMaiusculo(tiposDeDocumento);
 		
 		service.salvar(tiposDeDocumento);
 		attr.addFlashAttribute("success", "Inserido com sucesso.");
@@ -41,11 +44,14 @@ public class TiposDeDocumentoController {
 	@GetMapping("/editar/{id}")
 	public String preEditar(@PathVariable("id") Long id, ModelMap model) {
 		model.addAttribute("tiposDeDocumento", service.buscarPorId(id));
-		return "/doctipo/cadastro";
+		return "/tipodocumento/cadastro";
 	}
 	
 	@PostMapping("/editar")
 	public String editar(TiposDeDocumento tiposDeDocumento, RedirectAttributes attr) {
+		
+		tiposDeDocumento= service.converteEmMaiusculo(tiposDeDocumento);
+		
 		service.editar(tiposDeDocumento);
 		attr.addFlashAttribute("success", "Editado com sucesso.");
 		return "redirect:/tiposdedocumentos/listar";
@@ -56,5 +62,11 @@ public class TiposDeDocumentoController {
 		service.excluir(id);  
 		model.addAttribute("success", "Excluído com sucesso.");
 		return listar(model);
+	}
+	
+	@GetMapping("/buscar/siglaDocumento")
+	public String getPorNome(@RequestParam("siglaDocumento") String siglaDocumento, ModelMap model) {		
+		model.addAttribute("tiposDeDocumento", service.buscarPorNome(siglaDocumento.toUpperCase().trim()));
+		return "/tipodocumento/lista";
 	}
 }

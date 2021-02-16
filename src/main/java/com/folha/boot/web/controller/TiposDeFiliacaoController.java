@@ -7,6 +7,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.folha.boot.domain.TiposDeFiliacao;
@@ -33,6 +34,8 @@ public class TiposDeFiliacaoController {
 	@PostMapping("/salvar")
 	public String salvar(TiposDeFiliacao tiposDeFiliacao, RedirectAttributes attr) {
 		
+		tiposDeFiliacao= service.converteEmMaiusculo(tiposDeFiliacao);
+		
 		service.salvar(tiposDeFiliacao);
 		attr.addFlashAttribute("success", "Inserido com sucesso.");
 		return "redirect:/tipostefiliacoes/cadastrar";
@@ -46,6 +49,9 @@ public class TiposDeFiliacaoController {
 	
 	@PostMapping("/editar")
 	public String editar(TiposDeFiliacao tiposDeFiliacao, RedirectAttributes attr) {
+		
+		tiposDeFiliacao= service.converteEmMaiusculo(tiposDeFiliacao);
+		
 		service.editar(tiposDeFiliacao);
 		attr.addFlashAttribute("success", "Editado com sucesso.");
 		return "redirect:/tipostefiliacoes/listar";
@@ -56,5 +62,11 @@ public class TiposDeFiliacaoController {
 		service.excluir(id);  
 		model.addAttribute("success", "Excluído com sucesso.");
 		return listar(model);
+	}
+	
+	@GetMapping("/buscar/nomeTipoFiliacao")
+	public String getPorNome(@RequestParam("nomeTipoFiliacao") String nomeTipoFiliacao, ModelMap model) {		
+		model.addAttribute("tiposDeFiliacao", service.buscarPorNome(nomeTipoFiliacao.toUpperCase().trim()));
+		return "/tipofiliacao/lista";
 	}
 }
