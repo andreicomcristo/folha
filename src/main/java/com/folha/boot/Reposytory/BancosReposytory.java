@@ -1,6 +1,5 @@
 package com.folha.boot.Reposytory;
 
-
 import java.util.List;
 
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -12,6 +11,5 @@ public interface BancosReposytory extends JpaRepository<Bancos, Long> {
 	
 	public List<Bancos> findAllByOrderByNomeBancoAsc();
 	
-	public List<Bancos> findByNomeBancoContainingOrderByNomeBancoAsc(String nomeBanco);
-	
+	public List<Bancos> findByNomeBancoContainingOrderByNomeBancoAsc(String nomeBanco);	
 }

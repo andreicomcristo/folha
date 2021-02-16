@@ -16,6 +16,8 @@ public interface CargosService {
 
 	List<Cargos> buscarTodos();
 	
-	Cargos converteEmMaiusculo(Cargos cargos);
+	List<Cargos> buscarPorNome(String nomeCargo);
+	
+	Cargos converteEmMaiusculo(Cargos cargo);
 
 }

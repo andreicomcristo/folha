@@ -11,7 +11,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.folha.boot.domain.CargosEspecialidade;
 import com.folha.boot.service.CargosEspecialidadeService;
-import com.folha.boot.util.UtilidadesDeTexto;
+import com.folha.boot.service.util.UtilidadesDeTexto;
 
 @Controller
 @RequestMapping("/especialidades")

@@ -10,13 +10,14 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.folha.boot.domain.Cargos;
 import com.folha.boot.domain.NiveisCargo;
 import com.folha.boot.service.CargosService;
 import com.folha.boot.service.NiveisCargoService;
-import com.folha.boot.util.UtilidadesDeTexto;
+import com.folha.boot.service.util.UtilidadesDeTexto;
 
 @Controller
 @RequestMapping("/cargos")
@@ -79,4 +80,9 @@ public class CargosController {
 		return niveisCargoService.buscarTodos();
 	}
 
+	@GetMapping("/buscar/nomeCargo")
+	public String getPorNome(@RequestParam("nomeCargo") String nomeCargo, ModelMap model) {		
+		model.addAttribute("cargos", service.buscarPorNome(nomeCargo.toUpperCase().trim()));
+		return "/cargo/lista";
+	}
 }

@@ -13,7 +13,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.folha.boot.domain.Bancos;
 import com.folha.boot.service.BancosService;
-import com.folha.boot.util.UtilidadesDeTexto;
+import com.folha.boot.service.util.UtilidadesDeTexto;
 
 @Controller
 @RequestMapping("/bancos")

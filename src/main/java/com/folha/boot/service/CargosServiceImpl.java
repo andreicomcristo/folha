@@ -8,7 +8,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.folha.boot.Reposytory.CargosReposytory;
 import com.folha.boot.domain.Cargos;
-import com.folha.boot.util.UtilidadesDeTexto;
+import com.folha.boot.service.util.UtilidadesDeTexto;
 
 @Service
 @Transactional(readOnly = false)
@@ -47,19 +47,25 @@ public class CargosServiceImpl implements CargosService{
 	}
 	
 	@Transactional(readOnly = true)
-	@Override
+	@Override 
 	public List<Cargos> buscarTodos() {
 		// TODO Auto-generated method stub
 		return reposytory.findAll();
 	}
 
-	@Override
+	@Override 
 	public Cargos converteEmMaiusculo(Cargos cargos) {
 		
 		cargos.setNomeCargo( utilidadesDeTexto.retiraEspacosDuplosAcentosEConverteEmMaiusculo(cargos.getNomeCargo()));
 		cargos.setDescricaoCargo( utilidadesDeTexto.retiraEspacosDuplosAcentosEConverteEmMaiusculo(cargos.getDescricaoCargo()));
 		
 		return cargos;
+	}
+
+	@Override
+	public List<Cargos> buscarPorNome(String nomeCargo) {
+		// TODO Auto-generated method stub		
+		return reposytory.findByNomeCargoContainingOrderByNomeCargoAsc(nomeCargo);
 	};
 	
 }

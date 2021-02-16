@@ -1,4 +1,4 @@
-package com.folha.boot.util;
+package com.folha.boot.service.util;
 
 import java.awt.Graphics2D;
 import java.awt.Image;

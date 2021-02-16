@@ -8,7 +8,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.folha.boot.Reposytory.CargaHorariaSemanalReposytory;
 import com.folha.boot.domain.CargaHorariaSemanal;
-import com.folha.boot.util.UtilidadesDeTexto;
+import com.folha.boot.service.util.UtilidadesDeTexto;
 
 @Service
 @Transactional(readOnly = false)

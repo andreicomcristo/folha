@@ -9,36 +9,58 @@
 	        	<span class="oi oi-plus" title="Cadastro" aria-hidden="true"></span>
 	            <span>Novo</span>
 	        </a>
-	        <a class="btn btn-outline-dark btn-md" href="/cargahorariasemanais/listar" role="button">
+	        <a class="btn btn-outline-dark btn-md" href="/cargos/listar" role="button">
 	        	<span class="oi oi-loop-square" title="Atualizar" aria-hidden="true"></span>
 	            <span>Atualizar</span>
 	        </a>
-	            <label for="nome" class= "fonte-tutulos-tamanho">Lista de Bancos </label>
+	            <label for="nome" class= "fonte-tutulos-tamanho">Lista de Cargos </label>
 	    </nav>
+	  	<div class="container">
+	    	<p>                
+	        	<button class=" oi oi-magnifying-glass btn btn-outline-success my-2 my-sm-0" type="button" data-toggle="collapse" data-target="#collapseNome"
+	            		aria-controls="collapseNome">Filtrar
+	            </button>
+	      </p>
+	      <div class="row">
+	      	<div class="col">
+	        	<div class="collapse" id="collapseNome">
+		            <nav class="navbar navbar-light bg-light">
+	    	           <form class="form-inline" method="GET" th:action="@{/cargos/buscar/nomecargo}">
+	        	           <input class="form-control mr-sm-2" type="search" placeholder="Nome do Cargo" aria-label="Search"
+	                              th:name="nomeCargo"/>
+	                       <button class="btn btn-outline-success my-2 my-sm-0">Buscar</button>
+	                   </form>
+	                </nav>
+	            </div>
+	    	</div>
+	    </div>
+	    
+	    
 	    <div class="container" id="listagem">	        
 	    	<div th:replace="fragments/alert"></div>
-	        <div class="table-responsive">
-	        	<table class="table table-striped table-hover table-sm">
+	    	
+	        <div style="height: 500px; overflow-y: auto;" class="table-responsive">
+	        	<table class="table table-striped table-hover table-sm myTable">
 	            	<thead>
 	          			<tr>
 		                	<th>#</th>
-		                    <th>Código</th>
 		                    <th>Nome</th>
-		                    <th>Sigla</th>
+		                    <th>Descrição</th>
+		                    <th>Nível</th>
 		                    <th>Ações</th>
 	                    </tr>
 	                </thead>                  
 	                <tbody>
-		            	<tr th:each="d : ${bancos}">
+		            	<tr th:each="d : ${cargos}">
 		                	<td th:text="${d.id}"></td>
-		                    <td th:text="${d.codigoBanco}"></td>
-		                    <td th:text="${d.nomeBanco}"></td>
-		                    <td th:text="${d.siglaBanco}"></td>
+		                    <td th:text="${d.nomeCargo}"></td>
+		                    <td th:text="${d.descricaoCargo}"></td>
+		                    <td th:text="${d.idNivelCargoFk.nomeNivelCargo}"></td>
 		                    <td colspan="2">
-		                    	<a class="btn btn-outline-info btn-sm" th:href="@{/bancos/editar/{id} (id=${d.id}) }" role="button">
+		                    	<a class="btn btn-outline-info btn-sm" th:href="@{/cargos/editar/{id} (id=${d.id}) }" role="button">
 		                        	<span class="oi oi-brush" title="Editar" aria-hidden="true"></span>
 		                        </a>
-		                        <button th:id="${ 'btn_bancos/excluir/' + d.id}" type="button" class="btn btn btn-danger btn-sm" 
+		                        <button th:id="${ 'btn_cargos/excluir/' + d.id}" type="button" class="btn btn btn-outline-danger btn-sm" 
 		                            		data-toggle="modal" data-target="#myModal">
 		                                <span class="oi oi-circle-x" title="Exclusão habilitada" aria-hidden="true"></span>
 		                        </button>
