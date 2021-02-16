@@ -61,6 +61,7 @@ public class TiposLogradouroServiceImpl implements TiposLogradouroService {
 	@Override
 	public TiposLogradouro converteEmMaiusculo(TiposLogradouro tiposLogradouro) {
 		tiposLogradouro.setNomeTipoLogradouro(utilidadesDeTexto.retiraEspacosDuplosAcentosEConverteEmMaiusculo(tiposLogradouro.getNomeTipoLogradouro()));
+		tiposLogradouro.setDescricaoTipoLogradouro(utilidadesDeTexto.retiraEspacosDuplosAcentosEConverteEmMaiusculo(tiposLogradouro.getDescricaoTipoLogradouro()));
 		return tiposLogradouro;
 	}
 

@@ -14,7 +14,8 @@ import com.folha.boot.service.util.*;
 @Transactional(readOnly = false)
 public class TiposDeFiliacaoServiceImpl implements TiposDeFiliacaoService {
 
-	UtilidadesDeTexto utilidadesDeTexto = new UtilidadesDeTexto();
+	@Autowired
+	private UtilidadesDeTexto utilidadesDeTexto;
 	
 	@Autowired
 	private TiposDeFiliacaoReposytory reposytory;

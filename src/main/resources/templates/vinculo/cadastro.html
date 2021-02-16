@@ -5,10 +5,10 @@
 	<section class="layout-content" layout:fragment="corpo">
 
 		<nav class="navbar navbar-expand-md bg-light">
-			<form action="/bancos/listar">
+			<form action="/vinculos/listar">
 				<div class=" layout-content">
 					<button class="btn btn-outline-dark" >Listar</button>
-					<a class="btn btn-outline-dark btn-md" href="/bancos/cadastrar"
+					<a class="btn btn-outline-dark btn-md" href="/vinculos/cadastrar"
 						role="button"> <span class="oi oi-plus" title="Cadastro"
 						aria-hidden="true"></span> <span>Novo</span>
 					</a>
@@ -20,23 +20,22 @@
 
 			<div th:replace="fragments/alert"></div>
 			<form
-				th:action="${bancos.id == null} ? @{/bancos/salvar} : @{/bancos/editar}"
-				th:object="${bancos}" method="POST">
+				th:action="${vinculos.id == null} ? @{/vinculos/salvar} : @{/vinculos/editar}"
+				th:object="${vinculos}" method="POST">
 				<div class="form-row">
 
 					<div class="form-group col-md-6">
-						<label for="nome" class="fonte-tutulos-tamanho">Cadastro de Bancos</label>
+						<label for="nome" class="fonte-tutulos-tamanho">Cadastro de Vínculos</label>
 							
 							<input type="text"
 								class="form-control form-control-md" autofocus="autofocus"
-								id="codigo" placeholder="Código do Banco (somente os números)" th:field="*{codigoBanco}" /> 
+								id="nomeVinculo" placeholder="Vínculo" th:field="*{nomeVinculo}" /> 
 							<p></p>
 							<input type="text"
 								class="form-control form-control-md" autofocus="autofocus"
-								id="nome" placeholder="Nome do Banco" th:field="*{nomeBanco}" />						
+								id="descricaoVinculo" placeholder="Descrição" th:field="*{descricaoVinculo}" />						
 							<p></p>
-							<input type="text" class="form-control form-control-md"
-								autofocus="autofocus" id="sigla" placeholder="Sigla do Banco" th:field="*{siglaBanco}" />
+							
 							
 							<input type="hidden" id="id" th:field="*{id}" />
 								<p></p>					

@@ -14,7 +14,8 @@ import com.folha.boot.service.util.UtilidadesDeTexto;
 @Transactional(readOnly = false)
 public class UfServiceImpl implements UfService{
 
-	UtilidadesDeTexto utilidadesDeTexto = new UtilidadesDeTexto();
+	@Autowired
+	private UtilidadesDeTexto utilidadesDeTexto;
 	
 	@Autowired
 	private UfReposytory reposytory;
