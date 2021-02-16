@@ -3,21 +3,17 @@ package com.folha.boot.service;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.folha.boot.Reposytory.BancosReposytory;
 import com.folha.boot.domain.Bancos;
-import com.folha.boot.service.util.UtilidadesDeTexto;
+import com.folha.boot.service.util.*;
 
 @Service
 @Transactional(readOnly = false)
 public class BancosServiceImpl implements BancosService {
 
-	@Autowired
-	UtilidadesDeTexto utilidadesDeTexto;
-	
 	@Autowired
 	private BancosReposytory reposytory;
 
@@ -59,9 +55,9 @@ public class BancosServiceImpl implements BancosService {
 	
 	@Override
 	public Bancos converteEmMaiusculo(Bancos bancos) {
-		bancos.setCodigoBanco( utilidadesDeTexto.retiraEspacosDuplosAcentosEConverteEmMaiusculo(bancos.getCodigoBanco()));
-		bancos.setNomeBanco( utilidadesDeTexto.retiraEspacosDuplosAcentosEConverteEmMaiusculo(bancos.getNomeBanco()));
-		bancos.setSiglaBanco( utilidadesDeTexto.retiraEspacosDuplosAcentosEConverteEmMaiusculo(bancos.getSiglaBanco()));
+		bancos.setCodigoBanco(UtilidadesDeTexto.retiraEspacosDuplosAcentosEConverteEmMaiusculo(bancos.getCodigoBanco()));
+		bancos.setNomeBanco(UtilidadesDeTexto.retiraEspacosDuplosAcentosEConverteEmMaiusculo(bancos.getNomeBanco()));
+		bancos.setSiglaBanco(UtilidadesDeTexto.retiraEspacosDuplosAcentosEConverteEmMaiusculo(bancos.getSiglaBanco()));
 	return bancos;
 	}
 
