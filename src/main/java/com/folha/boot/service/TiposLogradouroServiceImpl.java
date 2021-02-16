@@ -15,9 +15,6 @@ import com.folha.boot.service.util.*;
 public class TiposLogradouroServiceImpl implements TiposLogradouroService {
 
 	@Autowired
-	private UtilidadesDeTexto utilidadesDeTexto;
-	
-	@Autowired
 	private TiposLogradouroReposytory reposytory;
 	
 	@Override
@@ -61,8 +58,8 @@ public class TiposLogradouroServiceImpl implements TiposLogradouroService {
 	@Override
 	public TiposLogradouro converteEmMaiusculo(TiposLogradouro tiposLogradouro) {
 
-		tiposLogradouro.setNomeTipoLogradouro(utilidadesDeTexto.retiraEspacosDuplosAcentosEConverteEmMaiusculo(tiposLogradouro.getNomeTipoLogradouro()));
-		tiposLogradouro.setDescricaoTipoLogradouro(utilidadesDeTexto.retiraEspacosDuplosAcentosEConverteEmMaiusculo(tiposLogradouro.getDescricaoTipoLogradouro()));
+		tiposLogradouro.setNomeTipoLogradouro(UtilidadesDeTexto.retiraEspacosDuplosAcentosEConverteEmMaiusculo(tiposLogradouro.getNomeTipoLogradouro()));
+		tiposLogradouro.setDescricaoTipoLogradouro(UtilidadesDeTexto.retiraEspacosDuplosAcentosEConverteEmMaiusculo(tiposLogradouro.getDescricaoTipoLogradouro()));
 		return tiposLogradouro;
 	}
 
