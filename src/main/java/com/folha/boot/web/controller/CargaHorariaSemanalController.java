@@ -12,7 +12,6 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.folha.boot.domain.CargaHorariaSemanal;
 import com.folha.boot.service.CargaHorariaSemanalService;
-import com.folha.boot.util.UtilidadesDeTexto;
 
 @Controller
 @RequestMapping("/cargahorariasemanais")
@@ -21,9 +20,6 @@ public class CargaHorariaSemanalController {
 	@Autowired
 	private CargaHorariaSemanalService service;
 	
-	
-	private UtilidadesDeTexto utilidadesDeTexto = new UtilidadesDeTexto();
-
 	@GetMapping("/cadastrar")
 	public String cadastrar(CargaHorariaSemanal cargaHorariaSemanal) {
 		

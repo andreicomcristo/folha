@@ -10,9 +10,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.folha.boot.domain.Autorizacoes;
-import com.folha.boot.domain.Bancos;
 import com.folha.boot.service.AutorizacoesService;
-import com.folha.boot.service.BancosService;
 
 @Controller
 @RequestMapping("/autorizacoes")

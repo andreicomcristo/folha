@@ -9,9 +9,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-import com.folha.boot.domain.Bancos;
 import com.folha.boot.domain.Classes;
-import com.folha.boot.service.BancosService;
 import com.folha.boot.service.ClassesService;
 
 @Controller

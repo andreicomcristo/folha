@@ -7,7 +7,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.folha.boot.Reposytory.ConselhosReposytory;
-import com.folha.boot.domain.Bancos;
 import com.folha.boot.domain.Conselhos;
 import com.folha.boot.util.UtilidadesDeTexto;
 
