@@ -8,11 +8,14 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.folha.boot.Reposytory.VinculosReposytory;
 import com.folha.boot.domain.Vinculos;
+import com.folha.boot.service.util.UtilidadesDeTexto;
 
 @Service
 @Transactional(readOnly = false)
 public class VinculosServiceImpl implements VinculosService{
 
+	UtilidadesDeTexto utilidadesDeTexto = new UtilidadesDeTexto();
+	
 	@Autowired
 	private VinculosReposytory reposytory;
 	
@@ -45,7 +48,18 @@ public class VinculosServiceImpl implements VinculosService{
 	@Override
 	public List<Vinculos> buscarTodos() {
 		// TODO Auto-generated method stub
-		return reposytory.findAll();
+		return reposytory.findAllByOrderByNomeVinculoAsc();
 	}
 
+	@Override
+	public List<Vinculos> buscarPorNome(String nomeVinculo) {
+		return reposytory.findByNomeVinculoContainingOrderByNomeVinculoAsc(nomeVinculo);
+	}
+	
+	@Override
+	public Vinculos converteEmMaiusculo(Vinculos vinculos) {
+		vinculos.setNomeVinculo( utilidadesDeTexto.retiraEspacosDuplosAcentosEConverteEmMaiusculo(vinculos.getNomeVinculo()));
+		vinculos.setDescricaoVinculo( utilidadesDeTexto.retiraEspacosDuplosAcentosEConverteEmMaiusculo(vinculos.getDescricaoVinculo()));
+	return vinculos;
+	}
 }

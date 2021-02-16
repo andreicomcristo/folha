@@ -7,6 +7,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.folha.boot.domain.TiposLogradouro;
@@ -33,6 +34,8 @@ public class TiposLogradouroController {
 	@PostMapping("/salvar")
 	public String salvar(TiposLogradouro tiposLogradouro, RedirectAttributes attr) {
 		
+		tiposLogradouro = service.converteEmMaiusculo(tiposLogradouro);
+		
 		service.salvar(tiposLogradouro);
 		attr.addFlashAttribute("success", "Inserido com sucesso.");
 		return "redirect:/tiposlogradouros/cadastrar";
@@ -46,6 +49,9 @@ public class TiposLogradouroController {
 	
 	@PostMapping("/editar")
 	public String editar(TiposLogradouro tiposLogradouro, RedirectAttributes attr) {
+		
+		tiposLogradouro = service.converteEmMaiusculo(tiposLogradouro);
+		
 		service.editar(tiposLogradouro);
 		attr.addFlashAttribute("success", "Editado com sucesso.");
 		return "redirect:/tiposlogradouros/listar";
@@ -56,5 +62,11 @@ public class TiposLogradouroController {
 		service.excluir(id);  
 		model.addAttribute("success", "Excluído com sucesso.");
 		return listar(model);
-	}	
+	}
+	
+	@GetMapping("/buscar/nome/logradouro")
+	public String getPorNome(@RequestParam("nomeTipoLogradouro") String nomeTipoLogradouro, ModelMap model) {		
+		model.addAttribute("tiposLogradouro", service.buscarPorNome(nomeTipoLogradouro.toUpperCase().trim()));
+		return "/tipologradouro/lista";
+	}
 }

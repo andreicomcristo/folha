@@ -16,4 +16,7 @@ public interface VinculosService {
 
 	List<Vinculos> buscarTodos();
 
+	List<Vinculos> buscarPorNome(String nomeViculo);
+	
+	Vinculos converteEmMaiusculo(Vinculos vinculos);
 }

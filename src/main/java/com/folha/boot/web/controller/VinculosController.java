@@ -7,6 +7,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.folha.boot.domain.Vinculos;
@@ -33,6 +34,8 @@ public class VinculosController {
 	@PostMapping("/salvar")
 	public String salvar(Vinculos vinculos, RedirectAttributes attr) {
 		
+		vinculos = service.converteEmMaiusculo(vinculos);
+		
 		service.salvar(vinculos);
 		attr.addFlashAttribute("success", "Inserido com sucesso.");
 		return "redirect:/vinculos/cadastrar";
@@ -46,6 +49,9 @@ public class VinculosController {
 	
 	@PostMapping("/editar")
 	public String editar(Vinculos vinculos, RedirectAttributes attr) {
+		
+		vinculos = service.converteEmMaiusculo(vinculos);
+		
 		service.editar(vinculos);
 		attr.addFlashAttribute("success", "Editado com sucesso.");
 		return "redirect:/vinculos/listar";
@@ -56,5 +62,11 @@ public class VinculosController {
 		service.excluir(id);  
 		model.addAttribute("success", "Excluído com sucesso.");
 		return listar(model);
+	}
+	
+	@GetMapping("/buscar/nome/vinculo")
+	public String getPorNome(@RequestParam("nomeVinculo") String nomeVinculo, ModelMap model) {		
+		model.addAttribute("vinculos", service.buscarPorNome(nomeVinculo.toUpperCase().trim()));
+		return "/vinculo/lista";
 	}
 }

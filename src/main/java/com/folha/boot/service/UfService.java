@@ -15,5 +15,9 @@ public interface UfService {
 	Uf buscarPorId(Long id);
 
 	List<Uf> buscarTodos();
+	
+	List<Uf> buscarPorNome(String nomeUF);
+	
+	Uf converteEmMaiusculo(Uf uf);
 
 }
