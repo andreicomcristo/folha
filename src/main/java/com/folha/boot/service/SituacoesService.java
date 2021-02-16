@@ -15,4 +15,8 @@ public interface SituacoesService {
 	Situacoes buscarPorId(Long id);
 
 	List<Situacoes> buscarTodos();
+	
+	List<Situacoes> buscarPorNome(String nomeSituacao);
+	
+	Situacoes converteEmMaiusculo(Situacoes situacoes);
 }

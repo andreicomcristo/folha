@@ -8,11 +8,14 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.folha.boot.Reposytory.TiposDeDocumentoReposytory;
 import com.folha.boot.domain.TiposDeDocumento;
+import com.folha.boot.util.UtilidadesDeTexto;
 
 @Service
 @Transactional(readOnly = false)
 public class TiposDeDocumentoServiceImpl implements TiposDeDocumentoService {
 
+	UtilidadesDeTexto utilidadesDeTexto = new UtilidadesDeTexto();
+	
 	@Autowired
 	private TiposDeDocumentoReposytory reposytory;
 	
@@ -45,7 +48,19 @@ public class TiposDeDocumentoServiceImpl implements TiposDeDocumentoService {
 	@Override
 	public List<TiposDeDocumento> buscarTodos() {
 		// TODO Auto-generated method stub
-		return reposytory.findAll();
+		return reposytory.findAllByOrderBySiglaDocumentoAsc();
+	}
+	
+	@Override
+	public List<TiposDeDocumento> buscarPorNome(String SiglaDocumento) {
+		return reposytory.findBySiglaDocumentoContainingOrderBySiglaDocumentoAsc(SiglaDocumento);
+	}
+	
+	@Override
+	public TiposDeDocumento converteEmMaiusculo(TiposDeDocumento tiposDeDocumento) {
+		tiposDeDocumento.setSiglaDocumento( utilidadesDeTexto.retiraEspacosDuplosAcentosEConverteEmMaiusculo(tiposDeDocumento.getSiglaDocumento()));
+		tiposDeDocumento.setNomeDocumento( utilidadesDeTexto.retiraEspacosDuplosAcentosEConverteEmMaiusculo(tiposDeDocumento.getNomeDocumento()));
+	return tiposDeDocumento;
 	}
 
 }

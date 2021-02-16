@@ -16,4 +16,7 @@ public interface TiposDeFiliacaoService {
 
 	List<TiposDeFiliacao> buscarTodos();
 
+	List<TiposDeFiliacao> buscarPorNome(String nomeTipoFiliacao);
+	
+	TiposDeFiliacao converteEmMaiusculo(TiposDeFiliacao tiposDeFiliacao);
 }

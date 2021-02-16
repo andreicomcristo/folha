@@ -8,11 +8,14 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.folha.boot.Reposytory.SituacoesReposytory;
 import com.folha.boot.domain.Situacoes;
+import com.folha.boot.util.UtilidadesDeTexto;
 
 @Service
 @Transactional(readOnly = false)
 public class SituacoesServiceImpl implements SituacoesService {
 
+	UtilidadesDeTexto utilidadesDeTexto = new UtilidadesDeTexto();
+	
 	@Autowired
 	private SituacoesReposytory reposytory;
 	@Override
@@ -44,7 +47,19 @@ public class SituacoesServiceImpl implements SituacoesService {
 	@Override
 	public List<Situacoes> buscarTodos() {
 		// TODO Auto-generated method stub
-		return reposytory.findAll();
+		return reposytory.findAllByOrderByNomeSituacaoAsc();
+	}
+	
+	@Override
+	public List<Situacoes> buscarPorNome(String nomeSituacao) {
+		return reposytory.findByNomeSituacaoContainingOrderByNomeSituacaoAsc(nomeSituacao);
+	}
+	
+	@Override
+	public Situacoes converteEmMaiusculo(Situacoes situacoes) {
+		situacoes.setNomeSituacao( utilidadesDeTexto.retiraEspacosDuplosAcentosEConverteEmMaiusculo(situacoes.getNomeSituacao()));
+		situacoes.setDescricaoSituacao( utilidadesDeTexto.retiraEspacosDuplosAcentosEConverteEmMaiusculo(situacoes.getDescricaoSituacao()));
+	return situacoes;
 	}
 
 }
