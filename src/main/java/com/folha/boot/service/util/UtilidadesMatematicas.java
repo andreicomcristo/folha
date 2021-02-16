@@ -3,6 +3,9 @@ package com.folha.boot.service.util;
 import java.math.BigDecimal;
 import java.math.RoundingMode;
 
+import org.springframework.stereotype.Component;
+
+@Component
 public class UtilidadesMatematicas {
 
     // UTILIDADES MATEMATICAS
@@ -18,7 +21,7 @@ public class UtilidadesMatematicas {
       return arredondado;
    }
 
-    public static double ajustaValorDecimal(double valor,int casas) {
+    public static double ajustaValorDecimal(double valor,int casas) { 
     
         double resposta = 0.0;
         

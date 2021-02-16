@@ -57,4 +57,6 @@ public class TiposLogradouroController {
 		model.addAttribute("success", "Excluído com sucesso.");
 		return listar(model);
 	}	
+	
+	
 }

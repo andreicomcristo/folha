@@ -8,6 +8,9 @@ import java.io.InputStream;
 import javax.imageio.ImageIO;
 import javax.swing.JOptionPane;
 
+import org.springframework.stereotype.Component;
+
+@Component
 public class UtilidadesDistintas {
 
 	//UTILIDADES DISTINTAS

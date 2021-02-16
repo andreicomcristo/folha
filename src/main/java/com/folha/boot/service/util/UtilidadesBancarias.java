@@ -1,7 +1,8 @@
 package com.folha.boot.service.util;
 
+import org.springframework.stereotype.Component;
 
-
+@Component
 public class UtilidadesBancarias {
 
 	//UTILIDADES DE BANCARIAS
