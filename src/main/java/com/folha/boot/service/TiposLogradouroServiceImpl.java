@@ -8,7 +8,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.folha.boot.Reposytory.TiposLogradouroReposytory;
 import com.folha.boot.domain.TiposLogradouro;
-import com.folha.boot.service.util.UtilidadesDeTexto;
+import com.folha.boot.service.util.*;
 
 @Service
 @Transactional(readOnly = false)
@@ -58,12 +58,9 @@ public class TiposLogradouroServiceImpl implements TiposLogradouroService {
 
 	@Override
 	public TiposLogradouro converteEmMaiusculo(TiposLogradouro tiposLogradouro) {
-		/*
-		 * bancos.setCodigoBanco( utilidadesDeTexto.retiraEspacosDuplosAcentosEConverteEmMaiusculo(bancos.getCodigoBanco()));
-		bancos.setNomeBanco( utilidadesDeTexto.retiraEspacosDuplosAcentosEConverteEmMaiusculo(bancos.getNomeBanco()));
-		bancos.setSiglaBanco( utilidadesDeTexto.retiraEspacosDuplosAcentosEConverteEmMaiusculo(bancos.getSiglaBanco()));
-		 * */
 		tiposLogradouro.setNomeTipoLogradouro(UtilidadesDeTexto.retiraEspacosDuplosAcentosEConverteEmMaiusculo(tiposLogradouro.getNomeTipoLogradouro()));
+		tiposLogradouro.setDescricaoTipoLogradouro(UtilidadesDeTexto.retiraEspacosDuplosAcentosEConverteEmMaiusculo(tiposLogradouro.getDescricaoTipoLogradouro()));
+		
 		return tiposLogradouro;
 	}
 
