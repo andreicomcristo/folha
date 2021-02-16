@@ -14,7 +14,7 @@ import com.folha.boot.domain.TiposLogradouro;
 import com.folha.boot.service.TiposLogradouroService;
 
 @Controller
-@RequestMapping("/tiposlogradouros")
+@RequestMapping("/tiposlogradouros") 
 public class TiposLogradouroController {
 
 	@Autowired

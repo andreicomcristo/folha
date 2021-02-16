@@ -8,11 +8,14 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.folha.boot.Reposytory.UfReposytory;
 import com.folha.boot.domain.Uf;
+import com.folha.boot.service.util.UtilidadesDeTexto;
 
 @Service
 @Transactional(readOnly = false)
 public class UfServiceImpl implements UfService{
 
+	UtilidadesDeTexto utilidadesDeTexto = new UtilidadesDeTexto();
+	
 	@Autowired
 	private UfReposytory reposytory;
 	
@@ -45,7 +48,19 @@ public class UfServiceImpl implements UfService{
 	@Override
 	public List<Uf> buscarTodos() {
 		// TODO Auto-generated method stub
-		return reposytory.findAll();
+		return reposytory.findAllByOrderByNomeUfAsc();
+	}
+	
+	@Override
+	public List<Uf> buscarPorNome(String nomeUf) {
+		return reposytory.findByNomeUfContainingOrderByNomeUfAsc(nomeUf);
+	}
+	
+	@Override
+	public Uf converteEmMaiusculo(Uf uf) {
+		uf.setSiglaUf( utilidadesDeTexto.retiraEspacosDuplosAcentosEConverteEmMaiusculo(uf.getSiglaUf()));
+		uf.setNomeUf( utilidadesDeTexto.retiraEspacosDuplosAcentosEConverteEmMaiusculo(uf.getNomeUf()));
+	return uf;
 	}
 
 }

@@ -15,6 +15,9 @@ import com.folha.boot.service.util.*;
 public class TiposLogradouroServiceImpl implements TiposLogradouroService {
 
 	@Autowired
+	private UtilidadesDeTexto utilidadesDeTexto;
+	
+	@Autowired
 	private TiposLogradouroReposytory reposytory;
 	
 	@Override
@@ -47,21 +50,25 @@ public class TiposLogradouroServiceImpl implements TiposLogradouroService {
 	@Override
 	public List<TiposLogradouro> buscarTodos() {
 		// TODO Auto-generated method stub
-		return reposytory.findAll();
+		return reposytory.findAllByOrderByNomeTipoLogradouroAsc();
 	}
 
 	@Override
 	public List<TiposLogradouro> buscarPorNome(String nomeTipoLogradouro) {
-		//reposytory.findByNomeBancoContainingOrderByNomeBancoAsc(nomeBanco)
 		return reposytory.findByNomeTipoLogradouroContainingOrderByNomeTipoLogradouroAsc(nomeTipoLogradouro);
 	}
 
 	@Override
 	public TiposLogradouro converteEmMaiusculo(TiposLogradouro tiposLogradouro) {
+<<<<<<< HEAD
 		tiposLogradouro.setNomeTipoLogradouro(UtilidadesDeTexto.retiraEspacosDuplosAcentosEConverteEmMaiusculo(tiposLogradouro.getNomeTipoLogradouro()));
 		tiposLogradouro.setDescricaoTipoLogradouro(UtilidadesDeTexto.retiraEspacosDuplosAcentosEConverteEmMaiusculo(tiposLogradouro.getDescricaoTipoLogradouro()));
 		
+=======
+		tiposLogradouro.setNomeTipoLogradouro(utilidadesDeTexto.retiraEspacosDuplosAcentosEConverteEmMaiusculo(tiposLogradouro.getNomeTipoLogradouro()));
+>>>>>>> branch 'master' of https://github.com/andreicomcristo/folha.git
 		return tiposLogradouro;
 	}
+
 
 }

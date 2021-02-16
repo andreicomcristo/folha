@@ -13,4 +13,5 @@ public interface TiposLogradouroReposytory extends JpaRepository<TiposLogradouro
 	public List<TiposLogradouro> findAllByOrderByNomeTipoLogradouroAsc();
 
 	public List<TiposLogradouro> findByNomeTipoLogradouroContainingOrderByNomeTipoLogradouroAsc(String nomeTipoLogradouro);
+
 }
