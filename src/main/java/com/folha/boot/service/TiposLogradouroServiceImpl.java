@@ -58,4 +58,10 @@ public class TiposLogradouroServiceImpl implements TiposLogradouroService {
 		return reposytory.findByNomeTipoLogradouroContainingOrderByNomeTipoLogradouroAsc(nomeTipoLogradouro);
 	}
 
+	@Override
+	public TiposLogradouro converteEmMaiusculo(TiposLogradouro tiposLogradouro) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
 }
