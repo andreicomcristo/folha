@@ -59,7 +59,7 @@ public class PaisesController {
 		return listar(model);
 	}
 	
-	@GetMapping("/buscar/nomePais")
+	@GetMapping("/buscar/nome/pais")
 	public String getPorNome(@RequestParam("nomePais") String nomePais, ModelMap model) {		
 		model.addAttribute("paises", service.buscarPorNome(nomePais.toUpperCase().trim()));
 		return "/pais/lista";

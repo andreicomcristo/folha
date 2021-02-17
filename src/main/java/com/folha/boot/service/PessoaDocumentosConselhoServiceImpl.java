@@ -8,6 +8,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.folha.boot.Reposytory.PessoaDocumentosConselhoReposytory;
 import com.folha.boot.domain.PessoaDocumentosConselho;
+import com.folha.boot.service.util.UtilidadesDeTexto;
 
 @Service
 @Transactional(readOnly = false)
@@ -46,6 +47,19 @@ public class PessoaDocumentosConselhoServiceImpl implements PessoaDocumentosCons
 	public List<PessoaDocumentosConselho> buscarTodos() {
 		// TODO Auto-generated method stub
 		return reposytory.findAll();
+	}
+
+	@Override
+	public PessoaDocumentosConselho converteEmMaiusculo(PessoaDocumentosConselho pessoaDocumentosConselho) {
+		// TODO Auto-generated method stub
+		pessoaDocumentosConselho.setNumeroConselho(UtilidadesDeTexto.retiraEspacosDuplosAcentosEConverteEmMaiusculo(pessoaDocumentosConselho.getNumeroConselho()));
+		return null;
+	}
+
+	@Override
+	public List<PessoaDocumentosConselho> buscarPorNome(String numeroConselho) {
+		// TODO Auto-generated method stub
+		return reposytory.findByNumeroConselhoContainingOrderByNumeroConselhoAsc(numeroConselho);
 	}
 
 }

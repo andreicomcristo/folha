@@ -58,7 +58,7 @@ public class NiveisCargoController {
 		return listar(model);
 	}
 	
-	@GetMapping("/buscar/nomeNivelCargo")
+	@GetMapping("/buscar/nome/nivel/cargo")
 	public String getPorNome(@RequestParam("nomeNivelCargo") String nomeNivelCargo, ModelMap model) {		
 		model.addAttribute("niveisCargo", service.buscarPorNome(nomeNivelCargo.toUpperCase().trim()));
 		return "/nivel/lista";

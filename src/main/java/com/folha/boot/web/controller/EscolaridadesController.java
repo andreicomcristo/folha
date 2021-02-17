@@ -59,7 +59,7 @@ public class EscolaridadesController {
 		return listar(model);
 	}
 	
-	@GetMapping("/buscar/nomeescolaridade")
+	@GetMapping("/buscar/nome/escolaridade")
 	public String getPorNome(@RequestParam("nomeEscolaridade") String nomeEscolaridade, ModelMap model) {		
 		model.addAttribute("escolaridades", service.buscarPorNome(nomeEscolaridade.toUpperCase().trim()));
 		return "/escolaridade/lista";

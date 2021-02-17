@@ -1,7 +1,6 @@
 package com.folha.boot.service;
 
 import java.util.List;
-
 import com.folha.boot.domain.Pessoa;
 
 public interface PessoaService {
@@ -13,6 +12,10 @@ public interface PessoaService {
 	void excluir(Long id);
 
 	Pessoa buscarPorId(Long id);
+
+	Pessoa converteEmMaiusculo(Pessoa pessoa);
+
+	List<Pessoa> buscarPorNome(String nome);
 
 	List<Pessoa> buscarTodos();
 }

@@ -59,7 +59,7 @@ public class EstadosCivisController {
 		return listar(model);
 	}
 	
-	@GetMapping("/buscar/nomeEstadoCivil")
+	@GetMapping("/buscar/nome/estadocivil")
 	public String getPorNome(@RequestParam("nomeEstadoCivil") String nomeEstadoCivil, ModelMap model) {		
 		model.addAttribute("estadosCivis", service.buscarPorNome(nomeEstadoCivil.toUpperCase().trim()));
 		return "/estadocivil/lista";
