@@ -8,6 +8,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.folha.boot.Reposytory.EnderecosReposytory;
 import com.folha.boot.domain.Enderecos;
+import com.folha.boot.service.util.UtilidadesDeTexto;
 
 @Service
 @Transactional(readOnly = false)
@@ -47,4 +48,19 @@ public class EnderecosServicesImpl implements EnderecosServices{
 		return reposytory.findAll();
 	}
 
+	@Override
+	public List<Enderecos> buscarPorNome(String enderecoLogradouro) {
+		// TODO Auto-generated method stub
+		return reposytory.findByEnderecoLogradouroContainingOrderByEnderecoLogradouroAsc(enderecoLogradouro);
+	}
+
+	@Override
+	public Enderecos converteEmMaiusculo(Enderecos enderecos) {
+		enderecos.setEnderecoLogradouro(UtilidadesDeTexto.retiraEspacosDuplosAcentosEConverteEmMaiusculo(enderecos.getEnderecoLogradouro()));
+		enderecos.setEnderecoBairro(UtilidadesDeTexto.retiraEspacosDuplosAcentosEConverteEmMaiusculo(enderecos.getEnderecoBairro()));
+		enderecos.setEnderecoCep(UtilidadesDeTexto.retiraEspacosDuplosAcentosEConverteEmMaiusculo(enderecos.getEnderecoCep()));
+		enderecos.setEnderecoComplemento(UtilidadesDeTexto.retiraEspacosDuplosAcentosEConverteEmMaiusculo(enderecos.getEnderecoComplemento()));
+		enderecos.setEnderecoNumero(UtilidadesDeTexto.retiraEspacosDuplosAcentosEConverteEmMaiusculo(enderecos.getEnderecoNumero()));
+		return null;
+	}
 }

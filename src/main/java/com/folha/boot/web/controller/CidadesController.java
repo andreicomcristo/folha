@@ -7,6 +7,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.folha.boot.domain.Cidades;
@@ -55,5 +56,11 @@ public class CidadesController {
 		service.excluir(id); 
 		model.addAttribute("success", "Excluído com sucesso.");
 		return listar(model);
+	}
+	
+	@GetMapping("/buscar/nome/cidade")
+	public String getPorNome(@RequestParam("nomeCidade") String nomeCidade, ModelMap model) {		
+		model.addAttribute("cidades", service.buscarPorNome(nomeCidade.toUpperCase().trim()));
+		return "/cidade/lista";
 	}
 }

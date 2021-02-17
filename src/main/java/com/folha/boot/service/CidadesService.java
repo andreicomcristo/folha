@@ -1,7 +1,6 @@
 package com.folha.boot.service;
 
 import java.util.List;
-
 import com.folha.boot.domain.Cidades;
 
 public interface CidadesService {
@@ -14,5 +13,9 @@ public interface CidadesService {
 
 	Cidades buscarPorId(Long id);
 
+	Cidades converteEmMaiusculo(Cidades cidades);
+	
+	List<Cidades> buscarPorNome(String nomeCidade);
+	
 	List<Cidades> buscarTodos();
 }

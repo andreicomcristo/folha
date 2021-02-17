@@ -53,11 +53,17 @@ public class CargosEspecialidadeServiceImpl implements CargosEspecialidadeServic
 	}
 
 	@Override
-	public CargosEspecialidade converteEmMaiusculo(CargosEspecialidade cargosEspecialidade) {
-			
-		cargosEspecialidade.setNomeEspecialidadeCargo(UtilidadesDeTexto.retiraEspacosDuplosAcentosEConverteEmMaiusculo(cargosEspecialidade.getNomeEspecialidadeCargo()));
-		cargosEspecialidade.setDescricaoEspecialidadeCargo(UtilidadesDeTexto.retiraEspacosDuplosAcentosEConverteEmMaiusculo(cargosEspecialidade.getDescricaoEspecialidadeCargo()));
-		return cargosEspecialidade;
+	public CargosEspecialidade converteEmMaiusculo(CargosEspecialidade cargosEspecialidade) {		
+			cargosEspecialidade.setNomeEspecialidadeCargo(UtilidadesDeTexto.retiraEspacosDuplosAcentosEConverteEmMaiusculo(cargosEspecialidade.getNomeEspecialidadeCargo()));
+			cargosEspecialidade.setDescricaoEspecialidadeCargo(UtilidadesDeTexto.retiraEspacosDuplosAcentosEConverteEmMaiusculo(cargosEspecialidade.getDescricaoEspecialidadeCargo()));
+	
+			return cargosEspecialidade;
+	}
+
+	@Override
+	public List<CargosEspecialidade> buscarPorNome(String nomeEspecialidadeCargo) {
+		// TODO Auto-generated method stub
+		return reposytory.findByNomeEspecialidadeCargoContainingOrderByNomeEspecialidadeCargoAsc(nomeEspecialidadeCargo);
 	}
 
 }

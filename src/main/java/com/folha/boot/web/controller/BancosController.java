@@ -61,7 +61,7 @@ public class BancosController {
 		return listar(model);
 	}
 	
-	@GetMapping("/buscar/nomebanco")
+	@GetMapping("/buscar/nome/banco")
 	public String getPorNome(@RequestParam("nomeBanco") String nomeBanco, ModelMap model) {		
 		model.addAttribute("bancos", service.buscarPorNome(nomeBanco.toUpperCase().trim()));
 		return "/banco/lista";

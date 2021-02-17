@@ -14,5 +14,9 @@ public interface EnderecosServices {
 
 	Enderecos buscarPorId(Long id);
 
+	Enderecos converteEmMaiusculo(Enderecos enderecos);
+
+	List<Enderecos> buscarPorNome(String enderecoLogradouro);
+
 	List<Enderecos> buscarTodos();
 }

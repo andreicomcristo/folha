@@ -13,11 +13,11 @@ public interface BancosService {
 	void excluir(Long id);
 
 	Bancos buscarPorId(Long id);
+	
+	Bancos converteEmMaiusculo(Bancos bancos);
+	
+	List<Bancos> buscarPorNome(String nomeBanco);
 
 	List<Bancos> buscarTodos();
 	
-	List<Bancos> buscarPorNome(String nomeBanco);
-	
-	Bancos converteEmMaiusculo(Bancos bancos);
-
 }

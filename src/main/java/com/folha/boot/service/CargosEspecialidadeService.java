@@ -12,10 +12,12 @@ public interface CargosEspecialidadeService {
 
 	void excluir(Long id);
 
-	CargosEspecialidade buscarPorId(Long id);
+	CargosEspecialidade buscarPorId(Long id); 
 
 	CargosEspecialidade converteEmMaiusculo(CargosEspecialidade cargosEspecialidade);
 
+	List<CargosEspecialidade> buscarPorNome(String nomeEspecialidadeCargo);
+	
 	List<CargosEspecialidade> buscarTodos();
 	
 }

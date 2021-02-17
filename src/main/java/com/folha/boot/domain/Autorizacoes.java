@@ -23,22 +23,21 @@ public class Autorizacoes extends AbstractEntity<Long> {
 
 	@Column(name = "dt_criacao", nullable = false)
 	@Temporal(TemporalType.DATE)
-
 	private Date dtCriacao;
+	
 	@OneToMany(cascade = CascadeType.ALL, mappedBy = "idAutorizacaoFk")
-
 	private List<HistFuncionariosAutorizacao> histFuncionariosAutorizacaoCollection;
+
 	@JoinColumn(name = "id_funcionario_fk", referencedColumnName = "id", nullable = false)
 	@ManyToOne(optional = false)
-
 	private PessoaFuncionarios idFuncionarioFk;
+
 	@JoinColumn(name = "id_operador_criacao_fk", referencedColumnName = "id", nullable = false)
 	@ManyToOne(optional = false)
-
 	private PessoaOperadores idOperadorCriacaoFk;
+
 	@JoinColumn(name = "id_unidade_de_saude_fk", referencedColumnName = "id")
 	@ManyToOne
-
 	private Unidades idUnidadeDeSaudeFk;
 
 	public Date getDtInicio() {

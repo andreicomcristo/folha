@@ -73,7 +73,7 @@ public class CargosController {
 		return niveisCargoService.buscarTodos();
 	}
 
-	@GetMapping("/buscar/nomeCargo")
+	@GetMapping("/buscar/nome/cargo")
 	public String getPorNome(@RequestParam("nomeCargo") String nomeCargo, ModelMap model) {		
 		model.addAttribute("cargos", service.buscarPorNome(nomeCargo.toUpperCase().trim()));
 		return "/cargo/lista";
