@@ -53,7 +53,7 @@ public class PessoaDocumentosConselhoServiceImpl implements PessoaDocumentosCons
 	public PessoaDocumentosConselho converteEmMaiusculo(PessoaDocumentosConselho pessoaDocumentosConselho) {
 		// TODO Auto-generated method stub
 		pessoaDocumentosConselho.setNumeroConselho(UtilidadesDeTexto.retiraEspacosDuplosAcentosEConverteEmMaiusculo(pessoaDocumentosConselho.getNumeroConselho()));
-		return null;
+		return pessoaDocumentosConselho;
 	}
 
 	@Override

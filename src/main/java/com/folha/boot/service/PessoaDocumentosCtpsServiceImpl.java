@@ -55,7 +55,7 @@ public class PessoaDocumentosCtpsServiceImpl implements PessoaDocumentosCtpsServ
 		// TODO Auto-generated method stub
 		pessoaDocumentosCtps.setNumero(UtilidadesDeTexto.retiraEspacosDuplosAcentosEConverteEmMaiusculo(pessoaDocumentosCtps.getNumero()));
 		pessoaDocumentosCtps.setSerie(UtilidadesDeTexto.retiraEspacosDuplosAcentosEConverteEmMaiusculo(pessoaDocumentosCtps.getSerie()));
-		return null;
+		return pessoaDocumentosCtps;
 	}
 
 	@Override

@@ -7,7 +7,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.folha.boot.Reposytory.ClassesReposytory;
-import com.folha.boot.domain.Bancos;
 import com.folha.boot.domain.Classes;
 import com.folha.boot.service.util.UtilidadesDeTexto;
 
@@ -59,7 +58,7 @@ public class ClassesServiceImpl implements ClassesService{
 	public Classes converteEmMaiusculo(Classes classes) {
 		classes.setNomeClasse(UtilidadesDeTexto.retiraEspacosDuplosAcentosEConverteEmMaiusculo(classes.getNomeClasse()));
 		classes.setDescricaoClasse(UtilidadesDeTexto.retiraEspacosDuplosAcentosEConverteEmMaiusculo(classes.getDescricaoClasse()));
-	return classes;
+		return classes;
 	}
 	
 }

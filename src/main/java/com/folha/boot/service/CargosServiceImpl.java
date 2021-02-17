@@ -55,7 +55,6 @@ public class CargosServiceImpl implements CargosService{
 	public Cargos converteEmMaiusculo(Cargos cargos) {	
 		cargos.setNomeCargo(UtilidadesDeTexto.retiraEspacosDuplosAcentosEConverteEmMaiusculo(cargos.getNomeCargo()));
 		cargos.setDescricaoCargo(UtilidadesDeTexto.retiraEspacosDuplosAcentosEConverteEmMaiusculo(cargos.getDescricaoCargo()));
-		
 		return cargos;
 	}
 

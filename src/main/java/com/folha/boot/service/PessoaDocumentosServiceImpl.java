@@ -51,7 +51,7 @@ public class PessoaDocumentosServiceImpl implements PessoaDocumentosService{
 	public PessoaDocumentos converteEmMaiusculo(PessoaDocumentos pessoaDocumentos) {
 		// TODO Auto-generated method stub
 		pessoaDocumentos.setNumeroDocumento(UtilidadesDeTexto.retiraEspacosDuplosAcentosEConverteEmMaiusculo(pessoaDocumentos.getNumeroDocumento()));
-		return null;
+		return pessoaDocumentos;
 	}
 
 	@Override

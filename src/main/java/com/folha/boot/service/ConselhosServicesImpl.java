@@ -59,8 +59,7 @@ public class ConselhosServicesImpl implements ConselhosServices{
 	public Conselhos converteEmMaiusculo(Conselhos conselhos) {
 		conselhos.setNomeConselho(UtilidadesDeTexto.retiraEspacosDuplosAcentosEConverteEmMaiusculo(conselhos.getNomeConselho()));
 		conselhos.setDescricaoConselho(UtilidadesDeTexto.retiraEspacosDuplosAcentosEConverteEmMaiusculo(conselhos.getDescricaoConselho()));
-		
-	return conselhos;
+		return conselhos;
 	}
 
 }

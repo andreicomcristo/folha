@@ -58,8 +58,7 @@ public class NiveisCargoServiceImpl implements NiveisCargoService{
 	public NiveisCargo converteEmMaiusculo(NiveisCargo niveisCargo) {
 		niveisCargo.setSiglaNivelCargo(UtilidadesDeTexto.retiraEspacosDuplosAcentosEConverteEmMaiusculo(niveisCargo.getSiglaNivelCargo()));
 		niveisCargo.setNomeNivelCargo(UtilidadesDeTexto.retiraEspacosDuplosAcentosEConverteEmMaiusculo(niveisCargo.getNomeNivelCargo()));
-		niveisCargo.setDescricaoNivelCargo(UtilidadesDeTexto.retiraEspacosDuplosAcentosEConverteEmMaiusculo(niveisCargo.getDescricaoNivelCargo()));
-		
+		niveisCargo.setDescricaoNivelCargo(UtilidadesDeTexto.retiraEspacosDuplosAcentosEConverteEmMaiusculo(niveisCargo.getDescricaoNivelCargo()));	
 		return niveisCargo;
 	}
 

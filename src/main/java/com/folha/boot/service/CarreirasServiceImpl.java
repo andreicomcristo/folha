@@ -60,7 +60,6 @@ public class CarreirasServiceImpl implements CarreirasService{
 		carreiras.setSiglaCarreira(UtilidadesDeTexto.retiraEspacosDuplosAcentosEConverteEmMaiusculo(carreiras.getSiglaCarreira()));
 		carreiras.setNomeCarreira(UtilidadesDeTexto.retiraEspacosDuplosAcentosEConverteEmMaiusculo(carreiras.getNomeCarreira()));
 		carreiras.setDescricaoCarreira(UtilidadesDeTexto.retiraEspacosDuplosAcentosEConverteEmMaiusculo(carreiras.getDescricaoCarreira()));
-		
 		return carreiras;
 	};
 	

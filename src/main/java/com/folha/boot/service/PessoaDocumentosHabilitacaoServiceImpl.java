@@ -59,7 +59,7 @@ public class PessoaDocumentosHabilitacaoServiceImpl implements PessoaDocumentosH
 	@Override
 	public List<PessoaDocumentosHabilitacao> buscarPorNome(String numeroRegistro) {
 		// TODO Auto-generated method stub
-		return null;
+		return reposytory.findByNumeroRegistroContainingOrderByNumeroRegistroAsc(numeroRegistro);
 	}
 
 }

@@ -61,6 +61,6 @@ public class EnderecosServicesImpl implements EnderecosServices{
 		enderecos.setEnderecoCep(UtilidadesDeTexto.retiraEspacosDuplosAcentosEConverteEmMaiusculo(enderecos.getEnderecoCep()));
 		enderecos.setEnderecoComplemento(UtilidadesDeTexto.retiraEspacosDuplosAcentosEConverteEmMaiusculo(enderecos.getEnderecoComplemento()));
 		enderecos.setEnderecoNumero(UtilidadesDeTexto.retiraEspacosDuplosAcentosEConverteEmMaiusculo(enderecos.getEnderecoNumero()));
-		return null;
+		return enderecos;
 	}
 }

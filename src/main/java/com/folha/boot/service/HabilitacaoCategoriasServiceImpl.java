@@ -58,7 +58,7 @@ public class HabilitacaoCategoriasServiceImpl implements HabilitacaoCategoriasSe
 	public HabilitacaoCategorias converteEmMaiusculo(HabilitacaoCategorias habilitacaoCategorias) {
 		habilitacaoCategorias.setNomeHabilitacaoCategoria(UtilidadesDeTexto.retiraEspacosDuplosAcentosEConverteEmMaiusculo(habilitacaoCategorias.getNomeHabilitacaoCategoria()));
 		habilitacaoCategorias.setDescricaoHabilitacaoCategoria(UtilidadesDeTexto.retiraEspacosDuplosAcentosEConverteEmMaiusculo(habilitacaoCategorias.getDescricaoHabilitacaoCategoria()));
-	return habilitacaoCategorias;
+		return habilitacaoCategorias;
 	}
 	
 }

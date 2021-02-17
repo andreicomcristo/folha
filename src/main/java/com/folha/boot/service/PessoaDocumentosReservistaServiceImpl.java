@@ -54,7 +54,7 @@ public class PessoaDocumentosReservistaServiceImpl implements PessoaDocumentosRe
 		// TODO Auto-generated method stub
 		pessoaDocumentosReservista.setNumero(UtilidadesDeTexto.retiraEspacosDuplosAcentosEConverteEmMaiusculo(pessoaDocumentosReservista.getNumero()));
 		pessoaDocumentosReservista.setSerie(UtilidadesDeTexto.retiraEspacosDuplosAcentosEConverteEmMaiusculo(pessoaDocumentosReservista.getSerie()));
-		return null;
+		return pessoaDocumentosReservista;
 	}
 
 	@Override

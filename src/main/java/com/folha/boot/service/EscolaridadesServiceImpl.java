@@ -58,6 +58,6 @@ public class EscolaridadesServiceImpl implements EscolaridadesService{
 	public Escolaridades converteEmMaiusculo(Escolaridades escolaridades) {
 		escolaridades.setNomeEscolaridade(UtilidadesDeTexto.retiraEspacosDuplosAcentosEConverteEmMaiusculo(escolaridades.getNomeEscolaridade()));
 		escolaridades.setDescricaoEscolaridade(UtilidadesDeTexto.retiraEspacosDuplosAcentosEConverteEmMaiusculo(escolaridades.getDescricaoEscolaridade()));
-	return escolaridades;
+		return escolaridades;
 	}
 }

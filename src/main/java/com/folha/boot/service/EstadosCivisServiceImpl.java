@@ -58,7 +58,7 @@ public class EstadosCivisServiceImpl implements EstadosCivisService {
 	public EstadosCivis converteEmMaiusculo(EstadosCivis estadosCivis) {
 		estadosCivis.setNomeEstadoCivil(UtilidadesDeTexto.retiraEspacosDuplosAcentosEConverteEmMaiusculo(estadosCivis.getNomeEstadoCivil()));
 		estadosCivis.setDescricaoEstadoCivil(UtilidadesDeTexto.retiraEspacosDuplosAcentosEConverteEmMaiusculo(estadosCivis.getDescricaoEstadoCivil()));
-	return estadosCivis;
+		return estadosCivis;
 	}
 	
 }
