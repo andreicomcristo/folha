@@ -60,7 +60,7 @@ public class PessoaDocumentosConselhoController {
 		return listar(model);
 	}
 	
-	@GetMapping("/buscar/numero/conselho")
+	@GetMapping("/buscar/numero/documento/conselho")
 	public String getPorNome(@RequestParam("numeroConselho") String numeroConselho, ModelMap model) {		
 		model.addAttribute("pessoaDocumentosConselho", service.buscarPorNome(numeroConselho.toUpperCase().trim()));
 		return "/docconselho/lista";

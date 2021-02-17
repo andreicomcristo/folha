@@ -7,6 +7,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.folha.boot.domain.PessoaDocumentosRg;
@@ -56,5 +57,11 @@ public class PessoaDocumentosRgController {
 		service.excluir(id);  
 		model.addAttribute("success", "Excluído com sucesso.");
 		return listar(model);
+	}
+	
+	@GetMapping("/buscar/numero/documento/rg")
+	public String getPorNome(@RequestParam("rgNumero") String rgNumero, ModelMap model) {		
+		model.addAttribute("pessoaDocumentosRg", service.buscarPorNumero(rgNumero.toUpperCase().trim()));
+		return "/docrg/lista";
 	}
 }

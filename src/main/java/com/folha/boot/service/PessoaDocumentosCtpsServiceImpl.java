@@ -8,6 +8,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.folha.boot.Reposytory.PessoaDocumentosCtpsReposytory;
 import com.folha.boot.domain.PessoaDocumentosCtps;
+import com.folha.boot.service.util.UtilidadesDeTexto;
 
 
 @Service
@@ -47,6 +48,20 @@ public class PessoaDocumentosCtpsServiceImpl implements PessoaDocumentosCtpsServ
 	public List<PessoaDocumentosCtps> buscarTodos() {
 		// TODO Auto-generated method stub
 		return reposytory.findAll();
+	}
+
+	@Override
+	public PessoaDocumentosCtps converteEmMaiusculo(PessoaDocumentosCtps pessoaDocumentosCtps) {
+		// TODO Auto-generated method stub
+		pessoaDocumentosCtps.setNumero(UtilidadesDeTexto.retiraEspacosDuplosAcentosEConverteEmMaiusculo(pessoaDocumentosCtps.getNumero()));
+		pessoaDocumentosCtps.setSerie(UtilidadesDeTexto.retiraEspacosDuplosAcentosEConverteEmMaiusculo(pessoaDocumentosCtps.getSerie()));
+		return null;
+	}
+
+	@Override
+	public List<PessoaDocumentosCtps> buscarPorNumero(String numero) {
+		// TODO Auto-generated method stub
+		return reposytory.findByNumeroContainingOrderByNumeroAsc(numero);
 	}
 
 }

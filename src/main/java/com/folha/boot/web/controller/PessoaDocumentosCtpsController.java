@@ -7,6 +7,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.folha.boot.domain.PessoaDocumentosCtps;
@@ -59,4 +60,9 @@ public class PessoaDocumentosCtpsController {
 		return listar(model);
 	}
 
+	@GetMapping("/buscar/numero/documento/ctps")
+	public String getPorNome(@RequestParam("numero") String numero, ModelMap model) {		
+		model.addAttribute("pessoaDocumentosCtps", service.buscarPorNumero(numero.toUpperCase().trim()));
+		return "/docctps/lista";
+	}
 }
