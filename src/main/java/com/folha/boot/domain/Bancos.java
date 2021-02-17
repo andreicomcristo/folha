@@ -19,7 +19,7 @@ public class Bancos extends AbstractEntity<Long> {
 	private String siglaBanco;
 
 	@OneToMany(cascade = CascadeType.ALL, mappedBy = "idBancoFk")
-	private List<PessoaBancos> pessoaBancosCollection;
+	private List<PessoaBancos> pessoaBancosList;
 
 	public String getCodigoBanco() {
 		return codigoBanco;
@@ -45,12 +45,12 @@ public class Bancos extends AbstractEntity<Long> {
 		this.siglaBanco = siglaBanco;
 	}
 
-	public List<PessoaBancos> getPessoaBancosCollection() {
-		return pessoaBancosCollection;
+	public List<PessoaBancos> getPessoaBancosList() {
+		return pessoaBancosList;
 	}
 
-	public void setPessoaBancosCollection(List<PessoaBancos> pessoaBancosCollection) {
-		this.pessoaBancosCollection = pessoaBancosCollection;
+	public void setPessoaBancosList(List<PessoaBancos> pessoaBancosList) {
+		this.pessoaBancosList = pessoaBancosList;
 	}
 
 }

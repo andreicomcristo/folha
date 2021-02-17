@@ -26,7 +26,7 @@ public class Autorizacoes extends AbstractEntity<Long> {
 	private Date dtCriacao;
 	
 	@OneToMany(cascade = CascadeType.ALL, mappedBy = "idAutorizacaoFk")
-	private List<HistFuncionariosAutorizacao> histFuncionariosAutorizacaoCollection;
+	private List<HistFuncionariosAutorizacao> histFuncionariosAutorizacaoList;
 
 	@JoinColumn(name = "id_funcionario_fk", referencedColumnName = "id", nullable = false)
 	@ManyToOne(optional = false)
@@ -72,13 +72,12 @@ public class Autorizacoes extends AbstractEntity<Long> {
 		this.dtCriacao = dtCriacao;
 	}
 
-	public List<HistFuncionariosAutorizacao> getHistFuncionariosAutorizacaoCollection() {
-		return histFuncionariosAutorizacaoCollection;
+	public List<HistFuncionariosAutorizacao> getHistFuncionariosAutorizacaoList() {
+		return histFuncionariosAutorizacaoList;
 	}
 
-	public void setHistFuncionariosAutorizacaoCollection(
-			List<HistFuncionariosAutorizacao> histFuncionariosAutorizacaoCollection) {
-		this.histFuncionariosAutorizacaoCollection = histFuncionariosAutorizacaoCollection;
+	public void setHistFuncionariosAutorizacaoList(List<HistFuncionariosAutorizacao> histFuncionariosAutorizacaoList) {
+		this.histFuncionariosAutorizacaoList = histFuncionariosAutorizacaoList;
 	}
 
 	public PessoaFuncionarios getIdFuncionarioFk() {
