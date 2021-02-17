@@ -7,6 +7,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.folha.boot.domain.PessoaDocumentosTitulo;
@@ -56,5 +57,11 @@ public class PessoaDocumentosTituloController {
 		service.excluir(id);  
 		model.addAttribute("success", "Excluído com sucesso.");
 		return listar(model);
+	}
+	
+	@GetMapping("/buscar/numero/documento/titulo")
+	public String getPorNome(@RequestParam("numeroTitulo") String numeroTitulo, ModelMap model) {		
+		model.addAttribute("pessoaDocumentosTitulo", service.buscarPorNumero(numeroTitulo.toUpperCase().trim()));
+		return "/doctitulo/lista";
 	}
 }
