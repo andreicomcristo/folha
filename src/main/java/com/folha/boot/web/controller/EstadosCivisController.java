@@ -34,7 +34,7 @@ public class EstadosCivisController {
 	
 	@PostMapping("/salvar")
 	public String salvar(EstadosCivis estadoCivil, RedirectAttributes attr) {
-		service.salvar(service.converteEmMaiusculo(estadoCivil));
+		service.salvar(estadoCivil);
 		attr.addFlashAttribute("success", "Inserido com sucesso.");
 		return "redirect:/estadoscivis/cadastrar";
 	}
@@ -47,7 +47,7 @@ public class EstadosCivisController {
 	
 	@PostMapping("/editar")
 	public String editar(EstadosCivis estadoCivil, RedirectAttributes attr) {	
-		service.editar(service.converteEmMaiusculo(estadoCivil));
+		service.editar(estadoCivil);
 		attr.addFlashAttribute("success", "Editado com sucesso.");
 		return "redirect:/estadoscivis/listar";
 	}

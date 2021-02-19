@@ -18,5 +18,4 @@ public interface HabilitacaoCategoriasService {
 	
 	List<HabilitacaoCategorias> buscarPorNome(String nomeHabilitacaoCategorias);
 	
-	HabilitacaoCategorias converteEmMaiusculo(HabilitacaoCategorias habilitacaoCategorias);
 }

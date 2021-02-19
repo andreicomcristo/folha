@@ -1,8 +1,8 @@
 package com.folha.boot.domain;
 
 import java.util.List;
-
 import javax.persistence.*;
+import com.folha.boot.service.util.UtilidadesDeTexto;
 
 @SuppressWarnings("serial")
 @Entity
@@ -23,7 +23,7 @@ public class HabilitacaoCategorias extends AbstractEntity<Long> {
 	}
 
 	public void setNomeHabilitacaoCategoria(String nomeHabilitacaoCategoria) {
-		this.nomeHabilitacaoCategoria = nomeHabilitacaoCategoria;
+		this.nomeHabilitacaoCategoria = UtilidadesDeTexto.retiraEspacosDuplosAcentosEConverteEmMaiusculo(nomeHabilitacaoCategoria);
 	}
 
 	public String getDescricaoHabilitacaoCategoria() {
@@ -31,7 +31,7 @@ public class HabilitacaoCategorias extends AbstractEntity<Long> {
 	}
 
 	public void setDescricaoHabilitacaoCategoria(String descricaoHabilitacaoCategoria) {
-		this.descricaoHabilitacaoCategoria = descricaoHabilitacaoCategoria;
+		this.descricaoHabilitacaoCategoria = UtilidadesDeTexto.retiraEspacosDuplosAcentosEConverteEmMaiusculo(descricaoHabilitacaoCategoria);
 	}
 
 	public List<PessoaDocumentosHabilitacao> getPessoaDocumentosHabilitacaoCollection() {

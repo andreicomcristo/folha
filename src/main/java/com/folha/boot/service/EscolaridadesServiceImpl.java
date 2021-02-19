@@ -54,10 +54,4 @@ public class EscolaridadesServiceImpl implements EscolaridadesService{
 		return reposytory.findByNomeEscolaridadeContainingOrderByNomeEscolaridadeAsc(nomeEscolaridade);
 	}
 	
-	@Override
-	public Escolaridades converteEmMaiusculo(Escolaridades escolaridades) {
-		escolaridades.setNomeEscolaridade(UtilidadesDeTexto.retiraEspacosDuplosAcentosEConverteEmMaiusculo(escolaridades.getNomeEscolaridade()));
-		escolaridades.setDescricaoEscolaridade(UtilidadesDeTexto.retiraEspacosDuplosAcentosEConverteEmMaiusculo(escolaridades.getDescricaoEscolaridade()));
-		return escolaridades;
-	}
 }

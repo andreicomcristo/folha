@@ -2,6 +2,8 @@ package com.folha.boot.domain;
 
 import javax.persistence.*;
 
+import com.folha.boot.service.util.UtilidadesDeTexto;
+
 @SuppressWarnings("serial")
 @Entity
 @Table(name = "pessoa_documentos")
@@ -23,7 +25,7 @@ public class PessoaDocumentos extends AbstractEntity<Long> {
 	}
 
 	public void setNumeroDocumento(String numeroDocumento) {
-		this.numeroDocumento = numeroDocumento;
+		this.numeroDocumento = UtilidadesDeTexto.retiraEspacosDuplosAcentosEConverteEmMaiusculo(numeroDocumento);
 	}
 
 	public Pessoa getIdPessoaFk() {

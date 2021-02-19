@@ -4,6 +4,8 @@ import java.util.List;
 
 import javax.persistence.*;
 
+import com.folha.boot.service.util.UtilidadesDeTexto;
+
 @SuppressWarnings("serial")
 @Entity
 @Table(name = "cargos")
@@ -30,7 +32,7 @@ public class Cargos extends AbstractEntity<Long> {
 	}
 
 	public void setNomeCargo(String nomeCargo) {
-		this.nomeCargo = nomeCargo;
+		this.nomeCargo = UtilidadesDeTexto.retiraEspacosDuplosAcentosEConverteEmMaiusculo(nomeCargo);
 	}
 
 	public String getDescricaoCargo() {
@@ -38,7 +40,7 @@ public class Cargos extends AbstractEntity<Long> {
 	}
 
 	public void setDescricaoCargo(String descricaoCargo) {
-		this.descricaoCargo = descricaoCargo;
+		this.descricaoCargo = UtilidadesDeTexto.retiraEspacosDuplosAcentosEConverteEmMaiusculo(descricaoCargo);;
 	}
 
 	public List<CargosEspecialidade> getCargosEspecialidadeCollection() {

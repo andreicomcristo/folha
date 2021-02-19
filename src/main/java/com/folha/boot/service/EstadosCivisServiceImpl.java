@@ -53,12 +53,5 @@ public class EstadosCivisServiceImpl implements EstadosCivisService {
 	public List<EstadosCivis> buscarPorNome(String nomeEstadoCivil) {
 		return reposytory.findByNomeEstadoCivilContainingOrderByNomeEstadoCivilAsc(nomeEstadoCivil);
 	}
-	
-	@Override
-	public EstadosCivis converteEmMaiusculo(EstadosCivis estadosCivis) {
-		estadosCivis.setNomeEstadoCivil(UtilidadesDeTexto.retiraEspacosDuplosAcentosEConverteEmMaiusculo(estadosCivis.getNomeEstadoCivil()));
-		estadosCivis.setDescricaoEstadoCivil(UtilidadesDeTexto.retiraEspacosDuplosAcentosEConverteEmMaiusculo(estadosCivis.getDescricaoEstadoCivil()));
-		return estadosCivis;
-	}
-	
+
 }

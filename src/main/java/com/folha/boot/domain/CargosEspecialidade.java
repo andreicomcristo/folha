@@ -2,6 +2,8 @@ package com.folha.boot.domain;
 
 import javax.persistence.*;
 
+import com.folha.boot.service.util.UtilidadesDeTexto;
+
 @SuppressWarnings("serial")
 @Entity
 @Table(name = "cargos_especialidade")
@@ -22,7 +24,7 @@ public class CargosEspecialidade extends AbstractEntity<Long> {
 	}
 
 	public void setNomeEspecialidadeCargo(String nomeEspecialidadeCargo) {
-		this.nomeEspecialidadeCargo = nomeEspecialidadeCargo;
+		this.nomeEspecialidadeCargo = UtilidadesDeTexto.retiraEspacosDuplosAcentosEConverteEmMaiusculo(nomeEspecialidadeCargo);
 	}
 
 	public String getDescricaoEspecialidadeCargo() {
@@ -30,7 +32,7 @@ public class CargosEspecialidade extends AbstractEntity<Long> {
 	}
 
 	public void setDescricaoEspecialidadeCargo(String descricaoEspecialidadeCargo) {
-		this.descricaoEspecialidadeCargo = descricaoEspecialidadeCargo;
+		this.descricaoEspecialidadeCargo = UtilidadesDeTexto.retiraEspacosDuplosAcentosEConverteEmMaiusculo(descricaoEspecialidadeCargo);
 	}
 
 	public Cargos getIdCargoFk() {

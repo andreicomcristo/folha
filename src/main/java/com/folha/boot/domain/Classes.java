@@ -4,6 +4,8 @@ import java.util.List;
 
 import javax.persistence.*;
 
+import com.folha.boot.service.util.UtilidadesDeTexto;
+
 @SuppressWarnings("serial")
 @Entity
 @Table(name = "classes")
@@ -26,7 +28,7 @@ public class Classes extends AbstractEntity<Long> {
 	}
 
 	public void setSiglaClasse(String siglaClasse) {
-		this.siglaClasse = siglaClasse;
+		this.siglaClasse = UtilidadesDeTexto.retiraEspacosDuplosAcentosEConverteEmMaiusculo(siglaClasse);
 	}
 
 	public String getNomeClasse() {
@@ -34,7 +36,7 @@ public class Classes extends AbstractEntity<Long> {
 	}
 
 	public void setNomeClasse(String nomeClasse) {
-		this.nomeClasse = nomeClasse;
+		this.nomeClasse = UtilidadesDeTexto.retiraEspacosDuplosAcentosEConverteEmMaiusculo(nomeClasse);
 	}
 
 	public String getDescricaoClasse() {
@@ -42,7 +44,7 @@ public class Classes extends AbstractEntity<Long> {
 	}
 
 	public void setDescricaoClasse(String descricaoClasse) {
-		this.descricaoClasse = descricaoClasse;
+		this.descricaoClasse = UtilidadesDeTexto.retiraEspacosDuplosAcentosEConverteEmMaiusculo(descricaoClasse);
 	}
 
 	public List<HistFuncionariosClasse> getHistFuncionariosClasseCollection() {

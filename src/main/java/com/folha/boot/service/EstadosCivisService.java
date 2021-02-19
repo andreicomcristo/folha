@@ -18,5 +18,4 @@ public interface EstadosCivisService {
 	
 	List<EstadosCivis> buscarPorNome(String nomeEstadosCivis);
 	
-	EstadosCivis converteEmMaiusculo(EstadosCivis estadosCivis);
 }

@@ -53,11 +53,5 @@ public class PaisesSeviceImpl implements PaisesSevice{
 	public List<Paises> buscarPorNome(String nomePais) {
 		return reposytory.findByNomePaisContainingOrderByNomePaisAsc(nomePais);
 	}
-	
-	@Override
-	public Paises converteEmMaiusculo(Paises paises) {
-		paises.setNomePais(UtilidadesDeTexto.retiraEspacosDuplosAcentosEConverteEmMaiusculo(paises.getNomePais()));
-		return paises;
-	}
-	
+
 }

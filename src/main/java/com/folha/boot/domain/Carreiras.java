@@ -4,6 +4,8 @@ import java.util.List;
 
 import javax.persistence.*;
 
+import com.folha.boot.service.util.UtilidadesDeTexto;
+
 @SuppressWarnings("serial")
 @Entity
 @Table(name = "carreiras")
@@ -26,7 +28,7 @@ public class Carreiras extends AbstractEntity<Long> {
 	}
 
 	public void setSiglaCarreira(String siglaCarreira) {
-		this.siglaCarreira = siglaCarreira;
+		this.siglaCarreira = UtilidadesDeTexto.retiraEspacosDuplosAcentosEConverteEmMaiusculo(siglaCarreira);
 	}
 
 	public String getNomeCarreira() {
@@ -34,7 +36,7 @@ public class Carreiras extends AbstractEntity<Long> {
 	}
 
 	public void setNomeCarreira(String nomeCarreira) {
-		this.nomeCarreira = nomeCarreira;
+		this.nomeCarreira = UtilidadesDeTexto.retiraEspacosDuplosAcentosEConverteEmMaiusculo(nomeCarreira);
 	}
 
 	public String getDescricaoCarreira() {
@@ -42,7 +44,7 @@ public class Carreiras extends AbstractEntity<Long> {
 	}
 
 	public void setDescricaoCarreira(String descricaoCarreira) {
-		this.descricaoCarreira = descricaoCarreira;
+		this.descricaoCarreira = UtilidadesDeTexto.retiraEspacosDuplosAcentosEConverteEmMaiusculo(descricaoCarreira);
 	}
 
 	public List<HistFuncionariosCarreira> getHistFuncionariosCarreiraCollection() {

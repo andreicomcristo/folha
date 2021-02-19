@@ -17,6 +17,5 @@ public interface ConselhosServices {
 	List<Conselhos> buscarTodos();
 	
 	List<Conselhos> buscarPorDescricao(String descricaoConselho);
-	
-	Conselhos converteEmMaiusculo(Conselhos conselhos);
+
 }

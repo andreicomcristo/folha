@@ -48,14 +48,7 @@ public class PessoaDocumentosConselhoServiceImpl implements PessoaDocumentosCons
 		// TODO Auto-generated method stub
 		return reposytory.findAll();
 	}
-
-	@Override
-	public PessoaDocumentosConselho converteEmMaiusculo(PessoaDocumentosConselho pessoaDocumentosConselho) {
-		// TODO Auto-generated method stub
-		pessoaDocumentosConselho.setNumeroConselho(UtilidadesDeTexto.retiraEspacosDuplosAcentosEConverteEmMaiusculo(pessoaDocumentosConselho.getNumeroConselho()));
-		return pessoaDocumentosConselho;
-	}
-
+	
 	@Override
 	public List<PessoaDocumentosConselho> buscarPorNome(String numeroConselho) {
 		// TODO Auto-generated method stub

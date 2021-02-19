@@ -4,6 +4,8 @@ import java.util.List;
 
 import javax.persistence.*;
 
+import com.folha.boot.service.util.UtilidadesDeTexto;
+
 @SuppressWarnings("serial")
 @Entity
 @Table(name = "enderecos")
@@ -44,7 +46,7 @@ public class Enderecos extends AbstractEntity<Long> {
 	}
 
 	public void setEnderecoLogradouro(String enderecoLogradouro) {
-		this.enderecoLogradouro = enderecoLogradouro;
+		this.enderecoLogradouro = UtilidadesDeTexto.retiraEspacosDuplosAcentosEConverteEmMaiusculo(enderecoLogradouro);
 	}
 
 	public String getEnderecoNumero() {
@@ -52,7 +54,7 @@ public class Enderecos extends AbstractEntity<Long> {
 	}
 
 	public void setEnderecoNumero(String enderecoNumero) {
-		this.enderecoNumero = enderecoNumero;
+		this.enderecoNumero = UtilidadesDeTexto.retiraEspacosDuplosAcentosEConverteEmMaiusculo(enderecoNumero);
 	}
 
 	public String getEnderecoComplemento() {
@@ -60,7 +62,7 @@ public class Enderecos extends AbstractEntity<Long> {
 	}
 
 	public void setEnderecoComplemento(String enderecoComplemento) {
-		this.enderecoComplemento = enderecoComplemento;
+		this.enderecoComplemento = UtilidadesDeTexto.retiraEspacosDuplosAcentosEConverteEmMaiusculo(enderecoComplemento);
 	}
 
 	public String getEnderecoBairro() {
@@ -68,7 +70,7 @@ public class Enderecos extends AbstractEntity<Long> {
 	}
 
 	public void setEnderecoBairro(String enderecoBairro) {
-		this.enderecoBairro = enderecoBairro;
+		this.enderecoBairro = UtilidadesDeTexto.retiraEspacosDuplosAcentosEConverteEmMaiusculo(enderecoBairro);
 	}
 
 	public String getEnderecoCep() {
@@ -76,7 +78,7 @@ public class Enderecos extends AbstractEntity<Long> {
 	}
 
 	public void setEnderecoCep(String enderecoCep) {
-		this.enderecoCep = enderecoCep;
+		this.enderecoCep = UtilidadesDeTexto.retiraEspacosDuplosAcentosEConverteEmMaiusculo(enderecoCep);
 	}
 
 	public Cidades getIdEnderecoCidadeFk() {

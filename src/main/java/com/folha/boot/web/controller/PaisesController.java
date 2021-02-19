@@ -34,7 +34,7 @@ public class PaisesController {
 	
 	@PostMapping("/salvar")
 	public String salvar(Paises pais, RedirectAttributes attr) {
-		service.salvar(service.converteEmMaiusculo(pais));
+		service.salvar(pais);
 		attr.addFlashAttribute("success", "Inserido com sucesso.");
 		return "redirect:/paises/cadastrar";
 	}
@@ -47,7 +47,7 @@ public class PaisesController {
 	
 	@PostMapping("/editar")
 	public String editar(Paises pais, RedirectAttributes attr) {
-		service.editar(service.converteEmMaiusculo(pais));
+		service.editar(pais);
 		attr.addFlashAttribute("success", "Editado com sucesso.");
 		return "redirect:/paises/listar";
 	}

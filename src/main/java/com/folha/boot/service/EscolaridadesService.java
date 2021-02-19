@@ -17,5 +17,4 @@ public interface EscolaridadesService {
 
 	List<Escolaridades> buscarPorNome(String nomeEscolaridade);
 	
-	Escolaridades converteEmMaiusculo(Escolaridades escolaridades);
 }

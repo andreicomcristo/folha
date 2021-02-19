@@ -4,6 +4,8 @@ import java.util.List;
 
 import javax.persistence.*;
 
+import com.folha.boot.service.util.UtilidadesDeTexto;
+
 @SuppressWarnings("serial")
 @Entity
 @Table(name = "estados_civis")
@@ -23,7 +25,7 @@ public class EstadosCivis extends AbstractEntity<Long> {
 	}
 
 	public void setNomeEstadoCivil(String nomeEstadoCivil) {
-		this.nomeEstadoCivil = nomeEstadoCivil;
+		this.nomeEstadoCivil = UtilidadesDeTexto.retiraEspacosDuplosAcentosEConverteEmMaiusculo(nomeEstadoCivil);
 	}
 
 	public String getDescricaoEstadoCivil() {
@@ -31,7 +33,7 @@ public class EstadosCivis extends AbstractEntity<Long> {
 	}
 
 	public void setDescricaoEstadoCivil(String descricaoEstadoCivil) {
-		this.descricaoEstadoCivil = descricaoEstadoCivil;
+		this.descricaoEstadoCivil = UtilidadesDeTexto.retiraEspacosDuplosAcentosEConverteEmMaiusculo(descricaoEstadoCivil);
 	}
 
 	public List<Pessoa> getPessoaCollection() {

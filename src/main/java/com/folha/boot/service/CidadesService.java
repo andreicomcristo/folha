@@ -12,8 +12,6 @@ public interface CidadesService {
 	void excluir(Long id);
 
 	Cidades buscarPorId(Long id);
-
-	Cidades converteEmMaiusculo(Cidades cidades);
 	
 	List<Cidades> buscarPorNome(String nomeCidade);
 	

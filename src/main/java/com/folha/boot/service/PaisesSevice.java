@@ -18,5 +18,4 @@ public interface PaisesSevice {
 	
 	List<Paises> buscarPorNome(String nomePais);
 	
-	Paises converteEmMaiusculo(Paises paises);
 }

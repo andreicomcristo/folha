@@ -13,8 +13,6 @@ public interface PessoaService {
 
 	Pessoa buscarPorId(Long id);
 
-	Pessoa converteEmMaiusculo(Pessoa pessoa);
-
 	List<Pessoa> buscarPorNome(String nome);
 
 	List<Pessoa> buscarTodos();

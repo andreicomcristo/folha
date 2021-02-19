@@ -5,6 +5,8 @@ import java.util.List;
 
 import javax.persistence.*;
 
+import com.folha.boot.service.util.UtilidadesDeTexto;
+
 @SuppressWarnings("serial")
 @Entity
 @Table(name = "pessoa")
@@ -129,7 +131,7 @@ public class Pessoa extends AbstractEntity<Long> {
 	}
 
 	public void setCpf(String cpf) {
-		this.cpf = cpf;
+		this.cpf =UtilidadesDeTexto.retiraEspacosDuplosAcentosEConverteEmMaiusculo(cpf);
 	}
 
 	public String getNome() {
@@ -137,7 +139,7 @@ public class Pessoa extends AbstractEntity<Long> {
 	}
 
 	public void setNome(String nome) {
-		this.nome = nome;
+		this.nome = UtilidadesDeTexto.retiraEspacosDuplosAcentosEConverteEmMaiusculo(nome);
 	}
 
 	public String getFone1() {
@@ -145,7 +147,7 @@ public class Pessoa extends AbstractEntity<Long> {
 	}
 
 	public void setFone1(String fone1) {
-		this.fone1 = fone1;
+		this.fone1 = UtilidadesDeTexto.retiraEspacosDuplosAcentosEConverteEmMaiusculo(fone1);
 	}
 
 	public String getFone2() {
@@ -153,7 +155,7 @@ public class Pessoa extends AbstractEntity<Long> {
 	}
 
 	public void setFone2(String fone2) {
-		this.fone2 = fone2;
+		this.fone2 = UtilidadesDeTexto.retiraEspacosDuplosAcentosEConverteEmMaiusculo(fone2);
 	}
 
 	public String getFone3() {
@@ -161,7 +163,7 @@ public class Pessoa extends AbstractEntity<Long> {
 	}
 
 	public void setFone3(String fone3) {
-		this.fone3 = fone3;
+		this.fone3 = UtilidadesDeTexto.retiraEspacosDuplosAcentosEConverteEmMaiusculo(fone3);
 	}
 
 	public String getEmail() {
@@ -169,7 +171,7 @@ public class Pessoa extends AbstractEntity<Long> {
 	}
 
 	public void setEmail(String email) {
-		this.email = email;
+		this.email = UtilidadesDeTexto.retiraEspacosDuplosAcentosEConverteEmMaiusculo(email);
 	}
 
 	public String getEmailSaude() {
@@ -177,7 +179,7 @@ public class Pessoa extends AbstractEntity<Long> {
 	}
 
 	public void setEmailSaude(String emailSaude) {
-		this.emailSaude = emailSaude;
+		this.emailSaude = UtilidadesDeTexto.retiraEspacosDuplosAcentosEConverteEmMaiusculo(emailSaude);
 	}
 
 	public Date getDtNascimento() {
@@ -193,7 +195,7 @@ public class Pessoa extends AbstractEntity<Long> {
 	}
 
 	public void setNomePai(String nomePai) {
-		this.nomePai = nomePai;
+		this.nomePai = UtilidadesDeTexto.retiraEspacosDuplosAcentosEConverteEmMaiusculo(nomePai);
 	}
 
 	public String getNomeMae() {
@@ -201,7 +203,7 @@ public class Pessoa extends AbstractEntity<Long> {
 	}
 
 	public void setNomeMae(String nomeMae) {
-		this.nomeMae = nomeMae;
+		this.nomeMae = UtilidadesDeTexto.retiraEspacosDuplosAcentosEConverteEmMaiusculo(nomeMae);
 	}
 
 	public Date getDtCadastro() {
@@ -225,7 +227,7 @@ public class Pessoa extends AbstractEntity<Long> {
 	}
 
 	public void setMoivoCancelamento(String moivoCancelamento) {
-		this.moivoCancelamento = moivoCancelamento;
+		this.moivoCancelamento = UtilidadesDeTexto.retiraEspacosDuplosAcentosEConverteEmMaiusculo(moivoCancelamento);
 	}
 
 	public List<PessoaFilhos> getPessoaFilhosCollection() {

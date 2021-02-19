@@ -4,6 +4,8 @@ import java.util.List;
 
 import javax.persistence.*;
 
+import com.folha.boot.service.util.UtilidadesDeTexto;
+
 @SuppressWarnings("serial")
 @Entity
 @Table(name = "niveis_cargo")
@@ -24,20 +26,12 @@ public class NiveisCargo extends AbstractEntity<Long> {
 	@OneToMany(cascade = CascadeType.ALL, mappedBy = "idNivelCargoFk")
 	private List<Cargos> cargosCollection;
 
-	/*public Long getId() {
-		return id;
-	}
-
-	public void setId(Long id) {
-		this.id = id;
-	}*/
-
 	public String getSiglaNivelCargo() {
 		return siglaNivelCargo;
 	}
 
 	public void setSiglaNivelCargo(String siglaNivelCargo) {
-		this.siglaNivelCargo = siglaNivelCargo;
+		this.siglaNivelCargo = UtilidadesDeTexto.retiraEspacosDuplosAcentosEConverteEmMaiusculo(siglaNivelCargo);
 	}
 
 	public String getNomeNivelCargo() {
@@ -45,7 +39,7 @@ public class NiveisCargo extends AbstractEntity<Long> {
 	}
 
 	public void setNomeNivelCargo(String nomeNivelCargo) {
-		this.nomeNivelCargo = nomeNivelCargo;
+		this.nomeNivelCargo = UtilidadesDeTexto.retiraEspacosDuplosAcentosEConverteEmMaiusculo(nomeNivelCargo);
 	}
 
 	public String getDescricaoNivelCargo() {
@@ -53,7 +47,7 @@ public class NiveisCargo extends AbstractEntity<Long> {
 	}
 
 	public void setDescricaoNivelCargo(String descricaoNivelCargo) {
-		this.descricaoNivelCargo = descricaoNivelCargo;
+		this.descricaoNivelCargo = UtilidadesDeTexto.retiraEspacosDuplosAcentosEConverteEmMaiusculo(descricaoNivelCargo);
 	}
 
 	public List<Cargos> getCargosCollection() {

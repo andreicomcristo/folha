@@ -18,5 +18,4 @@ public interface ClassesService {
 	
 	List<Classes> buscarPorNome(String nomeClasse);
 	
-	Classes converteEmMaiusculo(Classes classes);
 }

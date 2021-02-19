@@ -6,7 +6,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import com.folha.boot.Reposytory.PessoaDocumentosReposytory;
 import com.folha.boot.domain.PessoaDocumentos;
-import com.folha.boot.service.util.UtilidadesDeTexto;
 
 @Service
 @Transactional(readOnly = false)
@@ -45,13 +44,6 @@ public class PessoaDocumentosServiceImpl implements PessoaDocumentosService{
 	public List<PessoaDocumentos> buscarTodos() {
 		// TODO Auto-generated method stub
 		return reposytory.findAll();
-	}
-
-	@Override
-	public PessoaDocumentos converteEmMaiusculo(PessoaDocumentos pessoaDocumentos) {
-		// TODO Auto-generated method stub
-		pessoaDocumentos.setNumeroDocumento(UtilidadesDeTexto.retiraEspacosDuplosAcentosEConverteEmMaiusculo(pessoaDocumentos.getNumeroDocumento()));
-		return pessoaDocumentos;
 	}
 
 	@Override

@@ -4,6 +4,8 @@ import java.util.Date;
 
 import javax.persistence.*;
 
+import com.folha.boot.service.util.UtilidadesDeTexto;
+
 @SuppressWarnings("serial")
 @Entity
 @Table(name = "pessoa_documentos_conselho")
@@ -29,7 +31,7 @@ public class PessoaDocumentosConselho extends AbstractEntity<Long> {
 		return numeroConselho;
 	}
 	public void setNumeroConselho(String numeroConselho) {
-		this.numeroConselho = numeroConselho;
+		this.numeroConselho = UtilidadesDeTexto.retiraEspacosDuplosAcentosEConverteEmMaiusculo(numeroConselho);
 	}
 	public Date getDtEmissao() {
 		return dtEmissao;

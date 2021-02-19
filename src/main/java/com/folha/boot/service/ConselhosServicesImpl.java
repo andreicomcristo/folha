@@ -1,14 +1,11 @@
 package com.folha.boot.service;
 
 import java.util.List;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-
 import com.folha.boot.Reposytory.ConselhosReposytory;
 import com.folha.boot.domain.Conselhos;
-import com.folha.boot.service.util.UtilidadesDeTexto;
 
 @Service
 @Transactional(readOnly = false)
@@ -55,11 +52,4 @@ public class ConselhosServicesImpl implements ConselhosServices{
 		return reposytory.findByDescricaoConselhoContainingOrderByDescricaoConselhoAsc(descricaoConselho);
 	}
 	
-	@Override
-	public Conselhos converteEmMaiusculo(Conselhos conselhos) {
-		conselhos.setNomeConselho(UtilidadesDeTexto.retiraEspacosDuplosAcentosEConverteEmMaiusculo(conselhos.getNomeConselho()));
-		conselhos.setDescricaoConselho(UtilidadesDeTexto.retiraEspacosDuplosAcentosEConverteEmMaiusculo(conselhos.getDescricaoConselho()));
-		return conselhos;
-	}
-
 }

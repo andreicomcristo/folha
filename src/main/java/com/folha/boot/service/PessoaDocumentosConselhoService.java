@@ -13,8 +13,6 @@ public interface PessoaDocumentosConselhoService {
 
 	PessoaDocumentosConselho buscarPorId(Long id);
 
-	PessoaDocumentosConselho converteEmMaiusculo(PessoaDocumentosConselho pessoaDocumentosConselho);
-
 	List<PessoaDocumentosConselho> buscarPorNome(String numeroConselho);
 
 	List<PessoaDocumentosConselho> buscarTodos();

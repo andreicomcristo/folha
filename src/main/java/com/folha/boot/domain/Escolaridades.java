@@ -4,6 +4,8 @@ import java.util.List;
 
 import javax.persistence.*;
 
+import com.folha.boot.service.util.UtilidadesDeTexto;
+
 @SuppressWarnings("serial")
 @Entity
 @Table(name = "escolaridades")
@@ -23,7 +25,7 @@ public class Escolaridades extends AbstractEntity<Long> {
 	}
 
 	public void setNomeEscolaridade(String nomeEscolaridade) {
-		this.nomeEscolaridade = nomeEscolaridade;
+		this.nomeEscolaridade = UtilidadesDeTexto.retiraEspacosDuplosAcentosEConverteEmMaiusculo(nomeEscolaridade);
 	}
 
 	public String getDescricaoEscolaridade() {
@@ -31,7 +33,7 @@ public class Escolaridades extends AbstractEntity<Long> {
 	}
 
 	public void setDescricaoEscolaridade(String descricaoEscolaridade) {
-		this.descricaoEscolaridade = descricaoEscolaridade;
+		this.descricaoEscolaridade = UtilidadesDeTexto.retiraEspacosDuplosAcentosEConverteEmMaiusculo(descricaoEscolaridade);
 	}
 
 	public List<Pessoa> getPessoaCollection() {

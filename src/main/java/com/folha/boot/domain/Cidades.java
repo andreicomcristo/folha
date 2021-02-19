@@ -4,6 +4,8 @@ import java.util.List;
 
 import javax.persistence.*;
 
+import com.folha.boot.service.util.UtilidadesDeTexto;
+
 @SuppressWarnings("serial")
 @Entity
 @Table(name = "cidades")
@@ -37,7 +39,7 @@ public class Cidades extends AbstractEntity<Long> {
 	}
 
 	public void setNomeCidade(String nomeCidade) {
-		this.nomeCidade = nomeCidade;
+		this.nomeCidade = UtilidadesDeTexto.retiraEspacosDuplosAcentosEConverteEmMaiusculo(nomeCidade);
 	}
 
 	public Paises getIdPaisFk() {

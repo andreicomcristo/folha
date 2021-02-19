@@ -1,14 +1,11 @@
 package com.folha.boot.service;
 
 import java.util.List;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-
 import com.folha.boot.Reposytory.EnderecosReposytory;
 import com.folha.boot.domain.Enderecos;
-import com.folha.boot.service.util.UtilidadesDeTexto;
 
 @Service
 @Transactional(readOnly = false)
@@ -54,13 +51,4 @@ public class EnderecosServicesImpl implements EnderecosServices{
 		return reposytory.findByEnderecoLogradouroContainingOrderByEnderecoLogradouroAsc(enderecoLogradouro);
 	}
 
-	@Override
-	public Enderecos converteEmMaiusculo(Enderecos enderecos) {
-		enderecos.setEnderecoLogradouro(UtilidadesDeTexto.retiraEspacosDuplosAcentosEConverteEmMaiusculo(enderecos.getEnderecoLogradouro()));
-		enderecos.setEnderecoBairro(UtilidadesDeTexto.retiraEspacosDuplosAcentosEConverteEmMaiusculo(enderecos.getEnderecoBairro()));
-		enderecos.setEnderecoCep(UtilidadesDeTexto.retiraEspacosDuplosAcentosEConverteEmMaiusculo(enderecos.getEnderecoCep()));
-		enderecos.setEnderecoComplemento(UtilidadesDeTexto.retiraEspacosDuplosAcentosEConverteEmMaiusculo(enderecos.getEnderecoComplemento()));
-		enderecos.setEnderecoNumero(UtilidadesDeTexto.retiraEspacosDuplosAcentosEConverteEmMaiusculo(enderecos.getEnderecoNumero()));
-		return enderecos;
-	}
 }

@@ -18,6 +18,4 @@ public interface NiveisCargoService {
 	
 	List<NiveisCargo> buscarPorNome(String nomeNivelCargo);
 	
-	NiveisCargo converteEmMaiusculo(NiveisCargo niveisCargo);
-	
 }

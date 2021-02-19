@@ -33,7 +33,7 @@ public class CarreirasController {
 	
 	@PostMapping("/salvar")
 	public String salvar(Carreiras carreira, RedirectAttributes attr) {				
-		service.salvar(service.converteEmMaiusculo(carreira));
+		service.salvar(carreira);
 		attr.addFlashAttribute("success", "Inserido com sucesso.");
 		return "redirect:/carreiras/cadastrar";
 	}
@@ -46,7 +46,7 @@ public class CarreirasController {
 	
 	@PostMapping("/editar")
 	public String editar(Carreiras carreiras, RedirectAttributes attr) {
-		service.editar(service.converteEmMaiusculo(carreiras));
+		service.editar(carreiras);
 		attr.addFlashAttribute("success", "Editado com sucesso.");
 		return "redirect:/carreiras/listar";
 	}

@@ -2,6 +2,8 @@ package com.folha.boot.domain;
 
 import javax.persistence.*;
 
+import com.folha.boot.service.util.UtilidadesDeTexto;
+
 @SuppressWarnings("serial")
 @Entity
 @Table(name = "pessoa_documentos_ctps")
@@ -22,7 +24,7 @@ public class PessoaDocumentosCtps extends AbstractEntity<Long> {
 	}
 
 	public void setNumero(String numero) {
-		this.numero = numero;
+		this.numero = UtilidadesDeTexto.retiraEspacosDuplosAcentosEConverteEmMaiusculo(numero);
 	}
 
 	public String getSerie() {
@@ -30,7 +32,7 @@ public class PessoaDocumentosCtps extends AbstractEntity<Long> {
 	}
 
 	public void setSerie(String serie) {
-		this.serie = serie;
+		this.serie = UtilidadesDeTexto.retiraEspacosDuplosAcentosEConverteEmMaiusculo(serie);
 	}
 
 	public Pessoa getIdPessoaFk() {
