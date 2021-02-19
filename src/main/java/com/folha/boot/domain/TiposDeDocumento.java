@@ -4,6 +4,8 @@ import java.util.List;
 
 import javax.persistence.*;
 
+import com.folha.boot.service.util.UtilidadesDeTexto;
+
 @SuppressWarnings("serial")
 @Entity
 @Table(name = "tipos_de_documento")
@@ -23,7 +25,7 @@ public class TiposDeDocumento extends AbstractEntity<Long> {
 	}
 
 	public void setSiglaDocumento(String siglaDocumento) {
-		this.siglaDocumento = siglaDocumento;
+		this.siglaDocumento = UtilidadesDeTexto.retiraEspacosDuplosAcentosEConverteEmMaiusculo(siglaDocumento);
 	}
 
 	public String getNomeDocumento() {
@@ -31,7 +33,7 @@ public class TiposDeDocumento extends AbstractEntity<Long> {
 	}
 
 	public void setNomeDocumento(String nomeDocumento) {
-		this.nomeDocumento = nomeDocumento;
+		this.nomeDocumento = UtilidadesDeTexto.retiraEspacosDuplosAcentosEConverteEmMaiusculo(nomeDocumento);
 	}
 
 	public List<PessoaDocumentos> getPessoaDocumentosCollection() {

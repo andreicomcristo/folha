@@ -4,6 +4,8 @@ import java.util.List;
 
 import javax.persistence.*;
 
+import com.folha.boot.service.util.UtilidadesDeTexto;
+
 @SuppressWarnings("serial")
 @Entity
 @Table(name = "vinculos")
@@ -23,7 +25,7 @@ public class Vinculos extends AbstractEntity<Long> {
 	}
 
 	public void setNomeVinculo(String nomeVinculo) {
-		this.nomeVinculo = nomeVinculo;
+		this.nomeVinculo = UtilidadesDeTexto.retiraEspacosDuplosAcentosEConverteEmMaiusculo(nomeVinculo);
 	}
 
 	public String getDescricaoVinculo() {
@@ -31,7 +33,7 @@ public class Vinculos extends AbstractEntity<Long> {
 	}
 
 	public void setDescricaoVinculo(String descricaoVinculo) {
-		this.descricaoVinculo = descricaoVinculo;
+		this.descricaoVinculo = UtilidadesDeTexto.retiraEspacosDuplosAcentosEConverteEmMaiusculo(descricaoVinculo);
 	}
 
 	public List<HistFuncionariosVinculos> getHistFuncionariosVinculosCollection() {

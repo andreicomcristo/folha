@@ -18,5 +18,4 @@ public interface PrivilegiosService {
 	
 	List<Privilegios> buscarPorNome(String nomePrivilegio);
 	
-	Privilegios converteEmMaiusculo(Privilegios privilegios);
 }

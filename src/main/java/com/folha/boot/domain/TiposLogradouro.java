@@ -4,6 +4,8 @@ import java.util.List;
 
 import javax.persistence.*;
 
+import com.folha.boot.service.util.UtilidadesDeTexto;
+
 @SuppressWarnings("serial")
 @Entity
 @Table(name = "tipos_logradouro")
@@ -26,7 +28,7 @@ public class TiposLogradouro extends AbstractEntity<Long> {
 	}
 
 	public void setNomeTipoLogradouro(String nomeTipoLogradouro) {
-		this.nomeTipoLogradouro = nomeTipoLogradouro;
+		this.nomeTipoLogradouro = UtilidadesDeTexto.retiraEspacosDuplosAcentosEConverteEmMaiusculo(nomeTipoLogradouro);
 	}
 
 	public String getDescricaoTipoLogradouro() {
@@ -34,7 +36,7 @@ public class TiposLogradouro extends AbstractEntity<Long> {
 	}
 
 	public void setDescricaoTipoLogradouro(String descricaoTipoLogradouro) {
-		this.descricaoTipoLogradouro = descricaoTipoLogradouro;
+		this.descricaoTipoLogradouro = UtilidadesDeTexto.retiraEspacosDuplosAcentosEConverteEmMaiusculo(descricaoTipoLogradouro);
 	}
 
 	public List<Enderecos> getEnderecosCollection() {

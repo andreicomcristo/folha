@@ -4,6 +4,8 @@ import java.util.Date;
 
 import javax.persistence.*;
 
+import com.folha.boot.service.util.UtilidadesDeTexto;
+
 @SuppressWarnings("serial")
 @Entity
 @Table(name = "pessoa_documentos_habilitacao")
@@ -37,7 +39,7 @@ public class PessoaDocumentosHabilitacao extends AbstractEntity<Long> {
 	}
 
 	public void setNumeroRegistro(String numeroRegistro) {
-		this.numeroRegistro = numeroRegistro;
+		this.numeroRegistro = UtilidadesDeTexto.retiraEspacosDuplosAcentosEConverteEmMaiusculo(numeroRegistro);
 	}
 
 	public Date getDtEmissao() {

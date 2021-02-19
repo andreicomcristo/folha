@@ -9,7 +9,6 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
-
 import com.folha.boot.domain.Situacoes;
 import com.folha.boot.service.SituacoesService;
 
@@ -33,7 +32,7 @@ public class SituacoesController {
 	
 	@PostMapping("/salvar")
 	public String salvar(Situacoes situacoes, RedirectAttributes attr) {		
-		service.salvar(service.converteEmMaiusculo(situacoes));
+		service.salvar(situacoes);
 		attr.addFlashAttribute("success", "Inserido com sucesso.");
 		return "redirect:/situacoes/cadastrar";
 	}
@@ -46,7 +45,7 @@ public class SituacoesController {
 	
 	@PostMapping("/editar")
 	public String editar(Situacoes situacoes, RedirectAttributes attr) {
-		service.editar(service.converteEmMaiusculo(situacoes));
+		service.editar(situacoes);
 		attr.addFlashAttribute("success", "Editado com sucesso.");
 		return "redirect:/situacoes/listar";
 	}

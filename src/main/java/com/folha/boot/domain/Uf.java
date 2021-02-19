@@ -4,6 +4,8 @@ import java.util.List;
 
 import javax.persistence.*;
 
+import com.folha.boot.service.util.UtilidadesDeTexto;
+
 @SuppressWarnings("serial")
 @Entity
 @Table(name = "uf")
@@ -30,7 +32,7 @@ public class Uf extends AbstractEntity<Long> {
 	}
 
 	public void setSiglaUf(String siglaUf) {
-		this.siglaUf = siglaUf;
+		this.siglaUf = UtilidadesDeTexto.retiraEspacosDuplosAcentosEConverteEmMaiusculo(siglaUf);
 	}
 
 	public String getNomeUf() {
@@ -38,7 +40,7 @@ public class Uf extends AbstractEntity<Long> {
 	}
 
 	public void setNomeUf(String nomeUf) {
-		this.nomeUf = nomeUf;
+		this.nomeUf = UtilidadesDeTexto.retiraEspacosDuplosAcentosEConverteEmMaiusculo(nomeUf);
 	}
 
 	public List<PessoaDocumentosConselho> getPessoaDocumentosConselhoCollection() {

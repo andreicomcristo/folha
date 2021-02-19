@@ -33,7 +33,7 @@ public class TiposDeDocumentoController {
 	
 	@PostMapping("/salvar")
 	public String salvar(TiposDeDocumento tiposDeDocumento, RedirectAttributes attr) {
-		service.salvar(service.converteEmMaiusculo(tiposDeDocumento));
+		service.salvar(tiposDeDocumento);
 		attr.addFlashAttribute("success", "Inserido com sucesso.");
 		return "redirect:/tiposdedocumentos/cadastrar";
 	}
@@ -46,7 +46,7 @@ public class TiposDeDocumentoController {
 	
 	@PostMapping("/editar")
 	public String editar(TiposDeDocumento tiposDeDocumento, RedirectAttributes attr) {
-		service.editar(service.converteEmMaiusculo(tiposDeDocumento));
+		service.editar(tiposDeDocumento);
 		attr.addFlashAttribute("success", "Editado com sucesso.");
 		return "redirect:/tiposdedocumentos/listar";
 	}

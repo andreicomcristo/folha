@@ -18,6 +18,4 @@ public interface UfService {
 	
 	List<Uf> buscarPorNome(String nomeUF);
 	
-	Uf converteEmMaiusculo(Uf uf);
-
 }

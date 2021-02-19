@@ -13,8 +13,6 @@ public interface PessoaDocumentosHabilitacaoService {
 
 	PessoaDocumentosHabilitacao buscarPorId(Long id);
 
-	PessoaDocumentosHabilitacao converteEmMaiusculo(PessoaDocumentosHabilitacao pessoaDocumentosHabilitacao);
-
 	List<PessoaDocumentosHabilitacao> buscarPorNome(String numeroRegistro);
 
 	List<PessoaDocumentosHabilitacao> buscarTodos();

@@ -13,8 +13,6 @@ public interface PessoaDocumentosReservistaService {
 
 	PessoaDocumentosReservista buscarPorId(Long id);
 
-	PessoaDocumentosReservista converteEmMaiusculo(PessoaDocumentosReservista pessoaDocumentosReservista);
-
 	List<PessoaDocumentosReservista> buscarPorNumero(String numero);
 
 	List<PessoaDocumentosReservista> buscarTodos();

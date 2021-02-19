@@ -5,6 +5,8 @@ import java.util.List;
 
 import javax.persistence.*;
 
+import com.folha.boot.service.util.UtilidadesDeTexto;
+
 @SuppressWarnings("serial")
 @Entity
 @Table(name = "pessoa_funcionarios")
@@ -85,7 +87,7 @@ public class PessoaFuncionarios extends AbstractEntity<Long> {
 	}
 
 	public void setMatricula(String matricula) {
-		this.matricula = matricula;
+		this.matricula = UtilidadesDeTexto.retiraEspacosDuplosAcentosEConverteEmMaiusculo(matricula);
 	}
 
 	public Date getDtNomeacao() {
@@ -109,7 +111,7 @@ public class PessoaFuncionarios extends AbstractEntity<Long> {
 	}
 
 	public void setNumeroDeOrdem(String numeroDeOrdem) {
-		this.numeroDeOrdem = numeroDeOrdem;
+		this.numeroDeOrdem = UtilidadesDeTexto.retiraEspacosDuplosAcentosEConverteEmMaiusculo(numeroDeOrdem);
 	}
 
 	public String getNumeroDePonto() {
@@ -117,7 +119,7 @@ public class PessoaFuncionarios extends AbstractEntity<Long> {
 	}
 
 	public void setNumeroDePonto(String numeroDePonto) {
-		this.numeroDePonto = numeroDePonto;
+		this.numeroDePonto = UtilidadesDeTexto.retiraEspacosDuplosAcentosEConverteEmMaiusculo(numeroDePonto);
 	}
 
 	public Date getDtCadastro() {
@@ -133,7 +135,7 @@ public class PessoaFuncionarios extends AbstractEntity<Long> {
 	}
 
 	public void setMotivoCadastro(String motivoCadastro) {
-		this.motivoCadastro = motivoCadastro;
+		this.motivoCadastro = UtilidadesDeTexto.retiraEspacosDuplosAcentosEConverteEmMaiusculo(motivoCadastro);
 	}
 
 	public Date getDtCancelamento() {
@@ -149,7 +151,7 @@ public class PessoaFuncionarios extends AbstractEntity<Long> {
 	}
 
 	public void setMotivoCancelamento(String motivoCancelamento) {
-		this.motivoCancelamento = motivoCancelamento;
+		this.motivoCancelamento = UtilidadesDeTexto.retiraEspacosDuplosAcentosEConverteEmMaiusculo(motivoCancelamento);
 	}
 
 	public List<HistFuncionariosAutorizacao> getHistFuncionariosAutorizacaoCollection() {

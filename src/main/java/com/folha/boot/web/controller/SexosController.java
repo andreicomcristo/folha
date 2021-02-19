@@ -33,7 +33,7 @@ public class SexosController {
 	
 	@PostMapping("/salvar")
 	public String salvar(Sexos sexos, RedirectAttributes attr) {
-		service.salvar(service.converteEmMaiusculo(sexos));
+		service.salvar(sexos);
 		attr.addFlashAttribute("success", "Inserido com sucesso.");
 		return "redirect:/sexos/cadastrar";
 	}
@@ -46,9 +46,6 @@ public class SexosController {
 	
 	@PostMapping("/editar")
 	public String editar(Sexos sexos, RedirectAttributes attr) {
-		
-		sexos = service.converteEmMaiusculo(sexos);
-		
 		service.editar(sexos);
 		attr.addFlashAttribute("success", "Editado com sucesso.");
 		return "redirect:/sexos/listar";

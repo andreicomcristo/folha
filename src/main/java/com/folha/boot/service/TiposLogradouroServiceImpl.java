@@ -1,14 +1,11 @@
 package com.folha.boot.service;
 
 import java.util.List;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-
 import com.folha.boot.Reposytory.TiposLogradouroReposytory;
 import com.folha.boot.domain.TiposLogradouro;
-import com.folha.boot.service.util.*;
 
 @Service
 @Transactional(readOnly = false)
@@ -53,14 +50,6 @@ public class TiposLogradouroServiceImpl implements TiposLogradouroService {
 	@Override
 	public List<TiposLogradouro> buscarPorNome(String nomeTipoLogradouro) {
 		return reposytory.findByNomeTipoLogradouroContainingOrderByNomeTipoLogradouroAsc(nomeTipoLogradouro);
-	}
-
-	@Override
-	public TiposLogradouro converteEmMaiusculo(TiposLogradouro tiposLogradouro) {
-
-		tiposLogradouro.setNomeTipoLogradouro(UtilidadesDeTexto.retiraEspacosDuplosAcentosEConverteEmMaiusculo(tiposLogradouro.getNomeTipoLogradouro()));
-		tiposLogradouro.setDescricaoTipoLogradouro(UtilidadesDeTexto.retiraEspacosDuplosAcentosEConverteEmMaiusculo(tiposLogradouro.getDescricaoTipoLogradouro()));
-		return tiposLogradouro;
 	}
 
 }

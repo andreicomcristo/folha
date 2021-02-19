@@ -4,6 +4,8 @@ import java.util.Date;
 
 import javax.persistence.*;
 
+import com.folha.boot.service.util.UtilidadesDeTexto;
+
 @SuppressWarnings("serial")
 @Entity
 @Table(name = "pessoa_documentos_rg")
@@ -31,7 +33,7 @@ public class PessoaDocumentosRg extends AbstractEntity<Long> {
 	}
 
 	public void setRgNumero(String rgNumero) {
-		this.rgNumero = rgNumero;
+		this.rgNumero = UtilidadesDeTexto.retiraEspacosDuplosAcentosEConverteEmMaiusculo(rgNumero);
 	}
 
 	public String getRgOrgaoEmissor() {
@@ -39,7 +41,7 @@ public class PessoaDocumentosRg extends AbstractEntity<Long> {
 	}
 
 	public void setRgOrgaoEmissor(String rgOrgaoEmissor) {
-		this.rgOrgaoEmissor = rgOrgaoEmissor;
+		this.rgOrgaoEmissor = UtilidadesDeTexto.retiraEspacosDuplosAcentosEConverteEmMaiusculo(rgOrgaoEmissor);
 	}
 
 	public Date getDtEmissao() {

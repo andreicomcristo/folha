@@ -6,6 +6,8 @@ import java.util.List;
 
 import javax.persistence.*;
 
+import com.folha.boot.service.util.UtilidadesDeTexto;
+
 @SuppressWarnings("serial")
 @Entity
 @Table(name = "unidades")
@@ -94,7 +96,7 @@ public class Unidades extends AbstractEntity<Long> {
 	}
 
 	public void setNomeFantasia(String nomeFantasia) {
-		this.nomeFantasia = nomeFantasia;
+		this.nomeFantasia = UtilidadesDeTexto.retiraEspacosDuplosAcentosEConverteEmMaiusculo(nomeFantasia);
 	}
 
 	public String getNomeEmpresarial() {
@@ -102,7 +104,7 @@ public class Unidades extends AbstractEntity<Long> {
 	}
 
 	public void setNomeEmpresarial(String nomeEmpresarial) {
-		this.nomeEmpresarial = nomeEmpresarial;
+		this.nomeEmpresarial = UtilidadesDeTexto.retiraEspacosDuplosAcentosEConverteEmMaiusculo(nomeEmpresarial);
 	}
 
 	public String getCnes() {
@@ -110,7 +112,7 @@ public class Unidades extends AbstractEntity<Long> {
 	}
 
 	public void setCnes(String cnes) {
-		this.cnes = cnes;
+		this.cnes = UtilidadesDeTexto.retiraEspacosDuplosAcentosEConverteEmMaiusculo(cnes);
 	}
 
 	public BigInteger getIdNaturezaJuridicaFk() {
@@ -134,7 +136,7 @@ public class Unidades extends AbstractEntity<Long> {
 	}
 
 	public void setFone1(String fone1) {
-		this.fone1 = fone1;
+		this.fone1 = UtilidadesDeTexto.retiraEspacosDuplosAcentosEConverteEmMaiusculo(fone1);
 	}
 
 	public String getEnderecoLogradouro() {
@@ -142,7 +144,7 @@ public class Unidades extends AbstractEntity<Long> {
 	}
 
 	public void setEnderecoLogradouro(String enderecoLogradouro) {
-		this.enderecoLogradouro = enderecoLogradouro;
+		this.enderecoLogradouro = UtilidadesDeTexto.retiraEspacosDuplosAcentosEConverteEmMaiusculo(enderecoLogradouro);
 	}
 
 	public String getEnderecoNumero() {
@@ -150,7 +152,7 @@ public class Unidades extends AbstractEntity<Long> {
 	}
 
 	public void setEnderecoNumero(String enderecoNumero) {
-		this.enderecoNumero = enderecoNumero;
+		this.enderecoNumero = UtilidadesDeTexto.retiraEspacosDuplosAcentosEConverteEmMaiusculo(enderecoNumero);
 	}
 
 	public String getEnderecoComplemento() {
@@ -158,7 +160,7 @@ public class Unidades extends AbstractEntity<Long> {
 	}
 
 	public void setEnderecoComplemento(String enderecoComplemento) {
-		this.enderecoComplemento = enderecoComplemento;
+		this.enderecoComplemento = UtilidadesDeTexto.retiraEspacosDuplosAcentosEConverteEmMaiusculo(enderecoComplemento);
 	}
 
 	public String getEnderecoBairro() {
@@ -166,7 +168,7 @@ public class Unidades extends AbstractEntity<Long> {
 	}
 
 	public void setEnderecoBairro(String enderecoBairro) {
-		this.enderecoBairro = enderecoBairro;
+		this.enderecoBairro = UtilidadesDeTexto.retiraEspacosDuplosAcentosEConverteEmMaiusculo(enderecoBairro);
 	}
 
 	public String getEnderecoCep() {
@@ -174,7 +176,7 @@ public class Unidades extends AbstractEntity<Long> {
 	}
 
 	public void setEnderecoCep(String enderecoCep) {
-		this.enderecoCep = enderecoCep;
+		this.enderecoCep = UtilidadesDeTexto.retiraEspacosDuplosAcentosEConverteEmMaiusculo(enderecoCep);
 	}
 
 	public Date getDtCadastro() {
@@ -190,7 +192,7 @@ public class Unidades extends AbstractEntity<Long> {
 	}
 
 	public void setMotivoCadastro(String motivoCadastro) {
-		this.motivoCadastro = motivoCadastro;
+		this.motivoCadastro = UtilidadesDeTexto.retiraEspacosDuplosAcentosEConverteEmMaiusculo(motivoCadastro);
 	}
 
 	public Date getDtCancelamento() {
@@ -206,7 +208,7 @@ public class Unidades extends AbstractEntity<Long> {
 	}
 
 	public void setMotivoCancelamento(String motivoCancelamento) {
-		this.motivoCancelamento = motivoCancelamento;
+		this.motivoCancelamento = UtilidadesDeTexto.retiraEspacosDuplosAcentosEConverteEmMaiusculo(motivoCancelamento);
 	}
 
 	public Cidades getIdEnderecoCidadeFk() {

@@ -4,6 +4,8 @@ import java.util.List;
 
 import javax.persistence.*;
 
+import com.folha.boot.service.util.UtilidadesDeTexto;
+
 @SuppressWarnings("serial")
 @Entity
 @Table(name = "tipos_de_filiacao")
@@ -23,7 +25,7 @@ public class TiposDeFiliacao extends AbstractEntity<Long> {
 	}
 
 	public void setNomeTipoFiliacao(String nomeTipoFiliacao) {
-		this.nomeTipoFiliacao = nomeTipoFiliacao;
+		this.nomeTipoFiliacao = UtilidadesDeTexto.retiraEspacosDuplosAcentosEConverteEmMaiusculo(nomeTipoFiliacao);
 	}
 
 	public String getDescricaoTipoFiliacao() {
@@ -31,7 +33,7 @@ public class TiposDeFiliacao extends AbstractEntity<Long> {
 	}
 
 	public void setDescricaoTipoFiliacao(String descricaoTipoFiliacao) {
-		this.descricaoTipoFiliacao = descricaoTipoFiliacao;
+		this.descricaoTipoFiliacao = UtilidadesDeTexto.retiraEspacosDuplosAcentosEConverteEmMaiusculo(descricaoTipoFiliacao);
 	}
 
 	public List<PessoaFilhos> getPessoaFilhosCollection() {

@@ -1,14 +1,11 @@
 package com.folha.boot.service;
 
 import java.util.List;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-
 import com.folha.boot.Reposytory.TiposDeDocumentoReposytory;
 import com.folha.boot.domain.TiposDeDocumento;
-import com.folha.boot.service.util.*;
 
 @Service
 @Transactional(readOnly = false)
@@ -54,11 +51,4 @@ public class TiposDeDocumentoServiceImpl implements TiposDeDocumentoService {
 		return reposytory.findBySiglaDocumentoContainingOrderBySiglaDocumentoAsc(SiglaDocumento);
 	}
 	
-	@Override
-	public TiposDeDocumento converteEmMaiusculo(TiposDeDocumento tiposDeDocumento) {
-		tiposDeDocumento.setSiglaDocumento(UtilidadesDeTexto.retiraEspacosDuplosAcentosEConverteEmMaiusculo(tiposDeDocumento.getSiglaDocumento()));
-		tiposDeDocumento.setNomeDocumento(UtilidadesDeTexto.retiraEspacosDuplosAcentosEConverteEmMaiusculo(tiposDeDocumento.getNomeDocumento()));
-	return tiposDeDocumento;
-	}
-
 }

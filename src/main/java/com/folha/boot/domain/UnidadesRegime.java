@@ -4,6 +4,8 @@ import java.util.List;
 
 import javax.persistence.*;
 
+import com.folha.boot.service.util.UtilidadesDeTexto;
+
 @SuppressWarnings("serial")
 @Entity
 @Table(name = "unidades_regime")
@@ -26,7 +28,7 @@ public class UnidadesRegime extends AbstractEntity<Long> {
 	}
 
 	public void setSiglaRegimeUnidLotacao(String siglaRegimeUnidLotacao) {
-		this.siglaRegimeUnidLotacao = siglaRegimeUnidLotacao;
+		this.siglaRegimeUnidLotacao = UtilidadesDeTexto.retiraEspacosDuplosAcentosEConverteEmMaiusculo(siglaRegimeUnidLotacao);
 	}
 
 	public String getNomeRegimeUnidLotacao() {
@@ -34,7 +36,7 @@ public class UnidadesRegime extends AbstractEntity<Long> {
 	}
 
 	public void setNomeRegimeUnidLotacao(String nomeRegimeUnidLotacao) {
-		this.nomeRegimeUnidLotacao = nomeRegimeUnidLotacao;
+		this.nomeRegimeUnidLotacao = UtilidadesDeTexto.retiraEspacosDuplosAcentosEConverteEmMaiusculo(nomeRegimeUnidLotacao);
 	}
 
 	public String getDescricaoRegimeUnidLotacao() {
@@ -42,7 +44,7 @@ public class UnidadesRegime extends AbstractEntity<Long> {
 	}
 
 	public void setDescricaoRegimeUnidLotacao(String descricaoRegimeUnidLotacao) {
-		this.descricaoRegimeUnidLotacao = descricaoRegimeUnidLotacao;
+		this.descricaoRegimeUnidLotacao = UtilidadesDeTexto.retiraEspacosDuplosAcentosEConverteEmMaiusculo(descricaoRegimeUnidLotacao);
 	}
 
 	public List<HistUnidadesRegime> getHistUnidadesRegimeCollection() {

@@ -3,6 +3,8 @@ import java.util.List;
 
 import javax.persistence.*;
 
+import com.folha.boot.service.util.UtilidadesDeTexto;
+
 @SuppressWarnings("serial")
 @Entity
 @Table(name = "unidades_natureza_juridica")
@@ -22,7 +24,7 @@ public class UnidadesNaturezaJuridica extends AbstractEntity<Long> {
 	}
 
 	public void setNomeNaturezaJuridica(String nomeNaturezaJuridica) {
-		this.nomeNaturezaJuridica = nomeNaturezaJuridica;
+		this.nomeNaturezaJuridica = UtilidadesDeTexto.retiraEspacosDuplosAcentosEConverteEmMaiusculo(nomeNaturezaJuridica);
 	}
 
 	public String getDescricaoNaturezaJuridica() {
@@ -30,7 +32,7 @@ public class UnidadesNaturezaJuridica extends AbstractEntity<Long> {
 	}
 
 	public void setDescricaoNaturezaJuridica(String descricaoNaturezaJuridica) {
-		this.descricaoNaturezaJuridica = descricaoNaturezaJuridica;
+		this.descricaoNaturezaJuridica = UtilidadesDeTexto.retiraEspacosDuplosAcentosEConverteEmMaiusculo(descricaoNaturezaJuridica);
 	}
 
 	public List<HistUnidadesNaturezaJuridica> getHistUnidadesNaturezaJuridicaCollection() {

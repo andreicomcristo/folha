@@ -2,6 +2,8 @@ package com.folha.boot.domain;
 
 import javax.persistence.*;
 
+import com.folha.boot.service.util.UtilidadesDeTexto;
+
 @SuppressWarnings("serial")
 @Entity
 @Table(name = "pessoa_documentos_titulo")
@@ -29,7 +31,7 @@ public class PessoaDocumentosTitulo extends AbstractEntity<Long> {
 	}
 
 	public void setNumeroTitulo(String numeroTitulo) {
-		this.numeroTitulo = numeroTitulo;
+		this.numeroTitulo = UtilidadesDeTexto.retiraEspacosDuplosAcentosEConverteEmMaiusculo(numeroTitulo);
 	}
 
 	public String getZona() {
@@ -37,7 +39,7 @@ public class PessoaDocumentosTitulo extends AbstractEntity<Long> {
 	}
 
 	public void setZona(String zona) {
-		this.zona = zona;
+		this.zona = UtilidadesDeTexto.retiraEspacosDuplosAcentosEConverteEmMaiusculo(zona);
 	}
 
 	public String getSecao() {
@@ -45,7 +47,7 @@ public class PessoaDocumentosTitulo extends AbstractEntity<Long> {
 	}
 
 	public void setSecao(String secao) {
-		this.secao = secao;
+		this.secao = UtilidadesDeTexto.retiraEspacosDuplosAcentosEConverteEmMaiusculo(secao);
 	}
 
 	public Cidades getIdCidadeFk() {

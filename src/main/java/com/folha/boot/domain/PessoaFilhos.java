@@ -4,6 +4,8 @@ import java.util.Date;
 
 import javax.persistence.*;
 
+import com.folha.boot.service.util.UtilidadesDeTexto;
+
 @SuppressWarnings("serial")
 @Entity
 @Table(name = "pessoa_filhos")
@@ -80,7 +82,7 @@ public class PessoaFilhos extends AbstractEntity<Long> {
 	}
 
 	public void setNomeFilho(String nomeFilho) {
-		this.nomeFilho = nomeFilho;
+		this.nomeFilho = UtilidadesDeTexto.retiraEspacosDuplosAcentosEConverteEmMaiusculo(nomeFilho);
 	}
 
 	public Date getDtNascimento() {
@@ -96,7 +98,7 @@ public class PessoaFilhos extends AbstractEntity<Long> {
 	}
 
 	public void setCpfFilho(String cpfFilho) {
-		this.cpfFilho = cpfFilho;
+		this.cpfFilho = UtilidadesDeTexto.retiraEspacosDuplosAcentosEConverteEmMaiusculo(cpfFilho);
 	}
 
 	public String getRgFilho() {
@@ -104,7 +106,7 @@ public class PessoaFilhos extends AbstractEntity<Long> {
 	}
 
 	public void setRgFilho(String rgFilho) {
-		this.rgFilho = rgFilho;
+		this.rgFilho = UtilidadesDeTexto.retiraEspacosDuplosAcentosEConverteEmMaiusculo(rgFilho);
 	}
 
 	public Date getRgDtEmissaoFilho() {
@@ -120,7 +122,7 @@ public class PessoaFilhos extends AbstractEntity<Long> {
 	}
 
 	public void setRgOrgaoExpedidor(String rgOrgaoExpedidor) {
-		this.rgOrgaoExpedidor = rgOrgaoExpedidor;
+		this.rgOrgaoExpedidor = UtilidadesDeTexto.retiraEspacosDuplosAcentosEConverteEmMaiusculo(rgOrgaoExpedidor);
 	}
 
 	public String getNumeroCertidaoNascimento() {
@@ -128,7 +130,7 @@ public class PessoaFilhos extends AbstractEntity<Long> {
 	}
 
 	public void setNumeroCertidaoNascimento(String numeroCertidaoNascimento) {
-		this.numeroCertidaoNascimento = numeroCertidaoNascimento;
+		this.numeroCertidaoNascimento = UtilidadesDeTexto.retiraEspacosDuplosAcentosEConverteEmMaiusculo(numeroCertidaoNascimento);
 	}
 
 	public Date getDtCertidadoNascimento() {
@@ -144,7 +146,7 @@ public class PessoaFilhos extends AbstractEntity<Long> {
 	}
 
 	public void setCartorioCertidadoNascimento(String cartorioCertidadoNascimento) {
-		this.cartorioCertidadoNascimento = cartorioCertidadoNascimento;
+		this.cartorioCertidadoNascimento = UtilidadesDeTexto.retiraEspacosDuplosAcentosEConverteEmMaiusculo(cartorioCertidadoNascimento);
 	}
 
 	public String getLivroCertidaoNascimento() {
@@ -152,7 +154,7 @@ public class PessoaFilhos extends AbstractEntity<Long> {
 	}
 
 	public void setLivroCertidaoNascimento(String livroCertidaoNascimento) {
-		this.livroCertidaoNascimento = livroCertidaoNascimento;
+		this.livroCertidaoNascimento = UtilidadesDeTexto.retiraEspacosDuplosAcentosEConverteEmMaiusculo(livroCertidaoNascimento);
 	}
 
 	public String getFolhaCertidaoNascimento() {
@@ -160,7 +162,7 @@ public class PessoaFilhos extends AbstractEntity<Long> {
 	}
 
 	public void setFolhaCertidaoNascimento(String folhaCertidaoNascimento) {
-		this.folhaCertidaoNascimento = folhaCertidaoNascimento;
+		this.folhaCertidaoNascimento = UtilidadesDeTexto.retiraEspacosDuplosAcentosEConverteEmMaiusculo(folhaCertidaoNascimento);
 	}
 
 	public Date getDtCadastro() {
@@ -176,7 +178,7 @@ public class PessoaFilhos extends AbstractEntity<Long> {
 	}
 
 	public void setMotivoCadastro(String motivoCadastro) {
-		this.motivoCadastro = motivoCadastro;
+		this.motivoCadastro = UtilidadesDeTexto.retiraEspacosDuplosAcentosEConverteEmMaiusculo(motivoCadastro);
 	}
 
 	public Date getDtCancelamento() {
@@ -192,7 +194,7 @@ public class PessoaFilhos extends AbstractEntity<Long> {
 	}
 
 	public void setMotivoCancelamento(String motivoCancelamento) {
-		this.motivoCancelamento = motivoCancelamento;
+		this.motivoCancelamento = UtilidadesDeTexto.retiraEspacosDuplosAcentosEConverteEmMaiusculo(motivoCancelamento);
 	}
 
 	public Pessoa getIdPessoaFk() {

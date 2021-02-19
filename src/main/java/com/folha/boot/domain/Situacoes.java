@@ -4,6 +4,8 @@ import java.util.List;
 
 import javax.persistence.*;
 
+import com.folha.boot.service.util.UtilidadesDeTexto;
+
 @SuppressWarnings("serial")
 @Entity
 @Table(name = "situacoes")
@@ -23,7 +25,7 @@ public class Situacoes extends AbstractEntity<Long> {
 	}
 
 	public void setNomeSituacao(String nomeSituacao) {
-		this.nomeSituacao = nomeSituacao;
+		this.nomeSituacao = UtilidadesDeTexto.retiraEspacosDuplosAcentosEConverteEmMaiusculo(nomeSituacao);
 	}
 
 	public String getDescricaoSituacao() {
@@ -31,7 +33,7 @@ public class Situacoes extends AbstractEntity<Long> {
 	}
 
 	public void setDescricaoSituacao(String descricaoSituacao) {
-		this.descricaoSituacao = descricaoSituacao;
+		this.descricaoSituacao = UtilidadesDeTexto.retiraEspacosDuplosAcentosEConverteEmMaiusculo(descricaoSituacao);
 	}
 
 	public List<HistFuncionariosSituacoes> getHistFuncionariosSituacoesCollection() {

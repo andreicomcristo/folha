@@ -18,5 +18,4 @@ public interface TiposLogradouroService {
 
 	List<TiposLogradouro> buscarPorNome(String nomeTipoLogradouro);
 
-	TiposLogradouro converteEmMaiusculo(TiposLogradouro tiposLogradouro);
 }

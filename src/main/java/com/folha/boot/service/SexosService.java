@@ -17,6 +17,5 @@ public interface SexosService {
 	List<Sexos> buscarTodos();
 	
 	List<Sexos> buscarPorNome(String nomeSexo);
-	
-	Sexos converteEmMaiusculo(Sexos sexos);
+
 }

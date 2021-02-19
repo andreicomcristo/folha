@@ -33,7 +33,7 @@ public class PrivilegiosController {
 	
 	@PostMapping("/salvar")
 	public String salvar(Privilegios privilegios , RedirectAttributes attr) {
-		service.salvar(service.converteEmMaiusculo(privilegios));
+		service.salvar(privilegios);
 		attr.addFlashAttribute("success", "Inserido com sucesso.");
 		return "redirect:/privilegios/cadastrar";
 	}
@@ -46,7 +46,7 @@ public class PrivilegiosController {
 	
 	@PostMapping("/editar")
 	public String editar(Privilegios privilegios, RedirectAttributes attr) {
-		service.editar(service.converteEmMaiusculo(privilegios));
+		service.editar(privilegios);
 		attr.addFlashAttribute("success", "Editado com sucesso.");
 		return "redirect:/privilegios/listar";
 	}

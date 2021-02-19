@@ -4,6 +4,8 @@ import java.util.List;
 
 import javax.persistence.*;
 
+import com.folha.boot.service.util.UtilidadesDeTexto;
+
 @SuppressWarnings("serial")
 @Entity
 @Table(name = "privilegios")
@@ -24,7 +26,7 @@ public class Privilegios extends AbstractEntity<Long> {
 	}
 
 	public void setNomePrivilegio(String nomePrivilegio) {
-		this.nomePrivilegio = nomePrivilegio;
+		this.nomePrivilegio = UtilidadesDeTexto.retiraEspacosDuplosAcentosEConverteEmMaiusculo(nomePrivilegio);
 	}
 
 	public String getDescricaoPrivilegio() {
@@ -32,7 +34,7 @@ public class Privilegios extends AbstractEntity<Long> {
 	}
 
 	public void setDescricaoPrivilegio(String descricaoPrivilegio) {
-		this.descricaoPrivilegio = descricaoPrivilegio;
+		this.descricaoPrivilegio = UtilidadesDeTexto.retiraEspacosDuplosAcentosEConverteEmMaiusculo(descricaoPrivilegio);
 	}
 
 	public List<PessoaOperadores> getPessoaOperadoresCollection() {

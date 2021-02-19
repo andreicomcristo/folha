@@ -1,14 +1,11 @@
 package com.folha.boot.service;
 
 import java.util.List;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-
 import com.folha.boot.Reposytory.TiposDeFiliacaoReposytory;
 import com.folha.boot.domain.TiposDeFiliacao;
-import com.folha.boot.service.util.*;
 
 @Service
 @Transactional(readOnly = false)
@@ -52,13 +49,6 @@ public class TiposDeFiliacaoServiceImpl implements TiposDeFiliacaoService {
 	@Override
 	public List<TiposDeFiliacao> buscarPorNome(String nomeTipoFiliacao) {
 		return reposytory.findByNomeTipoFiliacaoContainingOrderByNomeTipoFiliacaoAsc(nomeTipoFiliacao);
-	}
-	
-	@Override
-	public TiposDeFiliacao converteEmMaiusculo(TiposDeFiliacao tiposDeFiliacao) {
-		tiposDeFiliacao.setNomeTipoFiliacao(UtilidadesDeTexto.retiraEspacosDuplosAcentosEConverteEmMaiusculo(tiposDeFiliacao.getNomeTipoFiliacao()));
-		tiposDeFiliacao.setDescricaoTipoFiliacao(UtilidadesDeTexto.retiraEspacosDuplosAcentosEConverteEmMaiusculo(tiposDeFiliacao.getDescricaoTipoFiliacao()));
-	return tiposDeFiliacao;
 	}
 
 }

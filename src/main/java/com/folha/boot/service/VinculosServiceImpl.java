@@ -54,10 +54,4 @@ public class VinculosServiceImpl implements VinculosService{
 		return reposytory.findByNomeVinculoContainingOrderByNomeVinculoAsc(nomeVinculo);
 	}
 	
-	@Override
-	public Vinculos converteEmMaiusculo(Vinculos vinculos) {
-		vinculos.setNomeVinculo(UtilidadesDeTexto.retiraEspacosDuplosAcentosEConverteEmMaiusculo(vinculos.getNomeVinculo()));
-		vinculos.setDescricaoVinculo(UtilidadesDeTexto.retiraEspacosDuplosAcentosEConverteEmMaiusculo(vinculos.getDescricaoVinculo()));
-	return vinculos;
-	}
 }

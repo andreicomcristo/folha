@@ -4,6 +4,8 @@ import java.util.List;
 
 import javax.persistence.*;
 
+import com.folha.boot.service.util.UtilidadesDeTexto;
+
 @SuppressWarnings("serial")
 @Entity
 @Table(name = "sexos")
@@ -34,7 +36,7 @@ public class Sexos extends AbstractEntity<Long> {
 	}
 
 	public void setDescricaoSexo(String descricaoSexo) {
-		this.descricaoSexo = descricaoSexo;
+		this.descricaoSexo = UtilidadesDeTexto.retiraEspacosDuplosAcentosEConverteEmMaiusculo(descricaoSexo);
 	}
 
 	public List<Pessoa> getPessoaCollection() {

@@ -1,14 +1,11 @@
 package com.folha.boot.service;
 
 import java.util.List;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-
 import com.folha.boot.Reposytory.PrivilegiosReposytory;
 import com.folha.boot.domain.Privilegios;
-import com.folha.boot.service.util.UtilidadesDeTexto;
 
 @Service
 @Transactional(readOnly = false)
@@ -53,12 +50,4 @@ public class PrivilegiosServiceImpl implements PrivilegiosService {
 		return reposytory.findByNomePrivilegioContainingOrderByNomePrivilegioAsc(nomePrivilegio);
 	}
 	
-	@Override
-	public Privilegios converteEmMaiusculo(Privilegios privilegios) {
-		privilegios.setNomePrivilegio(UtilidadesDeTexto.retiraEspacosDuplosAcentosEConverteEmMaiusculo(privilegios.getNomePrivilegio()));
-		privilegios.setDescricaoPrivilegio(UtilidadesDeTexto.retiraEspacosDuplosAcentosEConverteEmMaiusculo(privilegios.getDescricaoPrivilegio()));
-		
-	return privilegios;
-	}
-
 }

@@ -18,5 +18,4 @@ public interface SituacoesService {
 	
 	List<Situacoes> buscarPorNome(String nomeSituacao);
 	
-	Situacoes converteEmMaiusculo(Situacoes situacoes);
 }

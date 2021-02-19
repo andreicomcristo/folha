@@ -1,14 +1,11 @@
 package com.folha.boot.service;
 
 import java.util.List;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-
 import com.folha.boot.Reposytory.PessoaDocumentosRgReposytory;
 import com.folha.boot.domain.PessoaDocumentosRg;
-import com.folha.boot.service.util.UtilidadesDeTexto;
 
 @Service
 @Transactional(readOnly = false)
@@ -46,14 +43,6 @@ public class PessoaDocumentosRgServiceImpl implements PessoaDocumentosRgService{
 	public List<PessoaDocumentosRg> buscarTodos() {
 		// TODO Auto-generated method stub
 		return reposytory.findAll();
-	}
-
-	@Override
-	public PessoaDocumentosRg converteEmMaiusculo(PessoaDocumentosRg pessoaDocumentosRg) {
-		// TODO Auto-generated method stub
-		pessoaDocumentosRg.setRgNumero(UtilidadesDeTexto.retiraEspacosDuplosAcentosEConverteEmMaiusculo(pessoaDocumentosRg.getRgNumero()));
-		pessoaDocumentosRg.setRgOrgaoEmissor(UtilidadesDeTexto.retiraEspacosDuplosAcentosEConverteEmMaiusculo(pessoaDocumentosRg.getRgOrgaoEmissor()));
-		return pessoaDocumentosRg;
 	}
 
 	@Override

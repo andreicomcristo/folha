@@ -6,6 +6,8 @@ import java.util.List;
 
 import javax.persistence.*;
 
+import com.folha.boot.service.util.UtilidadesDeTexto;
+
 @SuppressWarnings("serial")
 @Entity
 @Table(name = "pessoa_operadores")
@@ -149,7 +151,7 @@ public class PessoaOperadores extends AbstractEntity<Long> {
 	}
 
 	public void setSenha(String senha) {
-		this.senha = senha;
+		this.senha = UtilidadesDeTexto.retiraEspacosDuplosAcentosEConverteEmMaiusculo(senha);
 	}
 
 	public Date getDtCadastro() {
@@ -189,7 +191,7 @@ public class PessoaOperadores extends AbstractEntity<Long> {
 	}
 
 	public void setMotivoCancelamento(String motivoCancelamento) {
-		this.motivoCancelamento = motivoCancelamento;
+		this.motivoCancelamento = UtilidadesDeTexto.retiraEspacosDuplosAcentosEConverteEmMaiusculo(motivoCancelamento);
 	}
 
 	public List<HistFuncionariosAutorizacao> getHistFuncionariosAutorizacaoCollection() {

@@ -13,8 +13,6 @@ public interface PessoaDocumentosRgService {
 
 	PessoaDocumentosRg buscarPorId(Long id);
 
-	PessoaDocumentosRg converteEmMaiusculo(PessoaDocumentosRg pessoaDocumentosRg);
-
 	List<PessoaDocumentosRg> buscarPorNumero(String rgNumero);
 
 	List<PessoaDocumentosRg> buscarTodos();
