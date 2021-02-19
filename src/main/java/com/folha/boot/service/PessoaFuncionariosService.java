@@ -15,4 +15,6 @@ public interface PessoaFuncionariosService {
 	PessoaFuncionarios buscarPorId(Long id);
 
 	List<PessoaFuncionarios> buscarTodos();
+	
+	List<PessoaFuncionarios> buscarPorMatricula(String matricula);
 }

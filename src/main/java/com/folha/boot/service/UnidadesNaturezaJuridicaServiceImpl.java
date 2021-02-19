@@ -48,4 +48,10 @@ public class UnidadesNaturezaJuridicaServiceImpl implements UnidadesNaturezaJuri
 		return reposytory.findAll();
 	}
 
+	@Override
+	public List<UnidadesNaturezaJuridica> buscarPorNome(String nomeNaturezaJuridica) {
+		// TODO Auto-generated method stub
+		return reposytory.findByNomeNaturezaJuridicaContainingOrderByNomeNaturezaJuridicaAsc(nomeNaturezaJuridica);
+	}
+
 }

@@ -47,4 +47,10 @@ public class PessoaFuncionariosServiceImpl implements PessoaFuncionariosService{
 		return reposytory.findAll();
 	}
 
+	@Override
+	public List<PessoaFuncionarios> buscarPorMatricula(String matricula) {
+		// TODO Auto-generated method stub
+		return reposytory.findByMatriculaContainingOrderByMatriculaAsc(matricula);
+	}
+
 }

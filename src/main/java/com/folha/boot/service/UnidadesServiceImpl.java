@@ -48,4 +48,10 @@ public class UnidadesServiceImpl implements UnidadesService{
 		return reposytory.findAll();
 	}
 
+	@Override
+	public List<Unidades> buscarPorNome(String nomeFantasia) {
+		// TODO Auto-generated method stub
+		return reposytory.findByNomeFantasiaContainingOrderByNomeFantasiaAsc(nomeFantasia);
+	}
+
 }

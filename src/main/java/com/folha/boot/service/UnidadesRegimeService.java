@@ -1,7 +1,6 @@
 package com.folha.boot.service;
 
 import java.util.List;
-
 import com.folha.boot.domain.UnidadesRegime;
 
 public interface UnidadesRegimeService {
@@ -15,5 +14,7 @@ public interface UnidadesRegimeService {
 	UnidadesRegime buscarPorId(Long id);
 
 	List<UnidadesRegime> buscarTodos();
+	
+	List<UnidadesRegime> buscarPorNome(String nomeRegimeUnidLotacao);
 
 }

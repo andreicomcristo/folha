@@ -1,7 +1,6 @@
 package com.folha.boot.service;
 
 import java.util.List;
-
 import com.folha.boot.domain.PessoaOperadores;
 
 public interface PessoaOperadoresService {
@@ -15,4 +14,6 @@ public interface PessoaOperadoresService {
 	PessoaOperadores buscarPorId(Long id);
 
 	List<PessoaOperadores> buscarTodos();
+	
+	List<PessoaOperadores> buscarPorMotivoCancelamento(String motivoCancelamento);
 }

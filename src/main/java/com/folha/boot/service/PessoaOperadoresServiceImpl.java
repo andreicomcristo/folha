@@ -47,4 +47,10 @@ public class PessoaOperadoresServiceImpl implements PessoaOperadoresService {
 		return reposytory.findAll();
 	}
 
+	@Override
+	public List<PessoaOperadores> buscarPorMotivoCancelamento(String motivoCancelamento) {
+		// TODO Auto-generated method stub
+		return reposytory.findByMotivoCancelamentoContainingOrderByMotivoCancelamentoAsc(motivoCancelamento);
+	}
+
 }

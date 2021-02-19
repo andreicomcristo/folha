@@ -47,4 +47,9 @@ public class PessoaFilhosServiceImpl implements PessoaFilhosService{
 		return reposytory.findAll();
 	}
 
+	@Override
+	public List<PessoaFilhos> buscarPorNome(String nomeFilho) {
+		// TODO Auto-generated method stub
+		return reposytory.findByNomeFilhoContainingOrderByNomeFilhoAsc(nomeFilho);
+	}
 }

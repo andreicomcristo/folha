@@ -47,5 +47,10 @@ public class PessoaBancosServiceImpl implements PessoaBancosService {
 		return reposytory.findAll();
 	}
 
+	@Override
+	public List<PessoaBancos> buscarPorNome(String prioritario) {
+		// TODO Auto-generated method stub
+		return reposytory.findByPrioritarioContainingOrderByPrioritarioAsc(prioritario);
+	}
 	
 }

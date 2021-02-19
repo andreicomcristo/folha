@@ -1,7 +1,6 @@
 package com.folha.boot.service;
 
 import java.util.List;
-
 import com.folha.boot.domain.Unidades;
 
 public interface UnidadesService {
@@ -16,4 +15,5 @@ public interface UnidadesService {
 
 	List<Unidades> buscarTodos();
 
+	List<Unidades> buscarPorNome(String nomeFantasia);
 }

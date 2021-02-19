@@ -48,4 +48,9 @@ public class UnidadesRegimeServiceImpl implements UnidadesRegimeService{
 		return reposytory.findAll();
 	}
 
+	@Override
+	public List<UnidadesRegime> buscarPorNome(String nomeRegimeUnidLotacao) {
+		// TODO Auto-generated method stub
+		return reposytory.findByNomeRegimeUnidLotacaoContainingOrderByNomeRegimeUnidLotacaoAsc(nomeRegimeUnidLotacao);
+	}
 }

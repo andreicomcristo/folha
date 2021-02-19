@@ -15,5 +15,7 @@ public interface UnidadesNaturezaJuridicaService {
 	UnidadesNaturezaJuridica buscarPorId(Long id);
 
 	List<UnidadesNaturezaJuridica> buscarTodos();
+	
+	List<UnidadesNaturezaJuridica> buscarPorNome(String nomeNaturezaJuridica);
 
 }
