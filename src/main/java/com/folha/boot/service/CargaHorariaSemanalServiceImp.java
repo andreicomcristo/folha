@@ -5,10 +5,8 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-
 import com.folha.boot.Reposytory.CargaHorariaSemanalReposytory;
 import com.folha.boot.domain.CargaHorariaSemanal;
-import com.folha.boot.service.util.UtilidadesDeTexto;
 
 @Service
 @Transactional(readOnly = false)
@@ -54,11 +52,5 @@ public class CargaHorariaSemanalServiceImp implements CargaHorariaSemanalService
 	public List<CargaHorariaSemanal> buscarPorCargaHorariaSemanal(int cargaHoraria) {
 		return reposytory.findByCargaHorariaOrderByCargaHorariaAsc(cargaHoraria);
 	}
-	
-	@Override
-	public CargaHorariaSemanal converteEmMaiusculo(CargaHorariaSemanal cargaHorariaSemanal) {
-		cargaHorariaSemanal.setDescricaoCargaHoraria(UtilidadesDeTexto.retiraEspacosDuplosAcentosEConverteEmMaiusculo(cargaHorariaSemanal.getDescricaoCargaHoraria()));
-		return cargaHorariaSemanal;
-	}
-	
+			
 }

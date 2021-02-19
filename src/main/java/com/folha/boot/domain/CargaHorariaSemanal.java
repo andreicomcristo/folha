@@ -4,6 +4,8 @@ import java.util.List;
 
 import javax.persistence.*;
 
+import com.folha.boot.service.util.UtilidadesDeTexto;
+
 @SuppressWarnings("serial")
 @Entity
 @Table(name = "carga_horaria_semanal")
@@ -31,7 +33,7 @@ public class CargaHorariaSemanal extends AbstractEntity<Long> {
 	}
 
 	public void setDescricaoCargaHoraria(String descricaoCargaHoraria) {
-		this.descricaoCargaHoraria = descricaoCargaHoraria;
+		this.descricaoCargaHoraria = UtilidadesDeTexto.retiraEspacosDuplosAcentosEConverteEmMaiusculo(descricaoCargaHoraria);
 	}
 
 	public List<HistFuncionariosCargaHoraria> getHistFuncionariosCargaHorariaCollection() {

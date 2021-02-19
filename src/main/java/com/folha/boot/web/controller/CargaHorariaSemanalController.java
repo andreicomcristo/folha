@@ -28,15 +28,13 @@ public class CargaHorariaSemanalController {
 	
 	@GetMapping("/listar")
 	public String listar(ModelMap model) {
-		model.addAttribute("cargaHorariaSemanal", service.buscarTodos());
-		
+		model.addAttribute("cargaHorariaSemanal", service.buscarTodos());		
 		return "/cargahoraria/lista"; 
 	}
 	
 	@PostMapping("/salvar")
-	public String salvar(CargaHorariaSemanal cargaHorariaSemanal, RedirectAttributes attr) {
-					
-		service.salvar(service.converteEmMaiusculo(cargaHorariaSemanal));
+	public String salvar(CargaHorariaSemanal cargaHorariaSemanal, RedirectAttributes attr) {				
+		service.salvar(cargaHorariaSemanal);
 		attr.addFlashAttribute("success", "Inserido com sucesso.");
 		return "redirect:/cargahorariasemanais/cadastrar";
 	}
@@ -50,7 +48,7 @@ public class CargaHorariaSemanalController {
 	@PostMapping("/editar")
 	public String editar(CargaHorariaSemanal cargaHorariaSemanal, RedirectAttributes attr) {
 		
-		service.editar(service.converteEmMaiusculo(cargaHorariaSemanal));
+		service.editar(cargaHorariaSemanal);
 		attr.addFlashAttribute("success", "Editado com sucesso.");
 		return "redirect:/cargahorariasemanais/listar";
 	}
