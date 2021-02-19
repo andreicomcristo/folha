@@ -58,7 +58,7 @@ public class TiposDeFiliacaoController {
 		return listar(model);
 	}
 	
-	@GetMapping("/buscar/nomeTipoFiliacao")
+	@GetMapping("/buscar/nome/tipofiliacao")
 	public String getPorNome(@RequestParam("nomeTipoFiliacao") String nomeTipoFiliacao, ModelMap model) {		
 		model.addAttribute("tiposDeFiliacao", service.buscarPorNome(nomeTipoFiliacao.toUpperCase().trim()));
 		return "/tipofiliacao/lista";

@@ -59,7 +59,7 @@ public class TiposLogradouroController {
 		return listar(model);
 	}	
 	
-	@GetMapping("/buscar/nometipologradouro")
+	@GetMapping("/buscar/nome/tipologradouro")
 	public String getPorNome(@RequestParam("nomeTipoLogradouro") String nomeTipoLogradouro, ModelMap model) {		
 		model.addAttribute("tiposLogradouro", service.buscarPorNome(nomeTipoLogradouro.toUpperCase().trim()));
 		return "/tipologradouro/lista";

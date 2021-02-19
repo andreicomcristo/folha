@@ -7,6 +7,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.folha.boot.domain.PessoaBancos;
@@ -58,4 +59,10 @@ public class PessoaBancosController {
 		model.addAttribute("success", "Excluído com sucesso.");
 		return listar(model);
 	}
-}
+	
+	@GetMapping("/buscar/nome/pessoa/banco")
+	public String getPorNome(@RequestParam("prioritario") String prioritario, ModelMap model) {		
+		model.addAttribute("pessoaBancos", service.buscarPorNome(prioritario.toUpperCase().trim()));
+		return "/pessoabanco/lista";
+	}
+} 

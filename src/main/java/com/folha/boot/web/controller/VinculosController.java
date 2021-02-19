@@ -63,4 +63,4 @@ public class VinculosController {
 		model.addAttribute("vinculos", service.buscarPorNome(nomeVinculo.toUpperCase().trim()));
 		return "/vinculo/lista";
 	}
-}
+} 

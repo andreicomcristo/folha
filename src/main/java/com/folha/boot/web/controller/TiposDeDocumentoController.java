@@ -58,7 +58,7 @@ public class TiposDeDocumentoController {
 		return listar(model);
 	}
 	
-	@GetMapping("/buscar/siglaDocumento")
+	@GetMapping("/buscar/sigla/documento")
 	public String getPorNome(@RequestParam("siglaDocumento") String siglaDocumento, ModelMap model) {		
 		model.addAttribute("tiposDeDocumento", service.buscarPorNome(siglaDocumento.toUpperCase().trim()));
 		return "/tipodocumento/lista";

@@ -58,7 +58,7 @@ public class SexosController {
 		return listar(model);
 	}
 	
-	@GetMapping("/buscar/nomeSexo")
+	@GetMapping("/buscar/nome/Sexo")
 	public String getPorNome(@RequestParam("nomeSexo") String nomeSexo, ModelMap model) {		
 		model.addAttribute("sexos", service.buscarPorNome(nomeSexo.toUpperCase().trim()));
 		return "/sexo/lista";

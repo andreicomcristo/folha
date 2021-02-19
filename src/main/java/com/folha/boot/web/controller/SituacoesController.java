@@ -57,7 +57,7 @@ public class SituacoesController {
 		return listar(model);
 	}
 	
-	@GetMapping("/buscar/nomeSituacao")
+	@GetMapping("/buscar/nome/situacao")
 	public String getPorNome(@RequestParam("nomeSituacao") String nomeSituacao, ModelMap model) {		
 		model.addAttribute("situacoes", service.buscarPorNome(nomeSituacao.toUpperCase().trim()));
 		return "/situacao/lista";

@@ -58,7 +58,7 @@ public class PrivilegiosController {
 		return listar(model);
 	}
 	
-	@GetMapping("/buscar/nomePrivilegio")
+	@GetMapping("/buscar/nome/privilegio")
 	public String getPorNome(@RequestParam("nomePrivilegio") String nomePrivilegio, ModelMap model) {		
 		model.addAttribute("privilegios", service.buscarPorNome(nomePrivilegio.toUpperCase().trim()));
 		return "/privilegio/lista";
