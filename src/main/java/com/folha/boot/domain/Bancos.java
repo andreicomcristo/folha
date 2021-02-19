@@ -4,6 +4,8 @@ import java.util.List;
 
 import javax.persistence.*;
 
+import com.folha.boot.service.util.UtilidadesDeTexto;
+
 @SuppressWarnings("serial")
 @Entity
 @Table(name = "bancos")
@@ -18,7 +20,7 @@ public class Bancos extends AbstractEntity<Long> {
 	@Column(name = "sigla_banco", length = 150)
 	private String siglaBanco;
 
-	@OneToMany(cascade = CascadeType.ALL, mappedBy = "idBancoFk")
+	@OneToMany(cascade = CascadeType.ALL, mappedBy = "idBancoFk") 
 	private List<PessoaBancos> pessoaBancosList;
 
 	public String getCodigoBanco() {
@@ -26,7 +28,7 @@ public class Bancos extends AbstractEntity<Long> {
 	}
 
 	public void setCodigoBanco(String codigoBanco) {
-		this.codigoBanco = codigoBanco;
+		this.codigoBanco = UtilidadesDeTexto.retiraEspacosDuplosAcentosEConverteEmMaiusculo(codigoBanco);
 	}
 
 	public String getNomeBanco() {
@@ -34,7 +36,7 @@ public class Bancos extends AbstractEntity<Long> {
 	}
 
 	public void setNomeBanco(String nomeBanco) {
-		this.nomeBanco = nomeBanco;
+		this.nomeBanco = UtilidadesDeTexto.retiraEspacosDuplosAcentosEConverteEmMaiusculo(nomeBanco);
 	}
 
 	public String getSiglaBanco() {
@@ -42,7 +44,7 @@ public class Bancos extends AbstractEntity<Long> {
 	}
 
 	public void setSiglaBanco(String siglaBanco) {
-		this.siglaBanco = siglaBanco;
+		this.siglaBanco = UtilidadesDeTexto.retiraEspacosDuplosAcentosEConverteEmMaiusculo(siglaBanco);
 	}
 
 	public List<PessoaBancos> getPessoaBancosList() {
@@ -50,7 +52,7 @@ public class Bancos extends AbstractEntity<Long> {
 	}
 
 	public void setPessoaBancosList(List<PessoaBancos> pessoaBancosList) {
-		this.pessoaBancosList = pessoaBancosList;
+		this.pessoaBancosList = pessoaBancosList; 
 	}
 
 }

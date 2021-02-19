@@ -14,8 +14,6 @@ public interface BancosService {
 
 	Bancos buscarPorId(Long id);
 	
-	Bancos converteEmMaiusculo(Bancos bancos);
-	
 	List<Bancos> buscarPorNome(String nomeBanco);
 
 	List<Bancos> buscarTodos();
