@@ -36,7 +36,7 @@
 							   id="nome" placeholder="Descrição do Cargo"th:field="*{descricaoCargo}" />
 						<p></p>
 						<select id="cargos" class="form-control" th:field="*{idNivelCargoFk}">
-								<option value="">Selecione</option>
+								<option value="">Selecione o Nível</option>
 								<option th:each="d : ${idNivelCargoFk}" th:value="${d.id}"th:text="${d.nomeNivelCargo}">ADM</option>
 						</select>
 						<p></p>	
