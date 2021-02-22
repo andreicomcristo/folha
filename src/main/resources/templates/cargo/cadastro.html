@@ -34,13 +34,13 @@
 							   id="nome" placeholder="Descrição do Cargo"th:field="*{descricaoCargo}" />
 						<p></p>
 						
-						<select id="cargos" class="form-control" th:field="*{idNivelCargoFk}">
+						<select id="cargos" class="form-select" th:field="*{idNivelCargoFk}">
 								<option value="">Selecione o Nível</option>
 								<option th:each="d : ${idNivelCargoFk}" th:value="${d.id}"th:text="${d.nomeNivelCargo}">ADM</option>
 						</select>	
 						<p></p>	
 						
-						<select id="cargos" class="form-control" th:field="*{cargosEspecialidadeList}">
+						<select id="cargos" class="form-select" th:field="*{cargosEspecialidadeList}">
 								<option value="">Selecione a Especialidade</option>
 								<option th:each="d : ${cargosEspecialidadeList}" th:value="${d.id}"th:text="${d.nomeEspecialidadeCargo}">ADM</option>
 						</select>	

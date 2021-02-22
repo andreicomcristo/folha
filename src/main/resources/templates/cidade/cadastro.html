@@ -31,16 +31,16 @@
 						
 						<p></p>
 						
-						<select id="cargos" class="form-control" th:field="*{idUfFk}">
+						<select id="cargos" class="form-select" th:field="*{idUfFk}">
 								<option value="">Selecione o Estado</option>
 								<option th:each="d : ${idUfFk}" th:value="${d.id}"th:text="${d.nomeUf}">ADM</option>
 						</select>	
 						
 						<p></p>
 						
-						<select id="cargos" class="form-control" th:field="*{idPaisFk}">
+						<select id="cargos" class="form-select" th:field="*{idPaisFk}">
 								<option value="">Selecione o País</option>
-								<option th:each="d : ${idPaisFk}" th:value="${d.id}"th:text="${d.nomePais}" selected >ADM</option>
+								<option class="form-select" th:each="d : ${idPaisFk}" th:value="${d.id}"th:text="${d.nomePais}" selected >ADM</option>
 						</select>	
 						
 						<p></p>	
