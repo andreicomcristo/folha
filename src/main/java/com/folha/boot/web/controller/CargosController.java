@@ -12,9 +12,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import com.folha.boot.domain.Cargos;
-import com.folha.boot.domain.CargosEspecialidade;
 import com.folha.boot.domain.NiveisCargo;
-import com.folha.boot.service.CargosEspecialidadeService;
 import com.folha.boot.service.CargosService;
 import com.folha.boot.service.NiveisCargoService;
 
@@ -23,9 +21,7 @@ import com.folha.boot.service.NiveisCargoService;
 public class CargosController {
 
 	@Autowired
-	private CargosService service;
-	@Autowired
-	private CargosEspecialidadeService cargosEspecialidadeService;		
+	private CargosService service;	
 	@Autowired
 	private NiveisCargoService niveisCargoService;
 	
@@ -79,8 +75,8 @@ public class CargosController {
 		return niveisCargoService.buscarTodos();
 	}
 	
-	@ModelAttribute("cargosEspecialidadeList")
+	/*@ModelAttribute("cargosEspecialidadeList")
 	public List<CargosEspecialidade> listaDeEspecialidadeCargo() {
 		return cargosEspecialidadeService.buscarTodos();
-	}
+	}*/
 } 
