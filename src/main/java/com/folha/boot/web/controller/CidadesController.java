@@ -1,22 +1,37 @@
 package com.folha.boot.web.controller;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import com.folha.boot.domain.Cargos;
 import com.folha.boot.domain.Cidades;
+import com.folha.boot.domain.Paises;
+import com.folha.boot.domain.Uf;
+import com.folha.boot.service.CargosService;
 import com.folha.boot.service.CidadesService;
+import com.folha.boot.service.PaisesSevice;
+import com.folha.boot.service.UfService;
 
 @Controller
 @RequestMapping("/cidades")
 public class CidadesController {
 
+	@Autowired
+	PaisesSevice paisesSevice;
+	
+	@Autowired
+	UfService ufService;
+	
 	@Autowired
 	private CidadesService service;
 
@@ -63,4 +78,15 @@ public class CidadesController {
 		model.addAttribute("cidades", service.buscarPorNome(nomeCidade.toUpperCase().trim()));
 		return "/cidade/lista";
 	}
+	
+	@ModelAttribute("idPaisFk")
+	public List<Paises> listaPaises() {
+		return paisesSevice.buscarTodos();
+	}
+	
+	@ModelAttribute("idUfFk")
+	public List<Uf> listaUfs() {
+		return ufService.buscarTodos();
+	}
+	
 }
