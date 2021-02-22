@@ -1,7 +1,6 @@
 package com.folha.boot.web.controller;
 
 import java.util.List;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
@@ -12,9 +11,10 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
-
 import com.folha.boot.domain.Cargos;
+import com.folha.boot.domain.CargosEspecialidade;
 import com.folha.boot.domain.NiveisCargo;
+import com.folha.boot.service.CargosEspecialidadeService;
 import com.folha.boot.service.CargosService;
 import com.folha.boot.service.NiveisCargoService;
 
@@ -23,13 +23,15 @@ import com.folha.boot.service.NiveisCargoService;
 public class CargosController {
 
 	@Autowired
-	private CargosService service;	
+	private CargosService service;
+	@Autowired
+	private CargosEspecialidadeService cargosEspecialidadeService;		
 	@Autowired
 	private NiveisCargoService niveisCargoService;
 	
+
 	@GetMapping("/cadastrar")
-	public String cadastrar(Cargos Cargos) {
-		
+	public String cadastrar(Cargos cargos) {
 		return "/cargo/cadastro";
 	}
 	
@@ -66,14 +68,19 @@ public class CargosController {
 		return listar(model);
 	}
 	
-	@ModelAttribute("idNivelCargoFk")
-	public List<NiveisCargo> listaDeNiveisCargo() {
-		return niveisCargoService.buscarTodos();
-	}
-
 	@GetMapping("/buscar/nome/cargo")
 	public String getPorNome(@RequestParam("nomeCargo") String nomeCargo, ModelMap model) {		
 		model.addAttribute("cargos", service.buscarPorNome(nomeCargo.toUpperCase().trim()));
 		return "/cargo/lista";
 	}
-}
+	
+	@ModelAttribute("idNivelCargoFk")
+	public List<NiveisCargo> listaDeNiveisCargo() {
+		return niveisCargoService.buscarTodos();
+	}
+	
+	@ModelAttribute("cargosEspecialidadeList")
+	public List<CargosEspecialidade> listaDeEspecialidadeCargo() {
+		return cargosEspecialidadeService.buscarTodos();
+	}
+} 

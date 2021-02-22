@@ -18,7 +18,7 @@ public class Cargos extends AbstractEntity<Long> {
 	private String descricaoCargo;
 
 	@OneToMany(mappedBy = "idCargoFk")
-	private List<CargosEspecialidade> cargosEspecialidadeCollection;
+	private List<CargosEspecialidade> cargosEspecialidadeList;
 
 	@OneToMany(cascade = CascadeType.ALL, mappedBy = "idCargoFk")
 	private List<HistFuncionariosCargos> histFuncionariosCargosCollection;
@@ -29,6 +29,14 @@ public class Cargos extends AbstractEntity<Long> {
 
 	public String getNomeCargo() {
 		return nomeCargo;
+	}
+
+	public List<CargosEspecialidade> getCargosEspecialidadeList() {
+		return cargosEspecialidadeList;
+	}
+
+	public void setCargosEspecialidadeList(List<CargosEspecialidade> cargosEspecialidadeList) {
+		this.cargosEspecialidadeList = cargosEspecialidadeList;
 	}
 
 	public void setNomeCargo(String nomeCargo) {
@@ -43,13 +51,6 @@ public class Cargos extends AbstractEntity<Long> {
 		this.descricaoCargo = UtilidadesDeTexto.retiraEspacosDuplosAcentosEConverteEmMaiusculo(descricaoCargo);;
 	}
 
-	public List<CargosEspecialidade> getCargosEspecialidadeCollection() {
-		return cargosEspecialidadeCollection;
-	}
-
-	public void setCargosEspecialidadeCollection(List<CargosEspecialidade> cargosEspecialidadeCollection) {
-		this.cargosEspecialidadeCollection = cargosEspecialidadeCollection;
-	}
 
 	public List<HistFuncionariosCargos> getHistFuncionariosCargosCollection() {
 		return histFuncionariosCargosCollection;
