@@ -46,7 +46,7 @@ public class CargosServiceImpl implements CargosService{
 	@Override 
 	public List<Cargos> buscarTodos() {
 		// TODO Auto-generated method stub
-		return reposytory.findAll();
+		return reposytory.findAllByOrderByNomeCargoAsc();
 	}
 	
 	@Override

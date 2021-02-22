@@ -46,7 +46,7 @@ public class CargosEspecialidadeServiceImpl implements CargosEspecialidadeServic
 	@Override
 	public List<CargosEspecialidade> buscarTodos() {
 		// TODO Auto-generated method stub
-		return reposytory.findAll();
+		return reposytory.findAllByOrderByNomeEspecialidadeCargoAsc();
 	}
 
 	@Override
