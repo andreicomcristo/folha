@@ -44,7 +44,7 @@ public class CidadesServiceImpl implements CidadesService{
 	@Override
 	public List<Cidades> buscarTodos() {
 		// TODO Auto-generated method stub
-		return reposytory.findAll();
+		return reposytory.findAllByOrderByNomeCidadeAsc();
 	}
 
 	@Override
@@ -52,5 +52,6 @@ public class CidadesServiceImpl implements CidadesService{
 		// TODO Auto-generated method stub
 		return reposytory.findByNomeCidadeContainingOrderByNomeCidadeAsc(nomeCidade);
 	}
-
+	
+	
 }
