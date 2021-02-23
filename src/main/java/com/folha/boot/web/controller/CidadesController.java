@@ -52,6 +52,7 @@ public class CidadesController {
 					model.addAttribute("success", "Apenas os 200 primeiros registros exibidos. Use o filtro para refinar a sua busca.");
 				}
 				model.addAttribute("cidades", lista);
+				model.addAttribute("uf", ufService.buscarTodos());
 		return "/cidade/lista"; 
 	}
 	
@@ -105,9 +106,10 @@ public class CidadesController {
 		}
 		
 		model.addAttribute("cidades", lista);
+		model.addAttribute("uf", ufService.buscarTodos());
+		
 		return "/cidade/lista";
 	}
-	
 	
 	/*
 	@GetMapping("/buscar/nome/cidade")
@@ -117,6 +119,24 @@ public class CidadesController {
 	}
 	*/
 	
+	@GetMapping("/buscar/id/uf")
+	public String getPorIdUf(@RequestParam("idUf") String idUf, ModelMap model) {		
+		
+		// gambiarra para renderizar apenas 200 linhas
+		List<Cidades> lista = service.buscarPorIdUf(Long.parseLong(idUf));
+		if(lista.size()>300){
+			for(int i=lista.size()-1;i>200;i--) {
+				lista.remove(i);
+			}
+			model.addAttribute("success", "Apenas os 200 primeiros registros exibidos. Use o filtro para refinar a sua busca.");
+		}
+		
+		model.addAttribute("cidades", lista);
+		model.addAttribute("uf", ufService.buscarTodos());
+		
+		return "/cidade/lista";
+	}
+		
 	@ModelAttribute("idPaisFk")
 	public List<Paises> listaPaises() {
 		return paisesSevice.buscarTodos();

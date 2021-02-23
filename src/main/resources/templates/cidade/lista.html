@@ -17,24 +17,50 @@
 	    </nav>
 	  	<div class="container">
 	    	<p>                
-	        	<button class=" oi oi-magnifying-glass btn btn-outline-success my-2 my-sm-0" type="button" data-toggle="collapse" data-target="#collapseNome"
-	            		aria-controls="collapseNome">Filtrar
+	        	<button class=" oi oi-magnifying-glass btn btn-outline-success my-2 my-sm-0" type="button" data-toggle="collapse" data-target="#collapseCidade"
+	            		aria-controls="collapseCidade">Filtrar Cidade
+	            </button>
+	            
+	            <button class=" oi oi-magnifying-glass btn btn-outline-success my-2 my-sm-0" type="button" data-toggle="collapse" data-target="#collapseEstado"
+	            		aria-controls="collapseEstado">Filtrar Estado
 	            </button>
 	            <p></p>
 	      </p>
 	      <div class="row">
 	      	<div class="col">
-	        	<div class="collapse" id="collapseNome">
+	        	<div class="collapse" id="collapseCidade">
 		            <nav class="navbar navbar-light bg-light">
 	    	           <form class="form-inline" method="GET" th:action="@{/cidades/buscar/nome/cidade}">	        	           
 	        	           <input class="form-control mr-sm-2" type="search" placeholder="Nome da Cidade" aria-label="Search"
 	                              th:name="nomeCidade"/> 
 	                       <button class="btn btn-outline-success my-2 my-sm-0">Buscar</button> 
 	                   </form>
+	                   
+	                  
 	                </nav>
 	            </div>
-	    	</div>
+	        </div>
 	    </div>
+	    
+	    
+	    
+	    <div class="row">
+	      	<div class="col">
+	        	<div class="collapse" id="collapseEstado">
+		            <nav class="navbar navbar-light bg-light">
+	    	           
+	                   <form class="form-inline" method="GET" th:action="@{/cidades/buscar/id/uf}">
+	                                <select class=" form-select form-control mr-sm-2" th:name="idUf" aria-label="Search">
+	                                    <option value="">Selecione Estado/Província</option>
+	                                    <option th:each="c : ${uf}" th:value="${c.id}" th:text="${c.nomeUf}"> </option>
+	                                </select>
+	                                <button class="btn btn-outline-success my-2 my-sm-0">Buscar</button>
+	                  </form>
+	                </nav>
+	            </div>
+	        </div>
+	    </div>
+	    
 	    
 	    
 	    <div class="container" id="listagem">	        

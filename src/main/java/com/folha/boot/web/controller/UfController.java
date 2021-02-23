@@ -63,4 +63,10 @@ public class UfController {
 		model.addAttribute("uf", service.buscarPorNome(nomeUf.toUpperCase().trim()));
 		return "/uf/lista";
 	}
+	
+	@GetMapping("/buscar/id/uf")
+	public String getPorIdUf(@RequestParam("idUf") String idUf, ModelMap model) {		
+		model.addAttribute("uf", service.buscarPorId( Long.parseLong(idUf) ));
+		return "/uf/lista";
+	}
 }

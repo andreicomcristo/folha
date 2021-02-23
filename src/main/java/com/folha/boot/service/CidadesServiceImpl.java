@@ -5,6 +5,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import com.folha.boot.Reposytory.CidadesReposytory;
+import com.folha.boot.Reposytory.UfReposytory;
 import com.folha.boot.domain.Cidades;
 
 @Service
@@ -13,6 +14,7 @@ public class CidadesServiceImpl implements CidadesService{
 
 	@Autowired
 	private CidadesReposytory reposytory;
+	
 	@Override
 	public void salvar(Cidades cidades) {
 		// TODO Auto-generated method stub
@@ -53,5 +55,10 @@ public class CidadesServiceImpl implements CidadesService{
 		return reposytory.findByNomeCidadeContainingOrderByNomeCidadeAsc(nomeCidade);
 	}
 	
+	@Override
+	public List<Cidades> buscarPorIdUf(Long idUf) {
+		// TODO Auto-generated method stub
+		return reposytory.findByIdUfFk(idUf);
+	}
 	
 }
