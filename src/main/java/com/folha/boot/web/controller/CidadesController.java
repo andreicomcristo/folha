@@ -123,7 +123,7 @@ public class CidadesController {
 	public String getPorIdUf(@RequestParam("idUf") String idUf, ModelMap model) {		
 		
 		// gambiarra para renderizar apenas 200 linhas
-		List<Cidades> lista = service.buscarPorIdUf(Long.parseLong(idUf));
+		List<Cidades> lista = service.buscarPorIdUf(ufService.buscarPorId(Long.parseLong(idUf)));
 		if(lista.size()>300){
 			for(int i=lista.size()-1;i>200;i--) {
 				lista.remove(i);

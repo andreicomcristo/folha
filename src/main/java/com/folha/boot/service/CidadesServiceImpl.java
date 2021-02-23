@@ -7,6 +7,7 @@ import org.springframework.transaction.annotation.Transactional;
 import com.folha.boot.Reposytory.CidadesReposytory;
 import com.folha.boot.Reposytory.UfReposytory;
 import com.folha.boot.domain.Cidades;
+import com.folha.boot.domain.Uf;
 
 @Service
 @Transactional(readOnly = false)
@@ -56,9 +57,9 @@ public class CidadesServiceImpl implements CidadesService{
 	}
 	
 	@Override
-	public List<Cidades> buscarPorIdUf(Long idUf) {
+	public List<Cidades> buscarPorIdUf(Uf uf) {
 		// TODO Auto-generated method stub
-		return reposytory.findByIdUfFk(idUf);
+		return reposytory.findByIdUfFk(uf);
 	}
 	
 }

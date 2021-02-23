@@ -14,6 +14,6 @@ public interface CidadesReposytory extends JpaRepository<Cidades, Long> {
 
 	public List<Cidades> findByNomeCidadeContainingOrderByNomeCidadeAsc(String nomeCidade);
 	
-	public List<Cidades> findByIdUfFk(Long idUfFk);
+	public List<Cidades> findByIdUfFk(Uf uf);
 	
 }

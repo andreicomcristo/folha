@@ -2,6 +2,7 @@ package com.folha.boot.service;
 
 import java.util.List;
 import com.folha.boot.domain.Cidades;
+import com.folha.boot.domain.Uf;
 
 public interface CidadesService {
 
@@ -17,5 +18,5 @@ public interface CidadesService {
 	
 	List<Cidades> buscarTodos();
 	
-	List<Cidades> buscarPorIdUf(Long idUf);
+	List<Cidades> buscarPorIdUf(Uf uf);
 }
