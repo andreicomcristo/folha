@@ -5,7 +5,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import com.folha.boot.Reposytory.CidadesReposytory;
-import com.folha.boot.Reposytory.UfReposytory;
 import com.folha.boot.domain.Cidades;
 import com.folha.boot.domain.Uf;
 
@@ -61,5 +60,5 @@ public class CidadesServiceImpl implements CidadesService{
 		// TODO Auto-generated method stub
 		return reposytory.findByIdUfFk(uf);
 	}
-	
+
 }

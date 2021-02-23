@@ -17,6 +17,6 @@ public interface CidadesService {
 	List<Cidades> buscarPorNome(String nomeCidade);
 	
 	List<Cidades> buscarTodos();
-	
+
 	List<Cidades> buscarPorIdUf(Uf uf);
 }
