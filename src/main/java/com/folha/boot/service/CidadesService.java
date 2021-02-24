@@ -14,9 +14,16 @@ public interface CidadesService {
 
 	Cidades buscarPorId(Long id);
 	
-	List<Cidades> buscarPorNome(String nomeCidade);
-	
 	List<Cidades> buscarTodos();
-
+ 
+	List<Cidades> buscarDuzentos();
+	
+	List<Cidades> buscarDuzentos(Uf uf);
+	
 	List<Cidades> buscarPorIdUf(Uf uf);
+	
+	List<Cidades> buscarDuzentos(String nomeCidade);
+	
+	List<Cidades> buscarPorNome(String nomeCidade);
+
 }

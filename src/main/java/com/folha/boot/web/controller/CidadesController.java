@@ -38,21 +38,6 @@ public class CidadesController {
 		return "/cidade/cadastro";
 	}
 
-	@GetMapping("/listar")
-	public String listar(ModelMap model) {
-		// gambiarra para renderizar apenas 200 linhas
-		List<Cidades> lista = service.buscarTodos();
-		if (lista.size() > 300) {
-			for (int i = lista.size() - 1; i > 200; i--) {
-				lista.remove(i);
-			}
-			model.addAttribute("success",
-					"Apenas os 200 primeiros registros exibidos. Use o filtro para refinar a sua busca.");
-		}
-		model.addAttribute("cidades", lista);
-		return "/cidade/lista";
-	}
-	
 	@PostMapping("/salvar")
 	public String salvar(Cidades cidade, RedirectAttributes attr) {
 		service.salvar(cidade);
@@ -79,12 +64,17 @@ public class CidadesController {
 		model.addAttribute("success", "Excluído com sucesso.");
 		return listar(model);
 	}
+	@GetMapping("/listar")
+	public String listar(ModelMap model) {
+		model.addAttribute("cidades", service.buscarDuzentos());
+		model.addAttribute("success","Apenas os 200 primeiros registros serão exibidos. Use o filtro para refinar a sua busca.");
+		return "/cidade/lista";
+	}
 	
-	@GetMapping("/buscar/nome/cidade")
-	public String getPorNome(@RequestParam("nomeCidade") String nomeCidade, ModelMap model) {
-
+	/*	@GetMapping("/listar")
+	public String listar(ModelMap model) {
 		// gambiarra para renderizar apenas 200 linhas
-		List<Cidades> lista = service.buscarPorNome(nomeCidade.toUpperCase().trim());
+		List<Cidades> lista = service.buscarTodos();
 		if (lista.size() > 300) {
 			for (int i = lista.size() - 1; i > 200; i--) {
 				lista.remove(i);
@@ -94,20 +84,18 @@ public class CidadesController {
 		}
 		model.addAttribute("cidades", lista);
 		return "/cidade/lista";
+	}*/
+	@GetMapping("/buscar/nome/cidade")
+	public String getPorNome(@RequestParam("nomeCidade") String nomeCidade, ModelMap model) {
+		model.addAttribute("cidades", service.buscarDuzentos(nomeCidade));
+		model.addAttribute("success","Apenas os 200 primeiros registros serão exibidos. Use o filtro para refinar a sua busca.");		
+		return "/cidade/lista";
 	}
 	
 	@GetMapping("/buscar/id/uf")
 	public String getPorIdUf(@RequestParam("idUfFk") Uf uf, ModelMap model) {
-
-		List<Cidades> lista = service.buscarPorIdUf(uf);
-		if (lista.size() > 300) {
-			for (int i = lista.size() - 1; i > 200; i--) {
-				lista.remove(i);
-			}
-			model.addAttribute("success",
-					"Apenas os 200 primeiros registros exibidos. Use o filtro para refinar a sua busca.");
-		}
-		model.addAttribute("cidades", lista);
+		model.addAttribute("cidades", service.buscarDuzentos(uf));
+		model.addAttribute("success","Apenas os 200 primeiros registros serão exibidos. Use o filtro para refinar a sua busca.");
 		return "/cidade/lista";
 	}
 	
@@ -130,12 +118,12 @@ public class CidadesController {
 	}*/
 		
 	@ModelAttribute("idPaisFk")
-	public List<Paises> listaPaises() {
+	public List<Paises> getPaises() {
 		return paisesSevice.buscarTodos();
 	}
 	
 	@ModelAttribute("idUfFk")
-	public List<Uf> listaUfs() {
+	public List<Uf> getUfs() {
 		return ufService.buscarTodos();
 	}
 }
