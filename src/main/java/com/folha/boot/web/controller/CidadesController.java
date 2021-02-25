@@ -3,6 +3,7 @@ package com.folha.boot.web.controller;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -66,25 +67,9 @@ public class CidadesController {
 	}
 	@GetMapping("/listar")
 	public String listar(ModelMap model) {
-		model.addAttribute("cidades", service.buscarDuzentos());
-		model.addAttribute("success","Apenas os 200 primeiros registros serão exibidos. Use o filtro para refinar a sua busca.");
-		return "/cidade/lista";
+		return this.findPaginated(1, model);
 	}
 	
-	/*	@GetMapping("/listar")
-	public String listar(ModelMap model) {
-		// gambiarra para renderizar apenas 200 linhas
-		List<Cidades> lista = service.buscarTodos();
-		if (lista.size() > 300) {
-			for (int i = lista.size() - 1; i > 200; i--) {
-				lista.remove(i);
-			}
-			model.addAttribute("success",
-					"Apenas os 200 primeiros registros exibidos. Use o filtro para refinar a sua busca.");
-		}
-		model.addAttribute("cidades", lista);
-		return "/cidade/lista";
-	}*/
 	@GetMapping("/buscar/nome/cidade")
 	public String getPorNome(@RequestParam("nomeCidade") String nomeCidade, ModelMap model) {
 		model.addAttribute("cidades", service.buscarDuzentos(nomeCidade));
@@ -98,25 +83,20 @@ public class CidadesController {
 		model.addAttribute("success","Apenas os 200 primeiros registros serão exibidos. Use o filtro para refinar a sua busca.");
 		return "/cidade/lista";
 	}
-	
-	/*@GetMapping("/buscar/id/uf")
-	public String getPorIdUf(@RequestParam("idUf") String idUf, ModelMap model) {		
+	//caso não funcione, verificar o objeto Model
+	@GetMapping("/page/{pageNo}")
+	public String findPaginated(@PathVariable (value = "pageNo") int pageNo, ModelMap model) {
+		int pageSeze = 5;
+		Page<Cidades> page = service.findPaginated(pageNo, pageSeze);
+		List<Cidades> listaCidades = page.getContent();
 		
-		// gambiarra para renderizar apenas 200 linhas
-		List<Cidades> lista = service.buscarPorIdUf(ufService.buscarPorId(Long.parseLong(idUf)));
-		if(lista.size()>300){
-			for(int i=lista.size()-1;i>200;i--) {
-				lista.remove(i);
-			}
-			model.addAttribute("success", "Apenas os 200 primeiros registros exibidos. Use o filtro para refinar a sua busca.");
-		}
-		
-		model.addAttribute("cidades", lista);
-		model.addAttribute("uf", ufService.buscarTodos());
-		
+		model.addAttribute("currentePage", pageNo);
+		model.addAttribute("totalPages", page.getTotalPages());
+		model.addAttribute("totalItems", page.getTotalElements());
+		model.addAttribute("cidades", listaCidades);
 		return "/cidade/lista";
-	}*/
-		
+	}
+	
 	@ModelAttribute("idPaisFk")
 	public List<Paises> getPaises() {
 		return paisesSevice.buscarTodos();
