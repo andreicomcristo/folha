@@ -1,6 +1,9 @@
 package com.folha.boot.service;
 
 import java.util.List;
+
+import org.springframework.data.domain.Page;
+
 import com.folha.boot.domain.Cidades;
 import com.folha.boot.domain.Uf;
 
@@ -26,4 +29,5 @@ public interface CidadesService {
 	
 	List<Cidades> buscarPorNome(String nomeCidade);
 
+	Page<Cidades> findPaginated(int pageNo, int pageSize);
 }

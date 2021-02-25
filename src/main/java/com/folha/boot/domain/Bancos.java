@@ -2,6 +2,7 @@ package com.folha.boot.domain;
 
 import java.util.List;
 import javax.persistence.*;
+
 import com.folha.boot.service.util.UtilidadesDeTexto;
 
 @SuppressWarnings("serial")
