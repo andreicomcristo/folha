@@ -93,21 +93,33 @@
 	         </div>
 		</div>
 		 <nav aria-label="Page navigation example">
-		 Total Rows: [[${totalItems}]]
-		 	<ul class="pagination justify-content-center">
-		 		<li class="page-item disabled">
-		 			<a class="page-link" href="#" tabindex="-1" aria-disabled="true">Previous</a>
+		 <div> Total Rows: [[${totalItems}]] </div>
+		 <div>
+		 	<span >
+		 		<a></a>
+		 		<samp >[[${i}]]</samp> &nbsp; &nbsp;
+		 	</span>
+		 </div>
+		 	<ul class="pagination justify-content-center" >
+		 		<li class="page-item disabled" >
+		 			<!-- <a class="page-link" th:href="@{'/cidades/paginar/' + ${currentePage-1}  }" tabindex="-1" aria-disabled="true"> Previous</a>-->
 		 		</li>		 		
-			 	<li class="page-item"><a class="page-link" href="#">1</a></li>
-			 	<li class="page-item"><a class="page-link" href="#">2</a></li>
-			 	<li class="page-item"><a class="page-link" href="#">3</a></li>
+			 	<!--  <li class="page-item" th:each ="i: ${#numbers.sequence(1, totalPages)}">
+			 		<a class="page-link" th:if="${currentePage != i}"  th:href="@{'/cidades/paginar/'+ ${i}}" >[[${i}]]</a>			 		
+			 	</li>
+			 	-->
+			 	
+			 	<li  >
+			 		<a class="page-link" th:if="${currentePage != i}"  th:href="@{'/cidades/listar/'+ ${i}}" >[[${i}]]</a>
+			 	</li>
+			 	
 			 	<li class="page-item">
-		 		<a class="page-link" href="#">Next</a>
+		 			<a class="page-link" th:if="${currentePage < totalPages}"  th:href="@{'/cidades/listar/' + ${currentePage +1}}">Next</a>
 		 		</li>
 		 	</ul>
 		</nav>
 		
-		<!---<div th:if = "${totalPages > 1}">
+		<!-- <div th:if = "${totalPages > 1}">
 			<div class = "row col-sm-10">
 				<div class = "col-sm-2">
 					Total Rows: [[${totalItems}]] 

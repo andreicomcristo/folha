@@ -63,7 +63,7 @@ public class CidadesController {
 	public String excluir(@PathVariable("id") Long id, ModelMap model) {
 		service.excluir(id); 
 		model.addAttribute("success", "Excluído com sucesso.");
-		return listar(model);
+		return "redirect:/cidades/listar";
 	}
 	@GetMapping("/listar")
 	public String listar(ModelMap model) {
@@ -84,7 +84,7 @@ public class CidadesController {
 		return "/cidade/lista";
 	}
 	//caso não funcione, verificar o objeto Model
-	@GetMapping("/page/{pageNo}")
+	@GetMapping("/listar/{pageNo}")
 	public String findPaginated(@PathVariable (value = "pageNo") int pageNo, ModelMap model) {
 		int pageSeze = 5;
 		Page<Cidades> page = service.findPaginated(pageNo, pageSeze);
