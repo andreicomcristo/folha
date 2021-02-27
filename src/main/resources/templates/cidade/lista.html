@@ -116,6 +116,15 @@
 			 	<li  >
 			 	    <a class="btn btn-light    btn-paginacao    oi oi-media-skip-backward" th:if="${currentePage > 1}"  th:href="@{'/cidades/listar/'+ ${currentePage -1}}" ></a>
 			 	</li> 
+			 	
+			 	<li  > 	
+			 		<a class="btn btn-light    btn-paginacao" th:if="${currentePage > 100}"  th:href="@{'/cidades/listar/'+ ${currentePage-100} }" >-100</a>
+			 	</li>
+			 	
+			 	<li  > 	
+			 		<a class="btn btn-light    btn-paginacao" th:if="${currentePage > 10}"  th:href="@{'/cidades/listar/'+ ${currentePage-10} }" >-10</a>
+			 	</li>
+			 	
 			 	 
 			 	<!--			 	 	
 			 	<li  > 	
@@ -143,6 +152,13 @@
 			 		<a class="btn btn-light    btn-paginacao"  th:if="${currentePage < totalPages - 2}"  th:href="@{'/cidades/listar/'+ ${currentePage+2} }" >[[${currentePage+2}]]</a>
 			 	</li>
 			 	
+			 	<li  > 	
+			 		<a class="btn btn-light    btn-paginacao"  th:if="${currentePage < totalPages - 10}"  th:href="@{'/cidades/listar/'+ ${currentePage+10} }" >+10</a>
+			 	</li>
+			 	
+			 	<li  > 	
+			 		<a class="btn btn-light    btn-paginacao"  th:if="${currentePage < totalPages - 100}"  th:href="@{'/cidades/listar/'+ ${currentePage+100} }" >+100</a>
+			 	</li>
 			 	
 			 	<li class="page-item">
 		 			<a class="btn btn-light    btn-paginacao    oi oi-media-skip-forward" th:if="${currentePage < totalPages}"  th:href="@{'/cidades/listar/' + ${currentePage +1}}"></a>
