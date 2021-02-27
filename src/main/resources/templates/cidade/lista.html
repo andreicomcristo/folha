@@ -93,7 +93,7 @@
 	         </div>
 		</div>
 		 <nav aria-label="Page navigation example">
-		 <div> Total Rows: [[${totalItems}]] </div>
+		 <div> Quantidade de linhas: [[${totalItems}]] </div>
 		 <div>
 		 	<span >
 		 		<a></a>
@@ -109,13 +109,49 @@
 			 	</li>
 			 	-->
 			 	
-			 	<li  >
-			 		<a class="page-link" th:if="${currentePage != i}"  th:href="@{'/cidades/listar/'+ ${i}}" >[[${i}]]</a>
+			 	<li  > 	
+			 		<a class="oi oi-media-step-backward    page-link" th:if="${currentePage != i}"  th:href="@{'/cidades/listar/'+ 1 }" ></a>
 			 	</li>
 			 	
+			 	<li  >
+			 	    <a class="oi oi-media-skip-backward    page-link" th:if="${currentePage > 1}"  th:href="@{'/cidades/listar/'+ ${currentePage -1}}" ></a>
+			 	</li> 
+			 	 
+			 	<!--			 	 	
+			 	<li  > 	
+			 		<a class="page-link" th:if="${currentePage != i}"  th:href="@{'/cidades/listar/'+ ${i}}" >[[${i}]]</a>
+			 	</li> 
+			 	--> 
+			 	 
+			 	<li  > 	
+			 		<a class="page-link" th:if="${currentePage > 2}"  th:href="@{'/cidades/listar/'+ ${currentePage-2} }" >[[${currentePage-2}]]</a>
+			 	</li>
+			 	 
+			 	<li  > 	
+			 		<a class="page-link" th:if="${currentePage > 1}"  th:href="@{'/cidades/listar/'+ ${currentePage-1} }" >[[${currentePage-1}]]</a>
+			 	</li>
+			 	 
+			 	<li  > 	
+			 		<a class="page-link" th:if="${currentePage != i}"  th:href="@{'/cidades/listar/'+ ${currentePage} }" >[[${currentePage}]]</a>
+			 	</li> 
+			 	
+			 	<li  > 	
+			 		<a class="page-link" th:if="${currentePage < totalPages - 1}"  th:href="@{'/cidades/listar/'+ ${currentePage+1} }" >[[${currentePage+1}]]</a>
+			 	</li>
+			 	
+			 	<li  > 	
+			 		<a class="page-link"  th:if="${currentePage < totalPages - 2}"  th:href="@{'/cidades/listar/'+ ${currentePage+2} }" >[[${currentePage+2}]]</a>
+			 	</li>
+			 	
+			 	
 			 	<li class="page-item">
-		 			<a class="page-link" th:if="${currentePage < totalPages}"  th:href="@{'/cidades/listar/' + ${currentePage +1}}">Next</a>
+		 			<a class="oi oi-media-skip-forward    page-link" th:if="${currentePage < totalPages}"  th:href="@{'/cidades/listar/' + ${currentePage +1}}"></a>
 		 		</li>
+		 		
+		 		<li  > 	
+			 		<a class=  "oi oi-media-step-forward    page-link"  th:if="${currentePage != i}"  th:href="@{'/cidades/listar/'+ ${totalPages} }" ></a>
+			 	</li> 
+		 		
 		 	</ul>
 		</nav>
 		
