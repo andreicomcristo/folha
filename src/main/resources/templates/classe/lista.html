@@ -5,11 +5,11 @@
 	<section class="layout-content" layout:fragment="corpo">		
 		<nav class="navbar navbar-expand-md bg-light">
 	            
-	    	<a class="btn btn-outline-dark btn-md" href="/classes/cadastrar" role="button">
+	    	<a class="btn btn-outline-dark btn-md" href="/classes/carreira/cadastrar" role="button">
 	        	<span class="oi oi-plus" title="Cadastro" aria-hidden="true"></span>
 	            <span>Novo</span>
 	        </a>
-	        <a class="btn btn-outline-dark btn-md" href="/classes/listar" role="button">
+	        <a class="btn btn-outline-dark btn-md" href="/classes/carreira/listar" role="button">
 	        	<span class="oi oi-loop-square" title="Atualizar" aria-hidden="true"></span>
 	            <span>Atualizar</span>
 	        </a>
@@ -25,7 +25,7 @@
 	      	<div class="col">
 	        	<div class="collapse" id="collapseNome">
 		            <nav class="navbar navbar-light bg-light">
-	    	           <form class="form-inline" method="GET" th:action="@{/classes/buscar/nome/classe}">
+	    	           <form class="form-inline" method="GET" th:action="@{/classes/carreira/buscar/nome/classe}">
 	        	           <input class="form-control mr-sm-2" type="search" placeholder="Classe" aria-label="Search"
 	                              th:name="nomeClasse" />
 	                       <button class="btn btn-outline-success my-2 my-sm-0">Buscar</button>
@@ -51,16 +51,16 @@
 	                    </tr>
 	                </thead>                  
 	                <tbody>
-		            	<tr th:each="d : ${classes}">
+		            	<tr th:each="d : ${classesCarreira}">
 		                	<td th:text="${d.id}"></td>
 		                    <td th:text="${d.siglaClasse}"></td>
 		                    <td th:text="${d.nomeClasse}"></td>
 		                    <td th:text="${d.descricaoClasse}"></td>
 		                    <td colspan="2">
-		                    	<a class="btn btn-outline-info btn-sm" th:href="@{/classes/editar/{id} (id=${d.id}) }" role="button">
+		                    	<a class="btn btn-outline-info btn-sm" th:href="@{/classes/carreira/editar/{id} (id=${d.id}) }" role="button">
 		                        	<span class="oi oi-brush" title="Editar" aria-hidden="true"></span>
 		                        </a>
-		                        <button th:id="${ 'btn_classes/excluir/' + d.id}" type="button" class="btn btn btn-outline-danger btn-sm" 
+		                        <button th:id="${ 'btn_classes/carreira/excluir/' + d.id}" type="button" class="btn btn btn-outline-danger btn-sm" 
 		                            		data-toggle="modal" data-target="#myModal">
 		                                <span class="oi oi-circle-x" title="Exclusão habilitada" aria-hidden="true"></span>
 		                        </button>

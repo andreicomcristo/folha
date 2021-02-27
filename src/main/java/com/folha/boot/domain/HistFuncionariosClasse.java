@@ -25,7 +25,7 @@ public class HistFuncionariosClasse extends AbstractEntity<Long> {
 
 	@JoinColumn(name = "id_classe_fk", referencedColumnName = "id", nullable = false)
 	@ManyToOne(optional = false)
-	private Classes idClasseFk;
+	private ClassesCarreira idClasseFk;
 
 	@JoinColumn(name = "id_funcionario_fk", referencedColumnName = "id", nullable = false)
 	@ManyToOne(optional = false)
@@ -71,11 +71,11 @@ public class HistFuncionariosClasse extends AbstractEntity<Long> {
 		this.motivoCancelamento = motivoCancelamento;
 	}
 
-	public Classes getIdClasseFk() {
+	public ClassesCarreira getIdClasseFk() {
 		return idClasseFk;
 	}
 
-	public void setIdClasseFk(Classes idClasseFk) {
+	public void setIdClasseFk(ClassesCarreira idClasseFk) {
 		this.idClasseFk = idClasseFk;
 	}
 

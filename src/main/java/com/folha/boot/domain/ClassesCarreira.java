@@ -8,8 +8,8 @@ import com.folha.boot.service.util.UtilidadesDeTexto;
 
 @SuppressWarnings("serial")
 @Entity
-@Table(name = "classes")
-public class Classes extends AbstractEntity<Long> {
+@Table(name = "classes_carreira")
+public class ClassesCarreira extends AbstractEntity<Long> {
 
 	@Column(name = "sigla_classe", nullable = false, length = 10)
 	private String siglaClasse;

@@ -5,25 +5,25 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import com.folha.boot.Reposytory.ClassesReposytory;
-import com.folha.boot.domain.Classes;
+import com.folha.boot.domain.ClassesCarreira;
 
 @Service
 @Transactional(readOnly = false)
-public class ClassesServiceImpl implements ClassesService{
+public class ClassesCarreiraServiceImpl implements ClassesCarreiraService{
 
 	@Autowired
 	private ClassesReposytory reposytory;
 	
 	@Override
-	public void salvar(Classes classes) {
+	public void salvar(ClassesCarreira classesCarreira) {
 		// TODO Auto-generated method stub
-		reposytory.save(classes);
+		reposytory.save(classesCarreira);
 	}
 
 	@Override
-	public void editar(Classes classes) {
+	public void editar(ClassesCarreira classesCarreira) {
 		// TODO Auto-generated method stub
-		reposytory.save(classes);
+		reposytory.save(classesCarreira);
 	}
 
 	@Override
@@ -34,20 +34,20 @@ public class ClassesServiceImpl implements ClassesService{
 
 	@Transactional(readOnly = true)
 	@Override
-	public Classes buscarPorId(Long id) {
+	public ClassesCarreira buscarPorId(Long id) {
 		// TODO Auto-generated method stub
 		return reposytory.findById(id).get();
 	}
 
 	@Transactional(readOnly = true)
 	@Override
-	public List<Classes> buscarTodos() {
+	public List<ClassesCarreira> buscarTodos() {
 		// TODO Auto-generated method stub
 		return reposytory.findAllByOrderByNomeClasseAsc();
 	}
 
 	@Override
-	public List<Classes> buscarPorNome(String nomeClasse) {
+	public List<ClassesCarreira> buscarPorNome(String nomeClasse) {
 		return reposytory.findByNomeClasseContainingOrderByNomeClasseAsc(nomeClasse);
 	}
 	

@@ -10,46 +10,45 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-import com.folha.boot.domain.Classes;
-import com.folha.boot.service.ClassesService;
+import com.folha.boot.domain.ClassesCarreira;
+import com.folha.boot.service.ClassesCarreiraService;
 
 @Controller
-@RequestMapping("/classes")
-public class ClassesController {
+@RequestMapping("/classes/carreira")
+public class ClassesCarreiraController {
 
 	@Autowired
-	private ClassesService service;
+	private ClassesCarreiraService service;
 
 	@GetMapping("/cadastrar")
-	public String cadastrar(Classes classe) {
-		
+	public String cadastrar(ClassesCarreira classesCarreira) {
 		return "/classe/cadastro";
 	}
 	
 	@GetMapping("/listar")
 	public String listar(ModelMap model) {
-		model.addAttribute("classes", service.buscarTodos());
+		model.addAttribute("classesCarreira", service.buscarTodos());
 		return "/classe/lista"; 
 	}
 	
 	@PostMapping("/salvar")
-	public String salvar(Classes classe, RedirectAttributes attr) {
+	public String salvar(ClassesCarreira classe, RedirectAttributes attr) {
 		service.salvar(classe);
 		attr.addFlashAttribute("success", "Inserido com sucesso.");
-		return "redirect:/classes/cadastrar";
+		return "redirect:/classes/carreira/cadastrar";
 	}
 	
 	@GetMapping("/editar/{id}")
 	public String preEditar(@PathVariable("id") Long id, ModelMap model) {
-		model.addAttribute("classes", service.buscarPorId(id));
+		model.addAttribute("classesCarreira", service.buscarPorId(id));
 		return "/classe/cadastro";
 	}
 	
 	@PostMapping("/editar")
-	public String editar(Classes classe, RedirectAttributes attr) {
-		service.editar(classe);
+	public String editar(ClassesCarreira classesCarreira, RedirectAttributes attr) {
+		service.editar(classesCarreira);
 		attr.addFlashAttribute("success", "Editado com sucesso.");
-		return "redirect:/classes/listar";
+		return "redirect:/classes/carreira/listar";
 	}
 	
 	@GetMapping("/excluir/{id}")
@@ -61,7 +60,7 @@ public class ClassesController {
 	
 	@GetMapping("/buscar/nome/classe")
 	public String getPorNome(@RequestParam("nomeClasse") String nomeClasse, ModelMap model) {		
-		model.addAttribute("classes", service.buscarPorNome(nomeClasse.toUpperCase().trim()));
+		model.addAttribute("classesCarreira", service.buscarPorNome(nomeClasse.toUpperCase().trim()));
 		return "/classe/lista";
 	}
 }

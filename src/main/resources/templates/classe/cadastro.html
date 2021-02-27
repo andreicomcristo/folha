@@ -5,10 +5,10 @@
 	<section class="layout-content" layout:fragment="corpo">
 
 		<nav class="navbar navbar-expand-md bg-light">
-			<form action="/classes/listar">
+			<form action="/classes/carreira/listar">
 				<div class=" layout-content">
 					<button class="btn btn-outline-dark" >Listar</button>
-					<a class="btn btn-outline-dark btn-md" href="/classes/cadastrar"
+					<a class="btn btn-outline-dark btn-md" href="/classes/carreira/cadastrar"
 						role="button"> <span class="oi oi-plus" title="Cadastro"
 						aria-hidden="true"></span> <span>Novo</span>
 					</a>
@@ -20,8 +20,8 @@
 
 			<div th:replace="fragments/alert"></div>
 			<form
-				th:action="${classes.id == null} ? @{/classes/salvar} : @{/classes/editar}"
-				th:object="${classes}" method="POST">
+				th:action="${classesCarreira.id == null} ? @{/classes/carreira/salvar} : @{/classes/carreira/editar}"
+				th:object="${classesCarreira}" method="POST">
 				<div class="form-row">
 
 					<div class="form-group col-md-6">

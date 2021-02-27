@@ -5,13 +5,13 @@ import java.util.List;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
-import com.folha.boot.domain.Classes;
+import com.folha.boot.domain.ClassesCarreira;
 
 @Repository
-public interface ClassesReposytory extends JpaRepository<Classes, Long> {
+public interface ClassesReposytory extends JpaRepository<ClassesCarreira, Long> {
 
-	public List<Classes> findAllByOrderByNomeClasseAsc();
+	public List<ClassesCarreira> findAllByOrderByNomeClasseAsc();
 	
-	public List<Classes> findByNomeClasseContainingOrderByNomeClasseAsc(String nomeClasse);	
+	public List<ClassesCarreira> findByNomeClasseContainingOrderByNomeClasseAsc(String nomeClasse);	
 	
 }

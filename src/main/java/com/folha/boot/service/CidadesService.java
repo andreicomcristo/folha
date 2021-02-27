@@ -31,4 +31,5 @@ public interface CidadesService {
 
 	Page<Cidades> findPaginated(int pageNo, int pageSize);
 	
+	
 }
