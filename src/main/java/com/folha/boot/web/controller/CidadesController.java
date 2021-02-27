@@ -72,10 +72,9 @@ public class CidadesController {
 	
 	@GetMapping("/buscar/nome/cidade")
 	public String getPorNome(@RequestParam("nomeCidade") String nomeCidade, ModelMap model) {
-		
-		model.addAttribute("cidades", service.buscarDuzentos(nomeCidade));
-		model.addAttribute("success","Apenas os 200 primeiros registros serão exibidos. Use o filtro para refinar a sua busca.");		
-		return "/cidade/lista";
+		/*model.addAttribute("cidades", service.buscarDuzentos(nomeCidade));
+		model.addAttribute("success","Apenas os 200 primeiros registros serão exibidos. Use o filtro para refinar a sua busca.");*/		
+		return this.findPaginated(1, nomeCidade, model);
 	}
 	
 	@GetMapping("/buscar/id/uf")
@@ -87,8 +86,21 @@ public class CidadesController {
 	//caso não funcione, verificar o objeto Model
 	@GetMapping("/listar/{pageNo}")
 	public String findPaginated(@PathVariable (value = "pageNo") int pageNo, ModelMap model) {
-		int pageSeze = 5;
+		int pageSeze = 10;
 		Page<Cidades> page = service.findPaginated(pageNo, pageSeze);
+		List<Cidades> listaCidades = page.getContent();
+		
+		model.addAttribute("currentePage", pageNo);
+		model.addAttribute("totalPages", page.getTotalPages());
+		model.addAttribute("totalItems", page.getTotalElements()); 
+		model.addAttribute("cidades", listaCidades);
+		return "/cidade/lista";
+	}
+
+	//@PostMapping("/listar/{pageNo}")
+	public String findPaginated(@PathVariable (value = "pageNo") int pageNo, String nomeCidade, ModelMap model) {
+		int pageSeze = 10;
+		Page<Cidades> page = service.findPaginatedNome(pageNo, pageSeze, nomeCidade);
 		List<Cidades> listaCidades = page.getContent();
 		
 		model.addAttribute("currentePage", pageNo);
