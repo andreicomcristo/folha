@@ -97,7 +97,7 @@ public class CidadesController {
 		return "/cidade/lista";
 	}
 
-	//@PostMapping("/listar/{pageNo}")
+	@PostMapping("/listar/{pageNo}")
 	public String findPaginated(@PathVariable (value = "pageNo") int pageNo, String nomeCidade, ModelMap model) {
 		int pageSeze = 10;
 		Page<Cidades> page = service.findPaginatedNome(pageNo, pageSeze, nomeCidade);
