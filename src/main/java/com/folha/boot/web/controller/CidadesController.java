@@ -105,6 +105,7 @@ public class CidadesController {
 		return "/cidade/lista";*/
 		return this.findPaginatedUf(1, uf, model);
 	}
+	
 	//caso não funcione, verificar o objeto Model
 	@GetMapping("/listar/{pageNo}")
 	public String findPaginated(@PathVariable (value = "pageNo") int pageNo, ModelMap model) {
