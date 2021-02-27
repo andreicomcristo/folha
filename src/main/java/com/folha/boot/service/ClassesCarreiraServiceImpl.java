@@ -4,7 +4,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import com.folha.boot.Reposytory.ClassesReposytory;
+import com.folha.boot.Reposytory.ClassesCarreiraReposytory;
 import com.folha.boot.domain.ClassesCarreira;
 
 @Service
@@ -12,7 +12,7 @@ import com.folha.boot.domain.ClassesCarreira;
 public class ClassesCarreiraServiceImpl implements ClassesCarreiraService{
 
 	@Autowired
-	private ClassesReposytory reposytory;
+	private ClassesCarreiraReposytory reposytory;
 	
 	@Override
 	public void salvar(ClassesCarreira classesCarreira) {

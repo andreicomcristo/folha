@@ -8,7 +8,7 @@ import org.springframework.stereotype.Repository;
 import com.folha.boot.domain.ClassesCarreira;
 
 @Repository
-public interface ClassesReposytory extends JpaRepository<ClassesCarreira, Long> {
+public interface ClassesCarreiraReposytory extends JpaRepository<ClassesCarreira, Long> {
 
 	public List<ClassesCarreira> findAllByOrderByNomeClasseAsc();
 	
