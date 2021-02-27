@@ -20,6 +20,8 @@ public interface CidadesReposytory extends JpaRepository<Cidades, Long> {
 	
 	public Page<Cidades> findByNomeCidadeContainingOrderByNomeCidadeAsc(String nomeCidade, final Pageable page);
 	
+	public Page<Cidades> findByIdUfFkOrderByNomeCidadeAsc(Uf uf, final Pageable page);
+	
 	public List<Cidades> findByIdUfFk(Uf uf);
 	
 }

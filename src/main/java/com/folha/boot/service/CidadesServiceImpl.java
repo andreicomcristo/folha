@@ -113,5 +113,11 @@ public class CidadesServiceImpl implements CidadesService{
 	public Page<Cidades> findPaginatedNome(int pageNo, int pageSize, String nomeCidade) {
 		Pageable pageable = PageRequest.of(pageNo -1, pageSize);
 		return this.reposytory.findByNomeCidadeContainingOrderByNomeCidadeAsc(nomeCidade.toUpperCase().trim(), pageable);
-	}	
+	}
+	
+	@Override
+	public Page<Cidades> findPaginatedEstado(int pageNo, int pageSize, Uf uf) {
+		Pageable pageable = PageRequest.of(pageNo -1, pageSize);
+		return this.reposytory.findByIdUfFkOrderByNomeCidadeAsc(uf, pageable);
+	}
 }

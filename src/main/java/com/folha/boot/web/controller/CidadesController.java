@@ -25,6 +25,9 @@ import com.folha.boot.service.UfService;
 @RequestMapping("/cidades")
 public class CidadesController {
 
+	String ultimaBuscaCidade = "";
+	Uf ultimaBuscaUf = null;
+	
 	@Autowired
 	PaisesSevice paisesSevice;
 	
@@ -67,21 +70,40 @@ public class CidadesController {
 	}
 	@GetMapping("/listar")
 	public String listar(ModelMap model) {
+		this.ultimaBuscaCidade = "";
+		this.ultimaBuscaUf = null;
 		return this.findPaginated(1, model);
 	}
 	
 	@GetMapping("/buscar/nome/cidade")
 	public String getPorNome(@RequestParam("nomeCidade") String nomeCidade, ModelMap model) {
+		this.ultimaBuscaCidade = nomeCidade;
 		/*model.addAttribute("cidades", service.buscarDuzentos(nomeCidade));
 		model.addAttribute("success","Apenas os 200 primeiros registros serão exibidos. Use o filtro para refinar a sua busca.");*/		
 		return this.findPaginated(1, nomeCidade, model);
 	}
 	
+	@GetMapping("/paginar/{pageNo}")
+	public String getPorNomePaginado( @PathVariable (value = "pageNo") int pageNo, ModelMap model) {
+		
+		if( (ultimaBuscaCidade.equals("")) && (ultimaBuscaUf == null) ){
+			return "redirect:/cidades/listar/{pageNo}" ;}
+		else {		
+			if(!ultimaBuscaCidade.equals("")) {
+				return this.findPaginated(pageNo, ultimaBuscaCidade, model);}
+			else {
+				return this.findPaginatedUf(pageNo, ultimaBuscaUf, model);}
+			}
+		}
+	
+	
 	@GetMapping("/buscar/id/uf")
 	public String getPorIdUf(@RequestParam("idUfFk") Uf uf, ModelMap model) {
-		model.addAttribute("cidades", service.buscarDuzentos(uf));
+		this.ultimaBuscaUf = uf;
+		/*model.addAttribute("cidades", service.buscarDuzentos(uf));
 		model.addAttribute("success","Apenas os 200 primeiros registros serão exibidos. Use o filtro para refinar a sua busca.");
-		return "/cidade/lista";
+		return "/cidade/lista";*/
+		return this.findPaginatedUf(1, uf, model);
 	}
 	//caso não funcione, verificar o objeto Model
 	@GetMapping("/listar/{pageNo}")
@@ -101,6 +123,18 @@ public class CidadesController {
 	public String findPaginated(@PathVariable (value = "pageNo") int pageNo, String nomeCidade, ModelMap model) {
 		int pageSeze = 10;
 		Page<Cidades> page = service.findPaginatedNome(pageNo, pageSeze, nomeCidade);
+		List<Cidades> listaCidades = page.getContent();
+		
+		model.addAttribute("currentePage", pageNo);
+		model.addAttribute("totalPages", page.getTotalPages());
+		model.addAttribute("totalItems", page.getTotalElements());
+		model.addAttribute("cidades", listaCidades);
+		return "/cidade/lista";
+	}
+	
+	public String findPaginatedUf(@PathVariable (value = "pageNo") int pageNo, Uf uf, ModelMap model) {
+		int pageSeze = 10;
+		Page<Cidades> page = service.findPaginatedEstado(pageNo, pageSeze, uf);
 		List<Cidades> listaCidades = page.getContent();
 		
 		model.addAttribute("currentePage", pageNo);

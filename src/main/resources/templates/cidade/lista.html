@@ -103,33 +103,25 @@
 		 	<ul class="pagination justify-content-center" >
 		 		<li class="page-item disabled" ></li>		 		
 	
-			 	<li ><a class="btn btn-light btn-paginacao oi oi-media-step-backward" th:if="${currentePage != i}"  th:href="@{'/cidades/listar/'+ 1 }" ></a></li>
+			 	<li ><a class="btn btn-light btn-paginacao oi oi-media-step-backward" th:if="${currentePage != i}"  th:href="@{'/cidades/paginar/'+ 1 }" ></a></li>
 			 	
-			 	<li ><a class="btn btn-light    btn-paginacao    oi oi-media-skip-backward" th:if="${currentePage > 1}"  th:href="@{'/cidades/listar/'+ ${currentePage -1}}" ></a></li> 
+			 	<li ><a class="btn btn-light    btn-paginacao    oi oi-media-skip-backward" th:if="${currentePage > 1}"  th:href="@{'/cidades/paginar/'+ ${currentePage -1}}" ></a></li> 
 			 	
-			 	<li ><a class="btn btn-light    btn-paginacao" th:if="${currentePage > 100}"  th:href="@{'/cidades/listar/'+ ${currentePage-100} }" >-100</a></li>
+			 	<li ><a class="btn btn-light    btn-paginacao oi" th:if="${currentePage > 1000}"  th:href="@{'/cidades/paginar/'+ ${currentePage-1000} }" >-1000</a></li>
 			 	
-			 	<li ><a class="btn btn-light    btn-paginacao" th:if="${currentePage > 10}"  th:href="@{'/cidades/listar/'+ ${currentePage-10} }" >-10</a></li>
+			 	<li ><a class="btn btn-light    btn-paginacao" th:if="${currentePage > 100}"  th:href="@{'/cidades/paginar/'+ ${currentePage-100} }" >-100</a></li>
+			 	
+			 	<li ><a class="btn btn-light    btn-paginacao" th:if="${currentePage > 10}"  th:href="@{'/cidades/paginar/'+ ${currentePage-10} }" >-10</a></li>
 
-			 	<li ><a class="btn btn-light    btn-paginacao" th:if="${currentePage > 2}"  th:href="@{'/cidades/listar/'+ ${currentePage-2} }" >[[${currentePage-2}]]</a></li>
-			 	 
-			 	<li ><a class="btn btn-light    btn-paginacao" th:if="${currentePage > 1}"  th:href="@{'/cidades/listar/'+ ${currentePage-1} }" >[[${currentePage-1}]]</a></li>
-			 	 
-			 	<li ><a class="btn btn-light    btn-paginacao" th:if="${currentePage != i}"  th:href="@{'/cidades/listar/'+ ${currentePage} }" >[[${currentePage}]]</a></li> 
+			 	<li ><a class="btn btn-light    btn-paginacao"  th:if="${currentePage < totalPages - 10}"  th:href="@{'/cidades/paginar/'+ ${currentePage+10} }" >+10</a></li>
 			 	
-			 	<li ><a class="btn btn-light    btn-paginacao" th:if="${currentePage < totalPages - 1}"  th:href="@{'/cidades/listar/'+ ${currentePage+1} }" >[[${currentePage+1}]]</a></li>
+			 	<li ><a class="btn btn-light    btn-paginacao"  th:if="${currentePage < totalPages - 100}"  th:href="@{'/cidades/paginar/'+ ${currentePage+100} }" >+100</a></li>
 			 	
-			 	<li ><a class="btn btn-light    btn-paginacao"  th:if="${currentePage < totalPages - 2}"  th:href="@{'/cidades/listar/'+ ${currentePage+2} }" >[[${currentePage+2}]]</a></li>
+			 	<li ><a class="btn btn-light    btn-paginacao"  th:if="${currentePage < totalPages - 1000}"  th:href="@{'/cidades/paginar/'+ ${currentePage+1000} }" >+1000</a></li>
 			 	
-			 	<li ><a class="btn btn-light    btn-paginacao"  th:if="${currentePage < totalPages - 10}"  th:href="@{'/cidades/listar/'+ ${currentePage+10} }" >+10</a></li>
-			 	
-			 	<li ><a class="btn btn-light    btn-paginacao"  th:if="${currentePage < totalPages - 100}"  th:href="@{'/cidades/listar/'+ ${currentePage+100} }" >+100</a></li>
-			 	
-			 	<li class="page-item">
-		 			<a class="btn btn-light    btn-paginacao    oi oi-media-skip-forward" th:if="${currentePage < totalPages}"  th:href="@{'/cidades/listar/' + ${currentePage +1}}"></a>
-		 		</li>
+			 	<li ><a class="btn btn-light    btn-paginacao    oi oi-media-skip-forward" th:if="${currentePage < totalPages}"  th:href="@{'/cidades/paginar/' + ${currentePage +1}}"></a> </li>
 		 		
-		 		<li ><a class="btn btn-light    btn-paginacao    oi oi-media-step-forward"  th:if="${currentePage != i}"  th:href="@{'/cidades/listar/'+ ${totalPages} }" ></a></li> 
+		 		<li ><a class="btn btn-light    btn-paginacao    oi oi-media-step-forward"  th:if="${currentePage != i}"  th:href="@{'/cidades/paginar/'+ ${totalPages} }" ></a></li> 
 		 	</ul>
 		</nav>     	        
 	    <div th:replace="fragments/modal :: modal"></div>   

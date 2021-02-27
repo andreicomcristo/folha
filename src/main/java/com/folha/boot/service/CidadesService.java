@@ -32,5 +32,7 @@ public interface CidadesService {
 	Page<Cidades> findPaginated(int pageNo, int pageSize); 
 	
 	Page<Cidades> findPaginatedNome(int pageNo, int pageSize, String nomeCidade);
+	
+	Page<Cidades> findPaginatedEstado(int pageNo, int pageSize, Uf uf);
 		
 }
