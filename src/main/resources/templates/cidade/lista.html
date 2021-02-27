@@ -102,12 +102,7 @@
 		 </div>
 		 	<ul class="pagination justify-content-center" >
 		 		<li class="page-item disabled" >
-		 			<!-- <a class="page-link" th:href="@{'/cidades/paginar/' + ${currentePage-1}  }" tabindex="-1" aria-disabled="true"> Previous</a>-->
 		 		</li>		 		
-			 	<!--  <li class="page-item" th:each ="i: ${#numbers.sequence(1, totalPages)}">
-			 		<a class="page-link" th:if="${currentePage != i}"  th:href="@{'/cidades/paginar/'+ ${i}}" >[[${i}]]</a>			 		
-			 	</li>
-			 	-->
 			 	
 			 	<li  > 	
 			 		<a class="btn btn-light btn-paginacao oi oi-media-step-backward" th:if="${currentePage != i}"  th:href="@{'/cidades/listar/'+ 1 }" ></a>
@@ -124,14 +119,7 @@
 			 	<li  > 	
 			 		<a class="btn btn-light    btn-paginacao" th:if="${currentePage > 10}"  th:href="@{'/cidades/listar/'+ ${currentePage-10} }" >-10</a>
 			 	</li>
-			 	
-			 	 
-			 	<!--			 	 	
-			 	<li  > 	
-			 		<a class="page-link" th:if="${currentePage != i}"  th:href="@{'/cidades/listar/'+ ${i}}" >[[${i}]]</a>
-			 	</li> 
-			 	--> 
-			 	 
+
 			 	<li  > 	
 			 		<a class="btn btn-light    btn-paginacao" th:if="${currentePage > 2}"  th:href="@{'/cidades/listar/'+ ${currentePage-2} }" >[[${currentePage-2}]]</a>
 			 	</li>
@@ -169,32 +157,7 @@
 			 	</li> 
 		 		
 		 	</ul>
-		</nav>
-		
-		<!-- <div th:if = "${totalPages > 1}">
-			<div class = "row col-sm-10">
-				<div class = "col-sm-2">
-					Total Rows: [[${totalItems}]] 
-				</div>
-				<div class = "col-sm-1">
-					<span th:each="i: ${#numbers.sequence(1, totalPages)}">
-						<a th:if="${currentPage != i}" th:href="@{'/page/' + ${i}+ '?sortField=' + ${sortField} + '&sortDir=' + ${sortDir}}">[[${i}]]</a>
-						<span th:unless="${currentPage != i}">[[${i}]]</span>  &nbsp; &nbsp;
-					</span>
-				</div>
-				<div class = "col-sm-1">
-					<a th:if="${currentPage < totalPages}" th:href="@{'/page/' + ${currentPage + 1}+ '?sortField=' + ${sortField} + '&sortDir=' + ${sortDir}}">Next</a>
-					<span th:unless="${currentPage < totalPages}">Next</span>
-				</div>
-
-				 <div class="col-sm-1">
-    				<a th:if="${currentPage < totalPages}" th:href="@{'/page/' + ${totalPages}+ '?sortField=' + ${sortField} + '&sortDir=' + ${sortDir}}">Last</a>
-					<span th:unless="${currentPage < totalPages}">Last</span>
-   				 </div>
-			</div>
-		
-		-->
-			     	        
+		</nav>			     	        
 	    <div th:replace="fragments/modal :: modal"></div>   
 	</section>	
 </body>

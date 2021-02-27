@@ -47,7 +47,9 @@ public class CidadesServiceImpl implements CidadesService{
 	@Override
 	public List<Cidades> buscarTodos() {
 		// TODO Auto-generated method stub
-		return reposytory.findAllByOrderByNomeCidadeAsc();
+		
+		
+		return null;
 	}
 	
 	@Transactional(readOnly = true)
@@ -106,9 +108,12 @@ public class CidadesServiceImpl implements CidadesService{
 	@Override
 	public Page<Cidades> findPaginated(int pageNo, int pageSize) {
 		Pageable pageable = PageRequest.of(pageNo -1, pageSize);
-		return this.reposytory.findAll(pageable);
+		return this.reposytory.findAllByOrderByNomeCidadeAsc(pageable);
 	}
-	
-	
-	
+
+	@Override
+	public Page<Cidades> findPaginatedNome(int pageNo, int pageSize) {
+		Pageable pageable = PageRequest.of(pageNo -1, pageSize);
+		return reposytory.findAllByOrderByNomeCidadeAsc(pageable);
+		}
 }
