@@ -86,7 +86,7 @@ public class CidadesController {
 	//caso não funcione, verificar o objeto Model
 	@GetMapping("/listar/{pageNo}")
 	public String findPaginated(@PathVariable (value = "pageNo") int pageNo, ModelMap model) {
-		int pageSeze = 5;
+		int pageSeze = 10;
 		Page<Cidades> page = service.findPaginated(pageNo, pageSeze);
 		List<Cidades> listaCidades = page.getContent();
 		

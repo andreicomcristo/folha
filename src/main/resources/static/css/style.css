@@ -485,6 +485,17 @@ body {
 	
 }
 
+.btn-paginacao{
+  top: 1px;
+  font-size:2px;
+  height: 30px;
+  width: 60px;
+  text-align: center;
+  cursor: pointer;
+}
+
+
+
 /*
  * nav-pills home
  */

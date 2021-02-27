@@ -30,4 +30,5 @@ public interface CidadesService {
 	List<Cidades> buscarPorNome(String nomeCidade);
 
 	Page<Cidades> findPaginated(int pageNo, int pageSize);
+	
 }

@@ -59,7 +59,7 @@
 	    <div class="container" id="listagem">	        
 	    	<div th:replace="fragments/alert"></div>
 	    	
-	        <div style="height: 500px; overflow-y: auto;" class="table-responsive">
+	        <div style="height: 450px; overflow-y: auto;" class="table-responsive">
 	        	<table class="table table-striped table-hover table-sm myTable">
 	            	<thead>
 	          			<tr>
@@ -93,7 +93,7 @@
 	         </div>
 		</div>
 		 <nav aria-label="Page navigation example">
-		 <div> Quantidade de linhas: [[${totalItems}]] </div>
+		 <div> Quantidade de registros: [[${totalItems}]]<br>  Página: [[${currentePage}]] de [[${totalPages}]] </div> 
 		 <div>
 		 	<span >
 		 		<a></a>
@@ -110,11 +110,11 @@
 			 	-->
 			 	
 			 	<li  > 	
-			 		<a class="oi oi-media-step-backward    page-link" th:if="${currentePage != i}"  th:href="@{'/cidades/listar/'+ 1 }" ></a>
+			 		<a class="btn btn-light btn-paginacao oi oi-media-step-backward" th:if="${currentePage != i}"  th:href="@{'/cidades/listar/'+ 1 }" ></a>
 			 	</li>
 			 	
 			 	<li  >
-			 	    <a class="oi oi-media-skip-backward    page-link" th:if="${currentePage > 1}"  th:href="@{'/cidades/listar/'+ ${currentePage -1}}" ></a>
+			 	    <a class="btn btn-light    btn-paginacao    oi oi-media-skip-backward" th:if="${currentePage > 1}"  th:href="@{'/cidades/listar/'+ ${currentePage -1}}" ></a>
 			 	</li> 
 			 	 
 			 	<!--			 	 	
@@ -124,32 +124,32 @@
 			 	--> 
 			 	 
 			 	<li  > 	
-			 		<a class="page-link" th:if="${currentePage > 2}"  th:href="@{'/cidades/listar/'+ ${currentePage-2} }" >[[${currentePage-2}]]</a>
+			 		<a class="btn btn-light    btn-paginacao" th:if="${currentePage > 2}"  th:href="@{'/cidades/listar/'+ ${currentePage-2} }" >[[${currentePage-2}]]</a>
 			 	</li>
 			 	 
 			 	<li  > 	
-			 		<a class="page-link" th:if="${currentePage > 1}"  th:href="@{'/cidades/listar/'+ ${currentePage-1} }" >[[${currentePage-1}]]</a>
+			 		<a class="btn btn-light    btn-paginacao" th:if="${currentePage > 1}"  th:href="@{'/cidades/listar/'+ ${currentePage-1} }" >[[${currentePage-1}]]</a>
 			 	</li>
 			 	 
 			 	<li  > 	
-			 		<a class="page-link" th:if="${currentePage != i}"  th:href="@{'/cidades/listar/'+ ${currentePage} }" >[[${currentePage}]]</a>
+			 		<a class="btn btn-light    btn-paginacao" th:if="${currentePage != i}"  th:href="@{'/cidades/listar/'+ ${currentePage} }" >[[${currentePage}]]</a>
 			 	</li> 
 			 	
 			 	<li  > 	
-			 		<a class="page-link" th:if="${currentePage < totalPages - 1}"  th:href="@{'/cidades/listar/'+ ${currentePage+1} }" >[[${currentePage+1}]]</a>
+			 		<a class="btn btn-light    btn-paginacao" th:if="${currentePage < totalPages - 1}"  th:href="@{'/cidades/listar/'+ ${currentePage+1} }" >[[${currentePage+1}]]</a>
 			 	</li>
 			 	
 			 	<li  > 	
-			 		<a class="page-link"  th:if="${currentePage < totalPages - 2}"  th:href="@{'/cidades/listar/'+ ${currentePage+2} }" >[[${currentePage+2}]]</a>
+			 		<a class="btn btn-light    btn-paginacao"  th:if="${currentePage < totalPages - 2}"  th:href="@{'/cidades/listar/'+ ${currentePage+2} }" >[[${currentePage+2}]]</a>
 			 	</li>
 			 	
 			 	
 			 	<li class="page-item">
-		 			<a class="oi oi-media-skip-forward    page-link" th:if="${currentePage < totalPages}"  th:href="@{'/cidades/listar/' + ${currentePage +1}}"></a>
+		 			<a class="btn btn-light    btn-paginacao    oi oi-media-skip-forward" th:if="${currentePage < totalPages}"  th:href="@{'/cidades/listar/' + ${currentePage +1}}"></a>
 		 		</li>
 		 		
 		 		<li  > 	
-			 		<a class=  "oi oi-media-step-forward    page-link"  th:if="${currentePage != i}"  th:href="@{'/cidades/listar/'+ ${totalPages} }" ></a>
+			 		<a class=  "btn btn-light    btn-paginacao    oi oi-media-step-forward"  th:if="${currentePage != i}"  th:href="@{'/cidades/listar/'+ ${totalPages} }" ></a>
 			 	</li> 
 		 		
 		 	</ul>
