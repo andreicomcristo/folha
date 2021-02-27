@@ -78,6 +78,7 @@ public class CidadesController {
 	@GetMapping("/buscar/nome/cidade")
 	public String getPorNome(@RequestParam("nomeCidade") String nomeCidade, ModelMap model) {
 		this.ultimaBuscaCidade = nomeCidade;
+		this.ultimaBuscaUf = null;
 		/*model.addAttribute("cidades", service.buscarDuzentos(nomeCidade));
 		model.addAttribute("success","Apenas os 200 primeiros registros serão exibidos. Use o filtro para refinar a sua busca.");*/		
 		return this.findPaginated(1, nomeCidade, model);
@@ -100,10 +101,15 @@ public class CidadesController {
 	@GetMapping("/buscar/id/uf")
 	public String getPorIdUf(@RequestParam("idUfFk") Uf uf, ModelMap model) {
 		this.ultimaBuscaUf = uf;
+		this.ultimaBuscaCidade = "";
 		/*model.addAttribute("cidades", service.buscarDuzentos(uf));
 		model.addAttribute("success","Apenas os 200 primeiros registros serão exibidos. Use o filtro para refinar a sua busca.");
 		return "/cidade/lista";*/
-		return this.findPaginatedUf(1, uf, model);
+		if(uf==null){
+			return "redirect:/cidades/listar";
+		}else {
+			return this.findPaginatedUf(1, uf, model);
+		}
 	}
 	
 	//caso não funcione, verificar o objeto Model
