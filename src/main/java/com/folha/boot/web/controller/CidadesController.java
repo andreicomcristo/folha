@@ -68,6 +68,7 @@ public class CidadesController {
 		model.addAttribute("success", "Excluído com sucesso.");
 		return "redirect:/cidades/listar";
 	}
+	
 	@GetMapping("/listar")
 	public String listar(ModelMap model) {
 		this.ultimaBuscaCidade = "";
@@ -78,14 +79,12 @@ public class CidadesController {
 	@GetMapping("/buscar/nome/cidade")
 	public String getPorNome(@RequestParam("nomeCidade") String nomeCidade, ModelMap model) {
 		this.ultimaBuscaCidade = nomeCidade;
-		this.ultimaBuscaUf = null;
-		/*model.addAttribute("cidades", service.buscarDuzentos(nomeCidade));
-		model.addAttribute("success","Apenas os 200 primeiros registros serão exibidos. Use o filtro para refinar a sua busca.");*/		
+		this.ultimaBuscaUf = null;	
 		return this.findPaginated(1, nomeCidade, model);
 	}
 	
 	@GetMapping("/paginar/{pageNo}")
-	public String getPorNomePaginado( @PathVariable (value = "pageNo") int pageNo, ModelMap model) {
+	public String getPorNomePaginado(@PathVariable (value = "pageNo") int pageNo, ModelMap model) {
 		
 		if( (ultimaBuscaCidade.equals("")) && (ultimaBuscaUf == null) ){
 			return "redirect:/cidades/listar/{pageNo}" ;}
@@ -93,62 +92,50 @@ public class CidadesController {
 			if(!ultimaBuscaCidade.equals("")) {
 				return this.findPaginated(pageNo, ultimaBuscaCidade, model);}
 			else {
-				return this.findPaginatedUf(pageNo, ultimaBuscaUf, model);}
+				return this.findPaginated(pageNo, ultimaBuscaUf, model);}
 			}
 		}
-	
 	
 	@GetMapping("/buscar/id/uf")
 	public String getPorIdUf(@RequestParam("idUfFk") Uf uf, ModelMap model) {
 		this.ultimaBuscaUf = uf;
 		this.ultimaBuscaCidade = "";
-		/*model.addAttribute("cidades", service.buscarDuzentos(uf));
-		model.addAttribute("success","Apenas os 200 primeiros registros serão exibidos. Use o filtro para refinar a sua busca.");
-		return "/cidade/lista";*/
+		
 		if(uf==null){
 			return "redirect:/cidades/listar";
 		}else {
-			return this.findPaginatedUf(1, uf, model);
+			return this.findPaginated(1, uf, model);
 		}
 	}
 	
-	//caso não funcione, verificar o objeto Model
 	@GetMapping("/listar/{pageNo}")
 	public String findPaginated(@PathVariable (value = "pageNo") int pageNo, ModelMap model) {
 		int pageSeze = 10;
 		Page<Cidades> page = service.findPaginated(pageNo, pageSeze);
 		List<Cidades> listaCidades = page.getContent();
-		
-		model.addAttribute("currentePage", pageNo);
-		model.addAttribute("totalPages", page.getTotalPages());
-		model.addAttribute("totalItems", page.getTotalElements()); 
-		model.addAttribute("cidades", listaCidades);
-		return "/cidade/lista";
+		return paginar(pageNo, page, listaCidades, model);
 	}
 
-	@PostMapping("/listar/{pageNo}")
 	public String findPaginated(@PathVariable (value = "pageNo") int pageNo, String nomeCidade, ModelMap model) {
 		int pageSeze = 10;
 		Page<Cidades> page = service.findPaginatedNome(pageNo, pageSeze, nomeCidade);
 		List<Cidades> listaCidades = page.getContent();
-		
-		model.addAttribute("currentePage", pageNo);
-		model.addAttribute("totalPages", page.getTotalPages());
-		model.addAttribute("totalItems", page.getTotalElements());
-		model.addAttribute("cidades", listaCidades);
-		return "/cidade/lista";
+		return paginar(pageNo, page, listaCidades, model);
 	}
 	
-	public String findPaginatedUf(@PathVariable (value = "pageNo") int pageNo, Uf uf, ModelMap model) {
+	public String findPaginated(@PathVariable (value = "pageNo") int pageNo, Uf uf, ModelMap model) {
 		int pageSeze = 10;
 		Page<Cidades> page = service.findPaginatedEstado(pageNo, pageSeze, uf);
 		List<Cidades> listaCidades = page.getContent();
-		
+		return paginar(pageNo, page, listaCidades, model);
+	}
+	
+	public String paginar(int pageNo, Page<Cidades> page, List<Cidades> listaCidades, ModelMap model) {	
 		model.addAttribute("currentePage", pageNo);
 		model.addAttribute("totalPages", page.getTotalPages());
-		model.addAttribute("totalItems", page.getTotalElements());
+		model.addAttribute("totalItems", page.getTotalElements()); 
 		model.addAttribute("cidades", listaCidades);
-		return "/cidade/lista";
+		return "/cidade/lista";	
 	}
 	
 	@ModelAttribute("idPaisFk")
