@@ -9,6 +9,7 @@ import org.springframework.security.config.annotation.authentication.builders.Au
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -38,11 +39,13 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 		// Usuário inicial comentar após a ciração do usuário
 		
 		/*
-		  UserDetails user = User.builder() .username("marcos")
+		  UserDetails user = User.builder() .username("marlon")
 		  .password(encoder.encode("123")) .roles("ADM") .build();
 		*/
 
 		auth.jdbcAuthentication().dataSource(dataSource).passwordEncoder(encoder);
 		//.withUser(user);
+		
+	
 	}
 }
