@@ -28,6 +28,13 @@
 	            </br>
 	            <input type="text" id="password" name="password" class="form-control input-sm chat-input" placeholder="Senha" />
 	            </br>
+	            
+	            <select  id="unidades" class="form-control form-select chat-input" th:field="*{unidades}">
+					<option value="">Selecione a Unidade</option>
+					<option th:each="d : ${unidades}" th:value="${d.id}"th:text="${d.nomeFantasia}"> </option>
+				</select>	
+				
+				</br>		
 	            <div class="wrapper-login">
 	            <span class="group-btn">     
 	                <button type="submit" class="btn btn-outline-dark  fa fa-sign-in">. Acessar</button>
