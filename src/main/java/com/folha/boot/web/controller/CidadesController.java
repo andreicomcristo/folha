@@ -147,4 +147,6 @@ public class CidadesController {
 	public List<Uf> getUfs() {
 		return ufService.buscarTodos();
 	}
+	
+	
 }
