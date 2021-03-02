@@ -1,14 +1,13 @@
 package com.folha.boot.domain;
 
-import java.util.Date;
-
 import javax.persistence.*;
-
+import java.util.Date;
 
 @SuppressWarnings("serial")
 @Entity
-@Table(name = "hist_unidades_regime")
-public class HistUnidadesRegime extends AbstractEntity<Long> {
+@Table(name="funcionarios_anexos")
+
+public class FuncionariosAnexos extends AbstractEntity<Long> {
 
 	@Temporal(TemporalType.DATE)
 	@Column(name="dt_cadastro")
@@ -18,11 +17,16 @@ public class HistUnidadesRegime extends AbstractEntity<Long> {
 	@Column(name="dt_cancelamento")
 	private Date dtCancelamento;
 
-	@Column(name="motivo_cadastro")
-	private String motivoCadastro;
-
 	@Column(name="motivo_cancelamento")
 	private String motivoCancelamento;
+
+	@Column(name="pdf_anexo")
+	private byte[] pdfAnexo;
+
+	//bi-directional many-to-one association to PessoaFuncionario
+	@ManyToOne
+	@JoinColumn(name="id_pessoa_funcionario_fk")
+	private PessoaFuncionarios pessoaFuncionarios;
 
 	//bi-directional many-to-one association to PessoaOperadore
 	@ManyToOne
@@ -34,17 +38,12 @@ public class HistUnidadesRegime extends AbstractEntity<Long> {
 	@JoinColumn(name="id_operador_cancelamento_fk")
 	private PessoaOperadores pessoaOperadores2;
 
-	//bi-directional many-to-one association to Unidade
-	@ManyToOne
-	@JoinColumn(name="id_unidade_de_saude_fk")
-	private Unidades unidades;
+	//bi-directional one-to-one association to TiposDeAnexo
+	@OneToOne
+	@JoinColumn(name="id_tipo_de_anexo_fk")
+	private TiposDeAnexo tiposDeAnexo;
 
-	//bi-directional many-to-one association to UnidadesRegime
-	@ManyToOne
-	@JoinColumn(name="id_unidade_regime_fk")
-	private UnidadesRegime unidadesRegime;
-
-	public HistUnidadesRegime() {
+	public FuncionariosAnexos() {
 	}
 
 	public Date getDtCadastro() {
@@ -63,20 +62,28 @@ public class HistUnidadesRegime extends AbstractEntity<Long> {
 		this.dtCancelamento = dtCancelamento;
 	}
 
-	public String getMotivoCadastro() {
-		return motivoCadastro;
-	}
-
-	public void setMotivoCadastro(String motivoCadastro) {
-		this.motivoCadastro = motivoCadastro;
-	}
-
 	public String getMotivoCancelamento() {
 		return motivoCancelamento;
 	}
 
 	public void setMotivoCancelamento(String motivoCancelamento) {
 		this.motivoCancelamento = motivoCancelamento;
+	}
+
+	public byte[] getPdfAnexo() {
+		return pdfAnexo;
+	}
+
+	public void setPdfAnexo(byte[] pdfAnexo) {
+		this.pdfAnexo = pdfAnexo;
+	}
+
+	public PessoaFuncionarios getPessoaFuncionarios() {
+		return pessoaFuncionarios;
+	}
+
+	public void setPessoaFuncionarios(PessoaFuncionarios pessoaFuncionarios) {
+		this.pessoaFuncionarios = pessoaFuncionarios;
 	}
 
 	public PessoaOperadores getPessoaOperadores1() {
@@ -95,20 +102,12 @@ public class HistUnidadesRegime extends AbstractEntity<Long> {
 		this.pessoaOperadores2 = pessoaOperadores2;
 	}
 
-	public Unidades getUnidades() {
-		return unidades;
+	public TiposDeAnexo getTiposDeAnexo() {
+		return tiposDeAnexo;
 	}
 
-	public void setUnidades(Unidades unidades) {
-		this.unidades = unidades;
-	}
-
-	public UnidadesRegime getUnidadesRegime() {
-		return unidadesRegime;
-	}
-
-	public void setUnidadesRegime(UnidadesRegime unidadesRegime) {
-		this.unidadesRegime = unidadesRegime;
+	public void setTiposDeAnexo(TiposDeAnexo tiposDeAnexo) {
+		this.tiposDeAnexo = tiposDeAnexo;
 	}
 	
 }

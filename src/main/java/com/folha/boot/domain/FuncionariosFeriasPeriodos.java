@@ -1,14 +1,16 @@
 package com.folha.boot.domain;
 
-import java.util.Date;
-
 import javax.persistence.*;
-
+import java.util.Date;
 
 @SuppressWarnings("serial")
 @Entity
-@Table(name = "hist_unidades_regime")
-public class HistUnidadesRegime extends AbstractEntity<Long> {
+@Table(name="funcionarios_ferias_periodos")
+public class FuncionariosFeriasPeriodos extends AbstractEntity<Long> {
+	
+	@Temporal(TemporalType.DATE)
+	@Column(name="dt_assinatura")
+	private Date dtAssinatura;
 
 	@Temporal(TemporalType.DATE)
 	@Column(name="dt_cadastro")
@@ -18,11 +20,21 @@ public class HistUnidadesRegime extends AbstractEntity<Long> {
 	@Column(name="dt_cancelamento")
 	private Date dtCancelamento;
 
-	@Column(name="motivo_cadastro")
-	private String motivoCadastro;
+	@Temporal(TemporalType.DATE)
+	@Column(name="dt_final")
+	private Date dtFinal;
+
+	@Temporal(TemporalType.DATE)
+	@Column(name="dt_inicial")
+	private Date dtInicial;
 
 	@Column(name="motivo_cancelamento")
 	private String motivoCancelamento;
+
+	//bi-directional many-to-one association to FuncionariosFeria
+	@ManyToOne
+	@JoinColumn(name="id_ferias_fk")
+	private FuncionariosFerias funcionariosFerias;
 
 	//bi-directional many-to-one association to PessoaOperadore
 	@ManyToOne
@@ -34,17 +46,15 @@ public class HistUnidadesRegime extends AbstractEntity<Long> {
 	@JoinColumn(name="id_operador_cancelamento_fk")
 	private PessoaOperadores pessoaOperadores2;
 
-	//bi-directional many-to-one association to Unidade
-	@ManyToOne
-	@JoinColumn(name="id_unidade_de_saude_fk")
-	private Unidades unidades;
+	public FuncionariosFeriasPeriodos() {
+	}
 
-	//bi-directional many-to-one association to UnidadesRegime
-	@ManyToOne
-	@JoinColumn(name="id_unidade_regime_fk")
-	private UnidadesRegime unidadesRegime;
+	public Date getDtAssinatura() {
+		return dtAssinatura;
+	}
 
-	public HistUnidadesRegime() {
+	public void setDtAssinatura(Date dtAssinatura) {
+		this.dtAssinatura = dtAssinatura;
 	}
 
 	public Date getDtCadastro() {
@@ -63,12 +73,20 @@ public class HistUnidadesRegime extends AbstractEntity<Long> {
 		this.dtCancelamento = dtCancelamento;
 	}
 
-	public String getMotivoCadastro() {
-		return motivoCadastro;
+	public Date getDtFinal() {
+		return dtFinal;
 	}
 
-	public void setMotivoCadastro(String motivoCadastro) {
-		this.motivoCadastro = motivoCadastro;
+	public void setDtFinal(Date dtFinal) {
+		this.dtFinal = dtFinal;
+	}
+
+	public Date getDtInicial() {
+		return dtInicial;
+	}
+
+	public void setDtInicial(Date dtInicial) {
+		this.dtInicial = dtInicial;
 	}
 
 	public String getMotivoCancelamento() {
@@ -77,6 +95,14 @@ public class HistUnidadesRegime extends AbstractEntity<Long> {
 
 	public void setMotivoCancelamento(String motivoCancelamento) {
 		this.motivoCancelamento = motivoCancelamento;
+	}
+
+	public FuncionariosFerias getFuncionariosFerias() {
+		return funcionariosFerias;
+	}
+
+	public void setFuncionariosFerias(FuncionariosFerias funcionariosFerias) {
+		this.funcionariosFerias = funcionariosFerias;
 	}
 
 	public PessoaOperadores getPessoaOperadores1() {
@@ -95,20 +121,4 @@ public class HistUnidadesRegime extends AbstractEntity<Long> {
 		this.pessoaOperadores2 = pessoaOperadores2;
 	}
 
-	public Unidades getUnidades() {
-		return unidades;
-	}
-
-	public void setUnidades(Unidades unidades) {
-		this.unidades = unidades;
-	}
-
-	public UnidadesRegime getUnidadesRegime() {
-		return unidadesRegime;
-	}
-
-	public void setUnidadesRegime(UnidadesRegime unidadesRegime) {
-		this.unidadesRegime = unidadesRegime;
-	}
-	
 }

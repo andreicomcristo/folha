@@ -1,14 +1,17 @@
 package com.folha.boot.domain;
 
+import javax.persistence.*;
 import java.util.Date;
 
-import javax.persistence.*;
 
-
+/**
+ * The persistent class for the hist_funcionarios_niveis_carreira database table.
+ * 
+ */
 @SuppressWarnings("serial")
 @Entity
-@Table(name = "hist_unidades_regime")
-public class HistUnidadesRegime extends AbstractEntity<Long> {
+@Table(name="hist_funcionarios_niveis_carreira")
+public class HistFuncionariosNiveisCarreira extends AbstractEntity<Long> {
 
 	@Temporal(TemporalType.DATE)
 	@Column(name="dt_cadastro")
@@ -24,6 +27,16 @@ public class HistUnidadesRegime extends AbstractEntity<Long> {
 	@Column(name="motivo_cancelamento")
 	private String motivoCancelamento;
 
+	//bi-directional many-to-one association to NiveisCarreira
+	@ManyToOne
+	@JoinColumn(name="id_nivel_carreira_fk")
+	private NiveisCarreira niveisCarreira;
+
+	//bi-directional many-to-one association to PessoaFuncionario
+	@ManyToOne
+	@JoinColumn(name="id_funcionario_fk")
+	private PessoaFuncionarios pessoaFuncionarios;
+
 	//bi-directional many-to-one association to PessoaOperadore
 	@ManyToOne
 	@JoinColumn(name="id_operador_cadastro_fk")
@@ -34,17 +47,7 @@ public class HistUnidadesRegime extends AbstractEntity<Long> {
 	@JoinColumn(name="id_operador_cancelamento_fk")
 	private PessoaOperadores pessoaOperadores2;
 
-	//bi-directional many-to-one association to Unidade
-	@ManyToOne
-	@JoinColumn(name="id_unidade_de_saude_fk")
-	private Unidades unidades;
-
-	//bi-directional many-to-one association to UnidadesRegime
-	@ManyToOne
-	@JoinColumn(name="id_unidade_regime_fk")
-	private UnidadesRegime unidadesRegime;
-
-	public HistUnidadesRegime() {
+	public HistFuncionariosNiveisCarreira() {
 	}
 
 	public Date getDtCadastro() {
@@ -79,6 +82,22 @@ public class HistUnidadesRegime extends AbstractEntity<Long> {
 		this.motivoCancelamento = motivoCancelamento;
 	}
 
+	public NiveisCarreira getNiveisCarreira() {
+		return niveisCarreira;
+	}
+
+	public void setNiveisCarreira(NiveisCarreira niveisCarreira) {
+		this.niveisCarreira = niveisCarreira;
+	}
+
+	public PessoaFuncionarios getPessoaFuncionarios() {
+		return pessoaFuncionarios;
+	}
+
+	public void setPessoaFuncionarios(PessoaFuncionarios pessoaFuncionarios) {
+		this.pessoaFuncionarios = pessoaFuncionarios;
+	}
+
 	public PessoaOperadores getPessoaOperadores1() {
 		return pessoaOperadores1;
 	}
@@ -95,20 +114,4 @@ public class HistUnidadesRegime extends AbstractEntity<Long> {
 		this.pessoaOperadores2 = pessoaOperadores2;
 	}
 
-	public Unidades getUnidades() {
-		return unidades;
-	}
-
-	public void setUnidades(Unidades unidades) {
-		this.unidades = unidades;
-	}
-
-	public UnidadesRegime getUnidadesRegime() {
-		return unidadesRegime;
-	}
-
-	public void setUnidadesRegime(UnidadesRegime unidadesRegime) {
-		this.unidadesRegime = unidadesRegime;
-	}
-	
 }

@@ -9,35 +9,62 @@ import javax.persistence.*;
 @Table(name = "hist_funcionarios_cargos")
 public class HistFuncionariosCargos extends AbstractEntity<Long> {
 
-	@Column(name = "dt_cadastro", nullable = false)
 	@Temporal(TemporalType.DATE)
+	@Column(name="dt_cadastro")
 	private Date dtCadastro;
 
-	@Column(name = "motivo_cadastro", length = 300)
-	private String motivoCadastro;
-
-	@Column(name = "dt_cancelamento")
 	@Temporal(TemporalType.DATE)
+	@Column(name="dt_cancelamento")
 	private Date dtCancelamento;
 
-	@Column(name = "motivo_cancelamento", length = 300)
+	@Column(name="motivo_cadastro")
+	private String motivoCadastro;
+
+	@Column(name="motivo_cancelamento")
 	private String motivoCancelamento;
 
-	@JoinColumn(name = "id_cargo_fk", referencedColumnName = "id", nullable = false)
-	@ManyToOne(optional = false)
-	private Cargos idCargoFk;
-
-	@JoinColumn(name = "id_funcionario_fk", referencedColumnName = "id", nullable = false)
-	@ManyToOne(optional = false)
-	private PessoaFuncionarios idFuncionarioFk;
-
-	@JoinColumn(name = "id_operador_cadastro_fk", referencedColumnName = "id", nullable = false)
-	@ManyToOne(optional = false)
-	private PessoaOperadores idOperadorCadastroFk;
-
-	@JoinColumn(name = "id_operador_cancelamento_fk", referencedColumnName = "id")
+	//bi-directional many-to-one association to Cargo
 	@ManyToOne
-	private PessoaOperadores idOperadorCancelamentoFk;
+	@JoinColumn(name="id_cargo_fk")
+	private Cargos cargo1;
+
+	//bi-directional many-to-one association to Cargo
+	@ManyToOne
+	@JoinColumn(name="id_cargo_fk")
+	private Cargos cargo2;
+
+	//bi-directional many-to-one association to PessoaFuncionario
+	@ManyToOne
+	@JoinColumn(name="id_funcionario_fk")
+	private PessoaFuncionarios pessoaFuncionario1;
+
+	//bi-directional many-to-one association to PessoaFuncionario
+	@ManyToOne
+	@JoinColumn(name="id_funcionario_fk")
+	private PessoaFuncionarios pessoaFuncionario2;
+
+	//bi-directional many-to-one association to PessoaOperadore
+	@ManyToOne
+	@JoinColumn(name="id_operador_cadastro_fk")
+	private PessoaOperadores pessoaOperadore1;
+
+	//bi-directional many-to-one association to PessoaOperadore
+	@ManyToOne
+	@JoinColumn(name="id_operador_cancelamento_fk")
+	private PessoaOperadores pessoaOperadore2;
+
+	//bi-directional many-to-one association to PessoaOperadore
+	@ManyToOne
+	@JoinColumn(name="id_operador_cadastro_fk")
+	private PessoaOperadores pessoaOperadore3;
+
+	//bi-directional many-to-one association to PessoaOperadore
+	@ManyToOne
+	@JoinColumn(name="id_operador_cancelamento_fk")
+	private PessoaOperadores pessoaOperadore4;
+
+	public HistFuncionariosCargos() {
+	}
 
 	public Date getDtCadastro() {
 		return dtCadastro;
@@ -45,14 +72,6 @@ public class HistFuncionariosCargos extends AbstractEntity<Long> {
 
 	public void setDtCadastro(Date dtCadastro) {
 		this.dtCadastro = dtCadastro;
-	}
-
-	public String getMotivoCadastro() {
-		return motivoCadastro;
-	}
-
-	public void setMotivoCadastro(String motivoCadastro) {
-		this.motivoCadastro = motivoCadastro;
 	}
 
 	public Date getDtCancelamento() {
@@ -63,6 +82,14 @@ public class HistFuncionariosCargos extends AbstractEntity<Long> {
 		this.dtCancelamento = dtCancelamento;
 	}
 
+	public String getMotivoCadastro() {
+		return motivoCadastro;
+	}
+
+	public void setMotivoCadastro(String motivoCadastro) {
+		this.motivoCadastro = motivoCadastro;
+	}
+
 	public String getMotivoCancelamento() {
 		return motivoCancelamento;
 	}
@@ -71,36 +98,68 @@ public class HistFuncionariosCargos extends AbstractEntity<Long> {
 		this.motivoCancelamento = motivoCancelamento;
 	}
 
-	public Cargos getIdCargoFk() {
-		return idCargoFk;
+	public Cargos getCargo1() {
+		return cargo1;
 	}
 
-	public void setIdCargoFk(Cargos idCargoFk) {
-		this.idCargoFk = idCargoFk;
+	public void setCargo1(Cargos cargo1) {
+		this.cargo1 = cargo1;
 	}
 
-	public PessoaFuncionarios getIdFuncionarioFk() {
-		return idFuncionarioFk;
+	public Cargos getCargo2() {
+		return cargo2;
 	}
 
-	public void setIdFuncionarioFk(PessoaFuncionarios idFuncionarioFk) {
-		this.idFuncionarioFk = idFuncionarioFk;
+	public void setCargo2(Cargos cargo2) {
+		this.cargo2 = cargo2;
 	}
 
-	public PessoaOperadores getIdOperadorCadastroFk() {
-		return idOperadorCadastroFk;
+	public PessoaFuncionarios getPessoaFuncionario1() {
+		return pessoaFuncionario1;
 	}
 
-	public void setIdOperadorCadastroFk(PessoaOperadores idOperadorCadastroFk) {
-		this.idOperadorCadastroFk = idOperadorCadastroFk;
+	public void setPessoaFuncionario1(PessoaFuncionarios pessoaFuncionario1) {
+		this.pessoaFuncionario1 = pessoaFuncionario1;
 	}
 
-	public PessoaOperadores getIdOperadorCancelamentoFk() {
-		return idOperadorCancelamentoFk;
+	public PessoaFuncionarios getPessoaFuncionario2() {
+		return pessoaFuncionario2;
 	}
 
-	public void setIdOperadorCancelamentoFk(PessoaOperadores idOperadorCancelamentoFk) {
-		this.idOperadorCancelamentoFk = idOperadorCancelamentoFk;
+	public void setPessoaFuncionario2(PessoaFuncionarios pessoaFuncionario2) {
+		this.pessoaFuncionario2 = pessoaFuncionario2;
 	}
-	
+
+	public PessoaOperadores getPessoaOperadore1() {
+		return pessoaOperadore1;
+	}
+
+	public void setPessoaOperadore1(PessoaOperadores pessoaOperadore1) {
+		this.pessoaOperadore1 = pessoaOperadore1;
+	}
+
+	public PessoaOperadores getPessoaOperadore2() {
+		return pessoaOperadore2;
+	}
+
+	public void setPessoaOperadore2(PessoaOperadores pessoaOperadore2) {
+		this.pessoaOperadore2 = pessoaOperadore2;
+	}
+
+	public PessoaOperadores getPessoaOperadore3() {
+		return pessoaOperadore3;
+	}
+
+	public void setPessoaOperadore3(PessoaOperadores pessoaOperadore3) {
+		this.pessoaOperadore3 = pessoaOperadore3;
+	}
+
+	public PessoaOperadores getPessoaOperadore4() {
+		return pessoaOperadore4;
+	}
+
+	public void setPessoaOperadore4(PessoaOperadores pessoaOperadore4) {
+		this.pessoaOperadore4 = pessoaOperadore4;
+	}
+
 }

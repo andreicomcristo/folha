@@ -9,35 +9,42 @@ import javax.persistence.*;
 @Table(name = "hist_funcionarios_unidade_atuacao")
 public class HistFuncionariosUnidadeAtuacao extends AbstractEntity<Long> {
 
-	@Column(name = "dt_cadastro", nullable = false)
 	@Temporal(TemporalType.DATE)
+	@Column(name="dt_cadastro")
 	private Date dtCadastro;
 
-	@Column(name = "motivo_cadastro", length = 300)
-	private String motivoCadastro;
-
-	@Column(name = "dt_cancelamento")
 	@Temporal(TemporalType.DATE)
+	@Column(name="dt_cancelamento")
 	private Date dtCancelamento;
 
-	@Column(name = "motivo_cancelamento", length = 300)
+	@Column(name="motivo_cadastro")
+	private String motivoCadastro;
+
+	@Column(name="motivo_cancelamento")
 	private String motivoCancelamento;
 
-	@JoinColumn(name = "id_funcionario_fk", referencedColumnName = "id", nullable = false)
-	@ManyToOne(optional = false)
-	private PessoaFuncionarios idFuncionarioFk;
-
-	@JoinColumn(name = "id_operador_cadastro_fk", referencedColumnName = "id", nullable = false)
-	@ManyToOne(optional = false)
-	private PessoaOperadores idOperadorCadastroFk;
-
-	@JoinColumn(name = "id_operador_cancelamento_fk", referencedColumnName = "id")
+	//bi-directional many-to-one association to PessoaFuncionario
 	@ManyToOne
-	private PessoaOperadores idOperadorCancelamentoFk;
+	@JoinColumn(name="id_funcionario_fk")
+	private PessoaFuncionarios pessoaFuncionarios;
 
-	@JoinColumn(name = "id_unidade_fk", referencedColumnName = "id", nullable = false)
-	@ManyToOne(optional = false)
-	private Unidades idUnidadeFk;
+	//bi-directional many-to-one association to PessoaOperadore
+	@ManyToOne
+	@JoinColumn(name="id_operador_cadastro_fk")
+	private PessoaOperadores pessoaOperadores1;
+
+	//bi-directional many-to-one association to PessoaOperadore
+	@ManyToOne
+	@JoinColumn(name="id_operador_cancelamento_fk")
+	private PessoaOperadores pessoaOperadores2;
+
+	//bi-directional many-to-one association to Unidade
+	@ManyToOne
+	@JoinColumn(name="id_unidade_fk")
+	private Unidades unidades;
+
+	public HistFuncionariosUnidadeAtuacao() {
+	}
 
 	public Date getDtCadastro() {
 		return dtCadastro;
@@ -45,14 +52,6 @@ public class HistFuncionariosUnidadeAtuacao extends AbstractEntity<Long> {
 
 	public void setDtCadastro(Date dtCadastro) {
 		this.dtCadastro = dtCadastro;
-	}
-
-	public String getMotivoCadastro() {
-		return motivoCadastro;
-	}
-
-	public void setMotivoCadastro(String motivoCadastro) {
-		this.motivoCadastro = motivoCadastro;
 	}
 
 	public Date getDtCancelamento() {
@@ -63,6 +62,14 @@ public class HistFuncionariosUnidadeAtuacao extends AbstractEntity<Long> {
 		this.dtCancelamento = dtCancelamento;
 	}
 
+	public String getMotivoCadastro() {
+		return motivoCadastro;
+	}
+
+	public void setMotivoCadastro(String motivoCadastro) {
+		this.motivoCadastro = motivoCadastro;
+	}
+
 	public String getMotivoCancelamento() {
 		return motivoCancelamento;
 	}
@@ -71,36 +78,36 @@ public class HistFuncionariosUnidadeAtuacao extends AbstractEntity<Long> {
 		this.motivoCancelamento = motivoCancelamento;
 	}
 
-	public PessoaFuncionarios getIdFuncionarioFk() {
-		return idFuncionarioFk;
+	public PessoaFuncionarios getPessoaFuncionarios() {
+		return pessoaFuncionarios;
 	}
 
-	public void setIdFuncionarioFk(PessoaFuncionarios idFuncionarioFk) {
-		this.idFuncionarioFk = idFuncionarioFk;
+	public void setPessoaFuncionarios(PessoaFuncionarios pessoaFuncionarios) {
+		this.pessoaFuncionarios = pessoaFuncionarios;
 	}
 
-	public PessoaOperadores getIdOperadorCadastroFk() {
-		return idOperadorCadastroFk;
+	public PessoaOperadores getPessoaOperadores1() {
+		return pessoaOperadores1;
 	}
 
-	public void setIdOperadorCadastroFk(PessoaOperadores idOperadorCadastroFk) {
-		this.idOperadorCadastroFk = idOperadorCadastroFk;
+	public void setPessoaOperadores1(PessoaOperadores pessoaOperadores1) {
+		this.pessoaOperadores1 = pessoaOperadores1;
 	}
 
-	public PessoaOperadores getIdOperadorCancelamentoFk() {
-		return idOperadorCancelamentoFk;
+	public PessoaOperadores getPessoaOperadores2() {
+		return pessoaOperadores2;
 	}
 
-	public void setIdOperadorCancelamentoFk(PessoaOperadores idOperadorCancelamentoFk) {
-		this.idOperadorCancelamentoFk = idOperadorCancelamentoFk;
+	public void setPessoaOperadores2(PessoaOperadores pessoaOperadores2) {
+		this.pessoaOperadores2 = pessoaOperadores2;
 	}
 
-	public Unidades getIdUnidadeFk() {
-		return idUnidadeFk;
+	public Unidades getUnidades() {
+		return unidades;
 	}
 
-	public void setIdUnidadeFk(Unidades idUnidadeFk) {
-		this.idUnidadeFk = idUnidadeFk;
+	public void setUnidades(Unidades unidades) {
+		this.unidades = unidades;
 	}
-
+	
 }
