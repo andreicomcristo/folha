@@ -12,7 +12,7 @@ import javax.persistence.*;
 @Table(name="funcionarios_licencas_cid")
 public class FuncionariosLicencasCid extends AbstractEntity<Long> {
 
-	@Column(name="id_cid_fk")
+	@Column(name="id_cid_fk" , insertable = false, updatable = false)
 	private Long idCidFk;
 
 	public FuncionariosLicencasCid() {

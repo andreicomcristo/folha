@@ -4,55 +4,71 @@ import java.util.List;
 
 import javax.persistence.*;
 
-import com.folha.boot.service.util.UtilidadesDeTexto;
 
 @SuppressWarnings("serial")
 @Entity
 @Table(name = "unidades_regime")
 public class UnidadesRegime extends AbstractEntity<Long> {
 
-	@Column(name = "sigla_regime_unid_lotacao", nullable = false, length = 10)
-	private String siglaRegimeUnidLotacao;
-
-	@Column(name = "nome_regime_unid_lotacao", nullable = false, length = 150)
-	private String nomeRegimeUnidLotacao;
-
-	@Column(name = "descricao_regime_unid_lotacao", length = 300)
+	@Column(name="descricao_regime_unid_lotacao")
 	private String descricaoRegimeUnidLotacao;
 
-	@OneToMany(cascade = CascadeType.ALL, mappedBy = "idUnidadeRegimeFk")
-	private List<HistUnidadesRegime> histUnidadesRegimeCollection;
+	@Column(name="nome_regime_unid_lotacao")
+	private String nomeRegimeUnidLotacao;
 
-	public String getSiglaRegimeUnidLotacao() {
-		return siglaRegimeUnidLotacao;
-	}
+	@Column(name="sigla_regime_unid_lotacao")
+	private String siglaRegimeUnidLotacao;
 
-	public void setSiglaRegimeUnidLotacao(String siglaRegimeUnidLotacao) {
-		this.siglaRegimeUnidLotacao = UtilidadesDeTexto.retiraEspacosDuplosAcentosEConverteEmMaiusculo(siglaRegimeUnidLotacao);
-	}
+	//bi-directional many-to-one association to HistUnidadesRegime
+	@OneToMany(mappedBy="unidadesRegime")
+	private List<HistUnidadesRegime> histUnidadesRegimes;
 
-	public String getNomeRegimeUnidLotacao() {
-		return nomeRegimeUnidLotacao;
-	}
-
-	public void setNomeRegimeUnidLotacao(String nomeRegimeUnidLotacao) {
-		this.nomeRegimeUnidLotacao = UtilidadesDeTexto.retiraEspacosDuplosAcentosEConverteEmMaiusculo(nomeRegimeUnidLotacao);
+	public UnidadesRegime() {
 	}
 
 	public String getDescricaoRegimeUnidLotacao() {
-		return descricaoRegimeUnidLotacao;
+		return this.descricaoRegimeUnidLotacao;
 	}
 
 	public void setDescricaoRegimeUnidLotacao(String descricaoRegimeUnidLotacao) {
-		this.descricaoRegimeUnidLotacao = UtilidadesDeTexto.retiraEspacosDuplosAcentosEConverteEmMaiusculo(descricaoRegimeUnidLotacao);
+		this.descricaoRegimeUnidLotacao = descricaoRegimeUnidLotacao;
 	}
 
-	public List<HistUnidadesRegime> getHistUnidadesRegimeCollection() {
-		return histUnidadesRegimeCollection;
+	public String getNomeRegimeUnidLotacao() {
+		return this.nomeRegimeUnidLotacao;
 	}
 
-	public void setHistUnidadesRegimeCollection(List<HistUnidadesRegime> histUnidadesRegimeCollection) {
-		this.histUnidadesRegimeCollection = histUnidadesRegimeCollection;
+	public void setNomeRegimeUnidLotacao(String nomeRegimeUnidLotacao) {
+		this.nomeRegimeUnidLotacao = nomeRegimeUnidLotacao;
 	}
 
+	public String getSiglaRegimeUnidLotacao() {
+		return this.siglaRegimeUnidLotacao;
+	}
+
+	public void setSiglaRegimeUnidLotacao(String siglaRegimeUnidLotacao) {
+		this.siglaRegimeUnidLotacao = siglaRegimeUnidLotacao;
+	}
+
+	public List<HistUnidadesRegime> getHistUnidadesRegimes() {
+		return this.histUnidadesRegimes;
+	}
+
+	public void setHistUnidadesRegimes(List<HistUnidadesRegime> histUnidadesRegimes) {
+		this.histUnidadesRegimes = histUnidadesRegimes;
+	}
+
+	public HistUnidadesRegime addHistUnidadesRegime(HistUnidadesRegime histUnidadesRegime) {
+		getHistUnidadesRegimes().add(histUnidadesRegime);
+		histUnidadesRegime.setUnidadesRegime(this);
+
+		return histUnidadesRegime;
+	}
+
+	public HistUnidadesRegime removeHistUnidadesRegime(HistUnidadesRegime histUnidadesRegime) {
+		getHistUnidadesRegimes().remove(histUnidadesRegime);
+		histUnidadesRegime.setUnidadesRegime(null);
+
+		return histUnidadesRegime;
+	}
 }

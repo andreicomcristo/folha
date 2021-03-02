@@ -25,22 +25,22 @@ public class FuncionariosAnexos extends AbstractEntity<Long> {
 
 	//bi-directional many-to-one association to PessoaFuncionario
 	@ManyToOne
-	@JoinColumn(name="id_pessoa_funcionario_fk")
-	private PessoaFuncionarios pessoaFuncionarios;
+	@JoinColumn(name="id_pessoa_funcionario_fk", insertable = false, updatable = false)
+	private PessoaFuncionarios pessoaFuncionario;
 
 	//bi-directional many-to-one association to PessoaOperadore
 	@ManyToOne
-	@JoinColumn(name="id_operador_cadastro_fk")
-	private PessoaOperadores pessoaOperadores1;
+	@JoinColumn(name="id_operador_cadastro_fk", insertable = false, updatable = false)
+	private PessoaOperadores pessoaOperadore1;
 
 	//bi-directional many-to-one association to PessoaOperadore
 	@ManyToOne
-	@JoinColumn(name="id_operador_cancelamento_fk")
-	private PessoaOperadores pessoaOperadores2;
+	@JoinColumn(name="id_operador_cancelamento_fk", insertable = false, updatable = false)
+	private PessoaOperadores pessoaOperadore2;
 
 	//bi-directional one-to-one association to TiposDeAnexo
 	@OneToOne
-	@JoinColumn(name="id_tipo_de_anexo_fk")
+	@JoinColumn(name="id_tipo_de_anexo_fk", insertable = false, updatable = false)
 	private TiposDeAnexo tiposDeAnexo;
 
 	public FuncionariosAnexos() {
@@ -78,28 +78,28 @@ public class FuncionariosAnexos extends AbstractEntity<Long> {
 		this.pdfAnexo = pdfAnexo;
 	}
 
-	public PessoaFuncionarios getPessoaFuncionarios() {
-		return pessoaFuncionarios;
+	public PessoaFuncionarios getPessoaFuncionario() {
+		return pessoaFuncionario;
 	}
 
-	public void setPessoaFuncionarios(PessoaFuncionarios pessoaFuncionarios) {
-		this.pessoaFuncionarios = pessoaFuncionarios;
+	public void setPessoaFuncionario(PessoaFuncionarios pessoaFuncionarios) {
+		this.pessoaFuncionario = pessoaFuncionarios;
 	}
 
-	public PessoaOperadores getPessoaOperadores1() {
-		return pessoaOperadores1;
+	public PessoaOperadores getPessoaOperadore1() {
+		return pessoaOperadore1;
 	}
 
-	public void setPessoaOperadores1(PessoaOperadores pessoaOperadores1) {
-		this.pessoaOperadores1 = pessoaOperadores1;
+	public void setPessoaOperadore1(PessoaOperadores pessoaOperadores1) {
+		this.pessoaOperadore1 = pessoaOperadores1;
 	}
 
-	public PessoaOperadores getPessoaOperadores2() {
-		return pessoaOperadores2;
+	public PessoaOperadores getPessoaOperadore2() {
+		return pessoaOperadore2;
 	}
 
-	public void setPessoaOperadores2(PessoaOperadores pessoaOperadores2) {
-		this.pessoaOperadores2 = pessoaOperadores2;
+	public void setPessoaOperadore2(PessoaOperadores pessoaOperadores2) {
+		this.pessoaOperadore2 = pessoaOperadores2;
 	}
 
 	public TiposDeAnexo getTiposDeAnexo() {

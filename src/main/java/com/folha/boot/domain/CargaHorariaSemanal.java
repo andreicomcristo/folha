@@ -4,27 +4,37 @@ import java.util.List;
 
 import javax.persistence.*;
 
-import com.folha.boot.service.util.UtilidadesDeTexto;
-
 @SuppressWarnings("serial")
 @Entity
 @Table(name = "carga_horaria_semanal")
 public class CargaHorariaSemanal extends AbstractEntity<Long> {
 
-	@Column(name = "carga_horaria", nullable = false)
-	private int cargaHoraria;
+	@Column(name="carga_horaria")
+	private Integer cargaHoraria;
 
-	@Column(name = "descricao_carga_horaria", length = 300)
+	@Column(name="descricao_carga_horaria")
 	private String descricaoCargaHoraria;
 
-	@OneToMany(cascade = CascadeType.ALL, mappedBy = "idCargaHorariaSemanalFk")
-	private List<HistFuncionariosCargaHoraria> histFuncionariosCargaHorariaCollection;
+	//bi-directional many-to-one association to HistFuncionariosCargaHoraria
+	@OneToMany(mappedBy="cargaHorariaSemanal1")
+	private List<HistFuncionariosCargaHoraria> histFuncionariosCargaHorarias1;
 
-	public int getCargaHoraria() {
+	//bi-directional many-to-one association to HistFuncionariosCargaHoraria
+	@OneToMany(mappedBy="cargaHorariaSemanal2")
+	private List<HistFuncionariosCargaHoraria> histFuncionariosCargaHorarias2;
+
+	//bi-directional many-to-one association to PessoaFuncionario
+	@OneToMany(mappedBy="cargaHorariaSemanal")
+	private List<PessoaFuncionarios> pessoaFuncionarios;
+
+	public CargaHorariaSemanal() {
+	}
+
+	public Integer getCargaHoraria() {
 		return cargaHoraria;
 	}
 
-	public void setCargaHoraria(int cargaHoraria) {
+	public void setCargaHoraria(Integer cargaHoraria) {
 		this.cargaHoraria = cargaHoraria;
 	}
 
@@ -33,16 +43,31 @@ public class CargaHorariaSemanal extends AbstractEntity<Long> {
 	}
 
 	public void setDescricaoCargaHoraria(String descricaoCargaHoraria) {
-		this.descricaoCargaHoraria = UtilidadesDeTexto.retiraEspacosDuplosAcentosEConverteEmMaiusculo(descricaoCargaHoraria);
+		this.descricaoCargaHoraria = descricaoCargaHoraria;
 	}
 
-	public List<HistFuncionariosCargaHoraria> getHistFuncionariosCargaHorariaCollection() {
-		return histFuncionariosCargaHorariaCollection;
+	public List<HistFuncionariosCargaHoraria> getHistFuncionariosCargaHorarias1() {
+		return histFuncionariosCargaHorarias1;
 	}
 
-	public void setHistFuncionariosCargaHorariaCollection(
-			List<HistFuncionariosCargaHoraria> histFuncionariosCargaHorariaCollection) {
-		this.histFuncionariosCargaHorariaCollection = histFuncionariosCargaHorariaCollection;
+	public void setHistFuncionariosCargaHorarias1(List<HistFuncionariosCargaHoraria> histFuncionariosCargaHorarias1) {
+		this.histFuncionariosCargaHorarias1 = histFuncionariosCargaHorarias1;
 	}
-	
+
+	public List<HistFuncionariosCargaHoraria> getHistFuncionariosCargaHorarias2() {
+		return histFuncionariosCargaHorarias2;
+	}
+
+	public void setHistFuncionariosCargaHorarias2(List<HistFuncionariosCargaHoraria> histFuncionariosCargaHorarias2) {
+		this.histFuncionariosCargaHorarias2 = histFuncionariosCargaHorarias2;
+	}
+
+	public List<PessoaFuncionarios> getPessoaFuncionarios() {
+		return pessoaFuncionarios;
+	}
+
+	public void setPessoaFuncionarios(List<PessoaFuncionarios> pessoaFuncionarios) {
+		this.pessoaFuncionarios = pessoaFuncionarios;
+	}
+
 }

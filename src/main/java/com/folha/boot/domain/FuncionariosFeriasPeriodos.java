@@ -33,18 +33,18 @@ public class FuncionariosFeriasPeriodos extends AbstractEntity<Long> {
 
 	//bi-directional many-to-one association to FuncionariosFeria
 	@ManyToOne
-	@JoinColumn(name="id_ferias_fk")
-	private FuncionariosFerias funcionariosFerias;
+	@JoinColumn(name="id_ferias_fk", insertable = false, updatable = false)
+	private FuncionariosFerias funcionariosFeria;
 
 	//bi-directional many-to-one association to PessoaOperadore
 	@ManyToOne
-	@JoinColumn(name="id_operador_cadastro_fk")
-	private PessoaOperadores pessoaOperadores1;
+	@JoinColumn(name="id_operador_cadastro_fk", insertable = false, updatable = false)
+	private PessoaOperadores pessoaOperadore1;
 
 	//bi-directional many-to-one association to PessoaOperadore
 	@ManyToOne
-	@JoinColumn(name="id_operador_cancelamento_fk")
-	private PessoaOperadores pessoaOperadores2;
+	@JoinColumn(name="id_operador_cancelamento_fk", insertable = false, updatable = false)
+	private PessoaOperadores pessoaOperadore2;
 
 	public FuncionariosFeriasPeriodos() {
 	}
@@ -98,27 +98,27 @@ public class FuncionariosFeriasPeriodos extends AbstractEntity<Long> {
 	}
 
 	public FuncionariosFerias getFuncionariosFerias() {
-		return funcionariosFerias;
+		return funcionariosFeria;
 	}
 
 	public void setFuncionariosFerias(FuncionariosFerias funcionariosFerias) {
-		this.funcionariosFerias = funcionariosFerias;
+		this.funcionariosFeria = funcionariosFerias;
 	}
 
 	public PessoaOperadores getPessoaOperadores1() {
-		return pessoaOperadores1;
+		return pessoaOperadore1;
 	}
 
 	public void setPessoaOperadores1(PessoaOperadores pessoaOperadores1) {
-		this.pessoaOperadores1 = pessoaOperadores1;
+		this.pessoaOperadore1 = pessoaOperadores1;
 	}
 
 	public PessoaOperadores getPessoaOperadores2() {
-		return pessoaOperadores2;
+		return pessoaOperadore2;
 	}
 
 	public void setPessoaOperadores2(PessoaOperadores pessoaOperadores2) {
-		this.pessoaOperadores2 = pessoaOperadores2;
+		this.pessoaOperadore2 = pessoaOperadores2;
 	}
 
 }

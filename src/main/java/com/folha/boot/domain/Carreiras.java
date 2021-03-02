@@ -4,56 +4,96 @@ import java.util.List;
 
 import javax.persistence.*;
 
-import com.folha.boot.service.util.UtilidadesDeTexto;
-
 @SuppressWarnings("serial")
 @Entity
 @Table(name = "carreiras")
 public class Carreiras extends AbstractEntity<Long> {
 
-	@Column(name = "sigla_carreira", nullable = false, length = 10)
-	private String siglaCarreira;
-
-	@Column(name = "nome_carreira", nullable = false, length = 150)
-	private String nomeCarreira;
-
-	@Column(name = "descricao_carreira", length = 300)
+	@Column(name="descricao_carreira")
 	private String descricaoCarreira;
 
-	@OneToMany(cascade = CascadeType.ALL, mappedBy = "idCarreiraFk")
-	private List<HistFuncionariosCarreira> histFuncionariosCarreiraCollection;
+	@Column(name="nome_carreira")
+	private String nomeCarreira;
 
-	public String getSiglaCarreira() {
-		return siglaCarreira;
-	}
+	@Column(name="sigla_carreira")
+	private String siglaCarreira;
 
-	public void setSiglaCarreira(String siglaCarreira) {
-		this.siglaCarreira = UtilidadesDeTexto.retiraEspacosDuplosAcentosEConverteEmMaiusculo(siglaCarreira);
-	}
+	//bi-directional many-to-one association to HistFuncionariosCarreira
+	@OneToMany(mappedBy="carreira")
+	private List<HistFuncionariosCarreira> histFuncionariosCarreiras;
 
-	public String getNomeCarreira() {
-		return nomeCarreira;
-	}
+	//bi-directional many-to-one association to PessoaFuncionario
+	@OneToMany(mappedBy="carreira")
+	private List<PessoaFuncionarios> pessoaFuncionarios;
 
-	public void setNomeCarreira(String nomeCarreira) {
-		this.nomeCarreira = UtilidadesDeTexto.retiraEspacosDuplosAcentosEConverteEmMaiusculo(nomeCarreira);
+	public Carreiras() {
 	}
 
 	public String getDescricaoCarreira() {
-		return descricaoCarreira;
+		return this.descricaoCarreira;
 	}
 
 	public void setDescricaoCarreira(String descricaoCarreira) {
-		this.descricaoCarreira = UtilidadesDeTexto.retiraEspacosDuplosAcentosEConverteEmMaiusculo(descricaoCarreira);
+		this.descricaoCarreira = descricaoCarreira;
 	}
 
-	public List<HistFuncionariosCarreira> getHistFuncionariosCarreiraCollection() {
-		return histFuncionariosCarreiraCollection;
+	public String getNomeCarreira() {
+		return this.nomeCarreira;
 	}
 
-	public void setHistFuncionariosCarreiraCollection(
-			List<HistFuncionariosCarreira> histFuncionariosCarreiraCollection) {
-		this.histFuncionariosCarreiraCollection = histFuncionariosCarreiraCollection;
+	public void setNomeCarreira(String nomeCarreira) {
+		this.nomeCarreira = nomeCarreira;
 	}
 
+	public String getSiglaCarreira() {
+		return this.siglaCarreira;
+	}
+
+	public void setSiglaCarreira(String siglaCarreira) {
+		this.siglaCarreira = siglaCarreira;
+	}
+
+	public List<HistFuncionariosCarreira> getHistFuncionariosCarreiras() {
+		return this.histFuncionariosCarreiras;
+	}
+
+	public void setHistFuncionariosCarreiras(List<HistFuncionariosCarreira> histFuncionariosCarreiras) {
+		this.histFuncionariosCarreiras = histFuncionariosCarreiras;
+	}
+
+	public HistFuncionariosCarreira addHistFuncionariosCarreira(HistFuncionariosCarreira histFuncionariosCarreira) {
+		getHistFuncionariosCarreiras().add(histFuncionariosCarreira);
+		histFuncionariosCarreira.setCarreira(this);
+
+		return histFuncionariosCarreira;
+	}
+
+	public HistFuncionariosCarreira removeHistFuncionariosCarreira(HistFuncionariosCarreira histFuncionariosCarreira) {
+		getHistFuncionariosCarreiras().remove(histFuncionariosCarreira);
+		histFuncionariosCarreira.setCarreira(null);
+
+		return histFuncionariosCarreira;
+	}
+
+	public List<PessoaFuncionarios> getPessoaFuncionarios() {
+		return this.pessoaFuncionarios;
+	}
+
+	public void setPessoaFuncionarios(List<PessoaFuncionarios> pessoaFuncionarios) {
+		this.pessoaFuncionarios = pessoaFuncionarios;
+	}
+
+	public PessoaFuncionarios addPessoaFuncionario(PessoaFuncionarios pessoaFuncionario) {
+		getPessoaFuncionarios().add(pessoaFuncionario);
+		pessoaFuncionario.setCarreira(this);
+
+		return pessoaFuncionario;
+	}
+
+	public PessoaFuncionarios removePessoaFuncionario(PessoaFuncionarios pessoaFuncionario) {
+		getPessoaFuncionarios().remove(pessoaFuncionario);
+		pessoaFuncionario.setCarreira(null);
+
+		return pessoaFuncionario;
+	}
 }

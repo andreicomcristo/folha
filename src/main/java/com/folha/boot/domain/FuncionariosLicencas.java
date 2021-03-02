@@ -63,53 +63,53 @@ public class FuncionariosLicencas extends AbstractEntity<Long> {
 
 	//bi-directional many-to-one association to Cargo
 	@ManyToOne
-	@JoinColumn(name="id_cargo_atual_fk")
-	private Cargos cargos;
+	@JoinColumn(name="id_cargo_atual_fk", insertable = false, updatable = false)
+	private Cargos cargo;
 
 	//bi-directional many-to-one association to CargosEspecialidade
 	@ManyToOne
-	@JoinColumn(name="id_cargo_especialidade_atual_fk")
+	@JoinColumn(name="id_cargo_especialidade_atual_fk", insertable = false, updatable = false)
 	private CargosEspecialidade cargosEspecialidade;
 
 	//bi-directional many-to-one association to PessoaFuncionario
 	@ManyToOne
-	@JoinColumn(name="id_funcionario_fk")
-	private PessoaFuncionarios pessoaFuncionarios;
+	@JoinColumn(name="id_funcionario_fk", insertable = false, updatable = false)
+	private PessoaFuncionarios pessoaFuncionario;
 
 	//bi-directional many-to-one association to PessoaOperadore
 	@ManyToOne
-	@JoinColumn(name="id_operador_cadastro_fk")
-	private PessoaOperadores pessoaOperadores1;
+	@JoinColumn(name="id_operador_cadastro_fk", insertable = false, updatable = false)
+	private PessoaOperadores pessoaOperadore1;
 
 	//bi-directional many-to-one association to PessoaOperadore
 	@ManyToOne
-	@JoinColumn(name="id_operador_cancelamento_fk")
-	private PessoaOperadores pessoaOperadores2;
+	@JoinColumn(name="id_operador_cancelamento_fk", insertable = false, updatable = false)
+	private PessoaOperadores pessoaOperadore2;
 
 	//bi-directional many-to-one association to PessoaOperadore
 	@ManyToOne
-	@JoinColumn(name="id_operador_ultima_alteracao_fk")
-	private PessoaOperadores pessoaOperadores3;
+	@JoinColumn(name="id_operador_ultima_alteracao_fk", insertable = false, updatable = false)
+	private PessoaOperadores pessoaOperadore3;
 
 	//bi-directional many-to-one association to TiposDeLicenca
 	@ManyToOne
-	@JoinColumn(name="id_tipo_licenca_fk")
+	@JoinColumn(name="id_tipo_licenca_fk", insertable = false, updatable = false)
 	private TiposDeLicenca tiposDeLicenca;
 
 	//bi-directional many-to-one association to Unidade
 	@ManyToOne
-	@JoinColumn(name="id_unidade_atuacao_atual_fk")
-	private Unidades unidades1;
+	@JoinColumn(name="id_unidade_atuacao_atual_fk", insertable = false, updatable = false)
+	private Unidades unidade1;
 
 	//bi-directional many-to-one association to Unidade
 	@ManyToOne
-	@JoinColumn(name="id_unidade_lotacao_atual_fk")
-	private Unidades unidades2;
+	@JoinColumn(name="id_unidade_lotacao_atual_fk", insertable = false, updatable = false)
+	private Unidades unidade2;
 
 	//bi-directional many-to-one association to Vinculo
 	@ManyToOne
-	@JoinColumn(name="id_vinculo_atual_fk")
-	private Vinculos vinculos;
+	@JoinColumn(name="id_vinculo_atual_fk", insertable = false, updatable = false)
+	private Vinculos vinculo;
 
 	public FuncionariosLicencas() {
 	}
@@ -235,11 +235,11 @@ public class FuncionariosLicencas extends AbstractEntity<Long> {
 	}
 
 	public Cargos getCargos() {
-		return cargos;
+		return cargo;
 	}
 
 	public void setCargos(Cargos cargos) {
-		this.cargos = cargos;
+		this.cargo = cargos;
 	}
 
 	public CargosEspecialidade getCargosEspecialidade() {
@@ -251,35 +251,35 @@ public class FuncionariosLicencas extends AbstractEntity<Long> {
 	}
 
 	public PessoaFuncionarios getPessoaFuncionarios() {
-		return pessoaFuncionarios;
+		return pessoaFuncionario;
 	}
 
 	public void setPessoaFuncionarios(PessoaFuncionarios pessoaFuncionarios) {
-		this.pessoaFuncionarios = pessoaFuncionarios;
+		this.pessoaFuncionario = pessoaFuncionarios;
 	}
 
 	public PessoaOperadores getPessoaOperadores1() {
-		return pessoaOperadores1;
+		return pessoaOperadore1;
 	}
 
 	public void setPessoaOperadores1(PessoaOperadores pessoaOperadores1) {
-		this.pessoaOperadores1 = pessoaOperadores1;
+		this.pessoaOperadore1 = pessoaOperadores1;
 	}
 
 	public PessoaOperadores getPessoaOperadores2() {
-		return pessoaOperadores2;
+		return pessoaOperadore2;
 	}
 
 	public void setPessoaOperadores2(PessoaOperadores pessoaOperadores2) {
-		this.pessoaOperadores2 = pessoaOperadores2;
+		this.pessoaOperadore2 = pessoaOperadores2;
 	}
 
 	public PessoaOperadores getPessoaOperadores3() {
-		return pessoaOperadores3;
+		return pessoaOperadore3;
 	}
 
 	public void setPessoaOperadores3(PessoaOperadores pessoaOperadores3) {
-		this.pessoaOperadores3 = pessoaOperadores3;
+		this.pessoaOperadore3 = pessoaOperadores3;
 	}
 
 	public TiposDeLicenca getTiposDeLicenca() {
@@ -291,27 +291,27 @@ public class FuncionariosLicencas extends AbstractEntity<Long> {
 	}
 
 	public Unidades getUnidades1() {
-		return unidades1;
+		return unidade1;
 	}
 
 	public void setUnidades1(Unidades unidades1) {
-		this.unidades1 = unidades1;
+		this.unidade1 = unidades1;
 	}
 
 	public Unidades getUnidades2() {
-		return unidades2;
+		return unidade2;
 	}
 
 	public void setUnidades2(Unidades unidades2) {
-		this.unidades2 = unidades2;
+		this.unidade2 = unidades2;
 	}
 
 	public Vinculos getVinculos() {
-		return vinculos;
+		return vinculo;
 	}
 
 	public void setVinculos(Vinculos vinculos) {
-		this.vinculos = vinculos;
+		this.vinculo = vinculos;
 	}
 
 }

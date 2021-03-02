@@ -2,44 +2,40 @@ package com.folha.boot.domain;
 
 import javax.persistence.*;
 
+
 @SuppressWarnings("serial")
 @Entity
 @Table(name="acesso_operadores_unidades")
 
 public class AcessoOperadoresUnidade extends AbstractEntity <Long>{
 
-	@ManyToOne
-	@JoinColumn(name="id_operador_fk")
-	private PessoaOperadores pessoaOperadores;
+	//bi-directional many-to-one association to PessoaOperadore
+		@ManyToOne
+		@JoinColumn(name="id_operador_fk" , insertable = false, updatable = false)
+		private PessoaOperadores pessoaOperadore;
 
-	//bi-directional many-to-one association to Unidade
-	@ManyToOne
-	@JoinColumn(name="id_unidade_fk")
-	private Unidades unidades;
+		//bi-directional many-to-one association to Unidade
+		@ManyToOne
+		@JoinColumn(name="id_unidade_fk", insertable = false, updatable = false)
+		private Unidades unidade;
 
-	public AcessoOperadoresUnidade() {
-	}
-	
-	public AcessoOperadoresUnidade(PessoaOperadores pessoaOperadores, Unidades unidades) {
-		super();
-		this.pessoaOperadores = pessoaOperadores;
-		this.unidades = unidades;
-	}
+		public AcessoOperadoresUnidade() {
+		}
 
-	public PessoaOperadores getPessoaOperadores() {
-		return pessoaOperadores;
-	}
+		public PessoaOperadores getPessoaOperadore() {
+			return this.pessoaOperadore;
+		}
 
-	public void setPessoaOperadores(PessoaOperadores pessoaOperadores) {
-		this.pessoaOperadores = pessoaOperadores;
-	}
+		public void setPessoaOperadore(PessoaOperadores pessoaOperadore) {
+			this.pessoaOperadore = pessoaOperadore;
+		}
 
-	public Unidades getUnidades() {
-		return unidades;
-	}
+		public Unidades getUnidade() {
+			return this.unidade;
+		}
 
-	public void setUnidades(Unidades unidades) {
-		this.unidades = unidades;
-	}
+		public void setUnidade(Unidades unidade) {
+			this.unidade = unidade;
+		}
 
 }

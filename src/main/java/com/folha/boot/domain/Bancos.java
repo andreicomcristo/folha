@@ -3,55 +3,71 @@ package com.folha.boot.domain;
 import java.util.List;
 import javax.persistence.*;
 
-import com.folha.boot.service.util.UtilidadesDeTexto;
-
 @SuppressWarnings("serial")
 @Entity
 @Table(name = "bancos")
 public class Bancos extends AbstractEntity<Long> {
 
-	@Column(name = "codigo_banco", nullable = false, length = 50)
+	@Column(name="codigo_banco")
 	private String codigoBanco;
 
-	@Column(name = "nome_banco", nullable = false, length = 300)
+	@Column(name="nome_banco")
 	private String nomeBanco;
 
-	@Column(name = "sigla_banco", length = 150)
+	@Column(name="sigla_banco")
 	private String siglaBanco;
 
-	@OneToMany(cascade = CascadeType.ALL, mappedBy = "idBancoFk") 
-	private List<PessoaBancos> pessoaBancosList;
+	//bi-directional many-to-one association to PessoaBanco
+	@OneToMany(mappedBy="banco")
+	private List<PessoaBancos> pessoaBancos;
+
+	public Bancos() {
+	}
 
 	public String getCodigoBanco() {
-		return codigoBanco;
+		return this.codigoBanco;
 	}
 
 	public void setCodigoBanco(String codigoBanco) {
-		this.codigoBanco = UtilidadesDeTexto.retiraEspacosDuplosAcentosEConverteEmMaiusculo(codigoBanco);
+		this.codigoBanco = codigoBanco;
 	}
 
 	public String getNomeBanco() {
-		return nomeBanco;
+		return this.nomeBanco;
 	}
 
 	public void setNomeBanco(String nomeBanco) {
-		this.nomeBanco = UtilidadesDeTexto.retiraEspacosDuplosAcentosEConverteEmMaiusculo(nomeBanco);
+		this.nomeBanco = nomeBanco;
 	}
 
 	public String getSiglaBanco() {
-		return siglaBanco;
+		return this.siglaBanco;
 	}
 
 	public void setSiglaBanco(String siglaBanco) {
-		this.siglaBanco = UtilidadesDeTexto.retiraEspacosDuplosAcentosEConverteEmMaiusculo(siglaBanco);
+		this.siglaBanco = siglaBanco;
 	}
 
-	public List<PessoaBancos> getPessoaBancosList() {
-		return pessoaBancosList;
+	public List<PessoaBancos> getPessoaBancos() {
+		return this.pessoaBancos;
 	}
 
-	public void setPessoaBancosList(List<PessoaBancos> pessoaBancosList) {
-		this.pessoaBancosList = pessoaBancosList; 
+	public void setPessoaBancos(List<PessoaBancos> pessoaBancos) {
+		this.pessoaBancos = pessoaBancos;
+	}
+
+	public PessoaBancos addPessoaBanco(PessoaBancos pessoaBanco) {
+		getPessoaBancos().add(pessoaBanco);
+		pessoaBanco.setBanco(this);
+
+		return pessoaBanco;
+	}
+
+	public PessoaBancos removePessoaBanco(PessoaBancos pessoaBanco) {
+		getPessoaBancos().remove(pessoaBanco);
+		pessoaBanco.setBanco(null);
+
+		return pessoaBanco;
 	}
 
 }

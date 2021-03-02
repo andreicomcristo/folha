@@ -2,46 +2,62 @@ package com.folha.boot.domain;
 
 import javax.persistence.*;
 
-import com.folha.boot.service.util.UtilidadesDeTexto;
-
 @SuppressWarnings("serial")
 @Entity
 @Table(name = "pessoa_documentos")
 public class PessoaDocumentos extends AbstractEntity<Long> {
 
-	@Column(name = "numero_documento", length = 100)
+	@Column(name="numero_documento")
 	private String numeroDocumento;
 
-	@JoinColumn(name = "id_pessoa_fk", referencedColumnName = "id")
+	//bi-directional many-to-one association to Pessoa
 	@ManyToOne
-	private Pessoa idPessoaFk;
+	@JoinColumn(name="id_pessoa_fk", insertable = false, updatable = false)
+	private Pessoa pessoa1;
 
-	@JoinColumn(name = "id_tipos_de_documento_fk", referencedColumnName = "id")
+	//bi-directional many-to-one association to Pessoa
 	@ManyToOne
-	private TiposDeDocumento idTiposDeDocumentoFk;
+	@JoinColumn(name="id_pessoa_fk", insertable = false, updatable = false)
+	private Pessoa pessoa2;
+
+	//bi-directional many-to-one association to TiposDeDocumento
+	@ManyToOne
+	@JoinColumn(name="id_tipos_de_documento_fk" ,insertable = false, updatable = false)
+	private TiposDeDocumento tiposDeDocumento;
+
+	public PessoaDocumentos() {
+	}
 
 	public String getNumeroDocumento() {
-		return numeroDocumento;
+		return this.numeroDocumento;
 	}
 
 	public void setNumeroDocumento(String numeroDocumento) {
-		this.numeroDocumento = UtilidadesDeTexto.retiraEspacosDuplosAcentosEConverteEmMaiusculo(numeroDocumento);
+		this.numeroDocumento = numeroDocumento;
 	}
 
-	public Pessoa getIdPessoaFk() {
-		return idPessoaFk;
+	public Pessoa getPessoa1() {
+		return this.pessoa1;
 	}
 
-	public void setIdPessoaFk(Pessoa idPessoaFk) {
-		this.idPessoaFk = idPessoaFk;
+	public void setPessoa1(Pessoa pessoa1) {
+		this.pessoa1 = pessoa1;
 	}
 
-	public TiposDeDocumento getIdTiposDeDocumentoFk() {
-		return idTiposDeDocumentoFk;
+	public Pessoa getPessoa2() {
+		return this.pessoa2;
 	}
 
-	public void setIdTiposDeDocumentoFk(TiposDeDocumento idTiposDeDocumentoFk) {
-		this.idTiposDeDocumentoFk = idTiposDeDocumentoFk;
+	public void setPessoa2(Pessoa pessoa2) {
+		this.pessoa2 = pessoa2;
+	}
+
+	public TiposDeDocumento getTiposDeDocumento() {
+		return this.tiposDeDocumento;
+	}
+
+	public void setTiposDeDocumento(TiposDeDocumento tiposDeDocumento) {
+		this.tiposDeDocumento = tiposDeDocumento;
 	}
 
 }

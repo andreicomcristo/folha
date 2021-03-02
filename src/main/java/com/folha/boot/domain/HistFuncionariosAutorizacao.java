@@ -25,22 +25,22 @@ public class HistFuncionariosAutorizacao extends AbstractEntity<Long> {
 
 	//bi-directional many-to-one association to Autorizacoe
 	@ManyToOne
-	@JoinColumn(name="id_autorizacao_fk")
-	private Autorizacoes autorizacoe1;
+	@JoinColumn(name="id_autorizacao_fk", insertable = false, updatable = false)
+	private Autorizacoes autorizacoes1;
 
 	//bi-directional many-to-one association to Autorizacoe
 	@ManyToOne
-	@JoinColumn(name="id_autorizacao_fk")
-	private Autorizacoes autorizacoe2;
+	@JoinColumn(name="id_autorizacao_fk", insertable = false, updatable = false)
+	private Autorizacoes autorizacoes2;
 
 	//bi-directional many-to-one association to PessoaFuncionario
 	@ManyToOne
-	@JoinColumn(name="id_funcionario_fk")
+	@JoinColumn(name="id_funcionario_fk", insertable = false, updatable = false)
 	private PessoaFuncionarios pessoaFuncionario;
 
 	//bi-directional many-to-one association to PessoaOperadore
 	@ManyToOne
-	@JoinColumn(name="id_operador_cadastro_fk")
+	@JoinColumn(name="id_operador_cadastro_fk" , insertable = false, updatable = false)
 	private PessoaOperadores pessoaOperadore1;
 
 	//bi-directional many-to-one association to PessoaOperadore
@@ -50,12 +50,12 @@ public class HistFuncionariosAutorizacao extends AbstractEntity<Long> {
 
 	//bi-directional many-to-one association to PessoaOperadore
 	@ManyToOne
-	@JoinColumn(name="id_operador_cadastro_fk")
+	@JoinColumn(name="id_operador_cadastro_fk", insertable = false, updatable = false)
 	private PessoaOperadores pessoaOperadore3;
 
 	//bi-directional many-to-one association to PessoaOperadore
 	@ManyToOne
-	@JoinColumn(name="id_operador_cancelamento_fk")
+	@JoinColumn(name="id_operador_cancelamento_fk", insertable = false, updatable = false)
 	private PessoaOperadores pessoaOperadore4;
 
 	public HistFuncionariosAutorizacao() {
@@ -94,19 +94,19 @@ public class HistFuncionariosAutorizacao extends AbstractEntity<Long> {
 	}
 
 	public Autorizacoes getAutorizacoe1() {
-		return autorizacoe1;
+		return autorizacoes1;
 	}
 
 	public void setAutorizacoe1(Autorizacoes autorizacoe1) {
-		this.autorizacoe1 = autorizacoe1;
+		this.autorizacoes1 = autorizacoe1;
 	}
 
 	public Autorizacoes getAutorizacoe2() {
-		return autorizacoe2;
+		return autorizacoes2;
 	}
 
 	public void setAutorizacoe2(Autorizacoes autorizacoe2) {
-		this.autorizacoe2 = autorizacoe2;
+		this.autorizacoes2 = autorizacoe2;
 	}
 
 	public PessoaFuncionarios getPessoaFuncionario() {
