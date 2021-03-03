@@ -16,4 +16,6 @@ public interface UnidadesService {
 	List<Unidades> buscarTodos();
 
 	List<Unidades> buscarPorNome(String nomeFantasia);
+
+
 }

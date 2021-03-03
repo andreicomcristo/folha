@@ -25,38 +25,38 @@ public class HistFuncionariosAutorizacao extends AbstractEntity<Long> {
 
 	//bi-directional many-to-one association to Autorizacoe
 	@ManyToOne
-	@JoinColumn(name="id_autorizacao_fk")
-	private Autorizacoes autorizacoe1;
+	@JoinColumn(name="id_autorizacao_fk", referencedColumnName = "id", nullable = false)
+	private Autorizacoes autorizacoes1;
 
 	//bi-directional many-to-one association to Autorizacoe
 	@ManyToOne
-	@JoinColumn(name="id_autorizacao_fk")
-	private Autorizacoes autorizacoe2;
+	@JoinColumn(name="id_autorizacao_fk", referencedColumnName = "id", nullable = false)
+	private Autorizacoes autorizacoes2;
 
 	//bi-directional many-to-one association to PessoaFuncionario
 	@ManyToOne
-	@JoinColumn(name="id_funcionario_fk")
+	@JoinColumn(name="id_funcionario_fk", referencedColumnName = "id")
 	private PessoaFuncionarios pessoaFuncionario;
 
 	//bi-directional many-to-one association to PessoaOperadore
 	@ManyToOne
-	@JoinColumn(name="id_operador_cadastro_fk")
-	private PessoaOperadores pessoaOperadore1;
+	@JoinColumn(name="id_operador_cadastro_fk", referencedColumnName = "id")
+	private PessoaOperadores pessoaOperadores1;
 
 	//bi-directional many-to-one association to PessoaOperadore
 	@ManyToOne
-	@JoinColumn(name="id_operador_cancelamento_fk")
-	private PessoaOperadores pessoaOperadore2;
+	@JoinColumn(name="id_operador_cancelamento_fk", referencedColumnName = "id")
+	private PessoaOperadores pessoaOperadores2;
 
 	//bi-directional many-to-one association to PessoaOperadore
 	@ManyToOne
-	@JoinColumn(name="id_operador_cadastro_fk")
-	private PessoaOperadores pessoaOperadore3;
+	@JoinColumn(name="id_operador_cadastro_fk", referencedColumnName = "id")
+	private PessoaOperadores pessoaOperadores3;
 
 	//bi-directional many-to-one association to PessoaOperadore
 	@ManyToOne
-	@JoinColumn(name="id_operador_cancelamento_fk")
-	private PessoaOperadores pessoaOperadore4;
+	@JoinColumn(name="id_operador_cancelamento_fk", referencedColumnName = "id")
+	private PessoaOperadores pessoaOperadores4;
 
 	public HistFuncionariosAutorizacao() {
 	}
@@ -94,19 +94,19 @@ public class HistFuncionariosAutorizacao extends AbstractEntity<Long> {
 	}
 
 	public Autorizacoes getAutorizacoe1() {
-		return autorizacoe1;
+		return autorizacoes1;
 	}
 
 	public void setAutorizacoe1(Autorizacoes autorizacoe1) {
-		this.autorizacoe1 = autorizacoe1;
+		this.autorizacoes1 = autorizacoe1;
 	}
 
 	public Autorizacoes getAutorizacoe2() {
-		return autorizacoe2;
+		return autorizacoes2;
 	}
 
 	public void setAutorizacoe2(Autorizacoes autorizacoe2) {
-		this.autorizacoe2 = autorizacoe2;
+		this.autorizacoes2 = autorizacoe2;
 	}
 
 	public PessoaFuncionarios getPessoaFuncionario() {
@@ -118,35 +118,35 @@ public class HistFuncionariosAutorizacao extends AbstractEntity<Long> {
 	}
 
 	public PessoaOperadores getPessoaOperadore1() {
-		return pessoaOperadore1;
+		return pessoaOperadores1;
 	}
 
 	public void setPessoaOperadore1(PessoaOperadores pessoaOperadore1) {
-		this.pessoaOperadore1 = pessoaOperadore1;
+		this.pessoaOperadores1 = pessoaOperadore1;
 	}
 
 	public PessoaOperadores getPessoaOperadore2() {
-		return pessoaOperadore2;
+		return pessoaOperadores2;
 	}
 
 	public void setPessoaOperadore2(PessoaOperadores pessoaOperadore2) {
-		this.pessoaOperadore2 = pessoaOperadore2;
+		this.pessoaOperadores2 = pessoaOperadore2;
 	}
 
 	public PessoaOperadores getPessoaOperadore3() {
-		return pessoaOperadore3;
+		return pessoaOperadores3;
 	}
 
 	public void setPessoaOperadore3(PessoaOperadores pessoaOperadore3) {
-		this.pessoaOperadore3 = pessoaOperadore3;
+		this.pessoaOperadores3 = pessoaOperadore3;
 	}
 
 	public PessoaOperadores getPessoaOperadore4() {
-		return pessoaOperadore4;
+		return pessoaOperadores4;
 	}
 
 	public void setPessoaOperadore4(PessoaOperadores pessoaOperadore4) {
-		this.pessoaOperadore4 = pessoaOperadore4;
+		this.pessoaOperadores4 = pessoaOperadore4;
 	}
 	
 }

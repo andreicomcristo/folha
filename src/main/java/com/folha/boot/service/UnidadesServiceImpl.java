@@ -54,4 +54,6 @@ public class UnidadesServiceImpl implements UnidadesService{
 		return reposytory.findByNomeFantasiaContainingOrderByNomeFantasiaAsc(nomeFantasia);
 	}
 
+
+
 }
