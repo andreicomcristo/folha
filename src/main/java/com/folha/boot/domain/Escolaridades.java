@@ -4,60 +4,44 @@ import java.util.List;
 
 import javax.persistence.*;
 
+import com.folha.boot.service.util.UtilidadesDeTexto;
+
 @SuppressWarnings("serial")
 @Entity
 @Table(name = "escolaridades")
 public class Escolaridades extends AbstractEntity<Long> {
-	
-	@Column(name="descricao_escolaridade")
-	private String descricaoEscolaridade;
 
-	@Column(name="nome_escolaridade")
+	@Column(name = "nome_escolaridade", nullable = false, length = 100)
 	private String nomeEscolaridade;
 
-	//bi-directional many-to-one association to Pessoa
-	@OneToMany(mappedBy="escolaridade")
-	private List<Pessoa> pessoas;
+	@Column(name = "descricao_escolaridade", length = 300)
+	private String descricaoEscolaridade;
 
-	public Escolaridades() {
-	}
-
-	public String getDescricaoEscolaridade() {
-		return this.descricaoEscolaridade;
-	}
-
-	public void setDescricaoEscolaridade(String descricaoEscolaridade) {
-		this.descricaoEscolaridade = descricaoEscolaridade;
-	}
-
+	@OneToMany(mappedBy = "seqEscolaridade")
+	private List<Pessoa> pessoaList;
+	
 	public String getNomeEscolaridade() {
-		return this.nomeEscolaridade;
+		return nomeEscolaridade;
 	}
 
 	public void setNomeEscolaridade(String nomeEscolaridade) {
-		this.nomeEscolaridade = nomeEscolaridade;
+		this.nomeEscolaridade = UtilidadesDeTexto.retiraEspacosDuplosAcentosEConverteEmMaiusculo(nomeEscolaridade);
 	}
 
-	public List<Pessoa> getPessoas() {
-		return this.pessoas;
+	public String getDescricaoEscolaridade() {
+		return descricaoEscolaridade;
 	}
 
-	public void setPessoas(List<Pessoa> pessoas) {
-		this.pessoas = pessoas;
+	public void setDescricaoEscolaridade(String descricaoEscolaridade) {
+		this.descricaoEscolaridade = UtilidadesDeTexto.retiraEspacosDuplosAcentosEConverteEmMaiusculo(descricaoEscolaridade);
 	}
 
-	public Pessoa addPessoa(Pessoa pessoa) {
-		getPessoas().add(pessoa);
-		pessoa.setEscolaridade(this);
-
-		return pessoa;
+	public List<Pessoa> getPessoaList() {
+		return pessoaList;
 	}
 
-	public Pessoa removePessoa(Pessoa pessoa) {
-		getPessoas().remove(pessoa);
-		pessoa.setEscolaridade(null);
-
-		return pessoa;
+	public void setPessoaList(List<Pessoa> pessoaList) {
+		this.pessoaList = pessoaList;
 	}
 
 }

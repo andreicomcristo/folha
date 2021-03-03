@@ -4,60 +4,51 @@ import java.util.List;
 
 import javax.persistence.*;
 
+import com.folha.boot.service.util.UtilidadesDeTexto;
 
 @SuppressWarnings("serial")
 @Entity
 @Table(name = "cidades")
 public class Cidades extends AbstractEntity<Long> {
 
-	@Column(name="nome_cidade")
+	@Column(name = "nome_cidade", nullable = false, length = 150)
 	private String nomeCidade;
 
-	//bi-directional many-to-one association to Pais
-	@ManyToOne
-	@JoinColumn(name="id_pais_fk", insertable = false, updatable = false)
-	private Paises pais;
+	@JoinColumn(name = "id_pais_fk", referencedColumnName = "id", nullable = false)
+	@ManyToOne(optional = false)
+	private Paises idPaisFk;
 
-	//bi-directional many-to-one association to Uf
-	@ManyToOne
-	@JoinColumn(name = "id_uf_fk", referencedColumnName = "id")
-	private Uf idUfFk;;
+	@JoinColumn(name = "id_uf_fk", referencedColumnName = "id", nullable = false)
+	@ManyToOne(optional = false)
+	private Uf idUfFk;
 
-	//bi-directional many-to-one association to Endereco
-	@OneToMany(mappedBy="cidade")
-	private List<Enderecos> enderecos;
+	@OneToMany(mappedBy = "idEnderecoCidadeFk")
+	private List<Enderecos> enderecosList;
 
-	//bi-directional many-to-one association to Pessoa
-	@OneToMany(mappedBy="cidade")
-	private List<Pessoa> pessoas;
+	@OneToMany(mappedBy = "idEnderecoCidadeFk")
+	private List<Unidades> unidadesList;
 
-	//bi-directional many-to-one association to PessoaDocumentosTitulo
-	@OneToMany(mappedBy="cidade")
-	private List<PessoaDocumentosTitulo> pessoaDocumentosTitulos;
+	@OneToMany(mappedBy = "seqCidadeNatal")
+	private List<Pessoa> pessoaList;
 
-	//bi-directional many-to-one association to Unidade
-	@OneToMany(mappedBy="cidade")
-	private List<Unidades> unidades;
-
-	public Cidades() {
-	}
+	@OneToMany(mappedBy = "idCidadeFk")
+	private List<PessoaDocumentosTitulo> pessoaDocumentosTituloList;
 
 	public String getNomeCidade() {
 		return nomeCidade;
 	}
 
 	public void setNomeCidade(String nomeCidade) {
-		this.nomeCidade = nomeCidade;
+		this.nomeCidade = UtilidadesDeTexto.retiraEspacosDuplosAcentosEConverteEmMaiusculo(nomeCidade);
 	}
 
-	public Paises getPais() {
-		return pais;
+	public Paises getIdPaisFk() {
+		return idPaisFk;
 	}
 
-	public void setPais(Paises pais) {
-		this.pais = pais;
+	public void setIdPaisFk(Paises idPaisFk) {
+		this.idPaisFk = idPaisFk;
 	}
-
 
 	public Uf getIdUfFk() {
 		return idUfFk;
@@ -67,92 +58,36 @@ public class Cidades extends AbstractEntity<Long> {
 		this.idUfFk = idUfFk;
 	}
 
-	public List<Enderecos> getEnderecos() {
-		return enderecos;
+	public List<Enderecos> getEnderecosList() {
+		return enderecosList;
 	}
 
-	public void setEnderecos(List<Enderecos> enderecos) {
-		this.enderecos = enderecos;
+	public void setEnderecosList(List<Enderecos> enderecosList) {
+		this.enderecosList = enderecosList;
 	}
 
-	public List<Pessoa> getPessoas() {
-		return pessoas;
+	public List<Unidades> getUnidadesList() {
+		return unidadesList;
 	}
 
-	public void setPessoas(List<Pessoa> pessoas) {
-		this.pessoas = pessoas;
+	public void setUnidadesList(List<Unidades> unidadesList) {
+		this.unidadesList = unidadesList;
 	}
 
-	public List<PessoaDocumentosTitulo> getPessoaDocumentosTitulos() {
-		return pessoaDocumentosTitulos;
+	public List<Pessoa> getPessoaList() {
+		return pessoaList;
 	}
 
-	public void setPessoaDocumentosTitulos(List<PessoaDocumentosTitulo> pessoaDocumentosTitulos) {
-		this.pessoaDocumentosTitulos = pessoaDocumentosTitulos;
+	public void setPessoaList(List<Pessoa> pessoaList) {
+		this.pessoaList = pessoaList;
 	}
 
-	public List<Unidades> getUnidades() {
-		return unidades;
+	public List<PessoaDocumentosTitulo> getPessoaDocumentosTituloList() {
+		return pessoaDocumentosTituloList;
 	}
 
-	public void setUnidades(List<Unidades> unidades) {
-		this.unidades = unidades;
-	}
-
-	public Enderecos addEndereco(Enderecos endereco) {
-		getEnderecos().add(endereco);
-		endereco.setCidade(this);
-
-		return endereco;
-	}
-
-	public Enderecos removeEndereco(Enderecos endereco) {
-		getEnderecos().remove(endereco);
-		endereco.setCidade(null);
-
-		return endereco;
-	}
-
-	public Pessoa addPessoa(Pessoa pessoa) {
-		getPessoas().add(pessoa);
-		pessoa.setCidade(this);
-
-		return pessoa;
-	}
-
-	public Pessoa removePessoa(Pessoa pessoa) {
-		getPessoas().remove(pessoa);
-		pessoa.setCidade(null);
-
-		return pessoa;
-	}
-
-	public PessoaDocumentosTitulo addPessoaDocumentosTitulo(PessoaDocumentosTitulo pessoaDocumentosTitulo) {
-		getPessoaDocumentosTitulos().add(pessoaDocumentosTitulo);
-		pessoaDocumentosTitulo.setCidade(this);
-
-		return pessoaDocumentosTitulo;
-	}
-
-	public PessoaDocumentosTitulo removePessoaDocumentosTitulo(PessoaDocumentosTitulo pessoaDocumentosTitulo) {
-		getPessoaDocumentosTitulos().remove(pessoaDocumentosTitulo);
-		pessoaDocumentosTitulo.setCidade(null);
-
-		return pessoaDocumentosTitulo;
-	}
-
-	public Unidades addUnidade(Unidades unidade) {
-		getUnidades().add(unidade);
-		unidade.setCidade(this);
-
-		return unidade;
-	}
-
-	public Unidades removeUnidade(Unidades unidade) {
-		getUnidades().remove(unidade);
-		unidade.setCidade(null);
-
-		return unidade;
+	public void setPessoaDocumentosTituloList(List<PessoaDocumentosTitulo> pessoaDocumentosTituloList) {
+		this.pessoaDocumentosTituloList = pessoaDocumentosTituloList;
 	}
 
 }

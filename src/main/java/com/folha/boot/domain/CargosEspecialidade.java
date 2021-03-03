@@ -4,31 +4,29 @@ import java.util.List;
 
 import javax.persistence.*;
 
+import com.folha.boot.service.util.UtilidadesDeTexto;
+
 @SuppressWarnings("serial")
 @Entity
 @Table(name = "cargos_especialidade")
 public class CargosEspecialidade extends AbstractEntity<Long> {
 
-	@Column(name="descricao_especialidade_cargo")
-	private String descricaoEspecialidadeCargo;
-
-	@Column(name="nome_especialidade_cargo")
+	@Column(name = "nome_especialidade_cargo", nullable = false, length = 100)
 	private String nomeEspecialidadeCargo;
 
-	//bi-directional many-to-one association to Cargo
+	@Column(name = "descricao_especialidade_cargo", length = 300)
+	private String descricaoEspecialidadeCargo;
+
+	@JoinColumn(name = "id_cargo_fk", referencedColumnName = "id")
 	@ManyToOne
-	@JoinColumn(name="id_cargo_fk", insertable = false, updatable = false)
-	private Cargos cargo;
+	private Cargos idCargoFk;
 
-	//bi-directional many-to-one association to PessoaFuncionario
-	@OneToMany(mappedBy="cargosEspecialidade")
-	private List<PessoaFuncionarios> pessoaFuncionarios;
+	public String getNomeEspecialidadeCargo() {
+		return nomeEspecialidadeCargo;
+	}
 
-	//bi-directional many-to-one association to FuncionariosLicenca
-	@OneToMany(mappedBy="cargosEspecialidade")
-	private List<FuncionariosLicencas> funcionariosLicencas;
-
-	public CargosEspecialidade() {
+	public void setNomeEspecialidadeCargo(String nomeEspecialidadeCargo) {
+		this.nomeEspecialidadeCargo = UtilidadesDeTexto.retiraEspacosDuplosAcentosEConverteEmMaiusculo(nomeEspecialidadeCargo);
 	}
 
 	public String getDescricaoEspecialidadeCargo() {
@@ -36,67 +34,16 @@ public class CargosEspecialidade extends AbstractEntity<Long> {
 	}
 
 	public void setDescricaoEspecialidadeCargo(String descricaoEspecialidadeCargo) {
-		this.descricaoEspecialidadeCargo = descricaoEspecialidadeCargo;
+		this.descricaoEspecialidadeCargo = UtilidadesDeTexto.retiraEspacosDuplosAcentosEConverteEmMaiusculo(descricaoEspecialidadeCargo);
 	}
 
-	public String getNomeEspecialidadeCargo() {
-		return nomeEspecialidadeCargo;
+	public Cargos getIdCargoFk() {
+		return idCargoFk;
 	}
 
-	public void setNomeEspecialidadeCargo(String nomeEspecialidadeCargo) {
-		this.nomeEspecialidadeCargo = nomeEspecialidadeCargo;
+	public void setIdCargoFk(Cargos idCargoFk) {
+		this.idCargoFk = idCargoFk;
 	}
 
-	public Cargos getCargo() {
-		return cargo;
-	}
-
-	public void setCargo(Cargos cargo) {
-		this.cargo = cargo;
-	}
-
-	public List<PessoaFuncionarios> getPessoaFuncionarios() {
-		return pessoaFuncionarios;
-	}
-
-	public void setPessoaFuncionarios(List<PessoaFuncionarios> pessoaFuncionarios) {
-		this.pessoaFuncionarios = pessoaFuncionarios;
-	}
-
-	public List<FuncionariosLicencas> getFuncionariosLicencas() {
-		return funcionariosLicencas;
-	}
-
-	public void setFuncionariosLicencas(List<FuncionariosLicencas> funcionariosLicencas) {
-		this.funcionariosLicencas = funcionariosLicencas;
-	}
-
-	public PessoaFuncionarios addPessoaFuncionario(PessoaFuncionarios pessoaFuncionario) {
-		getPessoaFuncionarios().add(pessoaFuncionario);
-		pessoaFuncionario.setCargosEspecialidade(this);
-
-		return pessoaFuncionario;
-	}
-
-	public PessoaFuncionarios removePessoaFuncionario(PessoaFuncionarios pessoaFuncionario) {
-		getPessoaFuncionarios().remove(pessoaFuncionario);
-		pessoaFuncionario.setCargosEspecialidade(null);
-
-		return pessoaFuncionario;
-	}
-
-	public FuncionariosLicencas addFuncionariosLicenca(FuncionariosLicencas funcionariosLicenca) {
-		getFuncionariosLicencas().add(funcionariosLicenca);
-		funcionariosLicenca.setCargosEspecialidade(this);
-
-		return funcionariosLicenca;
-	}
-
-	public FuncionariosLicencas removeFuncionariosLicenca(FuncionariosLicencas funcionariosLicenca) {
-		getFuncionariosLicencas().remove(funcionariosLicenca);
-		funcionariosLicenca.setCargosEspecialidade(null);
-
-		return funcionariosLicenca;
-	}
-
+	
 }

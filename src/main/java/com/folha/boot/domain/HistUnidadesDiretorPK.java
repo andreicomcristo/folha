@@ -3,11 +3,12 @@ package com.folha.boot.domain;
 import java.util.Date;
 
 import javax.persistence.*;
+import javax.persistence.Embeddable;
 
 @SuppressWarnings("serial")
-@Entity
-@Table(name = "hist_funcionarios_classe")
-public class HistFuncionariosClasse extends AbstractEntity<Long> {
+@Embeddable
+public class HistUnidadesDiretorPK extends AbstractEntity<Long> {
 
 	
+
 }
