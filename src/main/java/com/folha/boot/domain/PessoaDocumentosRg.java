@@ -3,69 +3,70 @@ package com.folha.boot.domain;
 import java.util.Date;
 
 import javax.persistence.*;
-
-import com.folha.boot.service.util.UtilidadesDeTexto;
-
 @SuppressWarnings("serial")
 @Entity
 @Table(name = "pessoa_documentos_rg")
 public class PessoaDocumentosRg extends AbstractEntity<Long> {
 
-	@Column(name = "rg_numero", nullable = false, length = 100)
-	private String rgNumero;
-
-	@Column(name = "rg_orgao_emissor", length = 100)
-	private String rgOrgaoEmissor;
-
-	@Column(name = "dt_emissao")
 	@Temporal(TemporalType.DATE)
+	@Column(name="dt_emissao")
 	private Date dtEmissao;
 
-	@Column(name = "id_pessoa_fk", nullable = false)
-	private long idPessoaFk;
+	@Column(name="id_pessoa_fk", insertable = false, updatable = false)
+	private Long idPessoaFk;
 
-	@JoinColumn(name = "id_uf_emissao", referencedColumnName = "id")
+	@Column(name="rg_numero")
+	private String rgNumero;
+
+	@Column(name="rg_orgao_emissor")
+	private String rgOrgaoEmissor;
+
+	//bi-directional many-to-one association to Uf
 	@ManyToOne
-	private Uf idUfEmissao;
+	@JoinColumn(name="id_uf_emissao")
+	private Uf uf;
 
-	public String getRgNumero() {
-		return rgNumero;
-	}
-
-	public void setRgNumero(String rgNumero) {
-		this.rgNumero = UtilidadesDeTexto.retiraEspacosDuplosAcentosEConverteEmMaiusculo(rgNumero);
-	}
-
-	public String getRgOrgaoEmissor() {
-		return rgOrgaoEmissor;
-	}
-
-	public void setRgOrgaoEmissor(String rgOrgaoEmissor) {
-		this.rgOrgaoEmissor = UtilidadesDeTexto.retiraEspacosDuplosAcentosEConverteEmMaiusculo(rgOrgaoEmissor);
+	public PessoaDocumentosRg() {
 	}
 
 	public Date getDtEmissao() {
-		return dtEmissao;
+		return this.dtEmissao;
 	}
 
 	public void setDtEmissao(Date dtEmissao) {
 		this.dtEmissao = dtEmissao;
 	}
 
-	public long getIdPessoaFk() {
-		return idPessoaFk;
+	public Long getIdPessoaFk() {
+		return this.idPessoaFk;
 	}
 
-	public void setIdPessoaFk(long idPessoaFk) {
+	public void setIdPessoaFk(Long idPessoaFk) {
 		this.idPessoaFk = idPessoaFk;
 	}
 
-	public Uf getIdUfEmissao() {
-		return idUfEmissao;
+	public String getRgNumero() {
+		return this.rgNumero;
 	}
 
-	public void setIdUfEmissao(Uf idUfEmissao) {
-		this.idUfEmissao = idUfEmissao;
+	public void setRgNumero(String rgNumero) {
+		this.rgNumero = rgNumero;
 	}
-	
+
+	public String getRgOrgaoEmissor() {
+		return this.rgOrgaoEmissor;
+	}
+
+	public void setRgOrgaoEmissor(String rgOrgaoEmissor) {
+		this.rgOrgaoEmissor = rgOrgaoEmissor;
+	}
+
+	public Uf getUf() {
+		return this.uf;
+	}
+
+	public void setUf(Uf uf) {
+		this.uf = uf;
+	}
+
 }

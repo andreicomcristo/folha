@@ -22,23 +22,23 @@ public class HistUnidadesDiretor extends AbstractEntity<Long> {
 
 	//bi-directional many-to-one association to Pessoa
 	@ManyToOne
-	@JoinColumn(name="id_pessoa_fk")
+	@JoinColumn(name="id_pessoa_fk", insertable = false, updatable = false)
 	private Pessoa pessoa;
 
 	//bi-directional many-to-one association to PessoaOperadore
 	@ManyToOne
-	@JoinColumn(name="id_operador_cadastro_fk")
-	private PessoaOperadores pessoaOperadores1;
+	@JoinColumn(name="id_operador_cadastro_fk", insertable = false, updatable = false)
+	private PessoaOperadores pessoaOperadore1;
 
 	//bi-directional many-to-one association to PessoaOperadore
 	@ManyToOne
-	@JoinColumn(name="id_operador_cancelamento_fk")
-	private PessoaOperadores pessoaOperadores2;
+	@JoinColumn(name="id_operador_cancelamento_fk", insertable = false, updatable = false)
+	private PessoaOperadores pessoaOperadore2;
 
 	//bi-directional many-to-one association to Unidade
 	@ManyToOne
-	@JoinColumn(name="id_unidade_de_saude_fk")
-	private Unidades unidades;
+	@JoinColumn(name="id_unidade_de_saude_fk", insertable = false, updatable = false)
+	private Unidades unidade;
 
 	public HistUnidadesDiretor() {
 	}
@@ -76,27 +76,27 @@ public class HistUnidadesDiretor extends AbstractEntity<Long> {
 	}
 
 	public PessoaOperadores getPessoaOperadores1() {
-		return pessoaOperadores1;
+		return pessoaOperadore1;
 	}
 
 	public void setPessoaOperadores1(PessoaOperadores pessoaOperadores1) {
-		this.pessoaOperadores1 = pessoaOperadores1;
+		this.pessoaOperadore1 = pessoaOperadores1;
 	}
 
 	public PessoaOperadores getPessoaOperadores2() {
-		return pessoaOperadores2;
+		return pessoaOperadore2;
 	}
 
 	public void setPessoaOperadores2(PessoaOperadores pessoaOperadores2) {
-		this.pessoaOperadores2 = pessoaOperadores2;
+		this.pessoaOperadore2 = pessoaOperadores2;
 	}
 
 	public Unidades getUnidades() {
-		return unidades;
+		return unidade;
 	}
 
 	public void setUnidades(Unidades unidades) {
-		this.unidades = unidades;
+		this.unidade = unidades;
 	}
 
 }

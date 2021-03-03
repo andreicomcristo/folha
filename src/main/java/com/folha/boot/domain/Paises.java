@@ -4,33 +4,48 @@ import java.util.List;
 
 import javax.persistence.*;
 
-import com.folha.boot.service.util.UtilidadesDeTexto;
-
 @SuppressWarnings("serial")
 @Entity
 @Table(name = "paises")
 public class Paises extends AbstractEntity<Long> {
 
-	@Column(name = "nome_pais", nullable = false, length = 300)
+	@Column(name="nome_pais")
 	private String nomePais;
 
-	@OneToMany(cascade = CascadeType.ALL, mappedBy = "idPaisFk")
-	private List<Cidades> cidadesCollection;
+	//bi-directional many-to-one association to Cidade
+	@OneToMany(mappedBy="pais")
+	private List<Cidades> cidades;
+
+	public Paises() {
+	}
 
 	public String getNomePais() {
-		return nomePais;
+		return this.nomePais;
 	}
 
 	public void setNomePais(String nomePais) {
-		this.nomePais = UtilidadesDeTexto.retiraEspacosDuplosAcentosEConverteEmMaiusculo(nomePais);
+		this.nomePais = nomePais;
 	}
 
-	public List<Cidades> getCidadesCollection() {
-		return cidadesCollection;
+	public List<Cidades> getCidades() {
+		return this.cidades;
 	}
 
-	public void setCidadesCollection(List<Cidades> cidadesCollection) {
-		this.cidadesCollection = cidadesCollection;
+	public void setCidades(List<Cidades> cidades) {
+		this.cidades = cidades;
 	}
 
+	public Cidades addCidade(Cidades cidade) {
+		getCidades().add(cidade);
+		cidade.setPais(this);
+
+		return cidade;
+	}
+
+	public Cidades removeCidade(Cidades cidade) {
+		getCidades().remove(cidade);
+		cidade.setPais(null);
+
+		return cidade;
+	}
 }

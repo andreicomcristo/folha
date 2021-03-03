@@ -25,22 +25,22 @@ public class HistFuncionariosClasse extends AbstractEntity<Long> {
 
 	//bi-directional many-to-one association to PessoaFuncionario
 	@ManyToOne
-	@JoinColumn(name="id_funcionario_fk")
+	@JoinColumn(name="id_funcionario_fk", insertable = false, updatable = false)
 	private PessoaFuncionarios pessoaFuncionario;
 
 	//bi-directional many-to-one association to PessoaOperadore
 	@ManyToOne
-	@JoinColumn(name="id_operador_cadastro_fk")
+	@JoinColumn(name="id_operador_cadastro_fk", insertable = false, updatable = false)
 	private PessoaOperadores pessoaOperadore1;
 
 	//bi-directional many-to-one association to PessoaOperadore
 	@ManyToOne
-	@JoinColumn(name="id_operador_cancelamento_fk")
+	@JoinColumn(name="id_operador_cancelamento_fk", insertable = false, updatable = false)
 	private PessoaOperadores pessoaOperadore2;
 
 	//bi-directional many-to-one association to ClassesCarreira
 	@ManyToOne
-	@JoinColumn(name="id_classe_fk")
+	@JoinColumn(name="id_classe_fk", insertable = false, updatable = false)
 	private ClassesCarreira classesCarreira;
 
 	public HistFuncionariosClasse() {

@@ -25,43 +25,43 @@ public class HistFuncionariosCargaHoraria extends AbstractEntity<Long> {
 
 	//bi-directional many-to-one association to CargaHorariaSemanal
 	@ManyToOne
-	@JoinColumn(name="id_carga_horaria_semanal_fk")
+	@JoinColumn(name="id_carga_horaria_semanal_fk", insertable = false, updatable = false)
 	private CargaHorariaSemanal cargaHorariaSemanal1;
 
 	//bi-directional many-to-one association to CargaHorariaSemanal
 	@ManyToOne
-	@JoinColumn(name="id_carga_horaria_semanal_fk")
+	@JoinColumn(name="id_carga_horaria_semanal_fk", insertable = false, updatable = false)
 	private CargaHorariaSemanal cargaHorariaSemanal2;
 
 	//bi-directional many-to-one association to PessoaFuncionario
 	@ManyToOne
-	@JoinColumn(name="id_funcionario_fk")
-	private PessoaFuncionarios pessoaFuncionarios1;
-
+	@JoinColumn(name="id_funcionario_fk", insertable = false, updatable = false)
+	private PessoaFuncionarios pessoaFuncionario1;
+	
 	//bi-directional many-to-one association to PessoaFuncionario
 	@ManyToOne
-	@JoinColumn(name="id_funcionario_fk")
-	private PessoaFuncionarios pessoaFuncionarios2;
+	@JoinColumn(name="id_funcionario_fk", insertable = false, updatable = false)
+	private PessoaFuncionarios pessoaFuncionario2;
 
 	//bi-directional many-to-one association to PessoaOperadore
 	@ManyToOne
-	@JoinColumn(name="id_operador_cancelamento_fk")
-	private PessoaOperadores pessoaOperadores1;
+	@JoinColumn(name="id_operador_cancelamento_fk", insertable = false, updatable = false)
+	private PessoaOperadores pessoaOperadore1;
 
 	//bi-directional many-to-one association to PessoaOperadore
 	@ManyToOne
-	@JoinColumn(name="id_operador_cadastro_fk")
-	private PessoaOperadores pessoaOperadores2;
+	@JoinColumn(name="id_operador_cadastro_fk", insertable = false, updatable = false)
+	private PessoaOperadores pessoaOperadore2;
 
 	//bi-directional many-to-one association to PessoaOperadore
 	@ManyToOne
-	@JoinColumn(name="id_operador_cadastro_fk")
-	private PessoaOperadores pessoaOperadores3;
+	@JoinColumn(name="id_operador_cadastro_fk", insertable = false, updatable = false)
+	private PessoaOperadores pessoaOperadore3;
 
 	//bi-directional many-to-one association to PessoaOperadore
 	@ManyToOne
-	@JoinColumn(name="id_operador_cancelamento_fk")
-	private PessoaOperadores pessoaOperadores4;
+	@JoinColumn(name="id_operador_cancelamento_fk", insertable = false, updatable = false)
+	private PessoaOperadores pessoaOperadore4;
 
 	public HistFuncionariosCargaHoraria() {
 	}
@@ -114,52 +114,51 @@ public class HistFuncionariosCargaHoraria extends AbstractEntity<Long> {
 		this.cargaHorariaSemanal2 = cargaHorariaSemanal2;
 	}
 
-	public PessoaFuncionarios getPessoaFuncionarios1() {
-		return pessoaFuncionarios1;
+	public PessoaFuncionarios getPessoaFuncionario1() {
+		return pessoaFuncionario1;
 	}
 
-	public void setPessoaFuncionarios1(PessoaFuncionarios pessoaFuncionarios1) {
-		this.pessoaFuncionarios1 = pessoaFuncionarios1;
+	public void setPessoaFuncionario1(PessoaFuncionarios pessoaFuncionarios1) {
+		this.pessoaFuncionario1 = pessoaFuncionarios1;
 	}
 
-	public PessoaFuncionarios getPessoaFuncionarios2() {
-		return pessoaFuncionarios2;
+	public PessoaFuncionarios getPessoaFuncionario2() {
+		return pessoaFuncionario2;
 	}
 
-	public void setPessoaFuncionarios2(PessoaFuncionarios pessoaFuncionarios2) {
-		this.pessoaFuncionarios2 = pessoaFuncionarios2;
+	public void setPessoaFuncionario2(PessoaFuncionarios pessoaFuncionarios2) {
+		this.pessoaFuncionario2 = pessoaFuncionarios2;
 	}
 
-	public PessoaOperadores getPessoaOperadores1() {
-		return pessoaOperadores1;
+	public PessoaOperadores getPessoaOperadore1() {
+		return pessoaOperadore1;
 	}
 
-	public void setPessoaOperadores1(PessoaOperadores pessoaOperadores1) {
-		this.pessoaOperadores1 = pessoaOperadores1;
+	public void setPessoaOperadore1(PessoaOperadores pessoaOperadores1) {
+		this.pessoaOperadore1 = pessoaOperadores1;
 	}
 
-	public PessoaOperadores getPessoaOperadores2() {
-		return pessoaOperadores2;
+	public PessoaOperadores getPessoaOperadore2() {
+		return pessoaOperadore2;
 	}
 
-	public void setPessoaOperadores2(PessoaOperadores pessoaOperadores2) {
-		this.pessoaOperadores2 = pessoaOperadores2;
+	public void setPessoaOperadore2(PessoaOperadores pessoaOperadores2) {
+		this.pessoaOperadore2 = pessoaOperadores2;
 	}
 
-	public PessoaOperadores getPessoaOperadores3() {
-		return pessoaOperadores3;
+	public PessoaOperadores getPessoaOperadore3() {
+		return pessoaOperadore3;
 	}
 
-	public void setPessoaOperadores3(PessoaOperadores pessoaOperadores3) {
-		this.pessoaOperadores3 = pessoaOperadores3;
+	public void setPessoaOperadore3(PessoaOperadores pessoaOperadores3) {
+		this.pessoaOperadore3 = pessoaOperadores3;
 	}
 
-	public PessoaOperadores getPessoaOperadores4() {
-		return pessoaOperadores4;
+	public PessoaOperadores getPessoaOperadore4() {
+		return pessoaOperadore4;
 	}
 
-	public void setPessoaOperadores4(PessoaOperadores pessoaOperadores4) {
-		this.pessoaOperadores4 = pessoaOperadores4;
-	}
-	
+	public void setPessoaOperadore4(PessoaOperadores pessoaOperadores4) {
+		this.pessoaOperadore4 = pessoaOperadores4;
+	}	
 }

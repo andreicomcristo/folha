@@ -4,55 +4,87 @@ import java.util.List;
 
 import javax.persistence.*;
 
-import com.folha.boot.service.util.UtilidadesDeTexto;
-
 @SuppressWarnings("serial")
 @Entity
 @Table(name = "tipos_logradouro")
 public class TiposLogradouro extends AbstractEntity<Long> {
 
-	@Column(name = "nome_tipo_logradouro", nullable = false, length = 150)
-	private String nomeTipoLogradouro;
-
-	@Column(name = "descricao_tipo_logradouro", length = 300)
+	@Column(name="descricao_tipo_logradouro")
 	private String descricaoTipoLogradouro;
 
-	@OneToMany(cascade = CascadeType.ALL, mappedBy = "idTipoLogradouroFk")
-	private List<Enderecos> enderecosCollection;
+	@Column(name="nome_tipo_logradouro")
+	private String nomeTipoLogradouro;
 
-	@OneToMany(mappedBy = "idTipoLogradouroFk")
-	private List<Unidades> unidadesCollection;
+	//bi-directional many-to-one association to Endereco
+	@OneToMany(mappedBy="tiposLogradouro")
+	private List<Enderecos> enderecos;
 
-	public String getNomeTipoLogradouro() {
-		return nomeTipoLogradouro;
-	}
+	//bi-directional many-to-one association to Unidade
+	@OneToMany(mappedBy="tiposLogradouro")
+	private List<Unidades> unidades;
 
-	public void setNomeTipoLogradouro(String nomeTipoLogradouro) {
-		this.nomeTipoLogradouro = UtilidadesDeTexto.retiraEspacosDuplosAcentosEConverteEmMaiusculo(nomeTipoLogradouro);
+	public TiposLogradouro() {
 	}
 
 	public String getDescricaoTipoLogradouro() {
-		return descricaoTipoLogradouro;
+		return this.descricaoTipoLogradouro;
 	}
 
 	public void setDescricaoTipoLogradouro(String descricaoTipoLogradouro) {
-		this.descricaoTipoLogradouro = UtilidadesDeTexto.retiraEspacosDuplosAcentosEConverteEmMaiusculo(descricaoTipoLogradouro);
+		this.descricaoTipoLogradouro = descricaoTipoLogradouro;
 	}
 
-	public List<Enderecos> getEnderecosCollection() {
-		return enderecosCollection;
+	public String getNomeTipoLogradouro() {
+		return this.nomeTipoLogradouro;
 	}
 
-	public void setEnderecosCollection(List<Enderecos> enderecosCollection) {
-		this.enderecosCollection = enderecosCollection;
+	public void setNomeTipoLogradouro(String nomeTipoLogradouro) {
+		this.nomeTipoLogradouro = nomeTipoLogradouro;
 	}
 
-	public List<Unidades> getUnidadesCollection() {
-		return unidadesCollection;
+	public List<Enderecos> getEnderecos() {
+		return this.enderecos;
 	}
 
-	public void setUnidadesCollection(List<Unidades> unidadesCollection) {
-		this.unidadesCollection = unidadesCollection;
+	public void setEnderecos(List<Enderecos> enderecos) {
+		this.enderecos = enderecos;
 	}
+
+	public Enderecos addEndereco(Enderecos endereco) {
+		getEnderecos().add(endereco);
+		endereco.setTiposLogradouro(this);
+
+		return endereco;
+	}
+
+	public Enderecos removeEndereco(Enderecos endereco) {
+		getEnderecos().remove(endereco);
+		endereco.setTiposLogradouro(null);
+
+		return endereco;
+	}
+
+	public List<Unidades> getUnidades() {
+		return this.unidades;
+	}
+
+	public void setUnidades(List<Unidades> unidades) {
+		this.unidades = unidades;
+	}
+
+	public Unidades addUnidade(Unidades unidade) {
+		getUnidades().add(unidade);
+		unidade.setTiposLogradouro(this);
+
+		return unidade;
+	}
+
+	public Unidades removeUnidade(Unidades unidade) {
+		getUnidades().remove(unidade);
+		unidade.setTiposLogradouro(null);
+
+		return unidade;
+	}
+
 
 }

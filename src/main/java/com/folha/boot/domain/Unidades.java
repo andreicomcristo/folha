@@ -37,10 +37,10 @@ public class Unidades extends AbstractEntity<Long> {
 
 	private String fone1;
 
-	@Column(name="id_endereco_unidade_fk")
+	@Column(name="id_endereco_unidade_fk", insertable = false, updatable = false)
 	private Long idEnderecoUnidadeFk;
 
-	@Column(name="id_natureza_juridica_fk")
+	@Column(name="id_natureza_juridica_fk", insertable = false, updatable = false)
 	private Long idNaturezaJuridicaFk;
 
 	@Column(name="motivo_cadastro")
@@ -81,22 +81,22 @@ public class Unidades extends AbstractEntity<Long> {
 
 	//bi-directional many-to-one association to Cidade
 	@ManyToOne
-	@JoinColumn(name="id_endereco_cidade_fk")
+	@JoinColumn(name="id_endereco_cidade_fk", insertable = false, updatable = false)
 	private Cidades cidade;
 
 	//bi-directional many-to-one association to PessoaOperadore
 	@ManyToOne
-	@JoinColumn(name="id_operador_cadastro_fk")
+	@JoinColumn(name="id_operador_cadastro_fk", insertable = false, updatable = false)
 	private PessoaOperadores pessoaOperadore1;
 
 	//bi-directional many-to-one association to PessoaOperadore
 	@ManyToOne
-	@JoinColumn(name="id_operador_cancelamento_fk")
+	@JoinColumn(name="id_operador_cancelamento_fk", insertable = false, updatable = false)
 	private PessoaOperadores pessoaOperadore2;
 
 	//bi-directional many-to-one association to TiposLogradouro
 	@ManyToOne
-	@JoinColumn(name="id_tipo_logradouro_fk")
+	@JoinColumn(name="id_tipo_logradouro_fk", insertable = false, updatable = false)
 	private TiposLogradouro tiposLogradouro;
 
 	//bi-directional many-to-one association to AcessoOperadoresUnidade
@@ -423,28 +423,28 @@ public class Unidades extends AbstractEntity<Long> {
 
 	public PessoaFuncionarios addPessoaFuncionario(PessoaFuncionarios pessoaFuncionarios) {
 		getPessoaFuncionarios().add(pessoaFuncionarios);
-		pessoaFuncionarios.setUnidades(this);
+		pessoaFuncionarios.setUnidade(this);
 
 		return pessoaFuncionarios;
 	}
 
 	public PessoaFuncionarios removePessoaFuncionario(PessoaFuncionarios pessoaFuncionario) {
 		getPessoaFuncionarios().remove(pessoaFuncionario);
-		pessoaFuncionario.setUnidades(null);
+		pessoaFuncionario.setUnidade(null);
 
 		return pessoaFuncionario;
 	}
 
 	public AcessoOperadoresUnidade addAcessoOperadoresUnidade(AcessoOperadoresUnidade acessoOperadoresUnidade) {
 		getAcessoOperadoresUnidades().add(acessoOperadoresUnidade);
-		acessoOperadoresUnidade.setUnidades(this);
+		acessoOperadoresUnidade.setUnidade(this);
 
 		return acessoOperadoresUnidade;
 	}
 
 	public AcessoOperadoresUnidade removeAcessoOperadoresUnidade(AcessoOperadoresUnidade acessoOperadoresUnidade) {
 		getAcessoOperadoresUnidades().remove(acessoOperadoresUnidade);
-		acessoOperadoresUnidade.setUnidades(null);
+		acessoOperadoresUnidade.setUnidade(null);
 
 		return acessoOperadoresUnidade;
 	}

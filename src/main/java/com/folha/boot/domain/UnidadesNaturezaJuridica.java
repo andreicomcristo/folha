@@ -3,45 +3,61 @@ import java.util.List;
 
 import javax.persistence.*;
 
-import com.folha.boot.service.util.UtilidadesDeTexto;
-
 @SuppressWarnings("serial")
 @Entity
 @Table(name = "unidades_natureza_juridica")
 public class UnidadesNaturezaJuridica extends AbstractEntity<Long> {
 
-	@Column(name = "nome_natureza_juridica", nullable = false, length = 150)
-    private String nomeNaturezaJuridica;
-   
-	@Column(name = "descricao_natureza_juridica", length = 300)
-    private String descricaoNaturezaJuridica;
-    
-	@OneToMany(cascade = CascadeType.ALL, mappedBy = "idUnidadeDeSaudeFk")
-    private List<HistUnidadesNaturezaJuridica> histUnidadesNaturezaJuridicaCollection;
+	@Column(name="descricao_natureza_juridica")
+	private String descricaoNaturezaJuridica;
 
-	public String getNomeNaturezaJuridica() {
-		return nomeNaturezaJuridica;
-	}
+	@Column(name="nome_natureza_juridica")
+	private String nomeNaturezaJuridica;
 
-	public void setNomeNaturezaJuridica(String nomeNaturezaJuridica) {
-		this.nomeNaturezaJuridica = UtilidadesDeTexto.retiraEspacosDuplosAcentosEConverteEmMaiusculo(nomeNaturezaJuridica);
+	//bi-directional many-to-one association to HistUnidadesNaturezaJuridica
+	@OneToMany(mappedBy="unidadesNaturezaJuridica")
+	private List<HistUnidadesNaturezaJuridica> histUnidadesNaturezaJuridicas;
+
+	public UnidadesNaturezaJuridica() {
 	}
 
 	public String getDescricaoNaturezaJuridica() {
-		return descricaoNaturezaJuridica;
+		return this.descricaoNaturezaJuridica;
 	}
 
 	public void setDescricaoNaturezaJuridica(String descricaoNaturezaJuridica) {
-		this.descricaoNaturezaJuridica = UtilidadesDeTexto.retiraEspacosDuplosAcentosEConverteEmMaiusculo(descricaoNaturezaJuridica);
+		this.descricaoNaturezaJuridica = descricaoNaturezaJuridica;
 	}
 
-	public List<HistUnidadesNaturezaJuridica> getHistUnidadesNaturezaJuridicaCollection() {
-		return histUnidadesNaturezaJuridicaCollection;
+	public String getNomeNaturezaJuridica() {
+		return this.nomeNaturezaJuridica;
 	}
 
-	public void setHistUnidadesNaturezaJuridicaCollection(
-			List<HistUnidadesNaturezaJuridica> histUnidadesNaturezaJuridicaCollection) {
-		this.histUnidadesNaturezaJuridicaCollection = histUnidadesNaturezaJuridicaCollection;
+	public void setNomeNaturezaJuridica(String nomeNaturezaJuridica) {
+		this.nomeNaturezaJuridica = nomeNaturezaJuridica;
 	}
+
+	public List<HistUnidadesNaturezaJuridica> getHistUnidadesNaturezaJuridicas() {
+		return this.histUnidadesNaturezaJuridicas;
+	}
+
+	public void setHistUnidadesNaturezaJuridicas(List<HistUnidadesNaturezaJuridica> histUnidadesNaturezaJuridicas) {
+		this.histUnidadesNaturezaJuridicas = histUnidadesNaturezaJuridicas;
+	}
+
+	public HistUnidadesNaturezaJuridica addHistUnidadesNaturezaJuridica(HistUnidadesNaturezaJuridica histUnidadesNaturezaJuridica) {
+		getHistUnidadesNaturezaJuridicas().add(histUnidadesNaturezaJuridica);
+		histUnidadesNaturezaJuridica.setUnidadesNaturezaJuridica(this);
+
+		return histUnidadesNaturezaJuridica;
+	}
+
+	public HistUnidadesNaturezaJuridica removeHistUnidadesNaturezaJuridica(HistUnidadesNaturezaJuridica histUnidadesNaturezaJuridica) {
+		getHistUnidadesNaturezaJuridicas().remove(histUnidadesNaturezaJuridica);
+		histUnidadesNaturezaJuridica.setUnidadesNaturezaJuridica(null);
+
+		return histUnidadesNaturezaJuridica;
+	}
+
 
 }

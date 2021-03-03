@@ -4,45 +4,60 @@ import java.util.List;
 
 import javax.persistence.*;
 
-import com.folha.boot.service.util.UtilidadesDeTexto;
-
 @SuppressWarnings("serial")
 @Entity
 @Table(name = "privilegios")
 public class Privilegios extends AbstractEntity<Long> {
 
-	@Column(name = "nome_privilegio", nullable = false, length = 300)
-	private String nomePrivilegio;
-
-	@Basic(optional = false)
-	@Column(name = "descricao_privilegio", nullable = false, length = 3000)
+	@Column(name="descricao_privilegio")
 	private String descricaoPrivilegio;
 
-	@OneToMany(mappedBy = "seqPrivilegio")
-	private List<PessoaOperadores> pessoaOperadoresCollection;
+	@Column(name="nome_privilegio")
+	private String nomePrivilegio;
 
-	public String getNomePrivilegio() {
-		return nomePrivilegio;
+	//bi-directional many-to-one association to PessoaOperadore
+	@OneToMany(mappedBy="privilegio")
+	private List<PessoaOperadores> pessoaOperadores;
+
+	public Privilegios() {
 	}
-
-	public void setNomePrivilegio(String nomePrivilegio) {
-		this.nomePrivilegio = UtilidadesDeTexto.retiraEspacosDuplosAcentosEConverteEmMaiusculo(nomePrivilegio);
-	}
-
+	
 	public String getDescricaoPrivilegio() {
-		return descricaoPrivilegio;
+		return this.descricaoPrivilegio;
 	}
 
 	public void setDescricaoPrivilegio(String descricaoPrivilegio) {
-		this.descricaoPrivilegio = UtilidadesDeTexto.retiraEspacosDuplosAcentosEConverteEmMaiusculo(descricaoPrivilegio);
+		this.descricaoPrivilegio = descricaoPrivilegio;
 	}
 
-	public List<PessoaOperadores> getPessoaOperadoresCollection() {
-		return pessoaOperadoresCollection;
+	public String getNomePrivilegio() {
+		return this.nomePrivilegio;
 	}
 
-	public void setPessoaOperadoresCollection(List<PessoaOperadores> pessoaOperadoresCollection) {
-		this.pessoaOperadoresCollection = pessoaOperadoresCollection;
+	public void setNomePrivilegio(String nomePrivilegio) {
+		this.nomePrivilegio = nomePrivilegio;
+	}
+
+	public List<PessoaOperadores> getPessoaOperadores() {
+		return this.pessoaOperadores;
+	}
+
+	public void setPessoaOperadores(List<PessoaOperadores> pessoaOperadores) {
+		this.pessoaOperadores = pessoaOperadores;
+	}
+
+	public PessoaOperadores addPessoaOperadore(PessoaOperadores pessoaOperadore) {
+		getPessoaOperadores().add(pessoaOperadore);
+		pessoaOperadore.setPrivilegio(this);
+
+		return pessoaOperadore;
+	}
+
+	public PessoaOperadores removePessoaOperadore(PessoaOperadores pessoaOperadore) {
+		getPessoaOperadores().remove(pessoaOperadore);
+		pessoaOperadore.setPrivilegio(null);
+
+		return pessoaOperadore;
 	}
 
 }

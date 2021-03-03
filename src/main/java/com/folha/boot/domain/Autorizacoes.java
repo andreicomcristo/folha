@@ -10,35 +10,35 @@ import javax.persistence.*;
 @Table(name = "autorizacoes")
 public class Autorizacoes extends AbstractEntity<Long> {
 	
-	@Temporal(TemporalType.DATE)
+	//@Temporal(TemporalType.DATE)
 	@Column(name="dt_criacao")
 	private Date dtCriacao;
 
-	@Temporal(TemporalType.DATE)
+	//@Temporal(TemporalType.DATE)
 	@Column(name="dt_fim")
 	private Date dtFim;
 
-	@Temporal(TemporalType.DATE)
+	//@Temporal(TemporalType.DATE)   
 	@Column(name="dt_inicio")
 	private Date dtInicio;
 
-	@Column(name="id_carga_horaria_semanal_fk")
+	@Column(name="id_carga_horaria_semanal_fk", insertable = false, updatable = false)
 	private Long idCargaHorariaSemanalFk;
 
 	//bi-directional many-to-one association to PessoaFuncionario
 	@ManyToOne
-	@JoinColumn(name="id_funcionario_fk")
-	private PessoaFuncionarios pessoaFuncionarios;
-
+	@JoinColumn(name="id_funcionario_fk", insertable = false, updatable = false)
+	private PessoaFuncionarios pessoaFuncionario;
+ 
 	//bi-directional many-to-one association to PessoaOperadore
 	@ManyToOne
-	@JoinColumn(name="id_operador_criacao_fk")
-	private PessoaOperadores pessoaOperadores;
+	@JoinColumn(name="id_operador_criacao_fk", insertable = false, updatable = false)
+	private PessoaOperadores pessoaOperadore;
 
 	//bi-directional many-to-one association to Unidade
 	@ManyToOne
-	@JoinColumn(name="id_unidade_de_saude_fk")
-	private Unidades unidades;
+	@JoinColumn(name="id_unidade_de_saude_fk", insertable = false, updatable = false)
+	private Unidades unidade;
 
 	//bi-directional many-to-one association to HistFuncionariosAutorizacao
 	@OneToMany(mappedBy="autorizacoes1")
@@ -84,27 +84,27 @@ public class Autorizacoes extends AbstractEntity<Long> {
 	}
 
 	public PessoaFuncionarios getPessoaFuncionarios() {
-		return pessoaFuncionarios;
+		return pessoaFuncionario;
 	}
 
 	public void setPessoaFuncionarios(PessoaFuncionarios pessoaFuncionarios) {
-		this.pessoaFuncionarios = pessoaFuncionarios;
+		this.pessoaFuncionario = pessoaFuncionarios;
 	}
 
 	public PessoaOperadores getPessoaOperadores() {
-		return pessoaOperadores;
+		return pessoaOperadore;
 	}
 
 	public void setPessoaOperadores(PessoaOperadores pessoaOperadores) {
-		this.pessoaOperadores = pessoaOperadores;
+		this.pessoaOperadore = pessoaOperadores;
 	}
 
 	public Unidades getUnidades() {
-		return unidades;
+		return unidade;
 	}
 
 	public void setUnidades(Unidades unidades) {
-		this.unidades = unidades;
+		this.unidade = unidades;
 	}
 
 	public List<HistFuncionariosAutorizacao> getHistFuncionariosAutorizacoes1() {

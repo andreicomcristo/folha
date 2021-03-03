@@ -4,44 +4,60 @@ import java.util.List;
 
 import javax.persistence.*;
 
-import com.folha.boot.service.util.UtilidadesDeTexto;
-
 @SuppressWarnings("serial")
 @Entity
 @Table(name = "estados_civis")
 public class EstadosCivis extends AbstractEntity<Long> {
 
-	@Column(name = "nome_estado_civil", nullable = false, length = 100)
-	private String nomeEstadoCivil;
-
-	@Column(name = "descricao_estado_civil", length = 300)
+	@Column(name="descricao_estado_civil")
 	private String descricaoEstadoCivil;
 
-	@OneToMany(mappedBy = "seqEstadoCivil")
-	private List<Pessoa> pessoaCollection;
+	@Column(name="nome_estado_civil")
+	private String nomeEstadoCivil;
 
-	public String getNomeEstadoCivil() {
-		return nomeEstadoCivil;
-	}
+	//bi-directional many-to-one association to Pessoa
+	@OneToMany(mappedBy="estadosCivi")
+	private List<Pessoa> pessoas;
 
-	public void setNomeEstadoCivil(String nomeEstadoCivil) {
-		this.nomeEstadoCivil = UtilidadesDeTexto.retiraEspacosDuplosAcentosEConverteEmMaiusculo(nomeEstadoCivil);
+	public EstadosCivis() {
 	}
 
 	public String getDescricaoEstadoCivil() {
-		return descricaoEstadoCivil;
+		return this.descricaoEstadoCivil;
 	}
 
 	public void setDescricaoEstadoCivil(String descricaoEstadoCivil) {
-		this.descricaoEstadoCivil = UtilidadesDeTexto.retiraEspacosDuplosAcentosEConverteEmMaiusculo(descricaoEstadoCivil);
+		this.descricaoEstadoCivil = descricaoEstadoCivil;
 	}
 
-	public List<Pessoa> getPessoaCollection() {
-		return pessoaCollection;
+	public String getNomeEstadoCivil() {
+		return this.nomeEstadoCivil;
 	}
 
-	public void setPessoaCollection(List<Pessoa> pessoaCollection) {
-		this.pessoaCollection = pessoaCollection;
+	public void setNomeEstadoCivil(String nomeEstadoCivil) {
+		this.nomeEstadoCivil = nomeEstadoCivil;
+	}
+
+	public List<Pessoa> getPessoas() {
+		return this.pessoas;
+	}
+
+	public void setPessoas(List<Pessoa> pessoas) {
+		this.pessoas = pessoas;
+	}
+
+	public Pessoa addPessoa(Pessoa pessoa) {
+		getPessoas().add(pessoa);
+		pessoa.setEstadosCivi(this);
+
+		return pessoa;
+	}
+
+	public Pessoa removePessoa(Pessoa pessoa) {
+		getPessoas().remove(pessoa);
+		pessoa.setEstadosCivi(null);
+
+		return pessoa;
 	}
 	
 }

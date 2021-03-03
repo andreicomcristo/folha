@@ -4,73 +4,54 @@ import java.util.List;
 
 import javax.persistence.*;
 
-import com.folha.boot.service.util.UtilidadesDeTexto;
-
 @SuppressWarnings("serial")
 @Entity
 @Table(name = "enderecos")
 public class Enderecos extends AbstractEntity<Long> {
 
-	@Column(name = "endereco_logradouro", nullable = false, length = 300)
-	private String enderecoLogradouro;
-
-	@Column(name = "endereco_numero", length = 20)
-	private String enderecoNumero;
-
-	@Column(name = "endereco_complemento", length = 300)
-	private String enderecoComplemento;
-
-	@Column(name = "endereco_bairro", length = 300)
+	@Column(name="endereco_bairro")
 	private String enderecoBairro;
 
-	@Column(name = "endereco_cep", length = 20)
+	@Column(name="endereco_cep")
 	private String enderecoCep;
 
-	@JoinColumn(name = "id_endereco_cidade_fk", referencedColumnName = "id")
+	@Column(name="endereco_complemento")
+	private String enderecoComplemento;
+
+	@Column(name="endereco_logradouro")
+	private String enderecoLogradouro;
+
+	@Column(name="endereco_numero")
+	private String enderecoNumero;
+
+	//bi-directional many-to-one association to Cidade
 	@ManyToOne
-	private Cidades idEnderecoCidadeFk;
+	@JoinColumn(name="id_endereco_cidade_fk", insertable = false, updatable = false)
+	private Cidades cidade;
 
-	@JoinColumn(name = "id_pessoa_fk", referencedColumnName = "id", nullable = false)
-	@ManyToOne(optional = false)
-	private Pessoa idPessoaFk;
+	//bi-directional many-to-one association to Pessoa
+	@ManyToOne
+	@JoinColumn(name="id_pessoa_fk" , insertable = false, updatable = false)
+	private Pessoa pessoa;
 
-	@JoinColumn(name = "id_tipo_logradouro_fk", referencedColumnName = "id", nullable = false)
-	@ManyToOne(optional = false)
-	private TiposLogradouro idTipoLogradouroFk;
+	//bi-directional many-to-one association to TiposLogradouro
+	@ManyToOne
+	@JoinColumn(name="id_tipo_logradouro_fk" , insertable = false, updatable = false)
+	private TiposLogradouro tiposLogradouro;
 
-	@OneToMany(mappedBy = "seqEndereco")
-	private List<Pessoa> pessoaCollection;
+	//bi-directional many-to-one association to Pessoa
+	@OneToMany(mappedBy="endereco")
+	private List<Pessoa> pessoas;
 
-	public String getEnderecoLogradouro() {
-		return enderecoLogradouro;
+	public Enderecos() {
 	}
-
-	public void setEnderecoLogradouro(String enderecoLogradouro) {
-		this.enderecoLogradouro = UtilidadesDeTexto.retiraEspacosDuplosAcentosEConverteEmMaiusculo(enderecoLogradouro);
-	}
-
-	public String getEnderecoNumero() {
-		return enderecoNumero;
-	}
-
-	public void setEnderecoNumero(String enderecoNumero) {
-		this.enderecoNumero = UtilidadesDeTexto.retiraEspacosDuplosAcentosEConverteEmMaiusculo(enderecoNumero);
-	}
-
-	public String getEnderecoComplemento() {
-		return enderecoComplemento;
-	}
-
-	public void setEnderecoComplemento(String enderecoComplemento) {
-		this.enderecoComplemento = UtilidadesDeTexto.retiraEspacosDuplosAcentosEConverteEmMaiusculo(enderecoComplemento);
-	}
-
+	
 	public String getEnderecoBairro() {
 		return enderecoBairro;
 	}
 
 	public void setEnderecoBairro(String enderecoBairro) {
-		this.enderecoBairro = UtilidadesDeTexto.retiraEspacosDuplosAcentosEConverteEmMaiusculo(enderecoBairro);
+		this.enderecoBairro = enderecoBairro;
 	}
 
 	public String getEnderecoCep() {
@@ -78,39 +59,77 @@ public class Enderecos extends AbstractEntity<Long> {
 	}
 
 	public void setEnderecoCep(String enderecoCep) {
-		this.enderecoCep = UtilidadesDeTexto.retiraEspacosDuplosAcentosEConverteEmMaiusculo(enderecoCep);
+		this.enderecoCep = enderecoCep;
 	}
 
-	public Cidades getIdEnderecoCidadeFk() {
-		return idEnderecoCidadeFk;
+	public String getEnderecoComplemento() {
+		return enderecoComplemento;
 	}
 
-	public void setIdEnderecoCidadeFk(Cidades idEnderecoCidadeFk) {
-		this.idEnderecoCidadeFk = idEnderecoCidadeFk;
+	public void setEnderecoComplemento(String enderecoComplemento) {
+		this.enderecoComplemento = enderecoComplemento;
 	}
 
-	public Pessoa getIdPessoaFk() {
-		return idPessoaFk;
+	public String getEnderecoLogradouro() {
+		return enderecoLogradouro;
 	}
 
-	public void setIdPessoaFk(Pessoa idPessoaFk) {
-		this.idPessoaFk = idPessoaFk;
+	public void setEnderecoLogradouro(String enderecoLogradouro) {
+		this.enderecoLogradouro = enderecoLogradouro;
 	}
 
-	public TiposLogradouro getIdTipoLogradouroFk() {
-		return idTipoLogradouroFk;
+	public String getEnderecoNumero() {
+		return enderecoNumero;
 	}
 
-	public void setIdTipoLogradouroFk(TiposLogradouro idTipoLogradouroFk) {
-		this.idTipoLogradouroFk = idTipoLogradouroFk;
+	public void setEnderecoNumero(String enderecoNumero) {
+		this.enderecoNumero = enderecoNumero;
 	}
 
-	public List<Pessoa> getPessoaCollection() {
-		return pessoaCollection;
+	public Cidades getCidade() {
+		return cidade;
 	}
 
-	public void setPessoaCollection(List<Pessoa> pessoaCollection) {
-		this.pessoaCollection = pessoaCollection;
+	public void setCidade(Cidades cidade) {
+		this.cidade = cidade;
+	}
+
+	public Pessoa getPessoa() {
+		return pessoa;
+	}
+
+	public void setPessoa(Pessoa pessoa) {
+		this.pessoa = pessoa;
+	}
+
+	public TiposLogradouro getTiposLogradouro() {
+		return tiposLogradouro;
+	}
+
+	public void setTiposLogradouro(TiposLogradouro tiposLogradouro) {
+		this.tiposLogradouro = tiposLogradouro;
+	}
+
+	public List<Pessoa> getPessoas() {
+		return pessoas;
+	}
+
+	public void setPessoas(List<Pessoa> pessoas) {
+		this.pessoas = pessoas;
+	}
+
+	public Pessoa addPessoa(Pessoa pessoa) {
+		getPessoas().add(pessoa);
+		pessoa.setEndereco(this);
+
+		return pessoa;
+	}
+
+	public Pessoa removePessoa(Pessoa pessoa) {
+		getPessoas().remove(pessoa);
+		pessoa.setEndereco(null);
+
+		return pessoa;
 	}
 
 }

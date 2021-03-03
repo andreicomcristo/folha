@@ -4,44 +4,60 @@ import java.util.List;
 
 import javax.persistence.*;
 
-import com.folha.boot.service.util.UtilidadesDeTexto;
-
 @SuppressWarnings("serial")
 @Entity
 @Table(name = "tipos_de_documento")
 public class TiposDeDocumento extends AbstractEntity<Long> {
 
-	@Column(name = "sigla_documento", length = 300)
-	private String siglaDocumento;
-
-	@Column(name = "nome_documento", length = 300)
+	@Column(name="nome_documento")
 	private String nomeDocumento;
 
-	@OneToMany(mappedBy = "idTiposDeDocumentoFk")
-	private List<PessoaDocumentos> pessoaDocumentosCollection;
+	@Column(name="sigla_documento")
+	private String siglaDocumento;
 
-	public String getSiglaDocumento() {
-		return siglaDocumento;
-	}
+	//bi-directional many-to-one association to PessoaDocumento
+	@OneToMany(mappedBy="tiposDeDocumento")
+	private List<PessoaDocumentos> pessoaDocumentos;
 
-	public void setSiglaDocumento(String siglaDocumento) {
-		this.siglaDocumento = UtilidadesDeTexto.retiraEspacosDuplosAcentosEConverteEmMaiusculo(siglaDocumento);
+	public TiposDeDocumento() {
 	}
 
 	public String getNomeDocumento() {
-		return nomeDocumento;
+		return this.nomeDocumento;
 	}
 
 	public void setNomeDocumento(String nomeDocumento) {
-		this.nomeDocumento = UtilidadesDeTexto.retiraEspacosDuplosAcentosEConverteEmMaiusculo(nomeDocumento);
+		this.nomeDocumento = nomeDocumento;
 	}
 
-	public List<PessoaDocumentos> getPessoaDocumentosCollection() {
-		return pessoaDocumentosCollection;
+	public String getSiglaDocumento() {
+		return this.siglaDocumento;
 	}
 
-	public void setPessoaDocumentosCollection(List<PessoaDocumentos> pessoaDocumentosCollection) {
-		this.pessoaDocumentosCollection = pessoaDocumentosCollection;
+	public void setSiglaDocumento(String siglaDocumento) {
+		this.siglaDocumento = siglaDocumento;
+	}
+
+	public List<PessoaDocumentos> getPessoaDocumentos() {
+		return this.pessoaDocumentos;
+	}
+
+	public void setPessoaDocumentos(List<PessoaDocumentos> pessoaDocumentos) {
+		this.pessoaDocumentos = pessoaDocumentos;
+	}
+
+	public PessoaDocumentos addPessoaDocumento(PessoaDocumentos pessoaDocumento) {
+		getPessoaDocumentos().add(pessoaDocumento);
+		pessoaDocumento.setTiposDeDocumento(this);
+
+		return pessoaDocumento;
+	}
+
+	public PessoaDocumentos removePessoaDocumento(PessoaDocumentos pessoaDocumento) {
+		getPessoaDocumentos().remove(pessoaDocumento);
+		pessoaDocumento.setTiposDeDocumento(null);
+
+		return pessoaDocumento;
 	}
 
 }

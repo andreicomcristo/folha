@@ -25,42 +25,42 @@ public class HistFuncionariosCargos extends AbstractEntity<Long> {
 
 	//bi-directional many-to-one association to Cargo
 	@ManyToOne
-	@JoinColumn(name="id_cargo_fk")
+	@JoinColumn(name="id_cargo_fk", insertable = false, updatable = false)
 	private Cargos cargo1;
 
 	//bi-directional many-to-one association to Cargo
 	@ManyToOne
-	@JoinColumn(name="id_cargo_fk")
+	@JoinColumn(name="id_cargo_fk", insertable = false, updatable = false)
 	private Cargos cargo2;
 
 	//bi-directional many-to-one association to PessoaFuncionario
 	@ManyToOne
-	@JoinColumn(name="id_funcionario_fk")
+	@JoinColumn(name="id_funcionario_fk", insertable = false, updatable = false)
 	private PessoaFuncionarios pessoaFuncionario1;
 
 	//bi-directional many-to-one association to PessoaFuncionario
 	@ManyToOne
-	@JoinColumn(name="id_funcionario_fk")
+	@JoinColumn(name="id_funcionario_fk", insertable = false, updatable = false)
 	private PessoaFuncionarios pessoaFuncionario2;
 
 	//bi-directional many-to-one association to PessoaOperadore
 	@ManyToOne
-	@JoinColumn(name="id_operador_cadastro_fk")
+	@JoinColumn(name="id_operador_cadastro_fk", insertable = false, updatable = false)
 	private PessoaOperadores pessoaOperadore1;
 
 	//bi-directional many-to-one association to PessoaOperadore
 	@ManyToOne
-	@JoinColumn(name="id_operador_cancelamento_fk")
+	@JoinColumn(name="id_operador_cancelamento_fk", insertable = false, updatable = false)
 	private PessoaOperadores pessoaOperadore2;
 
 	//bi-directional many-to-one association to PessoaOperadore
 	@ManyToOne
-	@JoinColumn(name="id_operador_cadastro_fk")
+	@JoinColumn(name="id_operador_cadastro_fk", insertable = false, updatable = false)
 	private PessoaOperadores pessoaOperadore3;
 
 	//bi-directional many-to-one association to PessoaOperadore
 	@ManyToOne
-	@JoinColumn(name="id_operador_cancelamento_fk")
+	@JoinColumn(name="id_operador_cancelamento_fk", insertable = false, updatable = false)
 	private PessoaOperadores pessoaOperadore4;
 
 	public HistFuncionariosCargos() {

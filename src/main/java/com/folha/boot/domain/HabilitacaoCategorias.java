@@ -3,45 +3,60 @@ package com.folha.boot.domain;
 import java.util.List;
 import javax.persistence.*;
 
-import com.folha.boot.service.util.UtilidadesDeTexto;
-
 @SuppressWarnings("serial")
 @Entity
 @Table(name = "habilitacao_categorias")
 public class HabilitacaoCategorias extends AbstractEntity<Long> {
-
-	@Column(name = "nome_habilitacao_categoria", nullable = false, length = 30)
-	private String nomeHabilitacaoCategoria;
-
-	@Column(name = "descricao_habilitacao_categoria", length = 300)
+	
+	@Column(name="descricao_habilitacao_categoria")
 	private String descricaoHabilitacaoCategoria;
 
-	@OneToMany(mappedBy = "idHabilitacaoCategoriasFk")
-	private List<PessoaDocumentosHabilitacao> pessoaDocumentosHabilitacaoCollection;
+	@Column(name="nome_habilitacao_categoria")
+	private String nomeHabilitacaoCategoria;
 
-	public String getNomeHabilitacaoCategoria() {
-		return nomeHabilitacaoCategoria;
-	}
+	//bi-directional many-to-one association to PessoaDocumentosHabilitacao
+	@OneToMany(mappedBy="habilitacaoCategoria")
+	private List<PessoaDocumentosHabilitacao> pessoaDocumentosHabilitacaos;
 
-	public void setNomeHabilitacaoCategoria(String nomeHabilitacaoCategoria) {
-		this.nomeHabilitacaoCategoria = UtilidadesDeTexto.retiraEspacosDuplosAcentosEConverteEmMaiusculo(nomeHabilitacaoCategoria);
+	public HabilitacaoCategorias() {
 	}
 
 	public String getDescricaoHabilitacaoCategoria() {
-		return descricaoHabilitacaoCategoria;
+		return this.descricaoHabilitacaoCategoria;
 	}
 
 	public void setDescricaoHabilitacaoCategoria(String descricaoHabilitacaoCategoria) {
-		this.descricaoHabilitacaoCategoria = UtilidadesDeTexto.retiraEspacosDuplosAcentosEConverteEmMaiusculo(descricaoHabilitacaoCategoria);
+		this.descricaoHabilitacaoCategoria = descricaoHabilitacaoCategoria;
 	}
 
-	public List<PessoaDocumentosHabilitacao> getPessoaDocumentosHabilitacaoCollection() {
-		return pessoaDocumentosHabilitacaoCollection;
+	public String getNomeHabilitacaoCategoria() {
+		return this.nomeHabilitacaoCategoria;
 	}
 
-	public void setPessoaDocumentosHabilitacaoCollection(
-			List<PessoaDocumentosHabilitacao> pessoaDocumentosHabilitacaoCollection) {
-		this.pessoaDocumentosHabilitacaoCollection = pessoaDocumentosHabilitacaoCollection;
+	public void setNomeHabilitacaoCategoria(String nomeHabilitacaoCategoria) {
+		this.nomeHabilitacaoCategoria = nomeHabilitacaoCategoria;
+	}
+
+	public List<PessoaDocumentosHabilitacao> getPessoaDocumentosHabilitacaos() {
+		return this.pessoaDocumentosHabilitacaos;
+	}
+
+	public void setPessoaDocumentosHabilitacaos(List<PessoaDocumentosHabilitacao> pessoaDocumentosHabilitacaos) {
+		this.pessoaDocumentosHabilitacaos = pessoaDocumentosHabilitacaos;
+	}
+
+	public PessoaDocumentosHabilitacao addPessoaDocumentosHabilitacao(PessoaDocumentosHabilitacao pessoaDocumentosHabilitacao) {
+		getPessoaDocumentosHabilitacaos().add(pessoaDocumentosHabilitacao);
+		pessoaDocumentosHabilitacao.setHabilitacaoCategoria(this);
+
+		return pessoaDocumentosHabilitacao;
+	}
+
+	public PessoaDocumentosHabilitacao removePessoaDocumentosHabilitacao(PessoaDocumentosHabilitacao pessoaDocumentosHabilitacao) {
+		getPessoaDocumentosHabilitacaos().remove(pessoaDocumentosHabilitacao);
+		pessoaDocumentosHabilitacao.setHabilitacaoCategoria(null);
+
+		return pessoaDocumentosHabilitacao;
 	}
 
 }

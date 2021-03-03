@@ -25,23 +25,26 @@ public class HistFuncionariosAutorizacao extends AbstractEntity<Long> {
 
 	//bi-directional many-to-one association to Autorizacoe
 	@ManyToOne
-	@JoinColumn(name="id_autorizacao_fk", referencedColumnName = "id", nullable = false)
+
+	@JoinColumn(name="id_autorizacao_fk", insertable = false, updatable = false)
 	private Autorizacoes autorizacoes1;
 
 	//bi-directional many-to-one association to Autorizacoe
 	@ManyToOne
-	@JoinColumn(name="id_autorizacao_fk", referencedColumnName = "id", nullable = false)
+
+	@JoinColumn(name="id_autorizacao_fk", insertable = false, updatable = false)
 	private Autorizacoes autorizacoes2;
 
 	//bi-directional many-to-one association to PessoaFuncionario
 	@ManyToOne
-	@JoinColumn(name="id_funcionario_fk", referencedColumnName = "id")
+	@JoinColumn(name="id_funcionario_fk", insertable = false, updatable = false)
 	private PessoaFuncionarios pessoaFuncionario;
 
 	//bi-directional many-to-one association to PessoaOperadore
 	@ManyToOne
-	@JoinColumn(name="id_operador_cadastro_fk", referencedColumnName = "id")
+	@JoinColumn(name="id_operador_cadastro_fk" , insertable = false, updatable = false)
 	private PessoaOperadores pessoaOperadores1;
+
 
 	//bi-directional many-to-one association to PessoaOperadore
 	@ManyToOne
@@ -50,14 +53,16 @@ public class HistFuncionariosAutorizacao extends AbstractEntity<Long> {
 
 	//bi-directional many-to-one association to PessoaOperadore
 	@ManyToOne
-	@JoinColumn(name="id_operador_cadastro_fk", referencedColumnName = "id")
+	@JoinColumn(name="id_operador_cadastro_fk", insertable = false, updatable = false)
 	private PessoaOperadores pessoaOperadores3;
+
 
 	//bi-directional many-to-one association to PessoaOperadore
 	@ManyToOne
-	@JoinColumn(name="id_operador_cancelamento_fk", referencedColumnName = "id")
+	@JoinColumn(name="id_operador_cancelamento_fk", insertable = false, updatable = false)
 	private PessoaOperadores pessoaOperadores4;
 
+	
 	public HistFuncionariosAutorizacao() {
 	}
 
