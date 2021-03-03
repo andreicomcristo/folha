@@ -4,60 +4,48 @@ import java.util.List;
 
 import javax.persistence.*;
 
+import com.folha.boot.service.util.UtilidadesDeTexto;
+
+/**
+ * @author andre
+ *
+ */
 @SuppressWarnings("serial")
 @Entity
 @Table(name = "estados_civis")
 public class EstadosCivis extends AbstractEntity<Long> {
 
-	@Column(name="descricao_estado_civil")
-	private String descricaoEstadoCivil;
-
-	@Column(name="nome_estado_civil")
+	@Column(name = "nome_estado_civil", nullable = false, length = 100)
 	private String nomeEstadoCivil;
 
-	//bi-directional many-to-one association to Pessoa
-	@OneToMany(mappedBy="estadosCivi")
-	private List<Pessoa> pessoas;
+	@Column(name = "descricao_estado_civil", length = 300)
+	private String descricaoEstadoCivil;
 
-	public EstadosCivis() {
-	}
-
-	public String getDescricaoEstadoCivil() {
-		return this.descricaoEstadoCivil;
-	}
-
-	public void setDescricaoEstadoCivil(String descricaoEstadoCivil) {
-		this.descricaoEstadoCivil = descricaoEstadoCivil;
-	}
+	@OneToMany(mappedBy = "seqEstadoCivil")
+	private List<Pessoa> pessoaList;
 
 	public String getNomeEstadoCivil() {
-		return this.nomeEstadoCivil;
+		return nomeEstadoCivil;
 	}
 
 	public void setNomeEstadoCivil(String nomeEstadoCivil) {
-		this.nomeEstadoCivil = nomeEstadoCivil;
+		this.nomeEstadoCivil = UtilidadesDeTexto.retiraEspacosDuplosAcentosEConverteEmMaiusculo(nomeEstadoCivil);
 	}
 
-	public List<Pessoa> getPessoas() {
-		return this.pessoas;
+	public String getDescricaoEstadoCivil() {
+		return descricaoEstadoCivil;
 	}
 
-	public void setPessoas(List<Pessoa> pessoas) {
-		this.pessoas = pessoas;
+	public void setDescricaoEstadoCivil(String descricaoEstadoCivil) {
+		this.descricaoEstadoCivil = UtilidadesDeTexto.retiraEspacosDuplosAcentosEConverteEmMaiusculo(descricaoEstadoCivil);
 	}
 
-	public Pessoa addPessoa(Pessoa pessoa) {
-		getPessoas().add(pessoa);
-		pessoa.setEstadosCivi(this);
-
-		return pessoa;
+	public List<Pessoa> getPessoaList() {
+		return pessoaList;
 	}
 
-	public Pessoa removePessoa(Pessoa pessoa) {
-		getPessoas().remove(pessoa);
-		pessoa.setEstadosCivi(null);
-
-		return pessoa;
+	public void setPessoaList(List<Pessoa> pessoaList) {
+		this.pessoaList = pessoaList;
 	}
 	
 }

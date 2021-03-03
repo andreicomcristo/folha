@@ -4,86 +4,55 @@ import java.util.List;
 
 import javax.persistence.*;
 
+import com.folha.boot.service.util.UtilidadesDeTexto;
+
 @SuppressWarnings("serial")
 @Entity
 @Table(name = "tipos_logradouro")
 public class TiposLogradouro extends AbstractEntity<Long> {
 
-	@Column(name="descricao_tipo_logradouro")
-	private String descricaoTipoLogradouro;
-
-	@Column(name="nome_tipo_logradouro")
+	@Column(name = "nome_tipo_logradouro", nullable = false, length = 150)
 	private String nomeTipoLogradouro;
 
-	//bi-directional many-to-one association to Endereco
-	@OneToMany(mappedBy="tiposLogradouro")
-	private List<Enderecos> enderecos;
+	@Column(name = "descricao_tipo_logradouro", length = 300)
+	private String descricaoTipoLogradouro;
 
-	//bi-directional many-to-one association to Unidade
-	@OneToMany(mappedBy="tiposLogradouro")
-	private List<Unidades> unidades;
+	@OneToMany(cascade = CascadeType.ALL, mappedBy = "idTipoLogradouroFk")
+	private List<Enderecos> enderecosList;
 
-	public TiposLogradouro() {
-	}
-
-	public String getDescricaoTipoLogradouro() {
-		return this.descricaoTipoLogradouro;
-	}
-
-	public void setDescricaoTipoLogradouro(String descricaoTipoLogradouro) {
-		this.descricaoTipoLogradouro = descricaoTipoLogradouro;
-	}
+	@OneToMany(mappedBy = "idTipoLogradouroFk")
+	private List<Unidades> unidadesList;
 
 	public String getNomeTipoLogradouro() {
-		return this.nomeTipoLogradouro;
+		return nomeTipoLogradouro;
 	}
 
 	public void setNomeTipoLogradouro(String nomeTipoLogradouro) {
-		this.nomeTipoLogradouro = nomeTipoLogradouro;
+		this.nomeTipoLogradouro = UtilidadesDeTexto.retiraEspacosDuplosAcentosEConverteEmMaiusculo(nomeTipoLogradouro);
 	}
 
-	public List<Enderecos> getEnderecos() {
-		return this.enderecos;
+	public String getDescricaoTipoLogradouro() {
+		return descricaoTipoLogradouro;
 	}
 
-	public void setEnderecos(List<Enderecos> enderecos) {
-		this.enderecos = enderecos;
+	public void setDescricaoTipoLogradouro(String descricaoTipoLogradouro) {
+		this.descricaoTipoLogradouro = UtilidadesDeTexto.retiraEspacosDuplosAcentosEConverteEmMaiusculo(descricaoTipoLogradouro);
 	}
 
-	public Enderecos addEndereco(Enderecos endereco) {
-		getEnderecos().add(endereco);
-		endereco.setTiposLogradouro(this);
-
-		return endereco;
+	public List<Enderecos> getEnderecosList() {
+		return enderecosList;
 	}
 
-	public Enderecos removeEndereco(Enderecos endereco) {
-		getEnderecos().remove(endereco);
-		endereco.setTiposLogradouro(null);
-
-		return endereco;
+	public void setEnderecosList(List<Enderecos> enderecosList) {
+		this.enderecosList = enderecosList;
 	}
 
-	public List<Unidades> getUnidades() {
-		return this.unidades;
+	public List<Unidades> getUnidadesList() {
+		return unidadesList;
 	}
 
-	public void setUnidades(List<Unidades> unidades) {
-		this.unidades = unidades;
-	}
-
-	public Unidades addUnidade(Unidades unidade) {
-		getUnidades().add(unidade);
-		unidade.setTiposLogradouro(this);
-
-		return unidade;
-	}
-
-	public Unidades removeUnidade(Unidades unidade) {
-		getUnidades().remove(unidade);
-		unidade.setTiposLogradouro(null);
-
-		return unidade;
+	public void setUnidadesList(List<Unidades> unidadesList) {
+		this.unidadesList = unidadesList;
 	}
 
 

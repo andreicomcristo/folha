@@ -9,43 +9,35 @@ import javax.persistence.*;
 @Entity
 @Table(name = "hist_unidades_regime")
 public class HistUnidadesRegime extends AbstractEntity<Long> {
-
+	@Column(name = "dt_cadastro", nullable = false)
 	@Temporal(TemporalType.DATE)
-	@Column(name="dt_cadastro")
 	private Date dtCadastro;
 
-	@Temporal(TemporalType.DATE)
-	@Column(name="dt_cancelamento")
-	private Date dtCancelamento;
-
-	@Column(name="motivo_cadastro")
+	@Column(name = "motivo_cadastro", length = 300)
 	private String motivoCadastro;
 
-	@Column(name="motivo_cancelamento")
+	@Column(name = "dt_cancelamento")
+	@Temporal(TemporalType.DATE)
+	private Date dtCancelamento;
+
+	@Column(name = "motivo_cancelamento", length = 300)
 	private String motivoCancelamento;
 
-	//bi-directional many-to-one association to PessoaOperadore
-	@ManyToOne
-	@JoinColumn(name="id_operador_cadastro_fk", insertable = false, updatable = false)
-	private PessoaOperadores pessoaOperadore1;
+	@JoinColumn(name = "id_operador_cadastro_fk", referencedColumnName = "id", nullable = false)
+	@ManyToOne(optional = false)
+	private PessoaOperadores idOperadorCadastroFk;
 
-	//bi-directional many-to-one association to PessoaOperadore
+	@JoinColumn(name = "id_operador_cancelamento_fk", referencedColumnName = "id")
 	@ManyToOne
-	@JoinColumn(name="id_operador_cancelamento_fk", insertable = false, updatable = false)
-	private PessoaOperadores pessoaOperadore2;
+	private PessoaOperadores idOperadorCancelamentoFk;
 
-	//bi-directional many-to-one association to Unidade
-	@ManyToOne
-	@JoinColumn(name="id_unidade_de_saude_fk", insertable = false, updatable = false)
-	private Unidades unidade;
+	@JoinColumn(name = "id_unidade_de_saude_fk", referencedColumnName = "id", nullable = false)
+	@ManyToOne(optional = false)
+	private Unidades idUnidadeDeSaudeFk;
 
-	//bi-directional many-to-one association to UnidadesRegime
-	@ManyToOne
-	@JoinColumn(name="id_unidade_regime_fk", insertable = false, updatable = false)
-	private UnidadesRegime unidadesRegime;
-
-	public HistUnidadesRegime() {
-	}
+	@JoinColumn(name = "id_unidade_regime_fk", referencedColumnName = "id", nullable = false)
+	@ManyToOne(optional = false)
+	private UnidadesRegime idUnidadeRegimeFk;
 
 	public Date getDtCadastro() {
 		return dtCadastro;
@@ -53,14 +45,6 @@ public class HistUnidadesRegime extends AbstractEntity<Long> {
 
 	public void setDtCadastro(Date dtCadastro) {
 		this.dtCadastro = dtCadastro;
-	}
-
-	public Date getDtCancelamento() {
-		return dtCancelamento;
-	}
-
-	public void setDtCancelamento(Date dtCancelamento) {
-		this.dtCancelamento = dtCancelamento;
 	}
 
 	public String getMotivoCadastro() {
@@ -71,6 +55,14 @@ public class HistUnidadesRegime extends AbstractEntity<Long> {
 		this.motivoCadastro = motivoCadastro;
 	}
 
+	public Date getDtCancelamento() {
+		return dtCancelamento;
+	}
+
+	public void setDtCancelamento(Date dtCancelamento) {
+		this.dtCancelamento = dtCancelamento;
+	}
+
 	public String getMotivoCancelamento() {
 		return motivoCancelamento;
 	}
@@ -79,36 +71,36 @@ public class HistUnidadesRegime extends AbstractEntity<Long> {
 		this.motivoCancelamento = motivoCancelamento;
 	}
 
-	public PessoaOperadores getPessoaOperadores1() {
-		return pessoaOperadore1;
+	public PessoaOperadores getIdOperadorCadastroFk() {
+		return idOperadorCadastroFk;
 	}
 
-	public void setPessoaOperadores1(PessoaOperadores pessoaOperadores1) {
-		this.pessoaOperadore1 = pessoaOperadores1;
+	public void setIdOperadorCadastroFk(PessoaOperadores idOperadorCadastroFk) {
+		this.idOperadorCadastroFk = idOperadorCadastroFk;
 	}
 
-	public PessoaOperadores getPessoaOperadores2() {
-		return pessoaOperadore2;
+	public PessoaOperadores getIdOperadorCancelamentoFk() {
+		return idOperadorCancelamentoFk;
 	}
 
-	public void setPessoaOperadores2(PessoaOperadores pessoaOperadores2) {
-		this.pessoaOperadore2 = pessoaOperadores2;
+	public void setIdOperadorCancelamentoFk(PessoaOperadores idOperadorCancelamentoFk) {
+		this.idOperadorCancelamentoFk = idOperadorCancelamentoFk;
 	}
 
-	public Unidades getUnidades() {
-		return unidade;
+	public Unidades getIdUnidadeDeSaudeFk() {
+		return idUnidadeDeSaudeFk;
 	}
 
-	public void setUnidades(Unidades unidades) {
-		this.unidade = unidades;
+	public void setIdUnidadeDeSaudeFk(Unidades idUnidadeDeSaudeFk) {
+		this.idUnidadeDeSaudeFk = idUnidadeDeSaudeFk;
 	}
 
-	public UnidadesRegime getUnidadesRegime() {
-		return unidadesRegime;
+	public UnidadesRegime getIdUnidadeRegimeFk() {
+		return idUnidadeRegimeFk;
 	}
 
-	public void setUnidadesRegime(UnidadesRegime unidadesRegime) {
-		this.unidadesRegime = unidadesRegime;
+	public void setIdUnidadeRegimeFk(UnidadesRegime idUnidadeRegimeFk) {
+		this.idUnidadeRegimeFk = idUnidadeRegimeFk;
 	}
-	
+
 }

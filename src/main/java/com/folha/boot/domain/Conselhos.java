@@ -4,61 +4,44 @@ import java.util.List;
 
 import javax.persistence.*;
 
+import com.folha.boot.service.util.UtilidadesDeTexto;
 
 @SuppressWarnings("serial")
 @Entity
 @Table(name = "conselhos")
 public class Conselhos extends AbstractEntity<Long> {
 
-	@Column(name="descricao_conselho")
-	private String descricaoConselho;
-
-	@Column(name="nome_conselho")
+	@Column(name = "nome_conselho", nullable = false, length = 100)
 	private String nomeConselho;
 
-	//bi-directional many-to-one association to PessoaDocumentosConselho
-	@OneToMany(mappedBy="conselho")
-	private List<PessoaDocumentosConselho> pessoaDocumentosConselhos;
+	@Column(name = "descricao_conselho", length = 300)
+	private String descricaoConselho;
 
-	public Conselhos() {
-	}
-
-	public String getDescricaoConselho() {
-		return this.descricaoConselho;
-	}
-
-	public void setDescricaoConselho(String descricaoConselho) {
-		this.descricaoConselho = descricaoConselho;
-	}
+	@OneToMany(mappedBy = "idConselhosFk")
+	private List<PessoaDocumentosConselho> pessoaDocumentosConselhoList;
 
 	public String getNomeConselho() {
-		return this.nomeConselho;
+		return nomeConselho;
 	}
 
 	public void setNomeConselho(String nomeConselho) {
-		this.nomeConselho = nomeConselho;
+		this.nomeConselho = UtilidadesDeTexto.retiraEspacosDuplosAcentosEConverteEmMaiusculo(nomeConselho);
 	}
 
-	public List<PessoaDocumentosConselho> getPessoaDocumentosConselhos() {
-		return this.pessoaDocumentosConselhos;
+	public String getDescricaoConselho() {
+		return descricaoConselho;
 	}
 
-	public void setPessoaDocumentosConselhos(List<PessoaDocumentosConselho> pessoaDocumentosConselhos) {
-		this.pessoaDocumentosConselhos = pessoaDocumentosConselhos;
+	public void setDescricaoConselho(String descricaoConselho) {
+		this.descricaoConselho = UtilidadesDeTexto.retiraEspacosDuplosAcentosEConverteEmMaiusculo(descricaoConselho);
 	}
 
-	public PessoaDocumentosConselho addPessoaDocumentosConselho(PessoaDocumentosConselho pessoaDocumentosConselho) {
-		getPessoaDocumentosConselhos().add(pessoaDocumentosConselho);
-		pessoaDocumentosConselho.setConselho(this);
-
-		return pessoaDocumentosConselho;
+	public List<PessoaDocumentosConselho> getPessoaDocumentosConselhoList() {
+		return pessoaDocumentosConselhoList;
 	}
 
-	public PessoaDocumentosConselho removePessoaDocumentosConselho(PessoaDocumentosConselho pessoaDocumentosConselho) {
-		getPessoaDocumentosConselhos().remove(pessoaDocumentosConselho);
-		pessoaDocumentosConselho.setConselho(null);
-
-		return pessoaDocumentosConselho;
+	public void setPessoaDocumentosConselhoList(List<PessoaDocumentosConselho> pessoaDocumentosConselhoList) {
+		this.pessoaDocumentosConselhoList = pessoaDocumentosConselhoList;
 	}
-
+	
 }

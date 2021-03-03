@@ -4,71 +4,56 @@ import java.util.List;
 
 import javax.persistence.*;
 
+import com.folha.boot.service.util.UtilidadesDeTexto;
+
 @SuppressWarnings("serial")
 @Entity
 @Table(name = "niveis_cargo")
 public class NiveisCargo extends AbstractEntity<Long> {
 
-	@Column(name="descricao_nivel_cargo")
-	private String descricaoNivelCargo;
-
-	@Column(name="nome_nivel_cargo")
-	private String nomeNivelCargo;
-
-	@Column(name="sigla_nivel_cargo")
+	@Column(name = "sigla_nivel_cargo", nullable = false, length = 10)
 	private String siglaNivelCargo;
 
-	//bi-directional many-to-one association to Cargo
-	@OneToMany(mappedBy="niveisCargo")
-	private List<Cargos> cargos;
+	@Column(name = "nome_nivel_cargo", nullable = false, length = 150)
+	private String nomeNivelCargo;
 
-	public NiveisCargo() {
-	}
+	@Column(name = "descricao_nivel_cargo", length = 300)
+	private String descricaoNivelCargo;
 
-	public String getDescricaoNivelCargo() {
-		return this.descricaoNivelCargo;
-	}
-
-	public void setDescricaoNivelCargo(String descricaoNivelCargo) {
-		this.descricaoNivelCargo = descricaoNivelCargo;
-	}
-
-	public String getNomeNivelCargo() {
-		return this.nomeNivelCargo;
-	}
-
-	public void setNomeNivelCargo(String nomeNivelCargo) {
-		this.nomeNivelCargo = nomeNivelCargo;
-	}
+	@OneToMany(cascade = CascadeType.ALL, mappedBy = "idNivelCargoFk")
+	private List<Cargos> cargosCollection;
 
 	public String getSiglaNivelCargo() {
-		return this.siglaNivelCargo;
+		return siglaNivelCargo;
 	}
 
 	public void setSiglaNivelCargo(String siglaNivelCargo) {
-		this.siglaNivelCargo = siglaNivelCargo;
+		this.siglaNivelCargo = UtilidadesDeTexto.retiraEspacosDuplosAcentosEConverteEmMaiusculo(siglaNivelCargo);
 	}
 
-	public List<Cargos> getCargos() {
-		return this.cargos;
+	public String getNomeNivelCargo() {
+		return nomeNivelCargo;
 	}
 
-	public void setCargos(List<Cargos> cargos) {
-		this.cargos = cargos;
+	public void setNomeNivelCargo(String nomeNivelCargo) {
+		this.nomeNivelCargo = UtilidadesDeTexto.retiraEspacosDuplosAcentosEConverteEmMaiusculo(nomeNivelCargo);
 	}
 
-	public Cargos addCargo(Cargos cargo) {
-		getCargos().add(cargo);
-		cargo.setNiveisCargo(this);
-
-		return cargo;
+	public String getDescricaoNivelCargo() {
+		return descricaoNivelCargo;
 	}
 
-	public Cargos removeCargo(Cargos cargo) {
-		getCargos().remove(cargo);
-		cargo.setNiveisCargo(null);
-
-		return cargo;
+	public void setDescricaoNivelCargo(String descricaoNivelCargo) {
+		this.descricaoNivelCargo = UtilidadesDeTexto.retiraEspacosDuplosAcentosEConverteEmMaiusculo(descricaoNivelCargo);
 	}
 
+	public List<Cargos> getCargosCollection() {
+		return cargosCollection;
+	}
+
+	public void setCargosCollection(List<Cargos> cargosCollection) {
+		this.cargosCollection = cargosCollection;
+	}
+
+    
 }

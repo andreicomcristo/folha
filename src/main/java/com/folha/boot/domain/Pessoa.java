@@ -5,152 +5,205 @@ import java.util.List;
 
 import javax.persistence.*;
 
+import com.folha.boot.service.util.UtilidadesDeTexto;
+
 @SuppressWarnings("serial")
 @Entity
 @Table(name = "pessoa")
 public class Pessoa extends AbstractEntity<Long> {
 
+	@Column(name = "cpf", nullable = false, length = 20)
 	private String cpf;
 
-	@Temporal(TemporalType.DATE)
-	@Column(name="dt_cadastro")
-	private Date dtCadastro;
-
-	@Temporal(TemporalType.DATE)
-	@Column(name="dt_cancelamento")
-	private Date dtCancelamento;
-
-	@Temporal(TemporalType.DATE)
-	@Column(name="dt_nascimento")
-	private Date dtNascimento;
-
-	private String email;
-
-	@Column(name="email_saude")
-	private String emailSaude;
-
-	private String fone1;
-
-	private String fone2;
-
-	private String fone3;
-
-	@Column(name="moivo_cancelamento")
-	private String moivoCancelamento;
-
+	@Basic(optional = false)
+	@Column(name = "nome", nullable = false, length = 300)
 	private String nome;
 
-	@Column(name="nome_mae")
-	private String nomeMae;
+	@Column(name = "fone1", length = 30)
+	private String fone1;
 
-	@Column(name="nome_pai")
+	@Column(name = "fone2", length = 30)
+	private String fone2;
+
+	@Column(name = "fone3", length = 30)
+	private String fone3;
+
+	@Column(name = "email", length = 150)
+	private String email;
+
+	@Column(name = "email_saude", length = 150)
+	private String emailSaude;
+
+	@Column(name = "dt_nascimento")
+	@Temporal(TemporalType.DATE)
+	private Date dtNascimento;
+
+	@Column(name = "nome_pai", length = 300)
 	private String nomePai;
 
-	//bi-directional many-to-one association to Endereco
-	@OneToMany(mappedBy="pessoa")
-	private List<Enderecos> enderecos;
+	@Column(name = "nome_mae", length = 300)
+	private String nomeMae;
 
-	//bi-directional many-to-one association to HistUnidadesDiretor
-	@OneToMany(mappedBy="pessoa")
-	private List<HistUnidadesDiretor> histUnidadesDiretors;
+	@Column(name = "dt_cadastro")
+	@Temporal(TemporalType.DATE)
+	private Date dtCadastro;
 
-	//bi-directional many-to-one association to Cidade
+	@Column(name = "dt_cancelamento")
+	@Temporal(TemporalType.DATE)
+	private Date dtCancelamento;
+
+	@Column(name = "moivo_cancelamento", length = 300)
+	private String moivoCancelamento;
+
+	@OneToMany(cascade = CascadeType.ALL, mappedBy = "idPessoaFk")
+	private List<PessoaFilhos> pessoaFilhosCollection;
+
+	@OneToMany(cascade = CascadeType.ALL, mappedBy = "idPessoaFk")
+	private List<PessoaDocumentosConselho> pessoaDocumentosConselhoList;
+
+	@OneToMany(cascade = CascadeType.ALL, mappedBy = "idPessoaFk")
+	private List<PessoaDocumentosReservista> pessoaDocumentosReservistaList;
+
+	@OneToMany(cascade = CascadeType.ALL, mappedBy = "idPessoaFk")
+	private List<PessoaFotos> pessoaFotosList;
+
+	@OneToMany(mappedBy = "idPessoaFk")
+	private List<PessoaDocumentos> pessoaDocumentosList;
+
+	@OneToMany(cascade = CascadeType.ALL, mappedBy = "idPessoaFk")
+	private List<PessoaOperadores> pessoaOperadoresList;
+
+	@OneToMany(cascade = CascadeType.ALL, mappedBy = "idPessoaFk")
+	private List<Enderecos> enderecosList;
+
+	@OneToMany(mappedBy = "idPessoaFk")
+	private List<PessoaDocumentosHabilitacao> pessoaDocumentosHabilitacaoList;
+
+	@JoinColumn(name = "seq_cidade_natal", referencedColumnName = "id")
 	@ManyToOne
-	@JoinColumn(name="seq_cidade_natal")
-	private Cidades cidade;
+	private Cidades seqCidadeNatal;
 
-	//bi-directional many-to-one association to Endereco
+	@JoinColumn(name = "seq_endereco", referencedColumnName = "id")
 	@ManyToOne
-	@JoinColumn(name="seq_endereco")
-	private Enderecos endereco;
+	private Enderecos seqEndereco;
 
-	//bi-directional many-to-one association to Escolaridade
+	@JoinColumn(name = "seq_escolaridade", referencedColumnName = "id")
 	@ManyToOne
-	@JoinColumn(name="seq_escolaridade")
-	private Escolaridades escolaridade;
+	private Escolaridades seqEscolaridade;
 
-	//bi-directional many-to-one association to EstadosCivi
+	@JoinColumn(name = "seq_estado_civil", referencedColumnName = "id")
 	@ManyToOne
-	@JoinColumn(name="seq_estado_civil")
-	private EstadosCivis estadosCivi;
+	private EstadosCivis seqEstadoCivil;
 
-	//bi-directional many-to-one association to PessoaOperadore
+	@JoinColumn(name = "seq_operador_cadastro", referencedColumnName = "id")
 	@ManyToOne
-	@JoinColumn(name="seq_operador_cadastro")
-	private PessoaOperadores pessoaOperadore1;
+	private PessoaOperadores seqOperadorCadastro;
 
-	//bi-directional many-to-one association to PessoaOperadore
+	@JoinColumn(name = "seq_operador_cancelamento", referencedColumnName = "id")
 	@ManyToOne
-	@JoinColumn(name="seq_operador_cancelamento")
-	private PessoaOperadores pessoaOperadore2;
+	private PessoaOperadores seqOperadorCancelamento;
 
-	//bi-directional many-to-one association to Sexo
+	@JoinColumn(name = "seq_sexo_declarado", referencedColumnName = "id")
 	@ManyToOne
-	@JoinColumn(name="seq_sexo_declarado")
-	private Sexos sexo1;
+	private Sexos seqSexoDeclarado;
 
-	//bi-directional many-to-one association to Sexo
+	@JoinColumn(name = "seq_sexo", referencedColumnName = "id")
 	@ManyToOne
-	@JoinColumn(name="seq_sexo")
-	private Sexos sexo2;
+	private Sexos seqSexo;
 
-	//bi-directional many-to-one association to PessoaBanco
-	@OneToMany(mappedBy="pessoa")
-	private List<PessoaBancos> pessoaBancos;
+	@OneToMany(cascade = CascadeType.ALL, mappedBy = "idPessoaFk")
+	private List<PessoaDocumentosCtps> pessoaDocumentosCtpsList;
 
-	//bi-directional many-to-one association to PessoaDocumento
-	@OneToMany(mappedBy="pessoa1")
-	private List<PessoaDocumentos> pessoaDocumentos1;
+	@OneToMany(cascade = CascadeType.ALL, mappedBy = "idPessoaFk")
+	private List<PessoaBancos> pessoaBancosList;
 
-	//bi-directional many-to-one association to PessoaDocumento
-	@OneToMany(mappedBy="pessoa2")
-	private List<PessoaDocumentos> pessoaDocumentos2;
+	/*@OneToMany(cascade = CascadeType.ALL, mappedBy = "pessoa")
+	private List<HistUnidadesDiretor> histUnidadesDiretorCollection;*/
 
-	//bi-directional many-to-one association to PessoaDocumentosConselho
-	@OneToMany(mappedBy="pessoa")
-	private List<PessoaDocumentosConselho> pessoaDocumentosConselhos;
+	@OneToMany(cascade = CascadeType.ALL, mappedBy = "idPessoaFk")
+	private List<PessoaFuncionarios> pessoaFuncionariosList;
 
-	//bi-directional many-to-one association to PessoaDocumentosCtp
-	@OneToMany(mappedBy="pessoa")
-	private List<PessoaDocumentosCtps> pessoaDocumentosCtps;
-
-	//bi-directional many-to-one association to PessoaDocumentosHabilitacao
-	@OneToMany(mappedBy="pessoa")
-	private List<PessoaDocumentosHabilitacao> pessoaDocumentosHabilitacaos;
-
-	//bi-directional many-to-one association to PessoaDocumentosReservista
-	@OneToMany(mappedBy="pessoa")
-	private List<PessoaDocumentosReservista> pessoaDocumentosReservistas;
-
-	//bi-directional many-to-one association to PessoaDocumentosTitulo
-	@OneToMany(mappedBy="pessoa")
-	private List<PessoaDocumentosTitulo> pessoaDocumentosTitulos;
-
-	//bi-directional many-to-one association to PessoaFilho
-	@OneToMany(mappedBy="pessoa")
-	private List<PessoaFilhos> pessoaFilhos;
-
-	//bi-directional many-to-one association to PessoaFoto
-	@OneToMany(mappedBy="pessoa")
-	private List<PessoaFotos> pessoaFotos;
-
-	//bi-directional many-to-one association to PessoaFuncionario
-	@OneToMany(mappedBy="pessoa")
-	private List<PessoaFuncionarios> pessoaFuncionarios;
-
-	//bi-directional many-to-one association to PessoaOperadore
-	@OneToMany(mappedBy="pessoa")
-	private List<PessoaOperadores> pessoaOperadores;
-
-	public Pessoa() {
-	}
-
+	@OneToMany(cascade = CascadeType.ALL, mappedBy = "idPessoaFk")
+	private List<PessoaDocumentosTitulo> pessoaDocumentosTituloList;
+	
 	public String getCpf() {
 		return cpf;
 	}
 
 	public void setCpf(String cpf) {
-		this.cpf = cpf;
+		this.cpf =UtilidadesDeTexto.retiraEspacosDuplosAcentosEConverteEmMaiusculo(cpf);
+	}
+
+	public String getNome() {
+		return nome;
+	}
+
+	public void setNome(String nome) {
+		this.nome = UtilidadesDeTexto.retiraEspacosDuplosAcentosEConverteEmMaiusculo(nome);
+	}
+
+	public String getFone1() {
+		return fone1;
+	}
+
+	public void setFone1(String fone1) {
+		this.fone1 = UtilidadesDeTexto.retiraEspacosDuplosAcentosEConverteEmMaiusculo(fone1);
+	}
+
+	public String getFone2() {
+		return fone2;
+	}
+
+	public void setFone2(String fone2) {
+		this.fone2 = UtilidadesDeTexto.retiraEspacosDuplosAcentosEConverteEmMaiusculo(fone2);
+	}
+
+	public String getFone3() {
+		return fone3;
+	}
+
+	public void setFone3(String fone3) {
+		this.fone3 = UtilidadesDeTexto.retiraEspacosDuplosAcentosEConverteEmMaiusculo(fone3);
+	}
+
+	public String getEmail() {
+		return email;
+	}
+
+	public void setEmail(String email) {
+		this.email = UtilidadesDeTexto.retiraEspacosDuplosAcentosEConverteEmMaiusculo(email);
+	}
+
+	public String getEmailSaude() {
+		return emailSaude;
+	}
+
+	public void setEmailSaude(String emailSaude) {
+		this.emailSaude = UtilidadesDeTexto.retiraEspacosDuplosAcentosEConverteEmMaiusculo(emailSaude);
+	}
+
+	public Date getDtNascimento() {
+		return dtNascimento;
+	}
+
+	public void setDtNascimento(Date dtNascimento) {
+		this.dtNascimento = dtNascimento;
+	}
+
+	public String getNomePai() {
+		return nomePai;
+	}
+
+	public void setNomePai(String nomePai) {
+		this.nomePai = UtilidadesDeTexto.retiraEspacosDuplosAcentosEConverteEmMaiusculo(nomePai);
+	}
+
+	public String getNomeMae() {
+		return nomeMae;
+	}
+
+	public void setNomeMae(String nomeMae) {
+		this.nomeMae = UtilidadesDeTexto.retiraEspacosDuplosAcentosEConverteEmMaiusculo(nomeMae);
 	}
 
 	public Date getDtCadastro() {
@@ -169,456 +222,181 @@ public class Pessoa extends AbstractEntity<Long> {
 		this.dtCancelamento = dtCancelamento;
 	}
 
-	public Date getDtNascimento() {
-		return dtNascimento;
-	}
-
-	public void setDtNascimento(Date dtNascimento) {
-		this.dtNascimento = dtNascimento;
-	}
-
-	public String getEmail() {
-		return email;
-	}
-
-	public void setEmail(String email) {
-		this.email = email;
-	}
-
-	public String getEmailSaude() {
-		return emailSaude;
-	}
-
-	public void setEmailSaude(String emailSaude) {
-		this.emailSaude = emailSaude;
-	}
-
-	public String getFone1() {
-		return fone1;
-	}
-
-	public void setFone1(String fone1) {
-		this.fone1 = fone1;
-	}
-
-	public String getFone2() {
-		return fone2;
-	}
-
-	public void setFone2(String fone2) {
-		this.fone2 = fone2;
-	}
-
-	public String getFone3() {
-		return fone3;
-	}
-
-	public void setFone3(String fone3) {
-		this.fone3 = fone3;
-	}
-
 	public String getMoivoCancelamento() {
 		return moivoCancelamento;
 	}
 
 	public void setMoivoCancelamento(String moivoCancelamento) {
-		this.moivoCancelamento = moivoCancelamento;
+		this.moivoCancelamento = UtilidadesDeTexto.retiraEspacosDuplosAcentosEConverteEmMaiusculo(moivoCancelamento);
 	}
 
-	public String getNome() {
-		return nome;
+	public List<PessoaFilhos> getPessoaFilhosCollection() {
+		return pessoaFilhosCollection;
 	}
 
-	public void setNome(String nome) {
-		this.nome = nome;
+	public void setPessoaFilhosCollection(List<PessoaFilhos> pessoaFilhosCollection) {
+		this.pessoaFilhosCollection = pessoaFilhosCollection;
 	}
 
-	public String getNomeMae() {
-		return nomeMae;
+	public Cidades getSeqCidadeNatal() {
+		return seqCidadeNatal;
 	}
 
-	public void setNomeMae(String nomeMae) {
-		this.nomeMae = nomeMae;
+	public void setSeqCidadeNatal(Cidades seqCidadeNatal) {
+		this.seqCidadeNatal = seqCidadeNatal;
 	}
 
-	public String getNomePai() {
-		return nomePai;
+	public Enderecos getSeqEndereco() {
+		return seqEndereco;
 	}
 
-	public void setNomePai(String nomePai) {
-		this.nomePai = nomePai;
+	public void setSeqEndereco(Enderecos seqEndereco) {
+		this.seqEndereco = seqEndereco;
 	}
 
-	public List<Enderecos> getEnderecos() {
-		return enderecos;
+	public Escolaridades getSeqEscolaridade() {
+		return seqEscolaridade;
 	}
 
-	public void setEnderecos(List<Enderecos> enderecos) {
-		this.enderecos = enderecos;
+	public void setSeqEscolaridade(Escolaridades seqEscolaridade) {
+		this.seqEscolaridade = seqEscolaridade;
 	}
 
-	public List<HistUnidadesDiretor> getHistUnidadesDiretors() {
-		return histUnidadesDiretors;
+	public EstadosCivis getSeqEstadoCivil() {
+		return seqEstadoCivil;
 	}
 
-	public void setHistUnidadesDiretors(List<HistUnidadesDiretor> histUnidadesDiretors) {
-		this.histUnidadesDiretors = histUnidadesDiretors;
+	public void setSeqEstadoCivil(EstadosCivis seqEstadoCivil) {
+		this.seqEstadoCivil = seqEstadoCivil;
 	}
 
-	public Cidades getCidade() {
-		return cidade;
+	public PessoaOperadores getSeqOperadorCadastro() {
+		return seqOperadorCadastro;
 	}
 
-	public void setCidade(Cidades cidade) {
-		this.cidade = cidade;
+	public void setSeqOperadorCadastro(PessoaOperadores seqOperadorCadastro) {
+		this.seqOperadorCadastro = seqOperadorCadastro;
 	}
 
-	public Enderecos getEndereco() {
-		return endereco;
+	public PessoaOperadores getSeqOperadorCancelamento() {
+		return seqOperadorCancelamento;
 	}
 
-	public void setEndereco(Enderecos endereco) {
-		this.endereco = endereco;
+	public void setSeqOperadorCancelamento(PessoaOperadores seqOperadorCancelamento) {
+		this.seqOperadorCancelamento = seqOperadorCancelamento;
 	}
 
-	public Escolaridades getEscolaridade() {
-		return escolaridade;
+	public Sexos getSeqSexoDeclarado() {
+		return seqSexoDeclarado;
 	}
 
-	public void setEscolaridade(Escolaridades escolaridade) {
-		this.escolaridade = escolaridade;
+	public void setSeqSexoDeclarado(Sexos seqSexoDeclarado) {
+		this.seqSexoDeclarado = seqSexoDeclarado;
 	}
 
-	public EstadosCivis getEstadosCivi() {
-		return estadosCivi;
+	public Sexos getSeqSexo() {
+		return seqSexo;
 	}
 
-	public void setEstadosCivi(EstadosCivis estadosCivi) {
-		this.estadosCivi = estadosCivi;
+	public void setSeqSexo(Sexos seqSexo) {
+		this.seqSexo = seqSexo;
 	}
 
-	public PessoaOperadores getPessoaOperadore1() {
-		return pessoaOperadore1;
+	public List<PessoaDocumentosConselho> getPessoaDocumentosConselhoList() {
+		return pessoaDocumentosConselhoList;
 	}
 
-	public void setPessoaOperadore1(PessoaOperadores pessoaOperadore1) {
-		this.pessoaOperadore1 = pessoaOperadore1;
+	public void setPessoaDocumentosConselhoList(List<PessoaDocumentosConselho> pessoaDocumentosConselhoList) {
+		this.pessoaDocumentosConselhoList = pessoaDocumentosConselhoList;
 	}
 
-	public PessoaOperadores getPessoaOperadore2() {
-		return pessoaOperadore2;
+	public List<PessoaDocumentosReservista> getPessoaDocumentosReservistaList() {
+		return pessoaDocumentosReservistaList;
 	}
 
-	public void setPessoaOperadore2(PessoaOperadores pessoaOperadore2) {
-		this.pessoaOperadore2 = pessoaOperadore2;
+	public void setPessoaDocumentosReservistaList(List<PessoaDocumentosReservista> pessoaDocumentosReservistaList) {
+		this.pessoaDocumentosReservistaList = pessoaDocumentosReservistaList;
 	}
 
-	public Sexos getSexo1() {
-		return sexo1;
+	public List<PessoaFotos> getPessoaFotosList() {
+		return pessoaFotosList;
 	}
 
-	public void setSexo1(Sexos sexo1) {
-		this.sexo1 = sexo1;
+	public void setPessoaFotosList(List<PessoaFotos> pessoaFotosList) {
+		this.pessoaFotosList = pessoaFotosList;
 	}
 
-	public Sexos getSexo2() {
-		return sexo2;
+	public List<PessoaDocumentos> getPessoaDocumentosList() {
+		return pessoaDocumentosList;
 	}
 
-	public void setSexo2(Sexos sexo2) {
-		this.sexo2 = sexo2;
+	public void setPessoaDocumentosList(List<PessoaDocumentos> pessoaDocumentosList) {
+		this.pessoaDocumentosList = pessoaDocumentosList;
 	}
 
-	public List<PessoaBancos> getPessoaBancos() {
-		return pessoaBancos;
+	public List<PessoaOperadores> getPessoaOperadoresList() {
+		return pessoaOperadoresList;
 	}
 
-	public void setPessoaBancos(List<PessoaBancos> pessoaBancos) {
-		this.pessoaBancos = pessoaBancos;
+	public void setPessoaOperadoresList(List<PessoaOperadores> pessoaOperadoresList) {
+		this.pessoaOperadoresList = pessoaOperadoresList;
 	}
 
-	public List<PessoaDocumentos> getPessoaDocumentos1() {
-		return pessoaDocumentos1;
+	public List<Enderecos> getEnderecosList() {
+		return enderecosList;
 	}
 
-	public void setPessoaDocumentos1(List<PessoaDocumentos> pessoaDocumentos1) {
-		this.pessoaDocumentos1 = pessoaDocumentos1;
+	public void setEnderecosList(List<Enderecos> enderecosList) {
+		this.enderecosList = enderecosList;
 	}
 
-	public List<PessoaDocumentos> getPessoaDocumentos2() {
-		return pessoaDocumentos2;
+	public List<PessoaDocumentosHabilitacao> getPessoaDocumentosHabilitacaoList() {
+		return pessoaDocumentosHabilitacaoList;
 	}
 
-	public void setPessoaDocumentos2(List<PessoaDocumentos> pessoaDocumentos2) {
-		this.pessoaDocumentos2 = pessoaDocumentos2;
+	public void setPessoaDocumentosHabilitacaoList(List<PessoaDocumentosHabilitacao> pessoaDocumentosHabilitacaoList) {
+		this.pessoaDocumentosHabilitacaoList = pessoaDocumentosHabilitacaoList;
 	}
 
-	public List<PessoaDocumentosConselho> getPessoaDocumentosConselhos() {
-		return pessoaDocumentosConselhos;
+	public List<PessoaDocumentosCtps> getPessoaDocumentosCtpsList() {
+		return pessoaDocumentosCtpsList;
 	}
 
-	public void setPessoaDocumentosConselhos(List<PessoaDocumentosConselho> pessoaDocumentosConselhos) {
-		this.pessoaDocumentosConselhos = pessoaDocumentosConselhos;
+	public void setPessoaDocumentosCtpsList(List<PessoaDocumentosCtps> pessoaDocumentosCtpsList) {
+		this.pessoaDocumentosCtpsList = pessoaDocumentosCtpsList;
 	}
 
-	public List<PessoaDocumentosCtps> getPessoaDocumentosCtps() {
-		return pessoaDocumentosCtps;
+	public List<PessoaBancos> getPessoaBancosList() {
+		return pessoaBancosList;
 	}
 
-	public void setPessoaDocumentosCtps(List<PessoaDocumentosCtps> pessoaDocumentosCtps) {
-		this.pessoaDocumentosCtps = pessoaDocumentosCtps;
+	public void setPessoaBancosList(List<PessoaBancos> pessoaBancosList) {
+		this.pessoaBancosList = pessoaBancosList;
 	}
 
-	public List<PessoaDocumentosHabilitacao> getPessoaDocumentosHabilitacaos() {
-		return pessoaDocumentosHabilitacaos;
+	public List<PessoaFuncionarios> getPessoaFuncionariosList() {
+		return pessoaFuncionariosList;
 	}
 
-	public void setPessoaDocumentosHabilitacaos(List<PessoaDocumentosHabilitacao> pessoaDocumentosHabilitacaos) {
-		this.pessoaDocumentosHabilitacaos = pessoaDocumentosHabilitacaos;
+	public void setPessoaFuncionariosList(List<PessoaFuncionarios> pessoaFuncionariosList) {
+		this.pessoaFuncionariosList = pessoaFuncionariosList;
 	}
 
-	public List<PessoaDocumentosReservista> getPessoaDocumentosReservistas() {
-		return pessoaDocumentosReservistas;
+	public List<PessoaDocumentosTitulo> getPessoaDocumentosTituloList() {
+		return pessoaDocumentosTituloList;
 	}
 
-	public void setPessoaDocumentosReservistas(List<PessoaDocumentosReservista> pessoaDocumentosReservistas) {
-		this.pessoaDocumentosReservistas = pessoaDocumentosReservistas;
+	public void setPessoaDocumentosTituloList(List<PessoaDocumentosTitulo> pessoaDocumentosTituloList) {
+		this.pessoaDocumentosTituloList = pessoaDocumentosTituloList;
 	}
 
-	public List<PessoaDocumentosTitulo> getPessoaDocumentosTitulos() {
-		return pessoaDocumentosTitulos;
-	}
-
-	public void setPessoaDocumentosTitulos(List<PessoaDocumentosTitulo> pessoaDocumentosTitulos) {
-		this.pessoaDocumentosTitulos = pessoaDocumentosTitulos;
-	}
-
-	public List<PessoaFilhos> getPessoaFilhos() {
-		return pessoaFilhos;
-	}
-
-	public void setPessoaFilhos(List<PessoaFilhos> pessoaFilhos) {
-		this.pessoaFilhos = pessoaFilhos;
-	}
-
-	public List<PessoaFotos> getPessoaFotos() {
-		return pessoaFotos;
-	}
-
-	public void setPessoaFotos(List<PessoaFotos> pessoaFotos) {
-		this.pessoaFotos = pessoaFotos;
-	}
-
-	public List<PessoaFuncionarios> getPessoaFuncionarios() {
-		return pessoaFuncionarios;
-	}
-
-	public void setPessoaFuncionarios(List<PessoaFuncionarios> pessoaFuncionarios) {
-		this.pessoaFuncionarios = pessoaFuncionarios;
-	}
-
-	public List<PessoaOperadores> getPessoaOperadores() {
-		return pessoaOperadores;
-	}
-
-	public void setPessoaOperadores(List<PessoaOperadores> pessoaOperadores) {
-		this.pessoaOperadores = pessoaOperadores;
-	}
-
-	public Enderecos addEndereco(Enderecos endereco) {
-		getEnderecos().add(endereco);
-		endereco.setPessoa(this);
-
-		return endereco;
-	}
-
-	public Enderecos removeEndereco(Enderecos endereco) {
-		getEnderecos().remove(endereco);
-		endereco.setPessoa(null);
-
-		return endereco;
-	}
-
-	public HistUnidadesDiretor addHistUnidadesDiretor(HistUnidadesDiretor histUnidadesDiretor) {
-		getHistUnidadesDiretors().add(histUnidadesDiretor);
-		histUnidadesDiretor.setPessoa(this);
-
-		return histUnidadesDiretor;
-	}
-
-	public HistUnidadesDiretor removeHistUnidadesDiretor(HistUnidadesDiretor histUnidadesDiretor) {
-		getHistUnidadesDiretors().remove(histUnidadesDiretor);
-		histUnidadesDiretor.setPessoa(null);
-
-		return histUnidadesDiretor;
-	}
-
-	public PessoaBancos addPessoaBanco(PessoaBancos pessoaBanco) {
-		getPessoaBancos().add(pessoaBanco);
-		pessoaBanco.setPessoa(this);
-
-		return pessoaBanco;
-	}
-
-	public PessoaBancos removePessoaBanco(PessoaBancos pessoaBanco) {
-		getPessoaBancos().remove(pessoaBanco);
-		pessoaBanco.setPessoa(null);
-
-		return pessoaBanco;
-	}
-
-	public PessoaDocumentos addPessoaDocumentos1(PessoaDocumentos pessoaDocumentos1) {
-		getPessoaDocumentos1().add(pessoaDocumentos1);
-		pessoaDocumentos1.setPessoa1(this);
-
-		return pessoaDocumentos1;
-	}
-
-	public PessoaDocumentos removePessoaDocumentos1(PessoaDocumentos pessoaDocumentos1) {
-		getPessoaDocumentos1().remove(pessoaDocumentos1);
-		pessoaDocumentos1.setPessoa1(null);
-
-		return pessoaDocumentos1;
-	}
-
-	public PessoaDocumentos addPessoaDocumentos2(PessoaDocumentos pessoaDocumentos2) {
-		getPessoaDocumentos2().add(pessoaDocumentos2);
-		pessoaDocumentos2.setPessoa2(this);
-
-		return pessoaDocumentos2;
-	}
-
-	public PessoaDocumentos removePessoaDocumentos2(PessoaDocumentos pessoaDocumentos2) {
-		getPessoaDocumentos2().remove(pessoaDocumentos2);
-		pessoaDocumentos2.setPessoa2(null);
-
-		return pessoaDocumentos2;
-	}
-
-	public PessoaDocumentosConselho addPessoaDocumentosConselho(PessoaDocumentosConselho pessoaDocumentosConselho) {
-		getPessoaDocumentosConselhos().add(pessoaDocumentosConselho);
-		pessoaDocumentosConselho.setPessoa(this);
+	/*public List<HistUnidadesDiretor> getHistUnidadesDiretorCollection() {
+		return histUnidadesDiretorCollection;
+	}*/
 
-		return pessoaDocumentosConselho;
-	}
-
-	public PessoaDocumentosConselho removePessoaDocumentosConselho(PessoaDocumentosConselho pessoaDocumentosConselho) {
-		getPessoaDocumentosConselhos().remove(pessoaDocumentosConselho);
-		pessoaDocumentosConselho.setPessoa(null);
-
-		return pessoaDocumentosConselho;
-	}
-
-	public PessoaDocumentosCtps addPessoaDocumentosCtp(PessoaDocumentosCtps pessoaDocumentosCtp) {
-		getPessoaDocumentosCtps().add(pessoaDocumentosCtp);
-		pessoaDocumentosCtp.setPessoa(this);
-
-		return pessoaDocumentosCtp;
-	}
-
-	public PessoaDocumentosCtps removePessoaDocumentosCtp(PessoaDocumentosCtps pessoaDocumentosCtp) {
-		getPessoaDocumentosCtps().remove(pessoaDocumentosCtp);
-		pessoaDocumentosCtp.setPessoa(null);
-
-		return pessoaDocumentosCtp;
-	}
-
-	public PessoaDocumentosHabilitacao addPessoaDocumentosHabilitacao(PessoaDocumentosHabilitacao pessoaDocumentosHabilitacao) {
-		getPessoaDocumentosHabilitacaos().add(pessoaDocumentosHabilitacao);
-		pessoaDocumentosHabilitacao.setPessoa(this);
-
-		return pessoaDocumentosHabilitacao;
-	}
-
-	public PessoaDocumentosHabilitacao removePessoaDocumentosHabilitacao(PessoaDocumentosHabilitacao pessoaDocumentosHabilitacao) {
-		getPessoaDocumentosHabilitacaos().remove(pessoaDocumentosHabilitacao);
-		pessoaDocumentosHabilitacao.setPessoa(null);
-
-		return pessoaDocumentosHabilitacao;
-	}
-
-	public PessoaDocumentosReservista addPessoaDocumentosReservista(PessoaDocumentosReservista pessoaDocumentosReservista) {
-		getPessoaDocumentosReservistas().add(pessoaDocumentosReservista);
-		pessoaDocumentosReservista.setPessoa(this);
-
-		return pessoaDocumentosReservista;
-	}
-
-	public PessoaDocumentosReservista removePessoaDocumentosReservista(PessoaDocumentosReservista pessoaDocumentosReservista) {
-		getPessoaDocumentosReservistas().remove(pessoaDocumentosReservista);
-		pessoaDocumentosReservista.setPessoa(null);
-
-		return pessoaDocumentosReservista;
-	}
-
-	public PessoaDocumentosTitulo addPessoaDocumentosTitulo(PessoaDocumentosTitulo pessoaDocumentosTitulo) {
-		getPessoaDocumentosTitulos().add(pessoaDocumentosTitulo);
-		pessoaDocumentosTitulo.setPessoa(this);
-
-		return pessoaDocumentosTitulo;
-	}
+	/*public void setHistUnidadesDiretorCollection(List<HistUnidadesDiretor> histUnidadesDiretorCollection) {
+		this.histUnidadesDiretorCollection = histUnidadesDiretorCollection;
+	}*/
 
-	public PessoaDocumentosTitulo removePessoaDocumentosTitulo(PessoaDocumentosTitulo pessoaDocumentosTitulo) {
-		getPessoaDocumentosTitulos().remove(pessoaDocumentosTitulo);
-		pessoaDocumentosTitulo.setPessoa(null);
-
-		return pessoaDocumentosTitulo;
-	}
-
-	public PessoaFilhos addPessoaFilho(PessoaFilhos pessoaFilho) {
-		getPessoaFilhos().add(pessoaFilho);
-		pessoaFilho.setPessoa(this);
-
-		return pessoaFilho;
-	}
-
-	public PessoaFilhos removePessoaFilho(PessoaFilhos pessoaFilho) {
-		getPessoaFilhos().remove(pessoaFilho);
-		pessoaFilho.setPessoa(null);
-
-		return pessoaFilho;
-	}
-
-	public PessoaFotos addPessoaFoto(PessoaFotos pessoaFoto) {
-		getPessoaFotos().add(pessoaFoto);
-		pessoaFoto.setPessoa(this);
-
-		return pessoaFoto;
-	}
-
-	public PessoaFotos removePessoaFoto(PessoaFotos pessoaFoto) {
-		getPessoaFotos().remove(pessoaFoto);
-		pessoaFoto.setPessoa(null);
-
-		return pessoaFoto;
-	}
-
-	public PessoaFuncionarios addPessoaFuncionario(PessoaFuncionarios pessoaFuncionario) {
-		getPessoaFuncionarios().add(pessoaFuncionario);
-		pessoaFuncionario.setPessoa(this);
-
-		return pessoaFuncionario;
-	}
-
-	public PessoaFuncionarios removePessoaFuncionario(PessoaFuncionarios pessoaFuncionario) {
-		getPessoaFuncionarios().remove(pessoaFuncionario);
-		pessoaFuncionario.setPessoa(null);
-
-		return pessoaFuncionario;
-	}
-
-	public PessoaOperadores addPessoaOperadore(PessoaOperadores pessoaOperadore) {
-		getPessoaOperadores().add(pessoaOperadore);
-		pessoaOperadore.setPessoa(this);
-
-		return pessoaOperadore;
-	}
-
-	public PessoaOperadores removePessoaOperadore(PessoaOperadores pessoaOperadore) {
-		getPessoaOperadores().remove(pessoaOperadore);
-		pessoaOperadore.setPessoa(null);
-
-		return pessoaOperadore;
-	}
 
 }

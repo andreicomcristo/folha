@@ -4,233 +4,230 @@ import java.util.Date;
 
 import javax.persistence.*;
 
+import com.folha.boot.service.util.UtilidadesDeTexto;
+
 @SuppressWarnings("serial")
 @Entity
 @Table(name = "pessoa_filhos")
 public class PessoaFilhos extends AbstractEntity<Long> {
 
-	@Column(name="cartorio_certidado_nascimento")
-	private String cartorioCertidadoNascimento;
-
-	@Column(name="cpf_filho")
-	private String cpfFilho;
-
-	@Temporal(TemporalType.DATE)
-	@Column(name="dt_cadastro")
-	private Date dtCadastro;
-
-	@Temporal(TemporalType.DATE)
-	@Column(name="dt_cancelamento")
-	private Date dtCancelamento;
-
-	@Temporal(TemporalType.DATE)
-	@Column(name="dt_certidado_nascimento")
-	private Date dtCertidadoNascimento;
-
-	@Temporal(TemporalType.DATE)
-	@Column(name="dt_nascimento")
-	private Date dtNascimento;
-
-	@Column(name="folha_certidao_nascimento")
-	private String folhaCertidaoNascimento;
-
-	@Column(name="livro_certidao_nascimento")
-	private String livroCertidaoNascimento;
-
-	@Column(name="motivo_cadastro")
-	private String motivoCadastro;
-
-	@Column(name="motivo_cancelamento")
-	private String motivoCancelamento;
-
-	@Column(name="nome_filho")
+	@Column(name = "nome_filho", nullable = false, length = 300)
 	private String nomeFilho;
 
-	@Column(name="numero_certidao_nascimento")
-	private String numeroCertidaoNascimento;
-
+	@Column(name = "dt_nascimento")
 	@Temporal(TemporalType.DATE)
-	@Column(name="rg_dt_emissao_filho")
-	private Date rgDtEmissaoFilho;
+	private Date dtNascimento;
 
-	@Column(name="rg_filho")
+	@Column(name = "cpf_filho", length = 20)
+	private String cpfFilho;
+
+	@Column(name = "rg_filho", length = 30)
 	private String rgFilho;
 
-	@Column(name="rg_orgao_expedidor")
+	@Column(name = "rg_dt_emissao_filho")
+	@Temporal(TemporalType.DATE)
+	private Date rgDtEmissaoFilho;
+
+	@Column(name = "rg_orgao_expedidor", length = 150)
 	private String rgOrgaoExpedidor;
 
-	//bi-directional many-to-one association to Pessoa
+	@Column(name = "numero_certidao_nascimento", length = 150)
+	private String numeroCertidaoNascimento;
+
+	@Column(name = "dt_certidado_nascimento")
+	@Temporal(TemporalType.DATE)
+	private Date dtCertidadoNascimento;
+
+	@Column(name = "cartorio_certidado_nascimento", length = 150)
+	private String cartorioCertidadoNascimento;
+
+	@Column(name = "livro_certidao_nascimento", length = 150)
+	private String livroCertidaoNascimento;
+
+	@Column(name = "folha_certidao_nascimento", length = 150)
+	private String folhaCertidaoNascimento;
+
+	@Column(name = "dt_cadastro")
+	@Temporal(TemporalType.DATE)
+	private Date dtCadastro;
+
+	@Column(name = "motivo_cadastro", length = 300)
+	private String motivoCadastro;
+
+	@Column(name = "dt_cancelamento")
+	@Temporal(TemporalType.DATE)
+	private Date dtCancelamento;
+
+	@Column(name = "motivo_cancelamento", length = 300)
+	private String motivoCancelamento;
+
+	@JoinColumn(name = "id_pessoa_fk", referencedColumnName = "id", nullable = false)
+	@ManyToOne(optional = false)
+	private Pessoa idPessoaFk;
+
+	@JoinColumn(name = "id_operador_cadastro_fk", referencedColumnName = "id")
 	@ManyToOne
-	@JoinColumn(name="id_pessoa_fk", insertable = false, updatable = false)
-	private Pessoa pessoa;
+	private PessoaOperadores idOperadorCadastroFk;
 
-	//bi-directional many-to-one association to PessoaOperadore
+	@JoinColumn(name = "id_operador_cancelamento_fk", referencedColumnName = "id")
 	@ManyToOne
-	@JoinColumn(name="id_operador_cadastro_fk", insertable = false, updatable = false)
-	private PessoaOperadores pessoaOperadore1;
+	private PessoaOperadores idOperadorCancelamentoFk;
 
-	//bi-directional many-to-one association to PessoaOperadore
-	@ManyToOne
-	@JoinColumn(name="id_operador_cancelamento_fk", insertable = false, updatable = false)
-	private PessoaOperadores pessoaOperadore2;
+	@JoinColumn(name = "id_tipo_filiacao_fk", referencedColumnName = "id", nullable = false)
+	@ManyToOne(optional = false)
+	private TiposDeFiliacao idTipoFiliacaoFk;
 
-	//bi-directional many-to-one association to TiposDeFiliacao
-	@ManyToOne
-	@JoinColumn(name="id_tipo_filiacao_fk", insertable = false, updatable = false)
-	private TiposDeFiliacao tiposDeFiliacao;
-
-	public PessoaFilhos() {
+	public String getNomeFilho() {
+		return nomeFilho;
 	}
 
-	public String getCartorioCertidadoNascimento() {
-		return this.cartorioCertidadoNascimento;
-	}
-
-	public void setCartorioCertidadoNascimento(String cartorioCertidadoNascimento) {
-		this.cartorioCertidadoNascimento = cartorioCertidadoNascimento;
-	}
-
-	public String getCpfFilho() {
-		return this.cpfFilho;
-	}
-
-	public void setCpfFilho(String cpfFilho) {
-		this.cpfFilho = cpfFilho;
-	}
-
-	public Date getDtCadastro() {
-		return this.dtCadastro;
-	}
-
-	public void setDtCadastro(Date dtCadastro) {
-		this.dtCadastro = dtCadastro;
-	}
-
-	public Date getDtCancelamento() {
-		return this.dtCancelamento;
-	}
-
-	public void setDtCancelamento(Date dtCancelamento) {
-		this.dtCancelamento = dtCancelamento;
-	}
-
-	public Date getDtCertidadoNascimento() {
-		return this.dtCertidadoNascimento;
-	}
-
-	public void setDtCertidadoNascimento(Date dtCertidadoNascimento) {
-		this.dtCertidadoNascimento = dtCertidadoNascimento;
+	public void setNomeFilho(String nomeFilho) {
+		this.nomeFilho = UtilidadesDeTexto.retiraEspacosDuplosAcentosEConverteEmMaiusculo(nomeFilho);
 	}
 
 	public Date getDtNascimento() {
-		return this.dtNascimento;
+		return dtNascimento;
 	}
 
 	public void setDtNascimento(Date dtNascimento) {
 		this.dtNascimento = dtNascimento;
 	}
 
-	public String getFolhaCertidaoNascimento() {
-		return this.folhaCertidaoNascimento;
+	public String getCpfFilho() {
+		return cpfFilho;
 	}
 
-	public void setFolhaCertidaoNascimento(String folhaCertidaoNascimento) {
-		this.folhaCertidaoNascimento = folhaCertidaoNascimento;
+	public void setCpfFilho(String cpfFilho) {
+		this.cpfFilho = UtilidadesDeTexto.retiraEspacosDuplosAcentosEConverteEmMaiusculo(cpfFilho);
 	}
 
-	public String getLivroCertidaoNascimento() {
-		return this.livroCertidaoNascimento;
+	public String getRgFilho() {
+		return rgFilho;
 	}
 
-	public void setLivroCertidaoNascimento(String livroCertidaoNascimento) {
-		this.livroCertidaoNascimento = livroCertidaoNascimento;
-	}
-
-	public String getMotivoCadastro() {
-		return this.motivoCadastro;
-	}
-
-	public void setMotivoCadastro(String motivoCadastro) {
-		this.motivoCadastro = motivoCadastro;
-	}
-
-	public String getMotivoCancelamento() {
-		return this.motivoCancelamento;
-	}
-
-	public void setMotivoCancelamento(String motivoCancelamento) {
-		this.motivoCancelamento = motivoCancelamento;
-	}
-
-	public String getNomeFilho() {
-		return this.nomeFilho;
-	}
-
-	public void setNomeFilho(String nomeFilho) {
-		this.nomeFilho = nomeFilho;
-	}
-
-	public String getNumeroCertidaoNascimento() {
-		return this.numeroCertidaoNascimento;
-	}
-
-	public void setNumeroCertidaoNascimento(String numeroCertidaoNascimento) {
-		this.numeroCertidaoNascimento = numeroCertidaoNascimento;
+	public void setRgFilho(String rgFilho) {
+		this.rgFilho = UtilidadesDeTexto.retiraEspacosDuplosAcentosEConverteEmMaiusculo(rgFilho);
 	}
 
 	public Date getRgDtEmissaoFilho() {
-		return this.rgDtEmissaoFilho;
+		return rgDtEmissaoFilho;
 	}
 
 	public void setRgDtEmissaoFilho(Date rgDtEmissaoFilho) {
 		this.rgDtEmissaoFilho = rgDtEmissaoFilho;
 	}
 
-	public String getRgFilho() {
-		return this.rgFilho;
-	}
-
-	public void setRgFilho(String rgFilho) {
-		this.rgFilho = rgFilho;
-	}
-
 	public String getRgOrgaoExpedidor() {
-		return this.rgOrgaoExpedidor;
+		return rgOrgaoExpedidor;
 	}
 
 	public void setRgOrgaoExpedidor(String rgOrgaoExpedidor) {
-		this.rgOrgaoExpedidor = rgOrgaoExpedidor;
+		this.rgOrgaoExpedidor = UtilidadesDeTexto.retiraEspacosDuplosAcentosEConverteEmMaiusculo(rgOrgaoExpedidor);
 	}
 
-	public Pessoa getPessoa() {
-		return this.pessoa;
+	public String getNumeroCertidaoNascimento() {
+		return numeroCertidaoNascimento;
 	}
 
-	public void setPessoa(Pessoa pessoa) {
-		this.pessoa = pessoa;
+	public void setNumeroCertidaoNascimento(String numeroCertidaoNascimento) {
+		this.numeroCertidaoNascimento = UtilidadesDeTexto.retiraEspacosDuplosAcentosEConverteEmMaiusculo(numeroCertidaoNascimento);
 	}
 
-	public PessoaOperadores getPessoaOperadore1() {
-		return this.pessoaOperadore1;
+	public Date getDtCertidadoNascimento() {
+		return dtCertidadoNascimento;
 	}
 
-	public void setPessoaOperadore1(PessoaOperadores pessoaOperadore1) {
-		this.pessoaOperadore1 = pessoaOperadore1;
+	public void setDtCertidadoNascimento(Date dtCertidadoNascimento) {
+		this.dtCertidadoNascimento = dtCertidadoNascimento;
 	}
 
-	public PessoaOperadores getPessoaOperadore2() {
-		return this.pessoaOperadore2;
+	public String getCartorioCertidadoNascimento() {
+		return cartorioCertidadoNascimento;
 	}
 
-	public void setPessoaOperadore2(PessoaOperadores pessoaOperadore2) {
-		this.pessoaOperadore2 = pessoaOperadore2;
+	public void setCartorioCertidadoNascimento(String cartorioCertidadoNascimento) {
+		this.cartorioCertidadoNascimento = UtilidadesDeTexto.retiraEspacosDuplosAcentosEConverteEmMaiusculo(cartorioCertidadoNascimento);
 	}
 
-	public TiposDeFiliacao getTiposDeFiliacao() {
-		return this.tiposDeFiliacao;
+	public String getLivroCertidaoNascimento() {
+		return livroCertidaoNascimento;
 	}
 
-	public void setTiposDeFiliacao(TiposDeFiliacao tiposDeFiliacao) {
-		this.tiposDeFiliacao = tiposDeFiliacao;
+	public void setLivroCertidaoNascimento(String livroCertidaoNascimento) {
+		this.livroCertidaoNascimento = UtilidadesDeTexto.retiraEspacosDuplosAcentosEConverteEmMaiusculo(livroCertidaoNascimento);
 	}
+
+	public String getFolhaCertidaoNascimento() {
+		return folhaCertidaoNascimento;
+	}
+
+	public void setFolhaCertidaoNascimento(String folhaCertidaoNascimento) {
+		this.folhaCertidaoNascimento = UtilidadesDeTexto.retiraEspacosDuplosAcentosEConverteEmMaiusculo(folhaCertidaoNascimento);
+	}
+
+	public Date getDtCadastro() {
+		return dtCadastro;
+	}
+
+	public void setDtCadastro(Date dtCadastro) {
+		this.dtCadastro = dtCadastro;
+	}
+
+	public String getMotivoCadastro() {
+		return motivoCadastro;
+	}
+
+	public void setMotivoCadastro(String motivoCadastro) {
+		this.motivoCadastro = UtilidadesDeTexto.retiraEspacosDuplosAcentosEConverteEmMaiusculo(motivoCadastro);
+	}
+
+	public Date getDtCancelamento() {
+		return dtCancelamento;
+	}
+
+	public void setDtCancelamento(Date dtCancelamento) {
+		this.dtCancelamento = dtCancelamento;
+	}
+
+	public String getMotivoCancelamento() {
+		return motivoCancelamento;
+	}
+
+	public void setMotivoCancelamento(String motivoCancelamento) {
+		this.motivoCancelamento = UtilidadesDeTexto.retiraEspacosDuplosAcentosEConverteEmMaiusculo(motivoCancelamento);
+	}
+
+	public Pessoa getIdPessoaFk() {
+		return idPessoaFk;
+	}
+
+	public void setIdPessoaFk(Pessoa idPessoaFk) {
+		this.idPessoaFk = idPessoaFk;
+	}
+
+	public PessoaOperadores getIdOperadorCadastroFk() {
+		return idOperadorCadastroFk;
+	}
+
+	public void setIdOperadorCadastroFk(PessoaOperadores idOperadorCadastroFk) {
+		this.idOperadorCadastroFk = idOperadorCadastroFk;
+	}
+
+	public PessoaOperadores getIdOperadorCancelamentoFk() {
+		return idOperadorCancelamentoFk;
+	}
+
+	public void setIdOperadorCancelamentoFk(PessoaOperadores idOperadorCancelamentoFk) {
+		this.idOperadorCancelamentoFk = idOperadorCancelamentoFk;
+	}
+
+	public TiposDeFiliacao getIdTipoFiliacaoFk() {
+		return idTipoFiliacaoFk;
+	}
+
+	public void setIdTipoFiliacaoFk(TiposDeFiliacao idTipoFiliacaoFk) {
+		this.idTipoFiliacaoFk = idTipoFiliacaoFk;
+	}
+
+
 }

@@ -4,60 +4,44 @@ import java.util.List;
 
 import javax.persistence.*;
 
+import com.folha.boot.service.util.UtilidadesDeTexto;
+
 @SuppressWarnings("serial")
 @Entity
 @Table(name = "tipos_de_filiacao")
 public class TiposDeFiliacao extends AbstractEntity<Long> {
-
-	@Column(name="descricao_tipo_filiacao")
-	private String descricaoTipoFiliacao;
-
-	@Column(name="nome_tipo_filiacao")
+	
+	@Column(name = "nome_tipo_filiacao", nullable = false, length = 150)
 	private String nomeTipoFiliacao;
 
-	//bi-directional many-to-one association to PessoaFilho
-	@OneToMany(mappedBy="tiposDeFiliacao")
-	private List<PessoaFilhos> pessoaFilhos;
+	@Column(name = "descricao_tipo_filiacao", length = 300)
+	private String descricaoTipoFiliacao;
 
-	public TiposDeFiliacao() {
-	}
-
-	public String getDescricaoTipoFiliacao() {
-		return this.descricaoTipoFiliacao;
-	}
-
-	public void setDescricaoTipoFiliacao(String descricaoTipoFiliacao) {
-		this.descricaoTipoFiliacao = descricaoTipoFiliacao;
-	}
+	@OneToMany(cascade = CascadeType.ALL, mappedBy = "idTipoFiliacaoFk")
+	private List<PessoaFilhos> pessoaFilhosList;
 
 	public String getNomeTipoFiliacao() {
-		return this.nomeTipoFiliacao;
+		return nomeTipoFiliacao;
 	}
 
 	public void setNomeTipoFiliacao(String nomeTipoFiliacao) {
-		this.nomeTipoFiliacao = nomeTipoFiliacao;
+		this.nomeTipoFiliacao = UtilidadesDeTexto.retiraEspacosDuplosAcentosEConverteEmMaiusculo(nomeTipoFiliacao);
 	}
 
-	public List<PessoaFilhos> getPessoaFilhos() {
-		return this.pessoaFilhos;
+	public String getDescricaoTipoFiliacao() {
+		return descricaoTipoFiliacao;
 	}
 
-	public void setPessoaFilhos(List<PessoaFilhos> pessoaFilhos) {
-		this.pessoaFilhos = pessoaFilhos;
+	public void setDescricaoTipoFiliacao(String descricaoTipoFiliacao) {
+		this.descricaoTipoFiliacao = UtilidadesDeTexto.retiraEspacosDuplosAcentosEConverteEmMaiusculo(descricaoTipoFiliacao);
 	}
 
-	public PessoaFilhos addPessoaFilho(PessoaFilhos pessoaFilho) {
-		getPessoaFilhos().add(pessoaFilho);
-		pessoaFilho.setTiposDeFiliacao(this);
-
-		return pessoaFilho;
+	public List<PessoaFilhos> getPessoaFilhosList() {
+		return pessoaFilhosList;
 	}
 
-	public PessoaFilhos removePessoaFilho(PessoaFilhos pessoaFilho) {
-		getPessoaFilhos().remove(pessoaFilho);
-		pessoaFilho.setTiposDeFiliacao(null);
-
-		return pessoaFilho;
+	public void setPessoaFilhosList(List<PessoaFilhos> pessoaFilhosList) {
+		this.pessoaFilhosList = pessoaFilhosList;
 	}
-
+    
 }

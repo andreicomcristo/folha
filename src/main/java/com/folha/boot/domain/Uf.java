@@ -4,112 +4,67 @@ import java.util.List;
 
 import javax.persistence.*;
 
+import com.folha.boot.service.util.UtilidadesDeTexto;
 
 @SuppressWarnings("serial")
 @Entity
 @Table(name = "uf")
 public class Uf extends AbstractEntity<Long> {
 
-	@Column(name="nome_uf")
-	private String nomeUf;
-
-	@Column(name="sigla_uf")
+	@Column(name = "sigla_uf", nullable = false, length = 300)
 	private String siglaUf;
 
-	//bi-directional many-to-one association to Cidade
-	@OneToMany(mappedBy="uf")
-	private List<Cidades> cidades;
+	@Basic(optional = false)
+	@Column(name = "nome_uf", nullable = false, length = 300)
+	private String nomeUf;
 
-	//bi-directional many-to-one association to PessoaDocumentosConselho
-	@OneToMany(mappedBy="uf")
-	private List<PessoaDocumentosConselho> pessoaDocumentosConselhos;
+	@OneToMany(mappedBy = "idUfFk")
+	private List<PessoaDocumentosConselho> pessoaDocumentosConselhoList;
 
-	//bi-directional many-to-one association to PessoaDocumentosRg
-	@OneToMany(mappedBy="uf")
-	private List<PessoaDocumentosRg> pessoaDocumentosRgs;
+	@OneToMany(cascade = CascadeType.ALL, mappedBy = "idUfFk")
+	private List<Cidades> cidadesList;
 
-	public Uf() {
-	}
-
-	public String getNomeUf() {
-		return this.nomeUf;
-	}
-
-	public void setNomeUf(String nomeUf) {
-		this.nomeUf = nomeUf;
-	}
+	@OneToMany(mappedBy = "idUfEmissao")
+	private List<PessoaDocumentosRg> pessoaDocumentosRgList;
 
 	public String getSiglaUf() {
-		return this.siglaUf;
+		return siglaUf;
 	}
 
 	public void setSiglaUf(String siglaUf) {
-		this.siglaUf = siglaUf;
+		this.siglaUf = UtilidadesDeTexto.retiraEspacosDuplosAcentosEConverteEmMaiusculo(siglaUf);
 	}
 
-	public List<Cidades> getCidades() {
-		return this.cidades;
+	public String getNomeUf() {
+		return nomeUf;
 	}
 
-	public void setCidades(List<Cidades> cidades) {
-		this.cidades = cidades;
+	public void setNomeUf(String nomeUf) {
+		this.nomeUf = UtilidadesDeTexto.retiraEspacosDuplosAcentosEConverteEmMaiusculo(nomeUf);
 	}
 
-	public Cidades addCidade(Cidades cidade) {
-		getCidades().add(cidade);
-		cidade.setIdUfFk(this);
-
-		return cidade;
+	public List<PessoaDocumentosConselho> getPessoaDocumentosConselhoList() {
+		return pessoaDocumentosConselhoList;
 	}
 
-	public Cidades removeCidade(Cidades cidade) {
-		getCidades().remove(cidade);
-		cidade.setIdUfFk(null);
-
-		return cidade;
+	public void setPessoaDocumentosConselhoList(List<PessoaDocumentosConselho> pessoaDocumentosConselhoList) {
+		this.pessoaDocumentosConselhoList = pessoaDocumentosConselhoList;
 	}
 
-	public List<PessoaDocumentosConselho> getPessoaDocumentosConselhos() {
-		return this.pessoaDocumentosConselhos;
+	public List<Cidades> getCidadesList() {
+		return cidadesList;
 	}
 
-	public void setPessoaDocumentosConselhos(List<PessoaDocumentosConselho> pessoaDocumentosConselhos) {
-		this.pessoaDocumentosConselhos = pessoaDocumentosConselhos;
+	public void setCidadesList(List<Cidades> cidadesList) {
+		this.cidadesList = cidadesList;
 	}
 
-	public PessoaDocumentosConselho addPessoaDocumentosConselho(PessoaDocumentosConselho pessoaDocumentosConselho) {
-		getPessoaDocumentosConselhos().add(pessoaDocumentosConselho);
-		pessoaDocumentosConselho.setUf(this);
-
-		return pessoaDocumentosConselho;
+	public List<PessoaDocumentosRg> getPessoaDocumentosRgList() {
+		return pessoaDocumentosRgList;
 	}
 
-	public PessoaDocumentosConselho removePessoaDocumentosConselho(PessoaDocumentosConselho pessoaDocumentosConselho) {
-		getPessoaDocumentosConselhos().remove(pessoaDocumentosConselho);
-		pessoaDocumentosConselho.setUf(null);
-
-		return pessoaDocumentosConselho;
+	public void setPessoaDocumentosRgList(List<PessoaDocumentosRg> pessoaDocumentosRgList) {
+		this.pessoaDocumentosRgList = pessoaDocumentosRgList;
 	}
 
-	public List<PessoaDocumentosRg> getPessoaDocumentosRgs() {
-		return this.pessoaDocumentosRgs;
-	}
-
-	public void setPessoaDocumentosRgs(List<PessoaDocumentosRg> pessoaDocumentosRgs) {
-		this.pessoaDocumentosRgs = pessoaDocumentosRgs;
-	}
-
-	public PessoaDocumentosRg addPessoaDocumentosRg(PessoaDocumentosRg pessoaDocumentosRg) {
-		getPessoaDocumentosRgs().add(pessoaDocumentosRg);
-		pessoaDocumentosRg.setUf(this);
-
-		return pessoaDocumentosRg;
-	}
-
-	public PessoaDocumentosRg removePessoaDocumentosRg(PessoaDocumentosRg pessoaDocumentosRg) {
-		getPessoaDocumentosRgs().remove(pessoaDocumentosRg);
-		pessoaDocumentosRg.setUf(null);
-
-		return pessoaDocumentosRg;
-	}
 }

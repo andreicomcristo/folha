@@ -4,88 +4,64 @@ import java.util.Date;
 
 import javax.persistence.*;
 
+import com.folha.boot.service.util.UtilidadesDeTexto;
 
 @SuppressWarnings("serial")
 @Entity
 @Table(name = "pessoa_documentos_conselho")
 public class PessoaDocumentosConselho extends AbstractEntity<Long> {
-	
-	@Temporal(TemporalType.DATE)
-	@Column(name="dt_emissao")
+	@Column(name = "numero_conselho", nullable = false, length = 100)
+    private String numeroConselho;
+    @Column(name = "dt_emissao")
+    @Temporal(TemporalType.DATE)
 	private Date dtEmissao;
-
-	@Temporal(TemporalType.DATE)
-	@Column(name="dt_validade")
-	private Date dtValidade;
-
-	@Column(name="numero_conselho")
-	private String numeroConselho;
-
-	//bi-directional many-to-one association to Conselho
-	@ManyToOne
-	@JoinColumn(name="id_conselhos_fk", insertable = false, updatable = false)
-	private Conselhos conselho;
-
-	//bi-directional many-to-one association to Pessoa
-	@ManyToOne
-	@JoinColumn(name="id_pessoa_fk", insertable = false, updatable = false)
-	private Pessoa pessoa;
-
-	//bi-directional many-to-one association to Uf
-	@ManyToOne
-	@JoinColumn(name="id_uf_fk", insertable = false, updatable = false)
-	private Uf uf;
-
-	public PessoaDocumentosConselho() {
+    @Column(name = "dt_validade")
+    @Temporal(TemporalType.DATE)
+    private Date dtValidade;
+    @JoinColumn(name = "id_conselhos_fk", referencedColumnName = "id")
+    @ManyToOne
+    private Conselhos idConselhosFk;
+    @JoinColumn(name = "id_pessoa_fk", referencedColumnName = "id", nullable = false)
+    @ManyToOne(optional = false)
+    private Pessoa idPessoaFk;
+    @JoinColumn(name = "id_uf_fk", referencedColumnName = "id")
+    @ManyToOne
+    private Uf idUfFk;
+	public String getNumeroConselho() {
+		return numeroConselho;
 	}
-
-
+	public void setNumeroConselho(String numeroConselho) {
+		this.numeroConselho = UtilidadesDeTexto.retiraEspacosDuplosAcentosEConverteEmMaiusculo(numeroConselho);
+	}
 	public Date getDtEmissao() {
-		return this.dtEmissao;
+		return dtEmissao;
 	}
-
 	public void setDtEmissao(Date dtEmissao) {
 		this.dtEmissao = dtEmissao;
 	}
-
 	public Date getDtValidade() {
-		return this.dtValidade;
+		return dtValidade;
 	}
-
 	public void setDtValidade(Date dtValidade) {
 		this.dtValidade = dtValidade;
 	}
-
-	public String getNumeroConselho() {
-		return this.numeroConselho;
+	public Conselhos getIdConselhosFk() {
+		return idConselhosFk;
 	}
-
-	public void setNumeroConselho(String numeroConselho) {
-		this.numeroConselho = numeroConselho;
+	public void setIdConselhosFk(Conselhos idConselhosFk) {
+		this.idConselhosFk = idConselhosFk;
 	}
-
-	public Conselhos getConselho() {
-		return this.conselho;
+	public Pessoa getIdPessoaFk() {
+		return idPessoaFk;
 	}
-
-	public void setConselho(Conselhos conselho) {
-		this.conselho = conselho;
+	public void setIdPessoaFk(Pessoa idPessoaFk) {
+		this.idPessoaFk = idPessoaFk;
 	}
-
-	public Pessoa getPessoa() {
-		return this.pessoa;
+	public Uf getIdUfFk() {
+		return idUfFk;
 	}
-
-	public void setPessoa(Pessoa pessoa) {
-		this.pessoa = pessoa;
-	}
-
-	public Uf getUf() {
-		return this.uf;
-	}
-
-	public void setUf(Uf uf) {
-		this.uf = uf;
+	public void setIdUfFk(Uf idUfFk) {
+		this.idUfFk = idUfFk;
 	}
 
 }

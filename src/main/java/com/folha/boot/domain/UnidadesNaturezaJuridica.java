@@ -3,61 +3,45 @@ import java.util.List;
 
 import javax.persistence.*;
 
+import com.folha.boot.service.util.UtilidadesDeTexto;
+
 @SuppressWarnings("serial")
 @Entity
 @Table(name = "unidades_natureza_juridica")
 public class UnidadesNaturezaJuridica extends AbstractEntity<Long> {
 
-	@Column(name="descricao_natureza_juridica")
-	private String descricaoNaturezaJuridica;
-
-	@Column(name="nome_natureza_juridica")
-	private String nomeNaturezaJuridica;
-
-	//bi-directional many-to-one association to HistUnidadesNaturezaJuridica
-	@OneToMany(mappedBy="unidadesNaturezaJuridica")
-	private List<HistUnidadesNaturezaJuridica> histUnidadesNaturezaJuridicas;
-
-	public UnidadesNaturezaJuridica() {
-	}
-
-	public String getDescricaoNaturezaJuridica() {
-		return this.descricaoNaturezaJuridica;
-	}
-
-	public void setDescricaoNaturezaJuridica(String descricaoNaturezaJuridica) {
-		this.descricaoNaturezaJuridica = descricaoNaturezaJuridica;
-	}
+	@Column(name = "nome_natureza_juridica", nullable = false, length = 150)
+    private String nomeNaturezaJuridica;
+   
+	@Column(name = "descricao_natureza_juridica", length = 300)
+    private String descricaoNaturezaJuridica;
+    
+	@OneToMany(cascade = CascadeType.ALL, mappedBy = "idUnidadeDeSaudeFk")
+    private List<HistUnidadesNaturezaJuridica> histUnidadesNaturezaJuridicaList;
 
 	public String getNomeNaturezaJuridica() {
-		return this.nomeNaturezaJuridica;
+		return nomeNaturezaJuridica;
 	}
 
 	public void setNomeNaturezaJuridica(String nomeNaturezaJuridica) {
-		this.nomeNaturezaJuridica = nomeNaturezaJuridica;
+		this.nomeNaturezaJuridica = UtilidadesDeTexto.retiraEspacosDuplosAcentosEConverteEmMaiusculo(nomeNaturezaJuridica);
 	}
 
-	public List<HistUnidadesNaturezaJuridica> getHistUnidadesNaturezaJuridicas() {
-		return this.histUnidadesNaturezaJuridicas;
+	public String getDescricaoNaturezaJuridica() {
+		return descricaoNaturezaJuridica;
 	}
 
-	public void setHistUnidadesNaturezaJuridicas(List<HistUnidadesNaturezaJuridica> histUnidadesNaturezaJuridicas) {
-		this.histUnidadesNaturezaJuridicas = histUnidadesNaturezaJuridicas;
+	public void setDescricaoNaturezaJuridica(String descricaoNaturezaJuridica) {
+		this.descricaoNaturezaJuridica = UtilidadesDeTexto.retiraEspacosDuplosAcentosEConverteEmMaiusculo(descricaoNaturezaJuridica);
 	}
 
-	public HistUnidadesNaturezaJuridica addHistUnidadesNaturezaJuridica(HistUnidadesNaturezaJuridica histUnidadesNaturezaJuridica) {
-		getHistUnidadesNaturezaJuridicas().add(histUnidadesNaturezaJuridica);
-		histUnidadesNaturezaJuridica.setUnidadesNaturezaJuridica(this);
-
-		return histUnidadesNaturezaJuridica;
+	public List<HistUnidadesNaturezaJuridica> getHistUnidadesNaturezaJuridicaList() {
+		return histUnidadesNaturezaJuridicaList;
 	}
 
-	public HistUnidadesNaturezaJuridica removeHistUnidadesNaturezaJuridica(HistUnidadesNaturezaJuridica histUnidadesNaturezaJuridica) {
-		getHistUnidadesNaturezaJuridicas().remove(histUnidadesNaturezaJuridica);
-		histUnidadesNaturezaJuridica.setUnidadesNaturezaJuridica(null);
-
-		return histUnidadesNaturezaJuridica;
+	public void setHistUnidadesNaturezaJuridicaList(
+			List<HistUnidadesNaturezaJuridica> histUnidadesNaturezaJuridicaList) {
+		this.histUnidadesNaturezaJuridicaList = histUnidadesNaturezaJuridicaList;
 	}
-
-
+	
 }

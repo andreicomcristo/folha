@@ -4,86 +4,83 @@ import java.util.Date;
 
 import javax.persistence.*;
 
+import com.folha.boot.service.util.UtilidadesDeTexto;
 
 @SuppressWarnings("serial")
 @Entity
 @Table(name = "pessoa_documentos_habilitacao")
 public class PessoaDocumentosHabilitacao extends AbstractEntity<Long> {
 
-	@Temporal(TemporalType.DATE)
-	@Column(name="dt_emissao")
-	private Date dtEmissao;
-
-	@Temporal(TemporalType.DATE)
-	@Column(name="dt_primeira_habilitacao")
-	private Date dtPrimeiraHabilitacao;
-
-	@Temporal(TemporalType.DATE)
-	@Column(name="dt_validade")
-	private Date dtValidade;
-
-	@Column(name="numero_registro")
+	@Column(name = "numero_registro", nullable = false, length = 100)
 	private String numeroRegistro;
 
-	//bi-directional many-to-one association to HabilitacaoCategoria
-	@ManyToOne
-	@JoinColumn(name="id_habilitacao_categorias_fk", insertable = false, updatable = false)
-	private HabilitacaoCategorias habilitacaoCategoria;
+	@Column(name = "dt_emissao")
+	@Temporal(TemporalType.DATE)
+	private Date dtEmissao;
 
-	//bi-directional many-to-one association to Pessoa
-	@ManyToOne
-	@JoinColumn(name="id_pessoa_fk", insertable = false, updatable = false)
-	private Pessoa pessoa;
+	@Column(name = "dt_validade")
+	@Temporal(TemporalType.DATE)
+	private Date dtValidade;
 
-	public PessoaDocumentosHabilitacao() {
+	@Column(name = "dt_primeira_habilitacao")
+	@Temporal(TemporalType.DATE)
+	private Date dtPrimeiraHabilitacao;
+
+	@JoinColumn(name = "id_habilitacao_categorias_fk", referencedColumnName = "id")
+	@ManyToOne
+	private HabilitacaoCategorias idHabilitacaoCategoriasFk;
+
+	@JoinColumn(name = "id_pessoa_fk", referencedColumnName = "id")
+	@ManyToOne
+	private Pessoa idPessoaFk;
+
+	public String getNumeroRegistro() {
+		return numeroRegistro;
+	}
+
+	public void setNumeroRegistro(String numeroRegistro) {
+		this.numeroRegistro = UtilidadesDeTexto.retiraEspacosDuplosAcentosEConverteEmMaiusculo(numeroRegistro);
 	}
 
 	public Date getDtEmissao() {
-		return this.dtEmissao;
+		return dtEmissao;
 	}
 
 	public void setDtEmissao(Date dtEmissao) {
 		this.dtEmissao = dtEmissao;
 	}
 
-	public Date getDtPrimeiraHabilitacao() {
-		return this.dtPrimeiraHabilitacao;
-	}
-
-	public void setDtPrimeiraHabilitacao(Date dtPrimeiraHabilitacao) {
-		this.dtPrimeiraHabilitacao = dtPrimeiraHabilitacao;
-	}
-
 	public Date getDtValidade() {
-		return this.dtValidade;
+		return dtValidade;
 	}
 
 	public void setDtValidade(Date dtValidade) {
 		this.dtValidade = dtValidade;
 	}
 
-	public String getNumeroRegistro() {
-		return this.numeroRegistro;
+	public Date getDtPrimeiraHabilitacao() {
+		return dtPrimeiraHabilitacao;
 	}
 
-	public void setNumeroRegistro(String numeroRegistro) {
-		this.numeroRegistro = numeroRegistro;
+	public void setDtPrimeiraHabilitacao(Date dtPrimeiraHabilitacao) {
+		this.dtPrimeiraHabilitacao = dtPrimeiraHabilitacao;
 	}
 
-	public HabilitacaoCategorias getHabilitacaoCategoria() {
-		return this.habilitacaoCategoria;
+	public HabilitacaoCategorias getIdHabilitacaoCategoriasFk() {
+		return idHabilitacaoCategoriasFk;
 	}
 
-	public void setHabilitacaoCategoria(HabilitacaoCategorias habilitacaoCategoria) {
-		this.habilitacaoCategoria = habilitacaoCategoria;
+	public void setIdHabilitacaoCategoriasFk(HabilitacaoCategorias idHabilitacaoCategoriasFk) {
+		this.idHabilitacaoCategoriasFk = idHabilitacaoCategoriasFk;
 	}
 
-	public Pessoa getPessoa() {
-		return this.pessoa;
+	public Pessoa getIdPessoaFk() {
+		return idPessoaFk;
 	}
 
-	public void setPessoa(Pessoa pessoa) {
-		this.pessoa = pessoa;
+	public void setIdPessoaFk(Pessoa idPessoaFk) {
+		this.idPessoaFk = idPessoaFk;
 	}
+
 
 }

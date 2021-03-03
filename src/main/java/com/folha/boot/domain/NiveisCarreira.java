@@ -1,88 +1,49 @@
 package com.folha.boot.domain;
 
-import java.util.List;
-
 import javax.persistence.*;
+
+import com.folha.boot.service.util.UtilidadesDeTexto;
 
 @SuppressWarnings("serial")
 @Entity
 @Table(name = "niveis_carreira")
 public class NiveisCarreira extends AbstractEntity<Long> {
 
-	@Column(name="descricao_nivel_carreira")
-	private String descricaoNivelCarreira;
-
-	@Column(name="nome_nivel_carreira")
+	@Column(name = "nome_nivel_carreira", nullable = false, length = 300)
 	private String nomeNivelCarreira;
 
-	//bi-directional many-to-one association to HistFuncionariosNiveisCarreira
-	@OneToMany(mappedBy="niveisCarreira")
-	private List<HistFuncionariosNiveisCarreira> histFuncionariosNiveisCarreiras;
+	@Column(name = "descricao_nivel_carreira", length = 300)
+	private String descricaoNivelCarreira;
 
-	//bi-directional many-to-one association to PessoaFuncionario
-	@OneToMany(mappedBy="niveisCarreira")
-	private List<PessoaFuncionarios> pessoaFuncionarios;
-
-	public NiveisCarreira() {
-	}
-
-	public String getDescricaoNivelCarreira() {
-		return this.descricaoNivelCarreira;
-	}
-
-	public void setDescricaoNivelCarreira(String descricaoNivelCarreira) {
-		this.descricaoNivelCarreira = descricaoNivelCarreira;
-	}
-
+	/*
+	@OneToMany(cascade = CascadeType.ALL, mappedBy = "idNivelCareiraFk")
+	private List<PessoaFuncionarios> pessoaFuncionariosCollection;
+	*/
+	
 	public String getNomeNivelCarreira() {
-		return this.nomeNivelCarreira;
+		return nomeNivelCarreira;
 	}
 
 	public void setNomeNivelCarreira(String nomeNivelCarreira) {
-		this.nomeNivelCarreira = nomeNivelCarreira;
+		this.nomeNivelCarreira = UtilidadesDeTexto.retiraEspacosDuplosAcentosEConverteEmMaiusculo(nomeNivelCarreira);
 	}
 
-	public List<HistFuncionariosNiveisCarreira> getHistFuncionariosNiveisCarreiras() {
-		return this.histFuncionariosNiveisCarreiras;
+	public String getDescricaoNivelCarreira() {
+		return descricaoNivelCarreira;
 	}
 
-	public void setHistFuncionariosNiveisCarreiras(List<HistFuncionariosNiveisCarreira> histFuncionariosNiveisCarreiras) {
-		this.histFuncionariosNiveisCarreiras = histFuncionariosNiveisCarreiras;
+	public void setDescricaoNivelCarreira(String descricaoNivelCarreira) {
+		this.descricaoNivelCarreira = UtilidadesDeTexto.retiraEspacosDuplosAcentosEConverteEmMaiusculo(descricaoNivelCarreira);
 	}
 
-	public HistFuncionariosNiveisCarreira addHistFuncionariosNiveisCarreira(HistFuncionariosNiveisCarreira histFuncionariosNiveisCarreira) {
-		getHistFuncionariosNiveisCarreiras().add(histFuncionariosNiveisCarreira);
-		histFuncionariosNiveisCarreira.setNiveisCarreira(this);
-
-		return histFuncionariosNiveisCarreira;
+	/*
+	public List<PessoaFuncionarios> getPessoaFuncionariosCollection() {
+		return pessoaFuncionariosCollection;
 	}
 
-	public HistFuncionariosNiveisCarreira removeHistFuncionariosNiveisCarreira(HistFuncionariosNiveisCarreira histFuncionariosNiveisCarreira) {
-		getHistFuncionariosNiveisCarreiras().remove(histFuncionariosNiveisCarreira);
-		histFuncionariosNiveisCarreira.setNiveisCarreira(null);
-
-		return histFuncionariosNiveisCarreira;
+	public void setPessoaFuncionariosCollection(List<PessoaFuncionarios> pessoaFuncionariosCollection) {
+		this.pessoaFuncionariosCollection = pessoaFuncionariosCollection;
 	}
+*/
 
-	public List<PessoaFuncionarios> getPessoaFuncionarios() {
-		return this.pessoaFuncionarios;
-	}
-
-	public void setPessoaFuncionarios(List<PessoaFuncionarios> pessoaFuncionarios) {
-		this.pessoaFuncionarios = pessoaFuncionarios;
-	}
-
-	public PessoaFuncionarios addPessoaFuncionario(PessoaFuncionarios pessoaFuncionario) {
-		getPessoaFuncionarios().add(pessoaFuncionario);
-		pessoaFuncionario.setNiveisCarreira(this);
-
-		return pessoaFuncionario;
-	}
-
-	public PessoaFuncionarios removePessoaFuncionario(PessoaFuncionarios pessoaFuncionario) {
-		getPessoaFuncionarios().remove(pessoaFuncionario);
-		pessoaFuncionario.setNiveisCarreira(null);
-
-		return pessoaFuncionario;
-	}
 }

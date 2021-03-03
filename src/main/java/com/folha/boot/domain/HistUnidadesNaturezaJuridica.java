@@ -3,109 +3,103 @@ package com.folha.boot.domain;
 import java.util.Date;
 import javax.persistence.*;
 
-
 @SuppressWarnings("serial")
 @Entity
 @Table(name = "hist_unidades_natureza_juridica")
 public class HistUnidadesNaturezaJuridica extends AbstractEntity<Long> {
 
+	@Column(name = "id_natureza_juridica_fk", nullable = false)
+	private long idNaturezaJuridicaFk;
+
+	@Basic(optional = false)
+	@Column(name = "dt_cadastro", nullable = false)
 	@Temporal(TemporalType.DATE)
-	@Column(name="dt_cadastro")
 	private Date dtCadastro;
 
-	@Temporal(TemporalType.DATE)
-	@Column(name="dt_cancelamento")
-	private Date dtCancelamento;
-
-	@Column(name="id_natureza_juridica_fk", insertable = false, updatable = false)
-	private Long idNaturezaJuridicaFk;
-
-	@Column(name="motivo_cadastro")
+	@Column(name = "motivo_cadastro", length = 150)
 	private String motivoCadastro;
 
-	@Column(name="motivo_cancelamento")
+	@Column(name = "dt_cancelamento")
+	@Temporal(TemporalType.DATE)
+	private Date dtCancelamento;
+
+	@Column(name = "motivo_cancelamento", length = 150)
 	private String motivoCancelamento;
 
-	//bi-directional many-to-one association to PessoaOperadore
-	@ManyToOne
-	@JoinColumn(name="id_operador_cadastro_fk", insertable = false, updatable = false)
-	private PessoaOperadores pessoaOperadore1;
+	@JoinColumn(name = "id_operador_cadastro_fk", referencedColumnName = "id", nullable = false)
+	@ManyToOne(optional = false)
+	private PessoaOperadores idOperadorCadastroFk;
 
-	//bi-directional many-to-one association to PessoaOperadore
+	@JoinColumn(name = "id_operador_cancelamento_fk", referencedColumnName = "id")
 	@ManyToOne
-	@JoinColumn(name="id_operador_cancelamento_fk", insertable = false, updatable = false)
-	private PessoaOperadores pessoaOperadore2;
+	private PessoaOperadores idOperadorCancelamentoFk;
 
-	//bi-directional many-to-one association to UnidadesNaturezaJuridica
-	@ManyToOne
-	@JoinColumn(name="id_unidade_de_saude_fk", insertable = false, updatable = false)
-	private UnidadesNaturezaJuridica unidadesNaturezaJuridica;
+	@JoinColumn(name = "id_unidade_de_saude_fk", referencedColumnName = "id", nullable = false)
+	@ManyToOne(optional = false)
+	private UnidadesNaturezaJuridica idUnidadeDeSaudeFk;
 
-	public HistUnidadesNaturezaJuridica() {
+	public long getIdNaturezaJuridicaFk() {
+		return idNaturezaJuridicaFk;
+	}
+
+	public void setIdNaturezaJuridicaFk(long idNaturezaJuridicaFk) {
+		this.idNaturezaJuridicaFk = idNaturezaJuridicaFk;
 	}
 
 	public Date getDtCadastro() {
-		return this.dtCadastro;
+		return dtCadastro;
 	}
 
 	public void setDtCadastro(Date dtCadastro) {
 		this.dtCadastro = dtCadastro;
 	}
 
-	public Date getDtCancelamento() {
-		return this.dtCancelamento;
-	}
-
-	public void setDtCancelamento(Date dtCancelamento) {
-		this.dtCancelamento = dtCancelamento;
-	}
-
-	public Long getIdNaturezaJuridicaFk() {
-		return this.idNaturezaJuridicaFk;
-	}
-
-	public void setIdNaturezaJuridicaFk(Long idNaturezaJuridicaFk) {
-		this.idNaturezaJuridicaFk = idNaturezaJuridicaFk;
-	}
-
 	public String getMotivoCadastro() {
-		return this.motivoCadastro;
+		return motivoCadastro;
 	}
 
 	public void setMotivoCadastro(String motivoCadastro) {
 		this.motivoCadastro = motivoCadastro;
 	}
 
+	public Date getDtCancelamento() {
+		return dtCancelamento;
+	}
+
+	public void setDtCancelamento(Date dtCancelamento) {
+		this.dtCancelamento = dtCancelamento;
+	}
+
 	public String getMotivoCancelamento() {
-		return this.motivoCancelamento;
+		return motivoCancelamento;
 	}
 
 	public void setMotivoCancelamento(String motivoCancelamento) {
 		this.motivoCancelamento = motivoCancelamento;
 	}
 
-	public PessoaOperadores getPessoaOperadore1() {
-		return this.pessoaOperadore1;
+	public PessoaOperadores getIdOperadorCadastroFk() {
+		return idOperadorCadastroFk;
 	}
 
-	public void setPessoaOperadore1(PessoaOperadores pessoaOperadore1) {
-		this.pessoaOperadore1 = pessoaOperadore1;
+	public void setIdOperadorCadastroFk(PessoaOperadores idOperadorCadastroFk) {
+		this.idOperadorCadastroFk = idOperadorCadastroFk;
 	}
 
-	public PessoaOperadores getPessoaOperadore2() {
-		return this.pessoaOperadore2;
+	public PessoaOperadores getIdOperadorCancelamentoFk() {
+		return idOperadorCancelamentoFk;
 	}
 
-	public void setPessoaOperadore2(PessoaOperadores pessoaOperadore2) {
-		this.pessoaOperadore2 = pessoaOperadore2;
+	public void setIdOperadorCancelamentoFk(PessoaOperadores idOperadorCancelamentoFk) {
+		this.idOperadorCancelamentoFk = idOperadorCancelamentoFk;
 	}
 
-	public UnidadesNaturezaJuridica getUnidadesNaturezaJuridica() {
-		return this.unidadesNaturezaJuridica;
+	public UnidadesNaturezaJuridica getIdUnidadeDeSaudeFk() {
+		return idUnidadeDeSaudeFk;
 	}
 
-	public void setUnidadesNaturezaJuridica(UnidadesNaturezaJuridica unidadesNaturezaJuridica) {
-		this.unidadesNaturezaJuridica = unidadesNaturezaJuridica;
+	public void setIdUnidadeDeSaudeFk(UnidadesNaturezaJuridica idUnidadeDeSaudeFk) {
+		this.idUnidadeDeSaudeFk = idUnidadeDeSaudeFk;
 	}
 
 }

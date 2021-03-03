@@ -4,95 +4,55 @@ import java.util.List;
 
 import javax.persistence.*;
 
+import com.folha.boot.service.util.UtilidadesDeTexto;
+
 @SuppressWarnings("serial")
 @Entity
 @Table(name = "classes_carreira")
 public class ClassesCarreira extends AbstractEntity<Long> {
-	@Column(name="descricao_classe")
-	private String descricaoClasse;
 
-	@Column(name="nome_classe")
-	private String nomeClasse;
-
-	@Column(name="sigla_classe")
+	@Column(name = "sigla_classe", nullable = false, length = 10)
 	private String siglaClasse;
 
-	//bi-directional many-to-one association to HistFuncionariosClasse
-	@OneToMany(mappedBy="classesCarreira")
-	private List<HistFuncionariosClasse> histFuncionariosClasses;
+	@Column(name = "nome_classe", nullable = false, length = 150)
+	private String nomeClasse;
 
-	//bi-directional many-to-one association to PessoaFuncionario
-	@OneToMany(mappedBy="classesCarreira")
-	private List<PessoaFuncionarios> pessoaFuncionarios;
+	@Column(name = "descricao_classe", length = 300)
+	private String descricaoClasse;
 
-	public ClassesCarreira() {
-	}
-
-	public String getDescricaoClasse() {
-		return this.descricaoClasse;
-	}
-
-	public void setDescricaoClasse(String descricaoClasse) {
-		this.descricaoClasse = descricaoClasse;
-	}
-
-	public String getNomeClasse() {
-		return this.nomeClasse;
-	}
-
-	public void setNomeClasse(String nomeClasse) {
-		this.nomeClasse = nomeClasse;
-	}
+	@OneToMany(cascade = CascadeType.ALL, mappedBy = "idClasseFk")
+	private List<HistFuncionariosClasse> histFuncionariosClasseList;
 
 	public String getSiglaClasse() {
-		return this.siglaClasse;
+		return siglaClasse;
 	}
 
 	public void setSiglaClasse(String siglaClasse) {
-		this.siglaClasse = siglaClasse;
+		this.siglaClasse = UtilidadesDeTexto.retiraEspacosDuplosAcentosEConverteEmMaiusculo(siglaClasse);
 	}
 
-	public List<HistFuncionariosClasse> getHistFuncionariosClasses() {
-		return this.histFuncionariosClasses;
+	public String getNomeClasse() {
+		return nomeClasse;
 	}
 
-	public void setHistFuncionariosClasses(List<HistFuncionariosClasse> histFuncionariosClasses) {
-		this.histFuncionariosClasses = histFuncionariosClasses;
+	public void setNomeClasse(String nomeClasse) {
+		this.nomeClasse = UtilidadesDeTexto.retiraEspacosDuplosAcentosEConverteEmMaiusculo(nomeClasse);
 	}
 
-	public HistFuncionariosClasse addHistFuncionariosClass(HistFuncionariosClasse histFuncionariosClass) {
-		getHistFuncionariosClasses().add(histFuncionariosClass);
-		histFuncionariosClass.setClassesCarreira(this);
-
-		return histFuncionariosClass;
+	public List<HistFuncionariosClasse> getHistFuncionariosClasseList() {
+		return histFuncionariosClasseList;
 	}
 
-	public HistFuncionariosClasse removeHistFuncionariosClass(HistFuncionariosClasse histFuncionariosClass) {
-		getHistFuncionariosClasses().remove(histFuncionariosClass);
-		histFuncionariosClass.setClassesCarreira(null);
-
-		return histFuncionariosClass;
+	public void setHistFuncionariosClasseList(List<HistFuncionariosClasse> histFuncionariosClasseList) {
+		this.histFuncionariosClasseList = histFuncionariosClasseList;
 	}
 
-	public List<PessoaFuncionarios> getPessoaFuncionarios() {
-		return this.pessoaFuncionarios;
+	public String getDescricaoClasse() {
+		return descricaoClasse;
 	}
 
-	public void setPessoaFuncionarios(List<PessoaFuncionarios> pessoaFuncionarios) {
-		this.pessoaFuncionarios = pessoaFuncionarios;
+	public void setDescricaoClasse(String descricaoClasse) {
+		this.descricaoClasse = UtilidadesDeTexto.retiraEspacosDuplosAcentosEConverteEmMaiusculo(descricaoClasse);
 	}
 
-	public PessoaFuncionarios addPessoaFuncionario(PessoaFuncionarios pessoaFuncionario) {
-		getPessoaFuncionarios().add(pessoaFuncionario);
-		pessoaFuncionario.setClassesCarreira(this);
-
-		return pessoaFuncionario;
-	}
-
-	public PessoaFuncionarios removePessoaFuncionario(PessoaFuncionarios pessoaFuncionario) {
-		getPessoaFuncionarios().remove(pessoaFuncionario);
-		pessoaFuncionario.setClassesCarreira(null);
-
-		return pessoaFuncionario;
-	}
 }

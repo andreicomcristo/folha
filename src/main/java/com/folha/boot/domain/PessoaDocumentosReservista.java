@@ -2,47 +2,46 @@ package com.folha.boot.domain;
 
 import javax.persistence.*;
 
+import com.folha.boot.service.util.UtilidadesDeTexto;
+
 
 @SuppressWarnings("serial")
 @Entity
 @Table(name = "pessoa_documentos_reservista")
 public class PessoaDocumentosReservista extends AbstractEntity<Long> {
 
+	@Column(name = "numero", length = 100)
 	private String numero;
 
+	@Column(name = "serie", length = 100)
 	private String serie;
 
-	//bi-directional many-to-one association to Pessoa
-	@ManyToOne
-	@JoinColumn(name="id_pessoa_fk", insertable = false, updatable = false)
-	private Pessoa pessoa;
-
-	public PessoaDocumentosReservista() {
-	}
+	@JoinColumn(name = "id_pessoa_fk", referencedColumnName = "id", nullable = false)
+	@ManyToOne(optional = false)
+	private Pessoa idPessoaFk;
 
 	public String getNumero() {
-		return this.numero;
+		return numero;
 	}
 
 	public void setNumero(String numero) {
-		this.numero = numero;
+		this.numero = UtilidadesDeTexto.retiraEspacosDuplosAcentosEConverteEmMaiusculo(numero);
 	}
 
 	public String getSerie() {
-		return this.serie;
+		return serie;
 	}
 
 	public void setSerie(String serie) {
-		this.serie = serie;
+		this.serie = UtilidadesDeTexto.retiraEspacosDuplosAcentosEConverteEmMaiusculo(serie);
 	}
 
-	public Pessoa getPessoa() {
-		return this.pessoa;
+	public Pessoa getIdPessoaFk() {
+		return idPessoaFk;
 	}
 
-	public void setPessoa(Pessoa pessoa) {
-		this.pessoa = pessoa;
+	public void setIdPessoaFk(Pessoa idPessoaFk) {
+		this.idPessoaFk = idPessoaFk;
 	}
-
 
 }

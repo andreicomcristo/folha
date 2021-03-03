@@ -4,60 +4,45 @@ import java.util.List;
 
 import javax.persistence.*;
 
+import com.folha.boot.service.util.UtilidadesDeTexto;
+
 @SuppressWarnings("serial")
 @Entity
 @Table(name = "privilegios")
 public class Privilegios extends AbstractEntity<Long> {
 
-	@Column(name="descricao_privilegio")
-	private String descricaoPrivilegio;
-
-	@Column(name="nome_privilegio")
+	@Column(name = "nome_privilegio", nullable = false, length = 300)
 	private String nomePrivilegio;
 
-	//bi-directional many-to-one association to PessoaOperadore
-	@OneToMany(mappedBy="privilegio")
-	private List<PessoaOperadores> pessoaOperadores;
+	@Basic(optional = false)
+	@Column(name = "descricao_privilegio", nullable = false, length = 3000)
+	private String descricaoPrivilegio;
 
-	public Privilegios() {
-	}
-	
-	public String getDescricaoPrivilegio() {
-		return this.descricaoPrivilegio;
-	}
-
-	public void setDescricaoPrivilegio(String descricaoPrivilegio) {
-		this.descricaoPrivilegio = descricaoPrivilegio;
-	}
+	@OneToMany(mappedBy = "seqPrivilegio")
+	private List<PessoaOperadores> pessoaOperadoresList;
 
 	public String getNomePrivilegio() {
-		return this.nomePrivilegio;
+		return nomePrivilegio;
 	}
 
 	public void setNomePrivilegio(String nomePrivilegio) {
-		this.nomePrivilegio = nomePrivilegio;
+		this.nomePrivilegio = UtilidadesDeTexto.retiraEspacosDuplosAcentosEConverteEmMaiusculo(nomePrivilegio);
 	}
 
-	public List<PessoaOperadores> getPessoaOperadores() {
-		return this.pessoaOperadores;
+	public String getDescricaoPrivilegio() {
+		return descricaoPrivilegio;
 	}
 
-	public void setPessoaOperadores(List<PessoaOperadores> pessoaOperadores) {
-		this.pessoaOperadores = pessoaOperadores;
+	public void setDescricaoPrivilegio(String descricaoPrivilegio) {
+		this.descricaoPrivilegio = UtilidadesDeTexto.retiraEspacosDuplosAcentosEConverteEmMaiusculo(descricaoPrivilegio);
 	}
 
-	public PessoaOperadores addPessoaOperadore(PessoaOperadores pessoaOperadore) {
-		getPessoaOperadores().add(pessoaOperadore);
-		pessoaOperadore.setPrivilegio(this);
-
-		return pessoaOperadore;
+	public List<PessoaOperadores> getPessoaOperadoresList() {
+		return pessoaOperadoresList;
 	}
 
-	public PessoaOperadores removePessoaOperadore(PessoaOperadores pessoaOperadore) {
-		getPessoaOperadores().remove(pessoaOperadore);
-		pessoaOperadore.setPrivilegio(null);
-
-		return pessoaOperadore;
+	public void setPessoaOperadoresList(List<PessoaOperadores> pessoaOperadoresList) {
+		this.pessoaOperadoresList = pessoaOperadoresList;
 	}
 
 }

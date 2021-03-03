@@ -1,8 +1,10 @@
 package com.folha.boot.domain;
 
 import javax.persistence.*;
-import java.util.Date;
 
+import com.folha.boot.service.util.UtilidadesDeTexto;
+
+import java.util.List;
 
 /**
  * The persistent class for the funcionarios_capacitacoes database table.
@@ -10,187 +12,41 @@ import java.util.Date;
  */
 @SuppressWarnings("serial")
 @Entity
-@Table(name="funcionarios_capacitacoes")
+@Table(name = "funcionarios_capacitacoes")
 
-public class FuncionariosCapacitacoes extends AbstractEntity<Long>  {
-	
-	@Column(name="carga_horaria")
-	private Integer cargaHoraria;
+public class FuncionariosCapacitacoes extends AbstractEntity<Long> {
 
-	private String descricao;
+	@Column(name = "nome_habilitacao_categoria", nullable = false, length = 30)
+	private String nomeHabilitacaoCategoria;
 
-	@Temporal(TemporalType.DATE)
-	@Column(name="dt_cadastro")
-	private Date dtCadastro;
+	@Column(name = "descricao_habilitacao_categoria", length = 300)
+	private String descricaoHabilitacaoCategoria;
 
-	@Temporal(TemporalType.DATE)
-	@Column(name="dt_cancelamento")
-	private Date dtCancelamento;
+	@OneToMany(mappedBy = "idHabilitacaoCategoriasFk")
+	private List<PessoaDocumentosHabilitacao> pessoaDocumentosHabilitacaoList;
 
-	@Temporal(TemporalType.DATE)
-	@Column(name="dt_final")
-	private Date dtFinal;
-
-	@Temporal(TemporalType.DATE)
-	@Column(name="dt_inicial")
-	private Date dtInicial;
-
-	private String instituicao;
-
-	@Column(name="motivo_cancelamento")
-	private String motivoCancelamento;
-
-	private String observacoes;
-
-	@Column(name="pdf_anexo")
-	private byte[] pdfAnexo;
-
-	//bi-directional many-to-one association to AreasDeCapacitacao
-	@ManyToOne
-	@JoinColumn(name="id_area_de_capacitacao_fk", insertable = false, updatable = false)
-	private AreasDeCapacitacao areasDeCapacitacao;
-
-	//bi-directional many-to-one association to PessoaFuncionario
-	@ManyToOne
-	@JoinColumn(name="id_funcionario_fk", insertable = false, updatable = false)
-	private PessoaFuncionarios pessoaFuncionario;
-
-	//bi-directional many-to-one association to PessoaOperadore
-	@ManyToOne
-	@JoinColumn(name="id_operador_cadastro_fk", insertable = false, updatable = false)
-	private PessoaOperadores pessoaOperadore1;
-
-	//bi-directional many-to-one association to PessoaOperadore
-	@ManyToOne
-	@JoinColumn(name="id_operador_cancelamento_fk", insertable = false, updatable = false)
-	private PessoaOperadores pessoaOperadore2;
-
-	//bi-directional many-to-one association to TiposDeCapacitacao
-	@ManyToOne
-	@JoinColumn(name="id_tipos_capacitacao_fk", insertable = false, updatable = false)
-	private TiposDeCapacitacao tiposDeCapacitacao;
-
-	public FuncionariosCapacitacoes() {
+	public String getNomeHabilitacaoCategoria() {
+		return nomeHabilitacaoCategoria;
 	}
 
-	public Integer getCargaHoraria() {
-		return cargaHoraria;
+	public void setNomeHabilitacaoCategoria(String nomeHabilitacaoCategoria) {
+		this.nomeHabilitacaoCategoria = UtilidadesDeTexto.retiraEspacosDuplosAcentosEConverteEmMaiusculo(nomeHabilitacaoCategoria);
 	}
 
-	public void setCargaHoraria(Integer cargaHoraria) {
-		this.cargaHoraria = cargaHoraria;
+	public String getDescricaoHabilitacaoCategoria() {
+		return descricaoHabilitacaoCategoria;
 	}
 
-	public String getDescricao() {
-		return descricao;
+	public void setDescricaoHabilitacaoCategoria(String descricaoHabilitacaoCategoria) {
+		this.descricaoHabilitacaoCategoria = UtilidadesDeTexto.retiraEspacosDuplosAcentosEConverteEmMaiusculo(descricaoHabilitacaoCategoria);
 	}
 
-	public void setDescricao(String descricao) {
-		this.descricao = descricao;
+	public List<PessoaDocumentosHabilitacao> getPessoaDocumentosHabilitacaoList() {
+		return pessoaDocumentosHabilitacaoList;
 	}
 
-	public Date getDtCadastro() {
-		return dtCadastro;
+	public void setPessoaDocumentosHabilitacaoList(List<PessoaDocumentosHabilitacao> pessoaDocumentosHabilitacaoList) {
+		this.pessoaDocumentosHabilitacaoList = pessoaDocumentosHabilitacaoList;
 	}
 
-	public void setDtCadastro(Date dtCadastro) {
-		this.dtCadastro = dtCadastro;
-	}
-
-	public Date getDtCancelamento() {
-		return dtCancelamento;
-	}
-
-	public void setDtCancelamento(Date dtCancelamento) {
-		this.dtCancelamento = dtCancelamento;
-	}
-
-	public Date getDtFinal() {
-		return dtFinal;
-	}
-
-	public void setDtFinal(Date dtFinal) {
-		this.dtFinal = dtFinal;
-	}
-
-	public Date getDtInicial() {
-		return dtInicial;
-	}
-
-	public void setDtInicial(Date dtInicial) {
-		this.dtInicial = dtInicial;
-	}
-
-	public String getInstituicao() {
-		return instituicao;
-	}
-
-	public void setInstituicao(String instituicao) {
-		this.instituicao = instituicao;
-	}
-
-	public String getMotivoCancelamento() {
-		return motivoCancelamento;
-	}
-
-	public void setMotivoCancelamento(String motivoCancelamento) {
-		this.motivoCancelamento = motivoCancelamento;
-	}
-
-	public String getObservacoes() {
-		return observacoes;
-	}
-
-	public void setObservacoes(String observacoes) {
-		this.observacoes = observacoes;
-	}
-
-	public byte[] getPdfAnexo() {
-		return pdfAnexo;
-	}
-
-	public void setPdfAnexo(byte[] pdfAnexo) {
-		this.pdfAnexo = pdfAnexo;
-	}
-
-	public AreasDeCapacitacao getAreasDeCapacitacao() {
-		return areasDeCapacitacao;
-	}
-
-	public void setAreasDeCapacitacao(AreasDeCapacitacao areasDeCapacitacao) {
-		this.areasDeCapacitacao = areasDeCapacitacao;
-	}
-
-	public PessoaFuncionarios getPessoaFuncionario() {
-		return pessoaFuncionario;
-	}
-
-	public void setPessoaFuncionario(PessoaFuncionarios pessoaFuncionarios) {
-		this.pessoaFuncionario = pessoaFuncionarios;
-	}
-
-	public PessoaOperadores getPessoaOperadore1() {
-		return pessoaOperadore1;
-	}
-
-	public void setPessoaOperadore1(PessoaOperadores pessoaOperadores1) {
-		this.pessoaOperadore1 = pessoaOperadores1;
-	}
-
-	public PessoaOperadores getPessoaOperadore2() {
-		return pessoaOperadore2;
-	}
-
-	public void setPessoaOperadore2(PessoaOperadores pessoaOperadores2) {
-		this.pessoaOperadore2 = pessoaOperadores2;
-	}
-
-	public TiposDeCapacitacao getTiposDeCapacitacao() {
-		return tiposDeCapacitacao;
-	}
-
-	public void setTiposDeCapacitacao(TiposDeCapacitacao tiposDeCapacitacao) {
-		this.tiposDeCapacitacao = tiposDeCapacitacao;
-	}
-	
 }

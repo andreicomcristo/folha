@@ -4,88 +4,46 @@ import java.util.List;
 
 import javax.persistence.*;
 
+import com.folha.boot.service.util.UtilidadesDeTexto;
 
 @SuppressWarnings("serial")
 @Entity
 @Table(name = "situacoes")
 public class Situacoes extends AbstractEntity<Long> {
 
-	@Column(name="descricao_situacao")
-	private String descricaoSituacao;
 
-	@Column(name="nome_situacao")
-	private String nomeSituacao;
-
-	//bi-directional many-to-one association to HistFuncionariosSituacoe
-	@OneToMany(mappedBy="situacoe")
-	private List<HistFuncionariosSituacoes> histFuncionariosSituacoes;
-
-	//bi-directional many-to-one association to PessoaFuncionario
-	@OneToMany(mappedBy="situacoe")
-	private List<PessoaFuncionarios> pessoaFuncionarios;
-
-	public Situacoes() {
-	}
-
-	public String getDescricaoSituacao() {
-		return this.descricaoSituacao;
-	}
-
-	public void setDescricaoSituacao(String descricaoSituacao) {
-		this.descricaoSituacao = descricaoSituacao;
-	}
+	@Column(name = "nome_situacao", nullable = false, length = 300)
+    private String nomeSituacao;
+    
+	@Column(name = "descricao_situacao", length = 300)
+    private String descricaoSituacao;
+    
+	@OneToMany(cascade = CascadeType.ALL, mappedBy = "idSituacaoFk")
+    private List<HistFuncionariosSituacoes> histFuncionariosSituacoesCollection;
 
 	public String getNomeSituacao() {
-		return this.nomeSituacao;
+		return nomeSituacao;
 	}
 
 	public void setNomeSituacao(String nomeSituacao) {
-		this.nomeSituacao = nomeSituacao;
+		this.nomeSituacao = UtilidadesDeTexto.retiraEspacosDuplosAcentosEConverteEmMaiusculo(nomeSituacao);
 	}
 
-	public List<HistFuncionariosSituacoes> getHistFuncionariosSituacoes() {
-		return this.histFuncionariosSituacoes;
+	public String getDescricaoSituacao() {
+		return descricaoSituacao;
 	}
 
-	public void setHistFuncionariosSituacoes(List<HistFuncionariosSituacoes> histFuncionariosSituacoes) {
-		this.histFuncionariosSituacoes = histFuncionariosSituacoes;
+	public void setDescricaoSituacao(String descricaoSituacao) {
+		this.descricaoSituacao = UtilidadesDeTexto.retiraEspacosDuplosAcentosEConverteEmMaiusculo(descricaoSituacao);
 	}
 
-	public HistFuncionariosSituacoes addHistFuncionariosSituacoe(HistFuncionariosSituacoes histFuncionariosSituacoe) {
-		getHistFuncionariosSituacoes().add(histFuncionariosSituacoe);
-		histFuncionariosSituacoe.setSituacoe(this);
-
-		return histFuncionariosSituacoe;
+	public List<HistFuncionariosSituacoes> getHistFuncionariosSituacoesCollection() {
+		return histFuncionariosSituacoesCollection;
 	}
 
-	public HistFuncionariosSituacoes removeHistFuncionariosSituacoe(HistFuncionariosSituacoes histFuncionariosSituacoe) {
-		getHistFuncionariosSituacoes().remove(histFuncionariosSituacoe);
-		histFuncionariosSituacoe.setSituacoe(null);
-
-		return histFuncionariosSituacoe;
+	public void setHistFuncionariosSituacoesCollection(
+			List<HistFuncionariosSituacoes> histFuncionariosSituacoesCollection) {
+		this.histFuncionariosSituacoesCollection = histFuncionariosSituacoesCollection;
 	}
-
-	public List<PessoaFuncionarios> getPessoaFuncionarios() {
-		return this.pessoaFuncionarios;
-	}
-
-	public void setPessoaFuncionarios(List<PessoaFuncionarios> pessoaFuncionarios) {
-		this.pessoaFuncionarios = pessoaFuncionarios;
-	}
-
-	public PessoaFuncionarios addPessoaFuncionario(PessoaFuncionarios pessoaFuncionario) {
-		getPessoaFuncionarios().add(pessoaFuncionario);
-		pessoaFuncionario.setSituacoe(this);
-
-		return pessoaFuncionario;
-	}
-
-	public PessoaFuncionarios removePessoaFuncionario(PessoaFuncionarios pessoaFuncionario) {
-		getPessoaFuncionarios().remove(pessoaFuncionario);
-		pessoaFuncionario.setSituacoe(null);
-
-		return pessoaFuncionario;
-	}
-
 
 }

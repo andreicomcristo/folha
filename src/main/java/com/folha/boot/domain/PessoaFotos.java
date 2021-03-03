@@ -6,30 +6,30 @@ import javax.persistence.*;
 @Entity
 @Table(name = "pessoa_fotos")
 public class PessoaFotos extends AbstractEntity<Long> {
+
+	@Lob
+	@Column(name = "fotografia")
 	private byte[] fotografia;
 
-	//bi-directional many-to-one association to Pessoa
-	@ManyToOne
-	@JoinColumn(name="id_pessoa_fk", insertable = false, updatable = false)
-	private Pessoa pessoa;
-
-	public PessoaFotos() {
-	}
+	@JoinColumn(name = "id_pessoa_fk", referencedColumnName = "id", nullable = false)
+	@ManyToOne(optional = false)
+	private Pessoa idPessoaFk;
 
 	public byte[] getFotografia() {
-		return this.fotografia;
+		return fotografia;
 	}
 
 	public void setFotografia(byte[] fotografia) {
 		this.fotografia = fotografia;
 	}
 
-	public Pessoa getPessoa() {
-		return this.pessoa;
+	public Pessoa getIdPessoaFk() {
+		return idPessoaFk;
 	}
 
-	public void setPessoa(Pessoa pessoa) {
-		this.pessoa = pessoa;
+	public void setIdPessoaFk(Pessoa idPessoaFk) {
+		this.idPessoaFk = idPessoaFk;
 	}
+
 
 }
