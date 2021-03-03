@@ -43,7 +43,7 @@ public class HistFuncionariosAutorizacao extends AbstractEntity<Long> {
 	//bi-directional many-to-one association to PessoaOperadore
 	@ManyToOne
 	@JoinColumn(name="id_operador_cadastro_fk" , insertable = false, updatable = false)
-	private PessoaOperadores pessoaOperadores1;
+	private PessoaOperadores pessoaOperadore1;
 
 
 	//bi-directional many-to-one association to PessoaOperadore
@@ -54,15 +54,15 @@ public class HistFuncionariosAutorizacao extends AbstractEntity<Long> {
 	//bi-directional many-to-one association to PessoaOperadore
 	@ManyToOne
 	@JoinColumn(name="id_operador_cadastro_fk", insertable = false, updatable = false)
-	private PessoaOperadores pessoaOperadores3;
+	private PessoaOperadores pessoaOperadore3;
 
 
 	//bi-directional many-to-one association to PessoaOperadore
 	@ManyToOne
 	@JoinColumn(name="id_operador_cancelamento_fk", insertable = false, updatable = false)
-	private PessoaOperadores pessoaOperadores4;
+	private PessoaOperadores pessoaOperadore4;
 
-	
+
 	public HistFuncionariosAutorizacao() {
 	}
 
@@ -123,11 +123,11 @@ public class HistFuncionariosAutorizacao extends AbstractEntity<Long> {
 	}
 
 	public PessoaOperadores getPessoaOperadore1() {
-		return pessoaOperadores1;
+		return pessoaOperadore1;
 	}
 
 	public void setPessoaOperadore1(PessoaOperadores pessoaOperadore1) {
-		this.pessoaOperadores1 = pessoaOperadore1;
+		this.pessoaOperadore1 = pessoaOperadore1;
 	}
 
 	public PessoaOperadores getPessoaOperadore2() {
@@ -139,19 +139,19 @@ public class HistFuncionariosAutorizacao extends AbstractEntity<Long> {
 	}
 
 	public PessoaOperadores getPessoaOperadore3() {
-		return pessoaOperadores3;
+		return pessoaOperadore3;
 	}
 
 	public void setPessoaOperadore3(PessoaOperadores pessoaOperadore3) {
-		this.pessoaOperadores3 = pessoaOperadore3;
+		this.pessoaOperadore3 = pessoaOperadore3;
 	}
 
 	public PessoaOperadores getPessoaOperadore4() {
-		return pessoaOperadores4;
+		return pessoaOperadore4;
 	}
 
 	public void setPessoaOperadore4(PessoaOperadores pessoaOperadore4) {
-		this.pessoaOperadores4 = pessoaOperadore4;
+		this.pessoaOperadore4 = pessoaOperadore4;
 	}
 	
 }
