@@ -27,6 +27,40 @@ public class Cargos extends AbstractEntity<Long> {
 	@ManyToOne(optional = false)
 	private NiveisCargo idNivelCargoFk;
 
+	@OneToMany(mappedBy = "idCargoAtualFk")
+    private List<FuncionariosLicencas> funcionariosLicencasList;
+    
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "idCargoFk")
+    private List<HistFuncionariosCargos> histFuncionariosCargosList;
+    
+    @OneToMany(mappedBy = "idCargoAtualFk")
+    private List<PessoaFuncionarios> pessoaFuncionariosList;
+    
+    
+	public List<FuncionariosLicencas> getFuncionariosLicencasList() {
+		return funcionariosLicencasList;
+	}
+
+	public void setFuncionariosLicencasList(List<FuncionariosLicencas> funcionariosLicencasList) {
+		this.funcionariosLicencasList = funcionariosLicencasList;
+	}
+
+	public List<HistFuncionariosCargos> getHistFuncionariosCargosList() {
+		return histFuncionariosCargosList;
+	}
+
+	public void setHistFuncionariosCargosList(List<HistFuncionariosCargos> histFuncionariosCargosList) {
+		this.histFuncionariosCargosList = histFuncionariosCargosList;
+	}
+
+	public List<PessoaFuncionarios> getPessoaFuncionariosList() {
+		return pessoaFuncionariosList;
+	}
+
+	public void setPessoaFuncionariosList(List<PessoaFuncionarios> pessoaFuncionariosList) {
+		this.pessoaFuncionariosList = pessoaFuncionariosList;
+	}
+
 	public String getNomeCargo() {
 		return nomeCargo;
 	}

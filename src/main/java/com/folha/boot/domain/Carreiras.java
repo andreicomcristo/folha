@@ -21,7 +21,18 @@ public class Carreiras extends AbstractEntity<Long> {
 	private String descricaoCarreira;
 
 	@OneToMany(cascade = CascadeType.ALL, mappedBy = "idCarreiraFk")
-	private List<HistFuncionariosCarreira> histFuncionariosCarreiraCollection;
+	private List<HistFuncionariosCarreira> histFuncionariosCarreiraList;
+	
+	@OneToMany(mappedBy = "idCarreiraAtualFk")
+	private List<PessoaFuncionarios> pessoaFuncionariosList;
+
+	public List<PessoaFuncionarios> getPessoaFuncionariosList() {
+		return pessoaFuncionariosList;
+	}
+
+	public void setPessoaFuncionariosList(List<PessoaFuncionarios> pessoaFuncionariosList) {
+		this.pessoaFuncionariosList = pessoaFuncionariosList;
+	}
 
 	public String getSiglaCarreira() {
 		return siglaCarreira;
@@ -47,13 +58,12 @@ public class Carreiras extends AbstractEntity<Long> {
 		this.descricaoCarreira = UtilidadesDeTexto.retiraEspacosDuplosAcentosEConverteEmMaiusculo(descricaoCarreira);
 	}
 
-	public List<HistFuncionariosCarreira> getHistFuncionariosCarreiraCollection() {
-		return histFuncionariosCarreiraCollection;
+	public List<HistFuncionariosCarreira> getHistFuncionariosCarreiraList() {
+		return histFuncionariosCarreiraList;
 	}
 
-	public void setHistFuncionariosCarreiraCollection(
-			List<HistFuncionariosCarreira> histFuncionariosCarreiraCollection) {
-		this.histFuncionariosCarreiraCollection = histFuncionariosCarreiraCollection;
+	public void setHistFuncionariosCarreiraList(List<HistFuncionariosCarreira> histFuncionariosCarreiraList) {
+		this.histFuncionariosCarreiraList = histFuncionariosCarreiraList;
 	}
 
 }

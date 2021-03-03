@@ -11,15 +11,37 @@ import com.folha.boot.service.util.UtilidadesDeTexto;
 @Table(name = "situacoes")
 public class Situacoes extends AbstractEntity<Long> {
 
-
 	@Column(name = "nome_situacao", nullable = false, length = 300)
-    private String nomeSituacao;
-    
+	private String nomeSituacao;
+
 	@Column(name = "descricao_situacao", length = 300)
-    private String descricaoSituacao;
-    
+	private String descricaoSituacao;
+
 	@OneToMany(cascade = CascadeType.ALL, mappedBy = "idSituacaoFk")
-    private List<HistFuncionariosSituacoes> histFuncionariosSituacoesCollection;
+	private List<HistFuncionariosSituacoes> histFuncionariosSituacoesCollection;
+
+	@OneToMany(cascade = CascadeType.ALL, mappedBy = "idSituacaoFk")
+	private List<HistFuncionariosSituacoes> histFuncionariosSituacoesList;
+
+	@OneToMany(mappedBy = "idSituacaoAtualFk")
+	private List<PessoaFuncionarios> pessoaFuncionariosList;
+
+	
+	public List<HistFuncionariosSituacoes> getHistFuncionariosSituacoesList() {
+		return histFuncionariosSituacoesList;
+	}
+
+	public void setHistFuncionariosSituacoesList(List<HistFuncionariosSituacoes> histFuncionariosSituacoesList) {
+		this.histFuncionariosSituacoesList = histFuncionariosSituacoesList;
+	}
+
+	public List<PessoaFuncionarios> getPessoaFuncionariosList() {
+		return pessoaFuncionariosList;
+	}
+
+	public void setPessoaFuncionariosList(List<PessoaFuncionarios> pessoaFuncionariosList) {
+		this.pessoaFuncionariosList = pessoaFuncionariosList;
+	}
 
 	public String getNomeSituacao() {
 		return nomeSituacao;

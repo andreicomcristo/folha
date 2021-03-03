@@ -21,12 +21,36 @@ public class CargosEspecialidade extends AbstractEntity<Long> {
 	@ManyToOne
 	private Cargos idCargoFk;
 
+	@OneToMany(mappedBy = "idCargoEspecialidadeAtualFk")
+	private List<FuncionariosLicencas> funcionariosLicencasList;
+	
+	@OneToMany(mappedBy = "idEspecialidadeAtualFk")
+	private List<PessoaFuncionarios> pessoaFuncionariosList;
+
+	
+	public List<FuncionariosLicencas> getFuncionariosLicencasList() {
+		return funcionariosLicencasList;
+	}
+
+	public void setFuncionariosLicencasList(List<FuncionariosLicencas> funcionariosLicencasList) {
+		this.funcionariosLicencasList = funcionariosLicencasList;
+	}
+
+	public List<PessoaFuncionarios> getPessoaFuncionariosList() {
+		return pessoaFuncionariosList;
+	}
+
+	public void setPessoaFuncionariosList(List<PessoaFuncionarios> pessoaFuncionariosList) {
+		this.pessoaFuncionariosList = pessoaFuncionariosList;
+	}
+
 	public String getNomeEspecialidadeCargo() {
 		return nomeEspecialidadeCargo;
 	}
 
 	public void setNomeEspecialidadeCargo(String nomeEspecialidadeCargo) {
-		this.nomeEspecialidadeCargo = UtilidadesDeTexto.retiraEspacosDuplosAcentosEConverteEmMaiusculo(nomeEspecialidadeCargo);
+		this.nomeEspecialidadeCargo = UtilidadesDeTexto
+				.retiraEspacosDuplosAcentosEConverteEmMaiusculo(nomeEspecialidadeCargo);
 	}
 
 	public String getDescricaoEspecialidadeCargo() {
@@ -34,7 +58,8 @@ public class CargosEspecialidade extends AbstractEntity<Long> {
 	}
 
 	public void setDescricaoEspecialidadeCargo(String descricaoEspecialidadeCargo) {
-		this.descricaoEspecialidadeCargo = UtilidadesDeTexto.retiraEspacosDuplosAcentosEConverteEmMaiusculo(descricaoEspecialidadeCargo);
+		this.descricaoEspecialidadeCargo = UtilidadesDeTexto
+				.retiraEspacosDuplosAcentosEConverteEmMaiusculo(descricaoEspecialidadeCargo);
 	}
 
 	public Cargos getIdCargoFk() {
@@ -45,5 +70,4 @@ public class CargosEspecialidade extends AbstractEntity<Long> {
 		this.idCargoFk = idCargoFk;
 	}
 
-	
 }
