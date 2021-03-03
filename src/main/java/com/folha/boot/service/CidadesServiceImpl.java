@@ -117,13 +117,7 @@ public class CidadesServiceImpl implements CidadesService{
 
 	@Override
 	public Page<Cidades> findPaginatedEstado(int pageNo, int pageSize, Uf uf) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-	
-	/*@Override
-	public Page<Cidades> findPaginatedEstado(int pageNo, int pageSize, Uf uf) {
 		Pageable pageable = PageRequest.of(pageNo -1, pageSize);
 		return this.reposytory.findByIdUfFkOrderByNomeCidadeAsc(uf, pageable);
-	}*/
+	}
 }
