@@ -1,6 +1,12 @@
 package com.folha.boot.web.controller;
 
+import java.io.ByteArrayInputStream;
+import java.io.IOException;
 import java.util.List;
+
+import javax.servlet.http.HttpServletResponse;
+
+import org.apache.commons.compress.utils.IOUtils;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -137,6 +143,17 @@ public class CidadesController {
 		model.addAttribute("cidades", listaCidades);
 		return "/cidade/lista";	
 	}
+	
+	@GetMapping("/exporta/excel")
+    public void downloadCsv(HttpServletResponse response, ModelMap model) throws IOException {
+        
+		System.out.println("teste");
+		response.setContentType("application/octet-stream");
+        response.setHeader("Content-Disposition", "attachment; filename=dados.xlsx");
+        ByteArrayInputStream stream = service.exportarExcel(service.buscarTodos());
+        IOUtils.copy(stream, response.getOutputStream());
+    }
+	
 	
 	@ModelAttribute("idPaisFk")
 	public List<Paises> getPaises() {

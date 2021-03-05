@@ -1,6 +1,22 @@
 package com.folha.boot.service;
 
+import java.io.ByteArrayInputStream;
 import java.util.List;
+
+import java.io.ByteArrayInputStream;
+import java.io.ByteArrayOutputStream;
+import java.io.IOException;
+import java.util.List;
+
+import org.apache.poi.ss.usermodel.Cell;
+import org.apache.poi.ss.usermodel.CellStyle;
+import org.apache.poi.ss.usermodel.FillPatternType;
+import org.apache.poi.ss.usermodel.IndexedColors;
+import org.apache.poi.ss.usermodel.Row;
+import org.apache.poi.ss.usermodel.Sheet;
+import org.apache.poi.ss.usermodel.Workbook;
+import org.apache.poi.xssf.usermodel.XSSFWorkbook;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -120,4 +136,70 @@ public class CidadesServiceImpl implements CidadesService{
 		Pageable pageable = PageRequest.of(pageNo -1, pageSize);
 		return this.reposytory.findByIdUfFkOrderByNomeCidadeAsc(uf, pageable);
 	}
+	
+	@Override
+	public ByteArrayInputStream exportarExcel(List<Cidades> listaCidades) {
+		try(Workbook workbook = new XSSFWorkbook()){
+			Sheet sheet = workbook.createSheet("Cidades");
+			
+			Row row = sheet.createRow(0);
+	        CellStyle headerCellStyle = workbook.createCellStyle();
+	        headerCellStyle.setFillForegroundColor(IndexedColors.GREY_25_PERCENT.getIndex());
+	        headerCellStyle.setFillPattern(FillPatternType.SOLID_FOREGROUND);
+	        // Creating header
+	        
+	        Cell cell = row.createCell(0);
+	        cell.setCellValue("Ordem");
+	        cell.setCellStyle(headerCellStyle);
+	        
+	        cell = row.createCell(1);
+	        cell.setCellValue("Id");
+	        cell.setCellStyle(headerCellStyle);
+	        
+	        cell = row.createCell(2);
+	        cell.setCellValue("Cidade");
+	        cell.setCellStyle(headerCellStyle);
+	
+	        cell = row.createCell(3);
+	        cell.setCellValue("Estado/Província");
+	        cell.setCellStyle(headerCellStyle);
+	
+	        cell = row.createCell(4);
+	        cell.setCellValue("UF");
+	        cell.setCellStyle(headerCellStyle);
+	        
+	        cell = row.createCell(5);
+	        cell.setCellValue("Pais");
+	        cell.setCellStyle(headerCellStyle);
+	        
+	        // Creating data rows for each customer
+	        for(int i = 0; i < listaCidades.size(); i++) {
+	        	Row dataRow = sheet.createRow(i + 1);
+	        	dataRow.createCell(0).setCellValue((i+1));
+	        	dataRow.createCell(1).setCellValue(listaCidades.get(i).getId());
+	        	dataRow.createCell(2).setCellValue(listaCidades.get(i).getNomeCidade());
+	        	dataRow.createCell(3).setCellValue(listaCidades.get(i).getIdUfFk().getNomeUf());
+	        	dataRow.createCell(4).setCellValue(listaCidades.get(i).getIdUfFk().getSiglaUf());
+	        	dataRow.createCell(5).setCellValue(listaCidades.get(i).getIdPaisFk().getNomePais());
+	        }
+	
+	        // Making size of column auto resize to fit with data
+	        sheet.autoSizeColumn(0);
+	        sheet.autoSizeColumn(1);
+	        sheet.autoSizeColumn(2);
+	        sheet.autoSizeColumn(3);
+	        sheet.autoSizeColumn(4);
+	        sheet.autoSizeColumn(5);
+	        
+	        ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
+	        workbook.write(outputStream);
+	        return new ByteArrayInputStream(outputStream.toByteArray());
+		} catch (IOException ex) {
+			ex.printStackTrace();
+			return null;
+		}
+	}
+
+	
+	
 }

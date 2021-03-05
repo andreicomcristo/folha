@@ -1,5 +1,6 @@
 package com.folha.boot.service;
 
+import java.io.ByteArrayInputStream;
 import java.util.List;
 
 import org.springframework.data.domain.Page;
@@ -35,4 +36,5 @@ public interface CidadesService {
 	
 	Page<Cidades> findPaginatedEstado(int pageNo, int pageSize, Uf uf);
 		
+	ByteArrayInputStream exportarExcel(List<Cidades> listaCidades);
 }
