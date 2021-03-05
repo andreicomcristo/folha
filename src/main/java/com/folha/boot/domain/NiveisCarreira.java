@@ -1,5 +1,7 @@
 package com.folha.boot.domain;
 
+import java.util.List;
+
 import javax.persistence.*;
 
 import com.folha.boot.service.util.UtilidadesDeTexto;
@@ -14,12 +16,31 @@ public class NiveisCarreira extends AbstractEntity<Long> {
 
 	@Column(name = "descricao_nivel_carreira", length = 300)
 	private String descricaoNivelCarreira;
-
-	/*
-	@OneToMany(cascade = CascadeType.ALL, mappedBy = "idNivelCareiraFk")
-	private List<PessoaFuncionarios> pessoaFuncionariosCollection;
-	*/
 	
+	@OneToMany(mappedBy = "idNivelCarreiraFk")
+	private List<HistFuncionariosNiveisCarreira> histFuncionariosNiveisCarreiraList;
+	
+	@OneToMany(mappedBy = "idNivelCarreiraAtualFk")
+	private List<PessoaFuncionarios> pessoaFuncionariosList;
+
+	
+	public List<HistFuncionariosNiveisCarreira> getHistFuncionariosNiveisCarreiraList() {
+		return histFuncionariosNiveisCarreiraList;
+	}
+
+	public void setHistFuncionariosNiveisCarreiraList(
+			List<HistFuncionariosNiveisCarreira> histFuncionariosNiveisCarreiraList) {
+		this.histFuncionariosNiveisCarreiraList = histFuncionariosNiveisCarreiraList;
+	}
+
+	public List<PessoaFuncionarios> getPessoaFuncionariosList() {
+		return pessoaFuncionariosList;
+	}
+
+	public void setPessoaFuncionariosList(List<PessoaFuncionarios> pessoaFuncionariosList) {
+		this.pessoaFuncionariosList = pessoaFuncionariosList;
+	}
+
 	public String getNomeNivelCarreira() {
 		return nomeNivelCarreira;
 	}
@@ -33,17 +54,8 @@ public class NiveisCarreira extends AbstractEntity<Long> {
 	}
 
 	public void setDescricaoNivelCarreira(String descricaoNivelCarreira) {
-		this.descricaoNivelCarreira = UtilidadesDeTexto.retiraEspacosDuplosAcentosEConverteEmMaiusculo(descricaoNivelCarreira);
+		this.descricaoNivelCarreira = UtilidadesDeTexto
+				.retiraEspacosDuplosAcentosEConverteEmMaiusculo(descricaoNivelCarreira);
 	}
-
-	/*
-	public List<PessoaFuncionarios> getPessoaFuncionariosCollection() {
-		return pessoaFuncionariosCollection;
-	}
-
-	public void setPessoaFuncionariosCollection(List<PessoaFuncionarios> pessoaFuncionariosCollection) {
-		this.pessoaFuncionariosCollection = pessoaFuncionariosCollection;
-	}
-*/
 
 }

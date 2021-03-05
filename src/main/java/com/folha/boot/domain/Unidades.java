@@ -14,82 +14,140 @@ import com.folha.boot.service.util.UtilidadesDeTexto;
 public class Unidades extends AbstractEntity<Long> {
 
 	@Column(name = "nome_fantasia", nullable = false, length = 300)
-    private String nomeFantasia;
-    
+	private String nomeFantasia;
+
 	@Column(name = "nome_empresarial", length = 300)
-    private String nomeEmpresarial;
-    
+	private String nomeEmpresarial;
+
 	@Column(name = "cnes", length = 50)
-    private String cnes;
-    
+	private String cnes;
+
 	@Column(name = "id_natureza_juridica_fk")
-    private BigInteger idNaturezaJuridicaFk;
-    
+	private BigInteger idNaturezaJuridicaFk;
+
 	@Column(name = "id_endereco_unidade_fk")
-    private BigInteger idEnderecoUnidadeFk;
-    
+	private BigInteger idEnderecoUnidadeFk;
+
 	@Column(name = "fone1", length = 40)
-    private String fone1;
-    
+	private String fone1;
+
 	@Column(name = "endereco_logradouro", length = 300)
-    private String enderecoLogradouro;
-    
+	private String enderecoLogradouro;
+
 	@Column(name = "endereco_numero", length = 150)
-    private String enderecoNumero;
-    
+	private String enderecoNumero;
+
 	@Column(name = "endereco_complemento", length = 300)
-    private String enderecoComplemento;
-    
+	private String enderecoComplemento;
+
 	@Column(name = "endereco_bairro", length = 300)
-    private String enderecoBairro;
-    
+	private String enderecoBairro;
+
 	@Column(name = "endereco_cep", length = 50)
-    private String enderecoCep;
-    
+	private String enderecoCep;
+
 	@Column(name = "dt_cadastro")
-    @Temporal(TemporalType.DATE)
+	@Temporal(TemporalType.DATE)
 	private Date dtCadastro;
-    
+
 	@Column(name = "motivo_cadastro", length = 300)
-    private String motivoCadastro;
-    
+	private String motivoCadastro;
+
 	@Column(name = "dt_cancelamento")
-    @Temporal(TemporalType.DATE)
-    private Date dtCancelamento;
-    
+	@Temporal(TemporalType.DATE)
+	private Date dtCancelamento;
+
 	@Column(name = "motivo_cancelamento", length = 300)
-    private String motivoCancelamento;
-    
+	private String motivoCancelamento;
+
 	@JoinColumn(name = "id_endereco_cidade_fk", referencedColumnName = "id")
-    @ManyToOne
-    private Cidades idEnderecoCidadeFk;
-    
+	@ManyToOne
+	private Cidades idEnderecoCidadeFk;
+
 	@JoinColumn(name = "id_operador_cadastro_fk", referencedColumnName = "id")
-    @ManyToOne
-    private PessoaOperadores idOperadorCadastroFk;
-    
+	@ManyToOne
+	private PessoaOperadores idOperadorCadastroFk;
+
 	@JoinColumn(name = "id_operador_cancelamento_fk", referencedColumnName = "id")
-    @ManyToOne
-    private PessoaOperadores idOperadorCancelamentoFk;
-    
+	@ManyToOne
+	private PessoaOperadores idOperadorCancelamentoFk;
+
 	@JoinColumn(name = "id_tipo_logradouro_fk", referencedColumnName = "id")
-    @ManyToOne
-    private TiposLogradouro idTipoLogradouroFk;
-    
+	@ManyToOne
+	private TiposLogradouro idTipoLogradouroFk;
+
 	@OneToMany(cascade = CascadeType.ALL, mappedBy = "idUnidadeDeSaudeFk")
-    private List<HistUnidadesRegime> histUnidadesRegimeList;
-    
+	private List<HistUnidadesRegime> histUnidadesRegimeList;
+
 	@OneToMany(mappedBy = "idUnidadeDeSaudeFk")
-    private List<Autorizacoes> autorizacoesList;
-    
-	/*@OneToMany(cascade = CascadeType.ALL, mappedBy = "unidades")
-    private List<HistUnidadesDiretor> histUnidadesDiretorList;*/
-    
+	private List<Autorizacoes> autorizacoesList;
+
 	@OneToMany(cascade = CascadeType.ALL, mappedBy = "idUnidadeFk")
-    private List<HistFuncionariosUnidadeLotacao> histFuncionariosUnidadeLotacaoList;
-    
+	private List<HistFuncionariosUnidadeLotacao> histFuncionariosUnidadeLotacaoList;
+
 	@OneToMany(cascade = CascadeType.ALL, mappedBy = "idUnidadeFk")
-    private List<HistFuncionariosUnidadeAtuacao> histFuncionariosUnidadeAtuacaoList;
+	private List<HistFuncionariosUnidadeAtuacao> histFuncionariosUnidadeAtuacaoList;
+
+	@OneToMany(mappedBy = "idUnidadeAtuacaoAtualFk")
+	private List<FuncionariosLicencas> funcionariosLicencasList;
+
+	@OneToMany(mappedBy = "idUnidadeLotacaoAtualFk")
+	private List<FuncionariosLicencas> funcionariosLicencasList1;
+
+	@OneToMany(cascade = CascadeType.ALL, mappedBy = "idUnidadeFk")
+	private List<AcessoOperadoresUnidades> acessoOperadoresUnidadesList;
+
+	@OneToMany(mappedBy = "idUnidadeLancamentoFk")
+	private List<FuncionariosFerias> funcionariosFeriasList;
+
+	/*
+	 * @OneToMany(cascade = CascadeType.ALL, mappedBy = "unidades") private
+	 * List<HistUnidadesDiretor> histUnidadesDiretorList;
+	 */
+
+	@OneToMany(mappedBy = "idUnidadeAtuacaoAtualFk")
+	private List<PessoaFuncionarios> pessoaFuncionariosList;
+
+	
+	public List<FuncionariosLicencas> getFuncionariosLicencasList() {
+		return funcionariosLicencasList;
+	}
+
+	public void setFuncionariosLicencasList(List<FuncionariosLicencas> funcionariosLicencasList) {
+		this.funcionariosLicencasList = funcionariosLicencasList;
+	}
+
+	public List<FuncionariosLicencas> getFuncionariosLicencasList1() {
+		return funcionariosLicencasList1;
+	}
+
+	public void setFuncionariosLicencasList1(List<FuncionariosLicencas> funcionariosLicencasList1) {
+		this.funcionariosLicencasList1 = funcionariosLicencasList1;
+	}
+
+	public List<AcessoOperadoresUnidades> getAcessoOperadoresUnidadesList() {
+		return acessoOperadoresUnidadesList;
+	}
+
+	public void setAcessoOperadoresUnidadesList(List<AcessoOperadoresUnidades> acessoOperadoresUnidadesList) {
+		this.acessoOperadoresUnidadesList = acessoOperadoresUnidadesList;
+	}
+
+	public List<FuncionariosFerias> getFuncionariosFeriasList() {
+		return funcionariosFeriasList;
+	}
+
+	public void setFuncionariosFeriasList(List<FuncionariosFerias> funcionariosFeriasList) {
+		this.funcionariosFeriasList = funcionariosFeriasList;
+	}
+
+	public List<PessoaFuncionarios> getPessoaFuncionariosList() {
+		return pessoaFuncionariosList;
+	}
+
+	public void setPessoaFuncionariosList(List<PessoaFuncionarios> pessoaFuncionariosList) {
+		this.pessoaFuncionariosList = pessoaFuncionariosList;
+	}
 
 	public String getNomeFantasia() {
 		return nomeFantasia;
@@ -160,7 +218,8 @@ public class Unidades extends AbstractEntity<Long> {
 	}
 
 	public void setEnderecoComplemento(String enderecoComplemento) {
-		this.enderecoComplemento = UtilidadesDeTexto.retiraEspacosDuplosAcentosEConverteEmMaiusculo(enderecoComplemento);
+		this.enderecoComplemento = UtilidadesDeTexto
+				.retiraEspacosDuplosAcentosEConverteEmMaiusculo(enderecoComplemento);
 	}
 
 	public String getEnderecoBairro() {
@@ -259,14 +318,6 @@ public class Unidades extends AbstractEntity<Long> {
 		this.autorizacoesList = autorizacoesList;
 	}
 
-	/*public List<HistUnidadesDiretor> getHistUnidadesDiretorList() {
-		return histUnidadesDiretorList;
-	}*/
-
-	/*public void setHistUnidadesDiretorList(List<HistUnidadesDiretor> histUnidadesDiretorList) {
-		this.histUnidadesDiretorList = histUnidadesDiretorList;
-	}*/
-
 	public List<HistFuncionariosUnidadeLotacao> getHistFuncionariosUnidadeLotacaoList() {
 		return histFuncionariosUnidadeLotacaoList;
 	}
@@ -284,5 +335,5 @@ public class Unidades extends AbstractEntity<Long> {
 			List<HistFuncionariosUnidadeAtuacao> histFuncionariosUnidadeAtuacaoList) {
 		this.histFuncionariosUnidadeAtuacaoList = histFuncionariosUnidadeAtuacaoList;
 	}
-	
+
 }

@@ -23,6 +23,8 @@ public class ClassesCarreira extends AbstractEntity<Long> {
 	@OneToMany(cascade = CascadeType.ALL, mappedBy = "idClasseFk")
 	private List<HistFuncionariosClasse> histFuncionariosClasseList;
 
+	@OneToMany(mappedBy = "idClasseCarreiraAtualFk")
+    private List<PessoaFuncionarios> pessoaFuncionariosList;
 	public String getSiglaClasse() {
 		return siglaClasse;
 	}
