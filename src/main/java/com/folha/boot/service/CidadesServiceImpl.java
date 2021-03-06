@@ -1,6 +1,7 @@
 package com.folha.boot.service;
 
 import java.io.ByteArrayInputStream;
+import java.util.Date;
 import java.util.List;
 
 import java.io.ByteArrayInputStream;
@@ -26,6 +27,18 @@ import org.springframework.transaction.annotation.Transactional;
 import com.folha.boot.Reposytory.CidadesReposytory;
 import com.folha.boot.domain.Cidades;
 import com.folha.boot.domain.Uf;
+
+import com.itextpdf.text.Document;
+import com.itextpdf.text.DocumentException;
+import com.itextpdf.text.Element;
+import com.itextpdf.text.Font;
+import com.itextpdf.text.FontFactory;
+import com.itextpdf.text.Phrase;
+import com.itextpdf.text.pdf.PdfPCell;
+import com.itextpdf.text.pdf.PdfPTable;
+import com.itextpdf.text.pdf.PdfWriter;
+
+
 
 @Service
 @Transactional(readOnly = false)
@@ -198,6 +211,135 @@ public class CidadesServiceImpl implements CidadesService{
 			ex.printStackTrace();
 			return null;
 		}
+	}
+
+	@Override
+	public ByteArrayInputStream exportarPdf(List<Cidades> listaCidades) {
+
+		Document document = new Document();
+		ByteArrayOutputStream out = new ByteArrayOutputStream();
+
+		try {
+
+			PdfPTable table = new PdfPTable(6);
+			table.setWidthPercentage(90);
+			table.setWidths(new int[] { 2, 2, 6, 6, 2, 6 });
+
+			// Tipos de Fonte
+			Font tituloFont = FontFactory.getFont(FontFactory.HELVETICA_BOLD,14);
+			Font cabecalhoFont = FontFactory.getFont(FontFactory.HELVETICA_BOLD,8);
+			Font corpoFont = FontFactory.getFont(FontFactory.TIMES_ROMAN, 8);
+			Font nomeSistemaFont = FontFactory.getFont(FontFactory.TIMES_BOLDITALIC, 6);
+			Font rodapeFont = FontFactory.getFont(FontFactory.HELVETICA_BOLD, 4);
+			
+			//Cabeçalho
+			PdfPCell hcell;
+			hcell = new PdfPCell(new Phrase("Ordem", cabecalhoFont));
+			hcell.setHorizontalAlignment(Element.ALIGN_CENTER);
+			table.addCell(hcell);
+
+			hcell = new PdfPCell(new Phrase("Id", cabecalhoFont));
+			hcell.setHorizontalAlignment(Element.ALIGN_CENTER);
+			table.addCell(hcell);
+
+			hcell = new PdfPCell(new Phrase("Cidade", cabecalhoFont));
+			hcell.setHorizontalAlignment(Element.ALIGN_CENTER);
+			table.addCell(hcell);
+			
+			hcell = new PdfPCell(new Phrase("Estado/Provincia", cabecalhoFont));
+			hcell.setHorizontalAlignment(Element.ALIGN_CENTER);
+			table.addCell(hcell);
+			
+			hcell = new PdfPCell(new Phrase("UF", cabecalhoFont));
+			hcell.setHorizontalAlignment(Element.ALIGN_CENTER);
+			table.addCell(hcell);
+			
+			hcell = new PdfPCell(new Phrase("Pais", cabecalhoFont));
+			hcell.setHorizontalAlignment(Element.ALIGN_CENTER);
+			table.addCell(hcell);
+
+			// Corpo
+			for (int i=0; i<listaCidades.size();i++) {
+
+				PdfPCell cell;
+
+				cell = new PdfPCell(new Phrase( String.valueOf(i+1) ,corpoFont));
+				cell.setVerticalAlignment(Element.ALIGN_MIDDLE);
+				cell.setHorizontalAlignment(Element.ALIGN_CENTER);
+				table.addCell(cell);
+
+				cell = new PdfPCell(new Phrase( String.valueOf( listaCidades.get(i).getId()) ,corpoFont) );
+				cell.setPaddingLeft(5);
+				cell.setVerticalAlignment(Element.ALIGN_MIDDLE);
+				cell.setHorizontalAlignment(Element.ALIGN_CENTER);
+				table.addCell(cell);
+
+				cell = new PdfPCell(new Phrase(listaCidades.get(i).getNomeCidade() ,corpoFont) );
+				cell.setVerticalAlignment(Element.ALIGN_MIDDLE);
+				cell.setHorizontalAlignment(Element.ALIGN_CENTER);
+				table.addCell(cell);
+				
+				cell = new PdfPCell(new Phrase(listaCidades.get(i).getIdUfFk().getNomeUf() ,corpoFont) );
+				cell.setVerticalAlignment(Element.ALIGN_MIDDLE);
+				cell.setHorizontalAlignment(Element.ALIGN_CENTER);
+				table.addCell(cell);
+				
+				cell = new PdfPCell(new Phrase(listaCidades.get(i).getIdUfFk().getSiglaUf() ,corpoFont) );
+				cell.setVerticalAlignment(Element.ALIGN_MIDDLE);
+				cell.setHorizontalAlignment(Element.ALIGN_CENTER);
+				table.addCell(cell);
+			
+				cell = new PdfPCell(new Phrase(listaCidades.get(i).getIdPaisFk().getNomePais() ,corpoFont) );
+				cell.setVerticalAlignment(Element.ALIGN_MIDDLE);
+				cell.setHorizontalAlignment(Element.ALIGN_CENTER);
+				table.addCell(cell);
+			
+			
+			}
+			
+			// Titulo
+			
+			PdfPTable tableTitulo = new PdfPTable(1);
+			tableTitulo.setWidthPercentage(90);
+			tableTitulo.setWidths(new int[] { 6 });
+			PdfPCell cellTitulo;
+			cellTitulo = new PdfPCell(new Phrase("Cidades", tituloFont) );
+			cellTitulo.setVerticalAlignment(Element.ALIGN_MIDDLE);
+			cellTitulo.setHorizontalAlignment(Element.ALIGN_CENTER);
+			tableTitulo.addCell(cellTitulo);
+			
+			
+			// Rodape
+			PdfPTable tableRodape = new PdfPTable(1);
+			tableRodape.setWidthPercentage(90);
+			tableRodape.setWidths(new int[] { 6 });
+			PdfPCell cellRodape;
+			
+			cellRodape = new PdfPCell(new Phrase("Sistema Gente-Web", nomeSistemaFont) );
+			cellRodape.setVerticalAlignment(Element.ALIGN_MIDDLE);
+			cellRodape.setHorizontalAlignment(Element.ALIGN_CENTER);
+			tableRodape.addCell(cellRodape);
+			
+			cellRodape = new PdfPCell(new Phrase(""+new Date() ,rodapeFont)  );
+			cellRodape.setVerticalAlignment(Element.ALIGN_MIDDLE);
+			cellRodape.setHorizontalAlignment(Element.ALIGN_CENTER);
+			tableRodape.addCell(cellRodape);
+			
+			
+
+			PdfWriter.getInstance(document, out);
+			document.open();
+			document.add(tableTitulo);
+			document.add(table);
+			document.add(tableRodape);
+
+			document.close();
+
+		} catch (DocumentException ex) {
+
+		}
+
+		return new ByteArrayInputStream(out.toByteArray());
 	}
 
 	

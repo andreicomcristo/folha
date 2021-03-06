@@ -23,11 +23,14 @@
 	            <button class=" oi oi-magnifying-glass btn btn-outline-success my-2 my-sm-0" type="button" data-toggle="collapse" data-target="#collapseEstado"
 	            		aria-controls="collapseEstado">Filtrar Estado
 	            </button>
+	            <button class=" oi oi-cloud-download btn btn-outline-secondary my-2 my-sm-0" type="button" data-toggle="collapse" data-target="#collapseDownload"
+	            		aria-controls="collapseEstado">Download
+	            </button>
 	            
-	            <a class="btn btn-outline-secondary btn-md" href="/cidades/exporta/excel" role="button">
-	        	<span class="oi oi-cloud-download" title="Atualizar" aria-hidden="true"></span>
-	            <span>Exporta Excel</span>
-	       	    </a>
+	            
+	            
+	       	    
+	       	    
 	            
 	            <p></p>
 	      </p>
@@ -56,6 +59,28 @@
 	                            <option th:each="c : ${idUfFk}" th:value="${c.id}" th:text="${c.nomeUf}"> </option>
 	                         </select>
 	                         <button class="btn btn-outline-success my-2 my-sm-0">Buscar</button>
+	                  </form>
+	                </nav>
+	            </div>
+	        </div>
+	    </div>
+	    
+	    <div class="row">
+	      	<div class="col">
+	        	<div class="collapse" id="collapseDownload">
+		            <nav class="navbar navbar-light bg-light">
+	                	<form class="form-inline" method="GET" th:action="@{/cidades/buscar/id/uf}">
+	                   		
+	                        <a class="btn btn-outline-success btn-md" href="/cidades/exporta/excel" role="button">
+				        		<span class="oi oi-cloud-download" title="exportaExcel" aria-hidden="true"></span>
+				            	<span>Exporta Excel</span>
+				       	    </a>
+				       	    
+				       	    <a class="btn btn-outline-danger btn-md" href="/cidades/exporta/pdf" role="button">
+				        		<span class="oi oi-cloud-download" title="exportaPdf" aria-hidden="true"></span>
+				            	<span>Exporta Pdf</span>
+				       	    </a>
+	       	    
 	                  </form>
 	                </nav>
 	            </div>

@@ -37,4 +37,6 @@ public interface CidadesService {
 	Page<Cidades> findPaginatedEstado(int pageNo, int pageSize, Uf uf);
 		
 	ByteArrayInputStream exportarExcel(List<Cidades> listaCidades);
+	
+	ByteArrayInputStream exportarPdf(List<Cidades> listaCidades);
 }

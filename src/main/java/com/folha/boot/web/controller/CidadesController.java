@@ -9,7 +9,11 @@ import javax.servlet.http.HttpServletResponse;
 import org.apache.commons.compress.utils.IOUtils;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.io.InputStreamResource;
 import org.springframework.data.domain.Page;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -145,14 +149,23 @@ public class CidadesController {
 	}
 	
 	@GetMapping("/exporta/excel")
-    public void downloadCsv(HttpServletResponse response, ModelMap model) throws IOException {
-        
-		System.out.println("teste");
-		response.setContentType("application/octet-stream");
+    public void downloadExcel(HttpServletResponse response, ModelMap model) throws IOException {
+        response.setContentType("application/octet-stream");
         response.setHeader("Content-Disposition", "attachment; filename=dados.xlsx");
         ByteArrayInputStream stream = service.exportarExcel(service.buscarTodos());
         IOUtils.copy(stream, response.getOutputStream());
     }
+	
+	@GetMapping(value = "/exporta/pdf", produces = MediaType.APPLICATION_PDF_VALUE)
+	public ResponseEntity<InputStreamResource> employeeReports(HttpServletResponse response) throws IOException {
+		ByteArrayInputStream bis = service.exportarPdf(service.buscarTodos());
+		HttpHeaders headers = new HttpHeaders();
+		headers.add("Content-Disposition", "attachment;filename=dados.pdf");
+		return ResponseEntity.ok().headers(headers).contentType(MediaType.APPLICATION_PDF)
+				.body(new InputStreamResource(bis));
+	}
+	
+	
 	
 	
 	@ModelAttribute("idPaisFk")
