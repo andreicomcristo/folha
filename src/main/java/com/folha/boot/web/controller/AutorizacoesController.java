@@ -15,10 +15,10 @@ import com.folha.boot.service.AutorizacoesService;
 @Controller
 @RequestMapping("/autorizacoes")
 public class AutorizacoesController {
-
+	
 	@Autowired
 	private AutorizacoesService service;
-
+		
 	@GetMapping("/cadastrar")
 	public String cadastrar(Autorizacoes autorizacoes) {
 
@@ -65,4 +65,5 @@ public class AutorizacoesController {
 		model.addAttribute("success", "Excluído com sucesso.");
 		return listar(model);
 	}
+	
 }
