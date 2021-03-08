@@ -18,6 +18,9 @@ public class Pessoa extends AbstractEntity<Long> {
 	@Basic(optional = false)
 	@Column(name = "nome", nullable = false, length = 300)
 	private String nome;
+	
+	@Column(name = "nome_social", length = 300)
+	private String nomeSocial;
 
 	@Column(name = "fone1", length = 30)
 	private String fone1;
@@ -79,37 +82,33 @@ public class Pessoa extends AbstractEntity<Long> {
 	@OneToMany(mappedBy = "idPessoaFk")
 	private List<PessoaDocumentosHabilitacao> pessoaDocumentosHabilitacaoList;
 
-	@JoinColumn(name = "seq_cidade_natal", referencedColumnName = "id")
+	@JoinColumn(name = "id_cidade_natal_fk", referencedColumnName = "id")
 	@ManyToOne
-	private Cidades seqCidadeNatal;
+	private Cidades idCidadeNatalFk;
 
-	@JoinColumn(name = "seq_endereco", referencedColumnName = "id")
+	@JoinColumn(name = "id_escolaridade_fk", referencedColumnName = "id")
 	@ManyToOne
-	private Enderecos seqEndereco;
+	private Escolaridades idEscolaridadeFk;
 
-	@JoinColumn(name = "seq_escolaridade", referencedColumnName = "id")
+	@JoinColumn(name = "id_estado_civil_fk", referencedColumnName = "id")
 	@ManyToOne
-	private Escolaridades seqEscolaridade;
+	private EstadosCivis idEstadoCivilFk;
 
-	@JoinColumn(name = "seq_estado_civil", referencedColumnName = "id")
+	@JoinColumn(name = "id_operador_cadastro_fk", referencedColumnName = "id")
 	@ManyToOne
-	private EstadosCivis seqEstadoCivil;
+	private PessoaOperadores idOperadorCadastroFk;
 
-	@JoinColumn(name = "seq_operador_cadastro", referencedColumnName = "id")
+	@JoinColumn(name = "id_operador_cancelamento_fk", referencedColumnName = "id")
 	@ManyToOne
-	private PessoaOperadores seqOperadorCadastro;
+	private PessoaOperadores idOperadorCancelamentoFk;
 
-	@JoinColumn(name = "seq_operador_cancelamento", referencedColumnName = "id")
+	@JoinColumn(name = "id_sexo_declarado_fk", referencedColumnName = "id")
 	@ManyToOne
-	private PessoaOperadores seqOperadorCancelamento;
+	private Sexos idSexoDeclaradoFk;
 
-	@JoinColumn(name = "seq_sexo_declarado", referencedColumnName = "id")
+	@JoinColumn(name = "id_sexo_fk", referencedColumnName = "id")
 	@ManyToOne
-	private Sexos seqSexoDeclarado;
-
-	@JoinColumn(name = "seq_sexo", referencedColumnName = "id")
-	@ManyToOne
-	private Sexos seqSexo;
+	private Sexos idSexoFk;
 
 	@OneToMany(cascade = CascadeType.ALL, mappedBy = "idPessoaFk")
 	private List<PessoaDocumentosCtps> pessoaDocumentosCtpsList;
@@ -141,6 +140,14 @@ public class Pessoa extends AbstractEntity<Long> {
 	public void setNome(String nome) {
 		this.nome = UtilidadesDeTexto.retiraEspacosDuplosAcentosEConverteEmMaiusculo(nome);
 	}
+	
+	public String getNomeSocial() {
+		return nomeSocial;
+	}
+
+	public void setNomeSocial(String nomeSocial) {
+		this.nomeSocial = UtilidadesDeTexto.retiraEspacosDuplosAcentosEConverteEmMaiusculo(nomeSocial);
+	}
 
 	public String getFone1() {
 		return fone1;
@@ -171,7 +178,7 @@ public class Pessoa extends AbstractEntity<Long> {
 	}
 
 	public void setEmail(String email) {
-		this.email = UtilidadesDeTexto.retiraEspacosDuplosAcentosEConverteEmMaiusculo(email);
+		this.email = email;
 	}
 
 	public String getEmailSaude() {
@@ -179,7 +186,7 @@ public class Pessoa extends AbstractEntity<Long> {
 	}
 
 	public void setEmailSaude(String emailSaude) {
-		this.emailSaude = UtilidadesDeTexto.retiraEspacosDuplosAcentosEConverteEmMaiusculo(emailSaude);
+		this.emailSaude = emailSaude;
 	}
 
 	public Date getDtNascimento() {
@@ -238,70 +245,64 @@ public class Pessoa extends AbstractEntity<Long> {
 		this.pessoaFilhosCollection = pessoaFilhosCollection;
 	}
 
-	public Cidades getSeqCidadeNatal() {
-		return seqCidadeNatal;
+	public Cidades getIdCidadeNatalFk() {
+		return idCidadeNatalFk;
 	}
 
-	public void setSeqCidadeNatal(Cidades seqCidadeNatal) {
-		this.seqCidadeNatal = seqCidadeNatal;
+	public void setIdCidadeNatalFk(Cidades idCidadeNatalFk) {
+		this.idCidadeNatalFk = idCidadeNatalFk;
 	}
 
-	public Enderecos getSeqEndereco() {
-		return seqEndereco;
+	
+	public Escolaridades getIdEscolaridadeFk() {
+		return idEscolaridadeFk;
 	}
 
-	public void setSeqEndereco(Enderecos seqEndereco) {
-		this.seqEndereco = seqEndereco;
+	public void setIdEscolaridadeFk(Escolaridades idEscolaridadeFk) {
+		this.idEscolaridadeFk = idEscolaridadeFk;
 	}
 
-	public Escolaridades getSeqEscolaridade() {
-		return seqEscolaridade;
+	public EstadosCivis getIdEstadoCivilFk() {
+		return idEstadoCivilFk;
 	}
 
-	public void setSeqEscolaridade(Escolaridades seqEscolaridade) {
-		this.seqEscolaridade = seqEscolaridade;
+	public void setIdEstadoCivilFk(EstadosCivis idEstadoCivilFk) {
+		this.idEstadoCivilFk = idEstadoCivilFk;
 	}
 
-	public EstadosCivis getSeqEstadoCivil() {
-		return seqEstadoCivil;
+	public PessoaOperadores getIdOperadorCadastroFk() {
+		return idOperadorCadastroFk;
 	}
 
-	public void setSeqEstadoCivil(EstadosCivis seqEstadoCivil) {
-		this.seqEstadoCivil = seqEstadoCivil;
+	public void setIdOperadorCadastroFk(PessoaOperadores idOperadorCadastroFk) {
+		this.idOperadorCadastroFk = idOperadorCadastroFk;
 	}
 
-	public PessoaOperadores getSeqOperadorCadastro() {
-		return seqOperadorCadastro;
+	public PessoaOperadores getIdOperadorCancelamentoFk() {
+		return idOperadorCancelamentoFk;
 	}
 
-	public void setSeqOperadorCadastro(PessoaOperadores seqOperadorCadastro) {
-		this.seqOperadorCadastro = seqOperadorCadastro;
+	public void setIdOperadorCancelamentoFk(PessoaOperadores idOperadorCancelamentoFk) {
+		this.idOperadorCancelamentoFk = idOperadorCancelamentoFk;
 	}
 
-	public PessoaOperadores getSeqOperadorCancelamento() {
-		return seqOperadorCancelamento;
+	public Sexos getIdSexoDeclaradoFk() {
+		return idSexoDeclaradoFk;
 	}
 
-	public void setSeqOperadorCancelamento(PessoaOperadores seqOperadorCancelamento) {
-		this.seqOperadorCancelamento = seqOperadorCancelamento;
+	public void setIdSexoDeclaradoFk(Sexos idSexoDeclaradoFk) {
+		this.idSexoDeclaradoFk = idSexoDeclaradoFk;
 	}
 
-	public Sexos getSeqSexoDeclarado() {
-		return seqSexoDeclarado;
+	public Sexos getIdSexoFk() {
+		return idSexoFk;
 	}
 
-	public void setSeqSexoDeclarado(Sexos seqSexoDeclarado) {
-		this.seqSexoDeclarado = seqSexoDeclarado;
+	public void setIdSexoFk(Sexos idSexoFk) {
+		this.idSexoFk = idSexoFk;
 	}
 
-	public Sexos getSeqSexo() {
-		return seqSexo;
-	}
-
-	public void setSeqSexo(Sexos seqSexo) {
-		this.seqSexo = seqSexo;
-	}
-
+	
 	public List<PessoaDocumentosConselho> getPessoaDocumentosConselhoList() {
 		return pessoaDocumentosConselhoList;
 	}

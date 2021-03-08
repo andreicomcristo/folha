@@ -17,7 +17,7 @@ public class Escolaridades extends AbstractEntity<Long> {
 	@Column(name = "descricao_escolaridade", length = 300)
 	private String descricaoEscolaridade;
 
-	@OneToMany(mappedBy = "seqEscolaridade")
+	@OneToMany(mappedBy = "idEscolaridadeFk")
 	private List<Pessoa> pessoaList;
 	
 	public String getNomeEscolaridade() {

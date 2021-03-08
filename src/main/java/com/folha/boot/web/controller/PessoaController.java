@@ -1,17 +1,30 @@
 package com.folha.boot.web.controller;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import com.folha.boot.domain.Cidades;
+import com.folha.boot.domain.Escolaridades;
+import com.folha.boot.domain.EstadosCivis;
+import com.folha.boot.domain.Paises;
 import com.folha.boot.domain.Pessoa;
+import com.folha.boot.domain.Sexos;
+import com.folha.boot.domain.Uf;
+import com.folha.boot.service.CidadesService;
+import com.folha.boot.service.EscolaridadesService;
+import com.folha.boot.service.EstadosCivisService;
 import com.folha.boot.service.PessoaService;
+import com.folha.boot.service.SexosService;
 
 @Controller
 @RequestMapping("/pessoas")
@@ -19,6 +32,18 @@ public class PessoaController {
 
 	@Autowired
 	private PessoaService service;
+	
+	@Autowired
+	CidadesService cidadesService;
+	
+	@Autowired
+	EscolaridadesService escolaridadesService;
+	
+	@Autowired
+	EstadosCivisService estadosCivisService;
+	
+	@Autowired
+	SexosService sexosService;
 
 	@GetMapping("/cadastrar")
 	public String cadastrar(Pessoa pessoa) {
@@ -34,7 +59,6 @@ public class PessoaController {
 	
 	@PostMapping("/salvar")
 	public String salvar(Pessoa pessoa, RedirectAttributes attr) {
-		
 		service.salvar(pessoa);
 		attr.addFlashAttribute("success", "Inserido com sucesso.");
 		return "redirect:/pessoas/cadastrar";
@@ -64,4 +88,31 @@ public class PessoaController {
 		model.addAttribute("pessoa", service.buscarPorNome(nome.toUpperCase().trim()));
 		return "/pessoa/lista";
 	}
+	
+	
+	@ModelAttribute("idSexoFk")
+	public List<Sexos> getSexos() {
+		return sexosService.buscarTodos();
+	}
+	
+	@ModelAttribute("idSexoDeclaradoFk")
+	public List<Sexos> getSexosDeclarados() {
+		return sexosService.buscarTodos();
+	}
+	
+	@ModelAttribute("idCidadeNatalFk")
+	public List<Cidades> getCidades() {
+		return cidadesService.buscarTodos();
+	}
+	
+	@ModelAttribute("idEscolaridadeFk")
+	public List<Escolaridades> getEscolaridades() {
+		return escolaridadesService.buscarTodos();
+	}
+	
+	@ModelAttribute("idEstadoCivilFk")
+	public List<EstadosCivis> getEstadosCivis() {
+		return estadosCivisService.buscarTodos();
+	}
+	
 }

@@ -21,7 +21,7 @@ public class EstadosCivis extends AbstractEntity<Long> {
 	@Column(name = "descricao_estado_civil", length = 300)
 	private String descricaoEstadoCivil;
 
-	@OneToMany(mappedBy = "seqEstadoCivil")
+	@OneToMany(mappedBy = "idEstadoCivilFk")
 	private List<Pessoa> pessoaList;
 
 	public String getNomeEstadoCivil() {

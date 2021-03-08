@@ -38,9 +38,6 @@ public class Enderecos extends AbstractEntity<Long> {
 	@ManyToOne(optional = false)
 	private TiposLogradouro idTipoLogradouroFk;
 
-	@OneToMany(mappedBy = "seqEndereco")
-	private List<Pessoa> pessoaList;
-	
 	public String getEnderecoLogradouro() {
 		return enderecoLogradouro;
 	}
@@ -105,13 +102,6 @@ public class Enderecos extends AbstractEntity<Long> {
 		this.idTipoLogradouroFk = idTipoLogradouroFk;
 	}
 
-	public List<Pessoa> getPessoaList() {
-		return pessoaList;
-	}
-
-	public void setPessoaList(List<Pessoa> pessoaList) {
-		this.pessoaList = pessoaList;
-	}
 	
 
 }

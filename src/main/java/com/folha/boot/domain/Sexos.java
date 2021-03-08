@@ -18,10 +18,10 @@ public class Sexos extends AbstractEntity<Long> {
 	@Column(name = "descricao_sexo", length = 300)
 	private String descricaoSexo;
 
-	@OneToMany(mappedBy = "seqSexoDeclarado")
+	@OneToMany(mappedBy = "idSexoDeclaradoFk")
 	private List<Pessoa> pessoaList;
 
-	@OneToMany(mappedBy = "seqSexo")
+	@OneToMany(mappedBy = "idSexoFk")
 	private List<Pessoa> pessoaList1;
 
 	public String getNomeSexo() {

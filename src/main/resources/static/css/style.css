@@ -567,3 +567,19 @@ body {
 }
 
 
+
+/*
+Textos maiusculos e minusculos
+*/
+
+.uppercase {
+      text-transform: uppercase;
+}
+.lowercase {
+      text-transform: lowercase;
+}
+
+.capitalize {
+      text-transform: capitalize;
+}
+

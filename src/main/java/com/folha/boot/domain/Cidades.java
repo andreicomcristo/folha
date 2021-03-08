@@ -28,7 +28,7 @@ public class Cidades extends AbstractEntity<Long> {
 	@OneToMany(mappedBy = "idEnderecoCidadeFk")
 	private List<Unidades> unidadesList;
 
-	@OneToMany(mappedBy = "seqCidadeNatal")
+	@OneToMany(mappedBy = "idCidadeNatalFk")
 	private List<Pessoa> pessoaList;
 
 	@OneToMany(mappedBy = "idCidadeFk")

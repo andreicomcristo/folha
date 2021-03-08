@@ -92,9 +92,9 @@ public class PessoaOperadores extends AbstractEntity<Long> {
     
     
     
-    @OneToMany(mappedBy = "seqOperadorCadastro")
+    @OneToMany(mappedBy = "idOperadorCadastroFk")
     private List<Pessoa> pessoaList;
-    @OneToMany(mappedBy = "seqOperadorCancelamento")
+    @OneToMany(mappedBy = "idOperadorCancelamentoFk")
     private List<Pessoa> pessoaList1;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "idOperadorCadastroFk")
     private List<HistFuncionariosCarreira> histFuncionariosCarreiraList;
