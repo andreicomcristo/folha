@@ -45,7 +45,7 @@ public class PessoaDocumentosHabilitacaoController {
 	public String cadastrarComPessoa(@PathVariable("id") Long id, ModelMap model, PessoaDocumentosHabilitacao pessoaDocumentos) {	
 		idPessoaAtual = id;
 		model.addAttribute("pessoa", pessoaService.buscarPorId(id));
-		model.addAttribute("pessoaDocumentosLista", service.buscarPorPessoa(pessoaService.buscarPorId(id)));
+		model.addAttribute("pessoaDocumentosLista2", service.buscarPorPessoa(pessoaService.buscarPorId(id)));
 		return "/dochabilitacao/cadastro";
 	}
 	
@@ -60,7 +60,7 @@ public class PessoaDocumentosHabilitacaoController {
 		
 		habilitacao.setIdPessoaFk(pessoaService.buscarPorId(idPessoaAtual));
 		service.salvar(habilitacao);
-		attr.addFlashAttribute("success", "Inserido com sucesso.");
+		//attr.addFlashAttribute("success", "Inserido com sucesso.");
 		return "redirect:/habilitacaodocs/cadastrar/"+idPessoaAtual+"";
 	}
 	
