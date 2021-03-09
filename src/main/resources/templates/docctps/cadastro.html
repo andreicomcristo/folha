@@ -5,10 +5,10 @@
 	<section class="layout-content" layout:fragment="corpo">
 
 		<nav class="navbar navbar-expand-md bg-light">
-			<form action="/bancos/listar">
+			<form action="/documentos/listar">
 				<div class=" layout-content">
 					<button class="btn btn-outline-dark" >Listar</button>
-					<a class="btn btn-outline-dark btn-md" href="/bancos/cadastrar"
+					<a class="btn btn-outline-dark btn-md" href="/documentos/cadastrar"
 						role="button"> <span class="oi oi-plus" title="Cadastro"
 						aria-hidden="true"></span> <span>Novo</span>
 					</a>
@@ -20,31 +20,90 @@
 
 			<div th:replace="fragments/alert"></div>
 			<form
-				th:action="${bancos.id == null} ? @{/bancos/salvar} : @{/bancos/editar}"
-				th:object="${bancos}" method="POST">
+				th:action="${pessoaDocumentosCtps.id == null} ? @{/ctpsdocs/salvar} : @{/ctpsdocs/salvar}"
+				th:object="${pessoaDocumentosCtps}" method="POST">
 				<div class="form-row">
 
 					<div class="form-group col-md-6">
-						<label for="nome" class="fonte-tutulos-tamanho">Cadastro de Bancos</label>
+						<label for="nome" class="fonte-tutulos-tamanho">Cadastro de Documentos CTPS</label>
 							
 							<input type="text"
-								class="form-control form-control-md" autofocus="autofocus"
-								id="codigo" placeholder="Código do Banco (somente os números)" th:field="*{codigoBanco}" /> 
+								class="form-control form-control-md uppercase" autofocus="autofocus"
+								id="codigo" placeholder="Numero do documento" th:field="*{numero}" /> 
 							<p></p>
+							
 							<input type="text"
-								class="form-control form-control-md" autofocus="autofocus"
-								id="nome" placeholder="Nome do Banco" th:field="*{nomeBanco}" />						
+								class="form-control form-control-md uppercase" autofocus="autofocus"
+								id="codigo" placeholder="série" th:field="*{serie}" />
 							<p></p>
-							<input type="text" class="form-control form-control-md"
-								autofocus="autofocus" id="sigla" placeholder="Sigla do Banco" th:field="*{siglaBanco}" />
+							
 							
 							<input type="hidden" id="id" th:field="*{id}" />
+							<input type="hidden" id="pessoa" th:field="${pessoa}" />
 								<p></p>					
-						<button class="btn btn-outline-dark">Cadastrar</button>
+						
+						<button class="btn btn-outline-dark">Submeter</button>
+						
+						<a class="btn btn-outline-danger btn-md" href="/ctpsdocs/retroceder"
+							role="button"> <span class="oi oi-arrow-thick-left" title="Cadastro"
+							aria-hidden="true"></span> <span>Retroceder</span>
+						</a>
+						
+						<a class="btn btn-outline-success btn-md" href="/ctpsdocs/avancar"
+							role="button"> <span class="oi oi-arrow-thick-right" title="Cadastro"
+							aria-hidden="true"></span> <span>Avançar</span>
+						</a>
+						
 					</div>
 				</div>
 			</form>
 		</div>
+		
+		
+		
+		<div class="container" id="listagem">	        
+	    	<div th:replace="fragments/alert"></div>
+	    	
+	        <div style="height: 500px; overflow-y: auto;" class="table-responsive">
+	        	<table class="table table-striped table-hover table-sm myTable">
+	            	<thead>
+	          			<tr>
+		                	<th>#</th>
+		                    <th>Numeração</th>
+		                    <th>Série</th>
+		                    <th>Nome</th>
+		                    <th>Cpf</th>
+		                    <th>Ações</th>
+	                    </tr>
+	                </thead>                  
+	                <tbody>
+		            	<tr th:each="d : ${pessoaDocumentosLista}">
+		                	<td th:text="${d.id}"></td>
+		                    <td th:text="${d.numero}"></td>
+		                    <td th:text="${d.serie}"></td>
+		                    <td th:text="${d.idPessoaFk.nome}"></td>
+		                    <td th:text="${d.idPessoaFk.cpf}"></td>
+		                    <td colspan="2">
+		                    	<a class="btn btn-outline-info btn-sm" th:href="@{/ctpsdocs/editar/{id} (id=${d.id}) }" role="button">
+		                        	<span class="oi oi-brush" title="Editar" aria-hidden="true"></span>
+		                        </a>
+		                        <button th:id="${ 'btn_ctpsdocs/excluir/' + d.id}" type="button" class="btn btn btn-outline-danger btn-sm" 
+		                            		data-toggle="modal" data-target="#myModal">
+		                                <span class="oi oi-circle-x" title="Exclusão habilitada" aria-hidden="true"></span>
+		                        </button>
+		                   	</td>
+						</tr>
+					</tbody>                    
+	            </table>
+	         </div>
+		</div>	        
+		
+		
+		
+		
+		
+		
+		<div th:replace="fragments/modal :: modal"></div>
 	</section>
 </body>
 </html>

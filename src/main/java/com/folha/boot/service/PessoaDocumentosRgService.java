@@ -1,6 +1,9 @@
 package com.folha.boot.service;
 
 import java.util.List;
+
+import com.folha.boot.domain.Pessoa;
+import com.folha.boot.domain.PessoaDocumentos;
 import com.folha.boot.domain.PessoaDocumentosRg;
 
 public interface PessoaDocumentosRgService {
@@ -16,4 +19,6 @@ public interface PessoaDocumentosRgService {
 	List<PessoaDocumentosRg> buscarPorNumero(String rgNumero);
 
 	List<PessoaDocumentosRg> buscarTodos();
+	
+	List<PessoaDocumentosRg> buscarPorPessoa(Pessoa pessoa);
 }

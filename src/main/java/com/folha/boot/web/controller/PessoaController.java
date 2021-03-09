@@ -1,8 +1,17 @@
 package com.folha.boot.web.controller;
 
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.util.List;
 
+import org.apache.poi.util.IOUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.io.ByteArrayResource;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
+import org.springframework.mock.web.MockMultipartFile;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -11,18 +20,22 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.folha.boot.domain.Cidades;
+import com.folha.boot.domain.Doc;
 import com.folha.boot.domain.Escolaridades;
 import com.folha.boot.domain.EstadosCivis;
 import com.folha.boot.domain.Paises;
 import com.folha.boot.domain.Pessoa;
+import com.folha.boot.domain.PessoaFotos;
 import com.folha.boot.domain.Sexos;
 import com.folha.boot.domain.Uf;
 import com.folha.boot.service.CidadesService;
 import com.folha.boot.service.EscolaridadesService;
 import com.folha.boot.service.EstadosCivisService;
+import com.folha.boot.service.PessoaFotosService;
 import com.folha.boot.service.PessoaService;
 import com.folha.boot.service.SexosService;
 
@@ -44,10 +57,14 @@ public class PessoaController {
 	
 	@Autowired
 	SexosService sexosService;
+	
+	@Autowired
+	PessoaFotosService pessoaFotosService;
 
 	@GetMapping("/cadastrar")
-	public String cadastrar(Pessoa pessoa) {
-		
+	public String cadastrar(Pessoa pessoa, PessoaFotos pessoaFotos, ModelMap model) {
+		model.addAttribute("pessoa", pessoa);
+		model.addAttribute("pessoaFotos", pessoaFotos);
 		return "/pessoa/cadastro";
 	}
 	
@@ -58,10 +75,16 @@ public class PessoaController {
 	}
 	
 	@PostMapping("/salvar")
-	public String salvar(Pessoa pessoa, RedirectAttributes attr) {
+	public String salvar(Pessoa pessoa, PessoaFotos pessoafotos,  RedirectAttributes attr) {
 		service.salvar(pessoa);
+		
+		Long id = null;
+		if(service.buscarPorCpf(pessoa.getCpf()).size()>0) {
+			id = service.buscarPorCpf(pessoa.getCpf()).get(0).getId();
+		}
+		
 		attr.addFlashAttribute("success", "Inserido com sucesso.");
-		return "redirect:/pessoas/cadastrar";
+		return "redirect:/documentos/cadastrar/"+id+"";
 	}
 	
 	@GetMapping("/editar/{id}")

@@ -1,6 +1,9 @@
 package com.folha.boot.service;
 
 import java.util.List;
+
+import com.folha.boot.domain.Pessoa;
+import com.folha.boot.domain.PessoaDocumentos;
 import com.folha.boot.domain.PessoaDocumentosCtps;
 
 public interface PessoaDocumentosCtpsService {
@@ -16,4 +19,7 @@ public interface PessoaDocumentosCtpsService {
 	List<PessoaDocumentosCtps> buscarPorNumero(String numero);
 
 	List<PessoaDocumentosCtps> buscarTodos();
+	
+	List<PessoaDocumentosCtps> buscarPorPessoa(Pessoa pessoa);
 }
+

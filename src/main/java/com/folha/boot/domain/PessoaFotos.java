@@ -7,6 +7,13 @@ import javax.persistence.*;
 @Table(name = "pessoa_fotos")
 public class PessoaFotos extends AbstractEntity<Long> {
 
+	public PessoaFotos(Pessoa pessoa, byte[] data) {
+		super();
+		this.idPessoaFk = pessoa;
+		this.fotografia = data;
+	}
+	
+	
 	@Lob
 	@Column(name = "fotografia")
 	private byte[] fotografia;

@@ -16,4 +16,6 @@ public interface PessoaService {
 	List<Pessoa> buscarPorNome(String nome);
 
 	List<Pessoa> buscarTodos();
+	
+	List<Pessoa> buscarPorCpf(String cpf);
 }

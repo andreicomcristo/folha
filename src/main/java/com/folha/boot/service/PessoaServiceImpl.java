@@ -52,4 +52,10 @@ public class PessoaServiceImpl implements PessoaService{
 		return reposytory.findByNomeContainingOrderByNomeAsc(nome);
 	}
 	
+	@Override
+	public List<Pessoa> buscarPorCpf(String cpf) {
+		// TODO Auto-generated method stub
+		return reposytory.findByCpfOrderByNomeAsc(cpf);
+	}
+	
 }

@@ -11,4 +11,6 @@ public interface PessoaReposytory extends JpaRepository<Pessoa, Long> {
 	public List<Pessoa> findAllByOrderByNomeAsc();
 
 	public List<Pessoa> findByNomeContainingOrderByNomeAsc(String nome);
+	
+	public List<Pessoa> findByCpfOrderByNomeAsc(String nome);
 }

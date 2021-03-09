@@ -5,6 +5,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import com.folha.boot.Reposytory.PessoaDocumentosHabilitacaoReposytory;
+import com.folha.boot.domain.Pessoa;
+import com.folha.boot.domain.PessoaDocumentos;
 import com.folha.boot.domain.PessoaDocumentosHabilitacao;
 
 @Service
@@ -52,4 +54,10 @@ public class PessoaDocumentosHabilitacaoServiceImpl implements PessoaDocumentosH
 		return reposytory.findByNumeroRegistroContainingOrderByNumeroRegistroAsc(numeroRegistro);
 	}
 
+	@Override
+	public List<PessoaDocumentosHabilitacao> buscarPorPessoa(Pessoa pessoa) {
+		// TODO Auto-generated method stub
+		return reposytory.findByIdPessoaFk(pessoa);
+	}
+	
 }
