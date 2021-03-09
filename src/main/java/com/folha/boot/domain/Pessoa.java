@@ -66,6 +66,9 @@ public class Pessoa extends AbstractEntity<Long> {
 
 	@OneToMany(cascade = CascadeType.ALL, mappedBy = "idPessoaFk")
 	private List<PessoaDocumentosReservista> pessoaDocumentosReservistaList;
+	
+	@OneToMany(cascade = CascadeType.ALL, mappedBy = "idPessoaFk")
+	private List<PessoaDocumentosRg> pessoaDocumentosRgList;
 
 	@OneToMany(cascade = CascadeType.ALL, mappedBy = "idPessoaFk")
 	private List<PessoaFotos> pessoaFotosList;
@@ -317,6 +320,14 @@ public class Pessoa extends AbstractEntity<Long> {
 
 	public void setPessoaDocumentosReservistaList(List<PessoaDocumentosReservista> pessoaDocumentosReservistaList) {
 		this.pessoaDocumentosReservistaList = pessoaDocumentosReservistaList;
+	}
+	
+	public List<PessoaDocumentosRg> getPessoaDocumentosRgList() {
+		return pessoaDocumentosRgList;
+	}
+
+	public void setPessoaDocumentosRgList(List<PessoaDocumentosRg> pessoaDocumentosRgList) {
+		this.pessoaDocumentosRgList = pessoaDocumentosRgList;
 	}
 
 	public List<PessoaFotos> getPessoaFotosList() {

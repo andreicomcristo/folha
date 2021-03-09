@@ -21,8 +21,9 @@ public class PessoaDocumentosRg extends AbstractEntity<Long> {
 	@Temporal(TemporalType.DATE)
 	private Date dtEmissao;
 
-	@Column(name = "id_pessoa_fk", nullable = false)
-	private long idPessoaFk;
+	@JoinColumn(name = "id_pessoa_fk", referencedColumnName = "id", nullable = false)
+	@ManyToOne(optional = false)
+	private Pessoa idPessoaFk;
 
 	@JoinColumn(name = "id_uf_emissao", referencedColumnName = "id")
 	@ManyToOne
@@ -52,14 +53,7 @@ public class PessoaDocumentosRg extends AbstractEntity<Long> {
 		this.dtEmissao = dtEmissao;
 	}
 
-	public long getIdPessoaFk() {
-		return idPessoaFk;
-	}
-
-	public void setIdPessoaFk(long idPessoaFk) {
-		this.idPessoaFk = idPessoaFk;
-	}
-
+	
 	public Uf getIdUfEmissao() {
 		return idUfEmissao;
 	}
@@ -68,5 +62,12 @@ public class PessoaDocumentosRg extends AbstractEntity<Long> {
 		this.idUfEmissao = idUfEmissao;
 	}
 	
+	public Pessoa getIdPessoaFk() {
+		return idPessoaFk;
+	}
+
+	public void setIdPessoaFk(Pessoa idPessoaFk) {
+		this.idPessoaFk = idPessoaFk;
+	}
 
 }
