@@ -71,7 +71,9 @@ public class Unidades extends AbstractEntity<Long> {
 	@ManyToOne
 	private TiposLogradouro idTipoLogradouroFk;
 
-	
+	@JoinColumn(name = "id_natureza_juridica_fk", referencedColumnName = "id")
+    @ManyToOne
+    private UnidadesNaturezaJuridica idNaturezaJuridicaFk;
     
     @JoinColumn(name = "id_unidades_regime_fk", referencedColumnName = "id")
     @ManyToOne
