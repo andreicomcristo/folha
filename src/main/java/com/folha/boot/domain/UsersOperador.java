@@ -13,16 +13,15 @@ public class UsersOperador extends AbstractEntity<Long> {
     @Basic(optional = false)
     @Column(name = "id_pessoa_operadores_fk")
     private Long idPessoaOperadoresFk;
-    @JoinColumn(name = "id_pessoa_operadores_fk", referencedColumnName = "id", insertable = false, updatable = false)
-    
+   
+    /*@JoinColumn(name = "id_pessoa_operadores_fk", referencedColumnName = "id", insertable = false, updatable = false)   
     @OneToOne(optional = false)
-    private PessoaOperadores pessoaOperadores;
+    private PessoaOperadores pessoaOperadores;*/
     
     @JoinColumn(name = "username_fk", referencedColumnName = "username")
     @ManyToOne(optional = false)
     private Users usernameFk;
-	
-    
+	 
     /*public BigInteger getId() {
 		return id;
 	}
@@ -34,21 +33,16 @@ public class UsersOperador extends AbstractEntity<Long> {
 	public Long getIdPessoaOperadoresFk() {
 		return idPessoaOperadoresFk;
 	}
+	
 	public void setIdPessoaOperadoresFk(Long idPessoaOperadoresFk) {
 		this.idPessoaOperadoresFk = idPessoaOperadoresFk;
 	}
-	public PessoaOperadores getPessoaOperadores() {
-		return pessoaOperadores;
-	}
-	public void setPessoaOperadores(PessoaOperadores pessoaOperadores) {
-		this.pessoaOperadores = pessoaOperadores;
-	}
+
 	public Users getUsernameFk() {
 		return usernameFk;
 	}
 	public void setUsernameFk(Users usernameFk) {
 		this.usernameFk = usernameFk;
 	}
-    
-    
+ 
 }

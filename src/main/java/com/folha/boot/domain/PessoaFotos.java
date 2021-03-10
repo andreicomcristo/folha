@@ -13,7 +13,6 @@ public class PessoaFotos extends AbstractEntity<Long> {
 		this.fotografia = data;
 	}
 	
-	
 	@Lob
 	@Column(name = "fotografia")
 	private byte[] fotografia;

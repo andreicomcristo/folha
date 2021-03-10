@@ -1,6 +1,5 @@
 package com.folha.boot.domain;
 
-import java.math.BigInteger;
 import java.util.Date;
 import java.util.List;
 
@@ -22,9 +21,8 @@ public class Unidades extends AbstractEntity<Long> {
 	@Column(name = "cnes", length = 50)
 	private String cnes;
 
-	@Column(name = "id_natureza_juridica_fk")
-	private BigInteger idNaturezaJuridicaFk;
 
+	
 	@Column(name = "fone1", length = 40)
 	private String fone1;
 
@@ -43,19 +41,19 @@ public class Unidades extends AbstractEntity<Long> {
 	@Column(name = "endereco_cep", length = 50)
 	private String enderecoCep;
 
-	@Column(name = "dt_cadastro")
-	@Temporal(TemporalType.DATE)
-	private Date dtCadastro;
-
 	@Column(name = "motivo_cadastro", length = 300)
 	private String motivoCadastro;
 
+	@Column(name = "motivo_cancelamento", length = 300)
+	private String motivoCancelamento;
+	
+	@Column(name = "dt_cadastro")
+	@Temporal(TemporalType.DATE)
+	private Date dtCadastro;
+	
 	@Column(name = "dt_cancelamento")
 	@Temporal(TemporalType.DATE)
 	private Date dtCancelamento;
-
-	@Column(name = "motivo_cancelamento", length = 300)
-	private String motivoCancelamento;
 
 	@JoinColumn(name = "id_endereco_cidade_fk", referencedColumnName = "id")
 	@ManyToOne
@@ -73,6 +71,15 @@ public class Unidades extends AbstractEntity<Long> {
 	@ManyToOne
 	private TiposLogradouro idTipoLogradouroFk;
 
+	
+    
+    @JoinColumn(name = "id_unidades_regime_fk", referencedColumnName = "id")
+    @ManyToOne
+    private UnidadesRegime idUnidadesRegimeFk;
+    
+    /*@OneToMany(cascade = CascadeType.ALL, mappedBy = "unidades")
+    private List<HistUnidadesDiretor> histUnidadesDiretorList;
+    */
 	@OneToMany(cascade = CascadeType.ALL, mappedBy = "idUnidadeDeSaudeFk")
 	private List<HistUnidadesRegime> histUnidadesRegimeList;
 
@@ -97,17 +104,21 @@ public class Unidades extends AbstractEntity<Long> {
 	@OneToMany(mappedBy = "idUnidadeLancamentoFk")
 	private List<FuncionariosFerias> funcionariosFeriasList;
 
-	/*
-	 * @OneToMany(cascade = CascadeType.ALL, mappedBy = "unidades") private
-	 * List<HistUnidadesDiretor> histUnidadesDiretorList;
-	 */
-
 	@OneToMany(mappedBy = "idUnidadeAtuacaoAtualFk")
 	private List<PessoaFuncionarios> pessoaFuncionariosList;
 
 	
 	public List<FuncionariosLicencas> getFuncionariosLicencasList() {
 		return funcionariosLicencasList;
+	}
+	
+	
+	public UnidadesRegime getIdUnidadesRegimeFk() {
+		return idUnidadesRegimeFk;
+	}
+
+	public void setIdUnidadesRegimeFk(UnidadesRegime idUnidadesRegimeFk) {
+		this.idUnidadesRegimeFk = idUnidadesRegimeFk;
 	}
 
 	public void setFuncionariosLicencasList(List<FuncionariosLicencas> funcionariosLicencasList) {
@@ -170,13 +181,8 @@ public class Unidades extends AbstractEntity<Long> {
 		this.cnes = UtilidadesDeTexto.retiraEspacosDuplosAcentosEConverteEmMaiusculo(cnes);
 	}
 
-	public BigInteger getIdNaturezaJuridicaFk() {
-		return idNaturezaJuridicaFk;
-	}
 
-	public void setIdNaturezaJuridicaFk(BigInteger idNaturezaJuridicaFk) {
-		this.idNaturezaJuridicaFk = idNaturezaJuridicaFk;
-	}
+	
 
 	public String getFone1() {
 		return fone1;

@@ -58,33 +58,6 @@ public class Pessoa extends AbstractEntity<Long> {
 	@Column(name = "moivo_cancelamento", length = 300)
 	private String moivoCancelamento;
 
-	@OneToMany(cascade = CascadeType.ALL, mappedBy = "idPessoaFk")
-	private List<PessoaFilhos> pessoaFilhosCollection;
-
-	@OneToMany(cascade = CascadeType.ALL, mappedBy = "idPessoaFk")
-	private List<PessoaDocumentosConselho> pessoaDocumentosConselhoList;
-
-	@OneToMany(cascade = CascadeType.ALL, mappedBy = "idPessoaFk")
-	private List<PessoaDocumentosReservista> pessoaDocumentosReservistaList;
-	
-	@OneToMany(cascade = CascadeType.ALL, mappedBy = "idPessoaFk")
-	private List<PessoaDocumentosRg> pessoaDocumentosRgList;
-
-	@OneToMany(cascade = CascadeType.ALL, mappedBy = "idPessoaFk")
-	private List<PessoaFotos> pessoaFotosList;
-
-	@OneToMany(mappedBy = "idPessoaFk")
-	private List<PessoaDocumentos> pessoaDocumentosList;
-
-	@OneToMany(cascade = CascadeType.ALL, mappedBy = "idPessoaFk")
-	private List<PessoaOperadores> pessoaOperadoresList;
-
-	@OneToMany(cascade = CascadeType.ALL, mappedBy = "idPessoaFk")
-	private List<Enderecos> enderecosList;
-
-	@OneToMany(mappedBy = "idPessoaFk")
-	private List<PessoaDocumentosHabilitacao> pessoaDocumentosHabilitacaoList;
-
 	@JoinColumn(name = "id_cidade_natal_fk", referencedColumnName = "id")
 	@ManyToOne
 	private Cidades idCidadeNatalFk;
@@ -112,15 +85,45 @@ public class Pessoa extends AbstractEntity<Long> {
 	@JoinColumn(name = "id_sexo_fk", referencedColumnName = "id")
 	@ManyToOne
 	private Sexos idSexoFk;
+	
+	@OneToMany(cascade = CascadeType.ALL, mappedBy = "idPessoaFk")
+    private List<PessoaFilhos> pessoaFilhosList;
+      
+   /* @OneToMany(cascade = CascadeType.ALL, mappedBy = "pessoa")
+    private List<HistUnidadesDiretor> histUnidadesDiretorList;*/
+    
+	@OneToMany(cascade = CascadeType.ALL, mappedBy = "idPessoaFk")
+	private List<PessoaFilhos> pessoaFilhosCollection;
+
+	@OneToMany(cascade = CascadeType.ALL, mappedBy = "idPessoaFk")
+	private List<PessoaDocumentosConselho> pessoaDocumentosConselhoList;
+
+	@OneToMany(cascade = CascadeType.ALL, mappedBy = "idPessoaFk")
+	private List<PessoaDocumentosReservista> pessoaDocumentosReservistaList;
+	
+	@OneToMany(cascade = CascadeType.ALL, mappedBy = "idPessoaFk")
+	private List<PessoaDocumentosRg> pessoaDocumentosRgList;
+
+	@OneToMany(cascade = CascadeType.ALL, mappedBy = "idPessoaFk")
+	private List<PessoaFotos> pessoaFotosList;
+
+	@OneToMany(mappedBy = "idPessoaFk")
+	private List<PessoaDocumentos> pessoaDocumentosList;
+
+	@OneToMany(cascade = CascadeType.ALL, mappedBy = "idPessoaFk")
+	private List<PessoaOperadores> pessoaOperadoresList;
+
+	@OneToMany(cascade = CascadeType.ALL, mappedBy = "idPessoaFk")
+	private List<Enderecos> enderecosList;
+
+	@OneToMany(mappedBy = "idPessoaFk")
+	private List<PessoaDocumentosHabilitacao> pessoaDocumentosHabilitacaoList;
 
 	@OneToMany(cascade = CascadeType.ALL, mappedBy = "idPessoaFk")
 	private List<PessoaDocumentosCtps> pessoaDocumentosCtpsList;
 
 	@OneToMany(cascade = CascadeType.ALL, mappedBy = "idPessoaFk")
 	private List<PessoaBancos> pessoaBancosList;
-
-	/*@OneToMany(cascade = CascadeType.ALL, mappedBy = "pessoa")
-	private List<HistUnidadesDiretor> histUnidadesDiretorCollection;*/
 
 	@OneToMany(cascade = CascadeType.ALL, mappedBy = "idPessoaFk")
 	private List<PessoaFuncionarios> pessoaFuncionariosList;
@@ -248,6 +251,14 @@ public class Pessoa extends AbstractEntity<Long> {
 		this.pessoaFilhosCollection = pessoaFilhosCollection;
 	}
 
+	public List<PessoaFilhos> getPessoaFilhosList() {
+		return pessoaFilhosList;
+	}
+
+	public void setPessoaFilhosList(List<PessoaFilhos> pessoaFilhosList) {
+		this.pessoaFilhosList = pessoaFilhosList;
+	}
+
 	public Cidades getIdCidadeNatalFk() {
 		return idCidadeNatalFk;
 	}
@@ -255,7 +266,6 @@ public class Pessoa extends AbstractEntity<Long> {
 	public void setIdCidadeNatalFk(Cidades idCidadeNatalFk) {
 		this.idCidadeNatalFk = idCidadeNatalFk;
 	}
-
 	
 	public Escolaridades getIdEscolaridadeFk() {
 		return idEscolaridadeFk;
@@ -304,7 +314,6 @@ public class Pessoa extends AbstractEntity<Long> {
 	public void setIdSexoFk(Sexos idSexoFk) {
 		this.idSexoFk = idSexoFk;
 	}
-
 	
 	public List<PessoaDocumentosConselho> getPessoaDocumentosConselhoList() {
 		return pessoaDocumentosConselhoList;
@@ -401,14 +410,5 @@ public class Pessoa extends AbstractEntity<Long> {
 	public void setPessoaDocumentosTituloList(List<PessoaDocumentosTitulo> pessoaDocumentosTituloList) {
 		this.pessoaDocumentosTituloList = pessoaDocumentosTituloList;
 	}
-
-	/*public List<HistUnidadesDiretor> getHistUnidadesDiretorCollection() {
-		return histUnidadesDiretorCollection;
-	}*/
-
-	/*public void setHistUnidadesDiretorCollection(List<HistUnidadesDiretor> histUnidadesDiretorCollection) {
-		this.histUnidadesDiretorCollection = histUnidadesDiretorCollection;
-	}*/
-
 
 }

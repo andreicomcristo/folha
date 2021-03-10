@@ -15,7 +15,6 @@ import com.folha.boot.web.controller.ControladorCEPBean;
 @Service
 @Transactional(readOnly = false)
 public class EnderecosServices{
-
 	@Autowired
 	private EnderecosReposytory reposytory;
 	
@@ -25,7 +24,6 @@ public class EnderecosServices{
 		// TODO Auto-generated method stub
 		reposytory.save(enderecos);
 	}
-
 	
 	public void editar(Enderecos enderecos) {
 		// TODO Auto-generated method stub

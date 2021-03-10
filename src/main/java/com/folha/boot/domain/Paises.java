@@ -10,13 +10,12 @@ import com.folha.boot.service.util.UtilidadesDeTexto;
 @Entity
 @Table(name = "paises")
 public class Paises extends AbstractEntity<Long> {
-	
+
 	@Column(name = "nome_pais", nullable = false, length = 300)
 	private String nomePais;
 
 	@OneToMany(cascade = CascadeType.ALL, mappedBy = "idPaisFk")
-	private List<Cidades> cidadesCollection;
-
+    private List<Cidades> cidadesList;
 	public String getNomePais() {
 		return nomePais;
 	}
@@ -25,12 +24,12 @@ public class Paises extends AbstractEntity<Long> {
 		this.nomePais = UtilidadesDeTexto.retiraEspacosDuplosAcentosEConverteEmMaiusculo(nomePais);
 	}
 
-	public List<Cidades> getCidadesCollection() {
-		return cidadesCollection;
+	public List<Cidades> getCidadesList() {
+		return cidadesList;
 	}
 
-	public void setCidadesCollection(List<Cidades> cidadesCollection) {
-		this.cidadesCollection = cidadesCollection;
+	public void setCidadesList(List<Cidades> cidadesList) {
+		this.cidadesList = cidadesList;
 	}
 
 }
