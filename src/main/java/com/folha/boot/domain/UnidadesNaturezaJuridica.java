@@ -9,7 +9,7 @@ import com.folha.boot.service.util.UtilidadesDeTexto;
 @Entity
 @Table(name = "unidades_natureza_juridica")
 public class UnidadesNaturezaJuridica extends AbstractEntity<Long> {
-
+	
 	@Column(name = "nome_natureza_juridica", nullable = false, length = 150)
     private String nomeNaturezaJuridica;
    
@@ -19,6 +19,9 @@ public class UnidadesNaturezaJuridica extends AbstractEntity<Long> {
 	@OneToMany(cascade = CascadeType.ALL, mappedBy = "idUnidadeDeSaudeFk")
     private List<HistUnidadesNaturezaJuridica> histUnidadesNaturezaJuridicaList;
 
+	@OneToMany(mappedBy = "idNaturezaJuridicaFk")
+    private List<Unidades> unidadesList;
+	
 	public String getNomeNaturezaJuridica() {
 		return nomeNaturezaJuridica;
 	}
@@ -42,6 +45,14 @@ public class UnidadesNaturezaJuridica extends AbstractEntity<Long> {
 	public void setHistUnidadesNaturezaJuridicaList(
 			List<HistUnidadesNaturezaJuridica> histUnidadesNaturezaJuridicaList) {
 		this.histUnidadesNaturezaJuridicaList = histUnidadesNaturezaJuridicaList;
+	}
+
+	public List<Unidades> getUnidadesList() {
+		return unidadesList;
+	}
+
+	public void setUnidadesList(List<Unidades> unidadesList) {
+		this.unidadesList = unidadesList;
 	}
 	
 }

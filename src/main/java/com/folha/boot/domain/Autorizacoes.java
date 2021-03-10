@@ -25,9 +25,6 @@ public class Autorizacoes extends AbstractEntity<Long> {
 	@Temporal(TemporalType.DATE)
 	private Date dtCriacao;
 	
-	@OneToMany(cascade = CascadeType.ALL, mappedBy = "idAutorizacaoFk")
-	private List<HistFuncionariosAutorizacao> histFuncionariosAutorizacaoList;
-
 	@JoinColumn(name = "id_funcionario_fk", referencedColumnName = "id", nullable = false)
 	@ManyToOne(optional = false)
 	private PessoaFuncionarios idFuncionarioFk;
@@ -39,6 +36,9 @@ public class Autorizacoes extends AbstractEntity<Long> {
 	@JoinColumn(name = "id_unidade_de_saude_fk", referencedColumnName = "id")
 	@ManyToOne
 	private Unidades idUnidadeDeSaudeFk;
+
+	@OneToMany(cascade = CascadeType.ALL, mappedBy = "idAutorizacaoFk")
+	private List<HistFuncionariosAutorizacao> histFuncionariosAutorizacaoList;
 
 	public Date getDtInicio() {
 		return dtInicio;

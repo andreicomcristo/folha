@@ -23,12 +23,16 @@ public class UnidadesRegime extends AbstractEntity<Long> {
 	@OneToMany(cascade = CascadeType.ALL, mappedBy = "idUnidadeRegimeFk")
 	private List<HistUnidadesRegime> histUnidadesRegimeList;
 
+	@OneToMany(mappedBy = "idUnidadesRegimeFk")
+	private List<Unidades> unidadesList;
+
 	public String getSiglaRegimeUnidLotacao() {
 		return siglaRegimeUnidLotacao;
 	}
 
 	public void setSiglaRegimeUnidLotacao(String siglaRegimeUnidLotacao) {
-		this.siglaRegimeUnidLotacao = UtilidadesDeTexto.retiraEspacosDuplosAcentosEConverteEmMaiusculo(siglaRegimeUnidLotacao);
+		this.siglaRegimeUnidLotacao = UtilidadesDeTexto
+				.retiraEspacosDuplosAcentosEConverteEmMaiusculo(siglaRegimeUnidLotacao);
 	}
 
 	public String getNomeRegimeUnidLotacao() {
@@ -36,7 +40,8 @@ public class UnidadesRegime extends AbstractEntity<Long> {
 	}
 
 	public void setNomeRegimeUnidLotacao(String nomeRegimeUnidLotacao) {
-		this.nomeRegimeUnidLotacao = UtilidadesDeTexto.retiraEspacosDuplosAcentosEConverteEmMaiusculo(nomeRegimeUnidLotacao);
+		this.nomeRegimeUnidLotacao = UtilidadesDeTexto
+				.retiraEspacosDuplosAcentosEConverteEmMaiusculo(nomeRegimeUnidLotacao);
 	}
 
 	public String getDescricaoRegimeUnidLotacao() {
@@ -44,7 +49,8 @@ public class UnidadesRegime extends AbstractEntity<Long> {
 	}
 
 	public void setDescricaoRegimeUnidLotacao(String descricaoRegimeUnidLotacao) {
-		this.descricaoRegimeUnidLotacao = UtilidadesDeTexto.retiraEspacosDuplosAcentosEConverteEmMaiusculo(descricaoRegimeUnidLotacao);
+		this.descricaoRegimeUnidLotacao = UtilidadesDeTexto
+				.retiraEspacosDuplosAcentosEConverteEmMaiusculo(descricaoRegimeUnidLotacao);
 	}
 
 	public List<HistUnidadesRegime> getHistUnidadesRegimeList() {
@@ -53,6 +59,14 @@ public class UnidadesRegime extends AbstractEntity<Long> {
 
 	public void setHistUnidadesRegimeList(List<HistUnidadesRegime> histUnidadesRegimeList) {
 		this.histUnidadesRegimeList = histUnidadesRegimeList;
+	}
+
+	public List<Unidades> getUnidadesList() {
+		return unidadesList;
+	}
+
+	public void setUnidadesList(List<Unidades> unidadesList) {
+		this.unidadesList = unidadesList;
 	}
 
 }

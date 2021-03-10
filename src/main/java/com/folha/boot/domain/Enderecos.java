@@ -1,7 +1,5 @@
 package com.folha.boot.domain;
 
-import java.util.List;
-
 import javax.persistence.*;
 
 import com.folha.boot.service.util.UtilidadesDeTexto;
@@ -101,7 +99,5 @@ public class Enderecos extends AbstractEntity<Long> {
 	public void setIdTipoLogradouroFk(TiposLogradouro idTipoLogradouroFk) {
 		this.idTipoLogradouroFk = idTipoLogradouroFk;
 	}
-
-	
 
 }
