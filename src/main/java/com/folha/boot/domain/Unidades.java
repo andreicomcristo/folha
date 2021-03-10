@@ -68,7 +68,7 @@ public class Unidades extends AbstractEntity<Long> {
 	@JoinColumn(name = "id_tipo_logradouro_fk", referencedColumnName = "id")
 	@ManyToOne
 	private TiposLogradouro idTipoLogradouroFk;
-//
+    //////
 	@JoinColumn(name = "id_natureza_juridica_fk", referencedColumnName = "id")
     @ManyToOne
     private UnidadesNaturezaJuridica idNaturezaJuridicaFk;
@@ -80,6 +80,7 @@ public class Unidades extends AbstractEntity<Long> {
     /*@OneToMany(cascade = CascadeType.ALL, mappedBy = "unidades")
     private List<HistUnidadesDiretor> histUnidadesDiretorList;
     */
+    
 	@OneToMany(cascade = CascadeType.ALL, mappedBy = "idUnidadeDeSaudeFk")
 	private List<HistUnidadesRegime> histUnidadesRegimeList;
 
