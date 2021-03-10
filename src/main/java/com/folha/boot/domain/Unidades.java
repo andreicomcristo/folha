@@ -25,9 +25,6 @@ public class Unidades extends AbstractEntity<Long> {
 	@Column(name = "id_natureza_juridica_fk")
 	private BigInteger idNaturezaJuridicaFk;
 
-	@Column(name = "id_endereco_unidade_fk")
-	private BigInteger idEnderecoUnidadeFk;
-
 	@Column(name = "fone1", length = 40)
 	private String fone1;
 
@@ -179,14 +176,6 @@ public class Unidades extends AbstractEntity<Long> {
 
 	public void setIdNaturezaJuridicaFk(BigInteger idNaturezaJuridicaFk) {
 		this.idNaturezaJuridicaFk = idNaturezaJuridicaFk;
-	}
-
-	public BigInteger getIdEnderecoUnidadeFk() {
-		return idEnderecoUnidadeFk;
-	}
-
-	public void setIdEnderecoUnidadeFk(BigInteger idEnderecoUnidadeFk) {
-		this.idEnderecoUnidadeFk = idEnderecoUnidadeFk;
 	}
 
 	public String getFone1() {

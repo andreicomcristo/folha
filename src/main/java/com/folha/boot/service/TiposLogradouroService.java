@@ -51,5 +51,9 @@ public class TiposLogradouroService {
 	public List<TiposLogradouro> buscarPorNome(String nomeTipoLogradouro) {
 		return reposytory.findByNomeTipoLogradouroContainingOrderByNomeTipoLogradouroAsc(nomeTipoLogradouro);
 	}
+	
+	public List<TiposLogradouro> buscarPorNomeExato(String nomeTipoLogradouro) {
+		return reposytory.findByNomeTipoLogradouroOrderByNomeTipoLogradouroAsc(nomeTipoLogradouro);
+	}
 
 }
