@@ -36,6 +36,7 @@ import com.folha.boot.service.PessoaDocumentosTituloService;
 import com.folha.boot.service.PessoaService;
 import com.folha.boot.service.UfService;
 
+
 @Controller
 @RequestMapping("/ctpsdocs")
 public class PessoaDocumentosCtpsController {
@@ -83,6 +84,19 @@ public class PessoaDocumentosCtpsController {
 	@GetMapping("/cadastrar/{id}")
 	public String cadastrarComPessoa(@PathVariable("id") Long id, ModelMap model, PessoaDocumentosCtps pessoaDocumentos, PessoaDocumentosHabilitacao pessoaDocumentosHabilitacao, PessoaDocumentosReservista pessoaDocumentosReservista, PessoaDocumentosConselho pessoaDocumentosConselho, PessoaDocumentosRg pessoaDocumentosRg, PessoaDocumentosTitulo pessoaDocumentosTitulo) {	
 		idPessoaAtual = id;
+		
+		ControladorCEPBean c = new ControladorCEPBean();
+		c.setCep("57051500");
+		c.carregarEndereco();
+		
+		
+		System.out.println(c.getEndereco().getLogradouro());
+		System.out.println(c.getEndereco().getBairro());
+		System.out.println(c.getEndereco().getLocalidade());
+		System.out.println(c.getEndereco().getUf());
+		System.out.println(c.getEndereco().getCep());
+		
+		
 		model.addAttribute("pessoa", pessoaService.buscarPorId(id));
 		model.addAttribute("pessoaDocumentosLista1", service.buscarPorPessoa(pessoaService.buscarPorId(id)));
 		model.addAttribute("pessoaDocumentosLista2", pessoaDocumentosHabilitacaoService.buscarPorPessoa(pessoaService.buscarPorId(id)));
@@ -90,6 +104,7 @@ public class PessoaDocumentosCtpsController {
 		model.addAttribute("pessoaDocumentosLista4", pessoaDocumentosConselhoService.buscarPorPessoa(pessoaService.buscarPorId(id)));
 		model.addAttribute("pessoaDocumentosLista5", pessoaDocumentosRgService.buscarPorPessoa(pessoaService.buscarPorId(id)));
 		model.addAttribute("pessoaDocumentosLista6", pessoaDocumentosTituloService.buscarPorPessoa(pessoaService.buscarPorId(id)));
+		
 		return "/docctps/cadastro";
 	}
 	
