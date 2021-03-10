@@ -11,7 +11,7 @@ import com.folha.boot.service.util.UtilidadesDeTexto;
 @Entity
 @Table(name = "unidades")
 public class Unidades extends AbstractEntity<Long> {
-
+////teste
 	@Column(name = "nome_fantasia", nullable = false, length = 300)
 	private String nomeFantasia;
 
