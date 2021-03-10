@@ -23,7 +23,7 @@ public class CargaHorariaSemanal extends AbstractEntity<Long> {
 	@OneToMany(cascade = CascadeType.ALL, mappedBy = "idCargaHorariaSemanalFk")
     private List<HistFuncionariosCargaHoraria> histFuncionariosCargaHorariaList;
     
-	@OneToMany(mappedBy = "idCargaHorariaAtualFk")
+	@OneToMany(cascade = CascadeType.ALL, mappedBy = "idCargaHorariaAtualFk")
     private List<PessoaFuncionarios> pessoaFuncionariosList;
 	
 	

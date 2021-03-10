@@ -1,21 +1,52 @@
 package com.folha.boot.service;
 
 import java.util.List;
-
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+import com.folha.boot.Reposytory.CargosEspecialidadeReposytory;
 import com.folha.boot.domain.CargosEspecialidade;
 
-public interface CargosEspecialidadeService {
+@Service
+@Transactional(readOnly = false)
+public class CargosEspecialidadeService {
 
-	void salvar(CargosEspecialidade cargosEspecialidade);
+	@Autowired
+	private CargosEspecialidadeReposytory reposytory;
 
-	void editar(CargosEspecialidade cargosEspecialidade);
+	public void salvar(CargosEspecialidade cargosEspecialidade) {
+		// TODO Auto-generated method stub
+		reposytory.save(cargosEspecialidade);
+		
+	}
 
-	void excluir(Long id);
+	public void editar(CargosEspecialidade cargosEspecialidade) {
+		// TODO Auto-generated method stub
+		reposytory.save(cargosEspecialidade);
+		
+	}
 
-	CargosEspecialidade buscarPorId(Long id); 
+	public void excluir(Long id) {
+		// TODO Auto-generated method stub
+		reposytory.deleteById(id);
+		
+	}
 
-	List<CargosEspecialidade> buscarPorNome(String nomeEspecialidadeCargo);
-	
-	List<CargosEspecialidade> buscarTodos();
-	
+	@Transactional(readOnly = true)
+	public CargosEspecialidade buscarPorId(Long id) {
+		// TODO Auto-generated method stub
+		return reposytory.findById(id).get();
+	}
+
+	@Transactional(readOnly = true)
+	public List<CargosEspecialidade> buscarTodos() {
+		// TODO Auto-generated method stub
+		return reposytory.findAllByOrderByNomeEspecialidadeCargoAsc();
+	}
+
+	public List<CargosEspecialidade> buscarPorNome(String nomeEspecialidadeCargo) {
+		// TODO Auto-generated method stub
+		return reposytory.findByNomeEspecialidadeCargoContainingOrderByNomeEspecialidadeCargoAsc(nomeEspecialidadeCargo);
+	}
+
 }

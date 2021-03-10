@@ -87,11 +87,12 @@ public class PessoaFuncionarios extends AbstractEntity<Long> {
 	@OneToMany(cascade = CascadeType.ALL, mappedBy = "idFuncionarioFk")
     private List<HistFuncionariosUnidadeAtuacao> histFuncionariosUnidadeAtuacaoList;
 
+	@JoinColumn(name = "id_unidade_atuacao_atual_fk", referencedColumnName = "id")
 	@ManyToOne
     private Unidades idUnidadeAtuacaoAtualFk;
      
 	@JoinColumn(name = "id_classe_carreira_atual_fk", referencedColumnName = "id")
-    @ManyToOne
+	@ManyToOne
     private ClassesCarreira idClasseCarreiraAtualFk;
 	
 	@Column(name = "id_unidade_lotacao_atual_fk")
@@ -128,14 +129,14 @@ public class PessoaFuncionarios extends AbstractEntity<Long> {
     @ManyToOne
     private Carreiras idCarreiraAtualFk;
 
+    @JoinColumn(name = "id_vinculo_atual_fk", referencedColumnName = "id")
     @ManyToOne
     private Vinculos idVinculoAtualFk;
     
     @JoinColumn(name = "id_situacao_atual_fk", referencedColumnName = "id")
     @ManyToOne
     private Situacoes idSituacaoAtualFk;
-    
-    
+     
 	public BigInteger getIdUnidadeLotacaoAtualFk() {
 		return idUnidadeLotacaoAtualFk;
 	}

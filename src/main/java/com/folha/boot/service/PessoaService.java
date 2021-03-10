@@ -1,21 +1,61 @@
 package com.folha.boot.service;
 
 import java.util.List;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+import com.folha.boot.Reposytory.PessoaReposytory;
 import com.folha.boot.domain.Pessoa;
 
-public interface PessoaService {
+@Service
+@Transactional(readOnly = false)
+public class PessoaService {
 
-	void salvar(Pessoa pessoa);
-
-	void editar(Pessoa pessoa);
-
-	void excluir(Long id);
-
-	Pessoa buscarPorId(Long id);
-
-	List<Pessoa> buscarPorNome(String nome);
-
-	List<Pessoa> buscarTodos();
+	@Autowired
+	private PessoaReposytory reposytory;
 	
-	List<Pessoa> buscarPorCpf(String cpf);
+	
+	public void salvar(Pessoa pessoa) {
+		// TODO Auto-generated method stub
+		reposytory.save(pessoa);
+	}
+
+	
+	public void editar(Pessoa pessoa) {
+		// TODO Auto-generated method stub
+		reposytory.save(pessoa);
+	}
+
+	
+	public void excluir(Long id) {
+		// TODO Auto-generated method stub
+		reposytory.deleteById(id);
+	}
+
+	@Transactional(readOnly = true)
+	
+	public Pessoa buscarPorId(Long id) {
+		// TODO Auto-generated method stub
+		return reposytory.findById(id).get();
+	}
+
+	@Transactional(readOnly = true)
+	
+	public List<Pessoa> buscarTodos() {
+		// TODO Auto-generated method stub
+		return reposytory.findAll();
+	}
+
+	
+	public List<Pessoa> buscarPorNome(String nome) {
+		// TODO Auto-generated method stub
+		return reposytory.findByNomeContainingOrderByNomeAsc(nome);
+	}
+	
+	
+	public List<Pessoa> buscarPorCpf(String cpf) {
+		// TODO Auto-generated method stub
+		return reposytory.findByCpfOrderByNomeAsc(cpf);
+	}
+	
 }

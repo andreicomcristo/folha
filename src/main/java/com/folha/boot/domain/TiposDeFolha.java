@@ -9,8 +9,10 @@ public class TiposDeFolha extends AbstractEntity<Long> {
 
 	@Column(name = "nome_tipo_folha")
     private String nomeTipoFolha;
-    @Column(name = "descricao_tipo_folha")
+    
+	@Column(name = "descricao_tipo_folha")
     private String descricaoTipoFolha;
+    
     @Basic(optional = false)
     @Column(name = "nome_tipo_filha")
     private String nomeTipoFilha;

@@ -2,18 +2,47 @@ package com.folha.boot.service;
 
 import java.util.List;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.transaction.annotation.Transactional;
+
+import com.folha.boot.Reposytory.HistFuncionariosUnidadeLotacaoReposytory;
 import com.folha.boot.domain.HistFuncionariosUnidadeLotacao;
 
-public interface HistFuncionariosUnidadeLotacaoService {
+public class HistFuncionariosUnidadeLotacaoService {
+
+	@Autowired
+	private HistFuncionariosUnidadeLotacaoReposytory reposytory;
 	
-	void salvar(HistFuncionariosUnidadeLotacao histFuncionariosUnidadeLotacao);
+	
+	public void salvar(HistFuncionariosUnidadeLotacao histFuncionariosUnidadeLotacao) {
+		// TODO Auto-generated method stub
+		reposytory.save(histFuncionariosUnidadeLotacao);
+	}
 
-	void editar(HistFuncionariosUnidadeLotacao histFuncionariosUnidadeLotacao);
+	
+	public void editar(HistFuncionariosUnidadeLotacao histFuncionariosUnidadeLotacao) {
+		// TODO Auto-generated method stub
+		reposytory.save(histFuncionariosUnidadeLotacao);
+	}
 
-	void excluir(Long id);
+	
+	public void excluir(Long id) {
+		// TODO Auto-generated method stub
+		reposytory.deleteById(id);
+	}
 
-	HistFuncionariosUnidadeLotacao buscarPorId(Long id);
+	@Transactional(readOnly = true)
+	
+	public HistFuncionariosUnidadeLotacao buscarPorId(Long id) {
+		// TODO Auto-generated method stub
+		return reposytory.findById(id).get();
+	}
 
-	List<HistFuncionariosUnidadeLotacao> buscarTodos();
+	@Transactional(readOnly = true)
+	
+	public List<HistFuncionariosUnidadeLotacao> buscarTodos() {
+		// TODO Auto-generated method stub
+		return reposytory.findAll();
+	}
 
 }

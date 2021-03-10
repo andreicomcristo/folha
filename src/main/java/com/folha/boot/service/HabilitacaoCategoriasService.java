@@ -1,21 +1,53 @@
 package com.folha.boot.service;
 
 import java.util.List;
-
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+import com.folha.boot.Reposytory.HabilitacaoCategoriasReposytory;
 import com.folha.boot.domain.HabilitacaoCategorias;
 
-public interface HabilitacaoCategoriasService {
+@Service
+@Transactional(readOnly = false)
+public class HabilitacaoCategoriasService {
 
-	void salvar(HabilitacaoCategorias habilitacaoCategorias);
+	@Autowired
+	private HabilitacaoCategoriasReposytory reposytory;
 
-	void editar(HabilitacaoCategorias habilitacaoCategorias);
+	public void salvar(HabilitacaoCategorias habilitacaoCategorias) {
+		// TODO Auto-generated method stub
+		reposytory.save(habilitacaoCategorias);
+	}
 
-	void excluir(Long id);
-
-	HabilitacaoCategorias  buscarPorId(Long id);
-
-	List<HabilitacaoCategorias > buscarTodos();
 	
-	List<HabilitacaoCategorias> buscarPorNome(String nomeHabilitacaoCategorias);
+	public void editar(HabilitacaoCategorias habilitacaoCategorias) {
+		// TODO Auto-generated method stub
+		reposytory.save(habilitacaoCategorias);
+	}
+
+	
+	public void excluir(Long id) {
+		// TODO Auto-generated method stub
+		reposytory.deleteById(id);
+	}
+
+	@Transactional(readOnly = true)
+	
+	public HabilitacaoCategorias buscarPorId(Long id) {
+		// TODO Auto-generated method stub
+		return reposytory.findById(id).get();
+	}
+
+	@Transactional(readOnly = true)
+	
+	public List<HabilitacaoCategorias> buscarTodos() {
+		// TODO Auto-generated method stub
+		return reposytory.findAllByOrderByNomeHabilitacaoCategoriaAsc();
+	}
+
+	
+	public List<HabilitacaoCategorias> buscarPorNome(String nomeHabilitacaoCategoria) {
+		return reposytory.findByNomeHabilitacaoCategoriaContainingOrderByNomeHabilitacaoCategoriaAsc(nomeHabilitacaoCategoria);
+	}
 	
 }

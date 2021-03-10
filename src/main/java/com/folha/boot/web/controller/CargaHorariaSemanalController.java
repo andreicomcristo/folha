@@ -56,13 +56,7 @@ public class CargaHorariaSemanalController {
 	@GetMapping("/excluir/{id}")
 	public String excluir(@PathVariable("id") Long id, ModelMap model) {
 		
-		/*if (service.depertamentoTemCargos(id)) {
-			model.addAttribute("fail", "Departamento não removido. Possui cargo(s) vinculado(s).");
-		} else {
-			service.excluir(id);
-			model.addAttribute("success", "Departamento excluído com sucesso.");
-		}*/
-		service.excluir(id); //Caso implemente a regra acima, apagar essa linha. 
+		service.excluir(id);  
 		model.addAttribute("success", "Excluído com sucesso.");
 		return listar(model);
 

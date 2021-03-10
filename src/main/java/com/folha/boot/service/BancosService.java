@@ -1,21 +1,52 @@
 package com.folha.boot.service;
 
 import java.util.List;
-
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+import com.folha.boot.Reposytory.BancosReposytory;
 import com.folha.boot.domain.Bancos;
 
-public interface BancosService {
+@Service
+@Transactional(readOnly = false)
+public class BancosService {	
+	@Autowired
+	private BancosReposytory reposytory;
 
-	void salvar(Bancos bancos);
+	//@Override
+	public void salvar(Bancos bancos) {
+		reposytory.save(bancos);
+	}
 
-	void editar(Bancos bancos);
+	//@Override
+	public void editar(Bancos bancos) {
+		reposytory.save(bancos);
 
-	void excluir(Long id);
+	}
 
-	Bancos buscarPorId(Long id);
+	//@Override
+	public void excluir(Long id) {
+		reposytory.deleteById(id);
+
+	}
+
+	@Transactional(readOnly = true)
+	//@Override
+	public Bancos buscarPorId(Long id) {
+		
+		return reposytory.findById(id).get();
+	}
+
+	@Transactional(readOnly = true)
+	//@Override
+	public List<Bancos> buscarTodos() {
+		// TODO Auto-generated method stub
+		return reposytory.findAllByOrderByNomeBancoAsc();
+	}
 	
-	List<Bancos> buscarPorNome(String nomeBanco);
-
-	List<Bancos> buscarTodos();
+	//@Override
+	public List<Bancos> buscarPorNome(String nomeBanco) {
+		return reposytory.findByNomeBancoContainingOrderByNomeBancoAsc(nomeBanco);
+	}
 	
 }

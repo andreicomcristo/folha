@@ -2,20 +2,56 @@ package com.folha.boot.service;
 
 import java.util.List;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+
+import com.folha.boot.Reposytory.UnidadesNaturezaJuridicaReposytory;
 import com.folha.boot.domain.UnidadesNaturezaJuridica;
 
-public interface UnidadesNaturezaJuridicaService {
+@Service
+@Transactional(readOnly = false)
+public class UnidadesNaturezaJuridicaService {
+
+	@Autowired
+	private UnidadesNaturezaJuridicaReposytory reposytory;
 	
-	void salvar(UnidadesNaturezaJuridica unidadesNaturezaJuridica);
-
-	void editar(UnidadesNaturezaJuridica unidadesNaturezaJuridica);
-
-	void excluir(Long id);
-
-	UnidadesNaturezaJuridica buscarPorId(Long id);
-
-	List<UnidadesNaturezaJuridica> buscarTodos();
 	
-	List<UnidadesNaturezaJuridica> buscarPorNome(String nomeNaturezaJuridica);
+	public void salvar(UnidadesNaturezaJuridica unidadesNaturezaJuridica) {
+		// TODO Auto-generated method stub
+		reposytory.save(unidadesNaturezaJuridica);
+	}
+
+	
+	public void editar(UnidadesNaturezaJuridica unidadesNaturezaJuridica) {
+		// TODO Auto-generated method stub
+		reposytory.save(unidadesNaturezaJuridica);
+	}
+
+	
+	public void excluir(Long id) {
+		// TODO Auto-generated method stub
+		reposytory.deleteById(id);
+	}
+
+	@Transactional(readOnly = true)
+	
+	public UnidadesNaturezaJuridica buscarPorId(Long id) {
+		// TODO Auto-generated method stub
+		return reposytory.findById(id).get();
+	}
+
+	@Transactional(readOnly = true)
+	
+	public List<UnidadesNaturezaJuridica> buscarTodos() {
+		// TODO Auto-generated method stub
+		return reposytory.findAll();
+	}
+
+	
+	public List<UnidadesNaturezaJuridica> buscarPorNome(String nomeNaturezaJuridica) {
+		// TODO Auto-generated method stub
+		return reposytory.findByNomeNaturezaJuridicaContainingOrderByNomeNaturezaJuridicaAsc(nomeNaturezaJuridica);
+	}
 
 }

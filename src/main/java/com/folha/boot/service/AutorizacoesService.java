@@ -2,18 +2,47 @@ package com.folha.boot.service;
 
 import java.util.List;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+
+import com.folha.boot.Reposytory.AutorizacoesReposytory;
 import com.folha.boot.domain.Autorizacoes;
 
-public interface AutorizacoesService {
+@Service
+@Transactional(readOnly = false)
+public class AutorizacoesService {
+	
+	@Autowired
+	private AutorizacoesReposytory reposytory;
 
-	void salvar(Autorizacoes autorizacoes);
+	public void salvar(Autorizacoes autorizacoes) {
 
-	void editar(Autorizacoes autorizacoes);
+		reposytory.save(autorizacoes);
+	}
 
-	void excluir(Long id);
+	public void editar(Autorizacoes autorizacoes) {
 
-	Autorizacoes buscarPorId(Long id);
+		reposytory.save(autorizacoes);
 
-	List<Autorizacoes> buscarTodos();
+	}
+
+	public void excluir(Long id) {
+		
+		reposytory.deleteById(id);
+		
+	}
+
+	@Transactional(readOnly = true)
+	public Autorizacoes buscarPorId(Long id) {
+		
+		return reposytory.findById(id).get();
+	}
+
+	@Transactional(readOnly = true)
+	public List<Autorizacoes> buscarTodos() {
+			
+		return reposytory.findAll();
+	}
 
 }

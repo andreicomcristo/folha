@@ -2,19 +2,49 @@ package com.folha.boot.service;
 
 import java.util.List;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+
+import com.folha.boot.Reposytory.HistUnidadesDiretorReposytory;
 import com.folha.boot.domain.HistUnidadesDiretor;
 
+@Service
+@Transactional(readOnly = false)
+public class HistUnidadesDiretorService {
 
-public interface HistUnidadesDiretorService {
+	@Autowired
+	private HistUnidadesDiretorReposytory reposytory;
 	
-	void salvar(HistUnidadesDiretor histUnidadesDiretor);
+	public void salvar(HistUnidadesDiretor histUnidadesDiretor) {
+		// TODO Auto-generated method stub
+		reposytory.save(histUnidadesDiretor);
+	}
 
-	void editar(HistUnidadesDiretor histUnidadesDiretor);
+	
+	public void editar(HistUnidadesDiretor histUnidadesDiretor) {
+		// TODO Auto-generated method stub
+		reposytory.save(histUnidadesDiretor);
+	}
 
-	void excluir(Long id);
+	
+	public void excluir(Long id) {
+		// TODO Auto-generated method stub
+		reposytory.deleteById(id);
+	}
 
-	HistUnidadesDiretor buscarPorId(Long id);
+	@Transactional(readOnly = true)
+	
+	public HistUnidadesDiretor buscarPorId(Long id) {
+		// TODO Auto-generated method stub
+		return reposytory.findById(id).get();
+	}
 
-	List<HistUnidadesDiretor> buscarTodos();
+	@Transactional(readOnly = true)
+	
+	public List<HistUnidadesDiretor> buscarTodos() {
+		// TODO Auto-generated method stub
+		return reposytory.findAll();
+	}
 
 }

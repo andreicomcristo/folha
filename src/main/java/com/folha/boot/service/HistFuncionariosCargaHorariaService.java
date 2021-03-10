@@ -2,17 +2,50 @@ package com.folha.boot.service;
 
 import java.util.List;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+
+import com.folha.boot.Reposytory.HistFuncionariosCargaHorariaReposytory;
 import com.folha.boot.domain.HistFuncionariosCargaHoraria;
 
-public interface HistFuncionariosCargaHorariaService {
+@Service
+@Transactional(readOnly = false)
+public class HistFuncionariosCargaHorariaService{
 
-	void salvar(HistFuncionariosCargaHoraria histFuncionariosCargaHoraria);
+	@Autowired
+	private HistFuncionariosCargaHorariaReposytory reposytory;
+	
+	
+	public void salvar(HistFuncionariosCargaHoraria histFuncionariosCargaHoraria) {
+		// TODO Auto-generated method stub
+		reposytory.save(histFuncionariosCargaHoraria);
+	}
 
-	void editar(HistFuncionariosCargaHoraria histFuncionariosCargaHoraria);
+	
+	public void editar(HistFuncionariosCargaHoraria histFuncionariosCargaHoraria) {
+		// TODO Auto-generated method stub
+		reposytory.save(histFuncionariosCargaHoraria);
+	}
 
-	void excluir(Long id);
+	
+	public void excluir(Long id) {
+		// TODO Auto-generated method stub
+		reposytory.deleteById(id);
+	}
 
-	HistFuncionariosCargaHoraria  buscarPorId(Long id);
+	@Transactional(readOnly = true)
+	
+	public HistFuncionariosCargaHoraria buscarPorId(Long id) {
+		// TODO Auto-generated method stub
+		return reposytory.findById(id).get();
+	}
 
-	List<HistFuncionariosCargaHoraria> buscarTodos();
+	@Transactional(readOnly = true)
+	
+	public List<HistFuncionariosCargaHoraria> buscarTodos() {
+		// TODO Auto-generated method stub
+		return reposytory.findAll();
+	}
+
 }

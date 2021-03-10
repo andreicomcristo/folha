@@ -1,21 +1,59 @@
 package com.folha.boot.service;
 
 import java.util.List;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+
+import com.folha.boot.Reposytory.UnidadesReposytory;
 import com.folha.boot.domain.Unidades;
 
-public interface UnidadesService {
+@Service
+@Transactional(readOnly = false)
+public class UnidadesService {
+
+	@Autowired
+	private UnidadesReposytory reposytory;
 	
-	void salvar(Unidades unidades);
+	
+	public void salvar(Unidades unidades) {
+		// TODO Auto-generated method stub
+		reposytory.save(unidades);
+	}
 
-	void editar(Unidades unidades);
+	
+	public void editar(Unidades unidades) {
+		// TODO Auto-generated method stub
+		reposytory.save(unidades);
+	}
 
-	void excluir(Long id);
+	
+	public void excluir(Long id) {
+		// TODO Auto-generated method stub
+		reposytory.deleteById(id);
+	}
 
-	Unidades buscarPorId(Long id);
+	@Transactional(readOnly = true)
+	
+	public Unidades buscarPorId(Long id) {
+		// TODO Auto-generated method stub
+		return reposytory.findById(id).get();
+	}
 
-	List<Unidades> buscarTodos();
+	@Transactional(readOnly = true)
+	
+	public List<Unidades> buscarTodos() {
+		// TODO Auto-generated method stub
+		return reposytory.findAll();
+	}
 
-	List<Unidades> buscarPorNome(String nomeFantasia);
+	
+	public List<Unidades> buscarPorNome(String nomeFantasia) {
+		// TODO Auto-generated method stub
+		return reposytory.findByNomeFantasiaContainingOrderByNomeFantasiaAsc(nomeFantasia);
+	}
+
 
 
 }
