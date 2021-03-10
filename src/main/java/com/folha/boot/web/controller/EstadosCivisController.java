@@ -23,13 +23,13 @@ public class EstadosCivisController {
 	@GetMapping("/cadastrar")
 	public String cadastrar(EstadosCivis estadoCivil) {
 		
-		return "/estadoCivil/cadastro";
+		return "/estadocivil/cadastro";
 	}
 	
 	@GetMapping("/listar")
 	public String listar(ModelMap model) {
 		model.addAttribute("estadosCivis", service.buscarTodos());
-		return "/estadoCivil/lista"; 
+		return "/estadocivil/lista"; 
 	}
 	
 	@PostMapping("/salvar")
