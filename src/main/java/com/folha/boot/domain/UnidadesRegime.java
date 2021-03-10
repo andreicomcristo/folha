@@ -10,7 +10,7 @@ import com.folha.boot.service.util.UtilidadesDeTexto;
 @Entity
 @Table(name = "unidades_regime")
 public class UnidadesRegime extends AbstractEntity<Long> {
-
+//
 	@Column(name = "sigla_regime_unid_lotacao", nullable = false, length = 10)
 	private String siglaRegimeUnidLotacao;
 
