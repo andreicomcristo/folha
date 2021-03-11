@@ -21,6 +21,8 @@ public class Unidades extends AbstractEntity<Long> {
 	@Column(name = "cnes", length = 50)
 	private String cnes;
 
+
+	
 	@Column(name = "fone1", length = 40)
 	private String fone1;
 
@@ -68,7 +70,7 @@ public class Unidades extends AbstractEntity<Long> {
 	@JoinColumn(name = "id_tipo_logradouro_fk", referencedColumnName = "id")
 	@ManyToOne
 	private TiposLogradouro idTipoLogradouroFk;
-    //////
+	
 	@JoinColumn(name = "id_natureza_juridica_fk", referencedColumnName = "id")
     @ManyToOne
     private UnidadesNaturezaJuridica idNaturezaJuridicaFk;
@@ -113,14 +115,7 @@ public class Unidades extends AbstractEntity<Long> {
 		return funcionariosLicencasList;
 	}
 	
-	public UnidadesNaturezaJuridica getIdNaturezaJuridicaFk() {
-		return idNaturezaJuridicaFk;
-	}
-
-	public void setIdNaturezaJuridicaFk(UnidadesNaturezaJuridica idNaturezaJuridicaFk) {
-		this.idNaturezaJuridicaFk = idNaturezaJuridicaFk;
-	}
-
+	
 	public UnidadesRegime getIdUnidadesRegimeFk() {
 		return idUnidadesRegimeFk;
 	}
@@ -188,6 +183,9 @@ public class Unidades extends AbstractEntity<Long> {
 	public void setCnes(String cnes) {
 		this.cnes = UtilidadesDeTexto.retiraEspacosDuplosAcentosEConverteEmMaiusculo(cnes);
 	}
+
+
+	
 
 	public String getFone1() {
 		return fone1;

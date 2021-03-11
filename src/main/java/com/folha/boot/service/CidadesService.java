@@ -43,7 +43,7 @@ public class CidadesService {
 
 	@Autowired
 	private CidadesReposytory reposytory;
-
+	
 	public void salvar(Cidades cidades) {
 		// TODO Auto-generated method stub
 		reposytory.save(cidades);

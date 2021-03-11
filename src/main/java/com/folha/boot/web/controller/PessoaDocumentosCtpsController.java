@@ -15,6 +15,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.folha.boot.domain.Cidades;
 import com.folha.boot.domain.Conselhos;
+import com.folha.boot.domain.Enderecos;
 import com.folha.boot.domain.HabilitacaoCategorias;
 import com.folha.boot.domain.PessoaDocumentos;
 import com.folha.boot.domain.PessoaDocumentosConselho;
@@ -23,9 +24,12 @@ import com.folha.boot.domain.PessoaDocumentosHabilitacao;
 import com.folha.boot.domain.PessoaDocumentosReservista;
 import com.folha.boot.domain.PessoaDocumentosRg;
 import com.folha.boot.domain.PessoaDocumentosTitulo;
+import com.folha.boot.domain.TiposLogradouro;
 import com.folha.boot.domain.Uf;
+import com.folha.boot.domain.endereco.Endereco;
 import com.folha.boot.service.CidadesService;
 import com.folha.boot.service.ConselhosServices;
+import com.folha.boot.service.EnderecosServices;
 import com.folha.boot.service.HabilitacaoCategoriasService;
 import com.folha.boot.service.PessoaDocumentosConselhoService;
 import com.folha.boot.service.PessoaDocumentosCtpsService;
@@ -34,6 +38,7 @@ import com.folha.boot.service.PessoaDocumentosReservistaService;
 import com.folha.boot.service.PessoaDocumentosRgService;
 import com.folha.boot.service.PessoaDocumentosTituloService;
 import com.folha.boot.service.PessoaService;
+import com.folha.boot.service.TiposLogradouroService;
 import com.folha.boot.service.UfService;
 
 
@@ -42,12 +47,20 @@ import com.folha.boot.service.UfService;
 public class PessoaDocumentosCtpsController {
 	
 	Long idPessoaAtual;
+	Enderecos enderecos = new Enderecos();
 	
 	@Autowired
 	private PessoaDocumentosCtpsService service;
 	
 	@Autowired
 	private CidadesService cidadesService;
+	
+	@Autowired
+	private EnderecosServices enderecosServices;
+	
+	@Autowired
+	private TiposLogradouroService tiposLogradouroService;
+
 	
 	@Autowired
 	private PessoaDocumentosHabilitacaoService pessoaDocumentosHabilitacaoService;
@@ -82,28 +95,18 @@ public class PessoaDocumentosCtpsController {
 	}
 	
 	@GetMapping("/cadastrar/{id}")
-	public String cadastrarComPessoa(@PathVariable("id") Long id, ModelMap model, PessoaDocumentosCtps pessoaDocumentos, PessoaDocumentosHabilitacao pessoaDocumentosHabilitacao, PessoaDocumentosReservista pessoaDocumentosReservista, PessoaDocumentosConselho pessoaDocumentosConselho, PessoaDocumentosRg pessoaDocumentosRg, PessoaDocumentosTitulo pessoaDocumentosTitulo) {	
+	public String cadastrarComPessoa(@PathVariable("id") Long id, ModelMap model, PessoaDocumentosCtps pessoaDocumentos, PessoaDocumentosHabilitacao pessoaDocumentosHabilitacao, PessoaDocumentosReservista pessoaDocumentosReservista, PessoaDocumentosConselho pessoaDocumentosConselho, PessoaDocumentosRg pessoaDocumentosRg, PessoaDocumentosTitulo pessoaDocumentosTitulo, Enderecos enderecos) {	
 		idPessoaAtual = id;
 		
-		ControladorCEPBean c = new ControladorCEPBean();
-		c.setCep("57051500");
-		c.carregarEndereco();
-		
-		
-		System.out.println(c.getEndereco().getLogradouro());
-		System.out.println(c.getEndereco().getBairro());
-		System.out.println(c.getEndereco().getLocalidade());
-		System.out.println(c.getEndereco().getUf());
-		System.out.println(c.getEndereco().getCep());
-		
-		
 		model.addAttribute("pessoa", pessoaService.buscarPorId(id));
+		model.addAttribute("enderecos", this.enderecos);
 		model.addAttribute("pessoaDocumentosLista1", service.buscarPorPessoa(pessoaService.buscarPorId(id)));
 		model.addAttribute("pessoaDocumentosLista2", pessoaDocumentosHabilitacaoService.buscarPorPessoa(pessoaService.buscarPorId(id)));
 		model.addAttribute("pessoaDocumentosLista3", pessoaDocumentosReservistaService.buscarPorPessoa(pessoaService.buscarPorId(id)));
 		model.addAttribute("pessoaDocumentosLista4", pessoaDocumentosConselhoService.buscarPorPessoa(pessoaService.buscarPorId(id)));
 		model.addAttribute("pessoaDocumentosLista5", pessoaDocumentosRgService.buscarPorPessoa(pessoaService.buscarPorId(id)));
 		model.addAttribute("pessoaDocumentosLista6", pessoaDocumentosTituloService.buscarPorPessoa(pessoaService.buscarPorId(id)));
+		model.addAttribute("pessoaDocumentosLista7", enderecosServices.buscarPorPessoa(pessoaService.buscarPorId(id)));
 		
 		return "/docctps/cadastro";
 	}
@@ -111,7 +114,6 @@ public class PessoaDocumentosCtpsController {
 	@GetMapping("/listar")
 	public String listar(ModelMap model) {
 		model.addAttribute("pessoaDocumentosCtps", service.buscarTodos());
-		System.out.println(service.buscarTodos().toString());
 		return "/docctps/lista"; 
 	}
 	
@@ -165,6 +167,36 @@ public class PessoaDocumentosCtpsController {
 		
 		conselho.setIdPessoaFk(pessoaService.buscarPorId(idPessoaAtual));
 		pessoaDocumentosConselhoService.salvar(conselho);
+		//attr.addFlashAttribute("success", "Inserido com sucesso.");
+		return "redirect:/ctpsdocs/cadastrar/"+idPessoaAtual+"";
+	}
+	
+	@GetMapping("/listar/endereco/viacep")
+	public String listarEnderecoViaCep(ModelMap model, Enderecos enderecos) {
+		if(enderecos!=null) {
+			if(enderecos.getEnderecoCep().length()==8) {
+				enderecos = this.obterEndereco(enderecos.getEnderecoCep());
+				this.enderecos = enderecos;
+				enderecos.setIdPessoaFk(pessoaService.buscarPorId(idPessoaAtual));
+				model.addAttribute("enderecos", enderecos);
+			}
+		}
+		return  "redirect:/ctpsdocs/cadastrar/"+idPessoaAtual+"";
+	}
+	
+	@PostMapping("/salvar/endereco")
+	public String salvarConselho(Enderecos enderecos, RedirectAttributes attr) {
+		enderecos.setIdPessoaFk(pessoaService.buscarPorId(idPessoaAtual));
+		enderecos.setEnderecoCep(enderecos.getEnderecoCep().replace("-", ""));
+		enderecosServices.salvar(enderecos);
+		this.enderecos.setEnderecoBairro("");
+		this.enderecos.setEnderecoCep("");
+		this.enderecos.setEnderecoComplemento("");
+		this.enderecos.setEnderecoLogradouro("");
+		this.enderecos.setEnderecoNumero("");
+		this.enderecos.setIdEnderecoCidadeFk(cidadesService.buscarPorNome("MACEIO").get(0));
+		this.enderecos.setIdTipoLogradouroFk(tiposLogradouroService.buscarPorNome("RUA").get(0));
+	
 		//attr.addFlashAttribute("success", "Inserido com sucesso.");
 		return "redirect:/ctpsdocs/cadastrar/"+idPessoaAtual+"";
 	}
@@ -246,6 +278,15 @@ public class PessoaDocumentosCtpsController {
 		return "redirect:/ctpsdocs/cadastrar/"+idPessoaAtual+"";
 	}
 	
+	@GetMapping("/excluir/endereco/{id}")
+	public String excluirEndereco(@PathVariable("id") Long id, ModelMap model) {
+		enderecosServices.excluir(id);  
+		model.addAttribute("pessoa", pessoaService.buscarPorId(id));
+		model.addAttribute("pessoaDocumentosLista7", enderecosServices.buscarPorPessoa(pessoaService.buscarPorId(id)));
+		model.addAttribute("success", "Excluído com sucesso.");
+		return "redirect:/ctpsdocs/cadastrar/"+idPessoaAtual+"";
+	}
+	
 	@GetMapping("/buscar/numero/documento/ctps")
 	public String getPorNome(@RequestParam("numero") String numero, ModelMap model) {		
 		model.addAttribute("pessoaDocumentosCtps", service.buscarPorNumero(numero.toUpperCase().trim()));
@@ -276,5 +317,47 @@ public class PessoaDocumentosCtpsController {
 	public List<Cidades> getCidades() {
 		return cidadesService.buscarTodos();
 	}
+	
+	@ModelAttribute("idEnderecoCidadeFk")
+	public List<Cidades> getCidadesEndereco() {
+		return cidadesService.buscarTodos();
+	}
+	
+	@ModelAttribute("idTipoLogradouroFk")
+	public List<TiposLogradouro> getTiposLogradouro() {
+		return tiposLogradouroService.buscarTodos();
+	}
+	
+	
+	
+	// buscando endereco por cep
+	public Enderecos obterEndereco(String cepBusca) {
+		ControladorCEPBean c = new ControladorCEPBean();
+		c.setCep(cepBusca);
+		Enderecos enderecos = new Enderecos();
+		Endereco endereco = c.carregarEndereco();
+		
+		List<Cidades> listaDeCidades =  cidadesService.buscarPorNome(endereco.getLocalidade());
+		List<TiposLogradouro> listaTiposLogradouro =  tiposLogradouroService.buscarPorNomeExato(endereco.getTipoLogradouro());
+		
+		for(int i=0;i<listaDeCidades.size();i++) {
+			if(listaDeCidades.get(i).getIdUfFk().getSiglaUf().equalsIgnoreCase(endereco.getUf())) {
+				enderecos.setIdEnderecoCidadeFk(listaDeCidades.get(i));
+			}			
+		}
+		
+		if(!listaTiposLogradouro.isEmpty()){
+			enderecos.setIdTipoLogradouroFk(listaTiposLogradouro.get(0));
+		}
+		
+		enderecos.setEnderecoBairro(endereco.getBairro());
+		enderecos.setEnderecoLogradouro(endereco.getLogradouro());
+		enderecos.setEnderecoCep(endereco.getCep());
+		enderecos.setEnderecoComplemento("");
+		enderecos.setEnderecoNumero("");
+	
+		return enderecos;
+	}
+	
 	
 }
