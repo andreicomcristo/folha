@@ -17,10 +17,7 @@ public class Privilegios extends AbstractEntity<Long> {
 	@Basic(optional = false)
 	@Column(name = "descricao_privilegio", nullable = false, length = 3000)
 	private String descricaoPrivilegio;
-
-	@OneToMany(mappedBy = "seqPrivilegio")
-	private List<PessoaOperadores> pessoaOperadoresList;
-
+	
 	public String getNomePrivilegio() {
 		return nomePrivilegio;
 	}
@@ -37,12 +34,5 @@ public class Privilegios extends AbstractEntity<Long> {
 		this.descricaoPrivilegio = UtilidadesDeTexto.retiraEspacosDuplosAcentosEConverteEmMaiusculo(descricaoPrivilegio);
 	}
 
-	public List<PessoaOperadores> getPessoaOperadoresList() {
-		return pessoaOperadoresList;
-	}
-
-	public void setPessoaOperadoresList(List<PessoaOperadores> pessoaOperadoresList) {
-		this.pessoaOperadoresList = pessoaOperadoresList;
-	}
-
+	
 }

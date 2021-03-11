@@ -4,6 +4,10 @@ import java.util.Date;
 import java.util.List;
 
 import javax.persistence.*;
+import javax.validation.constraints.Email;
+import javax.validation.constraints.NotBlank;
+
+import org.hibernate.validator.constraints.br.CPF;
 
 import com.folha.boot.service.util.UtilidadesDeTexto;
 
@@ -12,9 +16,11 @@ import com.folha.boot.service.util.UtilidadesDeTexto;
 @Table(name = "pessoa")
 public class Pessoa extends AbstractEntity<Long> {
 
+	@NotBlank(message="CPF obrigatório")
 	@Column(name = "cpf", nullable = false, length = 20)
 	private String cpf;
 
+	@NotBlank(message="Nome obrigatório")
 	@Basic(optional = false)
 	@Column(name = "nome", nullable = false, length = 300)
 	private String nome;
@@ -30,10 +36,12 @@ public class Pessoa extends AbstractEntity<Long> {
 
 	@Column(name = "fone3", length = 30)
 	private String fone3;
-
+	
+	
 	@Column(name = "email", length = 150)
 	private String email;
-
+	
+	
 	@Column(name = "email_saude", length = 150)
 	private String emailSaude;
 

@@ -11,9 +11,6 @@ import javax.persistence.*;
 @Table(name = "pessoa_operadores")
 public class PessoaOperadores extends AbstractEntity<Long> {
  
-	@Column(name = "senha")
-    private String senha;
-    
 	@Column(name = "dt_cadastro")
     @Temporal(TemporalType.DATE)
     private Date dtCadastro;
@@ -36,11 +33,7 @@ public class PessoaOperadores extends AbstractEntity<Long> {
 	@JoinColumn(name = "id_pessoa_fk", referencedColumnName = "id")
     @ManyToOne(optional = false)
     private Pessoa idPessoaFk;
-    //verificar relacionamento
-	@JoinColumn(name = "seq_privilegio", referencedColumnName = "id")
-    @ManyToOne
-    private Privilegios seqPrivilegio;
-	
+    
 	/*@OneToOne(cascade = CascadeType.ALL, mappedBy = "pessoaOperadores")
     private UsersOperador usersOperador;*/
 	
@@ -196,13 +189,7 @@ public class PessoaOperadores extends AbstractEntity<Long> {
     private UsersOperador usersOperador;*/
     
     
-    public String getSenha() {
-		return senha;
-	}
-	public void setSenha(String senha) {
-		this.senha = senha;
-	}
-	public Date getDtCadastro() {
+    public Date getDtCadastro() {
 		return dtCadastro;
 	}
 	public void setDtCadastro(Date dtCadastro) {
@@ -365,12 +352,6 @@ public class PessoaOperadores extends AbstractEntity<Long> {
 	}
 	public void setIdPessoaFk(Pessoa idPessoaFk) {
 		this.idPessoaFk = idPessoaFk;
-	}
-	public Privilegios getSeqPrivilegio() {
-		return seqPrivilegio;
-	}
-	public void setSeqPrivilegio(Privilegios seqPrivilegio) {
-		this.seqPrivilegio = seqPrivilegio;
 	}
 	public List<Unidades> getUnidadesList() {
 		return unidadesList;

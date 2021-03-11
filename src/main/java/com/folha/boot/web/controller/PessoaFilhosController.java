@@ -14,7 +14,7 @@ import com.folha.boot.domain.PessoaFilhos;
 import com.folha.boot.service.PessoaFilhosService;
 
 @Controller
-@RequestMapping("/folhos")
+@RequestMapping("/filhos")
 public class PessoaFilhosController {
 
 	@Autowired

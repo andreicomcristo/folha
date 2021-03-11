@@ -7,11 +7,7 @@
 		<nav class="navbar navbar-expand-md bg-light">
 			<form action="/documentos/listar">
 				<div class=" layout-content">
-					<button class="btn btn-outline-dark" >Listar</button>
-					<a class="btn btn-outline-dark btn-md" href="/documentos/cadastrar"
-						role="button"> <span class="oi oi-plus" title="Cadastro"
-						aria-hidden="true"></span> <span>Novo</span>
-					</a>
+					
 				</div>
 			</form>
 		</nav>
@@ -20,27 +16,27 @@
 		<div class="container" id="comando">
 			<label for="nome" class="fonte-tutulos-tamanho">Cadastro de Documentos Específicos</label>
 			<p></p>
-				<button class=" oi oi-document btn btn-outline-success my-2 my-sm-0" type="button" data-toggle="collapse" data-target="#collapseCtps"
+				<button class=" oi oi-document btn btn-outline-secondary my-2 my-sm-0" type="button" data-toggle="collapse" data-target="#collapseCtps"
 	            		aria-controls="collapseCtps">CTPS 
 	            </button> 
 	            
-	            <button class=" oi oi-document btn btn-outline-success my-2 my-sm-0" type="button" data-toggle="collapse" data-target="#collapseHabilitacao"
+	            <button class=" oi oi-document btn btn-outline-secondary my-2 my-sm-0" type="button" data-toggle="collapse" data-target="#collapseHabilitacao"
 	            		aria-controls="collapseHabilitacao">Habilitaçao
 	            </button>
 	            
-	            <button class=" oi oi-document btn btn-outline-success my-2 my-sm-0" type="button" data-toggle="collapse" data-target="#collapseConselho"
+	            <button class=" oi oi-document btn btn-outline-secondary my-2 my-sm-0" type="button" data-toggle="collapse" data-target="#collapseConselho"
 	            		aria-controls="collapseConselho">Conselho
 	            </button>
 	            
-	            <button class=" oi oi-document btn btn-outline-success my-2 my-sm-0" type="button" data-toggle="collapse" data-target="#collapseReservista"
+	            <button class=" oi oi-document btn btn-outline-secondary my-2 my-sm-0" type="button" data-toggle="collapse" data-target="#collapseReservista"
 	            		aria-controls="collapseReservista">Reservista
 	            </button>
 	            
-	            <button class=" oi oi-document btn btn-outline-success my-2 my-sm-0" type="button" data-toggle="collapse" data-target="#collapseRg"
+	            <button class=" oi oi-document btn btn-outline-secondary my-2 my-sm-0" type="button" data-toggle="collapse" data-target="#collapseRg"
 	            		aria-controls="collapseRg">RG
 	            </button>
 	            
-	            <button class=" oi oi-document btn btn-outline-success my-2 my-sm-0" type="button" data-toggle="collapse" data-target="#collapseTitulo"
+	            <button class=" oi oi-document btn btn-outline-secondary my-2 my-sm-0" type="button" data-toggle="collapse" data-target="#collapseTitulo"
 	            		aria-controls="collapseTitulo">Título
 	            </button>
 	            
@@ -744,153 +740,23 @@
 		
 		
 		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		<!-- endereco -->
-		<div class="form-group container  col-md-6 col-6 " id="cadastro">
-		<form
-				th:action=" @{/ctpsdocs/listar/endereco/viacep}"
-				th:object="${enderecos}" method="GET">
-				<div class="form-row">
-
-					<div class="form-group col-md-6">
-						<label for="nome" class="fonte-tutulos-tamanho">Endereco</label>
+		<div class="container" id="navegacao">
+			<p></p>
+				<a class="btn btn-outline-danger btn-md" href="/ctpsdocs/retroceder"
+					role="button"> <span class="oi oi-arrow-thick-left" title="Cadastro"
+					aria-hidden="true"></span> <span>Retroceder</span>
+				</a>
 							
-							<input type="text"
-								class="form-control form-control-sm uppercase" autofocus="autofocus" 
-								id="codigo" placeholder="Cep" th:field="*{enderecoCep}" />
-							<p></p>
-							<button class="btn btn-outline-warning btn-sm">BuscarCep</button>
-		</div>
-		</div>
-		</form>
+				<a class="btn btn-outline-success btn-md" href="/ctpsdocs/avancar"
+					role="button"> <span>Avançar</span><span class="oi oi-arrow-thick-right" 
+					title="Cadastro" aria-hidden="true"></span>
+				</a>
 		</div>
 		
 		
 		
-		<div class="form-group container  col-md-6 col-6 " id="cadastro">
-
-			<div th:replace="fragments/alert"></div>
-			<form
-				th:action="${enderecos.id == null} ? @{/ctpsdocs/salvar/endereco} : @{/ctpsdocs/salvar/endereco}"
-				th:object="${enderecos}" method="POST">
-				<div class="form-row">
-
-					<div class="form-group col-md-6">
-							
-							<input type="text"
-								class="form-control form-control-sm uppercase" autofocus="autofocus" 
-								id="codigo" placeholder="Cep" th:field="*{enderecoCep}" />
-							<p></p>
-							
-							
-							
-							<select id="cargos" class="form-select" th:field="*{idTipoLogradouroFk}">
-								<option value="">Selecione o tipo</option>
-								<option th:each="d : ${idTipoLogradouroFk}" th:value="${d.id}"th:text="${d.nomeTipoLogradouro}">ADM</option>
-							</select>	
-							<p></p>
-							
-							<input type="text"
-								class="form-control form-control-sm uppercase" autofocus="autofocus" 
-								id="codigo" placeholder="Logradouro" th:field="*{enderecoLogradouro}" /> 
-							<p></p>
-							
-							<input type="text"
-								class="form-control form-control-sm uppercase" autofocus="autofocus" 
-								id="codigo" placeholder="Número" th:field="*{enderecoNumero}" />
-							<p></p>
-							
-							<input type="text"
-								class="form-control form-control-sm uppercase" autofocus="autofocus" 
-								id="codigo" placeholder="Complemento" th:field="*{enderecoComplemento}" />
-							<p></p>
-							
-							<input type="text"
-								class="form-control form-control-sm uppercase" autofocus="autofocus" 
-								id="codigo" placeholder="Bairro" th:field="*{enderecoBairro}" />
-							<p></p>
-							
-							<select id="cargos" class="form-select" th:field="*{idEnderecoCidadeFk}">
-								<option value="">Selecione a Cidade</option>
-								<option th:each="d : ${idEnderecoCidadeFk}" th:value="${d.id}"th:text="${d.nomeCidade+' - '+d.idUfFk.nomeUf+' - '+d.idPaisFk.nomePais}">ADM</option>
-							</select>		
-							<p></p>
-							
-							<input type="hidden" id="id" th:field="*{id}" />
-							<input type="hidden" id="pessoa" th:field="${pessoa}" />
-							<p></p>					
-						
-						<button class="btn btn-outline-dark">Submeter</button>
-						
-						
-					</div>
-				</div>
-			</form>
-		</div>
 		
-		
-		
-		<div class="container" id="listagem">	        
-	    	<div th:replace="fragments/alert"></div>
-	    	
-	        <div style="height: 500px; overflow-y: auto;" class="table-responsive">
-	        	<table class="table table-striped table-hover table-sm myTable">
-	            	<thead>
-	          			<tr>
-		                	<th>#</th>
-		                    <th>Tipo</th>
-		                    <th>Logradouro</th>
-		                    <th>Número</th>
-		                    <th>Complemento</th>
-		                    <th>Bairro</th>
-		                    <th>CEP</th>
-		                    <th>Cidade</th>
-		                    <th>Nome</th>
-		                    <th>CPF</th>
-		                    <th>Ações</th>
-	                    </tr>
-	                </thead>                  
-	                <tbody>
-		            	<tr th:each="d : ${pessoaDocumentosLista7}">
-		                	<td th:text="${d.id}"></td>
-		                	<td th:text="${d.idTipoLogradouroFk.nomeTipoLogradouro}"></td>
-		                    <td th:text="${d.enderecoLogradouro}"></td>
-		                    <td th:text="${d.enderecoNumero}"></td>
-		                    <td th:text="${d.enderecoComplemento}"></td>
-		                    <td th:text="${d.enderecoBairro}"></td>
-		                    <td th:text="${d.enderecoCep}"></td>
-		                    <td th:text="${d.idEnderecoCidadeFk.nomeCidade}"></td>
-		                    <td th:text="${d.idPessoaFk.nome}"></td>
-		                    <td th:text="${d.idPessoaFk.cpf}"></td>
-		                    <td colspan="2">
-		                    	<a class="btn btn-outline-info btn-sm" th:href="@{/ctpsdocs/editar/{id} (id=${d.id}) }" role="button">
-		                        	<span class="oi oi-brush" title="Editar" aria-hidden="true"></span>
-		                        </a>
-		                        <button th:id="${ 'btn_ctpsdocs/excluir/endereco/' + d.id}" type="button" class="btn btn btn-outline-danger btn-sm" 
-		                            		data-toggle="modal" data-target="#myModal">
-		                                <span class="oi oi-circle-x" title="Exclusão habilitada" aria-hidden="true"></span>
-		                        </button>
-		                   	</td>
-						</tr>
-					</tbody>                    
-	            </table>
-	         </div>
-		</div>	
-		
-		
-		
-		
+					
 		
 		
 		

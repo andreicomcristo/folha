@@ -203,7 +203,7 @@ public class PessoaDocumentosCtpsController {
 	
 	@GetMapping("/avancar")
 	public String avancar() {
-		return "redirect:/habilitacaodocs/cadastrar/"+idPessoaAtual+"";
+		return "redirect:/enderecos/cadastrar/"+idPessoaAtual+"";
 	}
 	
 	@GetMapping("/retroceder")

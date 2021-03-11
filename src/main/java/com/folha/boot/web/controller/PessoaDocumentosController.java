@@ -61,13 +61,18 @@ public class PessoaDocumentosController {
 	public String salvar(PessoaDocumentos documento, Pessoa pessoa, RedirectAttributes attr) {
 		documento.setIdPessoaFk(pessoaService.buscarPorId(idPessoaAtual));
 		service.salvar(documento);
-		attr.addFlashAttribute("success", "Inserido com sucesso.");
+		//attr.addFlashAttribute("success", "Inserido com sucesso.");
 		return "redirect:/documentos/cadastrar/"+idPessoaAtual+"";
 	}
 	
 	@GetMapping("/avancar")
 	public String avancar() {
 		return "redirect:/ctpsdocs/cadastrar/"+idPessoaAtual+"";
+	}
+	
+	@GetMapping("/retroceder")
+	public String retroceder() {
+		return "redirect:/pessoas/retroceder/editar/"+idPessoaAtual+"";
 	}
 	
 	@GetMapping("/editar/{id}")

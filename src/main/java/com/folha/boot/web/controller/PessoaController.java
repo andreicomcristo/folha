@@ -5,6 +5,8 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.List;
 
+import javax.validation.Valid;
+
 import org.apache.poi.util.IOUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.ByteArrayResource;
@@ -75,7 +77,7 @@ public class PessoaController {
 	}
 	
 	@PostMapping("/salvar")
-	public String salvar(Pessoa pessoa, PessoaFotos pessoafotos,  RedirectAttributes attr) {
+	public String salvar( Pessoa pessoa, PessoaFotos pessoafotos,  RedirectAttributes attr) {
 		service.salvar(pessoa);
 		
 		Long id = null;
@@ -83,12 +85,18 @@ public class PessoaController {
 			id = service.buscarPorCpf(pessoa.getCpf()).get(0).getId();
 		}
 		
-		attr.addFlashAttribute("success", "Inserido com sucesso.");
+		//attr.addFlashAttribute("success", "Inserido com sucesso.");
 		return "redirect:/documentos/cadastrar/"+id+"";
 	}
 	
 	@GetMapping("/editar/{id}")
 	public String preEditar(@PathVariable("id") Long id, ModelMap model) {
+		model.addAttribute("pessoa", service.buscarPorId(id));
+		return "redirect:/documentos/cadastrar/"+id+"";
+	}
+	
+	@GetMapping("retroceder/editar/{id}")
+	public String preEditarRetroceder(@PathVariable("id") Long id, ModelMap model) {
 		model.addAttribute("pessoa", service.buscarPorId(id));
 		return "/pessoa/cadastro";
 	}
@@ -96,8 +104,9 @@ public class PessoaController {
 	@PostMapping("/editar")
 	public String editar(Pessoa pessoa, RedirectAttributes attr) {
 		service.editar(pessoa);
-		attr.addFlashAttribute("success", "Editado com sucesso.");
-		return "redirect:/pessoas/listar";
+		Long id = pessoa.getId();
+		//attr.addFlashAttribute("success", "Editado com sucesso.");
+		return "redirect:/documentos/cadastrar/"+id+"";
 	}
 	
 	@GetMapping("/excluir/{id}")
