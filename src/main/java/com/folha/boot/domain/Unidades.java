@@ -11,7 +11,7 @@ import com.folha.boot.service.util.UtilidadesDeTexto;
 @Entity
 @Table(name = "unidades")
 public class Unidades extends AbstractEntity<Long> {
-////teste
+
 	@Column(name = "nome_fantasia", nullable = false, length = 300)
 	private String nomeFantasia;
 
@@ -20,8 +20,6 @@ public class Unidades extends AbstractEntity<Long> {
 
 	@Column(name = "cnes", length = 50)
 	private String cnes;
-
-
 	
 	@Column(name = "fone1", length = 40)
 	private String fone1;
@@ -70,7 +68,7 @@ public class Unidades extends AbstractEntity<Long> {
 	@JoinColumn(name = "id_tipo_logradouro_fk", referencedColumnName = "id")
 	@ManyToOne
 	private TiposLogradouro idTipoLogradouroFk;
-
+	
 	@JoinColumn(name = "id_natureza_juridica_fk", referencedColumnName = "id")
     @ManyToOne
     private UnidadesNaturezaJuridica idNaturezaJuridicaFk;
@@ -82,6 +80,7 @@ public class Unidades extends AbstractEntity<Long> {
     /*@OneToMany(cascade = CascadeType.ALL, mappedBy = "unidades")
     private List<HistUnidadesDiretor> histUnidadesDiretorList;
     */
+    
 	@OneToMany(cascade = CascadeType.ALL, mappedBy = "idUnidadeDeSaudeFk")
 	private List<HistUnidadesRegime> histUnidadesRegimeList;
 
@@ -109,11 +108,9 @@ public class Unidades extends AbstractEntity<Long> {
 	@OneToMany(mappedBy = "idUnidadeAtuacaoAtualFk")
 	private List<PessoaFuncionarios> pessoaFuncionariosList;
 
-	
 	public List<FuncionariosLicencas> getFuncionariosLicencasList() {
 		return funcionariosLicencasList;
 	}
-	
 	
 	public UnidadesRegime getIdUnidadesRegimeFk() {
 		return idUnidadesRegimeFk;
@@ -182,9 +179,6 @@ public class Unidades extends AbstractEntity<Long> {
 	public void setCnes(String cnes) {
 		this.cnes = UtilidadesDeTexto.retiraEspacosDuplosAcentosEConverteEmMaiusculo(cnes);
 	}
-
-
-	
 
 	public String getFone1() {
 		return fone1;
