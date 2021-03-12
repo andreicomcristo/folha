@@ -2,13 +2,8 @@ package com.folha.boot.domain;
 
 import java.util.Date;
 import java.util.List;
-
 import javax.persistence.*;
-import javax.validation.constraints.Email;
-import javax.validation.constraints.NotBlank;
-
-import org.hibernate.validator.constraints.br.CPF;
-
+import javax.validation.constraints.*;
 import com.folha.boot.service.util.UtilidadesDeTexto;
 
 @SuppressWarnings("serial")
@@ -16,135 +11,96 @@ import com.folha.boot.service.util.UtilidadesDeTexto;
 @Table(name = "pessoa")
 public class Pessoa extends AbstractEntity<Long> {
 
-	@NotBlank(message="CPF obrigatório")
+	@NotBlank(message = "CPF obrigatório")
 	@Column(name = "cpf", nullable = false, length = 20)
 	private String cpf;
-
-	@NotBlank(message="Nome obrigatório")
+	@NotBlank(message = "Nome obrigatório")
 	@Basic(optional = false)
 	@Column(name = "nome", nullable = false, length = 300)
 	private String nome;
-	
-	@Column(name = "nome_social", length = 300)
-	private String nomeSocial;
-
-	@Column(name = "fone1", length = 30)
+	@Column(name = "fone1")
 	private String fone1;
-
-	@Column(name = "fone2", length = 30)
+	@Column(name = "fone2")
 	private String fone2;
-
-	@Column(name = "fone3", length = 30)
+	@Column(name = "fone3")
 	private String fone3;
-	
-	
-	@Column(name = "email", length = 150)
+	@Column(name = "email")
 	private String email;
-	
-	
-	@Column(name = "email_saude", length = 150)
+	@Column(name = "email_saude")
 	private String emailSaude;
-
 	@Column(name = "dt_nascimento")
 	@Temporal(TemporalType.DATE)
 	private Date dtNascimento;
-
-	@Column(name = "nome_pai", length = 300)
+	@Column(name = "nome_pai")
 	private String nomePai;
-
-	@Column(name = "nome_mae", length = 300)
+	@Column(name = "nome_mae")
 	private String nomeMae;
-
 	@Column(name = "dt_cadastro")
 	@Temporal(TemporalType.DATE)
 	private Date dtCadastro;
-
 	@Column(name = "dt_cancelamento")
 	@Temporal(TemporalType.DATE)
 	private Date dtCancelamento;
-
-	@Column(name = "moivo_cancelamento", length = 300)
+	@Column(name = "moivo_cancelamento")
 	private String moivoCancelamento;
-
+	@Column(name = "nome_social")
+	private String nomeSocial;
+	@OneToMany(cascade = CascadeType.ALL, mappedBy = "idPessoaFk")
+	private List<PessoaFilhos> pessoaFilhosList;
+	@OneToMany(cascade = CascadeType.ALL, mappedBy = "idPessoaFk")
+	private List<PessoaDocumentosConselho> pessoaDocumentosConselhoList;
+	@OneToMany(cascade = CascadeType.ALL, mappedBy = "idPessoaFk")
+	private List<PessoaDocumentosReservista> pessoaDocumentosReservistaList;
+	@OneToMany(cascade = CascadeType.ALL, mappedBy = "idPessoaFk")
+	private List<PessoaFotos> pessoaFotosList;
+	@OneToMany(mappedBy = "idPessoaFk")
+	private List<PessoaDocumentos> pessoaDocumentosList;
+	@OneToMany(cascade = CascadeType.ALL, mappedBy = "idPessoaFk")
+	private List<PessoaOperadores> pessoaOperadoresList;
+	@OneToMany(cascade = CascadeType.ALL, mappedBy = "idPessoaFk")
+	private List<Enderecos> enderecosList;
+	@OneToMany(mappedBy = "idPessoaFk")
+	private List<PessoaDocumentosHabilitacao> pessoaDocumentosHabilitacaoList;
 	@JoinColumn(name = "id_cidade_natal_fk", referencedColumnName = "id")
 	@ManyToOne
 	private Cidades idCidadeNatalFk;
-
 	@JoinColumn(name = "id_escolaridade_fk", referencedColumnName = "id")
 	@ManyToOne
 	private Escolaridades idEscolaridadeFk;
-
 	@JoinColumn(name = "id_estado_civil_fk", referencedColumnName = "id")
 	@ManyToOne
 	private EstadosCivis idEstadoCivilFk;
-
 	@JoinColumn(name = "id_operador_cadastro_fk", referencedColumnName = "id")
 	@ManyToOne
 	private PessoaOperadores idOperadorCadastroFk;
-
 	@JoinColumn(name = "id_operador_cancelamento_fk", referencedColumnName = "id")
 	@ManyToOne
 	private PessoaOperadores idOperadorCancelamentoFk;
-
 	@JoinColumn(name = "id_sexo_declarado_fk", referencedColumnName = "id")
 	@ManyToOne
 	private Sexos idSexoDeclaradoFk;
-
 	@JoinColumn(name = "id_sexo_fk", referencedColumnName = "id")
 	@ManyToOne
 	private Sexos idSexoFk;
-	
-	@OneToMany(cascade = CascadeType.ALL, mappedBy = "idPessoaFk")
-    private List<PessoaFilhos> pessoaFilhosList;
-      
-   /* @OneToMany(cascade = CascadeType.ALL, mappedBy = "pessoa")
-    private List<HistUnidadesDiretor> histUnidadesDiretorList;*/
-    
-	@OneToMany(cascade = CascadeType.ALL, mappedBy = "idPessoaFk")
-	private List<PessoaFilhos> pessoaFilhosCollection;
-
-	@OneToMany(cascade = CascadeType.ALL, mappedBy = "idPessoaFk")
-	private List<PessoaDocumentosConselho> pessoaDocumentosConselhoList;
-
-	@OneToMany(cascade = CascadeType.ALL, mappedBy = "idPessoaFk")
-	private List<PessoaDocumentosReservista> pessoaDocumentosReservistaList;
-	
-	@OneToMany(cascade = CascadeType.ALL, mappedBy = "idPessoaFk")
-	private List<PessoaDocumentosRg> pessoaDocumentosRgList;
-
-	@OneToMany(cascade = CascadeType.ALL, mappedBy = "idPessoaFk")
-	private List<PessoaFotos> pessoaFotosList;
-
-	@OneToMany(mappedBy = "idPessoaFk")
-	private List<PessoaDocumentos> pessoaDocumentosList;
-
-	@OneToMany(cascade = CascadeType.ALL, mappedBy = "idPessoaFk")
-	private List<PessoaOperadores> pessoaOperadoresList;
-
-	@OneToMany(cascade = CascadeType.ALL, mappedBy = "idPessoaFk")
-	private List<Enderecos> enderecosList;
-
-	@OneToMany(mappedBy = "idPessoaFk")
-	private List<PessoaDocumentosHabilitacao> pessoaDocumentosHabilitacaoList;
-
 	@OneToMany(cascade = CascadeType.ALL, mappedBy = "idPessoaFk")
 	private List<PessoaDocumentosCtps> pessoaDocumentosCtpsList;
-
 	@OneToMany(cascade = CascadeType.ALL, mappedBy = "idPessoaFk")
 	private List<PessoaBancos> pessoaBancosList;
-
+	@OneToMany(mappedBy = "idPessoaFk")
+	private List<HistUnidadesDiretor> histUnidadesDiretorList;
+	@OneToMany(cascade = CascadeType.ALL, mappedBy = "idPessoaFk")
+	private List<PessoaDocumentosRg> pessoaDocumentosRgList;
 	@OneToMany(cascade = CascadeType.ALL, mappedBy = "idPessoaFk")
 	private List<PessoaFuncionarios> pessoaFuncionariosList;
-
 	@OneToMany(cascade = CascadeType.ALL, mappedBy = "idPessoaFk")
 	private List<PessoaDocumentosTitulo> pessoaDocumentosTituloList;
-	
+
 	public String getCpf() {
 		return cpf;
 	}
 
 	public void setCpf(String cpf) {
-		this.cpf =UtilidadesDeTexto.retiraEspacosDuplosAcentosEConverteEmMaiusculo(cpf);
+		this.cpf = UtilidadesDeTexto.retiraEspacosDuplosAcentosEConverteEmMaiusculo(cpf);
 	}
 
 	public String getNome() {
@@ -154,7 +110,7 @@ public class Pessoa extends AbstractEntity<Long> {
 	public void setNome(String nome) {
 		this.nome = UtilidadesDeTexto.retiraEspacosDuplosAcentosEConverteEmMaiusculo(nome);
 	}
-	
+
 	public String getNomeSocial() {
 		return nomeSocial;
 	}
@@ -251,14 +207,6 @@ public class Pessoa extends AbstractEntity<Long> {
 		this.moivoCancelamento = UtilidadesDeTexto.retiraEspacosDuplosAcentosEConverteEmMaiusculo(moivoCancelamento);
 	}
 
-	public List<PessoaFilhos> getPessoaFilhosCollection() {
-		return pessoaFilhosCollection;
-	}
-
-	public void setPessoaFilhosCollection(List<PessoaFilhos> pessoaFilhosCollection) {
-		this.pessoaFilhosCollection = pessoaFilhosCollection;
-	}
-
 	public List<PessoaFilhos> getPessoaFilhosList() {
 		return pessoaFilhosList;
 	}
@@ -274,7 +222,7 @@ public class Pessoa extends AbstractEntity<Long> {
 	public void setIdCidadeNatalFk(Cidades idCidadeNatalFk) {
 		this.idCidadeNatalFk = idCidadeNatalFk;
 	}
-	
+
 	public Escolaridades getIdEscolaridadeFk() {
 		return idEscolaridadeFk;
 	}
@@ -322,7 +270,7 @@ public class Pessoa extends AbstractEntity<Long> {
 	public void setIdSexoFk(Sexos idSexoFk) {
 		this.idSexoFk = idSexoFk;
 	}
-	
+
 	public List<PessoaDocumentosConselho> getPessoaDocumentosConselhoList() {
 		return pessoaDocumentosConselhoList;
 	}
@@ -338,7 +286,7 @@ public class Pessoa extends AbstractEntity<Long> {
 	public void setPessoaDocumentosReservistaList(List<PessoaDocumentosReservista> pessoaDocumentosReservistaList) {
 		this.pessoaDocumentosReservistaList = pessoaDocumentosReservistaList;
 	}
-	
+
 	public List<PessoaDocumentosRg> getPessoaDocumentosRgList() {
 		return pessoaDocumentosRgList;
 	}

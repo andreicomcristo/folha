@@ -17,93 +17,44 @@ import java.util.List;
 
 public class FuncionariosCapacitacoes extends AbstractEntity<Long> {
 
+	@Basic(optional = false)
 	@Column(name = "descricao")
-    private String descricao;
-    
+	private String descricao;
 	@Column(name = "instituicao")
-    private String instituicao;
-    
+	private String instituicao;
 	@Column(name = "carga_horaria")
-    private Integer cargaHoraria;
-    
+	private Integer cargaHoraria;
 	@Column(name = "dt_inicial")
-    @Temporal(TemporalType.DATE)
-    private Date dtInicial;
-    
+	@Temporal(TemporalType.DATE)
+	private Date dtInicial;
 	@Column(name = "dt_final")
-    @Temporal(TemporalType.DATE)
-    private Date dtFinal;
-    
+	@Temporal(TemporalType.DATE)
+	private Date dtFinal;
 	@Column(name = "observacoes")
-    private String observacoes;
-    
+	private String observacoes;
 	@Column(name = "dt_cadastro")
-    @Temporal(TemporalType.DATE)
-    private Date dtCadastro;
-    
+	@Temporal(TemporalType.DATE)
+	private Date dtCadastro;
 	@Column(name = "dt_cancelamento")
-    @Temporal(TemporalType.DATE)
-    private Date dtCancelamento;
-    
+	@Temporal(TemporalType.DATE)
+	private Date dtCancelamento;
 	@Column(name = "motivo_cancelamento")
-    private String motivoCancelamento;
-    
-	@Lob
-    @Column(name = "pdf_anexo")
-    private byte[] pdfAnexo;
-    
+	private String motivoCancelamento;
 	@JoinColumn(name = "id_area_de_capacitacao_fk", referencedColumnName = "id")
-    @ManyToOne
-    private AreasDeCapacitacao idAreaDeCapacitacaoFk;
-    
+	@ManyToOne
+	private AreasDeCapacitacao idAreaDeCapacitacaoFk;
 	@JoinColumn(name = "id_funcionario_fk", referencedColumnName = "id")
-    @ManyToOne(optional = false)
-    private PessoaFuncionarios idFuncionarioFk;
-    
+	@ManyToOne(optional = false)
+	private PessoaFuncionarios idFuncionarioFk;
 	@JoinColumn(name = "id_operador_cadastro_fk", referencedColumnName = "id")
-    @ManyToOne
-    private PessoaOperadores idOperadorCadastroFk;
-    
+	@ManyToOne
+	private PessoaOperadores idOperadorCadastroFk;
 	@JoinColumn(name = "id_operador_cancelamento_fk", referencedColumnName = "id")
-    @ManyToOne
-    private PessoaOperadores idOperadorCancelamentoFk;
-    
+	@ManyToOne
+	private PessoaOperadores idOperadorCancelamentoFk;
 	@JoinColumn(name = "id_tipos_capacitacao_fk", referencedColumnName = "id")
-    @ManyToOne(optional = false)
-    private TiposDeCapacitacao idTiposCapacitacaoFk;
-	
-	@Column(name = "nome_habilitacao_categoria", nullable = false, length = 30)
-	private String nomeHabilitacaoCategoria;
-
-	@Column(name = "descricao_habilitacao_categoria", length = 300)
-	private String descricaoHabilitacaoCategoria;
-
-	@OneToMany(mappedBy = "idHabilitacaoCategoriasFk")
-	private List<PessoaDocumentosHabilitacao> pessoaDocumentosHabilitacaoList;
-
-	public String getNomeHabilitacaoCategoria() {
-		return nomeHabilitacaoCategoria;
-	} 
-
-	public void setNomeHabilitacaoCategoria(String nomeHabilitacaoCategoria) {
-		this.nomeHabilitacaoCategoria = UtilidadesDeTexto.retiraEspacosDuplosAcentosEConverteEmMaiusculo(nomeHabilitacaoCategoria);
-	}
-
-	public String getDescricaoHabilitacaoCategoria() {
-		return descricaoHabilitacaoCategoria;
-	}
-
-	public void setDescricaoHabilitacaoCategoria(String descricaoHabilitacaoCategoria) {
-		this.descricaoHabilitacaoCategoria = UtilidadesDeTexto.retiraEspacosDuplosAcentosEConverteEmMaiusculo(descricaoHabilitacaoCategoria);
-	}
-
-	public List<PessoaDocumentosHabilitacao> getPessoaDocumentosHabilitacaoList() {
-		return pessoaDocumentosHabilitacaoList;
-	}
-
-	public void setPessoaDocumentosHabilitacaoList(List<PessoaDocumentosHabilitacao> pessoaDocumentosHabilitacaoList) {
-		this.pessoaDocumentosHabilitacaoList = pessoaDocumentosHabilitacaoList;
-	}
+	@ManyToOne(optional = false)
+	private TiposDeCapacitacao idTiposCapacitacaoFk;
 
 	public String getDescricao() {
 		return descricao;
@@ -177,14 +128,6 @@ public class FuncionariosCapacitacoes extends AbstractEntity<Long> {
 		this.motivoCancelamento = motivoCancelamento;
 	}
 
-	public byte[] getPdfAnexo() {
-		return pdfAnexo;
-	}
-
-	public void setPdfAnexo(byte[] pdfAnexo) {
-		this.pdfAnexo = pdfAnexo;
-	}
-
 	public AreasDeCapacitacao getIdAreaDeCapacitacaoFk() {
 		return idAreaDeCapacitacaoFk;
 	}
@@ -224,5 +167,5 @@ public class FuncionariosCapacitacoes extends AbstractEntity<Long> {
 	public void setIdTiposCapacitacaoFk(TiposDeCapacitacao idTiposCapacitacaoFk) {
 		this.idTiposCapacitacaoFk = idTiposCapacitacaoFk;
 	}
-	
+
 }

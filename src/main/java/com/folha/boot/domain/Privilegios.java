@@ -11,13 +11,15 @@ import com.folha.boot.service.util.UtilidadesDeTexto;
 @Table(name = "privilegios")
 public class Privilegios extends AbstractEntity<Long> {
 
-	@Column(name = "nome_privilegio", nullable = false, length = 300)
-	private String nomePrivilegio;
-
 	@Basic(optional = false)
-	@Column(name = "descricao_privilegio", nullable = false, length = 3000)
+	@Column(name = "nome_privilegio")
+	private String nomePrivilegio;
+	@Basic(optional = false)
+	@Column(name = "descricao_privilegio")
 	private String descricaoPrivilegio;
-	
+	@OneToMany(mappedBy = "idPrivilegioFk")
+	private List<PessoaOperadores> pessoaOperadoresList;
+
 	public String getNomePrivilegio() {
 		return nomePrivilegio;
 	}
@@ -31,8 +33,16 @@ public class Privilegios extends AbstractEntity<Long> {
 	}
 
 	public void setDescricaoPrivilegio(String descricaoPrivilegio) {
-		this.descricaoPrivilegio = UtilidadesDeTexto.retiraEspacosDuplosAcentosEConverteEmMaiusculo(descricaoPrivilegio);
+		this.descricaoPrivilegio = UtilidadesDeTexto
+				.retiraEspacosDuplosAcentosEConverteEmMaiusculo(descricaoPrivilegio);
 	}
 
-	
+	public List<PessoaOperadores> getPessoaOperadoresList() {
+		return pessoaOperadoresList;
+	}
+
+	public void setPessoaOperadoresList(List<PessoaOperadores> pessoaOperadoresList) {
+		this.pessoaOperadoresList = pessoaOperadoresList;
+	}
+
 }

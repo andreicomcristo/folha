@@ -35,7 +35,8 @@ public class FuncionariosFeriasPeriodos extends AbstractEntity<Long> {
     @JoinColumn(name = "id_operador_cancelamento_fk", referencedColumnName = "id")
     @ManyToOne
     private PessoaOperadores idOperadorCancelamentoFk;
-	public Date getDtInicial() {
+	
+    public Date getDtInicial() {
 		return dtInicial;
 	}
 	public void setDtInicial(Date dtInicial) {

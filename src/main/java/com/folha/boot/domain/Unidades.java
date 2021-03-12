@@ -11,102 +11,74 @@ import com.folha.boot.service.util.UtilidadesDeTexto;
 @Entity
 @Table(name = "unidades")
 public class Unidades extends AbstractEntity<Long> {
-
-	@Column(name = "nome_fantasia", nullable = false, length = 300)
-	private String nomeFantasia;
-
-	@Column(name = "nome_empresarial", length = 300)
-	private String nomeEmpresarial;
-
-	@Column(name = "cnes", length = 50)
-	private String cnes;
 	
-	@Column(name = "fone1", length = 40)
-	private String fone1;
-
-	@Column(name = "endereco_logradouro", length = 300)
-	private String enderecoLogradouro;
-
-	@Column(name = "endereco_numero", length = 150)
-	private String enderecoNumero;
-
-	@Column(name = "endereco_complemento", length = 300)
-	private String enderecoComplemento;
-
-	@Column(name = "endereco_bairro", length = 300)
-	private String enderecoBairro;
-
-	@Column(name = "endereco_cep", length = 50)
-	private String enderecoCep;
-
-	@Column(name = "motivo_cadastro", length = 300)
-	private String motivoCadastro;
-
-	@Column(name = "motivo_cancelamento", length = 300)
-	private String motivoCancelamento;
-	
-	@Column(name = "dt_cadastro")
-	@Temporal(TemporalType.DATE)
-	private Date dtCadastro;
-	
-	@Column(name = "dt_cancelamento")
-	@Temporal(TemporalType.DATE)
-	private Date dtCancelamento;
-
-	@JoinColumn(name = "id_endereco_cidade_fk", referencedColumnName = "id")
-	@ManyToOne
-	private Cidades idEnderecoCidadeFk;
-
-	@JoinColumn(name = "id_operador_cadastro_fk", referencedColumnName = "id")
-	@ManyToOne
-	private PessoaOperadores idOperadorCadastroFk;
-
-	@JoinColumn(name = "id_operador_cancelamento_fk", referencedColumnName = "id")
-	@ManyToOne
-	private PessoaOperadores idOperadorCancelamentoFk;
-
-	@JoinColumn(name = "id_tipo_logradouro_fk", referencedColumnName = "id")
-	@ManyToOne
-	private TiposLogradouro idTipoLogradouroFk;
-	
-	@JoinColumn(name = "id_natureza_juridica_fk", referencedColumnName = "id")
+	@Basic(optional = false)
+    @Column(name = "nome_fantasia")
+    private String nomeFantasia;
+    @Column(name = "nome_empresarial")
+    private String nomeEmpresarial;
+    @Column(name = "cnes")
+    private String cnes;
+    @Column(name = "fone1")
+    private String fone1;
+    @Column(name = "endereco_logradouro")
+    private String enderecoLogradouro;
+    @Column(name = "endereco_numero")
+    private String enderecoNumero;
+    @Column(name = "endereco_complemento")
+    private String enderecoComplemento;
+    @Column(name = "endereco_bairro")
+    private String enderecoBairro;
+    @Column(name = "endereco_cep")
+    private String enderecoCep;
+    @Column(name = "dt_cadastro")
+    @Temporal(TemporalType.DATE)
+    private Date dtCadastro;
+    @Column(name = "motivo_cadastro")
+    private String motivoCadastro;
+    @Column(name = "dt_cancelamento")
+    @Temporal(TemporalType.DATE)
+    private Date dtCancelamento;
+    @Column(name = "motivo_cancelamento")
+    private String motivoCancelamento;
+    @OneToMany(mappedBy = "idUnidadeAtuacaoAtualFk")
+    private List<FuncionariosLicencas> funcionariosLicencasList;
+    @OneToMany(mappedBy = "idUnidadeLotacaoAtualFk")
+    private List<FuncionariosLicencas> funcionariosLicencasList1;
+    @JoinColumn(name = "id_endereco_cidade_fk", referencedColumnName = "id")
+    @ManyToOne
+    private Cidades idEnderecoCidadeFk;
+    @JoinColumn(name = "id_operador_cadastro_fk", referencedColumnName = "id")
+    @ManyToOne
+    private PessoaOperadores idOperadorCadastroFk;
+    @JoinColumn(name = "id_operador_cancelamento_fk", referencedColumnName = "id")
+    @ManyToOne
+    private PessoaOperadores idOperadorCancelamentoFk;
+    @JoinColumn(name = "id_tipo_logradouro_fk", referencedColumnName = "id")
+    @ManyToOne
+    private TiposLogradouro idTipoLogradouroFk;
+    @JoinColumn(name = "id_natureza_juridica_fk", referencedColumnName = "id")
     @ManyToOne
     private UnidadesNaturezaJuridica idNaturezaJuridicaFk;
-    
     @JoinColumn(name = "id_unidades_regime_fk", referencedColumnName = "id")
     @ManyToOne
     private UnidadesRegime idUnidadesRegimeFk;
-    
-    /*@OneToMany(cascade = CascadeType.ALL, mappedBy = "unidades")
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "idUnidadeDeSaudeFk")
+    private List<HistUnidadesRegime> histUnidadesRegimeList;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "idUnidadeFk")
+    private List<AcessoOperadoresUnidades> acessoOperadoresUnidadesList;
+    @OneToMany(mappedBy = "idUnidadeLancamentoFk")
+    private List<FuncionariosFerias> funcionariosFeriasList;
+    @OneToMany(mappedBy = "idUnidadeDeSaudeFk")
+    private List<Autorizacoes> autorizacoesList;
+    @OneToMany(mappedBy = "idUnidadeDeSaudeFk")
     private List<HistUnidadesDiretor> histUnidadesDiretorList;
-    */
-    
-	@OneToMany(cascade = CascadeType.ALL, mappedBy = "idUnidadeDeSaudeFk")
-	private List<HistUnidadesRegime> histUnidadesRegimeList;
-
-	@OneToMany(mappedBy = "idUnidadeDeSaudeFk")
-	private List<Autorizacoes> autorizacoesList;
-
-	@OneToMany(cascade = CascadeType.ALL, mappedBy = "idUnidadeFk")
-	private List<HistFuncionariosUnidadeLotacao> histFuncionariosUnidadeLotacaoList;
-
-	@OneToMany(cascade = CascadeType.ALL, mappedBy = "idUnidadeFk")
-	private List<HistFuncionariosUnidadeAtuacao> histFuncionariosUnidadeAtuacaoList;
-
-	@OneToMany(mappedBy = "idUnidadeAtuacaoAtualFk")
-	private List<FuncionariosLicencas> funcionariosLicencasList;
-
-	@OneToMany(mappedBy = "idUnidadeLotacaoAtualFk")
-	private List<FuncionariosLicencas> funcionariosLicencasList1;
-
-	@OneToMany(cascade = CascadeType.ALL, mappedBy = "idUnidadeFk")
-	private List<AcessoOperadoresUnidades> acessoOperadoresUnidadesList;
-
-	@OneToMany(mappedBy = "idUnidadeLancamentoFk")
-	private List<FuncionariosFerias> funcionariosFeriasList;
-
-	@OneToMany(mappedBy = "idUnidadeAtuacaoAtualFk")
-	private List<PessoaFuncionarios> pessoaFuncionariosList;
+    @OneToMany(mappedBy = "idUnidadeAtuacaoAtualFk")
+    private List<PessoaFuncionarios> pessoaFuncionariosList;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "idUnidadeFk")
+    private List<HistFuncionariosUnidadeLotacao> histFuncionariosUnidadeLotacaoList;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "idUnidadeFk")
+    private List<HistFuncionariosUnidadeAtuacao> histFuncionariosUnidadeAtuacaoList;
 
 	public List<FuncionariosLicencas> getFuncionariosLicencasList() {
 		return funcionariosLicencasList;
@@ -325,6 +297,22 @@ public class Unidades extends AbstractEntity<Long> {
 	public void setHistFuncionariosUnidadeAtuacaoList(
 			List<HistFuncionariosUnidadeAtuacao> histFuncionariosUnidadeAtuacaoList) {
 		this.histFuncionariosUnidadeAtuacaoList = histFuncionariosUnidadeAtuacaoList;
+	}
+
+	public UnidadesNaturezaJuridica getIdNaturezaJuridicaFk() {
+		return idNaturezaJuridicaFk;
+	}
+
+	public void setIdNaturezaJuridicaFk(UnidadesNaturezaJuridica idNaturezaJuridicaFk) {
+		this.idNaturezaJuridicaFk = idNaturezaJuridicaFk;
+	}
+
+	public List<HistUnidadesDiretor> getHistUnidadesDiretorList() {
+		return histUnidadesDiretorList;
+	}
+
+	public void setHistUnidadesDiretorList(List<HistUnidadesDiretor> histUnidadesDiretorList) {
+		this.histUnidadesDiretorList = histUnidadesDiretorList;
 	}
 
 }

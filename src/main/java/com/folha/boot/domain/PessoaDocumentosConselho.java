@@ -27,6 +27,7 @@ public class PessoaDocumentosConselho extends AbstractEntity<Long> {
     @JoinColumn(name = "id_uf_fk", referencedColumnName = "id")
     @ManyToOne
     private Uf idUfFk;
+    
 	public String getNumeroConselho() {
 		return numeroConselho;
 	}

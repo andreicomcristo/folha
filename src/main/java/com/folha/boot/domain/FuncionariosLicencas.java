@@ -9,7 +9,7 @@ import java.util.Date;
 
 public class FuncionariosLicencas extends AbstractEntity<Long> {
 
-	@Column(name = "dt_inicial")
+    @Column(name = "dt_inicial")
     @Temporal(TemporalType.DATE)
     private Date dtInicial;
     @Column(name = "dt_final")
@@ -41,9 +41,6 @@ public class FuncionariosLicencas extends AbstractEntity<Long> {
     private String pendenciaExameComprobatorio;
     @Column(name = "observacoes")
     private String observacoes;
-    @Lob
-    @Column(name = "anexo")
-    private byte[] anexo;
     @Column(name = "dt_cancelamento")
     @Temporal(TemporalType.DATE)
     private Date dtCancelamento;
@@ -79,7 +76,8 @@ public class FuncionariosLicencas extends AbstractEntity<Long> {
     @JoinColumn(name = "id_vinculo_atual_fk", referencedColumnName = "id")
     @ManyToOne
     private Vinculos idVinculoAtualFk;
-	public Date getDtInicial() {
+ 
+    public Date getDtInicial() {
 		return dtInicial;
 	}
 	public void setDtInicial(Date dtInicial) {
@@ -150,12 +148,6 @@ public class FuncionariosLicencas extends AbstractEntity<Long> {
 	}
 	public void setObservacoes(String observacoes) {
 		this.observacoes = observacoes;
-	}
-	public byte[] getAnexo() {
-		return anexo;
-	}
-	public void setAnexo(byte[] anexo) {
-		this.anexo = anexo;
 	}
 	public Date getDtCancelamento() {
 		return dtCancelamento;

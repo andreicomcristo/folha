@@ -11,22 +11,15 @@ import com.folha.boot.service.util.UtilidadesDeTexto;
 @Table(name = "carga_horaria_semanal")
 public class CargaHorariaSemanal extends AbstractEntity<Long> {
 
-	@Column(name = "carga_horaria", nullable = false)
-	private int cargaHoraria;
-
-	@Column(name = "descricao_carga_horaria", length = 300)
-	private String descricaoCargaHoraria;
-
-	@OneToMany(cascade = CascadeType.ALL, mappedBy = "idCargaHorariaSemanalFk")
-	private List<HistFuncionariosCargaHoraria> histFuncionariosCargaHorariaCollection;
-
-	@OneToMany(cascade = CascadeType.ALL, mappedBy = "idCargaHorariaSemanalFk")
+	@Basic(optional = false)
+    @Column(name = "carga_horaria")
+    private int cargaHoraria;
+    @Column(name = "descricao_carga_horaria")
+    private String descricaoCargaHoraria;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "idCargaHorariaSemanalFk")
     private List<HistFuncionariosCargaHoraria> histFuncionariosCargaHorariaList;
-    
-	@OneToMany(cascade = CascadeType.ALL, mappedBy = "idCargaHorariaAtualFk")
+    @OneToMany(mappedBy = "idCargaHorariaAtualFk")
     private List<PessoaFuncionarios> pessoaFuncionariosList;
-	
-	
 	public List<HistFuncionariosCargaHoraria> getHistFuncionariosCargaHorariaList() {
 		return histFuncionariosCargaHorariaList;
 	}
@@ -57,15 +50,6 @@ public class CargaHorariaSemanal extends AbstractEntity<Long> {
 
 	public void setDescricaoCargaHoraria(String descricaoCargaHoraria) {
 		this.descricaoCargaHoraria = UtilidadesDeTexto.retiraEspacosDuplosAcentosEConverteEmMaiusculo(descricaoCargaHoraria);
-	}
-
-	public List<HistFuncionariosCargaHoraria> getHistFuncionariosCargaHorariaCollection() {
-		return histFuncionariosCargaHorariaCollection;
-	}
-
-	public void setHistFuncionariosCargaHorariaCollection(
-			List<HistFuncionariosCargaHoraria> histFuncionariosCargaHorariaCollection) {
-		this.histFuncionariosCargaHorariaCollection = histFuncionariosCargaHorariaCollection;
 	}
 	
 }

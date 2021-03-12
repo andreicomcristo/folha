@@ -1,5 +1,7 @@
 package com.folha.boot.domain;
 
+import java.util.List;
+
 import javax.persistence.*;
 
 /**
@@ -11,24 +13,24 @@ import javax.persistence.*;
 @Table(name = "tipos_de_anexo")
 public class TiposDeAnexo extends AbstractEntity<Long> {	
 
+	@Basic(optional = false)
     @Column(name = "tipo_de_anexo")
     private String tipoDeAnexo;
-    
-    @OneToOne(cascade = CascadeType.ALL, mappedBy = "tiposDeAnexo")
-    private FuncionariosAnexos funcionariosAnexos;
-      
-	public String getTipoDeAnexo() {
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "idTipoDeAnexoFk")
+    private List<FuncionariosAnexos> funcionariosAnexosList;
+	
+    public String getTipoDeAnexo() {
 		return tipoDeAnexo;
 	}
 	public void setTipoDeAnexo(String tipoDeAnexo) {
 		this.tipoDeAnexo = tipoDeAnexo;
 	}
-	public FuncionariosAnexos getFuncionariosAnexos() {
-		return funcionariosAnexos;
+	public List<FuncionariosAnexos> getFuncionariosAnexosList() {
+		return funcionariosAnexosList;
 	}
-	public void setFuncionariosAnexos(FuncionariosAnexos funcionariosAnexos) {
-		this.funcionariosAnexos = funcionariosAnexos;
+	public void setFuncionariosAnexosList(List<FuncionariosAnexos> funcionariosAnexosList) {
+		this.funcionariosAnexosList = funcionariosAnexosList;
 	}
-    
+
     
 }

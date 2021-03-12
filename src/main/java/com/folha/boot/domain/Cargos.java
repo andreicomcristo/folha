@@ -11,28 +11,19 @@ import com.folha.boot.service.util.UtilidadesDeTexto;
 @Table(name = "cargos")
 public class Cargos extends AbstractEntity<Long> {
 
-	@Column(name = "nome_cargo", length = 150)
-	private String nomeCargo;
-
-	@Column(name = "descricao_cargo", length = 300)
-	private String descricaoCargo;
-
-	@OneToMany(mappedBy = "idCargoFk")
-	private List<CargosEspecialidade> cargosEspecialidadeList;
-
-	@OneToMany(cascade = CascadeType.ALL, mappedBy = "idCargoFk")
-	private List<HistFuncionariosCargos> histFuncionariosCargosCollection;
-
-	@JoinColumn(name = "id_nivel_cargo_fk", referencedColumnName = "id", nullable = false)
-	@ManyToOne(optional = false)
-	private NiveisCargo idNivelCargoFk;
-
-	@OneToMany(mappedBy = "idCargoAtualFk")
+    @Column(name = "nome_cargo")
+    private String nomeCargo;
+    @Column(name = "descricao_cargo")
+    private String descricaoCargo;
+    @OneToMany(mappedBy = "idCargoFk")
+    private List<CargosEspecialidade> cargosEspecialidadeList;
+    @OneToMany(mappedBy = "idCargoAtualFk")
     private List<FuncionariosLicencas> funcionariosLicencasList;
-    
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "idCargoFk")
     private List<HistFuncionariosCargos> histFuncionariosCargosList;
-    
+    @JoinColumn(name = "id_nivel_cargo_fk", referencedColumnName = "id")
+    @ManyToOne(optional = false)
+    private NiveisCargo idNivelCargoFk;
     @OneToMany(mappedBy = "idCargoAtualFk")
     private List<PessoaFuncionarios> pessoaFuncionariosList;
     
@@ -83,15 +74,6 @@ public class Cargos extends AbstractEntity<Long> {
 
 	public void setDescricaoCargo(String descricaoCargo) {
 		this.descricaoCargo = UtilidadesDeTexto.retiraEspacosDuplosAcentosEConverteEmMaiusculo(descricaoCargo);;
-	}
-
-
-	public List<HistFuncionariosCargos> getHistFuncionariosCargosCollection() {
-		return histFuncionariosCargosCollection;
-	}
-
-	public void setHistFuncionariosCargosCollection(List<HistFuncionariosCargos> histFuncionariosCargosCollection) {
-		this.histFuncionariosCargosCollection = histFuncionariosCargosCollection;
 	}
 
 	public NiveisCargo getIdNivelCargoFk() {

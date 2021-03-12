@@ -33,7 +33,8 @@ public class FuncionariosFerias extends AbstractEntity<Long> {
     @JoinColumn(name = "id_unidade_lancamento_fk", referencedColumnName = "id")
     @ManyToOne
     private Unidades idUnidadeLancamentoFk;
-	public String getAnoReferencia() {
+	
+    public String getAnoReferencia() {
 		return anoReferencia;
 	}
 	public void setAnoReferencia(String anoReferencia) {
