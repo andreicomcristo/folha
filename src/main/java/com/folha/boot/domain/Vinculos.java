@@ -66,5 +66,4 @@ public class Vinculos extends AbstractEntity<Long> {
 		this.histFuncionariosVinculosList = histFuncionariosVinculosList;
 	}
 
-
 }

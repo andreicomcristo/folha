@@ -15,19 +15,16 @@ public class UnidadesService {
 
 	@Autowired
 	private UnidadesReposytory reposytory;
-	
-	
+		
 	public void salvar(Unidades unidades) {
 		// TODO Auto-generated method stub
 		reposytory.save(unidades);
 	}
-
 	
 	public void editar(Unidades unidades) {
 		// TODO Auto-generated method stub
 		reposytory.save(unidades);
 	}
-
 	
 	public void excluir(Long id) {
 		// TODO Auto-generated method stub
@@ -35,25 +32,20 @@ public class UnidadesService {
 	}
 
 	@Transactional(readOnly = true)
-	
 	public Unidades buscarPorId(Long id) {
 		// TODO Auto-generated method stub
 		return reposytory.findById(id).get();
 	}
 
 	@Transactional(readOnly = true)
-	
 	public List<Unidades> buscarTodos() {
 		// TODO Auto-generated method stub
 		return reposytory.findAll();
 	}
-
 	
 	public List<Unidades> buscarPorNome(String nomeFantasia) {
 		// TODO Auto-generated method stub
 		return reposytory.findByNomeFantasiaContainingOrderByNomeFantasiaAsc(nomeFantasia);
 	}
-
-
 
 }

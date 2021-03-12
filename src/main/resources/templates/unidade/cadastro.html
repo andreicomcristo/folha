@@ -5,10 +5,10 @@
 	<section class="layout-content" layout:fragment="corpo">
 
 		<nav class="navbar navbar-expand-md bg-light">
-			<form action="/cidades/listar">
+			<form action="/unidades/listar">
 				<div class=" layout-content">
 					<button class="btn btn-outline-dark ">Listar</button>
-					<a class="btn btn-outline-dark btn-md" href="/cidades/cadastrar"
+					<a class="btn btn-outline-dark btn-md" href="/unidades/cadastrar"
 						role="button"> <span class="oi oi-plus" title="Cadastro"
 						aria-hidden="true"></span> <span>Novo</span>
 					</a>
@@ -20,15 +20,49 @@
 
 			<div th:replace="fragments/alert"></div>
 			<form
-				th:action="${cidades.id == null} ? @{/cidades/salvar} : @{/cidades/editar}"
-				th:object="${cidades}" method="POST">
+				th:action="${unidades.id == null} ? @{/unidades/salvar} : @{/unidades/editar}"
+				th:object="${unidades}" method="POST">
 				<div class="form-row">
 					<div class="form-group col-md-6">
-						<label for="nome" class="fonte-tutulos-tamanho">Cadastro de Cidades </label>
-						
+					
+						<label for="nome" class="fonte-tutulos-tamanho">Nome Fantasia </label>
 						<input type="text"	class="form-control form-control-md" autofocus="autofocus"
-						       id="codigo" placeholder="Nome da Cidade" th:field="*{nomeCidade}" />
+						       id="codigo" placeholder="Nome Fantasia" th:field="*{nomeFantasia}" />
+						<p></p>
 						
+						<label for="nome" class="fonte-tutulos-tamanho">Nome Empresarial </label>
+						<input type="text"	class="form-control form-control-md" autofocus="autofocus"
+						       id="codigo" placeholder="Nome Empresarial" th:field="*{nomeEmpresarial}" />
+						<p></p>
+						
+						<label for="nome" class="fonte-tutulos-tamanho">CNES </label>
+						<input type="text"	class="form-control form-control-md" autofocus="autofocus"
+						       id="codigo" placeholder="cnes" th:field="*{cnes}" />
+						<p></p>
+						
+						<label for="nome" class="fonte-tutulos-tamanho"> Telefone</label>
+						<input type="text"	class="form-control form-control-md" autofocus="autofocus"
+						       id="codigo" placeholder="Telefone 1" th:field="*{fone1}" />
+						<p></p>
+						
+						<label for="nome" class="fonte-tutulos-tamanho"> Logradouro</label>
+						<input type="text"	class="form-control form-control-md" autofocus="autofocus"
+						       id="codigo" placeholder="Logradouro" th:field="*{enderecoLogradouro}" />
+						<p></p>
+						
+						<label for="nome" class="fonte-tutulos-tamanho">Número</label>
+						<input type="text"	class="form-control form-control-md" autofocus="autofocus"
+						       id="codigo" placeholder="Numero" th:field="*{enderecoNumero}" />
+						<p></p>
+						
+						<label for="nome" class="fonte-tutulos-tamanho">Complemento</label>
+						<input type="text"	class="form-control form-control-md" autofocus="autofocus"
+						       id="codigo" placeholder="Complemento" th:field="*{enderecoComplemento}" />
+						<p></p>
+						
+						<label for="nome" class="fonte-tutulos-tamanho">Complemento</label>
+						<input type="text"	class="form-control form-control-md" autofocus="autofocus"
+						       id="codigo" placeholder="Complemento" th:field="*{enderecoComplemento}" />
 						<p></p>
 						
 						<select id="cargos" class="form-select" th:field="*{idUfFk}">
