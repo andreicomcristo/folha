@@ -39,11 +39,9 @@ public class CidadesController {
 	Uf ultimaBuscaUf = null;
 	
 	@Autowired
-	PaisesSevice paisesSevice;
-	
+	private PaisesSevice paisesSevice;
 	@Autowired
-	UfService ufService;
-	
+	private UfService ufService;
 	@Autowired
 	private CidadesService service;
 

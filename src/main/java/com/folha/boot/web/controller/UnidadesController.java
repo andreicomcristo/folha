@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import com.folha.boot.domain.Cidades;
 import com.folha.boot.domain.PessoaOperadores;
@@ -79,6 +80,12 @@ public class UnidadesController {
 		service.excluir(id);  
 		model.addAttribute("success", "Excluído com sucesso.");
 		return listar(model);
+	}
+	
+	@GetMapping("/buscar/nome/unidade")
+	public String getPorNome(@RequestParam("nomeFantasia") String nomeFantasia, ModelMap model) {		
+		model.addAttribute("unidades", service.buscarPorNome(nomeFantasia.toUpperCase().trim()));
+		return "/unidade/lista";
 	}
 	
 	@ModelAttribute("idEnderecoCidadeFk")
