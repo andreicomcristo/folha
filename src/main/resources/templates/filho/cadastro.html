@@ -7,11 +7,7 @@
 		<nav class="navbar navbar-expand-md bg-light">
 			<form action="/bancos/listar">
 				<div class=" layout-content">
-					<button class="btn btn-outline-dark" >Listar</button>
-					<a class="btn btn-outline-dark btn-md" href="/bancos/cadastrar"
-						role="button"> <span class="oi oi-plus" title="Cadastro"
-						aria-hidden="true"></span> <span>Novo</span>
-					</a>
+					
 				</div>
 			</form>
 		</nav>
@@ -19,32 +15,189 @@
 		<div class="container" id="cadastro">
 
 			<div th:replace="fragments/alert"></div>
-			<form
-				th:action="${bancos.id == null} ? @{/bancos/salvar} : @{/bancos/editar}"
-				th:object="${bancos}" method="POST">
+			
+			
+			
+			
+			<!-- endereco -->
+		<div class="form-group container  col-md-6 col-6 " id="cadastro">
+		<form>
 				<div class="form-row">
 
 					<div class="form-group col-md-6">
-						<label for="nome" class="fonte-tutulos-tamanho">Cadastro de Bancos</label>
+						<label for="nome" class="fonte-tutulos-tamanho">Filhos</label>
+							
+							<p></p>
+							<a class="btn btn-outline-danger btn-sm" href="/filhos/retroceder"
+								role="button"> <span class="oi oi-arrow-thick-left" title="Cadastro"
+								aria-hidden="true"></span> <span>Retroceder</span>
+							</a>
+							
+							<a class="btn btn-outline-success btn-sm" href="/filhos/avancar"
+								role="button"> <span>Avançar</span><span class="oi oi-arrow-thick-right" 
+								title="Cadastro" aria-hidden="true"></span>
+							</a>
+										
+		</div>
+		</div>
+		</form>
+		</div>
+		
+		
+		
+		<div class="form-group container  col-md-6 col-6 " id="cadastro">
+
+			<div th:replace="fragments/alert"></div>
+			<form
+				th:action="${pessoaFilhos.id == null} ? @{/filhos/salvar/filho} : @{/filhos/salvar/filho}"
+				th:object="${pessoaFilhos}" method="POST">
+				<div class="form-row">
+
+					<div class="form-group col-md-6">
+							
+							<select id="cargos" class="form-select" th:field="*{idTipoFiliacaoFk}">
+								<option value="">Selecione a Filiação</option>
+								<option th:each="d : ${idTipoFiliacaoFk}" th:value="${d.id}"th:text="${d.nomeTipoFiliacao}">ADM</option>
+							</select>	
+							<p></p>
 							
 							<input type="text"
-								class="form-control form-control-md" autofocus="autofocus"
-								id="codigo" placeholder="Código do Banco (somente os números)" th:field="*{codigoBanco}" /> 
+								class="form-control form-control-sm uppercase" autofocus="autofocus" 
+								id="codigo" placeholder="Nome" th:field="*{nomeFilho}" /> 
 							<p></p>
+							
 							<input type="text"
-								class="form-control form-control-md" autofocus="autofocus"
-								id="nome" placeholder="Nome do Banco" th:field="*{nomeBanco}" />						
+								class="form-control form-control-sm uppercase" autofocus="autofocus" data-mask="00/00/0000"
+								id="codigo" placeholder="Nascimento" th:field="*{dtNascimento}" /> 
 							<p></p>
-							<input type="text" class="form-control form-control-md"
-								autofocus="autofocus" id="sigla" placeholder="Sigla do Banco" th:field="*{siglaBanco}" />
+							
+							<input type="text"
+								class="form-control form-control-sm uppercase" autofocus="autofocus" data-mask="000.000.000-00"
+								id="codigo" placeholder="CPF" th:field="*{cpfFilho}" /> 
+							<p></p>
+							
+							<input type="text"
+								class="form-control form-control-sm uppercase" autofocus="autofocus" 
+								id="codigo" placeholder="RG" th:field="*{rgFilho}" /> 
+							<p></p>
+							
+							<input type="text"
+								class="form-control form-control-sm uppercase" autofocus="autofocus" data-mask="00/00/0000"
+								id="codigo" placeholder="Dt Emissão" th:field="*{rgDtEmissaoFilho}" />
+							<p></p>
+							
+							<input type="text"
+								class="form-control form-control-sm uppercase" autofocus="autofocus" 
+								id="codigo" placeholder="Expedidor" th:field="*{rgOrgaoExpedidor}" />
+							<p></p>
+							
+							<input type="text"
+								class="form-control form-control-sm uppercase" autofocus="autofocus" 
+								id="codigo" placeholder="Nº Certidao Nascimento" th:field="*{numeroCertidaoNascimento}" />
+							<p></p>
+							
+							<input type="text"
+								class="form-control form-control-sm uppercase" autofocus="autofocus" data-mask="00/00/0000"
+								id="codigo" placeholder="Dt Certidão" th:field="*{dtCertidadoNascimento}" />
+							<p></p>
+							
+							<input type="text"
+								class="form-control form-control-sm uppercase" autofocus="autofocus" 
+								id="codigo" placeholder="Cartorio Certidão" th:field="*{cartorioCertidadoNascimento}" />
+							<p></p>
+							
+							<input type="text"
+								class="form-control form-control-sm uppercase" autofocus="autofocus" 
+								id="codigo" placeholder="Livro Certidão" th:field="*{livroCertidaoNascimento}" />
+							<p></p>
+							
+							<input type="text"
+								class="form-control form-control-sm uppercase" autofocus="autofocus" 
+								id="codigo" placeholder="Folha Certidão" th:field="*{folhaCertidaoNascimento}" />
+							<p></p>
 							
 							<input type="hidden" id="id" th:field="*{id}" />
-								<p></p>					
-						<button class="btn btn-outline-dark">Cadastrar</button>
+							<input type="hidden" id="pessoa" th:field="${pessoa}" />
+							<p></p>					
+						
+						<button class="btn btn-outline-dark">Submeter</button>
+						
+						
 					</div>
 				</div>
 			</form>
 		</div>
+		
+		
+		
+		<div class="container" id="listagem">	        
+	    	<div th:replace="fragments/alert"></div>
+	    	
+	        <div style="height: 250px; overflow-y: auto;" class="table-responsive">
+	        	<table class="table table-striped table-hover table-sm myTable">
+	            	<thead>
+	          			<tr>
+		                	<th>#</th>
+		                    <th>Tipo</th>
+		                    <th>Filho(a)</th>
+		                    <th>Nascimemto</th>
+		                    <th>CPF Filho(a)</th>
+		                    <th>RG</th>
+		                    <th>RG Emissão</th>
+		                    <th>Expedidor</th>
+		                    <th>Certidão</th>
+		                    <th>Dt Certidão</th>
+		                    <th>Cartório</th>
+		                    <th>Livro</th>
+		                    <th>Folha</th>
+		                    <th>Nome</th>
+		                    <th>CPF</th>
+		                    <th>Ações</th>
+	                    </tr>
+	                </thead>                  
+	                <tbody>
+		            	<tr th:each="d : ${pessoaDocumentosLista8}">
+		                	<td th:text="${d.id}"></td>
+		                	<td th:text="${d.idTipoFiliacaoFk.nomeTipoFiliacao}"></td>
+		                    <td th:text="${d.nomeFilho}"></td>
+		                    <td th:text="${d.dtNascimento}"></td>
+		                    <td th:text="${d.cpfFilho}"></td>
+		                    <td th:text="${d.rgFilho}"></td>
+		                    <td th:text="${d.rgDtEmissaoFilho}"></td>
+		                    <td th:text="${d.rgOrgaoExpedidor}"></td>
+		                    <td th:text="${d.numeroCertidaoNascimento}"></td>
+		                    <td th:text="${d.dtCertidadoNascimento}"></td>
+		                    <td th:text="${d.cartorioCertidadoNascimento}"></td>
+		                    <td th:text="${d.livroCertidaoNascimento}"></td>
+		                    <td th:text="${d.folhaCertidaoNascimento}"></td>
+		                    <td th:text="${d.idPessoaFk.nome}"></td>
+		                    <td th:text="${d.idPessoaFk.cpf}"></td>
+		                    <td colspan="2">
+		                    	<a class="btn btn-outline-info btn-sm" th:href="@{/filhos/editar/filho/{id} (id=${d.id}) }" role="button">
+		                        	<span class="oi oi-brush" title="Editar" aria-hidden="true"></span>
+		                        </a>
+		                        <button th:id="${ 'btn_filhos/excluir/filho/' + d.id}" type="button" class="btn btn btn-outline-danger btn-sm" 
+		                            		data-toggle="modal" data-target="#myModal">
+		                                <span class="oi oi-circle-x" title="Exclusão habilitada" aria-hidden="true"></span>
+		                        </button>
+		                   	</td>
+						</tr>
+					</tbody>                    
+	            </table>
+	         </div>
+		</div>	
+			
+			
+			
+					
+			
+			
+			
+			
+		</div>
+		
+		
+		<div th:replace="fragments/modal :: modal"></div>
 	</section>
 </body>
 </html>
