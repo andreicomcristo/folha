@@ -165,9 +165,6 @@ public class CidadesController {
 				.body(new InputStreamResource(bis));
 	}
 	
-	
-	
-	
 	@ModelAttribute("idPaisFk")
 	public List<Paises> getPaises() {
 		return paisesSevice.buscarTodos();
@@ -176,7 +173,6 @@ public class CidadesController {
 	@ModelAttribute("idUfFk")
 	public List<Uf> getUfs() {
 		return ufService.buscarTodos();
-	}
-	
+	}	
 	
 }

@@ -70,24 +70,69 @@
 						       id="codigo" placeholder="Cep" th:field="*{enderecoCep}" />
 						<p></p>
 						
-						<label for="nome" class="fonte-tutulos-tamanho">Cep</label>
+						<label for="nome" class="fonte-tutulos-tamanho">Data de Cadastro</label>
 						<input type="text"	class="form-control form-control-md" autofocus="autofocus"
-						       id="codigo" placeholder="Cep" th:field="*{enderecoCep}" />
+						       id="codigo" placeholder="Data de Cadastro" th:field="*{dtCadastro}" />
 						<p></p>
 						
-						<select id="cargos" class="form-select" th:field="*{idUfFk}">
-								<option value="">Selecione o Estado</option>
-								<option th:each="d : ${idUfFk}" th:value="${d.id}"th:text="${d.nomeUf}">ADM</option>
-						</select>	
-						
+						<label for="nome" class="fonte-tutulos-tamanho">Motivo do Cadastro</label>
+						<input type="text"	class="form-control form-control-md" autofocus="autofocus"
+						       id="codigo" placeholder="Motivo do Cadastro" th:field="*{motivoCadastro}" />
 						<p></p>
 						
-						<select id="cargos" class="form-select" th:field="*{idPaisFk}">
-								<option value="">Selecione o País</option>
-								<option class="form-select" th:each="d : ${idPaisFk}" th:value="${d.id}"th:text="${d.nomePais}" selected >ADM</option>
-						</select>	
+						<label for="nome" class="fonte-tutulos-tamanho">Data de Cancelamento</label>
+						<input type="text"	class="form-control form-control-md" autofocus="autofocus"
+						       id="codigo" placeholder="Data de Cancelamento" th:field="*{dtCancelamento}" />
+						<p></p>
 						
+						
+						<label for="nome" class="fonte-tutulos-tamanho">Motivo do Cancelamento</label>
+						<input type="text"	class="form-control form-control-md" autofocus="autofocus"
+						       id="codigo" placeholder="Motivo do Cancelamento" th:field="*{motivoCancelamento}" />
+						<p></p>
+						
+		
+						<select id="endereco" class="form-select" th:field="*{idEnderecoCidadeFk}">
+								<option value="">Selecione o Endereço</option>
+								<option th:each="d : ${idEnderecoCidadeFk}" th:value="${d.id}"th:text="${d.nomeCidade}">ADM</option>
+						</select>							
+						<p></p>
+						
+						<select id="cadastro" class="form-select" th:field="*{idTipoLogradouroFk}">
+								<option value="">Selecione o Tipo de Logradouro</option>
+								<option class="form-select" th:each="d : ${idTipoLogradouroFk}" th:value="${d.id}"th:text="${d.nomeTipoLogradouro}" selected >ADM</option>
+						</select>							
 						<p></p>	
+						
+						<select id="cadastro" class="form-select" th:field="*{idOperadorCadastroFk}">
+								<option value="">Selecione o operador que cadastrou</option>
+								<option class="form-select" th:each="d : ${idOperadorCadastroFk}" th:value="${d.id}"th:text="${d.id}" selected >ADM</option>
+						</select>							
+						<p></p>	
+						
+						<select id="cancelamento" class="form-select" th:field="*{idOperadorCancelamentoFk}">
+								<option value="">Selecione o operador que cancelou </option>
+								<option class="form-select" th:each="d : ${idOperadorCancelamentoFk}" th:value="${d.id}"th:text="${d.id}" selected >ADM</option>
+						</select>							
+						<p></p>	
+						
+						<select id="UnidadesNaturezaJuridica" class="form-select" th:field="*{idNaturezaJuridicaFk}">
+								<option value="">Selecione a Natureza Juridica </option>
+								<option class="form-select" th:each="d : ${idNaturezaJuridicaFk}" th:value="${d.id}"th:text="${d.nomeNaturezaJuridica}" selected >ADM</option>
+						</select>							
+						<p></p>			
+								
+						<select id="UnidadesNaturezaJuridica" class="form-select" th:field="*{idNaturezaJuridicaFk}">
+								<option value="">Selecione a Natureza Juridica </option>
+								<option class="form-select" th:each="d : ${idNaturezaJuridicaFk}" th:value="${d.id}"th:text="${d.nomeNaturezaJuridica}" selected >ADM</option>
+						</select>							
+						<p></p>
+							
+						<select id="UnidadesRegime" class="form-select" th:field="*{idUnidadesRegimeFk}">
+								<option value="">Selecione a Natureza Juridica </option>
+								<option class="form-select" th:each="d : ${idUnidadesRegimeFk}" th:value="${d.id}"th:text="${d.nomeRegimeUnidLotacao}" selected >ADM</option>
+						</select>							
+						<p></p>
 												
 						<input type="hidden" id="id" th:field="*{id}" />
 						<button class="btn btn-outline-dark">Cadastrar</button>

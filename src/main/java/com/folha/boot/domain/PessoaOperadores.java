@@ -9,102 +9,149 @@ import javax.persistence.*;
 @Entity
 @Table(name = "pessoa_operadores")
 public class PessoaOperadores extends AbstractEntity<Long> {
+	
+	
 	@Column(name = "dt_cadastro")
     @Temporal(TemporalType.DATE)
     private Date dtCadastro;
-    @Column(name = "dt_cancelamento")
+    
+	@Column(name = "dt_cancelamento")
     @Temporal(TemporalType.DATE)
     private Date dtCancelamento;
-    @Column(name = "motivo_cancelamento")
+    
+	@Column(name = "motivo_cancelamento")
     private String motivoCancelamento;
-    @OneToMany(mappedBy = "idOperadorCadastroFk")
+    
+	@OneToMany(mappedBy = "idOperadorCadastroFk")
     private List<FuncionariosCapacitacoes> funcionariosCapacitacoesList;
-    @OneToMany(mappedBy = "idOperadorCancelamentoFk")
+    
+	@OneToMany(mappedBy = "idOperadorCancelamentoFk")
     private List<FuncionariosCapacitacoes> funcionariosCapacitacoesList1;
-    @OneToMany(mappedBy = "idOperadorCadastroFk")
+    
+	@OneToMany(mappedBy = "idOperadorCadastroFk")
     private List<FuncionariosLicencas> funcionariosLicencasList;
-    @OneToMany(mappedBy = "idOperadorCancelamentoFk")
+    
+	@OneToMany(mappedBy = "idOperadorCancelamentoFk")
     private List<FuncionariosLicencas> funcionariosLicencasList1;
-    @OneToMany(mappedBy = "idOperadorUltimaAlteracaoFk")
+    
+	@OneToMany(mappedBy = "idOperadorUltimaAlteracaoFk")
     private List<FuncionariosLicencas> funcionariosLicencasList2;
-    @OneToMany(mappedBy = "idOperadorCadastroFk")
+    
+	@OneToMany(mappedBy = "idOperadorCadastroFk")
     private List<HistFuncionariosNiveisCarreira> histFuncionariosNiveisCarreiraList;
-    @OneToMany(mappedBy = "idOperadorCancelamentoFk")
+    
+	@OneToMany(mappedBy = "idOperadorCancelamentoFk")
     private List<HistFuncionariosNiveisCarreira> histFuncionariosNiveisCarreiraList1;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "idOperadorCadastroFk")
+    
+	@OneToMany(cascade = CascadeType.ALL, mappedBy = "idOperadorCadastroFk")
     private List<HistFuncionariosAutorizacao> histFuncionariosAutorizacaoList;
-    @OneToMany(mappedBy = "idOperadorCancelamentoFk")
+    
+	@OneToMany(mappedBy = "idOperadorCancelamentoFk")
     private List<HistFuncionariosAutorizacao> histFuncionariosAutorizacaoList1;
-    @OneToMany(mappedBy = "idOperadorCadastroFk")
+    
+	@OneToMany(mappedBy = "idOperadorCadastroFk")
     private List<FuncionariosAnexos> funcionariosAnexosList;
-    @OneToMany(mappedBy = "idOperadorCancelamentoFk")
+    
+	@OneToMany(mappedBy = "idOperadorCancelamentoFk")
     private List<FuncionariosAnexos> funcionariosAnexosList1;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "idOperadorCadastroFk")
+    
+	@OneToMany(cascade = CascadeType.ALL, mappedBy = "idOperadorCadastroFk")
     private List<HistFuncionariosClasse> histFuncionariosClasseList;
-    @OneToMany(mappedBy = "idOperadorCancelamentoFk")
+    
+	@OneToMany(mappedBy = "idOperadorCancelamentoFk")
     private List<HistFuncionariosClasse> histFuncionariosClasseList1;
-    @OneToMany(mappedBy = "idOperadorCancelamentoFk")
+    
+	@OneToMany(mappedBy = "idOperadorCancelamentoFk")
     private List<HistFuncionariosCargaHoraria> histFuncionariosCargaHorariaList;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "idOperadorCadastroFk")
+    
+	@OneToMany(cascade = CascadeType.ALL, mappedBy = "idOperadorCadastroFk")
     private List<HistFuncionariosCargaHoraria> histFuncionariosCargaHorariaList1;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "idOperadorCadastroFk")
+    
+	@OneToMany(cascade = CascadeType.ALL, mappedBy = "idOperadorCadastroFk")
     private List<HistFuncionariosCargos> histFuncionariosCargosList;
-    @OneToMany(mappedBy = "idOperadorCancelamentoFk")
+    
+	@OneToMany(mappedBy = "idOperadorCancelamentoFk")
     private List<HistFuncionariosCargos> histFuncionariosCargosList1;
-    @OneToMany(mappedBy = "idOperadorCadastroFk")
+    
+	@OneToMany(mappedBy = "idOperadorCadastroFk")
     private List<PessoaFilhos> pessoaFilhosList;
-    @OneToMany(mappedBy = "idOperadorCancelamentoFk")
+    
+	@OneToMany(mappedBy = "idOperadorCancelamentoFk")
     private List<PessoaFilhos> pessoaFilhosList1;
     @OneToMany(mappedBy = "idOperadorCadastroFk")
+    
     private List<FuncionariosFeriasPeriodos> funcionariosFeriasPeriodosList;
+    
     @OneToMany(mappedBy = "idOperadorCancelamentoFk")
     private List<FuncionariosFeriasPeriodos> funcionariosFeriasPeriodosList1;
+    
     @JoinColumn(name = "id_pessoa_fk", referencedColumnName = "id")
     @ManyToOne(optional = false)
     private Pessoa idPessoaFk;
+    
     @OneToMany(mappedBy = "idOperadorCadastroFk")
     private List<PessoaOperadores> pessoaOperadoresList;
+    
     @JoinColumn(name = "id_operador_cadastro_fk", referencedColumnName = "id")
     @ManyToOne
     private PessoaOperadores idOperadorCadastroFk;
+    
     @OneToMany(mappedBy = "idOperadorCancelamentoFk")
     private List<PessoaOperadores> pessoaOperadoresList1;
+    
     @JoinColumn(name = "id_operador_cancelamento_fk", referencedColumnName = "id")
     @ManyToOne
     private PessoaOperadores idOperadorCancelamentoFk;
+    
     @JoinColumn(name = "id_privilegio_fk", referencedColumnName = "id")
     @ManyToOne
     private Privilegios idPrivilegioFk;
+    
     @OneToMany(mappedBy = "idOperadorCadastroFk")
     private List<Unidades> unidadesList;
+    
     @OneToMany(mappedBy = "idOperadorCancelamentoFk")
     private List<Unidades> unidadesList1;
+    
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "idOperadorCadastroFk")
     private List<HistUnidadesNaturezaJuridica> histUnidadesNaturezaJuridicaList;
+    
     @OneToMany(mappedBy = "idOperadorCancelamentoFk")
     private List<HistUnidadesNaturezaJuridica> histUnidadesNaturezaJuridicaList1;
+    
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "idOperadorCadastroFk")
     private List<HistUnidadesRegime> histUnidadesRegimeList;
+    
     @OneToMany(mappedBy = "idOperadorCancelamentoFk")
     private List<HistUnidadesRegime> histUnidadesRegimeList1;
+    
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "idOperadorFk")
     private List<AcessoOperadoresUnidades> acessoOperadoresUnidadesList;
+    
     @OneToMany(mappedBy = "idOperadorCadastroFk")
     private List<Pessoa> pessoaList;
+    
     @OneToMany(mappedBy = "idOperadorCancelamentoFk")
     private List<Pessoa> pessoaList1;
+    
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "idOperadorCadastroFk")
     private List<HistFuncionariosCarreira> histFuncionariosCarreiraList;
+    
     @OneToMany(mappedBy = "idOperadorCancelamentoFk")
     private List<HistFuncionariosCarreira> histFuncionariosCarreiraList1;
+    
     @OneToMany(mappedBy = "idOperadorCadastroFk")
     private List<FuncionariosFerias> funcionariosFeriasList;
+    
     @OneToMany(mappedBy = "idOperadorCancelamentoFk")
     private List<FuncionariosFerias> funcionariosFeriasList1;
+    
     @OneToMany(mappedBy = "idOperadorCancelamentoFk")
     private List<HistFuncionariosSituacoes> histFuncionariosSituacoesList;
+    
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "idOperadorCadastroFk")
     private List<HistFuncionariosSituacoes> histFuncionariosSituacoesList1;
+    
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "idOperadorCriacaoFk")
     private List<Autorizacoes> autorizacoesList;
     
