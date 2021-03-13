@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.folha.boot.Reposytory.PessoaFilhosReposytory;
+import com.folha.boot.domain.Pessoa;
 import com.folha.boot.domain.PessoaFilhos;
 
 @Service
@@ -51,5 +52,10 @@ public class PessoaFilhosService {
 	public List<PessoaFilhos> buscarPorNome(String nomeFilho) {
 		// TODO Auto-generated method stub
 		return reposytory.findByNomeFilhoContainingOrderByNomeFilhoAsc(nomeFilho);
+	}
+	
+	public List<PessoaFilhos> buscarPorPessoa(Pessoa pessoa) {
+		// TODO Auto-generated method stub
+		return reposytory.findByIdPessoaFkOrderByNomeFilhoAsc(pessoa);
 	}
 }
