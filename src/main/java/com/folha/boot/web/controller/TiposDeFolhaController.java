@@ -9,46 +9,45 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
-
-import com.folha.boot.domain.TiposDeFiliacao;
-import com.folha.boot.service.TiposDeFiliacaoService;
+import com.folha.boot.domain.TiposDeFolha;
+import com.folha.boot.service.TiposDeFolhaService;
 
 @Controller
-@RequestMapping("/tiposdefiliacoes")
-public class TiposDeFiliacaoController {
+@RequestMapping("/tiposdefolhas")
+public class TiposDeFolhaController {
 
 	@Autowired
-	private TiposDeFiliacaoService service;
+	private TiposDeFolhaService service;
 
 	@GetMapping("/cadastrar")
-	public String cadastrar(TiposDeFiliacao tiposDeFiliacao) {		
-		return "/tipofiliacao/cadastro";
+	public String cadastrar(TiposDeFolha tiposDeFolha) {		
+		return "/tipofolha/cadastro";
 	}
 	
 	@GetMapping("/listar")
 	public String listar(ModelMap model) {
-		model.addAttribute("tiposDeFiliacao", service.buscarTodos());
-		return "/tipofiliacao/lista"; 
+		model.addAttribute("tiposDeFolha", service.buscarTodos());
+		return "/tipofolha/lista"; 
 	}
 	
 	@PostMapping("/salvar")
-	public String salvar(TiposDeFiliacao tiposDeFiliacao, RedirectAttributes attr) {
-		service.salvar(tiposDeFiliacao);
+	public String salvar(TiposDeFolha tiposDefolha, RedirectAttributes attr) {
+		service.salvar(tiposDefolha);
 		attr.addFlashAttribute("success", "Inserido com sucesso.");
-		return "redirect:/tipostefiliacoes/cadastrar";
+		return "redirect:/tiposdefolhas/cadastrar";
 	}
 	
 	@GetMapping("/editar/{id}")
 	public String preEditar(@PathVariable("id") Long id, ModelMap model) {
-		model.addAttribute("tiposDeFiliacao", service.buscarPorId(id));
-		return "/tipofiliacao/cadastro";
+		model.addAttribute("tiposDeFolha", service.buscarPorId(id));
+		return "/tipofolha/cadastro";
 	}
 	
 	@PostMapping("/editar")
-	public String editar(TiposDeFiliacao tiposDeFiliacao, RedirectAttributes attr) {
-		service.editar(tiposDeFiliacao);
+	public String editar(TiposDeFolha tiposDeFolha, RedirectAttributes attr) {
+		service.editar(tiposDeFolha);
 		attr.addFlashAttribute("success", "Editado com sucesso.");
-		return "redirect:/tipostefiliacoes/listar";
+		return "redirect:/tiposdefolhas/listar";
 	}
 	
 	@GetMapping("/excluir/{id}")
@@ -58,9 +57,10 @@ public class TiposDeFiliacaoController {
 		return listar(model);
 	}
 	
-	@GetMapping("/buscar/nome/tipofiliacao")
-	public String getPorNome(@RequestParam("nomeTipoFiliacao") String nomeTipoFiliacao, ModelMap model) {		
-		model.addAttribute("tiposDeFiliacao", service.buscarPorNome(nomeTipoFiliacao.toUpperCase().trim()));
-		return "/tipofiliacao/lista";
+	@GetMapping("/buscar/nome/tipofolha")
+	public String getPorNome(@RequestParam("nomeTipoFolha") String nomeTipoFolha, ModelMap model) {		
+		model.addAttribute("tiposDeFolha", service.buscarPorNome(nomeTipoFolha.toUpperCase().trim()));
+		return "/tipofolha/lista";
 	}
+	
 }
