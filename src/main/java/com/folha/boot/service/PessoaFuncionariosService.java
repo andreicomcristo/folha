@@ -7,6 +7,8 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.folha.boot.Reposytory.PessoaFuncionariosReposytory;
+import com.folha.boot.domain.Enderecos;
+import com.folha.boot.domain.Pessoa;
 import com.folha.boot.domain.PessoaFuncionarios;
 
 @Service
@@ -53,4 +55,9 @@ public class PessoaFuncionariosService {
 		return reposytory.findByMatriculaContainingOrderByMatriculaAsc(matricula);
 	}
 
+	public List<PessoaFuncionarios> buscarPorPessoa(Pessoa pessoa) {
+		// TODO Auto-generated method stub
+		return reposytory.findByIdPessoaFk(pessoa);
+	}
+	
 }

@@ -70,28 +70,7 @@
 						       id="codigo" placeholder="Cep" th:field="*{enderecoCep}" />
 						<p></p>
 						
-						<label for="nome" class="fonte-tutulos-tamanho">Data de Cadastro</label>
-						<input type="text"	class="form-control form-control-md" autofocus="autofocus"
-						       id="codigo" placeholder="Data de Cadastro" th:field="*{dtCadastro}" />
-						<p></p>
 						
-						<label for="nome" class="fonte-tutulos-tamanho">Motivo do Cadastro</label>
-						<input type="text"	class="form-control form-control-md" autofocus="autofocus"
-						       id="codigo" placeholder="Motivo do Cadastro" th:field="*{motivoCadastro}" />
-						<p></p>
-						
-						<label for="nome" class="fonte-tutulos-tamanho">Data de Cancelamento</label>
-						<input type="text"	class="form-control form-control-md" autofocus="autofocus"
-						       id="codigo" placeholder="Data de Cancelamento" th:field="*{dtCancelamento}" />
-						<p></p>
-						
-						
-						<label for="nome" class="fonte-tutulos-tamanho">Motivo do Cancelamento</label>
-						<input type="text"	class="form-control form-control-md" autofocus="autofocus"
-						       id="codigo" placeholder="Motivo do Cancelamento" th:field="*{motivoCancelamento}" />
-						<p></p>
-						
-		
 						<select id="endereco" class="form-select" th:field="*{idEnderecoCidadeFk}">
 								<option value="">Selecione o Endereço</option>
 								<option th:each="d : ${idEnderecoCidadeFk}" th:value="${d.id}"th:text="${d.nomeCidade}">ADM</option>
@@ -104,17 +83,6 @@
 						</select>							
 						<p></p>	
 						
-						<select id="cadastro" class="form-select" th:field="*{idOperadorCadastroFk}">
-								<option value="">Selecione o operador que cadastrou</option>
-								<option class="form-select" th:each="d : ${idOperadorCadastroFk}" th:value="${d.id}"th:text="${d.id}" selected >ADM</option>
-						</select>							
-						<p></p>	
-						
-						<select id="cancelamento" class="form-select" th:field="*{idOperadorCancelamentoFk}">
-								<option value="">Selecione o operador que cancelou </option>
-								<option class="form-select" th:each="d : ${idOperadorCancelamentoFk}" th:value="${d.id}"th:text="${d.id}" selected >ADM</option>
-						</select>							
-						<p></p>	
 						
 						<select id="UnidadesNaturezaJuridica" class="form-select" th:field="*{idNaturezaJuridicaFk}">
 								<option value="">Selecione a Natureza Juridica </option>
