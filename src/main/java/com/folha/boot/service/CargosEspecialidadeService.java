@@ -5,6 +5,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import com.folha.boot.Reposytory.CargosEspecialidadeReposytory;
+import com.folha.boot.domain.Cargos;
 import com.folha.boot.domain.CargosEspecialidade;
 
 @Service
@@ -49,4 +50,10 @@ public class CargosEspecialidadeService {
 		return reposytory.findByNomeEspecialidadeCargoContainingOrderByNomeEspecialidadeCargoAsc(nomeEspecialidadeCargo);
 	}
 
+	@Transactional(readOnly = true)
+	public List<CargosEspecialidade> buscarTodosOrdemDeCargo() {
+		// TODO Auto-generated method stub
+		return reposytory.findAllByOrderByIdCargoFkNomeCargoAsc();
+	}
+	
 }

@@ -45,6 +45,13 @@
 						       id="codigo" placeholder="Telefone 1" th:field="*{fone1}" />
 						<p></p>
 						
+						<label for="nome" class="fonte-tutulos-tamanho">Tipo de Logradouro</label>
+						<select id="cadastro" class="form-select" th:field="*{idTipoLogradouroFk}">
+								<option value="">Selecione o Tipo de Logradouro</option>
+								<option class="form-select" th:each="d : ${idTipoLogradouroFk}" th:value="${d.id}"th:text="${d.nomeTipoLogradouro}" selected >ADM</option>
+						</select>							
+						<p></p>	
+						
 						<label for="nome" class="fonte-tutulos-tamanho"> Logradouro</label>
 						<input type="text"	class="form-control form-control-md" autofocus="autofocus"
 						       id="codigo" placeholder="Logradouro" th:field="*{enderecoLogradouro}" />
@@ -70,51 +77,12 @@
 						       id="codigo" placeholder="Cep" th:field="*{enderecoCep}" />
 						<p></p>
 						
-						<label for="nome" class="fonte-tutulos-tamanho">Data de Cadastro</label>
-						<input type="text"	class="form-control form-control-md" autofocus="autofocus"
-						       id="codigo" placeholder="Data de Cadastro" th:field="*{dtCadastro}" />
-						<p></p>
 						
-						<label for="nome" class="fonte-tutulos-tamanho">Motivo do Cadastro</label>
-						<input type="text"	class="form-control form-control-md" autofocus="autofocus"
-						       id="codigo" placeholder="Motivo do Cadastro" th:field="*{motivoCadastro}" />
-						<p></p>
-						
-						<label for="nome" class="fonte-tutulos-tamanho">Data de Cancelamento</label>
-						<input type="text"	class="form-control form-control-md" autofocus="autofocus"
-						       id="codigo" placeholder="Data de Cancelamento" th:field="*{dtCancelamento}" />
-						<p></p>
-						
-						
-						<label for="nome" class="fonte-tutulos-tamanho">Motivo do Cancelamento</label>
-						<input type="text"	class="form-control form-control-md" autofocus="autofocus"
-						       id="codigo" placeholder="Motivo do Cancelamento" th:field="*{motivoCancelamento}" />
-						<p></p>
-						
-		
 						<select id="endereco" class="form-select" th:field="*{idEnderecoCidadeFk}">
-								<option value="">Selecione o Endereço</option>
-								<option th:each="d : ${idEnderecoCidadeFk}" th:value="${d.id}"th:text="${d.nomeCidade}">ADM</option>
+								<option value="">Selecione a Cidade</option>
+								<option th:each="d : ${idEnderecoCidadeFk}" th:value="${d.id}"th:text="${d.nomeCidade+' - '+d.idUfFk.nomeUf+' - '+d.idPaisFk.nomePais}">ADM</option>
 						</select>							
 						<p></p>
-						
-						<select id="cadastro" class="form-select" th:field="*{idTipoLogradouroFk}">
-								<option value="">Selecione o Tipo de Logradouro</option>
-								<option class="form-select" th:each="d : ${idTipoLogradouroFk}" th:value="${d.id}"th:text="${d.nomeTipoLogradouro}" selected >ADM</option>
-						</select>							
-						<p></p>	
-						
-						<select id="cadastro" class="form-select" th:field="*{idOperadorCadastroFk}">
-								<option value="">Selecione o operador que cadastrou</option>
-								<option class="form-select" th:each="d : ${idOperadorCadastroFk}" th:value="${d.id}"th:text="${d.id}" selected >ADM</option>
-						</select>							
-						<p></p>	
-						
-						<select id="cancelamento" class="form-select" th:field="*{idOperadorCancelamentoFk}">
-								<option value="">Selecione o operador que cancelou </option>
-								<option class="form-select" th:each="d : ${idOperadorCancelamentoFk}" th:value="${d.id}"th:text="${d.id}" selected >ADM</option>
-						</select>							
-						<p></p>	
 						
 						<select id="UnidadesNaturezaJuridica" class="form-select" th:field="*{idNaturezaJuridicaFk}">
 								<option value="">Selecione a Natureza Juridica </option>
@@ -129,7 +97,7 @@
 						<p></p>
 							
 						<select id="UnidadesRegime" class="form-select" th:field="*{idUnidadesRegimeFk}">
-								<option value="">Selecione a Natureza Juridica </option>
+								<option value="">Selecione o Regime da Unidade </option>
 								<option class="form-select" th:each="d : ${idUnidadesRegimeFk}" th:value="${d.id}"th:text="${d.nomeRegimeUnidLotacao}" selected >ADM</option>
 						</select>							
 						<p></p>

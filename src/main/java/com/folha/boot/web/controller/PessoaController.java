@@ -120,8 +120,7 @@ public class PessoaController {
 		model.addAttribute("pessoa", service.buscarPorNome(nome.toUpperCase().trim()));
 		return "/pessoa/lista";
 	}
-	
-	
+		
 	@ModelAttribute("idSexoFk")
 	public List<Sexos> getSexos() {
 		return sexosService.buscarTodos();

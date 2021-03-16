@@ -49,27 +49,7 @@ public class PessoaFotosService {
 		return reposytory.findAll();
 	}
 
-	public PessoaFotos saveFile(MultipartFile file, Pessoa pessoa) {
-		String fileName = file.getOriginalFilename();
-
-		try {
-			PessoaFotos pessoaFotos = new PessoaFotos(pessoa, file.getBytes());
-			return reposytory.save(pessoaFotos);
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-		return null;
-	}
-
 	
-	public Optional<PessoaFotos> getFile(Long id) {
-		return reposytory.findById(id);
-	}
-
-	
-	public List<PessoaFotos> getFiles() {
-		return reposytory.findAll();
-	}
 	
 
 }
