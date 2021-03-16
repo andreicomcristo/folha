@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html layout:decorate="~{layout}">
+<head><meta charset="UTF-8"/></head>
+<body>
+	<section class="layout-content" layout:fragment="corpo">
+
+		<nav class="navbar navbar-expand-md bg-light">
+			<form action="/cids/listar">
+				<div class=" layout-content">
+					<button class="btn btn-outline-dark" >Listar</button>
+					<a class="btn btn-outline-dark btn-md" href="/cids/cadastrar"
+						role="button"> <span class="oi oi-plus" title="Cadastro"
+						aria-hidden="true"></span> <span>Novo</span>
+					</a>
+				</div>
+			</form>
+		</nav>
+
+		<div class="container" id="cadastro">
+
+			<div th:replace="fragments/alert"></div>
+			<form
+				th:action="${cids.id == null} ? @{/cids/salvar} : @{/cids/editar}"
+				th:object="${cids}" method="POST">
+				<div class="form-row">
+
+					<div class="form-group col-md-6">
+						<label for="nome" class="fonte-tutulos-tamanho">Cadastro de Cids</label>
+							
+							<input type="text"
+								class="form-control form-control-md" autofocus="autofocus"
+								id="codCid" placeholder="Cid" th:field="*{codCid}" /> 
+							<p></p>
+							
+							<input type="text"
+								class="form-control form-control-md" autofocus="autofocus"
+								id="descricaoCid" placeholder="Descrição do Cid" th:field="*{descricaoCid}" /> 
+							<p></p>
+							
+							<input type="hidden" id="id" th:field="*{id}" />
+								<p></p>					
+						<button class="btn btn-outline-dark">Cadastrar</button>
+					</div>
+				</div>
+			</form>
+		</div>
+	</section>
+</body>
+</html>

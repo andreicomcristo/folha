@@ -10,7 +10,8 @@ public class Cids extends AbstractEntity<Long> {
 	@Basic(optional = false)
     @Column(name = "cod_cid")
     private String codCid;
-    @Column(name = "descricao_cid")
+    
+	@Column(name = "descricao_cid")
     private String descricaoCid;
     
 	public String getCodCid() {

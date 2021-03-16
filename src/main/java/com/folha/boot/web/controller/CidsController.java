@@ -9,47 +9,45 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
-
-import com.folha.boot.domain.Bancos;
-import com.folha.boot.service.BancosService;
+import com.folha.boot.domain.Cids;
+import com.folha.boot.service.CidsService;
 
 @Controller
-@RequestMapping("/bancos")
-public class BancosController {
-	
+@RequestMapping("/cids")
+public class CidsController {
+
 	@Autowired
-	private BancosService service;
-	
+	private CidsService service;
+
 	@GetMapping("/cadastrar")
-	public String cadastrar(Bancos banco) {
-		return "/banco/cadastro";
+	public String cadastrar(Cids cids) {		
+		return "/tipofolha/cadastro";
 	}
 	
 	@GetMapping("/listar")
 	public String listar(ModelMap model) {
-		model.addAttribute("bancos", service.buscarTodos());
-		return "/banco/lista"; 
+		model.addAttribute("cids", service.buscarTodos());
+		return "/tipofolha/lista"; 
 	}
 	
 	@PostMapping("/salvar")
-	public String salvar(Bancos banco, RedirectAttributes attr) {
-		service.salvar(banco);
+	public String salvar(Cids cids, RedirectAttributes attr) {
+		service.salvar(cids);
 		attr.addFlashAttribute("success", "Inserido com sucesso.");
-		return "redirect:/bancos/cadastrar";
+		return "redirect:/cids/cadastrar";
 	}
 	
 	@GetMapping("/editar/{id}")
 	public String preEditar(@PathVariable("id") Long id, ModelMap model) {
-		model.addAttribute("bancos", service.buscarPorId(id));
-		model.addAttribute("bancos", service.buscarPorId(id).getClass().getName());
-		return "/banco/cadastro";
+		model.addAttribute("cids", service.buscarPorId(id));
+		return "/tipofolha/cadastro";
 	}
 	
 	@PostMapping("/editar")
-	public String editar(Bancos banco, RedirectAttributes attr) {
-		service.salvar(banco);		
+	public String editar(Cids cids, RedirectAttributes attr) {
+		service.editar(cids);
 		attr.addFlashAttribute("success", "Editado com sucesso.");
-		return "redirect:/bancos/listar";
+		return "redirect:/cids/listar";
 	}
 	
 	@GetMapping("/excluir/{id}")
@@ -59,10 +57,10 @@ public class BancosController {
 		return listar(model);
 	}
 	
-	@GetMapping("/buscar/nome/banco")
-	public String getPorNome(@RequestParam("nomeBanco") String nomeBanco, ModelMap model) {		
-		model.addAttribute("bancos", service.buscarPorNome(nomeBanco.toUpperCase().trim()));
-		return "/banco/lista";
+	@GetMapping("/buscar/codcid")
+	public String getPorNome(@RequestParam("nomeTipoFolha") String nomeTipoFolha, ModelMap model) {		
+		model.addAttribute("cids", service.buscarPorNome(nomeTipoFolha.toUpperCase().trim()));
+		return "/tipofolha/lista";
 	}
 	
 }

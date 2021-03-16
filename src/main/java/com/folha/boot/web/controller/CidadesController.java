@@ -102,7 +102,7 @@ public class CidadesController {
 			else {
 				return this.findPaginated(pageNo, ultimaBuscaUf, model);}
 			}
-		}
+	}
 	
 	@GetMapping("/buscar/id/uf")
 	public String getPorIdUf(@RequestParam("idUfFk") Uf uf, ModelMap model) {
