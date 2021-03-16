@@ -1,4 +1,4 @@
-package com.folha.boot.domain.endereco;
+package com.folha.boot.domain;
 
 import org.apache.commons.lang3.builder.EqualsBuilder;
 import org.apache.commons.lang3.builder.HashCodeBuilder;
@@ -7,7 +7,7 @@ import org.apache.commons.lang3.builder.ToStringBuilder;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
-public class Endereco {
+public class EnderecoCorreios {
 
 	@SerializedName("cep")
 	@Expose
@@ -137,10 +137,10 @@ public class Endereco {
 		if (other == this) {
 			return true;
 		}
-		if ((other instanceof Endereco) == false) {
+		if ((other instanceof EnderecoCorreios) == false) {
 			return false;
 		}
-		Endereco rhs = ((Endereco) other);
+		EnderecoCorreios rhs = ((EnderecoCorreios) other);
 		return new EqualsBuilder().append(cep, rhs.cep).append(logradouro, rhs.logradouro)
 				.append(complemento, rhs.complemento).append(bairro, rhs.bairro).append(localidade, rhs.localidade)
 				.append(uf, rhs.uf).append(unidade, rhs.unidade).append(ibge, rhs.ibge).append(gia, rhs.gia).isEquals();

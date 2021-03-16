@@ -11,10 +11,10 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.context.annotation.SessionScope;
 
 import com.folha.boot.domain.Cidades;
+import com.folha.boot.domain.EnderecoCorreios;
 import com.folha.boot.domain.Enderecos;
-import com.folha.boot.domain.endereco.Endereco;
 import com.folha.boot.service.CidadesService;
-import com.folha.boot.service.endereco.EnderecoService;
+import com.folha.boot.service.EnderecoCorreiosService;
 import com.folha.boot.service.util.UtilidadesDeTexto;
 import com.sun.jersey.api.client.Client;
 import com.sun.jersey.api.client.WebResource;
@@ -28,16 +28,16 @@ public class ControladorCEPBean implements Serializable {
 
 	private static final long serialVersionUID = -4818919924660193639L;
 	
-	private List<Endereco> listagem = new ArrayList<Endereco>();
+	private List<EnderecoCorreios> listagem = new ArrayList<EnderecoCorreios>();
 	
-	private Endereco endereco;
+	private EnderecoCorreios endereco;
 	
 	private String cep;
 
-	private EnderecoService servico = new EnderecoService();
+	private EnderecoCorreiosService servico = new EnderecoCorreiosService();
 	
-	public Endereco carregarEndereco() {
-		endereco = new Endereco();
+	public EnderecoCorreios carregarEndereco() {
+		endereco = new EnderecoCorreios();
 		Client c = Client.create();
 		WebResource wr = c.resource("http://viacep.com.br/ws/" + this.getCep() + "/json/");
 		System.out.println("CHAMOU O URI....");
@@ -69,19 +69,19 @@ public class ControladorCEPBean implements Serializable {
 		return this.getEndereco();
 	}
 
-	public List<Endereco> getListagem() {
+	public List<EnderecoCorreios> getListagem() {
 		return listagem;
 	}
 
-	public void setListagem(List<Endereco> listagem) {
+	public void setListagem(List<EnderecoCorreios> listagem) {
 		this.listagem = listagem;
 	}
 
-	public Endereco getEndereco() {
+	public EnderecoCorreios getEndereco() {
 		return endereco;
 	}
 
-	public void setEndereco(Endereco endereco) {
+	public void setEndereco(EnderecoCorreios endereco) {
 		this.endereco = endereco;
 	}
 
@@ -94,7 +94,7 @@ public class ControladorCEPBean implements Serializable {
 	}
 
 	public void limpar() {
-		this.endereco = new Endereco();
+		this.endereco = new EnderecoCorreios();
 	}
 
 }

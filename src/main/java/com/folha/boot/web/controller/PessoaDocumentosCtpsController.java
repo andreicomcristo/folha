@@ -15,6 +15,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.folha.boot.domain.Cidades;
 import com.folha.boot.domain.Conselhos;
+import com.folha.boot.domain.EnderecoCorreios;
 import com.folha.boot.domain.Enderecos;
 import com.folha.boot.domain.HabilitacaoCategorias;
 import com.folha.boot.domain.PessoaDocumentos;
@@ -26,7 +27,6 @@ import com.folha.boot.domain.PessoaDocumentosRg;
 import com.folha.boot.domain.PessoaDocumentosTitulo;
 import com.folha.boot.domain.TiposLogradouro;
 import com.folha.boot.domain.Uf;
-import com.folha.boot.domain.endereco.Endereco;
 import com.folha.boot.service.CidadesService;
 import com.folha.boot.service.ConselhosServices;
 import com.folha.boot.service.EnderecosServices;
@@ -335,7 +335,7 @@ public class PessoaDocumentosCtpsController {
 		ControladorCEPBean c = new ControladorCEPBean();
 		c.setCep(cepBusca);
 		Enderecos enderecos = new Enderecos();
-		Endereco endereco = c.carregarEndereco();
+		EnderecoCorreios endereco = c.carregarEndereco();
 		
 		List<Cidades> listaDeCidades =  cidadesService.buscarPorNome(endereco.getLocalidade());
 		List<TiposLogradouro> listaTiposLogradouro =  tiposLogradouroService.buscarPorNomeExato(endereco.getTipoLogradouro());
