@@ -9,45 +9,44 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
-import com.folha.boot.domain.NiveisCarreira;
-import com.folha.boot.service.NiveisCarreiraService;
+import com.folha.boot.domain.RegimesDeTrabalho;
+import com.folha.boot.service.RegimesDeTrabalhoService;
 
 @Controller
-@RequestMapping("/niveis/carreira")
-public class NiveisCarreiraController {
-
+@RequestMapping("/regimesdetrabalhos")
+public class RegimesDeTrabalhoController {	
 	@Autowired
-	private NiveisCarreiraService service;
+	private RegimesDeTrabalhoService service;
 
 	@GetMapping("/cadastrar")
-	public String cadastrar(NiveisCarreira niveisCarreira) {
-		return "/nivelcarreira/cadastro";
+	public String cadastrar(RegimesDeTrabalho regimesDeTrabalho) {		
+		return "/regimedetrabalho/cadastro";
 	}
 	
 	@GetMapping("/listar")
 	public String listar(ModelMap model) {
-		model.addAttribute("niveisCarreira", service.buscarTodos());
-		return "/nivelcarreira/lista"; 
+		model.addAttribute("regimesDeTrabalho", service.buscarTodos());
+		return "/regimedetrabalho/lista"; 
 	}
 	
 	@PostMapping("/salvar")
-	public String salvar(NiveisCarreira niveisCarreira, RedirectAttributes attr) {
-		service.salvar(niveisCarreira);
+	public String salvar(RegimesDeTrabalho regimesDeTrabalho, RedirectAttributes attr) {
+		service.salvar(regimesDeTrabalho);
 		attr.addFlashAttribute("success", "Inserido com sucesso.");
-		return "redirect:/niveis/carreira/cadastrar";
+		return "redirect:/regimesdetrabalhos/cadastrar";
 	}
 	
 	@GetMapping("/editar/{id}")
 	public String preEditar(@PathVariable("id") Long id, ModelMap model) {
-		model.addAttribute("niveisCarreira", service.buscarPorId(id));
-		return "/nivelcarreira/cadastro";
+		model.addAttribute("regimesDeTrabalho", service.buscarPorId(id));
+		return "/regimedetrabalho/cadastro";
 	}
 	
 	@PostMapping("/editar")
-	public String editar(NiveisCarreira niveisCarreira, RedirectAttributes attr) {
-		service.editar(niveisCarreira);
+	public String editar(RegimesDeTrabalho regimesDeTrabalho, RedirectAttributes attr) {
+		service.editar(regimesDeTrabalho);
 		attr.addFlashAttribute("success", "Editado com sucesso.");
-		return "redirect:/niveis/carreira/listar";
+		return "redirect:/regimesdetrabalhos/listar";
 	}
 	
 	@GetMapping("/excluir/{id}")
@@ -57,9 +56,9 @@ public class NiveisCarreiraController {
 		return listar(model);
 	}
 	
-	@GetMapping("/buscar/nome/nivel")
-	public String getPorNome(@RequestParam("nomeNivelCarreira") String nomeNivelCarreira, ModelMap model) {		
-		model.addAttribute("niveisCarreira", service.buscarPorNome(nomeNivelCarreira.toUpperCase().trim()));
-		return "/nivelcarreira/lista";
+	@GetMapping("/buscar/nome/regimedetrabalho")
+	public String getPorNome(@RequestParam("nomeRegimeDeTrabalho") String nomeRegimeDeTrabalho, ModelMap model) {		
+		model.addAttribute("regimesDeTrabalho", service.buscarPorNome(nomeRegimeDeTrabalho.toUpperCase().trim()));
+		return "/regimedetrabalho/lista";
 	}
 }

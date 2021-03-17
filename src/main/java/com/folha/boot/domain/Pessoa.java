@@ -14,33 +14,45 @@ public class Pessoa extends AbstractEntity<Long> {
 	@NotBlank(message = "CPF obrigatório")
 	@Column(name = "cpf", nullable = false, length = 20)
 	private String cpf;
+	
 	@NotBlank(message = "Nome obrigatório")
 	@Basic(optional = false)
 	@Column(name = "nome", nullable = false, length = 300)
 	private String nome;
+	
 	@Column(name = "fone1")
 	private String fone1;
+	
 	@Column(name = "fone2")
 	private String fone2;
+	
 	@Column(name = "fone3")
 	private String fone3;
+	
 	@Column(name = "email")
 	private String email;
+	
 	@Column(name = "email_saude")
 	private String emailSaude;
+	
 	@Column(name = "dt_nascimento")
 	@Temporal(TemporalType.DATE)
 	private Date dtNascimento;
+	
 	@Column(name = "nome_pai")
 	private String nomePai;
+	
 	@Column(name = "nome_mae")
 	private String nomeMae;
+	
 	@Column(name = "dt_cadastro")
 	@Temporal(TemporalType.DATE)
 	private Date dtCadastro;
+	
 	@Column(name = "dt_cancelamento")
 	@Temporal(TemporalType.DATE)
 	private Date dtCancelamento;
+	
 	@Column(name = "moivo_cancelamento")
 	private String moivoCancelamento;
 	@Column(name = "nome_social")

@@ -7,7 +7,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.folha.boot.Reposytory.PessoaFuncionariosReposytory;
-import com.folha.boot.domain.Enderecos;
 import com.folha.boot.domain.Pessoa;
 import com.folha.boot.domain.PessoaFuncionarios;
 

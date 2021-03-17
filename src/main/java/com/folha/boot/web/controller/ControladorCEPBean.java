@@ -3,17 +3,10 @@ package com.folha.boot.web.controller;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
-
 import javax.annotation.ManagedBean;
-
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.context.annotation.SessionScope;
-
-import com.folha.boot.domain.Cidades;
 import com.folha.boot.domain.EnderecoCorreios;
-import com.folha.boot.domain.Enderecos;
-import com.folha.boot.service.CidadesService;
 import com.folha.boot.service.EnderecoCorreiosService;
 import com.folha.boot.service.util.UtilidadesDeTexto;
 import com.sun.jersey.api.client.Client;

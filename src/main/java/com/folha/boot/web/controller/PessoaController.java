@@ -1,19 +1,7 @@
 package com.folha.boot.web.controller;
 
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.io.IOException;
 import java.util.List;
-
-import javax.validation.Valid;
-
-import org.apache.poi.util.IOUtils;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.core.io.ByteArrayResource;
-import org.springframework.http.HttpHeaders;
-import org.springframework.http.MediaType;
-import org.springframework.http.ResponseEntity;
-import org.springframework.mock.web.MockMultipartFile;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -22,18 +10,13 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
-
 import com.folha.boot.domain.Cidades;
-import com.folha.boot.domain.Doc;
 import com.folha.boot.domain.Escolaridades;
 import com.folha.boot.domain.EstadosCivis;
-import com.folha.boot.domain.Paises;
 import com.folha.boot.domain.Pessoa;
 import com.folha.boot.domain.PessoaFotos;
 import com.folha.boot.domain.Sexos;
-import com.folha.boot.domain.Uf;
 import com.folha.boot.service.CidadesService;
 import com.folha.boot.service.EscolaridadesService;
 import com.folha.boot.service.EstadosCivisService;

@@ -12,13 +12,11 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
-
 import com.folha.boot.domain.Cidades;
 import com.folha.boot.domain.Conselhos;
 import com.folha.boot.domain.EnderecoCorreios;
 import com.folha.boot.domain.Enderecos;
 import com.folha.boot.domain.HabilitacaoCategorias;
-import com.folha.boot.domain.PessoaDocumentos;
 import com.folha.boot.domain.PessoaDocumentosConselho;
 import com.folha.boot.domain.PessoaDocumentosCtps;
 import com.folha.boot.domain.PessoaDocumentosHabilitacao;

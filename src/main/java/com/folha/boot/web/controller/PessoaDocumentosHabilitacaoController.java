@@ -14,9 +14,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.folha.boot.domain.HabilitacaoCategorias;
-import com.folha.boot.domain.PessoaDocumentosCtps;
 import com.folha.boot.domain.PessoaDocumentosHabilitacao;
-import com.folha.boot.domain.Uf;
 import com.folha.boot.service.HabilitacaoCategoriasService;
 import com.folha.boot.service.PessoaDocumentosHabilitacaoService;
 import com.folha.boot.service.PessoaService;

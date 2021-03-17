@@ -12,18 +12,14 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
-
 import com.folha.boot.domain.CargaHorariaSemanal;
 import com.folha.boot.domain.Cargos;
 import com.folha.boot.domain.CargosEspecialidade;
 import com.folha.boot.domain.Carreiras;
 import com.folha.boot.domain.ClassesCarreira;
-import com.folha.boot.domain.Enderecos;
 import com.folha.boot.domain.NiveisCarreira;
-import com.folha.boot.domain.PessoaFotos;
 import com.folha.boot.domain.PessoaFuncionarios;
 import com.folha.boot.domain.Situacoes;
-import com.folha.boot.domain.TiposLogradouro;
 import com.folha.boot.domain.Unidades;
 import com.folha.boot.domain.Vinculos;
 import com.folha.boot.service.CargaHorariaSemanalService;

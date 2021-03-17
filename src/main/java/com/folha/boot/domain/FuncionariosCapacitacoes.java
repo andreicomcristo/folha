@@ -2,10 +2,7 @@ package com.folha.boot.domain;
 
 import javax.persistence.*;
 
-import com.folha.boot.service.util.UtilidadesDeTexto;
-
 import java.util.Date;
-import java.util.List;
 
 /**
  * The persistent class for the funcionarios_capacitacoes database table.
