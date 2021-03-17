@@ -53,7 +53,7 @@ public class CargosEspecialidadeService {
 	@Transactional(readOnly = true)
 	public List<CargosEspecialidade> buscarTodosOrdemDeCargo() {
 		// TODO Auto-generated method stub
-		return reposytory.findAllByOrderByIdCargoFkNomeCargoAsc();
+		return reposytory.findAllByOrderByIdCargoFkNomeCargoAscNomeEspecialidadeCargoAsc();
 	}
 	
 }

@@ -10,7 +10,7 @@ import com.folha.boot.domain.CargosEspecialidade;
 @Repository
 public interface CargosEspecialidadeReposytory extends JpaRepository<CargosEspecialidade, Long> {
 
-	public List<CargosEspecialidade> findAllByOrderByIdCargoFkNomeCargoAsc();
+	public List<CargosEspecialidade> findAllByOrderByIdCargoFkNomeCargoAscNomeEspecialidadeCargoAsc();
 	
 	public List<CargosEspecialidade> findAllByOrderByNomeEspecialidadeCargoAsc();
 

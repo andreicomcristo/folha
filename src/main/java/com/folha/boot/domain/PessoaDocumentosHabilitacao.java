@@ -4,6 +4,8 @@ import java.util.Date;
 
 import javax.persistence.*;
 
+import org.springframework.format.annotation.DateTimeFormat;
+
 import com.folha.boot.service.util.UtilidadesDeTexto;
 
 @SuppressWarnings("serial")
@@ -16,14 +18,17 @@ public class PessoaDocumentosHabilitacao extends AbstractEntity<Long> {
 
 	@Column(name = "dt_emissao")
 	@Temporal(TemporalType.DATE)
+	@DateTimeFormat(pattern="dd/MM/yyyy")
 	private Date dtEmissao;
 
 	@Column(name = "dt_validade")
 	@Temporal(TemporalType.DATE)
+	@DateTimeFormat(pattern="dd/MM/yyyy")
 	private Date dtValidade;
 
 	@Column(name = "dt_primeira_habilitacao")
 	@Temporal(TemporalType.DATE)
+	@DateTimeFormat(pattern="dd/MM/yyyy")
 	private Date dtPrimeiraHabilitacao;
 
 	@JoinColumn(name = "id_habilitacao_categorias_fk", referencedColumnName = "id")

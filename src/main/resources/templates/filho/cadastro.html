@@ -160,7 +160,7 @@
 		                	<td th:text="${d.id}"></td>
 		                	<td th:text="${d.idTipoFiliacaoFk.nomeTipoFiliacao}"></td>
 		                    <td th:text="${d.nomeFilho}"></td>
-		                    <td th:text="${d.dtNascimento}"></td>
+		                    <td th:text="${#dates.format(d.dtNascimento , 'dd/MM/yyyy')}"></td>
 		                    <td th:text="${d.cpfFilho}"></td>
 		                    <td th:text="${d.rgFilho}"></td>
 		                    <td th:text="${d.rgDtEmissaoFilho}"></td>

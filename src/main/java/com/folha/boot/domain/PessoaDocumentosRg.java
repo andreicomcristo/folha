@@ -4,6 +4,8 @@ import java.util.Date;
 
 import javax.persistence.*;
 
+import org.springframework.format.annotation.DateTimeFormat;
+
 import com.folha.boot.service.util.UtilidadesDeTexto;
 
 @SuppressWarnings("serial")
@@ -17,8 +19,10 @@ public class PessoaDocumentosRg extends AbstractEntity<Long> {
 	@Column(name = "rg_orgao_emissor", length = 100)
 	private String rgOrgaoEmissor;
 
+	
 	@Column(name = "dt_emissao")
 	@Temporal(TemporalType.DATE)
+	@DateTimeFormat(pattern="dd/MM/yyyy")
 	private Date dtEmissao;
 
 	@JoinColumn(name = "id_pessoa_fk", referencedColumnName = "id", nullable = false)

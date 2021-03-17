@@ -237,9 +237,9 @@
 		            	<tr th:each="d : ${pessoaDocumentosLista2}">
 		                	<td th:text="${d.id}"></td>
 		                    <td th:text="${d.numeroRegistro}"></td>
-		                    <td th:text="${d.dtEmissao}"></td>
-		                    <td th:text="${d.dtValidade}"></td>
-		                    <td th:text="${d.dtPrimeiraHabilitacao}"></td>
+		                    <td th:text="${#dates.format(d.dtEmissao , 'dd/MM/yyyy')}"></td>
+		                    <td th:text="${#dates.format(d.dtValidade , 'dd/MM/yyyy')}"></td>
+		                    <td th:text="${#dates.format(d.dtPrimeiraHabilitacao , 'dd/MM/yyyy')}"></td>
 		                    <td th:text="${d.idHabilitacaoCategoriasFk.nomeHabilitacaoCategoria}"></td>
 		                    <td th:text="${d.idPessoaFk.nome}"></td>
 		                    <td th:text="${d.idPessoaFk.cpf}"></td>
@@ -467,8 +467,8 @@
 		            	<tr th:each="d : ${pessoaDocumentosLista4}">
 		                	<td th:text="${d.id}"></td>
 		                    <td th:text="${d.numeroConselho}"></td>
-		                    <td th:text="${d.dtEmissao}"></td>
-		                    <td th:text="${d.dtValidade}"></td>
+		                    <td th:text="${#dates.format(d.dtEmissao , 'dd/MM/yyyy')}"></td>
+		                    <td th:text="${#dates.format(d.dtValidade , 'dd/MM/yyyy')}"></td>
 		                    <td th:text="${d.idUfFk.nomeUf}"></td>
 		                    <td th:text="${d.idConselhosFk.nomeConselho}"></td>
 		                    <td th:text="${d.idPessoaFk.nome}"></td>
@@ -590,7 +590,7 @@
 		                    <td th:text="${d.rgNumero}"></td>
 		                    <td th:text="${d.rgOrgaoEmissor}"></td>
 		                    <td th:text="${d.idUfEmissao.nomeUf}"></td>
-		                    <td th:text="${d.dtEmissao}"></td>
+		                    <td th:text="${#dates.format(d.dtEmissao , 'dd/MM/yyyy')}"></td>
 		                    <td th:text="${d.idPessoaFk.nome}"></td>
 		                    <td th:text="${d.idPessoaFk.cpf}"></td>
 		                    <td colspan="2">
