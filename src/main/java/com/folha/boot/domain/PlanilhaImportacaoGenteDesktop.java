@@ -1,5 +1,7 @@
 package com.folha.boot.domain;
 
+import java.util.Date;
+
 import javax.persistence.*;
 
 @SuppressWarnings("serial")
@@ -61,8 +63,20 @@ public class PlanilhaImportacaoGenteDesktop extends AbstractEntity<Long>{
     
     @Column(name = "nome_unidade")
     private String nomeUnidade;
+    
+    @Column(name = "ch_semanal")
+    private Integer chSemanal;
 	
-    public String getCpf() {
+    @Column(name = "dt_importacao")
+    private Date dtImportacao;
+    
+    public Integer getChSemanal() {
+		return chSemanal;
+	}
+	public void setChSemanal(Integer chSemanal) {
+		this.chSemanal = chSemanal;
+	}
+	public String getCpf() {
 		return cpf;
 	}
 	public void setCpf(String cpf) {
