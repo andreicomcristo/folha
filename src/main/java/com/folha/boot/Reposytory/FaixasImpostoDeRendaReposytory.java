@@ -10,8 +10,8 @@ import com.folha.boot.domain.FaixasImpostoDeRenda;
 @Repository
 public interface FaixasImpostoDeRendaReposytory extends JpaRepository<FaixasImpostoDeRenda , Long> {
      
-	public List<FaixasImpostoDeRenda> findAllByOrderByAnoMesAsc();
+	public List<FaixasImpostoDeRenda> findAllByOrderByAnoMesDescBaseCalculoValorInicialAsc();
 	
-	public List<FaixasImpostoDeRenda> findByAnoMesContainingOrderByAnoMesAsc(String anoMes);
+	public List<FaixasImpostoDeRenda> findByAnoMesContainingOrderByAnoMesDescBaseCalculoValorInicialAsc(String anoMes);
 	
 }

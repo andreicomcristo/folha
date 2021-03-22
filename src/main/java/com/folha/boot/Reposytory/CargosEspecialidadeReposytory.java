@@ -12,7 +12,7 @@ public interface CargosEspecialidadeReposytory extends JpaRepository<CargosEspec
 
 	public List<CargosEspecialidade> findAllByOrderByIdCargoFkNomeCargoAscNomeEspecialidadeCargoAsc();
 	
-	public List<CargosEspecialidade> findAllByOrderByNomeEspecialidadeCargoAsc();
+	public List<CargosEspecialidade> findAllByOrderByIdCargoFkAscNomeEspecialidadeCargoAsc();
 
 	public List<CargosEspecialidade> findByNomeEspecialidadeCargoContainingOrderByNomeEspecialidadeCargoAsc(String nomeEspecialidadeCargo);
 	

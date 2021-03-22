@@ -41,7 +41,7 @@ public class CargosEspecialidadeService {
 	@Transactional(readOnly = true)
 	public List<CargosEspecialidade> buscarTodos() {
 		// TODO Auto-generated method stub
-		return reposytory.findAllByOrderByNomeEspecialidadeCargoAsc();
+		return reposytory.findAllByOrderByIdCargoFkNomeCargoAscNomeEspecialidadeCargoAsc();
 	}
 
 	public List<CargosEspecialidade> buscarPorNome(String nomeEspecialidadeCargo) {

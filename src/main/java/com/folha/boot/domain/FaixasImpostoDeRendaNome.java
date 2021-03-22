@@ -4,6 +4,8 @@ import java.util.List;
 
 import javax.persistence.*;
 
+import com.folha.boot.service.util.UtilidadesDeTexto;
+
 @SuppressWarnings("serial")
 @Entity
 @Table(name = "faixas_imposto_de_renda_nome")
@@ -20,7 +22,7 @@ public class FaixasImpostoDeRendaNome extends AbstractEntity<Long> {
 	}
 
 	public void setNomeFaixa(String nomeFaixa) {
-		this.nomeFaixa = nomeFaixa;
+		this.nomeFaixa = UtilidadesDeTexto.retiraEspacosDuplosAcentosEConverteEmMaiusculo(nomeFaixa);
 	}
 
 	public List<FaixasImpostoDeRenda> getFaixasImpostoDeRendaList() {

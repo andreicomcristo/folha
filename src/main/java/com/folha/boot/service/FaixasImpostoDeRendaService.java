@@ -38,11 +38,11 @@ public class FaixasImpostoDeRendaService {
 	@Transactional(readOnly = true)
 	public List<FaixasImpostoDeRenda> buscarTodos() {
 		// TODO Auto-generated method stub
-		return reposytory.findAllByOrderByAnoMesAsc();
+		return reposytory.findAllByOrderByAnoMesDescBaseCalculoValorInicialAsc();
 	}
 	
 	@Transactional(readOnly = true)
 	public List<FaixasImpostoDeRenda> buscarPorAnoMes(String anoMes) {
-		return reposytory.findByAnoMesContainingOrderByAnoMesAsc(anoMes);
+		return reposytory.findByAnoMesContainingOrderByAnoMesDescBaseCalculoValorInicialAsc(anoMes);
 	}
 }

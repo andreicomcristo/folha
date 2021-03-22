@@ -134,6 +134,11 @@ public class CidadesService {
 		return this.reposytory.findByIdUfFkOrderByNomeCidadeAsc(uf, pageable);
 	}
 	
+	
+	
+	
+	
+	
 	public ByteArrayInputStream exportarExcel(List<Cidades> listaCidades) {
 		try(Workbook workbook = new XSSFWorkbook()){
 			Sheet sheet = workbook.createSheet("Cidades");

@@ -59,8 +59,9 @@ public class FaixasImpostoDeRendaNomeController {
 	}
 	
 	@GetMapping("/buscar/nome/faixa")
-	public String getPorNome(@RequestParam("nomeFaixa") String nomeFaixa, ModelMap model) {		
-		model.addAttribute("nomeFaixa", service.buscarNome(nomeFaixa.toUpperCase().trim()));
+	public String getPorNome(@RequestParam("nomeFaixa") String nomeFaixa, ModelMap model) {	
+		System.out.println(nomeFaixa.toUpperCase().trim());
+		model.addAttribute("faixasImpostoDeRendaNome", service.buscarNome(nomeFaixa.toUpperCase().trim()));
 		return "/faixanomeir/lista";
 	}
 	

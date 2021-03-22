@@ -2,6 +2,8 @@ package com.folha.boot.domain;
 
 import javax.persistence.*;
 
+import com.folha.boot.service.util.UtilidadesDeTexto;
+
 @SuppressWarnings("serial")
 @Entity
 @Table(name = "faixas_imposto_de_renda")
@@ -63,7 +65,7 @@ public class FaixasImpostoDeRenda extends AbstractEntity<Long>{
 		return anoMes;
 	}
 	public void setAnoMes(String anoMes) {
-		this.anoMes = anoMes;
+		this.anoMes = UtilidadesDeTexto.retiraEspacosDuplosAcentosEConverteEmMaiusculo(anoMes);
 	}
 	public FaixasImpostoDeRendaNome getIdFaixasImpostoDeRendaNomeFk() {
 		return idFaixasImpostoDeRendaNomeFk;

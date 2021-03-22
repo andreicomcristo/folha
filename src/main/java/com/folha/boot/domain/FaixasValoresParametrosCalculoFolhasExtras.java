@@ -2,6 +2,8 @@ package com.folha.boot.domain;
 
 import javax.persistence.*;
 
+import com.folha.boot.service.util.UtilidadesDeTexto;
+
 @SuppressWarnings("serial")
 @Entity
 @Table(name = "faixas_valores_parametros_calculo_folhas_extras")
@@ -40,6 +42,15 @@ public class FaixasValoresParametrosCalculoFolhasExtras extends AbstractEntity<L
 	@Column(name = "nome_nivel")
 	private String nomeNivel;
 	
+	@Column(name = "ano_mes")
+	private String anoMes;
+	
+	public String getAnoMes() {
+		return anoMes;
+	}
+	public void setAnoMes(String anoMes) {
+		this.anoMes = anoMes;
+	}
 	@JoinColumn(name = "id_cod_diferenciado_fk", referencedColumnName = "id")
 	@ManyToOne
 	private CodigoDiferenciado idCodDiferenciadoFk;
@@ -64,13 +75,13 @@ public class FaixasValoresParametrosCalculoFolhasExtras extends AbstractEntity<L
 		return nomeTipoFolha;
 	}
 	public void setNomeTipoFolha(String nomeTipoFolha) {
-		this.nomeTipoFolha = nomeTipoFolha;
+		this.nomeTipoFolha = UtilidadesDeTexto.retiraEspacosDuplosAcentosEConverteEmMaiusculo(nomeTipoFolha);
 	}
 	public String getCnesUnidade() {
 		return cnesUnidade;
 	}
 	public void setCnesUnidade(String cnesUnidade) {
-		this.cnesUnidade = cnesUnidade;
+		this.cnesUnidade = UtilidadesDeTexto.retiraEspacosDuplosAcentosEConverteEmMaiusculo(cnesUnidade);
 	}
 	public Double getValorHoraDia() {
 		return valorHoraDia;
@@ -100,13 +111,13 @@ public class FaixasValoresParametrosCalculoFolhasExtras extends AbstractEntity<L
 		return nomeRegime;
 	}
 	public void setNomeRegime(String nomeRegime) {
-		this.nomeRegime = nomeRegime;
+		this.nomeRegime = UtilidadesDeTexto.retiraEspacosDuplosAcentosEConverteEmMaiusculo(nomeRegime);
 	}
 	public String getNomeCodDiferenciado() {
 		return nomeCodDiferenciado;
 	}
 	public void setNomeCodDiferenciado(String nomeCodDiferenciado) {
-		this.nomeCodDiferenciado = nomeCodDiferenciado;
+		this.nomeCodDiferenciado = UtilidadesDeTexto.retiraEspacosDuplosAcentosEConverteEmMaiusculo(nomeCodDiferenciado);
 	}
 	public Double getValorLiquidoPorHora() {
 		return valorLiquidoPorHora;
@@ -124,7 +135,7 @@ public class FaixasValoresParametrosCalculoFolhasExtras extends AbstractEntity<L
 		return nomeNivel;
 	}
 	public void setNomeNivel(String nomeNivel) {
-		this.nomeNivel = nomeNivel;
+		this.nomeNivel = UtilidadesDeTexto.retiraEspacosDuplosAcentosEConverteEmMaiusculo(nomeNivel);
 	}
 	public CodigoDiferenciado getIdCodDiferenciadoFk() {
 		return idCodDiferenciadoFk;

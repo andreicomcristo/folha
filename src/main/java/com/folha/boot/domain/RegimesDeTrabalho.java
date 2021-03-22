@@ -4,6 +4,8 @@ import java.util.List;
 
 import javax.persistence.*;
 
+import com.folha.boot.service.util.UtilidadesDeTexto;
+
 @SuppressWarnings("serial")
 @Entity
 @Table(name = "regimes_de_trabalho")
@@ -23,7 +25,7 @@ public class RegimesDeTrabalho extends AbstractEntity<Long> {
 	}
 
 	public void setNomeRegimeDeTrabalho(String nomeRegimeDeTrabalho) {
-		this.nomeRegimeDeTrabalho = nomeRegimeDeTrabalho;
+		this.nomeRegimeDeTrabalho = UtilidadesDeTexto.retiraEspacosDuplosAcentosEConverteEmMaiusculo(nomeRegimeDeTrabalho);
 	}
 
 	public String getDescricaoRegimeDeTrabalho() {
@@ -31,7 +33,7 @@ public class RegimesDeTrabalho extends AbstractEntity<Long> {
 	}
 
 	public void setDescricaoRegimeDeTrabalho(String descricaoRegimeDeTrabalho) {
-		this.descricaoRegimeDeTrabalho = descricaoRegimeDeTrabalho;
+		this.descricaoRegimeDeTrabalho = UtilidadesDeTexto.retiraEspacosDuplosAcentosEConverteEmMaiusculo(descricaoRegimeDeTrabalho);
 	}
 
 	public List<FaixasValoresParametrosCalculoFolhasExtras> getFaixasValoresParametrosCalculoFolhasExtrasList() {

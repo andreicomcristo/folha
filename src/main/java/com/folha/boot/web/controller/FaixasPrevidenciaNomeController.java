@@ -60,7 +60,7 @@ public class FaixasPrevidenciaNomeController {
 	
 	@GetMapping("/buscar/nome/faixa")
 	public String getPorNome(@RequestParam("nomeFaixa") String nomeFaixa, ModelMap model) {		
-		model.addAttribute("nomeFaixa", service.buscarNome(nomeFaixa.toUpperCase().trim()));
+		model.addAttribute("faixasPrevidenciaNome", service.buscarNome(nomeFaixa.toUpperCase().trim()));
 		return "/faixanomeprev/lista";
 	}
 	

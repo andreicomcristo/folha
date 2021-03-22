@@ -38,10 +38,10 @@ public class FaixasPrevidenciaSevice {
 	@Transactional(readOnly = true)
 	public List<FaixasPrevidencia> buscarTodos() {
 		// TODO Auto-generated method stub
-		return reposytory.findAllByOrderByAnoMesAsc();
+		return reposytory.findAllByOrderByAnoMesDescBaseCalculoValorInicialAsc();
 	}
 	@Transactional(readOnly = true)
 	public List<FaixasPrevidencia> buscarPorAnoMes(String anoMes) {
-		return reposytory.findByAnoMesContainingOrderByAnoMesAsc(anoMes);
+		return reposytory.findByAnoMesContainingOrderByAnoMesDescBaseCalculoValorInicialAsc(anoMes);
 	}
 }

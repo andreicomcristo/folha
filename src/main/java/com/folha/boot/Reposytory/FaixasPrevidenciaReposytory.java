@@ -8,8 +8,8 @@ import com.folha.boot.domain.FaixasPrevidencia;
 @Repository
 public interface FaixasPrevidenciaReposytory extends JpaRepository<FaixasPrevidencia, Long> {
 
-	public List<FaixasPrevidencia> findAllByOrderByAnoMesAsc();
+	public List<FaixasPrevidencia> findAllByOrderByAnoMesDescBaseCalculoValorInicialAsc();
 
-	public List<FaixasPrevidencia> findByAnoMesContainingOrderByAnoMesAsc(String anoMes);
+	public List<FaixasPrevidencia> findByAnoMesContainingOrderByAnoMesDescBaseCalculoValorInicialAsc(String anoMes);
 
 }

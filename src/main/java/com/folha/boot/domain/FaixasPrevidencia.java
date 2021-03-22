@@ -2,6 +2,8 @@ package com.folha.boot.domain;
 
 import javax.persistence.*;
 
+import com.folha.boot.service.util.UtilidadesDeTexto;
+
 @SuppressWarnings("serial")
 @Entity
 @Table(name = "faixas_previdencia")
@@ -82,7 +84,7 @@ public class FaixasPrevidencia extends AbstractEntity<Long>{
 	}
 
 	public void setAnoMes(String anoMes) {
-		this.anoMes = anoMes;
+		this.anoMes = UtilidadesDeTexto.retiraEspacosDuplosAcentosEConverteEmMaiusculo(anoMes);
 	}
     
     

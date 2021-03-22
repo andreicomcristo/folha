@@ -4,6 +4,8 @@ import java.util.List;
 
 import javax.persistence.*;
 
+import com.folha.boot.service.util.UtilidadesDeTexto;
+
 @SuppressWarnings("serial")
 @Entity
 @Table(name = "codigo_diferenciado")
@@ -23,7 +25,7 @@ public class CodigoDiferenciado extends AbstractEntity<Long> {
 	}
 
 	public void setNomeCodigoDiferenciado(String nomeCodigoDiferenciado) {
-		this.nomeCodigoDiferenciado = nomeCodigoDiferenciado;
+		this.nomeCodigoDiferenciado = UtilidadesDeTexto.retiraEspacosDuplosAcentosEConverteEmMaiusculo(nomeCodigoDiferenciado);
 	}
 
 	public String getDescricaoCodigoDiferenciado() {
@@ -31,7 +33,7 @@ public class CodigoDiferenciado extends AbstractEntity<Long> {
 	}
 
 	public void setDescricaoCodigoDiferenciado(String descricaoCodigoDiferenciado) {
-		this.descricaoCodigoDiferenciado = descricaoCodigoDiferenciado;
+		this.descricaoCodigoDiferenciado = UtilidadesDeTexto.retiraEspacosDuplosAcentosEConverteEmMaiusculo(descricaoCodigoDiferenciado);
 	}
 
 	public List<FaixasValoresParametrosCalculoFolhasExtras> getFaixasValoresParametrosCalculoFolhasExtrasList() {
