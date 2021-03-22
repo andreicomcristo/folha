@@ -157,6 +157,44 @@ public class FaixasValoresParametrosCalculoFolhasExtrasController {
 	
 	@PostMapping("/editar")
 	public String editar(FaixasValoresParametrosCalculoFolhasExtras faixasValoresParametrosCalculoFolhasExtras, RedirectAttributes attr) {	
+		
+
+		if(faixasValoresParametrosCalculoFolhasExtras.getIdUnidadeFk()!=null) {
+			faixasValoresParametrosCalculoFolhasExtras.setCnesUnidade(unidadesService.buscarPorId(faixasValoresParametrosCalculoFolhasExtras.getIdUnidadeFk().getId()).getCnes());
+		}else {faixasValoresParametrosCalculoFolhasExtras.setCnesUnidade("");}
+		if(faixasValoresParametrosCalculoFolhasExtras.getIdRegimeDeTrabalhoFk()!=null) {
+			faixasValoresParametrosCalculoFolhasExtras.setNomeRegime(regimesDeTrabalhoService.buscarPorId(faixasValoresParametrosCalculoFolhasExtras.getIdRegimeDeTrabalhoFk().getId()).getNomeRegimeDeTrabalho());
+		}else {faixasValoresParametrosCalculoFolhasExtras.setNomeRegime("");}
+		if(faixasValoresParametrosCalculoFolhasExtras.getIdTipoDeFolhaFk()!=null) {
+			faixasValoresParametrosCalculoFolhasExtras.setNomeTipoFolha(tiposDeFolhaService.buscarPorId(faixasValoresParametrosCalculoFolhasExtras.getIdTipoDeFolhaFk().getId()).getNomeTipoFolha());
+		}else {faixasValoresParametrosCalculoFolhasExtras.setNomeTipoFolha("");}
+		if(faixasValoresParametrosCalculoFolhasExtras.getIdCodDiferenciadoFk()!=null) {
+			faixasValoresParametrosCalculoFolhasExtras.setNomeCodDiferenciado(codigoDiferenciadoService.buscarPorId(faixasValoresParametrosCalculoFolhasExtras.getIdCodDiferenciadoFk().getId()).getNomeCodigoDiferenciado());
+		}else {faixasValoresParametrosCalculoFolhasExtras.setNomeCodDiferenciado("");}
+		if(faixasValoresParametrosCalculoFolhasExtras.getIdNivelFk()!=null) {
+			faixasValoresParametrosCalculoFolhasExtras.setNomeNivel(niveisCargoService.buscarPorId(faixasValoresParametrosCalculoFolhasExtras.getIdNivelFk().getId()).getNomeNivelCargo());
+		}else {faixasValoresParametrosCalculoFolhasExtras.setNomeNivel("");}
+		
+		if(faixasValoresParametrosCalculoFolhasExtras.getValorBrutoPorHora()==null) {
+			faixasValoresParametrosCalculoFolhasExtras.setValorBrutoPorHora(0.0);
+		}
+		if(faixasValoresParametrosCalculoFolhasExtras.getValorHoraDia()==null) {
+			faixasValoresParametrosCalculoFolhasExtras.setValorHoraDia(0.0);
+		}
+		if(faixasValoresParametrosCalculoFolhasExtras.getValorHoraFimDeSemana()==null) {
+			faixasValoresParametrosCalculoFolhasExtras.setValorHoraFimDeSemana(0.0);
+		}
+		if(faixasValoresParametrosCalculoFolhasExtras.getValorHoraNoite()==null) {
+			faixasValoresParametrosCalculoFolhasExtras.setValorHoraNoite(0.0);
+		}
+		if(faixasValoresParametrosCalculoFolhasExtras.getValorHoraSemana()==null) {
+			faixasValoresParametrosCalculoFolhasExtras.setValorHoraSemana(0.0);
+		}
+		if(faixasValoresParametrosCalculoFolhasExtras.getValorLiquidoPorHora()==null) {
+			faixasValoresParametrosCalculoFolhasExtras.setValorLiquidoPorHora(0.0);
+		}
+		
+		
 		service.editar(faixasValoresParametrosCalculoFolhasExtras);
 		attr.addFlashAttribute("success", "Editado com sucesso.");
 		return "redirect:/faixasparametrosextras/listar";
