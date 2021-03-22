@@ -51,11 +51,10 @@ public class PlanilhaImportacaoGenteDesktop extends AbstractEntity<Long>{
 	@Column(name = "horas_fim_de_semana")
     private Integer horasFimDeSemana;
     
-	@Column(name = "horas_chdif")
-    
+	@Column(name = "horas_chdif")    
 	private Integer horasChdif;
-    @Column(name = "cod_diferenciado")
-    
+   
+	@Column(name = "cod_diferenciado")    
     private String codDiferenciado;
     
     @Column(name = "incremento_de_risco")
@@ -69,7 +68,7 @@ public class PlanilhaImportacaoGenteDesktop extends AbstractEntity<Long>{
 	
     @Column(name = "dt_importacao")
     private Date dtImportacao;
-    
+
     public Integer getChSemanal() {
 		return chSemanal;
 	}

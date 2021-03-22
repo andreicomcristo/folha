@@ -57,22 +57,7 @@ public class Pessoa extends AbstractEntity<Long> {
 	private String moivoCancelamento;
 	@Column(name = "nome_social")
 	private String nomeSocial;
-	@OneToMany(cascade = CascadeType.ALL, mappedBy = "idPessoaFk")
-	private List<PessoaFilhos> pessoaFilhosList;
-	@OneToMany(cascade = CascadeType.ALL, mappedBy = "idPessoaFk")
-	private List<PessoaDocumentosConselho> pessoaDocumentosConselhoList;
-	@OneToMany(cascade = CascadeType.ALL, mappedBy = "idPessoaFk")
-	private List<PessoaDocumentosReservista> pessoaDocumentosReservistaList;
-	@OneToMany(cascade = CascadeType.ALL, mappedBy = "idPessoaFk")
-	private List<PessoaFotos> pessoaFotosList;
-	@OneToMany(mappedBy = "idPessoaFk")
-	private List<PessoaDocumentos> pessoaDocumentosList;
-	@OneToMany(cascade = CascadeType.ALL, mappedBy = "idPessoaFk")
-	private List<PessoaOperadores> pessoaOperadoresList;
-	@OneToMany(cascade = CascadeType.ALL, mappedBy = "idPessoaFk")
-	private List<Enderecos> enderecosList;
-	@OneToMany(mappedBy = "idPessoaFk")
-	private List<PessoaDocumentosHabilitacao> pessoaDocumentosHabilitacaoList;
+	
 	@JoinColumn(name = "id_cidade_natal_fk", referencedColumnName = "id")
 	@ManyToOne
 	private Cidades idCidadeNatalFk;
@@ -94,16 +79,46 @@ public class Pessoa extends AbstractEntity<Long> {
 	@JoinColumn(name = "id_sexo_fk", referencedColumnName = "id")
 	@ManyToOne
 	private Sexos idSexoFk;
+	
+	@OneToMany(cascade = CascadeType.ALL, mappedBy = "idPessoaFk")
+	private List<PessoaFilhos> pessoaFilhosList;
+	
+	@OneToMany(cascade = CascadeType.ALL, mappedBy = "idPessoaFk")
+	private List<PessoaDocumentosConselho> pessoaDocumentosConselhoList;
+	
+	@OneToMany(cascade = CascadeType.ALL, mappedBy = "idPessoaFk")
+	private List<PessoaDocumentosReservista> pessoaDocumentosReservistaList;
+	
+	@OneToMany(cascade = CascadeType.ALL, mappedBy = "idPessoaFk")
+	private List<PessoaFotos> pessoaFotosList;
+	
+	@OneToMany(mappedBy = "idPessoaFk")
+	private List<PessoaDocumentos> pessoaDocumentosList;
+	
+	@OneToMany(cascade = CascadeType.ALL, mappedBy = "idPessoaFk")
+	private List<PessoaOperadores> pessoaOperadoresList;
+	
+	@OneToMany(cascade = CascadeType.ALL, mappedBy = "idPessoaFk")
+	private List<Enderecos> enderecosList;
+	
+	@OneToMany(mappedBy = "idPessoaFk")
+	private List<PessoaDocumentosHabilitacao> pessoaDocumentosHabilitacaoList;
+	
 	@OneToMany(cascade = CascadeType.ALL, mappedBy = "idPessoaFk")
 	private List<PessoaDocumentosCtps> pessoaDocumentosCtpsList;
+	
 	@OneToMany(cascade = CascadeType.ALL, mappedBy = "idPessoaFk")
 	private List<PessoaBancos> pessoaBancosList;
+	
 	@OneToMany(mappedBy = "idPessoaFk")
 	private List<HistUnidadesDiretor> histUnidadesDiretorList;
+	
 	@OneToMany(cascade = CascadeType.ALL, mappedBy = "idPessoaFk")
 	private List<PessoaDocumentosRg> pessoaDocumentosRgList;
+	
 	@OneToMany(cascade = CascadeType.ALL, mappedBy = "idPessoaFk")
 	private List<PessoaFuncionarios> pessoaFuncionariosList;
+	
 	@OneToMany(cascade = CascadeType.ALL, mappedBy = "idPessoaFk")
 	private List<PessoaDocumentosTitulo> pessoaDocumentosTituloList;
 

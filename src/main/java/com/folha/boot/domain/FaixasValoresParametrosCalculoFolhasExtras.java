@@ -8,44 +8,58 @@ import javax.persistence.*;
 public class FaixasValoresParametrosCalculoFolhasExtras extends AbstractEntity<Long> {
 
 	@Column(name = "nomeTipoFolha")
-	private String nomeTipoFolha;
+	private String nomeTipoFolha; 
+	
 	@Column(name = "cnes_unidade")
 	private String cnesUnidade;
-	// @Max(value=?) @Min(value=?)//if you know range of your decimal fields
-	// consider using these annotations to enforce field validation
+	
 	@Column(name = "valor_hora_dia")
 	private Double valorHoraDia;
+	
 	@Column(name = "valor_hora_noite")
 	private Double valorHoraNoite;
+	
 	@Column(name = "valor_hora_semana")
 	private Double valorHoraSemana;
+	
 	@Column(name = "valor_hora_fim_de_semana")
 	private Double valorHoraFimDeSemana;
+	
 	@Column(name = "nome_regime")
 	private String nomeRegime;
+	
 	@Column(name = "nome_cod_diferenciado")
 	private String nomeCodDiferenciado;
+	
 	@Column(name = "valor_liquido_por_hora")
 	private Double valorLiquidoPorHora;
+	
 	@Column(name = "valor_bruto_por_hora")
 	private Double valorBrutoPorHora;
+	
 	@Column(name = "nome_nivel")
 	private String nomeNivel;
+	
 	@JoinColumn(name = "id_cod_diferenciado_fk", referencedColumnName = "id")
 	@ManyToOne
 	private CodigoDiferenciado idCodDiferenciadoFk;
+	
 	@JoinColumn(name = "id_nivel_fk", referencedColumnName = "id")
 	@ManyToOne
 	private NiveisCargo idNivelFk;
+	
 	@JoinColumn(name = "id_regime_de_trabalho_fk", referencedColumnName = "id")
 	@ManyToOne
 	private RegimesDeTrabalho idRegimeDeTrabalhoFk;
+	
 	@JoinColumn(name = "id_tipo_de_folha_fk", referencedColumnName = "id")
 	@ManyToOne
 	private TiposDeFolha idTipoDeFolhaFk;
+	
 	@JoinColumn(name = "id_unidade_fk", referencedColumnName = "id")
 	@ManyToOne
 	private Unidades idUnidadeFk;
+	
 	public String getNomeTipoFolha() {
 		return nomeTipoFolha;
 	}

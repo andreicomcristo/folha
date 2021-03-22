@@ -6,8 +6,7 @@ import javax.persistence.*;
 @Entity
 @Table(name = "faixas_imposto_de_renda")
 public class FaixasImpostoDeRenda extends AbstractEntity<Long>{
-
-	 // @Max(value=?)  @Min(value=?)//if you know range of your decimal fields consider using these annotations to enforce field validation
+    
     @Column(name = "base_calculo_valor_inicial")
     private Double baseCalculoValorInicial;
     
@@ -25,7 +24,11 @@ public class FaixasImpostoDeRenda extends AbstractEntity<Long>{
     
     @Column(name = "ano_mes")
     private String anoMes;
-	
+    
+    @JoinColumn(name = "id_faixas_imposto_de_renda_nome_fk", referencedColumnName = "id")
+    @ManyToOne 
+    private FaixasImpostoDeRendaNome idFaixasImpostoDeRendaNomeFk;
+ 
     public Double getBaseCalculoValorInicial() {
 		return baseCalculoValorInicial;
 	}
@@ -62,6 +65,11 @@ public class FaixasImpostoDeRenda extends AbstractEntity<Long>{
 	public void setAnoMes(String anoMes) {
 		this.anoMes = anoMes;
 	}
-    
+	public FaixasImpostoDeRendaNome getIdFaixasImpostoDeRendaNomeFk() {
+		return idFaixasImpostoDeRendaNomeFk;
+	}
+	public void setIdFaixasImpostoDeRendaNomeFk(FaixasImpostoDeRendaNome idFaixasImpostoDeRendaNomeFk) {
+		this.idFaixasImpostoDeRendaNomeFk = idFaixasImpostoDeRendaNomeFk;
+	}
     
 }
