@@ -8,14 +8,14 @@ import com.folha.boot.service.util.UtilidadesDeTexto;
 
 @SuppressWarnings("serial")
 @Entity
-@Table(name = "privilegios")
-public class Privilegios extends AbstractEntity<Long> {
+@Table(name = "perfil")
+public class Perfil extends AbstractEntity<Long> {
 
 	@Basic(optional = false)
-	@Column(name = "nome_privilegio")
+	@Column(name = "nome_perfil")
 	private String nomePrivilegio;
 	@Basic(optional = false)
-	@Column(name = "descricao_privilegio")
+	@Column(name = "descricao_perfil")
 	private String descricaoPrivilegio;
 	@OneToMany(mappedBy = "idPrivilegioFk")
 	private List<PessoaOperadores> pessoaOperadoresList;

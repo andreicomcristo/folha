@@ -5,12 +5,12 @@ import java.util.List;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
-import com.folha.boot.domain.Privilegios;
+import com.folha.boot.domain.Perfil;
 
 @Repository
-public interface PrivilegiosReposytory extends JpaRepository<Privilegios, Long> {
+public interface PrivilegiosReposytory extends JpaRepository<Perfil, Long> {
 
-	public List<Privilegios> findAllByOrderByNomePrivilegioAsc();
+	public List<Perfil> findAllByOrderByNomePrivilegioAsc();
 	
-	public List<Privilegios> findByNomePrivilegioContainingOrderByNomePrivilegioAsc(String nomePrivilegio);
+	public List<Perfil> findByNomePrivilegioContainingOrderByNomePrivilegioAsc(String nomePrivilegio);
 }

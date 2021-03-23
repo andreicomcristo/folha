@@ -39,6 +39,11 @@ public class PessoaDocumentosController {
 		return "/documento/cadastro";
 	}
 	
+	@GetMapping("/cadastrar/teste/escala")
+	public String cadastrarTesteEscala(PessoaDocumentos pessoaDocumentos) {		
+		return "/escala/cadastro";
+	}
+	
 	@GetMapping("/cadastrar/{id}")
 	public String cadastrarComPessoa(@PathVariable("id") Long id, ModelMap model, PessoaDocumentos pessoaDocumentos) {	
 		idPessoaAtual = id;

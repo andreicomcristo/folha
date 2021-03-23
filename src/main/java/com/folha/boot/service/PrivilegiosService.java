@@ -5,7 +5,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import com.folha.boot.Reposytory.PrivilegiosReposytory;
-import com.folha.boot.domain.Privilegios;
+import com.folha.boot.domain.Perfil;
 
 @Service
 @Transactional(readOnly = false)
@@ -14,13 +14,13 @@ public class PrivilegiosService  {
 	@Autowired
 	private PrivilegiosReposytory reposytory;
 	
-	public void salvar(Privilegios privilegios) {
+	public void salvar(Perfil privilegios) {
 		// TODO Auto-generated method stub
 		reposytory.save(privilegios);
 	}
 
 	
-	public void editar(Privilegios privilegios) {
+	public void editar(Perfil privilegios) {
 		// TODO Auto-generated method stub
 		reposytory.save(privilegios);
 	}
@@ -33,20 +33,20 @@ public class PrivilegiosService  {
 
 	@Transactional(readOnly = true)
 	
-	public Privilegios buscarPorId(Long id) {
+	public Perfil buscarPorId(Long id) {
 		// TODO Auto-generated method stub
 		return reposytory.findById(id).get();
 	}
 
 	@Transactional(readOnly = true)
 	
-	public List<Privilegios> buscarTodos() {
+	public List<Perfil> buscarTodos() {
 		// TODO Auto-generated method stub
 		return reposytory.findAllByOrderByNomePrivilegioAsc();
 	}
 	
 	
-	public List<Privilegios> buscarPorNome(String nomePrivilegio) {
+	public List<Perfil> buscarPorNome(String nomePrivilegio) {
 		return reposytory.findByNomePrivilegioContainingOrderByNomePrivilegioAsc(nomePrivilegio);
 	}
 	

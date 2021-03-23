@@ -105,7 +105,7 @@ public class PessoaOperadores extends AbstractEntity<Long> {
     
     @JoinColumn(name = "id_privilegio_fk", referencedColumnName = "id")
     @ManyToOne
-    private Privilegios idPrivilegioFk;
+    private Perfil idPrivilegioFk;
     
     @OneToMany(mappedBy = "idOperadorCadastroFk")
     private List<Unidades> unidadesList;

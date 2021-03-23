@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-import com.folha.boot.domain.Privilegios;
+import com.folha.boot.domain.Perfil;
 import com.folha.boot.service.PrivilegiosService;
 
 @Controller
@@ -21,7 +21,7 @@ public class PrivilegiosController {
 	private PrivilegiosService service;
 
 	@GetMapping("/cadastrar")
-	public String cadastrar(Privilegios privilegios) {		
+	public String cadastrar(Perfil privilegios) {		
 		return "/privilegio/cadastro";
 	}
 	
@@ -32,7 +32,7 @@ public class PrivilegiosController {
 	}
 	
 	@PostMapping("/salvar")
-	public String salvar(Privilegios privilegios , RedirectAttributes attr) {
+	public String salvar(Perfil privilegios , RedirectAttributes attr) {
 		service.salvar(privilegios);
 		attr.addFlashAttribute("success", "Inserido com sucesso.");
 		return "redirect:/privilegios/cadastrar";
@@ -45,7 +45,7 @@ public class PrivilegiosController {
 	}
 	
 	@PostMapping("/editar")
-	public String editar(Privilegios privilegios, RedirectAttributes attr) {
+	public String editar(Perfil privilegios, RedirectAttributes attr) {
 		service.editar(privilegios);
 		attr.addFlashAttribute("success", "Editado com sucesso.");
 		return "redirect:/privilegios/listar";
