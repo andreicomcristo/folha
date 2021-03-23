@@ -11,14 +11,14 @@ import com.folha.boot.service.util.UtilidadesDeTexto;
 @Table(name = "regimes_de_trabalho")
 public class RegimesDeTrabalho extends AbstractEntity<Long> {
 
-	@Column(name = "nome_regime_de_trabalho")
-	private String nomeRegimeDeTrabalho;
-	
-	@Column(name = "descricao_regime_de_trabalho")
-	private String descricaoRegimeDeTrabalho;
-	
-	@OneToMany(mappedBy = "idRegimeDeTrabalhoFk")
-	private List<FaixasValoresParametrosCalculoFolhasExtras> faixasValoresParametrosCalculoFolhasExtrasList;
+    @Column(name = "nome_regime_de_trabalho")
+    private String nomeRegimeDeTrabalho;
+    @Column(name = "descricao_regime_de_trabalho")
+    private String descricaoRegimeDeTrabalho;
+    @OneToMany(mappedBy = "idRegimeFk")
+    private List<Escala> escalaList;
+    @OneToMany(mappedBy = "idRegimeDeTrabalhoFk")
+    private List<FaixasValoresParametrosCalculoFolhasExtras> faixasValoresParametrosCalculoFolhasExtrasList;
 
 	public String getNomeRegimeDeTrabalho() {
 		return nomeRegimeDeTrabalho;
@@ -43,6 +43,14 @@ public class RegimesDeTrabalho extends AbstractEntity<Long> {
 	public void setFaixasValoresParametrosCalculoFolhasExtrasList(
 			List<FaixasValoresParametrosCalculoFolhasExtras> faixasValoresParametrosCalculoFolhasExtrasList) {
 		this.faixasValoresParametrosCalculoFolhasExtrasList = faixasValoresParametrosCalculoFolhasExtrasList;
+	}
+
+	public List<Escala> getEscalaList() {
+		return escalaList;
+	}
+
+	public void setEscalaList(List<Escala> escalaList) {
+		this.escalaList = escalaList;
 	}
 
 }

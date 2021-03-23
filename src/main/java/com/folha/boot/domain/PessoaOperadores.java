@@ -9,155 +9,121 @@ import javax.persistence.*;
 @Entity
 @Table(name = "pessoa_operadores")
 public class PessoaOperadores extends AbstractEntity<Long> {
-	
-	
-	@Column(name = "dt_cadastro")
+	    
+    @Column(name = "dt_cadastro")
     @Temporal(TemporalType.DATE)
     private Date dtCadastro;
-    
-	@Column(name = "dt_cancelamento")
+    @Column(name = "dt_cancelamento")
     @Temporal(TemporalType.DATE)
     private Date dtCancelamento;
-    
-	@Column(name = "motivo_cancelamento")
+    @Column(name = "motivo_cancelamento")
     private String motivoCancelamento;
-    
-	@OneToMany(mappedBy = "idOperadorCadastroFk")
+    @Column(name = "username")
+    private String username;
+    @Column(name = "password")
+    private String password;
+    @Column(name = "enabled")
+    private Boolean enabled;
+    @OneToMany(mappedBy = "idOperadorCadastroFk")
     private List<FuncionariosCapacitacoes> funcionariosCapacitacoesList;
-    
-	@OneToMany(mappedBy = "idOperadorCancelamentoFk")
+    @OneToMany(mappedBy = "idOperadorCancelamentoFk")
     private List<FuncionariosCapacitacoes> funcionariosCapacitacoesList1;
-    
-	@OneToMany(mappedBy = "idOperadorCadastroFk")
+    @OneToMany(mappedBy = "idOperadorCadastroFk")
     private List<FuncionariosLicencas> funcionariosLicencasList;
-    
-	@OneToMany(mappedBy = "idOperadorCancelamentoFk")
+    @OneToMany(mappedBy = "idOperadorCancelamentoFk")
     private List<FuncionariosLicencas> funcionariosLicencasList1;
-    
-	@OneToMany(mappedBy = "idOperadorUltimaAlteracaoFk")
+    @OneToMany(mappedBy = "idOperadorUltimaAlteracaoFk")
     private List<FuncionariosLicencas> funcionariosLicencasList2;
-    
-	@OneToMany(mappedBy = "idOperadorCadastroFk")
+    @OneToMany(mappedBy = "idOperadorCadastroFk")
     private List<HistFuncionariosNiveisCarreira> histFuncionariosNiveisCarreiraList;
-    
-	@OneToMany(mappedBy = "idOperadorCancelamentoFk")
+    @OneToMany(mappedBy = "idOperadorCancelamentoFk")
     private List<HistFuncionariosNiveisCarreira> histFuncionariosNiveisCarreiraList1;
-    
-	@OneToMany(cascade = CascadeType.ALL, mappedBy = "idOperadorCadastroFk")
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "idOperadorCadastroFk")
     private List<HistFuncionariosAutorizacao> histFuncionariosAutorizacaoList;
-    
-	@OneToMany(mappedBy = "idOperadorCancelamentoFk")
+    @OneToMany(mappedBy = "idOperadorCancelamentoFk")
     private List<HistFuncionariosAutorizacao> histFuncionariosAutorizacaoList1;
-    
-	@OneToMany(mappedBy = "idOperadorCadastroFk")
+    @OneToMany(mappedBy = "idOperadorCadastroFk")
     private List<FuncionariosAnexos> funcionariosAnexosList;
-    
-	@OneToMany(mappedBy = "idOperadorCancelamentoFk")
+    @OneToMany(mappedBy = "idOperadorCancelamentoFk")
     private List<FuncionariosAnexos> funcionariosAnexosList1;
-    
-	@OneToMany(cascade = CascadeType.ALL, mappedBy = "idOperadorCadastroFk")
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "idOperadorCadastroFk")
     private List<HistFuncionariosClasse> histFuncionariosClasseList;
-    
-	@OneToMany(mappedBy = "idOperadorCancelamentoFk")
+    @OneToMany(mappedBy = "idOperadorCancelamentoFk")
     private List<HistFuncionariosClasse> histFuncionariosClasseList1;
-    
-	@OneToMany(mappedBy = "idOperadorCancelamentoFk")
+    @OneToMany(mappedBy = "idOperadorFk")
+    private List<AcessoOperadoresCoordenacao> acessoOperadoresCoordenacaoList;
+    @OneToMany(mappedBy = "idOperadorCancelamentoFk")
     private List<HistFuncionariosCargaHoraria> histFuncionariosCargaHorariaList;
-    
-	@OneToMany(cascade = CascadeType.ALL, mappedBy = "idOperadorCadastroFk")
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "idOperadorCadastroFk")
     private List<HistFuncionariosCargaHoraria> histFuncionariosCargaHorariaList1;
-    
-	@OneToMany(cascade = CascadeType.ALL, mappedBy = "idOperadorCadastroFk")
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "idOperadorCadastroFk")
     private List<HistFuncionariosCargos> histFuncionariosCargosList;
-    
-	@OneToMany(mappedBy = "idOperadorCancelamentoFk")
+    @OneToMany(mappedBy = "idOperadorCancelamentoFk")
     private List<HistFuncionariosCargos> histFuncionariosCargosList1;
-    
-	@OneToMany(mappedBy = "idOperadorCadastroFk")
+    @OneToMany(mappedBy = "idOperadorCadastroFk")
     private List<PessoaFilhos> pessoaFilhosList;
-    
-	@OneToMany(mappedBy = "idOperadorCancelamentoFk")
+    @OneToMany(mappedBy = "idOperadorCancelamentoFk")
     private List<PessoaFilhos> pessoaFilhosList1;
     @OneToMany(mappedBy = "idOperadorCadastroFk")
-    
     private List<FuncionariosFeriasPeriodos> funcionariosFeriasPeriodosList;
-    
     @OneToMany(mappedBy = "idOperadorCancelamentoFk")
     private List<FuncionariosFeriasPeriodos> funcionariosFeriasPeriodosList1;
-    
-    @JoinColumn(name = "id_pessoa_fk", referencedColumnName = "id")
-    @ManyToOne(optional = false)
-    private Pessoa idPessoaFk;
-    
-    @OneToMany(mappedBy = "idOperadorCadastroFk")
-    private List<PessoaOperadores> pessoaOperadoresList;
-    
-    @JoinColumn(name = "id_operador_cadastro_fk", referencedColumnName = "id")
-    @ManyToOne
-    private PessoaOperadores idOperadorCadastroFk;
-    
-    @OneToMany(mappedBy = "idOperadorCancelamentoFk")
-    private List<PessoaOperadores> pessoaOperadoresList1;
-    
-    @JoinColumn(name = "id_operador_cancelamento_fk", referencedColumnName = "id")
-    @ManyToOne
-    private PessoaOperadores idOperadorCancelamentoFk;
-    
     @JoinColumn(name = "id_privilegio_fk", referencedColumnName = "id")
     @ManyToOne
     private Perfil idPrivilegioFk;
-    
+    @JoinColumn(name = "id_pessoa_fk", referencedColumnName = "id")
+    @ManyToOne(optional = false)
+    private Pessoa idPessoaFk;
+    @OneToMany(mappedBy = "idOperadorCadastroFk")
+    private List<PessoaOperadores> pessoaOperadoresList;
+    @JoinColumn(name = "id_operador_cadastro_fk", referencedColumnName = "id")
+    @ManyToOne
+    private PessoaOperadores idOperadorCadastroFk;
+    @OneToMany(mappedBy = "idOperadorCancelamentoFk")
+    private List<PessoaOperadores> pessoaOperadoresList1;
+    @JoinColumn(name = "id_operador_cancelamento_fk", referencedColumnName = "id")
+    @ManyToOne
+    private PessoaOperadores idOperadorCancelamentoFk;
     @OneToMany(mappedBy = "idOperadorCadastroFk")
     private List<Unidades> unidadesList;
-    
     @OneToMany(mappedBy = "idOperadorCancelamentoFk")
     private List<Unidades> unidadesList1;
-    
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "idOperadorCadastroFk")
     private List<HistUnidadesNaturezaJuridica> histUnidadesNaturezaJuridicaList;
-    
     @OneToMany(mappedBy = "idOperadorCancelamentoFk")
     private List<HistUnidadesNaturezaJuridica> histUnidadesNaturezaJuridicaList1;
-    
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "idOperadorCadastroFk")
     private List<HistUnidadesRegime> histUnidadesRegimeList;
-    
     @OneToMany(mappedBy = "idOperadorCancelamentoFk")
     private List<HistUnidadesRegime> histUnidadesRegimeList1;
-    
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "idOperadorFk")
     private List<AcessoOperadoresUnidades> acessoOperadoresUnidadesList;
-    
     @OneToMany(mappedBy = "idOperadorCadastroFk")
     private List<Pessoa> pessoaList;
-    
     @OneToMany(mappedBy = "idOperadorCancelamentoFk")
     private List<Pessoa> pessoaList1;
-    
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "idOperadorCadastroFk")
     private List<HistFuncionariosCarreira> histFuncionariosCarreiraList;
-    
     @OneToMany(mappedBy = "idOperadorCancelamentoFk")
     private List<HistFuncionariosCarreira> histFuncionariosCarreiraList1;
-    
     @OneToMany(mappedBy = "idOperadorCadastroFk")
     private List<FuncionariosFerias> funcionariosFeriasList;
-    
     @OneToMany(mappedBy = "idOperadorCancelamentoFk")
     private List<FuncionariosFerias> funcionariosFeriasList1;
-    
     @OneToMany(mappedBy = "idOperadorCancelamentoFk")
     private List<HistFuncionariosSituacoes> histFuncionariosSituacoesList;
-    
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "idOperadorCadastroFk")
     private List<HistFuncionariosSituacoes> histFuncionariosSituacoesList1;
-    
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "idOperadorCriacaoFk")
     private List<Autorizacoes> autorizacoesList;
     
     /*@OneToMany(cascade = CascadeType.ALL, mappedBy = "idPessoaOperadoresFk")
     private List<UsersOperador> usersOperadorList;*/
-   
+    
+    @OneToMany(mappedBy = "idOperadorCancelamentoFk")
+    private List<Escala> escalaList;
+    @OneToMany(mappedBy = "idOperadorMudancaFk")
+    private List<Escala> escalaList1;
     @OneToMany(mappedBy = "idOperadorCadastroFk")
     private List<PessoaBancos> pessoaBancosList;
     @OneToMany(mappedBy = "idOperadorCancelamentoFk")
@@ -182,15 +148,12 @@ public class PessoaOperadores extends AbstractEntity<Long> {
     private List<HistFuncionariosUnidadeAtuacao> histFuncionariosUnidadeAtuacaoList;
     @OneToMany(mappedBy = "idOperadorCancelamentoFk")
     private List<HistFuncionariosUnidadeAtuacao> histFuncionariosUnidadeAtuacaoList1;
-
-    
-    public Date getDtCadastro() {
+	public Date getDtCadastro() {
 		return dtCadastro;
 	}
 	public void setDtCadastro(Date dtCadastro) {
 		this.dtCadastro = dtCadastro;
 	}
-
 	public Date getDtCancelamento() {
 		return dtCancelamento;
 	}
@@ -202,6 +165,24 @@ public class PessoaOperadores extends AbstractEntity<Long> {
 	}
 	public void setMotivoCancelamento(String motivoCancelamento) {
 		this.motivoCancelamento = motivoCancelamento;
+	}
+	public String getUsername() {
+		return username;
+	}
+	public void setUsername(String username) {
+		this.username = username;
+	}
+	public String getPassword() {
+		return password;
+	}
+	public void setPassword(String password) {
+		this.password = password;
+	}
+	public Boolean getEnabled() {
+		return enabled;
+	}
+	public void setEnabled(Boolean enabled) {
+		this.enabled = enabled;
 	}
 	public List<FuncionariosCapacitacoes> getFuncionariosCapacitacoesList() {
 		return funcionariosCapacitacoesList;
@@ -283,6 +264,12 @@ public class PessoaOperadores extends AbstractEntity<Long> {
 	public void setHistFuncionariosClasseList1(List<HistFuncionariosClasse> histFuncionariosClasseList1) {
 		this.histFuncionariosClasseList1 = histFuncionariosClasseList1;
 	}
+	public List<AcessoOperadoresCoordenacao> getAcessoOperadoresCoordenacaoList() {
+		return acessoOperadoresCoordenacaoList;
+	}
+	public void setAcessoOperadoresCoordenacaoList(List<AcessoOperadoresCoordenacao> acessoOperadoresCoordenacaoList) {
+		this.acessoOperadoresCoordenacaoList = acessoOperadoresCoordenacaoList;
+	}
 	public List<HistFuncionariosCargaHoraria> getHistFuncionariosCargaHorariaList() {
 		return histFuncionariosCargaHorariaList;
 	}
@@ -331,11 +318,41 @@ public class PessoaOperadores extends AbstractEntity<Long> {
 	public void setFuncionariosFeriasPeriodosList1(List<FuncionariosFeriasPeriodos> funcionariosFeriasPeriodosList1) {
 		this.funcionariosFeriasPeriodosList1 = funcionariosFeriasPeriodosList1;
 	}
+	public Perfil getIdPrivilegioFk() {
+		return idPrivilegioFk;
+	}
+	public void setIdPrivilegioFk(Perfil idPrivilegioFk) {
+		this.idPrivilegioFk = idPrivilegioFk;
+	}
 	public Pessoa getIdPessoaFk() {
 		return idPessoaFk;
 	}
 	public void setIdPessoaFk(Pessoa idPessoaFk) {
 		this.idPessoaFk = idPessoaFk;
+	}
+	public List<PessoaOperadores> getPessoaOperadoresList() {
+		return pessoaOperadoresList;
+	}
+	public void setPessoaOperadoresList(List<PessoaOperadores> pessoaOperadoresList) {
+		this.pessoaOperadoresList = pessoaOperadoresList;
+	}
+	public PessoaOperadores getIdOperadorCadastroFk() {
+		return idOperadorCadastroFk;
+	}
+	public void setIdOperadorCadastroFk(PessoaOperadores idOperadorCadastroFk) {
+		this.idOperadorCadastroFk = idOperadorCadastroFk;
+	}
+	public List<PessoaOperadores> getPessoaOperadoresList1() {
+		return pessoaOperadoresList1;
+	}
+	public void setPessoaOperadoresList1(List<PessoaOperadores> pessoaOperadoresList1) {
+		this.pessoaOperadoresList1 = pessoaOperadoresList1;
+	}
+	public PessoaOperadores getIdOperadorCancelamentoFk() {
+		return idOperadorCancelamentoFk;
+	}
+	public void setIdOperadorCancelamentoFk(PessoaOperadores idOperadorCancelamentoFk) {
+		this.idOperadorCancelamentoFk = idOperadorCancelamentoFk;
 	}
 	public List<Unidades> getUnidadesList() {
 		return unidadesList;
@@ -433,6 +450,24 @@ public class PessoaOperadores extends AbstractEntity<Long> {
 	public void setAutorizacoesList(List<Autorizacoes> autorizacoesList) {
 		this.autorizacoesList = autorizacoesList;
 	}
+	/*public List<UsersOperador> getUsersOperadorList() {
+		return usersOperadorList;
+	}
+	public void setUsersOperadorList(List<UsersOperador> usersOperadorList) {
+		this.usersOperadorList = usersOperadorList;
+	}*/
+	public List<Escala> getEscalaList() {
+		return escalaList;
+	}
+	public void setEscalaList(List<Escala> escalaList) {
+		this.escalaList = escalaList;
+	}
+	public List<Escala> getEscalaList1() {
+		return escalaList1;
+	}
+	public void setEscalaList1(List<Escala> escalaList1) {
+		this.escalaList1 = escalaList1;
+	}
 	public List<PessoaBancos> getPessoaBancosList() {
 		return pessoaBancosList;
 	}
@@ -456,6 +491,18 @@ public class PessoaOperadores extends AbstractEntity<Long> {
 	}
 	public void setHistFuncionariosVinculosList1(List<HistFuncionariosVinculos> histFuncionariosVinculosList1) {
 		this.histFuncionariosVinculosList1 = histFuncionariosVinculosList1;
+	}
+	public List<HistUnidadesDiretor> getHistUnidadesDiretorList() {
+		return histUnidadesDiretorList;
+	}
+	public void setHistUnidadesDiretorList(List<HistUnidadesDiretor> histUnidadesDiretorList) {
+		this.histUnidadesDiretorList = histUnidadesDiretorList;
+	}
+	public List<HistUnidadesDiretor> getHistUnidadesDiretorList1() {
+		return histUnidadesDiretorList1;
+	}
+	public void setHistUnidadesDiretorList1(List<HistUnidadesDiretor> histUnidadesDiretorList1) {
+		this.histUnidadesDiretorList1 = histUnidadesDiretorList1;
 	}
 	public List<PessoaFuncionarios> getPessoaFuncionariosList() {
 		return pessoaFuncionariosList;
@@ -496,6 +543,6 @@ public class PessoaOperadores extends AbstractEntity<Long> {
 	public void setHistFuncionariosUnidadeAtuacaoList1(
 			List<HistFuncionariosUnidadeAtuacao> histFuncionariosUnidadeAtuacaoList1) {
 		this.histFuncionariosUnidadeAtuacaoList1 = histFuncionariosUnidadeAtuacaoList1;
-	} 
- 
+	}
+    
 }

@@ -12,131 +12,99 @@ import com.folha.boot.service.util.UtilidadesDeTexto;
 @Entity
 @Table(name = "pessoa_funcionarios")
 public class PessoaFuncionarios extends AbstractEntity<Long> {
-
-	@Column(name = "matricula", length = 30)
+    
+    @Column(name = "matricula")
     private String matricula;
-    
-	@Column(name = "dt_nomeacao")
+    @Column(name = "dt_nomeacao")
     @Temporal(TemporalType.DATE)
-	private Date dtNomeacao;
-    
-	@Column(name = "dt_posse")
+    private Date dtNomeacao;
+    @Column(name = "dt_posse")
     @Temporal(TemporalType.DATE)
     private Date dtPosse;
-    
-	@Column(name = "numero_de_ordem", length = 150)
+    @Column(name = "numero_de_ordem")
     private String numeroDeOrdem;
-    
-	@Column(name = "numero_de_ponto", length = 150)
+    @Column(name = "numero_de_ponto")
     private String numeroDePonto;
-    
-	@Column(name = "dt_cadastro")
+    @Column(name = "dt_cadastro")
     @Temporal(TemporalType.DATE)
     private Date dtCadastro;
-    
-	@Column(name = "motivo_cadastro", length = 300)
+    @Column(name = "motivo_cadastro")
     private String motivoCadastro;
-    
-	@Column(name = "dt_cancelamento")
+    @Column(name = "dt_cancelamento")
     @Temporal(TemporalType.DATE)
     private Date dtCancelamento;
-    
-	@Column(name = "motivo_cancelamento", length = 300)
+    @Column(name = "motivo_cancelamento")
     private String motivoCancelamento;
-    
-	@JoinColumn(name = "id_nivel_carreira_atual_fk", referencedColumnName = "id")
-    @ManyToOne
-    private NiveisCarreira idNivelCarreiraAtualFk;
-	
-	@OneToMany(cascade = CascadeType.ALL, mappedBy = "idFuncionarioFk")
-    private List<HistFuncionariosAutorizacao> histFuncionariosAutorizacaoList;
-    
-	@OneToMany(cascade = CascadeType.ALL, mappedBy = "idFuncionarioFk")
-    private List<HistFuncionariosClasse> histFuncionariosClasseList;
-    
-	@OneToMany(cascade = CascadeType.ALL, mappedBy = "idFuncionarioFk")
-    private List<HistFuncionariosCargaHoraria> histFuncionariosCargaHorariaList;
-    
-	@OneToMany(cascade = CascadeType.ALL, mappedBy = "idFuncionarioFk")
-    private List<HistFuncionariosCargos> histFuncionariosCargosList;
-    
-	@OneToMany(cascade = CascadeType.ALL, mappedBy = "idFuncionarioFk")
-    private List<HistFuncionariosCarreira> histFuncionariosCarreiraList;
-    
-	@OneToMany(cascade = CascadeType.ALL, mappedBy = "idFuncionarioFk")
-    private List<HistFuncionariosSituacoes> histFuncionariosSituacoesList;
-    
-	@OneToMany(cascade = CascadeType.ALL, mappedBy = "idFuncionarioFk")
-    private List<Autorizacoes> autorizacoesList;
-    
-	@OneToMany(cascade = CascadeType.ALL, mappedBy = "idFuncionarioFk")
-    private List<HistFuncionariosVinculos> histFuncionariosVinculosList;
-    
-	@JoinColumn(name = "id_pessoa_fk", referencedColumnName = "id", nullable = false)
-    @ManyToOne(optional = false)
-    private Pessoa idPessoaFk;
-    
-	@JoinColumn(name = "id_operador_cadastro_fk", referencedColumnName = "id")
-    @ManyToOne
-    private PessoaOperadores idOperadorCadastroFk;
-    
-	@JoinColumn(name = "id_operador_cancelamento_fk", referencedColumnName = "id")
-    @ManyToOne
-    private PessoaOperadores idOperadorCancelamentoFk;
-    
-	@OneToMany(cascade = CascadeType.ALL, mappedBy = "idFuncionarioFk")
-    private List<HistFuncionariosUnidadeAtuacao> histFuncionariosUnidadeAtuacaoList;
-
-	@JoinColumn(name = "id_unidade_atuacao_atual_fk", referencedColumnName = "id")
-	@ManyToOne
-    private Unidades idUnidadeAtuacaoAtualFk;
-     
-	@JoinColumn(name = "id_classe_carreira_atual_fk", referencedColumnName = "id")
-	@ManyToOne
-    private ClassesCarreira idClasseCarreiraAtualFk;
-	
-	@Column(name = "id_unidade_lotacao_atual_fk")
+    @Column(name = "id_unidade_lotacao_atual_fk")
     private BigInteger idUnidadeLotacaoAtualFk;
-    
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "idFuncionarioFk")
     private List<FuncionariosCapacitacoes> funcionariosCapacitacoesList;
-    
     @OneToMany(mappedBy = "idFuncionarioFk")
     private List<FuncionariosLicencas> funcionariosLicencasList;
-    
     @OneToMany(mappedBy = "idFuncionarioFk")
     private List<HistFuncionariosNiveisCarreira> histFuncionariosNiveisCarreiraList;
-    
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "idFuncionarioFk")
+    private List<HistFuncionariosAutorizacao> histFuncionariosAutorizacaoList;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "idPessoaFuncionarioFk")
     private List<FuncionariosAnexos> funcionariosAnexosList;
-    
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "idFuncionarioFk")
+    private List<HistFuncionariosClasse> histFuncionariosClasseList;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "idFuncionarioFk")
+    private List<HistFuncionariosCargaHoraria> histFuncionariosCargaHorariaList;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "idFuncionarioFk")
+    private List<HistFuncionariosCargos> histFuncionariosCargosList;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "idFuncionarioFk")
+    private List<HistFuncionariosCarreira> histFuncionariosCarreiraList;
     @OneToMany(mappedBy = "idFuncionarioFk")
     private List<FuncionariosFerias> funcionariosFeriasList;
-     
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "idFuncionarioFk")
+    private List<HistFuncionariosSituacoes> histFuncionariosSituacoesList;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "idFuncionarioFk")
+    private List<Autorizacoes> autorizacoesList;
+    @OneToMany(mappedBy = "idFuncionarioFk")
+    private List<Escala> escalaList;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "idFuncionarioFk")
+    private List<HistFuncionariosVinculos> histFuncionariosVinculosList;
     @JoinColumn(name = "id_especialidade_atual_fk", referencedColumnName = "id")
     @ManyToOne
     private CargosEspecialidade idEspecialidadeAtualFk;
-    
     @JoinColumn(name = "id_carga_horaria_atual_fk", referencedColumnName = "id")
     @ManyToOne
     private CargaHorariaSemanal idCargaHorariaAtualFk;
-    
     @JoinColumn(name = "id_cargo_atual_fk", referencedColumnName = "id")
     @ManyToOne
     private Cargos idCargoAtualFk;
-    
-    @JoinColumn(name = "id_carreira_atual_fk", referencedColumnName = "id")
-    @ManyToOne
-    private Carreiras idCarreiraAtualFk;
-
     @JoinColumn(name = "id_vinculo_atual_fk", referencedColumnName = "id")
     @ManyToOne
     private Vinculos idVinculoAtualFk;
-    
+    @JoinColumn(name = "id_carreira_atual_fk", referencedColumnName = "id")
+    @ManyToOne
+    private Carreiras idCarreiraAtualFk;
+    @JoinColumn(name = "id_classe_carreira_atual_fk", referencedColumnName = "id")
+    @ManyToOne
+    private ClassesCarreira idClasseCarreiraAtualFk;
+    @JoinColumn(name = "id_nivel_carreira_atual_fk", referencedColumnName = "id")
+    @ManyToOne
+    private NiveisCarreira idNivelCarreiraAtualFk;
+    @JoinColumn(name = "id_pessoa_fk", referencedColumnName = "id")
+    @ManyToOne(optional = false)
+    private Pessoa idPessoaFk;
+    @JoinColumn(name = "id_operador_cadastro_fk", referencedColumnName = "id")
+    @ManyToOne
+    private PessoaOperadores idOperadorCadastroFk;
+    @JoinColumn(name = "id_operador_cancelamento_fk", referencedColumnName = "id")
+    @ManyToOne
+    private PessoaOperadores idOperadorCancelamentoFk;
     @JoinColumn(name = "id_situacao_atual_fk", referencedColumnName = "id")
     @ManyToOne
     private Situacoes idSituacaoAtualFk;
-     
+    @JoinColumn(name = "id_unidade_atuacao_atual_fk", referencedColumnName = "id")
+    @ManyToOne
+    private Unidades idUnidadeAtuacaoAtualFk;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "idFuncionarioFk")
+    private List<HistFuncionariosUnidadeAtuacao> histFuncionariosUnidadeAtuacaoList;
+
+    
 	public BigInteger getIdUnidadeLotacaoAtualFk() {
 		return idUnidadeLotacaoAtualFk;
 	}
@@ -427,6 +395,14 @@ public class PessoaFuncionarios extends AbstractEntity<Long> {
 	public void setHistFuncionariosUnidadeAtuacaoList(
 			List<HistFuncionariosUnidadeAtuacao> histFuncionariosUnidadeAtuacaoList) {
 		this.histFuncionariosUnidadeAtuacaoList = histFuncionariosUnidadeAtuacaoList;
+	}
+
+	public List<Escala> getEscalaList() {
+		return escalaList;
+	}
+
+	public void setEscalaList(List<Escala> escalaList) {
+		this.escalaList = escalaList;
 	}
 
 }

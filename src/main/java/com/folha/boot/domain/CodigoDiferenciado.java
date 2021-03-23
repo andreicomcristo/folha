@@ -13,10 +13,10 @@ public class CodigoDiferenciado extends AbstractEntity<Long> {
 
 	@Column(name = "nome_codigo_diferenciado")
 	private String nomeCodigoDiferenciado;
-	
 	@Column(name = "descricao_codigo_diferenciado")
 	private String descricaoCodigoDiferenciado;
-	
+	@OneToMany(mappedBy = "idCodigoDiferenciadoFk")
+	private List<Escala> escalaList;
 	@OneToMany(mappedBy = "idCodDiferenciadoFk")
 	private List<FaixasValoresParametrosCalculoFolhasExtras> faixasValoresParametrosCalculoFolhasExtrasList;
 
@@ -25,7 +25,8 @@ public class CodigoDiferenciado extends AbstractEntity<Long> {
 	}
 
 	public void setNomeCodigoDiferenciado(String nomeCodigoDiferenciado) {
-		this.nomeCodigoDiferenciado = UtilidadesDeTexto.retiraEspacosDuplosAcentosEConverteEmMaiusculo(nomeCodigoDiferenciado);
+		this.nomeCodigoDiferenciado = UtilidadesDeTexto
+				.retiraEspacosDuplosAcentosEConverteEmMaiusculo(nomeCodigoDiferenciado);
 	}
 
 	public String getDescricaoCodigoDiferenciado() {
@@ -33,7 +34,8 @@ public class CodigoDiferenciado extends AbstractEntity<Long> {
 	}
 
 	public void setDescricaoCodigoDiferenciado(String descricaoCodigoDiferenciado) {
-		this.descricaoCodigoDiferenciado = UtilidadesDeTexto.retiraEspacosDuplosAcentosEConverteEmMaiusculo(descricaoCodigoDiferenciado);
+		this.descricaoCodigoDiferenciado = UtilidadesDeTexto
+				.retiraEspacosDuplosAcentosEConverteEmMaiusculo(descricaoCodigoDiferenciado);
 	}
 
 	public List<FaixasValoresParametrosCalculoFolhasExtras> getFaixasValoresParametrosCalculoFolhasExtrasList() {
@@ -43,6 +45,14 @@ public class CodigoDiferenciado extends AbstractEntity<Long> {
 	public void setFaixasValoresParametrosCalculoFolhasExtrasList(
 			List<FaixasValoresParametrosCalculoFolhasExtras> faixasValoresParametrosCalculoFolhasExtrasList) {
 		this.faixasValoresParametrosCalculoFolhasExtrasList = faixasValoresParametrosCalculoFolhasExtrasList;
+	}
+
+	public List<Escala> getEscalaList() {
+		return escalaList;
+	}
+
+	public void setEscalaList(List<Escala> escalaList) {
+		this.escalaList = escalaList;
 	}
 
 }
