@@ -116,7 +116,7 @@ public class PessoaOperadores extends AbstractEntity<Long> {
     private List<HistFuncionariosSituacoes> histFuncionariosSituacoesList1;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "idOperadorCriacaoFk")
     private List<Autorizacoes> autorizacoesList;
-    
+    //CONFERIR RELACIONAMENTOS NO BANCO E NO JAVA
     /*@OneToMany(cascade = CascadeType.ALL, mappedBy = "idPessoaOperadoresFk")
     private List<UsersOperador> usersOperadorList;*/
     
