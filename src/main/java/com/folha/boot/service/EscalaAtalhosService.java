@@ -20,16 +20,59 @@ import com.folha.boot.service.util.UtilidadesMatematicas;
 @Transactional(readOnly = false)
 public class EscalaAtalhosService {
 
-	@Autowired
-	private EscalaReposytoty reposytory;
+	
 	@Autowired
 	private	UtilidadesDeCalendarioEEscala utilidadesDeCalendarioEEscala;
 	@Autowired
-	private	UtilidadesMatematicas utilidadesMatematicas;
+	private	TurnosService turnosService;
 	@Autowired
 	private	EscalaCalculosService escalaCalculosService;
+	@Autowired
+	private RegimesDeTrabalhoService regimesDeTrabalhoService;
+	@Autowired
+	private TurmasService turmasService;
 	
 	
+	
+	// Atalhos Limpar Escala
+	public Escala atalhoLimaprEscala(Escala escala) {
+		String mes = escala.getIdAnoMesFk().getNomeAnoMes();
+		int qtdDiasNoMes = utilidadesDeCalendarioEEscala.quantidadeDeDiasNoMes(mes);
+		
+		escala.setDia01Fk(turnosService.buscarPorNome(""));
+		escala.setDia02Fk(turnosService.buscarPorNome(""));
+		escala.setDia03Fk(turnosService.buscarPorNome(""));
+		escala.setDia04Fk(turnosService.buscarPorNome(""));
+		escala.setDia05Fk(turnosService.buscarPorNome(""));
+		escala.setDia06Fk(turnosService.buscarPorNome(""));
+		escala.setDia07Fk(turnosService.buscarPorNome(""));
+		escala.setDia08Fk(turnosService.buscarPorNome(""));
+		escala.setDia09Fk(turnosService.buscarPorNome(""));
+		escala.setDia10Fk(turnosService.buscarPorNome(""));
+		escala.setDia11Fk(turnosService.buscarPorNome(""));
+		escala.setDia12Fk(turnosService.buscarPorNome(""));
+		escala.setDia13Fk(turnosService.buscarPorNome(""));
+		escala.setDia14Fk(turnosService.buscarPorNome(""));
+		escala.setDia15Fk(turnosService.buscarPorNome(""));
+		escala.setDia16Fk(turnosService.buscarPorNome(""));
+		escala.setDia17Fk(turnosService.buscarPorNome(""));
+		escala.setDia18Fk(turnosService.buscarPorNome(""));
+		escala.setDia19Fk(turnosService.buscarPorNome(""));
+		escala.setDia20Fk(turnosService.buscarPorNome(""));
+		escala.setDia21Fk(turnosService.buscarPorNome(""));
+		escala.setDia22Fk(turnosService.buscarPorNome(""));
+		escala.setDia23Fk(turnosService.buscarPorNome(""));
+		escala.setDia24Fk(turnosService.buscarPorNome(""));
+		escala.setDia25Fk(turnosService.buscarPorNome(""));
+		escala.setDia26Fk(turnosService.buscarPorNome(""));
+		escala.setDia27Fk(turnosService.buscarPorNome(""));
+		escala.setDia28Fk(turnosService.buscarPorNome(""));
+		escala.setDia29Fk(turnosService.buscarPorNome(""));
+		escala.setDia30Fk(turnosService.buscarPorNome(""));
+		escala.setDia31Fk(turnosService.buscarPorNome(""));
+		
+	return escala;	
+	}
 	
 	
 	
@@ -37,38 +80,42 @@ public class EscalaAtalhosService {
 			public Escala atalhoDiaristasManha(Escala escala) {
 				String mes = escala.getIdAnoMesFk().getNomeAnoMes();
 				int qtdDiasNoMes = utilidadesDeCalendarioEEscala.quantidadeDeDiasNoMes(mes);
+				//Mudando Regime
+				escala.setIdRegimeFk(regimesDeTrabalhoService.buscarPorNomeUnico("D"));
+				//Mudando Turma
+				escala.setIdTurmaFk( turmasService.buscarPorNomeTurmaUnico("DM"));
 				
-				if(utilidadesDeCalendarioEEscala.fimDeSemana(mes,  1)==false) {escala.setDia01Fk(null);/*M*/}
-				if(utilidadesDeCalendarioEEscala.fimDeSemana(mes,  2)==false) {escala.setDia02Fk(null);/*M*/}
-				if(utilidadesDeCalendarioEEscala.fimDeSemana(mes,  3)==false) {escala.setDia03Fk(null);/*M*/}
-				if(utilidadesDeCalendarioEEscala.fimDeSemana(mes,  4)==false) {escala.setDia04Fk(null);/*M*/}
-				if(utilidadesDeCalendarioEEscala.fimDeSemana(mes,  5)==false) {escala.setDia05Fk(null);/*M*/}
-				if(utilidadesDeCalendarioEEscala.fimDeSemana(mes,  6)==false) {escala.setDia06Fk(null);/*M*/}
-				if(utilidadesDeCalendarioEEscala.fimDeSemana(mes,  7)==false) {escala.setDia07Fk(null);/*M*/}
-				if(utilidadesDeCalendarioEEscala.fimDeSemana(mes,  8)==false) {escala.setDia08Fk(null);/*M*/}
-				if(utilidadesDeCalendarioEEscala.fimDeSemana(mes,  9)==false) {escala.setDia09Fk(null);/*M*/}
-				if(utilidadesDeCalendarioEEscala.fimDeSemana(mes, 10)==false) {escala.setDia10Fk(null);/*M*/}
-				if(utilidadesDeCalendarioEEscala.fimDeSemana(mes, 11)==false) {escala.setDia11Fk(null);/*M*/}
-				if(utilidadesDeCalendarioEEscala.fimDeSemana(mes, 12)==false) {escala.setDia12Fk(null);/*M*/}
-				if(utilidadesDeCalendarioEEscala.fimDeSemana(mes, 13)==false) {escala.setDia13Fk(null);/*M*/}
-				if(utilidadesDeCalendarioEEscala.fimDeSemana(mes, 14)==false) {escala.setDia14Fk(null);/*M*/}
-				if(utilidadesDeCalendarioEEscala.fimDeSemana(mes, 15)==false) {escala.setDia15Fk(null);/*M*/}
-				if(utilidadesDeCalendarioEEscala.fimDeSemana(mes, 16)==false) {escala.setDia16Fk(null);/*M*/}
-				if(utilidadesDeCalendarioEEscala.fimDeSemana(mes, 17)==false) {escala.setDia17Fk(null);/*M*/}
-				if(utilidadesDeCalendarioEEscala.fimDeSemana(mes, 18)==false) {escala.setDia18Fk(null);/*M*/}
-				if(utilidadesDeCalendarioEEscala.fimDeSemana(mes, 19)==false) {escala.setDia19Fk(null);/*M*/}
-				if(utilidadesDeCalendarioEEscala.fimDeSemana(mes, 20)==false) {escala.setDia20Fk(null);/*M*/}
-				if(utilidadesDeCalendarioEEscala.fimDeSemana(mes, 21)==false) {escala.setDia21Fk(null);/*M*/}
-				if(utilidadesDeCalendarioEEscala.fimDeSemana(mes, 22)==false) {escala.setDia22Fk(null);/*M*/}
-				if(utilidadesDeCalendarioEEscala.fimDeSemana(mes, 23)==false) {escala.setDia23Fk(null);/*M*/}
-				if(utilidadesDeCalendarioEEscala.fimDeSemana(mes, 24)==false) {escala.setDia24Fk(null);/*M*/}
-				if(utilidadesDeCalendarioEEscala.fimDeSemana(mes, 25)==false) {escala.setDia25Fk(null);/*M*/}
-				if(utilidadesDeCalendarioEEscala.fimDeSemana(mes, 26)==false) {escala.setDia26Fk(null);/*M*/}
-				if(utilidadesDeCalendarioEEscala.fimDeSemana(mes, 27)==false) {escala.setDia27Fk(null);/*M*/}
-				if(utilidadesDeCalendarioEEscala.fimDeSemana(mes, 28)==false) {escala.setDia28Fk(null);/*M*/}
-				if(qtdDiasNoMes>=29) {if(utilidadesDeCalendarioEEscala.fimDeSemana(mes, 29)==false) {escala.setDia29Fk(null);/*M*/}}
-				if(qtdDiasNoMes>=30) {if(utilidadesDeCalendarioEEscala.fimDeSemana(mes, 30)==false) {escala.setDia30Fk(null);/*M*/}}
-				if(qtdDiasNoMes==31) {if(utilidadesDeCalendarioEEscala.fimDeSemana(mes, 31)==false) {escala.setDia31Fk(null);/*M*/}}
+				if(utilidadesDeCalendarioEEscala.fimDeSemana(mes,  1)==false) {escala.setDia01Fk(turnosService.buscarPorNome("M"));/*M*/}
+				if(utilidadesDeCalendarioEEscala.fimDeSemana(mes,  2)==false) {escala.setDia02Fk(turnosService.buscarPorNome("M"));/*M*/}
+				if(utilidadesDeCalendarioEEscala.fimDeSemana(mes,  3)==false) {escala.setDia03Fk(turnosService.buscarPorNome("M"));/*M*/}
+				if(utilidadesDeCalendarioEEscala.fimDeSemana(mes,  4)==false) {escala.setDia04Fk(turnosService.buscarPorNome("M"));/*M*/}
+				if(utilidadesDeCalendarioEEscala.fimDeSemana(mes,  5)==false) {escala.setDia05Fk(turnosService.buscarPorNome("M"));/*M*/}
+				if(utilidadesDeCalendarioEEscala.fimDeSemana(mes,  6)==false) {escala.setDia06Fk(turnosService.buscarPorNome("M"));/*M*/}
+				if(utilidadesDeCalendarioEEscala.fimDeSemana(mes,  7)==false) {escala.setDia07Fk(turnosService.buscarPorNome("M"));/*M*/}
+				if(utilidadesDeCalendarioEEscala.fimDeSemana(mes,  8)==false) {escala.setDia08Fk(turnosService.buscarPorNome("M"));/*M*/}
+				if(utilidadesDeCalendarioEEscala.fimDeSemana(mes,  9)==false) {escala.setDia09Fk(turnosService.buscarPorNome("M"));/*M*/}
+				if(utilidadesDeCalendarioEEscala.fimDeSemana(mes, 10)==false) {escala.setDia10Fk(turnosService.buscarPorNome("M"));/*M*/}
+				if(utilidadesDeCalendarioEEscala.fimDeSemana(mes, 11)==false) {escala.setDia11Fk(turnosService.buscarPorNome("M"));/*M*/}
+				if(utilidadesDeCalendarioEEscala.fimDeSemana(mes, 12)==false) {escala.setDia12Fk(turnosService.buscarPorNome("M"));/*M*/}
+				if(utilidadesDeCalendarioEEscala.fimDeSemana(mes, 13)==false) {escala.setDia13Fk(turnosService.buscarPorNome("M"));/*M*/}
+				if(utilidadesDeCalendarioEEscala.fimDeSemana(mes, 14)==false) {escala.setDia14Fk(turnosService.buscarPorNome("M"));/*M*/}
+				if(utilidadesDeCalendarioEEscala.fimDeSemana(mes, 15)==false) {escala.setDia15Fk(turnosService.buscarPorNome("M"));/*M*/}
+				if(utilidadesDeCalendarioEEscala.fimDeSemana(mes, 16)==false) {escala.setDia16Fk(turnosService.buscarPorNome("M"));/*M*/}
+				if(utilidadesDeCalendarioEEscala.fimDeSemana(mes, 17)==false) {escala.setDia17Fk(turnosService.buscarPorNome("M"));/*M*/}
+				if(utilidadesDeCalendarioEEscala.fimDeSemana(mes, 18)==false) {escala.setDia18Fk(turnosService.buscarPorNome("M"));/*M*/}
+				if(utilidadesDeCalendarioEEscala.fimDeSemana(mes, 19)==false) {escala.setDia19Fk(turnosService.buscarPorNome("M"));/*M*/}
+				if(utilidadesDeCalendarioEEscala.fimDeSemana(mes, 20)==false) {escala.setDia20Fk(turnosService.buscarPorNome("M"));/*M*/}
+				if(utilidadesDeCalendarioEEscala.fimDeSemana(mes, 21)==false) {escala.setDia21Fk(turnosService.buscarPorNome("M"));/*M*/}
+				if(utilidadesDeCalendarioEEscala.fimDeSemana(mes, 22)==false) {escala.setDia22Fk(turnosService.buscarPorNome("M"));/*M*/}
+				if(utilidadesDeCalendarioEEscala.fimDeSemana(mes, 23)==false) {escala.setDia23Fk(turnosService.buscarPorNome("M"));/*M*/}
+				if(utilidadesDeCalendarioEEscala.fimDeSemana(mes, 24)==false) {escala.setDia24Fk(turnosService.buscarPorNome("M"));/*M*/}
+				if(utilidadesDeCalendarioEEscala.fimDeSemana(mes, 25)==false) {escala.setDia25Fk(turnosService.buscarPorNome("M"));/*M*/}
+				if(utilidadesDeCalendarioEEscala.fimDeSemana(mes, 26)==false) {escala.setDia26Fk(turnosService.buscarPorNome("M"));/*M*/}
+				if(utilidadesDeCalendarioEEscala.fimDeSemana(mes, 27)==false) {escala.setDia27Fk(turnosService.buscarPorNome("M"));/*M*/}
+				if(utilidadesDeCalendarioEEscala.fimDeSemana(mes, 28)==false) {escala.setDia28Fk(turnosService.buscarPorNome("M"));/*M*/}
+				if(qtdDiasNoMes>=29) {if(utilidadesDeCalendarioEEscala.fimDeSemana(mes, 29)==false) {escala.setDia29Fk(turnosService.buscarPorNome("M"));/*M*/}}
+				if(qtdDiasNoMes>=30) {if(utilidadesDeCalendarioEEscala.fimDeSemana(mes, 30)==false) {escala.setDia30Fk(turnosService.buscarPorNome("M"));/*M*/}}
+				if(qtdDiasNoMes==31) {if(utilidadesDeCalendarioEEscala.fimDeSemana(mes, 31)==false) {escala.setDia31Fk(turnosService.buscarPorNome("M"));/*M*/}}
 				
 			return escala;	
 			}
@@ -77,38 +124,42 @@ public class EscalaAtalhosService {
 			public Escala atalhoDiaristasTarde(Escala escala) {
 				String mes = escala.getIdAnoMesFk().getNomeAnoMes();
 				int qtdDiasNoMes = utilidadesDeCalendarioEEscala.quantidadeDeDiasNoMes(mes);
+				//Mudando Regime
+				escala.setIdRegimeFk(regimesDeTrabalhoService.buscarPorNomeUnico("D"));
+				//Mudando Turma
+				escala.setIdTurmaFk( turmasService.buscarPorNomeTurmaUnico("DT"));
 				
-				if(utilidadesDeCalendarioEEscala.fimDeSemana(mes,  1)==false) {escala.setDia01Fk(null);/*T*/}
-				if(utilidadesDeCalendarioEEscala.fimDeSemana(mes,  2)==false) {escala.setDia02Fk(null);/*T*/}
-				if(utilidadesDeCalendarioEEscala.fimDeSemana(mes,  3)==false) {escala.setDia03Fk(null);/*T*/}
-				if(utilidadesDeCalendarioEEscala.fimDeSemana(mes,  4)==false) {escala.setDia04Fk(null);/*T*/}
-				if(utilidadesDeCalendarioEEscala.fimDeSemana(mes,  5)==false) {escala.setDia05Fk(null);/*T*/}
-				if(utilidadesDeCalendarioEEscala.fimDeSemana(mes,  6)==false) {escala.setDia06Fk(null);/*T*/}
-				if(utilidadesDeCalendarioEEscala.fimDeSemana(mes,  7)==false) {escala.setDia07Fk(null);/*T*/}
-				if(utilidadesDeCalendarioEEscala.fimDeSemana(mes,  8)==false) {escala.setDia08Fk(null);/*T*/}
-				if(utilidadesDeCalendarioEEscala.fimDeSemana(mes,  9)==false) {escala.setDia09Fk(null);/*T*/}
-				if(utilidadesDeCalendarioEEscala.fimDeSemana(mes, 10)==false) {escala.setDia10Fk(null);/*T*/}
-				if(utilidadesDeCalendarioEEscala.fimDeSemana(mes, 11)==false) {escala.setDia11Fk(null);/*T*/}
-				if(utilidadesDeCalendarioEEscala.fimDeSemana(mes, 12)==false) {escala.setDia12Fk(null);/*T*/}
-				if(utilidadesDeCalendarioEEscala.fimDeSemana(mes, 13)==false) {escala.setDia13Fk(null);/*T*/}
-				if(utilidadesDeCalendarioEEscala.fimDeSemana(mes, 14)==false) {escala.setDia14Fk(null);/*T*/}
-				if(utilidadesDeCalendarioEEscala.fimDeSemana(mes, 15)==false) {escala.setDia15Fk(null);/*T*/}
-				if(utilidadesDeCalendarioEEscala.fimDeSemana(mes, 16)==false) {escala.setDia16Fk(null);/*T*/}
-				if(utilidadesDeCalendarioEEscala.fimDeSemana(mes, 17)==false) {escala.setDia17Fk(null);/*T*/}
-				if(utilidadesDeCalendarioEEscala.fimDeSemana(mes, 18)==false) {escala.setDia18Fk(null);/*T*/}
-				if(utilidadesDeCalendarioEEscala.fimDeSemana(mes, 19)==false) {escala.setDia19Fk(null);/*T*/}
-				if(utilidadesDeCalendarioEEscala.fimDeSemana(mes, 20)==false) {escala.setDia20Fk(null);/*T*/}
-				if(utilidadesDeCalendarioEEscala.fimDeSemana(mes, 21)==false) {escala.setDia21Fk(null);/*T*/}
-				if(utilidadesDeCalendarioEEscala.fimDeSemana(mes, 22)==false) {escala.setDia22Fk(null);/*T*/}
-				if(utilidadesDeCalendarioEEscala.fimDeSemana(mes, 23)==false) {escala.setDia23Fk(null);/*T*/}
-				if(utilidadesDeCalendarioEEscala.fimDeSemana(mes, 24)==false) {escala.setDia24Fk(null);/*T*/}
-				if(utilidadesDeCalendarioEEscala.fimDeSemana(mes, 25)==false) {escala.setDia25Fk(null);/*T*/}
-				if(utilidadesDeCalendarioEEscala.fimDeSemana(mes, 26)==false) {escala.setDia26Fk(null);/*T*/}
-				if(utilidadesDeCalendarioEEscala.fimDeSemana(mes, 27)==false) {escala.setDia27Fk(null);/*T*/}
-				if(utilidadesDeCalendarioEEscala.fimDeSemana(mes, 28)==false) {escala.setDia28Fk(null);/*T*/}
-				if(qtdDiasNoMes>=29) {if(utilidadesDeCalendarioEEscala.fimDeSemana(mes, 29)==false) {escala.setDia29Fk(null);/*T*/}}
-				if(qtdDiasNoMes>=30) {if(utilidadesDeCalendarioEEscala.fimDeSemana(mes, 30)==false) {escala.setDia30Fk(null);/*T*/}}
-				if(qtdDiasNoMes==31) {if(utilidadesDeCalendarioEEscala.fimDeSemana(mes, 31)==false) {escala.setDia31Fk(null);/*T*/}}
+				if(utilidadesDeCalendarioEEscala.fimDeSemana(mes,  1)==false) {escala.setDia01Fk(turnosService.buscarPorNome("T"));/*T*/}
+				if(utilidadesDeCalendarioEEscala.fimDeSemana(mes,  2)==false) {escala.setDia02Fk(turnosService.buscarPorNome("T"));/*T*/}
+				if(utilidadesDeCalendarioEEscala.fimDeSemana(mes,  3)==false) {escala.setDia03Fk(turnosService.buscarPorNome("T"));/*T*/}
+				if(utilidadesDeCalendarioEEscala.fimDeSemana(mes,  4)==false) {escala.setDia04Fk(turnosService.buscarPorNome("T"));/*T*/}
+				if(utilidadesDeCalendarioEEscala.fimDeSemana(mes,  5)==false) {escala.setDia05Fk(turnosService.buscarPorNome("T"));/*T*/}
+				if(utilidadesDeCalendarioEEscala.fimDeSemana(mes,  6)==false) {escala.setDia06Fk(turnosService.buscarPorNome("T"));/*T*/}
+				if(utilidadesDeCalendarioEEscala.fimDeSemana(mes,  7)==false) {escala.setDia07Fk(turnosService.buscarPorNome("T"));/*T*/}
+				if(utilidadesDeCalendarioEEscala.fimDeSemana(mes,  8)==false) {escala.setDia08Fk(turnosService.buscarPorNome("T"));/*T*/}
+				if(utilidadesDeCalendarioEEscala.fimDeSemana(mes,  9)==false) {escala.setDia09Fk(turnosService.buscarPorNome("T"));/*T*/}
+				if(utilidadesDeCalendarioEEscala.fimDeSemana(mes, 10)==false) {escala.setDia10Fk(turnosService.buscarPorNome("T"));/*T*/}
+				if(utilidadesDeCalendarioEEscala.fimDeSemana(mes, 11)==false) {escala.setDia11Fk(turnosService.buscarPorNome("T"));/*T*/}
+				if(utilidadesDeCalendarioEEscala.fimDeSemana(mes, 12)==false) {escala.setDia12Fk(turnosService.buscarPorNome("T"));/*T*/}
+				if(utilidadesDeCalendarioEEscala.fimDeSemana(mes, 13)==false) {escala.setDia13Fk(turnosService.buscarPorNome("T"));/*T*/}
+				if(utilidadesDeCalendarioEEscala.fimDeSemana(mes, 14)==false) {escala.setDia14Fk(turnosService.buscarPorNome("T"));/*T*/}
+				if(utilidadesDeCalendarioEEscala.fimDeSemana(mes, 15)==false) {escala.setDia15Fk(turnosService.buscarPorNome("T"));/*T*/}
+				if(utilidadesDeCalendarioEEscala.fimDeSemana(mes, 16)==false) {escala.setDia16Fk(turnosService.buscarPorNome("T"));/*T*/}
+				if(utilidadesDeCalendarioEEscala.fimDeSemana(mes, 17)==false) {escala.setDia17Fk(turnosService.buscarPorNome("T"));/*T*/}
+				if(utilidadesDeCalendarioEEscala.fimDeSemana(mes, 18)==false) {escala.setDia18Fk(turnosService.buscarPorNome("T"));/*T*/}
+				if(utilidadesDeCalendarioEEscala.fimDeSemana(mes, 19)==false) {escala.setDia19Fk(turnosService.buscarPorNome("T"));/*T*/}
+				if(utilidadesDeCalendarioEEscala.fimDeSemana(mes, 20)==false) {escala.setDia20Fk(turnosService.buscarPorNome("T"));/*T*/}
+				if(utilidadesDeCalendarioEEscala.fimDeSemana(mes, 21)==false) {escala.setDia21Fk(turnosService.buscarPorNome("T"));/*T*/}
+				if(utilidadesDeCalendarioEEscala.fimDeSemana(mes, 22)==false) {escala.setDia22Fk(turnosService.buscarPorNome("T"));/*T*/}
+				if(utilidadesDeCalendarioEEscala.fimDeSemana(mes, 23)==false) {escala.setDia23Fk(turnosService.buscarPorNome("T"));/*T*/}
+				if(utilidadesDeCalendarioEEscala.fimDeSemana(mes, 24)==false) {escala.setDia24Fk(turnosService.buscarPorNome("T"));/*T*/}
+				if(utilidadesDeCalendarioEEscala.fimDeSemana(mes, 25)==false) {escala.setDia25Fk(turnosService.buscarPorNome("T"));/*T*/}
+				if(utilidadesDeCalendarioEEscala.fimDeSemana(mes, 26)==false) {escala.setDia26Fk(turnosService.buscarPorNome("T"));/*T*/}
+				if(utilidadesDeCalendarioEEscala.fimDeSemana(mes, 27)==false) {escala.setDia27Fk(turnosService.buscarPorNome("T"));/*T*/}
+				if(utilidadesDeCalendarioEEscala.fimDeSemana(mes, 28)==false) {escala.setDia28Fk(turnosService.buscarPorNome("T"));/*T*/}
+				if(qtdDiasNoMes>=29) {if(utilidadesDeCalendarioEEscala.fimDeSemana(mes, 29)==false) {escala.setDia29Fk(turnosService.buscarPorNome("T"));/*T*/}}
+				if(qtdDiasNoMes>=30) {if(utilidadesDeCalendarioEEscala.fimDeSemana(mes, 30)==false) {escala.setDia30Fk(turnosService.buscarPorNome("T"));/*T*/}}
+				if(qtdDiasNoMes==31) {if(utilidadesDeCalendarioEEscala.fimDeSemana(mes, 31)==false) {escala.setDia31Fk(turnosService.buscarPorNome("T"));/*T*/}}
 				
 			return escala;	
 			}
@@ -118,38 +169,42 @@ public class EscalaAtalhosService {
 			public Escala atalhoDiaristasDia(Escala escala) {
 				String mes = escala.getIdAnoMesFk().getNomeAnoMes();
 				int qtdDiasNoMes = utilidadesDeCalendarioEEscala.quantidadeDeDiasNoMes(mes);
+				//Mudando Regime
+				escala.setIdRegimeFk(regimesDeTrabalhoService.buscarPorNomeUnico("D"));
+				//Mudando Turma
+				escala.setIdTurmaFk( turmasService.buscarPorNomeTurmaUnico("DD"));
 				
-				if(utilidadesDeCalendarioEEscala.fimDeSemana(mes,  1)==false) {escala.setDia01Fk(null);/*D*/}
-				if(utilidadesDeCalendarioEEscala.fimDeSemana(mes,  2)==false) {escala.setDia02Fk(null);/*D*/}
-				if(utilidadesDeCalendarioEEscala.fimDeSemana(mes,  3)==false) {escala.setDia03Fk(null);/*D*/}
-				if(utilidadesDeCalendarioEEscala.fimDeSemana(mes,  4)==false) {escala.setDia04Fk(null);/*D*/}
-				if(utilidadesDeCalendarioEEscala.fimDeSemana(mes,  5)==false) {escala.setDia05Fk(null);/*D*/}
-				if(utilidadesDeCalendarioEEscala.fimDeSemana(mes,  6)==false) {escala.setDia06Fk(null);/*D*/}
-				if(utilidadesDeCalendarioEEscala.fimDeSemana(mes,  7)==false) {escala.setDia07Fk(null);/*D*/}
-				if(utilidadesDeCalendarioEEscala.fimDeSemana(mes,  8)==false) {escala.setDia08Fk(null);/*D*/}
-				if(utilidadesDeCalendarioEEscala.fimDeSemana(mes,  9)==false) {escala.setDia09Fk(null);/*D*/}
-				if(utilidadesDeCalendarioEEscala.fimDeSemana(mes, 10)==false) {escala.setDia10Fk(null);/*D*/}
-				if(utilidadesDeCalendarioEEscala.fimDeSemana(mes, 11)==false) {escala.setDia11Fk(null);/*D*/}
-				if(utilidadesDeCalendarioEEscala.fimDeSemana(mes, 12)==false) {escala.setDia12Fk(null);/*D*/}
-				if(utilidadesDeCalendarioEEscala.fimDeSemana(mes, 13)==false) {escala.setDia13Fk(null);/*D*/}
-				if(utilidadesDeCalendarioEEscala.fimDeSemana(mes, 14)==false) {escala.setDia14Fk(null);/*D*/}
-				if(utilidadesDeCalendarioEEscala.fimDeSemana(mes, 15)==false) {escala.setDia15Fk(null);/*D*/}
-				if(utilidadesDeCalendarioEEscala.fimDeSemana(mes, 16)==false) {escala.setDia16Fk(null);/*D*/}
-				if(utilidadesDeCalendarioEEscala.fimDeSemana(mes, 17)==false) {escala.setDia17Fk(null);/*D*/}
-				if(utilidadesDeCalendarioEEscala.fimDeSemana(mes, 18)==false) {escala.setDia18Fk(null);/*D*/}
-				if(utilidadesDeCalendarioEEscala.fimDeSemana(mes, 19)==false) {escala.setDia19Fk(null);/*D*/}
-				if(utilidadesDeCalendarioEEscala.fimDeSemana(mes, 20)==false) {escala.setDia20Fk(null);/*D*/}
-				if(utilidadesDeCalendarioEEscala.fimDeSemana(mes, 21)==false) {escala.setDia21Fk(null);/*D*/}
-				if(utilidadesDeCalendarioEEscala.fimDeSemana(mes, 22)==false) {escala.setDia22Fk(null);/*D*/}
-				if(utilidadesDeCalendarioEEscala.fimDeSemana(mes, 23)==false) {escala.setDia23Fk(null);/*D*/}
-				if(utilidadesDeCalendarioEEscala.fimDeSemana(mes, 24)==false) {escala.setDia24Fk(null);/*D*/}
-				if(utilidadesDeCalendarioEEscala.fimDeSemana(mes, 25)==false) {escala.setDia25Fk(null);/*D*/}
-				if(utilidadesDeCalendarioEEscala.fimDeSemana(mes, 26)==false) {escala.setDia26Fk(null);/*D*/}
-				if(utilidadesDeCalendarioEEscala.fimDeSemana(mes, 27)==false) {escala.setDia27Fk(null);/*D*/}
-				if(utilidadesDeCalendarioEEscala.fimDeSemana(mes, 28)==false) {escala.setDia28Fk(null);/*D*/}
-				if(qtdDiasNoMes>=29) {if(utilidadesDeCalendarioEEscala.fimDeSemana(mes, 29)==false) {escala.setDia29Fk(null);/*D*/}}
-				if(qtdDiasNoMes>=30) {if(utilidadesDeCalendarioEEscala.fimDeSemana(mes, 30)==false) {escala.setDia30Fk(null);/*D*/}}
-				if(qtdDiasNoMes==31) {if(utilidadesDeCalendarioEEscala.fimDeSemana(mes, 31)==false) {escala.setDia31Fk(null);/*D*/}}
+				if(utilidadesDeCalendarioEEscala.fimDeSemana(mes,  1)==false) {escala.setDia01Fk(turnosService.buscarPorNome("D"));/*D*/}
+				if(utilidadesDeCalendarioEEscala.fimDeSemana(mes,  2)==false) {escala.setDia02Fk(turnosService.buscarPorNome("D"));/*D*/}
+				if(utilidadesDeCalendarioEEscala.fimDeSemana(mes,  3)==false) {escala.setDia03Fk(turnosService.buscarPorNome("D"));/*D*/}
+				if(utilidadesDeCalendarioEEscala.fimDeSemana(mes,  4)==false) {escala.setDia04Fk(turnosService.buscarPorNome("D"));/*D*/}
+				if(utilidadesDeCalendarioEEscala.fimDeSemana(mes,  5)==false) {escala.setDia05Fk(turnosService.buscarPorNome("D"));/*D*/}
+				if(utilidadesDeCalendarioEEscala.fimDeSemana(mes,  6)==false) {escala.setDia06Fk(turnosService.buscarPorNome("D"));/*D*/}
+				if(utilidadesDeCalendarioEEscala.fimDeSemana(mes,  7)==false) {escala.setDia07Fk(turnosService.buscarPorNome("D"));/*D*/}
+				if(utilidadesDeCalendarioEEscala.fimDeSemana(mes,  8)==false) {escala.setDia08Fk(turnosService.buscarPorNome("D"));/*D*/}
+				if(utilidadesDeCalendarioEEscala.fimDeSemana(mes,  9)==false) {escala.setDia09Fk(turnosService.buscarPorNome("D"));/*D*/}
+				if(utilidadesDeCalendarioEEscala.fimDeSemana(mes, 10)==false) {escala.setDia10Fk(turnosService.buscarPorNome("D"));/*D*/}
+				if(utilidadesDeCalendarioEEscala.fimDeSemana(mes, 11)==false) {escala.setDia11Fk(turnosService.buscarPorNome("D"));/*D*/}
+				if(utilidadesDeCalendarioEEscala.fimDeSemana(mes, 12)==false) {escala.setDia12Fk(turnosService.buscarPorNome("D"));/*D*/}
+				if(utilidadesDeCalendarioEEscala.fimDeSemana(mes, 13)==false) {escala.setDia13Fk(turnosService.buscarPorNome("D"));/*D*/}
+				if(utilidadesDeCalendarioEEscala.fimDeSemana(mes, 14)==false) {escala.setDia14Fk(turnosService.buscarPorNome("D"));/*D*/}
+				if(utilidadesDeCalendarioEEscala.fimDeSemana(mes, 15)==false) {escala.setDia15Fk(turnosService.buscarPorNome("D"));/*D*/}
+				if(utilidadesDeCalendarioEEscala.fimDeSemana(mes, 16)==false) {escala.setDia16Fk(turnosService.buscarPorNome("D"));/*D*/}
+				if(utilidadesDeCalendarioEEscala.fimDeSemana(mes, 17)==false) {escala.setDia17Fk(turnosService.buscarPorNome("D"));/*D*/}
+				if(utilidadesDeCalendarioEEscala.fimDeSemana(mes, 18)==false) {escala.setDia18Fk(turnosService.buscarPorNome("D"));/*D*/}
+				if(utilidadesDeCalendarioEEscala.fimDeSemana(mes, 19)==false) {escala.setDia19Fk(turnosService.buscarPorNome("D"));/*D*/}
+				if(utilidadesDeCalendarioEEscala.fimDeSemana(mes, 20)==false) {escala.setDia20Fk(turnosService.buscarPorNome("D"));/*D*/}
+				if(utilidadesDeCalendarioEEscala.fimDeSemana(mes, 21)==false) {escala.setDia21Fk(turnosService.buscarPorNome("D"));/*D*/}
+				if(utilidadesDeCalendarioEEscala.fimDeSemana(mes, 22)==false) {escala.setDia22Fk(turnosService.buscarPorNome("D"));/*D*/}
+				if(utilidadesDeCalendarioEEscala.fimDeSemana(mes, 23)==false) {escala.setDia23Fk(turnosService.buscarPorNome("D"));/*D*/}
+				if(utilidadesDeCalendarioEEscala.fimDeSemana(mes, 24)==false) {escala.setDia24Fk(turnosService.buscarPorNome("D"));/*D*/}
+				if(utilidadesDeCalendarioEEscala.fimDeSemana(mes, 25)==false) {escala.setDia25Fk(turnosService.buscarPorNome("D"));/*D*/}
+				if(utilidadesDeCalendarioEEscala.fimDeSemana(mes, 26)==false) {escala.setDia26Fk(turnosService.buscarPorNome("D"));/*D*/}
+				if(utilidadesDeCalendarioEEscala.fimDeSemana(mes, 27)==false) {escala.setDia27Fk(turnosService.buscarPorNome("D"));/*D*/}
+				if(utilidadesDeCalendarioEEscala.fimDeSemana(mes, 28)==false) {escala.setDia28Fk(turnosService.buscarPorNome("D"));/*D*/}
+				if(qtdDiasNoMes>=29) {if(utilidadesDeCalendarioEEscala.fimDeSemana(mes, 29)==false) {escala.setDia29Fk(turnosService.buscarPorNome("D"));/*D*/}}
+				if(qtdDiasNoMes>=30) {if(utilidadesDeCalendarioEEscala.fimDeSemana(mes, 30)==false) {escala.setDia30Fk(turnosService.buscarPorNome("D"));/*D*/}}
+				if(qtdDiasNoMes==31) {if(utilidadesDeCalendarioEEscala.fimDeSemana(mes, 31)==false) {escala.setDia31Fk(turnosService.buscarPorNome("D"));/*D*/}}
 				
 			return escala;	
 			}
@@ -160,22 +215,24 @@ public class EscalaAtalhosService {
 				String mes = escala.getIdAnoMesFk().getNomeAnoMes();
 				int qtdDiasNoMes = utilidadesDeCalendarioEEscala.quantidadeDeDiasNoMes(mes);
 				
-				if(utilidadesDeCalendarioEEscala.fimDeSemana(mes,  1)==false) {escala.setDia01Fk(null);/*MT*/}
-				if(utilidadesDeCalendarioEEscala.fimDeSemana(mes,  3)==false) {escala.setDia03Fk(null);/*MT*/}
-				if(utilidadesDeCalendarioEEscala.fimDeSemana(mes,  5)==false) {escala.setDia05Fk(null);/*MT*/}
-				if(utilidadesDeCalendarioEEscala.fimDeSemana(mes,  7)==false) {escala.setDia07Fk(null);/*MT*/}
-				if(utilidadesDeCalendarioEEscala.fimDeSemana(mes,  9)==false) {escala.setDia09Fk(null);/*MT*/}
-				if(utilidadesDeCalendarioEEscala.fimDeSemana(mes, 11)==false) {escala.setDia11Fk(null);/*MT*/}
-				if(utilidadesDeCalendarioEEscala.fimDeSemana(mes, 13)==false) {escala.setDia13Fk(null);/*MT*/}
-				if(utilidadesDeCalendarioEEscala.fimDeSemana(mes, 15)==false) {escala.setDia15Fk(null);/*MT*/}
-				if(utilidadesDeCalendarioEEscala.fimDeSemana(mes, 17)==false) {escala.setDia17Fk(null);/*MT*/}
-				if(utilidadesDeCalendarioEEscala.fimDeSemana(mes, 19)==false) {escala.setDia19Fk(null);/*MT*/}
-				if(utilidadesDeCalendarioEEscala.fimDeSemana(mes, 21)==false) {escala.setDia21Fk(null);/*MT*/}
-				if(utilidadesDeCalendarioEEscala.fimDeSemana(mes, 23)==false) {escala.setDia23Fk(null);/*MT*/}
-				if(utilidadesDeCalendarioEEscala.fimDeSemana(mes, 25)==false) {escala.setDia25Fk(null);/*MT*/}
-				if(utilidadesDeCalendarioEEscala.fimDeSemana(mes, 27)==false) {escala.setDia27Fk(null);/*MT*/}
-				if(qtdDiasNoMes>=29) {if(utilidadesDeCalendarioEEscala.fimDeSemana(mes, 29)==false) {escala.setDia29Fk(null);/*MT*/}}
-				if(qtdDiasNoMes==31) {if(utilidadesDeCalendarioEEscala.fimDeSemana(mes, 31)==false) {escala.setDia31Fk(null);/*MT*/}}
+				escala.setIdRegimeFk(regimesDeTrabalhoService.buscarPorNomeUnico("PL"));
+				
+				if(utilidadesDeCalendarioEEscala.fimDeSemana(mes,  1)==false) {escala.setDia01Fk(turnosService.buscarPorNome("MT"));/*MT*/}
+				if(utilidadesDeCalendarioEEscala.fimDeSemana(mes,  3)==false) {escala.setDia03Fk(turnosService.buscarPorNome("MT"));/*MT*/}
+				if(utilidadesDeCalendarioEEscala.fimDeSemana(mes,  5)==false) {escala.setDia05Fk(turnosService.buscarPorNome("MT"));/*MT*/}
+				if(utilidadesDeCalendarioEEscala.fimDeSemana(mes,  7)==false) {escala.setDia07Fk(turnosService.buscarPorNome("MT"));/*MT*/}
+				if(utilidadesDeCalendarioEEscala.fimDeSemana(mes,  9)==false) {escala.setDia09Fk(turnosService.buscarPorNome("MT"));/*MT*/}
+				if(utilidadesDeCalendarioEEscala.fimDeSemana(mes, 11)==false) {escala.setDia11Fk(turnosService.buscarPorNome("MT"));/*MT*/}
+				if(utilidadesDeCalendarioEEscala.fimDeSemana(mes, 13)==false) {escala.setDia13Fk(turnosService.buscarPorNome("MT"));/*MT*/}
+				if(utilidadesDeCalendarioEEscala.fimDeSemana(mes, 15)==false) {escala.setDia15Fk(turnosService.buscarPorNome("MT"));/*MT*/}
+				if(utilidadesDeCalendarioEEscala.fimDeSemana(mes, 17)==false) {escala.setDia17Fk(turnosService.buscarPorNome("MT"));/*MT*/}
+				if(utilidadesDeCalendarioEEscala.fimDeSemana(mes, 19)==false) {escala.setDia19Fk(turnosService.buscarPorNome("MT"));/*MT*/}
+				if(utilidadesDeCalendarioEEscala.fimDeSemana(mes, 21)==false) {escala.setDia21Fk(turnosService.buscarPorNome("MT"));/*MT*/}
+				if(utilidadesDeCalendarioEEscala.fimDeSemana(mes, 23)==false) {escala.setDia23Fk(turnosService.buscarPorNome("MT"));/*MT*/}
+				if(utilidadesDeCalendarioEEscala.fimDeSemana(mes, 25)==false) {escala.setDia25Fk(turnosService.buscarPorNome("MT"));/*MT*/}
+				if(utilidadesDeCalendarioEEscala.fimDeSemana(mes, 27)==false) {escala.setDia27Fk(turnosService.buscarPorNome("MT"));/*MT*/}
+				if(qtdDiasNoMes>=29) {if(utilidadesDeCalendarioEEscala.fimDeSemana(mes, 29)==false) {escala.setDia29Fk(turnosService.buscarPorNome("MT"));/*MT*/}}
+				if(qtdDiasNoMes==31) {if(utilidadesDeCalendarioEEscala.fimDeSemana(mes, 31)==false) {escala.setDia31Fk(turnosService.buscarPorNome("MT"));/*MT*/}}
 				
 			return escala;	
 			}
@@ -185,21 +242,23 @@ public class EscalaAtalhosService {
 				String mes = escala.getIdAnoMesFk().getNomeAnoMes();
 				int qtdDiasNoMes = utilidadesDeCalendarioEEscala.quantidadeDeDiasNoMes(mes);
 				
-				if(utilidadesDeCalendarioEEscala.fimDeSemana(mes,  2)==false) {escala.setDia02Fk(null);/*T*/}
-				if(utilidadesDeCalendarioEEscala.fimDeSemana(mes,  4)==false) {escala.setDia04Fk(null);/*T*/}
-				if(utilidadesDeCalendarioEEscala.fimDeSemana(mes,  6)==false) {escala.setDia06Fk(null);/*T*/}
-				if(utilidadesDeCalendarioEEscala.fimDeSemana(mes,  8)==false) {escala.setDia08Fk(null);/*T*/}
-				if(utilidadesDeCalendarioEEscala.fimDeSemana(mes, 10)==false) {escala.setDia10Fk(null);/*T*/}
-				if(utilidadesDeCalendarioEEscala.fimDeSemana(mes, 12)==false) {escala.setDia12Fk(null);/*T*/}
-				if(utilidadesDeCalendarioEEscala.fimDeSemana(mes, 14)==false) {escala.setDia14Fk(null);/*T*/}
-				if(utilidadesDeCalendarioEEscala.fimDeSemana(mes, 16)==false) {escala.setDia16Fk(null);/*T*/}
-				if(utilidadesDeCalendarioEEscala.fimDeSemana(mes, 18)==false) {escala.setDia18Fk(null);/*T*/}
-				if(utilidadesDeCalendarioEEscala.fimDeSemana(mes, 20)==false) {escala.setDia20Fk(null);/*T*/}
-				if(utilidadesDeCalendarioEEscala.fimDeSemana(mes, 22)==false) {escala.setDia22Fk(null);/*T*/}
-				if(utilidadesDeCalendarioEEscala.fimDeSemana(mes, 24)==false) {escala.setDia24Fk(null);/*T*/}
-				if(utilidadesDeCalendarioEEscala.fimDeSemana(mes, 26)==false) {escala.setDia26Fk(null);/*T*/}
-				if(utilidadesDeCalendarioEEscala.fimDeSemana(mes, 28)==false) {escala.setDia28Fk(null);/*T*/}
-				if(qtdDiasNoMes>=30) {if(utilidadesDeCalendarioEEscala.fimDeSemana(mes, 30)==false) {escala.setDia30Fk(null);/*T*/}}
+				escala.setIdRegimeFk(regimesDeTrabalhoService.buscarPorNomeUnico("PL"));
+				
+				if(utilidadesDeCalendarioEEscala.fimDeSemana(mes,  2)==false) {escala.setDia02Fk(turnosService.buscarPorNome("MT"));/*MT*/}
+				if(utilidadesDeCalendarioEEscala.fimDeSemana(mes,  4)==false) {escala.setDia04Fk(turnosService.buscarPorNome("MT"));/*MT*/}
+				if(utilidadesDeCalendarioEEscala.fimDeSemana(mes,  6)==false) {escala.setDia06Fk(turnosService.buscarPorNome("MT"));/*MT*/}
+				if(utilidadesDeCalendarioEEscala.fimDeSemana(mes,  8)==false) {escala.setDia08Fk(turnosService.buscarPorNome("MT"));/*MT*/}
+				if(utilidadesDeCalendarioEEscala.fimDeSemana(mes, 10)==false) {escala.setDia10Fk(turnosService.buscarPorNome("MT"));/*MT*/}
+				if(utilidadesDeCalendarioEEscala.fimDeSemana(mes, 12)==false) {escala.setDia12Fk(turnosService.buscarPorNome("MT"));/*MT*/}
+				if(utilidadesDeCalendarioEEscala.fimDeSemana(mes, 14)==false) {escala.setDia14Fk(turnosService.buscarPorNome("MT"));/*MT*/}
+				if(utilidadesDeCalendarioEEscala.fimDeSemana(mes, 16)==false) {escala.setDia16Fk(turnosService.buscarPorNome("MT"));/*MT*/}
+				if(utilidadesDeCalendarioEEscala.fimDeSemana(mes, 18)==false) {escala.setDia18Fk(turnosService.buscarPorNome("MT"));/*MT*/}
+				if(utilidadesDeCalendarioEEscala.fimDeSemana(mes, 20)==false) {escala.setDia20Fk(turnosService.buscarPorNome("MT"));/*MT*/}
+				if(utilidadesDeCalendarioEEscala.fimDeSemana(mes, 22)==false) {escala.setDia22Fk(turnosService.buscarPorNome("MT"));/*MT*/}
+				if(utilidadesDeCalendarioEEscala.fimDeSemana(mes, 24)==false) {escala.setDia24Fk(turnosService.buscarPorNome("MT"));/*MT*/}
+				if(utilidadesDeCalendarioEEscala.fimDeSemana(mes, 26)==false) {escala.setDia26Fk(turnosService.buscarPorNome("MT"));/*MT*/}
+				if(utilidadesDeCalendarioEEscala.fimDeSemana(mes, 28)==false) {escala.setDia28Fk(turnosService.buscarPorNome("MT"));/*MT*/}
+				if(qtdDiasNoMes>=30) {if(utilidadesDeCalendarioEEscala.fimDeSemana(mes, 30)==false) {escala.setDia30Fk(turnosService.buscarPorNome("MT"));/*MT*/}}
 				
 			return escala;	
 			}
@@ -211,22 +270,24 @@ public class EscalaAtalhosService {
 		public Escala atalhoCiclo1A(Escala escala) {
 			int qtdDiasNoMes = utilidadesDeCalendarioEEscala.quantidadeDeDiasNoMes(escala.getIdAnoMesFk().getNomeAnoMes());
 			
-			escala.setDia01Fk(null);//MT
-			escala.setDia02Fk(null);//N
+			escala.setIdRegimeFk(regimesDeTrabalhoService.buscarPorNomeUnico("PL"));
 			
-			escala.setDia07Fk(null);//MT
-			escala.setDia08Fk(null);//N
+			escala.setDia01Fk(turnosService.buscarPorNome("MT"));//MT
+			escala.setDia02Fk(turnosService.buscarPorNome("N"));//N
 			
-			escala.setDia13Fk(null);//MT
-			escala.setDia14Fk(null);//N
+			escala.setDia07Fk(turnosService.buscarPorNome("MT"));//MT
+			escala.setDia08Fk(turnosService.buscarPorNome("N"));//N
 			
-			escala.setDia19Fk(null);//MT
-			escala.setDia20Fk(null);//N
+			escala.setDia13Fk(turnosService.buscarPorNome("MT"));//MT
+			escala.setDia14Fk(turnosService.buscarPorNome("N"));//N
 			
-			escala.setDia25Fk(null);//MT
-			escala.setDia26Fk(null);//N
+			escala.setDia19Fk(turnosService.buscarPorNome("MT"));//MT
+			escala.setDia20Fk(turnosService.buscarPorNome("N"));//N
 			
-			if(qtdDiasNoMes==31) {escala.setDia31Fk(null);}//MT
+			escala.setDia25Fk(turnosService.buscarPorNome("MT"));//MT
+			escala.setDia26Fk(turnosService.buscarPorNome("N"));//N
+			
+			if(qtdDiasNoMes==31) {escala.setDia31Fk(turnosService.buscarPorNome("MT"));}//MT
 			
 			escala = escalaCalculosService.calcularDadosEscala(escala);
 			
@@ -236,20 +297,22 @@ public class EscalaAtalhosService {
 		public Escala atalhoCiclo1B(Escala escala) {
 			int qtdDiasNoMes = utilidadesDeCalendarioEEscala.quantidadeDeDiasNoMes(escala.getIdAnoMesFk().getNomeAnoMes());
 			
-			escala.setDia02Fk(null);//MT
-			escala.setDia03Fk(null);//N
+			escala.setIdRegimeFk(regimesDeTrabalhoService.buscarPorNomeUnico("PL"));
 			
-			escala.setDia08Fk(null);//MT
-			escala.setDia09Fk(null);//N
+			escala.setDia02Fk(turnosService.buscarPorNome("MT"));//MT
+			escala.setDia03Fk(turnosService.buscarPorNome("N"));//N
 			
-			escala.setDia14Fk(null);//MT
-			escala.setDia15Fk(null);//N
+			escala.setDia08Fk(turnosService.buscarPorNome("MT"));//MT
+			escala.setDia09Fk(turnosService.buscarPorNome("N"));//N
 			
-			escala.setDia20Fk(null);//MT
-			escala.setDia21Fk(null);//N
+			escala.setDia14Fk(turnosService.buscarPorNome("MT"));//MT
+			escala.setDia15Fk(turnosService.buscarPorNome("N"));//N
 			
-			escala.setDia26Fk(null);//MT
-			escala.setDia27Fk(null);//N
+			escala.setDia20Fk(turnosService.buscarPorNome("MT"));//MT
+			escala.setDia21Fk(turnosService.buscarPorNome("N"));//N
+			
+			escala.setDia26Fk(turnosService.buscarPorNome("MT"));//MT
+			escala.setDia27Fk(turnosService.buscarPorNome("N"));//N
 			
 			escala = escalaCalculosService.calcularDadosEscala(escala);
 			
@@ -259,20 +322,22 @@ public class EscalaAtalhosService {
 		public Escala atalhoCiclo1C(Escala escala) {
 			int qtdDiasNoMes = utilidadesDeCalendarioEEscala.quantidadeDeDiasNoMes(escala.getIdAnoMesFk().getNomeAnoMes());
 			
-			escala.setDia03Fk(null);//MT
-			escala.setDia04Fk(null);//N
+			escala.setIdRegimeFk(regimesDeTrabalhoService.buscarPorNomeUnico("PL"));
 			
-			escala.setDia09Fk(null);//MT
-			escala.setDia10Fk(null);//N
+			escala.setDia03Fk(turnosService.buscarPorNome("MT"));//MT
+			escala.setDia04Fk(turnosService.buscarPorNome("N"));//N
 			
-			escala.setDia15Fk(null);//MT
-			escala.setDia16Fk(null);//N
+			escala.setDia09Fk(turnosService.buscarPorNome("MT"));//MT
+			escala.setDia10Fk(turnosService.buscarPorNome("N"));//N
 			
-			escala.setDia21Fk(null);//MT
-			escala.setDia22Fk(null);//N
+			escala.setDia15Fk(turnosService.buscarPorNome("MT"));//MT
+			escala.setDia16Fk(turnosService.buscarPorNome("N"));//N
 			
-			escala.setDia27Fk(null);//MT
-			escala.setDia28Fk(null);//N
+			escala.setDia21Fk(turnosService.buscarPorNome("MT"));//MT
+			escala.setDia22Fk(turnosService.buscarPorNome("N"));//N
+			
+			escala.setDia27Fk(turnosService.buscarPorNome("MT"));//MT
+			escala.setDia28Fk(turnosService.buscarPorNome("N"));//N
 			
 			escala = escalaCalculosService.calcularDadosEscala(escala);
 			
@@ -282,20 +347,22 @@ public class EscalaAtalhosService {
 		public Escala atalhoCiclo1D(Escala escala) {
 			int qtdDiasNoMes = utilidadesDeCalendarioEEscala.quantidadeDeDiasNoMes(escala.getIdAnoMesFk().getNomeAnoMes());
 			
-			escala.setDia04Fk(null);//MT
-			escala.setDia05Fk(null);//N
+			escala.setIdRegimeFk(regimesDeTrabalhoService.buscarPorNomeUnico("PL"));
 			
-			escala.setDia10Fk(null);//MT
-			escala.setDia11Fk(null);//N
+			escala.setDia04Fk(turnosService.buscarPorNome("MT"));//MT
+			escala.setDia05Fk(turnosService.buscarPorNome("N"));//N
 			
-			escala.setDia16Fk(null);//MT
-			escala.setDia17Fk(null);//N
+			escala.setDia10Fk(turnosService.buscarPorNome("MT"));//MT
+			escala.setDia11Fk(turnosService.buscarPorNome("N"));//N
 			
-			escala.setDia22Fk(null);//MT
-			escala.setDia23Fk(null);//N
+			escala.setDia16Fk(turnosService.buscarPorNome("MT"));//MT
+			escala.setDia17Fk(turnosService.buscarPorNome("N"));//N
 			
-			escala.setDia28Fk(null);//MT
-			if(qtdDiasNoMes>=29) {escala.setDia29Fk(null);}//N
+			escala.setDia22Fk(turnosService.buscarPorNome("MT"));//MT
+			escala.setDia23Fk(turnosService.buscarPorNome("N"));//N
+			
+			escala.setDia28Fk(turnosService.buscarPorNome("MT"));//MT
+			if(qtdDiasNoMes>=29) {escala.setDia29Fk(turnosService.buscarPorNome("N"));}//N
 			
 			escala = escalaCalculosService.calcularDadosEscala(escala);
 			
@@ -305,20 +372,22 @@ public class EscalaAtalhosService {
 		public Escala atalhoCiclo1E(Escala escala) {
 			int qtdDiasNoMes = utilidadesDeCalendarioEEscala.quantidadeDeDiasNoMes(escala.getIdAnoMesFk().getNomeAnoMes());
 			
-			escala.setDia05Fk(null);//MT
-			escala.setDia06Fk(null);//N
+			escala.setIdRegimeFk(regimesDeTrabalhoService.buscarPorNomeUnico("PL"));
 			
-			escala.setDia11Fk(null);//MT
-			escala.setDia12Fk(null);//N
+			escala.setDia05Fk(turnosService.buscarPorNome("MT"));//MT
+			escala.setDia06Fk(turnosService.buscarPorNome("N"));//N
 			
-			escala.setDia17Fk(null);//MT
-			escala.setDia18Fk(null);//N
+			escala.setDia11Fk(turnosService.buscarPorNome("MT"));//MT
+			escala.setDia12Fk(turnosService.buscarPorNome("N"));//N
 			
-			escala.setDia23Fk(null);//MT
-			escala.setDia24Fk(null);//N
+			escala.setDia17Fk(turnosService.buscarPorNome("MT"));//MT
+			escala.setDia18Fk(turnosService.buscarPorNome("N"));//N
 			
-			if(qtdDiasNoMes>=29) {escala.setDia29Fk(null);}//MT
-			if(qtdDiasNoMes>=30) {escala.setDia30Fk(null);}//N
+			escala.setDia23Fk(turnosService.buscarPorNome("MT"));//MT
+			escala.setDia24Fk(turnosService.buscarPorNome("N"));//N
+			
+			if(qtdDiasNoMes>=29) {escala.setDia29Fk(turnosService.buscarPorNome("MT"));}//MT
+			if(qtdDiasNoMes>=30) {escala.setDia30Fk(turnosService.buscarPorNome("N"));}//N
 			
 			escala = escalaCalculosService.calcularDadosEscala(escala);
 			
@@ -328,22 +397,24 @@ public class EscalaAtalhosService {
 		public Escala atalhoCiclo1F(Escala escala) {
 			int qtdDiasNoMes = utilidadesDeCalendarioEEscala.quantidadeDeDiasNoMes(escala.getIdAnoMesFk().getNomeAnoMes());
 			
-			escala.setDia01Fk(null);//N
-			escala.setDia06Fk(null);//MT
+			escala.setIdRegimeFk(regimesDeTrabalhoService.buscarPorNomeUnico("PL"));
 			
-			escala.setDia07Fk(null);//N
-			escala.setDia12Fk(null);//MT
+			escala.setDia01Fk(turnosService.buscarPorNome("N"));//N
+			escala.setDia06Fk(turnosService.buscarPorNome("MT"));//MT
 			
-			escala.setDia13Fk(null);//N
-			escala.setDia18Fk(null);//MT
+			escala.setDia07Fk(turnosService.buscarPorNome("N"));//N
+			escala.setDia12Fk(turnosService.buscarPorNome("MT"));//MT
 			
-			escala.setDia19Fk(null);//N
-			escala.setDia24Fk(null);//MT
+			escala.setDia13Fk(turnosService.buscarPorNome("N"));//N
+			escala.setDia18Fk(turnosService.buscarPorNome("MT"));//MT
 			
-			escala.setDia25Fk(null);//N
-			if(qtdDiasNoMes>=30) {escala.setDia30Fk(null);}//MT
+			escala.setDia19Fk(turnosService.buscarPorNome("N"));//N
+			escala.setDia24Fk(turnosService.buscarPorNome("MT"));//MT
 			
-			if(qtdDiasNoMes==31) {escala.setDia31Fk(null);}//N
+			escala.setDia25Fk(turnosService.buscarPorNome("N"));//N
+			if(qtdDiasNoMes>=30) {escala.setDia30Fk(turnosService.buscarPorNome("MT"));}//MT
+			
+			if(qtdDiasNoMes==31) {escala.setDia31Fk(turnosService.buscarPorNome("N"));}//N
 			
 			escala = escalaCalculosService.calcularDadosEscala(escala);
 			
@@ -356,17 +427,19 @@ public class EscalaAtalhosService {
 				public Escala atalhoCiclo2A(Escala escala) {
 					int qtdDiasNoMes = utilidadesDeCalendarioEEscala.quantidadeDeDiasNoMes(escala.getIdAnoMesFk().getNomeAnoMes());
 					
-					escala.setDia01Fk(null);//MTN
+					escala.setIdRegimeFk(regimesDeTrabalhoService.buscarPorNomeUnico("PL"));
 					
-					escala.setDia07Fk(null);//MTN
+					escala.setDia01Fk(turnosService.buscarPorNome("MTN"));//MTN
 					
-					escala.setDia13Fk(null);//MTN
+					escala.setDia07Fk(turnosService.buscarPorNome("MTN"));//MTN
 					
-					escala.setDia19Fk(null);//MTN
+					escala.setDia13Fk(turnosService.buscarPorNome("MTN"));//MTN
 					
-					escala.setDia25Fk(null);//MTN
+					escala.setDia19Fk(turnosService.buscarPorNome("MTN"));//MTN
 					
-					if(qtdDiasNoMes==31) {escala.setDia31Fk(null);}//MTN
+					escala.setDia25Fk(turnosService.buscarPorNome("MTN"));//MTN
+					
+					if(qtdDiasNoMes==31) {escala.setDia31Fk(turnosService.buscarPorNome("MTN"));}//MTN
 					
 					escala = escalaCalculosService.calcularDadosEscala(escala);
 					
@@ -376,15 +449,17 @@ public class EscalaAtalhosService {
 				public Escala atalhoCiclo2B(Escala escala) {
 					int qtdDiasNoMes = utilidadesDeCalendarioEEscala.quantidadeDeDiasNoMes(escala.getIdAnoMesFk().getNomeAnoMes());
 					
-					escala.setDia02Fk(null);//MTN
+					escala.setIdRegimeFk(regimesDeTrabalhoService.buscarPorNomeUnico("PL"));
 					
-					escala.setDia08Fk(null);//MTN
+					escala.setDia02Fk(turnosService.buscarPorNome("MTN"));//MTN
 					
-					escala.setDia14Fk(null);//MTN
+					escala.setDia08Fk(turnosService.buscarPorNome("MTN"));//MTN
 					
-					escala.setDia20Fk(null);//MTN
+					escala.setDia14Fk(turnosService.buscarPorNome("MTN"));//MTN
 					
-					escala.setDia26Fk(null);//MTN
+					escala.setDia20Fk(turnosService.buscarPorNome("MTN"));//MTN
+					
+					escala.setDia26Fk(turnosService.buscarPorNome("MTN"));//MTN
 					
 					escala = escalaCalculosService.calcularDadosEscala(escala);
 					
@@ -394,15 +469,17 @@ public class EscalaAtalhosService {
 				public Escala atalhoCiclo2C(Escala escala) {
 					int qtdDiasNoMes = utilidadesDeCalendarioEEscala.quantidadeDeDiasNoMes(escala.getIdAnoMesFk().getNomeAnoMes());
 					
-					escala.setDia03Fk(null);//MTN
+					escala.setIdRegimeFk(regimesDeTrabalhoService.buscarPorNomeUnico("PL"));
 					
-					escala.setDia09Fk(null);//MTN
+					escala.setDia03Fk(turnosService.buscarPorNome("MTN"));//MTN
 					
-					escala.setDia15Fk(null);//MTN
+					escala.setDia09Fk(turnosService.buscarPorNome("MTN"));//MTN
 					
-					escala.setDia21Fk(null);//MTN
+					escala.setDia15Fk(turnosService.buscarPorNome("MTN"));//MTN
 					
-					escala.setDia27Fk(null);//MTN
+					escala.setDia21Fk(turnosService.buscarPorNome("MTN"));//MTN
+					
+					escala.setDia27Fk(turnosService.buscarPorNome("MTN"));//MTN
 					
 					escala = escalaCalculosService.calcularDadosEscala(escala);
 					
@@ -412,15 +489,17 @@ public class EscalaAtalhosService {
 				public Escala atalhoCiclo2D(Escala escala) {
 					int qtdDiasNoMes = utilidadesDeCalendarioEEscala.quantidadeDeDiasNoMes(escala.getIdAnoMesFk().getNomeAnoMes());
 					
-					escala.setDia04Fk(null);//MTN
+					escala.setIdRegimeFk(regimesDeTrabalhoService.buscarPorNomeUnico("PL"));
 					
-					escala.setDia10Fk(null);//MTN
+					escala.setDia04Fk(turnosService.buscarPorNome("MTN"));//MTN
 					
-					escala.setDia16Fk(null);//MTN
+					escala.setDia10Fk(turnosService.buscarPorNome("MTN"));//MTN
 					
-					escala.setDia22Fk(null);//MTN
+					escala.setDia16Fk(turnosService.buscarPorNome("MTN"));//MTN
 					
-					escala.setDia28Fk(null);//MTN
+					escala.setDia22Fk(turnosService.buscarPorNome("MTN"));//MTN
+					
+					escala.setDia28Fk(turnosService.buscarPorNome("MTN"));//MTN
 					
 					escala = escalaCalculosService.calcularDadosEscala(escala);
 					
@@ -430,15 +509,17 @@ public class EscalaAtalhosService {
 				public Escala atalhoCiclo2E(Escala escala) {
 					int qtdDiasNoMes = utilidadesDeCalendarioEEscala.quantidadeDeDiasNoMes(escala.getIdAnoMesFk().getNomeAnoMes());
 					
-					escala.setDia05Fk(null);//MTN
+					escala.setIdRegimeFk(regimesDeTrabalhoService.buscarPorNomeUnico("PL"));
 					
-					escala.setDia11Fk(null);//MTN
+					escala.setDia05Fk(turnosService.buscarPorNome("MTN"));//MTN
 					
-					escala.setDia17Fk(null);//MTN
+					escala.setDia11Fk(turnosService.buscarPorNome("MTN"));//MTN
 					
-					escala.setDia23Fk(null);//MTN
+					escala.setDia17Fk(turnosService.buscarPorNome("MTN"));//MTN
 					
-					if(qtdDiasNoMes>=29) {escala.setDia29Fk(null);}//MTN
+					escala.setDia23Fk(turnosService.buscarPorNome("MTN"));//MTN
+					
+					if(qtdDiasNoMes>=29) {escala.setDia29Fk(turnosService.buscarPorNome("MTN"));}//MTN
 					
 					escala = escalaCalculosService.calcularDadosEscala(escala);
 					
@@ -448,15 +529,17 @@ public class EscalaAtalhosService {
 				public Escala atalhoCiclo2F(Escala escala) {
 					int qtdDiasNoMes = utilidadesDeCalendarioEEscala.quantidadeDeDiasNoMes(escala.getIdAnoMesFk().getNomeAnoMes());
 					
-					escala.setDia06Fk(null);//MTN
+					escala.setIdRegimeFk(regimesDeTrabalhoService.buscarPorNomeUnico("PL"));
 					
-					escala.setDia12Fk(null);//MTN
+					escala.setDia06Fk(turnosService.buscarPorNome("MTN"));//MTN
 					
-					escala.setDia18Fk(null);//MTN
+					escala.setDia12Fk(turnosService.buscarPorNome("MTN"));//MTN
 					
-					escala.setDia24Fk(null);//MTN
+					escala.setDia18Fk(turnosService.buscarPorNome("MTN"));//MTN
 					
-					if(qtdDiasNoMes>=30) {escala.setDia30Fk(null);}//MTN
+					escala.setDia24Fk(turnosService.buscarPorNome("MTN"));//MTN
+					
+					if(qtdDiasNoMes>=30) {escala.setDia30Fk(turnosService.buscarPorNome("MTN"));}//MTN
 					
 					escala = escalaCalculosService.calcularDadosEscala(escala);
 					
@@ -472,27 +555,29 @@ public class EscalaAtalhosService {
 				public Escala atalhoCiclo4A(Escala escala) {
 					int qtdDiasNoMes = utilidadesDeCalendarioEEscala.quantidadeDeDiasNoMes(escala.getIdAnoMesFk().getNomeAnoMes());
 					
-					escala.setDia01Fk(null);//M
-					escala.setDia02Fk(null);//M
-					escala.setDia03Fk(null);//N
+					escala.setIdRegimeFk(regimesDeTrabalhoService.buscarPorNomeUnico("PL"));
 					
-					escala.setDia07Fk(null);//M
-					escala.setDia08Fk(null);//M
-					escala.setDia09Fk(null);//N
+					escala.setDia01Fk(turnosService.buscarPorNome("M"));//M
+					escala.setDia02Fk(turnosService.buscarPorNome("M"));//M
+					escala.setDia03Fk(turnosService.buscarPorNome("N"));//N
 					
-					escala.setDia13Fk(null);//M
-					escala.setDia14Fk(null);//M
-					escala.setDia15Fk(null);//N
+					escala.setDia07Fk(turnosService.buscarPorNome("M"));//M
+					escala.setDia08Fk(turnosService.buscarPorNome("M"));//M
+					escala.setDia09Fk(turnosService.buscarPorNome("N"));//N
 					
-					escala.setDia19Fk(null);//M
-					escala.setDia20Fk(null);//M
-					escala.setDia21Fk(null);//N
+					escala.setDia13Fk(turnosService.buscarPorNome("M"));//M
+					escala.setDia14Fk(turnosService.buscarPorNome("M"));//M
+					escala.setDia15Fk(turnosService.buscarPorNome("N"));//N
 					
-					escala.setDia25Fk(null);//M
-					escala.setDia26Fk(null);//M
-					escala.setDia27Fk(null);//N
+					escala.setDia19Fk(turnosService.buscarPorNome("M"));//M
+					escala.setDia20Fk(turnosService.buscarPorNome("M"));//M
+					escala.setDia21Fk(turnosService.buscarPorNome("N"));//N
 					
-					if(qtdDiasNoMes==31) {escala.setDia31Fk(null);}//M
+					escala.setDia25Fk(turnosService.buscarPorNome("M"));//M
+					escala.setDia26Fk(turnosService.buscarPorNome("M"));//M
+					escala.setDia27Fk(turnosService.buscarPorNome("N"));//N
+					
+					if(qtdDiasNoMes==31) {escala.setDia31Fk(turnosService.buscarPorNome("M"));}//M
 					
 					escala = escalaCalculosService.calcularDadosEscala(escala);
 					
@@ -502,25 +587,27 @@ public class EscalaAtalhosService {
 				public Escala atalhoCiclo4B(Escala escala) {
 					int qtdDiasNoMes = utilidadesDeCalendarioEEscala.quantidadeDeDiasNoMes(escala.getIdAnoMesFk().getNomeAnoMes());
 					
-					escala.setDia02Fk(null);//M
-					escala.setDia03Fk(null);//M
-					escala.setDia04Fk(null);//N
+					escala.setIdRegimeFk(regimesDeTrabalhoService.buscarPorNomeUnico("PL"));
 					
-					escala.setDia08Fk(null);//M
-					escala.setDia09Fk(null);//M
-					escala.setDia10Fk(null);//N
+					escala.setDia02Fk(turnosService.buscarPorNome("M"));//M
+					escala.setDia03Fk(turnosService.buscarPorNome("M"));//M
+					escala.setDia04Fk(turnosService.buscarPorNome("N"));//N
 					
-					escala.setDia14Fk(null);//M
-					escala.setDia15Fk(null);//M
-					escala.setDia16Fk(null);//N
+					escala.setDia08Fk(turnosService.buscarPorNome("M"));//M
+					escala.setDia09Fk(turnosService.buscarPorNome("M"));//M
+					escala.setDia10Fk(turnosService.buscarPorNome("N"));//N
 					
-					escala.setDia20Fk(null);//M
-					escala.setDia21Fk(null);//M
-					escala.setDia22Fk(null);//N
+					escala.setDia14Fk(turnosService.buscarPorNome("M"));//M
+					escala.setDia15Fk(turnosService.buscarPorNome("M"));//M
+					escala.setDia16Fk(turnosService.buscarPorNome("N"));//N
 					
-					escala.setDia26Fk(null);//M
-					escala.setDia27Fk(null);//M
-					escala.setDia28Fk(null);//N
+					escala.setDia20Fk(turnosService.buscarPorNome("M"));//M
+					escala.setDia21Fk(turnosService.buscarPorNome("M"));//M
+					escala.setDia22Fk(turnosService.buscarPorNome("N"));//N
+					
+					escala.setDia26Fk(turnosService.buscarPorNome("M"));//M
+					escala.setDia27Fk(turnosService.buscarPorNome("M"));//M
+					escala.setDia28Fk(turnosService.buscarPorNome("N"));//N
 					
 					escala = escalaCalculosService.calcularDadosEscala(escala);
 					
@@ -530,25 +617,27 @@ public class EscalaAtalhosService {
 				public Escala atalhoCiclo4C(Escala escala) {
 					int qtdDiasNoMes = utilidadesDeCalendarioEEscala.quantidadeDeDiasNoMes(escala.getIdAnoMesFk().getNomeAnoMes());
 					
-					escala.setDia03Fk(null);//M
-					escala.setDia04Fk(null);//M
-					escala.setDia05Fk(null);//N
+					escala.setIdRegimeFk(regimesDeTrabalhoService.buscarPorNomeUnico("PL"));
 					
-					escala.setDia09Fk(null);//M
-					escala.setDia10Fk(null);//M
-					escala.setDia11Fk(null);//N
+					escala.setDia03Fk(turnosService.buscarPorNome("M"));//M
+					escala.setDia04Fk(turnosService.buscarPorNome("M"));//M
+					escala.setDia05Fk(turnosService.buscarPorNome("N"));//N
 					
-					escala.setDia15Fk(null);//M
-					escala.setDia16Fk(null);//M
-					escala.setDia17Fk(null);//N
+					escala.setDia09Fk(turnosService.buscarPorNome("M"));//M
+					escala.setDia10Fk(turnosService.buscarPorNome("M"));//M
+					escala.setDia11Fk(turnosService.buscarPorNome("N"));//N
 					
-					escala.setDia21Fk(null);//M
-					escala.setDia22Fk(null);//M
-					escala.setDia23Fk(null);//N
+					escala.setDia15Fk(turnosService.buscarPorNome("M"));//M
+					escala.setDia16Fk(turnosService.buscarPorNome("M"));//M
+					escala.setDia17Fk(turnosService.buscarPorNome("N"));//N
 					
-					escala.setDia27Fk(null);//M
-					escala.setDia28Fk(null);//M
-					if(qtdDiasNoMes>=29) {escala.setDia29Fk(null);}//N
+					escala.setDia21Fk(turnosService.buscarPorNome("M"));//M
+					escala.setDia22Fk(turnosService.buscarPorNome("M"));//M
+					escala.setDia23Fk(turnosService.buscarPorNome("N"));//N
+					
+					escala.setDia27Fk(turnosService.buscarPorNome("M"));//M
+					escala.setDia28Fk(turnosService.buscarPorNome("M"));//M
+					if(qtdDiasNoMes>=29) {escala.setDia29Fk(turnosService.buscarPorNome("N"));}//N
 					
 					escala = escalaCalculosService.calcularDadosEscala(escala);
 					
@@ -558,25 +647,27 @@ public class EscalaAtalhosService {
 				public Escala atalhoCiclo4D(Escala escala) {
 					int qtdDiasNoMes = utilidadesDeCalendarioEEscala.quantidadeDeDiasNoMes(escala.getIdAnoMesFk().getNomeAnoMes());
 					
-					escala.setDia04Fk(null);//M
-					escala.setDia05Fk(null);//M
-					escala.setDia06Fk(null);//N
+					escala.setIdRegimeFk(regimesDeTrabalhoService.buscarPorNomeUnico("PL"));
 					
-					escala.setDia10Fk(null);//M
-					escala.setDia11Fk(null);//M
-					escala.setDia12Fk(null);//N
+					escala.setDia04Fk(turnosService.buscarPorNome("M"));//M
+					escala.setDia05Fk(turnosService.buscarPorNome("M"));//M
+					escala.setDia06Fk(turnosService.buscarPorNome("N"));//N
 					
-					escala.setDia16Fk(null);//M
-					escala.setDia17Fk(null);//M
-					escala.setDia18Fk(null);//N
+					escala.setDia10Fk(turnosService.buscarPorNome("M"));//M
+					escala.setDia11Fk(turnosService.buscarPorNome("M"));//M
+					escala.setDia12Fk(turnosService.buscarPorNome("N"));//N
 					
-					escala.setDia22Fk(null);//M
-					escala.setDia23Fk(null);//M
-					escala.setDia24Fk(null);//N
+					escala.setDia16Fk(turnosService.buscarPorNome("M"));//M
+					escala.setDia17Fk(turnosService.buscarPorNome("M"));//M
+					escala.setDia18Fk(turnosService.buscarPorNome("N"));//N
 					
-					escala.setDia28Fk(null);//M
-					if(qtdDiasNoMes>=29) {escala.setDia29Fk(null);}//M
-					if(qtdDiasNoMes>=30) {escala.setDia30Fk(null);}//N
+					escala.setDia22Fk(turnosService.buscarPorNome("M"));//M
+					escala.setDia23Fk(turnosService.buscarPorNome("M"));//M
+					escala.setDia24Fk(turnosService.buscarPorNome("N"));//N
+					
+					escala.setDia28Fk(turnosService.buscarPorNome("M"));//M
+					if(qtdDiasNoMes>=29) {escala.setDia29Fk(turnosService.buscarPorNome("M"));}//M
+					if(qtdDiasNoMes>=30) {escala.setDia30Fk(turnosService.buscarPorNome("N"));}//N
 					
 					escala = escalaCalculosService.calcularDadosEscala(escala);
 					
@@ -586,27 +677,29 @@ public class EscalaAtalhosService {
 				public Escala atalhoCiclo4E(Escala escala) {
 					int qtdDiasNoMes = utilidadesDeCalendarioEEscala.quantidadeDeDiasNoMes(escala.getIdAnoMesFk().getNomeAnoMes());
 					
-					escala.setDia01Fk(null);//N
-					escala.setDia05Fk(null);//M
-					escala.setDia06Fk(null);//M
+					escala.setIdRegimeFk(regimesDeTrabalhoService.buscarPorNomeUnico("PL"));
 					
-					escala.setDia07Fk(null);//N
-					escala.setDia11Fk(null);//M
-					escala.setDia12Fk(null);//M
+					escala.setDia01Fk(turnosService.buscarPorNome("N"));//N
+					escala.setDia05Fk(turnosService.buscarPorNome("M"));//M
+					escala.setDia06Fk(turnosService.buscarPorNome("M"));//M
 					
-					escala.setDia13Fk(null);//N
-					escala.setDia17Fk(null);//M
-					escala.setDia18Fk(null);//M
+					escala.setDia07Fk(turnosService.buscarPorNome("N"));//N
+					escala.setDia11Fk(turnosService.buscarPorNome("M"));//M
+					escala.setDia12Fk(turnosService.buscarPorNome("M"));//M
 					
-					escala.setDia19Fk(null);//N
-					escala.setDia23Fk(null);//M
-					escala.setDia24Fk(null);//M
+					escala.setDia13Fk(turnosService.buscarPorNome("N"));//N
+					escala.setDia17Fk(turnosService.buscarPorNome("M"));//M
+					escala.setDia18Fk(turnosService.buscarPorNome("M"));//M
 					
-					escala.setDia25Fk(null);//N
-					if(qtdDiasNoMes>=29) {escala.setDia29Fk(null);}//M
-					if(qtdDiasNoMes>=30) {escala.setDia30Fk(null);}//M
+					escala.setDia19Fk(turnosService.buscarPorNome("N"));//N
+					escala.setDia23Fk(turnosService.buscarPorNome("M"));//M
+					escala.setDia24Fk(turnosService.buscarPorNome("M"));//M
 					
-					if(qtdDiasNoMes==31) {escala.setDia31Fk(null);}//N
+					escala.setDia25Fk(turnosService.buscarPorNome("N"));//N
+					if(qtdDiasNoMes>=29) {escala.setDia29Fk(turnosService.buscarPorNome("M"));}//M
+					if(qtdDiasNoMes>=30) {escala.setDia30Fk(turnosService.buscarPorNome("M"));}//M
+					
+					if(qtdDiasNoMes==31) {escala.setDia31Fk(turnosService.buscarPorNome("N"));}//N
 					
 					escala = escalaCalculosService.calcularDadosEscala(escala);
 					
@@ -616,27 +709,29 @@ public class EscalaAtalhosService {
 				public Escala atalhoCiclo4F(Escala escala) {
 					int qtdDiasNoMes = utilidadesDeCalendarioEEscala.quantidadeDeDiasNoMes(escala.getIdAnoMesFk().getNomeAnoMes());
 					
-					escala.setDia01Fk(null);//M
-					escala.setDia02Fk(null);//N
-					escala.setDia06Fk(null);//M
+					escala.setIdRegimeFk(regimesDeTrabalhoService.buscarPorNomeUnico("PL"));
 					
-					escala.setDia07Fk(null);//M
-					escala.setDia08Fk(null);//N
-					escala.setDia12Fk(null);//M
+					escala.setDia01Fk(turnosService.buscarPorNome("M"));//M
+					escala.setDia02Fk(turnosService.buscarPorNome("N"));//N
+					escala.setDia06Fk(turnosService.buscarPorNome("M"));//M
 					
-					escala.setDia13Fk(null);//M
-					escala.setDia14Fk(null);//N
-					escala.setDia18Fk(null);//M
+					escala.setDia07Fk(turnosService.buscarPorNome("M"));//M
+					escala.setDia08Fk(turnosService.buscarPorNome("N"));//N
+					escala.setDia12Fk(turnosService.buscarPorNome("M"));//M
 					
-					escala.setDia19Fk(null);//M
-					escala.setDia20Fk(null);//N
-					escala.setDia24Fk(null);//M
+					escala.setDia13Fk(turnosService.buscarPorNome("M"));//M
+					escala.setDia14Fk(turnosService.buscarPorNome("N"));//N
+					escala.setDia18Fk(turnosService.buscarPorNome("M"));//M
 					
-					escala.setDia25Fk(null);//M
-					escala.setDia26Fk(null);//N
-					if(qtdDiasNoMes>=30) {escala.setDia30Fk(null);}//M
+					escala.setDia19Fk(turnosService.buscarPorNome("M"));//M
+					escala.setDia20Fk(turnosService.buscarPorNome("N"));//N
+					escala.setDia24Fk(turnosService.buscarPorNome("M"));//M
 					
-					if(qtdDiasNoMes==31) {escala.setDia31Fk(null);}//M
+					escala.setDia25Fk(turnosService.buscarPorNome("M"));//M
+					escala.setDia26Fk(turnosService.buscarPorNome("N"));//N
+					if(qtdDiasNoMes>=30) {escala.setDia30Fk(turnosService.buscarPorNome("M"));}//M
+					
+					if(qtdDiasNoMes==31) {escala.setDia31Fk(turnosService.buscarPorNome("M"));}//M
 					
 					escala = escalaCalculosService.calcularDadosEscala(escala);
 					
@@ -650,27 +745,29 @@ public class EscalaAtalhosService {
 				public Escala atalhoCiclo5A(Escala escala) {
 					int qtdDiasNoMes = utilidadesDeCalendarioEEscala.quantidadeDeDiasNoMes(escala.getIdAnoMesFk().getNomeAnoMes());
 					
-					escala.setDia01Fk(null);//T
-					escala.setDia02Fk(null);//T
-					escala.setDia03Fk(null);//N
+					escala.setIdRegimeFk(regimesDeTrabalhoService.buscarPorNomeUnico("PL"));
 					
-					escala.setDia07Fk(null);//T
-					escala.setDia08Fk(null);//T
-					escala.setDia09Fk(null);//N
+					escala.setDia01Fk(turnosService.buscarPorNome("T"));//T
+					escala.setDia02Fk(turnosService.buscarPorNome("T"));//T
+					escala.setDia03Fk(turnosService.buscarPorNome("N"));//N
 					
-					escala.setDia13Fk(null);//T
-					escala.setDia14Fk(null);//T
-					escala.setDia15Fk(null);//N
+					escala.setDia07Fk(turnosService.buscarPorNome("T"));//T
+					escala.setDia08Fk(turnosService.buscarPorNome("T"));//T
+					escala.setDia09Fk(turnosService.buscarPorNome("N"));//N
 					
-					escala.setDia19Fk(null);//T
-					escala.setDia20Fk(null);//T
-					escala.setDia21Fk(null);//N
+					escala.setDia13Fk(turnosService.buscarPorNome("T"));//T
+					escala.setDia14Fk(turnosService.buscarPorNome("T"));//T
+					escala.setDia15Fk(turnosService.buscarPorNome("N"));//N
 					
-					escala.setDia25Fk(null);//T
-					escala.setDia26Fk(null);//T
-					escala.setDia27Fk(null);//N
+					escala.setDia19Fk(turnosService.buscarPorNome("T"));//T
+					escala.setDia20Fk(turnosService.buscarPorNome("T"));//T
+					escala.setDia21Fk(turnosService.buscarPorNome("N"));//N
 					
-					if(qtdDiasNoMes==31) {escala.setDia31Fk(null);}//M
+					escala.setDia25Fk(turnosService.buscarPorNome("T"));//T
+					escala.setDia26Fk(turnosService.buscarPorNome("T"));//T
+					escala.setDia27Fk(turnosService.buscarPorNome("N"));//N
+					
+					if(qtdDiasNoMes==31) {escala.setDia31Fk(turnosService.buscarPorNome("T"));}//T
 					
 					escala = escalaCalculosService.calcularDadosEscala(escala);
 					
@@ -680,25 +777,27 @@ public class EscalaAtalhosService {
 				public Escala atalhoCiclo5B(Escala escala) {
 					int qtdDiasNoMes = utilidadesDeCalendarioEEscala.quantidadeDeDiasNoMes(escala.getIdAnoMesFk().getNomeAnoMes());
 					
-					escala.setDia02Fk(null);//T
-					escala.setDia03Fk(null);//T
-					escala.setDia04Fk(null);//N
+					escala.setIdRegimeFk(regimesDeTrabalhoService.buscarPorNomeUnico("PL"));
 					
-					escala.setDia08Fk(null);//T
-					escala.setDia09Fk(null);//T
-					escala.setDia10Fk(null);//N
+					escala.setDia02Fk(turnosService.buscarPorNome("T"));//T
+					escala.setDia03Fk(turnosService.buscarPorNome("T"));//T
+					escala.setDia04Fk(turnosService.buscarPorNome("N"));//N
 					
-					escala.setDia14Fk(null);//T
-					escala.setDia15Fk(null);//T
-					escala.setDia16Fk(null);//N
+					escala.setDia08Fk(turnosService.buscarPorNome("T"));//T
+					escala.setDia09Fk(turnosService.buscarPorNome("T"));//T
+					escala.setDia10Fk(turnosService.buscarPorNome("N"));//N
 					
-					escala.setDia20Fk(null);//T
-					escala.setDia21Fk(null);//T
-					escala.setDia22Fk(null);//N
+					escala.setDia14Fk(turnosService.buscarPorNome("T"));//T
+					escala.setDia15Fk(turnosService.buscarPorNome("T"));//T
+					escala.setDia16Fk(turnosService.buscarPorNome("N"));//N
 					
-					escala.setDia26Fk(null);//T
-					escala.setDia27Fk(null);//T
-					escala.setDia28Fk(null);//N
+					escala.setDia20Fk(turnosService.buscarPorNome("T"));//T
+					escala.setDia21Fk(turnosService.buscarPorNome("T"));//T
+					escala.setDia22Fk(turnosService.buscarPorNome("N"));//N
+					
+					escala.setDia26Fk(turnosService.buscarPorNome("T"));//T
+					escala.setDia27Fk(turnosService.buscarPorNome("T"));//T
+					escala.setDia28Fk(turnosService.buscarPorNome("N"));//N
 					
 					escala = escalaCalculosService.calcularDadosEscala(escala);
 					
@@ -708,25 +807,27 @@ public class EscalaAtalhosService {
 				public Escala atalhoCiclo5C(Escala escala) {
 					int qtdDiasNoMes = utilidadesDeCalendarioEEscala.quantidadeDeDiasNoMes(escala.getIdAnoMesFk().getNomeAnoMes());
 					
-					escala.setDia03Fk(null);//T
-					escala.setDia04Fk(null);//T
-					escala.setDia05Fk(null);//N
+					escala.setIdRegimeFk(regimesDeTrabalhoService.buscarPorNomeUnico("PL"));
 					
-					escala.setDia09Fk(null);//T
-					escala.setDia10Fk(null);//T
-					escala.setDia11Fk(null);//N
+					escala.setDia03Fk(turnosService.buscarPorNome("T"));//T
+					escala.setDia04Fk(turnosService.buscarPorNome("T"));//T
+					escala.setDia05Fk(turnosService.buscarPorNome("N"));//N
 					
-					escala.setDia15Fk(null);//T
-					escala.setDia16Fk(null);//T
-					escala.setDia17Fk(null);//N
+					escala.setDia09Fk(turnosService.buscarPorNome("T"));//T
+					escala.setDia10Fk(turnosService.buscarPorNome("T"));//T
+					escala.setDia11Fk(turnosService.buscarPorNome("N"));//N
 					
-					escala.setDia21Fk(null);//T
-					escala.setDia22Fk(null);//T
-					escala.setDia23Fk(null);//N
+					escala.setDia15Fk(turnosService.buscarPorNome("T"));//T
+					escala.setDia16Fk(turnosService.buscarPorNome("T"));//T
+					escala.setDia17Fk(turnosService.buscarPorNome("N"));//N
 					
-					escala.setDia27Fk(null);//T
-					escala.setDia28Fk(null);//T
-					if(qtdDiasNoMes>=29) {escala.setDia29Fk(null);}//N
+					escala.setDia21Fk(turnosService.buscarPorNome("T"));//T
+					escala.setDia22Fk(turnosService.buscarPorNome("T"));//T
+					escala.setDia23Fk(turnosService.buscarPorNome("N"));//N
+					
+					escala.setDia27Fk(turnosService.buscarPorNome("T"));//T
+					escala.setDia28Fk(turnosService.buscarPorNome("T"));//T
+					if(qtdDiasNoMes>=29) {escala.setDia29Fk(turnosService.buscarPorNome("N"));}//N
 					
 					escala = escalaCalculosService.calcularDadosEscala(escala);
 					
@@ -736,25 +837,27 @@ public class EscalaAtalhosService {
 				public Escala atalhoCiclo5D(Escala escala) {
 					int qtdDiasNoMes = utilidadesDeCalendarioEEscala.quantidadeDeDiasNoMes(escala.getIdAnoMesFk().getNomeAnoMes());
 					
-					escala.setDia04Fk(null);//T
-					escala.setDia05Fk(null);//T
-					escala.setDia06Fk(null);//N
+					escala.setIdRegimeFk(regimesDeTrabalhoService.buscarPorNomeUnico("PL"));
 					
-					escala.setDia10Fk(null);//T
-					escala.setDia11Fk(null);//T
-					escala.setDia12Fk(null);//N
+					escala.setDia04Fk(turnosService.buscarPorNome("T"));//T
+					escala.setDia05Fk(turnosService.buscarPorNome("T"));//T
+					escala.setDia06Fk(turnosService.buscarPorNome("N"));//N
 					
-					escala.setDia16Fk(null);//T
-					escala.setDia17Fk(null);//T
-					escala.setDia18Fk(null);//N
+					escala.setDia10Fk(turnosService.buscarPorNome("T"));//T
+					escala.setDia11Fk(turnosService.buscarPorNome("T"));//T
+					escala.setDia12Fk(turnosService.buscarPorNome("N"));//N
 					
-					escala.setDia22Fk(null);//T
-					escala.setDia23Fk(null);//T
-					escala.setDia24Fk(null);//N
+					escala.setDia16Fk(turnosService.buscarPorNome("T"));//T
+					escala.setDia17Fk(turnosService.buscarPorNome("T"));//T
+					escala.setDia18Fk(turnosService.buscarPorNome("N"));//N
 					
-					escala.setDia28Fk(null);//T
-					if(qtdDiasNoMes>=29) {escala.setDia29Fk(null);}//T
-					if(qtdDiasNoMes>=30) {escala.setDia30Fk(null);}//N
+					escala.setDia22Fk(turnosService.buscarPorNome("T"));//T
+					escala.setDia23Fk(turnosService.buscarPorNome("T"));//T
+					escala.setDia24Fk(turnosService.buscarPorNome("N"));//N
+					
+					escala.setDia28Fk(turnosService.buscarPorNome("T"));//T
+					if(qtdDiasNoMes>=29) {escala.setDia29Fk(turnosService.buscarPorNome("T"));}//T
+					if(qtdDiasNoMes>=30) {escala.setDia30Fk(turnosService.buscarPorNome("N"));}//N
 					
 					escala = escalaCalculosService.calcularDadosEscala(escala);
 					
@@ -764,27 +867,29 @@ public class EscalaAtalhosService {
 				public Escala atalhoCiclo5E(Escala escala) {
 					int qtdDiasNoMes = utilidadesDeCalendarioEEscala.quantidadeDeDiasNoMes(escala.getIdAnoMesFk().getNomeAnoMes());
 					
-					escala.setDia01Fk(null);//N
-					escala.setDia05Fk(null);//T
-					escala.setDia06Fk(null);//T
+					escala.setIdRegimeFk(regimesDeTrabalhoService.buscarPorNomeUnico("PL"));
 					
-					escala.setDia07Fk(null);//N
-					escala.setDia11Fk(null);//T
-					escala.setDia12Fk(null);//T
+					escala.setDia01Fk(turnosService.buscarPorNome("N"));//N
+					escala.setDia05Fk(turnosService.buscarPorNome("T"));//T
+					escala.setDia06Fk(turnosService.buscarPorNome("T"));//T
 					
-					escala.setDia13Fk(null);//N
-					escala.setDia17Fk(null);//T
-					escala.setDia18Fk(null);//T
+					escala.setDia07Fk(turnosService.buscarPorNome("N"));//N
+					escala.setDia11Fk(turnosService.buscarPorNome("T"));//T
+					escala.setDia12Fk(turnosService.buscarPorNome("T"));//T
 					
-					escala.setDia19Fk(null);//N
-					escala.setDia23Fk(null);//T
-					escala.setDia24Fk(null);//T
+					escala.setDia13Fk(turnosService.buscarPorNome("N"));//N
+					escala.setDia17Fk(turnosService.buscarPorNome("T"));//T
+					escala.setDia18Fk(turnosService.buscarPorNome("T"));//T
 					
-					escala.setDia25Fk(null);//N
-					if(qtdDiasNoMes>=29) {escala.setDia29Fk(null);}//T
-					if(qtdDiasNoMes>=30) {escala.setDia30Fk(null);}//T
+					escala.setDia19Fk(turnosService.buscarPorNome("N"));//N
+					escala.setDia23Fk(turnosService.buscarPorNome("T"));//T
+					escala.setDia24Fk(turnosService.buscarPorNome("T"));//T
 					
-					if(qtdDiasNoMes==31) {escala.setDia31Fk(null);}//N
+					escala.setDia25Fk(turnosService.buscarPorNome("N"));//N
+					if(qtdDiasNoMes>=29) {escala.setDia29Fk(turnosService.buscarPorNome("T"));}//T
+					if(qtdDiasNoMes>=30) {escala.setDia30Fk(turnosService.buscarPorNome("T"));}//T
+					
+					if(qtdDiasNoMes==31) {escala.setDia31Fk(turnosService.buscarPorNome("N"));}//N
 					
 					escala = escalaCalculosService.calcularDadosEscala(escala);
 					
@@ -794,27 +899,29 @@ public class EscalaAtalhosService {
 				public Escala atalhoCiclo5F(Escala escala) {
 					int qtdDiasNoMes = utilidadesDeCalendarioEEscala.quantidadeDeDiasNoMes(escala.getIdAnoMesFk().getNomeAnoMes());
 					
-					escala.setDia01Fk(null);//T
-					escala.setDia02Fk(null);//N
-					escala.setDia06Fk(null);//T
+					escala.setIdRegimeFk(regimesDeTrabalhoService.buscarPorNomeUnico("PL"));
 					
-					escala.setDia07Fk(null);//T
-					escala.setDia08Fk(null);//N
-					escala.setDia12Fk(null);//T
+					escala.setDia01Fk(turnosService.buscarPorNome("T"));//T
+					escala.setDia02Fk(turnosService.buscarPorNome("N"));//N
+					escala.setDia06Fk(turnosService.buscarPorNome("T"));//T
 					
-					escala.setDia13Fk(null);//T
-					escala.setDia14Fk(null);//N
-					escala.setDia18Fk(null);//T
+					escala.setDia07Fk(turnosService.buscarPorNome("T"));//T
+					escala.setDia08Fk(turnosService.buscarPorNome("N"));//N
+					escala.setDia12Fk(turnosService.buscarPorNome("T"));//T
 					
-					escala.setDia19Fk(null);//T
-					escala.setDia20Fk(null);//N
-					escala.setDia24Fk(null);//T
+					escala.setDia13Fk(turnosService.buscarPorNome("T"));//T
+					escala.setDia14Fk(turnosService.buscarPorNome("N"));//N
+					escala.setDia18Fk(turnosService.buscarPorNome("T"));//T
 					
-					escala.setDia25Fk(null);//T
-					escala.setDia26Fk(null);//N
-					if(qtdDiasNoMes>=30) {escala.setDia30Fk(null);}//T
+					escala.setDia19Fk(turnosService.buscarPorNome("T"));//T
+					escala.setDia20Fk(turnosService.buscarPorNome("N"));//N
+					escala.setDia24Fk(turnosService.buscarPorNome("T"));//T
 					
-					if(qtdDiasNoMes==31) {escala.setDia31Fk(null);}//T
+					escala.setDia25Fk(turnosService.buscarPorNome("T"));//T
+					escala.setDia26Fk(turnosService.buscarPorNome("N"));//N
+					if(qtdDiasNoMes>=30) {escala.setDia30Fk(turnosService.buscarPorNome("T"));}//T
+					
+					if(qtdDiasNoMes==31) {escala.setDia31Fk(turnosService.buscarPorNome("T"));}//T
 					
 					escala = escalaCalculosService.calcularDadosEscala(escala);
 					
@@ -827,22 +934,24 @@ public class EscalaAtalhosService {
 				public Escala atalhoCiclo6A(Escala escala) {
 					int qtdDiasNoMes = utilidadesDeCalendarioEEscala.quantidadeDeDiasNoMes(escala.getIdAnoMesFk().getNomeAnoMes());
 					
-					escala.setDia01Fk(null);//MT
-					escala.setDia02Fk(null);//MT
+					escala.setIdRegimeFk(regimesDeTrabalhoService.buscarPorNomeUnico("PL"));
 					
-					escala.setDia07Fk(null);//MT
-					escala.setDia08Fk(null);//MT
+					escala.setDia01Fk(turnosService.buscarPorNome("MT"));//MT
+					escala.setDia02Fk(turnosService.buscarPorNome("MT"));//MT
 					
-					escala.setDia13Fk(null);//MT
-					escala.setDia14Fk(null);//MT
+					escala.setDia07Fk(turnosService.buscarPorNome("MT"));//MT
+					escala.setDia08Fk(turnosService.buscarPorNome("MT"));//MT
 					
-					escala.setDia19Fk(null);//MT
-					escala.setDia20Fk(null);//MT
+					escala.setDia13Fk(turnosService.buscarPorNome("MT"));//MT
+					escala.setDia14Fk(turnosService.buscarPorNome("MT"));//MT
 					
-					escala.setDia25Fk(null);//MT
-					escala.setDia26Fk(null);//MT
+					escala.setDia19Fk(turnosService.buscarPorNome("MT"));//MT
+					escala.setDia20Fk(turnosService.buscarPorNome("MT"));//MT
 					
-					if(qtdDiasNoMes==31) {escala.setDia31Fk(null);}//MT
+					escala.setDia25Fk(turnosService.buscarPorNome("MT"));//MT
+					escala.setDia26Fk(turnosService.buscarPorNome("MT"));//MT
+					
+					if(qtdDiasNoMes==31) {escala.setDia31Fk(turnosService.buscarPorNome("MT"));}//MT
 					
 					escala = escalaCalculosService.calcularDadosEscala(escala);
 					
@@ -852,20 +961,22 @@ public class EscalaAtalhosService {
 				public Escala atalhoCiclo6B(Escala escala) {
 					int qtdDiasNoMes = utilidadesDeCalendarioEEscala.quantidadeDeDiasNoMes(escala.getIdAnoMesFk().getNomeAnoMes());
 					
-					escala.setDia02Fk(null);//MT
-					escala.setDia03Fk(null);//MT
+					escala.setIdRegimeFk(regimesDeTrabalhoService.buscarPorNomeUnico("PL"));
 					
-					escala.setDia08Fk(null);//MT
-					escala.setDia09Fk(null);//MT
+					escala.setDia02Fk(turnosService.buscarPorNome("MT"));//MT
+					escala.setDia03Fk(turnosService.buscarPorNome("MT"));//MT
 					
-					escala.setDia14Fk(null);//MT
-					escala.setDia15Fk(null);//MT
+					escala.setDia08Fk(turnosService.buscarPorNome("MT"));//MT
+					escala.setDia09Fk(turnosService.buscarPorNome("MT"));//MT
 					
-					escala.setDia20Fk(null);//MT
-					escala.setDia21Fk(null);//MT
+					escala.setDia14Fk(turnosService.buscarPorNome("MT"));//MT
+					escala.setDia15Fk(turnosService.buscarPorNome("MT"));//MT
 					
-					escala.setDia26Fk(null);//MT
-					escala.setDia27Fk(null);//MT
+					escala.setDia20Fk(turnosService.buscarPorNome("MT"));//MT
+					escala.setDia21Fk(turnosService.buscarPorNome("MT"));//MT
+					
+					escala.setDia26Fk(turnosService.buscarPorNome("MT"));//MT
+					escala.setDia27Fk(turnosService.buscarPorNome("MT"));//MT
 					
 					escala = escalaCalculosService.calcularDadosEscala(escala);
 					
@@ -875,20 +986,22 @@ public class EscalaAtalhosService {
 				public Escala atalhoCiclo6C(Escala escala) {
 					int qtdDiasNoMes = utilidadesDeCalendarioEEscala.quantidadeDeDiasNoMes(escala.getIdAnoMesFk().getNomeAnoMes());
 					
-					escala.setDia03Fk(null);//MT
-					escala.setDia04Fk(null);//MT
+					escala.setIdRegimeFk(regimesDeTrabalhoService.buscarPorNomeUnico("PL"));
 					
-					escala.setDia09Fk(null);//MT
-					escala.setDia10Fk(null);//MT
+					escala.setDia03Fk(turnosService.buscarPorNome("MT"));//MT
+					escala.setDia04Fk(turnosService.buscarPorNome("MT"));//MT
 					
-					escala.setDia15Fk(null);//MT
-					escala.setDia16Fk(null);//MT
+					escala.setDia09Fk(turnosService.buscarPorNome("MT"));//MT
+					escala.setDia10Fk(turnosService.buscarPorNome("MT"));//MT
 					
-					escala.setDia21Fk(null);//MT
-					escala.setDia22Fk(null);//MT
+					escala.setDia15Fk(turnosService.buscarPorNome("MT"));//MT
+					escala.setDia16Fk(turnosService.buscarPorNome("MT"));//MT
 					
-					escala.setDia27Fk(null);//MT
-					escala.setDia28Fk(null);//MT
+					escala.setDia21Fk(turnosService.buscarPorNome("MT"));//MT
+					escala.setDia22Fk(turnosService.buscarPorNome("MT"));//MT
+					
+					escala.setDia27Fk(turnosService.buscarPorNome("MT"));//MT
+					escala.setDia28Fk(turnosService.buscarPorNome("MT"));//MT
 					
 					escala = escalaCalculosService.calcularDadosEscala(escala);
 					
@@ -898,20 +1011,22 @@ public class EscalaAtalhosService {
 				public Escala atalhoCiclo6D(Escala escala) {
 					int qtdDiasNoMes = utilidadesDeCalendarioEEscala.quantidadeDeDiasNoMes(escala.getIdAnoMesFk().getNomeAnoMes());
 					
-					escala.setDia04Fk(null);//MT
-					escala.setDia05Fk(null);//MT
+					escala.setIdRegimeFk(regimesDeTrabalhoService.buscarPorNomeUnico("PL"));
 					
-					escala.setDia10Fk(null);//MT
-					escala.setDia11Fk(null);//MT
+					escala.setDia04Fk(turnosService.buscarPorNome("MT"));//MT
+					escala.setDia05Fk(turnosService.buscarPorNome("MT"));//MT
 					
-					escala.setDia16Fk(null);//MT
-					escala.setDia17Fk(null);//MT
+					escala.setDia10Fk(turnosService.buscarPorNome("MT"));//MT
+					escala.setDia11Fk(turnosService.buscarPorNome("MT"));//MT
 					
-					escala.setDia22Fk(null);//MT
-					escala.setDia23Fk(null);//MT
+					escala.setDia16Fk(turnosService.buscarPorNome("MT"));//MT
+					escala.setDia17Fk(turnosService.buscarPorNome("MT"));//MT
 					
-					escala.setDia28Fk(null);//MT
-					if(qtdDiasNoMes>=29) {escala.setDia29Fk(null);}//MT
+					escala.setDia22Fk(turnosService.buscarPorNome("MT"));//MT
+					escala.setDia23Fk(turnosService.buscarPorNome("MT"));//MT
+					
+					escala.setDia28Fk(turnosService.buscarPorNome("MT"));//MT
+					if(qtdDiasNoMes>=29) {escala.setDia29Fk(turnosService.buscarPorNome("MT"));}//MT
 					
 					escala = escalaCalculosService.calcularDadosEscala(escala);
 					
@@ -921,20 +1036,22 @@ public class EscalaAtalhosService {
 				public Escala atalhoCiclo6E(Escala escala) {
 					int qtdDiasNoMes = utilidadesDeCalendarioEEscala.quantidadeDeDiasNoMes(escala.getIdAnoMesFk().getNomeAnoMes());
 					
-					escala.setDia05Fk(null);//MT
-					escala.setDia06Fk(null);//MT
+					escala.setIdRegimeFk(regimesDeTrabalhoService.buscarPorNomeUnico("PL"));
 					
-					escala.setDia11Fk(null);//MT
-					escala.setDia12Fk(null);//MT
+					escala.setDia05Fk(turnosService.buscarPorNome("MT"));//MT
+					escala.setDia06Fk(turnosService.buscarPorNome("MT"));//MT
 					
-					escala.setDia17Fk(null);//MT
-					escala.setDia18Fk(null);//MT
+					escala.setDia11Fk(turnosService.buscarPorNome("MT"));//MT
+					escala.setDia12Fk(turnosService.buscarPorNome("MT"));//MT
 					
-					escala.setDia23Fk(null);//MT
-					escala.setDia24Fk(null);//MT
+					escala.setDia17Fk(turnosService.buscarPorNome("MT"));//MT
+					escala.setDia18Fk(turnosService.buscarPorNome("MT"));//MT
 					
-					if(qtdDiasNoMes>=29) {escala.setDia29Fk(null);}//MT
-					if(qtdDiasNoMes>=30) {escala.setDia30Fk(null);}//MT
+					escala.setDia23Fk(turnosService.buscarPorNome("MT"));//MT
+					escala.setDia24Fk(turnosService.buscarPorNome("MT"));//MT
+					
+					if(qtdDiasNoMes>=29) {escala.setDia29Fk(turnosService.buscarPorNome("MT"));}//MT
+					if(qtdDiasNoMes>=30) {escala.setDia30Fk(turnosService.buscarPorNome("MT"));}//MT
 					
 					escala = escalaCalculosService.calcularDadosEscala(escala);
 					
@@ -944,22 +1061,24 @@ public class EscalaAtalhosService {
 				public Escala atalhoCiclo6F(Escala escala) {
 					int qtdDiasNoMes = utilidadesDeCalendarioEEscala.quantidadeDeDiasNoMes(escala.getIdAnoMesFk().getNomeAnoMes());
 					
-					escala.setDia01Fk(null);//MT
-					escala.setDia06Fk(null);//MT
+					escala.setIdRegimeFk(regimesDeTrabalhoService.buscarPorNomeUnico("PL"));
 					
-					escala.setDia07Fk(null);//MT
-					escala.setDia12Fk(null);//MT
+					escala.setDia01Fk(turnosService.buscarPorNome("MT"));//MT
+					escala.setDia06Fk(turnosService.buscarPorNome("MT"));//MT
 					
-					escala.setDia13Fk(null);//MT
-					escala.setDia18Fk(null);//MT
+					escala.setDia07Fk(turnosService.buscarPorNome("MT"));//MT
+					escala.setDia12Fk(turnosService.buscarPorNome("MT"));//MT
 					
-					escala.setDia19Fk(null);//MT
-					escala.setDia24Fk(null);//MT
+					escala.setDia13Fk(turnosService.buscarPorNome("MT"));//MT
+					escala.setDia18Fk(turnosService.buscarPorNome("MT"));//MT
 					
-					escala.setDia25Fk(null);//MT
-					if(qtdDiasNoMes>=30) {escala.setDia30Fk(null);}//MT
+					escala.setDia19Fk(turnosService.buscarPorNome("MT"));//MT
+					escala.setDia24Fk(turnosService.buscarPorNome("MT"));//MT
 					
-					if(qtdDiasNoMes==31) {escala.setDia31Fk(null);}//MT
+					escala.setDia25Fk(turnosService.buscarPorNome("MT"));//MT
+					if(qtdDiasNoMes>=30) {escala.setDia30Fk(turnosService.buscarPorNome("MT"));}//MT
+					
+					if(qtdDiasNoMes==31) {escala.setDia31Fk(turnosService.buscarPorNome("MT"));}//MT
 					
 					escala = escalaCalculosService.calcularDadosEscala(escala);
 					
@@ -974,27 +1093,29 @@ public class EscalaAtalhosService {
 				public Escala atalhoCiclo7A(Escala escala) {
 					int qtdDiasNoMes = utilidadesDeCalendarioEEscala.quantidadeDeDiasNoMes(escala.getIdAnoMesFk().getNomeAnoMes());
 					
-					escala.setDia01Fk(null);//M
-					escala.setDia02Fk(null);//T
-					escala.setDia03Fk(null);//N
+					escala.setIdRegimeFk(regimesDeTrabalhoService.buscarPorNomeUnico("PL"));
 					
-					escala.setDia07Fk(null);//M
-					escala.setDia08Fk(null);//T
-					escala.setDia09Fk(null);//N
+					escala.setDia01Fk(turnosService.buscarPorNome("M"));//M
+					escala.setDia02Fk(turnosService.buscarPorNome("T"));//T
+					escala.setDia03Fk(turnosService.buscarPorNome("N"));//N
 					
-					escala.setDia13Fk(null);//M
-					escala.setDia14Fk(null);//T
-					escala.setDia15Fk(null);//N
+					escala.setDia07Fk(turnosService.buscarPorNome("M"));//M
+					escala.setDia08Fk(turnosService.buscarPorNome("T"));//T
+					escala.setDia09Fk(turnosService.buscarPorNome("N"));//N
 					
-					escala.setDia19Fk(null);//M
-					escala.setDia20Fk(null);//T
-					escala.setDia21Fk(null);//N
+					escala.setDia13Fk(turnosService.buscarPorNome("M"));//M
+					escala.setDia14Fk(turnosService.buscarPorNome("T"));//T
+					escala.setDia15Fk(turnosService.buscarPorNome("N"));//N
 					
-					escala.setDia25Fk(null);//M
-					escala.setDia26Fk(null);//T
-					escala.setDia27Fk(null);//N
+					escala.setDia19Fk(turnosService.buscarPorNome("M"));//M
+					escala.setDia20Fk(turnosService.buscarPorNome("T"));//T
+					escala.setDia21Fk(turnosService.buscarPorNome("N"));//N
 					
-					if(qtdDiasNoMes==31) {escala.setDia31Fk(null);}//M
+					escala.setDia25Fk(turnosService.buscarPorNome("M"));//M
+					escala.setDia26Fk(turnosService.buscarPorNome("T"));//T
+					escala.setDia27Fk(turnosService.buscarPorNome("N"));//N
+					
+					if(qtdDiasNoMes==31) {escala.setDia31Fk(turnosService.buscarPorNome("M"));}//M
 					
 					escala = escalaCalculosService.calcularDadosEscala(escala);
 					
@@ -1004,25 +1125,27 @@ public class EscalaAtalhosService {
 				public Escala atalhoCiclo7B(Escala escala) {
 					int qtdDiasNoMes = utilidadesDeCalendarioEEscala.quantidadeDeDiasNoMes(escala.getIdAnoMesFk().getNomeAnoMes());
 					
-					escala.setDia02Fk(null);//M
-					escala.setDia03Fk(null);//T
-					escala.setDia04Fk(null);//N
+					escala.setIdRegimeFk(regimesDeTrabalhoService.buscarPorNomeUnico("PL"));
 					
-					escala.setDia08Fk(null);//M
-					escala.setDia09Fk(null);//T
-					escala.setDia10Fk(null);//N
+					escala.setDia02Fk(turnosService.buscarPorNome("M"));//M
+					escala.setDia03Fk(turnosService.buscarPorNome("T"));//T
+					escala.setDia04Fk(turnosService.buscarPorNome("N"));//N
 					
-					escala.setDia14Fk(null);//M
-					escala.setDia15Fk(null);//T
-					escala.setDia16Fk(null);//N
+					escala.setDia08Fk(turnosService.buscarPorNome("M"));//M
+					escala.setDia09Fk(turnosService.buscarPorNome("T"));//T
+					escala.setDia10Fk(turnosService.buscarPorNome("N"));//N
 					
-					escala.setDia20Fk(null);//M
-					escala.setDia21Fk(null);//T
-					escala.setDia22Fk(null);//N
+					escala.setDia14Fk(turnosService.buscarPorNome("M"));//M
+					escala.setDia15Fk(turnosService.buscarPorNome("T"));//T
+					escala.setDia16Fk(turnosService.buscarPorNome("N"));//N
 					
-					escala.setDia26Fk(null);//M
-					escala.setDia27Fk(null);//T
-					escala.setDia28Fk(null);//N
+					escala.setDia20Fk(turnosService.buscarPorNome("M"));//M
+					escala.setDia21Fk(turnosService.buscarPorNome("T"));//T
+					escala.setDia22Fk(turnosService.buscarPorNome("N"));//N
+					
+					escala.setDia26Fk(turnosService.buscarPorNome("M"));//M
+					escala.setDia27Fk(turnosService.buscarPorNome("T"));//T
+					escala.setDia28Fk(turnosService.buscarPorNome("N"));//N
 					
 					escala = escalaCalculosService.calcularDadosEscala(escala);
 					
@@ -1032,25 +1155,27 @@ public class EscalaAtalhosService {
 				public Escala atalhoCiclo7C(Escala escala) {
 					int qtdDiasNoMes = utilidadesDeCalendarioEEscala.quantidadeDeDiasNoMes(escala.getIdAnoMesFk().getNomeAnoMes());
 					
-					escala.setDia03Fk(null);//M
-					escala.setDia04Fk(null);//T
-					escala.setDia05Fk(null);//N
+					escala.setIdRegimeFk(regimesDeTrabalhoService.buscarPorNomeUnico("PL"));
 					
-					escala.setDia09Fk(null);//M
-					escala.setDia10Fk(null);//T
-					escala.setDia11Fk(null);//N
+					escala.setDia03Fk(turnosService.buscarPorNome("M"));//M
+					escala.setDia04Fk(turnosService.buscarPorNome("T"));//T
+					escala.setDia05Fk(turnosService.buscarPorNome("N"));//N
 					
-					escala.setDia15Fk(null);//M
-					escala.setDia16Fk(null);//T
-					escala.setDia17Fk(null);//N
+					escala.setDia09Fk(turnosService.buscarPorNome("M"));//M
+					escala.setDia10Fk(turnosService.buscarPorNome("T"));//T
+					escala.setDia11Fk(turnosService.buscarPorNome("N"));//N
 					
-					escala.setDia21Fk(null);//M
-					escala.setDia22Fk(null);//T
-					escala.setDia23Fk(null);//N
+					escala.setDia15Fk(turnosService.buscarPorNome("M"));//M
+					escala.setDia16Fk(turnosService.buscarPorNome("T"));//T
+					escala.setDia17Fk(turnosService.buscarPorNome("N"));//N
 					
-					escala.setDia27Fk(null);//M
-					escala.setDia28Fk(null);//T
-					if(qtdDiasNoMes>=29) {escala.setDia29Fk(null);}//N
+					escala.setDia21Fk(turnosService.buscarPorNome("M"));//M
+					escala.setDia22Fk(turnosService.buscarPorNome("T"));//T
+					escala.setDia23Fk(turnosService.buscarPorNome("N"));//N
+					
+					escala.setDia27Fk(turnosService.buscarPorNome("M"));//M
+					escala.setDia28Fk(turnosService.buscarPorNome("T"));//T
+					if(qtdDiasNoMes>=29) {escala.setDia29Fk(turnosService.buscarPorNome("M"));}//N
 					
 					escala = escalaCalculosService.calcularDadosEscala(escala);
 					
@@ -1060,25 +1185,27 @@ public class EscalaAtalhosService {
 				public Escala atalhoCiclo7D(Escala escala) {
 					int qtdDiasNoMes = utilidadesDeCalendarioEEscala.quantidadeDeDiasNoMes(escala.getIdAnoMesFk().getNomeAnoMes());
 					
-					escala.setDia04Fk(null);//M
-					escala.setDia05Fk(null);//T
-					escala.setDia06Fk(null);//N
+					escala.setIdRegimeFk(regimesDeTrabalhoService.buscarPorNomeUnico("PL"));
 					
-					escala.setDia10Fk(null);//M
-					escala.setDia11Fk(null);//T
-					escala.setDia12Fk(null);//N
+					escala.setDia04Fk(turnosService.buscarPorNome("M"));//M
+					escala.setDia05Fk(turnosService.buscarPorNome("T"));//T
+					escala.setDia06Fk(turnosService.buscarPorNome("N"));//N
 					
-					escala.setDia16Fk(null);//M
-					escala.setDia17Fk(null);//T
-					escala.setDia18Fk(null);//N
+					escala.setDia10Fk(turnosService.buscarPorNome("M"));//M
+					escala.setDia11Fk(turnosService.buscarPorNome("T"));//T
+					escala.setDia12Fk(turnosService.buscarPorNome("N"));//N
 					
-					escala.setDia22Fk(null);//M
-					escala.setDia23Fk(null);//T
-					escala.setDia24Fk(null);//N
+					escala.setDia16Fk(turnosService.buscarPorNome("M"));//M
+					escala.setDia17Fk(turnosService.buscarPorNome("T"));//T
+					escala.setDia18Fk(turnosService.buscarPorNome("N"));//N
 					
-					escala.setDia28Fk(null);//M
-					if(qtdDiasNoMes>=29) {escala.setDia29Fk(null);}//T
-					if(qtdDiasNoMes>=30) {escala.setDia30Fk(null);}//N
+					escala.setDia22Fk(turnosService.buscarPorNome("M"));//M
+					escala.setDia23Fk(turnosService.buscarPorNome("T"));//T
+					escala.setDia24Fk(turnosService.buscarPorNome("N"));//N
+					
+					escala.setDia28Fk(turnosService.buscarPorNome("M"));//M
+					if(qtdDiasNoMes>=29) {escala.setDia29Fk(turnosService.buscarPorNome("T"));}//T
+					if(qtdDiasNoMes>=30) {escala.setDia30Fk(turnosService.buscarPorNome("N"));}//N
 					
 					escala = escalaCalculosService.calcularDadosEscala(escala);
 					
@@ -1088,27 +1215,29 @@ public class EscalaAtalhosService {
 				public Escala atalhoCiclo7E(Escala escala) {
 					int qtdDiasNoMes = utilidadesDeCalendarioEEscala.quantidadeDeDiasNoMes(escala.getIdAnoMesFk().getNomeAnoMes());
 					
-					escala.setDia01Fk(null);//N
-					escala.setDia05Fk(null);//M
-					escala.setDia06Fk(null);//T
+					escala.setIdRegimeFk(regimesDeTrabalhoService.buscarPorNomeUnico("PL"));
 					
-					escala.setDia07Fk(null);//N
-					escala.setDia11Fk(null);//M
-					escala.setDia12Fk(null);//T
+					escala.setDia01Fk(turnosService.buscarPorNome("N"));//N
+					escala.setDia05Fk(turnosService.buscarPorNome("M"));//M
+					escala.setDia06Fk(turnosService.buscarPorNome("T"));//T
 					
-					escala.setDia13Fk(null);//N
-					escala.setDia17Fk(null);//M
-					escala.setDia18Fk(null);//T
+					escala.setDia07Fk(turnosService.buscarPorNome("N"));//N
+					escala.setDia11Fk(turnosService.buscarPorNome("M"));//M
+					escala.setDia12Fk(turnosService.buscarPorNome("T"));//T
 					
-					escala.setDia19Fk(null);//N
-					escala.setDia23Fk(null);//M
-					escala.setDia24Fk(null);//T
+					escala.setDia13Fk(turnosService.buscarPorNome("N"));//N
+					escala.setDia17Fk(turnosService.buscarPorNome("M"));//M
+					escala.setDia18Fk(turnosService.buscarPorNome("T"));//T
 					
-					escala.setDia25Fk(null);//N
-					if(qtdDiasNoMes>=29) {escala.setDia29Fk(null);}//M
-					if(qtdDiasNoMes>=30) {escala.setDia30Fk(null);}//T
+					escala.setDia19Fk(turnosService.buscarPorNome("N"));//N
+					escala.setDia23Fk(turnosService.buscarPorNome("M"));//M
+					escala.setDia24Fk(turnosService.buscarPorNome("T"));//T
 					
-					if(qtdDiasNoMes==31) {escala.setDia31Fk(null);}//N
+					escala.setDia25Fk(turnosService.buscarPorNome("N"));//N
+					if(qtdDiasNoMes>=29) {escala.setDia29Fk(turnosService.buscarPorNome("M"));}//M
+					if(qtdDiasNoMes>=30) {escala.setDia30Fk(turnosService.buscarPorNome("T"));}//T
+					
+					if(qtdDiasNoMes==31) {escala.setDia31Fk(turnosService.buscarPorNome("N"));}//N
 					
 					escala = escalaCalculosService.calcularDadosEscala(escala);
 					
@@ -1118,27 +1247,29 @@ public class EscalaAtalhosService {
 				public Escala atalhoCiclo7F(Escala escala) {
 					int qtdDiasNoMes = utilidadesDeCalendarioEEscala.quantidadeDeDiasNoMes(escala.getIdAnoMesFk().getNomeAnoMes());
 					
-					escala.setDia01Fk(null);//T
-					escala.setDia02Fk(null);//N
-					escala.setDia06Fk(null);//M
+					escala.setIdRegimeFk(regimesDeTrabalhoService.buscarPorNomeUnico("PL"));
 					
-					escala.setDia07Fk(null);//T
-					escala.setDia08Fk(null);//N
-					escala.setDia12Fk(null);//M
+					escala.setDia01Fk(turnosService.buscarPorNome("T"));//T
+					escala.setDia02Fk(turnosService.buscarPorNome("N"));//N
+					escala.setDia06Fk(turnosService.buscarPorNome("M"));//M
 					
-					escala.setDia13Fk(null);//T
-					escala.setDia14Fk(null);//N
-					escala.setDia18Fk(null);//M
+					escala.setDia07Fk(turnosService.buscarPorNome("T"));//T
+					escala.setDia08Fk(turnosService.buscarPorNome("N"));//N
+					escala.setDia12Fk(turnosService.buscarPorNome("M"));//M
 					
-					escala.setDia19Fk(null);//T
-					escala.setDia20Fk(null);//N
-					escala.setDia24Fk(null);//M
+					escala.setDia13Fk(turnosService.buscarPorNome("T"));//T
+					escala.setDia14Fk(turnosService.buscarPorNome("N"));//N
+					escala.setDia18Fk(turnosService.buscarPorNome("M"));//M
 					
-					escala.setDia25Fk(null);//T
-					escala.setDia26Fk(null);//N
-					if(qtdDiasNoMes>=30) {escala.setDia30Fk(null);}//M
+					escala.setDia19Fk(turnosService.buscarPorNome("T"));//T
+					escala.setDia20Fk(turnosService.buscarPorNome("N"));//N
+					escala.setDia24Fk(turnosService.buscarPorNome("M"));//M
 					
-					if(qtdDiasNoMes==31) {escala.setDia31Fk(null);}//T
+					escala.setDia25Fk(turnosService.buscarPorNome("T"));//T
+					escala.setDia26Fk(turnosService.buscarPorNome("N"));//N
+					if(qtdDiasNoMes>=30) {escala.setDia30Fk(turnosService.buscarPorNome("M"));}//M
+					
+					if(qtdDiasNoMes==31) {escala.setDia31Fk(turnosService.buscarPorNome("T"));}//T
 					
 					escala = escalaCalculosService.calcularDadosEscala(escala);
 					

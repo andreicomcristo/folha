@@ -10,4 +10,6 @@ public interface RegimesDeTrabalhoReposytory extends JpaRepository<RegimesDeTrab
 
 	public List<RegimesDeTrabalho> findByNomeRegimeDeTrabalhoContainingOrderByNomeRegimeDeTrabalhoAsc(String nomeRegimeDeTrabalho);
 	
+	public RegimesDeTrabalho findFirstByNomeRegimeDeTrabalhoOrderByNomeRegimeDeTrabalhoAsc(String nomeRegimeDeTrabalho);
+	
 }

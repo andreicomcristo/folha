@@ -41,4 +41,9 @@ public class RegimesDeTrabalhoService {
 	public List<RegimesDeTrabalho> buscarPorNome(String regimesDeTrabalho) {
 		return reposytory.findByNomeRegimeDeTrabalhoContainingOrderByNomeRegimeDeTrabalhoAsc(regimesDeTrabalho);
 	}
+	
+	//@Override
+	public RegimesDeTrabalho buscarPorNomeUnico(String regimesDeTrabalho) {
+		return reposytory.findFirstByNomeRegimeDeTrabalhoOrderByNomeRegimeDeTrabalhoAsc(regimesDeTrabalho);
+	}
 }

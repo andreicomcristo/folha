@@ -22,14 +22,12 @@ public class EscalaService {
 
 	@Autowired
 	private EscalaReposytoty reposytory;
-	@Autowired
-	private	UtilidadesDeCalendarioEEscala utilidadesDeCalendarioEEscala;
-	@Autowired
-	private	UtilidadesMatematicas utilidadesMatematicas;
 	
-	public void salvar(Escala escala) {
+	
+	public Escala salvar(Escala escala) {
 		// TODO Auto-generated method stub
-		reposytory.save(escala);
+		Escala escala1 = reposytory.save(escala);
+		return escala1;
 	}
 	
 	public void editar(Escala escala) {
@@ -65,6 +63,8 @@ public class EscalaService {
 		// TODO Auto-generated method stub
 		return reposytory.buscarPorCoordenacaoEAnoMes(coordenacaoEscala, anoMes);
 	}
+	
+	
 	
 	
 	

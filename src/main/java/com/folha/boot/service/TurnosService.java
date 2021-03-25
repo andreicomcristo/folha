@@ -37,6 +37,12 @@ public class TurnosService {
 	@Transactional(readOnly = true)
 	public List<Turnos> buscarTodos() {
 		// TODO Auto-generated method stub
-		return reposytory.findAll();
+		return reposytory.findAllByOrderByNomeTurnoAsc();
+	}
+	
+	@Transactional(readOnly = true)
+	public Turnos buscarPorNome(String nome) {
+		// TODO Auto-generated method stub
+		return reposytory.findFirstByNomeTurnoOrderByNomeTurnoAsc(nome);
 	}
 }

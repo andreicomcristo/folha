@@ -37,6 +37,12 @@ public class TurmasService {
 	@Transactional(readOnly = true)
 	public List<Turmas> buscarTodos() {
 		// TODO Auto-generated method stub
-		return reposytory.findAll();
+		return reposytory.findAllByOrderByDescricaoTurmaAsc();
+	}
+	
+	@Transactional(readOnly = true)
+	public Turmas buscarPorNomeTurmaUnico(String nome) {
+		
+		return reposytory.findFirstByNomeTurmaOrderByDescricaoTurmaAsc(nome);
 	}
 }

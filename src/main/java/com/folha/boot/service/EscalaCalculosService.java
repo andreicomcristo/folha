@@ -26,6 +26,8 @@ public class EscalaCalculosService {
 	private	UtilidadesDeCalendarioEEscala utilidadesDeCalendarioEEscala;
 	@Autowired
 	private	UtilidadesMatematicas utilidadesMatematicas;
+	@Autowired
+	private	TurnosService turnosService;
 	
 	public String obtemNomeDiaColuna(String anoMes, int coluna) {
 		Date dataColuna = new Date( Integer.parseInt(anoMes.substring(0, 4))-1900 , Integer.parseInt(anoMes.substring(4, 6))-1, coluna);
@@ -87,6 +89,40 @@ public class EscalaCalculosService {
 	return escala;	
 	}
 	
-	
+	public Escala converteTurnoNuloEmFolga(Escala escala) {
+		if(escala.getDia01Fk()==null) {escala.setDia01Fk(turnosService.buscarPorNome(""));}
+		if(escala.getDia02Fk()==null) {escala.setDia02Fk(turnosService.buscarPorNome(""));}
+		if(escala.getDia03Fk()==null) {escala.setDia03Fk(turnosService.buscarPorNome(""));}
+		if(escala.getDia04Fk()==null) {escala.setDia04Fk(turnosService.buscarPorNome(""));}
+		if(escala.getDia05Fk()==null) {escala.setDia05Fk(turnosService.buscarPorNome(""));}
+		if(escala.getDia06Fk()==null) {escala.setDia06Fk(turnosService.buscarPorNome(""));}
+		if(escala.getDia07Fk()==null) {escala.setDia07Fk(turnosService.buscarPorNome(""));}
+		if(escala.getDia08Fk()==null) {escala.setDia08Fk(turnosService.buscarPorNome(""));}
+		if(escala.getDia09Fk()==null) {escala.setDia09Fk(turnosService.buscarPorNome(""));}
+		if(escala.getDia10Fk()==null) {escala.setDia10Fk(turnosService.buscarPorNome(""));}
+		if(escala.getDia11Fk()==null) {escala.setDia11Fk(turnosService.buscarPorNome(""));}
+		if(escala.getDia12Fk()==null) {escala.setDia12Fk(turnosService.buscarPorNome(""));}
+		if(escala.getDia13Fk()==null) {escala.setDia13Fk(turnosService.buscarPorNome(""));}
+		if(escala.getDia14Fk()==null) {escala.setDia14Fk(turnosService.buscarPorNome(""));}
+		if(escala.getDia15Fk()==null) {escala.setDia15Fk(turnosService.buscarPorNome(""));}
+		if(escala.getDia16Fk()==null) {escala.setDia16Fk(turnosService.buscarPorNome(""));}
+		if(escala.getDia17Fk()==null) {escala.setDia17Fk(turnosService.buscarPorNome(""));}
+		if(escala.getDia18Fk()==null) {escala.setDia18Fk(turnosService.buscarPorNome(""));}
+		if(escala.getDia19Fk()==null) {escala.setDia19Fk(turnosService.buscarPorNome(""));}
+		if(escala.getDia20Fk()==null) {escala.setDia20Fk(turnosService.buscarPorNome(""));}
+		if(escala.getDia21Fk()==null) {escala.setDia21Fk(turnosService.buscarPorNome(""));}
+		if(escala.getDia22Fk()==null) {escala.setDia22Fk(turnosService.buscarPorNome(""));}
+		if(escala.getDia23Fk()==null) {escala.setDia23Fk(turnosService.buscarPorNome(""));}
+		if(escala.getDia24Fk()==null) {escala.setDia24Fk(turnosService.buscarPorNome(""));}
+		if(escala.getDia25Fk()==null) {escala.setDia25Fk(turnosService.buscarPorNome(""));}
+		if(escala.getDia26Fk()==null) {escala.setDia26Fk(turnosService.buscarPorNome(""));}
+		if(escala.getDia27Fk()==null) {escala.setDia27Fk(turnosService.buscarPorNome(""));}
+		if(escala.getDia28Fk()==null) {escala.setDia28Fk(turnosService.buscarPorNome(""));}
+		if(escala.getDia29Fk()==null) {escala.setDia29Fk(turnosService.buscarPorNome(""));}
+		if(escala.getDia30Fk()==null) {escala.setDia30Fk(turnosService.buscarPorNome(""));}
+		if(escala.getDia31Fk()==null) {escala.setDia31Fk(turnosService.buscarPorNome(""));}
+		
+		return escala;
+	}
 	
 }
