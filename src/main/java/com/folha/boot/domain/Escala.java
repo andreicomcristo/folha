@@ -14,10 +14,12 @@ import javax.persistence.TemporalType;
 @Table(name = "escala")
 public class Escala extends AbstractEntity<Long>{
 
-	@Column(name = "ch_dif")
-    private String chDif;
-    @Column(name = "incremento_de_risco")
-    private String incrementoDeRisco;
+	@JoinColumn(name = "id_incremento_de_risco_sim_nao_fk", referencedColumnName = "id")
+    @ManyToOne
+    private SimNao idIncrementoDeRiscoSimNaoFk;
+	@JoinColumn(name = "id_ch_dif_sim_nao_fk", referencedColumnName = "id")
+    @ManyToOne
+    private SimNao idChDifSimNaoFk;
     @Column(name = "horas_totais")
     private Integer horasTotais;
     @Column(name = "horas_dia")
@@ -157,17 +159,19 @@ public class Escala extends AbstractEntity<Long>{
     @JoinColumn(name = "dia19_fk", referencedColumnName = "id")
     @ManyToOne
     private Turnos dia19Fk;
-	public String getChDif() {
-		return chDif;
+	
+    
+	public SimNao getIdIncrementoDeRiscoSimNaoFk() {
+		return idIncrementoDeRiscoSimNaoFk;
 	}
-	public void setChDif(String chDif) {
-		this.chDif = chDif;
+	public void setIdIncrementoDeRiscoSimNaoFk(SimNao idIncrementoDeRiscoSimNaoFk) {
+		this.idIncrementoDeRiscoSimNaoFk = idIncrementoDeRiscoSimNaoFk;
 	}
-	public String getIncrementoDeRisco() {
-		return incrementoDeRisco;
+	public SimNao getIdChDifSimNaoFk() {
+		return idChDifSimNaoFk;
 	}
-	public void setIncrementoDeRisco(String incrementoDeRisco) {
-		this.incrementoDeRisco = incrementoDeRisco;
+	public void setIdChDifSimNaoFk(SimNao idChDifSimNaoFk) {
+		this.idChDifSimNaoFk = idChDifSimNaoFk;
 	}
 	public Integer getHorasTotais() {
 		return horasTotais;

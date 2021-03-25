@@ -8,6 +8,8 @@ import java.util.Date;
 import javax.swing.JOptionPane;
 import org.springframework.stereotype.Component;
 
+import com.folha.boot.domain.Escala;
+
 @Component
 public class UtilidadesDeCalendarioEEscala {
 
@@ -390,6 +392,246 @@ public class UtilidadesDeCalendarioEEscala {
         
         return resposta;
     
+    }
+    
+    public double plantoesNaEscala(Escala escala) {
+    	double resposta = 0.0;
+    	
+    	resposta = resposta + escala.getDia01Fk().getPlantoes(); 
+    	resposta = resposta + escala.getDia02Fk().getPlantoes();
+    	resposta = resposta + escala.getDia03Fk().getPlantoes();
+    	resposta = resposta + escala.getDia04Fk().getPlantoes();
+    	resposta = resposta + escala.getDia05Fk().getPlantoes();
+    	resposta = resposta + escala.getDia06Fk().getPlantoes();
+    	resposta = resposta + escala.getDia07Fk().getPlantoes();
+    	resposta = resposta + escala.getDia08Fk().getPlantoes();
+    	resposta = resposta + escala.getDia09Fk().getPlantoes();
+    	resposta = resposta + escala.getDia10Fk().getPlantoes();
+    	resposta = resposta + escala.getDia11Fk().getPlantoes();
+    	resposta = resposta + escala.getDia12Fk().getPlantoes();
+    	resposta = resposta + escala.getDia13Fk().getPlantoes();
+    	resposta = resposta + escala.getDia14Fk().getPlantoes();
+    	resposta = resposta + escala.getDia15Fk().getPlantoes();
+    	resposta = resposta + escala.getDia16Fk().getPlantoes();
+    	resposta = resposta + escala.getDia17Fk().getPlantoes();
+    	resposta = resposta + escala.getDia18Fk().getPlantoes();
+    	resposta = resposta + escala.getDia19Fk().getPlantoes();
+    	resposta = resposta + escala.getDia20Fk().getPlantoes();
+    	resposta = resposta + escala.getDia21Fk().getPlantoes();
+    	resposta = resposta + escala.getDia22Fk().getPlantoes();
+    	resposta = resposta + escala.getDia23Fk().getPlantoes();
+    	resposta = resposta + escala.getDia24Fk().getPlantoes();
+    	resposta = resposta + escala.getDia25Fk().getPlantoes();
+    	resposta = resposta + escala.getDia26Fk().getPlantoes();
+    	resposta = resposta + escala.getDia27Fk().getPlantoes();
+    	resposta = resposta + escala.getDia28Fk().getPlantoes();
+    	resposta = resposta + escala.getDia29Fk().getPlantoes();
+    	resposta = resposta + escala.getDia30Fk().getPlantoes();
+    	resposta = resposta + escala.getDia31Fk().getPlantoes();
+    	
+    	return resposta;
+    }
+    
+    public int horasTotaisEscala(Escala escala) {
+    	int resposta = 0;
+    	
+    	resposta = resposta + escala.getDia01Fk().getHorasManha()+escala.getDia01Fk().getHorasTarde()+escala.getDia01Fk().getHorasNoite(); 
+    	resposta = resposta + escala.getDia02Fk().getHorasManha()+escala.getDia02Fk().getHorasTarde()+escala.getDia02Fk().getHorasNoite();
+    	resposta = resposta + escala.getDia03Fk().getHorasManha()+escala.getDia03Fk().getHorasTarde()+escala.getDia03Fk().getHorasNoite();
+    	resposta = resposta + escala.getDia04Fk().getHorasManha()+escala.getDia04Fk().getHorasTarde()+escala.getDia04Fk().getHorasNoite();
+    	resposta = resposta + escala.getDia05Fk().getHorasManha()+escala.getDia05Fk().getHorasTarde()+escala.getDia05Fk().getHorasNoite();
+    	resposta = resposta + escala.getDia06Fk().getHorasManha()+escala.getDia06Fk().getHorasTarde()+escala.getDia06Fk().getHorasNoite();
+    	resposta = resposta + escala.getDia07Fk().getHorasManha()+escala.getDia07Fk().getHorasTarde()+escala.getDia07Fk().getHorasNoite();
+    	resposta = resposta + escala.getDia08Fk().getHorasManha()+escala.getDia08Fk().getHorasTarde()+escala.getDia08Fk().getHorasNoite();
+    	resposta = resposta + escala.getDia09Fk().getHorasManha()+escala.getDia09Fk().getHorasTarde()+escala.getDia09Fk().getHorasNoite();
+    	resposta = resposta + escala.getDia10Fk().getHorasManha()+escala.getDia10Fk().getHorasTarde()+escala.getDia10Fk().getHorasNoite();
+    	resposta = resposta + escala.getDia11Fk().getHorasManha()+escala.getDia11Fk().getHorasTarde()+escala.getDia11Fk().getHorasNoite();
+    	resposta = resposta + escala.getDia12Fk().getHorasManha()+escala.getDia12Fk().getHorasTarde()+escala.getDia12Fk().getHorasNoite();
+    	resposta = resposta + escala.getDia13Fk().getHorasManha()+escala.getDia13Fk().getHorasTarde()+escala.getDia13Fk().getHorasNoite();
+    	resposta = resposta + escala.getDia14Fk().getHorasManha()+escala.getDia14Fk().getHorasTarde()+escala.getDia14Fk().getHorasNoite();
+    	resposta = resposta + escala.getDia15Fk().getHorasManha()+escala.getDia15Fk().getHorasTarde()+escala.getDia15Fk().getHorasNoite();
+    	resposta = resposta + escala.getDia16Fk().getHorasManha()+escala.getDia16Fk().getHorasTarde()+escala.getDia16Fk().getHorasNoite();
+    	resposta = resposta + escala.getDia17Fk().getHorasManha()+escala.getDia17Fk().getHorasTarde()+escala.getDia17Fk().getHorasNoite();
+    	resposta = resposta + escala.getDia18Fk().getHorasManha()+escala.getDia18Fk().getHorasTarde()+escala.getDia18Fk().getHorasNoite();
+    	resposta = resposta + escala.getDia19Fk().getHorasManha()+escala.getDia19Fk().getHorasTarde()+escala.getDia19Fk().getHorasNoite();
+    	resposta = resposta + escala.getDia20Fk().getHorasManha()+escala.getDia20Fk().getHorasTarde()+escala.getDia20Fk().getHorasNoite();
+    	resposta = resposta + escala.getDia21Fk().getHorasManha()+escala.getDia21Fk().getHorasTarde()+escala.getDia21Fk().getHorasNoite();
+    	resposta = resposta + escala.getDia22Fk().getHorasManha()+escala.getDia22Fk().getHorasTarde()+escala.getDia22Fk().getHorasNoite();
+    	resposta = resposta + escala.getDia23Fk().getHorasManha()+escala.getDia23Fk().getHorasTarde()+escala.getDia23Fk().getHorasNoite();
+    	resposta = resposta + escala.getDia24Fk().getHorasManha()+escala.getDia24Fk().getHorasTarde()+escala.getDia24Fk().getHorasNoite();
+    	resposta = resposta + escala.getDia25Fk().getHorasManha()+escala.getDia25Fk().getHorasTarde()+escala.getDia25Fk().getHorasNoite();
+    	resposta = resposta + escala.getDia26Fk().getHorasManha()+escala.getDia26Fk().getHorasTarde()+escala.getDia26Fk().getHorasNoite();
+    	resposta = resposta + escala.getDia27Fk().getHorasManha()+escala.getDia27Fk().getHorasTarde()+escala.getDia27Fk().getHorasNoite();
+    	resposta = resposta + escala.getDia28Fk().getHorasManha()+escala.getDia28Fk().getHorasTarde()+escala.getDia28Fk().getHorasNoite();
+    	resposta = resposta + escala.getDia29Fk().getHorasManha()+escala.getDia29Fk().getHorasTarde()+escala.getDia29Fk().getHorasNoite();
+    	resposta = resposta + escala.getDia30Fk().getHorasManha()+escala.getDia30Fk().getHorasTarde()+escala.getDia30Fk().getHorasNoite();
+    	resposta = resposta + escala.getDia31Fk().getHorasManha()+escala.getDia31Fk().getHorasTarde()+escala.getDia31Fk().getHorasNoite();
+    	
+    	return resposta;
+    }
+    
+    public int horasDiaEscala(Escala escala) {
+    	int resposta = 0;
+    	
+    	resposta = resposta + escala.getDia01Fk().getHorasManha()+escala.getDia01Fk().getHorasTarde(); 
+    	resposta = resposta + escala.getDia02Fk().getHorasManha()+escala.getDia02Fk().getHorasTarde();
+    	resposta = resposta + escala.getDia03Fk().getHorasManha()+escala.getDia03Fk().getHorasTarde();
+    	resposta = resposta + escala.getDia04Fk().getHorasManha()+escala.getDia04Fk().getHorasTarde();
+    	resposta = resposta + escala.getDia05Fk().getHorasManha()+escala.getDia05Fk().getHorasTarde();
+    	resposta = resposta + escala.getDia06Fk().getHorasManha()+escala.getDia06Fk().getHorasTarde();
+    	resposta = resposta + escala.getDia07Fk().getHorasManha()+escala.getDia07Fk().getHorasTarde();
+    	resposta = resposta + escala.getDia08Fk().getHorasManha()+escala.getDia08Fk().getHorasTarde();
+    	resposta = resposta + escala.getDia09Fk().getHorasManha()+escala.getDia09Fk().getHorasTarde();
+    	resposta = resposta + escala.getDia10Fk().getHorasManha()+escala.getDia10Fk().getHorasTarde();
+    	resposta = resposta + escala.getDia11Fk().getHorasManha()+escala.getDia11Fk().getHorasTarde();
+    	resposta = resposta + escala.getDia12Fk().getHorasManha()+escala.getDia12Fk().getHorasTarde();
+    	resposta = resposta + escala.getDia13Fk().getHorasManha()+escala.getDia13Fk().getHorasTarde();
+    	resposta = resposta + escala.getDia14Fk().getHorasManha()+escala.getDia14Fk().getHorasTarde();
+    	resposta = resposta + escala.getDia15Fk().getHorasManha()+escala.getDia15Fk().getHorasTarde();
+    	resposta = resposta + escala.getDia16Fk().getHorasManha()+escala.getDia16Fk().getHorasTarde();
+    	resposta = resposta + escala.getDia17Fk().getHorasManha()+escala.getDia17Fk().getHorasTarde();
+    	resposta = resposta + escala.getDia18Fk().getHorasManha()+escala.getDia18Fk().getHorasTarde();
+    	resposta = resposta + escala.getDia19Fk().getHorasManha()+escala.getDia19Fk().getHorasTarde();
+    	resposta = resposta + escala.getDia20Fk().getHorasManha()+escala.getDia20Fk().getHorasTarde();
+    	resposta = resposta + escala.getDia21Fk().getHorasManha()+escala.getDia21Fk().getHorasTarde();
+    	resposta = resposta + escala.getDia22Fk().getHorasManha()+escala.getDia22Fk().getHorasTarde();
+    	resposta = resposta + escala.getDia23Fk().getHorasManha()+escala.getDia23Fk().getHorasTarde();
+    	resposta = resposta + escala.getDia24Fk().getHorasManha()+escala.getDia24Fk().getHorasTarde();
+    	resposta = resposta + escala.getDia25Fk().getHorasManha()+escala.getDia25Fk().getHorasTarde();
+    	resposta = resposta + escala.getDia26Fk().getHorasManha()+escala.getDia26Fk().getHorasTarde();
+    	resposta = resposta + escala.getDia27Fk().getHorasManha()+escala.getDia27Fk().getHorasTarde();
+    	resposta = resposta + escala.getDia28Fk().getHorasManha()+escala.getDia28Fk().getHorasTarde();
+    	resposta = resposta + escala.getDia29Fk().getHorasManha()+escala.getDia29Fk().getHorasTarde();
+    	resposta = resposta + escala.getDia30Fk().getHorasManha()+escala.getDia30Fk().getHorasTarde();
+    	resposta = resposta + escala.getDia31Fk().getHorasManha()+escala.getDia31Fk().getHorasTarde();
+    	
+    	return resposta;
+    }
+    
+    public int horasNoiteEscala(Escala escala) {
+    	int resposta = 0;
+    	
+    	resposta = resposta + escala.getDia01Fk().getHorasNoite(); 
+    	resposta = resposta + escala.getDia02Fk().getHorasNoite();
+    	resposta = resposta + escala.getDia03Fk().getHorasNoite();
+    	resposta = resposta + escala.getDia04Fk().getHorasNoite();
+    	resposta = resposta + escala.getDia05Fk().getHorasNoite();
+    	resposta = resposta + escala.getDia06Fk().getHorasNoite();
+    	resposta = resposta + escala.getDia07Fk().getHorasNoite();
+    	resposta = resposta + escala.getDia08Fk().getHorasNoite();
+    	resposta = resposta + escala.getDia09Fk().getHorasNoite();
+    	resposta = resposta + escala.getDia10Fk().getHorasNoite();
+    	resposta = resposta + escala.getDia11Fk().getHorasNoite();
+    	resposta = resposta + escala.getDia12Fk().getHorasNoite();
+    	resposta = resposta + escala.getDia13Fk().getHorasNoite();
+    	resposta = resposta + escala.getDia14Fk().getHorasNoite();
+    	resposta = resposta + escala.getDia15Fk().getHorasNoite();
+    	resposta = resposta + escala.getDia16Fk().getHorasNoite();
+    	resposta = resposta + escala.getDia17Fk().getHorasNoite();
+    	resposta = resposta + escala.getDia18Fk().getHorasNoite();
+    	resposta = resposta + escala.getDia19Fk().getHorasNoite();
+    	resposta = resposta + escala.getDia20Fk().getHorasNoite();
+    	resposta = resposta + escala.getDia21Fk().getHorasNoite();
+    	resposta = resposta + escala.getDia22Fk().getHorasNoite();
+    	resposta = resposta + escala.getDia23Fk().getHorasNoite();
+    	resposta = resposta + escala.getDia24Fk().getHorasNoite();
+    	resposta = resposta + escala.getDia25Fk().getHorasNoite();
+    	resposta = resposta + escala.getDia26Fk().getHorasNoite();
+    	resposta = resposta + escala.getDia27Fk().getHorasNoite();
+    	resposta = resposta + escala.getDia28Fk().getHorasNoite();
+    	resposta = resposta + escala.getDia29Fk().getHorasNoite();
+    	resposta = resposta + escala.getDia30Fk().getHorasNoite();
+    	resposta = resposta + escala.getDia31Fk().getHorasNoite();
+    	
+    	return resposta;
+    }
+    
+    public int horasSemanaEscala(Escala escala) {
+    	int resposta = 0;
+    
+    	int qtdDiasNoMes= quantidadeDeDiasNoMes(escala.getIdAnoMesFk().getNomeAnoMes());
+    	
+    		if(fimDeSemana(escala.getIdAnoMesFk().getNomeAnoMes(),  1) == false) {resposta = resposta + escala.getDia01Fk().getHorasManha()+escala.getDia01Fk().getHorasTarde()+escala.getDia01Fk().getHorasNoite();}
+    		if(fimDeSemana(escala.getIdAnoMesFk().getNomeAnoMes(),  2) == false) {resposta = resposta + escala.getDia02Fk().getHorasManha()+escala.getDia02Fk().getHorasTarde()+escala.getDia02Fk().getHorasNoite();}
+    		if(fimDeSemana(escala.getIdAnoMesFk().getNomeAnoMes(),  3) == false) {resposta = resposta + escala.getDia03Fk().getHorasManha()+escala.getDia03Fk().getHorasTarde()+escala.getDia03Fk().getHorasNoite();}
+    		if(fimDeSemana(escala.getIdAnoMesFk().getNomeAnoMes(),  4) == false) {resposta = resposta + escala.getDia04Fk().getHorasManha()+escala.getDia04Fk().getHorasTarde()+escala.getDia04Fk().getHorasNoite();}
+    		if(fimDeSemana(escala.getIdAnoMesFk().getNomeAnoMes(),  5) == false) {resposta = resposta + escala.getDia05Fk().getHorasManha()+escala.getDia05Fk().getHorasTarde()+escala.getDia05Fk().getHorasNoite();}
+    		if(fimDeSemana(escala.getIdAnoMesFk().getNomeAnoMes(),  6) == false) {resposta = resposta + escala.getDia06Fk().getHorasManha()+escala.getDia06Fk().getHorasTarde()+escala.getDia06Fk().getHorasNoite();}
+    		if(fimDeSemana(escala.getIdAnoMesFk().getNomeAnoMes(),  7) == false) {resposta = resposta + escala.getDia07Fk().getHorasManha()+escala.getDia07Fk().getHorasTarde()+escala.getDia07Fk().getHorasNoite();}
+    		if(fimDeSemana(escala.getIdAnoMesFk().getNomeAnoMes(),  8) == false) {resposta = resposta + escala.getDia08Fk().getHorasManha()+escala.getDia08Fk().getHorasTarde()+escala.getDia08Fk().getHorasNoite();}
+    		if(fimDeSemana(escala.getIdAnoMesFk().getNomeAnoMes(),  9) == false) {resposta = resposta + escala.getDia09Fk().getHorasManha()+escala.getDia09Fk().getHorasTarde()+escala.getDia09Fk().getHorasNoite();}
+    		if(fimDeSemana(escala.getIdAnoMesFk().getNomeAnoMes(), 10) == false) {resposta = resposta + escala.getDia10Fk().getHorasManha()+escala.getDia10Fk().getHorasTarde()+escala.getDia10Fk().getHorasNoite();}
+    		if(fimDeSemana(escala.getIdAnoMesFk().getNomeAnoMes(), 11) == false) {resposta = resposta + escala.getDia11Fk().getHorasManha()+escala.getDia11Fk().getHorasTarde()+escala.getDia11Fk().getHorasNoite();}
+    		if(fimDeSemana(escala.getIdAnoMesFk().getNomeAnoMes(), 12) == false) {resposta = resposta + escala.getDia12Fk().getHorasManha()+escala.getDia12Fk().getHorasTarde()+escala.getDia12Fk().getHorasNoite();}
+    		if(fimDeSemana(escala.getIdAnoMesFk().getNomeAnoMes(), 13) == false) {resposta = resposta + escala.getDia13Fk().getHorasManha()+escala.getDia13Fk().getHorasTarde()+escala.getDia13Fk().getHorasNoite();}
+    		if(fimDeSemana(escala.getIdAnoMesFk().getNomeAnoMes(), 14) == false) {resposta = resposta + escala.getDia14Fk().getHorasManha()+escala.getDia14Fk().getHorasTarde()+escala.getDia14Fk().getHorasNoite();}
+    		if(fimDeSemana(escala.getIdAnoMesFk().getNomeAnoMes(), 15) == false) {resposta = resposta + escala.getDia15Fk().getHorasManha()+escala.getDia15Fk().getHorasTarde()+escala.getDia15Fk().getHorasNoite();}
+    		if(fimDeSemana(escala.getIdAnoMesFk().getNomeAnoMes(), 16) == false) {resposta = resposta + escala.getDia16Fk().getHorasManha()+escala.getDia16Fk().getHorasTarde()+escala.getDia16Fk().getHorasNoite();}
+    		if(fimDeSemana(escala.getIdAnoMesFk().getNomeAnoMes(), 17) == false) {resposta = resposta + escala.getDia17Fk().getHorasManha()+escala.getDia17Fk().getHorasTarde()+escala.getDia17Fk().getHorasNoite();}
+    		if(fimDeSemana(escala.getIdAnoMesFk().getNomeAnoMes(), 18) == false) {resposta = resposta + escala.getDia18Fk().getHorasManha()+escala.getDia18Fk().getHorasTarde()+escala.getDia18Fk().getHorasNoite();}
+    		if(fimDeSemana(escala.getIdAnoMesFk().getNomeAnoMes(), 19) == false) {resposta = resposta + escala.getDia19Fk().getHorasManha()+escala.getDia19Fk().getHorasTarde()+escala.getDia19Fk().getHorasNoite();}
+    		if(fimDeSemana(escala.getIdAnoMesFk().getNomeAnoMes(), 20) == false) {resposta = resposta + escala.getDia20Fk().getHorasManha()+escala.getDia20Fk().getHorasTarde()+escala.getDia20Fk().getHorasNoite();}
+    		if(fimDeSemana(escala.getIdAnoMesFk().getNomeAnoMes(), 21) == false) {resposta = resposta + escala.getDia21Fk().getHorasManha()+escala.getDia21Fk().getHorasTarde()+escala.getDia21Fk().getHorasNoite();}
+    		if(fimDeSemana(escala.getIdAnoMesFk().getNomeAnoMes(), 22) == false) {resposta = resposta + escala.getDia22Fk().getHorasManha()+escala.getDia22Fk().getHorasTarde()+escala.getDia22Fk().getHorasNoite();}
+    		if(fimDeSemana(escala.getIdAnoMesFk().getNomeAnoMes(), 23) == false) {resposta = resposta + escala.getDia23Fk().getHorasManha()+escala.getDia23Fk().getHorasTarde()+escala.getDia23Fk().getHorasNoite();}
+    		if(fimDeSemana(escala.getIdAnoMesFk().getNomeAnoMes(), 24) == false) {resposta = resposta + escala.getDia24Fk().getHorasManha()+escala.getDia24Fk().getHorasTarde()+escala.getDia24Fk().getHorasNoite();}
+    		if(fimDeSemana(escala.getIdAnoMesFk().getNomeAnoMes(), 25) == false) {resposta = resposta + escala.getDia25Fk().getHorasManha()+escala.getDia25Fk().getHorasTarde()+escala.getDia25Fk().getHorasNoite();}
+    		if(fimDeSemana(escala.getIdAnoMesFk().getNomeAnoMes(), 26) == false) {resposta = resposta + escala.getDia26Fk().getHorasManha()+escala.getDia26Fk().getHorasTarde()+escala.getDia26Fk().getHorasNoite();}
+    		if(fimDeSemana(escala.getIdAnoMesFk().getNomeAnoMes(), 27) == false) {resposta = resposta + escala.getDia27Fk().getHorasManha()+escala.getDia27Fk().getHorasTarde()+escala.getDia27Fk().getHorasNoite();}
+    		if(fimDeSemana(escala.getIdAnoMesFk().getNomeAnoMes(), 28) == false) {resposta = resposta + escala.getDia28Fk().getHorasManha()+escala.getDia28Fk().getHorasTarde()+escala.getDia28Fk().getHorasNoite();}
+    		if(qtdDiasNoMes>=29) {if(fimDeSemana(escala.getIdAnoMesFk().getNomeAnoMes(), 29) == false) {resposta = resposta + escala.getDia29Fk().getHorasManha()+escala.getDia29Fk().getHorasTarde()+escala.getDia29Fk().getHorasNoite();}}
+    		if(qtdDiasNoMes>=30) {if(fimDeSemana(escala.getIdAnoMesFk().getNomeAnoMes(), 30) == false) {resposta = resposta + escala.getDia30Fk().getHorasManha()+escala.getDia30Fk().getHorasTarde()+escala.getDia30Fk().getHorasNoite();}}
+    		if(qtdDiasNoMes==31) {if(fimDeSemana(escala.getIdAnoMesFk().getNomeAnoMes(), 31) == false) {resposta = resposta + escala.getDia31Fk().getHorasManha()+escala.getDia31Fk().getHorasTarde()+escala.getDia31Fk().getHorasNoite();}}
+    	
+    		return resposta;
+    }
+    
+    public int horasFimDeSemanaEscala(Escala escala) {
+    	int resposta = 0;
+    
+    	int qtdDiasNoMes= quantidadeDeDiasNoMes(escala.getIdAnoMesFk().getNomeAnoMes());
+    	
+    		if(fimDeSemana(escala.getIdAnoMesFk().getNomeAnoMes(),  1) == true) {resposta = resposta + escala.getDia01Fk().getHorasManha()+escala.getDia01Fk().getHorasTarde()+escala.getDia01Fk().getHorasNoite();}
+    		if(fimDeSemana(escala.getIdAnoMesFk().getNomeAnoMes(),  2) == true) {resposta = resposta + escala.getDia02Fk().getHorasManha()+escala.getDia02Fk().getHorasTarde()+escala.getDia02Fk().getHorasNoite();}
+    		if(fimDeSemana(escala.getIdAnoMesFk().getNomeAnoMes(),  3) == true) {resposta = resposta + escala.getDia03Fk().getHorasManha()+escala.getDia03Fk().getHorasTarde()+escala.getDia03Fk().getHorasNoite();}
+    		if(fimDeSemana(escala.getIdAnoMesFk().getNomeAnoMes(),  4) == true) {resposta = resposta + escala.getDia04Fk().getHorasManha()+escala.getDia04Fk().getHorasTarde()+escala.getDia04Fk().getHorasNoite();}
+    		if(fimDeSemana(escala.getIdAnoMesFk().getNomeAnoMes(),  5) == true) {resposta = resposta + escala.getDia05Fk().getHorasManha()+escala.getDia05Fk().getHorasTarde()+escala.getDia05Fk().getHorasNoite();}
+    		if(fimDeSemana(escala.getIdAnoMesFk().getNomeAnoMes(),  6) == true) {resposta = resposta + escala.getDia06Fk().getHorasManha()+escala.getDia06Fk().getHorasTarde()+escala.getDia06Fk().getHorasNoite();}
+    		if(fimDeSemana(escala.getIdAnoMesFk().getNomeAnoMes(),  7) == true) {resposta = resposta + escala.getDia07Fk().getHorasManha()+escala.getDia07Fk().getHorasTarde()+escala.getDia07Fk().getHorasNoite();}
+    		if(fimDeSemana(escala.getIdAnoMesFk().getNomeAnoMes(),  8) == true) {resposta = resposta + escala.getDia08Fk().getHorasManha()+escala.getDia08Fk().getHorasTarde()+escala.getDia08Fk().getHorasNoite();}
+    		if(fimDeSemana(escala.getIdAnoMesFk().getNomeAnoMes(),  9) == true) {resposta = resposta + escala.getDia09Fk().getHorasManha()+escala.getDia09Fk().getHorasTarde()+escala.getDia09Fk().getHorasNoite();}
+    		if(fimDeSemana(escala.getIdAnoMesFk().getNomeAnoMes(), 10) == true) {resposta = resposta + escala.getDia10Fk().getHorasManha()+escala.getDia10Fk().getHorasTarde()+escala.getDia10Fk().getHorasNoite();}
+    		if(fimDeSemana(escala.getIdAnoMesFk().getNomeAnoMes(), 11) == true) {resposta = resposta + escala.getDia11Fk().getHorasManha()+escala.getDia11Fk().getHorasTarde()+escala.getDia11Fk().getHorasNoite();}
+    		if(fimDeSemana(escala.getIdAnoMesFk().getNomeAnoMes(), 12) == true) {resposta = resposta + escala.getDia12Fk().getHorasManha()+escala.getDia12Fk().getHorasTarde()+escala.getDia12Fk().getHorasNoite();}
+    		if(fimDeSemana(escala.getIdAnoMesFk().getNomeAnoMes(), 13) == true) {resposta = resposta + escala.getDia13Fk().getHorasManha()+escala.getDia13Fk().getHorasTarde()+escala.getDia13Fk().getHorasNoite();}
+    		if(fimDeSemana(escala.getIdAnoMesFk().getNomeAnoMes(), 14) == true) {resposta = resposta + escala.getDia14Fk().getHorasManha()+escala.getDia14Fk().getHorasTarde()+escala.getDia14Fk().getHorasNoite();}
+    		if(fimDeSemana(escala.getIdAnoMesFk().getNomeAnoMes(), 15) == true) {resposta = resposta + escala.getDia15Fk().getHorasManha()+escala.getDia15Fk().getHorasTarde()+escala.getDia15Fk().getHorasNoite();}
+    		if(fimDeSemana(escala.getIdAnoMesFk().getNomeAnoMes(), 16) == true) {resposta = resposta + escala.getDia16Fk().getHorasManha()+escala.getDia16Fk().getHorasTarde()+escala.getDia16Fk().getHorasNoite();}
+    		if(fimDeSemana(escala.getIdAnoMesFk().getNomeAnoMes(), 17) == true) {resposta = resposta + escala.getDia17Fk().getHorasManha()+escala.getDia17Fk().getHorasTarde()+escala.getDia17Fk().getHorasNoite();}
+    		if(fimDeSemana(escala.getIdAnoMesFk().getNomeAnoMes(), 18) == true) {resposta = resposta + escala.getDia18Fk().getHorasManha()+escala.getDia18Fk().getHorasTarde()+escala.getDia18Fk().getHorasNoite();}
+    		if(fimDeSemana(escala.getIdAnoMesFk().getNomeAnoMes(), 19) == true) {resposta = resposta + escala.getDia19Fk().getHorasManha()+escala.getDia19Fk().getHorasTarde()+escala.getDia19Fk().getHorasNoite();}
+    		if(fimDeSemana(escala.getIdAnoMesFk().getNomeAnoMes(), 20) == true) {resposta = resposta + escala.getDia20Fk().getHorasManha()+escala.getDia20Fk().getHorasTarde()+escala.getDia20Fk().getHorasNoite();}
+    		if(fimDeSemana(escala.getIdAnoMesFk().getNomeAnoMes(), 21) == true) {resposta = resposta + escala.getDia21Fk().getHorasManha()+escala.getDia21Fk().getHorasTarde()+escala.getDia21Fk().getHorasNoite();}
+    		if(fimDeSemana(escala.getIdAnoMesFk().getNomeAnoMes(), 22) == true) {resposta = resposta + escala.getDia22Fk().getHorasManha()+escala.getDia22Fk().getHorasTarde()+escala.getDia22Fk().getHorasNoite();}
+    		if(fimDeSemana(escala.getIdAnoMesFk().getNomeAnoMes(), 23) == true) {resposta = resposta + escala.getDia23Fk().getHorasManha()+escala.getDia23Fk().getHorasTarde()+escala.getDia23Fk().getHorasNoite();}
+    		if(fimDeSemana(escala.getIdAnoMesFk().getNomeAnoMes(), 24) == true) {resposta = resposta + escala.getDia24Fk().getHorasManha()+escala.getDia24Fk().getHorasTarde()+escala.getDia24Fk().getHorasNoite();}
+    		if(fimDeSemana(escala.getIdAnoMesFk().getNomeAnoMes(), 25) == true) {resposta = resposta + escala.getDia25Fk().getHorasManha()+escala.getDia25Fk().getHorasTarde()+escala.getDia25Fk().getHorasNoite();}
+    		if(fimDeSemana(escala.getIdAnoMesFk().getNomeAnoMes(), 26) == true) {resposta = resposta + escala.getDia26Fk().getHorasManha()+escala.getDia26Fk().getHorasTarde()+escala.getDia26Fk().getHorasNoite();}
+    		if(fimDeSemana(escala.getIdAnoMesFk().getNomeAnoMes(), 27) == true) {resposta = resposta + escala.getDia27Fk().getHorasManha()+escala.getDia27Fk().getHorasTarde()+escala.getDia27Fk().getHorasNoite();}
+    		if(fimDeSemana(escala.getIdAnoMesFk().getNomeAnoMes(), 28) == true) {resposta = resposta + escala.getDia28Fk().getHorasManha()+escala.getDia28Fk().getHorasTarde()+escala.getDia28Fk().getHorasNoite();}
+    		if(qtdDiasNoMes>=29) {if(fimDeSemana(escala.getIdAnoMesFk().getNomeAnoMes(), 29) == true) {resposta = resposta + escala.getDia29Fk().getHorasManha()+escala.getDia29Fk().getHorasTarde()+escala.getDia29Fk().getHorasNoite();}}
+    		if(qtdDiasNoMes>=30) {if(fimDeSemana(escala.getIdAnoMesFk().getNomeAnoMes(), 30) == true) {resposta = resposta + escala.getDia30Fk().getHorasManha()+escala.getDia30Fk().getHorasTarde()+escala.getDia30Fk().getHorasNoite();}}
+    		if(qtdDiasNoMes==31) {if(fimDeSemana(escala.getIdAnoMesFk().getNomeAnoMes(), 31) == true) {resposta = resposta + escala.getDia31Fk().getHorasManha()+escala.getDia31Fk().getHorasTarde()+escala.getDia31Fk().getHorasNoite();}}
+    	
+    		return resposta;
+    }
+    
+    public boolean fimDeSemana(String anoMes, int dia) {
+    	boolean resposta = false;
+    	Date data = new Date(Integer.parseInt(anoMes.substring(0, 4))-1900 , Integer.parseInt(anoMes.substring(4, 6))-1, dia);	
+    	int diaDaSemana = data.getDay();
+    	if(diaDaSemana==0||diaDaSemana==6) {resposta=true;}
+    	return resposta;
     }
     
 }

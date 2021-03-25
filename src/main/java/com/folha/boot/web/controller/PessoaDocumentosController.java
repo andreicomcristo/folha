@@ -1,5 +1,6 @@
 package com.folha.boot.web.controller;
 
+import java.util.Date;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,12 +13,15 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+
+import com.folha.boot.domain.Escala;
 import com.folha.boot.domain.Pessoa;
 import com.folha.boot.domain.PessoaDocumentos;
 import com.folha.boot.domain.TiposDeDocumento;
 import com.folha.boot.service.PessoaDocumentosService;
 import com.folha.boot.service.PessoaService;
 import com.folha.boot.service.TiposDeDocumentoService;
+import com.folha.boot.service.util.UtilidadesDeCalendarioEEscala;
 
 @Controller
 @RequestMapping("/documentos")
@@ -37,11 +41,6 @@ public class PessoaDocumentosController {
 	@GetMapping("/cadastrar")
 	public String cadastrar(PessoaDocumentos pessoaDocumentos) {		
 		return "/documento/cadastro";
-	}
-	
-	@GetMapping("/cadastrar/teste/escala")
-	public String cadastrarTesteEscala(PessoaDocumentos pessoaDocumentos) {		
-		return "/escala/cadastro";
 	}
 	
 	@GetMapping("/cadastrar/{id}")
