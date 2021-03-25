@@ -41,8 +41,8 @@ public class CidsService {
 		return reposytory.findAllByOrderByCodCidAsc();
 	}
 
-	public List<Cids> buscarPorNome(String nomeCarreira) {
+	public List<Cids> buscarPorNome(String codCid) {
 		
-		return reposytory.findByCodCidContainingOrderByCodCidAsc(nomeCarreira);
+		return reposytory.findByCodCidContainingOrderByCodCidAsc(codCid);
 	}	
 }

@@ -4,10 +4,8 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import com.folha.boot.Reposytory.TurnosReposytory;
+import com.folha.boot.Reposytory.AnoMesReposytory;
 import com.folha.boot.domain.AnoMes;
-import com.folha.boot.domain.Turnos;
-import com.folha.boot.domain.calculos.AnoMesReposytory;
 
 @Service
 @Transactional(readOnly = false)
@@ -39,6 +37,10 @@ public class AnoMesService {
 	@Transactional(readOnly = true)
 	public List<AnoMes> buscarTodos() {
 		// TODO Auto-generated method stub
-		return reposytory.findAll();
+		return reposytory.findAllByOrderByNomeAnoMesAsc();
+	}
+	
+	public List<AnoMes> buscarPorNome(String nomeAnoMes) {
+		return reposytory.findByNomeAnoMesContainingOrderByNomeAnoMesAsc(nomeAnoMes);
 	}
 }

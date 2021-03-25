@@ -21,13 +21,13 @@ public class CidsController {
 
 	@GetMapping("/cadastrar")
 	public String cadastrar(Cids cids) {		
-		return "/tipofolha/cadastro";
+		return "/cid/cadastro";
 	}
 	
 	@GetMapping("/listar")
 	public String listar(ModelMap model) {
 		model.addAttribute("cids", service.buscarTodos());
-		return "/tipofolha/lista"; 
+		return "/cid/lista"; 
 	}
 	
 	@PostMapping("/salvar")
@@ -40,7 +40,7 @@ public class CidsController {
 	@GetMapping("/editar/{id}")
 	public String preEditar(@PathVariable("id") Long id, ModelMap model) {
 		model.addAttribute("cids", service.buscarPorId(id));
-		return "/tipofolha/cadastro";
+		return "/cid/cadastro";
 	}
 	
 	@PostMapping("/editar")
@@ -58,9 +58,9 @@ public class CidsController {
 	}
 	
 	@GetMapping("/buscar/codcid")
-	public String getPorNome(@RequestParam("nomeTipoFolha") String nomeTipoFolha, ModelMap model) {		
-		model.addAttribute("cids", service.buscarPorNome(nomeTipoFolha.toUpperCase().trim()));
-		return "/tipofolha/lista";
+	public String getPorNome(@RequestParam("codCid") String codCid, ModelMap model) {		
+		model.addAttribute("cids", service.buscarPorNome(codCid.toUpperCase().trim()));
+		return "/cid/lista";
 	}
 	
 }

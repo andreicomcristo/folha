@@ -36,6 +36,10 @@ public class AreasDeCapacitacaoService {
 	@Transactional(readOnly = true)
 	public List<AreasDeCapacitacao> buscarTodos() {
 		// TODO Auto-generated method stub
-		return reposytory.findAll();
+		return reposytory.findAllByOrderByAreaDeCapacitacaoAsc();
+	}
+	
+	public List<AreasDeCapacitacao> buscarPorNome(String areaDeCapacitacao) {
+		return reposytory.findByAreaDeCapacitacaoContainingOrderByAreaDeCapacitacaoAsc(areaDeCapacitacao);
 	}
 }

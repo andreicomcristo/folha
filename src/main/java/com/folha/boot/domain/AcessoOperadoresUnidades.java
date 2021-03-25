@@ -11,7 +11,9 @@ public class AcessoOperadoresUnidades extends AbstractEntity<Long> {
 
 	@Column(name = "id_perfil_fk")
     private BigInteger idPerfilFk;
-    @JoinColumn(name = "id_operador_fk", referencedColumnName = "id")
+    
+	
+	@JoinColumn(name = "id_operador_fk", referencedColumnName = "id")
     @ManyToOne(optional = false)
     private PessoaOperadores idOperadorFk;
     @JoinColumn(name = "id_unidade_fk", referencedColumnName = "id")

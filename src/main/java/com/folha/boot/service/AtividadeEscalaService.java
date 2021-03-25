@@ -37,6 +37,10 @@ public class AtividadeEscalaService {
 	@Transactional(readOnly = true)
 	public List<AtividadeEscala> buscarTodos() {
 		// TODO Auto-generated method stub
-		return reposytory.findAll();
+		return reposytory.findAllByOrderByNomeAtividadeAsc();
+	}
+	
+	public List<AtividadeEscala> buscarPorNome(String nomeAtividade) {
+		return reposytory.findByNomeAtividadeContainingOrderByNomeAtividadeAsc(nomeAtividade);
 	}
 }

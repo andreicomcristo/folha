@@ -9,45 +9,45 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
-import com.folha.boot.domain.AtividadeEscala;
-import com.folha.boot.service.AtividadeEscalaService;
+import com.folha.boot.domain.AnoMes;
+import com.folha.boot.service.AnoMesService;
 
 @Controller
-@RequestMapping("/atividadesescalas")
-public class AtividadeEscalaController {
+@RequestMapping("/anomes")
+public class AnoMesController {
 
 	@Autowired
-	private AtividadeEscalaService service;
+	private AnoMesService service;
 
 	@GetMapping("/cadastrar")
-	public String cadastrar(AtividadeEscala atividadeEscala) {		
-		return "/atividadeescala/cadastro";
+	public String cadastrar(AnoMes anoMes) {		
+		return "/anomes/cadastro";
 	}
 	
 	@GetMapping("/listar")
 	public String listar(ModelMap model) {
-		model.addAttribute("atividadeEscala", service.buscarTodos());
-		return "/atividadeescala/lista"; 
+		model.addAttribute("anoMes", service.buscarTodos());
+		return "/anomes/lista"; 
 	}
 	
 	@PostMapping("/salvar")
-	public String salvar(AtividadeEscala atividadeEscala, RedirectAttributes attr) {
-		service.salvar(atividadeEscala);
+	public String salvar(AnoMes anoMes, RedirectAttributes attr) {
+		service.salvar(anoMes);
 		attr.addFlashAttribute("success", "Inserido com sucesso.");
-		return "redirect:/atividadesescalas/cadastrar";
+		return "redirect:/anomes/cadastrar";
 	}
 	
 	@GetMapping("/editar/{id}")
 	public String preEditar(@PathVariable("id") Long id, ModelMap model) {
-		model.addAttribute("atividadeEscala", service.buscarPorId(id));
-		return "/atividadeescala/cadastro";
+		model.addAttribute("anoMes", service.buscarPorId(id));
+		return "/anomes/cadastro";
 	}
 	
 	@PostMapping("/editar")
-	public String editar(AtividadeEscala atividadeEscala, RedirectAttributes attr) {
-		service.editar(atividadeEscala);
+	public String editar(AnoMes anoMes, RedirectAttributes attr) {
+		service.editar(anoMes);
 		attr.addFlashAttribute("success", "Editado com sucesso.");
-		return "redirect:/atividadesescalas/listar";
+		return "redirect:/anomes/listar";
 	}
 	
 	@GetMapping("/excluir/{id}")
@@ -57,9 +57,10 @@ public class AtividadeEscalaController {
 		return listar(model);
 	}
 	
-	@GetMapping("/buscar/nome/atividade/escala")
-	public String getPorNome(@RequestParam("nomeAtividade") String nomeAtividade, ModelMap model) {		
-		model.addAttribute("atividadeEscala", service.buscarPorNome(nomeAtividade.toUpperCase().trim()));
-		return "/atividadeescala/lista";
+	@GetMapping("/buscar/nome/AnoMes")
+	public String getPorNome(@RequestParam("nomeAnoMes") String nomeAnoMes, ModelMap model) {		
+		model.addAttribute("anoMes", service.buscarPorNome(nomeAnoMes.toUpperCase().trim()));
+		return "/anomes/lista";
 	}
+	
 }
