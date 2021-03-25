@@ -27,15 +27,185 @@ public class EscalaAtalhosService {
 	@Autowired
 	private	UtilidadesMatematicas utilidadesMatematicas;
 	@Autowired
-	private	EscalaService escalaService;
+	private	EscalaCalculosService escalaCalculosService;
 	
 	
 	
 	
+	
+	// Atalhos Diaristas Manha
+			public Escala atalhoDiaristasManha(Escala escala) {
+				String mes = escala.getIdAnoMesFk().getNomeAnoMes();
+				int qtdDiasNoMes = utilidadesDeCalendarioEEscala.quantidadeDeDiasNoMes(mes);
+				
+				if(utilidadesDeCalendarioEEscala.fimDeSemana(mes,  1)==false) {escala.setDia01Fk(null);/*M*/}
+				if(utilidadesDeCalendarioEEscala.fimDeSemana(mes,  2)==false) {escala.setDia02Fk(null);/*M*/}
+				if(utilidadesDeCalendarioEEscala.fimDeSemana(mes,  3)==false) {escala.setDia03Fk(null);/*M*/}
+				if(utilidadesDeCalendarioEEscala.fimDeSemana(mes,  4)==false) {escala.setDia04Fk(null);/*M*/}
+				if(utilidadesDeCalendarioEEscala.fimDeSemana(mes,  5)==false) {escala.setDia05Fk(null);/*M*/}
+				if(utilidadesDeCalendarioEEscala.fimDeSemana(mes,  6)==false) {escala.setDia06Fk(null);/*M*/}
+				if(utilidadesDeCalendarioEEscala.fimDeSemana(mes,  7)==false) {escala.setDia07Fk(null);/*M*/}
+				if(utilidadesDeCalendarioEEscala.fimDeSemana(mes,  8)==false) {escala.setDia08Fk(null);/*M*/}
+				if(utilidadesDeCalendarioEEscala.fimDeSemana(mes,  9)==false) {escala.setDia09Fk(null);/*M*/}
+				if(utilidadesDeCalendarioEEscala.fimDeSemana(mes, 10)==false) {escala.setDia10Fk(null);/*M*/}
+				if(utilidadesDeCalendarioEEscala.fimDeSemana(mes, 11)==false) {escala.setDia11Fk(null);/*M*/}
+				if(utilidadesDeCalendarioEEscala.fimDeSemana(mes, 12)==false) {escala.setDia12Fk(null);/*M*/}
+				if(utilidadesDeCalendarioEEscala.fimDeSemana(mes, 13)==false) {escala.setDia13Fk(null);/*M*/}
+				if(utilidadesDeCalendarioEEscala.fimDeSemana(mes, 14)==false) {escala.setDia14Fk(null);/*M*/}
+				if(utilidadesDeCalendarioEEscala.fimDeSemana(mes, 15)==false) {escala.setDia15Fk(null);/*M*/}
+				if(utilidadesDeCalendarioEEscala.fimDeSemana(mes, 16)==false) {escala.setDia16Fk(null);/*M*/}
+				if(utilidadesDeCalendarioEEscala.fimDeSemana(mes, 17)==false) {escala.setDia17Fk(null);/*M*/}
+				if(utilidadesDeCalendarioEEscala.fimDeSemana(mes, 18)==false) {escala.setDia18Fk(null);/*M*/}
+				if(utilidadesDeCalendarioEEscala.fimDeSemana(mes, 19)==false) {escala.setDia19Fk(null);/*M*/}
+				if(utilidadesDeCalendarioEEscala.fimDeSemana(mes, 20)==false) {escala.setDia20Fk(null);/*M*/}
+				if(utilidadesDeCalendarioEEscala.fimDeSemana(mes, 21)==false) {escala.setDia21Fk(null);/*M*/}
+				if(utilidadesDeCalendarioEEscala.fimDeSemana(mes, 22)==false) {escala.setDia22Fk(null);/*M*/}
+				if(utilidadesDeCalendarioEEscala.fimDeSemana(mes, 23)==false) {escala.setDia23Fk(null);/*M*/}
+				if(utilidadesDeCalendarioEEscala.fimDeSemana(mes, 24)==false) {escala.setDia24Fk(null);/*M*/}
+				if(utilidadesDeCalendarioEEscala.fimDeSemana(mes, 25)==false) {escala.setDia25Fk(null);/*M*/}
+				if(utilidadesDeCalendarioEEscala.fimDeSemana(mes, 26)==false) {escala.setDia26Fk(null);/*M*/}
+				if(utilidadesDeCalendarioEEscala.fimDeSemana(mes, 27)==false) {escala.setDia27Fk(null);/*M*/}
+				if(utilidadesDeCalendarioEEscala.fimDeSemana(mes, 28)==false) {escala.setDia28Fk(null);/*M*/}
+				if(qtdDiasNoMes>=29) {if(utilidadesDeCalendarioEEscala.fimDeSemana(mes, 29)==false) {escala.setDia29Fk(null);/*M*/}}
+				if(qtdDiasNoMes>=30) {if(utilidadesDeCalendarioEEscala.fimDeSemana(mes, 30)==false) {escala.setDia30Fk(null);/*M*/}}
+				if(qtdDiasNoMes==31) {if(utilidadesDeCalendarioEEscala.fimDeSemana(mes, 31)==false) {escala.setDia31Fk(null);/*M*/}}
+				
+			return escala;	
+			}
+	
+			// Atalhos Diaristas Tarde
+			public Escala atalhoDiaristasTarde(Escala escala) {
+				String mes = escala.getIdAnoMesFk().getNomeAnoMes();
+				int qtdDiasNoMes = utilidadesDeCalendarioEEscala.quantidadeDeDiasNoMes(mes);
+				
+				if(utilidadesDeCalendarioEEscala.fimDeSemana(mes,  1)==false) {escala.setDia01Fk(null);/*T*/}
+				if(utilidadesDeCalendarioEEscala.fimDeSemana(mes,  2)==false) {escala.setDia02Fk(null);/*T*/}
+				if(utilidadesDeCalendarioEEscala.fimDeSemana(mes,  3)==false) {escala.setDia03Fk(null);/*T*/}
+				if(utilidadesDeCalendarioEEscala.fimDeSemana(mes,  4)==false) {escala.setDia04Fk(null);/*T*/}
+				if(utilidadesDeCalendarioEEscala.fimDeSemana(mes,  5)==false) {escala.setDia05Fk(null);/*T*/}
+				if(utilidadesDeCalendarioEEscala.fimDeSemana(mes,  6)==false) {escala.setDia06Fk(null);/*T*/}
+				if(utilidadesDeCalendarioEEscala.fimDeSemana(mes,  7)==false) {escala.setDia07Fk(null);/*T*/}
+				if(utilidadesDeCalendarioEEscala.fimDeSemana(mes,  8)==false) {escala.setDia08Fk(null);/*T*/}
+				if(utilidadesDeCalendarioEEscala.fimDeSemana(mes,  9)==false) {escala.setDia09Fk(null);/*T*/}
+				if(utilidadesDeCalendarioEEscala.fimDeSemana(mes, 10)==false) {escala.setDia10Fk(null);/*T*/}
+				if(utilidadesDeCalendarioEEscala.fimDeSemana(mes, 11)==false) {escala.setDia11Fk(null);/*T*/}
+				if(utilidadesDeCalendarioEEscala.fimDeSemana(mes, 12)==false) {escala.setDia12Fk(null);/*T*/}
+				if(utilidadesDeCalendarioEEscala.fimDeSemana(mes, 13)==false) {escala.setDia13Fk(null);/*T*/}
+				if(utilidadesDeCalendarioEEscala.fimDeSemana(mes, 14)==false) {escala.setDia14Fk(null);/*T*/}
+				if(utilidadesDeCalendarioEEscala.fimDeSemana(mes, 15)==false) {escala.setDia15Fk(null);/*T*/}
+				if(utilidadesDeCalendarioEEscala.fimDeSemana(mes, 16)==false) {escala.setDia16Fk(null);/*T*/}
+				if(utilidadesDeCalendarioEEscala.fimDeSemana(mes, 17)==false) {escala.setDia17Fk(null);/*T*/}
+				if(utilidadesDeCalendarioEEscala.fimDeSemana(mes, 18)==false) {escala.setDia18Fk(null);/*T*/}
+				if(utilidadesDeCalendarioEEscala.fimDeSemana(mes, 19)==false) {escala.setDia19Fk(null);/*T*/}
+				if(utilidadesDeCalendarioEEscala.fimDeSemana(mes, 20)==false) {escala.setDia20Fk(null);/*T*/}
+				if(utilidadesDeCalendarioEEscala.fimDeSemana(mes, 21)==false) {escala.setDia21Fk(null);/*T*/}
+				if(utilidadesDeCalendarioEEscala.fimDeSemana(mes, 22)==false) {escala.setDia22Fk(null);/*T*/}
+				if(utilidadesDeCalendarioEEscala.fimDeSemana(mes, 23)==false) {escala.setDia23Fk(null);/*T*/}
+				if(utilidadesDeCalendarioEEscala.fimDeSemana(mes, 24)==false) {escala.setDia24Fk(null);/*T*/}
+				if(utilidadesDeCalendarioEEscala.fimDeSemana(mes, 25)==false) {escala.setDia25Fk(null);/*T*/}
+				if(utilidadesDeCalendarioEEscala.fimDeSemana(mes, 26)==false) {escala.setDia26Fk(null);/*T*/}
+				if(utilidadesDeCalendarioEEscala.fimDeSemana(mes, 27)==false) {escala.setDia27Fk(null);/*T*/}
+				if(utilidadesDeCalendarioEEscala.fimDeSemana(mes, 28)==false) {escala.setDia28Fk(null);/*T*/}
+				if(qtdDiasNoMes>=29) {if(utilidadesDeCalendarioEEscala.fimDeSemana(mes, 29)==false) {escala.setDia29Fk(null);/*T*/}}
+				if(qtdDiasNoMes>=30) {if(utilidadesDeCalendarioEEscala.fimDeSemana(mes, 30)==false) {escala.setDia30Fk(null);/*T*/}}
+				if(qtdDiasNoMes==31) {if(utilidadesDeCalendarioEEscala.fimDeSemana(mes, 31)==false) {escala.setDia31Fk(null);/*T*/}}
+				
+			return escala;	
+			}
+			
+			
+			// Atalhos Diaristas Dia
+			public Escala atalhoDiaristasDia(Escala escala) {
+				String mes = escala.getIdAnoMesFk().getNomeAnoMes();
+				int qtdDiasNoMes = utilidadesDeCalendarioEEscala.quantidadeDeDiasNoMes(mes);
+				
+				if(utilidadesDeCalendarioEEscala.fimDeSemana(mes,  1)==false) {escala.setDia01Fk(null);/*D*/}
+				if(utilidadesDeCalendarioEEscala.fimDeSemana(mes,  2)==false) {escala.setDia02Fk(null);/*D*/}
+				if(utilidadesDeCalendarioEEscala.fimDeSemana(mes,  3)==false) {escala.setDia03Fk(null);/*D*/}
+				if(utilidadesDeCalendarioEEscala.fimDeSemana(mes,  4)==false) {escala.setDia04Fk(null);/*D*/}
+				if(utilidadesDeCalendarioEEscala.fimDeSemana(mes,  5)==false) {escala.setDia05Fk(null);/*D*/}
+				if(utilidadesDeCalendarioEEscala.fimDeSemana(mes,  6)==false) {escala.setDia06Fk(null);/*D*/}
+				if(utilidadesDeCalendarioEEscala.fimDeSemana(mes,  7)==false) {escala.setDia07Fk(null);/*D*/}
+				if(utilidadesDeCalendarioEEscala.fimDeSemana(mes,  8)==false) {escala.setDia08Fk(null);/*D*/}
+				if(utilidadesDeCalendarioEEscala.fimDeSemana(mes,  9)==false) {escala.setDia09Fk(null);/*D*/}
+				if(utilidadesDeCalendarioEEscala.fimDeSemana(mes, 10)==false) {escala.setDia10Fk(null);/*D*/}
+				if(utilidadesDeCalendarioEEscala.fimDeSemana(mes, 11)==false) {escala.setDia11Fk(null);/*D*/}
+				if(utilidadesDeCalendarioEEscala.fimDeSemana(mes, 12)==false) {escala.setDia12Fk(null);/*D*/}
+				if(utilidadesDeCalendarioEEscala.fimDeSemana(mes, 13)==false) {escala.setDia13Fk(null);/*D*/}
+				if(utilidadesDeCalendarioEEscala.fimDeSemana(mes, 14)==false) {escala.setDia14Fk(null);/*D*/}
+				if(utilidadesDeCalendarioEEscala.fimDeSemana(mes, 15)==false) {escala.setDia15Fk(null);/*D*/}
+				if(utilidadesDeCalendarioEEscala.fimDeSemana(mes, 16)==false) {escala.setDia16Fk(null);/*D*/}
+				if(utilidadesDeCalendarioEEscala.fimDeSemana(mes, 17)==false) {escala.setDia17Fk(null);/*D*/}
+				if(utilidadesDeCalendarioEEscala.fimDeSemana(mes, 18)==false) {escala.setDia18Fk(null);/*D*/}
+				if(utilidadesDeCalendarioEEscala.fimDeSemana(mes, 19)==false) {escala.setDia19Fk(null);/*D*/}
+				if(utilidadesDeCalendarioEEscala.fimDeSemana(mes, 20)==false) {escala.setDia20Fk(null);/*D*/}
+				if(utilidadesDeCalendarioEEscala.fimDeSemana(mes, 21)==false) {escala.setDia21Fk(null);/*D*/}
+				if(utilidadesDeCalendarioEEscala.fimDeSemana(mes, 22)==false) {escala.setDia22Fk(null);/*D*/}
+				if(utilidadesDeCalendarioEEscala.fimDeSemana(mes, 23)==false) {escala.setDia23Fk(null);/*D*/}
+				if(utilidadesDeCalendarioEEscala.fimDeSemana(mes, 24)==false) {escala.setDia24Fk(null);/*D*/}
+				if(utilidadesDeCalendarioEEscala.fimDeSemana(mes, 25)==false) {escala.setDia25Fk(null);/*D*/}
+				if(utilidadesDeCalendarioEEscala.fimDeSemana(mes, 26)==false) {escala.setDia26Fk(null);/*D*/}
+				if(utilidadesDeCalendarioEEscala.fimDeSemana(mes, 27)==false) {escala.setDia27Fk(null);/*D*/}
+				if(utilidadesDeCalendarioEEscala.fimDeSemana(mes, 28)==false) {escala.setDia28Fk(null);/*D*/}
+				if(qtdDiasNoMes>=29) {if(utilidadesDeCalendarioEEscala.fimDeSemana(mes, 29)==false) {escala.setDia29Fk(null);/*D*/}}
+				if(qtdDiasNoMes>=30) {if(utilidadesDeCalendarioEEscala.fimDeSemana(mes, 30)==false) {escala.setDia30Fk(null);/*D*/}}
+				if(qtdDiasNoMes==31) {if(utilidadesDeCalendarioEEscala.fimDeSemana(mes, 31)==false) {escala.setDia31Fk(null);/*D*/}}
+				
+			return escala;	
+			}
+			
+			
+			// Atalhos MT DIAS IMPARES
+			public Escala atalhoMTDiasImpares(Escala escala) {
+				String mes = escala.getIdAnoMesFk().getNomeAnoMes();
+				int qtdDiasNoMes = utilidadesDeCalendarioEEscala.quantidadeDeDiasNoMes(mes);
+				
+				if(utilidadesDeCalendarioEEscala.fimDeSemana(mes,  1)==false) {escala.setDia01Fk(null);/*MT*/}
+				if(utilidadesDeCalendarioEEscala.fimDeSemana(mes,  3)==false) {escala.setDia03Fk(null);/*MT*/}
+				if(utilidadesDeCalendarioEEscala.fimDeSemana(mes,  5)==false) {escala.setDia05Fk(null);/*MT*/}
+				if(utilidadesDeCalendarioEEscala.fimDeSemana(mes,  7)==false) {escala.setDia07Fk(null);/*MT*/}
+				if(utilidadesDeCalendarioEEscala.fimDeSemana(mes,  9)==false) {escala.setDia09Fk(null);/*MT*/}
+				if(utilidadesDeCalendarioEEscala.fimDeSemana(mes, 11)==false) {escala.setDia11Fk(null);/*MT*/}
+				if(utilidadesDeCalendarioEEscala.fimDeSemana(mes, 13)==false) {escala.setDia13Fk(null);/*MT*/}
+				if(utilidadesDeCalendarioEEscala.fimDeSemana(mes, 15)==false) {escala.setDia15Fk(null);/*MT*/}
+				if(utilidadesDeCalendarioEEscala.fimDeSemana(mes, 17)==false) {escala.setDia17Fk(null);/*MT*/}
+				if(utilidadesDeCalendarioEEscala.fimDeSemana(mes, 19)==false) {escala.setDia19Fk(null);/*MT*/}
+				if(utilidadesDeCalendarioEEscala.fimDeSemana(mes, 21)==false) {escala.setDia21Fk(null);/*MT*/}
+				if(utilidadesDeCalendarioEEscala.fimDeSemana(mes, 23)==false) {escala.setDia23Fk(null);/*MT*/}
+				if(utilidadesDeCalendarioEEscala.fimDeSemana(mes, 25)==false) {escala.setDia25Fk(null);/*MT*/}
+				if(utilidadesDeCalendarioEEscala.fimDeSemana(mes, 27)==false) {escala.setDia27Fk(null);/*MT*/}
+				if(qtdDiasNoMes>=29) {if(utilidadesDeCalendarioEEscala.fimDeSemana(mes, 29)==false) {escala.setDia29Fk(null);/*MT*/}}
+				if(qtdDiasNoMes==31) {if(utilidadesDeCalendarioEEscala.fimDeSemana(mes, 31)==false) {escala.setDia31Fk(null);/*MT*/}}
+				
+			return escala;	
+			}
 
-	
-		
-		
+			// Atalhos MT DIAS PARES
+			public Escala atalhoMTDiasPares(Escala escala) {
+				String mes = escala.getIdAnoMesFk().getNomeAnoMes();
+				int qtdDiasNoMes = utilidadesDeCalendarioEEscala.quantidadeDeDiasNoMes(mes);
+				
+				if(utilidadesDeCalendarioEEscala.fimDeSemana(mes,  2)==false) {escala.setDia02Fk(null);/*T*/}
+				if(utilidadesDeCalendarioEEscala.fimDeSemana(mes,  4)==false) {escala.setDia04Fk(null);/*T*/}
+				if(utilidadesDeCalendarioEEscala.fimDeSemana(mes,  6)==false) {escala.setDia06Fk(null);/*T*/}
+				if(utilidadesDeCalendarioEEscala.fimDeSemana(mes,  8)==false) {escala.setDia08Fk(null);/*T*/}
+				if(utilidadesDeCalendarioEEscala.fimDeSemana(mes, 10)==false) {escala.setDia10Fk(null);/*T*/}
+				if(utilidadesDeCalendarioEEscala.fimDeSemana(mes, 12)==false) {escala.setDia12Fk(null);/*T*/}
+				if(utilidadesDeCalendarioEEscala.fimDeSemana(mes, 14)==false) {escala.setDia14Fk(null);/*T*/}
+				if(utilidadesDeCalendarioEEscala.fimDeSemana(mes, 16)==false) {escala.setDia16Fk(null);/*T*/}
+				if(utilidadesDeCalendarioEEscala.fimDeSemana(mes, 18)==false) {escala.setDia18Fk(null);/*T*/}
+				if(utilidadesDeCalendarioEEscala.fimDeSemana(mes, 20)==false) {escala.setDia20Fk(null);/*T*/}
+				if(utilidadesDeCalendarioEEscala.fimDeSemana(mes, 22)==false) {escala.setDia22Fk(null);/*T*/}
+				if(utilidadesDeCalendarioEEscala.fimDeSemana(mes, 24)==false) {escala.setDia24Fk(null);/*T*/}
+				if(utilidadesDeCalendarioEEscala.fimDeSemana(mes, 26)==false) {escala.setDia26Fk(null);/*T*/}
+				if(utilidadesDeCalendarioEEscala.fimDeSemana(mes, 28)==false) {escala.setDia28Fk(null);/*T*/}
+				if(qtdDiasNoMes>=30) {if(utilidadesDeCalendarioEEscala.fimDeSemana(mes, 30)==false) {escala.setDia30Fk(null);/*T*/}}
+				
+			return escala;	
+			}
+
+			
+			
 		
 		// Atalhos Ciclo1
 		public Escala atalhoCiclo1A(Escala escala) {
@@ -58,7 +228,7 @@ public class EscalaAtalhosService {
 			
 			if(qtdDiasNoMes==31) {escala.setDia31Fk(null);}//MT
 			
-			escala = escalaService.calcularDadosEscala(escala);
+			escala = escalaCalculosService.calcularDadosEscala(escala);
 			
 		return escala;	
 		}
@@ -81,7 +251,7 @@ public class EscalaAtalhosService {
 			escala.setDia26Fk(null);//MT
 			escala.setDia27Fk(null);//N
 			
-			escala = escalaService.calcularDadosEscala(escala);
+			escala = escalaCalculosService.calcularDadosEscala(escala);
 			
 		return escala;	
 		}
@@ -104,7 +274,7 @@ public class EscalaAtalhosService {
 			escala.setDia27Fk(null);//MT
 			escala.setDia28Fk(null);//N
 			
-			escala = escalaService.calcularDadosEscala(escala);
+			escala = escalaCalculosService.calcularDadosEscala(escala);
 			
 		return escala;	
 		}
@@ -127,7 +297,7 @@ public class EscalaAtalhosService {
 			escala.setDia28Fk(null);//MT
 			if(qtdDiasNoMes>=29) {escala.setDia29Fk(null);}//N
 			
-			escala = escalaService.calcularDadosEscala(escala);
+			escala = escalaCalculosService.calcularDadosEscala(escala);
 			
 		return escala;	
 		}
@@ -150,7 +320,7 @@ public class EscalaAtalhosService {
 			if(qtdDiasNoMes>=29) {escala.setDia29Fk(null);}//MT
 			if(qtdDiasNoMes>=30) {escala.setDia30Fk(null);}//N
 			
-			escala = escalaService.calcularDadosEscala(escala);
+			escala = escalaCalculosService.calcularDadosEscala(escala);
 			
 		return escala;	
 		}
@@ -175,7 +345,7 @@ public class EscalaAtalhosService {
 			
 			if(qtdDiasNoMes==31) {escala.setDia31Fk(null);}//N
 			
-			escala = escalaService.calcularDadosEscala(escala);
+			escala = escalaCalculosService.calcularDadosEscala(escala);
 			
 		return escala;	
 		}
@@ -198,7 +368,7 @@ public class EscalaAtalhosService {
 					
 					if(qtdDiasNoMes==31) {escala.setDia31Fk(null);}//MTN
 					
-					escala = escalaService.calcularDadosEscala(escala);
+					escala = escalaCalculosService.calcularDadosEscala(escala);
 					
 				return escala;	
 				}
@@ -216,7 +386,7 @@ public class EscalaAtalhosService {
 					
 					escala.setDia26Fk(null);//MTN
 					
-					escala = escalaService.calcularDadosEscala(escala);
+					escala = escalaCalculosService.calcularDadosEscala(escala);
 					
 				return escala;	
 				}
@@ -234,7 +404,7 @@ public class EscalaAtalhosService {
 					
 					escala.setDia27Fk(null);//MTN
 					
-					escala = escalaService.calcularDadosEscala(escala);
+					escala = escalaCalculosService.calcularDadosEscala(escala);
 					
 				return escala;	
 				}
@@ -252,7 +422,7 @@ public class EscalaAtalhosService {
 					
 					escala.setDia28Fk(null);//MTN
 					
-					escala = escalaService.calcularDadosEscala(escala);
+					escala = escalaCalculosService.calcularDadosEscala(escala);
 					
 				return escala;	
 				}
@@ -270,7 +440,7 @@ public class EscalaAtalhosService {
 					
 					if(qtdDiasNoMes>=29) {escala.setDia29Fk(null);}//MTN
 					
-					escala = escalaService.calcularDadosEscala(escala);
+					escala = escalaCalculosService.calcularDadosEscala(escala);
 					
 				return escala;	
 				}
@@ -288,7 +458,7 @@ public class EscalaAtalhosService {
 					
 					if(qtdDiasNoMes>=30) {escala.setDia30Fk(null);}//MTN
 					
-					escala = escalaService.calcularDadosEscala(escala);
+					escala = escalaCalculosService.calcularDadosEscala(escala);
 					
 				return escala;	
 				}
@@ -324,7 +494,7 @@ public class EscalaAtalhosService {
 					
 					if(qtdDiasNoMes==31) {escala.setDia31Fk(null);}//M
 					
-					escala = escalaService.calcularDadosEscala(escala);
+					escala = escalaCalculosService.calcularDadosEscala(escala);
 					
 				return escala;	
 				}
@@ -352,7 +522,7 @@ public class EscalaAtalhosService {
 					escala.setDia27Fk(null);//M
 					escala.setDia28Fk(null);//N
 					
-					escala = escalaService.calcularDadosEscala(escala);
+					escala = escalaCalculosService.calcularDadosEscala(escala);
 					
 				return escala;	
 				}
@@ -380,7 +550,7 @@ public class EscalaAtalhosService {
 					escala.setDia28Fk(null);//M
 					if(qtdDiasNoMes>=29) {escala.setDia29Fk(null);}//N
 					
-					escala = escalaService.calcularDadosEscala(escala);
+					escala = escalaCalculosService.calcularDadosEscala(escala);
 					
 				return escala;	
 				}
@@ -408,7 +578,7 @@ public class EscalaAtalhosService {
 					if(qtdDiasNoMes>=29) {escala.setDia29Fk(null);}//M
 					if(qtdDiasNoMes>=30) {escala.setDia30Fk(null);}//N
 					
-					escala = escalaService.calcularDadosEscala(escala);
+					escala = escalaCalculosService.calcularDadosEscala(escala);
 					
 				return escala;	
 				}
@@ -438,7 +608,7 @@ public class EscalaAtalhosService {
 					
 					if(qtdDiasNoMes==31) {escala.setDia31Fk(null);}//N
 					
-					escala = escalaService.calcularDadosEscala(escala);
+					escala = escalaCalculosService.calcularDadosEscala(escala);
 					
 				return escala;	
 				}
@@ -468,7 +638,7 @@ public class EscalaAtalhosService {
 					
 					if(qtdDiasNoMes==31) {escala.setDia31Fk(null);}//M
 					
-					escala = escalaService.calcularDadosEscala(escala);
+					escala = escalaCalculosService.calcularDadosEscala(escala);
 					
 				return escala;	
 				}
@@ -502,7 +672,7 @@ public class EscalaAtalhosService {
 					
 					if(qtdDiasNoMes==31) {escala.setDia31Fk(null);}//M
 					
-					escala = escalaService.calcularDadosEscala(escala);
+					escala = escalaCalculosService.calcularDadosEscala(escala);
 					
 				return escala;	
 				}
@@ -530,7 +700,7 @@ public class EscalaAtalhosService {
 					escala.setDia27Fk(null);//T
 					escala.setDia28Fk(null);//N
 					
-					escala = escalaService.calcularDadosEscala(escala);
+					escala = escalaCalculosService.calcularDadosEscala(escala);
 					
 				return escala;	
 				}
@@ -558,7 +728,7 @@ public class EscalaAtalhosService {
 					escala.setDia28Fk(null);//T
 					if(qtdDiasNoMes>=29) {escala.setDia29Fk(null);}//N
 					
-					escala = escalaService.calcularDadosEscala(escala);
+					escala = escalaCalculosService.calcularDadosEscala(escala);
 					
 				return escala;	
 				}
@@ -586,7 +756,7 @@ public class EscalaAtalhosService {
 					if(qtdDiasNoMes>=29) {escala.setDia29Fk(null);}//T
 					if(qtdDiasNoMes>=30) {escala.setDia30Fk(null);}//N
 					
-					escala = escalaService.calcularDadosEscala(escala);
+					escala = escalaCalculosService.calcularDadosEscala(escala);
 					
 				return escala;	
 				}
@@ -616,7 +786,7 @@ public class EscalaAtalhosService {
 					
 					if(qtdDiasNoMes==31) {escala.setDia31Fk(null);}//N
 					
-					escala = escalaService.calcularDadosEscala(escala);
+					escala = escalaCalculosService.calcularDadosEscala(escala);
 					
 				return escala;	
 				}
@@ -646,7 +816,7 @@ public class EscalaAtalhosService {
 					
 					if(qtdDiasNoMes==31) {escala.setDia31Fk(null);}//T
 					
-					escala = escalaService.calcularDadosEscala(escala);
+					escala = escalaCalculosService.calcularDadosEscala(escala);
 					
 				return escala;	
 				}
@@ -674,7 +844,7 @@ public class EscalaAtalhosService {
 					
 					if(qtdDiasNoMes==31) {escala.setDia31Fk(null);}//MT
 					
-					escala = escalaService.calcularDadosEscala(escala);
+					escala = escalaCalculosService.calcularDadosEscala(escala);
 					
 				return escala;	
 				}
@@ -697,7 +867,7 @@ public class EscalaAtalhosService {
 					escala.setDia26Fk(null);//MT
 					escala.setDia27Fk(null);//MT
 					
-					escala = escalaService.calcularDadosEscala(escala);
+					escala = escalaCalculosService.calcularDadosEscala(escala);
 					
 				return escala;	
 				}
@@ -720,7 +890,7 @@ public class EscalaAtalhosService {
 					escala.setDia27Fk(null);//MT
 					escala.setDia28Fk(null);//MT
 					
-					escala = escalaService.calcularDadosEscala(escala);
+					escala = escalaCalculosService.calcularDadosEscala(escala);
 					
 				return escala;	
 				}
@@ -743,7 +913,7 @@ public class EscalaAtalhosService {
 					escala.setDia28Fk(null);//MT
 					if(qtdDiasNoMes>=29) {escala.setDia29Fk(null);}//MT
 					
-					escala = escalaService.calcularDadosEscala(escala);
+					escala = escalaCalculosService.calcularDadosEscala(escala);
 					
 				return escala;	
 				}
@@ -766,7 +936,7 @@ public class EscalaAtalhosService {
 					if(qtdDiasNoMes>=29) {escala.setDia29Fk(null);}//MT
 					if(qtdDiasNoMes>=30) {escala.setDia30Fk(null);}//MT
 					
-					escala = escalaService.calcularDadosEscala(escala);
+					escala = escalaCalculosService.calcularDadosEscala(escala);
 					
 				return escala;	
 				}
@@ -791,7 +961,7 @@ public class EscalaAtalhosService {
 					
 					if(qtdDiasNoMes==31) {escala.setDia31Fk(null);}//MT
 					
-					escala = escalaService.calcularDadosEscala(escala);
+					escala = escalaCalculosService.calcularDadosEscala(escala);
 					
 				return escala;	
 				}
@@ -826,7 +996,7 @@ public class EscalaAtalhosService {
 					
 					if(qtdDiasNoMes==31) {escala.setDia31Fk(null);}//M
 					
-					escala = escalaService.calcularDadosEscala(escala);
+					escala = escalaCalculosService.calcularDadosEscala(escala);
 					
 				return escala;	
 				}
@@ -854,7 +1024,7 @@ public class EscalaAtalhosService {
 					escala.setDia27Fk(null);//T
 					escala.setDia28Fk(null);//N
 					
-					escala = escalaService.calcularDadosEscala(escala);
+					escala = escalaCalculosService.calcularDadosEscala(escala);
 					
 				return escala;	
 				}
@@ -882,7 +1052,7 @@ public class EscalaAtalhosService {
 					escala.setDia28Fk(null);//T
 					if(qtdDiasNoMes>=29) {escala.setDia29Fk(null);}//N
 					
-					escala = escalaService.calcularDadosEscala(escala);
+					escala = escalaCalculosService.calcularDadosEscala(escala);
 					
 				return escala;	
 				}
@@ -910,7 +1080,7 @@ public class EscalaAtalhosService {
 					if(qtdDiasNoMes>=29) {escala.setDia29Fk(null);}//T
 					if(qtdDiasNoMes>=30) {escala.setDia30Fk(null);}//N
 					
-					escala = escalaService.calcularDadosEscala(escala);
+					escala = escalaCalculosService.calcularDadosEscala(escala);
 					
 				return escala;	
 				}
@@ -940,7 +1110,7 @@ public class EscalaAtalhosService {
 					
 					if(qtdDiasNoMes==31) {escala.setDia31Fk(null);}//N
 					
-					escala = escalaService.calcularDadosEscala(escala);
+					escala = escalaCalculosService.calcularDadosEscala(escala);
 					
 				return escala;	
 				}
@@ -970,7 +1140,7 @@ public class EscalaAtalhosService {
 					
 					if(qtdDiasNoMes==31) {escala.setDia31Fk(null);}//T
 					
-					escala = escalaService.calcularDadosEscala(escala);
+					escala = escalaCalculosService.calcularDadosEscala(escala);
 					
 				return escala;	
 				}

@@ -16,7 +16,16 @@
 					<div class="form-group col-md-12 col-lg-12 col-sm-12">
 						<H5><label for="nome" class="">Construção de Escala</label></H5>
 
-										
+									
+									<input type="hidden" id="" th:field="*{id}" />
+									<input type="hidden" id="" th:field="*{idAnoMesFk.id}" />
+									<input type="hidden" id="" th:field="*{idCoordenacaoFk.id}" />
+									<input type="hidden" id="" th:field="*{idFuncionarioFk.id}" />
+									<input type="hidden" id="" th:field="*{idTipoFolhaFk.id}" />
+							
+							
+									
+									
 					
 					<div>
 						
@@ -432,7 +441,7 @@
 	            					aria-controls="collapseBloco1">Atalhos Escala
 	            		</button> 
 						
-						<button class="btn btn-outline-success">Lançar</button>
+						<button class="btn btn-outline-success">Lançar</button>	
 						
 						
 						<div class="collapse" id="collapseBloco1">	
@@ -779,7 +788,6 @@
 							
 						</div>	
 					
-							
 							
 							
 							<input type="hidden" id="id" th:field="*{id}" />

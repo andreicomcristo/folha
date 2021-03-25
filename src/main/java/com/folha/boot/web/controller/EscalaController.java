@@ -19,12 +19,15 @@ import com.folha.boot.domain.CodigoDiferenciado;
 import com.folha.boot.domain.Escala;
 import com.folha.boot.domain.Pessoa;
 import com.folha.boot.domain.PessoaDocumentos;
+import com.folha.boot.domain.PessoaFuncionarios;
 import com.folha.boot.domain.RegimesDeTrabalho;
 import com.folha.boot.domain.TiposDeDocumento;
 import com.folha.boot.service.CodigoDiferenciadoService;
 import com.folha.boot.service.EscalaAtalhosService;
+import com.folha.boot.service.EscalaCalculosService;
 import com.folha.boot.service.EscalaService;
 import com.folha.boot.service.PessoaDocumentosService;
+import com.folha.boot.service.PessoaFuncionariosService;
 import com.folha.boot.service.PessoaService;
 import com.folha.boot.service.RegimesDeTrabalhoService;
 import com.folha.boot.service.TiposDeDocumentoService;
@@ -44,13 +47,18 @@ public class EscalaController {
 	@Autowired
 	private EscalaService service;
 	@Autowired
+	private EscalaCalculosService escalaCalculosService;
+	@Autowired
 	private EscalaAtalhosService escalaAtalhosService;
-	
 	@Autowired
 	private CodigoDiferenciadoService codigoDiferenciadoService;
-	
 	@Autowired
 	private RegimesDeTrabalhoService regimesDeTrabalhoService;
+	@Autowired
+	private PessoaFuncionariosService pessoaFuncionariosService;
+	
+	
+	
 
 		
 	@GetMapping("/alterar/escala/{id}")
@@ -59,11 +67,11 @@ public class EscalaController {
 		escala = service.buscarPorId(id);
 		
 		this.escalaAtual = escala;
-		escala = service.calcularDadosEscala(escala);
+		escala = escalaCalculosService.calcularDadosEscala(escala);
 	
 		String anoMesDaEscala = "202105";
 		if(escala!=null){anoMesDaEscala = escala.getIdAnoMesFk().getNomeAnoMes();}
-		int qtdDiasNoMes = service.quantidadeDeDiasNoMes(anoMesDaEscala);
+		int qtdDiasNoMes = escalaCalculosService.quantidadeDeDiasNoMes(anoMesDaEscala);
 		String escalaCoordenacao = "ENFERMAGEM-VERDE A-ENFERMEIROS";
 		if(escala!=null){escalaCoordenacao = escala.getIdCoordenacaoFk().getNomeCoordenacao()+"-"+escala.getIdCoordenacaoFk().getIdLocalidadeFk().getNomeLocalidade()+"-"+escala.getIdCoordenacaoFk().getIdAtividadeFk().getNomeAtividade();}
 		String nomeDaPessoa = "NOME DA PESSOA";
@@ -80,13 +88,13 @@ public class EscalaController {
 		if(escala!=null){cargoDaPessoa = escala.getIdFuncionarioFk().getIdEspecialidadeAtualFk().getIdCargoFk().getNomeCargo()+"-"+escala.getIdFuncionarioFk().getIdEspecialidadeAtualFk().getNomeEspecialidadeCargo();}
 		
 		// CALCULANDO OS DIAS DO MES
-		String nomeColuna1 = service.obtemNomeDiaColuna(anoMesDaEscala, 1);
-		String nomeColuna2 = service.obtemNomeDiaColuna(anoMesDaEscala, 2);
-		String nomeColuna3 = service.obtemNomeDiaColuna(anoMesDaEscala, 3);
-		String nomeColuna4 = service.obtemNomeDiaColuna(anoMesDaEscala, 4);
-		String nomeColuna5 = service.obtemNomeDiaColuna(anoMesDaEscala, 5);
-		String nomeColuna6 = service.obtemNomeDiaColuna(anoMesDaEscala, 6);
-		String nomeColuna7 = service.obtemNomeDiaColuna(anoMesDaEscala, 7);
+		String nomeColuna1 = escalaCalculosService.obtemNomeDiaColuna(anoMesDaEscala, 1);
+		String nomeColuna2 = escalaCalculosService.obtemNomeDiaColuna(anoMesDaEscala, 2);
+		String nomeColuna3 = escalaCalculosService.obtemNomeDiaColuna(anoMesDaEscala, 3);
+		String nomeColuna4 = escalaCalculosService.obtemNomeDiaColuna(anoMesDaEscala, 4);
+		String nomeColuna5 = escalaCalculosService.obtemNomeDiaColuna(anoMesDaEscala, 5);
+		String nomeColuna6 = escalaCalculosService.obtemNomeDiaColuna(anoMesDaEscala, 6);
+		String nomeColuna7 = escalaCalculosService.obtemNomeDiaColuna(anoMesDaEscala, 7);
 		
 		model.addAttribute("escala", escala );
 		
@@ -116,13 +124,18 @@ public class EscalaController {
 	@GetMapping("/atalho/ciclo1a")
 	public String atalhoA(Escala escala, ModelMap model) {	
 		
-		System.out.println();
+		escala.setIdFuncionarioFk(pessoaFuncionariosService.buscarPorId( escala.getIdFuncionarioFk().getId()));
+		//COLOCAR TAMBEM
+		//anomes
+		//coordenacao
+		//tipo de folha
+		
 		
 		escala = escalaAtalhosService.atalhoCiclo1A(escala);
 		
 		String anoMesDaEscala = "202105";
 		if(escala!=null){anoMesDaEscala = escala.getIdAnoMesFk().getNomeAnoMes();}
-		int qtdDiasNoMes = service.quantidadeDeDiasNoMes(anoMesDaEscala);
+		int qtdDiasNoMes = escalaCalculosService.quantidadeDeDiasNoMes(anoMesDaEscala);
 		String escalaCoordenacao = "ENFERMAGEM-VERDE A-ENFERMEIROS";
 		if(escala!=null){escalaCoordenacao = escala.getIdCoordenacaoFk().getNomeCoordenacao()+"-"+escala.getIdCoordenacaoFk().getIdLocalidadeFk().getNomeLocalidade()+"-"+escala.getIdCoordenacaoFk().getIdAtividadeFk().getNomeAtividade();}
 		String nomeDaPessoa = "NOME DA PESSOA";
@@ -134,29 +147,21 @@ public class EscalaController {
 		String chDaPessoa = "30";
 		if(escala!=null){chDaPessoa = String.valueOf(escala.getIdFuncionarioFk().getIdCargaHorariaAtualFk().getCargaHoraria());}
 		String tipoDeFolhaDaPessoa = "TIPO DE FOLHA";
-		if(escala!=null){tipoDeFolhaDaPessoa = escala.getIdTipoFolhaFk().getNomeTipoFolha();}
+		//if(escala!=null){tipoDeFolhaDaPessoa = escala.getIdTipoFolhaFk().getNomeTipoFolha();}
 		String cargoDaPessoa = "CARGO";
 		if(escala!=null){cargoDaPessoa = escala.getIdFuncionarioFk().getIdEspecialidadeAtualFk().getIdCargoFk().getNomeCargo()+"-"+escala.getIdFuncionarioFk().getIdEspecialidadeAtualFk().getNomeEspecialidadeCargo();}
 		
 		// CALCULANDO OS DIAS DO MES
-		String nomeColuna1 = service.obtemNomeDiaColuna(anoMesDaEscala, 1);
-		String nomeColuna2 = service.obtemNomeDiaColuna(anoMesDaEscala, 2);
-		String nomeColuna3 = service.obtemNomeDiaColuna(anoMesDaEscala, 3);
-		String nomeColuna4 = service.obtemNomeDiaColuna(anoMesDaEscala, 4);
-		String nomeColuna5 = service.obtemNomeDiaColuna(anoMesDaEscala, 5);
-		String nomeColuna6 = service.obtemNomeDiaColuna(anoMesDaEscala, 6);
-		String nomeColuna7 = service.obtemNomeDiaColuna(anoMesDaEscala, 7);
+		String nomeColuna1 = escalaCalculosService.obtemNomeDiaColuna(anoMesDaEscala, 1);
+		String nomeColuna2 = escalaCalculosService.obtemNomeDiaColuna(anoMesDaEscala, 2);
+		String nomeColuna3 = escalaCalculosService.obtemNomeDiaColuna(anoMesDaEscala, 3);
+		String nomeColuna4 = escalaCalculosService.obtemNomeDiaColuna(anoMesDaEscala, 4);
+		String nomeColuna5 = escalaCalculosService.obtemNomeDiaColuna(anoMesDaEscala, 5);
+		String nomeColuna6 = escalaCalculosService.obtemNomeDiaColuna(anoMesDaEscala, 6);
+		String nomeColuna7 = escalaCalculosService.obtemNomeDiaColuna(anoMesDaEscala, 7);
 		
 		model.addAttribute("escala", escala );
 		
-		model.addAttribute("anoMesDaEscala", anoMesDaEscala );
-		model.addAttribute("escalaCoordenacao", escalaCoordenacao );
-		model.addAttribute("nomeDaPessoa", nomeDaPessoa );
-		model.addAttribute("cpfDaPessoa", cpfDaPessoa );
-		model.addAttribute("matriculaDaPessoa", matriculaDaPessoa );
-		model.addAttribute("cargoDaPessoa", cargoDaPessoa );
-		model.addAttribute("chDaPessoa", chDaPessoa );
-		model.addAttribute("tipoDeFolhaDaPessoa", tipoDeFolhaDaPessoa );
 		model.addAttribute("qtdDiasNoMes", qtdDiasNoMes );
 		model.addAttribute("nomeColuna1", nomeColuna1 );
 		model.addAttribute("nomeColuna2", nomeColuna2 );
@@ -189,7 +194,10 @@ public class EscalaController {
 	
 	@PostMapping("/salvar")
 	public String salvar(Escala escala) {
-		service.salvar(escala);
+		
+		escala.setIdFuncionarioFk(pessoaFuncionariosService.buscarPorId( escala.getIdFuncionarioFk().getId()));
+		
+		//service.salvar(escala);
 		//attr.addFlashAttribute("success", "Inserido com sucesso.");
 		return "redirect:/bancos/cadastrar";
 	}
