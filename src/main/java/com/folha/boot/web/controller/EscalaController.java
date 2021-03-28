@@ -4,6 +4,7 @@ import java.util.Date;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
@@ -17,6 +18,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.folha.boot.domain.AcessoOperadoresCoordenacao;
 import com.folha.boot.domain.Bancos;
+import com.folha.boot.domain.Cidades;
 import com.folha.boot.domain.CodigoDiferenciado;
 import com.folha.boot.domain.Escala;
 import com.folha.boot.domain.Pessoa;
@@ -27,6 +29,7 @@ import com.folha.boot.domain.SimNao;
 import com.folha.boot.domain.TiposDeDocumento;
 import com.folha.boot.domain.Turmas;
 import com.folha.boot.domain.Turnos;
+import com.folha.boot.domain.Uf;
 import com.folha.boot.domain.models.escolhaAcessoEscala;
 import com.folha.boot.service.AcessoOperadoresCoordenacaoService;
 import com.folha.boot.service.AnoMesService;
@@ -59,6 +62,9 @@ public class EscalaController {
 	Long idOperadorLogado = 1l;
 	Escala escalaAtual;
 	String choque = "";
+	
+	String ultimaBuscaNome = "";
+	Turmas ultimaBuscaTurma = null;
 	
 	@Autowired
 	private EscalaService service;
@@ -105,13 +111,44 @@ public class EscalaController {
 	@PostMapping("/ir/para/escala")
 	public String irParaEscala(ModelMap model, Long coordenacaoEscala, Long anoMes) {
 		
-		this.idCoordenacaoAtual = coordenacaoEscala;
-		this.idAnoMesAtual = anoMes;
+		if(coordenacaoEscala!=null && anoMes!=null) {
+			this.idCoordenacaoAtual = coordenacaoEscala;
+			this.idAnoMesAtual = anoMes;
+			
+			return "redirect:/escalas/listar";
+		}else {
+			return "redirect:/escalas/mensagem/de/nao/escolha";
+		}
 		
-		model.addAttribute("pessoaDocumentos", service.buscarTodos());
-		return "/documento/lista"; 
 	}
 
+	@GetMapping("/listar")
+	public String listar(ModelMap model) {
+		
+		return this.findPaginated(1, model);
+	}	
+	
+	
+	@GetMapping("/listar/{pageNo}")
+	public String findPaginated(@PathVariable (value = "pageNo") int pageNo, ModelMap model) {
+		int pageSeze = 5;
+		Page<Escala> page = service.findPaginated(pageNo, pageSeze, coordenacaoEscalaService.buscarPorId(idCoordenacaoAtual), anoMesService.buscarPorId(idAnoMesAtual));
+		List<Escala> listaCidades = page.getContent();
+		return paginar(pageNo, page, listaCidades, model);
+	}
+	
+	public String paginar(int pageNo, Page<Escala> page, List<Escala> lista, ModelMap model) {	
+		
+		model.addAttribute("escala", coordenacaoEscalaService.buscarPorId(idCoordenacaoAtual));
+		model.addAttribute("mes", anoMesService.buscarPorId(idAnoMesAtual));
+		
+		model.addAttribute("currentePage", pageNo);
+		model.addAttribute("totalPages", page.getTotalPages());
+		model.addAttribute("totalItems", page.getTotalElements()); 
+		model.addAttribute("listaEscala", lista);
+		return "/escala/lista";	
+	}
+	
 		
 	@GetMapping("/alterar/escala/{id}")
 	public String cadastrarEscala(@PathVariable("id") Long id, Escala escala, ModelMap model) {	
@@ -167,7 +204,100 @@ public class EscalaController {
 		return "/escala/editar";
 	}
 	
+
+	@PostMapping("/salvar")
+	public String salvar(Escala escala, String recalcular, String lancarTurma) {
+		 
+		escala = escalaCalculosService.converteTurnoNuloEmFolga(escala);
+		escala = escalaCalculosService.calcularDadosEscala(escala);
+		
+		//Avaliando Choques
+		String choque = service.choquesEmEscalaOnipresenca(escala);
+		this.choque = choque;
+		
+		//salvando
+		if(choque.length()==0){
+			service.salvar(escala);
+		}
+		//lançanco turma
+		if(lancarTurma!= null) {service.lancarTurma(escala);}
+		
+		if(choque.length()>0) {
+			
+			return "redirect:/escalas/mensagem/de/choque";
+		}
+		
+		if(recalcular!=null) {
+			return "redirect:/escalas/alterar/escala/"+escala.getId();
+		}
+		
+		
+		return "redirect:/escalas/listar";
+	}
 	
+	@GetMapping("/cancelar/{id}")
+	public String cancelar(@PathVariable("id") Long id, ModelMap model) {
+		Escala escala = service.buscarPorId(id); 
+		
+		escala.setIdOperadorCancelamentoFk(pessoaOperadoresService.buscarPorId(idOperadorLogado));
+		escala.setDtCancelamento(new Date());
+		
+		service.salvar(escala);  
+		
+		return "redirect:/escalas/listar";
+	}
+	
+	@GetMapping("/paginar/{pageNo}")
+	public String getPorNomePaginado(@PathVariable (value = "pageNo") int pageNo, ModelMap model) {
+		
+		if( (ultimaBuscaNome.equals("")) && (ultimaBuscaTurma == null) ){
+			return "redirect:/escalas/listar/{pageNo}" ;}
+		else {		
+			if(!ultimaBuscaNome.equals("")) {
+				return this.findPaginated(pageNo, ultimaBuscaNome, model);}
+			else {
+				return this.findPaginated(pageNo, ultimaBuscaTurma, model);}
+			}
+	}
+	
+	@GetMapping("/buscar/nome")
+	public String getPorNome(@RequestParam("nome") String nome, ModelMap model) {
+		this.ultimaBuscaNome = nome;
+		this.ultimaBuscaTurma = null;	
+		return this.findPaginated(1, nome, model);
+	}
+	
+	public String findPaginated(@PathVariable (value = "pageNo") int pageNo, String nome, ModelMap model) {
+		int pageSeze = 5;
+		Page<Escala> page = service.findPaginatedNome(pageNo, pageSeze, coordenacaoEscalaService.buscarPorId(idCoordenacaoAtual), anoMesService.buscarPorId(idAnoMesAtual), nome );
+		List<Escala> lista = page.getContent();
+		ultimaBuscaNome = "";
+		ultimaBuscaTurma = null;
+		return paginar(pageNo, page, lista, model);
+	}
+	
+	@GetMapping("/buscar/id/turma")
+	public String getPorIdUf(@RequestParam("idTurmaFk") Turmas turmas, ModelMap model) {
+		this.ultimaBuscaTurma = turmas;
+		this.ultimaBuscaNome = "";
+		
+		if(turmas==null){
+			return "redirect:/escalas/listar";
+		}else {
+			return this.findPaginated(1, turmas, model);
+		}
+	}
+	
+	public String findPaginated(@PathVariable (value = "pageNo") int pageNo, Turmas turmas, ModelMap model) {
+		int pageSeze = 5;
+		Page<Escala> page = service.findPaginatedTurma(pageNo, pageSeze, coordenacaoEscalaService.buscarPorId(idCoordenacaoAtual), anoMesService.buscarPorId(idAnoMesAtual), turmas );
+		List<Escala> lista = page.getContent();
+		ultimaBuscaNome = "";
+		ultimaBuscaTurma = null;
+		return paginar(pageNo, page, lista, model);
+	}
+	
+
 	
 	@GetMapping("/atalho/limpar_escala")
 	public String atalhoLimparEscala( RedirectAttributes attr) {	
@@ -1010,44 +1140,9 @@ public class EscalaController {
 		return "/documento/cadastro";
 	}
 	*/
-	@GetMapping("/listar")
-	public String listar(ModelMap model) {
-		model.addAttribute("pessoaDocumentos", service.buscarTodos());
-		return "/documento/lista"; 
-	}
 	
 	
-	@PostMapping("/salvar")
-	public String salvar(Escala escala, String recalcular, String lancarTurma) {
-		 
-		escala = escalaCalculosService.converteTurnoNuloEmFolga(escala);
-		escala = escalaCalculosService.calcularDadosEscala(escala);
-		
-		//Avaliando Choques
-		String choque = service.choquesEmEscalaOnipresenca(escala);
-		this.choque = choque;
-		
-		
-		//salvando
-		if(choque.length()==0){
-			service.salvar(escala);
-		}
-		//lançanco turma
-		if(lancarTurma!= null) {service.lancarTurma(escala);}
-		
-		
-		if(choque.length()>0) {
-			
-			return "redirect:/escalas/mensagem/de/choque";
-		}
-		
-		if(recalcular!=null) {
-			return "redirect:/escalas/alterar/escala/"+escala.getId();
-		}
-		
-		
-		return "redirect:/bancos/cadastrar";
-	}
+	
 	
 	@GetMapping("/mensagem/de/choque")
 	public String mensagemDeChoque(ModelMap model) {	
@@ -1057,6 +1152,16 @@ public class EscalaController {
 		model.addAttribute("mensagem", choque);
 		
 		return "/choqueescala/choque";
+	}
+	
+	@GetMapping("/mensagem/de/nao/escolha")
+	public String mensagemDeNaoEscolha(ModelMap model) {	
+		
+		model.addAttribute("atencao", "ATENÇÃO");
+		model.addAttribute("choque", "ESCOLHA");
+		model.addAttribute("mensagem", "Campos obrigatórios");
+		
+		return "/choqueescala/obrigatorio";
 	}
 	
 	

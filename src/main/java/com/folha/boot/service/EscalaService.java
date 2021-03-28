@@ -3,17 +3,22 @@ package com.folha.boot.service;
 import java.util.Date;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.folha.boot.Reposytory.EscalaReposytoty;
 import com.folha.boot.Reposytory.PessoaDocumentosReposytory;
 import com.folha.boot.domain.AnoMes;
+import com.folha.boot.domain.Cidades;
 import com.folha.boot.domain.CoordenacaoEscala;
 import com.folha.boot.domain.Escala;
 import com.folha.boot.domain.Pessoa;
 import com.folha.boot.domain.PessoaDocumentos;
 import com.folha.boot.domain.Turmas;
+import com.folha.boot.domain.Uf;
 import com.folha.boot.service.util.UtilidadesDeCalendarioEEscala;
 import com.folha.boot.service.util.UtilidadesMatematicas;
 
@@ -69,6 +74,23 @@ public class EscalaService {
 		// TODO Auto-generated method stub
 		return reposytory.buscarPorPessoaEAnoMes( pessoa, anoMes);
 	}
+	
+	
+	public Page<Escala> findPaginated(int pageNo, int pageSize, CoordenacaoEscala coordenacaoEscala, AnoMes anoMes) {
+		Pageable pageable = PageRequest.of(pageNo -1, pageSize);
+		return this.reposytory.findByIdCoordenacaoFkAndIdAnoMesFkAndDtCancelamentoIsNull(coordenacaoEscala, anoMes, pageable);
+	}
+	
+	public Page<Escala> findPaginatedNome(int pageNo, int pageSize, CoordenacaoEscala coordenacaoEscala, AnoMes anoMes, String nome) {
+		Pageable pageable = PageRequest.of(pageNo -1, pageSize);
+		return this.reposytory.findByIdCoordenacaoFkAndIdAnoMesFkAndDtCancelamentoIsNullAndIdFuncionarioFkIdPessoaFkNomeContainingOrderByIdFuncionarioFkIdPessoaFkNomeAsc(coordenacaoEscala, anoMes, nome.toUpperCase().trim(), pageable);
+	}
+
+	public Page<Escala> findPaginatedTurma(int pageNo, int pageSize, CoordenacaoEscala coordenacaoEscala, AnoMes anoMes, Turmas turmas) {
+		Pageable pageable = PageRequest.of(pageNo -1, pageSize);
+		return this.reposytory.findByIdCoordenacaoFkAndIdAnoMesFkAndDtCancelamentoIsNullAndIdTurmaFkOrderByIdFuncionarioFkIdPessoaFkNomeAsc(coordenacaoEscala, anoMes, turmas, pageable);
+	}
+	
 	
 	public void lancarTurma(Escala escala) {
 		List<Escala> lista = buscarPorCoordenacaoEAnoMesZeradas(escala.getIdCoordenacaoFk(), escala.getIdAnoMesFk(), escala.getIdTurmaFk());
