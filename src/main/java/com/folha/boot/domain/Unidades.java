@@ -45,8 +45,6 @@ public class Unidades extends AbstractEntity<Long> {
     private List<FuncionariosLicencas> funcionariosLicencasList;
     @OneToMany(mappedBy = "idUnidadeLotacaoAtualFk")
     private List<FuncionariosLicencas> funcionariosLicencasList1;
-    @OneToMany(mappedBy = "idUnidadeFk")
-    private List<AcessoOperadoresCoordenacao> acessoOperadoresCoordenacaoList;
     @JoinColumn(name = "id_endereco_cidade_fk", referencedColumnName = "id")
     @ManyToOne
     private Cidades idEnderecoCidadeFk;
@@ -328,14 +326,6 @@ public class Unidades extends AbstractEntity<Long> {
 	public void setFaixasValoresParametrosCalculoFolhasExtrasList(
 			List<FaixasValoresParametrosCalculoFolhasExtras> faixasValoresParametrosCalculoFolhasExtrasList) {
 		this.faixasValoresParametrosCalculoFolhasExtrasList = faixasValoresParametrosCalculoFolhasExtrasList;
-	}
-
-	public List<AcessoOperadoresCoordenacao> getAcessoOperadoresCoordenacaoList() {
-		return acessoOperadoresCoordenacaoList;
-	}
-
-	public void setAcessoOperadoresCoordenacaoList(List<AcessoOperadoresCoordenacao> acessoOperadoresCoordenacaoList) {
-		this.acessoOperadoresCoordenacaoList = acessoOperadoresCoordenacaoList;
 	}
 
 	public List<LocalidadeEscala> getLocalidadeEscalaList() {

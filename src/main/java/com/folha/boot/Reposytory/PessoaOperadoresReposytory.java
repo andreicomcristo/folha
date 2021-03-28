@@ -11,4 +11,5 @@ public interface PessoaOperadoresReposytory extends JpaRepository<PessoaOperador
 	public List<PessoaOperadores> findAllByOrderByMotivoCancelamentoAsc();
 
 	public List<PessoaOperadores> findByMotivoCancelamentoContainingOrderByMotivoCancelamentoAsc(String motivoCancelamento);
+	
 }

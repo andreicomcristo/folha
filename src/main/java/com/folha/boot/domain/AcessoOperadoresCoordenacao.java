@@ -14,9 +14,9 @@ public class AcessoOperadoresCoordenacao extends AbstractEntity<Long> {
 	@ManyToOne
 	private PessoaOperadores idOperadorFk;
 	
-	@JoinColumn(name = "id_unidade_fk", referencedColumnName = "id")
+	@JoinColumn(name = "id_coordenacao_fk", referencedColumnName = "id")
 	@ManyToOne
-	private Unidades idUnidadeFk;
+	private Unidades idCoordenacaoFk;
 	
 	public PessoaOperadores getIdOperadorFk() {
 		return idOperadorFk;
@@ -24,11 +24,12 @@ public class AcessoOperadoresCoordenacao extends AbstractEntity<Long> {
 	public void setIdOperadorFk(PessoaOperadores idOperadorFk) {
 		this.idOperadorFk = idOperadorFk;
 	}
-	public Unidades getIdUnidadeFk() {
-		return idUnidadeFk;
+	public Unidades getIdCoordenacaoFk() {
+		return idCoordenacaoFk;
 	}
-	public void setIdUnidadeFk(Unidades idUnidadeFk) {
-		this.idUnidadeFk = idUnidadeFk;
+	public void setIdCoordenacaoFk(Unidades idCoordenacaoFk) {
+		this.idCoordenacaoFk = idCoordenacaoFk;
 	}
+	
 	
 }

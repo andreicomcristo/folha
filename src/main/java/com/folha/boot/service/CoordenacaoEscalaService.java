@@ -1,11 +1,15 @@
 package com.folha.boot.service;
 
+import java.util.ArrayList;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import com.folha.boot.Reposytory.CoordenacaoEscalaReposytory;
+import com.folha.boot.domain.AcessoOperadoresCoordenacao;
 import com.folha.boot.domain.CoordenacaoEscala;
+import com.folha.boot.domain.PessoaOperadores;
+import com.folha.boot.domain.Unidades;
 
 @Service
 @Transactional(readOnly = false)
@@ -39,4 +43,24 @@ public class CoordenacaoEscalaService {
 		// TODO Auto-generated method stub
 		return reposytory.findAll();
 	}
+	
+	@Transactional(readOnly = true)
+	public List<CoordenacaoEscala> buscarAcessoIndividual(Unidades unidades, PessoaOperadores pessoaOperadores, List<AcessoOperadoresCoordenacao> listaDeCoordenacoes ) {
+		
+		List<CoordenacaoEscala> listaInicial = buscarTodos();
+		
+		List<CoordenacaoEscala> listaFinal = new ArrayList<CoordenacaoEscala>();
+		
+		for(int i=0;i<listaInicial.size();i++) {
+			for(int j=0;j<listaDeCoordenacoes.size();j++) {
+				if( (listaInicial.get(i).getId()==listaDeCoordenacoes.get(j).getIdCoordenacaoFk().getId()) &&  (listaInicial.get(i).getIdLocalidadeFk().getIdUnidadeFk().getId()==unidades.getId()) ) {
+					listaFinal.add(listaInicial.get(i));
+				}
+			}
+		}
+		
+		return listaFinal;
+	}
+	
+	
 }

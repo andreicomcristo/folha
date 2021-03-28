@@ -1275,4 +1275,936 @@ public class EscalaAtalhosService {
 					
 				return escala;	
 				}
+				
+				// Ciclo 8
+				public Escala atalhoCiclo8A(Escala escala) {
+					int qtdDiasNoMes = utilidadesDeCalendarioEEscala.quantidadeDeDiasNoMes(escala.getIdAnoMesFk().getNomeAnoMes());
+					
+					// Alterando de diarista para plantonista
+					if(escala.getIdRegimeFk().getNomeRegimeDeTrabalho().equalsIgnoreCase("DD") || escala.getIdRegimeFk().getNomeRegimeDeTrabalho().equalsIgnoreCase("DM")  ||  escala.getIdRegimeFk().getNomeRegimeDeTrabalho().equalsIgnoreCase("DT")   ) {
+						escala.setIdRegimeFk(regimesDeTrabalhoService.buscarPorNomeUnico("PL"));
+					}
+					
+					String nomeDia = "SEGUNDA";
+					
+					if(utilidadesDeCalendarioEEscala.getDiaSemanaPorAnoMesEDia(escala.getIdAnoMesFk().getNomeAnoMes(),  1).equalsIgnoreCase(nomeDia)) {escala.setDia01Fk(turnosService.buscarPorNome("MTN"));/*MTN*/}
+					if(utilidadesDeCalendarioEEscala.getDiaSemanaPorAnoMesEDia(escala.getIdAnoMesFk().getNomeAnoMes(),  2).equalsIgnoreCase(nomeDia)) {escala.setDia02Fk(turnosService.buscarPorNome("MTN"));/*MTN*/}
+					if(utilidadesDeCalendarioEEscala.getDiaSemanaPorAnoMesEDia(escala.getIdAnoMesFk().getNomeAnoMes(),  3).equalsIgnoreCase(nomeDia)) {escala.setDia03Fk(turnosService.buscarPorNome("MTN"));/*MTN*/}
+					if(utilidadesDeCalendarioEEscala.getDiaSemanaPorAnoMesEDia(escala.getIdAnoMesFk().getNomeAnoMes(),  4).equalsIgnoreCase(nomeDia)) {escala.setDia04Fk(turnosService.buscarPorNome("MTN"));/*MTN*/}
+					if(utilidadesDeCalendarioEEscala.getDiaSemanaPorAnoMesEDia(escala.getIdAnoMesFk().getNomeAnoMes(),  5).equalsIgnoreCase(nomeDia)) {escala.setDia05Fk(turnosService.buscarPorNome("MTN"));/*MTN*/}
+					if(utilidadesDeCalendarioEEscala.getDiaSemanaPorAnoMesEDia(escala.getIdAnoMesFk().getNomeAnoMes(),  6).equalsIgnoreCase(nomeDia)) {escala.setDia06Fk(turnosService.buscarPorNome("MTN"));/*MTN*/}
+					if(utilidadesDeCalendarioEEscala.getDiaSemanaPorAnoMesEDia(escala.getIdAnoMesFk().getNomeAnoMes(),  7).equalsIgnoreCase(nomeDia)) {escala.setDia07Fk(turnosService.buscarPorNome("MTN"));/*MTN*/}
+					if(utilidadesDeCalendarioEEscala.getDiaSemanaPorAnoMesEDia(escala.getIdAnoMesFk().getNomeAnoMes(),  8).equalsIgnoreCase(nomeDia)) {escala.setDia08Fk(turnosService.buscarPorNome("MTN"));/*MTN*/}
+					if(utilidadesDeCalendarioEEscala.getDiaSemanaPorAnoMesEDia(escala.getIdAnoMesFk().getNomeAnoMes(),  9).equalsIgnoreCase(nomeDia)) {escala.setDia09Fk(turnosService.buscarPorNome("MTN"));/*MTN*/}
+					if(utilidadesDeCalendarioEEscala.getDiaSemanaPorAnoMesEDia(escala.getIdAnoMesFk().getNomeAnoMes(), 10).equalsIgnoreCase(nomeDia)) {escala.setDia10Fk(turnosService.buscarPorNome("MTN"));/*MTN*/}
+					if(utilidadesDeCalendarioEEscala.getDiaSemanaPorAnoMesEDia(escala.getIdAnoMesFk().getNomeAnoMes(), 11).equalsIgnoreCase(nomeDia)) {escala.setDia11Fk(turnosService.buscarPorNome("MTN"));/*MTN*/}
+					if(utilidadesDeCalendarioEEscala.getDiaSemanaPorAnoMesEDia(escala.getIdAnoMesFk().getNomeAnoMes(), 12).equalsIgnoreCase(nomeDia)) {escala.setDia12Fk(turnosService.buscarPorNome("MTN"));/*MTN*/}
+					if(utilidadesDeCalendarioEEscala.getDiaSemanaPorAnoMesEDia(escala.getIdAnoMesFk().getNomeAnoMes(), 13).equalsIgnoreCase(nomeDia)) {escala.setDia13Fk(turnosService.buscarPorNome("MTN"));/*MTN*/}
+					if(utilidadesDeCalendarioEEscala.getDiaSemanaPorAnoMesEDia(escala.getIdAnoMesFk().getNomeAnoMes(), 14).equalsIgnoreCase(nomeDia)) {escala.setDia14Fk(turnosService.buscarPorNome("MTN"));/*MTN*/}
+					if(utilidadesDeCalendarioEEscala.getDiaSemanaPorAnoMesEDia(escala.getIdAnoMesFk().getNomeAnoMes(), 15).equalsIgnoreCase(nomeDia)) {escala.setDia15Fk(turnosService.buscarPorNome("MTN"));/*MTN*/}
+					if(utilidadesDeCalendarioEEscala.getDiaSemanaPorAnoMesEDia(escala.getIdAnoMesFk().getNomeAnoMes(), 16).equalsIgnoreCase(nomeDia)) {escala.setDia16Fk(turnosService.buscarPorNome("MTN"));/*MTN*/}
+					if(utilidadesDeCalendarioEEscala.getDiaSemanaPorAnoMesEDia(escala.getIdAnoMesFk().getNomeAnoMes(), 17).equalsIgnoreCase(nomeDia)) {escala.setDia17Fk(turnosService.buscarPorNome("MTN"));/*MTN*/}
+					if(utilidadesDeCalendarioEEscala.getDiaSemanaPorAnoMesEDia(escala.getIdAnoMesFk().getNomeAnoMes(), 18).equalsIgnoreCase(nomeDia)) {escala.setDia18Fk(turnosService.buscarPorNome("MTN"));/*MTN*/}
+					if(utilidadesDeCalendarioEEscala.getDiaSemanaPorAnoMesEDia(escala.getIdAnoMesFk().getNomeAnoMes(), 19).equalsIgnoreCase(nomeDia)) {escala.setDia19Fk(turnosService.buscarPorNome("MTN"));/*MTN*/}
+					if(utilidadesDeCalendarioEEscala.getDiaSemanaPorAnoMesEDia(escala.getIdAnoMesFk().getNomeAnoMes(), 20).equalsIgnoreCase(nomeDia)) {escala.setDia20Fk(turnosService.buscarPorNome("MTN"));/*MTN*/}
+					if(utilidadesDeCalendarioEEscala.getDiaSemanaPorAnoMesEDia(escala.getIdAnoMesFk().getNomeAnoMes(), 21).equalsIgnoreCase(nomeDia)) {escala.setDia21Fk(turnosService.buscarPorNome("MTN"));/*MTN*/}
+					if(utilidadesDeCalendarioEEscala.getDiaSemanaPorAnoMesEDia(escala.getIdAnoMesFk().getNomeAnoMes(), 22).equalsIgnoreCase(nomeDia)) {escala.setDia22Fk(turnosService.buscarPorNome("MTN"));/*MTN*/}
+					if(utilidadesDeCalendarioEEscala.getDiaSemanaPorAnoMesEDia(escala.getIdAnoMesFk().getNomeAnoMes(), 23).equalsIgnoreCase(nomeDia)) {escala.setDia23Fk(turnosService.buscarPorNome("MTN"));/*MTN*/}
+					if(utilidadesDeCalendarioEEscala.getDiaSemanaPorAnoMesEDia(escala.getIdAnoMesFk().getNomeAnoMes(), 24).equalsIgnoreCase(nomeDia)) {escala.setDia24Fk(turnosService.buscarPorNome("MTN"));/*MTN*/}
+					if(utilidadesDeCalendarioEEscala.getDiaSemanaPorAnoMesEDia(escala.getIdAnoMesFk().getNomeAnoMes(), 25).equalsIgnoreCase(nomeDia)) {escala.setDia25Fk(turnosService.buscarPorNome("MTN"));/*MTN*/}
+					if(utilidadesDeCalendarioEEscala.getDiaSemanaPorAnoMesEDia(escala.getIdAnoMesFk().getNomeAnoMes(), 26).equalsIgnoreCase(nomeDia)) {escala.setDia26Fk(turnosService.buscarPorNome("MTN"));/*MTN*/}
+					if(utilidadesDeCalendarioEEscala.getDiaSemanaPorAnoMesEDia(escala.getIdAnoMesFk().getNomeAnoMes(), 27).equalsIgnoreCase(nomeDia)) {escala.setDia27Fk(turnosService.buscarPorNome("MTN"));/*MTN*/}
+					if(utilidadesDeCalendarioEEscala.getDiaSemanaPorAnoMesEDia(escala.getIdAnoMesFk().getNomeAnoMes(), 28).equalsIgnoreCase(nomeDia)) {escala.setDia28Fk(turnosService.buscarPorNome("MTN"));/*MTN*/}
+					if(qtdDiasNoMes>=29) {if(utilidadesDeCalendarioEEscala.getDiaSemanaPorAnoMesEDia(escala.getIdAnoMesFk().getNomeAnoMes(), 29).equalsIgnoreCase(nomeDia)) {escala.setDia29Fk(turnosService.buscarPorNome("MTN"));/*MTN*/}}
+					if(qtdDiasNoMes>=30) {if(utilidadesDeCalendarioEEscala.getDiaSemanaPorAnoMesEDia(escala.getIdAnoMesFk().getNomeAnoMes(), 30).equalsIgnoreCase(nomeDia)) {escala.setDia30Fk(turnosService.buscarPorNome("MTN"));/*MTN*/}}
+					if(qtdDiasNoMes==31) {if(utilidadesDeCalendarioEEscala.getDiaSemanaPorAnoMesEDia(escala.getIdAnoMesFk().getNomeAnoMes(), 31).equalsIgnoreCase(nomeDia)) {escala.setDia31Fk(turnosService.buscarPorNome("MTN"));/*MTN*/}}
+					
+					escala = escalaCalculosService.calcularDadosEscala(escala);
+					
+				return escala;	
+				}
+				
+				public Escala atalhoCiclo8B(Escala escala) {
+					int qtdDiasNoMes = utilidadesDeCalendarioEEscala.quantidadeDeDiasNoMes(escala.getIdAnoMesFk().getNomeAnoMes());
+					
+					// Alterando de diarista para plantonista
+					if(escala.getIdRegimeFk().getNomeRegimeDeTrabalho().equalsIgnoreCase("DD") || escala.getIdRegimeFk().getNomeRegimeDeTrabalho().equalsIgnoreCase("DM")  ||  escala.getIdRegimeFk().getNomeRegimeDeTrabalho().equalsIgnoreCase("DT")   ) {
+						escala.setIdRegimeFk(regimesDeTrabalhoService.buscarPorNomeUnico("PL"));
+					}
+					
+					String nomeDia = "TERCA";
+					
+					if(utilidadesDeCalendarioEEscala.getDiaSemanaPorAnoMesEDia(escala.getIdAnoMesFk().getNomeAnoMes(),  1).equalsIgnoreCase(nomeDia)) {escala.setDia01Fk(turnosService.buscarPorNome("MTN"));/*MTN*/}
+					if(utilidadesDeCalendarioEEscala.getDiaSemanaPorAnoMesEDia(escala.getIdAnoMesFk().getNomeAnoMes(),  2).equalsIgnoreCase(nomeDia)) {escala.setDia02Fk(turnosService.buscarPorNome("MTN"));/*MTN*/}
+					if(utilidadesDeCalendarioEEscala.getDiaSemanaPorAnoMesEDia(escala.getIdAnoMesFk().getNomeAnoMes(),  3).equalsIgnoreCase(nomeDia)) {escala.setDia03Fk(turnosService.buscarPorNome("MTN"));/*MTN*/}
+					if(utilidadesDeCalendarioEEscala.getDiaSemanaPorAnoMesEDia(escala.getIdAnoMesFk().getNomeAnoMes(),  4).equalsIgnoreCase(nomeDia)) {escala.setDia04Fk(turnosService.buscarPorNome("MTN"));/*MTN*/}
+					if(utilidadesDeCalendarioEEscala.getDiaSemanaPorAnoMesEDia(escala.getIdAnoMesFk().getNomeAnoMes(),  5).equalsIgnoreCase(nomeDia)) {escala.setDia05Fk(turnosService.buscarPorNome("MTN"));/*MTN*/}
+					if(utilidadesDeCalendarioEEscala.getDiaSemanaPorAnoMesEDia(escala.getIdAnoMesFk().getNomeAnoMes(),  6).equalsIgnoreCase(nomeDia)) {escala.setDia06Fk(turnosService.buscarPorNome("MTN"));/*MTN*/}
+					if(utilidadesDeCalendarioEEscala.getDiaSemanaPorAnoMesEDia(escala.getIdAnoMesFk().getNomeAnoMes(),  7).equalsIgnoreCase(nomeDia)) {escala.setDia07Fk(turnosService.buscarPorNome("MTN"));/*MTN*/}
+					if(utilidadesDeCalendarioEEscala.getDiaSemanaPorAnoMesEDia(escala.getIdAnoMesFk().getNomeAnoMes(),  8).equalsIgnoreCase(nomeDia)) {escala.setDia08Fk(turnosService.buscarPorNome("MTN"));/*MTN*/}
+					if(utilidadesDeCalendarioEEscala.getDiaSemanaPorAnoMesEDia(escala.getIdAnoMesFk().getNomeAnoMes(),  9).equalsIgnoreCase(nomeDia)) {escala.setDia09Fk(turnosService.buscarPorNome("MTN"));/*MTN*/}
+					if(utilidadesDeCalendarioEEscala.getDiaSemanaPorAnoMesEDia(escala.getIdAnoMesFk().getNomeAnoMes(), 10).equalsIgnoreCase(nomeDia)) {escala.setDia10Fk(turnosService.buscarPorNome("MTN"));/*MTN*/}
+					if(utilidadesDeCalendarioEEscala.getDiaSemanaPorAnoMesEDia(escala.getIdAnoMesFk().getNomeAnoMes(), 11).equalsIgnoreCase(nomeDia)) {escala.setDia11Fk(turnosService.buscarPorNome("MTN"));/*MTN*/}
+					if(utilidadesDeCalendarioEEscala.getDiaSemanaPorAnoMesEDia(escala.getIdAnoMesFk().getNomeAnoMes(), 12).equalsIgnoreCase(nomeDia)) {escala.setDia12Fk(turnosService.buscarPorNome("MTN"));/*MTN*/}
+					if(utilidadesDeCalendarioEEscala.getDiaSemanaPorAnoMesEDia(escala.getIdAnoMesFk().getNomeAnoMes(), 13).equalsIgnoreCase(nomeDia)) {escala.setDia13Fk(turnosService.buscarPorNome("MTN"));/*MTN*/}
+					if(utilidadesDeCalendarioEEscala.getDiaSemanaPorAnoMesEDia(escala.getIdAnoMesFk().getNomeAnoMes(), 14).equalsIgnoreCase(nomeDia)) {escala.setDia14Fk(turnosService.buscarPorNome("MTN"));/*MTN*/}
+					if(utilidadesDeCalendarioEEscala.getDiaSemanaPorAnoMesEDia(escala.getIdAnoMesFk().getNomeAnoMes(), 15).equalsIgnoreCase(nomeDia)) {escala.setDia15Fk(turnosService.buscarPorNome("MTN"));/*MTN*/}
+					if(utilidadesDeCalendarioEEscala.getDiaSemanaPorAnoMesEDia(escala.getIdAnoMesFk().getNomeAnoMes(), 16).equalsIgnoreCase(nomeDia)) {escala.setDia16Fk(turnosService.buscarPorNome("MTN"));/*MTN*/}
+					if(utilidadesDeCalendarioEEscala.getDiaSemanaPorAnoMesEDia(escala.getIdAnoMesFk().getNomeAnoMes(), 17).equalsIgnoreCase(nomeDia)) {escala.setDia17Fk(turnosService.buscarPorNome("MTN"));/*MTN*/}
+					if(utilidadesDeCalendarioEEscala.getDiaSemanaPorAnoMesEDia(escala.getIdAnoMesFk().getNomeAnoMes(), 18).equalsIgnoreCase(nomeDia)) {escala.setDia18Fk(turnosService.buscarPorNome("MTN"));/*MTN*/}
+					if(utilidadesDeCalendarioEEscala.getDiaSemanaPorAnoMesEDia(escala.getIdAnoMesFk().getNomeAnoMes(), 19).equalsIgnoreCase(nomeDia)) {escala.setDia19Fk(turnosService.buscarPorNome("MTN"));/*MTN*/}
+					if(utilidadesDeCalendarioEEscala.getDiaSemanaPorAnoMesEDia(escala.getIdAnoMesFk().getNomeAnoMes(), 20).equalsIgnoreCase(nomeDia)) {escala.setDia20Fk(turnosService.buscarPorNome("MTN"));/*MTN*/}
+					if(utilidadesDeCalendarioEEscala.getDiaSemanaPorAnoMesEDia(escala.getIdAnoMesFk().getNomeAnoMes(), 21).equalsIgnoreCase(nomeDia)) {escala.setDia21Fk(turnosService.buscarPorNome("MTN"));/*MTN*/}
+					if(utilidadesDeCalendarioEEscala.getDiaSemanaPorAnoMesEDia(escala.getIdAnoMesFk().getNomeAnoMes(), 22).equalsIgnoreCase(nomeDia)) {escala.setDia22Fk(turnosService.buscarPorNome("MTN"));/*MTN*/}
+					if(utilidadesDeCalendarioEEscala.getDiaSemanaPorAnoMesEDia(escala.getIdAnoMesFk().getNomeAnoMes(), 23).equalsIgnoreCase(nomeDia)) {escala.setDia23Fk(turnosService.buscarPorNome("MTN"));/*MTN*/}
+					if(utilidadesDeCalendarioEEscala.getDiaSemanaPorAnoMesEDia(escala.getIdAnoMesFk().getNomeAnoMes(), 24).equalsIgnoreCase(nomeDia)) {escala.setDia24Fk(turnosService.buscarPorNome("MTN"));/*MTN*/}
+					if(utilidadesDeCalendarioEEscala.getDiaSemanaPorAnoMesEDia(escala.getIdAnoMesFk().getNomeAnoMes(), 25).equalsIgnoreCase(nomeDia)) {escala.setDia25Fk(turnosService.buscarPorNome("MTN"));/*MTN*/}
+					if(utilidadesDeCalendarioEEscala.getDiaSemanaPorAnoMesEDia(escala.getIdAnoMesFk().getNomeAnoMes(), 26).equalsIgnoreCase(nomeDia)) {escala.setDia26Fk(turnosService.buscarPorNome("MTN"));/*MTN*/}
+					if(utilidadesDeCalendarioEEscala.getDiaSemanaPorAnoMesEDia(escala.getIdAnoMesFk().getNomeAnoMes(), 27).equalsIgnoreCase(nomeDia)) {escala.setDia27Fk(turnosService.buscarPorNome("MTN"));/*MTN*/}
+					if(utilidadesDeCalendarioEEscala.getDiaSemanaPorAnoMesEDia(escala.getIdAnoMesFk().getNomeAnoMes(), 28).equalsIgnoreCase(nomeDia)) {escala.setDia28Fk(turnosService.buscarPorNome("MTN"));/*MTN*/}
+					if(qtdDiasNoMes>=29) {if(utilidadesDeCalendarioEEscala.getDiaSemanaPorAnoMesEDia(escala.getIdAnoMesFk().getNomeAnoMes(), 29).equalsIgnoreCase(nomeDia)) {escala.setDia29Fk(turnosService.buscarPorNome("MTN"));/*MTN*/}}
+					if(qtdDiasNoMes>=30) {if(utilidadesDeCalendarioEEscala.getDiaSemanaPorAnoMesEDia(escala.getIdAnoMesFk().getNomeAnoMes(), 30).equalsIgnoreCase(nomeDia)) {escala.setDia30Fk(turnosService.buscarPorNome("MTN"));/*MTN*/}}
+					if(qtdDiasNoMes==31) {if(utilidadesDeCalendarioEEscala.getDiaSemanaPorAnoMesEDia(escala.getIdAnoMesFk().getNomeAnoMes(), 31).equalsIgnoreCase(nomeDia)) {escala.setDia31Fk(turnosService.buscarPorNome("MTN"));/*MTN*/}}
+					
+					escala = escalaCalculosService.calcularDadosEscala(escala);
+					
+				return escala;	
+				}
+
+				public Escala atalhoCiclo8C(Escala escala) {
+					int qtdDiasNoMes = utilidadesDeCalendarioEEscala.quantidadeDeDiasNoMes(escala.getIdAnoMesFk().getNomeAnoMes());
+					
+					// Alterando de diarista para plantonista
+					if(escala.getIdRegimeFk().getNomeRegimeDeTrabalho().equalsIgnoreCase("DD") || escala.getIdRegimeFk().getNomeRegimeDeTrabalho().equalsIgnoreCase("DM")  ||  escala.getIdRegimeFk().getNomeRegimeDeTrabalho().equalsIgnoreCase("DT")   ) {
+						escala.setIdRegimeFk(regimesDeTrabalhoService.buscarPorNomeUnico("PL"));
+					}
+					
+					String nomeDia = "QUARTA";
+					
+					if(utilidadesDeCalendarioEEscala.getDiaSemanaPorAnoMesEDia(escala.getIdAnoMesFk().getNomeAnoMes(),  1).equalsIgnoreCase(nomeDia)) {escala.setDia01Fk(turnosService.buscarPorNome("MTN"));/*MTN*/}
+					if(utilidadesDeCalendarioEEscala.getDiaSemanaPorAnoMesEDia(escala.getIdAnoMesFk().getNomeAnoMes(),  2).equalsIgnoreCase(nomeDia)) {escala.setDia02Fk(turnosService.buscarPorNome("MTN"));/*MTN*/}
+					if(utilidadesDeCalendarioEEscala.getDiaSemanaPorAnoMesEDia(escala.getIdAnoMesFk().getNomeAnoMes(),  3).equalsIgnoreCase(nomeDia)) {escala.setDia03Fk(turnosService.buscarPorNome("MTN"));/*MTN*/}
+					if(utilidadesDeCalendarioEEscala.getDiaSemanaPorAnoMesEDia(escala.getIdAnoMesFk().getNomeAnoMes(),  4).equalsIgnoreCase(nomeDia)) {escala.setDia04Fk(turnosService.buscarPorNome("MTN"));/*MTN*/}
+					if(utilidadesDeCalendarioEEscala.getDiaSemanaPorAnoMesEDia(escala.getIdAnoMesFk().getNomeAnoMes(),  5).equalsIgnoreCase(nomeDia)) {escala.setDia05Fk(turnosService.buscarPorNome("MTN"));/*MTN*/}
+					if(utilidadesDeCalendarioEEscala.getDiaSemanaPorAnoMesEDia(escala.getIdAnoMesFk().getNomeAnoMes(),  6).equalsIgnoreCase(nomeDia)) {escala.setDia06Fk(turnosService.buscarPorNome("MTN"));/*MTN*/}
+					if(utilidadesDeCalendarioEEscala.getDiaSemanaPorAnoMesEDia(escala.getIdAnoMesFk().getNomeAnoMes(),  7).equalsIgnoreCase(nomeDia)) {escala.setDia07Fk(turnosService.buscarPorNome("MTN"));/*MTN*/}
+					if(utilidadesDeCalendarioEEscala.getDiaSemanaPorAnoMesEDia(escala.getIdAnoMesFk().getNomeAnoMes(),  8).equalsIgnoreCase(nomeDia)) {escala.setDia08Fk(turnosService.buscarPorNome("MTN"));/*MTN*/}
+					if(utilidadesDeCalendarioEEscala.getDiaSemanaPorAnoMesEDia(escala.getIdAnoMesFk().getNomeAnoMes(),  9).equalsIgnoreCase(nomeDia)) {escala.setDia09Fk(turnosService.buscarPorNome("MTN"));/*MTN*/}
+					if(utilidadesDeCalendarioEEscala.getDiaSemanaPorAnoMesEDia(escala.getIdAnoMesFk().getNomeAnoMes(), 10).equalsIgnoreCase(nomeDia)) {escala.setDia10Fk(turnosService.buscarPorNome("MTN"));/*MTN*/}
+					if(utilidadesDeCalendarioEEscala.getDiaSemanaPorAnoMesEDia(escala.getIdAnoMesFk().getNomeAnoMes(), 11).equalsIgnoreCase(nomeDia)) {escala.setDia11Fk(turnosService.buscarPorNome("MTN"));/*MTN*/}
+					if(utilidadesDeCalendarioEEscala.getDiaSemanaPorAnoMesEDia(escala.getIdAnoMesFk().getNomeAnoMes(), 12).equalsIgnoreCase(nomeDia)) {escala.setDia12Fk(turnosService.buscarPorNome("MTN"));/*MTN*/}
+					if(utilidadesDeCalendarioEEscala.getDiaSemanaPorAnoMesEDia(escala.getIdAnoMesFk().getNomeAnoMes(), 13).equalsIgnoreCase(nomeDia)) {escala.setDia13Fk(turnosService.buscarPorNome("MTN"));/*MTN*/}
+					if(utilidadesDeCalendarioEEscala.getDiaSemanaPorAnoMesEDia(escala.getIdAnoMesFk().getNomeAnoMes(), 14).equalsIgnoreCase(nomeDia)) {escala.setDia14Fk(turnosService.buscarPorNome("MTN"));/*MTN*/}
+					if(utilidadesDeCalendarioEEscala.getDiaSemanaPorAnoMesEDia(escala.getIdAnoMesFk().getNomeAnoMes(), 15).equalsIgnoreCase(nomeDia)) {escala.setDia15Fk(turnosService.buscarPorNome("MTN"));/*MTN*/}
+					if(utilidadesDeCalendarioEEscala.getDiaSemanaPorAnoMesEDia(escala.getIdAnoMesFk().getNomeAnoMes(), 16).equalsIgnoreCase(nomeDia)) {escala.setDia16Fk(turnosService.buscarPorNome("MTN"));/*MTN*/}
+					if(utilidadesDeCalendarioEEscala.getDiaSemanaPorAnoMesEDia(escala.getIdAnoMesFk().getNomeAnoMes(), 17).equalsIgnoreCase(nomeDia)) {escala.setDia17Fk(turnosService.buscarPorNome("MTN"));/*MTN*/}
+					if(utilidadesDeCalendarioEEscala.getDiaSemanaPorAnoMesEDia(escala.getIdAnoMesFk().getNomeAnoMes(), 18).equalsIgnoreCase(nomeDia)) {escala.setDia18Fk(turnosService.buscarPorNome("MTN"));/*MTN*/}
+					if(utilidadesDeCalendarioEEscala.getDiaSemanaPorAnoMesEDia(escala.getIdAnoMesFk().getNomeAnoMes(), 19).equalsIgnoreCase(nomeDia)) {escala.setDia19Fk(turnosService.buscarPorNome("MTN"));/*MTN*/}
+					if(utilidadesDeCalendarioEEscala.getDiaSemanaPorAnoMesEDia(escala.getIdAnoMesFk().getNomeAnoMes(), 20).equalsIgnoreCase(nomeDia)) {escala.setDia20Fk(turnosService.buscarPorNome("MTN"));/*MTN*/}
+					if(utilidadesDeCalendarioEEscala.getDiaSemanaPorAnoMesEDia(escala.getIdAnoMesFk().getNomeAnoMes(), 21).equalsIgnoreCase(nomeDia)) {escala.setDia21Fk(turnosService.buscarPorNome("MTN"));/*MTN*/}
+					if(utilidadesDeCalendarioEEscala.getDiaSemanaPorAnoMesEDia(escala.getIdAnoMesFk().getNomeAnoMes(), 22).equalsIgnoreCase(nomeDia)) {escala.setDia22Fk(turnosService.buscarPorNome("MTN"));/*MTN*/}
+					if(utilidadesDeCalendarioEEscala.getDiaSemanaPorAnoMesEDia(escala.getIdAnoMesFk().getNomeAnoMes(), 23).equalsIgnoreCase(nomeDia)) {escala.setDia23Fk(turnosService.buscarPorNome("MTN"));/*MTN*/}
+					if(utilidadesDeCalendarioEEscala.getDiaSemanaPorAnoMesEDia(escala.getIdAnoMesFk().getNomeAnoMes(), 24).equalsIgnoreCase(nomeDia)) {escala.setDia24Fk(turnosService.buscarPorNome("MTN"));/*MTN*/}
+					if(utilidadesDeCalendarioEEscala.getDiaSemanaPorAnoMesEDia(escala.getIdAnoMesFk().getNomeAnoMes(), 25).equalsIgnoreCase(nomeDia)) {escala.setDia25Fk(turnosService.buscarPorNome("MTN"));/*MTN*/}
+					if(utilidadesDeCalendarioEEscala.getDiaSemanaPorAnoMesEDia(escala.getIdAnoMesFk().getNomeAnoMes(), 26).equalsIgnoreCase(nomeDia)) {escala.setDia26Fk(turnosService.buscarPorNome("MTN"));/*MTN*/}
+					if(utilidadesDeCalendarioEEscala.getDiaSemanaPorAnoMesEDia(escala.getIdAnoMesFk().getNomeAnoMes(), 27).equalsIgnoreCase(nomeDia)) {escala.setDia27Fk(turnosService.buscarPorNome("MTN"));/*MTN*/}
+					if(utilidadesDeCalendarioEEscala.getDiaSemanaPorAnoMesEDia(escala.getIdAnoMesFk().getNomeAnoMes(), 28).equalsIgnoreCase(nomeDia)) {escala.setDia28Fk(turnosService.buscarPorNome("MTN"));/*MTN*/}
+					if(qtdDiasNoMes>=29) {if(utilidadesDeCalendarioEEscala.getDiaSemanaPorAnoMesEDia(escala.getIdAnoMesFk().getNomeAnoMes(), 29).equalsIgnoreCase(nomeDia)) {escala.setDia29Fk(turnosService.buscarPorNome("MTN"));/*MTN*/}}
+					if(qtdDiasNoMes>=30) {if(utilidadesDeCalendarioEEscala.getDiaSemanaPorAnoMesEDia(escala.getIdAnoMesFk().getNomeAnoMes(), 30).equalsIgnoreCase(nomeDia)) {escala.setDia30Fk(turnosService.buscarPorNome("MTN"));/*MTN*/}}
+					if(qtdDiasNoMes==31) {if(utilidadesDeCalendarioEEscala.getDiaSemanaPorAnoMesEDia(escala.getIdAnoMesFk().getNomeAnoMes(), 31).equalsIgnoreCase(nomeDia)) {escala.setDia31Fk(turnosService.buscarPorNome("MTN"));/*MTN*/}}
+					
+					escala = escalaCalculosService.calcularDadosEscala(escala);
+					
+				return escala;	
+				}
+
+				public Escala atalhoCiclo8D(Escala escala) {
+					int qtdDiasNoMes = utilidadesDeCalendarioEEscala.quantidadeDeDiasNoMes(escala.getIdAnoMesFk().getNomeAnoMes());
+					
+					// Alterando de diarista para plantonista
+					if(escala.getIdRegimeFk().getNomeRegimeDeTrabalho().equalsIgnoreCase("DD") || escala.getIdRegimeFk().getNomeRegimeDeTrabalho().equalsIgnoreCase("DM")  ||  escala.getIdRegimeFk().getNomeRegimeDeTrabalho().equalsIgnoreCase("DT")   ) {
+						escala.setIdRegimeFk(regimesDeTrabalhoService.buscarPorNomeUnico("PL"));
+					}
+					
+					String nomeDia = "QUINTA";
+					
+					if(utilidadesDeCalendarioEEscala.getDiaSemanaPorAnoMesEDia(escala.getIdAnoMesFk().getNomeAnoMes(),  1).equalsIgnoreCase(nomeDia)) {escala.setDia01Fk(turnosService.buscarPorNome("MTN"));/*MTN*/}
+					if(utilidadesDeCalendarioEEscala.getDiaSemanaPorAnoMesEDia(escala.getIdAnoMesFk().getNomeAnoMes(),  2).equalsIgnoreCase(nomeDia)) {escala.setDia02Fk(turnosService.buscarPorNome("MTN"));/*MTN*/}
+					if(utilidadesDeCalendarioEEscala.getDiaSemanaPorAnoMesEDia(escala.getIdAnoMesFk().getNomeAnoMes(),  3).equalsIgnoreCase(nomeDia)) {escala.setDia03Fk(turnosService.buscarPorNome("MTN"));/*MTN*/}
+					if(utilidadesDeCalendarioEEscala.getDiaSemanaPorAnoMesEDia(escala.getIdAnoMesFk().getNomeAnoMes(),  4).equalsIgnoreCase(nomeDia)) {escala.setDia04Fk(turnosService.buscarPorNome("MTN"));/*MTN*/}
+					if(utilidadesDeCalendarioEEscala.getDiaSemanaPorAnoMesEDia(escala.getIdAnoMesFk().getNomeAnoMes(),  5).equalsIgnoreCase(nomeDia)) {escala.setDia05Fk(turnosService.buscarPorNome("MTN"));/*MTN*/}
+					if(utilidadesDeCalendarioEEscala.getDiaSemanaPorAnoMesEDia(escala.getIdAnoMesFk().getNomeAnoMes(),  6).equalsIgnoreCase(nomeDia)) {escala.setDia06Fk(turnosService.buscarPorNome("MTN"));/*MTN*/}
+					if(utilidadesDeCalendarioEEscala.getDiaSemanaPorAnoMesEDia(escala.getIdAnoMesFk().getNomeAnoMes(),  7).equalsIgnoreCase(nomeDia)) {escala.setDia07Fk(turnosService.buscarPorNome("MTN"));/*MTN*/}
+					if(utilidadesDeCalendarioEEscala.getDiaSemanaPorAnoMesEDia(escala.getIdAnoMesFk().getNomeAnoMes(),  8).equalsIgnoreCase(nomeDia)) {escala.setDia08Fk(turnosService.buscarPorNome("MTN"));/*MTN*/}
+					if(utilidadesDeCalendarioEEscala.getDiaSemanaPorAnoMesEDia(escala.getIdAnoMesFk().getNomeAnoMes(),  9).equalsIgnoreCase(nomeDia)) {escala.setDia09Fk(turnosService.buscarPorNome("MTN"));/*MTN*/}
+					if(utilidadesDeCalendarioEEscala.getDiaSemanaPorAnoMesEDia(escala.getIdAnoMesFk().getNomeAnoMes(), 10).equalsIgnoreCase(nomeDia)) {escala.setDia10Fk(turnosService.buscarPorNome("MTN"));/*MTN*/}
+					if(utilidadesDeCalendarioEEscala.getDiaSemanaPorAnoMesEDia(escala.getIdAnoMesFk().getNomeAnoMes(), 11).equalsIgnoreCase(nomeDia)) {escala.setDia11Fk(turnosService.buscarPorNome("MTN"));/*MTN*/}
+					if(utilidadesDeCalendarioEEscala.getDiaSemanaPorAnoMesEDia(escala.getIdAnoMesFk().getNomeAnoMes(), 12).equalsIgnoreCase(nomeDia)) {escala.setDia12Fk(turnosService.buscarPorNome("MTN"));/*MTN*/}
+					if(utilidadesDeCalendarioEEscala.getDiaSemanaPorAnoMesEDia(escala.getIdAnoMesFk().getNomeAnoMes(), 13).equalsIgnoreCase(nomeDia)) {escala.setDia13Fk(turnosService.buscarPorNome("MTN"));/*MTN*/}
+					if(utilidadesDeCalendarioEEscala.getDiaSemanaPorAnoMesEDia(escala.getIdAnoMesFk().getNomeAnoMes(), 14).equalsIgnoreCase(nomeDia)) {escala.setDia14Fk(turnosService.buscarPorNome("MTN"));/*MTN*/}
+					if(utilidadesDeCalendarioEEscala.getDiaSemanaPorAnoMesEDia(escala.getIdAnoMesFk().getNomeAnoMes(), 15).equalsIgnoreCase(nomeDia)) {escala.setDia15Fk(turnosService.buscarPorNome("MTN"));/*MTN*/}
+					if(utilidadesDeCalendarioEEscala.getDiaSemanaPorAnoMesEDia(escala.getIdAnoMesFk().getNomeAnoMes(), 16).equalsIgnoreCase(nomeDia)) {escala.setDia16Fk(turnosService.buscarPorNome("MTN"));/*MTN*/}
+					if(utilidadesDeCalendarioEEscala.getDiaSemanaPorAnoMesEDia(escala.getIdAnoMesFk().getNomeAnoMes(), 17).equalsIgnoreCase(nomeDia)) {escala.setDia17Fk(turnosService.buscarPorNome("MTN"));/*MTN*/}
+					if(utilidadesDeCalendarioEEscala.getDiaSemanaPorAnoMesEDia(escala.getIdAnoMesFk().getNomeAnoMes(), 18).equalsIgnoreCase(nomeDia)) {escala.setDia18Fk(turnosService.buscarPorNome("MTN"));/*MTN*/}
+					if(utilidadesDeCalendarioEEscala.getDiaSemanaPorAnoMesEDia(escala.getIdAnoMesFk().getNomeAnoMes(), 19).equalsIgnoreCase(nomeDia)) {escala.setDia19Fk(turnosService.buscarPorNome("MTN"));/*MTN*/}
+					if(utilidadesDeCalendarioEEscala.getDiaSemanaPorAnoMesEDia(escala.getIdAnoMesFk().getNomeAnoMes(), 20).equalsIgnoreCase(nomeDia)) {escala.setDia20Fk(turnosService.buscarPorNome("MTN"));/*MTN*/}
+					if(utilidadesDeCalendarioEEscala.getDiaSemanaPorAnoMesEDia(escala.getIdAnoMesFk().getNomeAnoMes(), 21).equalsIgnoreCase(nomeDia)) {escala.setDia21Fk(turnosService.buscarPorNome("MTN"));/*MTN*/}
+					if(utilidadesDeCalendarioEEscala.getDiaSemanaPorAnoMesEDia(escala.getIdAnoMesFk().getNomeAnoMes(), 22).equalsIgnoreCase(nomeDia)) {escala.setDia22Fk(turnosService.buscarPorNome("MTN"));/*MTN*/}
+					if(utilidadesDeCalendarioEEscala.getDiaSemanaPorAnoMesEDia(escala.getIdAnoMesFk().getNomeAnoMes(), 23).equalsIgnoreCase(nomeDia)) {escala.setDia23Fk(turnosService.buscarPorNome("MTN"));/*MTN*/}
+					if(utilidadesDeCalendarioEEscala.getDiaSemanaPorAnoMesEDia(escala.getIdAnoMesFk().getNomeAnoMes(), 24).equalsIgnoreCase(nomeDia)) {escala.setDia24Fk(turnosService.buscarPorNome("MTN"));/*MTN*/}
+					if(utilidadesDeCalendarioEEscala.getDiaSemanaPorAnoMesEDia(escala.getIdAnoMesFk().getNomeAnoMes(), 25).equalsIgnoreCase(nomeDia)) {escala.setDia25Fk(turnosService.buscarPorNome("MTN"));/*MTN*/}
+					if(utilidadesDeCalendarioEEscala.getDiaSemanaPorAnoMesEDia(escala.getIdAnoMesFk().getNomeAnoMes(), 26).equalsIgnoreCase(nomeDia)) {escala.setDia26Fk(turnosService.buscarPorNome("MTN"));/*MTN*/}
+					if(utilidadesDeCalendarioEEscala.getDiaSemanaPorAnoMesEDia(escala.getIdAnoMesFk().getNomeAnoMes(), 27).equalsIgnoreCase(nomeDia)) {escala.setDia27Fk(turnosService.buscarPorNome("MTN"));/*MTN*/}
+					if(utilidadesDeCalendarioEEscala.getDiaSemanaPorAnoMesEDia(escala.getIdAnoMesFk().getNomeAnoMes(), 28).equalsIgnoreCase(nomeDia)) {escala.setDia28Fk(turnosService.buscarPorNome("MTN"));/*MTN*/}
+					if(qtdDiasNoMes>=29) {if(utilidadesDeCalendarioEEscala.getDiaSemanaPorAnoMesEDia(escala.getIdAnoMesFk().getNomeAnoMes(), 29).equalsIgnoreCase(nomeDia)) {escala.setDia29Fk(turnosService.buscarPorNome("MTN"));/*MTN*/}}
+					if(qtdDiasNoMes>=30) {if(utilidadesDeCalendarioEEscala.getDiaSemanaPorAnoMesEDia(escala.getIdAnoMesFk().getNomeAnoMes(), 30).equalsIgnoreCase(nomeDia)) {escala.setDia30Fk(turnosService.buscarPorNome("MTN"));/*MTN*/}}
+					if(qtdDiasNoMes==31) {if(utilidadesDeCalendarioEEscala.getDiaSemanaPorAnoMesEDia(escala.getIdAnoMesFk().getNomeAnoMes(), 31).equalsIgnoreCase(nomeDia)) {escala.setDia31Fk(turnosService.buscarPorNome("MTN"));/*MTN*/}}
+					
+					escala = escalaCalculosService.calcularDadosEscala(escala);
+					
+				return escala;	
+				}
+
+				public Escala atalhoCiclo8E(Escala escala) {
+					int qtdDiasNoMes = utilidadesDeCalendarioEEscala.quantidadeDeDiasNoMes(escala.getIdAnoMesFk().getNomeAnoMes());
+					
+					// Alterando de diarista para plantonista
+					if(escala.getIdRegimeFk().getNomeRegimeDeTrabalho().equalsIgnoreCase("DD") || escala.getIdRegimeFk().getNomeRegimeDeTrabalho().equalsIgnoreCase("DM")  ||  escala.getIdRegimeFk().getNomeRegimeDeTrabalho().equalsIgnoreCase("DT")   ) {
+						escala.setIdRegimeFk(regimesDeTrabalhoService.buscarPorNomeUnico("PL"));
+					}
+					
+					String nomeDia = "SEXTA";
+					
+					if(utilidadesDeCalendarioEEscala.getDiaSemanaPorAnoMesEDia(escala.getIdAnoMesFk().getNomeAnoMes(),  1).equalsIgnoreCase(nomeDia)) {escala.setDia01Fk(turnosService.buscarPorNome("MTN"));/*MTN*/}
+					if(utilidadesDeCalendarioEEscala.getDiaSemanaPorAnoMesEDia(escala.getIdAnoMesFk().getNomeAnoMes(),  2).equalsIgnoreCase(nomeDia)) {escala.setDia02Fk(turnosService.buscarPorNome("MTN"));/*MTN*/}
+					if(utilidadesDeCalendarioEEscala.getDiaSemanaPorAnoMesEDia(escala.getIdAnoMesFk().getNomeAnoMes(),  3).equalsIgnoreCase(nomeDia)) {escala.setDia03Fk(turnosService.buscarPorNome("MTN"));/*MTN*/}
+					if(utilidadesDeCalendarioEEscala.getDiaSemanaPorAnoMesEDia(escala.getIdAnoMesFk().getNomeAnoMes(),  4).equalsIgnoreCase(nomeDia)) {escala.setDia04Fk(turnosService.buscarPorNome("MTN"));/*MTN*/}
+					if(utilidadesDeCalendarioEEscala.getDiaSemanaPorAnoMesEDia(escala.getIdAnoMesFk().getNomeAnoMes(),  5).equalsIgnoreCase(nomeDia)) {escala.setDia05Fk(turnosService.buscarPorNome("MTN"));/*MTN*/}
+					if(utilidadesDeCalendarioEEscala.getDiaSemanaPorAnoMesEDia(escala.getIdAnoMesFk().getNomeAnoMes(),  6).equalsIgnoreCase(nomeDia)) {escala.setDia06Fk(turnosService.buscarPorNome("MTN"));/*MTN*/}
+					if(utilidadesDeCalendarioEEscala.getDiaSemanaPorAnoMesEDia(escala.getIdAnoMesFk().getNomeAnoMes(),  7).equalsIgnoreCase(nomeDia)) {escala.setDia07Fk(turnosService.buscarPorNome("MTN"));/*MTN*/}
+					if(utilidadesDeCalendarioEEscala.getDiaSemanaPorAnoMesEDia(escala.getIdAnoMesFk().getNomeAnoMes(),  8).equalsIgnoreCase(nomeDia)) {escala.setDia08Fk(turnosService.buscarPorNome("MTN"));/*MTN*/}
+					if(utilidadesDeCalendarioEEscala.getDiaSemanaPorAnoMesEDia(escala.getIdAnoMesFk().getNomeAnoMes(),  9).equalsIgnoreCase(nomeDia)) {escala.setDia09Fk(turnosService.buscarPorNome("MTN"));/*MTN*/}
+					if(utilidadesDeCalendarioEEscala.getDiaSemanaPorAnoMesEDia(escala.getIdAnoMesFk().getNomeAnoMes(), 10).equalsIgnoreCase(nomeDia)) {escala.setDia10Fk(turnosService.buscarPorNome("MTN"));/*MTN*/}
+					if(utilidadesDeCalendarioEEscala.getDiaSemanaPorAnoMesEDia(escala.getIdAnoMesFk().getNomeAnoMes(), 11).equalsIgnoreCase(nomeDia)) {escala.setDia11Fk(turnosService.buscarPorNome("MTN"));/*MTN*/}
+					if(utilidadesDeCalendarioEEscala.getDiaSemanaPorAnoMesEDia(escala.getIdAnoMesFk().getNomeAnoMes(), 12).equalsIgnoreCase(nomeDia)) {escala.setDia12Fk(turnosService.buscarPorNome("MTN"));/*MTN*/}
+					if(utilidadesDeCalendarioEEscala.getDiaSemanaPorAnoMesEDia(escala.getIdAnoMesFk().getNomeAnoMes(), 13).equalsIgnoreCase(nomeDia)) {escala.setDia13Fk(turnosService.buscarPorNome("MTN"));/*MTN*/}
+					if(utilidadesDeCalendarioEEscala.getDiaSemanaPorAnoMesEDia(escala.getIdAnoMesFk().getNomeAnoMes(), 14).equalsIgnoreCase(nomeDia)) {escala.setDia14Fk(turnosService.buscarPorNome("MTN"));/*MTN*/}
+					if(utilidadesDeCalendarioEEscala.getDiaSemanaPorAnoMesEDia(escala.getIdAnoMesFk().getNomeAnoMes(), 15).equalsIgnoreCase(nomeDia)) {escala.setDia15Fk(turnosService.buscarPorNome("MTN"));/*MTN*/}
+					if(utilidadesDeCalendarioEEscala.getDiaSemanaPorAnoMesEDia(escala.getIdAnoMesFk().getNomeAnoMes(), 16).equalsIgnoreCase(nomeDia)) {escala.setDia16Fk(turnosService.buscarPorNome("MTN"));/*MTN*/}
+					if(utilidadesDeCalendarioEEscala.getDiaSemanaPorAnoMesEDia(escala.getIdAnoMesFk().getNomeAnoMes(), 17).equalsIgnoreCase(nomeDia)) {escala.setDia17Fk(turnosService.buscarPorNome("MTN"));/*MTN*/}
+					if(utilidadesDeCalendarioEEscala.getDiaSemanaPorAnoMesEDia(escala.getIdAnoMesFk().getNomeAnoMes(), 18).equalsIgnoreCase(nomeDia)) {escala.setDia18Fk(turnosService.buscarPorNome("MTN"));/*MTN*/}
+					if(utilidadesDeCalendarioEEscala.getDiaSemanaPorAnoMesEDia(escala.getIdAnoMesFk().getNomeAnoMes(), 19).equalsIgnoreCase(nomeDia)) {escala.setDia19Fk(turnosService.buscarPorNome("MTN"));/*MTN*/}
+					if(utilidadesDeCalendarioEEscala.getDiaSemanaPorAnoMesEDia(escala.getIdAnoMesFk().getNomeAnoMes(), 20).equalsIgnoreCase(nomeDia)) {escala.setDia20Fk(turnosService.buscarPorNome("MTN"));/*MTN*/}
+					if(utilidadesDeCalendarioEEscala.getDiaSemanaPorAnoMesEDia(escala.getIdAnoMesFk().getNomeAnoMes(), 21).equalsIgnoreCase(nomeDia)) {escala.setDia21Fk(turnosService.buscarPorNome("MTN"));/*MTN*/}
+					if(utilidadesDeCalendarioEEscala.getDiaSemanaPorAnoMesEDia(escala.getIdAnoMesFk().getNomeAnoMes(), 22).equalsIgnoreCase(nomeDia)) {escala.setDia22Fk(turnosService.buscarPorNome("MTN"));/*MTN*/}
+					if(utilidadesDeCalendarioEEscala.getDiaSemanaPorAnoMesEDia(escala.getIdAnoMesFk().getNomeAnoMes(), 23).equalsIgnoreCase(nomeDia)) {escala.setDia23Fk(turnosService.buscarPorNome("MTN"));/*MTN*/}
+					if(utilidadesDeCalendarioEEscala.getDiaSemanaPorAnoMesEDia(escala.getIdAnoMesFk().getNomeAnoMes(), 24).equalsIgnoreCase(nomeDia)) {escala.setDia24Fk(turnosService.buscarPorNome("MTN"));/*MTN*/}
+					if(utilidadesDeCalendarioEEscala.getDiaSemanaPorAnoMesEDia(escala.getIdAnoMesFk().getNomeAnoMes(), 25).equalsIgnoreCase(nomeDia)) {escala.setDia25Fk(turnosService.buscarPorNome("MTN"));/*MTN*/}
+					if(utilidadesDeCalendarioEEscala.getDiaSemanaPorAnoMesEDia(escala.getIdAnoMesFk().getNomeAnoMes(), 26).equalsIgnoreCase(nomeDia)) {escala.setDia26Fk(turnosService.buscarPorNome("MTN"));/*MTN*/}
+					if(utilidadesDeCalendarioEEscala.getDiaSemanaPorAnoMesEDia(escala.getIdAnoMesFk().getNomeAnoMes(), 27).equalsIgnoreCase(nomeDia)) {escala.setDia27Fk(turnosService.buscarPorNome("MTN"));/*MTN*/}
+					if(utilidadesDeCalendarioEEscala.getDiaSemanaPorAnoMesEDia(escala.getIdAnoMesFk().getNomeAnoMes(), 28).equalsIgnoreCase(nomeDia)) {escala.setDia28Fk(turnosService.buscarPorNome("MTN"));/*MTN*/}
+					if(qtdDiasNoMes>=29) {if(utilidadesDeCalendarioEEscala.getDiaSemanaPorAnoMesEDia(escala.getIdAnoMesFk().getNomeAnoMes(), 29).equalsIgnoreCase(nomeDia)) {escala.setDia29Fk(turnosService.buscarPorNome("MTN"));/*MTN*/}}
+					if(qtdDiasNoMes>=30) {if(utilidadesDeCalendarioEEscala.getDiaSemanaPorAnoMesEDia(escala.getIdAnoMesFk().getNomeAnoMes(), 30).equalsIgnoreCase(nomeDia)) {escala.setDia30Fk(turnosService.buscarPorNome("MTN"));/*MTN*/}}
+					if(qtdDiasNoMes==31) {if(utilidadesDeCalendarioEEscala.getDiaSemanaPorAnoMesEDia(escala.getIdAnoMesFk().getNomeAnoMes(), 31).equalsIgnoreCase(nomeDia)) {escala.setDia31Fk(turnosService.buscarPorNome("MTN"));/*MTN*/}}
+					
+					escala = escalaCalculosService.calcularDadosEscala(escala);
+					
+				return escala;	
+				}
+
+				public Escala atalhoCiclo8F(Escala escala) {
+					int qtdDiasNoMes = utilidadesDeCalendarioEEscala.quantidadeDeDiasNoMes(escala.getIdAnoMesFk().getNomeAnoMes());
+					
+					// Alterando de diarista para plantonista
+					if(escala.getIdRegimeFk().getNomeRegimeDeTrabalho().equalsIgnoreCase("DD") || escala.getIdRegimeFk().getNomeRegimeDeTrabalho().equalsIgnoreCase("DM")  ||  escala.getIdRegimeFk().getNomeRegimeDeTrabalho().equalsIgnoreCase("DT")   ) {
+						escala.setIdRegimeFk(regimesDeTrabalhoService.buscarPorNomeUnico("PL"));
+					}
+					
+					String nomeDia = "SABADO";
+					
+					if(utilidadesDeCalendarioEEscala.getDiaSemanaPorAnoMesEDia(escala.getIdAnoMesFk().getNomeAnoMes(),  1).equalsIgnoreCase(nomeDia)) {escala.setDia01Fk(turnosService.buscarPorNome("MTN"));/*MTN*/}
+					if(utilidadesDeCalendarioEEscala.getDiaSemanaPorAnoMesEDia(escala.getIdAnoMesFk().getNomeAnoMes(),  2).equalsIgnoreCase(nomeDia)) {escala.setDia02Fk(turnosService.buscarPorNome("MTN"));/*MTN*/}
+					if(utilidadesDeCalendarioEEscala.getDiaSemanaPorAnoMesEDia(escala.getIdAnoMesFk().getNomeAnoMes(),  3).equalsIgnoreCase(nomeDia)) {escala.setDia03Fk(turnosService.buscarPorNome("MTN"));/*MTN*/}
+					if(utilidadesDeCalendarioEEscala.getDiaSemanaPorAnoMesEDia(escala.getIdAnoMesFk().getNomeAnoMes(),  4).equalsIgnoreCase(nomeDia)) {escala.setDia04Fk(turnosService.buscarPorNome("MTN"));/*MTN*/}
+					if(utilidadesDeCalendarioEEscala.getDiaSemanaPorAnoMesEDia(escala.getIdAnoMesFk().getNomeAnoMes(),  5).equalsIgnoreCase(nomeDia)) {escala.setDia05Fk(turnosService.buscarPorNome("MTN"));/*MTN*/}
+					if(utilidadesDeCalendarioEEscala.getDiaSemanaPorAnoMesEDia(escala.getIdAnoMesFk().getNomeAnoMes(),  6).equalsIgnoreCase(nomeDia)) {escala.setDia06Fk(turnosService.buscarPorNome("MTN"));/*MTN*/}
+					if(utilidadesDeCalendarioEEscala.getDiaSemanaPorAnoMesEDia(escala.getIdAnoMesFk().getNomeAnoMes(),  7).equalsIgnoreCase(nomeDia)) {escala.setDia07Fk(turnosService.buscarPorNome("MTN"));/*MTN*/}
+					if(utilidadesDeCalendarioEEscala.getDiaSemanaPorAnoMesEDia(escala.getIdAnoMesFk().getNomeAnoMes(),  8).equalsIgnoreCase(nomeDia)) {escala.setDia08Fk(turnosService.buscarPorNome("MTN"));/*MTN*/}
+					if(utilidadesDeCalendarioEEscala.getDiaSemanaPorAnoMesEDia(escala.getIdAnoMesFk().getNomeAnoMes(),  9).equalsIgnoreCase(nomeDia)) {escala.setDia09Fk(turnosService.buscarPorNome("MTN"));/*MTN*/}
+					if(utilidadesDeCalendarioEEscala.getDiaSemanaPorAnoMesEDia(escala.getIdAnoMesFk().getNomeAnoMes(), 10).equalsIgnoreCase(nomeDia)) {escala.setDia10Fk(turnosService.buscarPorNome("MTN"));/*MTN*/}
+					if(utilidadesDeCalendarioEEscala.getDiaSemanaPorAnoMesEDia(escala.getIdAnoMesFk().getNomeAnoMes(), 11).equalsIgnoreCase(nomeDia)) {escala.setDia11Fk(turnosService.buscarPorNome("MTN"));/*MTN*/}
+					if(utilidadesDeCalendarioEEscala.getDiaSemanaPorAnoMesEDia(escala.getIdAnoMesFk().getNomeAnoMes(), 12).equalsIgnoreCase(nomeDia)) {escala.setDia12Fk(turnosService.buscarPorNome("MTN"));/*MTN*/}
+					if(utilidadesDeCalendarioEEscala.getDiaSemanaPorAnoMesEDia(escala.getIdAnoMesFk().getNomeAnoMes(), 13).equalsIgnoreCase(nomeDia)) {escala.setDia13Fk(turnosService.buscarPorNome("MTN"));/*MTN*/}
+					if(utilidadesDeCalendarioEEscala.getDiaSemanaPorAnoMesEDia(escala.getIdAnoMesFk().getNomeAnoMes(), 14).equalsIgnoreCase(nomeDia)) {escala.setDia14Fk(turnosService.buscarPorNome("MTN"));/*MTN*/}
+					if(utilidadesDeCalendarioEEscala.getDiaSemanaPorAnoMesEDia(escala.getIdAnoMesFk().getNomeAnoMes(), 15).equalsIgnoreCase(nomeDia)) {escala.setDia15Fk(turnosService.buscarPorNome("MTN"));/*MTN*/}
+					if(utilidadesDeCalendarioEEscala.getDiaSemanaPorAnoMesEDia(escala.getIdAnoMesFk().getNomeAnoMes(), 16).equalsIgnoreCase(nomeDia)) {escala.setDia16Fk(turnosService.buscarPorNome("MTN"));/*MTN*/}
+					if(utilidadesDeCalendarioEEscala.getDiaSemanaPorAnoMesEDia(escala.getIdAnoMesFk().getNomeAnoMes(), 17).equalsIgnoreCase(nomeDia)) {escala.setDia17Fk(turnosService.buscarPorNome("MTN"));/*MTN*/}
+					if(utilidadesDeCalendarioEEscala.getDiaSemanaPorAnoMesEDia(escala.getIdAnoMesFk().getNomeAnoMes(), 18).equalsIgnoreCase(nomeDia)) {escala.setDia18Fk(turnosService.buscarPorNome("MTN"));/*MTN*/}
+					if(utilidadesDeCalendarioEEscala.getDiaSemanaPorAnoMesEDia(escala.getIdAnoMesFk().getNomeAnoMes(), 19).equalsIgnoreCase(nomeDia)) {escala.setDia19Fk(turnosService.buscarPorNome("MTN"));/*MTN*/}
+					if(utilidadesDeCalendarioEEscala.getDiaSemanaPorAnoMesEDia(escala.getIdAnoMesFk().getNomeAnoMes(), 20).equalsIgnoreCase(nomeDia)) {escala.setDia20Fk(turnosService.buscarPorNome("MTN"));/*MTN*/}
+					if(utilidadesDeCalendarioEEscala.getDiaSemanaPorAnoMesEDia(escala.getIdAnoMesFk().getNomeAnoMes(), 21).equalsIgnoreCase(nomeDia)) {escala.setDia21Fk(turnosService.buscarPorNome("MTN"));/*MTN*/}
+					if(utilidadesDeCalendarioEEscala.getDiaSemanaPorAnoMesEDia(escala.getIdAnoMesFk().getNomeAnoMes(), 22).equalsIgnoreCase(nomeDia)) {escala.setDia22Fk(turnosService.buscarPorNome("MTN"));/*MTN*/}
+					if(utilidadesDeCalendarioEEscala.getDiaSemanaPorAnoMesEDia(escala.getIdAnoMesFk().getNomeAnoMes(), 23).equalsIgnoreCase(nomeDia)) {escala.setDia23Fk(turnosService.buscarPorNome("MTN"));/*MTN*/}
+					if(utilidadesDeCalendarioEEscala.getDiaSemanaPorAnoMesEDia(escala.getIdAnoMesFk().getNomeAnoMes(), 24).equalsIgnoreCase(nomeDia)) {escala.setDia24Fk(turnosService.buscarPorNome("MTN"));/*MTN*/}
+					if(utilidadesDeCalendarioEEscala.getDiaSemanaPorAnoMesEDia(escala.getIdAnoMesFk().getNomeAnoMes(), 25).equalsIgnoreCase(nomeDia)) {escala.setDia25Fk(turnosService.buscarPorNome("MTN"));/*MTN*/}
+					if(utilidadesDeCalendarioEEscala.getDiaSemanaPorAnoMesEDia(escala.getIdAnoMesFk().getNomeAnoMes(), 26).equalsIgnoreCase(nomeDia)) {escala.setDia26Fk(turnosService.buscarPorNome("MTN"));/*MTN*/}
+					if(utilidadesDeCalendarioEEscala.getDiaSemanaPorAnoMesEDia(escala.getIdAnoMesFk().getNomeAnoMes(), 27).equalsIgnoreCase(nomeDia)) {escala.setDia27Fk(turnosService.buscarPorNome("MTN"));/*MTN*/}
+					if(utilidadesDeCalendarioEEscala.getDiaSemanaPorAnoMesEDia(escala.getIdAnoMesFk().getNomeAnoMes(), 28).equalsIgnoreCase(nomeDia)) {escala.setDia28Fk(turnosService.buscarPorNome("MTN"));/*MTN*/}
+					if(qtdDiasNoMes>=29) {if(utilidadesDeCalendarioEEscala.getDiaSemanaPorAnoMesEDia(escala.getIdAnoMesFk().getNomeAnoMes(), 29).equalsIgnoreCase(nomeDia)) {escala.setDia29Fk(turnosService.buscarPorNome("MTN"));/*MTN*/}}
+					if(qtdDiasNoMes>=30) {if(utilidadesDeCalendarioEEscala.getDiaSemanaPorAnoMesEDia(escala.getIdAnoMesFk().getNomeAnoMes(), 30).equalsIgnoreCase(nomeDia)) {escala.setDia30Fk(turnosService.buscarPorNome("MTN"));/*MTN*/}}
+					if(qtdDiasNoMes==31) {if(utilidadesDeCalendarioEEscala.getDiaSemanaPorAnoMesEDia(escala.getIdAnoMesFk().getNomeAnoMes(), 31).equalsIgnoreCase(nomeDia)) {escala.setDia31Fk(turnosService.buscarPorNome("MTN"));/*MTN*/}}
+					
+					escala = escalaCalculosService.calcularDadosEscala(escala);
+					
+				return escala;	
+				}
+
+				public Escala atalhoCiclo8G(Escala escala) {
+					int qtdDiasNoMes = utilidadesDeCalendarioEEscala.quantidadeDeDiasNoMes(escala.getIdAnoMesFk().getNomeAnoMes());
+					
+					// Alterando de diarista para plantonista
+					if(escala.getIdRegimeFk().getNomeRegimeDeTrabalho().equalsIgnoreCase("DD") || escala.getIdRegimeFk().getNomeRegimeDeTrabalho().equalsIgnoreCase("DM")  ||  escala.getIdRegimeFk().getNomeRegimeDeTrabalho().equalsIgnoreCase("DT")   ) {
+						escala.setIdRegimeFk(regimesDeTrabalhoService.buscarPorNomeUnico("PL"));
+					}
+					
+					String nomeDia = "DOMINGO";
+					
+					if(utilidadesDeCalendarioEEscala.getDiaSemanaPorAnoMesEDia(escala.getIdAnoMesFk().getNomeAnoMes(),  1).equalsIgnoreCase(nomeDia)) {escala.setDia01Fk(turnosService.buscarPorNome("MTN"));/*MTN*/}
+					if(utilidadesDeCalendarioEEscala.getDiaSemanaPorAnoMesEDia(escala.getIdAnoMesFk().getNomeAnoMes(),  2).equalsIgnoreCase(nomeDia)) {escala.setDia02Fk(turnosService.buscarPorNome("MTN"));/*MTN*/}
+					if(utilidadesDeCalendarioEEscala.getDiaSemanaPorAnoMesEDia(escala.getIdAnoMesFk().getNomeAnoMes(),  3).equalsIgnoreCase(nomeDia)) {escala.setDia03Fk(turnosService.buscarPorNome("MTN"));/*MTN*/}
+					if(utilidadesDeCalendarioEEscala.getDiaSemanaPorAnoMesEDia(escala.getIdAnoMesFk().getNomeAnoMes(),  4).equalsIgnoreCase(nomeDia)) {escala.setDia04Fk(turnosService.buscarPorNome("MTN"));/*MTN*/}
+					if(utilidadesDeCalendarioEEscala.getDiaSemanaPorAnoMesEDia(escala.getIdAnoMesFk().getNomeAnoMes(),  5).equalsIgnoreCase(nomeDia)) {escala.setDia05Fk(turnosService.buscarPorNome("MTN"));/*MTN*/}
+					if(utilidadesDeCalendarioEEscala.getDiaSemanaPorAnoMesEDia(escala.getIdAnoMesFk().getNomeAnoMes(),  6).equalsIgnoreCase(nomeDia)) {escala.setDia06Fk(turnosService.buscarPorNome("MTN"));/*MTN*/}
+					if(utilidadesDeCalendarioEEscala.getDiaSemanaPorAnoMesEDia(escala.getIdAnoMesFk().getNomeAnoMes(),  7).equalsIgnoreCase(nomeDia)) {escala.setDia07Fk(turnosService.buscarPorNome("MTN"));/*MTN*/}
+					if(utilidadesDeCalendarioEEscala.getDiaSemanaPorAnoMesEDia(escala.getIdAnoMesFk().getNomeAnoMes(),  8).equalsIgnoreCase(nomeDia)) {escala.setDia08Fk(turnosService.buscarPorNome("MTN"));/*MTN*/}
+					if(utilidadesDeCalendarioEEscala.getDiaSemanaPorAnoMesEDia(escala.getIdAnoMesFk().getNomeAnoMes(),  9).equalsIgnoreCase(nomeDia)) {escala.setDia09Fk(turnosService.buscarPorNome("MTN"));/*MTN*/}
+					if(utilidadesDeCalendarioEEscala.getDiaSemanaPorAnoMesEDia(escala.getIdAnoMesFk().getNomeAnoMes(), 10).equalsIgnoreCase(nomeDia)) {escala.setDia10Fk(turnosService.buscarPorNome("MTN"));/*MTN*/}
+					if(utilidadesDeCalendarioEEscala.getDiaSemanaPorAnoMesEDia(escala.getIdAnoMesFk().getNomeAnoMes(), 11).equalsIgnoreCase(nomeDia)) {escala.setDia11Fk(turnosService.buscarPorNome("MTN"));/*MTN*/}
+					if(utilidadesDeCalendarioEEscala.getDiaSemanaPorAnoMesEDia(escala.getIdAnoMesFk().getNomeAnoMes(), 12).equalsIgnoreCase(nomeDia)) {escala.setDia12Fk(turnosService.buscarPorNome("MTN"));/*MTN*/}
+					if(utilidadesDeCalendarioEEscala.getDiaSemanaPorAnoMesEDia(escala.getIdAnoMesFk().getNomeAnoMes(), 13).equalsIgnoreCase(nomeDia)) {escala.setDia13Fk(turnosService.buscarPorNome("MTN"));/*MTN*/}
+					if(utilidadesDeCalendarioEEscala.getDiaSemanaPorAnoMesEDia(escala.getIdAnoMesFk().getNomeAnoMes(), 14).equalsIgnoreCase(nomeDia)) {escala.setDia14Fk(turnosService.buscarPorNome("MTN"));/*MTN*/}
+					if(utilidadesDeCalendarioEEscala.getDiaSemanaPorAnoMesEDia(escala.getIdAnoMesFk().getNomeAnoMes(), 15).equalsIgnoreCase(nomeDia)) {escala.setDia15Fk(turnosService.buscarPorNome("MTN"));/*MTN*/}
+					if(utilidadesDeCalendarioEEscala.getDiaSemanaPorAnoMesEDia(escala.getIdAnoMesFk().getNomeAnoMes(), 16).equalsIgnoreCase(nomeDia)) {escala.setDia16Fk(turnosService.buscarPorNome("MTN"));/*MTN*/}
+					if(utilidadesDeCalendarioEEscala.getDiaSemanaPorAnoMesEDia(escala.getIdAnoMesFk().getNomeAnoMes(), 17).equalsIgnoreCase(nomeDia)) {escala.setDia17Fk(turnosService.buscarPorNome("MTN"));/*MTN*/}
+					if(utilidadesDeCalendarioEEscala.getDiaSemanaPorAnoMesEDia(escala.getIdAnoMesFk().getNomeAnoMes(), 18).equalsIgnoreCase(nomeDia)) {escala.setDia18Fk(turnosService.buscarPorNome("MTN"));/*MTN*/}
+					if(utilidadesDeCalendarioEEscala.getDiaSemanaPorAnoMesEDia(escala.getIdAnoMesFk().getNomeAnoMes(), 19).equalsIgnoreCase(nomeDia)) {escala.setDia19Fk(turnosService.buscarPorNome("MTN"));/*MTN*/}
+					if(utilidadesDeCalendarioEEscala.getDiaSemanaPorAnoMesEDia(escala.getIdAnoMesFk().getNomeAnoMes(), 20).equalsIgnoreCase(nomeDia)) {escala.setDia20Fk(turnosService.buscarPorNome("MTN"));/*MTN*/}
+					if(utilidadesDeCalendarioEEscala.getDiaSemanaPorAnoMesEDia(escala.getIdAnoMesFk().getNomeAnoMes(), 21).equalsIgnoreCase(nomeDia)) {escala.setDia21Fk(turnosService.buscarPorNome("MTN"));/*MTN*/}
+					if(utilidadesDeCalendarioEEscala.getDiaSemanaPorAnoMesEDia(escala.getIdAnoMesFk().getNomeAnoMes(), 22).equalsIgnoreCase(nomeDia)) {escala.setDia22Fk(turnosService.buscarPorNome("MTN"));/*MTN*/}
+					if(utilidadesDeCalendarioEEscala.getDiaSemanaPorAnoMesEDia(escala.getIdAnoMesFk().getNomeAnoMes(), 23).equalsIgnoreCase(nomeDia)) {escala.setDia23Fk(turnosService.buscarPorNome("MTN"));/*MTN*/}
+					if(utilidadesDeCalendarioEEscala.getDiaSemanaPorAnoMesEDia(escala.getIdAnoMesFk().getNomeAnoMes(), 24).equalsIgnoreCase(nomeDia)) {escala.setDia24Fk(turnosService.buscarPorNome("MTN"));/*MTN*/}
+					if(utilidadesDeCalendarioEEscala.getDiaSemanaPorAnoMesEDia(escala.getIdAnoMesFk().getNomeAnoMes(), 25).equalsIgnoreCase(nomeDia)) {escala.setDia25Fk(turnosService.buscarPorNome("MTN"));/*MTN*/}
+					if(utilidadesDeCalendarioEEscala.getDiaSemanaPorAnoMesEDia(escala.getIdAnoMesFk().getNomeAnoMes(), 26).equalsIgnoreCase(nomeDia)) {escala.setDia26Fk(turnosService.buscarPorNome("MTN"));/*MTN*/}
+					if(utilidadesDeCalendarioEEscala.getDiaSemanaPorAnoMesEDia(escala.getIdAnoMesFk().getNomeAnoMes(), 27).equalsIgnoreCase(nomeDia)) {escala.setDia27Fk(turnosService.buscarPorNome("MTN"));/*MTN*/}
+					if(utilidadesDeCalendarioEEscala.getDiaSemanaPorAnoMesEDia(escala.getIdAnoMesFk().getNomeAnoMes(), 28).equalsIgnoreCase(nomeDia)) {escala.setDia28Fk(turnosService.buscarPorNome("MTN"));/*MTN*/}
+					if(qtdDiasNoMes>=29) {if(utilidadesDeCalendarioEEscala.getDiaSemanaPorAnoMesEDia(escala.getIdAnoMesFk().getNomeAnoMes(), 29).equalsIgnoreCase(nomeDia)) {escala.setDia29Fk(turnosService.buscarPorNome("MTN"));/*MTN*/}}
+					if(qtdDiasNoMes>=30) {if(utilidadesDeCalendarioEEscala.getDiaSemanaPorAnoMesEDia(escala.getIdAnoMesFk().getNomeAnoMes(), 30).equalsIgnoreCase(nomeDia)) {escala.setDia30Fk(turnosService.buscarPorNome("MTN"));/*MTN*/}}
+					if(qtdDiasNoMes==31) {if(utilidadesDeCalendarioEEscala.getDiaSemanaPorAnoMesEDia(escala.getIdAnoMesFk().getNomeAnoMes(), 31).equalsIgnoreCase(nomeDia)) {escala.setDia31Fk(turnosService.buscarPorNome("MTN"));/*MTN*/}}
+					
+					escala = escalaCalculosService.calcularDadosEscala(escala);
+					
+				return escala;	
+				}
+
+
+
+
+				// Ciclo 9
+				public Escala atalhoCiclo9A(Escala escala) {
+					int qtdDiasNoMes = utilidadesDeCalendarioEEscala.quantidadeDeDiasNoMes(escala.getIdAnoMesFk().getNomeAnoMes());
+					
+					
+					String nomeDia = "SEGUNDA";
+					
+					if(utilidadesDeCalendarioEEscala.getDiaSemanaPorAnoMesEDia(escala.getIdAnoMesFk().getNomeAnoMes(),  1).equalsIgnoreCase(nomeDia)) {escala.setDia01Fk(turnosService.buscarPorNome("M"));/*M*/}
+					if(utilidadesDeCalendarioEEscala.getDiaSemanaPorAnoMesEDia(escala.getIdAnoMesFk().getNomeAnoMes(),  2).equalsIgnoreCase(nomeDia)) {escala.setDia02Fk(turnosService.buscarPorNome("M"));/*M*/}
+					if(utilidadesDeCalendarioEEscala.getDiaSemanaPorAnoMesEDia(escala.getIdAnoMesFk().getNomeAnoMes(),  3).equalsIgnoreCase(nomeDia)) {escala.setDia03Fk(turnosService.buscarPorNome("M"));/*M*/}
+					if(utilidadesDeCalendarioEEscala.getDiaSemanaPorAnoMesEDia(escala.getIdAnoMesFk().getNomeAnoMes(),  4).equalsIgnoreCase(nomeDia)) {escala.setDia04Fk(turnosService.buscarPorNome("M"));/*M*/}
+					if(utilidadesDeCalendarioEEscala.getDiaSemanaPorAnoMesEDia(escala.getIdAnoMesFk().getNomeAnoMes(),  5).equalsIgnoreCase(nomeDia)) {escala.setDia05Fk(turnosService.buscarPorNome("M"));/*M*/}
+					if(utilidadesDeCalendarioEEscala.getDiaSemanaPorAnoMesEDia(escala.getIdAnoMesFk().getNomeAnoMes(),  6).equalsIgnoreCase(nomeDia)) {escala.setDia06Fk(turnosService.buscarPorNome("M"));/*M*/}
+					if(utilidadesDeCalendarioEEscala.getDiaSemanaPorAnoMesEDia(escala.getIdAnoMesFk().getNomeAnoMes(),  7).equalsIgnoreCase(nomeDia)) {escala.setDia07Fk(turnosService.buscarPorNome("M"));/*M*/}
+					if(utilidadesDeCalendarioEEscala.getDiaSemanaPorAnoMesEDia(escala.getIdAnoMesFk().getNomeAnoMes(),  8).equalsIgnoreCase(nomeDia)) {escala.setDia08Fk(turnosService.buscarPorNome("M"));/*M*/}
+					if(utilidadesDeCalendarioEEscala.getDiaSemanaPorAnoMesEDia(escala.getIdAnoMesFk().getNomeAnoMes(),  9).equalsIgnoreCase(nomeDia)) {escala.setDia09Fk(turnosService.buscarPorNome("M"));/*M*/}
+					if(utilidadesDeCalendarioEEscala.getDiaSemanaPorAnoMesEDia(escala.getIdAnoMesFk().getNomeAnoMes(), 10).equalsIgnoreCase(nomeDia)) {escala.setDia10Fk(turnosService.buscarPorNome("M"));/*M*/}
+					if(utilidadesDeCalendarioEEscala.getDiaSemanaPorAnoMesEDia(escala.getIdAnoMesFk().getNomeAnoMes(), 11).equalsIgnoreCase(nomeDia)) {escala.setDia11Fk(turnosService.buscarPorNome("M"));/*M*/}
+					if(utilidadesDeCalendarioEEscala.getDiaSemanaPorAnoMesEDia(escala.getIdAnoMesFk().getNomeAnoMes(), 12).equalsIgnoreCase(nomeDia)) {escala.setDia12Fk(turnosService.buscarPorNome("M"));/*M*/}
+					if(utilidadesDeCalendarioEEscala.getDiaSemanaPorAnoMesEDia(escala.getIdAnoMesFk().getNomeAnoMes(), 13).equalsIgnoreCase(nomeDia)) {escala.setDia13Fk(turnosService.buscarPorNome("M"));/*M*/}
+					if(utilidadesDeCalendarioEEscala.getDiaSemanaPorAnoMesEDia(escala.getIdAnoMesFk().getNomeAnoMes(), 14).equalsIgnoreCase(nomeDia)) {escala.setDia14Fk(turnosService.buscarPorNome("M"));/*M*/}
+					if(utilidadesDeCalendarioEEscala.getDiaSemanaPorAnoMesEDia(escala.getIdAnoMesFk().getNomeAnoMes(), 15).equalsIgnoreCase(nomeDia)) {escala.setDia15Fk(turnosService.buscarPorNome("M"));/*M*/}
+					if(utilidadesDeCalendarioEEscala.getDiaSemanaPorAnoMesEDia(escala.getIdAnoMesFk().getNomeAnoMes(), 16).equalsIgnoreCase(nomeDia)) {escala.setDia16Fk(turnosService.buscarPorNome("M"));/*M*/}
+					if(utilidadesDeCalendarioEEscala.getDiaSemanaPorAnoMesEDia(escala.getIdAnoMesFk().getNomeAnoMes(), 17).equalsIgnoreCase(nomeDia)) {escala.setDia17Fk(turnosService.buscarPorNome("M"));/*M*/}
+					if(utilidadesDeCalendarioEEscala.getDiaSemanaPorAnoMesEDia(escala.getIdAnoMesFk().getNomeAnoMes(), 18).equalsIgnoreCase(nomeDia)) {escala.setDia18Fk(turnosService.buscarPorNome("M"));/*M*/}
+					if(utilidadesDeCalendarioEEscala.getDiaSemanaPorAnoMesEDia(escala.getIdAnoMesFk().getNomeAnoMes(), 19).equalsIgnoreCase(nomeDia)) {escala.setDia19Fk(turnosService.buscarPorNome("M"));/*M*/}
+					if(utilidadesDeCalendarioEEscala.getDiaSemanaPorAnoMesEDia(escala.getIdAnoMesFk().getNomeAnoMes(), 20).equalsIgnoreCase(nomeDia)) {escala.setDia20Fk(turnosService.buscarPorNome("M"));/*M*/}
+					if(utilidadesDeCalendarioEEscala.getDiaSemanaPorAnoMesEDia(escala.getIdAnoMesFk().getNomeAnoMes(), 21).equalsIgnoreCase(nomeDia)) {escala.setDia21Fk(turnosService.buscarPorNome("M"));/*M*/}
+					if(utilidadesDeCalendarioEEscala.getDiaSemanaPorAnoMesEDia(escala.getIdAnoMesFk().getNomeAnoMes(), 22).equalsIgnoreCase(nomeDia)) {escala.setDia22Fk(turnosService.buscarPorNome("M"));/*M*/}
+					if(utilidadesDeCalendarioEEscala.getDiaSemanaPorAnoMesEDia(escala.getIdAnoMesFk().getNomeAnoMes(), 23).equalsIgnoreCase(nomeDia)) {escala.setDia23Fk(turnosService.buscarPorNome("M"));/*M*/}
+					if(utilidadesDeCalendarioEEscala.getDiaSemanaPorAnoMesEDia(escala.getIdAnoMesFk().getNomeAnoMes(), 24).equalsIgnoreCase(nomeDia)) {escala.setDia24Fk(turnosService.buscarPorNome("M"));/*M*/}
+					if(utilidadesDeCalendarioEEscala.getDiaSemanaPorAnoMesEDia(escala.getIdAnoMesFk().getNomeAnoMes(), 25).equalsIgnoreCase(nomeDia)) {escala.setDia25Fk(turnosService.buscarPorNome("M"));/*M*/}
+					if(utilidadesDeCalendarioEEscala.getDiaSemanaPorAnoMesEDia(escala.getIdAnoMesFk().getNomeAnoMes(), 26).equalsIgnoreCase(nomeDia)) {escala.setDia26Fk(turnosService.buscarPorNome("M"));/*M*/}
+					if(utilidadesDeCalendarioEEscala.getDiaSemanaPorAnoMesEDia(escala.getIdAnoMesFk().getNomeAnoMes(), 27).equalsIgnoreCase(nomeDia)) {escala.setDia27Fk(turnosService.buscarPorNome("M"));/*M*/}
+					if(utilidadesDeCalendarioEEscala.getDiaSemanaPorAnoMesEDia(escala.getIdAnoMesFk().getNomeAnoMes(), 28).equalsIgnoreCase(nomeDia)) {escala.setDia28Fk(turnosService.buscarPorNome("M"));/*M*/}
+					if(qtdDiasNoMes>=29) {if(utilidadesDeCalendarioEEscala.getDiaSemanaPorAnoMesEDia(escala.getIdAnoMesFk().getNomeAnoMes(), 29).equalsIgnoreCase(nomeDia)) {escala.setDia29Fk(turnosService.buscarPorNome("M"));/*M*/}}
+					if(qtdDiasNoMes>=30) {if(utilidadesDeCalendarioEEscala.getDiaSemanaPorAnoMesEDia(escala.getIdAnoMesFk().getNomeAnoMes(), 30).equalsIgnoreCase(nomeDia)) {escala.setDia30Fk(turnosService.buscarPorNome("M"));/*M*/}}
+					if(qtdDiasNoMes==31) {if(utilidadesDeCalendarioEEscala.getDiaSemanaPorAnoMesEDia(escala.getIdAnoMesFk().getNomeAnoMes(), 31).equalsIgnoreCase(nomeDia)) {escala.setDia31Fk(turnosService.buscarPorNome("M"));/*M*/}}
+					
+					escala = escalaCalculosService.calcularDadosEscala(escala);
+					
+				return escala;	
+				}
+				
+				public Escala atalhoCiclo9B(Escala escala) {
+					int qtdDiasNoMes = utilidadesDeCalendarioEEscala.quantidadeDeDiasNoMes(escala.getIdAnoMesFk().getNomeAnoMes());
+					
+					
+					String nomeDia = "TERCA";
+					
+					if(utilidadesDeCalendarioEEscala.getDiaSemanaPorAnoMesEDia(escala.getIdAnoMesFk().getNomeAnoMes(),  1).equalsIgnoreCase(nomeDia)) {escala.setDia01Fk(turnosService.buscarPorNome("M"));/*M*/}
+					if(utilidadesDeCalendarioEEscala.getDiaSemanaPorAnoMesEDia(escala.getIdAnoMesFk().getNomeAnoMes(),  2).equalsIgnoreCase(nomeDia)) {escala.setDia02Fk(turnosService.buscarPorNome("M"));/*M*/}
+					if(utilidadesDeCalendarioEEscala.getDiaSemanaPorAnoMesEDia(escala.getIdAnoMesFk().getNomeAnoMes(),  3).equalsIgnoreCase(nomeDia)) {escala.setDia03Fk(turnosService.buscarPorNome("M"));/*M*/}
+					if(utilidadesDeCalendarioEEscala.getDiaSemanaPorAnoMesEDia(escala.getIdAnoMesFk().getNomeAnoMes(),  4).equalsIgnoreCase(nomeDia)) {escala.setDia04Fk(turnosService.buscarPorNome("M"));/*M*/}
+					if(utilidadesDeCalendarioEEscala.getDiaSemanaPorAnoMesEDia(escala.getIdAnoMesFk().getNomeAnoMes(),  5).equalsIgnoreCase(nomeDia)) {escala.setDia05Fk(turnosService.buscarPorNome("M"));/*M*/}
+					if(utilidadesDeCalendarioEEscala.getDiaSemanaPorAnoMesEDia(escala.getIdAnoMesFk().getNomeAnoMes(),  6).equalsIgnoreCase(nomeDia)) {escala.setDia06Fk(turnosService.buscarPorNome("M"));/*M*/}
+					if(utilidadesDeCalendarioEEscala.getDiaSemanaPorAnoMesEDia(escala.getIdAnoMesFk().getNomeAnoMes(),  7).equalsIgnoreCase(nomeDia)) {escala.setDia07Fk(turnosService.buscarPorNome("M"));/*M*/}
+					if(utilidadesDeCalendarioEEscala.getDiaSemanaPorAnoMesEDia(escala.getIdAnoMesFk().getNomeAnoMes(),  8).equalsIgnoreCase(nomeDia)) {escala.setDia08Fk(turnosService.buscarPorNome("M"));/*M*/}
+					if(utilidadesDeCalendarioEEscala.getDiaSemanaPorAnoMesEDia(escala.getIdAnoMesFk().getNomeAnoMes(),  9).equalsIgnoreCase(nomeDia)) {escala.setDia09Fk(turnosService.buscarPorNome("M"));/*M*/}
+					if(utilidadesDeCalendarioEEscala.getDiaSemanaPorAnoMesEDia(escala.getIdAnoMesFk().getNomeAnoMes(), 10).equalsIgnoreCase(nomeDia)) {escala.setDia10Fk(turnosService.buscarPorNome("M"));/*M*/}
+					if(utilidadesDeCalendarioEEscala.getDiaSemanaPorAnoMesEDia(escala.getIdAnoMesFk().getNomeAnoMes(), 11).equalsIgnoreCase(nomeDia)) {escala.setDia11Fk(turnosService.buscarPorNome("M"));/*M*/}
+					if(utilidadesDeCalendarioEEscala.getDiaSemanaPorAnoMesEDia(escala.getIdAnoMesFk().getNomeAnoMes(), 12).equalsIgnoreCase(nomeDia)) {escala.setDia12Fk(turnosService.buscarPorNome("M"));/*M*/}
+					if(utilidadesDeCalendarioEEscala.getDiaSemanaPorAnoMesEDia(escala.getIdAnoMesFk().getNomeAnoMes(), 13).equalsIgnoreCase(nomeDia)) {escala.setDia13Fk(turnosService.buscarPorNome("M"));/*M*/}
+					if(utilidadesDeCalendarioEEscala.getDiaSemanaPorAnoMesEDia(escala.getIdAnoMesFk().getNomeAnoMes(), 14).equalsIgnoreCase(nomeDia)) {escala.setDia14Fk(turnosService.buscarPorNome("M"));/*M*/}
+					if(utilidadesDeCalendarioEEscala.getDiaSemanaPorAnoMesEDia(escala.getIdAnoMesFk().getNomeAnoMes(), 15).equalsIgnoreCase(nomeDia)) {escala.setDia15Fk(turnosService.buscarPorNome("M"));/*M*/}
+					if(utilidadesDeCalendarioEEscala.getDiaSemanaPorAnoMesEDia(escala.getIdAnoMesFk().getNomeAnoMes(), 16).equalsIgnoreCase(nomeDia)) {escala.setDia16Fk(turnosService.buscarPorNome("M"));/*M*/}
+					if(utilidadesDeCalendarioEEscala.getDiaSemanaPorAnoMesEDia(escala.getIdAnoMesFk().getNomeAnoMes(), 17).equalsIgnoreCase(nomeDia)) {escala.setDia17Fk(turnosService.buscarPorNome("M"));/*M*/}
+					if(utilidadesDeCalendarioEEscala.getDiaSemanaPorAnoMesEDia(escala.getIdAnoMesFk().getNomeAnoMes(), 18).equalsIgnoreCase(nomeDia)) {escala.setDia18Fk(turnosService.buscarPorNome("M"));/*M*/}
+					if(utilidadesDeCalendarioEEscala.getDiaSemanaPorAnoMesEDia(escala.getIdAnoMesFk().getNomeAnoMes(), 19).equalsIgnoreCase(nomeDia)) {escala.setDia19Fk(turnosService.buscarPorNome("M"));/*M*/}
+					if(utilidadesDeCalendarioEEscala.getDiaSemanaPorAnoMesEDia(escala.getIdAnoMesFk().getNomeAnoMes(), 20).equalsIgnoreCase(nomeDia)) {escala.setDia20Fk(turnosService.buscarPorNome("M"));/*M*/}
+					if(utilidadesDeCalendarioEEscala.getDiaSemanaPorAnoMesEDia(escala.getIdAnoMesFk().getNomeAnoMes(), 21).equalsIgnoreCase(nomeDia)) {escala.setDia21Fk(turnosService.buscarPorNome("M"));/*M*/}
+					if(utilidadesDeCalendarioEEscala.getDiaSemanaPorAnoMesEDia(escala.getIdAnoMesFk().getNomeAnoMes(), 22).equalsIgnoreCase(nomeDia)) {escala.setDia22Fk(turnosService.buscarPorNome("M"));/*M*/}
+					if(utilidadesDeCalendarioEEscala.getDiaSemanaPorAnoMesEDia(escala.getIdAnoMesFk().getNomeAnoMes(), 23).equalsIgnoreCase(nomeDia)) {escala.setDia23Fk(turnosService.buscarPorNome("M"));/*M*/}
+					if(utilidadesDeCalendarioEEscala.getDiaSemanaPorAnoMesEDia(escala.getIdAnoMesFk().getNomeAnoMes(), 24).equalsIgnoreCase(nomeDia)) {escala.setDia24Fk(turnosService.buscarPorNome("M"));/*M*/}
+					if(utilidadesDeCalendarioEEscala.getDiaSemanaPorAnoMesEDia(escala.getIdAnoMesFk().getNomeAnoMes(), 25).equalsIgnoreCase(nomeDia)) {escala.setDia25Fk(turnosService.buscarPorNome("M"));/*M*/}
+					if(utilidadesDeCalendarioEEscala.getDiaSemanaPorAnoMesEDia(escala.getIdAnoMesFk().getNomeAnoMes(), 26).equalsIgnoreCase(nomeDia)) {escala.setDia26Fk(turnosService.buscarPorNome("M"));/*M*/}
+					if(utilidadesDeCalendarioEEscala.getDiaSemanaPorAnoMesEDia(escala.getIdAnoMesFk().getNomeAnoMes(), 27).equalsIgnoreCase(nomeDia)) {escala.setDia27Fk(turnosService.buscarPorNome("M"));/*M*/}
+					if(utilidadesDeCalendarioEEscala.getDiaSemanaPorAnoMesEDia(escala.getIdAnoMesFk().getNomeAnoMes(), 28).equalsIgnoreCase(nomeDia)) {escala.setDia28Fk(turnosService.buscarPorNome("M"));/*M*/}
+					if(qtdDiasNoMes>=29) {if(utilidadesDeCalendarioEEscala.getDiaSemanaPorAnoMesEDia(escala.getIdAnoMesFk().getNomeAnoMes(), 29).equalsIgnoreCase(nomeDia)) {escala.setDia29Fk(turnosService.buscarPorNome("M"));/*M*/}}
+					if(qtdDiasNoMes>=30) {if(utilidadesDeCalendarioEEscala.getDiaSemanaPorAnoMesEDia(escala.getIdAnoMesFk().getNomeAnoMes(), 30).equalsIgnoreCase(nomeDia)) {escala.setDia30Fk(turnosService.buscarPorNome("M"));/*M*/}}
+					if(qtdDiasNoMes==31) {if(utilidadesDeCalendarioEEscala.getDiaSemanaPorAnoMesEDia(escala.getIdAnoMesFk().getNomeAnoMes(), 31).equalsIgnoreCase(nomeDia)) {escala.setDia31Fk(turnosService.buscarPorNome("M"));/*M*/}}
+					
+					escala = escalaCalculosService.calcularDadosEscala(escala);
+					
+				return escala;	
+				}
+
+				public Escala atalhoCiclo9C(Escala escala) {
+					int qtdDiasNoMes = utilidadesDeCalendarioEEscala.quantidadeDeDiasNoMes(escala.getIdAnoMesFk().getNomeAnoMes());
+					
+					String nomeDia = "QUARTA";
+					
+					if(utilidadesDeCalendarioEEscala.getDiaSemanaPorAnoMesEDia(escala.getIdAnoMesFk().getNomeAnoMes(),  1).equalsIgnoreCase(nomeDia)) {escala.setDia01Fk(turnosService.buscarPorNome("M"));/*M*/}
+					if(utilidadesDeCalendarioEEscala.getDiaSemanaPorAnoMesEDia(escala.getIdAnoMesFk().getNomeAnoMes(),  2).equalsIgnoreCase(nomeDia)) {escala.setDia02Fk(turnosService.buscarPorNome("M"));/*M*/}
+					if(utilidadesDeCalendarioEEscala.getDiaSemanaPorAnoMesEDia(escala.getIdAnoMesFk().getNomeAnoMes(),  3).equalsIgnoreCase(nomeDia)) {escala.setDia03Fk(turnosService.buscarPorNome("M"));/*M*/}
+					if(utilidadesDeCalendarioEEscala.getDiaSemanaPorAnoMesEDia(escala.getIdAnoMesFk().getNomeAnoMes(),  4).equalsIgnoreCase(nomeDia)) {escala.setDia04Fk(turnosService.buscarPorNome("M"));/*M*/}
+					if(utilidadesDeCalendarioEEscala.getDiaSemanaPorAnoMesEDia(escala.getIdAnoMesFk().getNomeAnoMes(),  5).equalsIgnoreCase(nomeDia)) {escala.setDia05Fk(turnosService.buscarPorNome("M"));/*M*/}
+					if(utilidadesDeCalendarioEEscala.getDiaSemanaPorAnoMesEDia(escala.getIdAnoMesFk().getNomeAnoMes(),  6).equalsIgnoreCase(nomeDia)) {escala.setDia06Fk(turnosService.buscarPorNome("M"));/*M*/}
+					if(utilidadesDeCalendarioEEscala.getDiaSemanaPorAnoMesEDia(escala.getIdAnoMesFk().getNomeAnoMes(),  7).equalsIgnoreCase(nomeDia)) {escala.setDia07Fk(turnosService.buscarPorNome("M"));/*M*/}
+					if(utilidadesDeCalendarioEEscala.getDiaSemanaPorAnoMesEDia(escala.getIdAnoMesFk().getNomeAnoMes(),  8).equalsIgnoreCase(nomeDia)) {escala.setDia08Fk(turnosService.buscarPorNome("M"));/*M*/}
+					if(utilidadesDeCalendarioEEscala.getDiaSemanaPorAnoMesEDia(escala.getIdAnoMesFk().getNomeAnoMes(),  9).equalsIgnoreCase(nomeDia)) {escala.setDia09Fk(turnosService.buscarPorNome("M"));/*M*/}
+					if(utilidadesDeCalendarioEEscala.getDiaSemanaPorAnoMesEDia(escala.getIdAnoMesFk().getNomeAnoMes(), 10).equalsIgnoreCase(nomeDia)) {escala.setDia10Fk(turnosService.buscarPorNome("M"));/*M*/}
+					if(utilidadesDeCalendarioEEscala.getDiaSemanaPorAnoMesEDia(escala.getIdAnoMesFk().getNomeAnoMes(), 11).equalsIgnoreCase(nomeDia)) {escala.setDia11Fk(turnosService.buscarPorNome("M"));/*M*/}
+					if(utilidadesDeCalendarioEEscala.getDiaSemanaPorAnoMesEDia(escala.getIdAnoMesFk().getNomeAnoMes(), 12).equalsIgnoreCase(nomeDia)) {escala.setDia12Fk(turnosService.buscarPorNome("M"));/*M*/}
+					if(utilidadesDeCalendarioEEscala.getDiaSemanaPorAnoMesEDia(escala.getIdAnoMesFk().getNomeAnoMes(), 13).equalsIgnoreCase(nomeDia)) {escala.setDia13Fk(turnosService.buscarPorNome("M"));/*M*/}
+					if(utilidadesDeCalendarioEEscala.getDiaSemanaPorAnoMesEDia(escala.getIdAnoMesFk().getNomeAnoMes(), 14).equalsIgnoreCase(nomeDia)) {escala.setDia14Fk(turnosService.buscarPorNome("M"));/*M*/}
+					if(utilidadesDeCalendarioEEscala.getDiaSemanaPorAnoMesEDia(escala.getIdAnoMesFk().getNomeAnoMes(), 15).equalsIgnoreCase(nomeDia)) {escala.setDia15Fk(turnosService.buscarPorNome("M"));/*M*/}
+					if(utilidadesDeCalendarioEEscala.getDiaSemanaPorAnoMesEDia(escala.getIdAnoMesFk().getNomeAnoMes(), 16).equalsIgnoreCase(nomeDia)) {escala.setDia16Fk(turnosService.buscarPorNome("M"));/*M*/}
+					if(utilidadesDeCalendarioEEscala.getDiaSemanaPorAnoMesEDia(escala.getIdAnoMesFk().getNomeAnoMes(), 17).equalsIgnoreCase(nomeDia)) {escala.setDia17Fk(turnosService.buscarPorNome("M"));/*M*/}
+					if(utilidadesDeCalendarioEEscala.getDiaSemanaPorAnoMesEDia(escala.getIdAnoMesFk().getNomeAnoMes(), 18).equalsIgnoreCase(nomeDia)) {escala.setDia18Fk(turnosService.buscarPorNome("M"));/*M*/}
+					if(utilidadesDeCalendarioEEscala.getDiaSemanaPorAnoMesEDia(escala.getIdAnoMesFk().getNomeAnoMes(), 19).equalsIgnoreCase(nomeDia)) {escala.setDia19Fk(turnosService.buscarPorNome("M"));/*M*/}
+					if(utilidadesDeCalendarioEEscala.getDiaSemanaPorAnoMesEDia(escala.getIdAnoMesFk().getNomeAnoMes(), 20).equalsIgnoreCase(nomeDia)) {escala.setDia20Fk(turnosService.buscarPorNome("M"));/*M*/}
+					if(utilidadesDeCalendarioEEscala.getDiaSemanaPorAnoMesEDia(escala.getIdAnoMesFk().getNomeAnoMes(), 21).equalsIgnoreCase(nomeDia)) {escala.setDia21Fk(turnosService.buscarPorNome("M"));/*M*/}
+					if(utilidadesDeCalendarioEEscala.getDiaSemanaPorAnoMesEDia(escala.getIdAnoMesFk().getNomeAnoMes(), 22).equalsIgnoreCase(nomeDia)) {escala.setDia22Fk(turnosService.buscarPorNome("M"));/*M*/}
+					if(utilidadesDeCalendarioEEscala.getDiaSemanaPorAnoMesEDia(escala.getIdAnoMesFk().getNomeAnoMes(), 23).equalsIgnoreCase(nomeDia)) {escala.setDia23Fk(turnosService.buscarPorNome("M"));/*M*/}
+					if(utilidadesDeCalendarioEEscala.getDiaSemanaPorAnoMesEDia(escala.getIdAnoMesFk().getNomeAnoMes(), 24).equalsIgnoreCase(nomeDia)) {escala.setDia24Fk(turnosService.buscarPorNome("M"));/*M*/}
+					if(utilidadesDeCalendarioEEscala.getDiaSemanaPorAnoMesEDia(escala.getIdAnoMesFk().getNomeAnoMes(), 25).equalsIgnoreCase(nomeDia)) {escala.setDia25Fk(turnosService.buscarPorNome("M"));/*M*/}
+					if(utilidadesDeCalendarioEEscala.getDiaSemanaPorAnoMesEDia(escala.getIdAnoMesFk().getNomeAnoMes(), 26).equalsIgnoreCase(nomeDia)) {escala.setDia26Fk(turnosService.buscarPorNome("M"));/*M*/}
+					if(utilidadesDeCalendarioEEscala.getDiaSemanaPorAnoMesEDia(escala.getIdAnoMesFk().getNomeAnoMes(), 27).equalsIgnoreCase(nomeDia)) {escala.setDia27Fk(turnosService.buscarPorNome("M"));/*M*/}
+					if(utilidadesDeCalendarioEEscala.getDiaSemanaPorAnoMesEDia(escala.getIdAnoMesFk().getNomeAnoMes(), 28).equalsIgnoreCase(nomeDia)) {escala.setDia28Fk(turnosService.buscarPorNome("M"));/*M*/}
+					if(qtdDiasNoMes>=29) {if(utilidadesDeCalendarioEEscala.getDiaSemanaPorAnoMesEDia(escala.getIdAnoMesFk().getNomeAnoMes(), 29).equalsIgnoreCase(nomeDia)) {escala.setDia29Fk(turnosService.buscarPorNome("M"));/*M*/}}
+					if(qtdDiasNoMes>=30) {if(utilidadesDeCalendarioEEscala.getDiaSemanaPorAnoMesEDia(escala.getIdAnoMesFk().getNomeAnoMes(), 30).equalsIgnoreCase(nomeDia)) {escala.setDia30Fk(turnosService.buscarPorNome("M"));/*M*/}}
+					if(qtdDiasNoMes==31) {if(utilidadesDeCalendarioEEscala.getDiaSemanaPorAnoMesEDia(escala.getIdAnoMesFk().getNomeAnoMes(), 31).equalsIgnoreCase(nomeDia)) {escala.setDia31Fk(turnosService.buscarPorNome("M"));/*M*/}}
+					
+					escala = escalaCalculosService.calcularDadosEscala(escala);
+					
+				return escala;	
+				}
+
+				public Escala atalhoCiclo9D(Escala escala) {
+					int qtdDiasNoMes = utilidadesDeCalendarioEEscala.quantidadeDeDiasNoMes(escala.getIdAnoMesFk().getNomeAnoMes());
+					
+					String nomeDia = "QUINTA";
+					
+					if(utilidadesDeCalendarioEEscala.getDiaSemanaPorAnoMesEDia(escala.getIdAnoMesFk().getNomeAnoMes(),  1).equalsIgnoreCase(nomeDia)) {escala.setDia01Fk(turnosService.buscarPorNome("M"));/*M*/}
+					if(utilidadesDeCalendarioEEscala.getDiaSemanaPorAnoMesEDia(escala.getIdAnoMesFk().getNomeAnoMes(),  2).equalsIgnoreCase(nomeDia)) {escala.setDia02Fk(turnosService.buscarPorNome("M"));/*M*/}
+					if(utilidadesDeCalendarioEEscala.getDiaSemanaPorAnoMesEDia(escala.getIdAnoMesFk().getNomeAnoMes(),  3).equalsIgnoreCase(nomeDia)) {escala.setDia03Fk(turnosService.buscarPorNome("M"));/*M*/}
+					if(utilidadesDeCalendarioEEscala.getDiaSemanaPorAnoMesEDia(escala.getIdAnoMesFk().getNomeAnoMes(),  4).equalsIgnoreCase(nomeDia)) {escala.setDia04Fk(turnosService.buscarPorNome("M"));/*M*/}
+					if(utilidadesDeCalendarioEEscala.getDiaSemanaPorAnoMesEDia(escala.getIdAnoMesFk().getNomeAnoMes(),  5).equalsIgnoreCase(nomeDia)) {escala.setDia05Fk(turnosService.buscarPorNome("M"));/*M*/}
+					if(utilidadesDeCalendarioEEscala.getDiaSemanaPorAnoMesEDia(escala.getIdAnoMesFk().getNomeAnoMes(),  6).equalsIgnoreCase(nomeDia)) {escala.setDia06Fk(turnosService.buscarPorNome("M"));/*M*/}
+					if(utilidadesDeCalendarioEEscala.getDiaSemanaPorAnoMesEDia(escala.getIdAnoMesFk().getNomeAnoMes(),  7).equalsIgnoreCase(nomeDia)) {escala.setDia07Fk(turnosService.buscarPorNome("M"));/*M*/}
+					if(utilidadesDeCalendarioEEscala.getDiaSemanaPorAnoMesEDia(escala.getIdAnoMesFk().getNomeAnoMes(),  8).equalsIgnoreCase(nomeDia)) {escala.setDia08Fk(turnosService.buscarPorNome("M"));/*M*/}
+					if(utilidadesDeCalendarioEEscala.getDiaSemanaPorAnoMesEDia(escala.getIdAnoMesFk().getNomeAnoMes(),  9).equalsIgnoreCase(nomeDia)) {escala.setDia09Fk(turnosService.buscarPorNome("M"));/*M*/}
+					if(utilidadesDeCalendarioEEscala.getDiaSemanaPorAnoMesEDia(escala.getIdAnoMesFk().getNomeAnoMes(), 10).equalsIgnoreCase(nomeDia)) {escala.setDia10Fk(turnosService.buscarPorNome("M"));/*M*/}
+					if(utilidadesDeCalendarioEEscala.getDiaSemanaPorAnoMesEDia(escala.getIdAnoMesFk().getNomeAnoMes(), 11).equalsIgnoreCase(nomeDia)) {escala.setDia11Fk(turnosService.buscarPorNome("M"));/*M*/}
+					if(utilidadesDeCalendarioEEscala.getDiaSemanaPorAnoMesEDia(escala.getIdAnoMesFk().getNomeAnoMes(), 12).equalsIgnoreCase(nomeDia)) {escala.setDia12Fk(turnosService.buscarPorNome("M"));/*M*/}
+					if(utilidadesDeCalendarioEEscala.getDiaSemanaPorAnoMesEDia(escala.getIdAnoMesFk().getNomeAnoMes(), 13).equalsIgnoreCase(nomeDia)) {escala.setDia13Fk(turnosService.buscarPorNome("M"));/*M*/}
+					if(utilidadesDeCalendarioEEscala.getDiaSemanaPorAnoMesEDia(escala.getIdAnoMesFk().getNomeAnoMes(), 14).equalsIgnoreCase(nomeDia)) {escala.setDia14Fk(turnosService.buscarPorNome("M"));/*M*/}
+					if(utilidadesDeCalendarioEEscala.getDiaSemanaPorAnoMesEDia(escala.getIdAnoMesFk().getNomeAnoMes(), 15).equalsIgnoreCase(nomeDia)) {escala.setDia15Fk(turnosService.buscarPorNome("M"));/*M*/}
+					if(utilidadesDeCalendarioEEscala.getDiaSemanaPorAnoMesEDia(escala.getIdAnoMesFk().getNomeAnoMes(), 16).equalsIgnoreCase(nomeDia)) {escala.setDia16Fk(turnosService.buscarPorNome("M"));/*M*/}
+					if(utilidadesDeCalendarioEEscala.getDiaSemanaPorAnoMesEDia(escala.getIdAnoMesFk().getNomeAnoMes(), 17).equalsIgnoreCase(nomeDia)) {escala.setDia17Fk(turnosService.buscarPorNome("M"));/*M*/}
+					if(utilidadesDeCalendarioEEscala.getDiaSemanaPorAnoMesEDia(escala.getIdAnoMesFk().getNomeAnoMes(), 18).equalsIgnoreCase(nomeDia)) {escala.setDia18Fk(turnosService.buscarPorNome("M"));/*M*/}
+					if(utilidadesDeCalendarioEEscala.getDiaSemanaPorAnoMesEDia(escala.getIdAnoMesFk().getNomeAnoMes(), 19).equalsIgnoreCase(nomeDia)) {escala.setDia19Fk(turnosService.buscarPorNome("M"));/*M*/}
+					if(utilidadesDeCalendarioEEscala.getDiaSemanaPorAnoMesEDia(escala.getIdAnoMesFk().getNomeAnoMes(), 20).equalsIgnoreCase(nomeDia)) {escala.setDia20Fk(turnosService.buscarPorNome("M"));/*M*/}
+					if(utilidadesDeCalendarioEEscala.getDiaSemanaPorAnoMesEDia(escala.getIdAnoMesFk().getNomeAnoMes(), 21).equalsIgnoreCase(nomeDia)) {escala.setDia21Fk(turnosService.buscarPorNome("M"));/*M*/}
+					if(utilidadesDeCalendarioEEscala.getDiaSemanaPorAnoMesEDia(escala.getIdAnoMesFk().getNomeAnoMes(), 22).equalsIgnoreCase(nomeDia)) {escala.setDia22Fk(turnosService.buscarPorNome("M"));/*M*/}
+					if(utilidadesDeCalendarioEEscala.getDiaSemanaPorAnoMesEDia(escala.getIdAnoMesFk().getNomeAnoMes(), 23).equalsIgnoreCase(nomeDia)) {escala.setDia23Fk(turnosService.buscarPorNome("M"));/*M*/}
+					if(utilidadesDeCalendarioEEscala.getDiaSemanaPorAnoMesEDia(escala.getIdAnoMesFk().getNomeAnoMes(), 24).equalsIgnoreCase(nomeDia)) {escala.setDia24Fk(turnosService.buscarPorNome("M"));/*M*/}
+					if(utilidadesDeCalendarioEEscala.getDiaSemanaPorAnoMesEDia(escala.getIdAnoMesFk().getNomeAnoMes(), 25).equalsIgnoreCase(nomeDia)) {escala.setDia25Fk(turnosService.buscarPorNome("M"));/*M*/}
+					if(utilidadesDeCalendarioEEscala.getDiaSemanaPorAnoMesEDia(escala.getIdAnoMesFk().getNomeAnoMes(), 26).equalsIgnoreCase(nomeDia)) {escala.setDia26Fk(turnosService.buscarPorNome("M"));/*M*/}
+					if(utilidadesDeCalendarioEEscala.getDiaSemanaPorAnoMesEDia(escala.getIdAnoMesFk().getNomeAnoMes(), 27).equalsIgnoreCase(nomeDia)) {escala.setDia27Fk(turnosService.buscarPorNome("M"));/*M*/}
+					if(utilidadesDeCalendarioEEscala.getDiaSemanaPorAnoMesEDia(escala.getIdAnoMesFk().getNomeAnoMes(), 28).equalsIgnoreCase(nomeDia)) {escala.setDia28Fk(turnosService.buscarPorNome("M"));/*M*/}
+					if(qtdDiasNoMes>=29) {if(utilidadesDeCalendarioEEscala.getDiaSemanaPorAnoMesEDia(escala.getIdAnoMesFk().getNomeAnoMes(), 29).equalsIgnoreCase(nomeDia)) {escala.setDia29Fk(turnosService.buscarPorNome("M"));/*M*/}}
+					if(qtdDiasNoMes>=30) {if(utilidadesDeCalendarioEEscala.getDiaSemanaPorAnoMesEDia(escala.getIdAnoMesFk().getNomeAnoMes(), 30).equalsIgnoreCase(nomeDia)) {escala.setDia30Fk(turnosService.buscarPorNome("M"));/*M*/}}
+					if(qtdDiasNoMes==31) {if(utilidadesDeCalendarioEEscala.getDiaSemanaPorAnoMesEDia(escala.getIdAnoMesFk().getNomeAnoMes(), 31).equalsIgnoreCase(nomeDia)) {escala.setDia31Fk(turnosService.buscarPorNome("M"));/*M*/}}
+					
+					escala = escalaCalculosService.calcularDadosEscala(escala);
+					
+				return escala;	
+				}
+
+				public Escala atalhoCiclo9E(Escala escala) {
+					int qtdDiasNoMes = utilidadesDeCalendarioEEscala.quantidadeDeDiasNoMes(escala.getIdAnoMesFk().getNomeAnoMes());
+					
+					String nomeDia = "SEXTA";
+					
+					if(utilidadesDeCalendarioEEscala.getDiaSemanaPorAnoMesEDia(escala.getIdAnoMesFk().getNomeAnoMes(),  1).equalsIgnoreCase(nomeDia)) {escala.setDia01Fk(turnosService.buscarPorNome("M"));/*M*/}
+					if(utilidadesDeCalendarioEEscala.getDiaSemanaPorAnoMesEDia(escala.getIdAnoMesFk().getNomeAnoMes(),  2).equalsIgnoreCase(nomeDia)) {escala.setDia02Fk(turnosService.buscarPorNome("M"));/*M*/}
+					if(utilidadesDeCalendarioEEscala.getDiaSemanaPorAnoMesEDia(escala.getIdAnoMesFk().getNomeAnoMes(),  3).equalsIgnoreCase(nomeDia)) {escala.setDia03Fk(turnosService.buscarPorNome("M"));/*M*/}
+					if(utilidadesDeCalendarioEEscala.getDiaSemanaPorAnoMesEDia(escala.getIdAnoMesFk().getNomeAnoMes(),  4).equalsIgnoreCase(nomeDia)) {escala.setDia04Fk(turnosService.buscarPorNome("M"));/*M*/}
+					if(utilidadesDeCalendarioEEscala.getDiaSemanaPorAnoMesEDia(escala.getIdAnoMesFk().getNomeAnoMes(),  5).equalsIgnoreCase(nomeDia)) {escala.setDia05Fk(turnosService.buscarPorNome("M"));/*M*/}
+					if(utilidadesDeCalendarioEEscala.getDiaSemanaPorAnoMesEDia(escala.getIdAnoMesFk().getNomeAnoMes(),  6).equalsIgnoreCase(nomeDia)) {escala.setDia06Fk(turnosService.buscarPorNome("M"));/*M*/}
+					if(utilidadesDeCalendarioEEscala.getDiaSemanaPorAnoMesEDia(escala.getIdAnoMesFk().getNomeAnoMes(),  7).equalsIgnoreCase(nomeDia)) {escala.setDia07Fk(turnosService.buscarPorNome("M"));/*M*/}
+					if(utilidadesDeCalendarioEEscala.getDiaSemanaPorAnoMesEDia(escala.getIdAnoMesFk().getNomeAnoMes(),  8).equalsIgnoreCase(nomeDia)) {escala.setDia08Fk(turnosService.buscarPorNome("M"));/*M*/}
+					if(utilidadesDeCalendarioEEscala.getDiaSemanaPorAnoMesEDia(escala.getIdAnoMesFk().getNomeAnoMes(),  9).equalsIgnoreCase(nomeDia)) {escala.setDia09Fk(turnosService.buscarPorNome("M"));/*M*/}
+					if(utilidadesDeCalendarioEEscala.getDiaSemanaPorAnoMesEDia(escala.getIdAnoMesFk().getNomeAnoMes(), 10).equalsIgnoreCase(nomeDia)) {escala.setDia10Fk(turnosService.buscarPorNome("M"));/*M*/}
+					if(utilidadesDeCalendarioEEscala.getDiaSemanaPorAnoMesEDia(escala.getIdAnoMesFk().getNomeAnoMes(), 11).equalsIgnoreCase(nomeDia)) {escala.setDia11Fk(turnosService.buscarPorNome("M"));/*M*/}
+					if(utilidadesDeCalendarioEEscala.getDiaSemanaPorAnoMesEDia(escala.getIdAnoMesFk().getNomeAnoMes(), 12).equalsIgnoreCase(nomeDia)) {escala.setDia12Fk(turnosService.buscarPorNome("M"));/*M*/}
+					if(utilidadesDeCalendarioEEscala.getDiaSemanaPorAnoMesEDia(escala.getIdAnoMesFk().getNomeAnoMes(), 13).equalsIgnoreCase(nomeDia)) {escala.setDia13Fk(turnosService.buscarPorNome("M"));/*M*/}
+					if(utilidadesDeCalendarioEEscala.getDiaSemanaPorAnoMesEDia(escala.getIdAnoMesFk().getNomeAnoMes(), 14).equalsIgnoreCase(nomeDia)) {escala.setDia14Fk(turnosService.buscarPorNome("M"));/*M*/}
+					if(utilidadesDeCalendarioEEscala.getDiaSemanaPorAnoMesEDia(escala.getIdAnoMesFk().getNomeAnoMes(), 15).equalsIgnoreCase(nomeDia)) {escala.setDia15Fk(turnosService.buscarPorNome("M"));/*M*/}
+					if(utilidadesDeCalendarioEEscala.getDiaSemanaPorAnoMesEDia(escala.getIdAnoMesFk().getNomeAnoMes(), 16).equalsIgnoreCase(nomeDia)) {escala.setDia16Fk(turnosService.buscarPorNome("M"));/*M*/}
+					if(utilidadesDeCalendarioEEscala.getDiaSemanaPorAnoMesEDia(escala.getIdAnoMesFk().getNomeAnoMes(), 17).equalsIgnoreCase(nomeDia)) {escala.setDia17Fk(turnosService.buscarPorNome("M"));/*M*/}
+					if(utilidadesDeCalendarioEEscala.getDiaSemanaPorAnoMesEDia(escala.getIdAnoMesFk().getNomeAnoMes(), 18).equalsIgnoreCase(nomeDia)) {escala.setDia18Fk(turnosService.buscarPorNome("M"));/*M*/}
+					if(utilidadesDeCalendarioEEscala.getDiaSemanaPorAnoMesEDia(escala.getIdAnoMesFk().getNomeAnoMes(), 19).equalsIgnoreCase(nomeDia)) {escala.setDia19Fk(turnosService.buscarPorNome("M"));/*M*/}
+					if(utilidadesDeCalendarioEEscala.getDiaSemanaPorAnoMesEDia(escala.getIdAnoMesFk().getNomeAnoMes(), 20).equalsIgnoreCase(nomeDia)) {escala.setDia20Fk(turnosService.buscarPorNome("M"));/*M*/}
+					if(utilidadesDeCalendarioEEscala.getDiaSemanaPorAnoMesEDia(escala.getIdAnoMesFk().getNomeAnoMes(), 21).equalsIgnoreCase(nomeDia)) {escala.setDia21Fk(turnosService.buscarPorNome("M"));/*M*/}
+					if(utilidadesDeCalendarioEEscala.getDiaSemanaPorAnoMesEDia(escala.getIdAnoMesFk().getNomeAnoMes(), 22).equalsIgnoreCase(nomeDia)) {escala.setDia22Fk(turnosService.buscarPorNome("M"));/*M*/}
+					if(utilidadesDeCalendarioEEscala.getDiaSemanaPorAnoMesEDia(escala.getIdAnoMesFk().getNomeAnoMes(), 23).equalsIgnoreCase(nomeDia)) {escala.setDia23Fk(turnosService.buscarPorNome("M"));/*M*/}
+					if(utilidadesDeCalendarioEEscala.getDiaSemanaPorAnoMesEDia(escala.getIdAnoMesFk().getNomeAnoMes(), 24).equalsIgnoreCase(nomeDia)) {escala.setDia24Fk(turnosService.buscarPorNome("M"));/*M*/}
+					if(utilidadesDeCalendarioEEscala.getDiaSemanaPorAnoMesEDia(escala.getIdAnoMesFk().getNomeAnoMes(), 25).equalsIgnoreCase(nomeDia)) {escala.setDia25Fk(turnosService.buscarPorNome("M"));/*M*/}
+					if(utilidadesDeCalendarioEEscala.getDiaSemanaPorAnoMesEDia(escala.getIdAnoMesFk().getNomeAnoMes(), 26).equalsIgnoreCase(nomeDia)) {escala.setDia26Fk(turnosService.buscarPorNome("M"));/*M*/}
+					if(utilidadesDeCalendarioEEscala.getDiaSemanaPorAnoMesEDia(escala.getIdAnoMesFk().getNomeAnoMes(), 27).equalsIgnoreCase(nomeDia)) {escala.setDia27Fk(turnosService.buscarPorNome("M"));/*M*/}
+					if(utilidadesDeCalendarioEEscala.getDiaSemanaPorAnoMesEDia(escala.getIdAnoMesFk().getNomeAnoMes(), 28).equalsIgnoreCase(nomeDia)) {escala.setDia28Fk(turnosService.buscarPorNome("M"));/*M*/}
+					if(qtdDiasNoMes>=29) {if(utilidadesDeCalendarioEEscala.getDiaSemanaPorAnoMesEDia(escala.getIdAnoMesFk().getNomeAnoMes(), 29).equalsIgnoreCase(nomeDia)) {escala.setDia29Fk(turnosService.buscarPorNome("M"));/*M*/}}
+					if(qtdDiasNoMes>=30) {if(utilidadesDeCalendarioEEscala.getDiaSemanaPorAnoMesEDia(escala.getIdAnoMesFk().getNomeAnoMes(), 30).equalsIgnoreCase(nomeDia)) {escala.setDia30Fk(turnosService.buscarPorNome("M"));/*M*/}}
+					if(qtdDiasNoMes==31) {if(utilidadesDeCalendarioEEscala.getDiaSemanaPorAnoMesEDia(escala.getIdAnoMesFk().getNomeAnoMes(), 31).equalsIgnoreCase(nomeDia)) {escala.setDia31Fk(turnosService.buscarPorNome("M"));/*M*/}}
+					
+					escala = escalaCalculosService.calcularDadosEscala(escala);
+					
+				return escala;	
+				}
+
+				public Escala atalhoCiclo9F(Escala escala) {
+					int qtdDiasNoMes = utilidadesDeCalendarioEEscala.quantidadeDeDiasNoMes(escala.getIdAnoMesFk().getNomeAnoMes());
+					
+					String nomeDia = "SABADO";
+					
+					if(utilidadesDeCalendarioEEscala.getDiaSemanaPorAnoMesEDia(escala.getIdAnoMesFk().getNomeAnoMes(),  1).equalsIgnoreCase(nomeDia)) {escala.setDia01Fk(turnosService.buscarPorNome("M"));/*M*/}
+					if(utilidadesDeCalendarioEEscala.getDiaSemanaPorAnoMesEDia(escala.getIdAnoMesFk().getNomeAnoMes(),  2).equalsIgnoreCase(nomeDia)) {escala.setDia02Fk(turnosService.buscarPorNome("M"));/*M*/}
+					if(utilidadesDeCalendarioEEscala.getDiaSemanaPorAnoMesEDia(escala.getIdAnoMesFk().getNomeAnoMes(),  3).equalsIgnoreCase(nomeDia)) {escala.setDia03Fk(turnosService.buscarPorNome("M"));/*M*/}
+					if(utilidadesDeCalendarioEEscala.getDiaSemanaPorAnoMesEDia(escala.getIdAnoMesFk().getNomeAnoMes(),  4).equalsIgnoreCase(nomeDia)) {escala.setDia04Fk(turnosService.buscarPorNome("M"));/*M*/}
+					if(utilidadesDeCalendarioEEscala.getDiaSemanaPorAnoMesEDia(escala.getIdAnoMesFk().getNomeAnoMes(),  5).equalsIgnoreCase(nomeDia)) {escala.setDia05Fk(turnosService.buscarPorNome("M"));/*M*/}
+					if(utilidadesDeCalendarioEEscala.getDiaSemanaPorAnoMesEDia(escala.getIdAnoMesFk().getNomeAnoMes(),  6).equalsIgnoreCase(nomeDia)) {escala.setDia06Fk(turnosService.buscarPorNome("M"));/*M*/}
+					if(utilidadesDeCalendarioEEscala.getDiaSemanaPorAnoMesEDia(escala.getIdAnoMesFk().getNomeAnoMes(),  7).equalsIgnoreCase(nomeDia)) {escala.setDia07Fk(turnosService.buscarPorNome("M"));/*M*/}
+					if(utilidadesDeCalendarioEEscala.getDiaSemanaPorAnoMesEDia(escala.getIdAnoMesFk().getNomeAnoMes(),  8).equalsIgnoreCase(nomeDia)) {escala.setDia08Fk(turnosService.buscarPorNome("M"));/*M*/}
+					if(utilidadesDeCalendarioEEscala.getDiaSemanaPorAnoMesEDia(escala.getIdAnoMesFk().getNomeAnoMes(),  9).equalsIgnoreCase(nomeDia)) {escala.setDia09Fk(turnosService.buscarPorNome("M"));/*M*/}
+					if(utilidadesDeCalendarioEEscala.getDiaSemanaPorAnoMesEDia(escala.getIdAnoMesFk().getNomeAnoMes(), 10).equalsIgnoreCase(nomeDia)) {escala.setDia10Fk(turnosService.buscarPorNome("M"));/*M*/}
+					if(utilidadesDeCalendarioEEscala.getDiaSemanaPorAnoMesEDia(escala.getIdAnoMesFk().getNomeAnoMes(), 11).equalsIgnoreCase(nomeDia)) {escala.setDia11Fk(turnosService.buscarPorNome("M"));/*M*/}
+					if(utilidadesDeCalendarioEEscala.getDiaSemanaPorAnoMesEDia(escala.getIdAnoMesFk().getNomeAnoMes(), 12).equalsIgnoreCase(nomeDia)) {escala.setDia12Fk(turnosService.buscarPorNome("M"));/*M*/}
+					if(utilidadesDeCalendarioEEscala.getDiaSemanaPorAnoMesEDia(escala.getIdAnoMesFk().getNomeAnoMes(), 13).equalsIgnoreCase(nomeDia)) {escala.setDia13Fk(turnosService.buscarPorNome("M"));/*M*/}
+					if(utilidadesDeCalendarioEEscala.getDiaSemanaPorAnoMesEDia(escala.getIdAnoMesFk().getNomeAnoMes(), 14).equalsIgnoreCase(nomeDia)) {escala.setDia14Fk(turnosService.buscarPorNome("M"));/*M*/}
+					if(utilidadesDeCalendarioEEscala.getDiaSemanaPorAnoMesEDia(escala.getIdAnoMesFk().getNomeAnoMes(), 15).equalsIgnoreCase(nomeDia)) {escala.setDia15Fk(turnosService.buscarPorNome("M"));/*M*/}
+					if(utilidadesDeCalendarioEEscala.getDiaSemanaPorAnoMesEDia(escala.getIdAnoMesFk().getNomeAnoMes(), 16).equalsIgnoreCase(nomeDia)) {escala.setDia16Fk(turnosService.buscarPorNome("M"));/*M*/}
+					if(utilidadesDeCalendarioEEscala.getDiaSemanaPorAnoMesEDia(escala.getIdAnoMesFk().getNomeAnoMes(), 17).equalsIgnoreCase(nomeDia)) {escala.setDia17Fk(turnosService.buscarPorNome("M"));/*M*/}
+					if(utilidadesDeCalendarioEEscala.getDiaSemanaPorAnoMesEDia(escala.getIdAnoMesFk().getNomeAnoMes(), 18).equalsIgnoreCase(nomeDia)) {escala.setDia18Fk(turnosService.buscarPorNome("M"));/*M*/}
+					if(utilidadesDeCalendarioEEscala.getDiaSemanaPorAnoMesEDia(escala.getIdAnoMesFk().getNomeAnoMes(), 19).equalsIgnoreCase(nomeDia)) {escala.setDia19Fk(turnosService.buscarPorNome("M"));/*M*/}
+					if(utilidadesDeCalendarioEEscala.getDiaSemanaPorAnoMesEDia(escala.getIdAnoMesFk().getNomeAnoMes(), 20).equalsIgnoreCase(nomeDia)) {escala.setDia20Fk(turnosService.buscarPorNome("M"));/*M*/}
+					if(utilidadesDeCalendarioEEscala.getDiaSemanaPorAnoMesEDia(escala.getIdAnoMesFk().getNomeAnoMes(), 21).equalsIgnoreCase(nomeDia)) {escala.setDia21Fk(turnosService.buscarPorNome("M"));/*M*/}
+					if(utilidadesDeCalendarioEEscala.getDiaSemanaPorAnoMesEDia(escala.getIdAnoMesFk().getNomeAnoMes(), 22).equalsIgnoreCase(nomeDia)) {escala.setDia22Fk(turnosService.buscarPorNome("M"));/*M*/}
+					if(utilidadesDeCalendarioEEscala.getDiaSemanaPorAnoMesEDia(escala.getIdAnoMesFk().getNomeAnoMes(), 23).equalsIgnoreCase(nomeDia)) {escala.setDia23Fk(turnosService.buscarPorNome("M"));/*M*/}
+					if(utilidadesDeCalendarioEEscala.getDiaSemanaPorAnoMesEDia(escala.getIdAnoMesFk().getNomeAnoMes(), 24).equalsIgnoreCase(nomeDia)) {escala.setDia24Fk(turnosService.buscarPorNome("M"));/*M*/}
+					if(utilidadesDeCalendarioEEscala.getDiaSemanaPorAnoMesEDia(escala.getIdAnoMesFk().getNomeAnoMes(), 25).equalsIgnoreCase(nomeDia)) {escala.setDia25Fk(turnosService.buscarPorNome("M"));/*M*/}
+					if(utilidadesDeCalendarioEEscala.getDiaSemanaPorAnoMesEDia(escala.getIdAnoMesFk().getNomeAnoMes(), 26).equalsIgnoreCase(nomeDia)) {escala.setDia26Fk(turnosService.buscarPorNome("M"));/*M*/}
+					if(utilidadesDeCalendarioEEscala.getDiaSemanaPorAnoMesEDia(escala.getIdAnoMesFk().getNomeAnoMes(), 27).equalsIgnoreCase(nomeDia)) {escala.setDia27Fk(turnosService.buscarPorNome("M"));/*M*/}
+					if(utilidadesDeCalendarioEEscala.getDiaSemanaPorAnoMesEDia(escala.getIdAnoMesFk().getNomeAnoMes(), 28).equalsIgnoreCase(nomeDia)) {escala.setDia28Fk(turnosService.buscarPorNome("M"));/*M*/}
+					if(qtdDiasNoMes>=29) {if(utilidadesDeCalendarioEEscala.getDiaSemanaPorAnoMesEDia(escala.getIdAnoMesFk().getNomeAnoMes(), 29).equalsIgnoreCase(nomeDia)) {escala.setDia29Fk(turnosService.buscarPorNome("M"));/*M*/}}
+					if(qtdDiasNoMes>=30) {if(utilidadesDeCalendarioEEscala.getDiaSemanaPorAnoMesEDia(escala.getIdAnoMesFk().getNomeAnoMes(), 30).equalsIgnoreCase(nomeDia)) {escala.setDia30Fk(turnosService.buscarPorNome("M"));/*M*/}}
+					if(qtdDiasNoMes==31) {if(utilidadesDeCalendarioEEscala.getDiaSemanaPorAnoMesEDia(escala.getIdAnoMesFk().getNomeAnoMes(), 31).equalsIgnoreCase(nomeDia)) {escala.setDia31Fk(turnosService.buscarPorNome("M"));/*M*/}}
+					
+					escala = escalaCalculosService.calcularDadosEscala(escala);
+					
+				return escala;	
+				}
+
+				public Escala atalhoCiclo9G(Escala escala) {
+					int qtdDiasNoMes = utilidadesDeCalendarioEEscala.quantidadeDeDiasNoMes(escala.getIdAnoMesFk().getNomeAnoMes());
+					
+					String nomeDia = "DOMINGO";
+					
+					if(utilidadesDeCalendarioEEscala.getDiaSemanaPorAnoMesEDia(escala.getIdAnoMesFk().getNomeAnoMes(),  1).equalsIgnoreCase(nomeDia)) {escala.setDia01Fk(turnosService.buscarPorNome("M"));/*M*/}
+					if(utilidadesDeCalendarioEEscala.getDiaSemanaPorAnoMesEDia(escala.getIdAnoMesFk().getNomeAnoMes(),  2).equalsIgnoreCase(nomeDia)) {escala.setDia02Fk(turnosService.buscarPorNome("M"));/*M*/}
+					if(utilidadesDeCalendarioEEscala.getDiaSemanaPorAnoMesEDia(escala.getIdAnoMesFk().getNomeAnoMes(),  3).equalsIgnoreCase(nomeDia)) {escala.setDia03Fk(turnosService.buscarPorNome("M"));/*M*/}
+					if(utilidadesDeCalendarioEEscala.getDiaSemanaPorAnoMesEDia(escala.getIdAnoMesFk().getNomeAnoMes(),  4).equalsIgnoreCase(nomeDia)) {escala.setDia04Fk(turnosService.buscarPorNome("M"));/*M*/}
+					if(utilidadesDeCalendarioEEscala.getDiaSemanaPorAnoMesEDia(escala.getIdAnoMesFk().getNomeAnoMes(),  5).equalsIgnoreCase(nomeDia)) {escala.setDia05Fk(turnosService.buscarPorNome("M"));/*M*/}
+					if(utilidadesDeCalendarioEEscala.getDiaSemanaPorAnoMesEDia(escala.getIdAnoMesFk().getNomeAnoMes(),  6).equalsIgnoreCase(nomeDia)) {escala.setDia06Fk(turnosService.buscarPorNome("M"));/*M*/}
+					if(utilidadesDeCalendarioEEscala.getDiaSemanaPorAnoMesEDia(escala.getIdAnoMesFk().getNomeAnoMes(),  7).equalsIgnoreCase(nomeDia)) {escala.setDia07Fk(turnosService.buscarPorNome("M"));/*M*/}
+					if(utilidadesDeCalendarioEEscala.getDiaSemanaPorAnoMesEDia(escala.getIdAnoMesFk().getNomeAnoMes(),  8).equalsIgnoreCase(nomeDia)) {escala.setDia08Fk(turnosService.buscarPorNome("M"));/*M*/}
+					if(utilidadesDeCalendarioEEscala.getDiaSemanaPorAnoMesEDia(escala.getIdAnoMesFk().getNomeAnoMes(),  9).equalsIgnoreCase(nomeDia)) {escala.setDia09Fk(turnosService.buscarPorNome("M"));/*M*/}
+					if(utilidadesDeCalendarioEEscala.getDiaSemanaPorAnoMesEDia(escala.getIdAnoMesFk().getNomeAnoMes(), 10).equalsIgnoreCase(nomeDia)) {escala.setDia10Fk(turnosService.buscarPorNome("M"));/*M*/}
+					if(utilidadesDeCalendarioEEscala.getDiaSemanaPorAnoMesEDia(escala.getIdAnoMesFk().getNomeAnoMes(), 11).equalsIgnoreCase(nomeDia)) {escala.setDia11Fk(turnosService.buscarPorNome("M"));/*M*/}
+					if(utilidadesDeCalendarioEEscala.getDiaSemanaPorAnoMesEDia(escala.getIdAnoMesFk().getNomeAnoMes(), 12).equalsIgnoreCase(nomeDia)) {escala.setDia12Fk(turnosService.buscarPorNome("M"));/*M*/}
+					if(utilidadesDeCalendarioEEscala.getDiaSemanaPorAnoMesEDia(escala.getIdAnoMesFk().getNomeAnoMes(), 13).equalsIgnoreCase(nomeDia)) {escala.setDia13Fk(turnosService.buscarPorNome("M"));/*M*/}
+					if(utilidadesDeCalendarioEEscala.getDiaSemanaPorAnoMesEDia(escala.getIdAnoMesFk().getNomeAnoMes(), 14).equalsIgnoreCase(nomeDia)) {escala.setDia14Fk(turnosService.buscarPorNome("M"));/*M*/}
+					if(utilidadesDeCalendarioEEscala.getDiaSemanaPorAnoMesEDia(escala.getIdAnoMesFk().getNomeAnoMes(), 15).equalsIgnoreCase(nomeDia)) {escala.setDia15Fk(turnosService.buscarPorNome("M"));/*M*/}
+					if(utilidadesDeCalendarioEEscala.getDiaSemanaPorAnoMesEDia(escala.getIdAnoMesFk().getNomeAnoMes(), 16).equalsIgnoreCase(nomeDia)) {escala.setDia16Fk(turnosService.buscarPorNome("M"));/*M*/}
+					if(utilidadesDeCalendarioEEscala.getDiaSemanaPorAnoMesEDia(escala.getIdAnoMesFk().getNomeAnoMes(), 17).equalsIgnoreCase(nomeDia)) {escala.setDia17Fk(turnosService.buscarPorNome("M"));/*M*/}
+					if(utilidadesDeCalendarioEEscala.getDiaSemanaPorAnoMesEDia(escala.getIdAnoMesFk().getNomeAnoMes(), 18).equalsIgnoreCase(nomeDia)) {escala.setDia18Fk(turnosService.buscarPorNome("M"));/*M*/}
+					if(utilidadesDeCalendarioEEscala.getDiaSemanaPorAnoMesEDia(escala.getIdAnoMesFk().getNomeAnoMes(), 19).equalsIgnoreCase(nomeDia)) {escala.setDia19Fk(turnosService.buscarPorNome("M"));/*M*/}
+					if(utilidadesDeCalendarioEEscala.getDiaSemanaPorAnoMesEDia(escala.getIdAnoMesFk().getNomeAnoMes(), 20).equalsIgnoreCase(nomeDia)) {escala.setDia20Fk(turnosService.buscarPorNome("M"));/*M*/}
+					if(utilidadesDeCalendarioEEscala.getDiaSemanaPorAnoMesEDia(escala.getIdAnoMesFk().getNomeAnoMes(), 21).equalsIgnoreCase(nomeDia)) {escala.setDia21Fk(turnosService.buscarPorNome("M"));/*M*/}
+					if(utilidadesDeCalendarioEEscala.getDiaSemanaPorAnoMesEDia(escala.getIdAnoMesFk().getNomeAnoMes(), 22).equalsIgnoreCase(nomeDia)) {escala.setDia22Fk(turnosService.buscarPorNome("M"));/*M*/}
+					if(utilidadesDeCalendarioEEscala.getDiaSemanaPorAnoMesEDia(escala.getIdAnoMesFk().getNomeAnoMes(), 23).equalsIgnoreCase(nomeDia)) {escala.setDia23Fk(turnosService.buscarPorNome("M"));/*M*/}
+					if(utilidadesDeCalendarioEEscala.getDiaSemanaPorAnoMesEDia(escala.getIdAnoMesFk().getNomeAnoMes(), 24).equalsIgnoreCase(nomeDia)) {escala.setDia24Fk(turnosService.buscarPorNome("M"));/*M*/}
+					if(utilidadesDeCalendarioEEscala.getDiaSemanaPorAnoMesEDia(escala.getIdAnoMesFk().getNomeAnoMes(), 25).equalsIgnoreCase(nomeDia)) {escala.setDia25Fk(turnosService.buscarPorNome("M"));/*M*/}
+					if(utilidadesDeCalendarioEEscala.getDiaSemanaPorAnoMesEDia(escala.getIdAnoMesFk().getNomeAnoMes(), 26).equalsIgnoreCase(nomeDia)) {escala.setDia26Fk(turnosService.buscarPorNome("M"));/*M*/}
+					if(utilidadesDeCalendarioEEscala.getDiaSemanaPorAnoMesEDia(escala.getIdAnoMesFk().getNomeAnoMes(), 27).equalsIgnoreCase(nomeDia)) {escala.setDia27Fk(turnosService.buscarPorNome("M"));/*M*/}
+					if(utilidadesDeCalendarioEEscala.getDiaSemanaPorAnoMesEDia(escala.getIdAnoMesFk().getNomeAnoMes(), 28).equalsIgnoreCase(nomeDia)) {escala.setDia28Fk(turnosService.buscarPorNome("M"));/*M*/}
+					if(qtdDiasNoMes>=29) {if(utilidadesDeCalendarioEEscala.getDiaSemanaPorAnoMesEDia(escala.getIdAnoMesFk().getNomeAnoMes(), 29).equalsIgnoreCase(nomeDia)) {escala.setDia29Fk(turnosService.buscarPorNome("M"));/*M*/}}
+					if(qtdDiasNoMes>=30) {if(utilidadesDeCalendarioEEscala.getDiaSemanaPorAnoMesEDia(escala.getIdAnoMesFk().getNomeAnoMes(), 30).equalsIgnoreCase(nomeDia)) {escala.setDia30Fk(turnosService.buscarPorNome("M"));/*M*/}}
+					if(qtdDiasNoMes==31) {if(utilidadesDeCalendarioEEscala.getDiaSemanaPorAnoMesEDia(escala.getIdAnoMesFk().getNomeAnoMes(), 31).equalsIgnoreCase(nomeDia)) {escala.setDia31Fk(turnosService.buscarPorNome("M"));/*M*/}}
+					
+					escala = escalaCalculosService.calcularDadosEscala(escala);
+					
+				return escala;	
+				}
+
+				
+				// Ciclo 10
+				public Escala atalhoCiclo10A(Escala escala) {
+					int qtdDiasNoMes = utilidadesDeCalendarioEEscala.quantidadeDeDiasNoMes(escala.getIdAnoMesFk().getNomeAnoMes());
+					
+					
+					String nomeDia = "SEGUNDA";
+					
+					if(utilidadesDeCalendarioEEscala.getDiaSemanaPorAnoMesEDia(escala.getIdAnoMesFk().getNomeAnoMes(),  1).equalsIgnoreCase(nomeDia)) {escala.setDia01Fk(turnosService.buscarPorNome("T"));/*T*/}
+					if(utilidadesDeCalendarioEEscala.getDiaSemanaPorAnoMesEDia(escala.getIdAnoMesFk().getNomeAnoMes(),  2).equalsIgnoreCase(nomeDia)) {escala.setDia02Fk(turnosService.buscarPorNome("T"));/*T*/}
+					if(utilidadesDeCalendarioEEscala.getDiaSemanaPorAnoMesEDia(escala.getIdAnoMesFk().getNomeAnoMes(),  3).equalsIgnoreCase(nomeDia)) {escala.setDia03Fk(turnosService.buscarPorNome("T"));/*T*/}
+					if(utilidadesDeCalendarioEEscala.getDiaSemanaPorAnoMesEDia(escala.getIdAnoMesFk().getNomeAnoMes(),  4).equalsIgnoreCase(nomeDia)) {escala.setDia04Fk(turnosService.buscarPorNome("T"));/*T*/}
+					if(utilidadesDeCalendarioEEscala.getDiaSemanaPorAnoMesEDia(escala.getIdAnoMesFk().getNomeAnoMes(),  5).equalsIgnoreCase(nomeDia)) {escala.setDia05Fk(turnosService.buscarPorNome("T"));/*T*/}
+					if(utilidadesDeCalendarioEEscala.getDiaSemanaPorAnoMesEDia(escala.getIdAnoMesFk().getNomeAnoMes(),  6).equalsIgnoreCase(nomeDia)) {escala.setDia06Fk(turnosService.buscarPorNome("T"));/*T*/}
+					if(utilidadesDeCalendarioEEscala.getDiaSemanaPorAnoMesEDia(escala.getIdAnoMesFk().getNomeAnoMes(),  7).equalsIgnoreCase(nomeDia)) {escala.setDia07Fk(turnosService.buscarPorNome("T"));/*T*/}
+					if(utilidadesDeCalendarioEEscala.getDiaSemanaPorAnoMesEDia(escala.getIdAnoMesFk().getNomeAnoMes(),  8).equalsIgnoreCase(nomeDia)) {escala.setDia08Fk(turnosService.buscarPorNome("T"));/*T*/}
+					if(utilidadesDeCalendarioEEscala.getDiaSemanaPorAnoMesEDia(escala.getIdAnoMesFk().getNomeAnoMes(),  9).equalsIgnoreCase(nomeDia)) {escala.setDia09Fk(turnosService.buscarPorNome("T"));/*T*/}
+					if(utilidadesDeCalendarioEEscala.getDiaSemanaPorAnoMesEDia(escala.getIdAnoMesFk().getNomeAnoMes(), 10).equalsIgnoreCase(nomeDia)) {escala.setDia10Fk(turnosService.buscarPorNome("T"));/*T*/}
+					if(utilidadesDeCalendarioEEscala.getDiaSemanaPorAnoMesEDia(escala.getIdAnoMesFk().getNomeAnoMes(), 11).equalsIgnoreCase(nomeDia)) {escala.setDia11Fk(turnosService.buscarPorNome("T"));/*T*/}
+					if(utilidadesDeCalendarioEEscala.getDiaSemanaPorAnoMesEDia(escala.getIdAnoMesFk().getNomeAnoMes(), 12).equalsIgnoreCase(nomeDia)) {escala.setDia12Fk(turnosService.buscarPorNome("T"));/*T*/}
+					if(utilidadesDeCalendarioEEscala.getDiaSemanaPorAnoMesEDia(escala.getIdAnoMesFk().getNomeAnoMes(), 13).equalsIgnoreCase(nomeDia)) {escala.setDia13Fk(turnosService.buscarPorNome("T"));/*T*/}
+					if(utilidadesDeCalendarioEEscala.getDiaSemanaPorAnoMesEDia(escala.getIdAnoMesFk().getNomeAnoMes(), 14).equalsIgnoreCase(nomeDia)) {escala.setDia14Fk(turnosService.buscarPorNome("T"));/*T*/}
+					if(utilidadesDeCalendarioEEscala.getDiaSemanaPorAnoMesEDia(escala.getIdAnoMesFk().getNomeAnoMes(), 15).equalsIgnoreCase(nomeDia)) {escala.setDia15Fk(turnosService.buscarPorNome("T"));/*T*/}
+					if(utilidadesDeCalendarioEEscala.getDiaSemanaPorAnoMesEDia(escala.getIdAnoMesFk().getNomeAnoMes(), 16).equalsIgnoreCase(nomeDia)) {escala.setDia16Fk(turnosService.buscarPorNome("T"));/*T*/}
+					if(utilidadesDeCalendarioEEscala.getDiaSemanaPorAnoMesEDia(escala.getIdAnoMesFk().getNomeAnoMes(), 17).equalsIgnoreCase(nomeDia)) {escala.setDia17Fk(turnosService.buscarPorNome("T"));/*T*/}
+					if(utilidadesDeCalendarioEEscala.getDiaSemanaPorAnoMesEDia(escala.getIdAnoMesFk().getNomeAnoMes(), 18).equalsIgnoreCase(nomeDia)) {escala.setDia18Fk(turnosService.buscarPorNome("T"));/*T*/}
+					if(utilidadesDeCalendarioEEscala.getDiaSemanaPorAnoMesEDia(escala.getIdAnoMesFk().getNomeAnoMes(), 19).equalsIgnoreCase(nomeDia)) {escala.setDia19Fk(turnosService.buscarPorNome("T"));/*T*/}
+					if(utilidadesDeCalendarioEEscala.getDiaSemanaPorAnoMesEDia(escala.getIdAnoMesFk().getNomeAnoMes(), 20).equalsIgnoreCase(nomeDia)) {escala.setDia20Fk(turnosService.buscarPorNome("T"));/*T*/}
+					if(utilidadesDeCalendarioEEscala.getDiaSemanaPorAnoMesEDia(escala.getIdAnoMesFk().getNomeAnoMes(), 21).equalsIgnoreCase(nomeDia)) {escala.setDia21Fk(turnosService.buscarPorNome("T"));/*T*/}
+					if(utilidadesDeCalendarioEEscala.getDiaSemanaPorAnoMesEDia(escala.getIdAnoMesFk().getNomeAnoMes(), 22).equalsIgnoreCase(nomeDia)) {escala.setDia22Fk(turnosService.buscarPorNome("T"));/*T*/}
+					if(utilidadesDeCalendarioEEscala.getDiaSemanaPorAnoMesEDia(escala.getIdAnoMesFk().getNomeAnoMes(), 23).equalsIgnoreCase(nomeDia)) {escala.setDia23Fk(turnosService.buscarPorNome("T"));/*T*/}
+					if(utilidadesDeCalendarioEEscala.getDiaSemanaPorAnoMesEDia(escala.getIdAnoMesFk().getNomeAnoMes(), 24).equalsIgnoreCase(nomeDia)) {escala.setDia24Fk(turnosService.buscarPorNome("T"));/*T*/}
+					if(utilidadesDeCalendarioEEscala.getDiaSemanaPorAnoMesEDia(escala.getIdAnoMesFk().getNomeAnoMes(), 25).equalsIgnoreCase(nomeDia)) {escala.setDia25Fk(turnosService.buscarPorNome("T"));/*T*/}
+					if(utilidadesDeCalendarioEEscala.getDiaSemanaPorAnoMesEDia(escala.getIdAnoMesFk().getNomeAnoMes(), 26).equalsIgnoreCase(nomeDia)) {escala.setDia26Fk(turnosService.buscarPorNome("T"));/*T*/}
+					if(utilidadesDeCalendarioEEscala.getDiaSemanaPorAnoMesEDia(escala.getIdAnoMesFk().getNomeAnoMes(), 27).equalsIgnoreCase(nomeDia)) {escala.setDia27Fk(turnosService.buscarPorNome("T"));/*T*/}
+					if(utilidadesDeCalendarioEEscala.getDiaSemanaPorAnoMesEDia(escala.getIdAnoMesFk().getNomeAnoMes(), 28).equalsIgnoreCase(nomeDia)) {escala.setDia28Fk(turnosService.buscarPorNome("T"));/*T*/}
+					if(qtdDiasNoMes>=29) {if(utilidadesDeCalendarioEEscala.getDiaSemanaPorAnoMesEDia(escala.getIdAnoMesFk().getNomeAnoMes(), 29).equalsIgnoreCase(nomeDia)) {escala.setDia29Fk(turnosService.buscarPorNome("T"));/*T*/}}
+					if(qtdDiasNoMes>=30) {if(utilidadesDeCalendarioEEscala.getDiaSemanaPorAnoMesEDia(escala.getIdAnoMesFk().getNomeAnoMes(), 30).equalsIgnoreCase(nomeDia)) {escala.setDia30Fk(turnosService.buscarPorNome("T"));/*T*/}}
+					if(qtdDiasNoMes==31) {if(utilidadesDeCalendarioEEscala.getDiaSemanaPorAnoMesEDia(escala.getIdAnoMesFk().getNomeAnoMes(), 31).equalsIgnoreCase(nomeDia)) {escala.setDia31Fk(turnosService.buscarPorNome("T"));/*T*/}}
+					
+					escala = escalaCalculosService.calcularDadosEscala(escala);
+					
+				return escala;	
+				}
+				
+				public Escala atalhoCiclo10B(Escala escala) {
+					int qtdDiasNoMes = utilidadesDeCalendarioEEscala.quantidadeDeDiasNoMes(escala.getIdAnoMesFk().getNomeAnoMes());
+					
+					
+					String nomeDia = "TERCA";
+					
+					if(utilidadesDeCalendarioEEscala.getDiaSemanaPorAnoMesEDia(escala.getIdAnoMesFk().getNomeAnoMes(),  1).equalsIgnoreCase(nomeDia)) {escala.setDia01Fk(turnosService.buscarPorNome("T"));/*T*/}
+					if(utilidadesDeCalendarioEEscala.getDiaSemanaPorAnoMesEDia(escala.getIdAnoMesFk().getNomeAnoMes(),  2).equalsIgnoreCase(nomeDia)) {escala.setDia02Fk(turnosService.buscarPorNome("T"));/*T*/}
+					if(utilidadesDeCalendarioEEscala.getDiaSemanaPorAnoMesEDia(escala.getIdAnoMesFk().getNomeAnoMes(),  3).equalsIgnoreCase(nomeDia)) {escala.setDia03Fk(turnosService.buscarPorNome("T"));/*T*/}
+					if(utilidadesDeCalendarioEEscala.getDiaSemanaPorAnoMesEDia(escala.getIdAnoMesFk().getNomeAnoMes(),  4).equalsIgnoreCase(nomeDia)) {escala.setDia04Fk(turnosService.buscarPorNome("T"));/*T*/}
+					if(utilidadesDeCalendarioEEscala.getDiaSemanaPorAnoMesEDia(escala.getIdAnoMesFk().getNomeAnoMes(),  5).equalsIgnoreCase(nomeDia)) {escala.setDia05Fk(turnosService.buscarPorNome("T"));/*T*/}
+					if(utilidadesDeCalendarioEEscala.getDiaSemanaPorAnoMesEDia(escala.getIdAnoMesFk().getNomeAnoMes(),  6).equalsIgnoreCase(nomeDia)) {escala.setDia06Fk(turnosService.buscarPorNome("T"));/*T*/}
+					if(utilidadesDeCalendarioEEscala.getDiaSemanaPorAnoMesEDia(escala.getIdAnoMesFk().getNomeAnoMes(),  7).equalsIgnoreCase(nomeDia)) {escala.setDia07Fk(turnosService.buscarPorNome("T"));/*T*/}
+					if(utilidadesDeCalendarioEEscala.getDiaSemanaPorAnoMesEDia(escala.getIdAnoMesFk().getNomeAnoMes(),  8).equalsIgnoreCase(nomeDia)) {escala.setDia08Fk(turnosService.buscarPorNome("T"));/*T*/}
+					if(utilidadesDeCalendarioEEscala.getDiaSemanaPorAnoMesEDia(escala.getIdAnoMesFk().getNomeAnoMes(),  9).equalsIgnoreCase(nomeDia)) {escala.setDia09Fk(turnosService.buscarPorNome("T"));/*T*/}
+					if(utilidadesDeCalendarioEEscala.getDiaSemanaPorAnoMesEDia(escala.getIdAnoMesFk().getNomeAnoMes(), 10).equalsIgnoreCase(nomeDia)) {escala.setDia10Fk(turnosService.buscarPorNome("T"));/*T*/}
+					if(utilidadesDeCalendarioEEscala.getDiaSemanaPorAnoMesEDia(escala.getIdAnoMesFk().getNomeAnoMes(), 11).equalsIgnoreCase(nomeDia)) {escala.setDia11Fk(turnosService.buscarPorNome("T"));/*T*/}
+					if(utilidadesDeCalendarioEEscala.getDiaSemanaPorAnoMesEDia(escala.getIdAnoMesFk().getNomeAnoMes(), 12).equalsIgnoreCase(nomeDia)) {escala.setDia12Fk(turnosService.buscarPorNome("T"));/*T*/}
+					if(utilidadesDeCalendarioEEscala.getDiaSemanaPorAnoMesEDia(escala.getIdAnoMesFk().getNomeAnoMes(), 13).equalsIgnoreCase(nomeDia)) {escala.setDia13Fk(turnosService.buscarPorNome("T"));/*T*/}
+					if(utilidadesDeCalendarioEEscala.getDiaSemanaPorAnoMesEDia(escala.getIdAnoMesFk().getNomeAnoMes(), 14).equalsIgnoreCase(nomeDia)) {escala.setDia14Fk(turnosService.buscarPorNome("T"));/*T*/}
+					if(utilidadesDeCalendarioEEscala.getDiaSemanaPorAnoMesEDia(escala.getIdAnoMesFk().getNomeAnoMes(), 15).equalsIgnoreCase(nomeDia)) {escala.setDia15Fk(turnosService.buscarPorNome("T"));/*T*/}
+					if(utilidadesDeCalendarioEEscala.getDiaSemanaPorAnoMesEDia(escala.getIdAnoMesFk().getNomeAnoMes(), 16).equalsIgnoreCase(nomeDia)) {escala.setDia16Fk(turnosService.buscarPorNome("T"));/*T*/}
+					if(utilidadesDeCalendarioEEscala.getDiaSemanaPorAnoMesEDia(escala.getIdAnoMesFk().getNomeAnoMes(), 17).equalsIgnoreCase(nomeDia)) {escala.setDia17Fk(turnosService.buscarPorNome("T"));/*T*/}
+					if(utilidadesDeCalendarioEEscala.getDiaSemanaPorAnoMesEDia(escala.getIdAnoMesFk().getNomeAnoMes(), 18).equalsIgnoreCase(nomeDia)) {escala.setDia18Fk(turnosService.buscarPorNome("T"));/*T*/}
+					if(utilidadesDeCalendarioEEscala.getDiaSemanaPorAnoMesEDia(escala.getIdAnoMesFk().getNomeAnoMes(), 19).equalsIgnoreCase(nomeDia)) {escala.setDia19Fk(turnosService.buscarPorNome("T"));/*T*/}
+					if(utilidadesDeCalendarioEEscala.getDiaSemanaPorAnoMesEDia(escala.getIdAnoMesFk().getNomeAnoMes(), 20).equalsIgnoreCase(nomeDia)) {escala.setDia20Fk(turnosService.buscarPorNome("T"));/*T*/}
+					if(utilidadesDeCalendarioEEscala.getDiaSemanaPorAnoMesEDia(escala.getIdAnoMesFk().getNomeAnoMes(), 21).equalsIgnoreCase(nomeDia)) {escala.setDia21Fk(turnosService.buscarPorNome("T"));/*T*/}
+					if(utilidadesDeCalendarioEEscala.getDiaSemanaPorAnoMesEDia(escala.getIdAnoMesFk().getNomeAnoMes(), 22).equalsIgnoreCase(nomeDia)) {escala.setDia22Fk(turnosService.buscarPorNome("T"));/*T*/}
+					if(utilidadesDeCalendarioEEscala.getDiaSemanaPorAnoMesEDia(escala.getIdAnoMesFk().getNomeAnoMes(), 23).equalsIgnoreCase(nomeDia)) {escala.setDia23Fk(turnosService.buscarPorNome("T"));/*T*/}
+					if(utilidadesDeCalendarioEEscala.getDiaSemanaPorAnoMesEDia(escala.getIdAnoMesFk().getNomeAnoMes(), 24).equalsIgnoreCase(nomeDia)) {escala.setDia24Fk(turnosService.buscarPorNome("T"));/*T*/}
+					if(utilidadesDeCalendarioEEscala.getDiaSemanaPorAnoMesEDia(escala.getIdAnoMesFk().getNomeAnoMes(), 25).equalsIgnoreCase(nomeDia)) {escala.setDia25Fk(turnosService.buscarPorNome("T"));/*T*/}
+					if(utilidadesDeCalendarioEEscala.getDiaSemanaPorAnoMesEDia(escala.getIdAnoMesFk().getNomeAnoMes(), 26).equalsIgnoreCase(nomeDia)) {escala.setDia26Fk(turnosService.buscarPorNome("T"));/*T*/}
+					if(utilidadesDeCalendarioEEscala.getDiaSemanaPorAnoMesEDia(escala.getIdAnoMesFk().getNomeAnoMes(), 27).equalsIgnoreCase(nomeDia)) {escala.setDia27Fk(turnosService.buscarPorNome("T"));/*T*/}
+					if(utilidadesDeCalendarioEEscala.getDiaSemanaPorAnoMesEDia(escala.getIdAnoMesFk().getNomeAnoMes(), 28).equalsIgnoreCase(nomeDia)) {escala.setDia28Fk(turnosService.buscarPorNome("T"));/*T*/}
+					if(qtdDiasNoMes>=29) {if(utilidadesDeCalendarioEEscala.getDiaSemanaPorAnoMesEDia(escala.getIdAnoMesFk().getNomeAnoMes(), 29).equalsIgnoreCase(nomeDia)) {escala.setDia29Fk(turnosService.buscarPorNome("T"));/*T*/}}
+					if(qtdDiasNoMes>=30) {if(utilidadesDeCalendarioEEscala.getDiaSemanaPorAnoMesEDia(escala.getIdAnoMesFk().getNomeAnoMes(), 30).equalsIgnoreCase(nomeDia)) {escala.setDia30Fk(turnosService.buscarPorNome("T"));/*T*/}}
+					if(qtdDiasNoMes==31) {if(utilidadesDeCalendarioEEscala.getDiaSemanaPorAnoMesEDia(escala.getIdAnoMesFk().getNomeAnoMes(), 31).equalsIgnoreCase(nomeDia)) {escala.setDia31Fk(turnosService.buscarPorNome("T"));/*T*/}}
+					
+					escala = escalaCalculosService.calcularDadosEscala(escala);
+					
+				return escala;	
+				}
+
+				public Escala atalhoCiclo10C(Escala escala) {
+					int qtdDiasNoMes = utilidadesDeCalendarioEEscala.quantidadeDeDiasNoMes(escala.getIdAnoMesFk().getNomeAnoMes());
+					
+					String nomeDia = "QUARTA";
+					
+					if(utilidadesDeCalendarioEEscala.getDiaSemanaPorAnoMesEDia(escala.getIdAnoMesFk().getNomeAnoMes(),  1).equalsIgnoreCase(nomeDia)) {escala.setDia01Fk(turnosService.buscarPorNome("T"));/*T*/}
+					if(utilidadesDeCalendarioEEscala.getDiaSemanaPorAnoMesEDia(escala.getIdAnoMesFk().getNomeAnoMes(),  2).equalsIgnoreCase(nomeDia)) {escala.setDia02Fk(turnosService.buscarPorNome("T"));/*T*/}
+					if(utilidadesDeCalendarioEEscala.getDiaSemanaPorAnoMesEDia(escala.getIdAnoMesFk().getNomeAnoMes(),  3).equalsIgnoreCase(nomeDia)) {escala.setDia03Fk(turnosService.buscarPorNome("T"));/*T*/}
+					if(utilidadesDeCalendarioEEscala.getDiaSemanaPorAnoMesEDia(escala.getIdAnoMesFk().getNomeAnoMes(),  4).equalsIgnoreCase(nomeDia)) {escala.setDia04Fk(turnosService.buscarPorNome("T"));/*T*/}
+					if(utilidadesDeCalendarioEEscala.getDiaSemanaPorAnoMesEDia(escala.getIdAnoMesFk().getNomeAnoMes(),  5).equalsIgnoreCase(nomeDia)) {escala.setDia05Fk(turnosService.buscarPorNome("T"));/*T*/}
+					if(utilidadesDeCalendarioEEscala.getDiaSemanaPorAnoMesEDia(escala.getIdAnoMesFk().getNomeAnoMes(),  6).equalsIgnoreCase(nomeDia)) {escala.setDia06Fk(turnosService.buscarPorNome("T"));/*T*/}
+					if(utilidadesDeCalendarioEEscala.getDiaSemanaPorAnoMesEDia(escala.getIdAnoMesFk().getNomeAnoMes(),  7).equalsIgnoreCase(nomeDia)) {escala.setDia07Fk(turnosService.buscarPorNome("T"));/*T*/}
+					if(utilidadesDeCalendarioEEscala.getDiaSemanaPorAnoMesEDia(escala.getIdAnoMesFk().getNomeAnoMes(),  8).equalsIgnoreCase(nomeDia)) {escala.setDia08Fk(turnosService.buscarPorNome("T"));/*T*/}
+					if(utilidadesDeCalendarioEEscala.getDiaSemanaPorAnoMesEDia(escala.getIdAnoMesFk().getNomeAnoMes(),  9).equalsIgnoreCase(nomeDia)) {escala.setDia09Fk(turnosService.buscarPorNome("T"));/*T*/}
+					if(utilidadesDeCalendarioEEscala.getDiaSemanaPorAnoMesEDia(escala.getIdAnoMesFk().getNomeAnoMes(), 10).equalsIgnoreCase(nomeDia)) {escala.setDia10Fk(turnosService.buscarPorNome("T"));/*T*/}
+					if(utilidadesDeCalendarioEEscala.getDiaSemanaPorAnoMesEDia(escala.getIdAnoMesFk().getNomeAnoMes(), 11).equalsIgnoreCase(nomeDia)) {escala.setDia11Fk(turnosService.buscarPorNome("T"));/*T*/}
+					if(utilidadesDeCalendarioEEscala.getDiaSemanaPorAnoMesEDia(escala.getIdAnoMesFk().getNomeAnoMes(), 12).equalsIgnoreCase(nomeDia)) {escala.setDia12Fk(turnosService.buscarPorNome("T"));/*T*/}
+					if(utilidadesDeCalendarioEEscala.getDiaSemanaPorAnoMesEDia(escala.getIdAnoMesFk().getNomeAnoMes(), 13).equalsIgnoreCase(nomeDia)) {escala.setDia13Fk(turnosService.buscarPorNome("T"));/*T*/}
+					if(utilidadesDeCalendarioEEscala.getDiaSemanaPorAnoMesEDia(escala.getIdAnoMesFk().getNomeAnoMes(), 14).equalsIgnoreCase(nomeDia)) {escala.setDia14Fk(turnosService.buscarPorNome("T"));/*T*/}
+					if(utilidadesDeCalendarioEEscala.getDiaSemanaPorAnoMesEDia(escala.getIdAnoMesFk().getNomeAnoMes(), 15).equalsIgnoreCase(nomeDia)) {escala.setDia15Fk(turnosService.buscarPorNome("T"));/*T*/}
+					if(utilidadesDeCalendarioEEscala.getDiaSemanaPorAnoMesEDia(escala.getIdAnoMesFk().getNomeAnoMes(), 16).equalsIgnoreCase(nomeDia)) {escala.setDia16Fk(turnosService.buscarPorNome("T"));/*T*/}
+					if(utilidadesDeCalendarioEEscala.getDiaSemanaPorAnoMesEDia(escala.getIdAnoMesFk().getNomeAnoMes(), 17).equalsIgnoreCase(nomeDia)) {escala.setDia17Fk(turnosService.buscarPorNome("T"));/*T*/}
+					if(utilidadesDeCalendarioEEscala.getDiaSemanaPorAnoMesEDia(escala.getIdAnoMesFk().getNomeAnoMes(), 18).equalsIgnoreCase(nomeDia)) {escala.setDia18Fk(turnosService.buscarPorNome("T"));/*T*/}
+					if(utilidadesDeCalendarioEEscala.getDiaSemanaPorAnoMesEDia(escala.getIdAnoMesFk().getNomeAnoMes(), 19).equalsIgnoreCase(nomeDia)) {escala.setDia19Fk(turnosService.buscarPorNome("T"));/*T*/}
+					if(utilidadesDeCalendarioEEscala.getDiaSemanaPorAnoMesEDia(escala.getIdAnoMesFk().getNomeAnoMes(), 20).equalsIgnoreCase(nomeDia)) {escala.setDia20Fk(turnosService.buscarPorNome("T"));/*T*/}
+					if(utilidadesDeCalendarioEEscala.getDiaSemanaPorAnoMesEDia(escala.getIdAnoMesFk().getNomeAnoMes(), 21).equalsIgnoreCase(nomeDia)) {escala.setDia21Fk(turnosService.buscarPorNome("T"));/*T*/}
+					if(utilidadesDeCalendarioEEscala.getDiaSemanaPorAnoMesEDia(escala.getIdAnoMesFk().getNomeAnoMes(), 22).equalsIgnoreCase(nomeDia)) {escala.setDia22Fk(turnosService.buscarPorNome("T"));/*T*/}
+					if(utilidadesDeCalendarioEEscala.getDiaSemanaPorAnoMesEDia(escala.getIdAnoMesFk().getNomeAnoMes(), 23).equalsIgnoreCase(nomeDia)) {escala.setDia23Fk(turnosService.buscarPorNome("T"));/*T*/}
+					if(utilidadesDeCalendarioEEscala.getDiaSemanaPorAnoMesEDia(escala.getIdAnoMesFk().getNomeAnoMes(), 24).equalsIgnoreCase(nomeDia)) {escala.setDia24Fk(turnosService.buscarPorNome("T"));/*T*/}
+					if(utilidadesDeCalendarioEEscala.getDiaSemanaPorAnoMesEDia(escala.getIdAnoMesFk().getNomeAnoMes(), 25).equalsIgnoreCase(nomeDia)) {escala.setDia25Fk(turnosService.buscarPorNome("T"));/*T*/}
+					if(utilidadesDeCalendarioEEscala.getDiaSemanaPorAnoMesEDia(escala.getIdAnoMesFk().getNomeAnoMes(), 26).equalsIgnoreCase(nomeDia)) {escala.setDia26Fk(turnosService.buscarPorNome("T"));/*T*/}
+					if(utilidadesDeCalendarioEEscala.getDiaSemanaPorAnoMesEDia(escala.getIdAnoMesFk().getNomeAnoMes(), 27).equalsIgnoreCase(nomeDia)) {escala.setDia27Fk(turnosService.buscarPorNome("T"));/*T*/}
+					if(utilidadesDeCalendarioEEscala.getDiaSemanaPorAnoMesEDia(escala.getIdAnoMesFk().getNomeAnoMes(), 28).equalsIgnoreCase(nomeDia)) {escala.setDia28Fk(turnosService.buscarPorNome("T"));/*T*/}
+					if(qtdDiasNoMes>=29) {if(utilidadesDeCalendarioEEscala.getDiaSemanaPorAnoMesEDia(escala.getIdAnoMesFk().getNomeAnoMes(), 29).equalsIgnoreCase(nomeDia)) {escala.setDia29Fk(turnosService.buscarPorNome("T"));/*T*/}}
+					if(qtdDiasNoMes>=30) {if(utilidadesDeCalendarioEEscala.getDiaSemanaPorAnoMesEDia(escala.getIdAnoMesFk().getNomeAnoMes(), 30).equalsIgnoreCase(nomeDia)) {escala.setDia30Fk(turnosService.buscarPorNome("T"));/*T*/}}
+					if(qtdDiasNoMes==31) {if(utilidadesDeCalendarioEEscala.getDiaSemanaPorAnoMesEDia(escala.getIdAnoMesFk().getNomeAnoMes(), 31).equalsIgnoreCase(nomeDia)) {escala.setDia31Fk(turnosService.buscarPorNome("T"));/*T*/}}
+					
+					escala = escalaCalculosService.calcularDadosEscala(escala);
+					
+				return escala;	
+				}
+
+				public Escala atalhoCiclo10D(Escala escala) {
+					int qtdDiasNoMes = utilidadesDeCalendarioEEscala.quantidadeDeDiasNoMes(escala.getIdAnoMesFk().getNomeAnoMes());
+					
+					String nomeDia = "QUINTA";
+					
+					if(utilidadesDeCalendarioEEscala.getDiaSemanaPorAnoMesEDia(escala.getIdAnoMesFk().getNomeAnoMes(),  1).equalsIgnoreCase(nomeDia)) {escala.setDia01Fk(turnosService.buscarPorNome("T"));/*T*/}
+					if(utilidadesDeCalendarioEEscala.getDiaSemanaPorAnoMesEDia(escala.getIdAnoMesFk().getNomeAnoMes(),  2).equalsIgnoreCase(nomeDia)) {escala.setDia02Fk(turnosService.buscarPorNome("T"));/*T*/}
+					if(utilidadesDeCalendarioEEscala.getDiaSemanaPorAnoMesEDia(escala.getIdAnoMesFk().getNomeAnoMes(),  3).equalsIgnoreCase(nomeDia)) {escala.setDia03Fk(turnosService.buscarPorNome("T"));/*T*/}
+					if(utilidadesDeCalendarioEEscala.getDiaSemanaPorAnoMesEDia(escala.getIdAnoMesFk().getNomeAnoMes(),  4).equalsIgnoreCase(nomeDia)) {escala.setDia04Fk(turnosService.buscarPorNome("T"));/*T*/}
+					if(utilidadesDeCalendarioEEscala.getDiaSemanaPorAnoMesEDia(escala.getIdAnoMesFk().getNomeAnoMes(),  5).equalsIgnoreCase(nomeDia)) {escala.setDia05Fk(turnosService.buscarPorNome("T"));/*T*/}
+					if(utilidadesDeCalendarioEEscala.getDiaSemanaPorAnoMesEDia(escala.getIdAnoMesFk().getNomeAnoMes(),  6).equalsIgnoreCase(nomeDia)) {escala.setDia06Fk(turnosService.buscarPorNome("T"));/*T*/}
+					if(utilidadesDeCalendarioEEscala.getDiaSemanaPorAnoMesEDia(escala.getIdAnoMesFk().getNomeAnoMes(),  7).equalsIgnoreCase(nomeDia)) {escala.setDia07Fk(turnosService.buscarPorNome("T"));/*T*/}
+					if(utilidadesDeCalendarioEEscala.getDiaSemanaPorAnoMesEDia(escala.getIdAnoMesFk().getNomeAnoMes(),  8).equalsIgnoreCase(nomeDia)) {escala.setDia08Fk(turnosService.buscarPorNome("T"));/*T*/}
+					if(utilidadesDeCalendarioEEscala.getDiaSemanaPorAnoMesEDia(escala.getIdAnoMesFk().getNomeAnoMes(),  9).equalsIgnoreCase(nomeDia)) {escala.setDia09Fk(turnosService.buscarPorNome("T"));/*T*/}
+					if(utilidadesDeCalendarioEEscala.getDiaSemanaPorAnoMesEDia(escala.getIdAnoMesFk().getNomeAnoMes(), 10).equalsIgnoreCase(nomeDia)) {escala.setDia10Fk(turnosService.buscarPorNome("T"));/*T*/}
+					if(utilidadesDeCalendarioEEscala.getDiaSemanaPorAnoMesEDia(escala.getIdAnoMesFk().getNomeAnoMes(), 11).equalsIgnoreCase(nomeDia)) {escala.setDia11Fk(turnosService.buscarPorNome("T"));/*T*/}
+					if(utilidadesDeCalendarioEEscala.getDiaSemanaPorAnoMesEDia(escala.getIdAnoMesFk().getNomeAnoMes(), 12).equalsIgnoreCase(nomeDia)) {escala.setDia12Fk(turnosService.buscarPorNome("T"));/*T*/}
+					if(utilidadesDeCalendarioEEscala.getDiaSemanaPorAnoMesEDia(escala.getIdAnoMesFk().getNomeAnoMes(), 13).equalsIgnoreCase(nomeDia)) {escala.setDia13Fk(turnosService.buscarPorNome("T"));/*T*/}
+					if(utilidadesDeCalendarioEEscala.getDiaSemanaPorAnoMesEDia(escala.getIdAnoMesFk().getNomeAnoMes(), 14).equalsIgnoreCase(nomeDia)) {escala.setDia14Fk(turnosService.buscarPorNome("T"));/*T*/}
+					if(utilidadesDeCalendarioEEscala.getDiaSemanaPorAnoMesEDia(escala.getIdAnoMesFk().getNomeAnoMes(), 15).equalsIgnoreCase(nomeDia)) {escala.setDia15Fk(turnosService.buscarPorNome("T"));/*T*/}
+					if(utilidadesDeCalendarioEEscala.getDiaSemanaPorAnoMesEDia(escala.getIdAnoMesFk().getNomeAnoMes(), 16).equalsIgnoreCase(nomeDia)) {escala.setDia16Fk(turnosService.buscarPorNome("T"));/*T*/}
+					if(utilidadesDeCalendarioEEscala.getDiaSemanaPorAnoMesEDia(escala.getIdAnoMesFk().getNomeAnoMes(), 17).equalsIgnoreCase(nomeDia)) {escala.setDia17Fk(turnosService.buscarPorNome("T"));/*T*/}
+					if(utilidadesDeCalendarioEEscala.getDiaSemanaPorAnoMesEDia(escala.getIdAnoMesFk().getNomeAnoMes(), 18).equalsIgnoreCase(nomeDia)) {escala.setDia18Fk(turnosService.buscarPorNome("T"));/*T*/}
+					if(utilidadesDeCalendarioEEscala.getDiaSemanaPorAnoMesEDia(escala.getIdAnoMesFk().getNomeAnoMes(), 19).equalsIgnoreCase(nomeDia)) {escala.setDia19Fk(turnosService.buscarPorNome("T"));/*T*/}
+					if(utilidadesDeCalendarioEEscala.getDiaSemanaPorAnoMesEDia(escala.getIdAnoMesFk().getNomeAnoMes(), 20).equalsIgnoreCase(nomeDia)) {escala.setDia20Fk(turnosService.buscarPorNome("T"));/*T*/}
+					if(utilidadesDeCalendarioEEscala.getDiaSemanaPorAnoMesEDia(escala.getIdAnoMesFk().getNomeAnoMes(), 21).equalsIgnoreCase(nomeDia)) {escala.setDia21Fk(turnosService.buscarPorNome("T"));/*T*/}
+					if(utilidadesDeCalendarioEEscala.getDiaSemanaPorAnoMesEDia(escala.getIdAnoMesFk().getNomeAnoMes(), 22).equalsIgnoreCase(nomeDia)) {escala.setDia22Fk(turnosService.buscarPorNome("T"));/*T*/}
+					if(utilidadesDeCalendarioEEscala.getDiaSemanaPorAnoMesEDia(escala.getIdAnoMesFk().getNomeAnoMes(), 23).equalsIgnoreCase(nomeDia)) {escala.setDia23Fk(turnosService.buscarPorNome("T"));/*T*/}
+					if(utilidadesDeCalendarioEEscala.getDiaSemanaPorAnoMesEDia(escala.getIdAnoMesFk().getNomeAnoMes(), 24).equalsIgnoreCase(nomeDia)) {escala.setDia24Fk(turnosService.buscarPorNome("T"));/*T*/}
+					if(utilidadesDeCalendarioEEscala.getDiaSemanaPorAnoMesEDia(escala.getIdAnoMesFk().getNomeAnoMes(), 25).equalsIgnoreCase(nomeDia)) {escala.setDia25Fk(turnosService.buscarPorNome("T"));/*T*/}
+					if(utilidadesDeCalendarioEEscala.getDiaSemanaPorAnoMesEDia(escala.getIdAnoMesFk().getNomeAnoMes(), 26).equalsIgnoreCase(nomeDia)) {escala.setDia26Fk(turnosService.buscarPorNome("T"));/*T*/}
+					if(utilidadesDeCalendarioEEscala.getDiaSemanaPorAnoMesEDia(escala.getIdAnoMesFk().getNomeAnoMes(), 27).equalsIgnoreCase(nomeDia)) {escala.setDia27Fk(turnosService.buscarPorNome("T"));/*T*/}
+					if(utilidadesDeCalendarioEEscala.getDiaSemanaPorAnoMesEDia(escala.getIdAnoMesFk().getNomeAnoMes(), 28).equalsIgnoreCase(nomeDia)) {escala.setDia28Fk(turnosService.buscarPorNome("T"));/*T*/}
+					if(qtdDiasNoMes>=29) {if(utilidadesDeCalendarioEEscala.getDiaSemanaPorAnoMesEDia(escala.getIdAnoMesFk().getNomeAnoMes(), 29).equalsIgnoreCase(nomeDia)) {escala.setDia29Fk(turnosService.buscarPorNome("T"));/*T*/}}
+					if(qtdDiasNoMes>=30) {if(utilidadesDeCalendarioEEscala.getDiaSemanaPorAnoMesEDia(escala.getIdAnoMesFk().getNomeAnoMes(), 30).equalsIgnoreCase(nomeDia)) {escala.setDia30Fk(turnosService.buscarPorNome("T"));/*T*/}}
+					if(qtdDiasNoMes==31) {if(utilidadesDeCalendarioEEscala.getDiaSemanaPorAnoMesEDia(escala.getIdAnoMesFk().getNomeAnoMes(), 31).equalsIgnoreCase(nomeDia)) {escala.setDia31Fk(turnosService.buscarPorNome("T"));/*T*/}}
+					
+					escala = escalaCalculosService.calcularDadosEscala(escala);
+					
+				return escala;	
+				}
+
+				public Escala atalhoCiclo10E(Escala escala) {
+					int qtdDiasNoMes = utilidadesDeCalendarioEEscala.quantidadeDeDiasNoMes(escala.getIdAnoMesFk().getNomeAnoMes());
+					
+					String nomeDia = "SEXTA";
+					
+					if(utilidadesDeCalendarioEEscala.getDiaSemanaPorAnoMesEDia(escala.getIdAnoMesFk().getNomeAnoMes(),  1).equalsIgnoreCase(nomeDia)) {escala.setDia01Fk(turnosService.buscarPorNome("T"));/*T*/}
+					if(utilidadesDeCalendarioEEscala.getDiaSemanaPorAnoMesEDia(escala.getIdAnoMesFk().getNomeAnoMes(),  2).equalsIgnoreCase(nomeDia)) {escala.setDia02Fk(turnosService.buscarPorNome("T"));/*T*/}
+					if(utilidadesDeCalendarioEEscala.getDiaSemanaPorAnoMesEDia(escala.getIdAnoMesFk().getNomeAnoMes(),  3).equalsIgnoreCase(nomeDia)) {escala.setDia03Fk(turnosService.buscarPorNome("T"));/*T*/}
+					if(utilidadesDeCalendarioEEscala.getDiaSemanaPorAnoMesEDia(escala.getIdAnoMesFk().getNomeAnoMes(),  4).equalsIgnoreCase(nomeDia)) {escala.setDia04Fk(turnosService.buscarPorNome("T"));/*T*/}
+					if(utilidadesDeCalendarioEEscala.getDiaSemanaPorAnoMesEDia(escala.getIdAnoMesFk().getNomeAnoMes(),  5).equalsIgnoreCase(nomeDia)) {escala.setDia05Fk(turnosService.buscarPorNome("T"));/*T*/}
+					if(utilidadesDeCalendarioEEscala.getDiaSemanaPorAnoMesEDia(escala.getIdAnoMesFk().getNomeAnoMes(),  6).equalsIgnoreCase(nomeDia)) {escala.setDia06Fk(turnosService.buscarPorNome("T"));/*T*/}
+					if(utilidadesDeCalendarioEEscala.getDiaSemanaPorAnoMesEDia(escala.getIdAnoMesFk().getNomeAnoMes(),  7).equalsIgnoreCase(nomeDia)) {escala.setDia07Fk(turnosService.buscarPorNome("T"));/*T*/}
+					if(utilidadesDeCalendarioEEscala.getDiaSemanaPorAnoMesEDia(escala.getIdAnoMesFk().getNomeAnoMes(),  8).equalsIgnoreCase(nomeDia)) {escala.setDia08Fk(turnosService.buscarPorNome("T"));/*T*/}
+					if(utilidadesDeCalendarioEEscala.getDiaSemanaPorAnoMesEDia(escala.getIdAnoMesFk().getNomeAnoMes(),  9).equalsIgnoreCase(nomeDia)) {escala.setDia09Fk(turnosService.buscarPorNome("T"));/*T*/}
+					if(utilidadesDeCalendarioEEscala.getDiaSemanaPorAnoMesEDia(escala.getIdAnoMesFk().getNomeAnoMes(), 10).equalsIgnoreCase(nomeDia)) {escala.setDia10Fk(turnosService.buscarPorNome("T"));/*T*/}
+					if(utilidadesDeCalendarioEEscala.getDiaSemanaPorAnoMesEDia(escala.getIdAnoMesFk().getNomeAnoMes(), 11).equalsIgnoreCase(nomeDia)) {escala.setDia11Fk(turnosService.buscarPorNome("T"));/**/}
+					if(utilidadesDeCalendarioEEscala.getDiaSemanaPorAnoMesEDia(escala.getIdAnoMesFk().getNomeAnoMes(), 12).equalsIgnoreCase(nomeDia)) {escala.setDia12Fk(turnosService.buscarPorNome("T"));/*T*/}
+					if(utilidadesDeCalendarioEEscala.getDiaSemanaPorAnoMesEDia(escala.getIdAnoMesFk().getNomeAnoMes(), 13).equalsIgnoreCase(nomeDia)) {escala.setDia13Fk(turnosService.buscarPorNome("T"));/*T*/}
+					if(utilidadesDeCalendarioEEscala.getDiaSemanaPorAnoMesEDia(escala.getIdAnoMesFk().getNomeAnoMes(), 14).equalsIgnoreCase(nomeDia)) {escala.setDia14Fk(turnosService.buscarPorNome("T"));/*T*/}
+					if(utilidadesDeCalendarioEEscala.getDiaSemanaPorAnoMesEDia(escala.getIdAnoMesFk().getNomeAnoMes(), 15).equalsIgnoreCase(nomeDia)) {escala.setDia15Fk(turnosService.buscarPorNome("T"));/*T*/}
+					if(utilidadesDeCalendarioEEscala.getDiaSemanaPorAnoMesEDia(escala.getIdAnoMesFk().getNomeAnoMes(), 16).equalsIgnoreCase(nomeDia)) {escala.setDia16Fk(turnosService.buscarPorNome("T"));/*T*/}
+					if(utilidadesDeCalendarioEEscala.getDiaSemanaPorAnoMesEDia(escala.getIdAnoMesFk().getNomeAnoMes(), 17).equalsIgnoreCase(nomeDia)) {escala.setDia17Fk(turnosService.buscarPorNome("T"));/*T*/}
+					if(utilidadesDeCalendarioEEscala.getDiaSemanaPorAnoMesEDia(escala.getIdAnoMesFk().getNomeAnoMes(), 18).equalsIgnoreCase(nomeDia)) {escala.setDia18Fk(turnosService.buscarPorNome("T"));/*T*/}
+					if(utilidadesDeCalendarioEEscala.getDiaSemanaPorAnoMesEDia(escala.getIdAnoMesFk().getNomeAnoMes(), 19).equalsIgnoreCase(nomeDia)) {escala.setDia19Fk(turnosService.buscarPorNome("T"));/*T*/}
+					if(utilidadesDeCalendarioEEscala.getDiaSemanaPorAnoMesEDia(escala.getIdAnoMesFk().getNomeAnoMes(), 20).equalsIgnoreCase(nomeDia)) {escala.setDia20Fk(turnosService.buscarPorNome("T"));/*T*/}
+					if(utilidadesDeCalendarioEEscala.getDiaSemanaPorAnoMesEDia(escala.getIdAnoMesFk().getNomeAnoMes(), 21).equalsIgnoreCase(nomeDia)) {escala.setDia21Fk(turnosService.buscarPorNome("T"));/*T*/}
+					if(utilidadesDeCalendarioEEscala.getDiaSemanaPorAnoMesEDia(escala.getIdAnoMesFk().getNomeAnoMes(), 22).equalsIgnoreCase(nomeDia)) {escala.setDia22Fk(turnosService.buscarPorNome("T"));/*T*/}
+					if(utilidadesDeCalendarioEEscala.getDiaSemanaPorAnoMesEDia(escala.getIdAnoMesFk().getNomeAnoMes(), 23).equalsIgnoreCase(nomeDia)) {escala.setDia23Fk(turnosService.buscarPorNome("T"));/*T*/}
+					if(utilidadesDeCalendarioEEscala.getDiaSemanaPorAnoMesEDia(escala.getIdAnoMesFk().getNomeAnoMes(), 24).equalsIgnoreCase(nomeDia)) {escala.setDia24Fk(turnosService.buscarPorNome("T"));/*T*/}
+					if(utilidadesDeCalendarioEEscala.getDiaSemanaPorAnoMesEDia(escala.getIdAnoMesFk().getNomeAnoMes(), 25).equalsIgnoreCase(nomeDia)) {escala.setDia25Fk(turnosService.buscarPorNome("T"));/*T*/}
+					if(utilidadesDeCalendarioEEscala.getDiaSemanaPorAnoMesEDia(escala.getIdAnoMesFk().getNomeAnoMes(), 26).equalsIgnoreCase(nomeDia)) {escala.setDia26Fk(turnosService.buscarPorNome("T"));/*T*/}
+					if(utilidadesDeCalendarioEEscala.getDiaSemanaPorAnoMesEDia(escala.getIdAnoMesFk().getNomeAnoMes(), 27).equalsIgnoreCase(nomeDia)) {escala.setDia27Fk(turnosService.buscarPorNome("T"));/*T*/}
+					if(utilidadesDeCalendarioEEscala.getDiaSemanaPorAnoMesEDia(escala.getIdAnoMesFk().getNomeAnoMes(), 28).equalsIgnoreCase(nomeDia)) {escala.setDia28Fk(turnosService.buscarPorNome("T"));/*T*/}
+					if(qtdDiasNoMes>=29) {if(utilidadesDeCalendarioEEscala.getDiaSemanaPorAnoMesEDia(escala.getIdAnoMesFk().getNomeAnoMes(), 29).equalsIgnoreCase(nomeDia)) {escala.setDia29Fk(turnosService.buscarPorNome("T"));/*T*/}}
+					if(qtdDiasNoMes>=30) {if(utilidadesDeCalendarioEEscala.getDiaSemanaPorAnoMesEDia(escala.getIdAnoMesFk().getNomeAnoMes(), 30).equalsIgnoreCase(nomeDia)) {escala.setDia30Fk(turnosService.buscarPorNome("T"));/*T*/}}
+					if(qtdDiasNoMes==31) {if(utilidadesDeCalendarioEEscala.getDiaSemanaPorAnoMesEDia(escala.getIdAnoMesFk().getNomeAnoMes(), 31).equalsIgnoreCase(nomeDia)) {escala.setDia31Fk(turnosService.buscarPorNome("T"));/*T*/}}
+					
+					escala = escalaCalculosService.calcularDadosEscala(escala);
+					
+				return escala;	
+				}
+
+				public Escala atalhoCiclo10F(Escala escala) {
+					int qtdDiasNoMes = utilidadesDeCalendarioEEscala.quantidadeDeDiasNoMes(escala.getIdAnoMesFk().getNomeAnoMes());
+					
+					String nomeDia = "SABADO";
+					
+					if(utilidadesDeCalendarioEEscala.getDiaSemanaPorAnoMesEDia(escala.getIdAnoMesFk().getNomeAnoMes(),  1).equalsIgnoreCase(nomeDia)) {escala.setDia01Fk(turnosService.buscarPorNome("T"));/*T*/}
+					if(utilidadesDeCalendarioEEscala.getDiaSemanaPorAnoMesEDia(escala.getIdAnoMesFk().getNomeAnoMes(),  2).equalsIgnoreCase(nomeDia)) {escala.setDia02Fk(turnosService.buscarPorNome("T"));/*T*/}
+					if(utilidadesDeCalendarioEEscala.getDiaSemanaPorAnoMesEDia(escala.getIdAnoMesFk().getNomeAnoMes(),  3).equalsIgnoreCase(nomeDia)) {escala.setDia03Fk(turnosService.buscarPorNome("T"));/*T*/}
+					if(utilidadesDeCalendarioEEscala.getDiaSemanaPorAnoMesEDia(escala.getIdAnoMesFk().getNomeAnoMes(),  4).equalsIgnoreCase(nomeDia)) {escala.setDia04Fk(turnosService.buscarPorNome("T"));/*T*/}
+					if(utilidadesDeCalendarioEEscala.getDiaSemanaPorAnoMesEDia(escala.getIdAnoMesFk().getNomeAnoMes(),  5).equalsIgnoreCase(nomeDia)) {escala.setDia05Fk(turnosService.buscarPorNome("T"));/*T*/}
+					if(utilidadesDeCalendarioEEscala.getDiaSemanaPorAnoMesEDia(escala.getIdAnoMesFk().getNomeAnoMes(),  6).equalsIgnoreCase(nomeDia)) {escala.setDia06Fk(turnosService.buscarPorNome("T"));/*T*/}
+					if(utilidadesDeCalendarioEEscala.getDiaSemanaPorAnoMesEDia(escala.getIdAnoMesFk().getNomeAnoMes(),  7).equalsIgnoreCase(nomeDia)) {escala.setDia07Fk(turnosService.buscarPorNome("T"));/*T*/}
+					if(utilidadesDeCalendarioEEscala.getDiaSemanaPorAnoMesEDia(escala.getIdAnoMesFk().getNomeAnoMes(),  8).equalsIgnoreCase(nomeDia)) {escala.setDia08Fk(turnosService.buscarPorNome("T"));/*T*/}
+					if(utilidadesDeCalendarioEEscala.getDiaSemanaPorAnoMesEDia(escala.getIdAnoMesFk().getNomeAnoMes(),  9).equalsIgnoreCase(nomeDia)) {escala.setDia09Fk(turnosService.buscarPorNome("T"));/*T*/}
+					if(utilidadesDeCalendarioEEscala.getDiaSemanaPorAnoMesEDia(escala.getIdAnoMesFk().getNomeAnoMes(), 10).equalsIgnoreCase(nomeDia)) {escala.setDia10Fk(turnosService.buscarPorNome("T"));/*T*/}
+					if(utilidadesDeCalendarioEEscala.getDiaSemanaPorAnoMesEDia(escala.getIdAnoMesFk().getNomeAnoMes(), 11).equalsIgnoreCase(nomeDia)) {escala.setDia11Fk(turnosService.buscarPorNome("T"));/*T*/}
+					if(utilidadesDeCalendarioEEscala.getDiaSemanaPorAnoMesEDia(escala.getIdAnoMesFk().getNomeAnoMes(), 12).equalsIgnoreCase(nomeDia)) {escala.setDia12Fk(turnosService.buscarPorNome("T"));/*T*/}
+					if(utilidadesDeCalendarioEEscala.getDiaSemanaPorAnoMesEDia(escala.getIdAnoMesFk().getNomeAnoMes(), 13).equalsIgnoreCase(nomeDia)) {escala.setDia13Fk(turnosService.buscarPorNome("T"));/*T*/}
+					if(utilidadesDeCalendarioEEscala.getDiaSemanaPorAnoMesEDia(escala.getIdAnoMesFk().getNomeAnoMes(), 14).equalsIgnoreCase(nomeDia)) {escala.setDia14Fk(turnosService.buscarPorNome("T"));/*T*/}
+					if(utilidadesDeCalendarioEEscala.getDiaSemanaPorAnoMesEDia(escala.getIdAnoMesFk().getNomeAnoMes(), 15).equalsIgnoreCase(nomeDia)) {escala.setDia15Fk(turnosService.buscarPorNome("T"));/*T*/}
+					if(utilidadesDeCalendarioEEscala.getDiaSemanaPorAnoMesEDia(escala.getIdAnoMesFk().getNomeAnoMes(), 16).equalsIgnoreCase(nomeDia)) {escala.setDia16Fk(turnosService.buscarPorNome("T"));/*T*/}
+					if(utilidadesDeCalendarioEEscala.getDiaSemanaPorAnoMesEDia(escala.getIdAnoMesFk().getNomeAnoMes(), 17).equalsIgnoreCase(nomeDia)) {escala.setDia17Fk(turnosService.buscarPorNome("T"));/*T*/}
+					if(utilidadesDeCalendarioEEscala.getDiaSemanaPorAnoMesEDia(escala.getIdAnoMesFk().getNomeAnoMes(), 18).equalsIgnoreCase(nomeDia)) {escala.setDia18Fk(turnosService.buscarPorNome("T"));/*T*/}
+					if(utilidadesDeCalendarioEEscala.getDiaSemanaPorAnoMesEDia(escala.getIdAnoMesFk().getNomeAnoMes(), 19).equalsIgnoreCase(nomeDia)) {escala.setDia19Fk(turnosService.buscarPorNome("T"));/*T*/}
+					if(utilidadesDeCalendarioEEscala.getDiaSemanaPorAnoMesEDia(escala.getIdAnoMesFk().getNomeAnoMes(), 20).equalsIgnoreCase(nomeDia)) {escala.setDia20Fk(turnosService.buscarPorNome("T"));/*T*/}
+					if(utilidadesDeCalendarioEEscala.getDiaSemanaPorAnoMesEDia(escala.getIdAnoMesFk().getNomeAnoMes(), 21).equalsIgnoreCase(nomeDia)) {escala.setDia21Fk(turnosService.buscarPorNome("T"));/*T*/}
+					if(utilidadesDeCalendarioEEscala.getDiaSemanaPorAnoMesEDia(escala.getIdAnoMesFk().getNomeAnoMes(), 22).equalsIgnoreCase(nomeDia)) {escala.setDia22Fk(turnosService.buscarPorNome("T"));/*T*/}
+					if(utilidadesDeCalendarioEEscala.getDiaSemanaPorAnoMesEDia(escala.getIdAnoMesFk().getNomeAnoMes(), 23).equalsIgnoreCase(nomeDia)) {escala.setDia23Fk(turnosService.buscarPorNome("T"));/*T*/}
+					if(utilidadesDeCalendarioEEscala.getDiaSemanaPorAnoMesEDia(escala.getIdAnoMesFk().getNomeAnoMes(), 24).equalsIgnoreCase(nomeDia)) {escala.setDia24Fk(turnosService.buscarPorNome("T"));/*T*/}
+					if(utilidadesDeCalendarioEEscala.getDiaSemanaPorAnoMesEDia(escala.getIdAnoMesFk().getNomeAnoMes(), 25).equalsIgnoreCase(nomeDia)) {escala.setDia25Fk(turnosService.buscarPorNome("T"));/*T*/}
+					if(utilidadesDeCalendarioEEscala.getDiaSemanaPorAnoMesEDia(escala.getIdAnoMesFk().getNomeAnoMes(), 26).equalsIgnoreCase(nomeDia)) {escala.setDia26Fk(turnosService.buscarPorNome("T"));/*T*/}
+					if(utilidadesDeCalendarioEEscala.getDiaSemanaPorAnoMesEDia(escala.getIdAnoMesFk().getNomeAnoMes(), 27).equalsIgnoreCase(nomeDia)) {escala.setDia27Fk(turnosService.buscarPorNome("T"));/*T*/}
+					if(utilidadesDeCalendarioEEscala.getDiaSemanaPorAnoMesEDia(escala.getIdAnoMesFk().getNomeAnoMes(), 28).equalsIgnoreCase(nomeDia)) {escala.setDia28Fk(turnosService.buscarPorNome("T"));/*T*/}
+					if(qtdDiasNoMes>=29) {if(utilidadesDeCalendarioEEscala.getDiaSemanaPorAnoMesEDia(escala.getIdAnoMesFk().getNomeAnoMes(), 29).equalsIgnoreCase(nomeDia)) {escala.setDia29Fk(turnosService.buscarPorNome("T"));/*T*/}}
+					if(qtdDiasNoMes>=30) {if(utilidadesDeCalendarioEEscala.getDiaSemanaPorAnoMesEDia(escala.getIdAnoMesFk().getNomeAnoMes(), 30).equalsIgnoreCase(nomeDia)) {escala.setDia30Fk(turnosService.buscarPorNome("T"));/*T*/}}
+					if(qtdDiasNoMes==31) {if(utilidadesDeCalendarioEEscala.getDiaSemanaPorAnoMesEDia(escala.getIdAnoMesFk().getNomeAnoMes(), 31).equalsIgnoreCase(nomeDia)) {escala.setDia31Fk(turnosService.buscarPorNome("T"));/*T*/}}
+					
+					escala = escalaCalculosService.calcularDadosEscala(escala);
+					
+				return escala;	
+				}
+
+				public Escala atalhoCiclo10G(Escala escala) {
+					int qtdDiasNoMes = utilidadesDeCalendarioEEscala.quantidadeDeDiasNoMes(escala.getIdAnoMesFk().getNomeAnoMes());
+					
+					String nomeDia = "DOMINGO";
+					
+					if(utilidadesDeCalendarioEEscala.getDiaSemanaPorAnoMesEDia(escala.getIdAnoMesFk().getNomeAnoMes(),  1).equalsIgnoreCase(nomeDia)) {escala.setDia01Fk(turnosService.buscarPorNome("T"));/*T*/}
+					if(utilidadesDeCalendarioEEscala.getDiaSemanaPorAnoMesEDia(escala.getIdAnoMesFk().getNomeAnoMes(),  2).equalsIgnoreCase(nomeDia)) {escala.setDia02Fk(turnosService.buscarPorNome("T"));/*T*/}
+					if(utilidadesDeCalendarioEEscala.getDiaSemanaPorAnoMesEDia(escala.getIdAnoMesFk().getNomeAnoMes(),  3).equalsIgnoreCase(nomeDia)) {escala.setDia03Fk(turnosService.buscarPorNome("T"));/*T*/}
+					if(utilidadesDeCalendarioEEscala.getDiaSemanaPorAnoMesEDia(escala.getIdAnoMesFk().getNomeAnoMes(),  4).equalsIgnoreCase(nomeDia)) {escala.setDia04Fk(turnosService.buscarPorNome("T"));/*T*/}
+					if(utilidadesDeCalendarioEEscala.getDiaSemanaPorAnoMesEDia(escala.getIdAnoMesFk().getNomeAnoMes(),  5).equalsIgnoreCase(nomeDia)) {escala.setDia05Fk(turnosService.buscarPorNome("T"));/*T*/}
+					if(utilidadesDeCalendarioEEscala.getDiaSemanaPorAnoMesEDia(escala.getIdAnoMesFk().getNomeAnoMes(),  6).equalsIgnoreCase(nomeDia)) {escala.setDia06Fk(turnosService.buscarPorNome("T"));/*T*/}
+					if(utilidadesDeCalendarioEEscala.getDiaSemanaPorAnoMesEDia(escala.getIdAnoMesFk().getNomeAnoMes(),  7).equalsIgnoreCase(nomeDia)) {escala.setDia07Fk(turnosService.buscarPorNome("T"));/*T*/}
+					if(utilidadesDeCalendarioEEscala.getDiaSemanaPorAnoMesEDia(escala.getIdAnoMesFk().getNomeAnoMes(),  8).equalsIgnoreCase(nomeDia)) {escala.setDia08Fk(turnosService.buscarPorNome("T"));/*T*/}
+					if(utilidadesDeCalendarioEEscala.getDiaSemanaPorAnoMesEDia(escala.getIdAnoMesFk().getNomeAnoMes(),  9).equalsIgnoreCase(nomeDia)) {escala.setDia09Fk(turnosService.buscarPorNome("T"));/*T*/}
+					if(utilidadesDeCalendarioEEscala.getDiaSemanaPorAnoMesEDia(escala.getIdAnoMesFk().getNomeAnoMes(), 10).equalsIgnoreCase(nomeDia)) {escala.setDia10Fk(turnosService.buscarPorNome("T"));/*T*/}
+					if(utilidadesDeCalendarioEEscala.getDiaSemanaPorAnoMesEDia(escala.getIdAnoMesFk().getNomeAnoMes(), 11).equalsIgnoreCase(nomeDia)) {escala.setDia11Fk(turnosService.buscarPorNome("T"));/*T*/}
+					if(utilidadesDeCalendarioEEscala.getDiaSemanaPorAnoMesEDia(escala.getIdAnoMesFk().getNomeAnoMes(), 12).equalsIgnoreCase(nomeDia)) {escala.setDia12Fk(turnosService.buscarPorNome("T"));/*T*/}
+					if(utilidadesDeCalendarioEEscala.getDiaSemanaPorAnoMesEDia(escala.getIdAnoMesFk().getNomeAnoMes(), 13).equalsIgnoreCase(nomeDia)) {escala.setDia13Fk(turnosService.buscarPorNome("T"));/*T*/}
+					if(utilidadesDeCalendarioEEscala.getDiaSemanaPorAnoMesEDia(escala.getIdAnoMesFk().getNomeAnoMes(), 14).equalsIgnoreCase(nomeDia)) {escala.setDia14Fk(turnosService.buscarPorNome("T"));/*T*/}
+					if(utilidadesDeCalendarioEEscala.getDiaSemanaPorAnoMesEDia(escala.getIdAnoMesFk().getNomeAnoMes(), 15).equalsIgnoreCase(nomeDia)) {escala.setDia15Fk(turnosService.buscarPorNome("T"));/*T*/}
+					if(utilidadesDeCalendarioEEscala.getDiaSemanaPorAnoMesEDia(escala.getIdAnoMesFk().getNomeAnoMes(), 16).equalsIgnoreCase(nomeDia)) {escala.setDia16Fk(turnosService.buscarPorNome("T"));/*T*/}
+					if(utilidadesDeCalendarioEEscala.getDiaSemanaPorAnoMesEDia(escala.getIdAnoMesFk().getNomeAnoMes(), 17).equalsIgnoreCase(nomeDia)) {escala.setDia17Fk(turnosService.buscarPorNome("T"));/*T*/}
+					if(utilidadesDeCalendarioEEscala.getDiaSemanaPorAnoMesEDia(escala.getIdAnoMesFk().getNomeAnoMes(), 18).equalsIgnoreCase(nomeDia)) {escala.setDia18Fk(turnosService.buscarPorNome("T"));/*T*/}
+					if(utilidadesDeCalendarioEEscala.getDiaSemanaPorAnoMesEDia(escala.getIdAnoMesFk().getNomeAnoMes(), 19).equalsIgnoreCase(nomeDia)) {escala.setDia19Fk(turnosService.buscarPorNome("T"));/*T*/}
+					if(utilidadesDeCalendarioEEscala.getDiaSemanaPorAnoMesEDia(escala.getIdAnoMesFk().getNomeAnoMes(), 20).equalsIgnoreCase(nomeDia)) {escala.setDia20Fk(turnosService.buscarPorNome("T"));/*T*/}
+					if(utilidadesDeCalendarioEEscala.getDiaSemanaPorAnoMesEDia(escala.getIdAnoMesFk().getNomeAnoMes(), 21).equalsIgnoreCase(nomeDia)) {escala.setDia21Fk(turnosService.buscarPorNome("T"));/*T*/}
+					if(utilidadesDeCalendarioEEscala.getDiaSemanaPorAnoMesEDia(escala.getIdAnoMesFk().getNomeAnoMes(), 22).equalsIgnoreCase(nomeDia)) {escala.setDia22Fk(turnosService.buscarPorNome("T"));/*T*/}
+					if(utilidadesDeCalendarioEEscala.getDiaSemanaPorAnoMesEDia(escala.getIdAnoMesFk().getNomeAnoMes(), 23).equalsIgnoreCase(nomeDia)) {escala.setDia23Fk(turnosService.buscarPorNome("T"));/*T*/}
+					if(utilidadesDeCalendarioEEscala.getDiaSemanaPorAnoMesEDia(escala.getIdAnoMesFk().getNomeAnoMes(), 24).equalsIgnoreCase(nomeDia)) {escala.setDia24Fk(turnosService.buscarPorNome("T"));/*T*/}
+					if(utilidadesDeCalendarioEEscala.getDiaSemanaPorAnoMesEDia(escala.getIdAnoMesFk().getNomeAnoMes(), 25).equalsIgnoreCase(nomeDia)) {escala.setDia25Fk(turnosService.buscarPorNome("T"));/*T*/}
+					if(utilidadesDeCalendarioEEscala.getDiaSemanaPorAnoMesEDia(escala.getIdAnoMesFk().getNomeAnoMes(), 26).equalsIgnoreCase(nomeDia)) {escala.setDia26Fk(turnosService.buscarPorNome("T"));/*T*/}
+					if(utilidadesDeCalendarioEEscala.getDiaSemanaPorAnoMesEDia(escala.getIdAnoMesFk().getNomeAnoMes(), 27).equalsIgnoreCase(nomeDia)) {escala.setDia27Fk(turnosService.buscarPorNome("T"));/*T*/}
+					if(utilidadesDeCalendarioEEscala.getDiaSemanaPorAnoMesEDia(escala.getIdAnoMesFk().getNomeAnoMes(), 28).equalsIgnoreCase(nomeDia)) {escala.setDia28Fk(turnosService.buscarPorNome("T"));/*T*/}
+					if(qtdDiasNoMes>=29) {if(utilidadesDeCalendarioEEscala.getDiaSemanaPorAnoMesEDia(escala.getIdAnoMesFk().getNomeAnoMes(), 29).equalsIgnoreCase(nomeDia)) {escala.setDia29Fk(turnosService.buscarPorNome("T"));/*T*/}}
+					if(qtdDiasNoMes>=30) {if(utilidadesDeCalendarioEEscala.getDiaSemanaPorAnoMesEDia(escala.getIdAnoMesFk().getNomeAnoMes(), 30).equalsIgnoreCase(nomeDia)) {escala.setDia30Fk(turnosService.buscarPorNome("T"));/*T*/}}
+					if(qtdDiasNoMes==31) {if(utilidadesDeCalendarioEEscala.getDiaSemanaPorAnoMesEDia(escala.getIdAnoMesFk().getNomeAnoMes(), 31).equalsIgnoreCase(nomeDia)) {escala.setDia31Fk(turnosService.buscarPorNome("T"));/*T*/}}
+					
+					escala = escalaCalculosService.calcularDadosEscala(escala);
+					
+				return escala;	
+				}
+
+				
+				
+				
 }

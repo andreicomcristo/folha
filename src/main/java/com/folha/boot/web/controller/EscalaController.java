@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import com.folha.boot.domain.AcessoOperadoresCoordenacao;
 import com.folha.boot.domain.Bancos;
 import com.folha.boot.domain.CodigoDiferenciado;
 import com.folha.boot.domain.Escala;
@@ -26,6 +27,8 @@ import com.folha.boot.domain.SimNao;
 import com.folha.boot.domain.TiposDeDocumento;
 import com.folha.boot.domain.Turmas;
 import com.folha.boot.domain.Turnos;
+import com.folha.boot.domain.models.escolhaAcessoEscala;
+import com.folha.boot.service.AcessoOperadoresCoordenacaoService;
 import com.folha.boot.service.AnoMesService;
 import com.folha.boot.service.CodigoDiferenciadoService;
 import com.folha.boot.service.CoordenacaoEscalaService;
@@ -34,6 +37,7 @@ import com.folha.boot.service.EscalaCalculosService;
 import com.folha.boot.service.EscalaService;
 import com.folha.boot.service.PessoaDocumentosService;
 import com.folha.boot.service.PessoaFuncionariosService;
+import com.folha.boot.service.PessoaOperadoresService;
 import com.folha.boot.service.PessoaService;
 import com.folha.boot.service.RegimesDeTrabalhoService;
 import com.folha.boot.service.SimNaoService;
@@ -41,6 +45,7 @@ import com.folha.boot.service.TiposDeDocumentoService;
 import com.folha.boot.service.TiposDeFolhaService;
 import com.folha.boot.service.TurmasService;
 import com.folha.boot.service.TurnosService;
+import com.folha.boot.service.UnidadesService;
 import com.folha.boot.service.util.UtilidadesDeCalendarioEEscala;
 
 @Controller
@@ -53,10 +58,14 @@ public class EscalaController {
 	Long idUnidadeLogada = 1l;
 	Long idOperadorLogado = 1l;
 	Escala escalaAtual;
-	
+	String choque = "";
 	
 	@Autowired
 	private EscalaService service;
+	@Autowired
+	private UnidadesService unidadesService;
+	@Autowired
+	private PessoaOperadoresService pessoaOperadoresService;
 	@Autowired
 	private EscalaCalculosService escalaCalculosService;
 	@Autowired
@@ -79,9 +88,29 @@ public class EscalaController {
 	private TurmasService turmasService;
 	@Autowired
 	private TurnosService turnosService;
+	@Autowired
+	AcessoOperadoresCoordenacaoService acessoOperadoresCoordenacaoService;
 	
 	
+	@GetMapping("/escolher/escala")
+	public String escolherEscala(ModelMap model) {
+		
+		List<AcessoOperadoresCoordenacao> listaDeCoordenacoes = acessoOperadoresCoordenacaoService.buscarPorOperador(pessoaOperadoresService.buscarPorId( this.idOperadorLogado));
+		model.addAttribute("escolhaAcessoEscala", new escolhaAcessoEscala()); 
+		model.addAttribute("coordenacaoEscala", coordenacaoEscalaService.buscarAcessoIndividual(unidadesService.buscarPorId(this.idUnidadeLogada) , pessoaOperadoresService.buscarPorId( this.idOperadorLogado) , listaDeCoordenacoes ) );
+		model.addAttribute("anoMes", anoMesService.buscarTodos());
+		return "/escala/escolher"; 
+	}
 	
+	@PostMapping("/ir/para/escala")
+	public String irParaEscala(ModelMap model, Long coordenacaoEscala, Long anoMes) {
+		
+		this.idCoordenacaoAtual = coordenacaoEscala;
+		this.idAnoMesAtual = anoMes;
+		
+		model.addAttribute("pessoaDocumentos", service.buscarTodos());
+		return "/documento/lista"; 
+	}
 
 		
 	@GetMapping("/alterar/escala/{id}")
@@ -92,6 +121,8 @@ public class EscalaController {
 		this.escalaAtual = escala;
 		escala = escalaCalculosService.converteTurnoNuloEmFolga(escala);
 		escala = escalaCalculosService.calcularDadosEscala(escala);
+		
+		String recalcular = "N";
 		
 		String anoMesDaEscala = "202105";
 		if(escala!=null){anoMesDaEscala = escala.getIdAnoMesFk().getNomeAnoMes();}
@@ -137,6 +168,7 @@ public class EscalaController {
 	}
 	
 	
+	
 	@GetMapping("/atalho/limpar_escala")
 	public String atalhoLimparEscala( RedirectAttributes attr) {	
 		Escala escala = service.buscarPorId(ultimoIdEscala);
@@ -144,7 +176,7 @@ public class EscalaController {
 		escala = escalaAtalhosService.atalhoLimaprEscala(escala);
 		escala = escalaCalculosService.converteTurnoNuloEmFolga(escala);
 		escala = escalaCalculosService.calcularDadosEscala(escala);
-		salvar(escala);
+		salvar(escala, null, null);
 		ultimoIdEscala = escala.getId();
 		attr.addFlashAttribute("fail", "Confirme CH Dif, Incremento de Risco, Diferenciado, Regime e Turma antes de Lançar.");
 		return "redirect:/escalas/alterar/escala/"+escala.getId();
@@ -157,7 +189,7 @@ public class EscalaController {
 		escala = escalaAtalhosService.atalhoDiaristasManha(escala);
 		escala = escalaCalculosService.converteTurnoNuloEmFolga(escala);
 		escala = escalaCalculosService.calcularDadosEscala(escala);
-		salvar(escala);
+		salvar(escala, null, null);
 		ultimoIdEscala = escala.getId();
 		attr.addFlashAttribute("fail", "Confirme CH Dif, Incremento de Risco, Diferenciado, Regime e Turma antes de Lançar.");
 		return "redirect:/escalas/alterar/escala/"+escala.getId();
@@ -170,7 +202,7 @@ public class EscalaController {
 		escala = escalaAtalhosService.atalhoDiaristasTarde(escala);
 		escala = escalaCalculosService.converteTurnoNuloEmFolga(escala);
 		escala = escalaCalculosService.calcularDadosEscala(escala);
-		salvar(escala);
+		salvar(escala, null, null);
 		ultimoIdEscala = escala.getId();
 		attr.addFlashAttribute("fail", "Confirme CH Dif, Incremento de Risco, Diferenciado, Regime e Turma antes de Lançar.");
 		return "redirect:/escalas/alterar/escala/"+escala.getId();
@@ -183,7 +215,7 @@ public class EscalaController {
 		escala = escalaAtalhosService.atalhoDiaristasDia(escala);
 		escala = escalaCalculosService.converteTurnoNuloEmFolga(escala);
 		escala = escalaCalculosService.calcularDadosEscala(escala);
-		salvar(escala);
+		salvar(escala, null, null);
 		ultimoIdEscala = escala.getId();
 		attr.addFlashAttribute("fail", "Confirme CH Dif, Incremento de Risco, Diferenciado, Regime e Turma antes de Lançar.");
 		return "redirect:/escalas/alterar/escala/"+escala.getId();
@@ -196,7 +228,7 @@ public class EscalaController {
 		escala = escalaAtalhosService.atalhoMTDiasImpares(escala);
 		escala = escalaCalculosService.converteTurnoNuloEmFolga(escala);
 		escala = escalaCalculosService.calcularDadosEscala(escala);
-		salvar(escala);
+		salvar(escala, null, null);
 		ultimoIdEscala = escala.getId();
 		attr.addFlashAttribute("fail", "Confirme CH Dif, Incremento de Risco, Diferenciado, Regime e Turma antes de Lançar.");
 		return "redirect:/escalas/alterar/escala/"+escala.getId();
@@ -209,7 +241,7 @@ public class EscalaController {
 		escala = escalaAtalhosService.atalhoMTDiasPares(escala);
 		escala = escalaCalculosService.converteTurnoNuloEmFolga(escala);
 		escala = escalaCalculosService.calcularDadosEscala(escala);
-		salvar(escala);
+		salvar(escala, null, null);
 		ultimoIdEscala = escala.getId();
 		attr.addFlashAttribute("fail", "Confirme CH Dif, Incremento de Risco, Diferenciado, Regime e Turma antes de Lançar.");
 		return "redirect:/escalas/alterar/escala/"+escala.getId();
@@ -223,7 +255,7 @@ public class EscalaController {
 		escala = escalaAtalhosService.atalhoCiclo1A(escala);
 		escala = escalaCalculosService.converteTurnoNuloEmFolga(escala);
 		escala = escalaCalculosService.calcularDadosEscala(escala);
-		salvar(escala);
+		salvar(escala, null, null);
 		ultimoIdEscala = escala.getId();
 		attr.addFlashAttribute("fail", "Confirme CH Dif, Incremento de Risco, Diferenciado, Regime e Turma antes de Lançar.");
 		return "redirect:/escalas/alterar/escala/"+escala.getId();
@@ -236,7 +268,7 @@ public class EscalaController {
 		escala = escalaAtalhosService.atalhoCiclo1B(escala);
 		escala = escalaCalculosService.converteTurnoNuloEmFolga(escala);
 		escala = escalaCalculosService.calcularDadosEscala(escala);
-		salvar(escala);
+		salvar(escala, null, null);
 		ultimoIdEscala = escala.getId();
 		attr.addFlashAttribute("fail", "Confirme CH Dif, Incremento de Risco, Diferenciado, Regime e Turma antes de Lançar.");
 		return "redirect:/escalas/alterar/escala/"+escala.getId();
@@ -249,7 +281,7 @@ public class EscalaController {
 		escala = escalaAtalhosService.atalhoCiclo1C(escala);
 		escala = escalaCalculosService.converteTurnoNuloEmFolga(escala);
 		escala = escalaCalculosService.calcularDadosEscala(escala);
-		salvar(escala);
+		salvar(escala, null, null);
 		ultimoIdEscala = escala.getId();
 		attr.addFlashAttribute("fail", "Confirme CH Dif, Incremento de Risco, Diferenciado, Regime e Turma antes de Lançar.");
 		return "redirect:/escalas/alterar/escala/"+escala.getId();
@@ -262,7 +294,7 @@ public class EscalaController {
 		escala = escalaAtalhosService.atalhoCiclo1D(escala);
 		escala = escalaCalculosService.converteTurnoNuloEmFolga(escala);
 		escala = escalaCalculosService.calcularDadosEscala(escala);
-		salvar(escala);
+		salvar(escala, null, null);
 		ultimoIdEscala = escala.getId();
 		attr.addFlashAttribute("fail", "Confirme CH Dif, Incremento de Risco, Diferenciado, Regime e Turma antes de Lançar.");
 		return "redirect:/escalas/alterar/escala/"+escala.getId();
@@ -275,7 +307,7 @@ public class EscalaController {
 		escala = escalaAtalhosService.atalhoCiclo1E(escala);
 		escala = escalaCalculosService.converteTurnoNuloEmFolga(escala);
 		escala = escalaCalculosService.calcularDadosEscala(escala);
-		salvar(escala);
+		salvar(escala, null, null);
 		ultimoIdEscala = escala.getId();
 		attr.addFlashAttribute("fail", "Confirme CH Dif, Incremento de Risco, Diferenciado, Regime e Turma antes de Lançar.");
 		return "redirect:/escalas/alterar/escala/"+escala.getId();
@@ -288,7 +320,7 @@ public class EscalaController {
 		escala = escalaAtalhosService.atalhoCiclo1F(escala);
 		escala = escalaCalculosService.converteTurnoNuloEmFolga(escala);
 		escala = escalaCalculosService.calcularDadosEscala(escala);
-		salvar(escala);
+		salvar(escala, null, null);
 		ultimoIdEscala = escala.getId();
 		attr.addFlashAttribute("fail", "Confirme CH Dif, Incremento de Risco, Diferenciado, Regime e Turma antes de Lançar.");
 		return "redirect:/escalas/alterar/escala/"+escala.getId();
@@ -302,7 +334,7 @@ public class EscalaController {
 		escala = escalaAtalhosService.atalhoCiclo2A(escala);
 		escala = escalaCalculosService.converteTurnoNuloEmFolga(escala);
 		escala = escalaCalculosService.calcularDadosEscala(escala);
-		salvar(escala);
+		salvar(escala, null, null);
 		ultimoIdEscala = escala.getId();
 		attr.addFlashAttribute("fail", "Confirme CH Dif, Incremento de Risco, Diferenciado, Regime e Turma antes de Lançar.");
 		return "redirect:/escalas/alterar/escala/"+escala.getId();
@@ -315,7 +347,7 @@ public class EscalaController {
 		escala = escalaAtalhosService.atalhoCiclo2B(escala);
 		escala = escalaCalculosService.converteTurnoNuloEmFolga(escala);
 		escala = escalaCalculosService.calcularDadosEscala(escala);
-		salvar(escala);
+		salvar(escala, null, null);
 		ultimoIdEscala = escala.getId();
 		attr.addFlashAttribute("fail", "Confirme CH Dif, Incremento de Risco, Diferenciado, Regime e Turma antes de Lançar.");
 		return "redirect:/escalas/alterar/escala/"+escala.getId();
@@ -328,7 +360,7 @@ public class EscalaController {
 		escala = escalaAtalhosService.atalhoCiclo2C(escala);
 		escala = escalaCalculosService.converteTurnoNuloEmFolga(escala);
 		escala = escalaCalculosService.calcularDadosEscala(escala);
-		salvar(escala);
+		salvar(escala, null, null);
 		ultimoIdEscala = escala.getId();
 		attr.addFlashAttribute("fail", "Confirme CH Dif, Incremento de Risco, Diferenciado, Regime e Turma antes de Lançar.");
 		return "redirect:/escalas/alterar/escala/"+escala.getId();
@@ -341,7 +373,7 @@ public class EscalaController {
 		escala = escalaAtalhosService.atalhoCiclo2D(escala);
 		escala = escalaCalculosService.converteTurnoNuloEmFolga(escala);
 		escala = escalaCalculosService.calcularDadosEscala(escala);
-		salvar(escala);
+		salvar(escala, null, null);
 		ultimoIdEscala = escala.getId();
 		attr.addFlashAttribute("fail", "Confirme CH Dif, Incremento de Risco, Diferenciado, Regime e Turma antes de Lançar.");
 		return "redirect:/escalas/alterar/escala/"+escala.getId();
@@ -354,7 +386,7 @@ public class EscalaController {
 		escala = escalaAtalhosService.atalhoCiclo2E(escala);
 		escala = escalaCalculosService.converteTurnoNuloEmFolga(escala);
 		escala = escalaCalculosService.calcularDadosEscala(escala);
-		salvar(escala);
+		salvar(escala, null, null);
 		ultimoIdEscala = escala.getId();
 		attr.addFlashAttribute("fail", "Confirme CH Dif, Incremento de Risco, Diferenciado, Regime e Turma antes de Lançar.");
 		return "redirect:/escalas/alterar/escala/"+escala.getId();
@@ -367,7 +399,7 @@ public class EscalaController {
 		escala = escalaAtalhosService.atalhoCiclo2F(escala);
 		escala = escalaCalculosService.converteTurnoNuloEmFolga(escala);
 		escala = escalaCalculosService.calcularDadosEscala(escala);
-		salvar(escala);
+		salvar(escala, null, null);
 		ultimoIdEscala = escala.getId();
 		attr.addFlashAttribute("fail", "Confirme CH Dif, Incremento de Risco, Diferenciado, Regime e Turma antes de Lançar.");
 		return "redirect:/escalas/alterar/escala/"+escala.getId();
@@ -381,7 +413,7 @@ public class EscalaController {
 		escala = escalaAtalhosService.atalhoCiclo4A(escala);
 		escala = escalaCalculosService.converteTurnoNuloEmFolga(escala);
 		escala = escalaCalculosService.calcularDadosEscala(escala);
-		salvar(escala);
+		salvar(escala, null, null);
 		ultimoIdEscala = escala.getId();
 		attr.addFlashAttribute("fail", "Confirme CH Dif, Incremento de Risco, Diferenciado, Regime e Turma antes de Lançar.");
 		return "redirect:/escalas/alterar/escala/"+escala.getId();
@@ -394,7 +426,7 @@ public class EscalaController {
 		escala = escalaAtalhosService.atalhoCiclo4B(escala);
 		escala = escalaCalculosService.converteTurnoNuloEmFolga(escala);
 		escala = escalaCalculosService.calcularDadosEscala(escala);
-		salvar(escala);
+		salvar(escala, null, null);
 		ultimoIdEscala = escala.getId();
 		attr.addFlashAttribute("fail", "Confirme CH Dif, Incremento de Risco, Diferenciado, Regime e Turma antes de Lançar.");
 		return "redirect:/escalas/alterar/escala/"+escala.getId();
@@ -407,7 +439,7 @@ public class EscalaController {
 		escala = escalaAtalhosService.atalhoCiclo4C(escala);
 		escala = escalaCalculosService.converteTurnoNuloEmFolga(escala);
 		escala = escalaCalculosService.calcularDadosEscala(escala);
-		salvar(escala);
+		salvar(escala, null, null);
 		ultimoIdEscala = escala.getId();
 		attr.addFlashAttribute("fail", "Confirme CH Dif, Incremento de Risco, Diferenciado, Regime e Turma antes de Lançar.");
 		return "redirect:/escalas/alterar/escala/"+escala.getId();
@@ -420,7 +452,7 @@ public class EscalaController {
 		escala = escalaAtalhosService.atalhoCiclo4D(escala);
 		escala = escalaCalculosService.converteTurnoNuloEmFolga(escala);
 		escala = escalaCalculosService.calcularDadosEscala(escala);
-		salvar(escala);
+		salvar(escala, null, null);
 		ultimoIdEscala = escala.getId();
 		attr.addFlashAttribute("fail", "Confirme CH Dif, Incremento de Risco, Diferenciado, Regime e Turma antes de Lançar.");
 		return "redirect:/escalas/alterar/escala/"+escala.getId();
@@ -433,7 +465,7 @@ public class EscalaController {
 		escala = escalaAtalhosService.atalhoCiclo4E(escala);
 		escala = escalaCalculosService.converteTurnoNuloEmFolga(escala);
 		escala = escalaCalculosService.calcularDadosEscala(escala);
-		salvar(escala);
+		salvar(escala, null, null);
 		ultimoIdEscala = escala.getId();
 		attr.addFlashAttribute("fail", "Confirme CH Dif, Incremento de Risco, Diferenciado, Regime e Turma antes de Lançar.");
 		return "redirect:/escalas/alterar/escala/"+escala.getId();
@@ -446,7 +478,7 @@ public class EscalaController {
 		escala = escalaAtalhosService.atalhoCiclo4F(escala);
 		escala = escalaCalculosService.converteTurnoNuloEmFolga(escala);
 		escala = escalaCalculosService.calcularDadosEscala(escala);
-		salvar(escala);
+		salvar(escala, null, null);
 		ultimoIdEscala = escala.getId();
 		attr.addFlashAttribute("fail", "Confirme CH Dif, Incremento de Risco, Diferenciado, Regime e Turma antes de Lançar.");
 		return "redirect:/escalas/alterar/escala/"+escala.getId();
@@ -460,7 +492,7 @@ public class EscalaController {
 		escala = escalaAtalhosService.atalhoCiclo5A(escala);
 		escala = escalaCalculosService.converteTurnoNuloEmFolga(escala);
 		escala = escalaCalculosService.calcularDadosEscala(escala);
-		salvar(escala);
+		salvar(escala, null, null);
 		ultimoIdEscala = escala.getId();
 		attr.addFlashAttribute("fail", "Confirme CH Dif, Incremento de Risco, Diferenciado, Regime e Turma antes de Lançar.");
 		return "redirect:/escalas/alterar/escala/"+escala.getId();
@@ -473,7 +505,7 @@ public class EscalaController {
 		escala = escalaAtalhosService.atalhoCiclo5B(escala);
 		escala = escalaCalculosService.converteTurnoNuloEmFolga(escala);
 		escala = escalaCalculosService.calcularDadosEscala(escala);
-		salvar(escala);
+		salvar(escala, null, null);
 		ultimoIdEscala = escala.getId();
 		attr.addFlashAttribute("fail", "Confirme CH Dif, Incremento de Risco, Diferenciado, Regime e Turma antes de Lançar.");
 		return "redirect:/escalas/alterar/escala/"+escala.getId();
@@ -486,7 +518,7 @@ public class EscalaController {
 		escala = escalaAtalhosService.atalhoCiclo5C(escala);
 		escala = escalaCalculosService.converteTurnoNuloEmFolga(escala);
 		escala = escalaCalculosService.calcularDadosEscala(escala);
-		salvar(escala);
+		salvar(escala, null, null);
 		ultimoIdEscala = escala.getId();
 		attr.addFlashAttribute("fail", "Confirme CH Dif, Incremento de Risco, Diferenciado, Regime e Turma antes de Lançar.");
 		return "redirect:/escalas/alterar/escala/"+escala.getId();
@@ -499,7 +531,7 @@ public class EscalaController {
 		escala = escalaAtalhosService.atalhoCiclo5D(escala);
 		escala = escalaCalculosService.converteTurnoNuloEmFolga(escala);
 		escala = escalaCalculosService.calcularDadosEscala(escala);
-		salvar(escala);
+		salvar(escala, null, null);
 		ultimoIdEscala = escala.getId();
 		attr.addFlashAttribute("fail", "Confirme CH Dif, Incremento de Risco, Diferenciado, Regime e Turma antes de Lançar.");
 		return "redirect:/escalas/alterar/escala/"+escala.getId();
@@ -512,7 +544,7 @@ public class EscalaController {
 		escala = escalaAtalhosService.atalhoCiclo5E(escala);
 		escala = escalaCalculosService.converteTurnoNuloEmFolga(escala);
 		escala = escalaCalculosService.calcularDadosEscala(escala);
-		salvar(escala);
+		salvar(escala, null, null);
 		ultimoIdEscala = escala.getId();
 		attr.addFlashAttribute("fail", "Confirme CH Dif, Incremento de Risco, Diferenciado, Regime e Turma antes de Lançar.");
 		return "redirect:/escalas/alterar/escala/"+escala.getId();
@@ -525,7 +557,7 @@ public class EscalaController {
 		escala = escalaAtalhosService.atalhoCiclo5F(escala);
 		escala = escalaCalculosService.converteTurnoNuloEmFolga(escala);
 		escala = escalaCalculosService.calcularDadosEscala(escala);
-		salvar(escala);
+		salvar(escala, null, null);
 		ultimoIdEscala = escala.getId();
 		attr.addFlashAttribute("fail", "Confirme CH Dif, Incremento de Risco, Diferenciado, Regime e Turma antes de Lançar.");
 		return "redirect:/escalas/alterar/escala/"+escala.getId();
@@ -539,7 +571,7 @@ public class EscalaController {
 		escala = escalaAtalhosService.atalhoCiclo6A(escala);
 		escala = escalaCalculosService.converteTurnoNuloEmFolga(escala);
 		escala = escalaCalculosService.calcularDadosEscala(escala);
-		salvar(escala);
+		salvar(escala, null, null);
 		ultimoIdEscala = escala.getId();
 		attr.addFlashAttribute("fail", "Confirme CH Dif, Incremento de Risco, Diferenciado, Regime e Turma antes de Lançar.");
 		return "redirect:/escalas/alterar/escala/"+escala.getId();
@@ -552,7 +584,7 @@ public class EscalaController {
 		escala = escalaAtalhosService.atalhoCiclo6B(escala);
 		escala = escalaCalculosService.converteTurnoNuloEmFolga(escala);
 		escala = escalaCalculosService.calcularDadosEscala(escala);
-		salvar(escala);
+		salvar(escala, null, null);
 		ultimoIdEscala = escala.getId();
 		attr.addFlashAttribute("fail", "Confirme CH Dif, Incremento de Risco, Diferenciado, Regime e Turma antes de Lançar.");
 		return "redirect:/escalas/alterar/escala/"+escala.getId();
@@ -565,7 +597,7 @@ public class EscalaController {
 		escala = escalaAtalhosService.atalhoCiclo6C(escala);
 		escala = escalaCalculosService.converteTurnoNuloEmFolga(escala);
 		escala = escalaCalculosService.calcularDadosEscala(escala);
-		salvar(escala);
+		salvar(escala, null, null);
 		ultimoIdEscala = escala.getId();
 		attr.addFlashAttribute("fail", "Confirme CH Dif, Incremento de Risco, Diferenciado, Regime e Turma antes de Lançar.");
 		return "redirect:/escalas/alterar/escala/"+escala.getId();
@@ -578,7 +610,7 @@ public class EscalaController {
 		escala = escalaAtalhosService.atalhoCiclo6D(escala);
 		escala = escalaCalculosService.converteTurnoNuloEmFolga(escala);
 		escala = escalaCalculosService.calcularDadosEscala(escala);
-		salvar(escala);
+		salvar(escala, null, null);
 		ultimoIdEscala = escala.getId();
 		attr.addFlashAttribute("fail", "Confirme CH Dif, Incremento de Risco, Diferenciado, Regime e Turma antes de Lançar.");
 		return "redirect:/escalas/alterar/escala/"+escala.getId();
@@ -591,7 +623,7 @@ public class EscalaController {
 		escala = escalaAtalhosService.atalhoCiclo6E(escala);
 		escala = escalaCalculosService.converteTurnoNuloEmFolga(escala);
 		escala = escalaCalculosService.calcularDadosEscala(escala);
-		salvar(escala);
+		salvar(escala, null, null);
 		ultimoIdEscala = escala.getId();
 		attr.addFlashAttribute("fail", "Confirme CH Dif, Incremento de Risco, Diferenciado, Regime e Turma antes de Lançar.");
 		return "redirect:/escalas/alterar/escala/"+escala.getId();
@@ -604,7 +636,7 @@ public class EscalaController {
 		escala = escalaAtalhosService.atalhoCiclo6F(escala);
 		escala = escalaCalculosService.converteTurnoNuloEmFolga(escala);
 		escala = escalaCalculosService.calcularDadosEscala(escala);
-		salvar(escala);
+		salvar(escala, null, null);
 		ultimoIdEscala = escala.getId();
 		attr.addFlashAttribute("fail", "Confirme CH Dif, Incremento de Risco, Diferenciado, Regime e Turma antes de Lançar.");
 		return "redirect:/escalas/alterar/escala/"+escala.getId();
@@ -618,7 +650,7 @@ public class EscalaController {
 		escala = escalaAtalhosService.atalhoCiclo7A(escala);
 		escala = escalaCalculosService.converteTurnoNuloEmFolga(escala);
 		escala = escalaCalculosService.calcularDadosEscala(escala);
-		salvar(escala);
+		salvar(escala, null, null);
 		ultimoIdEscala = escala.getId();
 		attr.addFlashAttribute("fail", "Confirme CH Dif, Incremento de Risco, Diferenciado, Regime e Turma antes de Lançar.");
 		return "redirect:/escalas/alterar/escala/"+escala.getId();
@@ -631,7 +663,7 @@ public class EscalaController {
 		escala = escalaAtalhosService.atalhoCiclo7B(escala);
 		escala = escalaCalculosService.converteTurnoNuloEmFolga(escala);
 		escala = escalaCalculosService.calcularDadosEscala(escala);
-		salvar(escala);
+		salvar(escala, null, null);
 		ultimoIdEscala = escala.getId();
 		attr.addFlashAttribute("fail", "Confirme CH Dif, Incremento de Risco, Diferenciado, Regime e Turma antes de Lançar.");
 		return "redirect:/escalas/alterar/escala/"+escala.getId();
@@ -644,7 +676,7 @@ public class EscalaController {
 		escala = escalaAtalhosService.atalhoCiclo7C(escala);
 		escala = escalaCalculosService.converteTurnoNuloEmFolga(escala);
 		escala = escalaCalculosService.calcularDadosEscala(escala);
-		salvar(escala);
+		salvar(escala, null, null);
 		ultimoIdEscala = escala.getId();
 		attr.addFlashAttribute("fail", "Confirme CH Dif, Incremento de Risco, Diferenciado, Regime e Turma antes de Lançar.");
 		return "redirect:/escalas/alterar/escala/"+escala.getId();
@@ -657,7 +689,7 @@ public class EscalaController {
 		escala = escalaAtalhosService.atalhoCiclo7D(escala);
 		escala = escalaCalculosService.converteTurnoNuloEmFolga(escala);
 		escala = escalaCalculosService.calcularDadosEscala(escala);
-		salvar(escala);
+		salvar(escala, null, null);
 		ultimoIdEscala = escala.getId();
 		attr.addFlashAttribute("fail", "Confirme CH Dif, Incremento de Risco, Diferenciado, Regime e Turma antes de Lançar.");
 		return "redirect:/escalas/alterar/escala/"+escala.getId();
@@ -670,7 +702,7 @@ public class EscalaController {
 		escala = escalaAtalhosService.atalhoCiclo7E(escala);
 		escala = escalaCalculosService.converteTurnoNuloEmFolga(escala);
 		escala = escalaCalculosService.calcularDadosEscala(escala);
-		salvar(escala);
+		salvar(escala, null, null);
 		ultimoIdEscala = escala.getId();
 		attr.addFlashAttribute("fail", "Confirme CH Dif, Incremento de Risco, Diferenciado, Regime e Turma antes de Lançar.");
 		return "redirect:/escalas/alterar/escala/"+escala.getId();
@@ -683,12 +715,290 @@ public class EscalaController {
 		escala = escalaAtalhosService.atalhoCiclo7F(escala);
 		escala = escalaCalculosService.converteTurnoNuloEmFolga(escala);
 		escala = escalaCalculosService.calcularDadosEscala(escala);
-		salvar(escala);
+		salvar(escala, null, null);
 		ultimoIdEscala = escala.getId();
 		attr.addFlashAttribute("fail", "Confirme CH Dif, Incremento de Risco, Diferenciado, Regime e Turma antes de Lançar.");
 		return "redirect:/escalas/alterar/escala/"+escala.getId();
 	}
 
+
+	//Ciclo8
+	@GetMapping("/atalho/ciclo8_a")
+	public String atalhoCiclo8A( RedirectAttributes attr) {	
+		Escala escala = service.buscarPorId(ultimoIdEscala);
+		escala = escalaCalculosService.converteTurnoNuloEmFolga(escala);
+		escala = escalaAtalhosService.atalhoCiclo8A(escala);
+		escala = escalaCalculosService.converteTurnoNuloEmFolga(escala);
+		escala = escalaCalculosService.calcularDadosEscala(escala);
+		salvar(escala, null, null);
+		ultimoIdEscala = escala.getId();
+		attr.addFlashAttribute("fail", "Confirme CH Dif, Incremento de Risco, Diferenciado, Regime e Turma antes de Lançar.");
+		return "redirect:/escalas/alterar/escala/"+escala.getId();
+	}
+	
+	@GetMapping("/atalho/ciclo8_b")
+	public String atalhoCiclo8B( RedirectAttributes attr) {	
+		Escala escala = service.buscarPorId(ultimoIdEscala);
+		escala = escalaCalculosService.converteTurnoNuloEmFolga(escala);
+		escala = escalaAtalhosService.atalhoCiclo8B(escala);
+		escala = escalaCalculosService.converteTurnoNuloEmFolga(escala);
+		escala = escalaCalculosService.calcularDadosEscala(escala);
+		salvar(escala, null, null);
+		ultimoIdEscala = escala.getId();
+		attr.addFlashAttribute("fail", "Confirme CH Dif, Incremento de Risco, Diferenciado, Regime e Turma antes de Lançar.");
+		return "redirect:/escalas/alterar/escala/"+escala.getId();
+	}
+	
+	@GetMapping("/atalho/ciclo8_c")
+	public String atalhoCiclo8C( RedirectAttributes attr) {	
+		Escala escala = service.buscarPorId(ultimoIdEscala);
+		escala = escalaCalculosService.converteTurnoNuloEmFolga(escala);
+		escala = escalaAtalhosService.atalhoCiclo8C(escala);
+		escala = escalaCalculosService.converteTurnoNuloEmFolga(escala);
+		escala = escalaCalculosService.calcularDadosEscala(escala);
+		salvar(escala, null, null);
+		ultimoIdEscala = escala.getId();
+		attr.addFlashAttribute("fail", "Confirme CH Dif, Incremento de Risco, Diferenciado, Regime e Turma antes de Lançar.");
+		return "redirect:/escalas/alterar/escala/"+escala.getId();
+	}
+	
+	@GetMapping("/atalho/ciclo8_d")
+	public String atalhoCiclo8D( RedirectAttributes attr) {	
+		Escala escala = service.buscarPorId(ultimoIdEscala);
+		escala = escalaCalculosService.converteTurnoNuloEmFolga(escala);
+		escala = escalaAtalhosService.atalhoCiclo8D(escala);
+		escala = escalaCalculosService.converteTurnoNuloEmFolga(escala);
+		escala = escalaCalculosService.calcularDadosEscala(escala);
+		salvar(escala, null, null);
+		ultimoIdEscala = escala.getId();
+		attr.addFlashAttribute("fail", "Confirme CH Dif, Incremento de Risco, Diferenciado, Regime e Turma antes de Lançar.");
+		return "redirect:/escalas/alterar/escala/"+escala.getId();
+	}
+	
+	@GetMapping("/atalho/ciclo8_e")
+	public String atalhoCiclo8E( RedirectAttributes attr) {	
+		Escala escala = service.buscarPorId(ultimoIdEscala);
+		escala = escalaCalculosService.converteTurnoNuloEmFolga(escala);
+		escala = escalaAtalhosService.atalhoCiclo8E(escala);
+		escala = escalaCalculosService.converteTurnoNuloEmFolga(escala);
+		escala = escalaCalculosService.calcularDadosEscala(escala);
+		salvar(escala, null, null);
+		ultimoIdEscala = escala.getId();
+		attr.addFlashAttribute("fail", "Confirme CH Dif, Incremento de Risco, Diferenciado, Regime e Turma antes de Lançar.");
+		return "redirect:/escalas/alterar/escala/"+escala.getId();
+	}
+	
+	@GetMapping("/atalho/ciclo8_f")
+	public String atalhoCiclo8F( RedirectAttributes attr) {	
+		Escala escala = service.buscarPorId(ultimoIdEscala);
+		escala = escalaCalculosService.converteTurnoNuloEmFolga(escala);
+		escala = escalaAtalhosService.atalhoCiclo8F(escala);
+		escala = escalaCalculosService.converteTurnoNuloEmFolga(escala);
+		escala = escalaCalculosService.calcularDadosEscala(escala);
+		salvar(escala, null, null);
+		ultimoIdEscala = escala.getId();
+		attr.addFlashAttribute("fail", "Confirme CH Dif, Incremento de Risco, Diferenciado, Regime e Turma antes de Lançar.");
+		return "redirect:/escalas/alterar/escala/"+escala.getId();
+	}
+	
+	@GetMapping("/atalho/ciclo8_g")
+	public String atalhoCiclo8G( RedirectAttributes attr) {	
+		Escala escala = service.buscarPorId(ultimoIdEscala);
+		escala = escalaCalculosService.converteTurnoNuloEmFolga(escala);
+		escala = escalaAtalhosService.atalhoCiclo8G(escala);
+		escala = escalaCalculosService.converteTurnoNuloEmFolga(escala);
+		escala = escalaCalculosService.calcularDadosEscala(escala);
+		salvar(escala, null, null);
+		ultimoIdEscala = escala.getId();
+		attr.addFlashAttribute("fail", "Confirme CH Dif, Incremento de Risco, Diferenciado, Regime e Turma antes de Lançar.");
+		return "redirect:/escalas/alterar/escala/"+escala.getId();
+	}
+	
+	
+	//Ciclo8
+	@GetMapping("/atalho/ciclo9_a")
+	public String atalhoCiclo9A( RedirectAttributes attr) {	
+		Escala escala = service.buscarPorId(ultimoIdEscala);
+		escala = escalaCalculosService.converteTurnoNuloEmFolga(escala);
+		escala = escalaAtalhosService.atalhoCiclo9A(escala);
+		escala = escalaCalculosService.converteTurnoNuloEmFolga(escala);
+		escala = escalaCalculosService.calcularDadosEscala(escala);
+		salvar(escala, null, null);
+		ultimoIdEscala = escala.getId();
+		attr.addFlashAttribute("fail", "Confirme CH Dif, Incremento de Risco, Diferenciado, Regime e Turma antes de Lançar.");
+		return "redirect:/escalas/alterar/escala/"+escala.getId();
+	}
+	
+	@GetMapping("/atalho/ciclo9_b")
+	public String atalhoCiclo9B( RedirectAttributes attr) {	
+		Escala escala = service.buscarPorId(ultimoIdEscala);
+		escala = escalaCalculosService.converteTurnoNuloEmFolga(escala);
+		escala = escalaAtalhosService.atalhoCiclo9B(escala);
+		escala = escalaCalculosService.converteTurnoNuloEmFolga(escala);
+		escala = escalaCalculosService.calcularDadosEscala(escala);
+		salvar(escala, null, null);
+		ultimoIdEscala = escala.getId();
+		attr.addFlashAttribute("fail", "Confirme CH Dif, Incremento de Risco, Diferenciado, Regime e Turma antes de Lançar.");
+		return "redirect:/escalas/alterar/escala/"+escala.getId();
+	}
+	
+	@GetMapping("/atalho/ciclo9_c")
+	public String atalhoCiclo9C( RedirectAttributes attr) {	
+		Escala escala = service.buscarPorId(ultimoIdEscala);
+		escala = escalaCalculosService.converteTurnoNuloEmFolga(escala);
+		escala = escalaAtalhosService.atalhoCiclo9C(escala);
+		escala = escalaCalculosService.converteTurnoNuloEmFolga(escala);
+		escala = escalaCalculosService.calcularDadosEscala(escala);
+		salvar(escala, null, null);
+		ultimoIdEscala = escala.getId();
+		attr.addFlashAttribute("fail", "Confirme CH Dif, Incremento de Risco, Diferenciado, Regime e Turma antes de Lançar.");
+		return "redirect:/escalas/alterar/escala/"+escala.getId();
+	}
+	
+	@GetMapping("/atalho/ciclo9_d")
+	public String atalhoCiclo9D( RedirectAttributes attr) {	
+		Escala escala = service.buscarPorId(ultimoIdEscala);
+		escala = escalaCalculosService.converteTurnoNuloEmFolga(escala);
+		escala = escalaAtalhosService.atalhoCiclo9D(escala);
+		escala = escalaCalculosService.converteTurnoNuloEmFolga(escala);
+		escala = escalaCalculosService.calcularDadosEscala(escala);
+		salvar(escala, null, null);
+		ultimoIdEscala = escala.getId();
+		attr.addFlashAttribute("fail", "Confirme CH Dif, Incremento de Risco, Diferenciado, Regime e Turma antes de Lançar.");
+		return "redirect:/escalas/alterar/escala/"+escala.getId();
+	}
+	
+	@GetMapping("/atalho/ciclo9_e")
+	public String atalhoCiclo9E( RedirectAttributes attr) {	
+		Escala escala = service.buscarPorId(ultimoIdEscala);
+		escala = escalaCalculosService.converteTurnoNuloEmFolga(escala);
+		escala = escalaAtalhosService.atalhoCiclo9E(escala);
+		escala = escalaCalculosService.converteTurnoNuloEmFolga(escala);
+		escala = escalaCalculosService.calcularDadosEscala(escala);
+		salvar(escala, null, null);
+		ultimoIdEscala = escala.getId();
+		attr.addFlashAttribute("fail", "Confirme CH Dif, Incremento de Risco, Diferenciado, Regime e Turma antes de Lançar.");
+		return "redirect:/escalas/alterar/escala/"+escala.getId();
+	}
+	
+	@GetMapping("/atalho/ciclo9_f")
+	public String atalhoCiclo9F( RedirectAttributes attr) {	
+		Escala escala = service.buscarPorId(ultimoIdEscala);
+		escala = escalaCalculosService.converteTurnoNuloEmFolga(escala);
+		escala = escalaAtalhosService.atalhoCiclo9F(escala);
+		escala = escalaCalculosService.converteTurnoNuloEmFolga(escala);
+		escala = escalaCalculosService.calcularDadosEscala(escala);
+		salvar(escala, null, null);
+		ultimoIdEscala = escala.getId();
+		attr.addFlashAttribute("fail", "Confirme CH Dif, Incremento de Risco, Diferenciado, Regime e Turma antes de Lançar.");
+		return "redirect:/escalas/alterar/escala/"+escala.getId();
+	}
+	
+	@GetMapping("/atalho/ciclo9_g")
+	public String atalhoCiclo9G( RedirectAttributes attr) {	
+		Escala escala = service.buscarPorId(ultimoIdEscala);
+		escala = escalaCalculosService.converteTurnoNuloEmFolga(escala);
+		escala = escalaAtalhosService.atalhoCiclo9G(escala);
+		escala = escalaCalculosService.converteTurnoNuloEmFolga(escala);
+		escala = escalaCalculosService.calcularDadosEscala(escala);
+		salvar(escala, null, null);
+		ultimoIdEscala = escala.getId();
+		attr.addFlashAttribute("fail", "Confirme CH Dif, Incremento de Risco, Diferenciado, Regime e Turma antes de Lançar.");
+		return "redirect:/escalas/alterar/escala/"+escala.getId();
+	}
+	
+	
+	//Ciclo10
+	@GetMapping("/atalho/ciclo10_a")
+	public String atalhoCiclo10A( RedirectAttributes attr) {	
+		Escala escala = service.buscarPorId(ultimoIdEscala);
+		escala = escalaCalculosService.converteTurnoNuloEmFolga(escala);
+		escala = escalaAtalhosService.atalhoCiclo10A(escala);
+		escala = escalaCalculosService.converteTurnoNuloEmFolga(escala);
+		escala = escalaCalculosService.calcularDadosEscala(escala);
+		salvar(escala, null, null);
+		ultimoIdEscala = escala.getId();
+		attr.addFlashAttribute("fail", "Confirme CH Dif, Incremento de Risco, Diferenciado, Regime e Turma antes de Lançar.");
+		return "redirect:/escalas/alterar/escala/"+escala.getId();
+	}
+	
+	@GetMapping("/atalho/ciclo10_b")
+	public String atalhoCiclo10B( RedirectAttributes attr) {	
+		Escala escala = service.buscarPorId(ultimoIdEscala);
+		escala = escalaCalculosService.converteTurnoNuloEmFolga(escala);
+		escala = escalaAtalhosService.atalhoCiclo10B(escala);
+		escala = escalaCalculosService.converteTurnoNuloEmFolga(escala);
+		escala = escalaCalculosService.calcularDadosEscala(escala);
+		salvar(escala, null, null);
+		ultimoIdEscala = escala.getId();
+		attr.addFlashAttribute("fail", "Confirme CH Dif, Incremento de Risco, Diferenciado, Regime e Turma antes de Lançar.");
+		return "redirect:/escalas/alterar/escala/"+escala.getId();
+	}
+	
+	@GetMapping("/atalho/ciclo10_c")
+	public String atalhoCiclo10C( RedirectAttributes attr) {	
+		Escala escala = service.buscarPorId(ultimoIdEscala);
+		escala = escalaCalculosService.converteTurnoNuloEmFolga(escala);
+		escala = escalaAtalhosService.atalhoCiclo10C(escala);
+		escala = escalaCalculosService.converteTurnoNuloEmFolga(escala);
+		escala = escalaCalculosService.calcularDadosEscala(escala);
+		salvar(escala, null, null);
+		ultimoIdEscala = escala.getId();
+		attr.addFlashAttribute("fail", "Confirme CH Dif, Incremento de Risco, Diferenciado, Regime e Turma antes de Lançar.");
+		return "redirect:/escalas/alterar/escala/"+escala.getId();
+	}
+	
+	@GetMapping("/atalho/ciclo10_d")
+	public String atalhoCiclo10D( RedirectAttributes attr) {	
+		Escala escala = service.buscarPorId(ultimoIdEscala);
+		escala = escalaCalculosService.converteTurnoNuloEmFolga(escala);
+		escala = escalaAtalhosService.atalhoCiclo10D(escala);
+		escala = escalaCalculosService.converteTurnoNuloEmFolga(escala);
+		escala = escalaCalculosService.calcularDadosEscala(escala);
+		salvar(escala, null, null);
+		ultimoIdEscala = escala.getId();
+		attr.addFlashAttribute("fail", "Confirme CH Dif, Incremento de Risco, Diferenciado, Regime e Turma antes de Lançar.");
+		return "redirect:/escalas/alterar/escala/"+escala.getId();
+	}
+	
+	@GetMapping("/atalho/ciclo10_e")
+	public String atalhoCiclo10E( RedirectAttributes attr) {	
+		Escala escala = service.buscarPorId(ultimoIdEscala);
+		escala = escalaCalculosService.converteTurnoNuloEmFolga(escala);
+		escala = escalaAtalhosService.atalhoCiclo10E(escala);
+		escala = escalaCalculosService.converteTurnoNuloEmFolga(escala);
+		escala = escalaCalculosService.calcularDadosEscala(escala);
+		salvar(escala, null, null);
+		ultimoIdEscala = escala.getId();
+		attr.addFlashAttribute("fail", "Confirme CH Dif, Incremento de Risco, Diferenciado, Regime e Turma antes de Lançar.");
+		return "redirect:/escalas/alterar/escala/"+escala.getId();
+	}
+	
+	@GetMapping("/atalho/ciclo10_f")
+	public String atalhoCiclo10F( RedirectAttributes attr) {	
+		Escala escala = service.buscarPorId(ultimoIdEscala);
+		escala = escalaCalculosService.converteTurnoNuloEmFolga(escala);
+		escala = escalaAtalhosService.atalhoCiclo10F(escala);
+		escala = escalaCalculosService.converteTurnoNuloEmFolga(escala);
+		escala = escalaCalculosService.calcularDadosEscala(escala);
+		salvar(escala, null, null);
+		ultimoIdEscala = escala.getId();
+		attr.addFlashAttribute("fail", "Confirme CH Dif, Incremento de Risco, Diferenciado, Regime e Turma antes de Lançar.");
+		return "redirect:/escalas/alterar/escala/"+escala.getId();
+	}
+	
+	@GetMapping("/atalho/ciclo10_g")
+	public String atalhoCiclo10G( RedirectAttributes attr) {	
+		Escala escala = service.buscarPorId(ultimoIdEscala);
+		escala = escalaCalculosService.converteTurnoNuloEmFolga(escala);
+		escala = escalaAtalhosService.atalhoCiclo10G(escala);
+		escala = escalaCalculosService.converteTurnoNuloEmFolga(escala);
+		escala = escalaCalculosService.calcularDadosEscala(escala);
+		salvar(escala, null, null);
+		ultimoIdEscala = escala.getId();
+		attr.addFlashAttribute("fail", "Confirme CH Dif, Incremento de Risco, Diferenciado, Regime e Turma antes de Lançar.");
+		return "redirect:/escalas/alterar/escala/"+escala.getId();
+	}
 	
 	
 	/*
@@ -703,20 +1013,52 @@ public class EscalaController {
 	@GetMapping("/listar")
 	public String listar(ModelMap model) {
 		model.addAttribute("pessoaDocumentos", service.buscarTodos());
-		System.out.println(service.buscarTodos().toString());
 		return "/documento/lista"; 
 	}
 	
+	
 	@PostMapping("/salvar")
-	public String salvar(Escala escala) {
-		
+	public String salvar(Escala escala, String recalcular, String lancarTurma) {
+		 
 		escala = escalaCalculosService.converteTurnoNuloEmFolga(escala);
 		escala = escalaCalculosService.calcularDadosEscala(escala);
 		
-		service.salvar(escala);
-		//attr.addFlashAttribute("success", "Inserido com sucesso.");
+		//Avaliando Choques
+		String choque = service.choquesEmEscalaOnipresenca(escala);
+		this.choque = choque;
+		
+		
+		//salvando
+		if(choque.length()==0){
+			service.salvar(escala);
+		}
+		//lançanco turma
+		if(lancarTurma!= null) {service.lancarTurma(escala);}
+		
+		
+		if(choque.length()>0) {
+			
+			return "redirect:/escalas/mensagem/de/choque";
+		}
+		
+		if(recalcular!=null) {
+			return "redirect:/escalas/alterar/escala/"+escala.getId();
+		}
+		
+		
 		return "redirect:/bancos/cadastrar";
 	}
+	
+	@GetMapping("/mensagem/de/choque")
+	public String mensagemDeChoque(ModelMap model) {	
+		
+		model.addAttribute("atencao", "ATENÇÃO");
+		model.addAttribute("choque", "CHOQUE EM ESCALA");
+		model.addAttribute("mensagem", choque);
+		
+		return "/choqueescala/choque";
+	}
+	
 	
 	@GetMapping("/editar/{id}")
 	public String preEditar(@PathVariable("id") Long id, ModelMap model) {
@@ -894,3 +1236,4 @@ public class EscalaController {
 	}
 	
 }
+
