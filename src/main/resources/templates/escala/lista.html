@@ -88,7 +88,7 @@
 	    <div class="container" id="listagem">	        
 	    	<div th:replace="fragments/alert"></div>
 	    	
-	        <div style="height: 450px; overflow-y: auto;" class="table-responsive">
+	        <div style="height: 450px; width:1400px; overflow-y: auto;" class="table-responsive">
 	        	<table class="table table-striped table-hover table-sm myTable">
 	            	<thead>
 	          			<tr>
@@ -140,7 +140,9 @@
 		                    <th style="font-size:10px;" >30</th>
 		                    <th style="font-size:10px;" >30</th>
 		                    <th style="font-size:10px;" >31</th>
+		                    <th style="font-size:10px;" >Pres</th>
 		                    <th style="font-size:10px;" >Ações</th>
+		                    
 		                    
 		                    
 		                    
@@ -201,6 +203,7 @@
 		                    <td style="font-size:08px;"  th:text="${d.dia30Fk.nomeTurno}"></td>
 		                    <td style="font-size:08px;"  th:text="${d.dia31Fk.nomeTurno}"></td>
 		                    
+		                    <td style="font-size:08px;"  th:text="${d.idPresencialSimNaoFk.sigla}"></td>
 		                    
 		                    <td colspan="2">
 		                    	<a class="btn btn-outline-info btn-sm" th:href="@{/escalas/alterar/escala/{id} (id=${d.id}) }" role="button">
@@ -211,6 +214,9 @@
 		                                <span class="oi oi-circle-x" title="Exclusão habilitada" aria-hidden="true"></span>
 		                        </button>
 		                   	</td>
+		                   	
+		                   	
+		                   	
 						</tr>
 					</tbody>                    
 	            </table>                 

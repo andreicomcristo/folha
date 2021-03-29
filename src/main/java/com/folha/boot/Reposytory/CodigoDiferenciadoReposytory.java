@@ -16,4 +16,6 @@ public interface CodigoDiferenciadoReposytory extends JpaRepository<CodigoDifere
 	
 	public List<CodigoDiferenciado> findByIdUnidadeFkOrderByNomeCodigoDiferenciadoAsc(Unidades unidade);
 	
+	public List<CodigoDiferenciado> findByNomeCodigoDiferenciadoContainingOrderByNomeCodigoDiferenciadoAsc(String nome);
+	
 }

@@ -213,25 +213,45 @@ public class EscalaController {
 
 	@PostMapping("/salvar")
 	public String salvar(Escala escala, String recalcular, String lancarTurma) {
-		 
+		
 		escala = escalaCalculosService.converteTurnoNuloEmFolga(escala);
 		escala = escalaCalculosService.calcularDadosEscala(escala);
+		boolean podeSalvar = true;
+		
+		boolean chocou = false;
+		boolean naoPresencialComNoturno = false;
 		
 		//Avaliando Choques
 		String choque = service.choquesEmEscalaOnipresenca(escala);
 		this.choque = choque;
+		if(choque.length()>0) {chocou = true; podeSalvar = false;}
+		if(chocou==true) {
+			return "redirect:/escalas/mensagem/de/choque";
+		}
+		
+		
+		//Avaliando Noturno Não Presencial
+		if(escala.getHorasNoite()!=null) {
+			if(escala.getHorasNoite()>0) {
+				if(escala.getIdPresencialSimNaoFk().getSigla().equalsIgnoreCase("N")) {
+					naoPresencialComNoturno = true;
+					podeSalvar = false;
+				}
+			}
+		}
+		if(naoPresencialComNoturno==true) {
+			return "redirect:/escalas/mensagem/de/presencial/noturno";
+		}
+		
 		
 		//salvando
-		if(choque.length()==0){
+		if(podeSalvar==true ){
 			service.salvar(escala);
 		}
 		//lançanco turma
 		if(lancarTurma!= null) {service.lancarTurma(escala);}
 		
-		if(choque.length()>0) {
-			
-			return "redirect:/escalas/mensagem/de/choque";
-		}
+		
 		
 		if(recalcular!=null) {
 			return "redirect:/escalas/alterar/escala/"+escala.getId();
@@ -1149,6 +1169,16 @@ public class EscalaController {
 		return "/choqueescala/choque";
 	}
 	
+	@GetMapping("/mensagem/de/presencial/noturno")
+	public String mensagemDePresencialNoturno(ModelMap model) {	
+		
+		model.addAttribute("atencao", "ATENÇÃO");
+		model.addAttribute("choque", "ESCALA NÃO PRESENCIAL");
+		model.addAttribute("mensagem", "Você não pode impetrar uma escala não presencial com adicional noturno.");
+		
+		return "/choqueescala/naoPresencial";
+	}
+	
 	@GetMapping("/mensagem/de/nao/escolha")
 	public String mensagemDeNaoEscolha(ModelMap model) {	
 		
@@ -1288,6 +1318,7 @@ public class EscalaController {
 			escala.setIdAvaliacaoAtividadesBurocraticasFk(simNaoSIM);
 			escala.setIdAvaliacaoFormalizacaoPontoFk(simNaoSIM);
 			escala.setIdAvaliacaoPermanenciaFk(simNaoSIM);
+			escala.setIdPresencialSimNaoFk(simNaoSIM);
 			escala.setDia01Fk(turnos);
 			escala.setDia02Fk(turnos);
 			escala.setDia03Fk(turnos);
@@ -1337,6 +1368,10 @@ public class EscalaController {
 	}
 	@ModelAttribute("idChDifSimNaoFk")
 	public List<SimNao> getChDif() {
+		return simNaoService.buscarTodos();
+	}
+	@ModelAttribute("idPresencialSimNaoFk")
+	public List<SimNao> getPresencial() {
 		return simNaoService.buscarTodos();
 	}
 	@ModelAttribute("idIncrementoDeRiscoSimNaoFk")

@@ -38,6 +38,12 @@ public class CodigoDiferenciadoService {
 	}
 
 	@Transactional(readOnly = true)
+	public List<CodigoDiferenciado> buscarTodosGeral() {
+		// TODO Auto-generated method stub
+		return reposytory.findAllByOrderByNomeCodigoDiferenciadoAsc();
+	}
+	
+	@Transactional(readOnly = true)
 	public List<CodigoDiferenciado> buscarTodos(Unidades unidade) {
 		// TODO Auto-generated method stub
 		return reposytory.findByIdUnidadeFkOrderByNomeCodigoDiferenciadoAsc(unidade);
@@ -47,6 +53,12 @@ public class CodigoDiferenciadoService {
 	public List<CodigoDiferenciado> buscarPorNome(Unidades unidade, String nome) {
 		// TODO Auto-generated method stub
 		return reposytory.findByNomeCodigoDiferenciadoContainingAndIdUnidadeFkOrderByNomeCodigoDiferenciadoAsc( nome, unidade);
+	}
+	
+	@Transactional(readOnly = true)
+	public List<CodigoDiferenciado> buscarPorNomeGeral( String nome) {
+		// TODO Auto-generated method stub
+		return reposytory.findByNomeCodigoDiferenciadoContainingOrderByNomeCodigoDiferenciadoAsc( nome);
 	}
 
 	

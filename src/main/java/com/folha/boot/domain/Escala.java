@@ -171,7 +171,9 @@ public class Escala extends AbstractEntity<Long>{
     @JoinColumn(name = "id_avaliacao_permanencia_fk", referencedColumnName = "id")
     @ManyToOne
     private SimNao idAvaliacaoPermanenciaFk;
-    
+    @JoinColumn(name = "id_presencial_sim_nao_fk", referencedColumnName = "id")
+    @ManyToOne
+    private SimNao idPresencialSimNaoFk;
 	
     
     
@@ -180,75 +182,7 @@ public class Escala extends AbstractEntity<Long>{
 		super();
 		// TODO Auto-generated constructor stub
 	}
-	public Escala(SimNao idIncrementoDeRiscoSimNaoFk, SimNao idChDifSimNaoFk, Integer horasTotais, Integer horasDia,
-			Integer horasNoite, Integer horasSemana, Integer horasFimSemana, Date dtMudanca, Date dtCancelamento,
-			Double plantoes, TiposDeFolha idTipoFolhaFk, CoordenacaoEscala idCoordenacaoFk, AnoMes idAnoMesFk,
-			CodigoDiferenciado idCodigoDiferenciadoFk, Turnos dia16Fk, Turnos dia30Fk, Turnos dia24Fk,
-			PessoaFuncionarios idFuncionarioFk, Turnos dia06Fk, Turnos dia09Fk,
-			PessoaOperadores idOperadorCancelamentoFk, Turnos dia03Fk, Turnos dia22Fk, Turnos dia27Fk, Turnos dia14Fk,
-			Turnos dia08Fk, Turnos dia12Fk, Turnos dia25Fk, Turnos dia11Fk, PessoaOperadores idOperadorMudancaFk,
-			RegimesDeTrabalho idRegimeFk, Turnos dia05Fk, Turnos dia10Fk, Turnos dia18Fk, Turnos dia04Fk,
-			Turnos dia26Fk, Turnos dia21Fk, Turnos dia31Fk, Turnos dia13Fk, Turnos dia20Fk, Turnos dia29Fk,
-			Turmas idTurmaFk, Turnos dia28Fk, Turnos dia01Fk, Turnos dia07Fk, Turnos dia15Fk, Turnos dia02Fk,
-			Turnos dia23Fk, Turnos dia17Fk, Turnos dia19Fk, SimNao idAvaliacaoAssiduidadeFk,
-			SimNao idAvaliacaoAtividadesBurocraticasFk, SimNao idAvaliacaoFormalizacaoPontoFk,
-			SimNao idAvaliacaoPermanenciaFk) {
-		super();
-		this.idIncrementoDeRiscoSimNaoFk = idIncrementoDeRiscoSimNaoFk;
-		this.idChDifSimNaoFk = idChDifSimNaoFk;
-		this.horasTotais = horasTotais;
-		this.horasDia = horasDia;
-		this.horasNoite = horasNoite;
-		this.horasSemana = horasSemana;
-		this.horasFimSemana = horasFimSemana;
-		this.dtMudanca = dtMudanca;
-		this.dtCancelamento = dtCancelamento;
-		this.plantoes = plantoes;
-		this.idTipoFolhaFk = idTipoFolhaFk;
-		this.idCoordenacaoFk = idCoordenacaoFk;
-		this.idAnoMesFk = idAnoMesFk;
-		this.idCodigoDiferenciadoFk = idCodigoDiferenciadoFk;
-		this.dia16Fk = dia16Fk;
-		this.dia30Fk = dia30Fk;
-		this.dia24Fk = dia24Fk;
-		this.idFuncionarioFk = idFuncionarioFk;
-		this.dia06Fk = dia06Fk;
-		this.dia09Fk = dia09Fk;
-		this.idOperadorCancelamentoFk = idOperadorCancelamentoFk;
-		this.dia03Fk = dia03Fk;
-		this.dia22Fk = dia22Fk;
-		this.dia27Fk = dia27Fk;
-		this.dia14Fk = dia14Fk;
-		this.dia08Fk = dia08Fk;
-		this.dia12Fk = dia12Fk;
-		this.dia25Fk = dia25Fk;
-		this.dia11Fk = dia11Fk;
-		this.idOperadorMudancaFk = idOperadorMudancaFk;
-		this.idRegimeFk = idRegimeFk;
-		this.dia05Fk = dia05Fk;
-		this.dia10Fk = dia10Fk;
-		this.dia18Fk = dia18Fk;
-		this.dia04Fk = dia04Fk;
-		this.dia26Fk = dia26Fk;
-		this.dia21Fk = dia21Fk;
-		this.dia31Fk = dia31Fk;
-		this.dia13Fk = dia13Fk;
-		this.dia20Fk = dia20Fk;
-		this.dia29Fk = dia29Fk;
-		this.idTurmaFk = idTurmaFk;
-		this.dia28Fk = dia28Fk;
-		this.dia01Fk = dia01Fk;
-		this.dia07Fk = dia07Fk;
-		this.dia15Fk = dia15Fk;
-		this.dia02Fk = dia02Fk;
-		this.dia23Fk = dia23Fk;
-		this.dia17Fk = dia17Fk;
-		this.dia19Fk = dia19Fk;
-		this.idAvaliacaoAssiduidadeFk = idAvaliacaoAssiduidadeFk;
-		this.idAvaliacaoAtividadesBurocraticasFk = idAvaliacaoAtividadesBurocraticasFk;
-		this.idAvaliacaoFormalizacaoPontoFk = idAvaliacaoFormalizacaoPontoFk;
-		this.idAvaliacaoPermanenciaFk = idAvaliacaoPermanenciaFk;
-	}
+	
 	public SimNao getIdAvaliacaoAssiduidadeFk() {
 		return idAvaliacaoAssiduidadeFk;
 	}
@@ -573,5 +507,14 @@ public class Escala extends AbstractEntity<Long>{
 	public void setDia19Fk(Turnos dia19Fk) {
 		this.dia19Fk = dia19Fk;
 	}
+
+	public SimNao getIdPresencialSimNaoFk() {
+		return idPresencialSimNaoFk;
+	}
+
+	public void setIdPresencialSimNaoFk(SimNao idPresencialSimNaoFk) {
+		this.idPresencialSimNaoFk = idPresencialSimNaoFk;
+	}
     
+	
 }

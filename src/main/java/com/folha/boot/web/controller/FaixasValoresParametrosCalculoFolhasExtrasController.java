@@ -236,7 +236,7 @@ public class FaixasValoresParametrosCalculoFolhasExtrasController {
 	@ModelAttribute("idCodDiferenciadoFk")
 	public List<CodigoDiferenciado> getIdCodDiferenciadoFk() {
 		
-		return codigoDiferenciadoService.buscarTodos();	
+		return codigoDiferenciadoService.buscarTodosGeral();	
 	}
 	
 	@ModelAttribute("idNivelFk")
