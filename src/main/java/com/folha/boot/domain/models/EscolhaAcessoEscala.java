@@ -3,16 +3,16 @@ package com.folha.boot.domain.models;
 import com.folha.boot.domain.AnoMes;
 import com.folha.boot.domain.CoordenacaoEscala;
 
-public class escolhaAcessoEscala {
+public class EscolhaAcessoEscala {
 
 	AnoMes anoMes;
 	CoordenacaoEscala coordenacaoEscala;
 	
-	public escolhaAcessoEscala() {
+	public EscolhaAcessoEscala() {
 		super();
 	}
 	
-	public escolhaAcessoEscala(AnoMes anoMes, CoordenacaoEscala coordenacaoEscala) {
+	public EscolhaAcessoEscala(AnoMes anoMes, CoordenacaoEscala coordenacaoEscala) {
 		super();
 		this.anoMes = anoMes;
 		this.coordenacaoEscala = coordenacaoEscala;

@@ -83,6 +83,18 @@ public class Unidades extends AbstractEntity<Long> {
     private List<LocalidadeEscala> localidadeEscalaList;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "idUnidadeFk")
     private List<HistFuncionariosUnidadeAtuacao> histFuncionariosUnidadeAtuacaoList;
+    @OneToMany(mappedBy = "idUnidadeFk")
+    private List<CodigoDiferenciado> codigoDiferenciadoList;
+
+    
+    
+	public List<CodigoDiferenciado> getCodigoDiferenciadoList() {
+		return codigoDiferenciadoList;
+	}
+
+	public void setCodigoDiferenciadoList(List<CodigoDiferenciado> codigoDiferenciadoList) {
+		this.codigoDiferenciadoList = codigoDiferenciadoList;
+	}
 
 	public List<FuncionariosLicencas> getFuncionariosLicencasList() {
 		return funcionariosLicencasList;

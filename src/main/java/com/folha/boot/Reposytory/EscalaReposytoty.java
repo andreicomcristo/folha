@@ -28,7 +28,7 @@ public interface EscalaReposytoty extends JpaRepository<Escala, Long> {
 	@Query("from Escala where 0=0 and dtCancelamento is null and idFuncionarioFk.idPessoaFk = :pessoa and idAnoMesFk = :anoMes")
 	public List<Escala> buscarPorPessoaEAnoMes( Pessoa pessoa, AnoMes anoMes);
 	
-	public Page<Escala> findByIdCoordenacaoFkAndIdAnoMesFkAndDtCancelamentoIsNull(CoordenacaoEscala idCoordenacaoFk, AnoMes anoMes,  final Pageable page);
+	public Page<Escala> findByIdCoordenacaoFkAndIdAnoMesFkAndDtCancelamentoIsNullOrderByIdFuncionarioFkIdPessoaFkNomeAsc(CoordenacaoEscala idCoordenacaoFk, AnoMes anoMes,  final Pageable page);
 	
 	public Page<Escala> findByIdCoordenacaoFkAndIdAnoMesFkAndDtCancelamentoIsNullAndIdFuncionarioFkIdPessoaFkNomeContainingOrderByIdFuncionarioFkIdPessoaFkNomeAsc(CoordenacaoEscala idCoordenacaoFk, AnoMes anoMes, String nome , final Pageable page);
 	

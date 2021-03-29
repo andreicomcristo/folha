@@ -78,7 +78,7 @@ public class EscalaService {
 	
 	public Page<Escala> findPaginated(int pageNo, int pageSize, CoordenacaoEscala coordenacaoEscala, AnoMes anoMes) {
 		Pageable pageable = PageRequest.of(pageNo -1, pageSize);
-		return this.reposytory.findByIdCoordenacaoFkAndIdAnoMesFkAndDtCancelamentoIsNull(coordenacaoEscala, anoMes, pageable);
+		return this.reposytory.findByIdCoordenacaoFkAndIdAnoMesFkAndDtCancelamentoIsNullOrderByIdFuncionarioFkIdPessoaFkNomeAsc(coordenacaoEscala, anoMes, pageable);
 	}
 	
 	public Page<Escala> findPaginatedNome(int pageNo, int pageSize, CoordenacaoEscala coordenacaoEscala, AnoMes anoMes, String nome) {

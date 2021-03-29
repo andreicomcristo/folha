@@ -15,10 +15,14 @@ public class CodigoDiferenciado extends AbstractEntity<Long> {
 	private String nomeCodigoDiferenciado;
 	@Column(name = "descricao_codigo_diferenciado")
 	private String descricaoCodigoDiferenciado;
+	@JoinColumn(name = "id_unidade_fk", referencedColumnName = "id")
+    @ManyToOne
+    private Unidades idUnidadeFk;
 	@OneToMany(mappedBy = "idCodigoDiferenciadoFk")
 	private List<Escala> escalaList;
 	@OneToMany(mappedBy = "idCodDiferenciadoFk")
 	private List<FaixasValoresParametrosCalculoFolhasExtras> faixasValoresParametrosCalculoFolhasExtrasList;
+	
 
 	public String getNomeCodigoDiferenciado() {
 		return nomeCodigoDiferenciado;
@@ -55,4 +59,13 @@ public class CodigoDiferenciado extends AbstractEntity<Long> {
 		this.escalaList = escalaList;
 	}
 
+	public Unidades getIdUnidadeFk() {
+		return idUnidadeFk;
+	}
+
+	public void setIdUnidadeFk(Unidades idUnidadeFk) {
+		this.idUnidadeFk = idUnidadeFk;
+	}
+
+	
 }
