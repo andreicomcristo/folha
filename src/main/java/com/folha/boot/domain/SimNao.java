@@ -30,7 +30,10 @@ public class SimNao extends AbstractEntity<Long> {
     private List<Escala> escalaList5;
     @OneToMany(mappedBy = "idAvaliacaoPermanenciaFk")
     private List<Escala> escalaList6;
+    @OneToMany(mappedBy = "idLiberacaoDobraInvertidaSimNaoFk")
+    private List<Escala> escalaList7;
 	
+    
     
     public SimNao() {
     }
@@ -123,6 +126,16 @@ public class SimNao extends AbstractEntity<Long> {
 
 	public void setEscalaList6(List<Escala> escalaList6) {
 		this.escalaList6 = escalaList6;
+	}
+
+
+	public List<Escala> getEscalaList7() {
+		return escalaList7;
+	}
+
+
+	public void setEscalaList7(List<Escala> escalaList7) {
+		this.escalaList7 = escalaList7;
 	}
 
     

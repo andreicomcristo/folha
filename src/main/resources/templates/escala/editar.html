@@ -45,6 +45,7 @@
 				                	
 				                	
 				                	
+				                	
 				        				<label style="text-align: center; color:#008080;" th:text="*{idCoordenacaoFk.nomeCoordenacao+'-'+idCoordenacaoFk.idLocalidadeFk.nomeLocalidade+'-'+idCoordenacaoFk.idAtividadeFk.nomeAtividade+'-'+idCoordenacaoFk.idLocalidadeFk.idUnidadeFk.nomeFantasia}" class="text" >Escala </label>
 									</th>
 									<th>
@@ -419,6 +420,19 @@
 							<div>
 							<input type="checkbox" id="recalcular" name="recalcular"    value="S">Recalcular</input>
 							<input type="checkbox" id="lancarTurma" name="lancarTurma"  value="S">Lançar Turma</input>
+							<p></p>
+							<th>
+								
+								<select style="width:1000px; height:28px; font-size:10px" id="turma" class="form-select"  th:field="*{idLiberacaoDobraInvertidaSimNaoFk}" >
+									<option value="">Estou ciente de que não prover o descanço depois de atividade noturna é ilegal. Todavia, posso comprovar legalmente que esta situação é excepcionalmente de força maior.</option>
+									<option th:each="d : ${idLiberacaoDobraInvertidaSimNaoFk}" th:value="${d.id}"th:text="${d.descricao}">CH Dif</option>
+								</select>
+							</th>
+							<p></p>
+							
+							
+							
+							
 							</div>
 						</div>					
 						

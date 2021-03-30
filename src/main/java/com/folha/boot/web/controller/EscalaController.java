@@ -1507,6 +1507,7 @@ public class EscalaController {
 			escala.setIdAvaliacaoFormalizacaoPontoFk(simNaoSIM);
 			escala.setIdAvaliacaoPermanenciaFk(simNaoSIM);
 			escala.setIdPresencialSimNaoFk(simNaoSIM);
+			escala.setIdLiberacaoDobraInvertidaSimNaoFk(simNaoNAO);
 			escala.setDia01Fk(turnos);
 			escala.setDia02Fk(turnos);
 			escala.setDia03Fk(turnos);
@@ -1564,6 +1565,10 @@ public class EscalaController {
 	}
 	@ModelAttribute("idIncrementoDeRiscoSimNaoFk")
 	public List<SimNao> getIncrementoDeRisco() {
+		return simNaoService.buscarTodos();
+	}
+	@ModelAttribute("idLiberacaoDobraInvertidaSimNaoFk")
+	public List<SimNao> getLiberacaoDobraInvertida() {
 		return simNaoService.buscarTodos();
 	}
 	@ModelAttribute("idCodigoDiferenciadoFk")

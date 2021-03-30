@@ -174,6 +174,9 @@ public class Escala extends AbstractEntity<Long>{
     @JoinColumn(name = "id_presencial_sim_nao_fk", referencedColumnName = "id")
     @ManyToOne
     private SimNao idPresencialSimNaoFk;
+    @JoinColumn(name = "id_liberacao_dobra_invertida_sim_nao_fk", referencedColumnName = "id")
+    @ManyToOne
+    private SimNao idLiberacaoDobraInvertidaSimNaoFk;
 	
     
     
@@ -515,6 +518,16 @@ public class Escala extends AbstractEntity<Long>{
 	public void setIdPresencialSimNaoFk(SimNao idPresencialSimNaoFk) {
 		this.idPresencialSimNaoFk = idPresencialSimNaoFk;
 	}
+
+	public SimNao getIdLiberacaoDobraInvertidaSimNaoFk() {
+		return idLiberacaoDobraInvertidaSimNaoFk;
+	}
+
+	public void setIdLiberacaoDobraInvertidaSimNaoFk(SimNao idLiberacaoDobraInvertidaSimNaoFk) {
+		this.idLiberacaoDobraInvertidaSimNaoFk = idLiberacaoDobraInvertidaSimNaoFk;
+	}
+	
+	
     
 	
 }
