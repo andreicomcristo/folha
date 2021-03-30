@@ -5,36 +5,36 @@
 	<section class="layout-content" layout:fragment="corpo">		
 		<nav class="navbar navbar-expand-md bg-light">
 	            
-	    	<a class="btn btn-outline-dark btn-md" href="/funcionarioscapacitacoes/cadastrar" role="button">
+	    	<a class="btn btn-outline-dark btn-md" href="/funcionariosferiasperiodos/cadastrar" role="button">
 	        	<span class="oi oi-plus" title="Cadastro" aria-hidden="true"></span>
 	            <span>Novo</span>
 	        </a>
-	        <a class="btn btn-outline-dark btn-md" href="/funcionarioscapacitacoes/listar" role="button">
+	        <a class="btn btn-outline-dark btn-md" href="/funcionariosferiasperiodos/listar" role="button">
 	        	<span class="oi oi-loop-square" title="Atualizar" aria-hidden="true"></span>
 	            <span>Atualizar</span>
 	        </a>
-	            <label for="nome" class= "fonte-tutulos-tamanho">Lista de Capacitações </label>
+	            <label for="nome" class= "fonte-tutulos-tamanho">Lista de Períodos de Férias </label>
 	    </nav>
-	  	<div class="container">
+	  <!--	<div class="container">
 	    	<p>                
 	        	<button class=" oi oi-magnifying-glass btn btn-outline-success my-2 my-sm-0" type="button" data-toggle="collapse" data-target="#collapseNome"
 	            		aria-controls="collapseNome">Filtrar
 	            </button>
 	      </p>
-	      <div class="row">
+	       <div class="row">
 	      	<div class="col">
 	        	<div class="collapse" id="collapseNome">
 		            <nav class="navbar navbar-light bg-light">
-	    	           <form class="form-inline" method="GET" th:action="@{/funcionarioscapacitacoes/buscar/descricao}">
-	        	           <input class="form-control mr-sm-2" type="search" placeholder="Ano Mês IR" aria-label="Search"
-	                              th:name="descricao" />
+	    	           <form class="form-inline" method="GET" th:action="@{/funcionariosferiasperiodos/buscar/ano/referencia}">
+	        	           <input class="form-control mr-sm-2" type="search" placeholder="Ano Referência" aria-label="Search"
+	                              th:name="anoReferencia" />
 	                       <button class="btn btn-outline-success my-2 my-sm-0">Buscar</button>
 	                   </form>
 	                </nav>
 	            </div>
 	    	</div>
 	    </div> 
-	    
+	     -->
 	    <div class="container" id="listagem">	        
 	    	<div th:replace="fragments/alert"></div>
 	    	
@@ -43,46 +43,32 @@
 	            	<thead>
 	          			<tr>
 		                	<th>#</th>
-		                    <th>Descrição </th>
-		                    <th>Intituição</th>
-		                    <th>Carga Horária</th>
-		                    <th>Data Inicial</th>
+		                    <th>Data inicial </th>
 		                    <th>Data Final</th>
-		                    <th>Observações</th>
-		                    <th>Data de cadastro</th>
-		                    <th>Data de cancelamento</th>
+		                    <th>Data de Assinatura</th>
+		                    <th>Data de Cadastro</th>
+		                    <th>Data de Cancelamento</th>
 		                    <th>Motivo do Cancelamento</th>
-		                    <th>Área de Capacitação</th>
-		                    <th>Funcionário</th>
-		                    <!--  <th>Operador Cadastro</th>
-		                    <th>Operador Cancelamento</th>-->
-		                    <th>Tipo de Capacitação</th>
+		                    <th>Matrícula do Funcionário</th>		                   
+		                    <th>Ano de Refêrencia</th>
 		                    <th>Ações</th>
 	                    </tr>
 	                </thead>                  
 	                <tbody>
-		            	<tr th:each="d : ${funcionariosCapacitacoes}">
+		            	<tr th:each="d : ${funcionariosFeriasPeriodos}">
 		                	<td th:text="${d.id}"></td>		                    
-		                    <td th:text="${d.descricao}"></td>
-		                    <td th:text="${d.instituicao}"></td>
-		                    <td th:text="${d.cargaHoraria}"></td>
 		                    <td th:text="${d.dtInicial}"></td>
 		                    <td th:text="${d.dtFinal}"></td>
-		                    <td th:text="${d.observacoes}"></td>
+		                    <td th:text="${d.dtAssinatura}"></td>
 		                    <td th:text="${d.dtCadastro}"></td>
 		                    <td th:text="${d.dtCancelamento}"></td>
 		                    <td th:text="${d.motivoCancelamento}"></td>
-		                    <td th:text="${d.idAreaDeCapacitacaoFk.areaDeCapacitacao}"></td>
-		                    <td th:text="${d.idFuncionarioFk.matricula}"></td>
-		                    <!--  <td th:text="${d.idOperadorCadastroFk.username}"></td>
-		                    <td th:text="${d.idOperadorCadastroFk.username}"></td>-->
-		                    <td th:text="${d.idTiposCapacitacaoFk.tipoCapacitacao}"></td>
-		                     		         		                    
+		                    <td th:text="${d.idFeriasFk.anoReferencia}"></td>		           		                  	                    		                     		         		                    
 		                    <td colspan="2">
-		                    	<a class="btn btn-outline-info btn-sm" th:href="@{/funcionarioscapacitacoes/editar/{id} (id=${d.id}) }" role="button">
+		                    	<a class="btn btn-outline-info btn-sm" th:href="@{/funcionariosferiasperiodos/editar/{id} (id=${d.id})}" role="button">
 		                        	<span class="oi oi-brush" title="Editar" aria-hidden="true"></span>
 		                        </a>
-		                        <button th:id="${ 'btn_funcionarioscapacitacoes/excluir/' + d.id}" type="button" class="btn btn btn-outline-danger btn-sm" 
+		                        <button th:id="${ 'btn_funcionariosferiasperiodos/excluir/' + d.id}" type="button" class="btn btn btn-outline-danger btn-sm" 
 		                            		data-toggle="modal" data-target="#myModal">
 		                                <span class="oi oi-circle-x" title="Exclusão habilitada" aria-hidden="true"></span>
 		                        </button>

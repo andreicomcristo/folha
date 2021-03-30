@@ -11,28 +11,36 @@ public class FuncionariosFerias extends AbstractEntity<Long> {
 
 	@Column(name = "ano_referencia")
     private String anoReferencia;
-    @Column(name = "dt_cadastro")
+    
+	@Column(name = "dt_cadastro")
     @Temporal(TemporalType.DATE)
     private Date dtCadastro;
-    @Column(name = "dt_cancelamento")
+    
+	@Column(name = "dt_cancelamento")
     @Temporal(TemporalType.DATE)
     private Date dtCancelamento;
-    @Column(name = "motivo_cancelamento")
+    
+	@Column(name = "motivo_cancelamento")
     private String motivoCancelamento;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "idFeriasFk")
-    private List<FuncionariosFeriasPeriodos> funcionariosFeriasPeriodosList;
-    @JoinColumn(name = "id_funcionario_fk", referencedColumnName = "id")
+    
+	@JoinColumn(name = "id_funcionario_fk", referencedColumnName = "id")
     @ManyToOne
     private PessoaFuncionarios idFuncionarioFk;
-    @JoinColumn(name = "id_operador_cadastro_fk", referencedColumnName = "id")
+    
+	@JoinColumn(name = "id_operador_cadastro_fk", referencedColumnName = "id")
     @ManyToOne
     private PessoaOperadores idOperadorCadastroFk;
-    @JoinColumn(name = "id_operador_cancelamento_fk", referencedColumnName = "id")
+    
+	@JoinColumn(name = "id_operador_cancelamento_fk", referencedColumnName = "id")
     @ManyToOne
     private PessoaOperadores idOperadorCancelamentoFk;
-    @JoinColumn(name = "id_unidade_lancamento_fk", referencedColumnName = "id")
+    
+	@JoinColumn(name = "id_unidade_lancamento_fk", referencedColumnName = "id")
     @ManyToOne
     private Unidades idUnidadeLancamentoFk;
+	
+	@OneToMany(cascade = CascadeType.ALL, mappedBy = "idFeriasFk")
+    private List<FuncionariosFeriasPeriodos> funcionariosFeriasPeriodosList;
 	
     public String getAnoReferencia() {
 		return anoReferencia;

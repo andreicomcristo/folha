@@ -16,11 +16,14 @@ public class TiposDeCapacitacao extends AbstractEntity<Long>  {
 
 	@Column(name = "tipo_capacitacao")
     private String tipoCapacitacao;
-    @Column(name = "descricao_tipo_capacitacao")
+    
+	@Column(name = "descricao_tipo_capacitacao")
     private String descricaoTipoCapacitacao;
+    
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "idTiposCapacitacaoFk")
     private List<FuncionariosCapacitacoes> funcionariosCapacitacoesList;
-	public String getTipoCapacitacao() {
+	
+    public String getTipoCapacitacao() {
 		return tipoCapacitacao;
 	}
 	public void setTipoCapacitacao(String tipoCapacitacao) {

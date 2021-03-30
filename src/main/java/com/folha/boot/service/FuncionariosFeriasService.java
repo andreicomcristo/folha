@@ -37,6 +37,10 @@ public class FuncionariosFeriasService {
 	@Transactional(readOnly = true)
 	public List<FuncionariosFerias> buscarTodos() {
 		// TODO Auto-generated method stub
-		return reposytory.findAll();
+		return reposytory.findAllByOrderByAnoReferenciaAsc();
+	}
+	
+	public List<FuncionariosFerias> buscarPorAnoReferencia(String anoReferencia) {
+		return reposytory.findByAnoReferenciaContainingOrderByAnoReferenciaAsc(anoReferencia);
 	}
 }
