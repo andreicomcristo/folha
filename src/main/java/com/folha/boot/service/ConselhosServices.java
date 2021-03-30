@@ -42,8 +42,8 @@ public class ConselhosServices {
 		return reposytory.findAll();
 	}
 
-	public List<Conselhos> buscarPorDescricao(String descricaoConselho) {
-		return reposytory.findByDescricaoConselhoContainingOrderByDescricaoConselhoAsc(descricaoConselho);
+	public List<Conselhos> buscarPorNome(String nomeConselho) {
+		return reposytory.findByNomeConselhoContainingOrderByNomeConselhoAsc(nomeConselho);
 	}
 	
 }

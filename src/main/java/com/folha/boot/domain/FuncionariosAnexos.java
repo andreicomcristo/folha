@@ -10,25 +10,32 @@ import java.util.Date;
 public class FuncionariosAnexos extends AbstractEntity<Long> {
 
 	@Column(name = "dt_cadastro")
-	@Temporal(TemporalType.DATE)
+	@Temporal(TemporalType.DATE)	
 	private Date dtCadastro;
+
 	@Column(name = "dt_cancelamento")
 	@Temporal(TemporalType.DATE)
 	private Date dtCancelamento;
+	
 	@Column(name = "motivo_cancelamento")
 	private String motivoCancelamento;
+	
 	@Lob
 	@Column(name = "pdf_anexo")
 	private byte[] pdfAnexo;
+	
 	@JoinColumn(name = "id_pessoa_funcionario_fk", referencedColumnName = "id")
 	@ManyToOne(optional = false)
 	private PessoaFuncionarios idPessoaFuncionarioFk;
+	
 	@JoinColumn(name = "id_operador_cadastro_fk", referencedColumnName = "id")
 	@ManyToOne
 	private PessoaOperadores idOperadorCadastroFk;
+	
 	@JoinColumn(name = "id_operador_cancelamento_fk", referencedColumnName = "id")
 	@ManyToOne
 	private PessoaOperadores idOperadorCancelamentoFk;
+	
 	@JoinColumn(name = "id_tipo_de_anexo_fk", referencedColumnName = "id")
 	@ManyToOne(optional = false)
 	private TiposDeAnexo idTipoDeAnexoFk;

@@ -37,6 +37,10 @@ public class FuncionariosCapacitacoesService {
 	@Transactional(readOnly = true)
 	public List<FuncionariosCapacitacoes> buscarTodos() {
 		// TODO Auto-generated method stub
-		return reposytory.findAll();
+		return reposytory.findAllByOrderByDescricaoAsc();
+	}
+	
+	public List<FuncionariosCapacitacoes> buscarPorDescricao(String descricao) {
+		return reposytory.findByDescricaoContainingOrderByDescricaoAsc(descricao);
 	}
 }

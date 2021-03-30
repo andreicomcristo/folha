@@ -17,38 +17,51 @@ public class FuncionariosCapacitacoes extends AbstractEntity<Long> {
 	@Basic(optional = false)
 	@Column(name = "descricao")
 	private String descricao;
+	
 	@Column(name = "instituicao")
 	private String instituicao;
+	
 	@Column(name = "carga_horaria")
 	private Integer cargaHoraria;
+	
 	@Column(name = "dt_inicial")
 	@Temporal(TemporalType.DATE)
 	private Date dtInicial;
+	
 	@Column(name = "dt_final")
 	@Temporal(TemporalType.DATE)
 	private Date dtFinal;
+	
 	@Column(name = "observacoes")
 	private String observacoes;
+	
 	@Column(name = "dt_cadastro")
 	@Temporal(TemporalType.DATE)
 	private Date dtCadastro;
+	
 	@Column(name = "dt_cancelamento")
 	@Temporal(TemporalType.DATE)
 	private Date dtCancelamento;
+	
 	@Column(name = "motivo_cancelamento")
 	private String motivoCancelamento;
+	
 	@JoinColumn(name = "id_area_de_capacitacao_fk", referencedColumnName = "id")
 	@ManyToOne
 	private AreasDeCapacitacao idAreaDeCapacitacaoFk;
+	
 	@JoinColumn(name = "id_funcionario_fk", referencedColumnName = "id")
 	@ManyToOne(optional = false)
 	private PessoaFuncionarios idFuncionarioFk;
+	
 	@JoinColumn(name = "id_operador_cadastro_fk", referencedColumnName = "id")
 	@ManyToOne
 	private PessoaOperadores idOperadorCadastroFk;
+	
 	@JoinColumn(name = "id_operador_cancelamento_fk", referencedColumnName = "id")
 	@ManyToOne
 	private PessoaOperadores idOperadorCancelamentoFk;
+	
 	@JoinColumn(name = "id_tipos_capacitacao_fk", referencedColumnName = "id")
 	@ManyToOne(optional = false)
 	private TiposDeCapacitacao idTiposCapacitacaoFk;

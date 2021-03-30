@@ -9,7 +9,7 @@ import com.folha.boot.domain.Conselhos;
 @Repository
 public interface ConselhosReposytory extends JpaRepository<Conselhos, Long> {
 
-	public List<Conselhos> findAllByOrderByDescricaoConselhoAsc();
+	public List<Conselhos> findAllByOrderByNomeConselhoAsc();
 	
-	public List<Conselhos> findByDescricaoConselhoContainingOrderByDescricaoConselhoAsc(String descricaoConselho);
+	public List<Conselhos> findByNomeConselhoContainingOrderByNomeConselhoAsc(String nomeConselho);
 }

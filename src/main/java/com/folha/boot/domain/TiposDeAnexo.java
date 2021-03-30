@@ -16,7 +16,8 @@ public class TiposDeAnexo extends AbstractEntity<Long> {
 	@Basic(optional = false)
     @Column(name = "tipo_de_anexo")
     private String tipoDeAnexo;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "idTipoDeAnexoFk")
+    
+	@OneToMany(cascade = CascadeType.ALL, mappedBy = "idTipoDeAnexoFk")
     private List<FuncionariosAnexos> funcionariosAnexosList;
 	
     public String getTipoDeAnexo() {

@@ -18,7 +18,7 @@ import com.folha.boot.service.PessoaOperadoresService;
 import com.folha.boot.service.UnidadesService;
 
 @Controller
-@RequestMapping("/acessoOperadoresCoordenacao")
+@RequestMapping("/acessooperadorescoordenacao")
 public class AcessoOperadoresCoordenacaoController {
 
 	@Autowired
@@ -43,7 +43,7 @@ public class AcessoOperadoresCoordenacaoController {
 	public String salvar(AcessoOperadoresCoordenacao acessoOperadoresCoordenacao, RedirectAttributes attr) {
 		service.salvar(acessoOperadoresCoordenacao);
 		attr.addFlashAttribute("success", "Inserido com sucesso.");
-		return "redirect:/acessoOperadoresCoordenacao/cadastrar";
+		return "redirect:/acessooperadorescoordenacao/cadastrar";
 	}
 	
 	@GetMapping("/editar/{id}")
@@ -57,7 +57,7 @@ public class AcessoOperadoresCoordenacaoController {
 	public String editar(AcessoOperadoresCoordenacao acessoOperadoresCoordenacao, RedirectAttributes attr) {
 		service.salvar(acessoOperadoresCoordenacao);		
 		attr.addFlashAttribute("success", "Editado com sucesso.");
-		return "redirect:/acessoOperadoresCoordenacao/listar";
+		return "redirect:/acessooperadorescoordenacao/listar";
 	}
 	
 	@GetMapping("/excluir/{id}")

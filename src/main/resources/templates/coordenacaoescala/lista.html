@@ -5,15 +5,15 @@
 	<section class="layout-content" layout:fragment="corpo">		
 		<nav class="navbar navbar-expand-md bg-light">
 	            
-	    	<a class="btn btn-outline-dark btn-md" href="/conselhos/cadastrar" role="button">
+	    	<a class="btn btn-outline-dark btn-md" href="/coordenacaoescalas/cadastrar" role="button">
 	        	<span class="oi oi-plus" title="Cadastro" aria-hidden="true"></span>
 	            <span>Novo</span>
 	        </a>
-	        <a class="btn btn-outline-dark btn-md" href="/conselhos/listar" role="button">
+	        <a class="btn btn-outline-dark btn-md" href="/coordenacaoescalas/listar" role="button">
 	        	<span class="oi oi-loop-square" title="Atualizar" aria-hidden="true"></span>
 	            <span>Atualizar</span>
 	        </a>
-	            <label for="nome" class= "fonte-tutulos-tamanho">Lista de Conselhos Regionais </label>
+	            <label for="nome" class= "fonte-tutulos-tamanho">Lista de Coordenação Escalas </label>
 	    </nav>
 	  	<div class="container">
 	    	<p>                
@@ -25,9 +25,9 @@
 	      	<div class="col">
 	        	<div class="collapse" id="collapseNome">
 		            <nav class="navbar navbar-light bg-light">
-	    	           <form class="form-inline" method="GET" th:action="@{/conselhos/buscar/descricao/conselho}">
-	        	           <input class="form-control mr-sm-2" type="search" placeholder="Nome Conselho" aria-label="Search"
-	                              th:name="descricaoConselho" />
+	    	           <form class="form-inline" method="GET" th:action="@{/coordenacaoescalas/buscar/nome/coordenacao}">
+	        	           <input class="form-control mr-sm-2" type="search" placeholder="Coordenação" aria-label="Search"
+	                              th:name="nomeCoordenacao" />
 	                       <button class="btn btn-outline-success my-2 my-sm-0">Buscar</button>
 	                   </form>
 	                </nav>
@@ -44,21 +44,23 @@
 	            	<thead>
 	          			<tr>
 		                	<th>#</th>
-		                    <th>Nome</th>
-		                    <th>Descrição</th>
+		                	<th>Nome</th>
+		                    <th>Atividade</th>
+		                    <th>Localidade</th>
 		                    <th>Ações</th>
 	                    </tr>
 	                </thead>                  
 	                <tbody>
-		            	<tr th:each="d : ${conselhos}">
+		            	<tr th:each="d : ${coordenacaoEscala}">
 		                	<td th:text="${d.id}"></td>
-		                    <td th:text="${d.nomeConselho}"></td>
-		                    <td th:text="${d.descricaoConselho}"></td>
+		                	<td th:text="${d.nomeCoordenacao}"></td>
+		                    <td th:text="${d.idAtividadeFk.nomeAtividade}"></td>
+		                    <td th:text="${d.idLocalidadeFk.nomeLocalidade}"></td>
 		                    <td colspan="2">
-		                    	<a class="btn btn-outline-info btn-sm" th:href="@{/conselhos/editar/{id} (id=${d.id}) }" role="button">
+		                    	<a class="btn btn-outline-info btn-sm" th:href="@{/coordenacaoescalas/editar/{id} (id=${d.id}) }" role="button">
 		                        	<span class="oi oi-brush" title="Editar" aria-hidden="true"></span>
 		                        </a>
-		                        <button th:id="${ 'btn_conselhos/excluir/' + d.id}" type="button" class="btn btn btn-outline-danger btn-sm" 
+		                        <button th:id="${ 'btn_coordenacaoescalas/excluir/' + d.id}" type="button" class="btn btn btn-outline-danger btn-sm" 
 		                            		data-toggle="modal" data-target="#myModal">
 		                                <span class="oi oi-circle-x" title="Exclusão habilitada" aria-hidden="true"></span>
 		                        </button>

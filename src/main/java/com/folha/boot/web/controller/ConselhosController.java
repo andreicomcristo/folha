@@ -59,8 +59,8 @@ public class ConselhosController {
 	}
 	
 	@GetMapping("/buscar/descricao/conselho")
-	public String getPorNome(@RequestParam("descricaoConselho") String descricaoConselho, ModelMap model) {		
-		model.addAttribute("conselhos", service.buscarPorDescricao(descricaoConselho.toUpperCase().trim()));
+	public String getPorNome(@RequestParam("nomeConselho") String nomeConselho, ModelMap model) {		
+		model.addAttribute("conselhos", service.buscarPorNome(nomeConselho.toUpperCase().trim()));
 		return "/conselho/lista";
 	}
 	

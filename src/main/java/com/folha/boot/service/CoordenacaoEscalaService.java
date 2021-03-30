@@ -39,4 +39,8 @@ public class CoordenacaoEscalaService {
 		// TODO Auto-generated method stub
 		return reposytory.findAll();
 	}
+	
+	public List<CoordenacaoEscala> buscarPorNome(String nomeCoordenacao) {
+		return reposytory.findByNomeCoordenacaoContainingOrderByNomeCoordenacaoAsc(nomeCoordenacao);
+	}
 }
