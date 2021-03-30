@@ -67,11 +67,11 @@ public class CoordenacaoEscalaController {
 		return listar(model);
 	}
 	
-	@GetMapping("/buscar/nome/coordenacao")
+	/*@GetMapping("/buscar/nome/coordenacao")
 	public String getPorNome(@RequestParam("nomeCoordenacao") String nomeCoordenacao, ModelMap model) {		
 		model.addAttribute("coordenacaoEscala", service.buscarPorNome(nomeCoordenacao.toUpperCase().trim()));
 		return "/coordenacaoescala/lista";
-	}
+	}*/
 	
 	@ModelAttribute("idAtividadeFk")
 	public List<AtividadeEscala> getAtividadeEscala() {
