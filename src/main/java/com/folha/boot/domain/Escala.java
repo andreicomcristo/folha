@@ -159,8 +159,54 @@ public class Escala extends AbstractEntity<Long>{
     @JoinColumn(name = "dia19_fk", referencedColumnName = "id")
     @ManyToOne
     private Turnos dia19Fk;
+    @JoinColumn(name = "id_avaliacao_assiduidade_fk", referencedColumnName = "id")
+    @ManyToOne
+    private SimNao idAvaliacaoAssiduidadeFk;
+    @JoinColumn(name = "id_avaliacao_atividades_burocraticas_fk", referencedColumnName = "id")
+    @ManyToOne
+    private SimNao idAvaliacaoAtividadesBurocraticasFk;
+    @JoinColumn(name = "id_avaliacao_formalizacao_ponto_fk", referencedColumnName = "id")
+    @ManyToOne
+    private SimNao idAvaliacaoFormalizacaoPontoFk;
+    @JoinColumn(name = "id_avaliacao_permanencia_fk", referencedColumnName = "id")
+    @ManyToOne
+    private SimNao idAvaliacaoPermanenciaFk;
+    @JoinColumn(name = "id_presencial_sim_nao_fk", referencedColumnName = "id")
+    @ManyToOne
+    private SimNao idPresencialSimNaoFk;
 	
     
+    
+    
+	public Escala() {
+		super();
+		// TODO Auto-generated constructor stub
+	}
+	
+	public SimNao getIdAvaliacaoAssiduidadeFk() {
+		return idAvaliacaoAssiduidadeFk;
+	}
+	public void setIdAvaliacaoAssiduidadeFk(SimNao idAvaliacaoAssiduidadeFk) {
+		this.idAvaliacaoAssiduidadeFk = idAvaliacaoAssiduidadeFk;
+	}
+	public SimNao getIdAvaliacaoAtividadesBurocraticasFk() {
+		return idAvaliacaoAtividadesBurocraticasFk;
+	}
+	public void setIdAvaliacaoAtividadesBurocraticasFk(SimNao idAvaliacaoAtividadesBurocraticasFk) {
+		this.idAvaliacaoAtividadesBurocraticasFk = idAvaliacaoAtividadesBurocraticasFk;
+	}
+	public SimNao getIdAvaliacaoFormalizacaoPontoFk() {
+		return idAvaliacaoFormalizacaoPontoFk;
+	}
+	public void setIdAvaliacaoFormalizacaoPontoFk(SimNao idAvaliacaoFormalizacaoPontoFk) {
+		this.idAvaliacaoFormalizacaoPontoFk = idAvaliacaoFormalizacaoPontoFk;
+	}
+	public SimNao getIdAvaliacaoPermanenciaFk() {
+		return idAvaliacaoPermanenciaFk;
+	}
+	public void setIdAvaliacaoPermanenciaFk(SimNao idAvaliacaoPermanenciaFk) {
+		this.idAvaliacaoPermanenciaFk = idAvaliacaoPermanenciaFk;
+	}
 	public SimNao getIdIncrementoDeRiscoSimNaoFk() {
 		return idIncrementoDeRiscoSimNaoFk;
 	}
@@ -461,5 +507,14 @@ public class Escala extends AbstractEntity<Long>{
 	public void setDia19Fk(Turnos dia19Fk) {
 		this.dia19Fk = dia19Fk;
 	}
+
+	public SimNao getIdPresencialSimNaoFk() {
+		return idPresencialSimNaoFk;
+	}
+
+	public void setIdPresencialSimNaoFk(SimNao idPresencialSimNaoFk) {
+		this.idPresencialSimNaoFk = idPresencialSimNaoFk;
+	}
     
+	
 }

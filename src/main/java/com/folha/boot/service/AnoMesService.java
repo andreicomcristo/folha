@@ -37,10 +37,10 @@ public class AnoMesService {
 	@Transactional(readOnly = true)
 	public List<AnoMes> buscarTodos() {
 		// TODO Auto-generated method stub
-		return reposytory.findAllByOrderByNomeAnoMesAsc();
+		return reposytory.findAllByOrderByNomeAnoMesDesc();
 	}
 	
 	public List<AnoMes> buscarPorNome(String nomeAnoMes) {
-		return reposytory.findByNomeAnoMesContainingOrderByNomeAnoMesAsc(nomeAnoMes);
+		return reposytory.findByNomeAnoMesContainingOrderByNomeAnoMesDesc(nomeAnoMes);
 	}
 }

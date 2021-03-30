@@ -26,7 +26,7 @@ public class CodigoDiferenciadoController {
 	
 	@GetMapping("/listar")
 	public String listar(ModelMap model) {
-		model.addAttribute("codigoDiferenciado", service.buscarTodos());
+		model.addAttribute("codigoDiferenciado", service.buscarTodosGeral());
 		return "/codigodiferenciado/lista"; 
 	}
 	
@@ -59,7 +59,7 @@ public class CodigoDiferenciadoController {
 	
 	@GetMapping("/buscar/nome/codigodiferenciado")
 	public String getPorNome(@RequestParam("nomeCodigoDiferenciado") String nomeCodigoDiferenciado, ModelMap model) {		
-		model.addAttribute("codigoDiferenciado", service.buscarPorNome(nomeCodigoDiferenciado.toUpperCase().trim()));
+		model.addAttribute("codigoDiferenciado", service.buscarPorNomeGeral(nomeCodigoDiferenciado.toUpperCase().trim()));
 		return "/codigodiferenciado/lista";
 	}
 }

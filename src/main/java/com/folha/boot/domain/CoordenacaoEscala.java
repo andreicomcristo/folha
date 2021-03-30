@@ -24,9 +24,12 @@ public class CoordenacaoEscala extends AbstractEntity<Long>{
 	@JoinColumn(name = "id_localidade_fk", referencedColumnName = "id")
     @ManyToOne
     private LocalidadeEscala idLocalidadeFk;
-    
+	
 	@OneToMany(mappedBy = "idCoordenacaoFk")
     private List<Escala> escalaList;
+	
+	@OneToMany(mappedBy = "idCoordenacaoFk")
+    private List<AcessoOperadoresCoordenacao> acessoOperadoresCoordenacaoList;
 
 	public String getNomeCoordenacao() {
 		return nomeCoordenacao;
@@ -43,7 +46,7 @@ public class CoordenacaoEscala extends AbstractEntity<Long>{
 	public void setIdAtividadeFk(AtividadeEscala idAtividadeFk) {
 		this.idAtividadeFk = idAtividadeFk;
 	}
-
+	
 	public LocalidadeEscala getIdLocalidadeFk() {
 		return idLocalidadeFk;
 	}
@@ -59,6 +62,15 @@ public class CoordenacaoEscala extends AbstractEntity<Long>{
 	public void setEscalaList(List<Escala> escalaList) {
 		this.escalaList = escalaList;
 	}
+
+	public List<AcessoOperadoresCoordenacao> getAcessoOperadoresCoordenacaoList() {
+		return acessoOperadoresCoordenacaoList;
+	}
+
+	public void setAcessoOperadoresCoordenacaoList(List<AcessoOperadoresCoordenacao> acessoOperadoresCoordenacaoList) {
+		this.acessoOperadoresCoordenacaoList = acessoOperadoresCoordenacaoList;
+	}
     
+	
 	
 }

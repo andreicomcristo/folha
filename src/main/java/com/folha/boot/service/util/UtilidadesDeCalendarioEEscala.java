@@ -5,10 +5,13 @@ import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.List;
+
 import javax.swing.JOptionPane;
 import org.springframework.stereotype.Component;
 
 import com.folha.boot.domain.Escala;
+import com.folha.boot.service.EscalaService;
 
 @Component
 public class UtilidadesDeCalendarioEEscala {
@@ -59,20 +62,47 @@ public class UtilidadesDeCalendarioEEscala {
             default:  
                 return "ERRO DIA DA SEMANA";  
         }
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-    
-    
-}
+       
+    }
 
+    
+    public String getDiaSemanaPorAnoMesEDia(String anoMes, int dia) {  
+        //Algoritmo para descobrir o dia da semana  
+    	int ano = Integer.parseInt(anoMes.substring(0, 4));
+    	int mes = Integer.parseInt(anoMes.substring(4, 6));
+        int a = ((12 - mes) / 10);  
+        int b = ano - a;  
+        int c = mes + (12 * a);  
+        int d = b / 100;  
+        int e = d / 4;  
+        int f = 2 - d + e;  
+        int g = (int) (365.25 * b);  
+        int h = (int) (30.6001 * (c + 1));  
+        int i = (int) ((f + g) + (h + dia) + 5);  
+        int j = (int) (i % 7); //Resto de I por 7, onde 0=SAB, 1=DOM, 2=SEG, 3=TER, 4=QUA, 5=QUI, 6=SEX  
+    
+        
+        switch (j) {  
+            case 0:  
+                return "SABADO";  
+            case 1:  
+                return "DOMINGO";  
+            case 2:  
+                return "SEGUNDA";  
+            case 3:  
+                return "TERCA";  
+            case 4:  
+                return "QUARTA";  
+            case 5:  
+                return "QUINTA";  
+            case 6:  
+                return "SEXTA";  
+            default:  
+                return "ERRO DIA DA SEMANA";  
+        }
+       
+    }
+    
     public boolean anoBisexto (int ano){
     boolean bisexto = false;
     if((ano % 4 == 0) && ( (ano % 100 != 0) || (ano % 400 == 0) ))  {
@@ -633,5 +663,7 @@ public class UtilidadesDeCalendarioEEscala {
     	if(diaDaSemana==0||diaDaSemana==6) {resposta=true;}
     	return resposta;
     }
+    
+    
     
 }

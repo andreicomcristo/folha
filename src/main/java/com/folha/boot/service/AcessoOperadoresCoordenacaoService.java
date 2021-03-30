@@ -6,6 +6,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import com.folha.boot.Reposytory.AcessoOperadoresCoordenacaoReposytory;
 import com.folha.boot.domain. AcessoOperadoresCoordenacao;
+import com.folha.boot.domain.PessoaOperadores;
 
 @Service
 @Transactional(readOnly = false)
@@ -38,6 +39,12 @@ public class AcessoOperadoresCoordenacaoService {
 	public List< AcessoOperadoresCoordenacao> buscarTodos() {
 		// TODO Auto-generated method stub
 		return reposytory.findAll();
+	}
+	
+	@Transactional(readOnly = true)
+	public List< AcessoOperadoresCoordenacao> buscarPorOperador(PessoaOperadores pessoaOperadores) {
+		// TODO Auto-generated method stub
+		return reposytory.findByIdOperadorFk(pessoaOperadores);
 	}
 	
 }

@@ -42,4 +42,10 @@ public class SimNaoService {
 		// TODO Auto-generated method stub
 		return reposytory.findAll();
 	}
+	
+	@Transactional(readOnly = true)
+	public List<SimNao> buscarPorSigla(String sigla) {
+		// TODO Auto-generated method stub
+		return reposytory.findBySigla(sigla);
+	}
 }

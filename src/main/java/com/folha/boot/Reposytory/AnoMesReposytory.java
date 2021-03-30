@@ -9,8 +9,8 @@ import com.folha.boot.domain.AnoMes;
 @Repository
 public interface AnoMesReposytory extends JpaRepository<AnoMes, Long> {
 
-	public List<AnoMes> findAllByOrderByNomeAnoMesAsc();
+	public List<AnoMes> findAllByOrderByNomeAnoMesDesc();
 
-	public List<AnoMes> findByNomeAnoMesContainingOrderByNomeAnoMesAsc(String nomeAnoMes);
+	public List<AnoMes> findByNomeAnoMesContainingOrderByNomeAnoMesDesc(String nomeAnoMes);
 
 }

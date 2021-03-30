@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html layout:decorate="~{layout}">
+<head><meta charset="UTF-8"/></head>
+<body>
+	<section class="layout-content" layout:fragment="corpo">
+
+		<nav class="navbar navbar-expand-md bg-light">
+			<form action="/documentos/listar">
+				<div class=" layout-content">
+					
+				</div>
+			</form>
+		</nav>
+
+		<div class="container" id="cadastro">
+
+			<div th:replace="fragments/alert"></div>
+			<form
+				th:action= "@{/escalas/ir/para/escala}"
+				th:object= "${escolhaAcessoEscala}" method="POST">
+				<div class="form-row">
+
+					<div class="form-group col-md-6">
+						<label for="nome" class="fonte-tutulos-tamanho">Abrir Escala</label>
+							
+							<select  id="anoMes" class="form-control form-select chat-input" th:field="*{anoMes}">
+								<option value="">Selecione o Mês</option>
+								<option th:each="d : ${anoMes}" th:value="${d.id}"th:text="${d.nomeAnoMes}"> </option>
+							</select>	
+							<p></p>
+							<select id="cargos" class="form-select" th:field="*{coordenacaoEscala}">
+								<option value="">Selecione a escala</option>
+								<option th:each="d : ${coordenacaoEscala}" th:value="${d.id}"th:text="${d.nomeCoordenacao+'-'+d.idLocalidadeFk.nomeLocalidade+'-'+d.idAtividadeFk.nomeAtividade}">ADM</option>
+							</select>	
+							
+							
+								<p></p>					
+						
+						<button class="btn btn-outline-dark">Submeter</button>
+						<p></p>	
+						
+						
+						
+					</div>
+				</div>
+			</form>
+		</div>
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		<div th:replace="fragments/modal :: modal"></div>
+	</section>
+</body>
+</html>

@@ -45,8 +45,6 @@ public class Unidades extends AbstractEntity<Long> {
     private List<FuncionariosLicencas> funcionariosLicencasList;
     @OneToMany(mappedBy = "idUnidadeLotacaoAtualFk")
     private List<FuncionariosLicencas> funcionariosLicencasList1;
-    @OneToMany(mappedBy = "idUnidadeFk")
-    private List<AcessoOperadoresCoordenacao> acessoOperadoresCoordenacaoList;
     @JoinColumn(name = "id_endereco_cidade_fk", referencedColumnName = "id")
     @ManyToOne
     private Cidades idEnderecoCidadeFk;
@@ -85,6 +83,18 @@ public class Unidades extends AbstractEntity<Long> {
     private List<LocalidadeEscala> localidadeEscalaList;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "idUnidadeFk")
     private List<HistFuncionariosUnidadeAtuacao> histFuncionariosUnidadeAtuacaoList;
+    @OneToMany(mappedBy = "idUnidadeFk")
+    private List<CodigoDiferenciado> codigoDiferenciadoList;
+
+    
+    
+	public List<CodigoDiferenciado> getCodigoDiferenciadoList() {
+		return codigoDiferenciadoList;
+	}
+
+	public void setCodigoDiferenciadoList(List<CodigoDiferenciado> codigoDiferenciadoList) {
+		this.codigoDiferenciadoList = codigoDiferenciadoList;
+	}
 
 	public List<FuncionariosLicencas> getFuncionariosLicencasList() {
 		return funcionariosLicencasList;
@@ -328,14 +338,6 @@ public class Unidades extends AbstractEntity<Long> {
 	public void setFaixasValoresParametrosCalculoFolhasExtrasList(
 			List<FaixasValoresParametrosCalculoFolhasExtras> faixasValoresParametrosCalculoFolhasExtrasList) {
 		this.faixasValoresParametrosCalculoFolhasExtrasList = faixasValoresParametrosCalculoFolhasExtrasList;
-	}
-
-	public List<AcessoOperadoresCoordenacao> getAcessoOperadoresCoordenacaoList() {
-		return acessoOperadoresCoordenacaoList;
-	}
-
-	public void setAcessoOperadoresCoordenacaoList(List<AcessoOperadoresCoordenacao> acessoOperadoresCoordenacaoList) {
-		this.acessoOperadoresCoordenacaoList = acessoOperadoresCoordenacaoList;
 	}
 
 	public List<LocalidadeEscala> getLocalidadeEscalaList() {
