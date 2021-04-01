@@ -7,7 +7,7 @@ import java.util.Date;
 @Entity
 @Table(name = "funcionarios_licencas")
 
-public class FuncionariosLicencas extends AbstractEntity<Long> {
+public class FuncionariosLicencas extends AbstractEntity<Long> { 
 
     @Column(name = "dt_inicial")
     @Temporal(TemporalType.DATE)
@@ -44,8 +44,10 @@ public class FuncionariosLicencas extends AbstractEntity<Long> {
     @Column(name = "dt_cancelamento")
     @Temporal(TemporalType.DATE)
     private Date dtCancelamento;
+    
     @Column(name = "motivo_cancelamento")
     private String motivoCancelamento;
+    
     @JoinColumn(name = "id_cargo_atual_fk", referencedColumnName = "id")
     @ManyToOne
     private Cargos idCargoAtualFk;

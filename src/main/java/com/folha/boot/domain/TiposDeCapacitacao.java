@@ -11,7 +11,7 @@ import java.util.List;
 @SuppressWarnings("serial")
 @Entity
 @Table(name="tipos_de_capacitacao")
-
+  
 public class TiposDeCapacitacao extends AbstractEntity<Long>  {
 
 	@Column(name = "tipo_capacitacao")

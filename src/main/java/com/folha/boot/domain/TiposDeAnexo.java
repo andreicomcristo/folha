@@ -11,7 +11,7 @@ import javax.persistence.*;
 @SuppressWarnings("serial")
 @Entity
 @Table(name = "tipos_de_anexo")
-public class TiposDeAnexo extends AbstractEntity<Long> {	
+public class TiposDeAnexo extends AbstractEntity<Long> { 	
 
 	@Basic(optional = false)
     @Column(name = "tipo_de_anexo")

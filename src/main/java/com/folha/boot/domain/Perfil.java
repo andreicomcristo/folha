@@ -7,7 +7,7 @@ import javax.persistence.*;
 @SuppressWarnings("serial")
 @Entity
 @Table(name = "perfil")
-public class Perfil extends AbstractEntity<Long> {
+public class Perfil extends AbstractEntity<Long> { 
 
 	@Basic(optional = false)
     @Column(name = "nome_perfil")

@@ -10,7 +10,7 @@ import javax.persistence.Table;
 @SuppressWarnings("serial")
 @Entity
 @Table(name = "turmas")
-public class Turmas extends AbstractEntity<Long> {
+public class Turmas extends AbstractEntity<Long> { 
 
 	@Column(name = "nome_turma")
 	private String nomeTurma;

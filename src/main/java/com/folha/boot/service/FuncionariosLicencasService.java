@@ -37,6 +37,10 @@ public class FuncionariosLicencasService {
 	@Transactional(readOnly = true)
 	public List<FuncionariosLicencas> buscarTodos() {
 		// TODO Auto-generated method stub
-		return reposytory.findAll();
+		return reposytory.findAllByOrderByDtInicialAsc();
+	}
+	
+	public List<FuncionariosLicencas> buscarPorDtInicial(String dtInicial) {
+		return reposytory.findByDtInicialContainingOrderByDtInicialAsc(dtInicial);
 	}
 }
