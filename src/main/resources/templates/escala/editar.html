@@ -91,7 +91,7 @@
 								 		<label class="text" style="font-size:12px;">Presencial </label>
 					                	<select style="width:180px; height:25px; font-size:10px" id="turma" class="form-select"  th:field="*{idPresencialSimNaoFk}" >
 											<option value=""></option>
-											<option th:each="d : ${idPresencialSimNaoFk}" th:value="${d.id}"th:text="${d.sigla}">Presencial</option>
+											<option th:each="d : ${idPresencialSimNaoFk}" th:value="${d.id}"th:text="${d.descricao}">Presencial</option>
 										</select>
 									</th>
 								 	<th>

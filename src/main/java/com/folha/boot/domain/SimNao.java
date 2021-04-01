@@ -32,7 +32,13 @@ public class SimNao extends AbstractEntity<Long> {
     private List<Escala> escalaList6;
     @OneToMany(mappedBy = "idLiberacaoDobraInvertidaSimNaoFk")
     private List<Escala> escalaList7;
-	
+    
+    @OneToMany(mappedBy = "idCorteFolhaEfetivaSimNaoFk")
+    private List<FuncionariosLicencas> funcionariosLicencasList;
+    @OneToMany(mappedBy = "idCorteFolhaExtraSimNaoFk")
+    private List<FuncionariosLicencas> funcionariosLicencasList1;
+    @OneToMany(mappedBy = "idPendenciaExameComprobatorioSimNaoFk")
+    private List<FuncionariosLicencas> funcionariosLicencasList2;
     
     
     public SimNao() {
@@ -136,6 +142,36 @@ public class SimNao extends AbstractEntity<Long> {
 
 	public void setEscalaList7(List<Escala> escalaList7) {
 		this.escalaList7 = escalaList7;
+	}
+
+
+	public List<FuncionariosLicencas> getFuncionariosLicencasList() {
+		return funcionariosLicencasList;
+	}
+
+
+	public void setFuncionariosLicencasList(List<FuncionariosLicencas> funcionariosLicencasList) {
+		this.funcionariosLicencasList = funcionariosLicencasList;
+	}
+
+
+	public List<FuncionariosLicencas> getFuncionariosLicencasList1() {
+		return funcionariosLicencasList1;
+	}
+
+
+	public void setFuncionariosLicencasList1(List<FuncionariosLicencas> funcionariosLicencasList1) {
+		this.funcionariosLicencasList1 = funcionariosLicencasList1;
+	}
+
+
+	public List<FuncionariosLicencas> getFuncionariosLicencasList2() {
+		return funcionariosLicencasList2;
+	}
+
+
+	public void setFuncionariosLicencasList2(List<FuncionariosLicencas> funcionariosLicencasList2) {
+		this.funcionariosLicencasList2 = funcionariosLicencasList2;
 	}
 
     
