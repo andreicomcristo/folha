@@ -12,6 +12,7 @@ import org.springframework.transaction.annotation.Transactional;
 import com.folha.boot.Reposytory.EscalaReposytoty;
 import com.folha.boot.Reposytory.PessoaDocumentosReposytory;
 import com.folha.boot.domain.AnoMes;
+import com.folha.boot.domain.CargosEspecialidade;
 import com.folha.boot.domain.Cidades;
 import com.folha.boot.domain.CoordenacaoEscala;
 import com.folha.boot.domain.Escala;
@@ -89,6 +90,11 @@ public class EscalaService {
 	public Page<Escala> findPaginatedTurma(int pageNo, int pageSize, CoordenacaoEscala coordenacaoEscala, AnoMes anoMes, Turmas turmas) {
 		Pageable pageable = PageRequest.of(pageNo -1, pageSize);
 		return this.reposytory.findByIdCoordenacaoFkAndIdAnoMesFkAndDtCancelamentoIsNullAndIdTurmaFkOrderByIdFuncionarioFkIdPessoaFkNomeAsc(coordenacaoEscala, anoMes, turmas, pageable);
+	}
+	
+	public Page<Escala> findPaginatedCargo(int pageNo, int pageSize, CoordenacaoEscala coordenacaoEscala, AnoMes anoMes, CargosEspecialidade cargosEspecialidade) {
+		Pageable pageable = PageRequest.of(pageNo -1, pageSize);
+		return this.reposytory.findByIdCoordenacaoFkAndIdAnoMesFkAndDtCancelamentoIsNullAndIdFuncionarioFkIdEspecialidadeAtualFkOrderByIdFuncionarioFkIdPessoaFkNomeAsc(coordenacaoEscala, anoMes, cargosEspecialidade, pageable);
 	}
 	
 	

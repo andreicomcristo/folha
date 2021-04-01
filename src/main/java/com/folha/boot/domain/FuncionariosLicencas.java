@@ -9,7 +9,7 @@ import java.util.Date;
 
 public class FuncionariosLicencas extends AbstractEntity<Long> { 
 
-    @Column(name = "dt_inicial")
+	@Column(name = "dt_inicial")
     @Temporal(TemporalType.DATE)
     private Date dtInicial;
     @Column(name = "dt_final")
@@ -21,10 +21,6 @@ public class FuncionariosLicencas extends AbstractEntity<Long> {
     @Column(name = "dt_ultima_alteracao")
     @Temporal(TemporalType.DATE)
     private Date dtUltimaAlteracao;
-    @Column(name = "corte_folha_extra")
-    private String corteFolhaExtra;
-    @Column(name = "corte_folha_efetiva")
-    private String corteFolhaEfetiva;
     @Column(name = "dt_previdencia")
     @Temporal(TemporalType.DATE)
     private Date dtPrevidencia;
@@ -37,8 +33,6 @@ public class FuncionariosLicencas extends AbstractEntity<Long> {
     @Column(name = "dt_final_original")
     @Temporal(TemporalType.DATE)
     private Date dtFinalOriginal;
-    @Column(name = "pendencia_exame_comprobatorio")
-    private String pendenciaExameComprobatorio;
     @Column(name = "observacoes")
     private String observacoes;
     @Column(name = "dt_cancelamento")
@@ -47,7 +41,10 @@ public class FuncionariosLicencas extends AbstractEntity<Long> {
     
     @Column(name = "motivo_cancelamento")
     private String motivoCancelamento;
-    
+
+    @JoinColumn(name = "id_corte_folha_efetiva_sim_nao_fk", referencedColumnName = "id")
+    @ManyToOne
+    private SimNao idCorteFolhaEfetivaSimNaoFk;
     @JoinColumn(name = "id_cargo_atual_fk", referencedColumnName = "id")
     @ManyToOne
     private Cargos idCargoAtualFk;
@@ -63,9 +60,18 @@ public class FuncionariosLicencas extends AbstractEntity<Long> {
     @JoinColumn(name = "id_operador_cancelamento_fk", referencedColumnName = "id")
     @ManyToOne
     private PessoaOperadores idOperadorCancelamentoFk;
+    @JoinColumn(name = "id_vinculo_atual_fk", referencedColumnName = "id")
+    @ManyToOne
+    private Vinculos idVinculoAtualFk;
     @JoinColumn(name = "id_operador_ultima_alteracao_fk", referencedColumnName = "id")
     @ManyToOne
     private PessoaOperadores idOperadorUltimaAlteracaoFk;
+    @JoinColumn(name = "id_corte_folha_extra_sim_nao_fk", referencedColumnName = "id")
+    @ManyToOne
+    private SimNao idCorteFolhaExtraSimNaoFk;
+    @JoinColumn(name = "id_pendencia_exame_comprobatorio_sim_nao_fk", referencedColumnName = "id")
+    @ManyToOne
+    private SimNao idPendenciaExameComprobatorioSimNaoFk;
     @JoinColumn(name = "id_tipo_licenca_fk", referencedColumnName = "id")
     @ManyToOne
     private TiposDeLicenca idTipoLicencaFk;
@@ -75,11 +81,7 @@ public class FuncionariosLicencas extends AbstractEntity<Long> {
     @JoinColumn(name = "id_unidade_lotacao_atual_fk", referencedColumnName = "id")
     @ManyToOne
     private Unidades idUnidadeLotacaoAtualFk;
-    @JoinColumn(name = "id_vinculo_atual_fk", referencedColumnName = "id")
-    @ManyToOne
-    private Vinculos idVinculoAtualFk;
- 
-    public Date getDtInicial() {
+	public Date getDtInicial() {
 		return dtInicial;
 	}
 	public void setDtInicial(Date dtInicial) {
@@ -102,18 +104,6 @@ public class FuncionariosLicencas extends AbstractEntity<Long> {
 	}
 	public void setDtUltimaAlteracao(Date dtUltimaAlteracao) {
 		this.dtUltimaAlteracao = dtUltimaAlteracao;
-	}
-	public String getCorteFolhaExtra() {
-		return corteFolhaExtra;
-	}
-	public void setCorteFolhaExtra(String corteFolhaExtra) {
-		this.corteFolhaExtra = corteFolhaExtra;
-	}
-	public String getCorteFolhaEfetiva() {
-		return corteFolhaEfetiva;
-	}
-	public void setCorteFolhaEfetiva(String corteFolhaEfetiva) {
-		this.corteFolhaEfetiva = corteFolhaEfetiva;
 	}
 	public Date getDtPrevidencia() {
 		return dtPrevidencia;
@@ -139,12 +129,6 @@ public class FuncionariosLicencas extends AbstractEntity<Long> {
 	public void setDtFinalOriginal(Date dtFinalOriginal) {
 		this.dtFinalOriginal = dtFinalOriginal;
 	}
-	public String getPendenciaExameComprobatorio() {
-		return pendenciaExameComprobatorio;
-	}
-	public void setPendenciaExameComprobatorio(String pendenciaExameComprobatorio) {
-		this.pendenciaExameComprobatorio = pendenciaExameComprobatorio;
-	}
 	public String getObservacoes() {
 		return observacoes;
 	}
@@ -162,6 +146,12 @@ public class FuncionariosLicencas extends AbstractEntity<Long> {
 	}
 	public void setMotivoCancelamento(String motivoCancelamento) {
 		this.motivoCancelamento = motivoCancelamento;
+	}
+	public SimNao getIdCorteFolhaEfetivaSimNaoFk() {
+		return idCorteFolhaEfetivaSimNaoFk;
+	}
+	public void setIdCorteFolhaEfetivaSimNaoFk(SimNao idCorteFolhaEfetivaSimNaoFk) {
+		this.idCorteFolhaEfetivaSimNaoFk = idCorteFolhaEfetivaSimNaoFk;
 	}
 	public Cargos getIdCargoAtualFk() {
 		return idCargoAtualFk;
@@ -193,11 +183,29 @@ public class FuncionariosLicencas extends AbstractEntity<Long> {
 	public void setIdOperadorCancelamentoFk(PessoaOperadores idOperadorCancelamentoFk) {
 		this.idOperadorCancelamentoFk = idOperadorCancelamentoFk;
 	}
+	public Vinculos getIdVinculoAtualFk() {
+		return idVinculoAtualFk;
+	}
+	public void setIdVinculoAtualFk(Vinculos idVinculoAtualFk) {
+		this.idVinculoAtualFk = idVinculoAtualFk;
+	}
 	public PessoaOperadores getIdOperadorUltimaAlteracaoFk() {
 		return idOperadorUltimaAlteracaoFk;
 	}
 	public void setIdOperadorUltimaAlteracaoFk(PessoaOperadores idOperadorUltimaAlteracaoFk) {
 		this.idOperadorUltimaAlteracaoFk = idOperadorUltimaAlteracaoFk;
+	}
+	public SimNao getIdCorteFolhaExtraSimNaoFk() {
+		return idCorteFolhaExtraSimNaoFk;
+	}
+	public void setIdCorteFolhaExtraSimNaoFk(SimNao idCorteFolhaExtraSimNaoFk) {
+		this.idCorteFolhaExtraSimNaoFk = idCorteFolhaExtraSimNaoFk;
+	}
+	public SimNao getIdPendenciaExameComprobatorioSimNaoFk() {
+		return idPendenciaExameComprobatorioSimNaoFk;
+	}
+	public void setIdPendenciaExameComprobatorioSimNaoFk(SimNao idPendenciaExameComprobatorioSimNaoFk) {
+		this.idPendenciaExameComprobatorioSimNaoFk = idPendenciaExameComprobatorioSimNaoFk;
 	}
 	public TiposDeLicenca getIdTipoLicencaFk() {
 		return idTipoLicencaFk;
@@ -217,10 +225,7 @@ public class FuncionariosLicencas extends AbstractEntity<Long> {
 	public void setIdUnidadeLotacaoAtualFk(Unidades idUnidadeLotacaoAtualFk) {
 		this.idUnidadeLotacaoAtualFk = idUnidadeLotacaoAtualFk;
 	}
-	public Vinculos getIdVinculoAtualFk() {
-		return idVinculoAtualFk;
-	}
-	public void setIdVinculoAtualFk(Vinculos idVinculoAtualFk) {
-		this.idVinculoAtualFk = idVinculoAtualFk;
-	}
+ 
+    
+    
 }
