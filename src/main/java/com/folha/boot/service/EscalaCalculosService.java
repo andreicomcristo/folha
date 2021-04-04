@@ -28,6 +28,8 @@ public class EscalaCalculosService {
 	private	UtilidadesMatematicas utilidadesMatematicas;
 	@Autowired
 	private	TurnosService turnosService;
+	@Autowired
+	private	SimNaoService simNaoService;
 	
 	public String obtemNomeDiaColuna(String anoMes, int coluna) {
 		Date dataColuna = new Date( Integer.parseInt(anoMes.substring(0, 4))-1900 , Integer.parseInt(anoMes.substring(4, 6))-1, coluna);
@@ -121,6 +123,8 @@ public class EscalaCalculosService {
 		if(escala.getDia29Fk()==null) {escala.setDia29Fk(turnosService.buscarPorNome(""));}
 		if(escala.getDia30Fk()==null) {escala.setDia30Fk(turnosService.buscarPorNome(""));}
 		if(escala.getDia31Fk()==null) {escala.setDia31Fk(turnosService.buscarPorNome(""));}
+		
+		if(escala.getIdLiberacaoDobraInvertidaSimNaoFk()==null) {escala.setIdLiberacaoDobraInvertidaSimNaoFk(simNaoService.buscarPorSigla("N").get(0));}
 		
 		return escala;
 	}

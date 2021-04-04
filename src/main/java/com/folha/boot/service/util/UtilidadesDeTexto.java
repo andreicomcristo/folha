@@ -10,6 +10,29 @@ import org.springframework.stereotype.Component;
 public class UtilidadesDeTexto {
 
 	// UTILIDADES DE TEXTO
+	
+	public boolean validaCpfCompleto (String cpf) {
+		boolean resposta = true;
+		if(cpf.length()!=11) {resposta = false;}else {
+			
+			String d1=cpf.substring(0, 1);
+			String d2=cpf.substring(1, 2);
+			String d3=cpf.substring(2, 3);
+			String d4=cpf.substring(3, 4);
+			String d5=cpf.substring(4, 5);
+			String d6=cpf.substring(5, 6);
+			String d7=cpf.substring(6, 7);
+			String d8=cpf.substring(7, 8);
+			String d9=cpf.substring(8, 9);
+			String d10=cpf.substring(9, 10);
+			String d11=cpf.substring(10, 11);
+			resposta = validaCpf(d1, d2, d3, d4, d5, d6, d7, d8, d9, d10, d11);
+		}
+		
+		return resposta;
+	}
+	
+	
 	public boolean validaCpf(String d1, String d2, String d3, String d4, String d5, String d6, String d7, String d8,
 			String d9, String d10, String d11) {
 

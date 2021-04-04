@@ -1,5 +1,6 @@
 package com.folha.boot.web.controller;
 
+import java.util.Date;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -21,8 +22,12 @@ import com.folha.boot.service.CidadesService;
 import com.folha.boot.service.EscolaridadesService;
 import com.folha.boot.service.EstadosCivisService;
 import com.folha.boot.service.PessoaFotosService;
+import com.folha.boot.service.PessoaOperadoresService;
 import com.folha.boot.service.PessoaService;
 import com.folha.boot.service.SexosService;
+import com.folha.boot.service.UnidadesService;
+import com.folha.boot.service.util.UtilidadesDeTexto;
+import com.folha.boot.service.util.UtilidadesMatematicas;
 
 @Controller
 @RequestMapping("/pessoas")
@@ -30,28 +35,43 @@ public class PessoaController {
 
 	@Autowired
 	private PessoaService service;
-	
 	@Autowired
 	CidadesService cidadesService;
-	
 	@Autowired
 	EscolaridadesService escolaridadesService;
-	
 	@Autowired
 	EstadosCivisService estadosCivisService;
-	
 	@Autowired
 	SexosService sexosService;
-	
 	@Autowired
 	PessoaFotosService pessoaFotosService;
-
+	@Autowired
+	PessoaOperadoresService pessoaOperadoresService;
+	@Autowired
+	UnidadesService unidadesService;
+	@Autowired
+	UtilidadesDeTexto utilidadesDeTexto;
+	
+	
+	
+	Pessoa ultimaPessoaSalva = null;
+	Long idUnidadeLogada = 1l;
+	Long idOperadorLogado = 1l;
+	
+	@GetMapping("/cadastrar/inicio")
+	public String cadastrarInicial(Pessoa pessoa, ModelMap model) {
+		model.addAttribute("pessoa", pessoa);
+		return "/pessoa/cadastroInicial";
+	}
+	
 	@GetMapping("/cadastrar")
 	public String cadastrar(Pessoa pessoa, PessoaFotos pessoaFotos, ModelMap model) {
 		model.addAttribute("pessoa", pessoa);
 		model.addAttribute("pessoaFotos", pessoaFotos);
+		
 		return "/pessoa/cadastro";
 	}
+	
 	
 	@GetMapping("/listar")
 	public String listar(ModelMap model) {
@@ -61,7 +81,10 @@ public class PessoaController {
 	
 	@PostMapping("/salvar")
 	public String salvar( Pessoa pessoa, PessoaFotos pessoafotos,  RedirectAttributes attr) {
-		service.salvar(pessoa);
+		pessoa.setIdOperadorCadastroFk(pessoaOperadoresService.buscarPorId(idOperadorLogado));
+		pessoa.setDtCadastro(new Date());
+		
+		this.ultimaPessoaSalva = service.salvar(pessoa);
 		
 		Long id = null;
 		if(service.buscarPorCpf(pessoa.getCpf()).size()>0) {
@@ -70,6 +93,37 @@ public class PessoaController {
 		
 		//attr.addFlashAttribute("success", "Inserido com sucesso.");
 		return "redirect:/documentos/cadastrar/"+id+"";
+	}
+	
+	@PostMapping("/busca/por/cpf")
+	public String prebuscarPorCpf(Pessoa pessoa, RedirectAttributes attr) {
+		Pessoa pessoaBuscada = null;
+		
+		//Limpando a mascara do CPF
+		if(pessoa!=null) {
+			if(pessoa.getCpf()!=null) {
+				if(pessoa.getCpf().length()>0) {
+					pessoa.setCpf(pessoa.getCpf().replace(".", ""));
+					pessoa.setCpf(pessoa.getCpf().replace("-", ""));
+				}
+			}
+		}
+		
+		System.out.println("cpf :"+pessoa.getCpf());
+		
+		if(!service.buscarPorCpf(pessoa.getCpf()).isEmpty()) {pessoaBuscada = service.buscarPorCpf(pessoa.getCpf()).get(0);}
+		
+		if(pessoaBuscada!=null) {
+			return "redirect:/pessoas/retroceder/editar/"+pessoaBuscada.getId()+"";
+		}else {
+			if(utilidadesDeTexto.validaCpfCompleto(pessoa.getCpf()) == false) {
+				return "redirect:/pessoas/mensagem/de/cpf/invalido";
+			}
+			
+			System.out.println("cpf valido:"+utilidadesDeTexto.validaCpfCompleto(pessoa.getCpf())+" cpf "+pessoa.getCpf() );
+			
+			return cadastrar(pessoa, new PessoaFotos(), new ModelMap());
+		}
 	}
 	
 	@GetMapping("/editar/{id}")
@@ -102,6 +156,16 @@ public class PessoaController {
 	public String getPorNome(@RequestParam("nome") String nome, ModelMap model) {		
 		model.addAttribute("pessoa", service.buscarPorNome(nome.toUpperCase().trim()));
 		return "/pessoa/lista";
+	}
+	
+	@GetMapping("/mensagem/de/cpf/invalido")
+	public String mensagemDeChoque(ModelMap model) {	
+		
+		model.addAttribute("atencao", "ATENÇÃO");
+		model.addAttribute("choque", "Dados Inválidos");
+		model.addAttribute("mensagem", "CPF Inválido.");
+		
+		return "/choqueescala/choque";
 	}
 		
 	@ModelAttribute("idSexoFk")

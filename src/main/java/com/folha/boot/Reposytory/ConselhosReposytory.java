@@ -12,4 +12,5 @@ public interface ConselhosReposytory extends JpaRepository<Conselhos, Long> {
 	public List<Conselhos> findAllByOrderByNomeConselhoAsc();
 	
 	public List<Conselhos> findByNomeConselhoContainingOrderByNomeConselhoAsc(String nomeConselho);
+	
 }

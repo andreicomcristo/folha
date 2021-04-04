@@ -14,4 +14,6 @@ public interface PessoaDocumentosConselhoReposytory extends JpaRepository<Pessoa
 	public List<PessoaDocumentosConselho> findByNumeroConselhoContainingOrderByNumeroConselhoAsc(String numeroConselho);
 	
 	public List<PessoaDocumentosConselho> findByIdPessoaFk(Pessoa pessoa);
+	
+	public List<PessoaDocumentosConselho> findByIdPessoaFkOrderByDtValidadeDesc (Pessoa pessoa);
 }

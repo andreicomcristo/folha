@@ -15,9 +15,9 @@ public class PessoaService {
 	private PessoaReposytory reposytory;
 	
 	
-	public void salvar(Pessoa pessoa) {
+	public Pessoa salvar(Pessoa pessoa) {
 		// TODO Auto-generated method stub
-		reposytory.save(pessoa);
+		return reposytory.save(pessoa);
 	}
 
 	
@@ -43,19 +43,19 @@ public class PessoaService {
 	
 	public List<Pessoa> buscarTodos() {
 		// TODO Auto-generated method stub
-		return reposytory.findAll();
+		return reposytory.findByDtCancelamentoIsNullOrderByNomeAsc();
 	}
 
 	
 	public List<Pessoa> buscarPorNome(String nome) {
 		// TODO Auto-generated method stub
-		return reposytory.findByNomeContainingOrderByNomeAsc(nome);
+		return reposytory.findByNomeContainingAndDtCancelamentoIsNullOrderByNomeAsc(nome);
 	}
 	
 	
 	public List<Pessoa> buscarPorCpf(String cpf) {
 		// TODO Auto-generated method stub
-		return reposytory.findByCpfOrderByNomeAsc(cpf);
+		return reposytory.findByCpfAndDtCancelamentoIsNullOrderByNomeAsc(cpf);
 	}
 	
 }

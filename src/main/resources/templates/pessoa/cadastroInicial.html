@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html layout:decorate="~{layout}">
+<head><meta charset="UTF-8" /></head>
+<body>
+	<section class="layout-content" layout:fragment="corpo">
+
+		<nav class="navbar navbar-expand-md bg-light">
+			<form action="/cidades/listar">
+				<div class=" layout-content">
+					<button class="btn btn-outline-dark ">Listar</button>
+					<a class="btn btn-outline-dark btn-md" href="/pessoas/cadastrar"
+						role="button"> <span class="oi oi-plus" title="Cadastro"
+						aria-hidden="true"></span> <span>Novo</span>
+					</a>
+				</div>
+			</form>
+		</nav>
+
+		<div class="container" id="cadastro">
+
+			<div th:replace="fragments/alert"></div>
+			<form
+				th:action="${pessoa.id == null} ? @{/pessoas/busca/por/cpf} : @{/pessoas/busca/por/cpf}"
+				th:object="${pessoa}" method="POST">
+				<div class="form-row">
+					<div class="form-group col-md-6">
+						<label for="nome" class="fonte-tutulos-tamanho">Busca / Cadastro de Pessoas </label>
+						
+						
+						
+						
+			<div class="tab-content" id="nav-tabContent">
+			  
+			  		<p></p>
+			  		
+			  		<input type="text"	class="form-control form-control-md" autofocus="autofocus" data-mask="000.000.000-00"
+					id="codigo" placeholder="Cpf" th:field="*{cpf}" />
+					<p></p>
+			  		
+			  		
+			  		<button class="btn btn-outline-dark">Avancar</button>
+			  
+			  	
+			</div>
+						
+						
+						<p></p>	
+												
+						<input type="hidden" id="id" th:field="*{id}" />
+						
+					</div>
+				</div>
+			</form>
+		</div>
+	</section>
+	
+</body>
+</html>

@@ -8,9 +8,11 @@ import com.folha.boot.domain.Pessoa;
 @Repository
 public interface PessoaReposytory extends JpaRepository<Pessoa, Long> {
 	
-	public List<Pessoa> findAllByOrderByNomeAsc();
-
-	public List<Pessoa> findByNomeContainingOrderByNomeAsc(String nome);
 	
-	public List<Pessoa> findByCpfOrderByNomeAsc(String nome);
+	
+	public List<Pessoa> findByDtCancelamentoIsNullOrderByNomeAsc();
+
+	public List<Pessoa> findByNomeContainingAndDtCancelamentoIsNullOrderByNomeAsc(String nome);
+	
+	public List<Pessoa> findByCpfAndDtCancelamentoIsNullOrderByNomeAsc(String nome);
 }

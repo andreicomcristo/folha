@@ -1,11 +1,20 @@
 package com.folha.boot.web.controller;
 
+import java.io.ByteArrayInputStream;
+import java.io.IOException;
 import java.util.Date;
 import java.util.List;
 
+import javax.servlet.http.HttpServletResponse;
+
+import org.apache.commons.compress.utils.IOUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.io.InputStreamResource;
 import org.springframework.data.domain.Page;
 import org.springframework.data.repository.query.Param;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -35,6 +44,7 @@ import com.folha.boot.domain.TiposDeFolha;
 import com.folha.boot.domain.Turmas;
 import com.folha.boot.domain.Turnos;
 import com.folha.boot.domain.Uf;
+import com.folha.boot.domain.Unidades;
 import com.folha.boot.domain.models.EscolhaAcessoEscala;
 import com.folha.boot.domain.models.InclusaoEscala;
 import com.folha.boot.service.AcessoOperadoresCoordenacaoService;
@@ -44,6 +54,7 @@ import com.folha.boot.service.CodigoDiferenciadoService;
 import com.folha.boot.service.CoordenacaoEscalaService;
 import com.folha.boot.service.EscalaAtalhosService;
 import com.folha.boot.service.EscalaCalculosService;
+import com.folha.boot.service.EscalaExportacaoService;
 import com.folha.boot.service.EscalaService;
 import com.folha.boot.service.PessoaDocumentosService;
 import com.folha.boot.service.PessoaFuncionariosService;
@@ -69,10 +80,12 @@ public class EscalaController {
 	Long idOperadorLogado = 1l;
 	Escala escalaAtual;
 	String choque = "";
+	String choqueDescansoDepoisNoturno = "";
 	
 	String ultimaBuscaNome = "";
 	Turmas ultimaBuscaTurma = null;
 	CargosEspecialidade ultimaBuscaCargoEspecialidade = null;
+	TiposDeFolha ultimaBuscaTiposDeFolha = null;
 	
 	@Autowired
 	private EscalaService service;
@@ -106,6 +119,8 @@ public class EscalaController {
 	AcessoOperadoresCoordenacaoService acessoOperadoresCoordenacaoService;
 	@Autowired
 	CargosEspecialidadeService cargosEspecialidadeService;
+	@Autowired
+	EscalaExportacaoService escalaExportacaoService;
 	
 	
 	
@@ -118,6 +133,16 @@ public class EscalaController {
 		model.addAttribute("coordenacaoEscala", coordenacaoEscalaService.buscarAcessoIndividual(unidadesService.buscarPorId(this.idUnidadeLogada) , pessoaOperadoresService.buscarPorId( this.idOperadorLogado) , listaDeCoordenacoes ) );
 		model.addAttribute("anoMes", anoMesService.buscarTodos());
 		return "/escala/escolher"; 
+	}
+	
+	@GetMapping("/escolher/escala/todos")
+	public String escolherEscalaTodos(ModelMap model) {
+		
+		Unidades unidade = unidadesService.buscarPorId(idUnidadeLogada);
+		model.addAttribute("escolhaAcessoEscala", new EscolhaAcessoEscala());
+		model.addAttribute("unidade", unidade); 
+		model.addAttribute("anoMes", anoMesService.buscarTodos());
+		return "/escala/escolherTodos"; 
 	}
 	
 	@PostMapping("/ir/para/escala")
@@ -133,12 +158,36 @@ public class EscalaController {
 		}
 		
 	}
+	
+	@PostMapping("/ir/para/escala/todos")
+	public String irParaEscalaTodos(ModelMap model, Long anoMes) {
+		
+		if( anoMes!=null) {
+			this.idAnoMesAtual = anoMes;
+			
+			return "redirect:/escalas/listar/todos";
+		}else {
+			return "redirect:/escalas/mensagem/de/nao/escolha";
+		}
+		
+	}
 
 	@GetMapping("/listar")
 	public String listar(ModelMap model) {
 		ultimaBuscaNome = "";
 		ultimaBuscaTurma = null;
+		ultimaBuscaCargoEspecialidade = null;
+		ultimaBuscaTiposDeFolha = null;
 		return this.findPaginated(1, model);
+	}	
+	
+	@GetMapping("/listar/todos")
+	public String listarTodos(ModelMap model) {
+		ultimaBuscaNome = "";
+		ultimaBuscaTurma = null;
+		ultimaBuscaCargoEspecialidade = null;
+		ultimaBuscaTiposDeFolha = null;
+		return this.findPaginatedTodos(1, model);
 	}	
 	
 	@GetMapping("/listar/{pageNo}")
@@ -147,6 +196,14 @@ public class EscalaController {
 		Page<Escala> page = service.findPaginated(pageNo, pageSeze, coordenacaoEscalaService.buscarPorId(idCoordenacaoAtual), anoMesService.buscarPorId(idAnoMesAtual));
 		List<Escala> lista = page.getContent();
 		return paginar(pageNo, page, lista, model);
+	}
+	
+	@GetMapping("/listar/todos/{pageNo}")
+	public String findPaginatedTodos(@PathVariable (value = "pageNo") int pageNo, ModelMap model) {
+		int pageSeze = 5;
+		Page<Escala> page = service.findPaginatedTodos(pageNo, pageSeze, unidadesService.buscarPorId(idUnidadeLogada), anoMesService.buscarPorId(idAnoMesAtual));
+		List<Escala> lista = page.getContent();
+		return paginarTodos(pageNo, page, lista, model);
 	}
 	
 	public String paginar(int pageNo, Page<Escala> page, List<Escala> lista, ModelMap model) {	
@@ -161,6 +218,18 @@ public class EscalaController {
 		return "/escala/lista";	
 	}
 	
+	public String paginarTodos(int pageNo, Page<Escala> page, List<Escala> lista, ModelMap model) {	
+		
+		model.addAttribute("escala", "Todos");
+		model.addAttribute("mes", anoMesService.buscarPorId(idAnoMesAtual));
+		
+		model.addAttribute("currentePage", pageNo);
+		model.addAttribute("totalPages", page.getTotalPages());
+		model.addAttribute("totalItems", page.getTotalElements()); 
+		model.addAttribute("listaEscala", lista);
+		return "/escala/listaTodos";	
+	}
+	
 		
 	@GetMapping("/alterar/escala/{id}")
 	public String cadastrarEscala(@PathVariable("id") Long id, Escala escala, ModelMap model) {	
@@ -171,25 +240,9 @@ public class EscalaController {
 		escala = escalaCalculosService.converteTurnoNuloEmFolga(escala);
 		escala = escalaCalculosService.calcularDadosEscala(escala);
 		
-		String recalcular = "N";
-		
 		String anoMesDaEscala = "202105";
 		if(escala!=null){anoMesDaEscala = escala.getIdAnoMesFk().getNomeAnoMes();}
 		int qtdDiasNoMes = escalaCalculosService.quantidadeDeDiasNoMes(anoMesDaEscala);
-		String escalaCoordenacao = "ENFERMAGEM-VERDE A-ENFERMEIROS";
-		if(escala!=null){escalaCoordenacao = escala.getIdCoordenacaoFk().getNomeCoordenacao()+"-"+escala.getIdCoordenacaoFk().getIdLocalidadeFk().getNomeLocalidade()+"-"+escala.getIdCoordenacaoFk().getIdAtividadeFk().getNomeAtividade();}
-		String nomeDaPessoa = "NOME DA PESSOA";
-		if(escala!=null){nomeDaPessoa = escala.getIdFuncionarioFk().getIdPessoaFk().getNome();}
-		String cpfDaPessoa = "11111111111";
-		if(escala!=null){cpfDaPessoa = escala.getIdFuncionarioFk().getIdPessoaFk().getCpf();}
-		String matriculaDaPessoa = "00000000";
-		if(escala!=null){matriculaDaPessoa = escala.getIdFuncionarioFk().getMatricula();}
-		String chDaPessoa = "30";
-		if(escala!=null){chDaPessoa = String.valueOf(escala.getIdFuncionarioFk().getIdCargaHorariaAtualFk().getCargaHoraria());}
-		String tipoDeFolhaDaPessoa = "TIPO DE FOLHA";
-		if(escala!=null){tipoDeFolhaDaPessoa = escala.getIdTipoFolhaFk().getNomeTipoFolha();}
-		String cargoDaPessoa = "CARGO";
-		if(escala!=null){cargoDaPessoa = escala.getIdFuncionarioFk().getIdEspecialidadeAtualFk().getIdCargoFk().getNomeCargo()+"-"+escala.getIdFuncionarioFk().getIdEspecialidadeAtualFk().getNomeEspecialidadeCargo();}
 		
 		// CALCULANDO OS DIAS DO MES
 		String nomeColuna1 = escalaCalculosService.obtemNomeDiaColuna(anoMesDaEscala, 1);
@@ -238,6 +291,17 @@ public class EscalaController {
 			return "redirect:/escalas/mensagem/de/choque";
 		}
 		
+		//Avaliando Choques Depois Noturno
+		String choqueDescansoDepoisNoturno = service.choquesEmEscalaDepoisDoNoturno(escala);
+		this.choqueDescansoDepoisNoturno = "";
+			if(escala.getIdLiberacaoDobraInvertidaSimNaoFk().getSigla().equalsIgnoreCase("N")) {
+				this.choqueDescansoDepoisNoturno = choqueDescansoDepoisNoturno;
+				if(choqueDescansoDepoisNoturno.length()>0) {chocou = true; podeSalvar = false;}
+				if(chocou==true) {
+				return "redirect:/escalas/mensagem/de/choque/depois/noturno";
+			}
+		}
+				
 		
 		//Avaliando Noturno Não Presencial
 		if(escala.getHorasNoite()!=null) {
@@ -282,10 +346,11 @@ public class EscalaController {
 		return "redirect:/escalas/listar";
 	}
 	
+	// Buscas para um setor específico
 	@GetMapping("/paginar/{pageNo}")
 	public String getPorNomePaginado(@PathVariable (value = "pageNo") int pageNo, ModelMap model) {
 		
-		if( (ultimaBuscaNome.equals("")) && (ultimaBuscaTurma == null) && (ultimaBuscaCargoEspecialidade == null)  ){
+		if( (ultimaBuscaNome.equals("")) && (ultimaBuscaTurma == null) && (ultimaBuscaCargoEspecialidade == null)  && (ultimaBuscaTiposDeFolha == null) ){
 			return "redirect:/escalas/listar/{pageNo}" ;}
 		else {		
 			if(!ultimaBuscaNome.equals("")) {
@@ -294,6 +359,8 @@ public class EscalaController {
 				return this.findPaginated(pageNo, ultimaBuscaTurma, model);}
 			if(ultimaBuscaCargoEspecialidade!=null) {
 				return this.findPaginated(pageNo, ultimaBuscaCargoEspecialidade, model);}
+			if(ultimaBuscaTiposDeFolha!=null) {
+				return this.findPaginated(pageNo, ultimaBuscaTiposDeFolha, model);}
 			
 			else {
 				return "redirect:/escalas/listar/{pageNo}" ;}
@@ -305,6 +372,7 @@ public class EscalaController {
 		this.ultimaBuscaNome = nome;
 		this.ultimaBuscaTurma = null;
 		this.ultimaBuscaCargoEspecialidade = null;
+		this.ultimaBuscaTiposDeFolha = null;
 		return this.findPaginated(1, nome, model);
 	}
 	
@@ -312,8 +380,6 @@ public class EscalaController {
 		int pageSeze = 5;
 		Page<Escala> page = service.findPaginatedNome(pageNo, pageSeze, coordenacaoEscalaService.buscarPorId(idCoordenacaoAtual), anoMesService.buscarPorId(idAnoMesAtual), nome );
 		List<Escala> lista = page.getContent();
-		//ultimaBuscaNome = "";
-		//ultimaBuscaTurma = null;
 		return paginar(pageNo, page, lista, model);
 	}
 	
@@ -322,6 +388,7 @@ public class EscalaController {
 		this.ultimaBuscaTurma = turmas;
 		this.ultimaBuscaNome = "";
 		this.ultimaBuscaCargoEspecialidade = null;
+		this.ultimaBuscaTiposDeFolha = null;
 		
 		if(turmas==null){
 			return "redirect:/escalas/listar";
@@ -334,8 +401,6 @@ public class EscalaController {
 		int pageSeze = 5;
 		Page<Escala> page = service.findPaginatedTurma(pageNo, pageSeze, coordenacaoEscalaService.buscarPorId(idCoordenacaoAtual), anoMesService.buscarPorId(idAnoMesAtual), turmas );
 		List<Escala> lista = page.getContent();
-		//ultimaBuscaNome = "";
-		//ultimaBuscaTurma = null;
 		return paginar(pageNo, page, lista, model);
 	}
 	
@@ -344,6 +409,7 @@ public class EscalaController {
 		this.ultimaBuscaCargoEspecialidade = cargosEspecialidade;
 		this.ultimaBuscaTurma = null;
 		this.ultimaBuscaNome = "";
+		this.ultimaBuscaTiposDeFolha = null;
 		
 		if(cargosEspecialidade==null){
 			return "redirect:/escalas/listar";
@@ -356,9 +422,129 @@ public class EscalaController {
 		int pageSeze = 5;
 		Page<Escala> page = service.findPaginatedCargo(pageNo, pageSeze, coordenacaoEscalaService.buscarPorId(idCoordenacaoAtual), anoMesService.buscarPorId(idAnoMesAtual), cargosEspecialidade );
 		List<Escala> lista = page.getContent();
-		//ultimaBuscaNome = "";
-		//ultimaBuscaTurma = null;
 		return paginar(pageNo, page, lista, model);
+	}
+	
+	@GetMapping("/buscar/id/folha")
+	public String getPorIdFolha(@RequestParam("idTipoFolhaFk") TiposDeFolha tiposDeFolha, ModelMap model) {
+		this.ultimaBuscaCargoEspecialidade = null;
+		this.ultimaBuscaTurma = null;
+		this.ultimaBuscaNome = "";
+		this.ultimaBuscaTiposDeFolha = tiposDeFolha;
+		
+		if(tiposDeFolha==null){
+			return "redirect:/escalas/listar";
+		}else {
+			return this.findPaginated(1, tiposDeFolha, model);
+		}
+	}
+	
+	public String findPaginated(@PathVariable (value = "pageNo") int pageNo, TiposDeFolha tiposDeFolha, ModelMap model) {
+		int pageSeze = 5;
+		Page<Escala> page = service.findPaginatedFolha(pageNo, pageSeze, coordenacaoEscalaService.buscarPorId(idCoordenacaoAtual), anoMesService.buscarPorId(idAnoMesAtual), tiposDeFolha );
+		List<Escala> lista = page.getContent();
+		return paginar(pageNo, page, lista, model);
+	}
+	
+	// Buscas para todos
+	@GetMapping("/paginar/todos/{pageNo}")
+	public String getPorNomePaginadoTodos(@PathVariable (value = "pageNo") int pageNo, ModelMap model) {
+		
+		if( (ultimaBuscaNome.equals("")) && (ultimaBuscaTurma == null) && (ultimaBuscaCargoEspecialidade == null)  && (ultimaBuscaTiposDeFolha == null)  ){
+			return "redirect:/escalas/listar/todos/{pageNo}" ;}
+		else {		
+			if(!ultimaBuscaNome.equals("")) {
+				return this.findPaginatedTodos(pageNo, ultimaBuscaNome, model);}
+			if(ultimaBuscaTurma!=null) {
+				return this.findPaginatedTodos(pageNo, ultimaBuscaTurma, model);}
+			if(ultimaBuscaCargoEspecialidade!=null) {
+				return this.findPaginatedTodos(pageNo, ultimaBuscaCargoEspecialidade, model);}
+			if(ultimaBuscaTiposDeFolha!=null) {
+				return this.findPaginatedTodos(pageNo, ultimaBuscaTiposDeFolha, model);}
+			
+			
+			else {
+				return "redirect:/escalas/listar/{pageNo}" ;}
+			}
+	}
+	
+	@GetMapping("/buscar/nome/todos")
+	public String getPorNomeTodos(@RequestParam("nome") String nome, ModelMap model) {
+		this.ultimaBuscaNome = nome;
+		this.ultimaBuscaTurma = null;
+		this.ultimaBuscaCargoEspecialidade = null;
+		this.ultimaBuscaTiposDeFolha = null;
+		return this.findPaginatedTodos(1, nome, model);
+	}
+	
+	public String findPaginatedTodos(@PathVariable (value = "pageNo") int pageNo, String nome, ModelMap model) {
+		int pageSeze = 5;
+		Page<Escala> page = service.findPaginatedNomeTodos(pageNo, pageSeze, unidadesService.buscarPorId(idUnidadeLogada), anoMesService.buscarPorId(idAnoMesAtual), nome );
+		List<Escala> lista = page.getContent();
+		return paginarTodos(pageNo, page, lista, model);
+	}
+	
+	@GetMapping("/buscar/id/turma/todos")
+	public String getPorIdTurmaTodos(@RequestParam("idTurmaFk") Turmas turmas, ModelMap model) {
+		this.ultimaBuscaTurma = turmas;
+		this.ultimaBuscaNome = "";
+		this.ultimaBuscaCargoEspecialidade = null;
+		this.ultimaBuscaTiposDeFolha = null;
+		
+		if(turmas==null){
+			return "redirect:/escalas/listar/todos";
+		}else {
+			return this.findPaginatedTodos(1, turmas, model);
+		}
+	}
+	
+	public String findPaginatedTodos(@PathVariable (value = "pageNo") int pageNo, Turmas turmas, ModelMap model) {
+		int pageSeze = 5;
+		Page<Escala> page = service.findPaginatedTurmaTodos(pageNo, pageSeze, unidadesService.buscarPorId(idUnidadeLogada), anoMesService.buscarPorId(idAnoMesAtual), turmas );
+		List<Escala> lista = page.getContent();
+		return paginarTodos(pageNo, page, lista, model);
+	}
+	
+	@GetMapping("/buscar/id/cargo/todos")
+	public String getPorIdCargoTodos(@RequestParam("idEspecialidadeCargoFk") CargosEspecialidade cargosEspecialidade, ModelMap model) {
+		this.ultimaBuscaCargoEspecialidade = cargosEspecialidade;
+		this.ultimaBuscaTurma = null;
+		this.ultimaBuscaNome = "";
+		this.ultimaBuscaTiposDeFolha = null;
+		
+		if(cargosEspecialidade==null){
+			return "redirect:/escalas/listar/todos";
+		}else {
+			return this.findPaginatedTodos(1, cargosEspecialidade, model);
+		}
+	}
+	
+	public String findPaginatedTodos(@PathVariable (value = "pageNo") int pageNo, CargosEspecialidade cargosEspecialidade, ModelMap model) {
+		int pageSeze = 5;
+		Page<Escala> page = service.findPaginatedCargoTodos(pageNo, pageSeze, unidadesService.buscarPorId(idUnidadeLogada), anoMesService.buscarPorId(idAnoMesAtual), cargosEspecialidade );
+		List<Escala> lista = page.getContent();
+		return paginarTodos(pageNo, page, lista, model);
+	}
+	
+	@GetMapping("/buscar/id/folha/todos")
+	public String getPorIdCargoTodos(@RequestParam("idTipoFolhaFk") TiposDeFolha tiposDeFolha, ModelMap model) {
+		this.ultimaBuscaCargoEspecialidade = null;
+		this.ultimaBuscaTurma = null;
+		this.ultimaBuscaNome = "";
+		this.ultimaBuscaTiposDeFolha = tiposDeFolha;
+		
+		if(tiposDeFolha==null){
+			return "redirect:/escalas/listar/todos";
+		}else {
+			return this.findPaginatedTodos(1, tiposDeFolha, model);
+		}
+	}
+	
+	public String findPaginatedTodos(@PathVariable (value = "pageNo") int pageNo, TiposDeFolha tiposDeFolha, ModelMap model) {
+		int pageSeze = 5;
+		Page<Escala> page = service.findPaginatedFolhaTodos(pageNo, pageSeze, unidadesService.buscarPorId(idUnidadeLogada), anoMesService.buscarPorId(idAnoMesAtual), tiposDeFolha );
+		List<Escala> lista = page.getContent();
+		return paginarTodos(pageNo, page, lista, model);
 	}
 	
 	
@@ -1452,6 +1638,16 @@ public class EscalaController {
 		return "/choqueescala/choque";
 	}
 	
+	@GetMapping("/mensagem/de/choque/depois/noturno")
+	public String mensagemDeChoqueDepoisNoturno(ModelMap model) {	
+		
+		model.addAttribute("atencao", "ATENÇÃO");
+		model.addAttribute("choque", "NÃO DESCANSO DEPOIS DO NOTURNO");
+		model.addAttribute("mensagem", choqueDescansoDepoisNoturno);
+		
+		return "/choqueescala/choqueDepoisNoturno";
+	}
+	
 	@GetMapping("/mensagem/de/presencial/noturno")
 	public String mensagemDePresencialNoturno(ModelMap model) {	
 		
@@ -1637,6 +1833,53 @@ public class EscalaController {
 		}
 		
 	}
+	
+	
+	//Exportacao
+	@GetMapping("/exporta/excel")
+    public void downloadExcel(HttpServletResponse response, ModelMap model) throws IOException {
+        response.setContentType("application/octet-stream");
+        response.setHeader("Content-Disposition", "attachment; filename=dados.xlsx");
+        ByteArrayInputStream stream = escalaExportacaoService.exportarExcel(service.buscarExportacao(coordenacaoEscalaService.buscarPorId(idCoordenacaoAtual), anoMesService.buscarPorId(idAnoMesAtual)));
+        IOUtils.copy(stream, response.getOutputStream());
+    }
+	
+	@GetMapping(value = "/exporta/pdf", produces = MediaType.APPLICATION_PDF_VALUE)
+	public ResponseEntity<InputStreamResource> employeeReports(HttpServletResponse response) throws IOException {
+		ByteArrayInputStream bis = escalaExportacaoService.exportarPdf(service.buscarExportacao(coordenacaoEscalaService.buscarPorId(idCoordenacaoAtual), anoMesService.buscarPorId(idAnoMesAtual)));
+		HttpHeaders headers = new HttpHeaders();
+		headers.add("Content-Disposition", "attachment;filename=dados.pdf");
+		return ResponseEntity.ok().headers(headers).contentType(MediaType.APPLICATION_PDF)
+				.body(new InputStreamResource(bis));
+	}
+	
+	@GetMapping(value = "/exporta/pdf/setorial/servico", produces = MediaType.APPLICATION_PDF_VALUE)
+	public ResponseEntity<InputStreamResource> employeeReportsSetorialServico(HttpServletResponse response) throws IOException {
+		ByteArrayInputStream bis = escalaExportacaoService.exportarPdfSetorial(service.buscarExportacaoSetorialServico(coordenacaoEscalaService.buscarPorId(idCoordenacaoAtual), anoMesService.buscarPorId(idAnoMesAtual)));
+		HttpHeaders headers = new HttpHeaders();
+		headers.add("Content-Disposition", "attachment;filename=dados.pdf");
+		return ResponseEntity.ok().headers(headers).contentType(MediaType.APPLICATION_PDF)
+				.body(new InputStreamResource(bis));
+	}
+	
+	//Exportacao Todos os setores
+		@GetMapping("/exporta/excel/todos")
+	    public void downloadExcelTodos(HttpServletResponse response, ModelMap model) throws IOException {
+	        response.setContentType("application/octet-stream");
+	        response.setHeader("Content-Disposition", "attachment; filename=dados.xlsx");
+	        ByteArrayInputStream stream = escalaExportacaoService.exportarExcel(service.buscarExportacaoTodos(unidadesService.buscarPorId(idUnidadeLogada), anoMesService.buscarPorId(idAnoMesAtual)));
+	        IOUtils.copy(stream, response.getOutputStream());
+	    }
+		
+		@GetMapping(value = "/exporta/pdf/todos", produces = MediaType.APPLICATION_PDF_VALUE)
+		public ResponseEntity<InputStreamResource> employeeReportsTodos(HttpServletResponse response) throws IOException {
+			ByteArrayInputStream bis = escalaExportacaoService.exportarPdf(service.buscarExportacaoTodos(unidadesService.buscarPorId(idUnidadeLogada), anoMesService.buscarPorId(idAnoMesAtual)));
+			HttpHeaders headers = new HttpHeaders();
+			headers.add("Content-Disposition", "attachment;filename=dados.pdf");
+			return ResponseEntity.ok().headers(headers).contentType(MediaType.APPLICATION_PDF)
+					.body(new InputStreamResource(bis));
+		}
+	
 	
 	// Metodos para preencher os combobox
 	

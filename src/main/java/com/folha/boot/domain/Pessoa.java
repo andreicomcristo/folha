@@ -4,6 +4,9 @@ import java.util.Date;
 import java.util.List;
 import javax.persistence.*;
 import javax.validation.constraints.*;
+
+import org.hibernate.validator.constraints.br.CPF;
+
 import com.folha.boot.service.util.UtilidadesDeTexto;
 
 @SuppressWarnings("serial")
@@ -11,6 +14,7 @@ import com.folha.boot.service.util.UtilidadesDeTexto;
 @Table(name = "pessoa")
 public class Pessoa extends AbstractEntity<Long> {
 
+	@CPF
 	@NotBlank(message = "CPF obrigatório")
 	@Column(name = "cpf", nullable = false, length = 20)
 	private String cpf;

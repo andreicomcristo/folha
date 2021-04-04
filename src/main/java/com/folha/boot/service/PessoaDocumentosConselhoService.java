@@ -58,5 +58,12 @@ public class PessoaDocumentosConselhoService {
 		// TODO Auto-generated method stub
 		return reposytory.findByIdPessoaFk(pessoa);
 	}
+	
+	public List<PessoaDocumentosConselho> buscarPorPessoaOrdemDataValidade(Pessoa pessoa) {
+		// TODO Auto-generated method stub
+		return reposytory.findByIdPessoaFkOrderByDtValidadeDesc(pessoa);
+	}
+	
+	
 
 }
