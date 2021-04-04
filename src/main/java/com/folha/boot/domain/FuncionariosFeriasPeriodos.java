@@ -11,28 +11,36 @@ public class FuncionariosFeriasPeriodos extends AbstractEntity<Long> {
 	@Column(name = "dt_inicial")
     @Temporal(TemporalType.DATE)
     private Date dtInicial;
-    @Basic(optional = false)
+    
+	@Basic(optional = false)
     @Column(name = "dt_final")
     @Temporal(TemporalType.DATE)
     private Date dtFinal;
-    @Column(name = "dt_assinatura")
+    
+	@Column(name = "dt_assinatura")
     @Temporal(TemporalType.DATE)
     private Date dtAssinatura;
-    @Column(name = "dt_cadastro")
+    
+	@Column(name = "dt_cadastro")
     @Temporal(TemporalType.DATE)
     private Date dtCadastro;
-    @Column(name = "dt_cancelamento")
+    
+	@Column(name = "dt_cancelamento")
     @Temporal(TemporalType.DATE)
     private Date dtCancelamento;
-    @Column(name = "motivo_cancelamento")
+    
+	@Column(name = "motivo_cancelamento")
     private String motivoCancelamento;
-    @JoinColumn(name = "id_ferias_fk", referencedColumnName = "id")
+    
+	@JoinColumn(name = "id_ferias_fk", referencedColumnName = "id")
     @ManyToOne(optional = false)
     private FuncionariosFerias idFeriasFk;
-    @JoinColumn(name = "id_operador_cadastro_fk", referencedColumnName = "id")
+    
+	@JoinColumn(name = "id_operador_cadastro_fk", referencedColumnName = "id")
     @ManyToOne
     private PessoaOperadores idOperadorCadastroFk;
-    @JoinColumn(name = "id_operador_cancelamento_fk", referencedColumnName = "id")
+    
+	@JoinColumn(name = "id_operador_cancelamento_fk", referencedColumnName = "id")
     @ManyToOne
     private PessoaOperadores idOperadorCancelamentoFk;
 	
