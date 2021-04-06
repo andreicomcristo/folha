@@ -43,39 +43,27 @@ public class PessoaFuncionariosController {
 	
 	@Autowired
 	private PessoaService pessoaService;
-	
 	@Autowired
 	private PessoaFuncionariosService pessoaFuncionariosService;
-	
 	@Autowired
 	private CargaHorariaSemanalService cargaHorariaSemanalService;
-	
 	@Autowired
 	private CargosEspecialidadeService cargosEspecialidadeService;
-	
 	@Autowired
 	private CargosService cargosService;
-	
 	@Autowired
 	private CarreirasService carreirasService;
-	
 	@Autowired
 	private ClassesCarreiraService classesCarreiraService;
-	
 	@Autowired
 	private NiveisCarreiraService niveisCarreiraService;
-	
 	@Autowired
-	private SituacoesService situacoesService;
-	
+	private SituacoesService situacoesService;	
 	@Autowired
 	private UnidadesService unidadesService;
-	
 	@Autowired
 	private VinculosService vinculosService;
 	
-	
-
 	@GetMapping("/cadastrar")
 	public String cadastrar(PessoaFuncionarios funcionarios) {		
 		return "/funcionario/cadastro";
@@ -121,7 +109,6 @@ public class PessoaFuncionariosController {
 			return "/funcionario/cadastro";
 		}
 		
-		//attr.addFlashAttribute("success", "Inserido com sucesso.");
 		return "redirect:/funcionarios/cadastrar/"+idPessoaAtual+"";
 	}
 	
@@ -205,7 +192,7 @@ public class PessoaFuncionariosController {
 	public List<Vinculos> getVinculo() {
 		return vinculosService.buscarTodos();
 	}
-	
+	// Qual a utilidade do parametro nesse método?
 	@ModelAttribute("idEspecialidadeAtualFk")
 	public List<CargosEspecialidade> getEspecialidade(PessoaFuncionarios pessoaFuncionarios) {
 		return cargosEspecialidadeService.buscarTodosOrdemDeCargo();
