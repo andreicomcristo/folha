@@ -143,13 +143,9 @@
 		                    <th style="font-size:10px;" >Ver</th>
 		                    <th style="font-size:10px;" >Nome</th>
 		                    <th style="font-size:10px;" >Ni</th>
-		                    <th style="font-size:10px;" >Cargo</th>
-		                    
-		                    
-		                    
+		                    <th style="font-size:10px;" >Cargo</th>		                    
 		                    <th style="font-size:10px;" >Turm</th>
-		                    <th style="font-size:10px;" >Hr</th>
-		                    
+		                    <th style="font-size:10px;" >Hr</th>	                    
 		                    <th style="font-size:10px;" >01</th>
 		                    <th style="font-size:10px;" >02</th>
 		                    <th style="font-size:10px;" >03</th>
@@ -181,19 +177,12 @@
 		                    <th style="font-size:10px;" >30</th>
 		                    <th style="font-size:10px;" >30</th>
 		                    <th style="font-size:10px;" >31</th>
-		                    <th style="font-size:10px;" >Ações</th>
-		                    
-		                    
-		                    
-		                    
-		                    
+		                    <th style="font-size:10px;" >Ações</th>                   
 	                    </tr>
 	                </thead>                  
 	                <tbody>
-		            	<tr th:each="d : ${listaEscala}">
-		            	
-		                	<td style="font-size:08px;"  th:text="${d.id}"></td>
-		                	
+		            	<tr th:each="d : ${listaEscala}">		            	
+		                	<td style="font-size:08px;"  th:text="${d.id}"></td>		                	
 		                    <td>
 			                    <button type="button" class="btn btn-outline-secondary btn-sm" data-container="body" style="font-size:09px;"
 			                    data-toggle="popover"  th:attr="title=${#strings.concat(
@@ -207,7 +196,7 @@
 								 	<span class="oi oi-eye" title="Visualizar" aria-hidden="true"></span>
 		                         </button>
 		                    </td>
-		                    
+		                    		                    
 		                    <td> 
 		                        <button type="button" class="btn btn-outline-secondary btn-sm" data-container="body" style="font-size:09px;"
 			                    data-toggle="popover"  th:attr="title=${#strings.concat(
@@ -225,15 +214,12 @@
 								    <span class="oi oi-eye" title="Visualizar" aria-hidden="true"></span>
 		                    	</button>
 		                    </td>
-		                    
-		                    
+		                                       
 		                    <td style="font-size:09px;"  th:text="${d.idFuncionarioFk.idPessoaFk.nome}"></td>
 		                    <td style="font-size:08px;"  th:text="${d.idFuncionarioFk.idEspecialidadeAtualFk.idCargoFk.idNivelCargoFk.siglaNivelCargo}"></td>
-		                    <td style="font-size:07px;"  th:text="${d.idFuncionarioFk.idEspecialidadeAtualFk.idCargoFk.nomeCargo+'-'+d.idFuncionarioFk.idEspecialidadeAtualFk.nomeEspecialidadeCargo}"></td>
-		                    
+		                    <td style="font-size:07px;"  th:text="${d.idFuncionarioFk.idEspecialidadeAtualFk.idCargoFk.nomeCargo+'-'+d.idFuncionarioFk.idEspecialidadeAtualFk.nomeEspecialidadeCargo}"></td>		                    
 		                    <td style="font-size:08px;"  th:text="${d.idTurmaFk.nomeTurma}"></td>
-		                    <td style="font-size:08px;"  th:text="${d.horasTotais}"></td>
-		                    
+		                    <td style="font-size:08px;"  th:text="${d.horasTotais}"></td>		                    
 		                    <td style="font-size:10px;"  th:text="${d.dia01Fk.nomeTurno}"></td>
 		                    <td style="font-size:10px;"  th:text="${d.dia02Fk.nomeTurno}"></td>
 		                    <td style="font-size:10px;"  th:text="${d.dia03Fk.nomeTurno}"></td>
@@ -277,10 +263,7 @@
 		                            		data-toggle="modal" data-target="#myModal">
 		                                <span  class="oi oi-circle-x" title="Exclusão habilitada" aria-hidden="true"></span>
 		                        </button>
-		                   	</td>
-		                   	
-		                   	
-		                   	
+		                   	</td>		                   	
 						</tr>
 					</tbody>                    
 	            </table>                 

@@ -174,20 +174,11 @@
 		                    <th style="font-size:10px;" >30</th>
 		                    <th style="font-size:10px;" >30</th>
 		                    <th style="font-size:10px;" >31</th>
-		                    <th style="font-size:10px;" >Ações</th>
-		                    
-		                    
-		                    
-		                    
-		                    
+		                    <th style="font-size:10px;" >Ações</th>                    
 	                    </tr>
 	                </thead>                  
 	                <tbody>
 		            	<tr th:each="d : ${listaEscala}">
-		            	
-		            	
-		            	
-		            	
 		                	<td style="font-size:08px;"  th:text="${d.id}"></td>
 		                	<td style="font-size:08px;"  th:text="${d.idCoordenacaoFk.nomeCoordenacao+'-'+d.idCoordenacaoFk.idLocalidadeFk.nomeLocalidade+'-'+d.idCoordenacaoFk.idAtividadeFk.nomeAtividade}"></td>
 		                    <td>

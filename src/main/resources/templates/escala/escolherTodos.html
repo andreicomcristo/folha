@@ -13,13 +13,11 @@
 		</nav>
 
 		<div class="container" id="cadastro">
-
 			<div th:replace="fragments/alert"></div>
 			<form
 				th:action= "@{/escalas/ir/para/escala/todos}"
 				th:object= "${escolhaAcessoEscala}" method="POST">
 				<div class="form-row">
-
 					<div class="form-group col-md-6">
 						<label for="nome" class="fonte-tutulos-tamanho">Abrir Escala (Todos)</label>
 							
@@ -27,27 +25,15 @@
 								<option value="">Selecione o Mês</option>
 								<option th:each="d : ${anoMes}" th:value="${d.id}"th:text="${d.nomeAnoMes}"> </option>
 							</select>	
-							<p></p>
-							
-								<p></p>					
-						
+							<p></p>	
+							<p></p>		
+										
 						<button class="btn btn-outline-dark">Submeter</button>
-						<p></p>	
-						
-						
-						
+						<p></p>													
 					</div>
 				</div>
 			</form>
 		</div>
-		
-		
-		
-		
-		
-		
-		
-		
 		
 		<div th:replace="fragments/modal :: modal"></div>
 	</section>
