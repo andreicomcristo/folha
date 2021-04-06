@@ -11,6 +11,7 @@ public interface AnoMesReposytory extends JpaRepository<AnoMes, Long> {
 
 	public List<AnoMes> findAllByOrderByNomeAnoMesDesc();
 
-	public List<AnoMes> findByNomeAnoMesContainingOrderByNomeAnoMesDesc(String nomeAnoMes);
-
+	public List<AnoMes> findByNomeAnoMesOrderByNomeAnoMesDesc(String nomeAnoMes);
+	
+	
 }

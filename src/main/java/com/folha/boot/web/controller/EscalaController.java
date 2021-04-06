@@ -272,6 +272,10 @@ public class EscalaController {
 
 	@PostMapping("/salvar")
 	public String salvar(Escala escala, String recalcular, String lancarTurma) {
+		//Tratando escala Bloqueada
+		if(anoMesService.buscarPorId(idAnoMesAtual).getIdEscalaBloqueadaFk().getSigla().equalsIgnoreCase("S")) {
+		return "redirect:/escalas/mensagem/de/escala/bloqueada";
+		}		
 		
 		escala = escalaCalculosService.converteTurnoNuloEmFolga(escala);
 		escala = escalaCalculosService.calcularDadosEscala(escala);
@@ -336,10 +340,19 @@ public class EscalaController {
 	
 	@GetMapping("/cancelar/{id}")
 	public String cancelar(@PathVariable("id") Long id, ModelMap model) {
+		//Tratando escala Bloqueada
+		if(anoMesService.buscarPorId(idAnoMesAtual).getIdEscalaBloqueadaFk().getSigla().equalsIgnoreCase("S")) {
+		return "redirect:/escalas/mensagem/de/escala/bloqueada";
+		}		
+		
 		Escala escala = service.buscarPorId(id); 
 		
 		escala.setIdOperadorCancelamentoFk(pessoaOperadoresService.buscarPorId(idOperadorLogado));
 		escala.setDtCancelamento(new Date());
+		
+		if(anoMesService.buscarPorId(idAnoMesAtual).getIdEscalaBloqueadaFk().getSigla().equalsIgnoreCase("S")) {
+			return "redirect:/escalas/mensagem/de/escala/bloqueada";
+		}
 		
 		service.salvar(escala);  
 		
@@ -552,6 +565,11 @@ public class EscalaController {
 	// Avaliacao (notas)
 	@GetMapping("/alterar/avaliacao/{id}")
 	public String cadastrarAvaliacao(@PathVariable("id") Long id, Escala escala, ModelMap model) {	
+		//Tratando escala Bloqueada
+		if(anoMesService.buscarPorId(idAnoMesAtual).getIdEscalaBloqueadaFk().getSigla().equalsIgnoreCase("S")) {
+		return "redirect:/escalas/mensagem/de/escala/bloqueada";
+		}		
+		
 		ultimoIdEscala = id;
 		escala = service.buscarPorId(id);
 		
@@ -572,6 +590,11 @@ public class EscalaController {
 	
 	@GetMapping("/atalho/limpar_escala/choque")
 	public String atalhoLimparEscalaChoque( RedirectAttributes attr, String critica) {	
+		//Tratando escala Bloqueada
+		if(anoMesService.buscarPorId(idAnoMesAtual).getIdEscalaBloqueadaFk().getSigla().equalsIgnoreCase("S")) {
+		return "redirect:/escalas/mensagem/de/escala/bloqueada";
+		}		
+		
 		Escala escala = service.buscarPorId(ultimoIdEscala);
 		escala = escalaAtalhosService.atalhoLimaprEscala(escala);
 		escala = escalaCalculosService.converteTurnoNuloEmFolga(escala);
@@ -583,7 +606,12 @@ public class EscalaController {
 	}
 	
 	@GetMapping("/atalho/limpar_escala")
-	public String atalhoLimparEscala( RedirectAttributes attr) {	
+	public String atalhoLimparEscala( RedirectAttributes attr) {
+		//Tratando escala Bloqueada
+		if(anoMesService.buscarPorId(idAnoMesAtual).getIdEscalaBloqueadaFk().getSigla().equalsIgnoreCase("S")) {
+		return "redirect:/escalas/mensagem/de/escala/bloqueada";
+		}		
+
 		Escala escala = service.buscarPorId(ultimoIdEscala);
 		escala = escalaCalculosService.converteTurnoNuloEmFolga(escala);
 		escala = escalaAtalhosService.atalhoLimaprEscala(escala);
@@ -596,7 +624,12 @@ public class EscalaController {
 	}
 	
 	@GetMapping("/atalho/diarista_manha")
-	public String atalhoDiaristaManha( RedirectAttributes attr) {	
+	public String atalhoDiaristaManha( RedirectAttributes attr) {
+		//Tratando escala Bloqueada
+		if(anoMesService.buscarPorId(idAnoMesAtual).getIdEscalaBloqueadaFk().getSigla().equalsIgnoreCase("S")) {
+		return "redirect:/escalas/mensagem/de/escala/bloqueada";
+		}		
+
 		Escala escala = service.buscarPorId(ultimoIdEscala);
 		escala = escalaCalculosService.converteTurnoNuloEmFolga(escala);
 		escala = escalaAtalhosService.atalhoDiaristasManha(escala);
@@ -618,6 +651,11 @@ public class EscalaController {
 	
 	@GetMapping("/atalho/diarista_tarde")
 	public String atalhoDiaristaTarde( RedirectAttributes attr) {	
+		//Tratando escala Bloqueada
+		if(anoMesService.buscarPorId(idAnoMesAtual).getIdEscalaBloqueadaFk().getSigla().equalsIgnoreCase("S")) {
+		return "redirect:/escalas/mensagem/de/escala/bloqueada";
+		}		
+		
 		Escala escala = service.buscarPorId(ultimoIdEscala);
 		escala = escalaCalculosService.converteTurnoNuloEmFolga(escala);
 		escala = escalaAtalhosService.atalhoDiaristasTarde(escala);
@@ -638,6 +676,11 @@ public class EscalaController {
 	
 	@GetMapping("/atalho/diarista_dia")
 	public String atalhoDiaristaDia( RedirectAttributes attr) {	
+		//Tratando escala Bloqueada
+		if(anoMesService.buscarPorId(idAnoMesAtual).getIdEscalaBloqueadaFk().getSigla().equalsIgnoreCase("S")) {
+		return "redirect:/escalas/mensagem/de/escala/bloqueada";
+		}		
+
 		Escala escala = service.buscarPorId(ultimoIdEscala);
 		escala = escalaCalculosService.converteTurnoNuloEmFolga(escala);
 		escala = escalaAtalhosService.atalhoDiaristasDia(escala);
@@ -658,6 +701,11 @@ public class EscalaController {
 	
 	@GetMapping("/atalho/mt_dias_impares")
 	public String atalhoMTDiasImpares( RedirectAttributes attr) {	
+		//Tratando escala Bloqueada
+		if(anoMesService.buscarPorId(idAnoMesAtual).getIdEscalaBloqueadaFk().getSigla().equalsIgnoreCase("S")) {
+		return "redirect:/escalas/mensagem/de/escala/bloqueada";
+		}		
+
 		Escala escala = service.buscarPorId(ultimoIdEscala);
 		escala = escalaCalculosService.converteTurnoNuloEmFolga(escala);
 		escala = escalaAtalhosService.atalhoMTDiasImpares(escala);
@@ -678,6 +726,11 @@ public class EscalaController {
 	
 	@GetMapping("/atalho/mt_dias_pares")
 	public String atalhoMTDiasPares( RedirectAttributes attr) {	
+		//Tratando escala Bloqueada
+		if(anoMesService.buscarPorId(idAnoMesAtual).getIdEscalaBloqueadaFk().getSigla().equalsIgnoreCase("S")) {
+		return "redirect:/escalas/mensagem/de/escala/bloqueada";
+		}		
+
 		Escala escala = service.buscarPorId(ultimoIdEscala);
 		escala = escalaCalculosService.converteTurnoNuloEmFolga(escala);
 		escala = escalaAtalhosService.atalhoMTDiasPares(escala);
@@ -699,6 +752,11 @@ public class EscalaController {
 	//Ciclo 1
 	@GetMapping("/atalho/ciclo1_a")
 	public String atalhoCiclo1A( RedirectAttributes attr) {	
+		//Tratando escala Bloqueada
+		if(anoMesService.buscarPorId(idAnoMesAtual).getIdEscalaBloqueadaFk().getSigla().equalsIgnoreCase("S")) {
+		return "redirect:/escalas/mensagem/de/escala/bloqueada";
+		}		
+
 		Escala escala = service.buscarPorId(ultimoIdEscala);
 		escala = escalaCalculosService.converteTurnoNuloEmFolga(escala);
 		escala = escalaAtalhosService.atalhoCiclo1A(escala);
@@ -719,6 +777,11 @@ public class EscalaController {
 	
 	@GetMapping("/atalho/ciclo1_b")
 	public String atalhoCiclo1B( RedirectAttributes attr) {	
+		//Tratando escala Bloqueada
+		if(anoMesService.buscarPorId(idAnoMesAtual).getIdEscalaBloqueadaFk().getSigla().equalsIgnoreCase("S")) {
+		return "redirect:/escalas/mensagem/de/escala/bloqueada";
+		}		
+
 		Escala escala = service.buscarPorId(ultimoIdEscala);
 		escala = escalaCalculosService.converteTurnoNuloEmFolga(escala);
 		escala = escalaAtalhosService.atalhoCiclo1B(escala);
@@ -739,6 +802,11 @@ public class EscalaController {
 	
 	@GetMapping("/atalho/ciclo1_c")
 	public String atalhoCiclo1C( RedirectAttributes attr) {	
+		//Tratando escala Bloqueada
+		if(anoMesService.buscarPorId(idAnoMesAtual).getIdEscalaBloqueadaFk().getSigla().equalsIgnoreCase("S")) {
+		return "redirect:/escalas/mensagem/de/escala/bloqueada";
+		}		
+
 		Escala escala = service.buscarPorId(ultimoIdEscala);
 		escala = escalaCalculosService.converteTurnoNuloEmFolga(escala);
 		escala = escalaAtalhosService.atalhoCiclo1C(escala);
@@ -759,6 +827,11 @@ public class EscalaController {
 	
 	@GetMapping("/atalho/ciclo1_d")
 	public String atalhoCiclo1D( RedirectAttributes attr) {	
+		//Tratando escala Bloqueada
+		if(anoMesService.buscarPorId(idAnoMesAtual).getIdEscalaBloqueadaFk().getSigla().equalsIgnoreCase("S")) {
+		return "redirect:/escalas/mensagem/de/escala/bloqueada";
+		}		
+
 		Escala escala = service.buscarPorId(ultimoIdEscala);
 		escala = escalaCalculosService.converteTurnoNuloEmFolga(escala);
 		escala = escalaAtalhosService.atalhoCiclo1D(escala);
@@ -779,6 +852,11 @@ public class EscalaController {
 	
 	@GetMapping("/atalho/ciclo1_e")
 	public String atalhoCiclo1E( RedirectAttributes attr) {	
+		//Tratando escala Bloqueada
+		if(anoMesService.buscarPorId(idAnoMesAtual).getIdEscalaBloqueadaFk().getSigla().equalsIgnoreCase("S")) {
+		return "redirect:/escalas/mensagem/de/escala/bloqueada";
+		}		
+
 		Escala escala = service.buscarPorId(ultimoIdEscala);
 		escala = escalaCalculosService.converteTurnoNuloEmFolga(escala);
 		escala = escalaAtalhosService.atalhoCiclo1E(escala);
@@ -799,6 +877,11 @@ public class EscalaController {
 	
 	@GetMapping("/atalho/ciclo1_f")
 	public String atalhoCiclo1F( RedirectAttributes attr) {	
+		//Tratando escala Bloqueada
+		if(anoMesService.buscarPorId(idAnoMesAtual).getIdEscalaBloqueadaFk().getSigla().equalsIgnoreCase("S")) {
+		return "redirect:/escalas/mensagem/de/escala/bloqueada";
+		}		
+
 		Escala escala = service.buscarPorId(ultimoIdEscala);
 		escala = escalaCalculosService.converteTurnoNuloEmFolga(escala);
 		escala = escalaAtalhosService.atalhoCiclo1F(escala);
@@ -820,6 +903,11 @@ public class EscalaController {
 	//Ciclo2
 	@GetMapping("/atalho/ciclo2_a")
 	public String atalhoCiclo2A( RedirectAttributes attr) {	
+		//Tratando escala Bloqueada
+		if(anoMesService.buscarPorId(idAnoMesAtual).getIdEscalaBloqueadaFk().getSigla().equalsIgnoreCase("S")) {
+		return "redirect:/escalas/mensagem/de/escala/bloqueada";
+		}		
+
 		Escala escala = service.buscarPorId(ultimoIdEscala);
 		escala = escalaCalculosService.converteTurnoNuloEmFolga(escala);
 		escala = escalaAtalhosService.atalhoCiclo2A(escala);
@@ -840,6 +928,11 @@ public class EscalaController {
 	
 	@GetMapping("/atalho/ciclo2_b")
 	public String atalhoCiclo2B( RedirectAttributes attr) {	
+		//Tratando escala Bloqueada
+		if(anoMesService.buscarPorId(idAnoMesAtual).getIdEscalaBloqueadaFk().getSigla().equalsIgnoreCase("S")) {
+		return "redirect:/escalas/mensagem/de/escala/bloqueada";
+		}		
+
 		Escala escala = service.buscarPorId(ultimoIdEscala);
 		escala = escalaCalculosService.converteTurnoNuloEmFolga(escala);
 		escala = escalaAtalhosService.atalhoCiclo2B(escala);
@@ -860,6 +953,11 @@ public class EscalaController {
 	
 	@GetMapping("/atalho/ciclo2_c")
 	public String atalhoCiclo2C( RedirectAttributes attr) {	
+		//Tratando escala Bloqueada
+		if(anoMesService.buscarPorId(idAnoMesAtual).getIdEscalaBloqueadaFk().getSigla().equalsIgnoreCase("S")) {
+		return "redirect:/escalas/mensagem/de/escala/bloqueada";
+		}		
+
 		Escala escala = service.buscarPorId(ultimoIdEscala);
 		escala = escalaCalculosService.converteTurnoNuloEmFolga(escala);
 		escala = escalaAtalhosService.atalhoCiclo2C(escala);
@@ -880,6 +978,11 @@ public class EscalaController {
 	
 	@GetMapping("/atalho/ciclo2_d")
 	public String atalhoCiclo2D( RedirectAttributes attr) {	
+		//Tratando escala Bloqueada
+		if(anoMesService.buscarPorId(idAnoMesAtual).getIdEscalaBloqueadaFk().getSigla().equalsIgnoreCase("S")) {
+		return "redirect:/escalas/mensagem/de/escala/bloqueada";
+		}		
+
 		Escala escala = service.buscarPorId(ultimoIdEscala);
 		escala = escalaCalculosService.converteTurnoNuloEmFolga(escala);
 		escala = escalaAtalhosService.atalhoCiclo2D(escala);
@@ -900,6 +1003,11 @@ public class EscalaController {
 	
 	@GetMapping("/atalho/ciclo2_e")
 	public String atalhoCiclo2E( RedirectAttributes attr) {	
+		//Tratando escala Bloqueada
+		if(anoMesService.buscarPorId(idAnoMesAtual).getIdEscalaBloqueadaFk().getSigla().equalsIgnoreCase("S")) {
+		return "redirect:/escalas/mensagem/de/escala/bloqueada";
+		}		
+
 		Escala escala = service.buscarPorId(ultimoIdEscala);
 		escala = escalaCalculosService.converteTurnoNuloEmFolga(escala);
 		escala = escalaAtalhosService.atalhoCiclo2E(escala);
@@ -920,6 +1028,11 @@ public class EscalaController {
 	
 	@GetMapping("/atalho/ciclo2_f")
 	public String atalhoCiclo2F( RedirectAttributes attr) {	
+		//Tratando escala Bloqueada
+		if(anoMesService.buscarPorId(idAnoMesAtual).getIdEscalaBloqueadaFk().getSigla().equalsIgnoreCase("S")) {
+		return "redirect:/escalas/mensagem/de/escala/bloqueada";
+		}		
+
 		Escala escala = service.buscarPorId(ultimoIdEscala);
 		escala = escalaCalculosService.converteTurnoNuloEmFolga(escala);
 		escala = escalaAtalhosService.atalhoCiclo2F(escala);
@@ -941,6 +1054,11 @@ public class EscalaController {
 	//Ciclo4
 	@GetMapping("/atalho/ciclo4_a")
 	public String atalhoCiclo4A( RedirectAttributes attr) {	
+		//Tratando escala Bloqueada
+		if(anoMesService.buscarPorId(idAnoMesAtual).getIdEscalaBloqueadaFk().getSigla().equalsIgnoreCase("S")) {
+		return "redirect:/escalas/mensagem/de/escala/bloqueada";
+		}		
+
 		Escala escala = service.buscarPorId(ultimoIdEscala);
 		escala = escalaCalculosService.converteTurnoNuloEmFolga(escala);
 		escala = escalaAtalhosService.atalhoCiclo4A(escala);
@@ -961,6 +1079,11 @@ public class EscalaController {
 	
 	@GetMapping("/atalho/ciclo4_b")
 	public String atalhoCiclo4B( RedirectAttributes attr) {	
+		//Tratando escala Bloqueada
+		if(anoMesService.buscarPorId(idAnoMesAtual).getIdEscalaBloqueadaFk().getSigla().equalsIgnoreCase("S")) {
+		return "redirect:/escalas/mensagem/de/escala/bloqueada";
+		}		
+
 		Escala escala = service.buscarPorId(ultimoIdEscala);
 		escala = escalaCalculosService.converteTurnoNuloEmFolga(escala);
 		escala = escalaAtalhosService.atalhoCiclo4B(escala);
@@ -981,6 +1104,11 @@ public class EscalaController {
 	
 	@GetMapping("/atalho/ciclo4_c")
 	public String atalhoCiclo4C( RedirectAttributes attr) {	
+		//Tratando escala Bloqueada
+		if(anoMesService.buscarPorId(idAnoMesAtual).getIdEscalaBloqueadaFk().getSigla().equalsIgnoreCase("S")) {
+		return "redirect:/escalas/mensagem/de/escala/bloqueada";
+		}		
+
 		Escala escala = service.buscarPorId(ultimoIdEscala);
 		escala = escalaCalculosService.converteTurnoNuloEmFolga(escala);
 		escala = escalaAtalhosService.atalhoCiclo4C(escala);
@@ -1001,6 +1129,11 @@ public class EscalaController {
 	
 	@GetMapping("/atalho/ciclo4_d")
 	public String atalhoCiclo4D( RedirectAttributes attr) {	
+		//Tratando escala Bloqueada
+		if(anoMesService.buscarPorId(idAnoMesAtual).getIdEscalaBloqueadaFk().getSigla().equalsIgnoreCase("S")) {
+		return "redirect:/escalas/mensagem/de/escala/bloqueada";
+		}		
+
 		Escala escala = service.buscarPorId(ultimoIdEscala);
 		escala = escalaCalculosService.converteTurnoNuloEmFolga(escala);
 		escala = escalaAtalhosService.atalhoCiclo4D(escala);
@@ -1021,6 +1154,11 @@ public class EscalaController {
 	
 	@GetMapping("/atalho/ciclo4_e")
 	public String atalhoCiclo4E( RedirectAttributes attr) {	
+		//Tratando escala Bloqueada
+		if(anoMesService.buscarPorId(idAnoMesAtual).getIdEscalaBloqueadaFk().getSigla().equalsIgnoreCase("S")) {
+		return "redirect:/escalas/mensagem/de/escala/bloqueada";
+		}		
+
 		Escala escala = service.buscarPorId(ultimoIdEscala);
 		escala = escalaCalculosService.converteTurnoNuloEmFolga(escala);
 		escala = escalaAtalhosService.atalhoCiclo4E(escala);
@@ -1041,6 +1179,11 @@ public class EscalaController {
 	
 	@GetMapping("/atalho/ciclo4_f")
 	public String atalhoCiclo4F( RedirectAttributes attr) {	
+		//Tratando escala Bloqueada
+		if(anoMesService.buscarPorId(idAnoMesAtual).getIdEscalaBloqueadaFk().getSigla().equalsIgnoreCase("S")) {
+		return "redirect:/escalas/mensagem/de/escala/bloqueada";
+		}		
+
 		Escala escala = service.buscarPorId(ultimoIdEscala);
 		escala = escalaCalculosService.converteTurnoNuloEmFolga(escala);
 		escala = escalaAtalhosService.atalhoCiclo4F(escala);
@@ -1062,6 +1205,11 @@ public class EscalaController {
 	//Ciclo5
 	@GetMapping("/atalho/ciclo5_a")
 	public String atalhoCiclo5A( RedirectAttributes attr) {	
+		//Tratando escala Bloqueada
+		if(anoMesService.buscarPorId(idAnoMesAtual).getIdEscalaBloqueadaFk().getSigla().equalsIgnoreCase("S")) {
+		return "redirect:/escalas/mensagem/de/escala/bloqueada";
+		}		
+
 		Escala escala = service.buscarPorId(ultimoIdEscala);
 		escala = escalaCalculosService.converteTurnoNuloEmFolga(escala);
 		escala = escalaAtalhosService.atalhoCiclo5A(escala);
@@ -1082,6 +1230,11 @@ public class EscalaController {
 	
 	@GetMapping("/atalho/ciclo5_b")
 	public String atalhoCiclo5B( RedirectAttributes attr) {	
+		//Tratando escala Bloqueada
+		if(anoMesService.buscarPorId(idAnoMesAtual).getIdEscalaBloqueadaFk().getSigla().equalsIgnoreCase("S")) {
+		return "redirect:/escalas/mensagem/de/escala/bloqueada";
+		}		
+
 		Escala escala = service.buscarPorId(ultimoIdEscala);
 		escala = escalaCalculosService.converteTurnoNuloEmFolga(escala);
 		escala = escalaAtalhosService.atalhoCiclo5B(escala);
@@ -1102,6 +1255,11 @@ public class EscalaController {
 	
 	@GetMapping("/atalho/ciclo5_c")
 	public String atalhoCiclo5C( RedirectAttributes attr) {	
+		//Tratando escala Bloqueada
+		if(anoMesService.buscarPorId(idAnoMesAtual).getIdEscalaBloqueadaFk().getSigla().equalsIgnoreCase("S")) {
+		return "redirect:/escalas/mensagem/de/escala/bloqueada";
+		}		
+
 		Escala escala = service.buscarPorId(ultimoIdEscala);
 		escala = escalaCalculosService.converteTurnoNuloEmFolga(escala);
 		escala = escalaAtalhosService.atalhoCiclo5C(escala);
@@ -1122,6 +1280,11 @@ public class EscalaController {
 	
 	@GetMapping("/atalho/ciclo5_d")
 	public String atalhoCiclo5D( RedirectAttributes attr) {	
+		//Tratando escala Bloqueada
+		if(anoMesService.buscarPorId(idAnoMesAtual).getIdEscalaBloqueadaFk().getSigla().equalsIgnoreCase("S")) {
+		return "redirect:/escalas/mensagem/de/escala/bloqueada";
+		}		
+
 		Escala escala = service.buscarPorId(ultimoIdEscala);
 		escala = escalaCalculosService.converteTurnoNuloEmFolga(escala);
 		escala = escalaAtalhosService.atalhoCiclo5D(escala);
@@ -1142,6 +1305,11 @@ public class EscalaController {
 	
 	@GetMapping("/atalho/ciclo5_e")
 	public String atalhoCiclo5E( RedirectAttributes attr) {	
+		//Tratando escala Bloqueada
+		if(anoMesService.buscarPorId(idAnoMesAtual).getIdEscalaBloqueadaFk().getSigla().equalsIgnoreCase("S")) {
+		return "redirect:/escalas/mensagem/de/escala/bloqueada";
+		}		
+
 		Escala escala = service.buscarPorId(ultimoIdEscala);
 		escala = escalaCalculosService.converteTurnoNuloEmFolga(escala);
 		escala = escalaAtalhosService.atalhoCiclo5E(escala);
@@ -1162,6 +1330,11 @@ public class EscalaController {
 	
 	@GetMapping("/atalho/ciclo5_f")
 	public String atalhoCiclo5F( RedirectAttributes attr) {	
+		//Tratando escala Bloqueada
+		if(anoMesService.buscarPorId(idAnoMesAtual).getIdEscalaBloqueadaFk().getSigla().equalsIgnoreCase("S")) {
+		return "redirect:/escalas/mensagem/de/escala/bloqueada";
+		}		
+
 		Escala escala = service.buscarPorId(ultimoIdEscala);
 		escala = escalaCalculosService.converteTurnoNuloEmFolga(escala);
 		escala = escalaAtalhosService.atalhoCiclo5F(escala);
@@ -1183,6 +1356,11 @@ public class EscalaController {
 	//Ciclo6
 	@GetMapping("/atalho/ciclo6_a")
 	public String atalhoCiclo6A( RedirectAttributes attr) {	
+		//Tratando escala Bloqueada
+		if(anoMesService.buscarPorId(idAnoMesAtual).getIdEscalaBloqueadaFk().getSigla().equalsIgnoreCase("S")) {
+		return "redirect:/escalas/mensagem/de/escala/bloqueada";
+		}		
+
 		Escala escala = service.buscarPorId(ultimoIdEscala);
 		escala = escalaCalculosService.converteTurnoNuloEmFolga(escala);
 		escala = escalaAtalhosService.atalhoCiclo6A(escala);
@@ -1203,6 +1381,11 @@ public class EscalaController {
 	
 	@GetMapping("/atalho/ciclo6_b")
 	public String atalhoCiclo6B( RedirectAttributes attr) {	
+		//Tratando escala Bloqueada
+		if(anoMesService.buscarPorId(idAnoMesAtual).getIdEscalaBloqueadaFk().getSigla().equalsIgnoreCase("S")) {
+		return "redirect:/escalas/mensagem/de/escala/bloqueada";
+		}		
+
 		Escala escala = service.buscarPorId(ultimoIdEscala);
 		escala = escalaCalculosService.converteTurnoNuloEmFolga(escala);
 		escala = escalaAtalhosService.atalhoCiclo6B(escala);
@@ -1223,6 +1406,11 @@ public class EscalaController {
 	
 	@GetMapping("/atalho/ciclo6_c")
 	public String atalhoCiclo6C( RedirectAttributes attr) {	
+		//Tratando escala Bloqueada
+		if(anoMesService.buscarPorId(idAnoMesAtual).getIdEscalaBloqueadaFk().getSigla().equalsIgnoreCase("S")) {
+		return "redirect:/escalas/mensagem/de/escala/bloqueada";
+		}		
+
 		Escala escala = service.buscarPorId(ultimoIdEscala);
 		escala = escalaCalculosService.converteTurnoNuloEmFolga(escala);
 		escala = escalaAtalhosService.atalhoCiclo6C(escala);
@@ -1243,6 +1431,11 @@ public class EscalaController {
 	
 	@GetMapping("/atalho/ciclo6_d")
 	public String atalhoCiclo6D( RedirectAttributes attr) {	
+		//Tratando escala Bloqueada
+		if(anoMesService.buscarPorId(idAnoMesAtual).getIdEscalaBloqueadaFk().getSigla().equalsIgnoreCase("S")) {
+		return "redirect:/escalas/mensagem/de/escala/bloqueada";
+		}		
+
 		Escala escala = service.buscarPorId(ultimoIdEscala);
 		escala = escalaCalculosService.converteTurnoNuloEmFolga(escala);
 		escala = escalaAtalhosService.atalhoCiclo6D(escala);
@@ -1263,6 +1456,11 @@ public class EscalaController {
 	
 	@GetMapping("/atalho/ciclo6_e")
 	public String atalhoCiclo6E( RedirectAttributes attr) {	
+		//Tratando escala Bloqueada
+		if(anoMesService.buscarPorId(idAnoMesAtual).getIdEscalaBloqueadaFk().getSigla().equalsIgnoreCase("S")) {
+		return "redirect:/escalas/mensagem/de/escala/bloqueada";
+		}		
+
 		Escala escala = service.buscarPorId(ultimoIdEscala);
 		escala = escalaCalculosService.converteTurnoNuloEmFolga(escala);
 		escala = escalaAtalhosService.atalhoCiclo6E(escala);
@@ -1283,6 +1481,11 @@ public class EscalaController {
 	
 	@GetMapping("/atalho/ciclo6_f")
 	public String atalhoCiclo6F( RedirectAttributes attr) {	
+		//Tratando escala Bloqueada
+		if(anoMesService.buscarPorId(idAnoMesAtual).getIdEscalaBloqueadaFk().getSigla().equalsIgnoreCase("S")) {
+		return "redirect:/escalas/mensagem/de/escala/bloqueada";
+		}		
+
 		Escala escala = service.buscarPorId(ultimoIdEscala);
 		escala = escalaCalculosService.converteTurnoNuloEmFolga(escala);
 		escala = escalaAtalhosService.atalhoCiclo6F(escala);
@@ -1304,6 +1507,11 @@ public class EscalaController {
 	//Ciclo7
 	@GetMapping("/atalho/ciclo7_a")
 	public String atalhoCiclo7A( RedirectAttributes attr) {	
+		//Tratando escala Bloqueada
+		if(anoMesService.buscarPorId(idAnoMesAtual).getIdEscalaBloqueadaFk().getSigla().equalsIgnoreCase("S")) {
+		return "redirect:/escalas/mensagem/de/escala/bloqueada";
+		}		
+
 		Escala escala = service.buscarPorId(ultimoIdEscala);
 		escala = escalaCalculosService.converteTurnoNuloEmFolga(escala);
 		escala = escalaAtalhosService.atalhoCiclo7A(escala);
@@ -1324,6 +1532,11 @@ public class EscalaController {
 	
 	@GetMapping("/atalho/ciclo7_b")
 	public String atalhoCiclo7B( RedirectAttributes attr) {	
+		//Tratando escala Bloqueada
+		if(anoMesService.buscarPorId(idAnoMesAtual).getIdEscalaBloqueadaFk().getSigla().equalsIgnoreCase("S")) {
+		return "redirect:/escalas/mensagem/de/escala/bloqueada";
+		}		
+
 		Escala escala = service.buscarPorId(ultimoIdEscala);
 		escala = escalaCalculosService.converteTurnoNuloEmFolga(escala);
 		escala = escalaAtalhosService.atalhoCiclo7B(escala);
@@ -1344,6 +1557,11 @@ public class EscalaController {
 	
 	@GetMapping("/atalho/ciclo7_c")
 	public String atalhoCiclo7C( RedirectAttributes attr) {	
+		//Tratando escala Bloqueada
+		if(anoMesService.buscarPorId(idAnoMesAtual).getIdEscalaBloqueadaFk().getSigla().equalsIgnoreCase("S")) {
+		return "redirect:/escalas/mensagem/de/escala/bloqueada";
+		}		
+
 		Escala escala = service.buscarPorId(ultimoIdEscala);
 		escala = escalaCalculosService.converteTurnoNuloEmFolga(escala);
 		escala = escalaAtalhosService.atalhoCiclo7C(escala);
@@ -1364,6 +1582,11 @@ public class EscalaController {
 	
 	@GetMapping("/atalho/ciclo7_d")
 	public String atalhoCiclo7D( RedirectAttributes attr) {	
+		//Tratando escala Bloqueada
+		if(anoMesService.buscarPorId(idAnoMesAtual).getIdEscalaBloqueadaFk().getSigla().equalsIgnoreCase("S")) {
+		return "redirect:/escalas/mensagem/de/escala/bloqueada";
+		}		
+
 		Escala escala = service.buscarPorId(ultimoIdEscala);
 		escala = escalaCalculosService.converteTurnoNuloEmFolga(escala);
 		escala = escalaAtalhosService.atalhoCiclo7D(escala);
@@ -1384,6 +1607,11 @@ public class EscalaController {
 	
 	@GetMapping("/atalho/ciclo7_e")
 	public String atalhoCiclo7E( RedirectAttributes attr) {	
+		//Tratando escala Bloqueada
+		if(anoMesService.buscarPorId(idAnoMesAtual).getIdEscalaBloqueadaFk().getSigla().equalsIgnoreCase("S")) {
+		return "redirect:/escalas/mensagem/de/escala/bloqueada";
+		}		
+
 		Escala escala = service.buscarPorId(ultimoIdEscala);
 		escala = escalaCalculosService.converteTurnoNuloEmFolga(escala);
 		escala = escalaAtalhosService.atalhoCiclo7E(escala);
@@ -1404,6 +1632,11 @@ public class EscalaController {
 	
 	@GetMapping("/atalho/ciclo7_f")
 	public String atalhoCiclo7F( RedirectAttributes attr) {	
+		//Tratando escala Bloqueada
+		if(anoMesService.buscarPorId(idAnoMesAtual).getIdEscalaBloqueadaFk().getSigla().equalsIgnoreCase("S")) {
+		return "redirect:/escalas/mensagem/de/escala/bloqueada";
+		}		
+
 		Escala escala = service.buscarPorId(ultimoIdEscala);
 		escala = escalaCalculosService.converteTurnoNuloEmFolga(escala);
 		escala = escalaAtalhosService.atalhoCiclo7F(escala);
@@ -1426,6 +1659,11 @@ public class EscalaController {
 	//Ciclo8
 	@GetMapping("/atalho/ciclo8_a")
 	public String atalhoCiclo8A( RedirectAttributes attr) {	
+		//Tratando escala Bloqueada
+		if(anoMesService.buscarPorId(idAnoMesAtual).getIdEscalaBloqueadaFk().getSigla().equalsIgnoreCase("S")) {
+		return "redirect:/escalas/mensagem/de/escala/bloqueada";
+		}		
+
 		Escala escala = service.buscarPorId(ultimoIdEscala);
 		escala = escalaCalculosService.converteTurnoNuloEmFolga(escala);
 		escala = escalaAtalhosService.atalhoCiclo8A(escala);
@@ -1446,6 +1684,11 @@ public class EscalaController {
 	
 	@GetMapping("/atalho/ciclo8_b")
 	public String atalhoCiclo8B( RedirectAttributes attr) {	
+		//Tratando escala Bloqueada
+		if(anoMesService.buscarPorId(idAnoMesAtual).getIdEscalaBloqueadaFk().getSigla().equalsIgnoreCase("S")) {
+		return "redirect:/escalas/mensagem/de/escala/bloqueada";
+		}		
+
 		Escala escala = service.buscarPorId(ultimoIdEscala);
 		escala = escalaCalculosService.converteTurnoNuloEmFolga(escala);
 		escala = escalaAtalhosService.atalhoCiclo8B(escala);
@@ -1466,6 +1709,11 @@ public class EscalaController {
 	
 	@GetMapping("/atalho/ciclo8_c")
 	public String atalhoCiclo8C( RedirectAttributes attr) {	
+		//Tratando escala Bloqueada
+		if(anoMesService.buscarPorId(idAnoMesAtual).getIdEscalaBloqueadaFk().getSigla().equalsIgnoreCase("S")) {
+		return "redirect:/escalas/mensagem/de/escala/bloqueada";
+		}		
+
 		Escala escala = service.buscarPorId(ultimoIdEscala);
 		escala = escalaCalculosService.converteTurnoNuloEmFolga(escala);
 		escala = escalaAtalhosService.atalhoCiclo8C(escala);
@@ -1486,6 +1734,11 @@ public class EscalaController {
 	
 	@GetMapping("/atalho/ciclo8_d")
 	public String atalhoCiclo8D( RedirectAttributes attr) {	
+		//Tratando escala Bloqueada
+		if(anoMesService.buscarPorId(idAnoMesAtual).getIdEscalaBloqueadaFk().getSigla().equalsIgnoreCase("S")) {
+		return "redirect:/escalas/mensagem/de/escala/bloqueada";
+		}		
+
 		Escala escala = service.buscarPorId(ultimoIdEscala);
 		escala = escalaCalculosService.converteTurnoNuloEmFolga(escala);
 		escala = escalaAtalhosService.atalhoCiclo8D(escala);
@@ -1506,6 +1759,11 @@ public class EscalaController {
 	
 	@GetMapping("/atalho/ciclo8_e")
 	public String atalhoCiclo8E( RedirectAttributes attr) {	
+		//Tratando escala Bloqueada
+		if(anoMesService.buscarPorId(idAnoMesAtual).getIdEscalaBloqueadaFk().getSigla().equalsIgnoreCase("S")) {
+		return "redirect:/escalas/mensagem/de/escala/bloqueada";
+		}		
+
 		Escala escala = service.buscarPorId(ultimoIdEscala);
 		escala = escalaCalculosService.converteTurnoNuloEmFolga(escala);
 		escala = escalaAtalhosService.atalhoCiclo8E(escala);
@@ -1526,6 +1784,11 @@ public class EscalaController {
 	
 	@GetMapping("/atalho/ciclo8_f")
 	public String atalhoCiclo8F( RedirectAttributes attr) {	
+		//Tratando escala Bloqueada
+		if(anoMesService.buscarPorId(idAnoMesAtual).getIdEscalaBloqueadaFk().getSigla().equalsIgnoreCase("S")) {
+		return "redirect:/escalas/mensagem/de/escala/bloqueada";
+		}		
+
 		Escala escala = service.buscarPorId(ultimoIdEscala);
 		escala = escalaCalculosService.converteTurnoNuloEmFolga(escala);
 		escala = escalaAtalhosService.atalhoCiclo8F(escala);
@@ -1546,6 +1809,11 @@ public class EscalaController {
 	
 	@GetMapping("/atalho/ciclo8_g")
 	public String atalhoCiclo8G( RedirectAttributes attr) {	
+		//Tratando escala Bloqueada
+		if(anoMesService.buscarPorId(idAnoMesAtual).getIdEscalaBloqueadaFk().getSigla().equalsIgnoreCase("S")) {
+		return "redirect:/escalas/mensagem/de/escala/bloqueada";
+		}		
+
 		Escala escala = service.buscarPorId(ultimoIdEscala);
 		escala = escalaCalculosService.converteTurnoNuloEmFolga(escala);
 		escala = escalaAtalhosService.atalhoCiclo8G(escala);
@@ -1568,6 +1836,11 @@ public class EscalaController {
 	//Ciclo8
 	@GetMapping("/atalho/ciclo9_a")
 	public String atalhoCiclo9A( RedirectAttributes attr) {	
+		//Tratando escala Bloqueada
+		if(anoMesService.buscarPorId(idAnoMesAtual).getIdEscalaBloqueadaFk().getSigla().equalsIgnoreCase("S")) {
+		return "redirect:/escalas/mensagem/de/escala/bloqueada";
+		}		
+
 		Escala escala = service.buscarPorId(ultimoIdEscala);
 		escala = escalaCalculosService.converteTurnoNuloEmFolga(escala);
 		escala = escalaAtalhosService.atalhoCiclo9A(escala);
@@ -1588,6 +1861,11 @@ public class EscalaController {
 	
 	@GetMapping("/atalho/ciclo9_b")
 	public String atalhoCiclo9B( RedirectAttributes attr) {	
+		//Tratando escala Bloqueada
+		if(anoMesService.buscarPorId(idAnoMesAtual).getIdEscalaBloqueadaFk().getSigla().equalsIgnoreCase("S")) {
+		return "redirect:/escalas/mensagem/de/escala/bloqueada";
+		}		
+
 		Escala escala = service.buscarPorId(ultimoIdEscala);
 		escala = escalaCalculosService.converteTurnoNuloEmFolga(escala);
 		escala = escalaAtalhosService.atalhoCiclo9B(escala);
@@ -1608,6 +1886,11 @@ public class EscalaController {
 	
 	@GetMapping("/atalho/ciclo9_c")
 	public String atalhoCiclo9C( RedirectAttributes attr) {	
+		//Tratando escala Bloqueada
+		if(anoMesService.buscarPorId(idAnoMesAtual).getIdEscalaBloqueadaFk().getSigla().equalsIgnoreCase("S")) {
+		return "redirect:/escalas/mensagem/de/escala/bloqueada";
+		}		
+
 		Escala escala = service.buscarPorId(ultimoIdEscala);
 		escala = escalaCalculosService.converteTurnoNuloEmFolga(escala);
 		escala = escalaAtalhosService.atalhoCiclo9C(escala);
@@ -1628,6 +1911,11 @@ public class EscalaController {
 	
 	@GetMapping("/atalho/ciclo9_d")
 	public String atalhoCiclo9D( RedirectAttributes attr) {	
+		//Tratando escala Bloqueada
+		if(anoMesService.buscarPorId(idAnoMesAtual).getIdEscalaBloqueadaFk().getSigla().equalsIgnoreCase("S")) {
+		return "redirect:/escalas/mensagem/de/escala/bloqueada";
+		}		
+
 		Escala escala = service.buscarPorId(ultimoIdEscala);
 		escala = escalaCalculosService.converteTurnoNuloEmFolga(escala);
 		escala = escalaAtalhosService.atalhoCiclo9D(escala);
@@ -1648,6 +1936,11 @@ public class EscalaController {
 	
 	@GetMapping("/atalho/ciclo9_e")
 	public String atalhoCiclo9E( RedirectAttributes attr) {	
+		//Tratando escala Bloqueada
+		if(anoMesService.buscarPorId(idAnoMesAtual).getIdEscalaBloqueadaFk().getSigla().equalsIgnoreCase("S")) {
+		return "redirect:/escalas/mensagem/de/escala/bloqueada";
+		}		
+
 		Escala escala = service.buscarPorId(ultimoIdEscala);
 		escala = escalaCalculosService.converteTurnoNuloEmFolga(escala);
 		escala = escalaAtalhosService.atalhoCiclo9E(escala);
@@ -1668,6 +1961,11 @@ public class EscalaController {
 	
 	@GetMapping("/atalho/ciclo9_f")
 	public String atalhoCiclo9F( RedirectAttributes attr) {	
+		//Tratando escala Bloqueada
+		if(anoMesService.buscarPorId(idAnoMesAtual).getIdEscalaBloqueadaFk().getSigla().equalsIgnoreCase("S")) {
+		return "redirect:/escalas/mensagem/de/escala/bloqueada";
+		}		
+
 		Escala escala = service.buscarPorId(ultimoIdEscala);
 		escala = escalaCalculosService.converteTurnoNuloEmFolga(escala);
 		escala = escalaAtalhosService.atalhoCiclo9F(escala);
@@ -1688,6 +1986,11 @@ public class EscalaController {
 	
 	@GetMapping("/atalho/ciclo9_g")
 	public String atalhoCiclo9G( RedirectAttributes attr) {	
+		//Tratando escala Bloqueada
+		if(anoMesService.buscarPorId(idAnoMesAtual).getIdEscalaBloqueadaFk().getSigla().equalsIgnoreCase("S")) {
+		return "redirect:/escalas/mensagem/de/escala/bloqueada";
+		}		
+
 		Escala escala = service.buscarPorId(ultimoIdEscala);
 		escala = escalaCalculosService.converteTurnoNuloEmFolga(escala);
 		escala = escalaAtalhosService.atalhoCiclo9G(escala);
@@ -1710,6 +2013,11 @@ public class EscalaController {
 	//Ciclo10
 	@GetMapping("/atalho/ciclo10_a")
 	public String atalhoCiclo10A( RedirectAttributes attr) {	
+		//Tratando escala Bloqueada
+		if(anoMesService.buscarPorId(idAnoMesAtual).getIdEscalaBloqueadaFk().getSigla().equalsIgnoreCase("S")) {
+		return "redirect:/escalas/mensagem/de/escala/bloqueada";
+		}		
+
 		Escala escala = service.buscarPorId(ultimoIdEscala);
 		escala = escalaCalculosService.converteTurnoNuloEmFolga(escala);
 		escala = escalaAtalhosService.atalhoCiclo10A(escala);
@@ -1730,6 +2038,11 @@ public class EscalaController {
 	
 	@GetMapping("/atalho/ciclo10_b")
 	public String atalhoCiclo10B( RedirectAttributes attr) {	
+		//Tratando escala Bloqueada
+		if(anoMesService.buscarPorId(idAnoMesAtual).getIdEscalaBloqueadaFk().getSigla().equalsIgnoreCase("S")) {
+		return "redirect:/escalas/mensagem/de/escala/bloqueada";
+		}		
+
 		Escala escala = service.buscarPorId(ultimoIdEscala);
 		escala = escalaCalculosService.converteTurnoNuloEmFolga(escala);
 		escala = escalaAtalhosService.atalhoCiclo10B(escala);
@@ -1750,6 +2063,11 @@ public class EscalaController {
 	
 	@GetMapping("/atalho/ciclo10_c")
 	public String atalhoCiclo10C( RedirectAttributes attr) {	
+		//Tratando escala Bloqueada
+		if(anoMesService.buscarPorId(idAnoMesAtual).getIdEscalaBloqueadaFk().getSigla().equalsIgnoreCase("S")) {
+		return "redirect:/escalas/mensagem/de/escala/bloqueada";
+		}		
+
 		Escala escala = service.buscarPorId(ultimoIdEscala);
 		escala = escalaCalculosService.converteTurnoNuloEmFolga(escala);
 		escala = escalaAtalhosService.atalhoCiclo10C(escala);
@@ -1770,6 +2088,11 @@ public class EscalaController {
 	
 	@GetMapping("/atalho/ciclo10_d")
 	public String atalhoCiclo10D( RedirectAttributes attr) {	
+		//Tratando escala Bloqueada
+		if(anoMesService.buscarPorId(idAnoMesAtual).getIdEscalaBloqueadaFk().getSigla().equalsIgnoreCase("S")) {
+		return "redirect:/escalas/mensagem/de/escala/bloqueada";
+		}		
+
 		Escala escala = service.buscarPorId(ultimoIdEscala);
 		escala = escalaCalculosService.converteTurnoNuloEmFolga(escala);
 		escala = escalaAtalhosService.atalhoCiclo10D(escala);
@@ -1790,6 +2113,11 @@ public class EscalaController {
 	
 	@GetMapping("/atalho/ciclo10_e")
 	public String atalhoCiclo10E( RedirectAttributes attr) {	
+		//Tratando escala Bloqueada
+		if(anoMesService.buscarPorId(idAnoMesAtual).getIdEscalaBloqueadaFk().getSigla().equalsIgnoreCase("S")) {
+		return "redirect:/escalas/mensagem/de/escala/bloqueada";
+		}		
+
 		Escala escala = service.buscarPorId(ultimoIdEscala);
 		escala = escalaCalculosService.converteTurnoNuloEmFolga(escala);
 		escala = escalaAtalhosService.atalhoCiclo10E(escala);
@@ -1810,6 +2138,11 @@ public class EscalaController {
 	
 	@GetMapping("/atalho/ciclo10_f")
 	public String atalhoCiclo10F( RedirectAttributes attr) {	
+		//Tratando escala Bloqueada
+		if(anoMesService.buscarPorId(idAnoMesAtual).getIdEscalaBloqueadaFk().getSigla().equalsIgnoreCase("S")) {
+		return "redirect:/escalas/mensagem/de/escala/bloqueada";
+		}		
+
 		Escala escala = service.buscarPorId(ultimoIdEscala);
 		escala = escalaCalculosService.converteTurnoNuloEmFolga(escala);
 		escala = escalaAtalhosService.atalhoCiclo10F(escala);
@@ -1830,6 +2163,11 @@ public class EscalaController {
 	
 	@GetMapping("/atalho/ciclo10_g")
 	public String atalhoCiclo10G( RedirectAttributes attr) {	
+		//Tratando escala Bloqueada
+		if(anoMesService.buscarPorId(idAnoMesAtual).getIdEscalaBloqueadaFk().getSigla().equalsIgnoreCase("S")) {
+		return "redirect:/escalas/mensagem/de/escala/bloqueada";
+		}		
+
 		Escala escala = service.buscarPorId(ultimoIdEscala);
 		escala = escalaCalculosService.converteTurnoNuloEmFolga(escala);
 		escala = escalaAtalhosService.atalhoCiclo10G(escala);
@@ -1854,6 +2192,11 @@ public class EscalaController {
 	//Ciclo11
 	@GetMapping("/atalho/ciclo11_a")
 	public String atalhoCiclo11A( RedirectAttributes attr) {	
+		//Tratando escala Bloqueada
+		if(anoMesService.buscarPorId(idAnoMesAtual).getIdEscalaBloqueadaFk().getSigla().equalsIgnoreCase("S")) {
+		return "redirect:/escalas/mensagem/de/escala/bloqueada";
+		}		
+
 		Escala escala = service.buscarPorId(ultimoIdEscala);
 		escala = escalaCalculosService.converteTurnoNuloEmFolga(escala);
 		escala = escalaAtalhosService.atalhoCiclo11A(escala);
@@ -1874,6 +2217,11 @@ public class EscalaController {
 	
 	@GetMapping("/atalho/ciclo11_b")
 	public String atalhoCiclo11B( RedirectAttributes attr) {	
+		//Tratando escala Bloqueada
+		if(anoMesService.buscarPorId(idAnoMesAtual).getIdEscalaBloqueadaFk().getSigla().equalsIgnoreCase("S")) {
+		return "redirect:/escalas/mensagem/de/escala/bloqueada";
+		}		
+
 		Escala escala = service.buscarPorId(ultimoIdEscala);
 		escala = escalaCalculosService.converteTurnoNuloEmFolga(escala);
 		escala = escalaAtalhosService.atalhoCiclo11B(escala);
@@ -1894,6 +2242,11 @@ public class EscalaController {
 	
 	@GetMapping("/atalho/ciclo11_c")
 	public String atalhoCiclo11C( RedirectAttributes attr) {	
+		//Tratando escala Bloqueada
+		if(anoMesService.buscarPorId(idAnoMesAtual).getIdEscalaBloqueadaFk().getSigla().equalsIgnoreCase("S")) {
+		return "redirect:/escalas/mensagem/de/escala/bloqueada";
+		}		
+
 		Escala escala = service.buscarPorId(ultimoIdEscala);
 		escala = escalaCalculosService.converteTurnoNuloEmFolga(escala);
 		escala = escalaAtalhosService.atalhoCiclo11C(escala);
@@ -1914,6 +2267,11 @@ public class EscalaController {
 	
 	@GetMapping("/atalho/ciclo11_d")
 	public String atalhoCiclo11D( RedirectAttributes attr) {	
+		//Tratando escala Bloqueada
+		if(anoMesService.buscarPorId(idAnoMesAtual).getIdEscalaBloqueadaFk().getSigla().equalsIgnoreCase("S")) {
+		return "redirect:/escalas/mensagem/de/escala/bloqueada";
+		}		
+
 		Escala escala = service.buscarPorId(ultimoIdEscala);
 		escala = escalaCalculosService.converteTurnoNuloEmFolga(escala);
 		escala = escalaAtalhosService.atalhoCiclo11D(escala);
@@ -1934,6 +2292,11 @@ public class EscalaController {
 	
 	@GetMapping("/atalho/ciclo11_e")
 	public String atalhoCiclo11E( RedirectAttributes attr) {	
+		//Tratando escala Bloqueada
+		if(anoMesService.buscarPorId(idAnoMesAtual).getIdEscalaBloqueadaFk().getSigla().equalsIgnoreCase("S")) {
+		return "redirect:/escalas/mensagem/de/escala/bloqueada";
+		}		
+
 		Escala escala = service.buscarPorId(ultimoIdEscala);
 		escala = escalaCalculosService.converteTurnoNuloEmFolga(escala);
 		escala = escalaAtalhosService.atalhoCiclo11E(escala);
@@ -1954,6 +2317,11 @@ public class EscalaController {
 	
 	@GetMapping("/atalho/ciclo11_f")
 	public String atalhoCiclo11F( RedirectAttributes attr) {	
+		//Tratando escala Bloqueada
+		if(anoMesService.buscarPorId(idAnoMesAtual).getIdEscalaBloqueadaFk().getSigla().equalsIgnoreCase("S")) {
+		return "redirect:/escalas/mensagem/de/escala/bloqueada";
+		}		
+
 		Escala escala = service.buscarPorId(ultimoIdEscala);
 		escala = escalaCalculosService.converteTurnoNuloEmFolga(escala);
 		escala = escalaAtalhosService.atalhoCiclo11F(escala);
@@ -1974,6 +2342,11 @@ public class EscalaController {
 	
 	@GetMapping("/atalho/ciclo11_g")
 	public String atalhoCiclo11G( RedirectAttributes attr) {	
+		//Tratando escala Bloqueada
+		if(anoMesService.buscarPorId(idAnoMesAtual).getIdEscalaBloqueadaFk().getSigla().equalsIgnoreCase("S")) {
+		return "redirect:/escalas/mensagem/de/escala/bloqueada";
+		}		
+
 		Escala escala = service.buscarPorId(ultimoIdEscala);
 		escala = escalaCalculosService.converteTurnoNuloEmFolga(escala);
 		escala = escalaAtalhosService.atalhoCiclo11G(escala);
@@ -1997,6 +2370,11 @@ public class EscalaController {
 	//Ciclo12
 	@GetMapping("/atalho/ciclo12_a")
 	public String atalhoCiclo12A( RedirectAttributes attr) {	
+		//Tratando escala Bloqueada
+		if(anoMesService.buscarPorId(idAnoMesAtual).getIdEscalaBloqueadaFk().getSigla().equalsIgnoreCase("S")) {
+		return "redirect:/escalas/mensagem/de/escala/bloqueada";
+		}		
+
 		Escala escala = service.buscarPorId(ultimoIdEscala);
 		escala = escalaCalculosService.converteTurnoNuloEmFolga(escala);
 		escala = escalaAtalhosService.atalhoCiclo12A(escala);
@@ -2017,6 +2395,11 @@ public class EscalaController {
 	
 	@GetMapping("/atalho/ciclo12_b")
 	public String atalhoCiclo12B( RedirectAttributes attr) {	
+		//Tratando escala Bloqueada
+		if(anoMesService.buscarPorId(idAnoMesAtual).getIdEscalaBloqueadaFk().getSigla().equalsIgnoreCase("S")) {
+		return "redirect:/escalas/mensagem/de/escala/bloqueada";
+		}		
+
 		Escala escala = service.buscarPorId(ultimoIdEscala);
 		escala = escalaCalculosService.converteTurnoNuloEmFolga(escala);
 		escala = escalaAtalhosService.atalhoCiclo12B(escala);
@@ -2037,6 +2420,11 @@ public class EscalaController {
 	
 	@GetMapping("/atalho/ciclo12_c")
 	public String atalhoCiclo12C( RedirectAttributes attr) {	
+		//Tratando escala Bloqueada
+		if(anoMesService.buscarPorId(idAnoMesAtual).getIdEscalaBloqueadaFk().getSigla().equalsIgnoreCase("S")) {
+		return "redirect:/escalas/mensagem/de/escala/bloqueada";
+		}		
+
 		Escala escala = service.buscarPorId(ultimoIdEscala);
 		escala = escalaCalculosService.converteTurnoNuloEmFolga(escala);
 		escala = escalaAtalhosService.atalhoCiclo12C(escala);
@@ -2057,6 +2445,11 @@ public class EscalaController {
 	
 	@GetMapping("/atalho/ciclo12_d")
 	public String atalhoCiclo12D( RedirectAttributes attr) {	
+		//Tratando escala Bloqueada
+		if(anoMesService.buscarPorId(idAnoMesAtual).getIdEscalaBloqueadaFk().getSigla().equalsIgnoreCase("S")) {
+		return "redirect:/escalas/mensagem/de/escala/bloqueada";
+		}		
+
 		Escala escala = service.buscarPorId(ultimoIdEscala);
 		escala = escalaCalculosService.converteTurnoNuloEmFolga(escala);
 		escala = escalaAtalhosService.atalhoCiclo12D(escala);
@@ -2077,6 +2470,11 @@ public class EscalaController {
 	
 	@GetMapping("/atalho/ciclo12_e")
 	public String atalhoCiclo12E( RedirectAttributes attr) {	
+		//Tratando escala Bloqueada
+		if(anoMesService.buscarPorId(idAnoMesAtual).getIdEscalaBloqueadaFk().getSigla().equalsIgnoreCase("S")) {
+		return "redirect:/escalas/mensagem/de/escala/bloqueada";
+		}		
+
 		Escala escala = service.buscarPorId(ultimoIdEscala);
 		escala = escalaCalculosService.converteTurnoNuloEmFolga(escala);
 		escala = escalaAtalhosService.atalhoCiclo12E(escala);
@@ -2097,6 +2495,11 @@ public class EscalaController {
 	
 	@GetMapping("/atalho/ciclo12_f")
 	public String atalhoCiclo12F( RedirectAttributes attr) {	
+		//Tratando escala Bloqueada
+		if(anoMesService.buscarPorId(idAnoMesAtual).getIdEscalaBloqueadaFk().getSigla().equalsIgnoreCase("S")) {
+		return "redirect:/escalas/mensagem/de/escala/bloqueada";
+		}		
+
 		Escala escala = service.buscarPorId(ultimoIdEscala);
 		escala = escalaCalculosService.converteTurnoNuloEmFolga(escala);
 		escala = escalaAtalhosService.atalhoCiclo12F(escala);
@@ -2117,6 +2520,11 @@ public class EscalaController {
 	
 	@GetMapping("/atalho/ciclo12_g")
 	public String atalhoCiclo12G( RedirectAttributes attr) {	
+		//Tratando escala Bloqueada
+		if(anoMesService.buscarPorId(idAnoMesAtual).getIdEscalaBloqueadaFk().getSigla().equalsIgnoreCase("S")) {
+		return "redirect:/escalas/mensagem/de/escala/bloqueada";
+		}		
+
 		Escala escala = service.buscarPorId(ultimoIdEscala);
 		escala = escalaCalculosService.converteTurnoNuloEmFolga(escala);
 		escala = escalaAtalhosService.atalhoCiclo12G(escala);
@@ -2136,6 +2544,15 @@ public class EscalaController {
 	}
 	
 
+	@GetMapping("/mensagem/de/escala/bloqueada")
+	public String mensagemDeEscalaBloqueada(ModelMap model) {	
+		
+		model.addAttribute("atencao", "ATENÇÃO");
+		model.addAttribute("choque", "ESCALA BLOQUEADA");
+		model.addAttribute("mensagem", "Precisamos cumprir os prazos para evitar problemas.");
+		
+		return "/choqueescala/escalaBloqueada";
+	}
 	
 	@GetMapping("/mensagem/de/choque")
 	public String mensagemDeChoque(ModelMap model) {	
@@ -2256,6 +2673,12 @@ public class EscalaController {
 	
 	@PostMapping("/incluindo")
 	public String incluindo(ModelMap model, InclusaoEscala inclusaoEscala ) {
+
+		//Tratando escala Bloqueada
+		if(anoMesService.buscarPorId(idAnoMesAtual).getIdEscalaBloqueadaFk().getSigla().equalsIgnoreCase("S")) {
+		return "redirect:/escalas/mensagem/de/escala/bloqueada";
+		}		
+
 		
 		if(inclusaoEscala.getId()!=null && inclusaoEscala.getRegiDeTrabalho()!= null && inclusaoEscala.getTiposDeFolha()!=null && inclusaoEscala.getTurma()!=null) {
 			

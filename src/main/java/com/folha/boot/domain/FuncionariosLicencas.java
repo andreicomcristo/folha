@@ -2,6 +2,7 @@ package com.folha.boot.domain;
 
 import javax.persistence.*;
 import java.util.Date;
+import java.util.List;
 
 @SuppressWarnings("serial")
 @Entity
@@ -81,7 +82,10 @@ public class FuncionariosLicencas extends AbstractEntity<Long> {
     @JoinColumn(name = "id_unidade_lotacao_atual_fk", referencedColumnName = "id")
     @ManyToOne
     private Unidades idUnidadeLotacaoAtualFk;
-	public Date getDtInicial() {
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "idFuncionariosLicencasFk")
+    private List<FuncionariosLicencasCid> funcionariosLicencasCidList;
+    
+    public Date getDtInicial() {
 		return dtInicial;
 	}
 	public void setDtInicial(Date dtInicial) {
@@ -224,6 +228,12 @@ public class FuncionariosLicencas extends AbstractEntity<Long> {
 	}
 	public void setIdUnidadeLotacaoAtualFk(Unidades idUnidadeLotacaoAtualFk) {
 		this.idUnidadeLotacaoAtualFk = idUnidadeLotacaoAtualFk;
+	}
+	public List<FuncionariosLicencasCid> getFuncionariosLicencasCidList() {
+		return funcionariosLicencasCidList;
+	}
+	public void setFuncionariosLicencasCidList(List<FuncionariosLicencasCid> funcionariosLicencasCidList) {
+		this.funcionariosLicencasCidList = funcionariosLicencasCidList;
 	}
  
     

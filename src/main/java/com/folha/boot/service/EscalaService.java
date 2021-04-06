@@ -191,7 +191,14 @@ public class EscalaService {
 			escalaAMudar.setIdOperadorMudancaFk(escala.getIdOperadorMudancaFk());
 			escalaAMudar.setDtMudanca(escala.getDtMudanca());
 			
-			salvar(escalaAMudar);
+			//AVALIAÇÃO PARA SABER SE TEM CHOQUES
+			String choque = choquesEmEscalaOnipresenca(escalaAMudar);
+			String choqueDescansoDepoisNoturno = choquesEmEscalaDepoisDoNoturno(escalaAMudar);
+			if(choque.length()==0 && choqueDescansoDepoisNoturno.length()==0) {
+				salvar(escalaAMudar);
+			}
+			
+			
 		}
 	}
 	

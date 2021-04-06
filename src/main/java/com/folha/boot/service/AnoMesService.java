@@ -41,6 +41,19 @@ public class AnoMesService {
 	}
 	
 	public List<AnoMes> buscarPorNome(String nomeAnoMes) {
-		return reposytory.findByNomeAnoMesContainingOrderByNomeAnoMesDesc(nomeAnoMes);
+		return reposytory.findByNomeAnoMesOrderByNomeAnoMesDesc(nomeAnoMes);
 	}
+	
+	public boolean escalaBloqueada (String nomeAnoMes) {
+		boolean resposta = true;
+		List<AnoMes> lista = buscarPorNome(nomeAnoMes);
+		if(!lista.isEmpty()) {
+			if(lista.get(0).getIdEscalaBloqueadaFk().getSigla().equalsIgnoreCase("N")) {
+				resposta = false;
+			}
+		}
+		return resposta;
+	}
+	
+	
 }

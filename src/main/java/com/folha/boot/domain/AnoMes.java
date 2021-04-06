@@ -4,6 +4,8 @@ import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
@@ -13,23 +15,24 @@ import javax.persistence.Table;
 public class AnoMes extends AbstractEntity<Long> {
 
 	@Column(name = "nome_ano_mes")
-	private String nomeAnoMes;
-	
-	@OneToMany(mappedBy = "idAnoMesFk")
-	private List<Escala> escalaList;
-	
+    private String nomeAnoMes;
+    @JoinColumn(name = "id_escala_bloqueada_fk", referencedColumnName = "id")
+    @ManyToOne
+    private SimNao idEscalaBloqueadaFk;
 	public String getNomeAnoMes() {
 		return nomeAnoMes;
 	}
 	public void setNomeAnoMes(String nomeAnoMes) {
 		this.nomeAnoMes = nomeAnoMes;
 	}
-	public List<Escala> getEscalaList() {
-		return escalaList;
+	public SimNao getIdEscalaBloqueadaFk() {
+		return idEscalaBloqueadaFk;
 	}
-	public void setEscalaList(List<Escala> escalaList) {
-		this.escalaList = escalaList;
+	public void setIdEscalaBloqueadaFk(SimNao idEscalaBloqueadaFk) {
+		this.idEscalaBloqueadaFk = idEscalaBloqueadaFk;
 	}
+	
+	
 	
 	
 }

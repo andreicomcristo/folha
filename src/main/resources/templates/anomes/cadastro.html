@@ -32,6 +32,13 @@
 								id="codigo" placeholder="Ano/Mês (somente os números)" th:field="*{nomeAnoMes}" /> 
 							<p></p>
 							
+							<p></p>
+							
+							<select id="idEscalaBloqueadaFk" class="form-select" th:field="*{idEscalaBloqueadaFk}">
+								<option value="">Indique se a escala está bloqueada</option>
+								<option class="form-select" th:each="d : ${idEscalaBloqueadaFk}" th:value="${d.id}"th:text="${d.descricao}" selected >ADM</option>
+							</select>
+							
 							<input type="hidden" id="id" th:field="*{id}" />
 								<p></p>					
 						<button class="btn btn-outline-dark">Cadastrar</button>
