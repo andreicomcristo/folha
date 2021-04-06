@@ -13,13 +13,17 @@ public class CodigoDiferenciado extends AbstractEntity<Long> {
 
 	@Column(name = "nome_codigo_diferenciado")
 	private String nomeCodigoDiferenciado;
+	
 	@Column(name = "descricao_codigo_diferenciado")
 	private String descricaoCodigoDiferenciado;
+	
 	@JoinColumn(name = "id_unidade_fk", referencedColumnName = "id")
     @ManyToOne
     private Unidades idUnidadeFk;
+	
 	@OneToMany(mappedBy = "idCodigoDiferenciadoFk")
 	private List<Escala> escalaList;
+	
 	@OneToMany(mappedBy = "idCodDiferenciadoFk")
 	private List<FaixasValoresParametrosCalculoFolhasExtras> faixasValoresParametrosCalculoFolhasExtrasList;
 	

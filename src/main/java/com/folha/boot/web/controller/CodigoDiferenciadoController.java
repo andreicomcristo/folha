@@ -1,24 +1,31 @@
 package com.folha.boot.web.controller;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import com.folha.boot.domain.CodigoDiferenciado;
+import com.folha.boot.domain.Unidades;
 import com.folha.boot.service.CodigoDiferenciadoService;
+import com.folha.boot.service.UnidadesService;
 
 @Controller
 @RequestMapping("/codigodiferenciados")
 public class CodigoDiferenciadoController {
 
 	@Autowired
+	private UnidadesService unidadesservice;
+	@Autowired
 	private CodigoDiferenciadoService service;
-
+	
 	@GetMapping("/cadastrar")
 	public String cadastrar(CodigoDiferenciado codigoDiferenciado) {		
 		return "/codigodiferenciado/cadastro";
@@ -61,5 +68,10 @@ public class CodigoDiferenciadoController {
 	public String getPorNome(@RequestParam("nomeCodigoDiferenciado") String nomeCodigoDiferenciado, ModelMap model) {		
 		model.addAttribute("codigoDiferenciado", service.buscarPorNomeGeral(nomeCodigoDiferenciado.toUpperCase().trim()));
 		return "/codigodiferenciado/lista";
+	}
+	
+	@ModelAttribute("idUnidadeFk")
+	public List<Unidades> getUnidades() {
+		return unidadesservice.buscarTodos();
 	}
 }
