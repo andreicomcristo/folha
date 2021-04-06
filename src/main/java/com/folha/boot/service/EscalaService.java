@@ -835,6 +835,7 @@ public class EscalaService {
 	    }else {resposta = "";}
     	
     	
+	    
     	return resposta;
     }
 	
