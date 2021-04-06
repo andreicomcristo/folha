@@ -16,9 +16,15 @@ public class AnoMes extends AbstractEntity<Long> {
 
 	@Column(name = "nome_ano_mes")
     private String nomeAnoMes;
+	@OneToMany(mappedBy = "idAnoMesFk")
+    private List<EscalaPosTransparencia> escalaPosTransparenciaList;
     @JoinColumn(name = "id_escala_bloqueada_fk", referencedColumnName = "id")
     @ManyToOne
     private SimNao idEscalaBloqueadaFk;
+    @JoinColumn(name = "id_transparencia_enviada_fk", referencedColumnName = "id")
+    @ManyToOne
+    private SimNao idTransparenciaEnviadaFk;
+    
 	public String getNomeAnoMes() {
 		return nomeAnoMes;
 	}
@@ -30,6 +36,18 @@ public class AnoMes extends AbstractEntity<Long> {
 	}
 	public void setIdEscalaBloqueadaFk(SimNao idEscalaBloqueadaFk) {
 		this.idEscalaBloqueadaFk = idEscalaBloqueadaFk;
+	}
+	public SimNao getIdTransparenciaEnviadaFk() {
+		return idTransparenciaEnviadaFk;
+	}
+	public void setIdTransparenciaEnviadaFk(SimNao idTransparenciaEnviadaFk) {
+		this.idTransparenciaEnviadaFk = idTransparenciaEnviadaFk;
+	}
+	public List<EscalaPosTransparencia> getEscalaPosTransparenciaList() {
+		return escalaPosTransparenciaList;
+	}
+	public void setEscalaPosTransparenciaList(List<EscalaPosTransparencia> escalaPosTransparenciaList) {
+		this.escalaPosTransparenciaList = escalaPosTransparenciaList;
 	}
 	
 	

@@ -55,6 +55,7 @@ import com.folha.boot.service.CoordenacaoEscalaService;
 import com.folha.boot.service.EscalaAtalhosService;
 import com.folha.boot.service.EscalaCalculosService;
 import com.folha.boot.service.EscalaExportacaoService;
+import com.folha.boot.service.EscalaPosTransparenciaService;
 import com.folha.boot.service.EscalaService;
 import com.folha.boot.service.PessoaDocumentosService;
 import com.folha.boot.service.PessoaFuncionariosService;
@@ -121,6 +122,8 @@ public class EscalaController {
 	CargosEspecialidadeService cargosEspecialidadeService;
 	@Autowired
 	EscalaExportacaoService escalaExportacaoService;
+	@Autowired
+	EscalaPosTransparenciaService escalaPosTransparenciaService;
 	
 	
 	
@@ -210,7 +213,8 @@ public class EscalaController {
 		
 		model.addAttribute("escala", coordenacaoEscalaService.buscarPorId(idCoordenacaoAtual));
 		model.addAttribute("mes", anoMesService.buscarPorId(idAnoMesAtual));
-		
+		//Tratando Envio transparencia
+		if(anoMesService.buscarPorId(idAnoMesAtual).getIdTransparenciaEnviadaFk().getSigla().equalsIgnoreCase("S")) {model.addAttribute("transparencia", "Dados já enviados para o portal da transparência (Lei Federal de Acesso à Informação 12 527/2011). Ficará registrada sua mudança para possíveis comprovações.");}else {model.addAttribute("transparencia", "");}
 		model.addAttribute("currentePage", pageNo);
 		model.addAttribute("totalPages", page.getTotalPages());
 		model.addAttribute("totalItems", page.getTotalElements()); 
@@ -222,7 +226,8 @@ public class EscalaController {
 		
 		model.addAttribute("escala", "Todos");
 		model.addAttribute("mes", anoMesService.buscarPorId(idAnoMesAtual));
-		
+		//Tratando Envio transparencia
+		if(anoMesService.buscarPorId(idAnoMesAtual).getIdTransparenciaEnviadaFk().getSigla().equalsIgnoreCase("S")) {model.addAttribute("transparencia", "Dados já enviados para o portal da transparência (Lei Federal de Acesso à Informação 12 527/2011). Ficará registrada sua mudança para possíveis comprovações.");}else {model.addAttribute("transparencia", "");}
 		model.addAttribute("currentePage", pageNo);
 		model.addAttribute("totalPages", page.getTotalPages());
 		model.addAttribute("totalItems", page.getTotalElements()); 
@@ -275,7 +280,7 @@ public class EscalaController {
 		//Tratando escala Bloqueada
 		if(anoMesService.buscarPorId(idAnoMesAtual).getIdEscalaBloqueadaFk().getSigla().equalsIgnoreCase("S")) {
 		return "redirect:/escalas/mensagem/de/escala/bloqueada";
-		}		
+		}
 		
 		escala = escalaCalculosService.converteTurnoNuloEmFolga(escala);
 		escala = escalaCalculosService.calcularDadosEscala(escala);
@@ -324,6 +329,11 @@ public class EscalaController {
 		//salvando
 		if(podeSalvar==true ){
 			service.salvar(escala);
+			//Tratando Envio transparencia
+			if(anoMesService.buscarPorId(idAnoMesAtual).getIdTransparenciaEnviadaFk().getSigla().equalsIgnoreCase("S")) {			
+				escalaPosTransparenciaService.salvar(escalaPosTransparenciaService.converteDeEscalaParaEscalaPosTransparencia(escala));
+			}
+
 		}
 		//lançanco turma
 		if(lancarTurma!= null) {service.lancarTurma(escala);}
@@ -355,6 +365,10 @@ public class EscalaController {
 		}
 		
 		service.salvar(escala);  
+		//Tratando Envio transparencia
+		if(anoMesService.buscarPorId(idAnoMesAtual).getIdTransparenciaEnviadaFk().getSigla().equalsIgnoreCase("S")) {			
+			escalaPosTransparenciaService.salvar(escalaPosTransparenciaService.converteDeEscalaParaEscalaPosTransparencia(escala));
+		}
 		
 		return "redirect:/escalas/listar";
 	}

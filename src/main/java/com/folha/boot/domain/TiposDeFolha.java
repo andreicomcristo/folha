@@ -16,6 +16,8 @@ public class TiposDeFolha extends AbstractEntity<Long> {
 	private String descricaoTipoFolha;
 	@OneToMany(mappedBy = "idTipoFolhaFk")
 	private List<Escala> escalaList;
+	@OneToMany(mappedBy = "idTipoFolhaFk")
+    private List<EscalaPosTransparencia> escalaPosTransparenciaList;
 	@OneToMany(mappedBy = "idTipoDeFolhaFk")
 	private List<FaixasValoresParametrosCalculoFolhasExtras> faixasValoresParametrosCalculoFolhasExtrasList;
 	
@@ -44,5 +46,12 @@ public class TiposDeFolha extends AbstractEntity<Long> {
 			List<FaixasValoresParametrosCalculoFolhasExtras> faixasValoresParametrosCalculoFolhasExtrasList) {
 		this.faixasValoresParametrosCalculoFolhasExtrasList = faixasValoresParametrosCalculoFolhasExtrasList;
 	}
+	public List<EscalaPosTransparencia> getEscalaPosTransparenciaList() {
+		return escalaPosTransparenciaList;
+	}
+	public void setEscalaPosTransparenciaList(List<EscalaPosTransparencia> escalaPosTransparenciaList) {
+		this.escalaPosTransparenciaList = escalaPosTransparenciaList;
+	}
+	
 	
 }

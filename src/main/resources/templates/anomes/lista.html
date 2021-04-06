@@ -46,6 +46,7 @@
 		                	<th>#</th>
 		                    <th>Ano/Mês</th>
 		                    <th>Escala Bloqueada</th>
+		                    <th>Transparência Enviada</th>
 		                    <th>Ações</th>
 	                    </tr>
 	                </thead>                  
@@ -54,6 +55,7 @@
 		                	<td th:text="${d.id}"></td>
 		                    <td th:text="${d.nomeAnoMes}"></td>		                    
 		                    <td th:text="${d.idEscalaBloqueadaFk.descricao}"></td>
+		                    <td th:text="${d.idTransparenciaEnviadaFk.descricao}"></td>
 		                    <td colspan="2">
 		                    	<a class="btn btn-outline-info btn-sm" th:href="@{/anomes/editar/{id} (id=${d.id}) }" role="button">
 		                        	<span class="oi oi-brush" title="Editar" aria-hidden="true"></span>

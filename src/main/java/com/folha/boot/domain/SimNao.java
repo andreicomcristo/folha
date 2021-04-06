@@ -16,6 +16,7 @@ public class SimNao extends AbstractEntity<Long> {
     private String sigla;
     @Column(name = "descricao")
     private String descricao;
+    
     @OneToMany(mappedBy = "idChDifSimNaoFk")
     private List<Escala> escalaList;
     @OneToMany(mappedBy = "idIncrementoDeRiscoSimNaoFk")
@@ -33,6 +34,23 @@ public class SimNao extends AbstractEntity<Long> {
     @OneToMany(mappedBy = "idLiberacaoDobraInvertidaSimNaoFk")
     private List<Escala> escalaList7;
     
+    @OneToMany(mappedBy = "idAvaliacaoAssiduidadeFk")
+    private List<EscalaPosTransparencia> escalaPosTransparenciaList;
+    @OneToMany(mappedBy = "idChDifSimNaoFk")
+    private List<EscalaPosTransparencia> escalaPosTransparenciaList1;
+    @OneToMany(mappedBy = "idLiberacaoDobraInvertidaSimNaoFk")
+    private List<EscalaPosTransparencia> escalaPosTransparenciaList2;
+    @OneToMany(mappedBy = "idAvaliacaoAtividadesBurocraticasFk")
+    private List<EscalaPosTransparencia> escalaPosTransparenciaList3;
+    @OneToMany(mappedBy = "idAvaliacaoFormalizacaoPontoFk")
+    private List<EscalaPosTransparencia> escalaPosTransparenciaList4;
+    @OneToMany(mappedBy = "idIncrementoDeRiscoSimNaoFk")
+    private List<EscalaPosTransparencia> escalaPosTransparenciaList5;
+    @OneToMany(mappedBy = "idAvaliacaoPermanenciaFk")
+    private List<EscalaPosTransparencia> escalaPosTransparenciaList6;
+    @OneToMany(mappedBy = "idPresencialSimNaoFk")
+    private List<EscalaPosTransparencia> escalaPosTransparenciaList7;
+    
     @OneToMany(mappedBy = "idCorteFolhaEfetivaSimNaoFk")
     private List<FuncionariosLicencas> funcionariosLicencasList;
     @OneToMany(mappedBy = "idCorteFolhaExtraSimNaoFk")
@@ -41,6 +59,8 @@ public class SimNao extends AbstractEntity<Long> {
     private List<FuncionariosLicencas> funcionariosLicencasList2;
     @OneToMany(mappedBy = "idEscalaBloqueadaFk")
     private List<AnoMes> anoMesList;
+    @OneToMany(mappedBy = "idTransparenciaEnviadaFk")
+    private List<AnoMes> anoMesList1;
     
     public SimNao() {
     }
@@ -183,6 +203,96 @@ public class SimNao extends AbstractEntity<Long> {
 
 	public void setAnoMesList(List<AnoMes> anoMesList) {
 		this.anoMesList = anoMesList;
+	}
+
+
+	public List<AnoMes> getAnoMesList1() {
+		return anoMesList1;
+	}
+
+
+	public void setAnoMesList1(List<AnoMes> anoMesList1) {
+		this.anoMesList1 = anoMesList1;
+	}
+
+
+	public List<EscalaPosTransparencia> getEscalaPosTransparenciaList() {
+		return escalaPosTransparenciaList;
+	}
+
+
+	public void setEscalaPosTransparenciaList(List<EscalaPosTransparencia> escalaPosTransparenciaList) {
+		this.escalaPosTransparenciaList = escalaPosTransparenciaList;
+	}
+
+
+	public List<EscalaPosTransparencia> getEscalaPosTransparenciaList1() {
+		return escalaPosTransparenciaList1;
+	}
+
+
+	public void setEscalaPosTransparenciaList1(List<EscalaPosTransparencia> escalaPosTransparenciaList1) {
+		this.escalaPosTransparenciaList1 = escalaPosTransparenciaList1;
+	}
+
+
+	public List<EscalaPosTransparencia> getEscalaPosTransparenciaList2() {
+		return escalaPosTransparenciaList2;
+	}
+
+
+	public void setEscalaPosTransparenciaList2(List<EscalaPosTransparencia> escalaPosTransparenciaList2) {
+		this.escalaPosTransparenciaList2 = escalaPosTransparenciaList2;
+	}
+
+
+	public List<EscalaPosTransparencia> getEscalaPosTransparenciaList3() {
+		return escalaPosTransparenciaList3;
+	}
+
+
+	public void setEscalaPosTransparenciaList3(List<EscalaPosTransparencia> escalaPosTransparenciaList3) {
+		this.escalaPosTransparenciaList3 = escalaPosTransparenciaList3;
+	}
+
+
+	public List<EscalaPosTransparencia> getEscalaPosTransparenciaList4() {
+		return escalaPosTransparenciaList4;
+	}
+
+
+	public void setEscalaPosTransparenciaList4(List<EscalaPosTransparencia> escalaPosTransparenciaList4) {
+		this.escalaPosTransparenciaList4 = escalaPosTransparenciaList4;
+	}
+
+
+	public List<EscalaPosTransparencia> getEscalaPosTransparenciaList5() {
+		return escalaPosTransparenciaList5;
+	}
+
+
+	public void setEscalaPosTransparenciaList5(List<EscalaPosTransparencia> escalaPosTransparenciaList5) {
+		this.escalaPosTransparenciaList5 = escalaPosTransparenciaList5;
+	}
+
+
+	public List<EscalaPosTransparencia> getEscalaPosTransparenciaList6() {
+		return escalaPosTransparenciaList6;
+	}
+
+
+	public void setEscalaPosTransparenciaList6(List<EscalaPosTransparencia> escalaPosTransparenciaList6) {
+		this.escalaPosTransparenciaList6 = escalaPosTransparenciaList6;
+	}
+
+
+	public List<EscalaPosTransparencia> getEscalaPosTransparenciaList7() {
+		return escalaPosTransparenciaList7;
+	}
+
+
+	public void setEscalaPosTransparenciaList7(List<EscalaPosTransparencia> escalaPosTransparenciaList7) {
+		this.escalaPosTransparenciaList7 = escalaPosTransparenciaList7;
 	}
 
     

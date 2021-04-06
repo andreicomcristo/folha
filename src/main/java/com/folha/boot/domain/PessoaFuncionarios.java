@@ -63,6 +63,8 @@ public class PessoaFuncionarios extends AbstractEntity<Long> {
     private List<Autorizacoes> autorizacoesList;
     @OneToMany(mappedBy = "idFuncionarioFk")
     private List<Escala> escalaList;
+    @OneToMany(mappedBy = "idFuncionarioFk")
+    private List<EscalaPosTransparencia> escalaPosTransparenciaList;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "idFuncionarioFk")
     private List<HistFuncionariosVinculos> histFuncionariosVinculosList;
     @JoinColumn(name = "id_especialidade_atual_fk", referencedColumnName = "id")
@@ -405,4 +407,14 @@ public class PessoaFuncionarios extends AbstractEntity<Long> {
 		this.escalaList = escalaList;
 	}
 
+	public List<EscalaPosTransparencia> getEscalaPosTransparenciaList() {
+		return escalaPosTransparenciaList;
+	}
+
+	public void setEscalaPosTransparenciaList(List<EscalaPosTransparencia> escalaPosTransparenciaList) {
+		this.escalaPosTransparenciaList = escalaPosTransparenciaList;
+	}
+
+	
+	
 }

@@ -33,11 +33,21 @@
 							<p></p>
 							
 							<p></p>
-							
+							<label for="nome" >Escala Bloqueada</label>
 							<select id="idEscalaBloqueadaFk" class="form-select" th:field="*{idEscalaBloqueadaFk}">
 								<option value="">Indique se a escala está bloqueada</option>
 								<option class="form-select" th:each="d : ${idEscalaBloqueadaFk}" th:value="${d.id}"th:text="${d.descricao}" selected >ADM</option>
 							</select>
+
+							<p></p>
+							<label for="nome" >Portal da transparência Encaminhado</label>
+							<select id="idTransparenciaEnviadaFk" class="form-select" th:field="*{idTransparenciaEnviadaFk}">
+								<option value="">Indique se a escala está bloqueada</option>
+								<option class="form-select" th:each="d : ${idTransparenciaEnviadaFk}" th:value="${d.id}"th:text="${d.descricao}" selected >ADM</option>
+							</select>
+							
+							
+							
 							
 							<input type="hidden" id="id" th:field="*{id}" />
 								<p></p>					

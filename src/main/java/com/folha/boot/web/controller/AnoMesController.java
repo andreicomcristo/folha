@@ -81,4 +81,9 @@ public class AnoMesController {
 		return simNaoService.buscarTodos();
 	}
 	
+	@ModelAttribute("idTransparenciaEnviadaFk")
+	public List<SimNao> getTransparenciaEnviadaFk() {
+		return simNaoService.buscarTodos();
+	}
+	
 }
