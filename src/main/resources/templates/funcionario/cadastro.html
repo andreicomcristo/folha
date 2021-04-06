@@ -14,19 +14,13 @@
 
 		<div class="container" id="cadastro">
 
+
+
 			<div th:replace="fragments/alert"></div>
 			
-							<p></p>
-							<a class="btn btn-outline-danger btn-sm" href="/enderecos/retroceder"
-								role="button"> <span class="oi oi-arrow-thick-left" title="Cadastro"
-								aria-hidden="true"></span> <span>Retroceder</span>
-							</a>
 							
-							<a class="btn btn-outline-success btn-sm" href="/enderecos/avancar"
-								role="button"> <span>Avançar</span><span class="oi oi-arrow-thick-right" 
-								title="Cadastro" aria-hidden="true"></span>
-							</a>
-			
+							
+							
 			
 		
 		
@@ -34,11 +28,21 @@
 		
 		<div class="form-group container  col-md-6 col-6 " id="cadastro">
 
+			<label for="nome" class="fonte-tutulos-tamanho">Dados de Funcionários </label>
+			
+							<p></p>
+							<a class="btn btn-outline-danger btn-sm" href="/funcionarios/retroceder"
+								role="button"> <span class="oi oi-arrow-thick-left" title="Cadastro"
+								aria-hidden="true"></span> <span>Retroceder</span>
+							</a>
+							<p></p>
 			
 			<form
 				th:action="${pessoaFuncionarios.id == null} ? @{/funcionarios/salvar/funcionario} : @{/funcionarios/salvar/funcionario}"
 				th:object="${pessoaFuncionarios}" method="POST">
 				<div class="form-row">
+
+					
 
 					<div class="form-group col-md-6">
 							

@@ -79,7 +79,7 @@ public class PessoaFilhosController {
 	
 	@GetMapping("/avancar")
 	public String avancar() {
-		return "redirect:/fotos/cadastrar/"+idPessoaAtual+"";
+		return "redirect:/funcionarios/cadastrar/"+idPessoaAtual+"";
 	}
 	
 	@GetMapping("/retroceder")

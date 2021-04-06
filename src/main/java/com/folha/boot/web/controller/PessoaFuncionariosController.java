@@ -156,6 +156,11 @@ public class PessoaFuncionariosController {
 		return "redirect:/enderecos/cadastrar/"+idPessoaAtual+"";
 	}
 	
+	@GetMapping("/retroceder")
+	public String retroceder() {
+		return "redirect:/filhos/cadastrar/"+idPessoaAtual+"";
+	}
+	
 	@ModelAttribute("idCargaHorariaAtualFk")
 	public List<CargaHorariaSemanal> getCargaHorariaSemanal() {
 		return cargaHorariaSemanalService.buscarTodos();

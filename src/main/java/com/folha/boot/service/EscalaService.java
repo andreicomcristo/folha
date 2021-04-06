@@ -824,7 +824,10 @@ public class EscalaService {
 	    		String escalaSetor = ""; 
 	    		for(int i=0; i<lista.size();i++) {
 	    			if(lista.get(i).getHorasTotais()>0) {
-	    				escalaSetor = escalaSetor + lista.get(i).getIdCoordenacaoFk().getIdLocalidadeFk().getIdUnidadeFk().getNomeFantasia()+"-"+ lista.get(i).getIdCoordenacaoFk().getNomeCoordenacao()+"-"+lista.get(i).getIdCoordenacaoFk().getIdLocalidadeFk().getNomeLocalidade()+"-"+lista.get(i).getIdCoordenacaoFk().getIdAtividadeFk().getNomeAtividade()+"["+lista.get(i).getHorasTotais()+"]"+";";
+	    				String novoDado = lista.get(i).getIdCoordenacaoFk().getIdLocalidadeFk().getIdUnidadeFk().getNomeFantasia()+"-"+ lista.get(i).getIdCoordenacaoFk().getNomeCoordenacao()+"-"+lista.get(i).getIdCoordenacaoFk().getIdLocalidadeFk().getNomeLocalidade()+"-"+lista.get(i).getIdCoordenacaoFk().getIdAtividadeFk().getNomeAtividade()+"["+lista.get(i).getHorasTotais()+"]"+";";
+	    				if(!escalaSetor.contains(novoDado)) {
+	    					escalaSetor = escalaSetor + novoDado;
+	    				}
 	    			}
 	    		}
 	    		resposta = escalaSetor+" "+resposta;
