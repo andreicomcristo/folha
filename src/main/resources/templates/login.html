@@ -16,20 +16,32 @@
 </head>
 <body>
 	
+	
+	
 	<div class="container-login centralizar-vertical-login">
     <div class="row">
         <div class="col-md-offset-4 col-md-4 col-sm-6  col-lg-3">
+            
+            
+            
             <form th:action="@{/login}" method="post">
+	            
 	            <div class="form-login ">
 	            <h2>Sistema Gente-Web</h2>
+		            
+		            <div style= "color:red;" class="aw-simple-panel__message is-error" th:if="${#bools.isTrue(param.error)}">
+						<h3>Acesso não autorizado.</h3>
+					</div>
+	            
 	            <h4>Login</h4>
 	            <p></p>
-	            <input type="text" id="username" name="username" class="form-control input-sm chat-input" placeholder="Usuário" />
+	            <input type="text" id="username" name="username" class="form-control input-sm chat-input" placeholder="Usuário" autofocus="autofocus" />
 	            </br>
-	            <input type="text" id="password" name="password" class="form-control input-sm chat-input" placeholder="Senha" />
+	            <input type="password" id="password" name="password" class="form-control input-sm chat-input" placeholder="Senha" />
+	            
 	            </br>
 	            
-	            <select  id="unidades" class="form-control form-select chat-input" th:field="*{unidades}">
+	            <select  id="unidades" class="form-control form-select chat-input" th:field="${unidades}">
 					<option value="">Selecione a Unidade</option>
 					<option th:each="d : ${unidades}" th:value="${d.id}"th:text="${d.nomeFantasia}"> </option>
 				</select>	
