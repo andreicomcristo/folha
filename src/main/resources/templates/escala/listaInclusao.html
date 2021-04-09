@@ -4,6 +4,8 @@
 <body>	
 	<section class="layout-content" layout:fragment="corpo">		
 		<nav class="navbar navbar-expand-md bg-light">    
+	    	<a class="btn btn-outline-light oi oi-action-undo" type="button" href="javascript:history.back()"></a>
+			<a class="btn btn-outline-light oi oi-action-redo" type="button" href="javascript:history.forward()"></a>    
 	    	<a class="btn btn-outline-dark btn-md" href="/escalas/listar" role="button">
 	        	<span class="oi oi-list" title="Cadastro" aria-hidden="true"></span>
 	            <span>Voltar para Escalas</span>
@@ -77,7 +79,7 @@
 		                    
 		                    <td colspan="2">
 		                    	<a class="btn btn-outline-success btn-sm" th:href="@{/escalas/incluir/{id} (id=${d.id}) }" role="button">
-		                        	<span class="oi oi-check" title="Trazer para a escala" aria-hidden="true"></span>
+		                        	<span class="oi oi-check" title="Incluir na Escala" aria-hidden="true"></span>
 		                        </a>
 		                        
 		                        <!-- não é permitido excluir aqui

@@ -53,6 +53,7 @@ import com.folha.boot.service.AnoMesService;
 import com.folha.boot.service.CargosEspecialidadeService;
 import com.folha.boot.service.CodigoDiferenciadoService;
 import com.folha.boot.service.CoordenacaoEscalaService;
+import com.folha.boot.service.EscalaAlteracoesService;
 import com.folha.boot.service.EscalaAtalhosService;
 import com.folha.boot.service.EscalaCalculosService;
 import com.folha.boot.service.EscalaExportacaoService;
@@ -125,6 +126,8 @@ public class EscalaController {
 	EscalaExportacaoService escalaExportacaoService;
 	@Autowired
 	EscalaPosTransparenciaService escalaPosTransparenciaService;
+	@Autowired
+	EscalaAlteracoesService escalaAlteracoesService;
 	
 	
 	
@@ -437,6 +440,8 @@ public class EscalaController {
 		//salvando
 		if(podeSalvar==true ){
 			service.salvar(escala);
+			//Tratando Salvar Alteracoes X9
+			escalaAlteracoesService.salvar(escalaAlteracoesService.converteDeEscalaParaEscalaAlteracoes(escala));
 			//Tratando Envio transparencia
 			if(anoMesService.buscarPorId(idAnoMesAtual).getIdTransparenciaEnviadaFk().getSigla().equalsIgnoreCase("S")) {			
 				escalaPosTransparenciaService.salvar(escalaPosTransparenciaService.converteDeEscalaParaEscalaPosTransparencia(escala));
@@ -458,6 +463,7 @@ public class EscalaController {
 	
 	@GetMapping("/cancelar/{id}")
 	public String cancelar(@PathVariable("id") Long id, ModelMap model) {
+		
 		//Tratando escala Bloqueada
 		if(anoMesService.buscarPorId(idAnoMesAtual).getIdEscalaBloqueadaFk().getSigla().equalsIgnoreCase("S")) {
 		return "redirect:/escalas/mensagem/de/escala/bloqueada";
@@ -468,11 +474,9 @@ public class EscalaController {
 		escala.setIdOperadorCancelamentoFk(pessoaOperadoresService.buscarPorId(idOperadorLogado));
 		escala.setDtCancelamento(new Date());
 		
-		if(anoMesService.buscarPorId(idAnoMesAtual).getIdEscalaBloqueadaFk().getSigla().equalsIgnoreCase("S")) {
-			return "redirect:/escalas/mensagem/de/escala/bloqueada";
-		}
-		
-		service.salvar(escala);  
+		service.salvar(escala);
+		//Tratando Salvar Alteracoes X9
+		escalaAlteracoesService.salvar(escalaAlteracoesService.converteDeEscalaParaEscalaAlteracoes(escala));
 		//Tratando Envio transparencia
 		if(anoMesService.buscarPorId(idAnoMesAtual).getIdTransparenciaEnviadaFk().getSigla().equalsIgnoreCase("S")) {			
 			escalaPosTransparenciaService.salvar(escalaPosTransparenciaService.converteDeEscalaParaEscalaPosTransparencia(escala));

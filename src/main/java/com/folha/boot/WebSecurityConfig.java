@@ -33,9 +33,15 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 				.formLogin(form -> form.loginPage("/login").defaultSuccessUrl("/", true).permitAll())
 				.logout(logout -> logout.logoutUrl("/logout")).csrf().disable()
 		
+				.exceptionHandling().accessDeniedPage("/acesso-negado")
+		
+		.and()	
 			.sessionManagement()
 				.maximumSessions(30)
 				.expiredUrl("/login");
+			
+				
+				
 	}
 
 	@Override

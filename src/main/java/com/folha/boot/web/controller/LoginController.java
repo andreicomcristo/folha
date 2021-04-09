@@ -31,5 +31,10 @@ public class LoginController {
 	}
 	
 	
+	@RequestMapping("/acesso-negado")
+	public String acessoNegado() {
+		return "/acessoNegado/acessoNegado";
+	}
+	
 	
 }
