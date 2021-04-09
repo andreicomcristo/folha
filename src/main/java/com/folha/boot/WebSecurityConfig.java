@@ -34,8 +34,8 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 				.logout(logout -> logout.logoutUrl("/logout")).csrf().disable()
 		
 			.sessionManagement()
-			.maximumSessions(1)
-			.expiredUrl("/login");
+				.maximumSessions(30)
+				.expiredUrl("/login");
 	}
 
 	@Override

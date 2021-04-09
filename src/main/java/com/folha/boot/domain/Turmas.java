@@ -20,6 +20,10 @@ public class Turmas extends AbstractEntity<Long> {
 	private List<Escala> escalaList;
 	@OneToMany(mappedBy = "idTurmaFk")
     private List<EscalaPosTransparencia> escalaPosTransparenciaList;
+	
+	@OneToMany(mappedBy = "idTurmaFk")
+    private List<EscalaAlteracoes> escalaAlteracoesList;
+	
 	public String getNomeTurma() {
 		return nomeTurma;
 	}
@@ -44,6 +48,13 @@ public class Turmas extends AbstractEntity<Long> {
 	public void setEscalaPosTransparenciaList(List<EscalaPosTransparencia> escalaPosTransparenciaList) {
 		this.escalaPosTransparenciaList = escalaPosTransparenciaList;
 	}
+	public List<EscalaAlteracoes> getEscalaAlteracoesList() {
+		return escalaAlteracoesList;
+	}
+	public void setEscalaAlteracoesList(List<EscalaAlteracoes> escalaAlteracoesList) {
+		this.escalaAlteracoesList = escalaAlteracoesList;
+	}
+	
 	
 	
 }

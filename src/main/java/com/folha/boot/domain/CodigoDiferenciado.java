@@ -30,6 +30,9 @@ public class CodigoDiferenciado extends AbstractEntity<Long> {
 	@OneToMany(mappedBy = "idCodDiferenciadoFk")
 	private List<FaixasValoresParametrosCalculoFolhasExtras> faixasValoresParametrosCalculoFolhasExtrasList;
 	
+	@OneToMany(mappedBy = "idCodigoDiferenciadoFk")
+    private List<EscalaAlteracoes> escalaAlteracoesList;
+	
 
 	public String getNomeCodigoDiferenciado() {
 		return nomeCodigoDiferenciado;
@@ -82,5 +85,14 @@ public class CodigoDiferenciado extends AbstractEntity<Long> {
 		this.escalaPosTransparenciaList = escalaPosTransparenciaList;
 	}
 
+	public List<EscalaAlteracoes> getEscalaAlteracoesList() {
+		return escalaAlteracoesList;
+	}
+
+	public void setEscalaAlteracoesList(List<EscalaAlteracoes> escalaAlteracoesList) {
+		this.escalaAlteracoesList = escalaAlteracoesList;
+	}
+
+	
 	
 }

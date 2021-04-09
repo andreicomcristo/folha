@@ -152,6 +152,12 @@ public class PessoaOperadores extends AbstractEntity<Long> {
     private List<HistFuncionariosUnidadeAtuacao> histFuncionariosUnidadeAtuacaoList;
     @OneToMany(mappedBy = "idOperadorCancelamentoFk")
     private List<HistFuncionariosUnidadeAtuacao> histFuncionariosUnidadeAtuacaoList1;
+    
+    @OneToMany(mappedBy = "idOperadorCancelamentoFk")
+    private List<EscalaAlteracoes> escalaAlteracoesList;
+    @OneToMany(mappedBy = "idOperadorMudancaFk")
+    private List<EscalaAlteracoes> escalaAlteracoesList1;
+    
 	public Date getDtCadastro() {
 		return dtCadastro;
 	}
@@ -560,6 +566,19 @@ public class PessoaOperadores extends AbstractEntity<Long> {
 	public void setEscalaPosTransparenciaList1(List<EscalaPosTransparencia> escalaPosTransparenciaList1) {
 		this.escalaPosTransparenciaList1 = escalaPosTransparenciaList1;
 	}
+	public List<EscalaAlteracoes> getEscalaAlteracoesList() {
+		return escalaAlteracoesList;
+	}
+	public void setEscalaAlteracoesList(List<EscalaAlteracoes> escalaAlteracoesList) {
+		this.escalaAlteracoesList = escalaAlteracoesList;
+	}
+	public List<EscalaAlteracoes> getEscalaAlteracoesList1() {
+		return escalaAlteracoesList1;
+	}
+	public void setEscalaAlteracoesList1(List<EscalaAlteracoes> escalaAlteracoesList1) {
+		this.escalaAlteracoesList1 = escalaAlteracoesList1;
+	}
     
+	
 	
 }

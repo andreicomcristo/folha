@@ -33,6 +33,7 @@ import com.folha.boot.domain.Cidades;
 import com.folha.boot.domain.CodigoDiferenciado;
 import com.folha.boot.domain.CoordenacaoEscala;
 import com.folha.boot.domain.Escala;
+import com.folha.boot.domain.EscalaPosTransparencia;
 import com.folha.boot.domain.Pessoa;
 import com.folha.boot.domain.PessoaDocumentos;
 import com.folha.boot.domain.PessoaFuncionarios;
@@ -148,6 +149,26 @@ public class EscalaController {
 		return "/escala/escolherTodos"; 
 	}
 	
+	@GetMapping("/escolher/escala/pos/transparencia")
+	public String escolherEscalaPosTransparencia(ModelMap model) {
+		
+		Unidades unidade = unidadesService.buscarPorId(idUnidadeLogada);
+		model.addAttribute("escolhaAcessoEscala", new EscolhaAcessoEscala());
+		model.addAttribute("unidade", unidade); 
+		model.addAttribute("anoMes", anoMesService.buscarTodos());
+		return "/escala/escolherMudancasPosTransparencia"; 
+	}
+	
+	@GetMapping("/escolher/escala/pos/transparencia/global")
+	public String escolherEscalaPosTransparenciaGlobal(ModelMap model) {
+		
+		Unidades unidade = unidadesService.buscarPorId(idUnidadeLogada);
+		model.addAttribute("escolhaAcessoEscala", new EscolhaAcessoEscala());
+		model.addAttribute("unidade", unidade); 
+		model.addAttribute("anoMes", anoMesService.buscarTodos());
+		return "/escala/escolherMudancasPosTransparenciaGlobal"; 
+	}
+	
 	@PostMapping("/ir/para/escala")
 	public String irParaEscala(ModelMap model, Long coordenacaoEscala, Long anoMes) {
 		
@@ -174,6 +195,33 @@ public class EscalaController {
 		}
 		
 	}
+	
+	//portal da transparência
+	@PostMapping("/ir/para/escala/pos/transparencia")
+	public String irParaEscalaPosTransparencia(ModelMap model, Long anoMes) {
+		
+		if( anoMes!=null) {
+			this.idAnoMesAtual = anoMes;
+			
+			return "redirect:/escalas/listar/pos/transparencia";
+		}else {
+			return "redirect:/escalas/mensagem/de/nao/escolha";
+		}
+		
+	}
+	
+	@PostMapping("/ir/para/escala/pos/transparencia/global")
+	public String irParaEscalaPosTransparenciaGlobal(ModelMap model, Long anoMes) {
+		
+		if( anoMes!=null) {
+			this.idAnoMesAtual = anoMes;
+			
+			return "redirect:/escalas/listar/pos/transparencia/global";
+		}else {
+			return "redirect:/escalas/mensagem/de/nao/escolha";
+		}
+		
+	}
 
 	@GetMapping("/listar")
 	public String listar(ModelMap model) {
@@ -191,6 +239,24 @@ public class EscalaController {
 		ultimaBuscaCargoEspecialidade = null;
 		ultimaBuscaTiposDeFolha = null;
 		return this.findPaginatedTodos(1, model);
+	}
+	
+	@GetMapping("/listar/pos/transparencia")
+	public String listarEscalasPosTransparencia(ModelMap model) {
+		ultimaBuscaNome = "";
+		ultimaBuscaTurma = null;
+		ultimaBuscaCargoEspecialidade = null;
+		ultimaBuscaTiposDeFolha = null;
+		return this.findPaginatedPosTransparencia(1, model);
+	}	
+	
+	@GetMapping("/listar/pos/transparencia/global")
+	public String listarEscalasPosTransparenciaGlobal(ModelMap model) {
+		ultimaBuscaNome = "";
+		ultimaBuscaTurma = null;
+		ultimaBuscaCargoEspecialidade = null;
+		ultimaBuscaTiposDeFolha = null;
+		return this.findPaginatedPosTransparenciaGlobal(1, model);
 	}	
 	
 	@GetMapping("/listar/{pageNo}")
@@ -207,6 +273,22 @@ public class EscalaController {
 		Page<Escala> page = service.findPaginatedTodos(pageNo, pageSeze, unidadesService.buscarPorId(idUnidadeLogada), anoMesService.buscarPorId(idAnoMesAtual));
 		List<Escala> lista = page.getContent();
 		return paginarTodos(pageNo, page, lista, model);
+	}
+	
+	@GetMapping("/listar/pos/transparencia/{pageNo}")
+	public String findPaginatedPosTransparencia(@PathVariable (value = "pageNo") int pageNo, ModelMap model) {
+		int pageSeze = 5;
+		Page<EscalaPosTransparencia> page = escalaPosTransparenciaService.findPaginatedPosTransparencia(pageNo, pageSeze, unidadesService.buscarPorId(idUnidadeLogada), anoMesService.buscarPorId(idAnoMesAtual));
+		List<EscalaPosTransparencia> lista = page.getContent();
+		return paginarPosTransparencia(pageNo, page, lista, model);
+	}
+	
+	@GetMapping("/listar/pos/transparencia/global/{pageNo}")
+	public String findPaginatedPosTransparenciaGlobal(@PathVariable (value = "pageNo") int pageNo, ModelMap model) {
+		int pageSeze = 5;
+		Page<EscalaPosTransparencia> page = escalaPosTransparenciaService.findPaginatedPosTransparenciaGlobal(pageNo, pageSeze,  anoMesService.buscarPorId(idAnoMesAtual));
+		List<EscalaPosTransparencia> lista = page.getContent();
+		return paginarPosTransparenciaGlobal(pageNo, page, lista, model);
 	}
 	
 	public String paginar(int pageNo, Page<Escala> page, List<Escala> lista, ModelMap model) {	
@@ -233,6 +315,32 @@ public class EscalaController {
 		model.addAttribute("totalItems", page.getTotalElements()); 
 		model.addAttribute("listaEscala", lista);
 		return "/escala/listaTodos";	
+	}
+	
+	public String paginarPosTransparencia(int pageNo, Page<EscalaPosTransparencia> page, List<EscalaPosTransparencia> lista, ModelMap model) {	
+		
+		model.addAttribute("escala", "Mudanças depois do envio ao Portal da Transparência");
+		model.addAttribute("mes", anoMesService.buscarPorId(idAnoMesAtual));
+		//Tratando Envio transparencia
+		if(anoMesService.buscarPorId(idAnoMesAtual).getIdTransparenciaEnviadaFk().getSigla().equalsIgnoreCase("S")) {model.addAttribute("transparencia", "Dados já enviados para o portal da transparência (Lei Federal de Acesso à Informação 12 527/2011). Ficará registrada sua mudança para possíveis comprovações.");}else {model.addAttribute("transparencia", "");}
+		model.addAttribute("currentePage", pageNo);
+		model.addAttribute("totalPages", page.getTotalPages());
+		model.addAttribute("totalItems", page.getTotalElements()); 
+		model.addAttribute("listaEscala", lista);
+		return "/escala/listaPosTransparencia";	
+	}
+	
+	public String paginarPosTransparenciaGlobal(int pageNo, Page<EscalaPosTransparencia> page, List<EscalaPosTransparencia> lista, ModelMap model) {	
+		
+		model.addAttribute("escala", "Mudanças depois do envio ao Portal da Transparência");
+		model.addAttribute("mes", anoMesService.buscarPorId(idAnoMesAtual));
+		//Tratando Envio transparencia
+		if(anoMesService.buscarPorId(idAnoMesAtual).getIdTransparenciaEnviadaFk().getSigla().equalsIgnoreCase("S")) {model.addAttribute("transparencia", "Dados já enviados para o portal da transparência (Lei Federal de Acesso à Informação 12 527/2011). Ficará registrada sua mudança para possíveis comprovações.");}else {model.addAttribute("transparencia", "");}
+		model.addAttribute("currentePage", pageNo);
+		model.addAttribute("totalPages", page.getTotalPages());
+		model.addAttribute("totalItems", page.getTotalElements()); 
+		model.addAttribute("listaEscala", lista);
+		return "/escala/listaPosTransparenciaGlobal";	
 	}
 	
 		
@@ -572,6 +680,46 @@ public class EscalaController {
 		Page<Escala> page = service.findPaginatedFolhaTodos(pageNo, pageSeze, unidadesService.buscarPorId(idUnidadeLogada), anoMesService.buscarPorId(idAnoMesAtual), tiposDeFolha );
 		List<Escala> lista = page.getContent();
 		return paginarTodos(pageNo, page, lista, model);
+	}
+	
+	//Buscar escala pos transparencia
+	@GetMapping("/paginar/pos/transparencia/{pageNo}")
+	public String getPorNomePaginadoPosTransparencia(@PathVariable (value = "pageNo") int pageNo, ModelMap model) {
+		
+		if( (ultimaBuscaNome.equals("")) ){
+			return "redirect:/escalas/listar/pos/transparencia/{pageNo}" ;}
+		else {		
+			if(!ultimaBuscaNome.equals("")) {
+				return this.findPaginatedPosTransparencia(pageNo, ultimaBuscaNome, model);}
+			
+			else {
+				return "redirect:/escalas/listar/pos/transparencia/{pageNo}" ;}
+			}
+	}
+	
+	@GetMapping("/buscar/nome/pos/transparencia")
+	public String getPorNomePosTransparencia(@RequestParam("nome") String nome, ModelMap model) {
+		this.ultimaBuscaNome = nome;
+		this.ultimaBuscaTurma = null;
+		this.ultimaBuscaCargoEspecialidade = null;
+		this.ultimaBuscaTiposDeFolha = null;
+		return this.findPaginatedPosTransparencia(1, nome, model);
+	}
+	
+	public String findPaginatedPosTransparencia(@PathVariable (value = "pageNo") int pageNo, String nome, ModelMap model) {
+		int pageSeze = 5;
+		Page<EscalaPosTransparencia> page = escalaPosTransparenciaService.findPaginatedNomePosTransparencia(pageNo, pageSeze, unidadesService.buscarPorId(idUnidadeLogada), anoMesService.buscarPorId(idAnoMesAtual), nome );
+		List<EscalaPosTransparencia> lista = page.getContent();
+		return paginarPosTransparencia(pageNo, page, lista, model);
+	}
+
+	
+	
+	// para global (todas as unidades)
+	@GetMapping("/paginar/pos/transparencia/global/{pageNo}")
+	public String getPorNomePaginadoPosTransparenciaGlobal(@PathVariable (value = "pageNo") int pageNo, ModelMap model) {
+			
+	    return this.findPaginatedPosTransparenciaGlobal(pageNo,  model);
 	}
 	
 	
@@ -2825,6 +2973,44 @@ public class EscalaController {
 			return ResponseEntity.ok().headers(headers).contentType(MediaType.APPLICATION_PDF)
 					.body(new InputStreamResource(bis));
 		}
+		
+		//Exportacao Pos Transparência
+		@GetMapping("/exporta/excel/pos/transparencia")
+	    public void downloadExcelPosTransparencia(HttpServletResponse response, ModelMap model) throws IOException {
+	        response.setContentType("application/octet-stream");
+	        response.setHeader("Content-Disposition", "attachment; filename=dados.xlsx");
+	        ByteArrayInputStream stream = escalaExportacaoService.exportarExcelPosTransparencia(escalaPosTransparenciaService.buscarNaUnidade(unidadesService.buscarPorId(idUnidadeLogada), anoMesService.buscarPorId(idAnoMesAtual)));
+	        IOUtils.copy(stream, response.getOutputStream());
+	    }
+		
+		@GetMapping(value = "/exporta/pdf/pos/transparencia", produces = MediaType.APPLICATION_PDF_VALUE)
+		public ResponseEntity<InputStreamResource> employeeReportsPosTransparencia(HttpServletResponse response) throws IOException {
+			ByteArrayInputStream bis = escalaExportacaoService.exportarPdfPosTransparencia(escalaPosTransparenciaService.buscarNaUnidade(unidadesService.buscarPorId(idUnidadeLogada), anoMesService.buscarPorId(idAnoMesAtual)));
+			HttpHeaders headers = new HttpHeaders();
+			headers.add("Content-Disposition", "attachment;filename=dados.pdf");
+			return ResponseEntity.ok().headers(headers).contentType(MediaType.APPLICATION_PDF)
+					.body(new InputStreamResource(bis));
+		}
+		
+		//Exportacao Pos Transparência Global
+		@GetMapping("/exporta/excel/pos/transparencia/global")
+	    public void downloadExcelPosTransparenciaGlobal(HttpServletResponse response, ModelMap model) throws IOException {
+	        response.setContentType("application/octet-stream");
+	        response.setHeader("Content-Disposition", "attachment; filename=dados.xlsx");
+	        ByteArrayInputStream stream = escalaExportacaoService.exportarExcelPosTransparencia(escalaPosTransparenciaService.buscarEmTodasAsUnidades( anoMesService.buscarPorId(idAnoMesAtual)));
+	        IOUtils.copy(stream, response.getOutputStream());
+	    }
+		
+		@GetMapping(value = "/exporta/pdf/pos/transparencia/global", produces = MediaType.APPLICATION_PDF_VALUE)
+		public ResponseEntity<InputStreamResource> employeeReportsPosTransparenciaGlobal(HttpServletResponse response) throws IOException {
+			ByteArrayInputStream bis = escalaExportacaoService.exportarPdfPosTransparencia(escalaPosTransparenciaService.buscarEmTodasAsUnidades( anoMesService.buscarPorId(idAnoMesAtual)));
+			HttpHeaders headers = new HttpHeaders();
+			headers.add("Content-Disposition", "attachment;filename=dados.pdf");
+			return ResponseEntity.ok().headers(headers).contentType(MediaType.APPLICATION_PDF)
+					.body(new InputStreamResource(bis));
+		}
+			
+		
 	
 	
 	// Metodos para preencher os combobox

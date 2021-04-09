@@ -105,6 +105,8 @@ public class PessoaFuncionarios extends AbstractEntity<Long> {
     private Unidades idUnidadeAtuacaoAtualFk;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "idFuncionarioFk")
     private List<HistFuncionariosUnidadeAtuacao> histFuncionariosUnidadeAtuacaoList;
+    @OneToMany(mappedBy = "idFuncionarioFk")
+    private List<EscalaAlteracoes> escalaAlteracoesList;
 
     
 	public BigInteger getIdUnidadeLotacaoAtualFk() {
@@ -413,6 +415,14 @@ public class PessoaFuncionarios extends AbstractEntity<Long> {
 
 	public void setEscalaPosTransparenciaList(List<EscalaPosTransparencia> escalaPosTransparenciaList) {
 		this.escalaPosTransparenciaList = escalaPosTransparenciaList;
+	}
+
+	public List<EscalaAlteracoes> getEscalaAlteracoesList() {
+		return escalaAlteracoesList;
+	}
+
+	public void setEscalaAlteracoesList(List<EscalaAlteracoes> escalaAlteracoesList) {
+		this.escalaAlteracoesList = escalaAlteracoesList;
 	}
 
 	
