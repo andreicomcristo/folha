@@ -7,6 +7,8 @@
 		<nav class="navbar navbar-expand-md bg-light">
 			<form action="/documentos/listar">
 				<div class=" layout-content">
+					<a class="btn btn-outline-light oi oi-action-undo" type="button" href="javascript:history.back()"></a>
+					<a class="btn btn-outline-light oi oi-action-redo" type="button" href="javascript:history.forward()"></a>    
 					<button class="btn btn-outline-dark" >Listar</button>
 					<a class="btn btn-outline-dark btn-md" href="/documentos/cadastrar"
 						role="button"> <span class="oi oi-plus" title="Cadastro"
@@ -57,7 +59,7 @@
 							<input type="hidden" id="pessoa" th:field="${pessoa}" />
 								<p></p>					
 						
-						<button class="btn btn-outline-dark">Submeter</button>
+						<button class="btn btn-outline-dark">Enviar</button>
 						
 						<a class="btn btn-outline-danger btn-md" href="/habilitacaodocs/retroceder"
 							role="button"> <span class="oi oi-arrow-thick-left" title="Cadastro"

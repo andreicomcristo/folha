@@ -6,7 +6,7 @@
 
 		
 		<div class="container" id="cadastro">
-
+			    
 		<input type=hidden id="" th:field="${idLinha}" />
 
 			
@@ -17,6 +17,8 @@
 
 					<div class="form-group col-md-12 col-lg-12 col-sm-12">
 						<H5>
+						<a class="btn btn-outline-light oi oi-action-undo" type="button" href="javascript:history.back()"></a>
+						<a class="btn btn-outline-light oi oi-action-redo" type="button" href="javascript:history.forward()"></a>    
 						<a class="btn btn-outline-dark btn-md" href="/escalas/listar" role="button">
 				        	<span class="oi oi-list" title="Atualizar" aria-hidden="true"></span>
 				            <span>Listar Escala</span>
@@ -412,6 +414,20 @@
 						
 						</table>
 						
+						
+						<button class=" btn btn-outline-secondary my-2 my-sm-0" type="button" data-toggle="collapse" data-target="#collapseBlocoLegenda"
+	            					aria-controls="collapseBlocoLegenda">Legenda
+	            		</button>
+						
+						<div class="collapse" id="collapseBlocoLegenda">	
+							<div class="span12" >
+						        <p></p>
+						        <img src="/image/LEGENDA.jpg" heigh = "500px" width="300px"/>
+						        <p></p>
+						    </div>
+						</div>					
+						
+						
 						<button class=" btn btn-outline-secondary my-2 my-sm-0" type="button" data-toggle="collapse" data-target="#collapseBloco01"
 	            					aria-controls="collapseBloco01">Opções
 	            		</button>
@@ -422,9 +438,9 @@
 							<input type="checkbox" id="lancarTurma" name="lancarTurma"  value="S">Lançar Turma</input>
 							<p></p>
 							<th>
-								
-								<select style="width:1000px; height:28px; font-size:10px" id="turma" class="form-select"  th:field="*{idLiberacaoDobraInvertidaSimNaoFk}" >
-									<option value="">Estou ciente de que não prover o descanço depois de atividade noturna é ilegal. Todavia, posso comprovar legalmente que esta situação é excepcionalmente de força maior.</option>
+								<h6><label style="width:500px;">Estou ciente de que não prover o descanso depois de atividade noturna é proibido. Todavia, posso comprovar legalmente que esta situação é excepcionalmente de força maior.</label></h6>
+								<select style="width:500px; height:28px; font-size:10px" id="turma" class="form-select"  th:field="*{idLiberacaoDobraInvertidaSimNaoFk}" >
+									<option value=""></option>
 									<option th:each="d : ${idLiberacaoDobraInvertidaSimNaoFk}" th:value="${d.id}"th:text="${d.descricao}">CH Dif</option>
 								</select>
 							</th>

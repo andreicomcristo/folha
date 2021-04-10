@@ -14,7 +14,7 @@ import javax.persistence.TemporalType;
 
 @SuppressWarnings("serial")
 @Entity
-@Table(name = "escala_pos_transparencia")
+@Table(name = "escala_alteracoes")
 public class EscalaAlteracoes extends AbstractEntity<Long> {
 
 	@Column(name = "horas_totais")

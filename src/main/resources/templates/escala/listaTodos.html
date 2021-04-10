@@ -4,7 +4,8 @@
 <body>	
 	<section class="layout-content" layout:fragment="corpo">		
 		<nav class="navbar navbar-expand-md bg-light">    
-	    	
+	    	<a class="btn btn-outline-light oi oi-action-undo" type="button" href="javascript:history.back()"></a>
+			<a class="btn btn-outline-light oi oi-action-redo" type="button" href="javascript:history.forward()"></a>    
 	        <a class="btn btn-outline-dark btn-md" href="/escalas/listar/todos" role="button">
 	        	<span class="oi oi-loop-square" title="Atualizar" aria-hidden="true"></span>
 	            <span>Atualizar</span>
@@ -127,8 +128,8 @@
 	    	
 	    	<label style="font-size:14px; text-align: center; color:#b30000;" th:text="${transparencia}" class="text" >Mes </label>
 	    	
-	        <div style=" left:0px; height: 470px; width:1310px; overflow-y: auto;" class="table-responsive">
-	        	<table class="table table-striped table-hover table-sm myTable">
+	        <div style=" left:0px; height: 470px;  overflow-y: auto;" class="table-responsive">
+	        	<table class="table table-striped table-hover table-sm myTable" style= "width:1310px;">
 	            	<thead>
 	          			<tr>
 		                	<th style="font-size:10px;" >#</th>
