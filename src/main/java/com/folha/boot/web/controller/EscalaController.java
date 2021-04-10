@@ -495,6 +495,38 @@ public class EscalaController {
 		return "/escala/editar";
 	}
 	
+	//Ver Escala Pos Transparência
+	@GetMapping("/ver/escala/pos/transparencia/{id}")
+	public String verEscalaPosTransparencia(@PathVariable("id") Long id, EscalaPosTransparencia escala, ModelMap model) {	
+		ultimoIdEscala = id;
+		escala = escalaPosTransparenciaService.buscarPorId(id);
+		
+		String anoMesDaEscala = "202105";
+		if(escala!=null){anoMesDaEscala = escala.getIdAnoMesFk().getNomeAnoMes();}
+		int qtdDiasNoMes = escalaCalculosService.quantidadeDeDiasNoMes(anoMesDaEscala);
+		
+		// CALCULANDO OS DIAS DO MES
+		String nomeColuna1 = escalaCalculosService.obtemNomeDiaColuna(anoMesDaEscala, 1);
+		String nomeColuna2 = escalaCalculosService.obtemNomeDiaColuna(anoMesDaEscala, 2);
+		String nomeColuna3 = escalaCalculosService.obtemNomeDiaColuna(anoMesDaEscala, 3);
+		String nomeColuna4 = escalaCalculosService.obtemNomeDiaColuna(anoMesDaEscala, 4);
+		String nomeColuna5 = escalaCalculosService.obtemNomeDiaColuna(anoMesDaEscala, 5);
+		String nomeColuna6 = escalaCalculosService.obtemNomeDiaColuna(anoMesDaEscala, 6);
+		String nomeColuna7 = escalaCalculosService.obtemNomeDiaColuna(anoMesDaEscala, 7);
+		
+		model.addAttribute("escala", escala );
+		model.addAttribute("idLinha", id );
+		model.addAttribute("qtdDiasNoMes", qtdDiasNoMes );
+		model.addAttribute("nomeColuna1", nomeColuna1 );
+		model.addAttribute("nomeColuna2", nomeColuna2 );
+		model.addAttribute("nomeColuna3", nomeColuna3 );
+		model.addAttribute("nomeColuna4", nomeColuna4 );
+		model.addAttribute("nomeColuna5", nomeColuna5 );
+		model.addAttribute("nomeColuna6", nomeColuna6 );
+		model.addAttribute("nomeColuna7", nomeColuna7 );
+		
+		return "/escala/verEscalaPosTransparencia";
+	}
 	
 	//Ver Escala Alteracao X9
 	@GetMapping("/ver/escala/alteracao/{id}")
@@ -868,14 +900,38 @@ public class EscalaController {
 	
 	
 	// para global (todas as unidades)
+	
 	@GetMapping("/paginar/pos/transparencia/global/{pageNo}")
 	public String getPorNomePaginadoPosTransparenciaGlobal(@PathVariable (value = "pageNo") int pageNo, ModelMap model) {
+		
+		if( (ultimaBuscaNome.equals("")) ){
+			return this.findPaginatedPosTransparenciaGlobal(pageNo,  model);}
+		else {		
+			if(!ultimaBuscaNome.equals("")) {
+				return this.findPaginatedPosTransparenciaGlobal(pageNo, ultimaBuscaNome, model);}
 			
-	    return this.findPaginatedPosTransparenciaGlobal(pageNo,  model);
+			else {
+				return this.findPaginatedPosTransparenciaGlobal(pageNo,  model);
+			}
+		}
 	}
 	
-	
-	
+		@GetMapping("/buscar/nome/pos/transparencia/global")
+		public String getPorNomePosTransparenciaGlobal(@RequestParam("nome") String nome, ModelMap model) {
+			this.ultimaBuscaNome = nome;
+			this.ultimaBuscaTurma = null;
+			this.ultimaBuscaCargoEspecialidade = null;
+			this.ultimaBuscaTiposDeFolha = null;
+			return this.findPaginatedPosTransparenciaGlobal(1, nome, model);
+		}
+			
+		public String findPaginatedPosTransparenciaGlobal(@PathVariable (value = "pageNo") int pageNo, String nome, ModelMap model) {
+			int pageSeze = 5;
+			Page<EscalaPosTransparencia> page = escalaPosTransparenciaService.findPaginatedNomePosTransparenciaGlobal(pageNo, pageSeze, nome.toUpperCase().trim(), anoMesService.buscarPorId(idAnoMesAtual) );
+			List<EscalaPosTransparencia> lista = page.getContent();
+			return paginarPosTransparenciaGlobal(pageNo, page, lista, model);
+		}
+		
 	//Buscar Escala Alteracao
 	@GetMapping("/paginar/escala/alteracao/{pageNo}")
 	public String getPorNomePaginadoEscalaAlteracao(@PathVariable (value = "pageNo") int pageNo, ModelMap model) {
@@ -908,6 +964,42 @@ public class EscalaController {
 	}
 
 
+
+	
+	//Buscar Escala Alteracao Global
+	@GetMapping("/paginar/escala/alteracao/global/{pageNo}")
+	public String getPorNomePaginadoEscalaAlteracaoGlobal(@PathVariable (value = "pageNo") int pageNo, ModelMap model) {
+		
+		if( (ultimaBuscaNome.equals("")) ){
+			return "redirect:/escalas/listar/escala/alteracao/global/{pageNo}" ;}
+		else {		
+			if(!ultimaBuscaNome.equals("")) {
+				return this.findPaginatedEscalaAlteracaoGlobal(pageNo, ultimaBuscaNome, model);}
+			
+			else {
+				return "redirect:/escalas/listar/escala/alteracao/global/{pageNo}" ;}
+			}
+	}
+	
+	@GetMapping("/buscar/nome/escala/alteracao/global")
+	public String getPorNomeEscalaAlteracaoGlobal(@RequestParam("nome") String nome, ModelMap model) {
+		this.ultimaBuscaNome = nome;
+		this.ultimaBuscaTurma = null;
+		this.ultimaBuscaCargoEspecialidade = null;
+		this.ultimaBuscaTiposDeFolha = null;
+		return this.findPaginatedEscalaAlteracaoGlobal(1, nome, model);
+	}
+	
+	public String findPaginatedEscalaAlteracaoGlobal(@PathVariable (value = "pageNo") int pageNo, String nome, ModelMap model) {
+		int pageSeze = 5;
+		Page<EscalaAlteracoes> page = escalaAlteracoesService.findPaginatedNomeEscalaAlteracaoGlobal(pageNo, pageSeze,  anoMesService.buscarPorId(idAnoMesAtual), nome.toUpperCase().trim() );
+		List<EscalaAlteracoes> lista = page.getContent();
+		return paginarEscalaAlteracaoGlobal(pageNo, page, lista, model);
+	}
+
+
+	
+	
 	
 	
 

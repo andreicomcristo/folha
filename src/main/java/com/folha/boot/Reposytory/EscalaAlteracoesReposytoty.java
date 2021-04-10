@@ -30,6 +30,8 @@ public interface EscalaAlteracoesReposytoty extends JpaRepository<EscalaAlteraco
 	
 	public Page<EscalaAlteracoes> findByIdCoordenacaoFkIdLocalidadeFkIdUnidadeFkAndIdAnoMesFkAndIdFuncionarioFkIdPessoaFkNomeContainingOrderByDtAlteracaoDescHoraAlteracaoDescIdFuncionarioFkIdPessoaFkNomeAsc(Unidades unidades, AnoMes anoMes, String nome, final Pageable page);
 	
+	public Page<EscalaAlteracoes> findByIdAnoMesFkAndIdFuncionarioFkIdPessoaFkNomeContainingOrderByDtAlteracaoDescHoraAlteracaoDescIdFuncionarioFkIdPessoaFkNomeAsc(AnoMes anoMes, String nome, final Pageable page);
+	
 	
 	
 }

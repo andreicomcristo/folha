@@ -25,7 +25,7 @@
 				            <span>Voltar</span>
 				        </a>
 				         -->
-						<label for="nome" class="">Ver Escala Lancada/Excluída</label></H5>
+						<label for="nome" class="">Ver Escala Alterada Pós Envio para Portal da Transparência</label></H5>
 				
 					
 					<div>
@@ -478,7 +478,7 @@
 										</select>
 										<p></p>
 										
-										<label style="font-size:10px;"  th:text="*{dtCancelamento != null} ? *{'CANCELAMENTO em '+#dates.format(dtCancelamento, 'dd/MM/yyyy') +' as '+ #dates.format(horaAlteracao, 'hh:mm:ss:sss a ')+' '} : *{'EDICAO em '+#dates.format(dtAlteracao, 'dd/MM/yyyy') +' as '+ #dates.format(horaAlteracao, 'hh:mm:ss:sss a ')+' '}   "></label>
+										<label style="font-size:10px;"  th:text="*{dtCancelamento != null} ? *{'CANCELAMENTO em '+#dates.format(dtCancelamento, 'dd/MM/yyyy') +' '} : *{'EDICAO em '+#dates.format(dtMudanca, 'dd/MM/yyyy') +' '}   "></label>
 		                    
 		                    			<label class="text" style="font-size:12px; ">executado(a) por</label>
 		                    			<label style="font-size:10px; color:red;"  th:text="' '+*{idOperadorMudancaFk.idPessoaFk.nome}"></label>

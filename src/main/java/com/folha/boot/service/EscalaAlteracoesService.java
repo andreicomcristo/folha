@@ -98,6 +98,11 @@ public class EscalaAlteracoesService {
 		Pageable pageable = PageRequest.of(pageNo -1, pageSize);
 		return this.reposytory.findByIdCoordenacaoFkIdLocalidadeFkIdUnidadeFkAndIdAnoMesFkAndIdFuncionarioFkIdPessoaFkNomeContainingOrderByDtAlteracaoDescHoraAlteracaoDescIdFuncionarioFkIdPessoaFkNomeAsc(unidades, anoMes, nome.toUpperCase().trim(), pageable);
 	}
+	
+	public Page<EscalaAlteracoes> findPaginatedNomeEscalaAlteracaoGlobal(int pageNo, int pageSize, AnoMes anoMes, String nome) {
+		Pageable pageable = PageRequest.of(pageNo -1, pageSize);
+		return this.reposytory.findByIdAnoMesFkAndIdFuncionarioFkIdPessoaFkNomeContainingOrderByDtAlteracaoDescHoraAlteracaoDescIdFuncionarioFkIdPessoaFkNomeAsc( anoMes, nome.toUpperCase().trim(), pageable);
+	}
 
 	public EscalaAlteracoes converteDeEscalaParaEscalaAlteracoes(Escala escala) {
 		EscalaAlteracoes escalaAlteracoes = new EscalaAlteracoes();

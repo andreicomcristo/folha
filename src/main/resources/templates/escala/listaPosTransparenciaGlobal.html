@@ -10,7 +10,7 @@
 	        	<span class="oi oi-loop-square" title="Atualizar" aria-hidden="true"></span>
 	            <span>Atualizar</span>
 	        </a>
-	            <label for="nome" class= "fonte-tutulos-tamanho">Mudanças gerais depois do envio ao Portal da Transparência (Global)</label>
+	            <label for="nome" class= "fonte-tutulos-tamanho">Mudanças gerais depois do envio ao Portal da Transparência (Sede)</label>
 	    </nav>
 	  		<div class="container">
 	  			<label style="text-align: center; color:#008080;" th:text="${mes.nomeAnoMes+'-TODOS'}" class="text" >Mes </label>
@@ -18,13 +18,29 @@
 	  	
 	  	<div class="container">
 	    	<p>                
-	        	 
+	        	<button class=" oi oi-magnifying-glass btn btn-outline-success my-2 my-sm-0" type="button" data-toggle="collapse" data-target="#collapseNome"
+	            		aria-controls="collapseNome">Filtrar Nome
+	            </button>  
 	            <button class=" oi oi-cloud-download btn btn-outline-secondary my-2 my-sm-0" type="button" data-toggle="collapse" data-target="#collapseDownload"
 	            		aria-controls="collapseDownload">Download
 	            </button>
             
 	            <p></p>
 	      
+	      </p>
+	      <div class="row">
+	      	<div class="col">
+	        	<div class="collapse" id="collapseNome">
+		            <nav class="navbar navbar-light bg-light">
+	    	           <form class="form-inline" method="GET" th:action="@{/escalas/buscar/nome/pos/transparencia/global}">	        	           
+	        	           <input class="form-control mr-sm-2" type="search" placeholder="Nome" aria-label="Search"
+	                              th:name="nome"/> 
+	                       <button class="btn btn-outline-success my-2 my-sm-0">Buscar</button> 
+	                   </form>  
+	                </nav>
+	            </div>
+	        </div>
+	    </div>
 	   
 	    
 	    <div class="row">
@@ -78,7 +94,7 @@
 	                <tbody>
 		            	<tr th:each="d : ${listaEscala}">
 		                	<td style="font-size:10px;"  th:text="${d.id}"></td>
-		                	<td style="font-size:10px;"  th:text="${d.idCoordenacaoFk.nomeCoordenacao+'-'+d.idCoordenacaoFk.idLocalidadeFk.nomeLocalidade+'-'+d.idCoordenacaoFk.idAtividadeFk.nomeAtividade}"></td>
+		                	<td style="font-size:10px;"  th:text="${d.idCoordenacaoFk.idLocalidadeFk.idUnidadeFk.nomeFantasia+'-'+d.idCoordenacaoFk.nomeCoordenacao+'-'+d.idCoordenacaoFk.idLocalidadeFk.nomeLocalidade+'-'+d.idCoordenacaoFk.idAtividadeFk.nomeAtividade}"></td>
 		                    <td>
 				                <div class="btn-group">
 				                    <button style="width:35px; height:25px; text-align:center; font-size:09px; " type="button" class="btn btn-outline-dark btn-sm dropdown-toggle" data-toggle="dropdown">
@@ -103,9 +119,13 @@
 				                    </ul>
 				                </div>
 				            </td>		                    
-		                    		                    
 		                    
-		                    <td style="font-size:10px;"  th:text="${d.idFuncionarioFk.idPessoaFk.nome}"></td>
+		                    <td> 
+		                    	<a style="width:150px; height:25px; text-align:center; font-size:09px; " class="link" th:text="${d.idFuncionarioFk.idPessoaFk.nome}" th:href="@{/escalas/ver/escala/pos/transparencia/{id} (id=${d.id}) }" role="button">
+					            	<span class="" title="Editar Escala" aria-hidden="true">Ver Alterações</span>
+					            </a>
+		                    </td>		                    
+		                    
 		                    <td style="font-size:10px;"  th:text="${d.idFuncionarioFk.idEspecialidadeAtualFk.idCargoFk.nomeCargo+'-'+d.idFuncionarioFk.idEspecialidadeAtualFk.nomeEspecialidadeCargo}"></td>
 		                    
 		                    <td style="font-size:10px;"  th:text="${d.idTurmaFk.nomeTurma}"></td>

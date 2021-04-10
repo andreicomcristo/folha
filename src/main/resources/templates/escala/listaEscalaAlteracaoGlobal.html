@@ -10,7 +10,7 @@
 	        	<span class="oi oi-loop-square" title="Atualizar" aria-hidden="true"></span>
 	            <span>Atualizar</span>
 	        </a>
-	            <label for="nome" class= "fonte-tutulos-tamanho">Escalas Lançadas/Excluídas (Global)</label>
+	            <label for="nome" class= "fonte-tutulos-tamanho">Escalas Lançadas/Excluídas (Sede)</label>
 	    </nav>
 	  		<div class="container">
 	  			<label style="text-align: center; color:#008080;" th:text="${mes.nomeAnoMes+'-TODOS'}" class="text" >Mes </label>
@@ -18,13 +18,29 @@
 	  	
 	  	<div class="container">
 	    	<p>                
-	        	 
+	        	<button class=" oi oi-magnifying-glass btn btn-outline-success my-2 my-sm-0" type="button" data-toggle="collapse" data-target="#collapseNome"
+	            		aria-controls="collapseNome">Filtrar Nome
+	            </button>  
 	            <button class=" oi oi-cloud-download btn btn-outline-secondary my-2 my-sm-0" type="button" data-toggle="collapse" data-target="#collapseDownload"
 	            		aria-controls="collapseDownload">Download
 	            </button>
             
 	            <p></p>
 	      
+	      <div class="row">
+	      	<div class="col">
+	        	<div class="collapse" id="collapseNome">
+		            <nav class="navbar navbar-light bg-light">
+	    	           <form class="form-inline" method="GET" th:action="@{/escalas/buscar/nome/escala/alteracao/global}">	        	           
+	        	           <input class="form-control mr-sm-2" type="search" placeholder="Nome" aria-label="Search"
+	                              th:name="nome"/> 
+	                       <button class="btn btn-outline-success my-2 my-sm-0">Buscar</button> 
+	                   </form>  
+	                </nav>
+	            </div>
+	        </div>
+	    </div>
+	    
 	   
 	    
 	    <div class="row">
@@ -74,7 +90,7 @@
 	                <tbody>
 		            	<tr th:each="d : ${listaEscala}">
 		                	<td style="font-size:10px;"  th:text="${d.id}"></td>
-		                	<td style="font-size:10px;"  th:text="${d.idCoordenacaoFk.nomeCoordenacao+'-'+d.idCoordenacaoFk.idLocalidadeFk.nomeLocalidade+'-'+d.idCoordenacaoFk.idAtividadeFk.nomeAtividade}"></td>
+		                	<td style="font-size:10px;"  th:text="${d.idCoordenacaoFk.idLocalidadeFk.idUnidadeFk.nomeFantasia+'-'+d.idCoordenacaoFk.nomeCoordenacao+'-'+d.idCoordenacaoFk.idLocalidadeFk.nomeLocalidade+'-'+d.idCoordenacaoFk.idAtividadeFk.nomeAtividade}"></td>
 		                    <td>
 				                <div class="btn-group">
 				                    <button style="width:35px; height:25px; text-align:center; font-size:09px; " type="button" class="btn btn-outline-dark btn-sm dropdown-toggle" data-toggle="dropdown">
@@ -151,25 +167,25 @@
 		 	<ul class="pagination justify-content-center" >
 		 		<li class="page-item disabled" ></li>		 		
 	
-			 	<li ><a class="btn btn-light btn-paginacao oi oi-media-step-backward" th:if="${currentePage != i}"  th:href="@{'/escalas/paginar/pos/transparencia/global/'+ 1 }" ></a></li>
+			 	<li ><a class="btn btn-light btn-paginacao oi oi-media-step-backward" th:if="${currentePage != i}"  th:href="@{'/escalas/paginar/escala/alteracao/global/'+ 1 }" ></a></li>
 			 	
-			 	<li ><a class="btn btn-light    btn-paginacao    oi oi-media-skip-backward" th:if="${currentePage > 1}"  th:href="@{'/escalas/paginar/pos/transparencia/global/'+ ${currentePage -1}}" ></a></li> 
+			 	<li ><a class="btn btn-light    btn-paginacao    oi oi-media-skip-backward" th:if="${currentePage > 1}"  th:href="@{'/escalas/paginar/escala/alteracao/global/'+ ${currentePage -1}}" ></a></li> 
 			 	
-			 	<li ><a class="btn btn-light    btn-paginacao oi" th:if="${currentePage > 1000}"  th:href="@{'/escalas/paginar/pos/transparencia/global/'+ ${currentePage-1000} }" >-1000</a></li>
+			 	<li ><a class="btn btn-light    btn-paginacao oi" th:if="${currentePage > 1000}"  th:href="@{'/escalas/paginar/escala/alteracao/global/'+ ${currentePage-1000} }" >-1000</a></li>
 			 	
-			 	<li ><a class="btn btn-light    btn-paginacao" th:if="${currentePage > 100}"  th:href="@{'/escalas/paginar/pos/transparencia/global/'+ ${currentePage-100} }" >-100</a></li>
+			 	<li ><a class="btn btn-light    btn-paginacao" th:if="${currentePage > 100}"  th:href="@{'/escalas/paginar/escala/alteracao/global/'+ ${currentePage-100} }" >-100</a></li>
 			 	
-			 	<li ><a class="btn btn-light    btn-paginacao" th:if="${currentePage > 10}"  th:href="@{'/escalas/paginar/pos/transparencia/global/'+ ${currentePage-10} }" >-10</a></li>
+			 	<li ><a class="btn btn-light    btn-paginacao" th:if="${currentePage > 10}"  th:href="@{'/escalas/paginar/escala/alteracao/global/'+ ${currentePage-10} }" >-10</a></li>
 
-			 	<li ><a class="btn btn-light    btn-paginacao"  th:if="${currentePage < totalPages - 10}"  th:href="@{'/escalas/paginar/pos/transparencia/global/'+ ${currentePage+10} }" >+10</a></li>
+			 	<li ><a class="btn btn-light    btn-paginacao"  th:if="${currentePage < totalPages - 10}"  th:href="@{'/escalas/paginar/escala/alteracao/global/'+ ${currentePage+10} }" >+10</a></li>
 			 	
-			 	<li ><a class="btn btn-light    btn-paginacao"  th:if="${currentePage < totalPages - 100}"  th:href="@{'/escalas/paginar/pos/transparencia/global/'+ ${currentePage+100} }" >+100</a></li>
+			 	<li ><a class="btn btn-light    btn-paginacao"  th:if="${currentePage < totalPages - 100}"  th:href="@{'/escalas/paginar/escala/alteracao/global/'+ ${currentePage+100} }" >+100</a></li>
 			 	
-			 	<li ><a class="btn btn-light    btn-paginacao"  th:if="${currentePage < totalPages - 1000}"  th:href="@{'/escalas/paginar/pos/transparencia/global/'+ ${currentePage+1000} }" >+1000</a></li>
+			 	<li ><a class="btn btn-light    btn-paginacao"  th:if="${currentePage < totalPages - 1000}"  th:href="@{'/escalas/paginar/escala/alteracao/global/'+ ${currentePage+1000} }" >+1000</a></li>
 			 	
-			 	<li ><a class="btn btn-light    btn-paginacao    oi oi-media-skip-forward" th:if="${currentePage < totalPages}"  th:href="@{'/escalas/paginar/pos/transparencia/global/' + ${currentePage +1}}"></a> </li>
+			 	<li ><a class="btn btn-light    btn-paginacao    oi oi-media-skip-forward" th:if="${currentePage < totalPages}"  th:href="@{'/escalas/paginar/escala/alteracao/global/' + ${currentePage +1}}"></a> </li>
 		 		
-		 		<li ><a class="btn btn-light    btn-paginacao    oi oi-media-step-forward"  th:if="${currentePage != i}"  th:href="@{'/escalas/paginar/pos/transparencia/global/'+ ${totalPages} }" ></a></li> 
+		 		<li ><a class="btn btn-light    btn-paginacao    oi oi-media-step-forward"  th:if="${currentePage != i}"  th:href="@{'/escalas/paginar/escala/alteracao/global/'+ ${totalPages} }" ></a></li> 
 		 	</ul>
 		</nav>     	        
 	    <div th:replace="fragments/modal :: modal"></div>   

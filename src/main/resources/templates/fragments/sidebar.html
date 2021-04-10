@@ -347,8 +347,12 @@
 						</ul>
 					</li>
 					
-					<li><a th:href="@{/autorizacoes/cadastrar}"><span class=" oi oi-chevron-right icones-sidebar-tamanho align-middle"></span>Cadastro de Autorizações</a></li>
-
+					<li><a href="#" class="bs-btn"><span class=" oi oi-chevron-bottom z70 icones-sidebar-tamanho align-middle"></span>Autorizações </a>
+						<ul class="bs-show">
+							<li><a th:href="@{/autorizacoes/cadastrar}"><span class=" oi oi-chevron-right icones-sidebar-tamanho align-middle"></span>Cadastrar</a></li>
+						</ul>
+					</li>
+					
 					<li><a href="#" class="bq-btn"><span class=" oi oi-chevron-bottom z68 icones-sidebar-tamanho align-middle"></span>Escalas Lançadas/Excluídas</a>
 						<ul class="bq-show">
 							<li><a th:href="@{/escalas/escolher/escala/alteracao/global}"><span class=" oi oi-chevron-right icones-sidebar-tamanho align-middle"></span>Listar</a></li>
@@ -357,8 +361,13 @@
 
 					<li><a href="#" class="bo-btn"><span class=" oi oi-chevron-bottom z66 icones-sidebar-tamanho align-middle"></span>Portal da Transparência</a>
 						<ul class="bo-show">
-							<li><a th:href="@{/escalas/escolher/escala/pos/transparencia/global}"><span class=" oi oi-chevron-right icones-sidebar-tamanho align-middle"></span>Listar Alterações Pós Portal da Transparência</a></li>
-							<li><a href="#"><span class=" oi oi-chevron-right icones-sidebar-tamanho align-middle"></span>Próximo Item</a></li>
+						
+							<li><a href="#" class="br-btn"><span class=" oi oi-chevron-bottom z69 icones-sidebar-tamanho align-middle"></span>Alterações </a>
+								<ul class="br-show">
+									<li><a th:href="@{/escalas/escolher/escala/pos/transparencia/global}"><span class=" oi oi-chevron-right icones-sidebar-tamanho align-middle"></span>Listar</a></li>
+								</ul>
+							</li>
+							
 						</ul>
 					</li>
 				</ul>
@@ -381,14 +390,13 @@
 									
 									<li><a href="#" class="bm-btn"><span class=" oi oi-chevron-bottom z64 icones-sidebar-tamanho align-middle"></span>Escala Todas Juntas </a>
 										<ul class="bm-show">
-											<li><a th:href="@{/escalas/escolher/escala/todos}"><span class=" oi oi-chevron-right icones-sidebar-tamanho align-middle"></span>Listar Todas</a></li>
+											<li><a th:href="@{/escalas/escolher/escala/todos}"><span class=" oi oi-chevron-right icones-sidebar-tamanho align-middle"></span>Listar</a></li>
 										</ul>
 									</li>
 																	
 									<li><a href="#" class="bf-btn"><span class=" oi oi-chevron-bottom z57 icones-sidebar-tamanho align-middle"></span>Escala Setorial </a>
 										<ul class="bf-show">
 											<li><a th:href="@{/escalas/escolher/escala}"><span class=" oi oi-chevron-right icones-sidebar-tamanho align-middle"></span>Escala</a></li>
-											<li><a href="#"><span class=" oi oi-chevron-right icones-sidebar-tamanho align-middle"></span>Proximo Item</a></li>
 										</ul>
 									</li>							
 								</ul>
@@ -396,29 +404,34 @@
 						
 						<li><a href="#" class="bn-btn"><span class=" oi oi-chevron-bottom z65 icones-sidebar-tamanho align-middle"></span>Portal da Transparência </a>
 							<ul class="bn-show">
-								<li><a th:href="@{/escalas/escolher/escala/pos/transparencia}"><span class=" oi oi-chevron-right icones-sidebar-tamanho align-middle"></span>Alterações Pós Portal da Transparência</a></li>
-								<li><a href="#"><span class=" oi oi-chevron-right icones-sidebar-tamanho align-middle"></span>Próximo Item</a></li>
+								<li><a href="#" class="bt-btn"><span class=" oi oi-chevron-bottom z71 icones-sidebar-tamanho align-middle"></span>Alterações </a>
+									<ul class="bt-show">
+										<li><a th:href="@{/escalas/escolher/escala/pos/transparencia}"><span class=" oi oi-chevron-right icones-sidebar-tamanho align-middle"></span>Listar</a></li>
+									</ul>
+								</li>
+								
 							</ul>
 						</li>
 						
 							<li><a href="#" class="bl-btn"><span class=" oi oi-chevron-bottom z63 icones-sidebar-tamanho align-middle"></span>Escalas Configurações </a>
 								<ul class="bl-show">
 									
-									<li><a href="#" class="az-btn"><span class=" oi oi-chevron-bottom fiftysecond icones-sidebar-tamanho align-middle"></span>Cadastro Atividade de Escala </a>
-										<ul class="az-show">
-											<li><a th:href="@{/atividadesescalas/cadastrar}"><span class=" oi oi-chevron-right icones-sidebar-tamanho align-middle"></span>Cadastrar</a></li>
-											<li><a th:href="@{/atividadesescalas/listar}"><span class=" oi oi-chevron-right icones-sidebar-tamanho align-middle"></span>Listar</a></li>
-										</ul>
-									</li>
-									
-									<li><a href="#" class="bb-btn"><span class=" oi oi-chevron-bottom z53 icones-sidebar-tamanho align-middle"></span>Cadastro de coordenação Escala </a>
+									<li><a href="#" class="bb-btn"><span class=" oi oi-chevron-bottom z53 icones-sidebar-tamanho align-middle"></span>Coordenação Escala </a>
 										<ul class="bb-show">
 											<li><a th:href="@{/coordenacaoescalas/cadastrar}"><span class=" oi oi-chevron-right icones-sidebar-tamanho align-middle"></span>Cadastrar</a></li>
 											<li><a th:href="@{/coordenacaoescalas/listar}"><span class=" oi oi-chevron-right icones-sidebar-tamanho align-middle"></span>Listar</a></li>
 										</ul>
 									</li>
 									
-									<li><a href="#" class="ba-btn"><span class=" oi oi-chevron-bottom z52 icones-sidebar-tamanho align-middle"></span>Acesso Operadores Coordenação</a>
+									<li><a href="#" class="az-btn"><span class=" oi oi-chevron-bottom fiftysecond icones-sidebar-tamanho align-middle"></span>Atividade de Escala </a>
+										<ul class="az-show">
+											<li><a th:href="@{/atividadesescalas/cadastrar}"><span class=" oi oi-chevron-right icones-sidebar-tamanho align-middle"></span>Cadastrar</a></li>
+											<li><a th:href="@{/atividadesescalas/listar}"><span class=" oi oi-chevron-right icones-sidebar-tamanho align-middle"></span>Listar</a></li>
+										</ul>
+									</li>
+									
+									
+									<li><a href="#" class="ba-btn"><span class=" oi oi-chevron-bottom z52 icones-sidebar-tamanho align-middle"></span>Acesso Operadores</a>
 										<ul class="ba-show">
 											<li><a th:href="@{/acessooperadorescoordenacao/cadastrar}"><span class=" oi oi-chevron-right icones-sidebar-tamanho align-middle"></span>Cadastrar</a></li>
 											<li><a th:href="@{/acessooperadorescoordenacao/listar}"><span class=" oi oi-chevron-right icones-sidebar-tamanho align-middle"></span>Listar</a></li>
@@ -475,26 +488,13 @@
 				</ul>	
 			</li>
 
-			<li><a href="#" class="br-btn"><span class=" oi oi-chevron-bottom z69 icones-sidebar-tamanho align-middle"></span>Menu 1 </a>
-				<ul class="br-show">
-					<li><a href="#"><span class=" oi oi-chevron-right icones-sidebar-tamanho align-middle"></span>Cadastrar</a></li>
-					<li><a href="#"><span class=" oi oi-chevron-right icones-sidebar-tamanho align-middle"></span>Listar</a></li>
-				</ul>
-			</li>
+
+
+			
 	
-			<li><a href="#" class="bs-btn"><span class=" oi oi-chevron-bottom z70 icones-sidebar-tamanho align-middle"></span>Menu 1 </a>
-				<ul class="bs-show">
-					<li><a href="#"><span class=" oi oi-chevron-right icones-sidebar-tamanho align-middle"></span>Cadastrar</a></li>
-					<li><a href="#"><span class=" oi oi-chevron-right icones-sidebar-tamanho align-middle"></span>Listar</a></li>
-				</ul>
-			</li>
+			
 	
-			<li><a href="#" class="bt-btn"><span class=" oi oi-chevron-bottom z71 icones-sidebar-tamanho align-middle"></span>Menu 1 </a>
-				<ul class="bt-show">
-					<li><a href="#"><span class=" oi oi-chevron-right icones-sidebar-tamanho align-middle"></span>Cadastrar</a></li>
-					<li><a href="#"><span class=" oi oi-chevron-right icones-sidebar-tamanho align-middle"></span>Listar</a></li>
-				</ul>
-			</li>
+			
 	
 			<li><a href="#" class="bu-btn"><span class=" oi oi-chevron-bottom z72 icones-sidebar-tamanho align-middle"></span>Menu 1 </a>
 				<ul class="bu-show">

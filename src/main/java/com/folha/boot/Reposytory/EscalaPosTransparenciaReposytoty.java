@@ -29,6 +29,8 @@ public interface EscalaPosTransparenciaReposytoty extends JpaRepository<EscalaPo
 	
 	public Page<EscalaPosTransparencia> findByIdCoordenacaoFkIdLocalidadeFkIdUnidadeFkAndIdAnoMesFkAndIdFuncionarioFkIdPessoaFkNomeContainingOrderByIdFuncionarioFkIdPessoaFkNomeAsc(Unidades unidades, AnoMes anoMes, String nome, final Pageable page);
 	
+	public Page<EscalaPosTransparencia> findByIdAnoMesFkAndIdFuncionarioFkIdPessoaFkNomeContainingOrderByIdFuncionarioFkIdPessoaFkNomeAsc( AnoMes anoMes, String nome, final Pageable page);
+	
 	
 	
 }
