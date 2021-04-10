@@ -14,8 +14,8 @@ public class FuncionariosFeriasService {
 	@Autowired
 	private  FuncionariosFeriasReposytory reposytory;
 
-	public void salvar(FuncionariosFerias funcionariosFerias) {
-		reposytory.save(funcionariosFerias);
+	public FuncionariosFerias salvar(FuncionariosFerias funcionariosFerias) {
+		return reposytory.save(funcionariosFerias);
 	}
 
 	public void editar(FuncionariosFerias funcionariosFerias) {
