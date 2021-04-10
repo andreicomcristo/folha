@@ -22,13 +22,13 @@ public interface EscalaAlteracoesReposytoty extends JpaRepository<EscalaAlteraco
 	
 	public List<EscalaAlteracoes> findByIdAnoMesFkOrderByIdFuncionarioFkIdPessoaFkNomeAsc( AnoMes anoMes);
 	
-	public List<EscalaAlteracoes> findByIdCoordenacaoFkIdLocalidadeFkIdUnidadeFkAndIdAnoMesFkOrderByIdFuncionarioFkIdPessoaFkNomeAsc(Unidades unidades, AnoMes anoMes);
+	public List<EscalaAlteracoes> findByIdCoordenacaoFkIdLocalidadeFkIdUnidadeFkAndIdAnoMesFkOrderByDtAlteracaoDescHoraAlteracaoDescIdFuncionarioFkIdPessoaFkNomeAsc(Unidades unidades, AnoMes anoMes);
 	
-	public Page<EscalaAlteracoes> findByIdAnoMesFkOrderByIdFuncionarioFkIdPessoaFkNomeAsc(AnoMes anoMes, final Pageable page);
+	public Page<EscalaAlteracoes> findByIdAnoMesFkOrderByDtAlteracaoDescHoraAlteracaoDescIdFuncionarioFkIdPessoaFkNomeAsc(AnoMes anoMes, final Pageable page);
 	
-	public Page<EscalaAlteracoes> findByIdCoordenacaoFkIdLocalidadeFkIdUnidadeFkAndIdAnoMesFkOrderByIdFuncionarioFkIdPessoaFkNomeAsc(Unidades unidades, AnoMes anoMes, final Pageable page);
+	public Page<EscalaAlteracoes> findByIdCoordenacaoFkIdLocalidadeFkIdUnidadeFkAndIdAnoMesFkOrderByDtAlteracaoDescHoraAlteracaoDescIdFuncionarioFkIdPessoaFkNomeAsc(Unidades unidades, AnoMes anoMes, final Pageable page);
 	
-	public Page<EscalaAlteracoes> findByIdCoordenacaoFkIdLocalidadeFkIdUnidadeFkAndIdAnoMesFkAndIdFuncionarioFkIdPessoaFkNomeContainingOrderByIdFuncionarioFkIdPessoaFkNomeAsc(Unidades unidades, AnoMes anoMes, String nome, final Pageable page);
+	public Page<EscalaAlteracoes> findByIdCoordenacaoFkIdLocalidadeFkIdUnidadeFkAndIdAnoMesFkAndIdFuncionarioFkIdPessoaFkNomeContainingOrderByDtAlteracaoDescHoraAlteracaoDescIdFuncionarioFkIdPessoaFkNomeAsc(Unidades unidades, AnoMes anoMes, String nome, final Pageable page);
 	
 	
 	

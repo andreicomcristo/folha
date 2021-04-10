@@ -75,7 +75,7 @@ public class EscalaAlteracoesService {
 	@Transactional(readOnly = true)
 	public List<EscalaAlteracoes> buscarNaUnidade(Unidades unidades, AnoMes anoMes) {
 		// TODO Auto-generated method stub
-		return reposytory.findByIdCoordenacaoFkIdLocalidadeFkIdUnidadeFkAndIdAnoMesFkOrderByIdFuncionarioFkIdPessoaFkNomeAsc(unidades, anoMes);
+		return reposytory.findByIdCoordenacaoFkIdLocalidadeFkIdUnidadeFkAndIdAnoMesFkOrderByDtAlteracaoDescHoraAlteracaoDescIdFuncionarioFkIdPessoaFkNomeAsc(unidades, anoMes);
 	}
 	
 	@Transactional(readOnly = true)
@@ -84,19 +84,19 @@ public class EscalaAlteracoesService {
 		return reposytory.findByIdAnoMesFkOrderByIdFuncionarioFkIdPessoaFkNomeAsc( anoMes);
 	}
 	
-	public Page<EscalaAlteracoes> findPaginatedPosTransparenciaGlobal(int pageNo, int pageSize,  AnoMes anoMes) {
+	public Page<EscalaAlteracoes> findPaginatedEscalaAlteracaoGlobal(int pageNo, int pageSize,  AnoMes anoMes) {
 		Pageable pageable = PageRequest.of(pageNo -1, pageSize);
-		return this.reposytory.findByIdAnoMesFkOrderByIdFuncionarioFkIdPessoaFkNomeAsc( anoMes, pageable);
+		return this.reposytory.findByIdAnoMesFkOrderByDtAlteracaoDescHoraAlteracaoDescIdFuncionarioFkIdPessoaFkNomeAsc( anoMes, pageable);
 	}
 	
-	public Page<EscalaAlteracoes> findPaginatedPosTransparencia(int pageNo, int pageSize, Unidades unidades, AnoMes anoMes) {
+	public Page<EscalaAlteracoes> findPaginatedEscalaAlteracao(int pageNo, int pageSize, Unidades unidades, AnoMes anoMes) {
 		Pageable pageable = PageRequest.of(pageNo -1, pageSize);
-		return this.reposytory.findByIdCoordenacaoFkIdLocalidadeFkIdUnidadeFkAndIdAnoMesFkOrderByIdFuncionarioFkIdPessoaFkNomeAsc(unidades, anoMes, pageable);
+		return this.reposytory.findByIdCoordenacaoFkIdLocalidadeFkIdUnidadeFkAndIdAnoMesFkOrderByDtAlteracaoDescHoraAlteracaoDescIdFuncionarioFkIdPessoaFkNomeAsc(unidades, anoMes, pageable);
 	}
 	
-	public Page<EscalaAlteracoes> findPaginatedNomePosTransparencia(int pageNo, int pageSize, Unidades unidades, AnoMes anoMes, String nome) {
+	public Page<EscalaAlteracoes> findPaginatedNomeEscalaAlteracao(int pageNo, int pageSize, Unidades unidades, AnoMes anoMes, String nome) {
 		Pageable pageable = PageRequest.of(pageNo -1, pageSize);
-		return this.reposytory.findByIdCoordenacaoFkIdLocalidadeFkIdUnidadeFkAndIdAnoMesFkAndIdFuncionarioFkIdPessoaFkNomeContainingOrderByIdFuncionarioFkIdPessoaFkNomeAsc(unidades, anoMes, nome.toUpperCase().trim(), pageable);
+		return this.reposytory.findByIdCoordenacaoFkIdLocalidadeFkIdUnidadeFkAndIdAnoMesFkAndIdFuncionarioFkIdPessoaFkNomeContainingOrderByDtAlteracaoDescHoraAlteracaoDescIdFuncionarioFkIdPessoaFkNomeAsc(unidades, anoMes, nome.toUpperCase().trim(), pageable);
 	}
 
 	public EscalaAlteracoes converteDeEscalaParaEscalaAlteracoes(Escala escala) {

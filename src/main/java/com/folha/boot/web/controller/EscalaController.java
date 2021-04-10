@@ -33,6 +33,7 @@ import com.folha.boot.domain.Cidades;
 import com.folha.boot.domain.CodigoDiferenciado;
 import com.folha.boot.domain.CoordenacaoEscala;
 import com.folha.boot.domain.Escala;
+import com.folha.boot.domain.EscalaAlteracoes;
 import com.folha.boot.domain.EscalaPosTransparencia;
 import com.folha.boot.domain.Pessoa;
 import com.folha.boot.domain.PessoaDocumentos;
@@ -172,6 +173,27 @@ public class EscalaController {
 		return "/escala/escolherMudancasPosTransparenciaGlobal"; 
 	}
 	
+	//Escala Alteracao
+	@GetMapping("/escolher/escala/alteracao")
+	public String escolherEscalaAlteracao(ModelMap model) {
+		
+		Unidades unidade = unidadesService.buscarPorId(idUnidadeLogada);
+		model.addAttribute("escolhaAcessoEscala", new EscolhaAcessoEscala());
+		model.addAttribute("unidade", unidade); 
+		model.addAttribute("anoMes", anoMesService.buscarTodos());
+		return "/escala/escolherEscalaAlteracao"; 
+	}
+	
+	@GetMapping("/escolher/escala/alteracao/global")
+	public String escolherEscalaAlteracaoGlobal(ModelMap model) {
+		
+		Unidades unidade = unidadesService.buscarPorId(idUnidadeLogada);
+		model.addAttribute("escolhaAcessoEscala", new EscolhaAcessoEscala());
+		model.addAttribute("unidade", unidade); 
+		model.addAttribute("anoMes", anoMesService.buscarTodos());
+		return "/escala/escolherEscalaAlteracaoGlobal"; 
+	}
+	
 	@PostMapping("/ir/para/escala")
 	public String irParaEscala(ModelMap model, Long coordenacaoEscala, Long anoMes) {
 		
@@ -225,6 +247,35 @@ public class EscalaController {
 		}
 		
 	}
+	
+	
+	//Escala Alteracao X9
+	@PostMapping("/ir/para/escala/alteracao")
+	public String irParaEscalaAlteracao(ModelMap model, Long anoMes) {
+		
+		if( anoMes!=null) {
+			this.idAnoMesAtual = anoMes;
+			
+			return "redirect:/escalas/listar/escala/alteracao";
+		}else {
+			return "redirect:/escalas/mensagem/de/nao/escolha";
+		}
+		
+	}
+	
+	@PostMapping("/ir/para/escala/alteracao/global")
+	public String irParaEscalaAlteracaoGlobal(ModelMap model, Long anoMes) {
+		
+		if( anoMes!=null) {
+			this.idAnoMesAtual = anoMes;
+			
+			return "redirect:/escalas/listar/escala/alteracao/global";
+		}else {
+			return "redirect:/escalas/mensagem/de/nao/escolha";
+		}
+		
+	}
+
 
 	@GetMapping("/listar")
 	public String listar(ModelMap model) {
@@ -262,6 +313,25 @@ public class EscalaController {
 		return this.findPaginatedPosTransparenciaGlobal(1, model);
 	}	
 	
+	// Escala alteracao
+	@GetMapping("/listar/escala/alteracao")
+	public String listarEscalasEscalaAlteracao(ModelMap model) {
+		ultimaBuscaNome = "";
+		ultimaBuscaTurma = null;
+		ultimaBuscaCargoEspecialidade = null;
+		ultimaBuscaTiposDeFolha = null;
+		return this.findPaginatedEscalaAlteracao(1, model);
+	}	
+	
+	@GetMapping("/listar/escala/alteracao/global")
+	public String listarEscalasEscalaAlteracaoGlobal(ModelMap model) {
+		ultimaBuscaNome = "";
+		ultimaBuscaTurma = null;
+		ultimaBuscaCargoEspecialidade = null;
+		ultimaBuscaTiposDeFolha = null;
+		return this.findPaginatedEscalaAlteracaoGlobal(1, model);
+	}	
+	
 	@GetMapping("/listar/{pageNo}")
 	public String findPaginated(@PathVariable (value = "pageNo") int pageNo, ModelMap model) {
 		int pageSeze = 5;
@@ -292,6 +362,23 @@ public class EscalaController {
 		Page<EscalaPosTransparencia> page = escalaPosTransparenciaService.findPaginatedPosTransparenciaGlobal(pageNo, pageSeze,  anoMesService.buscarPorId(idAnoMesAtual));
 		List<EscalaPosTransparencia> lista = page.getContent();
 		return paginarPosTransparenciaGlobal(pageNo, page, lista, model);
+	}
+	
+	//Escala Alteracao
+	@GetMapping("/listar/escala/alteracao/{pageNo}")
+	public String findPaginatedEscalaAlteracao(@PathVariable (value = "pageNo") int pageNo, ModelMap model) {
+		int pageSeze = 5;
+		Page<EscalaAlteracoes> page = escalaAlteracoesService.findPaginatedEscalaAlteracao(pageNo, pageSeze, unidadesService.buscarPorId(idUnidadeLogada), anoMesService.buscarPorId(idAnoMesAtual));
+		List<EscalaAlteracoes> lista = page.getContent();
+		return paginarEscalaAlteracao(pageNo, page, lista, model);
+	}
+	
+	@GetMapping("/listar/escala/alteracao/global/{pageNo}")
+	public String findPaginatedEscalaAlteracaoGlobal(@PathVariable (value = "pageNo") int pageNo, ModelMap model) {
+		int pageSeze = 5;
+		Page<EscalaAlteracoes> page = escalaAlteracoesService.findPaginatedEscalaAlteracaoGlobal(pageNo, pageSeze,  anoMesService.buscarPorId(idAnoMesAtual));
+		List<EscalaAlteracoes> lista = page.getContent();
+		return paginarEscalaAlteracaoGlobal(pageNo, page, lista, model);
 	}
 	
 	public String paginar(int pageNo, Page<Escala> page, List<Escala> lista, ModelMap model) {	
@@ -344,6 +431,29 @@ public class EscalaController {
 		model.addAttribute("totalItems", page.getTotalElements()); 
 		model.addAttribute("listaEscala", lista);
 		return "/escala/listaPosTransparenciaGlobal";	
+	}
+	
+	//Escala Alteracao
+	public String paginarEscalaAlteracao(int pageNo, Page<EscalaAlteracoes> page, List<EscalaAlteracoes> lista, ModelMap model) {	
+		
+		model.addAttribute("escala", "Todas as Alterações nas escalas.");
+		model.addAttribute("mes", anoMesService.buscarPorId(idAnoMesAtual));
+		model.addAttribute("currentePage", pageNo);
+		model.addAttribute("totalPages", page.getTotalPages());
+		model.addAttribute("totalItems", page.getTotalElements()); 
+		model.addAttribute("listaEscala", lista);
+		return "/escala/listaEscalaAlteracao";	
+	}
+	
+	public String paginarEscalaAlteracaoGlobal(int pageNo, Page<EscalaAlteracoes> page, List<EscalaAlteracoes> lista, ModelMap model) {	
+		
+		model.addAttribute("escala", "Todas as Alterações nas escalas.");
+		model.addAttribute("mes", anoMesService.buscarPorId(idAnoMesAtual));
+		model.addAttribute("currentePage", pageNo);
+		model.addAttribute("totalPages", page.getTotalPages());
+		model.addAttribute("totalItems", page.getTotalElements()); 
+		model.addAttribute("listaEscala", lista);
+		return "/escala/listaEscalaAlteracaoGlobal";	
 	}
 	
 		
@@ -473,6 +583,8 @@ public class EscalaController {
 		
 		escala.setIdOperadorCancelamentoFk(pessoaOperadoresService.buscarPorId(idOperadorLogado));
 		escala.setDtCancelamento(new Date());
+		escala.setIdOperadorMudancaFk(pessoaOperadoresService.buscarPorId(idOperadorLogado));
+		escala.setDtMudanca(new Date());
 		
 		service.salvar(escala);
 		//Tratando Salvar Alteracoes X9
@@ -725,6 +837,41 @@ public class EscalaController {
 			
 	    return this.findPaginatedPosTransparenciaGlobal(pageNo,  model);
 	}
+	
+	
+	
+	//Buscar Escala Alteracao
+	@GetMapping("/paginar/escala/alteracao/{pageNo}")
+	public String getPorNomePaginadoEscalaAlteracao(@PathVariable (value = "pageNo") int pageNo, ModelMap model) {
+		
+		if( (ultimaBuscaNome.equals("")) ){
+			return "redirect:/escalas/listar/escala/alteracao/{pageNo}" ;}
+		else {		
+			if(!ultimaBuscaNome.equals("")) {
+				return this.findPaginatedEscalaAlteracao(pageNo, ultimaBuscaNome, model);}
+			
+			else {
+				return "redirect:/escalas/listar/escala/alteracao/{pageNo}" ;}
+			}
+	}
+	
+	@GetMapping("/buscar/nome/escala/alteracao")
+	public String getPorNomeEscalaAlteracao(@RequestParam("nome") String nome, ModelMap model) {
+		this.ultimaBuscaNome = nome;
+		this.ultimaBuscaTurma = null;
+		this.ultimaBuscaCargoEspecialidade = null;
+		this.ultimaBuscaTiposDeFolha = null;
+		return this.findPaginatedEscalaAlteracao(1, nome, model);
+	}
+	
+	public String findPaginatedEscalaAlteracao(@PathVariable (value = "pageNo") int pageNo, String nome, ModelMap model) {
+		int pageSeze = 5;
+		Page<EscalaAlteracoes> page = escalaAlteracoesService.findPaginatedNomeEscalaAlteracao(pageNo, pageSeze, unidadesService.buscarPorId(idUnidadeLogada), anoMesService.buscarPorId(idAnoMesAtual), nome );
+		List<EscalaAlteracoes> lista = page.getContent();
+		return paginarEscalaAlteracao(pageNo, page, lista, model);
+	}
+
+
 	
 	
 
@@ -3015,7 +3162,45 @@ public class EscalaController {
 		}
 			
 		
-	
+		//Exportacao Escala Alteracoes X9
+		@GetMapping("/exporta/excel/escala/alteracao")
+	    public void downloadExcelEscalaAlteracao(HttpServletResponse response, ModelMap model) throws IOException {
+	        response.setContentType("application/octet-stream");
+	        response.setHeader("Content-Disposition", "attachment; filename=dados.xlsx");
+	        ByteArrayInputStream stream = escalaExportacaoService.exportarExcelEscalaAlteracao(escalaAlteracoesService.buscarNaUnidade(unidadesService.buscarPorId(idUnidadeLogada), anoMesService.buscarPorId(idAnoMesAtual)));
+	        IOUtils.copy(stream, response.getOutputStream());
+	    }
+		
+		@GetMapping(value = "/exporta/pdf/escala/alteracao", produces = MediaType.APPLICATION_PDF_VALUE)
+		public ResponseEntity<InputStreamResource> employeeReportsEscalaAlteracao(HttpServletResponse response) throws IOException {
+			ByteArrayInputStream bis = escalaExportacaoService.exportarPdfEscalaAlteracao(escalaAlteracoesService.buscarNaUnidade(unidadesService.buscarPorId(idUnidadeLogada), anoMesService.buscarPorId(idAnoMesAtual)));
+			HttpHeaders headers = new HttpHeaders();
+			headers.add("Content-Disposition", "attachment;filename=dados.pdf");
+			return ResponseEntity.ok().headers(headers).contentType(MediaType.APPLICATION_PDF)
+					.body(new InputStreamResource(bis));
+		}
+		
+		//Exportacao Escala Alteracoes X9 Global
+		@GetMapping("/exporta/excel/escala/alteracao/global")
+	    public void downloadExcelEscalaAlteracaoGlobal(HttpServletResponse response, ModelMap model) throws IOException {
+	        response.setContentType("application/octet-stream");
+	        response.setHeader("Content-Disposition", "attachment; filename=dados.xlsx");
+	        ByteArrayInputStream stream = escalaExportacaoService.exportarExcelEscalaAlteracao(escalaAlteracoesService.buscarEmTodasAsUnidades( anoMesService.buscarPorId(idAnoMesAtual)));
+	        IOUtils.copy(stream, response.getOutputStream());
+	    }
+		
+		@GetMapping(value = "/exporta/pdf/escala/alteracao/global", produces = MediaType.APPLICATION_PDF_VALUE)
+		public ResponseEntity<InputStreamResource> employeeReportsEscalaAlteracaoGlobal(HttpServletResponse response) throws IOException {
+			ByteArrayInputStream bis = escalaExportacaoService.exportarPdfEscalaAlteracao(escalaAlteracoesService.buscarEmTodasAsUnidades( anoMesService.buscarPorId(idAnoMesAtual)));
+			HttpHeaders headers = new HttpHeaders();
+			headers.add("Content-Disposition", "attachment;filename=dados.pdf");
+			return ResponseEntity.ok().headers(headers).contentType(MediaType.APPLICATION_PDF)
+					.body(new InputStreamResource(bis));
+		}
+
+		
+		
+		
 	
 	// Metodos para preencher os combobox
 	
