@@ -2755,12 +2755,8 @@ public class EscalaController {
 		
 		return "/choqueescala/obrigatorio";
 	}
-	
-	
-		
-	
-	// Metodos da Inclusão
-	
+
+	// Metodos da Inclusão	
 	@GetMapping("/paginar/inclusao/{pageNo}")
 	public String getPorNomePaginadoInclusao(@PathVariable (value = "pageNo") int pageNo, ModelMap model) {
 		
