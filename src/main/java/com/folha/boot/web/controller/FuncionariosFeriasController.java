@@ -111,14 +111,17 @@ public class FuncionariosFeriasController {
 		model.addAttribute("funcionario", funcionario);
 		return "/funcionarioferias/cadastro"; 
 	}
+	
 				
 	@PostMapping("/salvar")
 	public String salvar(FuncionariosFerias funcionariosFerias, RedirectAttributes attr) {	
-		service.salvar(funcionariosFerias);//Após savar retorna um objeto do tipo salvo
+		
+		Long idAnoFerias = service.salvar(funcionariosFerias).getId();//Após savar retorna um objeto do tipo salvo
 		attr.addFlashAttribute("success", "Inserido com sucesso.");
-		return "redirect:/funcionariosferias/cadastrar";
+		
+		return "redirect:/funcionariosferias/ferias/"+funcionariosFerias.getIdFuncionarioFk().getId();
 	}
- 
+	
 	
 	
 	@GetMapping("/editar/{id}")
@@ -126,6 +129,7 @@ public class FuncionariosFeriasController {
 		model.addAttribute("funcionariosFerias", service.buscarPorId(id));
 		return "/funcionarioferias/cadastro";
 	}
+	
 	
 	@PostMapping("/editar")
 	public String editar(FuncionariosFerias funcionariosFerias, RedirectAttributes attr) {
