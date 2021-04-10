@@ -28,18 +28,15 @@ public class FuncionariosFeriasController {
 	private Long idUnidadeLogada = 1l;
 	private String ultimaBuscaNome = "";
 	
-	
 	@Autowired
 	private FuncionariosFeriasService service;
 	@Autowired
 	private PessoaFuncionariosService pessoaFuncionariosService;
-	
 	@Autowired
 	private PessoaOperadoresService pessoaOperadoresService;
 	@Autowired
 	private UnidadesService unidadesService;
 
-	
 	@GetMapping("/cadastrar")
 	public String cadastrar(FuncionariosFerias funcionariosFerias) {
 		return "/funcionarioferias/cadastro";
@@ -118,9 +115,7 @@ public class FuncionariosFeriasController {
 		attr.addFlashAttribute("success", "Inserido com sucesso.");
 		return "redirect:/funcionariosferias/cadastrar";
 	}
- 
-	
-	
+ 		
 	@GetMapping("/editar/{id}")
 	public String preEditar(@PathVariable("id") Long id, ModelMap model) {
 		model.addAttribute("funcionariosFerias", service.buscarPorId(id));
