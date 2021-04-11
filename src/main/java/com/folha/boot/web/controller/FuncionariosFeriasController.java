@@ -106,6 +106,7 @@ public class FuncionariosFeriasController {
 		PessoaFuncionarios funcionario = pessoaFuncionariosService.buscarPorId(id);
 		funcionariosFerias.setIdFuncionarioFk(funcionario);//relaciona as férias ao funcionário
 		model.addAttribute("funcionario", funcionario);
+		model.addAttribute("feriasLista", service.buscarFuncionario(funcionario));
 		return "/funcionarioferias/cadastro"; 
 	}
 	
