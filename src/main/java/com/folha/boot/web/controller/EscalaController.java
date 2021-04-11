@@ -194,6 +194,17 @@ public class EscalaController {
 		return "/escala/escolherEscalaAlteracaoGlobal"; 
 	}
 	
+	//Escala Colaborador
+	@GetMapping("/escolher/escala/colaborador")
+	public String escolherEscalaColaborador(ModelMap model) {
+		
+		Unidades unidade = unidadesService.buscarPorId(idUnidadeLogada);
+		model.addAttribute("escolhaAcessoEscala", new EscolhaAcessoEscala());
+		model.addAttribute("unidade", unidade); 
+		model.addAttribute("anoMes", anoMesService.buscarTodos());
+		return "/escala/escolherEscalaColaborador"; 
+	}
+	
 	@PostMapping("/ir/para/escala")
 	public String irParaEscala(ModelMap model, Long coordenacaoEscala, Long anoMes) {
 		
@@ -276,6 +287,19 @@ public class EscalaController {
 		
 	}
 
+	// Escala colaborador
+	@PostMapping("/ir/para/escala/colaborador")
+	public String irParaEscalaColaborador(ModelMap model, Long anoMes) {
+		
+		if( anoMes!=null) {
+			this.idAnoMesAtual = anoMes;
+			
+			return "redirect:/escalas/listar/escala/colaborador";
+		}else {
+			return "redirect:/escalas/mensagem/de/nao/escolha";
+		}
+		
+	}
 
 	@GetMapping("/listar")
 	public String listar(ModelMap model) {
@@ -332,6 +356,16 @@ public class EscalaController {
 		return this.findPaginatedEscalaAlteracaoGlobal(1, model);
 	}	
 	
+	//Escala Colaborador
+	@GetMapping("/listar/escala/colaborador")
+	public String listarEscalaColaborador(ModelMap model) {
+		ultimaBuscaNome = "";
+		ultimaBuscaTurma = null;
+		ultimaBuscaCargoEspecialidade = null;
+		ultimaBuscaTiposDeFolha = null;
+		return this.findPaginatedEscalaColaborador(1, model);
+	}	
+	
 	@GetMapping("/listar/{pageNo}")
 	public String findPaginated(@PathVariable (value = "pageNo") int pageNo, ModelMap model) {
 		int pageSeze = 5;
@@ -379,6 +413,15 @@ public class EscalaController {
 		Page<EscalaAlteracoes> page = escalaAlteracoesService.findPaginatedEscalaAlteracaoGlobal(pageNo, pageSeze,  anoMesService.buscarPorId(idAnoMesAtual));
 		List<EscalaAlteracoes> lista = page.getContent();
 		return paginarEscalaAlteracaoGlobal(pageNo, page, lista, model);
+	}
+	
+	//Escala Colaborador
+	@GetMapping("/listar/escala/colaborador/{pageNo}")
+	public String findPaginatedEscalaColaborador(@PathVariable (value = "pageNo") int pageNo, ModelMap model) {
+		int pageSeze = 5;
+		Page<Escala> page = service.findPaginatedColaborador(pageNo, pageSeze, pessoaOperadoresService.buscarPorId(idOperadorLogado).getIdPessoaFk() , anoMesService.buscarPorId(idAnoMesAtual));
+		List<Escala> lista = page.getContent();
+		return paginarEscalaColaborador(pageNo, page, lista, model);
 	}
 	
 	public String paginar(int pageNo, Page<Escala> page, List<Escala> lista, ModelMap model) {	
@@ -456,6 +499,17 @@ public class EscalaController {
 		return "/escala/listaEscalaAlteracaoGlobal";	
 	}
 	
+	//Escala Colaborador
+	public String paginarEscalaColaborador(int pageNo, Page<Escala> page, List<Escala> lista, ModelMap model) {	
+		
+		model.addAttribute("escala", "Escalas para "+pessoaOperadoresService.buscarPorId(idOperadorLogado).getIdPessoaFk().getNome()+":");
+		model.addAttribute("mes", anoMesService.buscarPorId(idAnoMesAtual));
+		model.addAttribute("currentePage", pageNo);
+		model.addAttribute("totalPages", page.getTotalPages());
+		model.addAttribute("totalItems", page.getTotalElements()); 
+		model.addAttribute("listaEscala", lista);
+		return "/escala/listaEscalaColaborador";	
+	}
 		
 	@GetMapping("/alterar/escala/{id}")
 	public String cadastrarEscala(@PathVariable("id") Long id, Escala escala, ModelMap model) {	
@@ -559,6 +613,41 @@ public class EscalaController {
 		model.addAttribute("nomeColuna7", nomeColuna7 );
 		
 		return "/escala/verEscalaAlteracao";
+	}
+
+
+	
+	//Ver Colaborador
+	@GetMapping("/ver/escala/colaborador/{id}")
+	public String verEscalaAlteracao(@PathVariable("id") Long id, Escala escala, ModelMap model) {	
+		ultimoIdEscala = id;
+		escala = service.buscarPorId(id);
+		
+		String anoMesDaEscala = "202105";
+		if(escala!=null){anoMesDaEscala = escala.getIdAnoMesFk().getNomeAnoMes();}
+		int qtdDiasNoMes = escalaCalculosService.quantidadeDeDiasNoMes(anoMesDaEscala);
+		
+		// CALCULANDO OS DIAS DO MES
+		String nomeColuna1 = escalaCalculosService.obtemNomeDiaColuna(anoMesDaEscala, 1);
+		String nomeColuna2 = escalaCalculosService.obtemNomeDiaColuna(anoMesDaEscala, 2);
+		String nomeColuna3 = escalaCalculosService.obtemNomeDiaColuna(anoMesDaEscala, 3);
+		String nomeColuna4 = escalaCalculosService.obtemNomeDiaColuna(anoMesDaEscala, 4);
+		String nomeColuna5 = escalaCalculosService.obtemNomeDiaColuna(anoMesDaEscala, 5);
+		String nomeColuna6 = escalaCalculosService.obtemNomeDiaColuna(anoMesDaEscala, 6);
+		String nomeColuna7 = escalaCalculosService.obtemNomeDiaColuna(anoMesDaEscala, 7);
+		
+		model.addAttribute("escala", escala );
+		model.addAttribute("idLinha", id );
+		model.addAttribute("qtdDiasNoMes", qtdDiasNoMes );
+		model.addAttribute("nomeColuna1", nomeColuna1 );
+		model.addAttribute("nomeColuna2", nomeColuna2 );
+		model.addAttribute("nomeColuna3", nomeColuna3 );
+		model.addAttribute("nomeColuna4", nomeColuna4 );
+		model.addAttribute("nomeColuna5", nomeColuna5 );
+		model.addAttribute("nomeColuna6", nomeColuna6 );
+		model.addAttribute("nomeColuna7", nomeColuna7 );
+		
+		return "/escala/verEscalaColaborador";
 	}
 
 	
@@ -999,7 +1088,21 @@ public class EscalaController {
 
 
 	
+	// para escala Colaborador
 	
+	@GetMapping("/paginar/escala/colaborador/{pageNo}")
+	public String getPaginadoEscalaColaborador(@PathVariable (value = "pageNo") int pageNo, ModelMap model) {
+		return this.findPaginatedEscalaColaborador(pageNo,  model);
+	}
+	
+			
+	public String findPaginatedEscalaColaborador(@PathVariable (value = "pageNo") int pageNo, String nome, ModelMap model) {
+		int pageSeze = 5;
+		Page<Escala> page = service.findPaginatedColaborador(pageNo, pageSeze, pessoaOperadoresService.buscarPorId(idAnoMesAtual).getIdPessoaFk() ,anoMesService.buscarPorId(idAnoMesAtual) );
+		List<Escala> lista = page.getContent();
+		return paginarEscalaColaborador(pageNo, page, lista, model);
+	}
+
 	
 	
 
@@ -3322,7 +3425,15 @@ public class EscalaController {
 					.body(new InputStreamResource(bis));
 		}
 
-		
+		// Exportacao Escala Colaborador
+		@GetMapping(value = "/exporta/pdf/escala/colaborador/{id}", produces = MediaType.APPLICATION_PDF_VALUE)
+		public ResponseEntity<InputStreamResource> employeeReportsEscalaColaborador(@PathVariable("id") Long id, HttpServletResponse response) throws IOException {
+			ByteArrayInputStream bis = escalaExportacaoService.exportarPdfEscalaColaborador(service.buscarPorId(id));
+			HttpHeaders headers = new HttpHeaders();
+			headers.add("Content-Disposition", "attachment;filename=dados.pdf");
+			return ResponseEntity.ok().headers(headers).contentType(MediaType.APPLICATION_PDF)
+					.body(new InputStreamResource(bis));
+		}
 		
 		
 	

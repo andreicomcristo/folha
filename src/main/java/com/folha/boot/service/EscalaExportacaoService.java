@@ -61,6 +61,9 @@ public class EscalaExportacaoService {
 	@Autowired
 	private PessoaDocumentosConselhoService pessoaDocumentosConselhoService;
 	
+	@Autowired
+	private EscalaCalculosService escalaCalculosService;
+	
 	
 	public ByteArrayInputStream exportarExcel(List<Escala> lista) {
 		try(Workbook workbook = new XSSFWorkbook()){
@@ -3757,6 +3760,599 @@ public class EscalaExportacaoService {
 	}
 
 
+
+	
+	//Escala Colaborador
+	public ByteArrayInputStream exportarPdfEscalaColaborador(Escala escala) {
+
+		Document document = new Document(PageSize.A4.rotate(),0,0,10,10);
+		ByteArrayOutputStream out = new ByteArrayOutputStream();
+
+		try {
+
+			PdfPTable table = new PdfPTable(7);
+			table.setWidthPercentage(97);
+			table.setWidths(new int[] { 1,1,1,1,1,1,1 });
+
+			// Tipos de Fonte
+			Font tituloFont = FontFactory.getFont(FontFactory.HELVETICA_BOLD,14);
+			Font subtitulosFont = FontFactory.getFont(FontFactory.HELVETICA_BOLD,10);
+			Font demaisDadosFont = FontFactory.getFont(FontFactory.HELVETICA,9);
+			Font demaisDados4Font = FontFactory.getFont(FontFactory.HELVETICA,6);
+			Font cabecalhoFont = FontFactory.getFont(FontFactory.HELVETICA_BOLD,12);
+			Font corpoFont = FontFactory.getFont(FontFactory.TIMES_ROMAN, 7);
+			Font nomeSistemaFont = FontFactory.getFont(FontFactory.TIMES_BOLDITALIC, 6);
+			Font rodapeFont = FontFactory.getFont(FontFactory.HELVETICA_BOLD, 4);
+			
+			//Cabeçalho
+			
+			String nomeColuna1 = escalaCalculosService.obtemNomeDiaColuna(escala.getIdAnoMesFk().getNomeAnoMes(), 1);
+			String nomeColuna2 = escalaCalculosService.obtemNomeDiaColuna(escala.getIdAnoMesFk().getNomeAnoMes(), 2);
+			String nomeColuna3 = escalaCalculosService.obtemNomeDiaColuna(escala.getIdAnoMesFk().getNomeAnoMes(), 3);
+			String nomeColuna4 = escalaCalculosService.obtemNomeDiaColuna(escala.getIdAnoMesFk().getNomeAnoMes(), 4);
+			String nomeColuna5 = escalaCalculosService.obtemNomeDiaColuna(escala.getIdAnoMesFk().getNomeAnoMes(), 5);
+			String nomeColuna6 = escalaCalculosService.obtemNomeDiaColuna(escala.getIdAnoMesFk().getNomeAnoMes(), 6);
+			String nomeColuna7 = escalaCalculosService.obtemNomeDiaColuna(escala.getIdAnoMesFk().getNomeAnoMes(), 7);
+			
+			
+			PdfPCell hcell;
+			hcell = new PdfPCell(new Phrase(nomeColuna1, cabecalhoFont));
+			hcell.setHorizontalAlignment(Element.ALIGN_CENTER);
+			table.addCell(hcell);
+
+			hcell = new PdfPCell(new Phrase(nomeColuna2, cabecalhoFont));
+			hcell.setHorizontalAlignment(Element.ALIGN_CENTER);
+			table.addCell(hcell);
+
+			hcell = new PdfPCell(new Phrase(nomeColuna3, cabecalhoFont));
+			hcell.setHorizontalAlignment(Element.ALIGN_CENTER);
+			table.addCell(hcell);
+			
+			hcell = new PdfPCell(new Phrase(nomeColuna4, cabecalhoFont));
+			hcell.setHorizontalAlignment(Element.ALIGN_CENTER);
+			table.addCell(hcell);
+			
+			hcell = new PdfPCell(new Phrase(nomeColuna5, cabecalhoFont));
+			hcell.setHorizontalAlignment(Element.ALIGN_CENTER);
+			table.addCell(hcell);
+			
+			hcell = new PdfPCell(new Phrase(nomeColuna6, cabecalhoFont));
+			hcell.setHorizontalAlignment(Element.ALIGN_CENTER);
+			table.addCell(hcell);
+			
+			hcell = new PdfPCell(new Phrase(nomeColuna7, cabecalhoFont));
+			hcell.setHorizontalAlignment(Element.ALIGN_CENTER);
+			table.addCell(hcell);
+			
+			
+
+
+			// Corpo
+			
+				PdfPCell cell;
+
+				String turno01 = "";
+				if(!escala.getDia01Fk().getNomeTurno().equalsIgnoreCase("")) {turno01= "01-"+ escala.getDia01Fk().getNomeTurno()+" ["+escala.getDia01Fk().getDescricaoTurno()+"]";}
+				cell = new PdfPCell(new Phrase(turno01 ,corpoFont) );
+				cell.setVerticalAlignment(Element.ALIGN_MIDDLE);
+				cell.setHorizontalAlignment(Element.ALIGN_CENTER);
+				table.addCell(cell);
+
+				String turno02 = "";
+				if(!escala.getDia02Fk().getNomeTurno().equalsIgnoreCase("")) {turno02= "02-"+ escala.getDia02Fk().getNomeTurno()+" ["+escala.getDia02Fk().getDescricaoTurno()+"]";}
+				cell = new PdfPCell(new Phrase(turno02 ,corpoFont) );
+				cell.setVerticalAlignment(Element.ALIGN_MIDDLE);
+				cell.setHorizontalAlignment(Element.ALIGN_CENTER);
+				table.addCell(cell);
+
+				String turno03 = "";
+				if(!escala.getDia03Fk().getNomeTurno().equalsIgnoreCase("")) {turno03= "03-"+ escala.getDia03Fk().getNomeTurno()+" ["+escala.getDia03Fk().getDescricaoTurno()+"]";}
+				cell = new PdfPCell(new Phrase(turno03 ,corpoFont) );
+				cell.setVerticalAlignment(Element.ALIGN_MIDDLE);
+				cell.setHorizontalAlignment(Element.ALIGN_CENTER);
+				table.addCell(cell);
+
+				String turno04 = "";
+				if(!escala.getDia04Fk().getNomeTurno().equalsIgnoreCase("")) {turno04= "04-"+ escala.getDia04Fk().getNomeTurno()+" ["+escala.getDia04Fk().getDescricaoTurno()+"]";}
+				cell = new PdfPCell(new Phrase(turno04 ,corpoFont) );
+				cell.setVerticalAlignment(Element.ALIGN_MIDDLE);
+				cell.setHorizontalAlignment(Element.ALIGN_CENTER);
+				table.addCell(cell);
+
+				String turno05 = "";
+				if(!escala.getDia05Fk().getNomeTurno().equalsIgnoreCase("")) {turno05= "05-"+ escala.getDia05Fk().getNomeTurno()+" ["+escala.getDia05Fk().getDescricaoTurno()+"]";}
+				cell = new PdfPCell(new Phrase(turno05 ,corpoFont) );
+				cell.setVerticalAlignment(Element.ALIGN_MIDDLE);
+				cell.setHorizontalAlignment(Element.ALIGN_CENTER);
+				table.addCell(cell);
+
+				String turno06 = "";
+				if(!escala.getDia06Fk().getNomeTurno().equalsIgnoreCase("")) {turno06= "06-"+ escala.getDia06Fk().getNomeTurno()+" ["+escala.getDia06Fk().getDescricaoTurno()+"]";}
+				cell = new PdfPCell(new Phrase(turno06 ,corpoFont) );
+				cell.setVerticalAlignment(Element.ALIGN_MIDDLE);
+				cell.setHorizontalAlignment(Element.ALIGN_CENTER);
+				table.addCell(cell);
+
+				String turno07 = "";
+				if(!escala.getDia07Fk().getNomeTurno().equalsIgnoreCase("")) {turno07= "07-"+ escala.getDia07Fk().getNomeTurno()+" ["+escala.getDia07Fk().getDescricaoTurno()+"]";}
+				cell = new PdfPCell(new Phrase(turno07 ,corpoFont) );
+				cell.setVerticalAlignment(Element.ALIGN_MIDDLE);
+				cell.setHorizontalAlignment(Element.ALIGN_CENTER);
+				table.addCell(cell);
+
+				String turno08 = "";
+				if(!escala.getDia08Fk().getNomeTurno().equalsIgnoreCase("")) {turno08= "08-"+ escala.getDia08Fk().getNomeTurno()+" ["+escala.getDia08Fk().getDescricaoTurno()+"]";}
+				cell = new PdfPCell(new Phrase(turno08 ,corpoFont) );
+				cell.setVerticalAlignment(Element.ALIGN_MIDDLE);
+				cell.setHorizontalAlignment(Element.ALIGN_CENTER);
+				table.addCell(cell);
+
+				String turno09 = "";
+				if(!escala.getDia09Fk().getNomeTurno().equalsIgnoreCase("")) {turno09= "09-"+ escala.getDia09Fk().getNomeTurno()+" ["+escala.getDia09Fk().getDescricaoTurno()+"]";}
+				cell = new PdfPCell(new Phrase(turno09 ,corpoFont) );
+				cell.setVerticalAlignment(Element.ALIGN_MIDDLE);
+				cell.setHorizontalAlignment(Element.ALIGN_CENTER);
+				table.addCell(cell);
+
+				String turno10 = "";
+				if(!escala.getDia10Fk().getNomeTurno().equalsIgnoreCase("")) {turno10= "10-"+ escala.getDia10Fk().getNomeTurno()+" ["+escala.getDia10Fk().getDescricaoTurno()+"]";}
+				cell = new PdfPCell(new Phrase(turno10 ,corpoFont) );
+				cell.setVerticalAlignment(Element.ALIGN_MIDDLE);
+				cell.setHorizontalAlignment(Element.ALIGN_CENTER);
+				table.addCell(cell);
+
+				String turno11 = "";
+				if(!escala.getDia11Fk().getNomeTurno().equalsIgnoreCase("")) {turno11= "11-"+ escala.getDia11Fk().getNomeTurno()+" ["+escala.getDia11Fk().getDescricaoTurno()+"]";}
+				cell = new PdfPCell(new Phrase(turno11 ,corpoFont) );
+				cell.setVerticalAlignment(Element.ALIGN_MIDDLE);
+				cell.setHorizontalAlignment(Element.ALIGN_CENTER);
+				table.addCell(cell);
+
+				String turno12 = "";
+				if(!escala.getDia12Fk().getNomeTurno().equalsIgnoreCase("")) {turno12= "12-"+ escala.getDia12Fk().getNomeTurno()+" ["+escala.getDia12Fk().getDescricaoTurno()+"]";}
+				cell = new PdfPCell(new Phrase(turno12 ,corpoFont) );
+				cell.setVerticalAlignment(Element.ALIGN_MIDDLE);
+				cell.setHorizontalAlignment(Element.ALIGN_CENTER);
+				table.addCell(cell);
+
+				String turno13 = "";
+				if(!escala.getDia13Fk().getNomeTurno().equalsIgnoreCase("")) {turno13= "13-"+ escala.getDia13Fk().getNomeTurno()+" ["+escala.getDia13Fk().getDescricaoTurno()+"]";}
+				cell = new PdfPCell(new Phrase(turno13 ,corpoFont) );
+				cell.setVerticalAlignment(Element.ALIGN_MIDDLE);
+				cell.setHorizontalAlignment(Element.ALIGN_CENTER);
+				table.addCell(cell);
+
+				String turno14 = "";
+				if(!escala.getDia14Fk().getNomeTurno().equalsIgnoreCase("")) {turno14= "14-"+ escala.getDia14Fk().getNomeTurno()+" ["+escala.getDia14Fk().getDescricaoTurno()+"]";}
+				cell = new PdfPCell(new Phrase(turno14 ,corpoFont) );
+				cell.setVerticalAlignment(Element.ALIGN_MIDDLE);
+				cell.setHorizontalAlignment(Element.ALIGN_CENTER);
+				table.addCell(cell);
+
+				String turno15 = "";
+				if(!escala.getDia15Fk().getNomeTurno().equalsIgnoreCase("")) {turno15= "15-"+ escala.getDia15Fk().getNomeTurno()+" ["+escala.getDia15Fk().getDescricaoTurno()+"]";}
+				cell = new PdfPCell(new Phrase(turno15 ,corpoFont) );
+				cell.setVerticalAlignment(Element.ALIGN_MIDDLE);
+				cell.setHorizontalAlignment(Element.ALIGN_CENTER);
+				table.addCell(cell);
+
+				String turno16 = "";
+				if(!escala.getDia16Fk().getNomeTurno().equalsIgnoreCase("")) {turno16= "16-"+ escala.getDia16Fk().getNomeTurno()+" ["+escala.getDia16Fk().getDescricaoTurno()+"]";}
+				cell = new PdfPCell(new Phrase(turno16 ,corpoFont) );
+				cell.setVerticalAlignment(Element.ALIGN_MIDDLE);
+				cell.setHorizontalAlignment(Element.ALIGN_CENTER);
+				table.addCell(cell);
+
+				String turno17 = "";
+				if(!escala.getDia17Fk().getNomeTurno().equalsIgnoreCase("")) {turno17= "17-"+ escala.getDia17Fk().getNomeTurno()+" ["+escala.getDia17Fk().getDescricaoTurno()+"]";}
+				cell = new PdfPCell(new Phrase(turno17 ,corpoFont) );
+				cell.setVerticalAlignment(Element.ALIGN_MIDDLE);
+				cell.setHorizontalAlignment(Element.ALIGN_CENTER);
+				table.addCell(cell);
+
+				String turno18 = "";
+				if(!escala.getDia18Fk().getNomeTurno().equalsIgnoreCase("")) {turno18= "18-"+ escala.getDia18Fk().getNomeTurno()+" ["+escala.getDia18Fk().getDescricaoTurno()+"]";}
+				cell = new PdfPCell(new Phrase(turno18 ,corpoFont) );
+				cell.setVerticalAlignment(Element.ALIGN_MIDDLE);
+				cell.setHorizontalAlignment(Element.ALIGN_CENTER);
+				table.addCell(cell);
+
+				String turno19 = "";
+				if(!escala.getDia19Fk().getNomeTurno().equalsIgnoreCase("")) {turno19= "19-"+ escala.getDia19Fk().getNomeTurno()+" ["+escala.getDia19Fk().getDescricaoTurno()+"]";}
+				cell = new PdfPCell(new Phrase(turno19 ,corpoFont) );
+				cell.setVerticalAlignment(Element.ALIGN_MIDDLE);
+				cell.setHorizontalAlignment(Element.ALIGN_CENTER);
+				table.addCell(cell);
+
+				String turno20 = "";
+				if(!escala.getDia20Fk().getNomeTurno().equalsIgnoreCase("")) {turno20= "20-"+ escala.getDia20Fk().getNomeTurno()+" ["+escala.getDia20Fk().getDescricaoTurno()+"]";}
+				cell = new PdfPCell(new Phrase(turno20 ,corpoFont) );
+				cell.setVerticalAlignment(Element.ALIGN_MIDDLE);
+				cell.setHorizontalAlignment(Element.ALIGN_CENTER);
+				table.addCell(cell);
+
+				String turno21 = "";
+				if(!escala.getDia21Fk().getNomeTurno().equalsIgnoreCase("")) {turno21= "21-"+ escala.getDia21Fk().getNomeTurno()+" ["+escala.getDia21Fk().getDescricaoTurno()+"]";}
+				cell = new PdfPCell(new Phrase(turno21 ,corpoFont) );
+				cell.setVerticalAlignment(Element.ALIGN_MIDDLE);
+				cell.setHorizontalAlignment(Element.ALIGN_CENTER);
+				table.addCell(cell);
+
+				String turno22 = "";
+				if(!escala.getDia22Fk().getNomeTurno().equalsIgnoreCase("")) {turno22= "22-"+ escala.getDia22Fk().getNomeTurno()+" ["+escala.getDia22Fk().getDescricaoTurno()+"]";}
+				cell = new PdfPCell(new Phrase(turno22 ,corpoFont) );
+				cell.setVerticalAlignment(Element.ALIGN_MIDDLE);
+				cell.setHorizontalAlignment(Element.ALIGN_CENTER);
+				table.addCell(cell);
+
+				String turno23 = "";
+				if(!escala.getDia23Fk().getNomeTurno().equalsIgnoreCase("")) {turno23= "23-"+ escala.getDia23Fk().getNomeTurno()+" ["+escala.getDia23Fk().getDescricaoTurno()+"]";}
+				cell = new PdfPCell(new Phrase(turno23 ,corpoFont) );
+				cell.setVerticalAlignment(Element.ALIGN_MIDDLE);
+				cell.setHorizontalAlignment(Element.ALIGN_CENTER);
+				table.addCell(cell);
+
+				String turno24 = "";
+				if(!escala.getDia24Fk().getNomeTurno().equalsIgnoreCase("")) {turno24= "24-"+ escala.getDia24Fk().getNomeTurno()+" ["+escala.getDia24Fk().getDescricaoTurno()+"]";}
+				cell = new PdfPCell(new Phrase(turno24 ,corpoFont) );
+				cell.setVerticalAlignment(Element.ALIGN_MIDDLE);
+				cell.setHorizontalAlignment(Element.ALIGN_CENTER);
+				table.addCell(cell);
+
+				String turno25 = "";
+				if(!escala.getDia25Fk().getNomeTurno().equalsIgnoreCase("")) {turno25= "25-"+ escala.getDia25Fk().getNomeTurno()+" ["+escala.getDia25Fk().getDescricaoTurno()+"]";}
+				cell = new PdfPCell(new Phrase(turno25 ,corpoFont) );
+				cell.setVerticalAlignment(Element.ALIGN_MIDDLE);
+				cell.setHorizontalAlignment(Element.ALIGN_CENTER);
+				table.addCell(cell);
+
+				String turno26 = "";
+				if(!escala.getDia26Fk().getNomeTurno().equalsIgnoreCase("")) {turno26= "26-"+ escala.getDia26Fk().getNomeTurno()+" ["+escala.getDia26Fk().getDescricaoTurno()+"]";}
+				cell = new PdfPCell(new Phrase(turno26 ,corpoFont) );
+				cell.setVerticalAlignment(Element.ALIGN_MIDDLE);
+				cell.setHorizontalAlignment(Element.ALIGN_CENTER);
+				table.addCell(cell);
+
+				String turno27 = "";
+				if(!escala.getDia27Fk().getNomeTurno().equalsIgnoreCase("")) {turno27= "27-"+ escala.getDia27Fk().getNomeTurno()+" ["+escala.getDia27Fk().getDescricaoTurno()+"]";}
+				cell = new PdfPCell(new Phrase(turno27 ,corpoFont) );
+				cell.setVerticalAlignment(Element.ALIGN_MIDDLE);
+				cell.setHorizontalAlignment(Element.ALIGN_CENTER);
+				table.addCell(cell);
+
+				String turno28 = "";
+				if(!escala.getDia28Fk().getNomeTurno().equalsIgnoreCase("")) {turno28= "28-"+ escala.getDia28Fk().getNomeTurno()+" ["+escala.getDia28Fk().getDescricaoTurno()+"]";}
+				cell = new PdfPCell(new Phrase(turno28 ,corpoFont) );
+				cell.setVerticalAlignment(Element.ALIGN_MIDDLE);
+				cell.setHorizontalAlignment(Element.ALIGN_CENTER);
+				table.addCell(cell);
+
+				String turno29 = "";
+				if(!escala.getDia29Fk().getNomeTurno().equalsIgnoreCase("")) {turno29= "29-"+ escala.getDia29Fk().getNomeTurno()+" ["+escala.getDia29Fk().getDescricaoTurno()+"]";}
+				cell = new PdfPCell(new Phrase(turno29 ,corpoFont) );
+				cell.setVerticalAlignment(Element.ALIGN_MIDDLE);
+				cell.setHorizontalAlignment(Element.ALIGN_CENTER);
+				table.addCell(cell);
+
+				String turno30 = "";
+				if(!escala.getDia30Fk().getNomeTurno().equalsIgnoreCase("")) {turno30= "30-"+ escala.getDia30Fk().getNomeTurno()+" ["+escala.getDia30Fk().getDescricaoTurno()+"]";}
+				cell = new PdfPCell(new Phrase(turno30 ,corpoFont) );
+				cell.setVerticalAlignment(Element.ALIGN_MIDDLE);
+				cell.setHorizontalAlignment(Element.ALIGN_CENTER);
+				table.addCell(cell);
+
+				String turno31 = "";
+				if(!escala.getDia31Fk().getNomeTurno().equalsIgnoreCase("")) {turno31= "31-"+ escala.getDia31Fk().getNomeTurno()+" ["+escala.getDia31Fk().getDescricaoTurno()+"]";}
+				cell = new PdfPCell(new Phrase(turno31 ,corpoFont) );
+				cell.setVerticalAlignment(Element.ALIGN_MIDDLE);
+				cell.setHorizontalAlignment(Element.ALIGN_CENTER);
+				table.addCell(cell);
+				
+				cell = new PdfPCell(new Phrase("",corpoFont) );
+				cell.setVerticalAlignment(Element.ALIGN_MIDDLE);
+				cell.setHorizontalAlignment(Element.ALIGN_CENTER);
+				table.addCell(cell);
+				
+				cell = new PdfPCell(new Phrase("" ,corpoFont) );
+				cell.setVerticalAlignment(Element.ALIGN_MIDDLE);
+				cell.setHorizontalAlignment(Element.ALIGN_CENTER);
+				table.addCell(cell);
+				
+				cell = new PdfPCell(new Phrase("" ,corpoFont) );
+				cell.setVerticalAlignment(Element.ALIGN_MIDDLE);
+				cell.setHorizontalAlignment(Element.ALIGN_CENTER);
+				table.addCell(cell);
+				
+				cell = new PdfPCell(new Phrase("" ,corpoFont) );
+				cell.setVerticalAlignment(Element.ALIGN_MIDDLE);
+				cell.setHorizontalAlignment(Element.ALIGN_CENTER);
+				table.addCell(cell);
+				
+				
+				
+			
+			
+			// Titulo
+			
+			PdfPTable tableTitulo = new PdfPTable(1);
+			tableTitulo.setWidthPercentage(97);
+			tableTitulo.setWidths(new int[] { 64 });
+			PdfPCell cellTitulo;
+			cellTitulo = new PdfPCell(new Phrase("Escala do(a) Colaborador(a)", tituloFont) );
+			cellTitulo.setVerticalAlignment(Element.ALIGN_MIDDLE);
+			cellTitulo.setHorizontalAlignment(Element.ALIGN_CENTER);
+			tableTitulo.addCell(cellTitulo);
+			
+			
+			// Rodape
+			PdfPTable tableRodape = new PdfPTable(1);
+			tableRodape.setWidthPercentage(97);
+			tableRodape.setWidths(new int[] { 6 });
+			PdfPCell cellRodape;
+			
+			cellRodape = new PdfPCell(new Phrase("Sistema Gente-Web", nomeSistemaFont) );
+			cellRodape.setVerticalAlignment(Element.ALIGN_MIDDLE);
+			cellRodape.setHorizontalAlignment(Element.ALIGN_CENTER);
+			tableRodape.addCell(cellRodape);
+			
+			cellRodape = new PdfPCell(new Phrase(""+new Date() ,rodapeFont)  );
+			cellRodape.setVerticalAlignment(Element.ALIGN_MIDDLE);
+			cellRodape.setHorizontalAlignment(Element.ALIGN_CENTER);
+			tableRodape.addCell(cellRodape);
+			
+			
+			
+
+			
+			// Demais Dados 1
+			PdfPTable tableDemaisDados1 = new PdfPTable(5);
+			tableDemaisDados1.setWidthPercentage(97);
+			
+			tableDemaisDados1.setWidths(new int[] { 3,1,1,1,1 });
+			PdfPCell cellDemaisDados1;
+			
+			cellDemaisDados1 = new PdfPCell(new Phrase("Unidade", subtitulosFont) );
+			cellDemaisDados1.setVerticalAlignment(Element.ALIGN_MIDDLE);
+			cellDemaisDados1.setHorizontalAlignment(Element.ALIGN_CENTER);
+			tableDemaisDados1.addCell(cellDemaisDados1);
+			
+			cellDemaisDados1 = new PdfPCell(new Phrase("Coordenação", subtitulosFont) );
+			cellDemaisDados1.setVerticalAlignment(Element.ALIGN_MIDDLE);
+			cellDemaisDados1.setHorizontalAlignment(Element.ALIGN_CENTER);
+			tableDemaisDados1.addCell(cellDemaisDados1);
+			
+			cellDemaisDados1 = new PdfPCell(new Phrase("Localidade", subtitulosFont) );
+			cellDemaisDados1.setVerticalAlignment(Element.ALIGN_MIDDLE);
+			cellDemaisDados1.setHorizontalAlignment(Element.ALIGN_CENTER);
+			tableDemaisDados1.addCell(cellDemaisDados1);
+			
+			cellDemaisDados1 = new PdfPCell(new Phrase("Atividade", subtitulosFont) );
+			cellDemaisDados1.setVerticalAlignment(Element.ALIGN_MIDDLE);
+			cellDemaisDados1.setHorizontalAlignment(Element.ALIGN_CENTER);
+			tableDemaisDados1.addCell(cellDemaisDados1);
+			
+			cellDemaisDados1 = new PdfPCell(new Phrase("Mes", subtitulosFont) );
+			cellDemaisDados1.setVerticalAlignment(Element.ALIGN_MIDDLE);
+			cellDemaisDados1.setHorizontalAlignment(Element.ALIGN_CENTER);
+			tableDemaisDados1.addCell(cellDemaisDados1);
+			
+			
+			
+			cellDemaisDados1 = new PdfPCell(new Phrase(escala.getIdCoordenacaoFk().getIdLocalidadeFk().getIdUnidadeFk().getNomeFantasia(), demaisDadosFont) );
+			cellDemaisDados1.setVerticalAlignment(Element.ALIGN_MIDDLE);
+			cellDemaisDados1.setHorizontalAlignment(Element.ALIGN_CENTER);
+			tableDemaisDados1.addCell(cellDemaisDados1);
+			
+			cellDemaisDados1 = new PdfPCell(new Phrase(escala.getIdCoordenacaoFk().getNomeCoordenacao(), demaisDadosFont) );
+			cellDemaisDados1.setVerticalAlignment(Element.ALIGN_MIDDLE);
+			cellDemaisDados1.setHorizontalAlignment(Element.ALIGN_CENTER);
+			tableDemaisDados1.addCell(cellDemaisDados1);
+			
+			cellDemaisDados1 = new PdfPCell(new Phrase(escala.getIdCoordenacaoFk().getIdLocalidadeFk().getNomeLocalidade(), demaisDadosFont) );
+			cellDemaisDados1.setVerticalAlignment(Element.ALIGN_MIDDLE);
+			cellDemaisDados1.setHorizontalAlignment(Element.ALIGN_CENTER);
+			tableDemaisDados1.addCell(cellDemaisDados1);
+			
+			cellDemaisDados1 = new PdfPCell(new Phrase(escala.getIdCoordenacaoFk().getIdAtividadeFk().getNomeAtividade(), demaisDadosFont) );
+			cellDemaisDados1.setVerticalAlignment(Element.ALIGN_MIDDLE);
+			cellDemaisDados1.setHorizontalAlignment(Element.ALIGN_CENTER);
+			tableDemaisDados1.addCell(cellDemaisDados1);
+			
+			cellDemaisDados1 = new PdfPCell(new Phrase(escala.getIdAnoMesFk().getNomeAnoMes(), demaisDadosFont) );
+			cellDemaisDados1.setVerticalAlignment(Element.ALIGN_MIDDLE);
+			cellDemaisDados1.setHorizontalAlignment(Element.ALIGN_CENTER);
+			tableDemaisDados1.addCell(cellDemaisDados1);
+			
+						
+			
+			// Demais Dados 2
+			PdfPTable tableDemaisDados2 = new PdfPTable(4);
+			tableDemaisDados2.setWidthPercentage(97);
+			
+			tableDemaisDados2.setWidths(new int[] { 3,1,1,1 });
+			PdfPCell cellDemaisDados2;
+			
+			cellDemaisDados2 = new PdfPCell(new Phrase("Nome", subtitulosFont) );
+			cellDemaisDados2.setVerticalAlignment(Element.ALIGN_MIDDLE);
+			cellDemaisDados2.setHorizontalAlignment(Element.ALIGN_CENTER);
+			tableDemaisDados2.addCell(cellDemaisDados2);
+			
+			cellDemaisDados2 = new PdfPCell(new Phrase("Cpf", subtitulosFont) );
+			cellDemaisDados2.setVerticalAlignment(Element.ALIGN_MIDDLE);
+			cellDemaisDados2.setHorizontalAlignment(Element.ALIGN_CENTER);
+			tableDemaisDados2.addCell(cellDemaisDados2);
+			
+			cellDemaisDados2 = new PdfPCell(new Phrase("Matricula", subtitulosFont) );
+			cellDemaisDados2.setVerticalAlignment(Element.ALIGN_MIDDLE);
+			cellDemaisDados2.setHorizontalAlignment(Element.ALIGN_CENTER);
+			tableDemaisDados2.addCell(cellDemaisDados2);
+			
+			cellDemaisDados2 = new PdfPCell(new Phrase("Ch", subtitulosFont) );
+			cellDemaisDados2.setVerticalAlignment(Element.ALIGN_MIDDLE);
+			cellDemaisDados2.setHorizontalAlignment(Element.ALIGN_CENTER);
+			tableDemaisDados2.addCell(cellDemaisDados2);
+			
+			
+			
+			cellDemaisDados2 = new PdfPCell(new Phrase(escala.getIdFuncionarioFk().getIdPessoaFk().getNome(), demaisDadosFont) );
+			cellDemaisDados2.setVerticalAlignment(Element.ALIGN_MIDDLE);
+			cellDemaisDados2.setHorizontalAlignment(Element.ALIGN_CENTER);
+			tableDemaisDados2.addCell(cellDemaisDados2);
+			
+			cellDemaisDados2 = new PdfPCell(new Phrase(escala.getIdFuncionarioFk().getIdPessoaFk().getCpf(), demaisDadosFont) );
+			cellDemaisDados2.setVerticalAlignment(Element.ALIGN_MIDDLE);
+			cellDemaisDados2.setHorizontalAlignment(Element.ALIGN_CENTER);
+			tableDemaisDados2.addCell(cellDemaisDados2);
+			
+			cellDemaisDados2 = new PdfPCell(new Phrase(escala.getIdFuncionarioFk().getMatricula(), demaisDadosFont) );
+			cellDemaisDados2.setVerticalAlignment(Element.ALIGN_MIDDLE);
+			cellDemaisDados2.setHorizontalAlignment(Element.ALIGN_CENTER);
+			tableDemaisDados2.addCell(cellDemaisDados2);
+			
+			cellDemaisDados2 = new PdfPCell(new Phrase(escala.getIdFuncionarioFk().getIdCargaHorariaAtualFk().getCargaHoraria()+"", demaisDadosFont) );
+			cellDemaisDados2.setVerticalAlignment(Element.ALIGN_MIDDLE);
+			cellDemaisDados2.setHorizontalAlignment(Element.ALIGN_CENTER);
+			tableDemaisDados2.addCell(cellDemaisDados2);
+			
+
+			
+			// Demais Dados 3
+			PdfPTable tableDemaisDados3 = new PdfPTable(7);
+			tableDemaisDados3.setWidthPercentage(97);
+			
+			tableDemaisDados3.setWidths(new int[] { 1,1,1,1,1,1,1 });
+			PdfPCell cellDemaisDados3;
+			
+			cellDemaisDados3 = new PdfPCell(new Phrase("Folha", subtitulosFont) );
+			cellDemaisDados3.setVerticalAlignment(Element.ALIGN_MIDDLE);
+			cellDemaisDados3.setHorizontalAlignment(Element.ALIGN_CENTER);
+			tableDemaisDados3.addCell(cellDemaisDados3);
+			
+			cellDemaisDados3 = new PdfPCell(new Phrase("Regime", subtitulosFont) );
+			cellDemaisDados3.setVerticalAlignment(Element.ALIGN_MIDDLE);
+			cellDemaisDados3.setHorizontalAlignment(Element.ALIGN_CENTER);
+			tableDemaisDados3.addCell(cellDemaisDados3);
+			
+			cellDemaisDados3 = new PdfPCell(new Phrase("Horas Dia", subtitulosFont) );
+			cellDemaisDados3.setVerticalAlignment(Element.ALIGN_MIDDLE);
+			cellDemaisDados3.setHorizontalAlignment(Element.ALIGN_CENTER);
+			tableDemaisDados3.addCell(cellDemaisDados3);
+			
+			cellDemaisDados3 = new PdfPCell(new Phrase("Horas Noite", subtitulosFont) );
+			cellDemaisDados3.setVerticalAlignment(Element.ALIGN_MIDDLE);
+			cellDemaisDados3.setHorizontalAlignment(Element.ALIGN_CENTER);
+			tableDemaisDados3.addCell(cellDemaisDados3);
+			
+			cellDemaisDados3 = new PdfPCell(new Phrase("Horas Semana", subtitulosFont) );
+			cellDemaisDados3.setVerticalAlignment(Element.ALIGN_MIDDLE);
+			cellDemaisDados3.setHorizontalAlignment(Element.ALIGN_CENTER);
+			tableDemaisDados3.addCell(cellDemaisDados3);
+			
+			cellDemaisDados3 = new PdfPCell(new Phrase("Horas Fim Semana", subtitulosFont) );
+			cellDemaisDados3.setVerticalAlignment(Element.ALIGN_MIDDLE);
+			cellDemaisDados3.setHorizontalAlignment(Element.ALIGN_CENTER);
+			tableDemaisDados3.addCell(cellDemaisDados3);
+			
+			cellDemaisDados3 = new PdfPCell(new Phrase("Horas Totais", subtitulosFont) );
+			cellDemaisDados3.setVerticalAlignment(Element.ALIGN_MIDDLE);
+			cellDemaisDados3.setHorizontalAlignment(Element.ALIGN_CENTER);
+			tableDemaisDados3.addCell(cellDemaisDados3);
+			
+			
+			
+			
+			
+			cellDemaisDados3 = new PdfPCell(new Phrase(escala.getIdTipoFolhaFk().getNomeTipoFolha(), demaisDadosFont) );
+			cellDemaisDados3.setVerticalAlignment(Element.ALIGN_MIDDLE);
+			cellDemaisDados3.setHorizontalAlignment(Element.ALIGN_CENTER);
+			tableDemaisDados3.addCell(cellDemaisDados3);
+			
+			cellDemaisDados3 = new PdfPCell(new Phrase(escala.getIdRegimeFk().getNomeRegimeDeTrabalho()+"-"+escala.getIdRegimeFk().getDescricaoRegimeDeTrabalho(), demaisDadosFont) );
+			cellDemaisDados3.setVerticalAlignment(Element.ALIGN_MIDDLE);
+			cellDemaisDados3.setHorizontalAlignment(Element.ALIGN_CENTER);
+			tableDemaisDados3.addCell(cellDemaisDados3);
+			
+			cellDemaisDados3 = new PdfPCell(new Phrase(escala.getHorasDia()+"", demaisDadosFont) );
+			cellDemaisDados3.setVerticalAlignment(Element.ALIGN_MIDDLE);
+			cellDemaisDados3.setHorizontalAlignment(Element.ALIGN_CENTER);
+			tableDemaisDados3.addCell(cellDemaisDados3);
+			
+			cellDemaisDados3 = new PdfPCell(new Phrase(escala.getHorasNoite()+"", demaisDadosFont) );
+			cellDemaisDados3.setVerticalAlignment(Element.ALIGN_MIDDLE);
+			cellDemaisDados3.setHorizontalAlignment(Element.ALIGN_CENTER);
+			tableDemaisDados3.addCell(cellDemaisDados3);
+			
+			cellDemaisDados3 = new PdfPCell(new Phrase(escala.getHorasSemana()+"", demaisDadosFont) );
+			cellDemaisDados3.setVerticalAlignment(Element.ALIGN_MIDDLE);
+			cellDemaisDados3.setHorizontalAlignment(Element.ALIGN_CENTER);
+			tableDemaisDados3.addCell(cellDemaisDados3);
+			
+			cellDemaisDados3 = new PdfPCell(new Phrase(escala.getHorasFimSemana()+"", demaisDadosFont) );
+			cellDemaisDados3.setVerticalAlignment(Element.ALIGN_MIDDLE);
+			cellDemaisDados3.setHorizontalAlignment(Element.ALIGN_CENTER);
+			tableDemaisDados3.addCell(cellDemaisDados3);
+			
+			cellDemaisDados3 = new PdfPCell(new Phrase(escala.getHorasTotais()+"", demaisDadosFont) );
+			cellDemaisDados3.setVerticalAlignment(Element.ALIGN_MIDDLE);
+			cellDemaisDados3.setHorizontalAlignment(Element.ALIGN_CENTER);
+			tableDemaisDados3.addCell(cellDemaisDados3);
+			
+
+			
+			// Demais Dados 4
+			PdfPTable tableDemaisDados4 = new PdfPTable(2);
+			tableDemaisDados4.setWidthPercentage(97);
+			
+			tableDemaisDados4.setWidths(new int[] { 1,3 });
+			PdfPCell cellDemaisDados4;
+			
+			cellDemaisDados4 = new PdfPCell(new Phrase("Presencial", demaisDados4Font) );
+			cellDemaisDados4.setVerticalAlignment(Element.ALIGN_MIDDLE);
+			cellDemaisDados4.setHorizontalAlignment(Element.ALIGN_CENTER);
+			tableDemaisDados4.addCell(cellDemaisDados4);
+			
+			cellDemaisDados4 = new PdfPCell(new Phrase("Última edição realizada por", demaisDados4Font) );
+			cellDemaisDados4.setVerticalAlignment(Element.ALIGN_MIDDLE);
+			cellDemaisDados4.setHorizontalAlignment(Element.ALIGN_CENTER);
+			tableDemaisDados4.addCell(cellDemaisDados4);
+			
+			
+			
+			cellDemaisDados4 = new PdfPCell(new Phrase(escala.getIdPresencialSimNaoFk().getDescricao(), demaisDados4Font) );
+			cellDemaisDados4.setVerticalAlignment(Element.ALIGN_MIDDLE);
+			cellDemaisDados4.setHorizontalAlignment(Element.ALIGN_CENTER);
+			tableDemaisDados4.addCell(cellDemaisDados4);
+			
+			cellDemaisDados4 = new PdfPCell(new Phrase(escala.getIdOperadorMudancaFk().getIdPessoaFk().getNome()+"-"+escala.getDtMudanca().getDate()+"/"+(escala.getDtMudanca().getMonth()+1)+"/"+(escala.getDtMudanca().getYear()+1900), demaisDados4Font) );
+			cellDemaisDados4.setVerticalAlignment(Element.ALIGN_MIDDLE);
+			cellDemaisDados4.setHorizontalAlignment(Element.ALIGN_CENTER);
+			tableDemaisDados4.addCell(cellDemaisDados4);
+			
+			
+			
+			
+			
+			
+			
+			//Montando Documento
+			PdfWriter.getInstance(document, out);
+			document.open();
+			document.add(tableTitulo);
+			document.add(tableDemaisDados1);
+			document.add(tableDemaisDados2);
+			document.add(tableDemaisDados3);
+			document.add(table);
+			document.add(tableDemaisDados4);
+			document.add(tableRodape);
+
+			document.close();
+
+		} catch (DocumentException ex) {
+
+		}
+
+		return new ByteArrayInputStream(out.toByteArray());
+	}
 
 	
 	
