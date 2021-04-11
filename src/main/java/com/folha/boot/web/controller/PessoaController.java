@@ -84,12 +84,11 @@ public class PessoaController {
 		pessoa.setIdOperadorCadastroFk(pessoaOperadoresService.buscarPorId(idOperadorLogado));
 		pessoa.setDtCadastro(new Date());
 		
-		this.ultimaPessoaSalva = service.salvar(pessoa);
+		pessoa.setCpf(utilidadesDeTexto.limpaPontosETracosCpf(pessoa.getCpf()));
 		
-		Long id = null;
-		if(service.buscarPorCpf(pessoa.getCpf()).size()>0) {
-			id = service.buscarPorCpf(pessoa.getCpf()).get(0).getId();
-		}
+		this.ultimaPessoaSalva = service.salvar(pessoa);
+		Long id = this.ultimaPessoaSalva.getId();
+		
 		
 		//attr.addFlashAttribute("success", "Inserido com sucesso.");
 		return "redirect:/documentos/cadastrar/"+id+"";
@@ -102,14 +101,9 @@ public class PessoaController {
 		//Limpando a mascara do CPF
 		if(pessoa!=null) {
 			if(pessoa.getCpf()!=null) {
-				if(pessoa.getCpf().length()>0) {
-					pessoa.setCpf(pessoa.getCpf().replace(".", ""));
-					pessoa.setCpf(pessoa.getCpf().replace("-", ""));
-				}
+				pessoa.setCpf( utilidadesDeTexto.limpaPontosETracosCpf(pessoa.getCpf()) );
 			}
 		}
-		
-		System.out.println("cpf :"+pessoa.getCpf());
 		
 		if(!service.buscarPorCpf(pessoa.getCpf()).isEmpty()) {pessoaBuscada = service.buscarPorCpf(pessoa.getCpf()).get(0);}
 		
@@ -119,8 +113,6 @@ public class PessoaController {
 			if(utilidadesDeTexto.validaCpfCompleto(pessoa.getCpf()) == false) {
 				return "redirect:/pessoas/mensagem/de/cpf/invalido";
 			}
-			
-			System.out.println("cpf valido:"+utilidadesDeTexto.validaCpfCompleto(pessoa.getCpf())+" cpf "+pessoa.getCpf() );
 			
 			return cadastrar(pessoa, new PessoaFotos(), new ModelMap());
 		}

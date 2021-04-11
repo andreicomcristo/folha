@@ -9,10 +9,23 @@ import org.springframework.stereotype.Component;
 @Component
 public class UtilidadesDeTexto {
 
+
 	// UTILIDADES DE TEXTO
+	
+	public String limpaPontosETracosCpf (String cpf) {
+		
+		cpf = cpf.replace(".", "");
+		cpf = cpf.replace("-", "");
+		cpf = cpf.replace("_", "");
+		cpf = cpf.trim();
+		
+		return cpf;
+	}
+
 	
 	public boolean validaCpfCompleto (String cpf) {
 		boolean resposta = true;
+		
 		if(cpf.length()!=11) {resposta = false;}else {
 			
 			String d1=cpf.substring(0, 1);
