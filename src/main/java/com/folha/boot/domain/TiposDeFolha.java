@@ -14,6 +14,9 @@ public class TiposDeFolha extends AbstractEntity<Long> {
 	private String nomeTipoFolha;
 	@Column(name = "descricao_tipo_folha")
 	private String descricaoTipoFolha;
+	@JoinColumn(name = "id_tipo_remuneracao_fk", referencedColumnName = "id")
+    @ManyToOne
+    private TiposDeRemuneracao idTipoRemuneracaoFk;
 	@OneToMany(mappedBy = "idTipoFolhaFk")
 	private List<Escala> escalaList;
 	@OneToMany(mappedBy = "idTipoFolhaFk")
@@ -60,6 +63,12 @@ public class TiposDeFolha extends AbstractEntity<Long> {
 	}
 	public void setEscalaAlteracoesList(List<EscalaAlteracoes> escalaAlteracoesList) {
 		this.escalaAlteracoesList = escalaAlteracoesList;
+	}
+	public TiposDeRemuneracao getIdTipoRemuneracaoFk() {
+		return idTipoRemuneracaoFk;
+	}
+	public void setIdTipoRemuneracaoFk(TiposDeRemuneracao idTipoRemuneracaoFk) {
+		this.idTipoRemuneracaoFk = idTipoRemuneracaoFk;
 	}
 	
 	
