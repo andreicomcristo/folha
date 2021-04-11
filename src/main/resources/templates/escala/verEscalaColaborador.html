@@ -25,7 +25,7 @@
 				            <span>Voltar</span>
 				        </a>
 				         -->
-						<label for="nome" class="">Ver Escala Lancada/Excluída</label></H5>
+						<label for="nome" class="">Ver Escala Colaborador</label></H5>
 				
 					
 					<div>
@@ -54,9 +54,24 @@
 									<th>
 				        				<label style="text-align: center; color:#008080;" th:text="*{idAnoMesFk.nomeAnoMes}" class="text" >Mes </label>
 									</th>
+									
+									<th>	
+										<a class="btn btn-outline-danger btn-md" th:href="@{/escalas/exporta/pdf/escala/colaborador/{id} (id=${escala.id}) }" role="button">
+											<span class="oi oi-cloud-download" title="exportaPdf" aria-hidden="true"></span>
+											<span>Exporta Pdf</span>
+										</a>
+											            	
+										
+									</th>
+									
 								</tr>
 							</thead>
 						</table>
+			            	
+			            	
+		
+		
+			            	
 			            	
 								 
 						<table class="table table-striped table-hover table-sm myTable">
@@ -416,6 +431,7 @@
 						</table>
 						
 						
+						
 						<button class=" btn btn-outline-secondary my-2 my-sm-0" type="button" data-toggle="collapse" data-target="#collapseBlocoLegenda"
 	            					aria-controls="collapseBlocoLegenda">Legenda
 	            		</button>
@@ -478,7 +494,7 @@
 										</select>
 										<p></p>
 										
-										<label style="font-size:10px;"  th:text="*{dtCancelamento != null} ? *{'CANCELAMENTO em '+#dates.format(dtCancelamento, 'dd/MM/yyyy') +' as '+ #dates.format(horaAlteracao, 'hh:mm:ss:sss a ')+' '} : *{'EDICAO em '+#dates.format(dtAlteracao, 'dd/MM/yyyy') +' as '+ #dates.format(horaAlteracao, 'hh:mm:ss:sss a ')+' '}   "></label>
+										<label style="font-size:10px;"  th:text="*{dtCancelamento != null} ? *{'CANCELAMENTO em '+#dates.format(dtCancelamento, 'dd/MM/yyyy') +' '} : *{'EDICAO em '+#dates.format(dtMudanca, 'dd/MM/yyyy') +' '}   "></label>
 		                    
 		                    			<label class="text" style="font-size:12px; ">executado(a) por</label>
 		                    			<label style="font-size:10px; color:red;"  th:text="' '+*{idOperadorMudancaFk.idPessoaFk.nome}"></label>

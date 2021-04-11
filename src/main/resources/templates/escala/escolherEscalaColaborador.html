@@ -16,11 +16,11 @@
 		<div class="container" id="cadastro">
 			<div th:replace="fragments/alert"></div>
 			<form
-				th:action= "@{/escalas/ir/para/escala/alteracao/global}"
+				th:action= "@{/escalas/ir/para/escala/colaborador}"
 				th:object= "${escolhaAcessoEscala}" method="POST">
 				<div class="form-row">
 					<div class="form-group col-md-6">
-						<label for="nome" class="fonte-tutulos-tamanho">Escalas Lançadas/Excluídas (Sede)</label>
+						<label for="nome" class="fonte-tutulos-tamanho">Escala Colaborador</label>
 							
 							<select  id="anoMes" class="form-control form-select chat-input" th:field="*{anoMes}">
 								<option value="">Selecione o Mês</option>

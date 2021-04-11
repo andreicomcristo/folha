@@ -60,7 +60,8 @@ public interface EscalaReposytoty extends JpaRepository<Escala, Long> {
 	public Page<Escala> findByIdCoordenacaoFkAndIdAnoMesFkAndDtCancelamentoIsNullAndIdTipoFolhaFkOrderByIdFuncionarioFkIdPessoaFkNomeAsc(CoordenacaoEscala idCoordenacaoFk, AnoMes anoMes, TiposDeFolha tiposDeFolha , final Pageable page);
 	//Buscar por tipo de folha todos
 	public Page<Escala> findByIdCoordenacaoFkIdLocalidadeFkIdUnidadeFkAndIdAnoMesFkAndDtCancelamentoIsNullAndIdTipoFolhaFkOrderByIdFuncionarioFkIdPessoaFkNomeAsc(Unidades unidades, AnoMes anoMes, TiposDeFolha tiposDeFolha , final Pageable page);
-	
+	//Buscar Escala Colaborador
+		public Page<Escala> findByIdFuncionarioFkIdPessoaFkAndIdAnoMesFkAndDtCancelamentoIsNullOrderByIdFuncionarioFkIdPessoaFkNomeAsc(Pessoa pessoa, AnoMes anoMes,  final Pageable page);
 	
 	
 }

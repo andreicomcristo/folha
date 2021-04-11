@@ -6,7 +6,9 @@ import javax.persistence.*;
 import javax.validation.constraints.*;
 
 import org.hibernate.validator.constraints.br.CPF;
+import org.springframework.beans.factory.annotation.Autowired;
 
+import com.folha.boot.service.PessoaService;
 import com.folha.boot.service.util.UtilidadesDeTexto;
 
 @SuppressWarnings("serial")
@@ -14,6 +16,7 @@ import com.folha.boot.service.util.UtilidadesDeTexto;
 @Table(name = "pessoa")
 public class Pessoa extends AbstractEntity<Long> {
 
+	
 	@CPF
 	@NotBlank(message = "CPF obrigatório")
 	@Column(name = "cpf", nullable = false, length = 20)
@@ -131,7 +134,9 @@ public class Pessoa extends AbstractEntity<Long> {
 	}
 
 	public void setCpf(String cpf) {
-		this.cpf = UtilidadesDeTexto.retiraEspacosDuplosAcentosEConverteEmMaiusculo(cpf);
+		
+		cpf = UtilidadesDeTexto.retiraEspacosDuplosAcentosEConverteEmMaiusculo(cpf);
+		this.cpf = UtilidadesDeTexto.limpaPontosETracosCpf(cpf);
 	}
 
 	public String getNome() {

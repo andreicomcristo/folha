@@ -85,6 +85,11 @@ public class EscalaPosTransparenciaService {
 		return this.reposytory.findByIdAnoMesFkOrderByIdFuncionarioFkIdPessoaFkNomeAsc( anoMes, pageable);
 	}
 	
+	public Page<EscalaPosTransparencia> findPaginatedNomePosTransparenciaGlobal(int pageNo, int pageSize, String nome, AnoMes anoMes) {
+		Pageable pageable = PageRequest.of(pageNo -1, pageSize);
+		return this.reposytory.findByIdAnoMesFkAndIdFuncionarioFkIdPessoaFkNomeContainingOrderByIdFuncionarioFkIdPessoaFkNomeAsc(anoMes, nome, pageable);
+	}
+	
 	public Page<EscalaPosTransparencia> findPaginatedPosTransparencia(int pageNo, int pageSize, Unidades unidades, AnoMes anoMes) {
 		Pageable pageable = PageRequest.of(pageNo -1, pageSize);
 		return this.reposytory.findByIdCoordenacaoFkIdLocalidadeFkIdUnidadeFkAndIdAnoMesFkOrderByIdFuncionarioFkIdPessoaFkNomeAsc(unidades, anoMes, pageable);

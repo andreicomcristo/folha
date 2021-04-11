@@ -1,24 +1,35 @@
 package com.folha.boot.web.controller;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+
+import com.folha.boot.domain.Paises;
 import com.folha.boot.domain.TiposDeFolha;
+import com.folha.boot.domain.TiposDeRemuneracao;
 import com.folha.boot.service.TiposDeFolhaService;
+import com.folha.boot.service.TiposDeRemuneracaoService;
 
 @Controller
 @RequestMapping("/tiposdefolhas")
 public class TiposDeFolhaController {
-
+	
 	@Autowired
 	private TiposDeFolhaService service;
 
+	@Autowired
+	private TiposDeRemuneracaoService tiposDeRemuneracaoService;
+
+	
 	@GetMapping("/cadastrar")
 	public String cadastrar(TiposDeFolha tiposDeFolha) {		
 		return "/tipofolha/cadastro";
@@ -61,6 +72,11 @@ public class TiposDeFolhaController {
 	public String getPorNome(@RequestParam("nomeTipoFolha") String nomeTipoFolha, ModelMap model) {		
 		model.addAttribute("tiposDeFolha", service.buscarPorNome(nomeTipoFolha.toUpperCase().trim()));
 		return "/tipofolha/lista";
+	}
+	
+	@ModelAttribute("idTipoRemuneracaoFk")
+	public List<TiposDeRemuneracao> getTiposRemuneracao() {
+		return tiposDeRemuneracaoService.buscarTodos();
 	}
 	
 }
