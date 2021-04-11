@@ -140,7 +140,7 @@ public class PessoaFuncionariosController {
 		model.addAttribute("pessoa", pessoaService.buscarPorId(idPessoaAtual));
 		model.addAttribute("pessoaDocumentosLista10", pessoaFuncionariosService.buscarPorPessoa(pessoaService.buscarPorId(idPessoaAtual)));
 		model.addAttribute("success", "Excluído com sucesso.");
-		return "redirect:/enderecos/cadastrar/"+idPessoaAtual+"";
+		return "redirect:/funcionarios/cadastrar/"+idPessoaAtual+"";
 	}
 	
 	@GetMapping("/retroceder")

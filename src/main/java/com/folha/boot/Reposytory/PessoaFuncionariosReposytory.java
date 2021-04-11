@@ -33,4 +33,14 @@ public interface PessoaFuncionariosReposytory extends JpaRepository<PessoaFuncio
 	
 	//public Page<PessoaFuncionarios> findByIdCoordenacaoFkAndIdAnoMesFkAndDtCancelamentoIsNullAndIdFuncionarioFkIdPessoaFkNomeContainingOrderByIdFuncionarioFkIdPessoaFkNomeAsc(CoordenacaoEscala idCoordenacaoFk, AnoMes anoMes, String nome , final Pageable page);
 	
+	
+	
+	//Dados para a preencher alteração Pessoa
+	//Metodos para Unidade
+	public Page<PessoaFuncionarios> findByIdUnidadeAtuacaoAtualFkAndIdSituacaoAtualFkNomeSituacaoAndIdPessoaFkDtCancelamentoIsNullAndDtCancelamentoIsNullOrderByIdPessoaFkNomeAsc(Unidades unidades, String situacao, final Pageable page);
+	public Page<PessoaFuncionarios> findByIdPessoaFkNomeContainingAndIdUnidadeAtuacaoAtualFkAndIdSituacaoAtualFkNomeSituacaoAndIdPessoaFkDtCancelamentoIsNullAndDtCancelamentoIsNullOrderByIdPessoaFkNomeAsc(String nome, Unidades unidades, String situacao, final Pageable page);
+	public Page<PessoaFuncionarios> findByIdPessoaFkCpfContainingAndIdUnidadeAtuacaoAtualFkAndIdSituacaoAtualFkNomeSituacaoAndIdPessoaFkDtCancelamentoIsNullAndDtCancelamentoIsNullOrderByIdPessoaFkNomeAsc(String cpf, Unidades unidades, String situacao, final Pageable page);
+		
+	
+	
 }
