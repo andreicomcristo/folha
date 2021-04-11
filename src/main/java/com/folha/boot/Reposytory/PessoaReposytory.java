@@ -13,12 +13,12 @@ import com.folha.boot.domain.Pessoa;
 @Repository
 public interface PessoaReposytory extends JpaRepository<Pessoa, Long> {
 	
-	
+	//Metodos para Sede
 	public Page<Pessoa> findByDtCancelamentoIsNullOrderByNomeAsc(final Pageable page);
-	
 	public Page<Pessoa> findByNomeContainingAndDtCancelamentoIsNullOrderByNomeAsc(final Pageable page, String nome);
-	
 	public Page<Pessoa> findByCpfContainingAndDtCancelamentoIsNullOrderByNomeAsc(final Pageable page, String cpf);
+	
+	
 	
 	public List<Pessoa> findByDtCancelamentoIsNullOrderByNomeAsc();
 
