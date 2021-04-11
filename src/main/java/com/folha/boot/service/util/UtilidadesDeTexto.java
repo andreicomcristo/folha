@@ -12,7 +12,7 @@ public class UtilidadesDeTexto {
 
 	// UTILIDADES DE TEXTO
 	
-	public String limpaPontosETracosCpf (String cpf) {
+	public static String limpaPontosETracosCpf (String cpf) {
 		
 		cpf = cpf.replace(".", "");
 		cpf = cpf.replace("-", "");

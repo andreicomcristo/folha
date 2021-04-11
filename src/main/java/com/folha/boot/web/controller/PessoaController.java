@@ -3,6 +3,7 @@ package com.folha.boot.web.controller;
 import java.util.Date;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -58,6 +59,9 @@ public class PessoaController {
 	Long idUnidadeLogada = 1l;
 	Long idOperadorLogado = 1l;
 	
+	String ultimaBuscaNome = "";
+	String ultimaBuscaCpf = "";
+	
 	@GetMapping("/cadastrar/inicio")
 	public String cadastrarInicial(Pessoa pessoa, ModelMap model) {
 		model.addAttribute("pessoa", pessoa);
@@ -75,8 +79,72 @@ public class PessoaController {
 	
 	@GetMapping("/listar")
 	public String listar(ModelMap model) {
-		model.addAttribute("pessoa", service.buscarTodos());
-		return "/pessoa/lista"; 
+		this.ultimaBuscaNome = "";
+		this.ultimaBuscaCpf = "";
+		return this.findPaginated(1, model);
+	}
+	
+	@GetMapping("/listar/{pageNo}")
+	public String findPaginated(@PathVariable (value = "pageNo") int pageNo, ModelMap model) {
+		int pageSeze = 10;
+		Page<Pessoa> page = service.findPaginated(pageNo, pageSeze);
+		List<Pessoa> lista = page.getContent();
+		return paginar(pageNo, page, lista, model);
+	}
+	
+	public String findPaginatedNome(@PathVariable (value = "pageNo") int pageNo, String nome, ModelMap model) {
+		int pageSeze = 10;
+		Page<Pessoa> page = service.findPaginatedNome(pageNo, pageSeze, nome);
+		List<Pessoa> listaCidades = page.getContent();
+		return paginar(pageNo, page, listaCidades, model);
+	}
+	
+	public String findPaginatedCpf(@PathVariable (value = "pageNo") int pageNo, String cpf, ModelMap model) {
+		int pageSeze = 10;
+		Page<Pessoa> page = service.findPaginatedCpf(pageNo, pageSeze, cpf);
+		List<Pessoa> lista = page.getContent();
+		return paginar(pageNo, page, lista, model);
+	}
+	
+	
+	@GetMapping("/buscar/nome/paginado")
+	public String getPorNomePaginado(@RequestParam("nome") String nome, ModelMap model) {
+		nome=nome.toUpperCase().trim();
+		this.ultimaBuscaNome = nome;
+		this.ultimaBuscaCpf = "";	
+		return this.findPaginatedNome(1, nome, model);
+	}
+	
+	@GetMapping("/buscar/cpf/paginado")
+	public String getPorCpfPaginado(@RequestParam("cpf") String cpf, ModelMap model) {
+		cpf=cpf.toUpperCase().trim();
+		cpf = utilidadesDeTexto.limpaPontosETracosCpf(cpf);
+		this.ultimaBuscaNome = "";
+		this.ultimaBuscaCpf = cpf;	
+		return this.findPaginatedCpf(1, cpf, model);
+	}
+	
+	@GetMapping("/paginar/{pageNo}")
+	public String getPorBusacaPaginado(@PathVariable (value = "pageNo") int pageNo, ModelMap model) {
+		
+		if( (ultimaBuscaNome.equals("")) && (ultimaBuscaCpf.equals("")) ){
+			return "redirect:/pessoas/listar/{pageNo}" ;}
+		else {		
+			if(!ultimaBuscaNome.equals("")) {
+				return this.findPaginatedNome(pageNo, ultimaBuscaNome, model);}
+			else {
+				return this.findPaginatedCpf(pageNo, ultimaBuscaCpf, model);}
+			}
+	}
+	
+	
+	
+	public String paginar(int pageNo, Page<Pessoa> page, List<Pessoa> lista, ModelMap model) {	
+		model.addAttribute("currentePage", pageNo);
+		model.addAttribute("totalPages", page.getTotalPages());
+		model.addAttribute("totalItems", page.getTotalElements()); 
+		model.addAttribute("pessoa", lista);
+		return "/pessoa/lista";	
 	}
 	
 	@PostMapping("/salvar")
@@ -84,7 +152,10 @@ public class PessoaController {
 		pessoa.setIdOperadorCadastroFk(pessoaOperadoresService.buscarPorId(idOperadorLogado));
 		pessoa.setDtCadastro(new Date());
 		
-		pessoa.setCpf(utilidadesDeTexto.limpaPontosETracosCpf(pessoa.getCpf()));
+		pessoa.setIdOperadorCadastroFk(pessoaOperadoresService.buscarPorId(idOperadorLogado));
+		pessoa.setDtCadastro(new Date());
+		
+		System.out.println("MEU CPF"+pessoa.getCpf());
 		
 		this.ultimaPessoaSalva = service.salvar(pessoa);
 		Long id = this.ultimaPessoaSalva.getId();
