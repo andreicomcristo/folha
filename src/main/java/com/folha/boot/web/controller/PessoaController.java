@@ -50,8 +50,7 @@ public class PessoaController {
 	PessoaOperadoresService pessoaOperadoresService;
 	@Autowired
 	UnidadesService unidadesService;
-	@Autowired
-	UtilidadesDeTexto utilidadesDeTexto;
+	
 	
 	
 	
@@ -118,7 +117,7 @@ public class PessoaController {
 	@GetMapping("/buscar/cpf/paginado")
 	public String getPorCpfPaginado(@RequestParam("cpf") String cpf, ModelMap model) {
 		cpf=cpf.toUpperCase().trim();
-		cpf = utilidadesDeTexto.limpaPontosETracosCpf(cpf);
+		cpf = UtilidadesDeTexto.limpaPontosETracosCpf(cpf);
 		this.ultimaBuscaNome = "";
 		this.ultimaBuscaCpf = cpf;	
 		return this.findPaginatedCpf(1, cpf, model);
@@ -172,7 +171,7 @@ public class PessoaController {
 		//Limpando a mascara do CPF
 		if(pessoa!=null) {
 			if(pessoa.getCpf()!=null) {
-				pessoa.setCpf( utilidadesDeTexto.limpaPontosETracosCpf(pessoa.getCpf()) );
+				pessoa.setCpf( UtilidadesDeTexto.limpaPontosETracosCpf(pessoa.getCpf()) );
 			}
 		}
 		
@@ -181,7 +180,7 @@ public class PessoaController {
 		if(pessoaBuscada!=null) {
 			return "redirect:/pessoas/retroceder/editar/"+pessoaBuscada.getId()+"";
 		}else {
-			if(utilidadesDeTexto.validaCpfCompleto(pessoa.getCpf()) == false) {
+			if(UtilidadesDeTexto.validaCpfCompleto(pessoa.getCpf()) == false) {
 				return "redirect:/pessoas/mensagem/de/cpf/invalido";
 			}
 			
