@@ -26,10 +26,7 @@ public class PessoaBancos extends AbstractEntity<Long> {
 
 	@Column(name = "agencia_nome", length = 300)
 	private String agenciaNome;
-
-	@Column(name = "prioritario", length = 2147483647)
-	private String prioritario;
-
+	
 	@Column(name = "dt_cadastro")
 	@Temporal(TemporalType.DATE)
 	private Date dtCadastro;
@@ -59,6 +56,10 @@ public class PessoaBancos extends AbstractEntity<Long> {
 	@JoinColumn(name = "id_operador_cancelamento_fk", referencedColumnName = "id")
 	@ManyToOne
 	private PessoaOperadores idOperadorCancelamentoFk;
+	
+	@JoinColumn(name = "id_prioritario_fk", referencedColumnName = "id")
+    @ManyToOne
+    private SimNao idPrioritarioFk;
 
 	public String getOperacaoVariacao() {
 		return operacaoVariacao;
@@ -107,15 +108,7 @@ public class PessoaBancos extends AbstractEntity<Long> {
 	public void setAgenciaNome(String agenciaNome) {
 		this.agenciaNome = agenciaNome;
 	}
-
-	public String getPrioritario() {
-		return prioritario;
-	}
-
-	public void setPrioritario(String prioritario) {
-		this.prioritario = prioritario;
-	}
-
+	
 	public Date getDtCadastro() {
 		return dtCadastro;
 	}
@@ -180,4 +173,14 @@ public class PessoaBancos extends AbstractEntity<Long> {
 		this.idOperadorCancelamentoFk = idOperadorCancelamentoFk;
 	}
 
+	public SimNao getIdPrioritarioFk() {
+		return idPrioritarioFk;
+	}
+
+	public void setIdPrioritarioFk(SimNao idPrioritarioFk) {
+		this.idPrioritarioFk = idPrioritarioFk;
+	}
+
+	
+	
 }

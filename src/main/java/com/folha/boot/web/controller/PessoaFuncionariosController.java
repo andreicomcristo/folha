@@ -145,7 +145,7 @@ public class PessoaFuncionariosController {
 	
 	@GetMapping("/retroceder")
 	public String retroceder() {
-		return "redirect:/filhos/cadastrar/"+idPessoaAtual+"";
+		return "redirect:/pessoabancos/cadastrar/"+idPessoaAtual+"";
 	}
 	
 	@ModelAttribute("idCargaHorariaAtualFk")
