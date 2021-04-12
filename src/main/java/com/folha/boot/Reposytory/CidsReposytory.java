@@ -22,6 +22,6 @@ public interface CidsReposytory extends JpaRepository<Cids, Long> {
 	
 	public Page<Cids> findByCodCidContainingOrderByCodCidAsc(String codigo, final Pageable page);
 	
-	public Page<Cids> findByDescricaoCidOrderByCodCidAsc(String descricao, final Pageable page);
+	public Page<Cids> findByDescricaoCidContainingOrderByCodCidAsc(String descricao, final Pageable page);
 	
 }

@@ -67,7 +67,7 @@ public class CidsService {
 	@Transactional(readOnly = true)
 	public Page<Cids> findPaginatedDescricao(int pageNo, int pageSize, String descricao) {
 		Pageable pageable = PageRequest.of(pageNo -1, pageSize);
-		return this.reposytory.findByDescricaoCidOrderByCodCidAsc(descricao.toUpperCase().trim(), pageable);
+		return this.reposytory.findByDescricaoCidContainingOrderByCodCidAsc(descricao.toUpperCase().trim(), pageable);
 	}
 
 	
