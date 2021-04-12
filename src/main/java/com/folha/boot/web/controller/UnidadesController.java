@@ -1,5 +1,6 @@
 package com.folha.boot.web.controller;
 
+import java.util.Date;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,6 +30,9 @@ import com.folha.boot.service.UnidadesService;
 @RequestMapping("/unidades")
 public class UnidadesController {
 
+	Long idUnidadeLogada = 1l;
+	Long idOperadorLogado = 1l;
+	
 	@Autowired
 	private UnidadesService service;
 	@Autowired
@@ -57,10 +61,15 @@ public class UnidadesController {
 	@PostMapping("/salvar")
 	public String salvar(Unidades unidades, RedirectAttributes attr) {
 		
+		unidades.setIdOperadorCadastroFk(pessoaOperadoresService.buscarPorId(idOperadorLogado));
+		unidades.setDtCadastro(new Date());
+		
 		service.salvar(unidades);
 		attr.addFlashAttribute("success", "Inserido com sucesso.");
 		return "redirect:/unidades/cadastrar";
 	}
+	
+	
 	
 	@GetMapping("/editar/{id}")
 	public String preEditar(@PathVariable("id") Long id, ModelMap model) {
@@ -75,10 +84,13 @@ public class UnidadesController {
 		return "redirect:/unidades/listar";
 	}
 	
-	@GetMapping("/excluir/{id}")
+	@GetMapping("/cancelar/{id}")
 	public String excluir(@PathVariable("id") Long id, ModelMap model) {
-		service.excluir(id);  
-		model.addAttribute("success", "Excluído com sucesso.");
+		Unidades unidades = service.buscarPorId(id);
+		unidades.setIdOperadorCancelamentoFk(pessoaOperadoresService.buscarPorId(idOperadorLogado));
+		unidades.setDtCancelamento(new Date());
+		service.salvar(unidades);
+		model.addAttribute("success", "Cancelado com sucesso.");
 		return listar(model);
 	}
 	

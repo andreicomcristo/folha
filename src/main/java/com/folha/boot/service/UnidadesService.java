@@ -40,12 +40,12 @@ public class UnidadesService {
 	@Transactional(readOnly = true)
 	public List<Unidades> buscarTodos() {
 		// TODO Auto-generated method stub
-		return reposytory.findAll();
+		return reposytory.findByDtCancelamentoIsNullOrderByNomeFantasiaAsc();
 	}
 	
 	public List<Unidades> buscarPorNome(String nomeFantasia) {
 		// TODO Auto-generated method stub
-		return reposytory.findByNomeFantasiaContainingOrderByNomeFantasiaAsc(nomeFantasia);
+		return reposytory.findByNomeFantasiaContainingAndDtCancelamentoIsNullOrderByNomeFantasiaAsc(nomeFantasia);
 	}
 
 }
