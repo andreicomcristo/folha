@@ -3,6 +3,8 @@ package com.folha.boot.domain;
 import java.util.Date;
 import javax.persistence.*;
 
+import com.folha.boot.service.util.UtilidadesDeTexto;
+
 @SuppressWarnings("serial")
 @Entity
 @Table(name = "hist_unidades_natureza_juridica")
@@ -59,7 +61,7 @@ public class HistUnidadesNaturezaJuridica extends AbstractEntity<Long> {
 	}
 
 	public void setMotivoCadastro(String motivoCadastro) {
-		this.motivoCadastro = motivoCadastro;
+		this.motivoCadastro = UtilidadesDeTexto.retiraEspacosDuplosAcentosEConverteEmMaiusculo(motivoCadastro);
 	}
 
 	public Date getDtCancelamento() {
@@ -75,7 +77,7 @@ public class HistUnidadesNaturezaJuridica extends AbstractEntity<Long> {
 	}
 
 	public void setMotivoCancelamento(String motivoCancelamento) {
-		this.motivoCancelamento = motivoCancelamento;
+		this.motivoCancelamento = UtilidadesDeTexto.retiraEspacosDuplosAcentosEConverteEmMaiusculo(motivoCancelamento);
 	}
 
 	public PessoaOperadores getIdOperadorCadastroFk() {

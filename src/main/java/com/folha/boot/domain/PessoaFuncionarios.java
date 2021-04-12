@@ -102,6 +102,9 @@ public class PessoaFuncionarios extends AbstractEntity<Long> {
     private List<HistFuncionariosUnidadeAtuacao> histFuncionariosUnidadeAtuacaoList;
     
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "idFuncionarioFk")
+    private List<HistFuncionariosUnidadeLotacao> histFuncionariosUnidadeLotacaoList;
+    
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "idFuncionarioFk")
     private List<FuncionariosCapacitacoes> funcionariosCapacitacoesList;
     
     @OneToMany(mappedBy = "idFuncionarioFk")
@@ -461,6 +464,15 @@ public class PessoaFuncionarios extends AbstractEntity<Long> {
 
 	public void setEscalaAlteracoesList(List<EscalaAlteracoes> escalaAlteracoesList) {
 		this.escalaAlteracoesList = escalaAlteracoesList;
+	}
+
+	public List<HistFuncionariosUnidadeLotacao> getHistFuncionariosUnidadeLotacaoList() {
+		return histFuncionariosUnidadeLotacaoList;
+	}
+
+	public void setHistFuncionariosUnidadeLotacaoList(
+			List<HistFuncionariosUnidadeLotacao> histFuncionariosUnidadeLotacaoList) {
+		this.histFuncionariosUnidadeLotacaoList = histFuncionariosUnidadeLotacaoList;
 	}
 
 	

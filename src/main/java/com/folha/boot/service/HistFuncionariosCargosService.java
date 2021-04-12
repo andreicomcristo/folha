@@ -7,7 +7,9 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.folha.boot.Reposytory.HistFuncionariosCargosReposytory;
+import com.folha.boot.domain.HistFuncionariosCargaHoraria;
 import com.folha.boot.domain.HistFuncionariosCargos;
+import com.folha.boot.domain.PessoaFuncionarios;
 
 @Service
 @Transactional(readOnly = false)
@@ -47,6 +49,43 @@ public class HistFuncionariosCargosService {
 		// TODO Auto-generated method stub
 		return reposytory.findAll();
 	}
+	
+	public List<HistFuncionariosCargos> buscarPorFuncionario(PessoaFuncionarios pessoaFuncionarios) {
+		// TODO Auto-generated method stub
+		return reposytory.findByIdFuncionarioFkAndDtCancelamentoIsNullOrderByIdDesc(pessoaFuncionarios);
+	}
 
+
+	public HistFuncionariosCargos converteEmHistFuncionarios(String justificativa, PessoaFuncionarios pessoaFuncionarios) {
+		HistFuncionariosCargos histFuncionarios = new HistFuncionariosCargos();
+		histFuncionarios.setDtCadastro(pessoaFuncionarios.getDtCadastro());
+		histFuncionarios.setDtCancelamento(pessoaFuncionarios.getDtCancelamento());
+		histFuncionarios.setIdFuncionarioFk(pessoaFuncionarios);
+		histFuncionarios.setIdOperadorCadastroFk(pessoaFuncionarios.getIdOperadorCadastroFk());
+		histFuncionarios.setIdOperadorCancelamentoFk(pessoaFuncionarios.getIdOperadorCancelamentoFk());
+		histFuncionarios.setIdCargoFk(pessoaFuncionarios.getIdCargoAtualFk());
+		histFuncionarios.setMotivoCadastro(justificativa);
+		if(histFuncionarios.getDtCancelamento()!=null) {
+			histFuncionarios.setMotivoCancelamento(justificativa);
+		}
+		
+		return histFuncionarios;
+	}
+	
+	public boolean verSeEstaCadastrado(HistFuncionariosCargos histFuncionarios) {
+		boolean resposta = false;	
+		List<HistFuncionariosCargos> lista = reposytory.findFirstByIdFuncionarioFkAndDtCancelamentoIsNullOrderByIdDesc(histFuncionarios.getIdFuncionarioFk());
+		if(!lista.isEmpty()) {
+			if(lista.get(0).getIdCargoFk()==histFuncionarios.getIdCargoFk()) {resposta = true;}
+		}
+		return resposta;
+	}
+	
+	public void cadastrar(String justificativa, PessoaFuncionarios pessoaFuncionarios){
+		HistFuncionariosCargos histFuncionarios = converteEmHistFuncionarios( justificativa, pessoaFuncionarios);
+		if(verSeEstaCadastrado(histFuncionarios)==false) {
+			salvar(histFuncionarios);
+		}
+	}
 	
 }
