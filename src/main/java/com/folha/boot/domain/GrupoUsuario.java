@@ -15,6 +15,11 @@ public class GrupoUsuario extends AbstractEntity<Long> {
     private String nome;
     @OneToMany(mappedBy = "idGrupoUsuarioFk")
     private List<Perfil> perfilList;
+    
+    @JoinColumn(name = "id_tipo_grupo_usuario_fk", referencedColumnName = "id")
+    @ManyToOne
+    private TiposDeGrupoUsuario idTipoGrupoUsuarioFk;
+    
 	public String getNome() {
 		return nome;
 	}
@@ -26,6 +31,12 @@ public class GrupoUsuario extends AbstractEntity<Long> {
 	}
 	public void setPerfilList(List<Perfil> perfilList) {
 		this.perfilList = perfilList;
+	}
+	public TiposDeGrupoUsuario getIdTipoGrupoUsuarioFk() {
+		return idTipoGrupoUsuarioFk;
+	}
+	public void setIdTipoGrupoUsuarioFk(TiposDeGrupoUsuario idTipoGrupoUsuarioFk) {
+		this.idTipoGrupoUsuarioFk = idTipoGrupoUsuarioFk;
 	}
 
     
