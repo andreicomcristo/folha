@@ -13,4 +13,6 @@ public interface TiposDeFolhaReposytory extends JpaRepository<TiposDeFolha, Long
 
 	public List<TiposDeFolha> findByNomeTipoFolhaContainingOrderByNomeTipoFolhaAsc(String nomeTipoFolha);
 	
+	public List<TiposDeFolha> findByIdFolhaEfetivaSimNaoFkSiglaOrderByNomeTipoFolhaAsc(String sigla);
+	
 }

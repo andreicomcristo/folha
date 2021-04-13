@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.folha.boot.Reposytory.PessoaOperadoresReposytory;
+import com.folha.boot.domain.Pessoa;
 import com.folha.boot.domain.PessoaOperadores;
 
 @Service
@@ -44,13 +45,18 @@ public class PessoaOperadoresService {
 	
 	public List<PessoaOperadores> buscarTodos() {
 		// TODO Auto-generated method stub
-		return reposytory.findAll();
+		return reposytory.findAllByOrderByIdPessoaFkNomeAsc();
 	}
 
 	
-	public List<PessoaOperadores> buscarPorMotivoCancelamento(String motivoCancelamento) {
+	public List<PessoaOperadores> buscarPorNome(String nome) {
 		// TODO Auto-generated method stub
-		return reposytory.findByMotivoCancelamentoContainingOrderByMotivoCancelamentoAsc(motivoCancelamento);
+		return reposytory.findByIdPessoaFkNomeContainingAndDtCancelamentoIsNullOrderByIdPessoaFkNomeAsc(nome.toUpperCase().trim());
+	}
+	
+	public PessoaOperadores buscarPorPessoa(Pessoa pessoa) {
+		// TODO Auto-generated method stub
+		return reposytory.findFirstByIdPessoaFkAndDtCancelamentoIsNullOrderByIdPessoaFkNomeAsc(pessoa);
 	}
 
 }

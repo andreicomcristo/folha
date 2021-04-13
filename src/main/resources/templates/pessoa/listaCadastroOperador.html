@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html layout:decorate = "~{layout}">
+<head><meta charset="UTF-8"/></head>
+<body>	
+	<section class="layout-content" layout:fragment="corpo">		
+		<nav class="navbar navbar-expand-md bg-light">    
+	    	<a class="btn btn-outline-light oi oi-action-undo" type="button" href="javascript:history.back()"></a>
+			<a class="btn btn-outline-light oi oi-action-redo" type="button" href="javascript:history.forward()"></a>    
+	    	
+	    	
+	        <a class="btn btn-outline-dark btn-md" href="/pessoas/operador/listar" role="button">
+	        	<span class="oi oi-loop-square" title="Atualizar" aria-hidden="true"></span>
+	            <span>Atualizar</span>
+	        </a>
+	            <label for="nome" class= "fonte-tutulos-tamanho">Lista de Pessoas (Cadastro Operador)</label>
+	    </nav>
+	  	
+	  	<div class="container">
+	    	<p>                
+	        	<button class=" oi oi-magnifying-glass btn btn-outline-success my-2 my-sm-0" type="button" data-toggle="collapse" data-target="#collapseCidade"
+	            		aria-controls="collapseCidade">Filtrar Nome
+	            </button> 
+	            
+	            <button class=" oi oi-magnifying-glass btn btn-outline-success my-2 my-sm-0" type="button" data-toggle="collapse" data-target="#collapseCpf"
+	            		aria-controls="collapseCpf">Filtrar Cpf
+	            </button> 
+	            
+	            <button class=" oi oi-cloud-download btn btn-outline-secondary my-2 my-sm-0" type="button" data-toggle="collapse" data-target="#collapseDownload"
+	            		aria-controls="collapseDownload">Download
+	            </button>
+            
+	            <p></p>
+	      
+	      <div class="row">
+	      	<div class="col">
+	        	<div class="collapse" id="collapseCidade">
+		            <nav class="navbar navbar-light bg-light">
+	    	           <form class="form-inline" method="GET" th:action="@{/pessoas/operador/buscar/nome/paginado}">	        	           
+	        	           <input class="form-control mr-sm-2" type="search" placeholder="Nome" aria-label="Search"
+	                              th:name="nome"/> 
+	                       <button class="btn btn-outline-success my-2 my-sm-0">Buscar</button> 
+	                   </form>  
+	                </nav>
+	            </div>
+	        </div>
+	    </div>
+	        
+	    
+	      <div class="row">
+	      	<div class="col">
+	        	<div class="collapse" id="collapseCpf">
+		            <nav class="navbar navbar-light bg-light">
+	    	           <form class="form-inline" method="GET" th:action="@{/pessoas/operador/buscar/cpf/paginado}">	        	           
+	        	           <input class="form-control mr-sm-2" type="search" placeholder="Cpf" aria-label="Search"
+	                              th:name="cpf"/> 
+	                       <button class="btn btn-outline-success my-2 my-sm-0">Buscar</button> 
+	                   </form>  
+	                </nav>
+	            </div>
+	        </div>
+	    </div>    
+	    
+	    
+	    <div class="row">
+	      	<div class="col">
+	        	<div class="collapse" id="collapseDownload">
+		            <nav class="navbar navbar-light bg-light">
+	                	<form class="form-inline" method="GET" th:action="@{/cidades/buscar/id/uf}">
+	                   		
+	                        <a class="btn btn-outline-success btn-md" href="/pessoas/exporta/excel" role="button">
+				        		<span class="oi oi-cloud-download" title="exportaExcel" aria-hidden="true"></span>
+				            	<span>Exporta Excel</span>
+				       	    </a>
+				       	    
+				       	    <a class="btn btn-outline-danger btn-md" href="/pessoas/exporta/pdf" role="button">
+				        		<span class="oi oi-cloud-download" title="exportaPdf" aria-hidden="true"></span>
+				            	<span>Exporta Pdf</span>
+				       	    </a>
+	       	    
+	                  </form>
+	                </nav>
+	            </div>
+	        </div>
+	    </div>
+	    	    
+		    <div class="container" id="listagem">	        
+		    	<div th:replace="fragments/alert"></div>
+		        <div class="table-responsive">
+		        	<table class="table table-striped table-hover table-sm">
+		            	<thead>
+		          			<tr>
+			                	<th>#</th>
+			                    <th>Cpf</th>
+			                    <th>Nome</th>
+			                    
+			                    
+		                    </tr>
+		                </thead>                  
+		                <tbody>
+			            	<tr th:each="d : ${pessoa}">
+			                	<td th:text="${d.id}"></td>
+			                    <td th:text="${d.cpf}"></td>
+			                    
+			                    <td> 
+			                    	<a style="width:150px;  text-align:center; " class="link" th:text="${d.nome}" th:href="@{/operadores/avaliarcadastro/{id} (id=${d.id}) }" role="button">
+						            	<span class="" title="Editar Escala" aria-hidden="true">Ver Alterações</span>
+						            </a>
+			                    </td>
+			                    
+			                    
+			                
+				                
+			                     
+							</tr>
+						</tbody>                    
+		            </table>
+		         </div>
+			</div>	        
+			 
+		 <nav aria-label="Page navigation example">
+		 <div> Quantidade de registros: [[${totalItems}]]<br>  Página: [[${currentePage}]] de [[${totalPages}]] </div> 
+		 <div>
+		 	<span >
+		 		<a></a>
+		 		<samp >[[${i}]]</samp> &nbsp; &nbsp;
+		 	</span>
+		 </div>
+		 	<ul class="pagination justify-content-center" >
+		 		<li class="page-item disabled" ></li>		 		
+	
+			 	<li ><a class="btn btn-light btn-paginacao oi oi-media-step-backward" th:if="${currentePage != i}"  th:href="@{'/pessoas/operador/paginar/'+ 1 }" ></a></li>
+			 	
+			 	<li ><a class="btn btn-light    btn-paginacao    oi oi-media-skip-backward" th:if="${currentePage > 1}"  th:href="@{'/pessoas/operador/paginar/'+ ${currentePage -1}}" ></a></li> 
+			 	
+			 	<li ><a class="btn btn-light    btn-paginacao oi" th:if="${currentePage > 1000}"  th:href="@{'/pessoas/operador/paginar/'+ ${currentePage-1000} }" >-1000</a></li>
+			 	
+			 	<li ><a class="btn btn-light    btn-paginacao" th:if="${currentePage > 100}"  th:href="@{'/pessoas/operador/paginar/'+ ${currentePage-100} }" >-100</a></li>
+			 	
+			 	<li ><a class="btn btn-light    btn-paginacao" th:if="${currentePage > 10}"  th:href="@{'/pessoas/operador/paginar/'+ ${currentePage-10} }" >-10</a></li>
+
+			 	<li ><a class="btn btn-light    btn-paginacao"  th:if="${currentePage < totalPages - 10}"  th:href="@{'/pessoas/operador/paginar/'+ ${currentePage+10} }" >+10</a></li>
+			 	
+			 	<li ><a class="btn btn-light    btn-paginacao"  th:if="${currentePage < totalPages - 100}"  th:href="@{'/pessoas/operador/paginar/'+ ${currentePage+100} }" >+100</a></li>
+			 	
+			 	<li ><a class="btn btn-light    btn-paginacao"  th:if="${currentePage < totalPages - 1000}"  th:href="@{'/pessoas/operador/paginar/'+ ${currentePage+1000} }" >+1000</a></li>
+			 	
+			 	<li ><a class="btn btn-light    btn-paginacao    oi oi-media-skip-forward" th:if="${currentePage < totalPages}"  th:href="@{'/pessoas/operador/paginar/' + ${currentePage +1}}"></a> </li>
+		 		
+		 		<li ><a class="btn btn-light    btn-paginacao    oi oi-media-step-forward"  th:if="${currentePage != i}"  th:href="@{'/pessoas/operador/paginar/'+ ${totalPages} }" ></a></li> 
+		 	</ul>
+		</nav>     	        
+	    <div th:replace="fragments/modal :: modal"></div>   
+	</section>	
+</body>
+</html>		

@@ -23,6 +23,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import com.folha.boot.domain.AnoMes;
 import com.folha.boot.domain.Cidades;
 import com.folha.boot.domain.CodigoDiferenciado;
 import com.folha.boot.domain.FaixasValoresParametrosCalculoFolhasExtras;
@@ -30,6 +31,7 @@ import com.folha.boot.domain.NiveisCargo;
 import com.folha.boot.domain.RegimesDeTrabalho;
 import com.folha.boot.domain.TiposDeFolha;
 import com.folha.boot.domain.Unidades;
+import com.folha.boot.service.AnoMesService;
 import com.folha.boot.service.CodigoDiferenciadoService;
 import com.folha.boot.service.FaixasValoresParametrosCalculoFolhasExtrasService;
 import com.folha.boot.service.NiveisCargoService;
@@ -56,6 +58,8 @@ public class FaixasValoresParametrosCalculoFolhasExtrasController {
 	private TiposDeFolhaService tiposDeFolhaService;
 	@Autowired
 	private UnidadesService unidadesService;
+	@Autowired
+	private AnoMesService anoMesService;
 	
 	@GetMapping("/cadastrar")
 	public String cadastrar(FaixasValoresParametrosCalculoFolhasExtras faixasValoresParametrosCalculoFolhasExtras) {
@@ -108,22 +112,6 @@ public class FaixasValoresParametrosCalculoFolhasExtrasController {
 	@PostMapping("/salvar")
 	public String salvar(FaixasValoresParametrosCalculoFolhasExtras faixasValoresParametrosCalculoFolhasExtras, RedirectAttributes attr) {
 		
-		if(faixasValoresParametrosCalculoFolhasExtras.getIdUnidadeFk()!=null) {
-			faixasValoresParametrosCalculoFolhasExtras.setCnesUnidade(unidadesService.buscarPorId(faixasValoresParametrosCalculoFolhasExtras.getIdUnidadeFk().getId()).getCnes());
-		}else {faixasValoresParametrosCalculoFolhasExtras.setCnesUnidade("");}
-		if(faixasValoresParametrosCalculoFolhasExtras.getIdRegimeDeTrabalhoFk()!=null) {
-			faixasValoresParametrosCalculoFolhasExtras.setNomeRegime(regimesDeTrabalhoService.buscarPorId(faixasValoresParametrosCalculoFolhasExtras.getIdRegimeDeTrabalhoFk().getId()).getNomeRegimeDeTrabalho());
-		}else {faixasValoresParametrosCalculoFolhasExtras.setNomeRegime("");}
-		if(faixasValoresParametrosCalculoFolhasExtras.getIdTipoDeFolhaFk()!=null) {
-			faixasValoresParametrosCalculoFolhasExtras.setNomeTipoFolha(tiposDeFolhaService.buscarPorId(faixasValoresParametrosCalculoFolhasExtras.getIdTipoDeFolhaFk().getId()).getNomeTipoFolha());
-		}else {faixasValoresParametrosCalculoFolhasExtras.setNomeTipoFolha("");}
-		if(faixasValoresParametrosCalculoFolhasExtras.getIdCodDiferenciadoFk()!=null) {
-			faixasValoresParametrosCalculoFolhasExtras.setNomeCodDiferenciado(codigoDiferenciadoService.buscarPorId(faixasValoresParametrosCalculoFolhasExtras.getIdCodDiferenciadoFk().getId()).getNomeCodigoDiferenciado());
-		}else {faixasValoresParametrosCalculoFolhasExtras.setNomeCodDiferenciado("");}
-		if(faixasValoresParametrosCalculoFolhasExtras.getIdNivelFk()!=null) {
-			faixasValoresParametrosCalculoFolhasExtras.setNomeNivel(niveisCargoService.buscarPorId(faixasValoresParametrosCalculoFolhasExtras.getIdNivelFk().getId()).getNomeNivelCargo());
-		}else {faixasValoresParametrosCalculoFolhasExtras.setNomeNivel("");}
-		
 		if(faixasValoresParametrosCalculoFolhasExtras.getValorBrutoPorHora()==null) {
 			faixasValoresParametrosCalculoFolhasExtras.setValorBrutoPorHora(0.0);
 		}
@@ -142,6 +130,9 @@ public class FaixasValoresParametrosCalculoFolhasExtrasController {
 		if(faixasValoresParametrosCalculoFolhasExtras.getValorLiquidoPorHora()==null) {
 			faixasValoresParametrosCalculoFolhasExtras.setValorLiquidoPorHora(0.0);
 		}
+		if(faixasValoresParametrosCalculoFolhasExtras.getValorBrutoFixoTotal()==null) {
+			faixasValoresParametrosCalculoFolhasExtras.setValorBrutoFixoTotal(0.0);
+		}
 		
 		
 		service.salvar(faixasValoresParametrosCalculoFolhasExtras);
@@ -157,23 +148,6 @@ public class FaixasValoresParametrosCalculoFolhasExtrasController {
 	
 	@PostMapping("/editar")
 	public String editar(FaixasValoresParametrosCalculoFolhasExtras faixasValoresParametrosCalculoFolhasExtras, RedirectAttributes attr) {	
-		
-
-		if(faixasValoresParametrosCalculoFolhasExtras.getIdUnidadeFk()!=null) {
-			faixasValoresParametrosCalculoFolhasExtras.setCnesUnidade(unidadesService.buscarPorId(faixasValoresParametrosCalculoFolhasExtras.getIdUnidadeFk().getId()).getCnes());
-		}else {faixasValoresParametrosCalculoFolhasExtras.setCnesUnidade("");}
-		if(faixasValoresParametrosCalculoFolhasExtras.getIdRegimeDeTrabalhoFk()!=null) {
-			faixasValoresParametrosCalculoFolhasExtras.setNomeRegime(regimesDeTrabalhoService.buscarPorId(faixasValoresParametrosCalculoFolhasExtras.getIdRegimeDeTrabalhoFk().getId()).getNomeRegimeDeTrabalho());
-		}else {faixasValoresParametrosCalculoFolhasExtras.setNomeRegime("");}
-		if(faixasValoresParametrosCalculoFolhasExtras.getIdTipoDeFolhaFk()!=null) {
-			faixasValoresParametrosCalculoFolhasExtras.setNomeTipoFolha(tiposDeFolhaService.buscarPorId(faixasValoresParametrosCalculoFolhasExtras.getIdTipoDeFolhaFk().getId()).getNomeTipoFolha());
-		}else {faixasValoresParametrosCalculoFolhasExtras.setNomeTipoFolha("");}
-		if(faixasValoresParametrosCalculoFolhasExtras.getIdCodDiferenciadoFk()!=null) {
-			faixasValoresParametrosCalculoFolhasExtras.setNomeCodDiferenciado(codigoDiferenciadoService.buscarPorId(faixasValoresParametrosCalculoFolhasExtras.getIdCodDiferenciadoFk().getId()).getNomeCodigoDiferenciado());
-		}else {faixasValoresParametrosCalculoFolhasExtras.setNomeCodDiferenciado("");}
-		if(faixasValoresParametrosCalculoFolhasExtras.getIdNivelFk()!=null) {
-			faixasValoresParametrosCalculoFolhasExtras.setNomeNivel(niveisCargoService.buscarPorId(faixasValoresParametrosCalculoFolhasExtras.getIdNivelFk().getId()).getNomeNivelCargo());
-		}else {faixasValoresParametrosCalculoFolhasExtras.setNomeNivel("");}
 		
 		if(faixasValoresParametrosCalculoFolhasExtras.getValorBrutoPorHora()==null) {
 			faixasValoresParametrosCalculoFolhasExtras.setValorBrutoPorHora(0.0);
@@ -207,9 +181,9 @@ public class FaixasValoresParametrosCalculoFolhasExtrasController {
 		return listar(model);
 	}
 	
-	@GetMapping("/buscar/cnes")
-	public String getPorNome(@RequestParam("cnesUnidade") String cnesUnidade, ModelMap model) {		
-		model.addAttribute("anoMes", service.buscarPorCnes(cnesUnidade.toUpperCase().trim()));
+	@GetMapping("/buscar/nome")
+	public String getPorNome(@RequestParam("cnesUnidade") String nome, ModelMap model) {		
+		model.addAttribute("faixasValoresParametrosCalculoFolhasExtras", service.buscarPorNome(nome.toUpperCase().trim()));
 		return "/faixaparametroextra/lista";
 	}
 	
@@ -253,14 +227,18 @@ public class FaixasValoresParametrosCalculoFolhasExtrasController {
 	
 	@ModelAttribute("idTipoDeFolhaFk")
 	public List<TiposDeFolha> getIdTipoDeFolhaFk() {
-		
-		return tiposDeFolhaService.buscarTodos();	
+		return tiposDeFolhaService.buscarNaoEfetivas();	
 	}
 	
 	@ModelAttribute("idUnidadeFk")
 	public List<Unidades> getIdUnidadeFk() {
 		
 		return unidadesService.buscarTodos();	
+	}
+	
+	@ModelAttribute("idAnoMesFk")
+	public List<AnoMes> getIdAnoMesFk() {
+		return anoMesService.buscarTodos();	
 	}
 }
 

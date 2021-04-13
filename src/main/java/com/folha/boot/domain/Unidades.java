@@ -71,8 +71,6 @@ public class Unidades extends AbstractEntity<Long> {
     private List<FuncionariosFerias> funcionariosFeriasList;
     @OneToMany(mappedBy = "idUnidadeDeSaudeFk")
     private List<Autorizacoes> autorizacoesList;
-    @OneToMany(mappedBy = "idUnidadeFk")
-    private List<FaixasValoresParametrosCalculoFolhasExtras> faixasValoresParametrosCalculoFolhasExtrasList;
     @OneToMany(mappedBy = "idUnidadeDeSaudeFk")
     private List<HistUnidadesDiretor> histUnidadesDiretorList;
     @OneToMany(mappedBy = "idUnidadeAtuacaoAtualFk")
@@ -86,7 +84,8 @@ public class Unidades extends AbstractEntity<Long> {
     @OneToMany(mappedBy = "idUnidadeFk")
     private List<CodigoDiferenciado> codigoDiferenciadoList;
 
-    
+    @OneToMany(mappedBy = "idUnidadeFk")
+    private List<Perfil> perfilList;
     
 	public List<CodigoDiferenciado> getCodigoDiferenciadoList() {
 		return codigoDiferenciadoList;
@@ -331,15 +330,6 @@ public class Unidades extends AbstractEntity<Long> {
 		this.histUnidadesDiretorList = histUnidadesDiretorList;
 	}
 
-	public List<FaixasValoresParametrosCalculoFolhasExtras> getFaixasValoresParametrosCalculoFolhasExtrasList() {
-		return faixasValoresParametrosCalculoFolhasExtrasList;
-	}
-
-	public void setFaixasValoresParametrosCalculoFolhasExtrasList(
-			List<FaixasValoresParametrosCalculoFolhasExtras> faixasValoresParametrosCalculoFolhasExtrasList) {
-		this.faixasValoresParametrosCalculoFolhasExtrasList = faixasValoresParametrosCalculoFolhasExtrasList;
-	}
-
 	public List<LocalidadeEscala> getLocalidadeEscalaList() {
 		return localidadeEscalaList;
 	}
@@ -348,5 +338,14 @@ public class Unidades extends AbstractEntity<Long> {
 		this.localidadeEscalaList = localidadeEscalaList;
 	}
 
+	public List<Perfil> getPerfilList() {
+		return perfilList;
+	}
+
+	public void setPerfilList(List<Perfil> perfilList) {
+		this.perfilList = perfilList;
+	}
+
+	
 	
 }

@@ -9,80 +9,37 @@ import com.folha.boot.service.util.UtilidadesDeTexto;
 @Table(name = "faixas_valores_parametros_calculo_folhas_extras")
 public class FaixasValoresParametrosCalculoFolhasExtras extends AbstractEntity<Long> {
 
-	@Column(name = "nomeTipoFolha")
-	private String nomeTipoFolha; 
-	
-	@Column(name = "cnes_unidade")
-	private String cnesUnidade;
-	
 	@Column(name = "valor_hora_dia")
-	private Double valorHoraDia;
-	
-	@Column(name = "valor_hora_noite")
-	private Double valorHoraNoite;
-	
-	@Column(name = "valor_hora_semana")
-	private Double valorHoraSemana;
-	
-	@Column(name = "valor_hora_fim_de_semana")
-	private Double valorHoraFimDeSemana;
-	
-	@Column(name = "nome_regime")
-	private String nomeRegime;
-	
-	@Column(name = "nome_cod_diferenciado")
-	private String nomeCodDiferenciado;
-	
-	@Column(name = "valor_liquido_por_hora")
-	private Double valorLiquidoPorHora;
-	
-	@Column(name = "valor_bruto_por_hora")
-	private Double valorBrutoPorHora;
-	
-	@Column(name = "nome_nivel")
-	private String nomeNivel;
-	
-	@Column(name = "ano_mes")
-	private String anoMes;
-	
-	public String getAnoMes() {
-		return anoMes;
-	}
-	public void setAnoMes(String anoMes) {
-		this.anoMes = anoMes;
-	}
-	@JoinColumn(name = "id_cod_diferenciado_fk", referencedColumnName = "id")
-	@ManyToOne
-	private CodigoDiferenciado idCodDiferenciadoFk;
-	
-	@JoinColumn(name = "id_nivel_fk", referencedColumnName = "id")
-	@ManyToOne
-	private NiveisCargo idNivelFk;
-	
-	@JoinColumn(name = "id_regime_de_trabalho_fk", referencedColumnName = "id")
-	@ManyToOne
-	private RegimesDeTrabalho idRegimeDeTrabalhoFk;
-	
-	@JoinColumn(name = "id_tipo_de_folha_fk", referencedColumnName = "id")
-	@ManyToOne
-	private TiposDeFolha idTipoDeFolhaFk;
-	
-	@JoinColumn(name = "id_unidade_fk", referencedColumnName = "id")
-	@ManyToOne
-	private Unidades idUnidadeFk;
-	
-	public String getNomeTipoFolha() {
-		return nomeTipoFolha;
-	}
-	public void setNomeTipoFolha(String nomeTipoFolha) {
-		this.nomeTipoFolha = UtilidadesDeTexto.retiraEspacosDuplosAcentosEConverteEmMaiusculo(nomeTipoFolha);
-	}
-	public String getCnesUnidade() {
-		return cnesUnidade;
-	}
-	public void setCnesUnidade(String cnesUnidade) {
-		this.cnesUnidade = UtilidadesDeTexto.retiraEspacosDuplosAcentosEConverteEmMaiusculo(cnesUnidade);
-	}
+    private Double valorHoraDia;
+    @Column(name = "valor_hora_noite")
+    private Double valorHoraNoite;
+    @Column(name = "valor_hora_semana")
+    private Double valorHoraSemana;
+    @Column(name = "valor_hora_fim_de_semana")
+    private Double valorHoraFimDeSemana;
+    @Column(name = "valor_liquido_por_hora")
+    private Double valorLiquidoPorHora;
+    @Column(name = "valor_bruto_por_hora")
+    private Double valorBrutoPorHora;
+    @Column(name = "valor_bruto_fixo_total")
+    private Double valorBrutoFixoTotal;
+    @JoinColumn(name = "id_ano_mes_fk", referencedColumnName = "id")
+    @ManyToOne
+    private AnoMes idAnoMesFk;
+    @JoinColumn(name = "id_cod_diferenciado_fk", referencedColumnName = "id")
+    @ManyToOne
+    private CodigoDiferenciado idCodDiferenciadoFk;
+    @JoinColumn(name = "id_nivel_fk", referencedColumnName = "id")
+    @ManyToOne
+    private NiveisCargo idNivelFk;
+    @JoinColumn(name = "id_regime_de_trabalho_fk", referencedColumnName = "id")
+    @ManyToOne
+    private RegimesDeTrabalho idRegimeDeTrabalhoFk;
+    @JoinColumn(name = "id_tipo_de_folha_fk", referencedColumnName = "id")
+    @ManyToOne
+    private TiposDeFolha idTipoDeFolhaFk;
+    @JoinColumn(name = "id_unidade_fk", referencedColumnName = "id")
+    
 	public Double getValorHoraDia() {
 		return valorHoraDia;
 	}
@@ -107,18 +64,6 @@ public class FaixasValoresParametrosCalculoFolhasExtras extends AbstractEntity<L
 	public void setValorHoraFimDeSemana(Double valorHoraFimDeSemana) {
 		this.valorHoraFimDeSemana = valorHoraFimDeSemana;
 	}
-	public String getNomeRegime() {
-		return nomeRegime;
-	}
-	public void setNomeRegime(String nomeRegime) {
-		this.nomeRegime = UtilidadesDeTexto.retiraEspacosDuplosAcentosEConverteEmMaiusculo(nomeRegime);
-	}
-	public String getNomeCodDiferenciado() {
-		return nomeCodDiferenciado;
-	}
-	public void setNomeCodDiferenciado(String nomeCodDiferenciado) {
-		this.nomeCodDiferenciado = UtilidadesDeTexto.retiraEspacosDuplosAcentosEConverteEmMaiusculo(nomeCodDiferenciado);
-	}
 	public Double getValorLiquidoPorHora() {
 		return valorLiquidoPorHora;
 	}
@@ -131,11 +76,17 @@ public class FaixasValoresParametrosCalculoFolhasExtras extends AbstractEntity<L
 	public void setValorBrutoPorHora(Double valorBrutoPorHora) {
 		this.valorBrutoPorHora = valorBrutoPorHora;
 	}
-	public String getNomeNivel() {
-		return nomeNivel;
+	public Double getValorBrutoFixoTotal() {
+		return valorBrutoFixoTotal;
 	}
-	public void setNomeNivel(String nomeNivel) {
-		this.nomeNivel = UtilidadesDeTexto.retiraEspacosDuplosAcentosEConverteEmMaiusculo(nomeNivel);
+	public void setValorBrutoFixoTotal(Double valorBrutoFixoTotal) {
+		this.valorBrutoFixoTotal = valorBrutoFixoTotal;
+	}
+	public AnoMes getIdAnoMesFk() {
+		return idAnoMesFk;
+	}
+	public void setIdAnoMesFk(AnoMes idAnoMesFk) {
+		this.idAnoMesFk = idAnoMesFk;
 	}
 	public CodigoDiferenciado getIdCodDiferenciadoFk() {
 		return idCodDiferenciadoFk;
@@ -161,11 +112,7 @@ public class FaixasValoresParametrosCalculoFolhasExtras extends AbstractEntity<L
 	public void setIdTipoDeFolhaFk(TiposDeFolha idTipoDeFolhaFk) {
 		this.idTipoDeFolhaFk = idTipoDeFolhaFk;
 	}
-	public Unidades getIdUnidadeFk() {
-		return idUnidadeFk;
-	}
-	public void setIdUnidadeFk(Unidades idUnidadeFk) {
-		this.idUnidadeFk = idUnidadeFk;
-	}
+	
+	
 	
 }

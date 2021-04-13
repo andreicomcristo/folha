@@ -1,5 +1,6 @@
 package com.folha.boot.web.controller;
 
+import java.util.Date;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -65,6 +66,15 @@ public class CoordenacaoEscalaController {
 		service.excluir(id);  
 		model.addAttribute("success", "Excluído com sucesso.");
 		return listar(model);
+	}
+	
+	@GetMapping("/cancelar/{id}")
+	public String cancelar(@PathVariable("id") Long id, ModelMap model) {
+		CoordenacaoEscala coordenacaoEscala = service.buscarPorId(id);
+		coordenacaoEscala.setDtCancelamento(new Date());
+		service.salvar(coordenacaoEscala); 
+		model.addAttribute("success", "Cancelado com sucesso.");
+		return "redirect:/coordenacaoescalas/listar";
 	}
 	
 	/*@GetMapping("/buscar/nome/coordenacao")

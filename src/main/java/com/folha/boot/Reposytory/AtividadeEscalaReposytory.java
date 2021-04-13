@@ -9,7 +9,7 @@ import com.folha.boot.domain.AtividadeEscala;
 @Repository
 public interface AtividadeEscalaReposytory extends JpaRepository<AtividadeEscala, Long>{
 
-	public List<AtividadeEscala> findAllByOrderByNomeAtividadeAsc();
+	public List<AtividadeEscala> findByDtCancelamentoIsNullOrderByNomeAtividadeAsc();
 
-	public List<AtividadeEscala> findByNomeAtividadeContainingOrderByNomeAtividadeAsc(String nomeAtividade);
+	public List<AtividadeEscala> findByNomeAtividadeContainingAndDtCancelamentoIsNullOrderByNomeAtividadeAsc(String nomeAtividade);
 }

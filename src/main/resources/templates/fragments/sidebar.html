@@ -44,22 +44,30 @@
 					</li>
 									
 					<li>
-						<a class="l-btn"><span class=" oi oi-chevron-bottom twelfth icones-sidebar-tamanho align-middle"></span> Operadores (por fazer)</a>
+						<a class="l-btn"><span class=" oi oi-chevron-bottom twelfth icones-sidebar-tamanho align-middle"></span> Operadores </a>
 						<ul class="l-show">
 						
-							<li><a href="#" class="ad-btn"><span class=" oi oi-chevron-bottom thirtyth icones-sidebar-tamanho align-middle"></span>Operadores</a>
-								<ul class="ad-show">
-									<li><a href="#"><span class=" oi oi-chevron-right icones-sidebar-tamanho align-middle"></span>Cadastrar</a></li>
-									<li><a href="#"><span class=" oi oi-chevron-right icones-sidebar-tamanho align-middle"></span>Listar</a></li>
+							<li><a href="#" class="cd-btn"><span class=" oi oi-chevron-bottom z81 icones-sidebar-tamanho align-middle"></span>Grupo Usuario </a>
+								<ul class="cd-show">
+									<li><a th:href="@{/grupousuario/cadastrar}"><span class=" oi oi-chevron-right icones-sidebar-tamanho align-middle"></span>Cadastrar</a></li>
+									<li><a th:href="@{/grupousuario/listar}"><span class=" oi oi-chevron-right icones-sidebar-tamanho align-middle"></span>Listar</a></li>
 								</ul>
 							</li>
 						
-							<li><a href="#" class="ae-btn"><span class=" oi oi-chevron-bottom thirtyfirst icones-sidebar-tamanho align-middle"></span>Privilégios (Níveis de Acessso) </a>
-								<ul class="ae-show">
-									<li><a th:href="@{/privilegios/cadastrar}"><span class=" oi oi-chevron-right icones-sidebar-tamanho align-middle"></span>Cadastrar </a></li>
-									<li><a th:href="@{/privilegios/listar}"><span class=" oi oi-chevron-right icones-sidebar-tamanho align-middle"></span>Listar</a></li>
+							<li><a href="#" class="ad-btn"><span class=" oi oi-chevron-bottom thirtyth icones-sidebar-tamanho align-middle"></span>Cadastro</a>
+								<ul class="ad-show">
+									<li><a th:href="@{/pessoas/operador/listar}"><span class=" oi oi-chevron-right icones-sidebar-tamanho align-middle"></span>Cadastrar</a></li>
+									<li><a href="#"><span class=" oi oi-chevron-right icones-sidebar-tamanho align-middle"></span>Listar (por fazer)</a></li>
 								</ul>
-							</li>		
+							</li>
+						
+							<li><a href="#" class="ci-btn"><span class=" oi oi-chevron-bottom z86 icones-sidebar-tamanho align-middle"></span>Níveis de Acesso (por fazer)</a>
+								<ul class="ci-show">
+									<li><a href="#"><span class=" oi oi-chevron-right icones-sidebar-tamanho align-middle"></span>Cadastrar</a></li>
+									<li><a href="#"><span class=" oi oi-chevron-right icones-sidebar-tamanho align-middle"></span>Listar</a></li>
+								</ul>
+							</li>	
+							
 						</ul>
 					</li>
 
@@ -355,7 +363,29 @@
 			</li>
 
 			<li><a href="#" class="h-btn"><span class=" oi oi-chevron-bottom eigth icones-sidebar-tamanho align-middle"></span> Recursos Humanos - Sede </a>
-				<ul class="h-show">				
+				<ul class="h-show">	
+				
+				
+					<li><a href="#" class="cf-btn"><span class=" oi oi-chevron-bottom z83 icones-sidebar-tamanho align-middle"></span>Operadores </a>
+						<ul class="cf-show">
+						
+							<li><a href="#" class="cg-btn"><span class=" oi oi-chevron-bottom z84 icones-sidebar-tamanho align-middle"></span>Cadastro </a>
+								<ul class="cg-show">
+									<li><a th:href="@{/pessoas/operador/listar}"><span class=" oi oi-chevron-right icones-sidebar-tamanho align-middle"></span>Cadastrar</a></li>
+									<li><a href="#"><span class=" oi oi-chevron-right icones-sidebar-tamanho align-middle"></span>Listar (por fazer)</a></li>
+								</ul>
+							</li>
+											
+							<li><a href="#" class="ch-btn"><span class=" oi oi-chevron-bottom z85 icones-sidebar-tamanho align-middle"></span>Niveis de Acesso (por fazer) </a>
+								<ul class="ch-show">
+									<li><a href="#"><span class=" oi oi-chevron-right icones-sidebar-tamanho align-middle"></span>Cadastrar</a></li>
+									<li><a href="#"><span class=" oi oi-chevron-right icones-sidebar-tamanho align-middle"></span>Listar</a></li>
+								</ul>
+							</li>
+							
+						</ul>
+					</li>
+							
 					<li><a href="#" class="i-btn"><span class=" oi oi-chevron-bottom nineth icones-sidebar-tamanho align-middle"></span>Cadastro de Pessoas </a>
 						<ul class="i-show">
 							<li><a th:href="@{/pessoas/cadastrar/inicio/unidade}"><span class=" oi oi-chevron-right icones-sidebar-tamanho align-middle"></span>Cadastrar</a></li>
@@ -391,6 +421,26 @@
 						
 			<li><a href="#" class="by-btn"><span class=" oi oi-chevron-bottom z76 icones-sidebar-tamanho align-middle"></span>Recursos Humanos - Unidade </a>
 				<ul class="by-show">
+					
+					<li><a href="#" class="ce-btn"><span class=" oi oi-chevron-bottom z82 icones-sidebar-tamanho align-middle"></span>Operadores </a>
+						<ul class="ce-show">
+							
+							<li><a href="#" class="cj-btn"><span class=" oi oi-chevron-bottom z87 icones-sidebar-tamanho align-middle"></span>Cadastro </a>
+								<ul class="cj-show">
+									<li><a th:href="@{/pessoas/operador/listar/unidade}"><span class=" oi oi-chevron-right icones-sidebar-tamanho align-middle"></span>Cadastrar</a></li>
+									<li><a href="#"><span class=" oi oi-chevron-right icones-sidebar-tamanho align-middle"></span>Listar (Por fazer)</a></li>
+								</ul>
+							</li>
+							
+							<li><a href="#" class="ck-btn"><span class=" oi oi-chevron-bottom z88 icones-sidebar-tamanho align-middle"></span>Niveis de Acesso (por fazer) </a>
+								<ul class="ck-show">
+									<li><a href="#"><span class=" oi oi-chevron-right icones-sidebar-tamanho align-middle"></span>Cadastrar</a></li>
+									<li><a href="#"><span class=" oi oi-chevron-right icones-sidebar-tamanho align-middle"></span>Listar</a></li>
+								</ul>
+							</li>
+							
+						</ul>
+					</li>
 					
 					<li><a href="#" class="ca-btn"><span class=" oi oi-chevron-bottom z78 icones-sidebar-tamanho align-middle"></span>Cadastro de Pessoas </a>
 						<ul class="ca-show">
@@ -441,21 +491,21 @@
 							<li><a href="#" class="bl-btn"><span class=" oi oi-chevron-bottom z63 icones-sidebar-tamanho align-middle"></span>Escalas Configurações </a>
 								<ul class="bl-show">
 									
-									<li><a href="#" class="bb-btn"><span class=" oi oi-chevron-bottom z53 icones-sidebar-tamanho align-middle"></span>Coordenação Escala </a>
+									<li><a href="#" class="bb-btn"><span class=" oi oi-chevron-bottom z53 icones-sidebar-tamanho align-middle"></span>Coordenação Escala (falta paginacao)</a>
 										<ul class="bb-show">
 											<li><a th:href="@{/coordenacaoescalas/cadastrar}"><span class=" oi oi-chevron-right icones-sidebar-tamanho align-middle"></span>Cadastrar</a></li>
 											<li><a th:href="@{/coordenacaoescalas/listar}"><span class=" oi oi-chevron-right icones-sidebar-tamanho align-middle"></span>Listar</a></li>
 										</ul>
 									</li>
 									
-									<li><a href="#" class="cc-btn"><span class=" oi oi-chevron-bottom z80 icones-sidebar-tamanho align-middle"></span>Localidade de Escala (por fazer) </a>
+									<li><a href="#" class="cc-btn"><span class=" oi oi-chevron-bottom z80 icones-sidebar-tamanho align-middle"></span>Localidade de Escala</a>
 										<ul class="cc-show">
-											<li><a href="#"><span class=" oi oi-chevron-right icones-sidebar-tamanho align-middle"></span>Cadastrar </a></li>
-											<li><a href="#"><span class=" oi oi-chevron-right icones-sidebar-tamanho align-middle"></span>Listar</a></li>
+											<li><a th:href="@{/localidadeescala/cadastrar}"><span class=" oi oi-chevron-right icones-sidebar-tamanho align-middle"></span>Cadastrar </a></li>
+											<li><a th:href="@{/localidadeescala/listar}"><span class=" oi oi-chevron-right icones-sidebar-tamanho align-middle"></span>Listar</a></li>
 										</ul>
 									</li>
 									
-									<li><a href="#" class="az-btn"><span class=" oi oi-chevron-bottom fiftysecond icones-sidebar-tamanho align-middle"></span>Atividade de Escala </a>
+									<li><a href="#" class="az-btn"><span class=" oi oi-chevron-bottom fiftysecond icones-sidebar-tamanho align-middle"></span>Atividade de Escala (falta paginacao)</a>
 										<ul class="az-show">
 											<li><a th:href="@{/atividadesescalas/cadastrar}"><span class=" oi oi-chevron-right icones-sidebar-tamanho align-middle"></span>Cadastrar</a></li>
 											<li><a th:href="@{/atividadesescalas/listar}"><span class=" oi oi-chevron-right icones-sidebar-tamanho align-middle"></span>Listar</a></li>
@@ -463,7 +513,7 @@
 									</li>
 									
 									
-									<li><a href="#" class="ba-btn"><span class=" oi oi-chevron-bottom z52 icones-sidebar-tamanho align-middle"></span>Acesso Operadores</a>
+									<li><a href="#" class="ba-btn"><span class=" oi oi-chevron-bottom z52 icones-sidebar-tamanho align-middle"></span>Acesso Operadores Escala (refazer)</a>
 										<ul class="ba-show">
 											<li><a th:href="@{/acessooperadorescoordenacao/cadastrar}"><span class=" oi oi-chevron-right icones-sidebar-tamanho align-middle"></span>Cadastrar</a></li>
 											<li><a th:href="@{/acessooperadorescoordenacao/listar}"><span class=" oi oi-chevron-right icones-sidebar-tamanho align-middle"></span>Listar</a></li>
@@ -552,61 +602,20 @@
 
 			
 
-			<li><a href="#" class="cd-btn"><span class=" oi oi-chevron-bottom z81 icones-sidebar-tamanho align-middle"></span>Menu 1 </a>
-				<ul class="cd-show">
-					<li><a href="#"><span class=" oi oi-chevron-right icones-sidebar-tamanho align-middle"></span>Cadastrar</a></li>
-					<li><a href="#"><span class=" oi oi-chevron-right icones-sidebar-tamanho align-middle"></span>Listar</a></li>
-				</ul>
-			</li>
+			
 
-			<li><a href="#" class="ce-btn"><span class=" oi oi-chevron-bottom z82 icones-sidebar-tamanho align-middle"></span>Menu 1 </a>
-				<ul class="ce-show">
-					<li><a href="#"><span class=" oi oi-chevron-right icones-sidebar-tamanho align-middle"></span>Cadastrar</a></li>
-					<li><a href="#"><span class=" oi oi-chevron-right icones-sidebar-tamanho align-middle"></span>Listar</a></li>
-				</ul>
-			</li>
+			
 
-			<li><a href="#" class="cf-btn"><span class=" oi oi-chevron-bottom z83 icones-sidebar-tamanho align-middle"></span>Menu 1 </a>
-				<ul class="cf-show">
-					<li><a href="#"><span class=" oi oi-chevron-right icones-sidebar-tamanho align-middle"></span>Cadastrar</a></li>
-					<li><a href="#"><span class=" oi oi-chevron-right icones-sidebar-tamanho align-middle"></span>Listar</a></li>
-				</ul>
-			</li>
+			
 
-			<li><a href="#" class="cg-btn"><span class=" oi oi-chevron-bottom z84 icones-sidebar-tamanho align-middle"></span>Menu 1 </a>
-				<ul class="cg-show">
-					<li><a href="#"><span class=" oi oi-chevron-right icones-sidebar-tamanho align-middle"></span>Cadastrar</a></li>
-					<li><a href="#"><span class=" oi oi-chevron-right icones-sidebar-tamanho align-middle"></span>Listar</a></li>
-				</ul>
-			</li>
+			
+			
 
-			<li><a href="#" class="ch-btn"><span class=" oi oi-chevron-bottom z85 icones-sidebar-tamanho align-middle"></span>Menu 1 </a>
-				<ul class="ch-show">
-					<li><a href="#"><span class=" oi oi-chevron-right icones-sidebar-tamanho align-middle"></span>Cadastrar</a></li>
-					<li><a href="#"><span class=" oi oi-chevron-right icones-sidebar-tamanho align-middle"></span>Listar</a></li>
-				</ul>
-			</li>
+			
 
-			<li><a href="#" class="ci-btn"><span class=" oi oi-chevron-bottom z86 icones-sidebar-tamanho align-middle"></span>Menu 1 </a>
-				<ul class="ci-show">
-					<li><a href="#"><span class=" oi oi-chevron-right icones-sidebar-tamanho align-middle"></span>Cadastrar</a></li>
-					<li><a href="#"><span class=" oi oi-chevron-right icones-sidebar-tamanho align-middle"></span>Listar</a></li>
-				</ul>
-			</li>
+			
 
-			<li><a href="#" class="cj-btn"><span class=" oi oi-chevron-bottom z87 icones-sidebar-tamanho align-middle"></span>Menu 1 </a>
-				<ul class="cj-show">
-					<li><a href="#"><span class=" oi oi-chevron-right icones-sidebar-tamanho align-middle"></span>Cadastrar</a></li>
-					<li><a href="#"><span class=" oi oi-chevron-right icones-sidebar-tamanho align-middle"></span>Listar</a></li>
-				</ul>
-			</li>
-
-			<li><a href="#" class="ck-btn"><span class=" oi oi-chevron-bottom z88 icones-sidebar-tamanho align-middle"></span>Menu 1 </a>
-				<ul class="ck-show">
-					<li><a href="#"><span class=" oi oi-chevron-right icones-sidebar-tamanho align-middle"></span>Cadastrar</a></li>
-					<li><a href="#"><span class=" oi oi-chevron-right icones-sidebar-tamanho align-middle"></span>Listar</a></li>
-				</ul>
-			</li>
+			
 
 			<li><a href="#" class="cl-btn"><span class=" oi oi-chevron-bottom z89 icones-sidebar-tamanho align-middle"></span>Menu 1 </a>
 				<ul class="cl-show">

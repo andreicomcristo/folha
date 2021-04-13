@@ -27,6 +27,9 @@ public class AnoMes extends AbstractEntity<Long> {
     @OneToMany(mappedBy = "idAnoMesFk")
     private List<EscalaAlteracoes> escalaAlteracoesList;
     
+    @OneToMany(mappedBy = "idAnoMesFk")
+    private List<FaixasValoresParametrosCalculoFolhasExtras> faixasValoresParametrosCalculoFolhasExtrasList;
+    
 	public String getNomeAnoMes() {
 		return nomeAnoMes;
 	}
@@ -56,6 +59,13 @@ public class AnoMes extends AbstractEntity<Long> {
 	}
 	public void setEscalaAlteracoesList(List<EscalaAlteracoes> escalaAlteracoesList) {
 		this.escalaAlteracoesList = escalaAlteracoesList;
+	}
+	public List<FaixasValoresParametrosCalculoFolhasExtras> getFaixasValoresParametrosCalculoFolhasExtrasList() {
+		return faixasValoresParametrosCalculoFolhasExtrasList;
+	}
+	public void setFaixasValoresParametrosCalculoFolhasExtrasList(
+			List<FaixasValoresParametrosCalculoFolhasExtras> faixasValoresParametrosCalculoFolhasExtrasList) {
+		this.faixasValoresParametrosCalculoFolhasExtrasList = faixasValoresParametrosCalculoFolhasExtrasList;
 	}
 	
 	

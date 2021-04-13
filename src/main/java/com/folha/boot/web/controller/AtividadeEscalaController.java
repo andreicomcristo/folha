@@ -1,5 +1,7 @@
 package com.folha.boot.web.controller;
 
+import java.util.Date;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
@@ -10,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import com.folha.boot.domain.AtividadeEscala;
+import com.folha.boot.domain.LocalidadeEscala;
 import com.folha.boot.service.AtividadeEscalaService;
 
 @Controller
@@ -55,6 +58,15 @@ public class AtividadeEscalaController {
 		service.excluir(id);  
 		model.addAttribute("success", "Excluído com sucesso.");
 		return listar(model);
+	}
+	
+	@GetMapping("/cancelar/{id}")
+	public String cancelar(@PathVariable("id") Long id, ModelMap model) {
+		AtividadeEscala atividadeEscala = service.buscarPorId(id);
+		atividadeEscala.setDtCancelamento(new Date());
+		service.salvar(atividadeEscala); 
+		model.addAttribute("success", "Cancelado com sucesso.");
+		return "redirect:/atividadesescalas/listar";
 	}
 	
 	@GetMapping("/buscar/nome/atividade/escala")

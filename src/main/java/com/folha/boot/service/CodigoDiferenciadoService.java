@@ -40,7 +40,7 @@ public class CodigoDiferenciadoService {
 	@Transactional(readOnly = true)
 	public List<CodigoDiferenciado> buscarTodosGeral() {
 		// TODO Auto-generated method stub
-		return reposytory.findAllByOrderByNomeCodigoDiferenciadoAsc();
+		return reposytory.findAllByOrderByIdUnidadeFkNomeFantasiaAscNomeCodigoDiferenciadoAsc();
 	}
 	
 	@Transactional(readOnly = true)

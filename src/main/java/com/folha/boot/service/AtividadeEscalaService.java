@@ -37,10 +37,10 @@ public class AtividadeEscalaService {
 	@Transactional(readOnly = true)
 	public List<AtividadeEscala> buscarTodos() {
 		// TODO Auto-generated method stub
-		return reposytory.findAllByOrderByNomeAtividadeAsc();
+		return reposytory.findByDtCancelamentoIsNullOrderByNomeAtividadeAsc();
 	}
 	
 	public List<AtividadeEscala> buscarPorNome(String nomeAtividade) {
-		return reposytory.findByNomeAtividadeContainingOrderByNomeAtividadeAsc(nomeAtividade);
+		return reposytory.findByNomeAtividadeContainingAndDtCancelamentoIsNullOrderByNomeAtividadeAsc(nomeAtividade);
 	}
 }

@@ -160,7 +160,6 @@ public class PessoaController {
 	
 	
 	
-	
 	// Local - Unidade
 	@GetMapping("/listar/unidade")
 	public String listarUnidade(ModelMap model) {
@@ -232,6 +231,155 @@ public class PessoaController {
 		return "/pessoa/listaUnidade";	
 	}
 
+	
+	
+	// Global - Sede - Criando Usuario (Operador)
+	@GetMapping("/operador/listar")
+	public String listarOperador(ModelMap model) {
+		this.ultimaBuscaNome = "";
+		this.ultimaBuscaCpf = "";
+		return this.findPaginatedOperador(1, model);
+	}
+	
+	@GetMapping("/operador/listar/{pageNo}")
+	public String findPaginatedOperador(@PathVariable (value = "pageNo") int pageNo, ModelMap model) {
+		int pageSeze = 10;
+		Page<Pessoa> page = service.findPaginated(pageNo, pageSeze);
+		List<Pessoa> lista = page.getContent();
+		return paginarOperador(pageNo, page, lista, model);
+	}
+	
+	public String findPaginatedNomeOperador(@PathVariable (value = "pageNo") int pageNo, String nome, ModelMap model) {
+		int pageSeze = 10;
+		Page<Pessoa> page = service.findPaginatedNome(pageNo, pageSeze, nome);
+		List<Pessoa> lista = page.getContent();
+		return paginarOperador(pageNo, page, lista, model);
+	}
+	
+	public String findPaginatedCpfOperador(@PathVariable (value = "pageNo") int pageNo, String cpf, ModelMap model) {
+		int pageSeze = 10;
+		Page<Pessoa> page = service.findPaginatedCpf(pageNo, pageSeze, cpf);
+		List<Pessoa> lista = page.getContent();
+		return paginarOperador(pageNo, page, lista, model);
+	}
+	
+	
+	@GetMapping("/operador/buscar/nome/paginado")
+	public String getPorNomePaginadoOperador(@RequestParam("nome") String nome, ModelMap model) {
+		nome=nome.toUpperCase().trim();
+		this.ultimaBuscaNome = nome;
+		this.ultimaBuscaCpf = "";	
+		return this.findPaginatedNomeOperador(1, nome, model);
+	}
+	
+	@GetMapping("/operador/buscar/cpf/paginado")
+	public String getPorCpfPaginadoOperador(@RequestParam("cpf") String cpf, ModelMap model) {
+		cpf=cpf.toUpperCase().trim();
+		cpf = UtilidadesDeTexto.limpaPontosETracosCpf(cpf);
+		this.ultimaBuscaNome = "";
+		this.ultimaBuscaCpf = cpf;	
+		return this.findPaginatedCpf(1, cpf, model);
+	}
+	
+	@GetMapping("/operador/paginar/{pageNo}")
+	public String getPorBusacaPaginadoOperador(@PathVariable (value = "pageNo") int pageNo, ModelMap model) {
+		
+		if( (ultimaBuscaNome.equals("")) && (ultimaBuscaCpf.equals("")) ){
+			return "redirect:/pessoas/operador/listar/{pageNo}" ;}
+		else {		
+			if(!ultimaBuscaNome.equals("")) {
+				return this.findPaginatedNomeOperador(pageNo, ultimaBuscaNome, model);}
+			else {
+				return this.findPaginatedCpfOperador(pageNo, ultimaBuscaCpf, model);}
+			}
+	}
+	
+	
+	
+	public String paginarOperador(int pageNo, Page<Pessoa> page, List<Pessoa> lista, ModelMap model) {	
+		model.addAttribute("currentePage", pageNo);
+		model.addAttribute("totalPages", page.getTotalPages());
+		model.addAttribute("totalItems", page.getTotalElements()); 
+		model.addAttribute("pessoa", lista);
+		return "/pessoa/listaCadastroOperador";	
+	}
+	
+	
+	
+	// Local - Unidade - Criando Usuario (Operador)
+	@GetMapping("/operador/listar/unidade")
+	public String listarUnidadeOperador(ModelMap model) {
+		this.ultimaBuscaNome = "";
+		this.ultimaBuscaCpf = "";
+		return this.findPaginatedUnidadeOperador(1, model);
+	}
+	
+	@GetMapping("/operador/listar/unidade/{pageNo}")
+	public String findPaginatedUnidadeOperador(@PathVariable (value = "pageNo") int pageNo, ModelMap model) {
+		int pageSeze = 10;
+		Page<PessoaFuncionarios> page = pessoaFuncionariosService.findPaginated(unidadesService.buscarPorId(idUnidadeLogada), pageNo, pageSeze);
+		List<PessoaFuncionarios> lista = page.getContent();
+		return paginarUnidadeOperador(pageNo, page, lista, model);
+	}
+	
+	public String findPaginatedNomeUnidadeOperador(@PathVariable (value = "pageNo") int pageNo, String nome, ModelMap model) {
+		int pageSeze = 10;
+		Page<PessoaFuncionarios> page = pessoaFuncionariosService.findPaginatedNome(nome, unidadesService.buscarPorId(idUnidadeLogada), pageNo, pageSeze);
+		List<PessoaFuncionarios> lista = page.getContent();
+		return paginarUnidadeOperador(pageNo, page, lista, model);
+	}
+	
+	public String findPaginatedCpfUnidadeOperador(@PathVariable (value = "pageNo") int pageNo, String cpf, ModelMap model) {
+		int pageSeze = 10;
+		Page<PessoaFuncionarios> page = pessoaFuncionariosService.findPaginatedCpf(cpf, unidadesService.buscarPorId(idUnidadeLogada), pageNo, pageSeze);
+		List<PessoaFuncionarios> lista = page.getContent();
+		return paginarUnidadeOperador(pageNo, page, lista, model);
+	}
+	
+	
+	@GetMapping("/operador/buscar/nome/unidade/paginado")
+	public String getPorNomePaginadoUnidadeOperador(@RequestParam("nome") String nome, ModelMap model) {
+		nome=nome.toUpperCase().trim();
+		this.ultimaBuscaNome = nome;
+		this.ultimaBuscaCpf = "";	
+		return this.findPaginatedNomeUnidadeOperador(1, nome, model);
+	}
+	
+	@GetMapping("/operador/buscar/cpf/unidade/paginado")
+	public String getPorCpfPaginadoUnidadeOperador(@RequestParam("cpf") String cpf, ModelMap model) {
+		cpf=cpf.toUpperCase().trim();
+		cpf = UtilidadesDeTexto.limpaPontosETracosCpf(cpf);
+		this.ultimaBuscaNome = "";
+		this.ultimaBuscaCpf = cpf;	
+		return this.findPaginatedCpfUnidadeOperador(1, cpf, model);
+	}
+	
+	@GetMapping("/operador/paginar/unidade/{pageNo}")
+	public String getPorBusacaPaginadoUnidadeOperador(@PathVariable (value = "pageNo") int pageNo, ModelMap model) {
+		
+		if( (ultimaBuscaNome.equals("")) && (ultimaBuscaCpf.equals("")) ){
+			return "redirect:/pessoas/operador/listar/unidade/{pageNo}" ;}
+		else {		
+			if(!ultimaBuscaNome.equals("")) {
+				return this.findPaginatedNomeUnidadeOperador(pageNo, ultimaBuscaNome, model);}
+			else {
+				return this.findPaginatedCpfUnidadeOperador(pageNo, ultimaBuscaCpf, model);}
+			}
+	}
+	
+	
+	
+	public String paginarUnidadeOperador(int pageNo, Page<PessoaFuncionarios> page, List<PessoaFuncionarios> lista, ModelMap model) {	
+		model.addAttribute("currentePage", pageNo);
+		model.addAttribute("totalPages", page.getTotalPages());
+		model.addAttribute("totalItems", page.getTotalElements()); 
+		model.addAttribute("pessoa", lista);
+		return "/pessoa/listaUnidadeCadastroOperador";	
+	}
+
+	
+	
+	
 	
 	
 	

@@ -36,6 +36,12 @@ public class TiposDeFolhaService {
 	}
 
 	@Transactional(readOnly = true)
+	public List<TiposDeFolha> buscarNaoEfetivas() {
+		// TODO Auto-generated method stub
+		return reposytory.findByIdFolhaEfetivaSimNaoFkSiglaOrderByNomeTipoFolhaAsc("N");
+	}
+	
+	@Transactional(readOnly = true)
 	public List<TiposDeFolha> buscarTodos() {
 		// TODO Auto-generated method stub
 		return reposytory.findAllByOrderByNomeTipoFolhaAsc();

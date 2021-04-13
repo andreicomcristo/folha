@@ -80,6 +80,7 @@
 		                    <th style="font-size:10px;" >Valor Fim Semana</th>
 		                    <th style="font-size:10px;" >Valor Liquido Hora</th>
 		                    <th style="font-size:10px;" >Valor Bruto Hora</th>
+		                    <th style="font-size:10px;" >Valor Bruto Fixo Total</th>
 		                    <th style="font-size:10px;" >Regime</th>
 		                    <th style="font-size:10px;" >Cod Diferenciado</th>
 		                    <th style="font-size:10px;" >Nível</th>
@@ -91,19 +92,23 @@
 	                <tbody>
 		            	<tr th:each="d : ${faixasValoresParametrosCalculoFolhasExtras}">
 		                	<td style="font-size:10px;"  th:text="${d.id}"></td>
-		                    <td style="font-size:10px;"  th:text="${d.anoMes}"></td>
-		                    <td style="font-size:10px;"  th:text="${d.nomeTipoFolha}"></td>
-		                    <td style="font-size:10px;"  th:text="${d.valorHoraDia}"></td>
-		                    <td style="font-size:10px;"  th:text="${d.valorHoraNoite}"></td>
-		                    <td style="font-size:10px;"  th:text="${d.valorHoraSemana}"></td>
-		                    <td style="font-size:10px;"  th:text="${d.valorHoraFimDeSemana}"></td>
-		                    <td style="font-size:10px;"  th:text="${d.valorLiquidoPorHora}"></td>
-		                    <td style="font-size:10px;"  th:text="${d.valorBrutoPorHora}"></td>
-		                    <td style="font-size:10px;"  th:text="${d.nomeRegime}"></td>
-		                    <td style="font-size:10px;"  th:text="${d.nomeCodDiferenciado}"></td>
-		                    <td style="font-size:10px;"  th:text="${d.nomeNivel}"></td>
-		                    <td style="font-size:10px;"  th:text="${d.idUnidadeFk.nomeFantasia}"></td>
-		                    <td style="font-size:10px;"  th:text="${d.cnesUnidade}"></td>
+		                    <td style="font-size:10px;"  th:text="${d.idAnoMesFk != null} ? ${d.idAnoMesFk.nomeAnoMes} : ''  "></td>
+		                    <td style="font-size:10px;"  th:text="${d.idTipoDeFolhaFk != null} ? ${d.idTipoDeFolhaFk.nomeTipoFolha} : ''  "></td>
+		                    <td style="font-size:10px;"  th:text="${d.valorHoraDia != null} ? ${d.valorHoraDia} : ''  "></td>
+		                    <td style="font-size:10px;"  th:text="${d.valorHoraNoite != null} ? ${d.valorHoraNoite} : ''  "></td>
+		                    <td style="font-size:10px;"  th:text="${d.valorHoraSemana != null} ? ${d.valorHoraSemana} : ''  "></td>
+		                    <td style="font-size:10px;"  th:text="${d.valorHoraFimDeSemana != null} ? ${d.valorHoraFimDeSemana} : ''  "></td>
+		                    <td style="font-size:10px;"  th:text="${d.valorLiquidoPorHora != null} ? ${d.valorLiquidoPorHora} : ''  "></td>
+		                    <td style="font-size:10px;"  th:text="${d.valorBrutoPorHora != null} ? ${d.valorBrutoPorHora} : ''  "></td>
+		                    <td style="font-size:10px;"  th:text="${d.valorBrutoFixoTotal != null} ? ${d.valorBrutoFixoTotal} : ''  "></td>
+		                    <td style="font-size:10px;"  th:text="${d.idRegimeDeTrabalhoFk != null} ? ${d.idRegimeDeTrabalhoFk.nomeRegimeDeTrabalho} : ''  "></td>
+		                    <td style="font-size:10px;"  th:text="${d.idCodDiferenciadoFk != null} ? ${d.idCodDiferenciadoFk.nomeCodigoDiferenciado} : ''  "></td>
+		                    <td style="font-size:10px;"  th:text="${d.idNivelFk != null} ? ${d.idNivelFk.nomeNivelCargo} : ''  "></td>
+		                    <td style="font-size:10px;"  th:text="${d.idCodDiferenciadoFk != null} ? ${d.idCodDiferenciadoFk.idUnidadeFk.nomeFantasia} : ''  "></td>
+		                    <td style="font-size:10px;"  th:text="${d.idCodDiferenciadoFk != null} ? ${d.idCodDiferenciadoFk.idUnidadeFk.cnes} : ''  "></td>
+		                    
+		                    
+		                    
 		                    <td colspan="2">
 		                    	<a class="btn btn-outline-info btn-sm" th:href="@{/faixasparametrosextras/editar/{id} (id=${d.id}) }" role="button">
 		                        	<span class="oi oi-brush" title="Editar" aria-hidden="true"></span>
