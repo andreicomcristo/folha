@@ -2,6 +2,8 @@ package com.folha.boot.domain;
 
 import javax.persistence.*;
 
+import com.folha.boot.service.util.UtilidadesDeTexto;
+
 import java.util.Date;
 
 /**
@@ -71,7 +73,7 @@ public class FuncionariosCapacitacoes extends AbstractEntity<Long> {
 	}
 
 	public void setDescricao(String descricao) {
-		this.descricao = descricao;
+		this.descricao = UtilidadesDeTexto.retiraEspacosDuplosAcentosEConverteEmMaiusculo(descricao);
 	}
 
 	public String getInstituicao() {
@@ -79,7 +81,7 @@ public class FuncionariosCapacitacoes extends AbstractEntity<Long> {
 	}
 
 	public void setInstituicao(String instituicao) {
-		this.instituicao = instituicao;
+		this.instituicao = UtilidadesDeTexto.retiraEspacosDuplosAcentosEConverteEmMaiusculo(instituicao);
 	}
 
 	public Integer getCargaHoraria() {
@@ -111,7 +113,7 @@ public class FuncionariosCapacitacoes extends AbstractEntity<Long> {
 	}
 
 	public void setObservacoes(String observacoes) {
-		this.observacoes = observacoes;
+		this.observacoes = UtilidadesDeTexto.retiraEspacosDuplosAcentosEConverteEmMaiusculo(observacoes);
 	}
 
 	public Date getDtCadastro() {
@@ -135,7 +137,7 @@ public class FuncionariosCapacitacoes extends AbstractEntity<Long> {
 	}
 
 	public void setMotivoCancelamento(String motivoCancelamento) {
-		this.motivoCancelamento = motivoCancelamento;
+		this.motivoCancelamento = UtilidadesDeTexto.retiraEspacosDuplosAcentosEConverteEmMaiusculo(motivoCancelamento);
 	}
 
 	public AreasDeCapacitacao getIdAreaDeCapacitacaoFk() {

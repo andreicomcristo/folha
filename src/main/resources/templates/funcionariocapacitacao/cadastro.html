@@ -22,7 +22,7 @@
 
 			<div th:replace="fragments/alert"></div>
 			<form
-				th:action="${funcionariosCapacitacoes.id == null} ? @{/funcionarioscapacitacoes/salvar} : @{/funcionarioscapacitacoes/editar}"
+				th:action="${funcionariosCapacitacoes.id == null} ? @{/funcionarioscapacitacoes/salvar} : @{/funcionarioscapacitacoes/salvar}"
 				th:object="${funcionariosCapacitacoes}" method="POST">
 				<div class="form-row">
 
@@ -30,79 +30,48 @@
 						<label for="nome" class="fonte-tutulos-tamanho">Cadastar Capacitações</label>
 							
 							<input type="text"
-								class="form-control form-control-md" autofocus="autofocus"
+								class="form-control form-control-md uppercase" autofocus="autofocus"
 								id="descricao" placeholder="Descricao" th:field="*{descricao}" />						
 							<p></p>
 							
 							<input type="text"
-								class="form-control form-control-md" autofocus="autofocus"
+								class="form-control form-control-md uppercase" autofocus="autofocus"
 								id="instituicao" placeholder="Instituicao" th:field="*{instituicao}" />						
 							<p></p>
 							
-							<input type="text"
-								class="form-control form-control-md" autofocus="autofocus"
+							<input type="number"
+								class="form-control form-control-md uppercase" autofocus="autofocus"
 								id="cargaHoraria" placeholder="Carga Horaria" th:field="*{cargaHoraria}" />						
 							<p></p>
 							
 							<input type="text"
-								class="form-control form-control-md" autofocus="autofocus"
+								class="form-control form-control-md uppercase" autofocus="autofocus" data-mask="00/00/0000"
 								id="dtInicial" placeholder="Data Inicial" th:field="*{dtInicial}" />						
 							<p></p>
 							
 							<input type="text"
-								class="form-control form-control-md" autofocus="autofocus"
+								class="form-control form-control-md uppercase" autofocus="autofocus" data-mask="00/00/0000"
 								id="dtFinal" placeholder="Data Final" th:field="*{dtFinal}" />						
 							<p></p>
 							
 							<input type="text"
-								class="form-control form-control-md" autofocus="autofocus"
+								class="form-control form-control-md uppercase" autofocus="autofocus"
 								id="observacoes" placeholder="Observacoes" th:field="*{observacoes}" />						
 							<p></p>
 							
-							<input type="text"
-								class="form-control form-control-md" autofocus="autofocus"
-								id="dtCadastro" placeholder="Data Cadastro" th:field="*{dtCadastro}" />						
-							<p></p>
-					
-							<input type="text"
-								class="form-control form-control-md" autofocus="autofocus"
-								id="dtCancelamento" placeholder="Data Cancelamento" th:field="*{dtCancelamento}" />						
+							<select id="idTiposCapacitacaoFk" class="form-select" th:field="*{idTiposCapacitacaoFk}">
+								<option value="">Selecione o tipo de Capacitação</option>
+								<option class="form-select" th:each="d : ${idTiposCapacitacaoFk}" th:value="${d.id}"th:text="${d.tipoCapacitacao}" selected >ADM</option>
+							</select>								
 							<p></p>
 							
-							<input type="text"
-								class="form-control form-control-md" autofocus="autofocus"
-								id="motivoCancelamento" placeholder="Motivo Cancelamento" th:field="*{motivoCancelamento}" />						
-							<p></p>
 							
 							<select id="idAreaDeCapacitacaoFk" class="form-select" th:field="*{idAreaDeCapacitacaoFk}">
 								<option value="">Selecione Área De Capacitação</option>
 								<option class="form-select" th:each="d : ${idAreaDeCapacitacaoFk}" th:value="${d.id}"th:text="${d.areaDeCapacitacao}" selected >ADM</option>
 							</select>								
 							<p></p>	
-						
-							<select id="idFuncionarioFk" class="form-select" th:field="*{idFuncionarioFk}">
-								<option value="">Selecione a Matrícula</option>
-								<option class="form-select" th:each="d : ${idFuncionarioFk}" th:value="${d.id}"th:text="${d.matricula}" selected >ADM</option>
-							</select>								
-							<p></p>	
 							
-							<!--  <select id="idOperadorCadastroFk" class="form-select" th:field="*{idOperadorCadastroFk}">
-								<option value="">Selecione Operador Cadastro</option>
-								<option class="form-select" th:each="d : ${idOperadorCadastroFk}" th:value="${d.id}"th:text="${d.dtCadastro}" selected >ADM</option>
-							</select>								
-							<p></p>	
-							
-							<select id="idOperadorCadastroFk" class="form-select" th:field="*{idOperadorCadastroFk}">
-								<option value="">Selecione Operador Cancelamento</option>
-								<option class="form-select" th:each="d : ${idOperadorCadastroFk}" th:value="${d.id}"th:text="${d.dtCancelamento}" selected >ADM</option>
-							</select>								
-							<p></p>
--->							
-							<select id="idTiposCapacitacaoFk" class="form-select" th:field="*{idTiposCapacitacaoFk}">
-								<option value="">Selecione o tipo de Capacitção</option>
-								<option class="form-select" th:each="d : ${idTiposCapacitacaoFk}" th:value="${d.id}"th:text="${d.tipoCapacitacao}" selected >ADM</option>
-							</select>								
-							<p></p>
 							
 					<input type="hidden" id="id" th:field="*{id}" />
 								<p></p>					
