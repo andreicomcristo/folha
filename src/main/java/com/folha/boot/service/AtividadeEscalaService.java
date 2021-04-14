@@ -6,6 +6,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import com.folha.boot.Reposytory.AtividadeEscalaReposytory;
 import com.folha.boot.domain.AtividadeEscala;
+import com.folha.boot.domain.Unidades;
 
 @Service
 @Transactional(readOnly = false)
@@ -33,7 +34,7 @@ public class AtividadeEscalaService {
 		
 		return reposytory.findById(id).get();
 	}
-	
+	/*
 	@Transactional(readOnly = true)
 	public List<AtividadeEscala> buscarTodos() {
 		// TODO Auto-generated method stub
@@ -41,6 +42,16 @@ public class AtividadeEscalaService {
 	}
 	
 	public List<AtividadeEscala> buscarPorNome(String nomeAtividade) {
-		return reposytory.findByNomeAtividadeContainingAndDtCancelamentoIsNullOrderByNomeAtividadeAsc(nomeAtividade);
+		return reposytory.findByNomeAtividadeContainingAndDtCancelamentoIsNullOrderByNomeAtividadeAsc(nomeAtividade.toUpperCase().trim());
 	}
+	*/
+	public List<AtividadeEscala> buscarNaUnidade(Unidades unidades) {
+		return reposytory.findByIdUnidadeFkAndDtCancelamentoIsNullOrderByNomeAtividadeAsc(unidades);
+	}
+	
+	public List<AtividadeEscala> buscarNaUnidadePorNome(Unidades unidades, String nome) {
+		return reposytory.findByIdUnidadeFkAndNomeAtividadeContainingAndDtCancelamentoIsNullOrderByNomeAtividadeAsc(unidades, nome.toUpperCase().trim());
+	}
+	
+	
 }

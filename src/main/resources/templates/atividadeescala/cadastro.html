@@ -39,6 +39,12 @@
 								id="descricao" placeholder="Descricao da Atividade" th:field="*{descricaoAtividade}" /> 
 							<p></p>
 							
+							<select id="idCodDiferenciadoFk" class="form-select" th:field="*{idUnidadeFk}">
+								<option value="">Selecione a Unidade</option>
+								<option class="form-select" th:each="d : ${idUnidadeFk}" th:value="${d.id}"th:text="${d.nomeFantasia}" selected >ADM</option>
+							</select>	
+							<p></p>	
+							
 							<input type="hidden" id="id" th:field="*{dtCancelamento}" />
 							<input type="hidden" id="id" th:field="*{id}" />
 								<p></p>					

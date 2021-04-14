@@ -92,7 +92,7 @@ public class CoordenacaoEscalaController {
 	
 	@ModelAttribute("idAtividadeFk")
 	public List<AtividadeEscala> getAtividadeEscala() {
-		return atividadeEscalaservice.buscarTodos();
+		return atividadeEscalaservice.buscarNaUnidade(unidadesService.buscarPorId(idUnidadeLogada));
 	}
 	
 	@ModelAttribute("idLocalidadeFk")

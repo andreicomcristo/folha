@@ -1,11 +1,14 @@
 package com.folha.boot.web.controller;
 
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -13,14 +16,23 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import com.folha.boot.domain.AtividadeEscala;
 import com.folha.boot.domain.LocalidadeEscala;
+import com.folha.boot.domain.Unidades;
 import com.folha.boot.service.AtividadeEscalaService;
+import com.folha.boot.service.UnidadesService;
 
 @Controller
 @RequestMapping("/atividadesescalas")
 public class AtividadeEscalaController {
 
+	Long idUnidadeLogada = 1l;
+	Long idOperadorLogado = 1l;
+	
+	String ultimaBuscaNome = "";
+	
 	@Autowired
 	private AtividadeEscalaService service;
+	@Autowired
+	private UnidadesService unidadesService;
 
 	@GetMapping("/cadastrar")
 	public String cadastrar(AtividadeEscala atividadeEscala) {		
@@ -29,7 +41,7 @@ public class AtividadeEscalaController {
 	
 	@GetMapping("/listar")
 	public String listar(ModelMap model) {
-		model.addAttribute("atividadeEscala", service.buscarTodos());
+		model.addAttribute("atividadeEscala", service.buscarNaUnidade(unidadesService.buscarPorId(idUnidadeLogada)));
 		return "/atividadeescala/lista"; 
 	}
 	
@@ -71,7 +83,14 @@ public class AtividadeEscalaController {
 	
 	@GetMapping("/buscar/nome/atividade/escala")
 	public String getPorNome(@RequestParam("nomeAtividade") String nomeAtividade, ModelMap model) {		
-		model.addAttribute("atividadeEscala", service.buscarPorNome(nomeAtividade.toUpperCase().trim()));
+		model.addAttribute("atividadeEscala", service.buscarNaUnidadePorNome( unidadesService.buscarPorId(idUnidadeLogada) ,nomeAtividade.toUpperCase().trim()));
 		return "/atividadeescala/lista";
 	}
+	
+	@ModelAttribute("idUnidadeFk")
+	public List<Unidades> getUfs() {
+		List<Unidades> lista = new ArrayList<Unidades>();
+		lista.add(unidadesService.buscarPorId(idUnidadeLogada));
+		return lista;
+	}	
 }
