@@ -68,6 +68,12 @@ public class LocalidadeEscalaService {
 	}
 	
 	@Transactional(readOnly = true)
+	public List<LocalidadeEscala> buscarPorUnidade(Unidades unidades) {
+		// TODO Auto-generated method stub
+		return reposytory.findByIdUnidadeFkAndDtCancelamentoIsNullOrderByIdUnidadeFkNomeFantasiaAscNomeLocalidadeAsc(unidades);
+	}
+	
+	@Transactional(readOnly = true)
 	public Page<LocalidadeEscala> findPaginated(Unidades unidades ,int pageNo, int pageSize) {
 		Pageable pageable = PageRequest.of(pageNo -1, pageSize);
 		return this.reposytory.findByIdUnidadeFkAndDtCancelamentoIsNullOrderByIdUnidadeFkNomeFantasiaAscNomeLocalidadeAsc(unidades,  pageable);

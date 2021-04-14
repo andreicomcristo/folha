@@ -24,16 +24,16 @@
 			<form
 				th:action="${unidades.id == null} ? @{/unidades/salvar} : @{/unidades/salvar}"
 				th:object="${unidades}" method="POST">
-				<div class="form-row">
+				<div class="form-row ">
 					<div class="form-group col-md-6">
 					
 						<label for="nome" class="">Nome Fantasia </label>
-						<input type="text"	class="form-control form-control-md" autofocus="autofocus"
+						<input type="text"	class=" form-control form-control-md" autofocus="autofocus"
 						       id="codigo" placeholder="Nome Fantasia" th:field="*{nomeFantasia}" />
 						<p></p>
 						
 						<label for="nome" class="">Nome Empresarial </label>
-						<input type="text"	class="form-control form-control-md" autofocus="autofocus"
+						<input type="text"	class=" form-control form-control-md" autofocus="autofocus"
 						       id="codigo" placeholder="Nome Empresarial" th:field="*{nomeEmpresarial}" />
 						<p></p>
 						

@@ -18,6 +18,7 @@ import com.folha.boot.domain.LocalidadeEscala;
 import com.folha.boot.service.AtividadeEscalaService;
 import com.folha.boot.service.CoordenacaoEscalaService;
 import com.folha.boot.service.LocalidadeEscalaService;
+import com.folha.boot.service.UnidadesService;
 
 @Controller
 @RequestMapping("/coordenacaoescalas")
@@ -29,6 +30,12 @@ public class CoordenacaoEscalaController {
 	private AtividadeEscalaService atividadeEscalaservice;
 	@Autowired
 	private LocalidadeEscalaService localidadeEscalaService;
+	@Autowired
+	private UnidadesService unidadesService;
+	
+	Long idUnidadeLogada = 1l;
+	Long idOperadorLogado = 1l;
+	
 	
 	@GetMapping("/cadastrar")
 	public String cadastrar(CoordenacaoEscala conselho) {
@@ -37,7 +44,7 @@ public class CoordenacaoEscalaController {
 	
 	@GetMapping("/listar")
 	public String listar(ModelMap model) {
-		model.addAttribute("coordenacaoEscala", service.buscarTodos());
+		model.addAttribute("coordenacaoEscala", service.buscarNaUnidade(unidadesService.buscarPorId(idUnidadeLogada)));
 		return "/coordenacaoescala/lista"; 
 	}
 	
@@ -90,6 +97,6 @@ public class CoordenacaoEscalaController {
 	
 	@ModelAttribute("idLocalidadeFk")
 	public List<LocalidadeEscala> getLocalidadeEscala() {
-		return localidadeEscalaService.buscarTodos();
+		return localidadeEscalaService.buscarPorUnidade(unidadesService.buscarPorId(idUnidadeLogada));
 	}
 }

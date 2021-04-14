@@ -17,6 +17,9 @@ public class CoordenacaoEscalaService {
 
 	@Autowired
 	private  CoordenacaoEscalaReposytory reposytory;
+	
+	@Autowired
+	private  AcessoOperadoresCoordenacaoService acessoOperadoresCoordenacaoService;
 
 	public void salvar(CoordenacaoEscala coordenacaoEscala) {
 		reposytory.save(coordenacaoEscala);
@@ -45,6 +48,12 @@ public class CoordenacaoEscalaService {
 	}
 
 	@Transactional(readOnly = true)
+	public List<CoordenacaoEscala> buscarNaUnidade(Unidades unidade) {
+		// TODO Auto-generated method stub
+		return reposytory.findByIdLocalidadeFkIdUnidadeFk(unidade);
+	}
+	
+	@Transactional(readOnly = true)
 	public List<CoordenacaoEscala> buscarAcessoIndividual(Unidades unidades, PessoaOperadores pessoaOperadores, List<AcessoOperadoresCoordenacao> listaDeCoordenacoes ) {
 		
 		List<CoordenacaoEscala> listaInicial = buscarTodos();
@@ -61,5 +70,29 @@ public class CoordenacaoEscalaService {
 		
 		return listaFinal;
 	}
+	
+	@Transactional(readOnly = true)
+	public List<CoordenacaoEscala> buscarAcessoIndividualQueNaoTem(Unidades unidades, PessoaOperadores pessoaOperadores ) {
+		
+		List<CoordenacaoEscala> listaInicial = reposytory.findByIdLocalidadeFkIdUnidadeFk(unidades);
+		
+		List<AcessoOperadoresCoordenacao> listaQueTemAcesso = acessoOperadoresCoordenacaoService.buscarPorOperadorEUnidade(pessoaOperadores, unidades);
+		
+		List<CoordenacaoEscala> listaFinal = new ArrayList<CoordenacaoEscala>();
+		
+		for(int i=0;i<listaInicial.size();i++) {
+			boolean entraNaLista = true;
+			for(int j=0;j<listaQueTemAcesso.size();j++) {
+				if(listaInicial.get(i)==listaQueTemAcesso.get(j).getIdCoordenacaoFk()) {entraNaLista = false;}
+			}
+		
+			if(entraNaLista==true) {listaFinal.add(listaInicial.get(i));}
+		
+		}
+		
+		return listaFinal;
+	}
+	
+	
 	
 }
