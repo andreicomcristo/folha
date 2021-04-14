@@ -87,6 +87,9 @@ public class Unidades extends AbstractEntity<Long> {
     @OneToMany(mappedBy = "idUnidadeFk")
     private List<Perfil> perfilList;
     
+    @OneToMany(mappedBy = "idUnidadeFk")
+    private List<AtividadeEscala> atividadeEscalaList;
+    
 	public List<CodigoDiferenciado> getCodigoDiferenciadoList() {
 		return codigoDiferenciadoList;
 	}
@@ -344,6 +347,14 @@ public class Unidades extends AbstractEntity<Long> {
 
 	public void setPerfilList(List<Perfil> perfilList) {
 		this.perfilList = perfilList;
+	}
+
+	public List<AtividadeEscala> getAtividadeEscalaList() {
+		return atividadeEscalaList;
+	}
+
+	public void setAtividadeEscalaList(List<AtividadeEscala> atividadeEscalaList) {
+		this.atividadeEscalaList = atividadeEscalaList;
 	}
 
 	

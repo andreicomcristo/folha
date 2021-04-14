@@ -5,6 +5,8 @@ import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
@@ -30,6 +32,10 @@ public class AtividadeEscala extends AbstractEntity<Long> {
 	
 	@OneToMany(mappedBy = "idAtividadeFk")
 	private List<CoordenacaoEscala> coordenacaoEscalaList;
+	
+	@JoinColumn(name = "id_unidade_fk", referencedColumnName = "id")
+    @ManyToOne
+    private Unidades idUnidadeFk;
 
 	public String getNomeAtividade() {
 		return nomeAtividade;
@@ -61,6 +67,14 @@ public class AtividadeEscala extends AbstractEntity<Long> {
 
 	public void setDtCancelamento(Date dtCancelamento) {
 		this.dtCancelamento = dtCancelamento;
+	}
+
+	public Unidades getIdUnidadeFk() {
+		return idUnidadeFk;
+	}
+
+	public void setIdUnidadeFk(Unidades idUnidadeFk) {
+		this.idUnidadeFk = idUnidadeFk;
 	}
 
 	
