@@ -3,10 +3,14 @@ package com.folha.boot.service;
 import java.util.ArrayList;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import com.folha.boot.Reposytory.CoordenacaoEscalaReposytory;
 import com.folha.boot.domain.AcessoOperadoresCoordenacao;
+import com.folha.boot.domain.AtividadeEscala;
 import com.folha.boot.domain.CoordenacaoEscala;
 import com.folha.boot.domain.PessoaOperadores;
 import com.folha.boot.domain.Unidades;
@@ -52,6 +56,22 @@ public class CoordenacaoEscalaService {
 		// TODO Auto-generated method stub
 		return reposytory.findByIdLocalidadeFkIdUnidadeFk(unidade);
 	}
+	
+	
+	@Transactional(readOnly = true)
+	public Page<CoordenacaoEscala> findPaginated(Unidades unidades ,int pageNo, int pageSize) {
+		Pageable pageable = PageRequest.of(pageNo -1, pageSize);
+		return this.reposytory.findByIdLocalidadeFkIdUnidadeFkAndDtCancelamentoIsNullOrderByNomeCoordenacaoAsc(unidades,  pageable);
+	}
+
+	@Transactional(readOnly = true)
+	public Page<CoordenacaoEscala> findPaginatedNome(Unidades unidades ,String nome, int pageNo, int pageSize ) {
+		Pageable pageable = PageRequest.of(pageNo -1, pageSize);
+		return this.reposytory.findByIdLocalidadeFkIdUnidadeFkAndNomeCoordenacaoContainingAndDtCancelamentoIsNullOrderByNomeCoordenacaoAsc( unidades, nome.toUpperCase().trim(), pageable);
+	}
+	
+	
+	
 	
 	@Transactional(readOnly = true)
 	public List<CoordenacaoEscala> buscarAcessoIndividual(Unidades unidades, PessoaOperadores pessoaOperadores, List<AcessoOperadoresCoordenacao> listaDeCoordenacoes ) {

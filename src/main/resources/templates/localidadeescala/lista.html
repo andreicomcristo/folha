@@ -63,6 +63,8 @@
 	            </div>
 	        </div>
 	    </div>
+	    	    	
+	    	    	
 	    	    	    
 	    <div class="container" id="listagem">	        
 	    	<div th:replace="fragments/alert"></div>
@@ -97,6 +99,9 @@
 	            </table>                 
 	         </div>
 		</div>
+		
+		
+		
 		 <nav aria-label="Page navigation example">
 		 <div> Quantidade de registros: [[${totalItems}]]<br>  Página: [[${currentePage}]] de [[${totalPages}]] </div> 
 		 <div>
@@ -128,7 +133,10 @@
 		 		
 		 		<li ><a class="btn btn-light    btn-paginacao    oi oi-media-step-forward"  th:if="${currentePage != i}"  th:href="@{'/localidadeescala/paginar/'+ ${totalPages} }" ></a></li> 
 		 	</ul>
-		</nav>     	        
+		</nav>    
+		
+		
+		 	        
 	    <div th:replace="fragments/modal :: modal"></div>   
 	</section>	
 </body>

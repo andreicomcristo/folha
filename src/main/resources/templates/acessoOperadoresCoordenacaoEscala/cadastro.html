@@ -9,6 +9,17 @@
 				<div class=" layout-content">
 					<a class="btn btn-outline-light oi oi-action-undo" type="button" href="javascript:history.back()"></a>
 					<a class="btn btn-outline-light oi oi-action-redo" type="button" href="javascript:history.forward()"></a>    	
+				
+					<a class="btn btn-outline-dark btn-md" href="/acessooperadorescoordenacao/listar/unidade"
+							role="button"> <span class="oi oi-list" title="Listar"
+							aria-hidden="true"></span> <span>Listar</span>
+					</a>
+					<a class="btn btn-outline-dark btn-md" href="/acessooperadorescoordenacao/cadastrar"
+							role="button"> <span class="oi oi-loop-square" title="Listar"
+							aria-hidden="true"></span> <span>Atualizar</span>
+					</a>
+				
+				
 				</div>
 			</form>
 		</nav>
@@ -32,7 +43,7 @@
 							<!-- 
 							<select id="cargos" class="form-select" th:field="*{idCoordenacaoFk}">
 								<option value="">Selecione a Escala</option>
-								<option th:each="d : ${idCoordenacaoFk}" th:value="${d.id}"th:text="${d.nomeCoordenacao+'-'+d.idLocalidadeFk.nomeLocalidade+'-'+d.idAtividadeFk.nomeAtividade}">ADM</option>
+								<option th:each="d : ${idCoordenacaoFk}" th:value="${d.id}"th:text="${d.nomeCoordenacao+' - '+d.idLocalidadeFk.nomeLocalidade+' - '+d.idAtividadeFk.nomeAtividade}">ADM</option>
 							</select>	
 							 -->
 							 
@@ -41,7 +52,7 @@
 					            <div style="overflow-y: auto;" class="panel-body">
 					                <div   class="form-group col-sm-12">
 					                    <select style="height: 200px;" id='questao' multiple='multiple' th:field="*{idCoordenacaoFk}" class="form-control multi-select">
-					                        <option th:each="item : ${idCoordenacaoFk}" th:value="${item.id}" th:text="${item.nomeCoordenacao+'-'+item.idLocalidadeFk.nomeLocalidade+'-'+item.idAtividadeFk.nomeAtividade}" ></option>
+					                        <option th:each="item : ${idCoordenacaoFk}" th:value="${item.id}" th:text="${item.nomeCoordenacao+' - '+item.idLocalidadeFk.nomeLocalidade+' - '+item.idAtividadeFk.nomeAtividade}" ></option>
 					                    </select>
 					                </div>
 					            </div>

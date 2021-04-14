@@ -95,6 +95,8 @@ public class LocalidadeEscalaController {
 	@GetMapping("/paginar/{pageNo}")
 	public String getPorNomePaginado(@PathVariable (value = "pageNo") int pageNo, ModelMap model) {
 		
+		if(pageNo<1) {pageNo=1;}
+		
 		if( (ultimaBuscaNome.equals("")) && (ultimaBuscaNome.equals("")) ){
 			return "redirect:/localidadeescala/listar/{pageNo}" ;}
 		else {		
