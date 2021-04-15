@@ -165,6 +165,7 @@ public class EscalaAlteracoesService {
 		escalaAlteracoes.setIdTipoFolhaFk(escala.getIdTipoFolhaFk());
 		escalaAlteracoes.setIdTurmaFk(escala.getIdTurmaFk());
 		escalaAlteracoes.setPlantoes(escala.getPlantoes());
+		escalaAlteracoes.setObservacoes(escala.getObservacoes());
 		
 		Date data = new Date();
 		

@@ -161,6 +161,7 @@ public class EscalaPosTransparenciaService {
 		escalaPosTransparencia.setIdTipoFolhaFk(escala.getIdTipoFolhaFk());
 		escalaPosTransparencia.setIdTurmaFk(escala.getIdTurmaFk());
 		escalaPosTransparencia.setPlantoes(escala.getPlantoes());
+		escalaPosTransparencia.setObservacoes(escala.getObservacoes());
 	
 		escalaPosTransparencia.setId(null);
 		

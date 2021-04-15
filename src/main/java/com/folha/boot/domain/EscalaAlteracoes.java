@@ -12,6 +12,8 @@ import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
+import com.folha.boot.service.util.UtilidadesDeTexto;
+
 @SuppressWarnings("serial")
 @Entity
 @Table(name = "escala_alteracoes")
@@ -186,6 +188,11 @@ public class EscalaAlteracoes extends AbstractEntity<Long> {
     @JoinColumn(name = "id_turma_fk", referencedColumnName = "id")
     @ManyToOne
     private Turmas idTurmaFk;
+    @Column(name = "observacoes")
+    private String observacoes;
+    
+    
+    
 	public Integer getHorasTotais() {
 		return horasTotais;
 	}
@@ -533,6 +540,12 @@ public class EscalaAlteracoes extends AbstractEntity<Long> {
 	}
 	public void setIdTurmaFk(Turmas idTurmaFk) {
 		this.idTurmaFk = idTurmaFk;
+	}
+	public String getObservacoes() {
+		return observacoes;
+	}
+	public void setObservacoes(String observacoes) {
+		this.observacoes = UtilidadesDeTexto.retiraEspacosDuplosAcentosEConverteEmMaiusculo(observacoes);
 	}
 
     

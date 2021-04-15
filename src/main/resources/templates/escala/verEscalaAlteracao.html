@@ -443,7 +443,16 @@
 									<option th:each="d : ${idLiberacaoDobraInvertidaSimNaoFk}" th:value="${d.id}"th:text="${d.descricao}">CH Dif</option>
 								</select>
 							</th>
+							
 							<p></p>
+							<label for="nome" class="">Observações</label>
+							<input disabled="disabled" type="text"
+								class="form-control form-control-md uppercase" autofocus="autofocus"
+								id="observacoes" placeholder="" th:field="*{observacoes}" />						
+							<p></p>
+							
+							
+							
 							
 							<table class="table table-striped table-hover table-sm myTable">
 			            	<thead>

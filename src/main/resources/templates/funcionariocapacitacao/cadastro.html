@@ -29,60 +29,59 @@
 					<div class="form-group col-md-6">
 						<label for="nome" class="fonte-tutulos-tamanho">Cadastar Capacitações</label>
 							
+							<label for="nome" class="">Descrição da Capacitação</label>
 							<input type="text"
 								class="form-control form-control-md uppercase" autofocus="autofocus"
 								id="descricao" placeholder="Descricao" th:field="*{descricao}" />						
 							<p></p>
 							
+							<label for="nome" class="">Instituição</label>
 							<input type="text"
 								class="form-control form-control-md uppercase" autofocus="autofocus"
 								id="instituicao" placeholder="Instituicao" th:field="*{instituicao}" />						
 							<p></p>
 							
+							<label for="nome" class="">Carga Horária</label>
 							<input type="number"
 								class="form-control form-control-md uppercase" autofocus="autofocus"
 								id="cargaHoraria" placeholder="Carga Horaria" th:field="*{cargaHoraria}" />						
 							<p></p>
 							
+							<label for="nome" class="">Data Inicial</label>
 							<input type="text"
 								class="form-control form-control-md uppercase" autofocus="autofocus" data-mask="00/00/0000"
 								id="dtInicial" placeholder="Data Inicial" th:field="*{dtInicial}" />						
 							<p></p>
 							
+							<label for="nome" class="">Data Final</label>
 							<input type="text"
 								class="form-control form-control-md uppercase" autofocus="autofocus" data-mask="00/00/0000"
 								id="dtFinal" placeholder="Data Final" th:field="*{dtFinal}" />						
 							<p></p>
 							
-							<input type="text"
-								class="form-control form-control-md uppercase" autofocus="autofocus"
-								id="observacoes" placeholder="Observacoes" th:field="*{observacoes}" />						
-							<p></p>
 							
-							
-							<div class="panel panel-default">
-					            <div class="panel-heading">Selecione o tipo de Capacitação</div>
-					            <div style="overflow-y: auto;" class="panel-body">
-					                <div   class="form-group col-sm-12">
-					                    <select style="height: 150px;" id='questao' multiple='multiple' th:field="*{idTiposCapacitacaoFk}" class="form-control multi-select">
-					                        <option th:each="d : ${idTiposCapacitacaoFk}" th:value="${d.id}" th:text="${d.tipoCapacitacao}" ></option>
-					                    </select>
-					                </div>
-					            </div>
-					        </div>
-					        
+							<label for="nome" class="">Selecione o Tipo de Capacitação</label>
+							<select id="UnidadesRegime" class="form-select" th:field="*{idTiposCapacitacaoFk}">
+								<option value=""></option>
+								<option class="form-select" th:each="d : ${idTiposCapacitacaoFk}" th:value="${d.id}"th:text="${d.tipoCapacitacao}"  selected >ADM</option>
+							</select>	
 					        <p></p>
 					        
-					        <div class="panel panel-default">
-					            <div class="panel-heading">Selecione Área De Capacitação</div>
-					            <div style="overflow-y: auto;" class="panel-body">
-					                <div   class="form-group col-sm-12">
-					                    <select style="height: 150px;" id='questao' multiple='multiple' th:field="*{idAreaDeCapacitacaoFk}" class="form-control multi-select">
-					                        <option th:each="d : ${idAreaDeCapacitacaoFk}" th:value="${d.id}" th:text="${d.areaDeCapacitacao}" ></option>
-					                    </select>
-					                </div>
-					            </div>
-					        </div>
+					        <label for="nome" class="">Selecione Área De Capacitação</label>
+					        
+							<select id="UnidadesRegime" class="form-select" th:field="*{idAreaDeCapacitacaoFk}">
+								<option value=""></option>
+								<option class="form-select" th:each="d : ${idAreaDeCapacitacaoFk}" th:value="${d.id}"th:text="${d.areaDeCapacitacao}"  selected >ADM</option>
+							</select>	
+					        <p></p>
+					        
+					        <label for="nome" class="">Observações</label>
+					        <input type="text"
+								class="form-control form-control-md uppercase" autofocus="autofocus"
+								id="observacoes" placeholder="Observações" th:field="*{observacoes}" />						
+							<p></p>
+					        
+					        
 							<p></p>
 							
 							

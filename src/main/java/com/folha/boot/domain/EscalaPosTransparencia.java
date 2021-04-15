@@ -12,6 +12,8 @@ import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
+import com.folha.boot.service.util.UtilidadesDeTexto;
+
 @SuppressWarnings("serial")
 @Entity
 @Table(name = "escala_pos_transparencia")
@@ -180,6 +182,9 @@ public class EscalaPosTransparencia extends AbstractEntity<Long> {
     @JoinColumn(name = "dia04_fk", referencedColumnName = "id")
     @ManyToOne
     private Turnos dia04Fk;
+    @Column(name = "observacoes")
+    private String observacoes; 
+    
 	public Integer getHorasTotais() {
 		return horasTotais;
 	}
@@ -515,6 +520,12 @@ public class EscalaPosTransparencia extends AbstractEntity<Long> {
 	}
 	public void setDia04Fk(Turnos dia04Fk) {
 		this.dia04Fk = dia04Fk;
+	}
+	public String getObservacoes() {
+		return observacoes;
+	}
+	public void setObservacoes(String observacoes) {
+		this.observacoes = UtilidadesDeTexto.retiraEspacosDuplosAcentosEConverteEmMaiusculo(observacoes);
 	}
     
     
