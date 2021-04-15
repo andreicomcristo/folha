@@ -26,9 +26,9 @@
 	      	<div class="col">
 	        	<div class="collapse" id="collapseNome">
 		            <nav class="navbar navbar-light bg-light">
-	    	           <form class="form-inline" method="GET" th:action="@{/funcionarioscapacitacoes/buscar/descricao}">
-	        	           <input class="form-control mr-sm-2" type="search" placeholder="Ano Mês IR" aria-label="Search"
-	                              th:name="descricao" />
+	    	           <form class="form-inline" method="GET" th:action="@{/funcionarioscapacitacoes/buscar/nome}">
+	        	           <input class="form-control mr-sm-2" type="search" placeholder="Nome" aria-label="Search"
+	                              th:name="nome" />
 	                       <button class="btn btn-outline-success my-2 my-sm-0">Buscar</button>
 	                   </form>
 	                </nav>
@@ -40,50 +40,46 @@
 	    	<div th:replace="fragments/alert"></div>
 	    	
 	        <div style="height: 500px; overflow-y: auto;" class="table-responsive">
-	        	<table class="table table-striped table-hover table-sm myTable">
+	        	<table style="width: 1200px;" class="table table-striped table-hover table-sm myTable">
 	            	<thead>
 	          			<tr>
-		                	<th>#</th>
-		                    <th>Descrição </th>
-		                    <th>Intituição</th>
-		                    <th>Carga Horária</th>
-		                    <th>Data Inicial</th>
-		                    <th>Data Final</th>
-		                    <th>Observações</th>
-		                    <th>Data de cadastro</th>
-		                    <th>Data de cancelamento</th>
-		                    <th>Motivo do Cancelamento</th>
-		                    <th>Área de Capacitação</th>
-		                    <th>Funcionário</th>
-		                    <!--  <th>Operador Cadastro</th>
-		                    <th>Operador Cancelamento</th>-->
-		                    <th>Tipo de Capacitação</th>
-		                    <th>Ações</th>
+		                	<th style="font-size:10px;" >#</th>
+		                	<th style="font-size:10px;" >Nome </th>
+		                	<th style="font-size:10px;" >Cpf </th>
+		                    <th style="font-size:10px;" >Tipo </th>
+		                    <th style="font-size:10px;" >Área</th>
+		                    <th style="font-size:10px;" >Descrição</th>
+		                    <th style="font-size:10px;" >Instituição</th>
+		                    <th style="font-size:10px;" >Ch</th>
+		                    <th style="font-size:10px;" >Dt Inicial</th>
+		                    <th style="font-size:10px;" >Dt Final</th>
+		                    <th style="font-size:10px;" >Obs</th>
+		                    <th style="font-size:10px;" >Data</th>
+		                    <th style="font-size:10px;" >Ações</th>
 	                    </tr>
 	                </thead>                  
 	                <tbody>
 		            	<tr th:each="d : ${funcionariosCapacitacoes}">
-		                	<td th:text="${d.id}"></td>		                    
-		                    <td th:text="${d.descricao}"></td>
-		                    <td th:text="${d.instituicao}"></td>
-		                    <td th:text="${d.cargaHoraria}"></td>
-		                    <td th:text="${d.dtInicial}"></td>
-		                    <td th:text="${d.dtFinal}"></td>
-		                    <td th:text="${d.observacoes}"></td>
-		                    <td th:text="${d.dtCadastro}"></td>
-		                    <td th:text="${d.dtCancelamento}"></td>
-		                    <td th:text="${d.motivoCancelamento}"></td>
-		                    <td th:text="${d.idAreaDeCapacitacaoFk.areaDeCapacitacao}"></td>
-		                    <td th:text="${d.idFuncionarioFk.matricula}"></td>
-		                    <!--  <td th:text="${d.idOperadorCadastroFk.username}"></td>
-		                    <td th:text="${d.idOperadorCadastroFk.username}"></td>-->
-		                    <td th:text="${d.idTiposCapacitacaoFk.tipoCapacitacao}"></td>
+		                	<td style="font-size:10px;"  th:text="${d.id}"></td>		                  
+		                	<td style="font-size:10px;"  th:text="${d.idFuncionarioFk.idPessoaFk} ? ${d.idFuncionarioFk.idPessoaFk.nome} : ''  "></td>
+		                    <td style="font-size:10px;"  th:text="${d.idFuncionarioFk.idPessoaFk} ? ${d.idFuncionarioFk.idPessoaFk.cpf} : ''  "></td>
+		                	<td style="font-size:10px;"  th:text="${d.idTiposCapacitacaoFk} ? ${d.idTiposCapacitacaoFk.tipoCapacitacao} : ''  "></td>
+		                    <td style="font-size:10px;"  th:text="${d.idAreaDeCapacitacaoFk} ? ${d.idAreaDeCapacitacaoFk.areaDeCapacitacao} : ''  "></td>
+		                    <td style="font-size:10px;"  th:text="${d.descricao} ? ${d.descricao} : ''  "></td>
+		                    <td style="font-size:10px;"  th:text="${d.instituicao} ? ${d.instituicao} : ''  "></td>
+		                    <td style="font-size:10px;"  th:text="${d.cargaHoraria} ? ${d.cargaHoraria} : ''  "></td>
+		                    <td style="font-size:10px;"  th:text="${d.dtInicial} ? ${#dates.format(d.dtInicial, 'dd/MM/yyyy')} : ''  "></td>
+		                    <td style="font-size:10px;"  th:text="${d.dtFinal} ? ${#dates.format(d.dtFinal, 'dd/MM/yyyy')} : ''  "></td>
+		                    <td style="font-size:10px;"  th:text="${d.observacoes} ? ${d.observacoes} : ''  "></td>
+		                    
+		                    <td style="font-size:10px;"  th:text="${d.dtCancelamento != null} ? ${'CANCELAMENTO em '+#dates.format(d.dtCancelamento, 'dd/MM/yyyy') + ' por '+d.idOperadorCancelamentoFk.idPessoaFk.nome } : ${'Lançado em '+#dates.format(d.dtCadastro, 'dd/MM/yyyy') + ' por '+d.idOperadorCadastroFk.idPessoaFk.nome }   "></td>
+		                    
 		                     		         		                    
 		                    <td colspan="2">
 		                    	<a class="btn btn-outline-info btn-sm" th:href="@{/funcionarioscapacitacoes/editar/{id} (id=${d.id}) }" role="button">
 		                        	<span class="oi oi-brush" title="Editar" aria-hidden="true"></span>
 		                        </a>
-		                        <button th:id="${ 'btn_funcionarioscapacitacoes/excluir/' + d.id}" type="button" class="btn btn btn-outline-danger btn-sm" 
+		                        <button th:id="${ 'btn_funcionarioscapacitacoes/cancelar/' + d.id}" type="button" class="btn btn btn-outline-danger btn-sm" 
 		                            		data-toggle="modal" data-target="#myModal">
 		                                <span class="oi oi-circle-x" title="Exclusão habilitada" aria-hidden="true"></span>
 		                        </button>
@@ -92,7 +88,47 @@
 					</tbody>                    
 	            </table>
 	         </div>
-		</div>	        
+		</div>	
+		
+		
+				
+		 <nav aria-label="Page navigation example">
+			 <div> Quantidade de registros: [[${totalItems}]]<br>  Página: [[${currentePage}]] de [[${totalPages}]] </div> 
+			 <div>
+			 	<span >
+			 		<a></a>
+			 		<samp >[[${i}]]</samp> &nbsp; &nbsp;
+			 	</span>
+			 </div>
+			 	<ul class="pagination justify-content-center" >
+			 		<li class="page-item disabled" ></li>		 		
+		
+				 	<li ><a class="btn btn-light btn-paginacao oi oi-media-step-backward" th:if="${currentePage != i}"  th:href="@{'/funcionarioscapacitacoes/paginar/'+ 1 }" ></a></li>
+				 	
+				 	<li ><a class="btn btn-light    btn-paginacao    oi oi-media-skip-backward" th:if="${currentePage > 1}"  th:href="@{'/funcionarioscapacitacoes/paginar/'+ ${currentePage -1}}" ></a></li> 
+				 	
+				 	<li ><a class="btn btn-light    btn-paginacao oi" th:if="${currentePage > 1000}"  th:href="@{'/funcionarioscapacitacoes/paginar/'+ ${currentePage-1000} }" >-1000</a></li>
+				 	
+				 	<li ><a class="btn btn-light    btn-paginacao" th:if="${currentePage > 100}"  th:href="@{'/funcionarioscapacitacoes/paginar/'+ ${currentePage-100} }" >-100</a></li>
+				 	
+				 	<li ><a class="btn btn-light    btn-paginacao" th:if="${currentePage > 10}"  th:href="@{'/funcionarioscapacitacoes/paginar/'+ ${currentePage-10} }" >-10</a></li>
+	
+				 	<li ><a class="btn btn-light    btn-paginacao"  th:if="${currentePage < totalPages - 10}"  th:href="@{'/funcionarioscapacitacoes/paginar/'+ ${currentePage+10} }" >+10</a></li>
+				 	
+				 	<li ><a class="btn btn-light    btn-paginacao"  th:if="${currentePage < totalPages - 100}"  th:href="@{'/funcionarioscapacitacoes/paginar/'+ ${currentePage+100} }" >+100</a></li>
+				 	
+				 	<li ><a class="btn btn-light    btn-paginacao"  th:if="${currentePage < totalPages - 1000}"  th:href="@{'/funcionarioscapacitacoes/paginar/'+ ${currentePage+1000} }" >+1000</a></li>
+				 	
+				 	<li ><a class="btn btn-light    btn-paginacao    oi oi-media-skip-forward" th:if="${currentePage < totalPages}"  th:href="@{'/funcionarioscapacitacoes/paginar/' + ${currentePage +1}}"></a> </li>
+			 		
+			 		<li ><a class="btn btn-light    btn-paginacao    oi oi-media-step-forward"  th:if="${currentePage != i}"  th:href="@{'/funcionarioscapacitacoes/paginar/'+ ${totalPages} }" ></a></li> 
+			 	</ul>
+			</nav>    
+		
+		
+		
+		
+		        
 	        <div th:replace="fragments/modal :: modal"></div>   
 	</section>	
 </body>

@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html layout:decorate="~{layout}">
+<head><meta charset="UTF-8"/></head>
+<body>
+	<section class="layout-content" layout:fragment="corpo">
+
+		<nav class="navbar navbar-expand-md bg-light">
+			<form action="/documentos/listar">
+				<div class=" layout-content">
+					<a class="btn btn-outline-light oi oi-action-undo" type="button" href="javascript:history.back()"></a>
+					<a class="btn btn-outline-light oi oi-action-redo" type="button" href="javascript:history.forward()"></a>    	
+				
+					<a class="btn btn-outline-dark btn-md" href="/acessooperadorescoordenacao/listar/unidade"
+							role="button"> <span class="oi oi-list" title="Listar"
+							aria-hidden="true"></span> <span>Listar</span>
+					</a>
+					<a class="btn btn-outline-dark btn-md" href="/acessooperadorescoordenacao/cadastrar"
+							role="button"> <span class="oi oi-loop-square" title="Listar"
+							aria-hidden="true"></span> <span>Atualizar</span>
+					</a>
+				
+				
+				</div>
+			</form>
+		</nav>
+
+		<div class="container" id="cadastro">
+
+			<div th:replace="fragments/alert"></div>
+			<form
+				th:action="${acessoOperadoresCoordenacao.id == null} ? @{/acessooperadorescoordenacao/salvar} : @{/acessooperadorescoordenacao/salvar}"
+				th:object="${acessoOperadoresCoordenacao}" method="POST">
+				<div class="form-row">
+
+					<div class="form-group col-md-6">
+						<label for="nome" class="fonte-tutulos-tamanho">Cadastro de Acesso às Escalas</label>
+							
+							<label style="text-align: center; color:#008080;" th:text="${unidade.nomeFantasia}" class="text" >Mes </label>
+							<p></p>
+							<label style="text-align: center; color:#008080;" th:text="${operador.idPessoaFk.nome}" class="text" >Mes </label>
+							<p></p>
+							
+							<!-- 
+							<select id="cargos" class="form-select" th:field="*{idCoordenacaoFk}">
+								<option value="">Selecione a Escala</option>
+								<option th:each="d : ${idCoordenacaoFk}" th:value="${d.id}"th:text="${d.nomeCoordenacao+' - '+d.idLocalidadeFk.nomeLocalidade+' - '+d.idAtividadeFk.nomeAtividade}">ADM</option>
+							</select>	
+							 -->
+							 
+							<div class="panel panel-default">
+					            <div class="panel-heading">Selecione a Escala</div>
+					            <div style="overflow-y: auto;" class="panel-body">
+					                <div   class="form-group col-sm-12">
+					                    <select style="height: 200px;" id='questao' multiple='multiple' th:field="*{idCoordenacaoFk}" class="form-control multi-select">
+					                        <option th:each="item : ${idCoordenacaoFk}" th:value="${item.id}" th:text="${item.nomeCoordenacao+' - '+item.idLocalidadeFk.nomeLocalidade+' - '+item.idAtividadeFk.nomeAtividade}" ></option>
+					                    </select>
+					                </div>
+					            </div>
+					        </div>
+							
+							<input type="hidden" id="id" th:field="*{id}" />
+							
+								<p></p>					
+						
+						
+						<button class="oi oi-plus btn btn-outline-dark  btn-md">Inserir</button>
+						
+						<button class=" oi oi-magnifying-glass btn btn-outline-secondary my-2 my-sm-0" type="button" data-toggle="collapse" data-target="#collapseOpcoes"
+			            		aria-controls="collapseOpcoes">Opções
+			            </button>
+						
+						<p></p>
+						<p></p>
+						<div class="row">
+					      	<div class="col">
+					        	<div class="collapse" id="collapseOpcoes">
+						            <nav class="navbar navbar-light bg-light">
+					    	           
+					    	           <a class="btn btn-outline-warning btn-md" th:href="@{/acessooperadorescoordenacao/inserir/todos}" role="button">
+								        	<span class="oi oi-list" title="Cadastro" aria-hidden="true"></span>
+								            <span>Inserir Todos</span>
+								        </a>
+								        
+								        <a class="btn btn-outline-danger btn-md" th:href="@{/acessooperadorescoordenacao/tirar/todos}" role="button">
+								        	<span class="oi oi-project" title="Cadastro" aria-hidden="true"></span>
+								            <span>Retirar Todos</span>
+								        </a>
+									</nav>
+					            </div>
+					    	</div>
+					    </div>
+						
+							
+						
+						
+					</div>
+				</div>
+			</form>
+		</div>
+		
+		
+		
+		<div class="container" id="listagem">	        
+	    	
+	    	
+	        <div style="height: 500px; overflow-y: auto;" class="table-responsive">
+	        	<table style="width: 1000px;" class="table table-striped table-hover table-sm myTable">
+	            	<thead>
+	          			<tr>
+		                	<th>#</th>
+		                    <th>Escala</th>
+		                    <th>Ações</th>
+	                    </tr>
+	                </thead>                  
+	                <tbody>
+		            	<tr th:each="d : ${acessoOperadoresCoordenacaoLista}">
+		                	<td th:text="${d.id}"></td>
+		                    <td th:text="${d.idCoordenacaoFk != null} ? ${d.idCoordenacaoFk.nomeCoordenacao+'-'+d.idCoordenacaoFk.idLocalidadeFk.nomeLocalidade+'-'+d.idCoordenacaoFk.idAtividadeFk.nomeAtividade} : '' "></td>
+		                    
+		                    <td colspan="2">
+		                    	<!-- 
+		                    	<a class="btn btn-outline-info btn-sm" th:href="@{/pessoabancos/editar/{id} (id=${d.id}) }" role="button">
+		                        	<span class="oi oi-brush" title="Editar" aria-hidden="true"></span>
+		                        </a>
+		                         -->
+		                         
+		                        <button th:id="${ 'btn_acessooperadorescoordenacao/excluir/' + d.id}" type="button" class="btn btn btn-outline-danger btn-sm" 
+		                            		data-toggle="modal" data-target="#myModal">
+		                                <span class="oi oi-circle-x" title="Exclusão habilitada" aria-hidden="true"></span>
+		                        </button>
+		                   	</td>
+						</tr>
+					</tbody>                    
+	            </table>
+	         </div>
+		</div>	        
+		
+		
+		
+		
+		
+		
+		<div th:replace="fragments/modal :: modal"></div>
+	</section>
+</body>
+</html>

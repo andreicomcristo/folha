@@ -7,6 +7,7 @@ import org.springframework.transaction.annotation.Transactional;
 import com.folha.boot.Reposytory.AcessoOperadoresCoordenacaoReposytory;
 import com.folha.boot.domain. AcessoOperadoresCoordenacao;
 import com.folha.boot.domain.PessoaOperadores;
+import com.folha.boot.domain.Unidades;
 
 @Service
 @Transactional(readOnly = false)
@@ -46,5 +47,14 @@ public class AcessoOperadoresCoordenacaoService {
 		// TODO Auto-generated method stub
 		return reposytory.findByIdOperadorFk(pessoaOperadores);
 	}
+	
+	@Transactional(readOnly = true)
+	public List< AcessoOperadoresCoordenacao> buscarPorOperadorEUnidade(PessoaOperadores pessoaOperadores, Unidades unidades) {
+		// TODO Auto-generated method stub
+		return reposytory.findByIdOperadorFkAndIdCoordenacaoFkIdLocalidadeFkIdUnidadeFk(pessoaOperadores, unidades);
+	}
+	
+	
+	
 	
 }

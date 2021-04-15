@@ -45,7 +45,7 @@ public class UnidadesRegimeService {
 	
 	public List<UnidadesRegime> buscarTodos() {
 		// TODO Auto-generated method stub
-		return reposytory.findAll();
+		return reposytory.findAllByOrderByNomeRegimeUnidLotacaoAsc();
 	}
 
 	

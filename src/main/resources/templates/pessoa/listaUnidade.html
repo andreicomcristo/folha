@@ -1,0 +1,224 @@
+<!DOCTYPE html>
+<html layout:decorate = "~{layout}">
+<head><meta charset="UTF-8"/></head>
+<body>	
+	<section class="layout-content" layout:fragment="corpo">		
+		<nav class="navbar navbar-expand-md bg-light">    
+	    	<a class="btn btn-outline-light oi oi-action-undo" type="button" href="javascript:history.back()"></a>
+			<a class="btn btn-outline-light oi oi-action-redo" type="button" href="javascript:history.forward()"></a>    
+	    	
+	    	<a class="btn btn-outline-dark btn-md" href="/pessoas/cadastrar/inicio" role="button">
+	        	<span class="oi oi-plus" title="Cadastro" aria-hidden="true"></span>
+	            <span>Novo</span>
+	        </a>
+	        <a class="btn btn-outline-dark btn-md" href="/pessoas/listar/unidade" role="button">
+	        	<span class="oi oi-loop-square" title="Atualizar" aria-hidden="true"></span>
+	            <span>Atualizar</span>
+	        </a>
+	            <label for="nome" class= "fonte-tutulos-tamanho">Lista de Pessoas - Unidade</label>
+	    </nav>
+	  	
+	  	<div class="container">
+	    	<p>                
+	        	<button class=" oi oi-magnifying-glass btn btn-outline-success my-2 my-sm-0" type="button" data-toggle="collapse" data-target="#collapseCidade"
+	            		aria-controls="collapseCidade">Filtrar Nome
+	            </button> 
+	            
+	            <button class=" oi oi-magnifying-glass btn btn-outline-success my-2 my-sm-0" type="button" data-toggle="collapse" data-target="#collapseCpf"
+	            		aria-controls="collapseCpf">Filtrar Cpf
+	            </button> 
+	            
+	            <button class=" oi oi-cloud-download btn btn-outline-secondary my-2 my-sm-0" type="button" data-toggle="collapse" data-target="#collapseDownload"
+	            		aria-controls="collapseDownload">Download
+	            </button>
+            
+	            <p></p>
+	      
+	      <div class="row">
+	      	<div class="col">
+	        	<div class="collapse" id="collapseCidade">
+		            <nav class="navbar navbar-light bg-light">
+	    	           <form class="form-inline" method="GET" th:action="@{/pessoas/buscar/nome/unidade/paginado}">	        	           
+	        	           <input class="form-control mr-sm-2" type="search" placeholder="Nome" aria-label="Search"
+	                              th:name="nome"/> 
+	                       <button class="btn btn-outline-success my-2 my-sm-0">Buscar</button> 
+	                   </form>  
+	                </nav>
+	            </div>
+	        </div>
+	    </div>
+	        
+	    
+	      <div class="row">
+	      	<div class="col">
+	        	<div class="collapse" id="collapseCpf">
+		            <nav class="navbar navbar-light bg-light">
+	    	           <form class="form-inline" method="GET" th:action="@{/pessoas/buscar/cpf/unidade/paginado}">	        	           
+	        	           <input class="form-control mr-sm-2" type="search" placeholder="Cpf" aria-label="Search"
+	                              th:name="cpf"/> 
+	                       <button class="btn btn-outline-success my-2 my-sm-0">Buscar</button> 
+	                   </form>  
+	                </nav>
+	            </div>
+	        </div>
+	    </div>    
+	    
+	    
+	    <div class="row">
+	      	<div class="col">
+	        	<div class="collapse" id="collapseDownload">
+		            <nav class="navbar navbar-light bg-light">
+	                	<form class="form-inline" method="GET" th:action="@{/cidades/buscar/id/uf}">
+	                   		
+	                        <a class="btn btn-outline-success btn-md" href="/pessoas/exporta/excel" role="button">
+				        		<span class="oi oi-cloud-download" title="exportaExcel" aria-hidden="true"></span>
+				            	<span>Exporta Excel</span>
+				       	    </a>
+				       	    
+				       	    <a class="btn btn-outline-danger btn-md" href="/pessoas/exporta/pdf" role="button">
+				        		<span class="oi oi-cloud-download" title="exportaPdf" aria-hidden="true"></span>
+				            	<span>Exporta Pdf</span>
+				       	    </a>
+	       	    
+	                  </form>
+	                </nav>
+	            </div>
+	        </div>
+	    </div>
+	    	    
+		    <div class="container" id="listagem">	        
+		    	<div th:replace="fragments/alert"></div>
+		        <div style=" left:0px; height: 470px;  overflow-y: auto;" class="table-responsive">
+		        	<table style="width:1310px;" class="table table-striped table-hover table-sm">
+		            	<thead>
+		          			<tr>
+			                	<th>#</th>
+			                    <th>Cpf</th>
+			                    <th>Nome</th>
+			                    <th>Edição</th>
+			                    
+		                    </tr>
+		                </thead>                  
+		                <tbody>
+			            	<tr th:each="d : ${pessoa}">
+			                	<td th:text="${d.idPessoaFk.id}"></td>
+			                    <td th:text="${d.idPessoaFk.cpf}"></td>
+			                    
+			                    <td> 
+			                    	<a style="width:150px;  text-align:center; " class="link" th:text="${d.idPessoaFk.nome}" th:href="@{/pessoas/retroceder/editar/unidade/{id} (id=${d.idPessoaFk.id}) }" role="button">
+						            	<span class="" title="Editar Escala" aria-hidden="true">Ver Alterações</span>
+						            </a>
+			                    </td>
+			                    
+			                    
+			                <td>
+				                <div class="btn-group">
+				                    <button style="width:50px; height:25px; text-align:roght; font-size:09px; " type="button" class="btn btn-outline-success btn-sm dropdown-toggle" data-toggle="dropdown" title="Ações">
+				                        <span class="glyphicon glyphicon-th-list"></span>
+				                    </button>
+				                    
+					                     <ul class="dropdown-menu dropdown-menu-right" role="menu">
+				                    
+					                    
+						                     
+						                      <li>
+						                        	<a style="width:155px; height:25px; text-align:center; font-size:10px; " class="btn btn-outline-success btn-sm" th:href="@{/pessoas/editar/{id} (id=${d.idPessoaFk.id}) }" role="button">
+							                        	<span class="" title="Editar" aria-hidden="true">Documentos</span>
+							                        </a>
+							                        
+						                      </li>
+						                     
+						                      <li>
+						                        	<a style="width:155px; height:25px; text-align:center; font-size:10px; " class="btn btn-outline-success btn-sm" th:href="@{/ctpsdocs/cadastrar/{id} (id=${d.idPessoaFk.id}) }" role="button">
+							                        	<span class="" title="Editar" aria-hidden="true">Documentos Específicos</span>
+							                        </a>
+							                        
+						                      </li>
+						                      
+						                      <li>
+						                        	<a style="width:155px; height:25px; text-align:center; font-size:10px; " class="btn btn-outline-success btn-sm" th:href="@{/enderecos/cadastrar/{id} (id=${d.idPessoaFk.id}) }" role="button">
+							                        	<span class="" title="Editar" aria-hidden="true">Endereço</span>
+							                        </a>
+							                        
+						                      </li>
+						                     
+						                      <li>
+						                        	<a style="width:155px; height:25px; text-align:center; font-size:10px; " class="btn btn-outline-success btn-sm" th:href="@{/filhos/cadastrar/{id} (id=${d.idPessoaFk.id}) }" role="button">
+							                        	<span class="" title="Editar" aria-hidden="true">Filhos</span>
+							                        </a>
+							                        
+						                      </li>
+						                      
+						                      <li>
+						                        	<a style="width:155px; height:25px; text-align:center; font-size:10px; " class="btn btn-outline-success btn-sm" th:href="@{/pessoabancos/cadastrar/{id} (id=${d.id}) }" role="button">
+							                        	<span class="" title="Editar" aria-hidden="true">Dados Banários</span>
+							                        </a>
+							                        
+						                      </li>
+						                     
+						                      <li>
+						                        	<a style="width:155px; height:25px; text-align:center; font-size:10px; " class="btn btn-outline-success btn-sm" th:href="@{/funcionarios/cadastrar/{id} (id=${d.idPessoaFk.id}) }" role="button">
+							                        	<span class="" title="Editar" aria-hidden="true">Funcionais</span>
+							                        </a>
+							                        
+						                      </li>
+						                     
+						                      <li>
+						                      <p></p>
+						                      	   <button style="width:155px; height:25px; text-align:center; font-size:10px; " th:id="${ 'btn_pessoas/cancelar/' + d.idPessoaFk.id}" type="button" class="btn btn btn-danger btn-sm" 
+						                            		data-toggle="modal" data-target="#myModal">
+						                                <span class="" title="Cancelar" aria-hidden="true">Cancelar</span>
+						                           </button>
+							                  </li>
+						                     
+						                     
+						                     
+						                     
+					                     
+					                	</ul>
+				            	</div>
+				        	</td>
+				                
+			                     
+							</tr>
+						</tbody>                    
+		            </table>
+		         </div>
+			</div>	        
+			 
+		 <nav aria-label="Page navigation example">
+		 <div> Quantidade de registros: [[${totalItems}]]<br>  Página: [[${currentePage}]] de [[${totalPages}]] </div> 
+		 <div>
+		 	<span >
+		 		<a></a>
+		 		<samp >[[${i}]]</samp> &nbsp; &nbsp;
+		 	</span>
+		 </div>
+		 	<ul class="pagination justify-content-center" >
+		 		<li class="page-item disabled" ></li>		 		
+	
+			 	<li ><a class="btn btn-light btn-paginacao oi oi-media-step-backward" th:if="${currentePage != i}"  th:href="@{'/pessoas/paginar/unidade/'+ 1 }" ></a></li>
+			 	
+			 	<li ><a class="btn btn-light    btn-paginacao    oi oi-media-skip-backward" th:if="${currentePage > 1}"  th:href="@{'/pessoas/paginar/unidade/'+ ${currentePage -1}}" ></a></li> 
+			 	
+			 	<li ><a class="btn btn-light    btn-paginacao oi" th:if="${currentePage > 1000}"  th:href="@{'/pessoas/paginar/unidade/'+ ${currentePage-1000} }" >-1000</a></li>
+			 	
+			 	<li ><a class="btn btn-light    btn-paginacao" th:if="${currentePage > 100}"  th:href="@{'/pessoas/paginar/unidade/'+ ${currentePage-100} }" >-100</a></li>
+			 	
+			 	<li ><a class="btn btn-light    btn-paginacao" th:if="${currentePage > 10}"  th:href="@{'/pessoas/paginar/unidade/'+ ${currentePage-10} }" >-10</a></li>
+
+			 	<li ><a class="btn btn-light    btn-paginacao"  th:if="${currentePage < totalPages - 10}"  th:href="@{'/pessoas/paginar/unidade/'+ ${currentePage+10} }" >+10</a></li>
+			 	
+			 	<li ><a class="btn btn-light    btn-paginacao"  th:if="${currentePage < totalPages - 100}"  th:href="@{'/pessoas/paginar/unidade/'+ ${currentePage+100} }" >+100</a></li>
+			 	
+			 	<li ><a class="btn btn-light    btn-paginacao"  th:if="${currentePage < totalPages - 1000}"  th:href="@{'/pessoas/paginar/unidade/'+ ${currentePage+1000} }" >+1000</a></li>
+			 	
+			 	<li ><a class="btn btn-light    btn-paginacao    oi oi-media-skip-forward" th:if="${currentePage < totalPages}"  th:href="@{'/pessoas/paginar/unidade/' + ${currentePage +1}}"></a> </li>
+		 		
+		 		<li ><a class="btn btn-light    btn-paginacao    oi oi-media-step-forward"  th:if="${currentePage != i}"  th:href="@{'/pessoas/paginar/unidade/'+ ${totalPages} }" ></a></li> 
+		 	</ul>
+		</nav>     	        
+	    <div th:replace="fragments/modal :: modal"></div>   
+	</section>	
+</body>
+</html>		

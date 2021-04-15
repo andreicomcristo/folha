@@ -1,6 +1,9 @@
 package com.folha.boot.domain;
 
 import javax.persistence.*;
+
+import com.folha.boot.service.util.UtilidadesDeTexto;
+
 import java.util.Date;
 
 /**
@@ -45,7 +48,7 @@ public class HistFuncionariosNiveisCarreira extends AbstractEntity<Long> {
 		return motivoCadastro;
 	}
 	public void setMotivoCadastro(String motivoCadastro) {
-		this.motivoCadastro = motivoCadastro;
+		this.motivoCadastro = UtilidadesDeTexto.retiraEspacosDuplosAcentosEConverteEmMaiusculo(motivoCadastro);
 	}
 	public Date getDtCancelamento() {
 		return dtCancelamento;
@@ -57,7 +60,7 @@ public class HistFuncionariosNiveisCarreira extends AbstractEntity<Long> {
 		return motivoCancelamento;
 	}
 	public void setMotivoCancelamento(String motivoCancelamento) {
-		this.motivoCancelamento = motivoCancelamento;
+		this.motivoCancelamento = UtilidadesDeTexto.retiraEspacosDuplosAcentosEConverteEmMaiusculo(motivoCancelamento);
 	}
 	public NiveisCarreira getIdNivelCarreiraFk() {
 		return idNivelCarreiraFk;

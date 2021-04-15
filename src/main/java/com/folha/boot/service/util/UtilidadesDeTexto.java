@@ -160,7 +160,8 @@ public class UtilidadesDeTexto {
 		return resposta;
 
 	}
-
+	
+	/*
 	public void escreverTexto(String texto) {
 		Robot robo;
 
@@ -621,7 +622,8 @@ public class UtilidadesDeTexto {
 		}
 
 	}
-
+	*/
+	/*
 	public void teclarEnter(int quantidade) {
 
 		Robot robo;
@@ -644,7 +646,8 @@ public class UtilidadesDeTexto {
 		}
 
 	}
-
+	*/
+	/*
 	public void teclarTab(int quantidade) {
 
 		Robot robo;
@@ -667,7 +670,8 @@ public class UtilidadesDeTexto {
 		}
 
 	}
-
+	*/
+	/*
 	public void teclarSetaParaBaixo(int quantidade) {
 
 		Robot robo;
@@ -690,7 +694,8 @@ public class UtilidadesDeTexto {
 		}
 
 	}
-
+	*/
+	/*
 	public void teclarSetaParaCima(int quantidade) {
 
 		Robot robo;
@@ -714,8 +719,13 @@ public class UtilidadesDeTexto {
 
 	}
 
+	
+	*/
+	
 	public static String retiraEspacosDuplosAcentosEConverteEmMaiusculo(String textoInicial) {
 
+		if(textoInicial==null) {textoInicial="";}
+		
 		String resposta = "";
 
 		String semDuplos = "";

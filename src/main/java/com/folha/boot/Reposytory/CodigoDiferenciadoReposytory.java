@@ -10,7 +10,7 @@ import com.folha.boot.domain.Unidades;
 @Repository
 public interface CodigoDiferenciadoReposytory extends JpaRepository<CodigoDiferenciado, Long>{
 
-	public List<CodigoDiferenciado> findAllByOrderByNomeCodigoDiferenciadoAsc();
+	public List<CodigoDiferenciado> findAllByOrderByIdUnidadeFkNomeFantasiaAscNomeCodigoDiferenciadoAsc();
 
 	public List<CodigoDiferenciado> findByNomeCodigoDiferenciadoContainingAndIdUnidadeFkOrderByNomeCodigoDiferenciadoAsc(String nomeCodigoDiferenciado, Unidades unidade);
 	

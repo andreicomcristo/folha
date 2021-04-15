@@ -23,6 +23,7 @@ import org.springframework.transaction.annotation.Transactional;
 import com.folha.boot.Reposytory.FaixasValoresParametrosCalculoFolhasExtrasReposytory;
 import com.folha.boot.domain.Cidades;
 import com.folha.boot.domain.FaixasValoresParametrosCalculoFolhasExtras;
+import com.folha.boot.domain.Unidades;
 import com.itextpdf.text.Document;
 import com.itextpdf.text.DocumentException;
 import com.itextpdf.text.Element;
@@ -64,21 +65,21 @@ public class FaixasValoresParametrosCalculoFolhasExtrasService {
 	@Transactional(readOnly = true)
 	public List<FaixasValoresParametrosCalculoFolhasExtras> buscarTodos() {
 		// TODO Auto-generated method stub
-		return reposytory.findAllByOrderByCnesUnidadeAsc();
+		return reposytory.findAllByOrderByIdAnoMesFkNomeAnoMesAscIdCodDiferenciadoFkIdUnidadeFkNomeFantasiaAsc();
 	}
 	@Transactional(readOnly = true)
-	public List<FaixasValoresParametrosCalculoFolhasExtras> buscarPorCnes(String cnesUnidade) {
-		return reposytory.findByCnesUnidadeContainingOrderByCnesUnidadeAsc(cnesUnidade);
+	public List<FaixasValoresParametrosCalculoFolhasExtras> buscarPorNome(String nome) {
+		return reposytory.findByIdCodDiferenciadoFkIdUnidadeFkNomeFantasiaContainingOrderByIdAnoMesFkNomeAnoMesAscIdCodDiferenciadoFkIdUnidadeFkNomeFantasiaAsc(nome);
 	}
 	
 	public Page<FaixasValoresParametrosCalculoFolhasExtras> findPaginated(int pageNo, int pageSize) {
 		Pageable pageable = PageRequest.of(pageNo -1, pageSize);
-		return this.reposytory.findAllByOrderByAnoMesAscCnesUnidadeAsc(pageable);
+		return this.reposytory.findAllByOrderByIdAnoMesFkNomeAnoMesAscIdCodDiferenciadoFkIdUnidadeFkNomeFantasiaAsc(pageable);
 	}
 
 	public Page<FaixasValoresParametrosCalculoFolhasExtras> findPaginatedAnoMes(int pageNo, int pageSize, String nomeCidade) {
 		Pageable pageable = PageRequest.of(pageNo -1, pageSize);
-		return this.reposytory.findByAnoMesContainingOrderByAnoMesAscCnesUnidadeAsc(nomeCidade.toUpperCase().trim(), pageable);
+		return this.reposytory.findByIdAnoMesFkNomeAnoMesContainingOrderByIdAnoMesFkNomeAnoMesAscIdCodDiferenciadoFkIdUnidadeFkNomeFantasiaAsc(nomeCidade.toUpperCase().trim(), pageable);
 	}
 	
 	public ByteArrayInputStream exportarExcel(List<FaixasValoresParametrosCalculoFolhasExtras> lista) {
@@ -132,18 +133,26 @@ public class FaixasValoresParametrosCalculoFolhasExtrasService {
 	        cell.setCellStyle(headerCellStyle);
 	        
 	        cell = row.createCell(10);
-	        cell.setCellValue("Nível");
+	        cell.setCellValue("Valor Bruto Total");
 	        cell.setCellStyle(headerCellStyle);
 	        
 	        cell = row.createCell(11);
-	        cell.setCellValue("Regime");
+	        cell.setCellValue("Nível");
 	        cell.setCellStyle(headerCellStyle);
 	        
 	        cell = row.createCell(12);
-	        cell.setCellValue("Cnes");
+	        cell.setCellValue("Regime");
 	        cell.setCellStyle(headerCellStyle);
 	        
 	        cell = row.createCell(13);
+	        cell.setCellValue("Diferenciado");
+	        cell.setCellStyle(headerCellStyle);
+	        
+	        cell = row.createCell(14);
+	        cell.setCellValue("Cnes");
+	        cell.setCellStyle(headerCellStyle);
+	        
+	        cell = row.createCell(15);
 	        cell.setCellValue("Unidade");
 	        cell.setCellStyle(headerCellStyle);
 	        
@@ -152,18 +161,20 @@ public class FaixasValoresParametrosCalculoFolhasExtrasService {
 	        	Row dataRow = sheet.createRow(i + 1);
 	        	dataRow.createCell(0).setCellValue((i+1));
 	        	dataRow.createCell(1).setCellValue(lista.get(i).getId());
-	        	dataRow.createCell(2).setCellValue(lista.get(i).getAnoMes());
-	        	dataRow.createCell(3).setCellValue(lista.get(i).getNomeTipoFolha());
+	        	dataRow.createCell(2).setCellValue(lista.get(i).getIdAnoMesFk().getNomeAnoMes());
+	        	dataRow.createCell(3).setCellValue(lista.get(i).getIdTipoDeFolhaFk().getNomeTipoFolha());
 	        	dataRow.createCell(4).setCellValue(lista.get(i).getValorHoraDia());
 	        	dataRow.createCell(5).setCellValue(lista.get(i).getValorHoraNoite());
 	        	dataRow.createCell(6).setCellValue(lista.get(i).getValorHoraSemana());
 	        	dataRow.createCell(7).setCellValue(lista.get(i).getValorHoraFimDeSemana());
 	        	dataRow.createCell(8).setCellValue(lista.get(i).getValorLiquidoPorHora());
 	        	dataRow.createCell(9).setCellValue(lista.get(i).getValorBrutoPorHora());
-	        	dataRow.createCell(10).setCellValue(lista.get(i).getNomeNivel());
-	        	dataRow.createCell(11).setCellValue(lista.get(i).getNomeRegime());
-	        	dataRow.createCell(12).setCellValue(lista.get(i).getCnesUnidade());
-	        	dataRow.createCell(13).setCellValue(lista.get(i).getIdUnidadeFk().getNomeFantasia());
+	        	dataRow.createCell(10).setCellValue(lista.get(i).getValorBrutoFixoTotal());
+	        	dataRow.createCell(11).setCellValue(lista.get(i).getIdNivelFk().getNomeNivelCargo());
+	        	dataRow.createCell(12).setCellValue(lista.get(i).getIdRegimeDeTrabalhoFk().getNomeRegimeDeTrabalho());
+	        	dataRow.createCell(13).setCellValue(lista.get(i).getIdCodDiferenciadoFk().getNomeCodigoDiferenciado());
+	        	dataRow.createCell(14).setCellValue(lista.get(i).getIdCodDiferenciadoFk().getIdUnidadeFk().getCnes());
+	        	dataRow.createCell(15).setCellValue(lista.get(i).getIdCodDiferenciadoFk().getIdUnidadeFk().getNomeFantasia());
 	        	
 	        	
 	        }
@@ -183,6 +194,9 @@ public class FaixasValoresParametrosCalculoFolhasExtrasService {
 	        sheet.autoSizeColumn(11);
 	        sheet.autoSizeColumn(12);
 	        sheet.autoSizeColumn(13);
+	        sheet.autoSizeColumn(14);
+	        sheet.autoSizeColumn(15);
+	        
 	        
 	        
 	        
@@ -202,9 +216,9 @@ public class FaixasValoresParametrosCalculoFolhasExtrasService {
 
 		try {
 
-			PdfPTable table = new PdfPTable(14);
+			PdfPTable table = new PdfPTable(16);
 			table.setWidthPercentage(90);
-			table.setWidths(new int[] { 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 3, 2, 2, 9 });
+			table.setWidths(new int[] { 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 3, 2, 2, 2, 2, 9 });
 
 			// Tipos de Fonte
 			Font tituloFont = FontFactory.getFont(FontFactory.HELVETICA_BOLD,14);
@@ -255,11 +269,19 @@ public class FaixasValoresParametrosCalculoFolhasExtrasService {
 			hcell.setHorizontalAlignment(Element.ALIGN_CENTER);
 			table.addCell(hcell);
 			
+			hcell = new PdfPCell(new Phrase("Valor Bruto Total", cabecalhoFont));
+			hcell.setHorizontalAlignment(Element.ALIGN_CENTER);
+			table.addCell(hcell);
+			
 			hcell = new PdfPCell(new Phrase("Nível", cabecalhoFont));
 			hcell.setHorizontalAlignment(Element.ALIGN_CENTER);
 			table.addCell(hcell);
 			
 			hcell = new PdfPCell(new Phrase("Regime", cabecalhoFont));
+			hcell.setHorizontalAlignment(Element.ALIGN_CENTER);
+			table.addCell(hcell);
+			
+			hcell = new PdfPCell(new Phrase("Diferenciado", cabecalhoFont));
 			hcell.setHorizontalAlignment(Element.ALIGN_CENTER);
 			table.addCell(hcell);
 			
@@ -289,12 +311,12 @@ public class FaixasValoresParametrosCalculoFolhasExtrasService {
 				cell.setHorizontalAlignment(Element.ALIGN_CENTER);
 				table.addCell(cell);
 
-				cell = new PdfPCell(new Phrase(lista.get(i).getAnoMes() ,corpoFont) );
+				cell = new PdfPCell(new Phrase(lista.get(i).getIdAnoMesFk().getNomeAnoMes() ,corpoFont) );
 				cell.setVerticalAlignment(Element.ALIGN_MIDDLE);
 				cell.setHorizontalAlignment(Element.ALIGN_CENTER);
 				table.addCell(cell);
 				
-				cell = new PdfPCell(new Phrase(lista.get(i).getNomeTipoFolha() ,corpoFont) );
+				cell = new PdfPCell(new Phrase(lista.get(i).getIdTipoDeFolhaFk().getNomeTipoFolha() ,corpoFont) );
 				cell.setVerticalAlignment(Element.ALIGN_MIDDLE);
 				cell.setHorizontalAlignment(Element.ALIGN_CENTER);
 				table.addCell(cell);
@@ -329,22 +351,32 @@ public class FaixasValoresParametrosCalculoFolhasExtrasService {
 				cell.setHorizontalAlignment(Element.ALIGN_CENTER);
 				table.addCell(cell);
 				
-				cell = new PdfPCell(new Phrase(lista.get(i).getNomeNivel() ,corpoFont) );
+				cell = new PdfPCell(new Phrase(String.valueOf(lista.get(i).getValorBrutoFixoTotal()) ,corpoFont) );
 				cell.setVerticalAlignment(Element.ALIGN_MIDDLE);
 				cell.setHorizontalAlignment(Element.ALIGN_CENTER);
 				table.addCell(cell);
 				
-				cell = new PdfPCell(new Phrase(lista.get(i).getNomeRegime() ,corpoFont) );
+				cell = new PdfPCell(new Phrase(lista.get(i).getIdNivelFk().getNomeNivelCargo() ,corpoFont) );
 				cell.setVerticalAlignment(Element.ALIGN_MIDDLE);
 				cell.setHorizontalAlignment(Element.ALIGN_CENTER);
 				table.addCell(cell);
 				
-				cell = new PdfPCell(new Phrase(lista.get(i).getCnesUnidade() ,corpoFont) );
+				cell = new PdfPCell(new Phrase(lista.get(i).getIdRegimeDeTrabalhoFk().getNomeRegimeDeTrabalho() ,corpoFont) );
 				cell.setVerticalAlignment(Element.ALIGN_MIDDLE);
 				cell.setHorizontalAlignment(Element.ALIGN_CENTER);
 				table.addCell(cell);
 				
-				cell = new PdfPCell(new Phrase(lista.get(i).getIdUnidadeFk().getNomeFantasia() ,corpoFont) );
+				cell = new PdfPCell(new Phrase(lista.get(i).getIdCodDiferenciadoFk().getNomeCodigoDiferenciado() ,corpoFont) );
+				cell.setVerticalAlignment(Element.ALIGN_MIDDLE);
+				cell.setHorizontalAlignment(Element.ALIGN_CENTER);
+				table.addCell(cell);
+				
+				cell = new PdfPCell(new Phrase(lista.get(i).getIdCodDiferenciadoFk().getIdUnidadeFk().getCnes() ,corpoFont) );
+				cell.setVerticalAlignment(Element.ALIGN_MIDDLE);
+				cell.setHorizontalAlignment(Element.ALIGN_CENTER);
+				table.addCell(cell);
+				
+				cell = new PdfPCell(new Phrase(lista.get(i).getIdCodDiferenciadoFk().getIdUnidadeFk().getNomeFantasia() ,corpoFont) );
 				cell.setVerticalAlignment(Element.ALIGN_MIDDLE);
 				cell.setHorizontalAlignment(Element.ALIGN_CENTER);
 				table.addCell(cell);

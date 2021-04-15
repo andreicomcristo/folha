@@ -14,8 +14,10 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.folha.boot.domain.Paises;
+import com.folha.boot.domain.SimNao;
 import com.folha.boot.domain.TiposDeFolha;
 import com.folha.boot.domain.TiposDeRemuneracao;
+import com.folha.boot.service.SimNaoService;
 import com.folha.boot.service.TiposDeFolhaService;
 import com.folha.boot.service.TiposDeRemuneracaoService;
 
@@ -25,9 +27,10 @@ public class TiposDeFolhaController {
 	
 	@Autowired
 	private TiposDeFolhaService service;
-
 	@Autowired
 	private TiposDeRemuneracaoService tiposDeRemuneracaoService;
+	@Autowired
+	private SimNaoService simNaoService;
 
 	
 	@GetMapping("/cadastrar")
@@ -78,5 +81,11 @@ public class TiposDeFolhaController {
 	public List<TiposDeRemuneracao> getTiposRemuneracao() {
 		return tiposDeRemuneracaoService.buscarTodos();
 	}
+	
+	@ModelAttribute("idFolhaEfetivaSimNaoFk")
+	public List<SimNao> getidFolhaEfetivaSimNaoFk() {
+		return simNaoService.buscarTodos();
+	}
+	
 	
 }

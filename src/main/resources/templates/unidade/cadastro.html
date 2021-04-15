@@ -22,59 +22,59 @@
 
 			<div th:replace="fragments/alert"></div>
 			<form
-				th:action="${unidades.id == null} ? @{/unidades/salvar} : @{/unidades/editar}"
+				th:action="${unidades.id == null} ? @{/unidades/salvar} : @{/unidades/salvar}"
 				th:object="${unidades}" method="POST">
-				<div class="form-row">
+				<div class="form-row ">
 					<div class="form-group col-md-6">
 					
-						<label for="nome" class="fonte-tutulos-tamanho">Nome Fantasia </label>
-						<input type="text"	class="form-control form-control-md" autofocus="autofocus"
+						<label for="nome" class="">Nome Fantasia </label>
+						<input type="text"	class=" form-control form-control-md" autofocus="autofocus"
 						       id="codigo" placeholder="Nome Fantasia" th:field="*{nomeFantasia}" />
 						<p></p>
 						
-						<label for="nome" class="fonte-tutulos-tamanho">Nome Empresarial </label>
-						<input type="text"	class="form-control form-control-md" autofocus="autofocus"
+						<label for="nome" class="">Nome Empresarial </label>
+						<input type="text"	class=" form-control form-control-md" autofocus="autofocus"
 						       id="codigo" placeholder="Nome Empresarial" th:field="*{nomeEmpresarial}" />
 						<p></p>
 						
-						<label for="nome" class="fonte-tutulos-tamanho">CNES </label>
+						<label for="nome" class="">CNES </label>
 						<input type="text"	class="form-control form-control-md" autofocus="autofocus"
 						       id="codigo" placeholder="cnes" th:field="*{cnes}" />
 						<p></p>
 						
-						<label for="nome" class="fonte-tutulos-tamanho"> Telefone</label>
+						<label for="nome" class=""> Telefone</label>
 						<input type="text"	class="form-control form-control-md" autofocus="autofocus"
-						       id="codigo" placeholder="Telefone 1" th:field="*{fone1}" />
+						       id="codigo" placeholder="Telefone" th:field="*{fone1}" />
 						<p></p>
 						
-						<label for="nome" class="fonte-tutulos-tamanho">Tipo de Logradouro</label>
+						<label for="nome" class="">Tipo de Logradouro</label>
 						<select id="cadastro" class="form-select" th:field="*{idTipoLogradouroFk}">
 								<option value="">Selecione o Tipo de Logradouro</option>
 								<option class="form-select" th:each="d : ${idTipoLogradouroFk}" th:value="${d.id}"th:text="${d.nomeTipoLogradouro}" selected >ADM</option>
 						</select>							
 						<p></p>	
 						
-						<label for="nome" class="fonte-tutulos-tamanho"> Logradouro</label>
+						<label for="nome" class=""> Logradouro</label>
 						<input type="text"	class="form-control form-control-md" autofocus="autofocus"
 						       id="codigo" placeholder="Logradouro" th:field="*{enderecoLogradouro}" />
 						<p></p>
 						
-						<label for="nome" class="fonte-tutulos-tamanho">Número</label>
+						<label for="nome" class="">Número</label>
 						<input type="text"	class="form-control form-control-md" autofocus="autofocus"
 						       id="codigo" placeholder="Numero" th:field="*{enderecoNumero}" />
 						<p></p>
 						
-						<label for="nome" class="fonte-tutulos-tamanho">Complemento</label>
+						<label for="nome" class="">Complemento</label>
 						<input type="text"	class="form-control form-control-md" autofocus="autofocus"
 						       id="codigo" placeholder="Complemento" th:field="*{enderecoComplemento}" />
 						<p></p>
 						
-						<label for="nome" class="fonte-tutulos-tamanho">Bairro</label>
+						<label for="nome" class="">Bairro</label>
 						<input type="text"	class="form-control form-control-md" autofocus="autofocus"
 						       id="codigo" placeholder="Bairro" th:field="*{enderecoBairro}" />
 						<p></p>
 						
-						<label for="nome" class="fonte-tutulos-tamanho">Cep</label>
+						<label for="nome" class="">Cep</label>
 						<input type="text"	class="form-control form-control-md" autofocus="autofocus"
 						       id="codigo" placeholder="Cep" th:field="*{enderecoCep}" />
 						<p></p>
@@ -91,17 +91,16 @@
 								<option class="form-select" th:each="d : ${idNaturezaJuridicaFk}" th:value="${d.id}"th:text="${d.nomeNaturezaJuridica}" selected >ADM</option>
 						</select>							
 						<p></p>			
-								
-						<select id="UnidadesNaturezaJuridica" class="form-select" th:field="*{idNaturezaJuridicaFk}">
-								<option value="">Selecione a Natureza Juridica </option>
-								<option class="form-select" th:each="d : ${idNaturezaJuridicaFk}" th:value="${d.id}"th:text="${d.nomeNaturezaJuridica}" selected >ADM</option>
-						</select>							
-						<p></p>
 							
 						<select id="UnidadesRegime" class="form-select" th:field="*{idUnidadesRegimeFk}">
 								<option value="">Selecione o Regime da Unidade </option>
 								<option class="form-select" th:each="d : ${idUnidadesRegimeFk}" th:value="${d.id}"th:text="${d.nomeRegimeUnidLotacao}" selected >ADM</option>
 						</select>							
+						<p></p>
+						
+						<label for="nome" class="">Observações</label>
+						<input type="text"	class="form-control form-control-md" autofocus="autofocus"
+						       id="codigo" placeholder="Observações" th:field="*{motivoCadastro}" />
 						<p></p>
 												
 						<input type="hidden" id="id" th:field="*{id}" />

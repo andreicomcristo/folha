@@ -68,9 +68,6 @@ public class PessoaOperadores extends AbstractEntity<Long> {
     private List<FuncionariosFeriasPeriodos> funcionariosFeriasPeriodosList;
     @OneToMany(mappedBy = "idOperadorCancelamentoFk")
     private List<FuncionariosFeriasPeriodos> funcionariosFeriasPeriodosList1;
-    @JoinColumn(name = "id_privilegio_fk", referencedColumnName = "id")
-    @ManyToOne
-    private Perfil idPrivilegioFk;
     @JoinColumn(name = "id_pessoa_fk", referencedColumnName = "id")
     @ManyToOne(optional = false)
     private Pessoa idPessoaFk;
@@ -157,6 +154,9 @@ public class PessoaOperadores extends AbstractEntity<Long> {
     private List<EscalaAlteracoes> escalaAlteracoesList;
     @OneToMany(mappedBy = "idOperadorMudancaFk")
     private List<EscalaAlteracoes> escalaAlteracoesList1;
+    
+    @OneToMany(mappedBy = "idOperadorFk")
+    private List<Perfil> perfilList;
     
 	public Date getDtCadastro() {
 		return dtCadastro;
@@ -327,12 +327,6 @@ public class PessoaOperadores extends AbstractEntity<Long> {
 	}
 	public void setFuncionariosFeriasPeriodosList1(List<FuncionariosFeriasPeriodos> funcionariosFeriasPeriodosList1) {
 		this.funcionariosFeriasPeriodosList1 = funcionariosFeriasPeriodosList1;
-	}
-	public Perfil getIdPrivilegioFk() {
-		return idPrivilegioFk;
-	}
-	public void setIdPrivilegioFk(Perfil idPrivilegioFk) {
-		this.idPrivilegioFk = idPrivilegioFk;
 	}
 	public Pessoa getIdPessoaFk() {
 		return idPessoaFk;
@@ -577,6 +571,12 @@ public class PessoaOperadores extends AbstractEntity<Long> {
 	}
 	public void setEscalaAlteracoesList1(List<EscalaAlteracoes> escalaAlteracoesList1) {
 		this.escalaAlteracoesList1 = escalaAlteracoesList1;
+	}
+	public List<Perfil> getPerfilList() {
+		return perfilList;
+	}
+	public void setPerfilList(List<Perfil> perfilList) {
+		this.perfilList = perfilList;
 	}
     
 	

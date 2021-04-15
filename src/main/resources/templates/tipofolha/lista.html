@@ -48,6 +48,7 @@
 		                    <th>Nome</th>
 		                    <th>Descrição</th>
 		                    <th>Tipo de Remuneração</th>
+		                    <th>Folha Efetiva</th>
 		                    <th>Ações</th>
 	                    </tr>
 	                </thead>                  
@@ -57,6 +58,7 @@
 		                    <td th:text="${d.nomeTipoFolha}"></td>
 		                      <td th:text="${d.descricaoTipoFolha}"></td>	
 		                      <td th:text="${d.idTipoRemuneracaoFk.nomeTipoRemuneracao}"></td>
+		                      <td th:text="${d.idFolhaEfetivaSimNaoFk.descricao}"></td>
 		                      	                    
 		                    <td colspan="2">
 		                    	<a class="btn btn-outline-info btn-sm" th:href="@{/tiposdefolhas/editar/{id} (id=${d.id}) }" role="button">

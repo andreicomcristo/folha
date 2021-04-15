@@ -77,4 +77,25 @@ public class PessoaFuncionariosService {
 	}
 
 	
+	
+	//Dados para listar Pessoas para editar local - unidade
+	@Transactional(readOnly = true)
+	public Page<PessoaFuncionarios> findPaginated(Unidades unidades, int pageNo, int pageSize) {
+		Pageable pageable = PageRequest.of(pageNo -1, pageSize);
+		return this.reposytory.findByIdUnidadeAtuacaoAtualFkAndIdSituacaoAtualFkNomeSituacaoAndIdPessoaFkDtCancelamentoIsNullAndDtCancelamentoIsNullOrderByIdPessoaFkNomeAsc( unidades, "ATIVO",  pageable);
+	}
+	
+	@Transactional(readOnly = true)
+	public Page<PessoaFuncionarios> findPaginatedNome( String nome, Unidades unidades, int pageNo, int pageSize) {
+		Pageable pageable = PageRequest.of(pageNo -1, pageSize);
+		return this.reposytory.findByIdPessoaFkNomeContainingAndIdUnidadeAtuacaoAtualFkAndIdSituacaoAtualFkNomeSituacaoAndIdPessoaFkDtCancelamentoIsNullAndDtCancelamentoIsNullOrderByIdPessoaFkNomeAsc( nome.toUpperCase().trim(), unidades, "ATIVO",  pageable);
+	}
+	
+	@Transactional(readOnly = true)
+	public Page<PessoaFuncionarios> findPaginatedCpf( String cpf, Unidades unidades, int pageNo, int pageSize) {
+		Pageable pageable = PageRequest.of(pageNo -1, pageSize);
+		return this.reposytory.findByIdPessoaFkCpfContainingAndIdUnidadeAtuacaoAtualFkAndIdSituacaoAtualFkNomeSituacaoAndIdPessoaFkDtCancelamentoIsNullAndDtCancelamentoIsNullOrderByIdPessoaFkNomeAsc(cpf.toUpperCase().trim(), unidades, "ATIVO",  pageable);
+	}
+	
+	
 }

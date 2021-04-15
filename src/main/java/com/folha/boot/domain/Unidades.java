@@ -71,8 +71,6 @@ public class Unidades extends AbstractEntity<Long> {
     private List<FuncionariosFerias> funcionariosFeriasList;
     @OneToMany(mappedBy = "idUnidadeDeSaudeFk")
     private List<Autorizacoes> autorizacoesList;
-    @OneToMany(mappedBy = "idUnidadeFk")
-    private List<FaixasValoresParametrosCalculoFolhasExtras> faixasValoresParametrosCalculoFolhasExtrasList;
     @OneToMany(mappedBy = "idUnidadeDeSaudeFk")
     private List<HistUnidadesDiretor> histUnidadesDiretorList;
     @OneToMany(mappedBy = "idUnidadeAtuacaoAtualFk")
@@ -86,7 +84,14 @@ public class Unidades extends AbstractEntity<Long> {
     @OneToMany(mappedBy = "idUnidadeFk")
     private List<CodigoDiferenciado> codigoDiferenciadoList;
 
+    @OneToMany(mappedBy = "idUnidadeFk")
+    private List<Perfil> perfilList;
     
+    @OneToMany(mappedBy = "idUnidadeFk")
+    private List<AtividadeEscala> atividadeEscalaList;
+    
+    @OneToMany(mappedBy = "idUnidadeLotacaoAtualFk")
+    private List<PessoaFuncionarios> pessoaFuncionariosList1;
     
 	public List<CodigoDiferenciado> getCodigoDiferenciadoList() {
 		return codigoDiferenciadoList;
@@ -331,15 +336,6 @@ public class Unidades extends AbstractEntity<Long> {
 		this.histUnidadesDiretorList = histUnidadesDiretorList;
 	}
 
-	public List<FaixasValoresParametrosCalculoFolhasExtras> getFaixasValoresParametrosCalculoFolhasExtrasList() {
-		return faixasValoresParametrosCalculoFolhasExtrasList;
-	}
-
-	public void setFaixasValoresParametrosCalculoFolhasExtrasList(
-			List<FaixasValoresParametrosCalculoFolhasExtras> faixasValoresParametrosCalculoFolhasExtrasList) {
-		this.faixasValoresParametrosCalculoFolhasExtrasList = faixasValoresParametrosCalculoFolhasExtrasList;
-	}
-
 	public List<LocalidadeEscala> getLocalidadeEscalaList() {
 		return localidadeEscalaList;
 	}
@@ -348,5 +344,30 @@ public class Unidades extends AbstractEntity<Long> {
 		this.localidadeEscalaList = localidadeEscalaList;
 	}
 
+	public List<Perfil> getPerfilList() {
+		return perfilList;
+	}
+
+	public void setPerfilList(List<Perfil> perfilList) {
+		this.perfilList = perfilList;
+	}
+
+	public List<AtividadeEscala> getAtividadeEscalaList() {
+		return atividadeEscalaList;
+	}
+
+	public void setAtividadeEscalaList(List<AtividadeEscala> atividadeEscalaList) {
+		this.atividadeEscalaList = atividadeEscalaList;
+	}
+
+	public List<PessoaFuncionarios> getPessoaFuncionariosList1() {
+		return pessoaFuncionariosList1;
+	}
+
+	public void setPessoaFuncionariosList1(List<PessoaFuncionarios> pessoaFuncionariosList1) {
+		this.pessoaFuncionariosList1 = pessoaFuncionariosList1;
+	}
+
+	
 	
 }

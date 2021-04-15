@@ -2,9 +2,13 @@ package com.folha.boot.service;
 
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import com.folha.boot.Reposytory.CidsReposytory;
+import com.folha.boot.domain.Cidades;
 import com.folha.boot.domain.Cids;
 
 @Service
@@ -45,4 +49,27 @@ public class CidsService {
 		
 		return reposytory.findByCodCidContainingOrderByCodCidAsc(codCid);
 	}	
+	
+	
+	
+	@Transactional(readOnly = true)
+	public Page<Cids> findPaginated(int pageNo, int pageSize) {
+		Pageable pageable = PageRequest.of(pageNo -1, pageSize);
+		return this.reposytory.findAllByOrderByCodCidAsc(pageable);
+	}
+
+	@Transactional(readOnly = true)
+	public Page<Cids> findPaginatedCodigo(int pageNo, int pageSize, String codigo) {
+		Pageable pageable = PageRequest.of(pageNo -1, pageSize);
+		return this.reposytory.findByCodCidContainingOrderByCodCidAsc(codigo.toUpperCase().trim(), pageable);
+	}
+	
+	@Transactional(readOnly = true)
+	public Page<Cids> findPaginatedDescricao(int pageNo, int pageSize, String descricao) {
+		Pageable pageable = PageRequest.of(pageNo -1, pageSize);
+		return this.reposytory.findByDescricaoCidContainingOrderByCodCidAsc(descricao.toUpperCase().trim(), pageable);
+	}
+
+	
+	
 }

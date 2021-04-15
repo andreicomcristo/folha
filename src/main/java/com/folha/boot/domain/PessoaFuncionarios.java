@@ -44,9 +44,6 @@ public class PessoaFuncionarios extends AbstractEntity<Long> {
     @Column(name = "motivo_cancelamento")
     private String motivoCancelamento;
     
-    @Column(name = "id_unidade_lotacao_atual_fk")
-    private BigInteger idUnidadeLotacaoAtualFk;
-    
     @JoinColumn(name = "id_especialidade_atual_fk", referencedColumnName = "id")
     @ManyToOne
     private CargosEspecialidade idEspecialidadeAtualFk;
@@ -102,6 +99,9 @@ public class PessoaFuncionarios extends AbstractEntity<Long> {
     private List<HistFuncionariosUnidadeAtuacao> histFuncionariosUnidadeAtuacaoList;
     
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "idFuncionarioFk")
+    private List<HistFuncionariosUnidadeLotacao> histFuncionariosUnidadeLotacaoList;
+    
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "idFuncionarioFk")
     private List<FuncionariosCapacitacoes> funcionariosCapacitacoesList;
     
     @OneToMany(mappedBy = "idFuncionarioFk")
@@ -145,15 +145,13 @@ public class PessoaFuncionarios extends AbstractEntity<Long> {
     
     @OneToMany(mappedBy = "idFuncionarioFk")
     private List<EscalaAlteracoes> escalaAlteracoesList;
+    
+    @JoinColumn(name = "id_unidade_lotacao_atual_fk", referencedColumnName = "id")
+    @ManyToOne
+    private Unidades idUnidadeLotacaoAtualFk;
 
     
-	public BigInteger getIdUnidadeLotacaoAtualFk() {
-		return idUnidadeLotacaoAtualFk;
-	}
-
-	public void setIdUnidadeLotacaoAtualFk(BigInteger idUnidadeLotacaoAtualFk) {
-		this.idUnidadeLotacaoAtualFk = idUnidadeLotacaoAtualFk;
-	}
+	
 
 	public List<FuncionariosCapacitacoes> getFuncionariosCapacitacoesList() {
 		return funcionariosCapacitacoesList;
@@ -461,6 +459,23 @@ public class PessoaFuncionarios extends AbstractEntity<Long> {
 
 	public void setEscalaAlteracoesList(List<EscalaAlteracoes> escalaAlteracoesList) {
 		this.escalaAlteracoesList = escalaAlteracoesList;
+	}
+
+	public List<HistFuncionariosUnidadeLotacao> getHistFuncionariosUnidadeLotacaoList() {
+		return histFuncionariosUnidadeLotacaoList;
+	}
+
+	public void setHistFuncionariosUnidadeLotacaoList(
+			List<HistFuncionariosUnidadeLotacao> histFuncionariosUnidadeLotacaoList) {
+		this.histFuncionariosUnidadeLotacaoList = histFuncionariosUnidadeLotacaoList;
+	}
+
+	public Unidades getIdUnidadeLotacaoAtualFk() {
+		return idUnidadeLotacaoAtualFk;
+	}
+
+	public void setIdUnidadeLotacaoAtualFk(Unidades idUnidadeLotacaoAtualFk) {
+		this.idUnidadeLotacaoAtualFk = idUnidadeLotacaoAtualFk;
 	}
 
 	

@@ -45,7 +45,7 @@ public class UnidadesNaturezaJuridicaService {
 	
 	public List<UnidadesNaturezaJuridica> buscarTodos() {
 		// TODO Auto-generated method stub
-		return reposytory.findAll();
+		return reposytory.findAllByOrderByNomeNaturezaJuridicaAsc();
 	}
 
 	

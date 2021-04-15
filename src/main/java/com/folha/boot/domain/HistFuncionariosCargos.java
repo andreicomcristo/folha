@@ -4,6 +4,8 @@ import java.util.Date;
 
 import javax.persistence.*;
 
+import com.folha.boot.service.util.UtilidadesDeTexto;
+
 @SuppressWarnings("serial")
 @Entity
 @Table(name = "hist_funcionarios_cargos")
@@ -51,7 +53,7 @@ public class HistFuncionariosCargos extends AbstractEntity<Long> {
 	}
 
 	public void setMotivoCadastro(String motivoCadastro) {
-		this.motivoCadastro = motivoCadastro;
+		this.motivoCadastro = UtilidadesDeTexto.retiraEspacosDuplosAcentosEConverteEmMaiusculo(motivoCadastro);
 	}
 
 	public Date getDtCancelamento() {
@@ -67,7 +69,7 @@ public class HistFuncionariosCargos extends AbstractEntity<Long> {
 	}
 
 	public void setMotivoCancelamento(String motivoCancelamento) {
-		this.motivoCancelamento = motivoCancelamento;
+		this.motivoCancelamento = UtilidadesDeTexto.retiraEspacosDuplosAcentosEConverteEmMaiusculo(motivoCancelamento);
 	}
 
 	public Cargos getIdCargoFk() {

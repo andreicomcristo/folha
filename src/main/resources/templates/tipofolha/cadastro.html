@@ -42,7 +42,13 @@
 							<select id="cargos" class="form-select" th:field="*{idTipoRemuneracaoFk}">
 									<option value="">Selecione o Tipo de Remuneração</option>
 									<option class="form-select" th:each="d : ${idTipoRemuneracaoFk}" th:value="${d.id}"th:text="${d.nomeTipoRemuneracao}" selected >ADM</option>
-							</select>	
+							</select>
+							<p></p>
+							
+							<select id="cargos" class="form-select" th:field="*{idFolhaEfetivaSimNaoFk}">
+									<option value="">Folha Efetiva</option>
+									<option class="form-select" th:each="d : ${idFolhaEfetivaSimNaoFk}" th:value="${d.id}"th:text="${d.descricao}" selected >ADM</option>
+							</select>		
 							
 							<p></p>
 							
