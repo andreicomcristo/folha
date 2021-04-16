@@ -6,7 +6,7 @@
 		<nav class="navbar navbar-expand-md bg-light">    
 	    	<a class="btn btn-outline-light oi oi-action-undo" type="button" href="javascript:history.back()"></a>
 			<a class="btn btn-outline-light oi oi-action-redo" type="button" href="javascript:history.forward()"></a>    
-	        <a class="btn btn-outline-dark btn-md" href="/escalas/listar/todos" role="button">
+	        <a class="btn btn-outline-dark btn-md" th:href="@{/escalas/listar/todos}" role="button">
 	        	<span class="oi oi-loop-square" title="Atualizar" aria-hidden="true"></span>
 	            <span>Atualizar</span>
 	        </a>
@@ -107,12 +107,12 @@
 		            <nav class="navbar navbar-light bg-light">
 	                	<form class="form-inline" method="GET" th:action="@{/cidades/buscar/id/uf}">
 	                   		
-	                        <a class="btn btn-outline-success btn-md" href="/escalas/exporta/excel/todos" role="button">
+	                        <a class="btn btn-outline-success btn-md" th:href="@{/escalas/exporta/excel/todos}" role="button">
 				        		<span class="oi oi-cloud-download" title="exportaExcel" aria-hidden="true"></span>
 				            	<span>Exporta Excel</span>
 				       	    </a>
 				       	    
-				       	    <a class="btn btn-outline-danger btn-md" href="/escalas/exporta/pdf/todos" role="button">
+				       	    <a class="btn btn-outline-danger btn-md" th:href="@{/escalas/exporta/pdf/todos}" role="button">
 				        		<span class="oi oi-cloud-download" title="exportaPdf" aria-hidden="true"></span>
 				            	<span>Exporta Pdf</span>
 				       	    </a>

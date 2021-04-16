@@ -5,12 +5,12 @@
 	<section class="layout-content" layout:fragment="corpo">
 
 		<nav class="navbar navbar-expand-md bg-light">
-			<form action="/bancos/listar">
+			<form th:action="@{/bancos/listar}">
 				<div class=" layout-content">
 					<a class="btn btn-outline-light oi oi-action-undo" type="button" href="javascript:history.back()"></a>
 					<a class="btn btn-outline-light oi oi-action-redo" type="button" href="javascript:history.forward()"></a>    
 					<button class="btn btn-outline-dark" >Listar</button>
-					<a class="btn btn-outline-dark btn-md" href="/bancos/cadastrar"
+					<a class="btn btn-outline-dark btn-md" th:href="@{/bancos/cadastrar}"
 						role="button"> <span class="oi oi-plus" title="Cadastro"
 						aria-hidden="true"></span> <span>Novo</span>
 					</a>
@@ -40,6 +40,7 @@
 							<input type="text" class="form-control form-control-md"
 								autofocus="autofocus" id="sigla" placeholder="Sigla do Banco" th:field="*{siglaBanco}" />
 							
+							<input type="hidden" id="idPessoaFk" th:field="*{idPessoaFk}" />
 							<input type="hidden" id="id" th:field="*{id}" />
 								<p></p>					
 						<button class="btn btn-outline-dark">Cadastrar</button>

@@ -7,7 +7,7 @@
 		<nav class="navbar navbar-expand-md bg-light">
 			<a class="btn btn-outline-light oi oi-action-undo" type="button" href="javascript:history.back()"></a>
 			<a class="btn btn-outline-light oi oi-action-redo" type="button" href="javascript:history.forward()"></a>    
-			<form action="/documentos/listar">
+			<form th:action="@{/documentos/listar}">
 				<div class=" layout-content">
 					
 				</div>
@@ -744,12 +744,12 @@
 		
 		<div class="container" id="navegacao">
 			<p></p>
-				<a class="btn btn-outline-danger btn-sm" href="/ctpsdocs/retroceder"
+				<a class="btn btn-outline-danger btn-sm" th:href="@{/ctpsdocs/retroceder}"
 					role="button"> <span class="oi oi-arrow-thick-left" title="Cadastro"
 					aria-hidden="true"></span> <span>Retroceder</span>
 				</a>
 							
-				<a class="btn btn-outline-success btn-sm" href="/ctpsdocs/avancar"
+				<a class="btn btn-outline-success btn-sm" th:href="@{/ctpsdocs/avancar}"
 					role="button"> <span>Avançar</span><span class="oi oi-arrow-thick-right" 
 					title="Cadastro" aria-hidden="true"></span>
 				</a>

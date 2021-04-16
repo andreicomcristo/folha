@@ -7,11 +7,11 @@
 		<nav class="navbar navbar-expand-md bg-light">
 	        <a class="btn btn-outline-light oi oi-action-undo" type="button" href="javascript:history.back()"></a>
 			<a class="btn btn-outline-light oi oi-action-redo" type="button" href="javascript:history.forward()"></a>    
-	    	<a class="btn btn-outline-dark btn-md" href="/unidades/cadastrar" role="button">
+	    	<a class="btn btn-outline-dark btn-md" th:href="@{/unidades/cadastrar}" role="button">
 	        	<span class="oi oi-plus" title="Cadastro" aria-hidden="true"></span>
 	            <span>Novo</span>
 	        </a>
-	        <a class="btn btn-outline-dark btn-md" href="/unidades/listar" role="button">
+	        <a class="btn btn-outline-dark btn-md" th:href="@{/unidades/listar}" role="button">
 	        	<span class="oi oi-loop-square" title="Atualizar" aria-hidden="true"></span>
 	            <span>Atualizar</span>
 	        </a>
@@ -48,6 +48,7 @@
 		                    <th style="font-size:10px;" >Nome Fantasia</th>
 		                    <th style="font-size:10px;" >Nome Empresarial</th>
 		                    <th style="font-size:10px;" >CNES</th>
+		                    <th style="font-size:10px;" >CNPJ</th>
 		                    <th style="font-size:10px;" >Telefone</th>
 		                    <th style="font-size:10px;" >Cidade</th>
 		                    <th style="font-size:10px;" >Tipo</th>
@@ -58,6 +59,7 @@
 		                    <th style="font-size:10px;" >CEP</th>
 		                    <th style="font-size:10px;" >Regime da Unidade</th>
 		                    <th style="font-size:10px;" >Natureza Juridica</th>
+		                    <th style="font-size:10px;" >Gestora</th>
 		                    
 		                    <th style="font-size:10px;" >Atualização</th>
 		                    <th style="font-size:10px;" >Operador</th>
@@ -73,6 +75,7 @@
 		                	<td style="font-size:10px;"  th:text="${d.nomeEmpresarial != null} ? ${d.nomeEmpresarial } : '' "></td>
 		                	
 		                	<td style="font-size:10px;"  th:text="${d.cnes != null} ? ${d.cnes } : '' "></td>
+		                	<td style="font-size:10px;"  th:text="${d.cnpj != null} ? ${d.cnpj } : '' "></td>
 		                	<td style="font-size:10px;"  th:text="${d.fone1 != null} ? ${d.fone1 } : '' "></td>
 		                	<td style="font-size:10px;"  th:text="${d.idEnderecoCidadeFk != null} ? ${d.idEnderecoCidadeFk.nomeCidade } : '' "></td>
 		                	<td style="font-size:10px;"  th:text="${d.idTipoLogradouroFk != null} ? ${d.idTipoLogradouroFk.nomeTipoLogradouro } : '' "></td>
@@ -83,6 +86,7 @@
 		                	<td style="font-size:10px;"  th:text="${d.enderecoCep != null} ? ${d.enderecoCep } : '' "></td>
 		                	<td style="font-size:10px;"  th:text="${d.idUnidadesRegimeFk != null} ? ${d.idUnidadesRegimeFk.nomeRegimeUnidLotacao } : '' "></td>
 		                	<td style="font-size:10px;"  th:text="${d.idNaturezaJuridicaFk != null} ? ${d.idNaturezaJuridicaFk.nomeNaturezaJuridica } : '' "></td>
+		                	<td style="font-size:10px;"  th:text="${d.idUnidadeGestoraFk != null} ? ${d.idUnidadeGestoraFk.nomeFantasia } : '' "></td>
 		                	<td style="font-size:10px;"  th:text="${d.dtCadastro != null} ? ${d.#dates.format(d.dtCadastro, 'dd/MM/yyyy') } : '' "></td>
 		                	<td style="font-size:10px;"  th:text="${d.idOperadorCadastroFk != null} ? ${d.idOperadorCadastroFk.idPessoaFk.nome } : '' "></td>
 		                	<td style="font-size:10px;"  th:text="${d.motivoCadastro != null} ? ${d.motivoCadastro } : '' "></td>

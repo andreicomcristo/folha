@@ -76,6 +76,18 @@ public class PessoaBancosController {
 	
 	@PostMapping("/salvar")
 	public String salvar(PessoaBancos pessoaBancos, Pessoa pessoa, RedirectAttributes attr) {
+		boolean podeSalvar = true;
+		
+		System.out.println("VEJA:"+pessoaBancos.getIdPrioritarioFk());
+		System.out.println("VEJA DENOVO:"+pessoaBancos.getIdPessoaFk());
+		System.out.println("VEJA NOVAMENTE:"+service.buscarPrioritarioCadastradoPorPessoa(pessoaBancos.getIdPessoaFk()));
+		
+		//Avaliando se já tem conta prioritária cadastrada
+		if(service.buscarPrioritarioCadastradoPorPessoa(pessoaBancos.getIdPessoaFk())==true && pessoaBancos.getIdPrioritarioFk().getSigla().equalsIgnoreCase("S")) {
+			podeSalvar = false;
+			return "redirect:/pessoabancos/mensagem/de/prioritario/cadastrado";
+		}
+		
 		pessoaBancos.setIdPessoaFk(pessoaService.buscarPorId(idPessoaAtual));
 		
 		pessoaBancos.setIdOperadorCadastroFk(pessoaOperadoresService.buscarPorId(idOperadorLogado));
@@ -125,6 +137,16 @@ public class PessoaBancosController {
 		model.addAttribute("pessoaDocumentos", service.buscarPorNome(nomeBanco.toUpperCase().trim()));
 		return "/pessoabanco/cadastro";
 	}
+	
+	@GetMapping("/mensagem/de/prioritario/cadastrado")
+	public String mensagemDeNaoEscolha(ModelMap model) {	
+		
+		model.addAttribute("atencao", "ATENÇÃO");
+		model.addAttribute("choque", "PRIORITÁRIO");
+		model.addAttribute("mensagem", "Conta prioritária já cadastrada.");
+		
+		return "/alertas/prioritarioCadastrado";
+	}	
 	
 	@ModelAttribute("idBancoFk")
 	public List<Bancos> getIdBancosFk() {

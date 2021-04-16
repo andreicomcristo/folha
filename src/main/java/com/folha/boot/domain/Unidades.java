@@ -41,6 +41,11 @@ public class Unidades extends AbstractEntity<Long> {
     private Date dtCancelamento;
     @Column(name = "motivo_cancelamento")
     private String motivoCancelamento;
+    @Column(name = "cnpj")
+    private String cnpj;
+    @JoinColumn(name = "id_unidade_gestora_fk", referencedColumnName = "id")
+    @ManyToOne
+    private UnidadeGestora idUnidadeGestoraFk;
     @OneToMany(mappedBy = "idUnidadeAtuacaoAtualFk")
     private List<FuncionariosLicencas> funcionariosLicencasList;
     @OneToMany(mappedBy = "idUnidadeLotacaoAtualFk")
@@ -366,6 +371,22 @@ public class Unidades extends AbstractEntity<Long> {
 
 	public void setPessoaFuncionariosList1(List<PessoaFuncionarios> pessoaFuncionariosList1) {
 		this.pessoaFuncionariosList1 = pessoaFuncionariosList1;
+	}
+
+	public String getCnpj() {
+		return cnpj;
+	}
+
+	public void setCnpj(String cnpj) {
+		this.cnpj = UtilidadesDeTexto.retiraEspacosDuplosAcentosEConverteEmMaiusculo(cnpj);
+	}
+
+	public UnidadeGestora getIdUnidadeGestoraFk() {
+		return idUnidadeGestoraFk;
+	}
+
+	public void setIdUnidadeGestoraFk(UnidadeGestora idUnidadeGestoraFk) {
+		this.idUnidadeGestoraFk = idUnidadeGestoraFk;
 	}
 
 	

@@ -52,12 +52,20 @@ public class PessoaBancosService {
 	
 	public List<PessoaBancos> buscarPorNome(String nome) {
 		// TODO Auto-generated method stub
-		return reposytory.findByIdBancoFkNomeBancoContainingOrderByIdPrioritarioFkSiglaAsc(nome);
+		return reposytory.findByIdBancoFkNomeBancoContainingAndDtCancelamentoIsNullOrderByIdPrioritarioFkSiglaAsc(nome);
 	}
 	
 	public List<PessoaBancos> buscarPorPessoa(Pessoa pessoa) {
 		// TODO Auto-generated method stub
-		return reposytory.findByIdPessoaFk(pessoa);
+		return reposytory.findByIdPessoaFkAndDtCancelamentoIsNull(pessoa);
+	}
+	
+	public boolean buscarPrioritarioCadastradoPorPessoa(Pessoa pessoa) {
+		// TODO Auto-generated method stub
+		boolean resposta = true;
+		List<PessoaBancos> lista =  reposytory.findByIdPessoaFkAndIdPrioritarioFkSiglaAndDtCancelamentoIsNull(pessoa, "S"); 
+		if(lista.isEmpty()) {resposta = false;}
+		return resposta;
 	}
 	
 }
