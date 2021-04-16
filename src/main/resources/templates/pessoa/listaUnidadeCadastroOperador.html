@@ -8,7 +8,7 @@
 			<a class="btn btn-outline-light oi oi-action-redo" type="button" href="javascript:history.forward()"></a>    
 	    	
 	    	
-	        <a class="btn btn-outline-dark btn-md" href="/pessoas/operador/listar/unidade" role="button">
+	        <a class="btn btn-outline-dark btn-md" th:href="@{/pessoas/operador/listar/unidade}" role="button">
 	        	<span class="oi oi-loop-square" title="Atualizar" aria-hidden="true"></span>
 	            <span>Atualizar</span>
 	        </a>
@@ -67,12 +67,12 @@
 		            <nav class="navbar navbar-light bg-light">
 	                	<form class="form-inline" method="GET" th:action="@{/cidades/buscar/id/uf}">
 	                   		
-	                        <a class="btn btn-outline-success btn-md" href="/pessoas/exporta/excel" role="button">
+	                        <a class="btn btn-outline-success btn-md" th:href="@{/pessoas/exporta/excel}" role="button">
 				        		<span class="oi oi-cloud-download" title="exportaExcel" aria-hidden="true"></span>
 				            	<span>Exporta Excel</span>
 				       	    </a>
 				       	    
-				       	    <a class="btn btn-outline-danger btn-md" href="/pessoas/exporta/pdf" role="button">
+				       	    <a class="btn btn-outline-danger btn-md" th:href="@{/pessoas/exporta/pdf}" role="button">
 				        		<span class="oi oi-cloud-download" title="exportaPdf" aria-hidden="true"></span>
 				            	<span>Exporta Pdf</span>
 				       	    </a>

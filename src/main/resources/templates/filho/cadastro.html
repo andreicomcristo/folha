@@ -5,7 +5,7 @@
 	<section class="layout-content" layout:fragment="corpo">
 
 		<nav class="navbar navbar-expand-md bg-light">
-			<form action="/bancos/listar">
+			<form th:action="@{/bancos/listar}">
 				<div class=" layout-content">
 					<a class="btn btn-outline-light oi oi-action-undo" type="button" href="javascript:history.back()"></a>
 					<a class="btn btn-outline-light oi oi-action-redo" type="button" href="javascript:history.forward()"></a>	
@@ -29,12 +29,12 @@
 						<label for="nome" class="fonte-tutulos-tamanho">Filhos</label>
 							
 							<p></p>
-							<a class="btn btn-outline-danger btn-sm" href="/filhos/retroceder"
+							<a class="btn btn-outline-danger btn-sm" th:href="@{/filhos/retroceder}"
 								role="button"> <span class="oi oi-arrow-thick-left" title="Cadastro"
 								aria-hidden="true"></span> <span>Retroceder</span>
 							</a>
 							
-							<a class="btn btn-outline-success btn-sm" href="/filhos/avancar"
+							<a class="btn btn-outline-success btn-sm" th:href="@{/filhos/avancar}"
 								role="button"> <span>Avançar</span><span class="oi oi-arrow-thick-right" 
 								title="Cadastro" aria-hidden="true"></span>
 							</a>

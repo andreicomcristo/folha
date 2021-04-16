@@ -11,10 +11,12 @@ import com.folha.boot.domain.PessoaDocumentos;
 @Repository
 public interface PessoaBancosReposytory extends JpaRepository<PessoaBancos, Long> {
 
-	public List<PessoaBancos> findAllByOrderByIdPrioritarioFkSiglaAsc();
+	public List<PessoaBancos> findByAndDtCancelamentoIsNullOrderByIdPrioritarioFkSiglaAsc();
 
-	public List<PessoaBancos> findByIdBancoFkNomeBancoContainingOrderByIdPrioritarioFkSiglaAsc(String nome);
+	public List<PessoaBancos> findByIdBancoFkNomeBancoContainingAndDtCancelamentoIsNullOrderByIdPrioritarioFkSiglaAsc(String nome);
 	
-	public List<PessoaBancos> findByIdPessoaFk(Pessoa pessoa);
+	public List<PessoaBancos> findByIdPessoaFkAndDtCancelamentoIsNull(Pessoa pessoa);
+	
+	public List<PessoaBancos> findByIdPessoaFkAndIdPrioritarioFkSiglaAndDtCancelamentoIsNull(Pessoa pessoa, String  sim_nao);
 	
 }

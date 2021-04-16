@@ -5,16 +5,16 @@
 	<section class="layout-content" layout:fragment="corpo">
 
 		<nav class="navbar navbar-expand-md bg-light">
-			<form action="/documentos/listar">
+			<form th:action="@{/documentos/listar}">
 				<div class=" layout-content">
 					<a class="btn btn-outline-light oi oi-action-undo" type="button" href="javascript:history.back()"></a>
 					<a class="btn btn-outline-light oi oi-action-redo" type="button" href="javascript:history.forward()"></a>    	
 				
-					<a class="btn btn-outline-dark btn-md" href="/acessooperadorescoordenacao/listar/unidade"
+					<a class="btn btn-outline-dark btn-md" th:href="@{/acessooperadorescoordenacao/listar/unidade}"
 							role="button"> <span class="oi oi-list" title="Listar"
 							aria-hidden="true"></span> <span>Listar</span>
 					</a>
-					<a class="btn btn-outline-dark btn-md" href="/acessooperadorescoordenacao/cadastrar"
+					<a class="btn btn-outline-dark btn-md" th:href="@{/acessooperadorescoordenacao/cadastrar}"
 							role="button"> <span class="oi oi-loop-square" title="Listar"
 							aria-hidden="true"></span> <span>Atualizar</span>
 					</a>

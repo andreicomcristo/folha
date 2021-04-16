@@ -4,12 +4,12 @@
 <body>
 	<section class="layout-content" layout:fragment="corpo">
 		<nav class="navbar navbar-expand-md bg-light">
-			<form action="/funcionariosferias/listar">
+			<form th:action="@{/funcionariosferias/listar}">
 				<div class=" layout-content">
 					<a class="btn btn-outline-light oi oi-action-undo" type="button" href="javascript:history.back()"></a>
 					<a class="btn btn-outline-light oi oi-action-redo" type="button" href="javascript:history.forward()"></a>
 					<button class="btn btn-outline-dark" >Listar</button>
-					<a class="btn btn-outline-dark btn-md" href="/funcionariosferias/ferias/{id}"
+					<a class="btn btn-outline-dark btn-md" th:href="@{/funcionariosferias/ferias/{id}}"
 						role="button"> <span class="oi oi-plus" title="Cadastro"
 						aria-hidden="true"></span> <span>Novo</span>
 					</a>

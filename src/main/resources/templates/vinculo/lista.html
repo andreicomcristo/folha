@@ -6,15 +6,15 @@
 		<nav class="navbar navbar-expand-md bg-light">
 	        <a class="btn btn-outline-light oi oi-action-undo" type="button" href="javascript:history.back()"></a>
 			<a class="btn btn-outline-light oi oi-action-redo" type="button" href="javascript:history.forward()"></a>    
-	    	<a class="btn btn-outline-dark btn-md" href="/vinculos/cadastrar" role="button">
+	    	<a class="btn btn-outline-dark btn-md" th:href="@{/vinculos/cadastrar}" role="button">
 	        	<span class="oi oi-plus" title="Cadastro" aria-hidden="true"></span>
 	            <span>Novo</span>
 	        </a>
-	        <a class="btn btn-outline-dark btn-md" href="/vinculos/listar" role="button">
+	        <a class="btn btn-outline-dark btn-md" th:href="@{/vinculos/listar}" role="button">
 	        	<span class="oi oi-loop-square" title="Atualizar" aria-hidden="true"></span>
 	            <span>Atualizar</span>
 	        </a>
-	            <label for="nome" class= "fonte-tutulos-tamanho">Lista de VínculosBancos </label>
+	            <label for="nome" class= "fonte-tutulos-tamanho">Lista de Vínculos </label>
 	    </nav>
 	  	<div class="container">
 	    	<p>                
