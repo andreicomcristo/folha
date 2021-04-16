@@ -10,7 +10,7 @@
 					<a class="btn btn-outline-light oi oi-action-undo" type="button" href="javascript:history.back()"></a>
 					<a class="btn btn-outline-light oi oi-action-redo" type="button" href="javascript:history.forward()"></a>
 					<button class="btn btn-outline-dark" >Listar</button>
-					<a class="btn btn-outline-dark btn-md" th:href="@{/funcionariosferiasperiodos/cadastrar}"
+					<a class="btn btn-outline-dark btn-md" th:href="@{/funcionariosferias/periodos/{id}"
 						role="button"> <span class="oi oi-plus" title="Cadastro"
 						aria-hidden="true"></span> <span>Novo</span>
 					</a>
@@ -19,10 +19,15 @@
 		</nav>
 
 		<div class="container" id="cadastro">
-
+			<tr th:each="d : ${ferias}"> 
+			    <td style="font-size:11px;"  th:text="${d.idFuncionarioFk.idPessoaFk.nome}"></td>
+			    <td style="font-size:11px;"  th:text="${d.idFuncionarioFk.idEspecialidadeAtualFk.idCargoFk.nomeCargo+'-'+d.idFuncionarioFk.idEspecialidadeAtualFk.nomeEspecialidadeCargo}"></td>
+			    <td style="font-size:11px;"  th:text="${d.anoReferencia}"></td> 
+			    <td colspan="2">
+			</tr>
 			<div th:replace="fragments/alert"></div>
 			<form
-				th:action="${funcionariosFeriasPeriodos.id == null} ? @{/funcionariosferiasperiodos/salvar} : @{/funcionariosferiasperiodos/editar}"
+				th:action="@{/funcionariosferias/salvar/periodos}"
 				th:object="${funcionariosFeriasPeriodos}" method="POST">
 				<div class="form-row">
 
@@ -41,39 +46,22 @@
 								id="instituicao" placeholder="Data Final" th:field="*{dtFinal}" />						
 							<p></p>
 							
+
 							<label for="nome" class="">Data Assinatura </label>
 							<input type="text"
 								class="form-control form-control-md" autofocus="autofocus"
 								id="instituicao" placeholder="Data de Assinatura" th:field="*{dtAssinatura}" />						
 							<p></p>
-							
-							<label for="nome" class="">Data Cadastro </label>
-							<input type="text"
-								class="form-control form-control-md" autofocus="autofocus"
-								id="cargaHoraria" placeholder="Data de Cadastro" th:field="*{dtCadastro}" />						
+
+													
+							<input type="hidden" id="id" th:field="*{id}" />
+							<input type="hidden" id="id" th:field="*{motivoCancelamento}" />
+							<input type="hidden" id="id" th:field="*{dtCancelamento}" />
+							<input type="hidden" id="id" th:field="*{dtCadastro}" />
+							<input type="hidden" id="id" th:field="*{idFeriasFk}" />
+
 							<p></p>
-							
-							<label for="nome" class="">Data Cancelamento </label>
-							<input type="text"
-								class="form-control form-control-md" autofocus="autofocus"
-								id="cargaHoraria" placeholder="Data de Cancelamento" th:field="*{dtCancelamento}" />						
-							<p></p>
-							
-							<label for="nome" class="">Motivo Cancelamento </label>
-							<input type="text"
-								class="form-control form-control-md" autofocus="autofocus"
-								id="cargaHoraria" placeholder="Motivo do Cancelamento" th:field="*{motivoCancelamento}" />						
-							<p></p>
-							
-							<label for="nome" class="">Ano de Referência </label>
-							<select id="idFeriasFk" class="form-select" th:field="*{idFeriasFk}">
-								<option value="">Selecione o Ano de Referência</option>
-								<option class="form-select" th:each="d : ${idFeriasFk}" th:value="${d.id}"th:text="${d.anoReferencia}" selected >ADM</option>
-							</select>								
-							<p></p>	
-					
-					<input type="hidden" id="id" th:field="*{id}" />
-								<p></p>					
+
 						<button class="btn btn-outline-dark">Cadastrar</button>
 					</div>
 				</div>

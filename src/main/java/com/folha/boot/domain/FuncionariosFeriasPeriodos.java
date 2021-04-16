@@ -35,7 +35,7 @@ public class FuncionariosFeriasPeriodos extends AbstractEntity<Long> {
     
 	@JoinColumn(name = "id_ferias_fk", referencedColumnName = "id")
     @ManyToOne(optional = false)
-    private FuncionariosFerias idFeriasFk;
+    private FuncionariosFerias idFeriasFk; 
     
 	@JoinColumn(name = "id_operador_cadastro_fk", referencedColumnName = "id")
     @ManyToOne

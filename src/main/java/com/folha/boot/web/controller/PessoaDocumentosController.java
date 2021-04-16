@@ -25,11 +25,9 @@ public class PessoaDocumentosController {
 	Long idPessoaAtual;
 	
 	@Autowired
-	private PessoaDocumentosService service;
-	
+	private PessoaDocumentosService service;	
 	@Autowired
 	private PessoaService pessoaService;
-	
 	@Autowired
 	private TiposDeDocumentoService tiposDeDocumentoService;
 
