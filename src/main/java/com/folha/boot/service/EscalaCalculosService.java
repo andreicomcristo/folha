@@ -123,6 +123,7 @@ public class EscalaCalculosService {
 		if(escala.getDia29Fk()==null) {escala.setDia29Fk(turnosService.buscarPorNome(""));}
 		if(escala.getDia30Fk()==null) {escala.setDia30Fk(turnosService.buscarPorNome(""));}
 		if(escala.getDia31Fk()==null) {escala.setDia31Fk(turnosService.buscarPorNome(""));}
+		if(escala.getObservacoes()==null) {escala.setObservacoes("");}
 		
 		if(escala.getIdLiberacaoDobraInvertidaSimNaoFk()==null) {escala.setIdLiberacaoDobraInvertidaSimNaoFk(simNaoService.buscarPorSigla("N").get(0));}
 		

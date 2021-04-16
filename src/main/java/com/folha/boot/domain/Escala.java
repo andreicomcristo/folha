@@ -9,6 +9,8 @@ import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
+import com.folha.boot.service.util.UtilidadesDeTexto;
+
 @SuppressWarnings("serial")
 @Entity
 @Table(name = "escala")
@@ -177,6 +179,9 @@ public class Escala extends AbstractEntity<Long>{
     @JoinColumn(name = "id_liberacao_dobra_invertida_sim_nao_fk", referencedColumnName = "id")
     @ManyToOne
     private SimNao idLiberacaoDobraInvertidaSimNaoFk;
+    
+    @Column(name = "observacoes")
+    private String observacoes;
 	
     
     
@@ -525,6 +530,14 @@ public class Escala extends AbstractEntity<Long>{
 
 	public void setIdLiberacaoDobraInvertidaSimNaoFk(SimNao idLiberacaoDobraInvertidaSimNaoFk) {
 		this.idLiberacaoDobraInvertidaSimNaoFk = idLiberacaoDobraInvertidaSimNaoFk;
+	}
+
+	public String getObservacoes() {
+		return observacoes;
+	}
+
+	public void setObservacoes(String observacoes) {
+		this.observacoes = UtilidadesDeTexto.retiraEspacosDuplosAcentosEConverteEmMaiusculo(observacoes);
 	}
 	
 	
