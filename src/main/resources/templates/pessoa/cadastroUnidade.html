@@ -48,15 +48,17 @@
 					-->
 			  		
 			  		<p></p>
-			  		
+			  		<label for="nome" class="">Cpf </label>
 			  		<input type="text"	class="form-control form-control-md" autofocus="autofocus" data-mask="000.000.000-00"
 					id="codigo" placeholder="Cpf" th:field="*{cpf}" />
 					<p></p>
 			  		
+			  		<label for="nome" class="">Nome </label>
 			  		<input type="text"	class="form-control form-control-md uppercase" autofocus="autofocus" 
 					id="codigo" placeholder="Nome" th:field="*{nome}" />
 					<p></p>
 					
+					<label for="nome" class="">Nome Social </label>
 					<input type="text"	class="form-control form-control-md uppercase" autofocus="autofocus"
 					id="codigo" placeholder="Nome Social" th:field="*{nomeSocial}" />
 					<p></p>
@@ -71,23 +73,27 @@
 			   	<div class="tab-pane fade" id="nav-contatos" role="tabpanel" aria-labelledby="nav-contatos-tab">
 				-->	
 					<p></p>
-			  		
+			  		<label for="nome" class="">Fone Principal </label>
 			  		<input type="text"	class="form-control form-control-md" autofocus="autofocus" data-mask="(00) 00000-0000"
 					id="codigo" placeholder="Fone Principal" th:field="*{fone1}" />
 					<p></p>
 					
+					<label for="nome" class="">Fone Secundário </label>
 					<input type="text"	class="form-control form-control-md" autofocus="autofocus" data-mask="(00) 00000-0000"
 					id="codigo" placeholder="Fone Secundário" th:field="*{fone2}" />
 					<p></p>
 					
+					<label for="nome" class="">Fone Alternativo </label>
 					<input type="text"	class="form-control form-control-md" autofocus="autofocus" data-mask="(00) 00000-0000"
 					id="codigo" placeholder="Fone Alternativo" th:field="*{fone3}" />
 					<p></p>
 					
+					<label for="nome" class="">Email </label>
 			  		<input type="text"	class="form-control form-control-md" autofocus="autofocus"
 					id="codigo" placeholder="email" th:field="*{email}" />
 					<p></p>
 					
+					<label for="nome" class="">Email Saúde </label>
 					<input type="text"	class="form-control form-control-md" autofocus="autofocus"
 					id="codigo" placeholder="email saúde" th:field="*{emailSaude}" />
 					<p></p>
@@ -99,35 +105,40 @@
 			 	<div class="tab-pane fade" id="nav-caracteristicas" role="tabpanel" aria-labelledby="nav-caracteristicas-tab">
 			 	-->
 			 		<p></p>
-					
+					<label for="nome" class="">Data Nascimento </label>
 					<input type="text"	class="form-control form-control-md" autofocus="autofocus" data-mask="00/00/0000"
 					id="codigo" placeholder="Data de Nascimento" th:field="*{dtNascimento}" />
 					<p></p>
 					
+					<label for="nome" class="">Sexo Biológico </label>
 					<select id="sexos" class="form-select" th:field="*{idSexoFk}">
-						<option value="">Selecione Sexo Biológico</option>
+						<option value="">Sexo Biológico</option>
 						<option th:each="d : ${idSexoFk}" th:value="${d.id}"th:text="${d.descricaoSexo}">ADM</option>
 					</select>
 					<p></p>
 					
+					<label for="nome" class="">Identidade de Gênero </label>
 					<select id="sexos" class="form-select" th:field="*{idSexoDeclaradoFk}">
-						<option value="">Selecione Sexo Declarado</option>
+						<option value="">Identidade de Gênero</option>
 						<option th:each="d : ${idSexoDeclaradoFk}" th:value="${d.id}"th:text="${d.descricaoSexo}">ADM</option>
 					</select>
 					<p></p>
 					
+					<label for="nome" class="">Cidade Natal </label>
 					<select id="sexos" class="form-select" th:field="*{idCidadeNatalFk}">
 						<option value="">Selecione Cidade Natal</option>
 						<option th:each="d : ${idCidadeNatalFk}" th:value="${d.id}"th:text="${d.nomeCidade+' - '+d.idUfFk.nomeUf+' - '+d.idPaisFk.nomePais}">ADM</option>
 					</select>
 					<p></p>	
 					
+					<label for="nome" class="">Escolaridade </label>
 					<select id="sexos" class="form-select" th:field="*{idEscolaridadeFk}">
 						<option value="">Selecione Escolaridade</option>
 						<option th:each="d : ${idEscolaridadeFk}" th:value="${d.id}"th:text="${d.nomeEscolaridade}">ADM</option>
 					</select>
 					<p></p>
 					
+					<label for="nome" class="">Estado Civil </label>
 					<select id="sexos" class="form-select" th:field="*{idEstadoCivilFk}">
 						<option value="">Selecione Estado Civil</option>
 						<option th:each="d : ${idEstadoCivilFk}" th:value="${d.id}"th:text="${d.nomeEstadoCivil}">ADM</option>
@@ -141,10 +152,12 @@
 			  		<p></p>
 			  		-->
 			  		
+			  		<label for="nome" class="">Nome do Pai </label>
 			  		<input type="text"	class="form-control form-control-md uppercase" autofocus="autofocus" 
 					id="codigo" placeholder="Nome do pai" th:field="*{nomePai}" />
 					<p></p>
 			  		
+			  		<label for="nome" class="">Nome da Mãe </label>
 			  		<input type="text"	class="form-control form-control-md uppercase" autofocus="autofocus"
 					id="codigo" placeholder="Nome da Mãe" th:field="*{nomeMae}" />
 					<p></p>

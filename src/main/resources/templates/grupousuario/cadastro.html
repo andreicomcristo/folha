@@ -29,12 +29,13 @@
 					<div class="form-group col-md-6">
 						<label for="nome" class="fonte-tutulos-tamanho">Cadastro de Grupo Usuario</label>
 							
-							
+							<label for="nome" class="">Grupo Usuário </label>
 							<input type="text"
 								class="form-control form-control-md" autofocus="autofocus"
 								id="nome" placeholder="Grupo Usuário" th:field="*{nome}" />						
 							<p></p>
 							
+							<label for="nome" class="">Tipo Grupo Usuário </label>
 							<select id="idCodDiferenciadoFk" class="form-select" th:field="*{idTipoGrupoUsuarioFk}">
 								<option value="">Selecione o Tipo</option>
 								<option class="form-select" th:each="d : ${idTipoGrupoUsuarioFk}" th:value="${d.id}"th:text="${d.nome}" selected >ADM</option>

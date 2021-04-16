@@ -28,16 +28,19 @@
 								<label style="text-align: center; color:#008080;" th:text="${nome}" class="text" >Escala </label>
 							</div>
 							
+							<label for="nome" class="">Regime de Trabalho </label>
 							<select  id="anoMes" class="form-control form-select chat-input" th:field="*{regiDeTrabalho}">
 								<option value="">Selecione o Regime de Trabalho</option>
 								<option th:each="d : ${idRegimeFk}" th:value="${d.id}"th:text="${d.nomeRegimeDeTrabalho}"> </option>
 							</select>	
 							<p></p>
+							<label for="nome" class="">Tipo de Folha </label>
 							<select id="cargos" class="form-select" th:field="*{tiposDeFolha}">
 								<option value="">Selecione o Tipo de Folha</option>
 								<option th:each="d : ${idTipoFolhaFk}" th:value="${d.id}"th:text="${d.nomeTipoFolha}">ADM</option>
 							</select>	
 							<p></p>
+							<label for="nome" class="">Turma </label>
 							<select id="cargos" class="form-select" th:field="*{turma}">
 								<option value="">Selecione a Turma</option>
 								<option th:each="d : ${idTurmaFk}" th:value="${d.id}"th:text="${d.descricaoTurma}">ADM</option>

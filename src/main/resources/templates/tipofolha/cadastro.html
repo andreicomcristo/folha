@@ -29,22 +29,26 @@
 					<div class="form-group col-md-6">
 						<label for="nome" class="fonte-tutulos-tamanho ">Cadastro de Tipos de Folha</label>
 							
+							<label for="nome" class="">Tipo de Folha </label>
 							<input type="text"
 								class="form-control form-control-md uppercase" autofocus="autofocus"
 								id="nomeTipoFolha" placeholder="Tipo de Folha" th:field="*{nomeTipoFolha}" /> 
 							<p></p>
 							
+							<label for="nome" class="">Descrição do Tipo de Folha </label>
 							<input type="text"
 								class="form-control form-control-md uppercase" autofocus="autofocus"
 								id="descricaoTipoFolha" placeholder="Descrição do Tipo de Folha" th:field="*{descricaoTipoFolha}" /> 
 							<p></p>
 							
+							<label for="nome" class="">Tipo de Remuneração </label>
 							<select id="cargos" class="form-select" th:field="*{idTipoRemuneracaoFk}">
 									<option value="">Selecione o Tipo de Remuneração</option>
 									<option class="form-select" th:each="d : ${idTipoRemuneracaoFk}" th:value="${d.id}"th:text="${d.nomeTipoRemuneracao}" selected >ADM</option>
 							</select>
 							<p></p>
 							
+							<label for="nome" class="">Folha Efetiva </label>
 							<select id="cargos" class="form-select" th:field="*{idFolhaEfetivaSimNaoFk}">
 									<option value="">Folha Efetiva</option>
 									<option class="form-select" th:each="d : ${idFolhaEfetivaSimNaoFk}" th:value="${d.id}"th:text="${d.descricao}" selected >ADM</option>

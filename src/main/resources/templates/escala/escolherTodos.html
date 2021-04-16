@@ -22,6 +22,7 @@
 					<div class="form-group col-md-6">
 						<label for="nome" class="fonte-tutulos-tamanho">Abrir Escala (Todos)</label>
 							
+							<label for="nome" class="">Mês </label>
 							<select  id="anoMes" class="form-control form-select chat-input" th:field="*{anoMes}">
 								<option value="">Selecione o Mês</option>
 								<option th:each="d : ${anoMes}" th:value="${d.id}"th:text="${d.nomeAnoMes}"> </option>

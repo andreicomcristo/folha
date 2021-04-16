@@ -28,14 +28,17 @@
 	                    <div class="form-group col-md-6">
 	                        <label for="nome">Cadastro de Especialidades</label>
 	                        
+	                        <label for="nome" class="">Especialidade </label>
 	                        <input type="text" class="form-control" id="nome"
 	                               placeholder="Nome da Especialidade" autofocus="autofocus" th:field="*{nomeEspecialidadeCargo}"/>
 	                        <p></p>
 							
+							<label for="nome" class="">Descrição </label>
 							<input type="text" class="form-control form-control-md" autofocus="autofocus" 
 							   id="nome" placeholder="Descrição da Especialidade"th:field="*{descricaoEspecialidadeCargo}"/>
 							<p></p>   
 							
+							<label for="nome" class="">Cargo </label>
 							<select id="cargos" class="form-control" th:field="*{idCargoFk}">
 								<option value="">Selecione o Cargo</option>
 								<option th:each="d : ${idCargoFk}" th:value="${d.id}"th:text="${d.nomeCargo}">ADM</option>

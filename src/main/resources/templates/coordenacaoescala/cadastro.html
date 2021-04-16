@@ -29,17 +29,20 @@
 					<div class="form-group col-md-6">
 						<label for="nome" class="fonte-tutulos-tamanho">Cadastro de coordenação Escala</label>
 							
+							<label for="nome" class="">Coordenação </label>
 							<input type="text"
 								class="form-control form-control-md" autofocus="autofocus"
 								id="nomeCoordenacao" placeholder="Coordenacao" th:field="*{nomeCoordenacao}" /> 
 							<p></p>
 							
+							<label for="nome" class="">Atividade </label>
 							<select id="idAtividadeFk" class="form-select" th:field="*{idAtividadeFk}">
 								<option value="">Selecione a Atividade</option>
 								<option class="form-select" th:each="d : ${idAtividadeFk}" th:value="${d.id}"th:text="${d.nomeAtividade}" selected >ADM</option>
 							</select>								
 							<p></p>
 							
+							<label for="nome" class="">Localidade </label>
 							<select id="idLocalidadeFk" class="form-select" th:field="*{idLocalidadeFk}">
 								<option value="">Selecione a Localidade</option>
 								<option class="form-select" th:each="d : ${idLocalidadeFk}" th:value="${d.id}"th:text="${d.nomeLocalidade}" selected >ADM</option>

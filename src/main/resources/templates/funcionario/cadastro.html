@@ -47,11 +47,13 @@
 
 					<div class="form-group col-md-6">
 							
+							<label for="nome" class="">Matrícula </label>
 							<input type="text"	
 								class="form-control form-control-sm uppercase" autofocus="autofocus" data-mask="000.000.000-0"
 								id="codigo" placeholder="Matrícula" th:field="*{matricula}" />
 							<p></p>
 							
+							<label for="nome" class="">Número de Ordem </label>
 							<input type="number"
 								class="form-control form-control-sm uppercase" autofocus="autofocus" data-mask="000000"
 								id="codigo" placeholder="Número de Ordem" th:field="*{numeroDeOrdem}" />
@@ -66,68 +68,79 @@
 							<label>Data Posse/Início</label>
 							<input type="text"
 								class="form-control form-control-sm uppercase" autofocus="autofocus"  data-mask="00/00/0000"
-								id="codigo" placeholder="Dt Posse" th:field="*{dtPosse}" />
+								id="codigo" placeholder="Dt Posse/Início" th:field="*{dtPosse}" />
 							<p></p>
 							
+							<label for="nome" class="">Ponto </label>
 							<input type="number"
 								class="form-control form-control-sm uppercase" autofocus="autofocus" 
 								id="codigo" placeholder="Cód Ponto" th:field="*{numeroDePonto}" />
 							<p></p>
 							
+							<label for="nome" class="">Carga Horária </label>
 							<select id="cargos" class="form-select" th:field="*{idCargaHorariaAtualFk}">
 								<option value="">Selecione a Carga Horária</option>
 								<option th:each="d : ${idCargaHorariaAtualFk}" th:value="${d.id}"th:text="${d.cargaHoraria}">ADM</option>
 							</select>	
 							<p></p>
 							
+							<label for="nome" class="">Especialidade </label>
 							<select id="cargos" class="form-select" th:field="*{idEspecialidadeAtualFk}">
 								<option value="">Selecione a Especialidade</option>
 								<option th:each="d : ${idEspecialidadeAtualFk}" th:value="${d.id}"th:text="${d.idCargoFk.nomeCargo+' - '+d.nomeEspecialidadeCargo}">ADM</option>
 							</select>	
 							<p></p>
 							
+							<label for="nome" class="">Vínculo </label>
 							<select id="cargos" class="form-select" th:field="*{idVinculoAtualFk}">
 								<option value="">Vínculo</option>
 								<option th:each="d : ${idVinculoAtualFk}" th:value="${d.id}"th:text="${d.nomeVinculo}">ADM</option>
 							</select>	
 							<p></p>
 							
+							<label for="nome" class="">Crreira </label>
 							<select id="cargos" class="form-select" th:field="*{idCarreiraAtualFk}">
 								<option value="">Selecione a Carreira</option>
 								<option th:each="d : ${idCarreiraAtualFk}" th:value="${d.id}"th:text="${d.nomeCarreira}">ADM</option>
 							</select>	
 							<p></p>
 							
+							<label for="nome" class="">Classe </label>
 							<select id="cargos" class="form-select" th:field="*{idClasseCarreiraAtualFk}">
 								<option value="">Selecione a Classe</option>
 								<option th:each="d : ${idClasseCarreiraAtualFk}" th:value="${d.id}"th:text="${d.nomeClasse}">ADM</option>
 							</select>	
 							<p></p>
 							
+							<label for="nome" class="">Nivel da Carreira </label>
 							<select id="cargos" class="form-select" th:field="*{idNivelCarreiraAtualFk}">
 								<option value="">Selecione o Nível da Carreira</option>
 								<option th:each="d : ${idNivelCarreiraAtualFk}" th:value="${d.id}"th:text="${d.nomeNivelCarreira}">ADM</option>
 							</select>	
 							<p></p>
 							
+							<label for="nome" class="">Situação </label>
 							<select id="cargos" class="form-select" th:field="*{idSituacaoAtualFk}">
 								<option value="">Selecione a Situação</option>
 								<option th:each="d : ${idSituacaoAtualFk}" th:value="${d.id}"th:text="${d.nomeSituacao}">ADM</option>
 							</select>	
 							<p></p>
 							
+							<label for="nome" class="">Unidade de Lotação </label>
 							<select id="cargos" class="form-select" th:field="*{idUnidadeLotacaoAtualFk}">
 								<option value="">Unidade de Lotação</option>
 								<option th:each="d : ${idUnidadeLotacaoAtualFk}" th:value="${d.id}"th:text="${d.nomeFantasia}">ADM</option>
 							</select>	
 							<p></p>
 							
+							<label for="nome" class="">Unidade de Atuação </label>
 							<select id="cargos" class="form-select" th:field="*{idUnidadeAtuacaoAtualFk}">
 								<option value="">Unidade de Atuação</option>
 								<option th:each="d : ${idUnidadeAtuacaoAtualFk}" th:value="${d.id}"th:text="${d.nomeFantasia}">ADM</option>
 							</select>	
 							<p></p>
 							
+							<label for="nome" class="">Justificativa para Alteções </label>
 							<input type="text"
 								class="form-control form-control-sm uppercase" autofocus="autofocus" 
 								id="justificativa" placeholder="Justifique a Alteração" name="justificativa" />

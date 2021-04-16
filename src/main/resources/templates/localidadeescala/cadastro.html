@@ -31,13 +31,13 @@
 							
 							
 							<p></p>	
-														
+							<label for="nome" class="">Localidade </label>							
 							<input type="text"
 								class=" form-control form-control-md" autofocus="autofocus" 
 								id="nomeLocalidade" placeholder="Localidade" th:field="*{nomeLocalidade}" /> 
 							<p></p>
 							
-														
+							<label for="nome" class="">Unidade </label>							
 							<select id="idCodDiferenciadoFk" class="form-select" th:field="*{idUnidadeFk}">
 								<option value="">Selecione a Unidade</option>
 								<option class="form-select" th:each="d : ${idUnidadeFk}" th:value="${d.id}"th:text="${d.nomeFantasia}" selected >ADM</option>

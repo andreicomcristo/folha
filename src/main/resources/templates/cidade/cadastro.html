@@ -28,11 +28,13 @@
 					<div class="form-group col-md-6">
 						<label for="nome" class="fonte-tutulos-tamanho">Cadastro de Cidades </label>
 						
+						<label for="nome" class="">Cidade </label>
 						<input type="text"	class="form-control form-control-md" autofocus="autofocus"
 						       id="codigo" placeholder="Nome da Cidade" th:field="*{nomeCidade}" />
 						
 						<p></p>
 						
+						<label for="nome" class="">Estado </label>
 						<select id="cargos" class="form-select" th:field="*{idUfFk}">
 								<option value="">Selecione o Estado</option>
 								<option th:each="d : ${idUfFk}" th:value="${d.id}"th:text="${d.nomeUf}">ADM</option>
@@ -40,6 +42,7 @@
 						
 						<p></p>
 						
+						<label for="nome" class="">País </label>
 						<select id="cargos" class="form-select" th:field="*{idPaisFk}">
 								<option value="">Selecione o País</option>
 								<option class="form-select" th:each="d : ${idPaisFk}" th:value="${d.id}"th:text="${d.nomePais}" selected >ADM</option>

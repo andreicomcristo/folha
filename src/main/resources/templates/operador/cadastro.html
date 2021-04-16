@@ -29,10 +29,13 @@
 							
 							<label style="font-size:14px; color:#008080;"  th:text="*{idPessoaFk != null} ? *{idPessoaFk.nome } : '' "></label>
 							<p></p>
+							<label for="nome" class="">Usuário </label>
 							<input type="text"
 								class="form-control form-control-md" autofocus="autofocus"
 								id="nome" placeholder="Usuario" th:field="*{username}" />						
 							<p></p>
+							
+							<label for="nome" class="">Senha </label>
 							<input type="password" id="password" class="form-control form-control-md"
 								autofocus="autofocus" placeholder="Senha" th:field="*{password}" />
 							

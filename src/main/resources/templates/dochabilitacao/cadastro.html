@@ -29,26 +29,31 @@
 					<div class="form-group col-md-6">
 						<label for="nome" class="fonte-tutulos-tamanho">Cadastro de Documentos Habilitação</label>
 							
+							<label for="nome" class="">Número Registro </label>
 							<input type="number"
 								class="form-control form-control-md uppercase" autofocus="autofocus" 
 								id="codigo" placeholder="Registro" th:field="*{numeroRegistro}" /> 
 							<p></p>
 							
+							<label for="nome" class="">Data Emissão </label>
 							<input type="text"
 								class="form-control form-control-md" autofocus="autofocus" data-mask="00/00/0000"
 								id="codigo" placeholder="Data emissao" th:field="*{dtEmissao}" />
 							<p></p>
 							
+							<label for="nome" class="">Data Validade </label>
 							<input type="text"
 								class="form-control form-control-md" autofocus="autofocus" data-mask="00/00/0000"
 								id="codigo" placeholder="Data validade" th:field="*{dtValidade}" />
 							<p></p>
 							
+							<label for="nome" class="">Data Primeira Habilitação </label>
 							<input type="text"
 								class="form-control form-control-md" autofocus="autofocus" data-mask="00/00/0000"
 								id="codigo" placeholder="data Primeira Habilitacao" th:field="*{dtPrimeiraHabilitacao}" />
 							<p></p>
 							
+							<label for="nome" class="">Categoria </label>
 							<select id="cargos" class="form-select" th:field="*{idHabilitacaoCategoriasFk}">
 								<option value="">Selecione a Categoria</option>
 								<option th:each="d : ${idHabilitacaoCategoriasFk}" th:value="${d.id}"th:text="${d.nomeHabilitacaoCategoria}">ADM</option>

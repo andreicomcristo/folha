@@ -56,62 +56,74 @@
 
 					<div class="form-group col-md-6">
 							
+							<label for="nome" class="">Tipo de Filiação </label>
 							<select id="cargos" class="form-select" th:field="*{idTipoFiliacaoFk}">
 								<option value="">Selecione a Filiação</option>
 								<option th:each="d : ${idTipoFiliacaoFk}" th:value="${d.id}"th:text="${d.nomeTipoFiliacao}">ADM</option>
 							</select>	
 							<p></p>
 							
+							<label for="nome" class="">Nome </label>
 							<input type="text"
 								class="form-control form-control-sm uppercase" autofocus="autofocus" 
 								id="codigo" placeholder="Nome" th:field="*{nomeFilho}" /> 
 							<p></p>
 							
+							<label for="nome" class="">Data de Nascimento </label>
 							<input type="text"
 								class="form-control form-control-sm uppercase" autofocus="autofocus" data-mask="00/00/0000"
 								id="codigo" placeholder="Nascimento" th:field="*{dtNascimento}" /> 
 							<p></p>
 							
+							<label for="nome" class="">Cpf </label>
 							<input type="text"
 								class="form-control form-control-sm uppercase" autofocus="autofocus" data-mask="000.000.000-00"
 								id="codigo" placeholder="CPF" th:field="*{cpfFilho}" /> 
 							<p></p>
 							
+							<label for="nome" class="">RG </label>
 							<input type="text"
 								class="form-control form-control-sm uppercase" autofocus="autofocus" 
 								id="codigo" placeholder="RG" th:field="*{rgFilho}" /> 
 							<p></p>
 							
+							<label for="nome" class="">Data de Emissão </label>
 							<input type="text"
 								class="form-control form-control-sm uppercase" autofocus="autofocus" data-mask="00/00/0000"
 								id="codigo" placeholder="Dt Emissão" th:field="*{rgDtEmissaoFilho}" />
 							<p></p>
 							
+							<label for="nome" class="">Expedidor </label>
 							<input type="text"
 								class="form-control form-control-sm uppercase" autofocus="autofocus" 
 								id="codigo" placeholder="Expedidor" th:field="*{rgOrgaoExpedidor}" />
 							<p></p>
 							
+							<label for="nome" class="">Certidão de Nascimento </label>
 							<input type="text"
 								class="form-control form-control-sm uppercase" autofocus="autofocus" 
 								id="codigo" placeholder="Nº Certidao Nascimento" th:field="*{numeroCertidaoNascimento}" />
 							<p></p>
 							
+							<label for="nome" class="">Data Certidão </label>
 							<input type="text"
 								class="form-control form-control-sm uppercase" autofocus="autofocus" data-mask="00/00/0000"
 								id="codigo" placeholder="Dt Certidão" th:field="*{dtCertidadoNascimento}" />
 							<p></p>
 							
+							<label for="nome" class="">Cartório Certidão </label>
 							<input type="text"
 								class="form-control form-control-sm uppercase" autofocus="autofocus" 
 								id="codigo" placeholder="Cartorio Certidão" th:field="*{cartorioCertidadoNascimento}" />
 							<p></p>
 							
+							<label for="nome" class="">Livro Certidão </label>
 							<input type="text"
 								class="form-control form-control-sm uppercase" autofocus="autofocus" 
 								id="codigo" placeholder="Livro Certidão" th:field="*{livroCertidaoNascimento}" />
 							<p></p>
 							
+							<label for="nome" class="">Folha Certidão </label>
 							<input type="text"
 								class="form-control form-control-sm uppercase" autofocus="autofocus" 
 								id="codigo" placeholder="Folha Certidão" th:field="*{folhaCertidaoNascimento}" />
