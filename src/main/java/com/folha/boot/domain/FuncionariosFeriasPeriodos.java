@@ -11,8 +11,7 @@ public class FuncionariosFeriasPeriodos extends AbstractEntity<Long> {
 	@Column(name = "dt_inicial")
     @Temporal(TemporalType.DATE)
     private Date dtInicial;
-    
-	
+   	
 	@Basic(optional = false)
     @Column(name = "dt_final")
     @Temporal(TemporalType.DATE)

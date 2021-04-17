@@ -19,10 +19,10 @@
 		</nav>
 
 		<div class="container" id="cadastro">
-			<tr th:each="d : ${ferias}"> 
-			    <td style="font-size:11px;"  th:text="${d.idFuncionarioFk.idPessoaFk.nome}"></td>
-			    <td style="font-size:11px;"  th:text="${d.idFuncionarioFk.idEspecialidadeAtualFk.idCargoFk.nomeCargo+'-'+d.idFuncionarioFk.idEspecialidadeAtualFk.nomeEspecialidadeCargo}"></td>
-			    <td style="font-size:11px;"  th:text="${d.anoReferencia}"></td> 
+			<tr th:each="f : ${ferias}"> 
+			    <td style="font-size:11px;"  th:text="${f.idFuncionarioFk.idPessoaFk.nome}"></td>
+			    <td style="font-size:11px;"  th:text="${f.idFuncionarioFk.idEspecialidadeAtualFk.idCargoFk.nomeCargo+'-'+f.idFuncionarioFk.idEspecialidadeAtualFk.nomeEspecialidadeCargo}"></td>
+			    <td style="font-size:11px;"  th:text="${f.anoReferencia}"></td> 
 			    <td colspan="2">
 			</tr>
 			<div th:replace="fragments/alert"></div>
@@ -30,7 +30,6 @@
 				th:action="@{/funcionariosferias/salvar/periodos}"
 				th:object="${funcionariosFeriasPeriodos}" method="POST">
 				<div class="form-row">
-
 					<div class="form-group col-md-6">
 						<label for="nome" class="fonte-tutulos-tamanho">Cadastar Períodos de Férias</label>
 							
@@ -44,28 +43,54 @@
 							<input type="text"
 								class="form-control form-control-md" autofocus="autofocus"
 								id="instituicao" placeholder="Data Final" th:field="*{dtFinal}" />						
-							<p></p>
-							
+							<p></p>							
 
 							<label for="nome" class="">Data Assinatura </label>
 							<input type="text"
 								class="form-control form-control-md" autofocus="autofocus"
 								id="instituicao" placeholder="Data de Assinatura" th:field="*{dtAssinatura}" />						
 							<p></p>
-
-													
+												
 							<input type="hidden" id="id" th:field="*{id}" />
 							<input type="hidden" id="id" th:field="*{motivoCancelamento}" />
 							<input type="hidden" id="id" th:field="*{dtCancelamento}" />
 							<input type="hidden" id="id" th:field="*{dtCadastro}" />
 							<input type="hidden" id="id" th:field="*{idFeriasFk}" />
-
 							<p></p>
 
 						<button class="btn btn-outline-dark">Cadastrar</button>
 					</div>
 				</div>
 			</form>
+			<div style="height: 500px; overflow-y: auto;" class="table-responsive">
+	        	<table class="table table-striped table-hover table-sm myTable">
+	            	<thead>
+	          			<tr>
+		                	<th>#</th>
+		                    <th>Data Inicial </th>
+		                    <th>Data Final</th>
+		                    <th>Data Assinatura</th>
+	                    </tr>
+	                </thead>                  
+	                <tbody>
+		            	<tr th:each="p : ${periodos}">
+		                	<td th:text="${p.id}"></td>		                    
+		                    <td th:text="${p.dtInicial}"></td>
+		                    <td th:text="${p.dtFinal}"></td>
+		                    <td th:text="${p.dtAssinatura}"></td>		                    		           		                  	                    		                     		         		                    
+		                    <td colspan="2">
+		                    	<a class="btn btn-outline-info btn-sm" th:href="@{/funcionariosferias/editar/periodos/{id} (id=${p.id}) }" role="button">
+		                        	<span class="oi oi-brush" title="Editar" aria-hidden="true"></span>
+		                        </a>
+		                        <button th:id="${'btn_funcionariosferias/excluir/periodos/' + p.id}" type="button" class="btn btn btn-outline-danger btn-sm" 
+		                            		data-toggle="modal" data-target="#myModal">
+		                        	<span class="oi oi-circle-x" title="Exclusão habilitada" aria-hidden="true"></span>
+		                        </button>		                       
+		                   	</td>
+						</tr>
+					</tbody>                    
+	            </table>
+	         </div>
 		</div>
 	</section>
 </body>

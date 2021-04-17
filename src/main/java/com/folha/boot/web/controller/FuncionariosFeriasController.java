@@ -135,11 +135,24 @@ public class FuncionariosFeriasController {
 	
 	@PostMapping("/salvar/periodos")
 	public String salvarPeriodos(FuncionariosFeriasPeriodos peridoFerias, RedirectAttributes attr) {	
-		
 		periodosService.salvar(peridoFerias);
 		attr.addFlashAttribute("success", "Inserido com sucesso.");
 		
 		return "redirect:/funcionariosferias/periodos/"+ peridoFerias.getIdFeriasFk().getId();
+	}
+	//Não está funcionando.
+	@GetMapping("/editar/periodos/{id}")
+	public String editarPeriodos(@PathVariable("id") Long id , ModelMap model) {
+		
+		model.addAttribute("funcionariosFeriasPeriodos", periodosService.buscarPorId(id));		
+		return "redirect:/funcionariosferias/periodos/"+ periodosService.buscarPorId(id).getIdFeriasFk().getId();
+	}
+	
+	@GetMapping("/excluir/periodos/{id}")
+	public String excluirPeriodos(@PathVariable("id") Long id, ModelMap model) {
+		periodosService.excluir(id);  
+		model.addAttribute("success", "Excluído com sucesso.");
+		return "/funcionariosferiasperiodo/cadastro";
 	}
 	
 	@GetMapping("/editar/{id}")
