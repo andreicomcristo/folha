@@ -144,6 +144,8 @@ public class FuncionariosFeriasController {
 	
 	@GetMapping("/editar/{id}")
 	public String preEditar(@PathVariable("id") Long id, ModelMap model) {
+		PessoaFuncionarios funcionario = feriasService.buscarPorId(id).getIdFuncionarioFk();
+		model.addAttribute("funcionario", funcionario);
 		model.addAttribute("funcionariosFerias", feriasService.buscarPorId(id));
 		return "/funcionarioferias/cadastro";
 	}	
