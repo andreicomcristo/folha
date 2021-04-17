@@ -86,10 +86,17 @@ public class EscalaController {
 	String choque = "";
 	String choqueDescansoDepoisNoturno = "";
 	
+	//Dados para Busca
 	String ultimaBuscaNome = "";
 	Turmas ultimaBuscaTurma = null;
 	CargosEspecialidade ultimaBuscaCargoEspecialidade = null;
 	TiposDeFolha ultimaBuscaTiposDeFolha = null;
+	
+	//Dados para listar o codigo diferenciado na inclusao
+	TiposDeFolha tiposDeFolha;
+	Pessoa pessoa;
+	
+	
 	
 	@Autowired
 	private EscalaService service;
@@ -3162,8 +3169,8 @@ public class EscalaController {
 	public String findPaginatedInclusao(@PathVariable (value = "pageNo") int pageNo, ModelMap model) {
 		int pageSeze = 5;
 		Page<PessoaFuncionarios> page = pessoaFuncionariosService.findPaginated(pageNo, pageSeze, unidadesService.buscarPorId(idUnidadeLogada), "ATIVO");
-		List<PessoaFuncionarios> listaCidades = page.getContent();
-		return paginarInclusao(pageNo, page, listaCidades, model);
+		List<PessoaFuncionarios> lista = page.getContent();
+		return paginarInclusao(pageNo, page, lista, model);
 	}
 	
 	public String paginarInclusao(int pageNo, Page<PessoaFuncionarios> page, List<PessoaFuncionarios> lista, ModelMap model) {	

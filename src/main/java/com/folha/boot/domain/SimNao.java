@@ -85,6 +85,11 @@ public class SimNao extends AbstractEntity<Long> {
     @OneToMany(mappedBy = "idFolhaEfetivaSimNaoFk")
     private List<TiposDeFolha> tiposDeFolhaList;
     
+    @OneToMany(mappedBy = "idNecessitaAtribuicaoRhFk")
+    private List<CodigoDiferenciado> codigoDiferenciadoList;
+    @OneToMany(mappedBy = "idNecessitaAtribuicaoSedeFk")
+    private List<CodigoDiferenciado> codigoDiferenciadoList1;
+    
     public SimNao() {
     }
 
@@ -416,6 +421,26 @@ public class SimNao extends AbstractEntity<Long> {
 
 	public void setTiposDeFolhaList(List<TiposDeFolha> tiposDeFolhaList) {
 		this.tiposDeFolhaList = tiposDeFolhaList;
+	}
+
+
+	public List<CodigoDiferenciado> getCodigoDiferenciadoList() {
+		return codigoDiferenciadoList;
+	}
+
+
+	public void setCodigoDiferenciadoList(List<CodigoDiferenciado> codigoDiferenciadoList) {
+		this.codigoDiferenciadoList = codigoDiferenciadoList;
+	}
+
+
+	public List<CodigoDiferenciado> getCodigoDiferenciadoList1() {
+		return codigoDiferenciadoList1;
+	}
+
+
+	public void setCodigoDiferenciadoList1(List<CodigoDiferenciado> codigoDiferenciadoList1) {
+		this.codigoDiferenciadoList1 = codigoDiferenciadoList1;
 	}
 
     

@@ -40,25 +40,25 @@ public class CodigoDiferenciadoService {
 	@Transactional(readOnly = true)
 	public List<CodigoDiferenciado> buscarTodosGeral() {
 		// TODO Auto-generated method stub
-		return reposytory.findAllByOrderByIdUnidadeFkNomeFantasiaAscNomeCodigoDiferenciadoAsc();
+		return reposytory.findByDtCancelamentoIsNullOrderByIdUnidadeFkNomeFantasiaAscNomeCodigoDiferenciadoAsc();
 	}
 	
 	@Transactional(readOnly = true)
 	public List<CodigoDiferenciado> buscarTodos(Unidades unidade) {
 		// TODO Auto-generated method stub
-		return reposytory.findByIdUnidadeFkOrderByNomeCodigoDiferenciadoAsc(unidade);
+		return reposytory.findByIdUnidadeFkAndDtCancelamentoIsNullOrderByNomeCodigoDiferenciadoAsc(unidade);
 	}
 	
 	@Transactional(readOnly = true)
 	public List<CodigoDiferenciado> buscarPorNome(Unidades unidade, String nome) {
 		// TODO Auto-generated method stub
-		return reposytory.findByNomeCodigoDiferenciadoContainingAndIdUnidadeFkOrderByNomeCodigoDiferenciadoAsc( nome, unidade);
+		return reposytory.findByNomeCodigoDiferenciadoContainingAndIdUnidadeFkAndDtCancelamentoIsNullOrderByNomeCodigoDiferenciadoAsc( nome, unidade);
 	}
 	
 	@Transactional(readOnly = true)
 	public List<CodigoDiferenciado> buscarPorNomeGeral( String nome) {
 		// TODO Auto-generated method stub
-		return reposytory.findByNomeCodigoDiferenciadoContainingOrderByNomeCodigoDiferenciadoAsc( nome);
+		return reposytory.findByNomeCodigoDiferenciadoContainingAndDtCancelamentoIsNullOrderByNomeCodigoDiferenciadoAsc( nome);
 	}
 
 	

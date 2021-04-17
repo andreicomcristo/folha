@@ -21,6 +21,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import com.folha.boot.Reposytory.FaixasValoresParametrosCalculoFolhasExtrasReposytory;
+import com.folha.boot.domain.AnoMes;
 import com.folha.boot.domain.Cidades;
 import com.folha.boot.domain.FaixasValoresParametrosCalculoFolhasExtras;
 import com.folha.boot.domain.Unidades;
@@ -40,6 +41,10 @@ public class FaixasValoresParametrosCalculoFolhasExtrasService {
 
 	@Autowired
 	private FaixasValoresParametrosCalculoFolhasExtrasReposytory reposytory;
+	
+	@Autowired
+	private AnoMesService anoMesService;
+	
 
 	public void salvar(FaixasValoresParametrosCalculoFolhasExtras faixasValoresParametrosCalculoFolhasExtras) {
 		// TODO Auto-generated method stub
@@ -72,6 +77,13 @@ public class FaixasValoresParametrosCalculoFolhasExtrasService {
 		return reposytory.findByIdCodDiferenciadoFkIdUnidadeFkNomeFantasiaContainingOrderByIdAnoMesFkNomeAnoMesAscIdCodDiferenciadoFkIdUnidadeFkNomeFantasiaAsc(nome);
 	}
 	
+	
+	@Transactional(readOnly = true)
+	public List<FaixasValoresParametrosCalculoFolhasExtras> buscarPorMesExato(AnoMes anoMes) {
+		return reposytory.findByIdAnoMesFkOrderByIdAnoMesFkNomeAnoMesAscIdCodDiferenciadoFkIdUnidadeFkNomeFantasiaAsc(anoMes);
+	}
+	
+	
 	public Page<FaixasValoresParametrosCalculoFolhasExtras> findPaginated(int pageNo, int pageSize) {
 		Pageable pageable = PageRequest.of(pageNo -1, pageSize);
 		return this.reposytory.findAllByOrderByIdAnoMesFkNomeAnoMesAscIdCodDiferenciadoFkIdUnidadeFkNomeFantasiaAsc(pageable);
@@ -81,6 +93,35 @@ public class FaixasValoresParametrosCalculoFolhasExtrasService {
 		Pageable pageable = PageRequest.of(pageNo -1, pageSize);
 		return this.reposytory.findByIdAnoMesFkNomeAnoMesContainingOrderByIdAnoMesFkNomeAnoMesAscIdCodDiferenciadoFkIdUnidadeFkNomeFantasiaAsc(nomeCidade.toUpperCase().trim(), pageable);
 	}
+	
+	//Herdar de um mes para o outro
+	public void herdarDeUmMesParaOOutro(Long anoMesInicial, Long anoMesFinal) {
+		
+		List<FaixasValoresParametrosCalculoFolhasExtras> listaInicial = buscarPorMesExato(anoMesService.buscarPorId(anoMesInicial)); 
+		List<FaixasValoresParametrosCalculoFolhasExtras> listaFinal = buscarPorMesExato(anoMesService.buscarPorId(anoMesFinal));
+		
+		if( (!listaInicial.isEmpty())  &&  (listaFinal.isEmpty()) ) {
+			for(int i=0;i<listaInicial.size();i++) {
+				FaixasValoresParametrosCalculoFolhasExtras f = new FaixasValoresParametrosCalculoFolhasExtras();
+				f.setId(null);
+				f.setIdCodDiferenciadoFk(listaInicial.get(i).getIdCodDiferenciadoFk());
+				f.setIdAnoMesFk(anoMesService.buscarPorId(anoMesFinal));
+				f.setIdNivelFk(listaInicial.get(i).getIdNivelFk());
+				f.setIdRegimeDeTrabalhoFk(listaInicial.get(i).getIdRegimeDeTrabalhoFk());
+				f.setIdTipoDeFolhaFk(listaInicial.get(i).getIdTipoDeFolhaFk());
+				f.setValorBrutoFixoTotal(listaInicial.get(i).getValorBrutoFixoTotal());
+				f.setValorBrutoPorHora(listaInicial.get(i).getValorBrutoPorHora());
+				f.setValorHoraDia(listaInicial.get(i).getValorHoraDia());
+				f.setValorHoraFimDeSemana(listaInicial.get(i).getValorHoraFimDeSemana());
+				f.setValorHoraNoite(listaInicial.get(i).getValorHoraNoite());
+				f.setValorHoraSemana(listaInicial.get(i).getValorHoraSemana());
+				f.setValorLiquidoPorHora(listaInicial.get(i).getValorLiquidoPorHora());
+				
+				salvar(f);
+			}
+		}
+	}
+	
 	
 	public ByteArrayInputStream exportarExcel(List<FaixasValoresParametrosCalculoFolhasExtras> lista) {
 		try(Workbook workbook = new XSSFWorkbook()){
