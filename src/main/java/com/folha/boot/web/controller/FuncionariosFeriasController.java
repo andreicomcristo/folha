@@ -170,6 +170,7 @@ public class FuncionariosFeriasController {
 		return "redirect:/funcionariosferias/listar";
 	}
 	
+	
 	@GetMapping("/excluir/{id}")
 	public String excluir(@PathVariable("id") Long id, ModelMap model) {
 		feriasService.excluir(id);  
