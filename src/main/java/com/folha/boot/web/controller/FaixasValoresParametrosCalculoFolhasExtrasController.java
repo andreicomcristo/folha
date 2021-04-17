@@ -26,6 +26,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import com.folha.boot.domain.AnoMes;
 import com.folha.boot.domain.Cidades;
 import com.folha.boot.domain.CodigoDiferenciado;
+import com.folha.boot.domain.FaixasPrevidencia;
 import com.folha.boot.domain.FaixasValoresParametrosCalculoFolhasExtras;
 import com.folha.boot.domain.NiveisCargo;
 import com.folha.boot.domain.RegimesDeTrabalho;
@@ -180,6 +181,15 @@ public class FaixasValoresParametrosCalculoFolhasExtrasController {
 		model.addAttribute("success", "Excluído com sucesso.");
 		return listar(model);
 	}
+	
+	
+	@GetMapping("/herdar/de/mes") 
+	public String herdarDeMes( Long anoMesInicial,  Long anoMesFinal,  ModelMap model) {		
+		service.herdarDeUmMesParaOOutro(anoMesInicial, anoMesFinal);
+		return "redirect:/faixasparametrosextras/listar" ;
+	}
+	
+	
 	
 	@GetMapping("/buscar/nome")
 	public String getPorNome(@RequestParam("cnesUnidade") String nome, ModelMap model) {		

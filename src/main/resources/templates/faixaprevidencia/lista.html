@@ -21,20 +21,57 @@
 	        	<button class=" oi oi-magnifying-glass btn btn-outline-success my-2 my-sm-0" type="button" data-toggle="collapse" data-target="#collapseNome"
 	            		aria-controls="collapseNome">Filtrar
 	            </button>
+	            
+	            <button class=" oi oi-external-link btn btn-outline-warning my-2 my-sm-0" type="button" data-toggle="collapse" data-target="#collapseHerdar"
+	            		aria-controls="collapseHerdar">Copiar para outro mês
+	            </button> 
+	            
 	      </p>
 	      <div class="row">
 	      	<div class="col">
 	        	<div class="collapse" id="collapseNome">
 		            <nav class="navbar navbar-light bg-light">
 	    	           <form class="form-inline" method="GET" th:action="@{/faixasprevidencia/buscar/ano/mes}">
-	        	           <input class="form-control mr-sm-2" type="search" placeholder="Ano Mês IR" aria-label="Search"
-	                              th:name="anoMes" />
+	        	           
+	        	           <input class="form-control mr-sm-2" type="search" placeholder="Ano mes" aria-label="Search"
+	                              th:name="anoMes"/> 
+							
 	                       <button class="btn btn-outline-success my-2 my-sm-0">Buscar</button>
 	                   </form>
 	                </nav>
 	            </div>
 	    	</div>
 	    </div>
+	    
+	    
+	    
+	    
+	      </p>
+	      <div class="row">
+	      	<div class="col">
+	        	<div class="collapse" id="collapseHerdar">
+		            <nav class="navbar navbar-light bg-light">
+	    	           <form class="form-inline" method="GET" th:action="@{/faixasprevidencia/herdar/de/mes}">	        	           
+	        	           
+	        	           <select class=" form-select form-control mr-sm-2" 
+	                   				th:name="anoMesInicial" aria-label="Search">
+	                        	<option value="">Selecione Mes de Origem</option>
+	                            <option th:each="c : ${idAnoMesFk}" th:value="${c.id}" th:text="${c.nomeAnoMes}"> </option>
+	                         </select>
+	                         
+	                         <select class=" form-select form-control mr-sm-2" 
+	                   				th:name="anoMesFinal" aria-label="Search">
+	                        	<option value="">Selecione Mes de Destino</option>
+	                            <option th:each="c : ${idAnoMesFk}" th:value="${c.id}" th:text="${c.nomeAnoMes}"> </option>
+	                         </select>
+							
+	                       <button class="btn btn-outline-success my-2 my-sm-0">Enviar</button> 
+	                   </form>  
+	                </nav>
+	            </div>
+	        </div>
+	    </div>
+	    
 	    
 	    <div class="container" id="listagem">	        
 	    	<div th:replace="fragments/alert"></div>
@@ -62,7 +99,7 @@
 		                    <td th:text="${d.aliquota}"></td>
 		                    <td th:text="${d.parcelaASubtrair}"></td>
 		                    <td th:text="${d.parcelaADevolver}"></td>
-		                    <td th:text="${d.anoMes}"></td>
+		                    <td th:text="${d.idAnoMesFk.nomeAnoMes}"></td>
 		                    <td th:text="${d.idFaixasPrevidenciaNomeFk.nomeFaixa}"></td>
 		                    		         		                    
 		                    <td colspan="2">
@@ -78,7 +115,49 @@
 					</tbody>                    
 	            </table>
 	         </div>
-		</div>	        
+		</div>	    
+		
+		
+		
+		
+		
+		
+				 <nav aria-label="Page navigation example">
+			 <div> Quantidade de registros: [[${totalItems}]]<br>  Página: [[${currentePage}]] de [[${totalPages}]] </div> 
+			 <div>
+			 	<span >
+			 		<a></a>
+			 		<samp >[[${i}]]</samp> &nbsp; &nbsp;
+			 	</span>
+			 </div>
+			 	<ul class="pagination justify-content-center" >
+			 		<li class="page-item disabled" ></li>		 		
+		
+				 	<li ><a class="btn btn-light btn-paginacao oi oi-media-step-backward" th:if="${currentePage != i}"  th:href="@{'/faixasprevidencia/paginar/'+ 1 }" ></a></li>
+				 	
+				 	<li ><a class="btn btn-light    btn-paginacao    oi oi-media-skip-backward" th:if="${currentePage > 1}"  th:href="@{'/faixasprevidencia/paginar/'+ ${currentePage -1}}" ></a></li> 
+				 	
+				 	<li ><a class="btn btn-light    btn-paginacao oi" th:if="${currentePage > 1000}"  th:href="@{'/faixasprevidencia/paginar/'+ ${currentePage-1000} }" >-1000</a></li>
+				 	
+				 	<li ><a class="btn btn-light    btn-paginacao" th:if="${currentePage > 100}"  th:href="@{'/faixasprevidencia/paginar/'+ ${currentePage-100} }" >-100</a></li>
+				 	
+				 	<li ><a class="btn btn-light    btn-paginacao" th:if="${currentePage > 10}"  th:href="@{'/faixasprevidencia/paginar/'+ ${currentePage-10} }" >-10</a></li>
+	
+				 	<li ><a class="btn btn-light    btn-paginacao"  th:if="${currentePage < totalPages - 10}"  th:href="@{'/faixasprevidencia/paginar/'+ ${currentePage+10} }" >+10</a></li>
+				 	
+				 	<li ><a class="btn btn-light    btn-paginacao"  th:if="${currentePage < totalPages - 100}"  th:href="@{'/faixasprevidencia/paginar/'+ ${currentePage+100} }" >+100</a></li>
+				 	
+				 	<li ><a class="btn btn-light    btn-paginacao"  th:if="${currentePage < totalPages - 1000}"  th:href="@{'/faixasprevidencia/paginar/'+ ${currentePage+1000} }" >+1000</a></li>
+				 	
+				 	<li ><a class="btn btn-light    btn-paginacao    oi oi-media-skip-forward" th:if="${currentePage < totalPages}"  th:href="@{'/faixasprevidencia/paginar/' + ${currentePage +1}}"></a> </li>
+			 		
+			 		<li ><a class="btn btn-light    btn-paginacao    oi oi-media-step-forward"  th:if="${currentePage != i}"  th:href="@{'/faixasprevidencia/paginar/'+ ${totalPages} }" ></a></li> 
+			 	</ul>
+			</nav>    
+		
+		
+		
+		    
 	        <div th:replace="fragments/modal :: modal"></div>   
 	</section>	
 </body>

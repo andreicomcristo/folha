@@ -7,6 +7,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
+import com.folha.boot.domain.AnoMes;
 import com.folha.boot.domain.FaixasValoresParametrosCalculoFolhasExtras;
 import com.folha.boot.domain.Unidades;
 
@@ -16,6 +17,8 @@ public interface FaixasValoresParametrosCalculoFolhasExtrasReposytory extends Jp
 	public List<FaixasValoresParametrosCalculoFolhasExtras> findAllByOrderByIdAnoMesFkNomeAnoMesAscIdCodDiferenciadoFkIdUnidadeFkNomeFantasiaAsc();
 
 	public List<FaixasValoresParametrosCalculoFolhasExtras> findByIdCodDiferenciadoFkIdUnidadeFkNomeFantasiaContainingOrderByIdAnoMesFkNomeAnoMesAscIdCodDiferenciadoFkIdUnidadeFkNomeFantasiaAsc(String nome);
+	
+	public List<FaixasValoresParametrosCalculoFolhasExtras> findByIdAnoMesFkOrderByIdAnoMesFkNomeAnoMesAscIdCodDiferenciadoFkIdUnidadeFkNomeFantasiaAsc(AnoMes anoMes);
 	
 	public Page<FaixasValoresParametrosCalculoFolhasExtras> findAllByOrderByIdAnoMesFkNomeAnoMesAscIdCodDiferenciadoFkIdUnidadeFkNomeFantasiaAsc(final Pageable page);
 	
