@@ -130,6 +130,7 @@ public class FuncionariosFeriasController {
 			
 		model.addAttribute("ferias", ferias);
 		model.addAttribute("periodos", periodosService.buscarFerias(ferias));
+		
 		return "/funcionariosferiasperiodo/cadastro"; 
 	}
 	
@@ -140,13 +141,20 @@ public class FuncionariosFeriasController {
 		
 		return "redirect:/funcionariosferias/periodos/"+ peridoFerias.getIdFeriasFk().getId();
 	}
+	
+	
+	
+	
 	//Não está funcionando.
 	@GetMapping("/editar/periodos/{id}")
 	public String editarPeriodos(@PathVariable("id") Long id , ModelMap model) {
 		
-		model.addAttribute("funcionariosFeriasPeriodos", periodosService.buscarPorId(id));		
+		model.addAttribute("funcionariosFeriasPeriodos", periodosService.buscarPorId(id));	
+		
 		return "redirect:/funcionariosferias/periodos/"+ periodosService.buscarPorId(id).getIdFeriasFk().getId();
 	}
+	
+	
 	
 	@GetMapping("/excluir/periodos/{id}")
 	public String excluirPeriodos(@PathVariable("id") Long id, ModelMap model) {
