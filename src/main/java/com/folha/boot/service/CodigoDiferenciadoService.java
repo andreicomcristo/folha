@@ -15,6 +15,9 @@ public class CodigoDiferenciadoService {
 
 	@Autowired
 	private CodigoDiferenciadoReposytory reposytory;
+	
+	@Autowired
+	private SimNaoService simNaoService;
 
 	public void salvar(CodigoDiferenciado codigoDiferenciado) {
 		// TODO Auto-generated method stub
@@ -61,5 +64,11 @@ public class CodigoDiferenciadoService {
 		return reposytory.findByNomeCodigoDiferenciadoContainingAndDtCancelamentoIsNullOrderByNomeCodigoDiferenciadoAsc( nome);
 	}
 
+	
+	@Transactional(readOnly = true)
+	public List<CodigoDiferenciado> buscarTodosQuePrecisaDeAtribuicaoRh(Unidades unidade) {
+		// TODO Auto-generated method stub
+		return reposytory.findByIdUnidadeFkAndIdNecessitaAtribuicaoRhFkAndDtCancelamentoIsNullOrderByNomeCodigoDiferenciadoAsc(unidade, simNaoService.buscarPorSigla("S").get(0));
+	}
 	
 }

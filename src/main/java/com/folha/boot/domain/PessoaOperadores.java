@@ -165,6 +165,14 @@ public class PessoaOperadores extends AbstractEntity<Long> {
     private List<Perfil> perfilList;
     
     
+    @OneToMany(mappedBy = "idOperadorCadastroFk")
+    private List<PessoaCodDiferenciado> pessoaCodDiferenciadoList;
+    @OneToMany(mappedBy = "idOperadorCancelamentoFk")
+    private List<PessoaCodDiferenciado> pessoaCodDiferenciadoList1;
+    @OneToMany(mappedBy = "idOperadorConfirmacaoSedeFk")
+    private List<PessoaCodDiferenciado> pessoaCodDiferenciadoList2;
+    
+    
 	public Date getDtCadastro() {
 		return dtCadastro;
 	}
@@ -596,6 +604,24 @@ public class PessoaOperadores extends AbstractEntity<Long> {
 	}
 	public void setCodigoDiferenciadoList1(List<CodigoDiferenciado> codigoDiferenciadoList1) {
 		this.codigoDiferenciadoList1 = codigoDiferenciadoList1;
+	}
+	public List<PessoaCodDiferenciado> getPessoaCodDiferenciadoList() {
+		return pessoaCodDiferenciadoList;
+	}
+	public void setPessoaCodDiferenciadoList(List<PessoaCodDiferenciado> pessoaCodDiferenciadoList) {
+		this.pessoaCodDiferenciadoList = pessoaCodDiferenciadoList;
+	}
+	public List<PessoaCodDiferenciado> getPessoaCodDiferenciadoList1() {
+		return pessoaCodDiferenciadoList1;
+	}
+	public void setPessoaCodDiferenciadoList1(List<PessoaCodDiferenciado> pessoaCodDiferenciadoList1) {
+		this.pessoaCodDiferenciadoList1 = pessoaCodDiferenciadoList1;
+	}
+	public List<PessoaCodDiferenciado> getPessoaCodDiferenciadoList2() {
+		return pessoaCodDiferenciadoList2;
+	}
+	public void setPessoaCodDiferenciadoList2(List<PessoaCodDiferenciado> pessoaCodDiferenciadoList2) {
+		this.pessoaCodDiferenciadoList2 = pessoaCodDiferenciadoList2;
 	}
     
 	

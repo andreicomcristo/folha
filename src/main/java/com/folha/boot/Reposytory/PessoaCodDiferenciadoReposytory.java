@@ -1,0 +1,41 @@
+package com.folha.boot.Reposytory;
+
+import java.util.List;
+
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.stereotype.Repository;
+import com.folha.boot.domain.AnoMes;
+import com.folha.boot.domain.AtividadeEscala;
+import com.folha.boot.domain.Pessoa;
+import com.folha.boot.domain.PessoaCodDiferenciado;
+import com.folha.boot.domain.SimNao;
+import com.folha.boot.domain.Unidades;
+
+@Repository
+public interface PessoaCodDiferenciadoReposytory extends JpaRepository<PessoaCodDiferenciado, Long> {
+
+	public List<PessoaCodDiferenciado> findByDtCancelamentoIsNullOrderByIdCodDiferenciadoFkIdUnidadeFkNomeFantasiaAscIdPessoaFkNomeAsc();
+
+	public List<PessoaCodDiferenciado> findByIdCodDiferenciadoFkIdUnidadeFkAndDtCancelamentoIsNullOrderByIdCodDiferenciadoFkIdUnidadeFkNomeFantasiaAscIdPessoaFkNomeAsc(Unidades unidades);
+	
+	public List<PessoaCodDiferenciado> findByIdCodDiferenciadoFkIdUnidadeFkAndIdPessoaFkAndDtCancelamentoIsNullOrderByIdCodDiferenciadoFkIdUnidadeFkNomeFantasiaAscIdPessoaFkNomeAsc(Unidades unidades, Pessoa pessoa);
+	
+	public List<PessoaCodDiferenciado> findByIdCodDiferenciadoFkIdUnidadeFkAndIdPessoaFkAndIdCodDiferenciadoFkIdNecessitaAtribuicaoRhFkAndIdCodDiferenciadoFkIdNecessitaAtribuicaoSedeFkAndDtCancelamentoIsNullOrderByIdCodDiferenciadoFkIdUnidadeFkNomeFantasiaAscIdPessoaFkNomeAsc(Unidades unidades, Pessoa pessoa, SimNao sim, SimNao nao );
+	
+	public List<PessoaCodDiferenciado> findByIdCodDiferenciadoFkIdUnidadeFkAndIdPessoaFkAndIdCodDiferenciadoFkIdNecessitaAtribuicaoSedeFkAndIdOperadorConfirmacaoSedeFkIsNotNullAndDtCancelamentoIsNullOrderByIdCodDiferenciadoFkIdUnidadeFkNomeFantasiaAscIdPessoaFkNomeAsc(Unidades unidades, Pessoa pessoa, SimNao sim);
+	
+	
+	
+	//Listagem normal paginada
+	
+	public Page<PessoaCodDiferenciado> findByDtCancelamentoIsNullOrderByIdCodDiferenciadoFkIdUnidadeFkNomeFantasiaAscIdPessoaFkNomeAsc( final Pageable page);
+	
+	public Page<PessoaCodDiferenciado> findByIdPessoaFkNomeContainingAndDtCancelamentoIsNullOrderByIdCodDiferenciadoFkIdUnidadeFkNomeFantasiaAscIdPessoaFkNomeAsc( String nome, final Pageable page);
+	
+	public Page<PessoaCodDiferenciado> findByIdCodDiferenciadoFkIdUnidadeFkNomeFantasiaContainingAndDtCancelamentoIsNullOrderByIdCodDiferenciadoFkIdUnidadeFkNomeFantasiaAscIdPessoaFkNomeAsc( String unidade, final Pageable page);
+	
+	
+	
+}

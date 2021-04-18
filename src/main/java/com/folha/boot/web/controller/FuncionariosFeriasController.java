@@ -105,6 +105,8 @@ public class FuncionariosFeriasController {
 		return paginarFuncionario(pageNo, page, lista, model);
 	}
 	
+	
+	
 	@GetMapping("/ferias/{id}")//Recebe o id do funcionário da tela de lista de funcionários
 	public String cadastrarFerias(@PathVariable("id") Long id, FuncionariosFerias funcionariosFerias, ModelMap model) {
 		PessoaFuncionarios funcionario = pessoaFuncionariosService.buscarPorId(id);

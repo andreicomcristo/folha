@@ -128,6 +128,9 @@ public class Pessoa extends AbstractEntity<Long> {
 	
 	@OneToMany(cascade = CascadeType.ALL, mappedBy = "idPessoaFk")
 	private List<PessoaDocumentosTitulo> pessoaDocumentosTituloList;
+	
+	@OneToMany(mappedBy = "idPessoaFk")
+    private List<PessoaCodDiferenciado> pessoaCodDiferenciadoList;
 
 	public String getCpf() {
 		return cpf;
@@ -403,4 +406,22 @@ public class Pessoa extends AbstractEntity<Long> {
 		this.pessoaDocumentosTituloList = pessoaDocumentosTituloList;
 	}
 
+	public List<HistUnidadesDiretor> getHistUnidadesDiretorList() {
+		return histUnidadesDiretorList;
+	}
+
+	public void setHistUnidadesDiretorList(List<HistUnidadesDiretor> histUnidadesDiretorList) {
+		this.histUnidadesDiretorList = histUnidadesDiretorList;
+	}
+
+	public List<PessoaCodDiferenciado> getPessoaCodDiferenciadoList() {
+		return pessoaCodDiferenciadoList;
+	}
+
+	public void setPessoaCodDiferenciadoList(List<PessoaCodDiferenciado> pessoaCodDiferenciadoList) {
+		this.pessoaCodDiferenciadoList = pessoaCodDiferenciadoList;
+	}
+
+	
+	
 }
