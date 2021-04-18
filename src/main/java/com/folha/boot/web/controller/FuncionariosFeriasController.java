@@ -43,13 +43,18 @@ public class FuncionariosFeriasController {
 
 	@GetMapping("/cadastrar")
 	public String cadastrar(FuncionariosFerias funcionariosFerias) {
+		
 		return "/funcionarioferias/cadastro";
 	}
 	
 	@GetMapping("/listar")
 	public String listar(ModelMap model) {
-		model.addAttribute("funcionariosFerias", feriasService.buscarTodos());
-		return "/funcionarioferias/lista"; 
+		
+		model.addAttribute("funcionariosFeriasPeriodos", periodosService.buscarTodos());
+		
+		System.out.println("Passei por aqui ");
+		
+		return "/funcionariosferiasperiodo/lista"; 
 	}
 	
 	@GetMapping("/paginar/funcionarios/{pageNo}")
