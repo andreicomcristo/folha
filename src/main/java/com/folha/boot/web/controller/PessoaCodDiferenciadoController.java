@@ -22,6 +22,7 @@ import com.folha.boot.domain.LocalidadeEscala;
 import com.folha.boot.domain.Pessoa;
 import com.folha.boot.domain.PessoaCodDiferenciado;
 import com.folha.boot.domain.PessoaFuncionarios;
+import com.folha.boot.domain.SimNao;
 import com.folha.boot.domain.Unidades;
 import com.folha.boot.service.AtividadeEscalaService;
 import com.folha.boot.service.CodigoDiferenciadoService;
@@ -29,6 +30,7 @@ import com.folha.boot.service.PessoaCodDiferenciadoService;
 import com.folha.boot.service.PessoaFuncionariosService;
 import com.folha.boot.service.PessoaOperadoresService;
 import com.folha.boot.service.PessoaService;
+import com.folha.boot.service.SimNaoService;
 import com.folha.boot.service.UnidadesService;
 
 @Controller
@@ -53,6 +55,9 @@ public class PessoaCodDiferenciadoController {
 	private CodigoDiferenciadoService codigoDiferenciadoService;
 	@Autowired
 	private PessoaOperadoresService pessoaOperadoresService;
+	@Autowired
+	private SimNaoService simNaoService;
+	
 	
 
 	//Buscando Funcionario Inicial
@@ -130,10 +135,35 @@ public class PessoaCodDiferenciadoController {
 	}
 	
 	
+	//Métodos para a sede aprovar / reprovar
+	@GetMapping("/valiar/cod/diferenciado/sede")//Recebe o id do funcionário da tela de lista de funcionários
+	public String cadastrar( PessoaCodDiferenciado pessoaCodDiferenciado, ModelMap model) {
+		model.addAttribute("pessoaCodDiferenciado", pessoaCodDiferenciado);
+		model.addAttribute("listaPessoaCodDiferenciado", service.buscarPorAprovarSede());
+		
+		return "/pessoaCodDiferenciado/cadastroAutorizacaoSede"; 
+	}
 	
+	@PostMapping("/salvar/aprovacao/sede")
+	public String salvarAprovacaoSede(PessoaCodDiferenciado pessoaCodDiferenciado, RedirectAttributes attr) {
+		pessoaCodDiferenciado.setDtConfirmacaoSede(new Date());
+		pessoaCodDiferenciado.setIdOperadorConfirmacaoSedeFk(pessoaOperadoresService.buscarPorId(idOperadorLogado));
+		
+		if(pessoaCodDiferenciado.getIdConfirmacaoSedeSimNaoFk()==null) {
+			return "redirect:/pessoaCodDiferenciado/mensagem/de/nao/escolha";
+		}
+		
+		service.salvar(pessoaCodDiferenciado);
+		attr.addFlashAttribute("success", "Sua Posição foi lançada.");
+		return "redirect:/pessoaCodDiferenciado/valiar/cod/diferenciado/sede";
+	}
 	
-	
-	
+	@GetMapping("/editar/aprovacao/sede/{id}")
+	public String preEditarAprovacaoSede(@PathVariable("id") Long id, ModelMap model) {
+		model.addAttribute("pessoaCodDiferenciado", service.buscarPorId(id));
+		model.addAttribute("listaPessoaCodDiferenciado", service.buscarPorAprovarSede());
+		return "/pessoaCodDiferenciado/cadastroAutorizacaoSede";
+	}
 	
 	
 	
@@ -155,6 +185,12 @@ public class PessoaCodDiferenciadoController {
 	public String salvar(PessoaCodDiferenciado pessoaCodDiferenciado, RedirectAttributes attr) {
 		pessoaCodDiferenciado.setDtCadastro(new Date());
 		pessoaCodDiferenciado.setIdOperadorCadastroFk(pessoaOperadoresService.buscarPorId(idOperadorLogado));
+		
+		if(pessoaCodDiferenciado.getIdPessoaFk()==null  || pessoaCodDiferenciado.getIdCodDiferenciadoFk()==null || pessoaCodDiferenciado.getObservacaoCadastro().length()<1 ) {
+			return "redirect:/pessoaCodDiferenciado/mensagem/de/nao/escolha";
+		}
+		
+		
 		service.salvar(pessoaCodDiferenciado);
 		attr.addFlashAttribute("success", "Inserido com sucesso.");
 		return "redirect:/pessoaCodDiferenciado/atribuir/cod/diferenciado/pessoa/"+pessoaCodDiferenciado.getIdPessoaFk().getId();
@@ -189,6 +225,16 @@ public class PessoaCodDiferenciadoController {
 		model.addAttribute("success", "Cancelado com sucesso.");
 		return "redirect:/pessoaCodDiferenciado/atribuir/cod/diferenciado/pessoa/"+pessoaCodDiferenciado.getIdPessoaFk().getId();
 	}
+	
+	@GetMapping("/cancelar/lista/unidade/{id}")
+	public String cancelarListaUnidade(@PathVariable("id") Long id, ModelMap model) {
+		PessoaCodDiferenciado pessoaCodDiferenciado = service.buscarPorId(id);
+		pessoaCodDiferenciado.setDtCancelamento(new Date());
+		pessoaCodDiferenciado.setIdOperadorCancelamentoFk(pessoaOperadoresService.buscarPorId(idOperadorLogado));
+		service.salvar(pessoaCodDiferenciado); 
+		model.addAttribute("success", "Cancelado com sucesso.");
+		return "redirect:/pessoaCodDiferenciado/listar/unidade";
+	}
 	/*
 	@GetMapping("/buscar/nome/atividade/escala")
 	public String getPorNome(@RequestParam("nomeAtividade") String nomeAtividade, ModelMap model) {		
@@ -197,6 +243,7 @@ public class PessoaCodDiferenciadoController {
 	}
 	*/
 	
+	//Listar Sede
 	@GetMapping("/listar")
 	public String listar(ModelMap model) {
 		this.ultimaBuscaNome = "";
@@ -259,10 +306,82 @@ public class PessoaCodDiferenciadoController {
 		model.addAttribute("currentePage", pageNo);
 		model.addAttribute("totalPages", page.getTotalPages());
 		model.addAttribute("totalItems", page.getTotalElements()); 
-		model.addAttribute("PessoaCodDiferenciado", lista);
+		model.addAttribute("listaPessoaCodDiferenciado", lista);
 		return "/pessoaCodDiferenciado/lista";	
 	}
 
+	
+	
+	
+	
+	
+	//Listar Unidade
+	@GetMapping("/listar/unidade")
+	public String listarUnidade(ModelMap model) {
+		this.ultimaBuscaNome = "";
+		this.ultimaBuscaUnidade = "";
+		return this.findPaginatedUnidade(1, model);
+	}
+	
+	@GetMapping("/buscar/nome/unidade")
+	public String getPorNomeUnidade(@RequestParam("nome") String nome, ModelMap model) {
+		this.ultimaBuscaNome = nome;
+		this.ultimaBuscaUnidade = "";
+		return this.findPaginatedNomeUnidade(1, nome, model);
+	}
+	
+	@GetMapping("/paginar/unidade/{pageNo}")
+	public String getPorNomePaginadoUnidade(@PathVariable (value = "pageNo") int pageNo, ModelMap model) {
+		
+		if(pageNo<1) {pageNo=1;}
+		
+		if( (ultimaBuscaNome.equals("")) && (ultimaBuscaUnidade.equals("")) ){
+			return "redirect:/pessoaCodDiferenciado/listar/unidade/{pageNo}" ;}
+		else {		
+			if(!ultimaBuscaNome.equals("")) {
+				return this.findPaginatedNomeUnidade(pageNo, ultimaBuscaNome, model);}
+			else {
+				return "redirect:/pessoaCodDiferenciado/listar/unidade/{pageNo}" ;}
+			}
+	}
+	
+	@GetMapping("/listar/unidade/{pageNo}")
+	public String findPaginatedUnidade(@PathVariable (value = "pageNo") int pageNo, ModelMap model) {
+		int pageSeze = 10;
+		Page<PessoaCodDiferenciado> page = service.findPaginatedUnidade(unidadesService.buscarPorId(idUnidadeLogada), pageNo, pageSeze);
+		List<PessoaCodDiferenciado> lista = page.getContent();
+		return paginarUnidade(pageNo, page, lista, model);
+	}
+
+	public String findPaginatedNomeUnidade(@PathVariable (value = "pageNo") int pageNo, String nome, ModelMap model) {
+		int pageSeze = 10;
+		Page<PessoaCodDiferenciado> page = service.findPaginatedNomeUnidade(unidadesService.buscarPorId(idUnidadeLogada),  nome, pageNo, pageSeze);
+		List<PessoaCodDiferenciado> lista = page.getContent();
+		return paginarUnidade(pageNo, page, lista, model);
+	}
+		
+	public String paginarUnidade(int pageNo, Page<PessoaCodDiferenciado> page, List<PessoaCodDiferenciado> lista, ModelMap model) {	
+		model.addAttribute("currentePage", pageNo);
+		model.addAttribute("totalPages", page.getTotalPages());
+		model.addAttribute("totalItems", page.getTotalElements()); 
+		model.addAttribute("listaPessoaCodDiferenciado", lista);
+		return "/pessoaCodDiferenciado/listaUnidade";	
+	}
+
+
+	
+	
+	
+	@GetMapping("/mensagem/de/nao/escolha")
+	public String mensagemDeNaoEscolha(ModelMap model) {	
+		
+		model.addAttribute("atencao", "ATENÇÃO");
+		model.addAttribute("choque", "ESCOLHA");
+		model.addAttribute("mensagem", "Campos obrigatórios");
+		
+		return "/choqueescala/obrigatorio";
+	}
+	
 	
 	@ModelAttribute("idCodDiferenciadoFkTodos")
 	public List<CodigoDiferenciado> getIdCodDiferenciadoFkTodos() {
@@ -276,4 +395,13 @@ public class PessoaCodDiferenciadoController {
 		lista.add(unidadesService.buscarPorId(idUnidadeLogada));
 		return lista;
 	}	
+	
+	
+	@ModelAttribute("idConfirmacaoSedeSimNaoFk")
+	public List<SimNao> getIdConfirmacaoSedeSimNaoFk() {
+		List<SimNao> lista = simNaoService.buscarTodos();
+		return lista;
+	}	
+	
+	
 }

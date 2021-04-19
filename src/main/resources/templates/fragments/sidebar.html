@@ -83,17 +83,17 @@
 						<ul class="j-show">
 							
 							
-							<li><a href="#" class="af-btn"><span class=" oi oi-chevron-bottom thirtysecond icones-sidebar-tamanho align-middle"></span>Regime (por fazer)</a>
+							<li><a href="#" class="af-btn"><span class=" oi oi-chevron-bottom thirtysecond icones-sidebar-tamanho align-middle"></span>Regime</a>
 								<ul class="af-show">
-									<li><a href="#"><span class=" oi oi-chevron-right icones-sidebar-tamanho align-middle"></span>Cadastrar</a></li>
-									<li><a href="#"><span class=" oi oi-chevron-right icones-sidebar-tamanho align-middle"></span>Listar</a></li>
+									<li><a th:href="@{/regimes/cadastrar}"><span class=" oi oi-chevron-right icones-sidebar-tamanho align-middle"></span>Cadastrar</a></li>
+									<li><a th:href="@{/regimes/listar}"><span class=" oi oi-chevron-right icones-sidebar-tamanho align-middle"></span>Listar</a></li>
 								</ul>
 							</li>
 							
-							<li><a href="#" class="cb-btn"><span class=" oi oi-chevron-bottom z79 icones-sidebar-tamanho align-middle"></span>Natureza Juridica (por fazer)</a>
+							<li><a href="#" class="cb-btn"><span class=" oi oi-chevron-bottom z79 icones-sidebar-tamanho align-middle"></span>Natureza Juridica</a>
 								<ul class="cb-show">
-									<li><a href="#"><span class=" oi oi-chevron-right icones-sidebar-tamanho align-middle"></span>Cadastrar</a></li>
-									<li><a href="#"><span class=" oi oi-chevron-right icones-sidebar-tamanho align-middle"></span>Listar</a></li>
+									<li><a th:href="@{/naturezas/cadastrar}"><span class=" oi oi-chevron-right icones-sidebar-tamanho align-middle"></span>Cadastrar</a></li>
+									<li><a th:href="@{/naturezas/listar}"><span class=" oi oi-chevron-right icones-sidebar-tamanho align-middle"></span>Listar</a></li>
 								</ul>
 							</li>
 							
@@ -203,6 +203,13 @@
 
 					<li><a class="d-btn"><span class=" oi oi-chevron-bottom fourth icones-sidebar-tamanho align-middle"></span>RH - Profissionais </a>
 						<ul class="d-show">
+						
+							<li><a href="#" class="cr-btn"><span class=" oi oi-chevron-bottom z95 icones-sidebar-tamanho align-middle"></span>Turnos</a>
+								<ul class="cr-show">
+									<li><a th:href="@{/turnos/cadastrar}"><span class=" oi oi-chevron-right icones-sidebar-tamanho align-middle"></span>Cadastrar</a></li>
+									<li><a th:href="@{/turnos/listar}"><span class=" oi oi-chevron-right icones-sidebar-tamanho align-middle"></span>Listar</a></li>
+								</ul>
+							</li>
 						
 							<li><a href="#" class="m-btn"><span class=" oi oi-chevron-bottom thirteenth icones-sidebar-tamanho align-middle"></span>Carga Horaria Semanal </a>
 								<ul class="m-show">
@@ -451,6 +458,17 @@
 							
 						</ul>
 					</li>
+				
+					<li><a href="#" class="cq-btn"><span class=" oi oi-chevron-bottom z94 icones-sidebar-tamanho align-middle"></span>Atribuição Cód Diferenciado </a>
+						<ul class="cq-show">
+							<li><a th:href="@{/pessoaCodDiferenciado/valiar/cod/diferenciado/sede}"><span class=" oi oi-chevron-right icones-sidebar-tamanho align-middle"></span>Aprova/Reprova</a></li>
+							<li><a th:href="@{/pessoaCodDiferenciado/listar}"><span class=" oi oi-chevron-right icones-sidebar-tamanho align-middle"></span>Listar</a></li>
+						</ul>
+					</li>
+				
+				
+				
+				
 				</ul>
 			</li>		
 						
@@ -563,7 +581,7 @@
 					<li><a href="#" class="cp-btn"><span class=" oi oi-chevron-bottom z93 icones-sidebar-tamanho align-middle"></span>Atribuir Cod Diferenciado </a>
 						<ul class="cp-show">
 							<li><a th:href="@{/pessoaCodDiferenciado/listar/funcionarios}"><span class=" oi oi-chevron-right icones-sidebar-tamanho align-middle"></span> Cadastrar </a></li>
-							<li><a th:href="@{/pessoaCodDiferenciado/listar}"><span class=" oi oi-chevron-right icones-sidebar-tamanho align-middle"></span>Listar</a></li>
+							<li><a th:href="@{/pessoaCodDiferenciado/listar/unidade}"><span class=" oi oi-chevron-right icones-sidebar-tamanho align-middle"></span>Listar</a></li>
 						</ul>
 					</li>	
 										
@@ -619,19 +637,7 @@
 
 
 
-			
-	
-			
-	
-			
-	
-			
-	
-			
-	
-			
-			
-			
+						
 
 			
 
@@ -640,41 +646,6 @@
 			
 
 			
-
-			
-
-			
-			
-
-			
-
-			
-
-			
-
-			
-
-			
-
-			
-
-			
-
-			
-
-			<li><a href="#" class="cq-btn"><span class=" oi oi-chevron-bottom z94 icones-sidebar-tamanho align-middle"></span>Menu 1 </a>
-				<ul class="cq-show">
-					<li><a href="#"><span class=" oi oi-chevron-right icones-sidebar-tamanho align-middle"></span>Cadastrar</a></li>
-					<li><a href="#"><span class=" oi oi-chevron-right icones-sidebar-tamanho align-middle"></span>Listar</a></li>
-				</ul>
-			</li>
-
-			<li><a href="#" class="cr-btn"><span class=" oi oi-chevron-bottom z95 icones-sidebar-tamanho align-middle"></span>Menu 1 </a>
-				<ul class="cr-show">
-					<li><a href="#"><span class=" oi oi-chevron-right icones-sidebar-tamanho align-middle"></span>Cadastrar</a></li>
-					<li><a href="#"><span class=" oi oi-chevron-right icones-sidebar-tamanho align-middle"></span>Listar</a></li>
-				</ul>
-			</li>
 
 			<li><a href="#" class="cs-btn"><span class=" oi oi-chevron-bottom z96 icones-sidebar-tamanho align-middle"></span>Menu 1 </a>
 				<ul class="cs-show">

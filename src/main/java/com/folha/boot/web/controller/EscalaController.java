@@ -36,6 +36,7 @@ import com.folha.boot.domain.Escala;
 import com.folha.boot.domain.EscalaAlteracoes;
 import com.folha.boot.domain.EscalaPosTransparencia;
 import com.folha.boot.domain.Pessoa;
+import com.folha.boot.domain.PessoaCodDiferenciado;
 import com.folha.boot.domain.PessoaDocumentos;
 import com.folha.boot.domain.PessoaFuncionarios;
 import com.folha.boot.domain.PessoaOperadores;
@@ -60,6 +61,7 @@ import com.folha.boot.service.EscalaCalculosService;
 import com.folha.boot.service.EscalaExportacaoService;
 import com.folha.boot.service.EscalaPosTransparenciaService;
 import com.folha.boot.service.EscalaService;
+import com.folha.boot.service.PessoaCodDiferenciadoService;
 import com.folha.boot.service.PessoaDocumentosService;
 import com.folha.boot.service.PessoaFuncionariosService;
 import com.folha.boot.service.PessoaOperadoresService;
@@ -94,7 +96,7 @@ public class EscalaController {
 	
 	//Dados para listar o codigo diferenciado na inclusao
 	TiposDeFolha tiposDeFolha;
-	Pessoa pessoa;
+	
 	
 	
 	
@@ -136,6 +138,8 @@ public class EscalaController {
 	EscalaPosTransparenciaService escalaPosTransparenciaService;
 	@Autowired
 	EscalaAlteracoesService escalaAlteracoesService;
+	@Autowired
+	PessoaCodDiferenciadoService pessoaCodDiferenciadoService;
 	
 	
 	
@@ -539,6 +543,8 @@ public class EscalaController {
 		String nomeColuna5 = escalaCalculosService.obtemNomeDiaColuna(anoMesDaEscala, 5);
 		String nomeColuna6 = escalaCalculosService.obtemNomeDiaColuna(anoMesDaEscala, 6);
 		String nomeColuna7 = escalaCalculosService.obtemNomeDiaColuna(anoMesDaEscala, 7);
+		
+		model.addAttribute("idCodigoDiferenciadoFkCompativel", getCodigosDiferenciadoCompativel(escala.getIdFuncionarioFk().getIdPessoaFk()) );
 		
 		model.addAttribute("escala", escala );
 		model.addAttribute("idLinha", id );
@@ -3466,10 +3472,32 @@ public class EscalaController {
 	public List<SimNao> getLiberacaoDobraInvertida() {
 		return simNaoService.buscarTodos();
 	}
+	
 	@ModelAttribute("idCodigoDiferenciadoFk")
 	public List<CodigoDiferenciado> getCodigosDiferenciado() {
+		List<CodigoDiferenciado> lista = codigoDiferenciadoService.buscarTodos(unidadesService.buscarPorId(idUnidadeLogada));
 		return codigoDiferenciadoService.buscarTodos(unidadesService.buscarPorId(idUnidadeLogada));
 	}
+	
+	
+	
+	public List<CodigoDiferenciado> getCodigosDiferenciadoCompativel(Pessoa pessoa) {
+		List<CodigoDiferenciado> lista = codigoDiferenciadoService.buscarTodosQueNaoPrecisaDeAtribuicaoRh(unidadesService.buscarPorId(idUnidadeLogada));
+		List<PessoaCodDiferenciado> lista1 = pessoaCodDiferenciadoService.buscarPorUnidadeEPessoaQuePrecisaAtribuicaoRhENaoPrecisaAprovacaoDaSede(unidadesService.buscarPorId(idUnidadeLogada), pessoa);
+		List<PessoaCodDiferenciado> lista2 = pessoaCodDiferenciadoService.buscarPorUnidadeEPessoaAprovadoSede(unidadesService.buscarPorId(idUnidadeLogada), pessoa);
+		
+		for(int i=0;i<lista1.size();i++) {
+			lista.add(lista1.get(i).getIdCodDiferenciadoFk());
+		}
+		
+		for(int i=0;i<lista2.size();i++) {
+			lista.add(lista2.get(i).getIdCodDiferenciadoFk());
+		}
+		
+		return lista;
+	}
+	
+	
 	@ModelAttribute("idRegimeFk")
 	public List<RegimesDeTrabalho> getRegimesDeTrabalho() {
 		return regimesDeTrabalhoService.buscarTodos();

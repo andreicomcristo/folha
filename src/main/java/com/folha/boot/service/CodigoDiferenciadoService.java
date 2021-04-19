@@ -71,4 +71,10 @@ public class CodigoDiferenciadoService {
 		return reposytory.findByIdUnidadeFkAndIdNecessitaAtribuicaoRhFkAndDtCancelamentoIsNullOrderByNomeCodigoDiferenciadoAsc(unidade, simNaoService.buscarPorSigla("S").get(0));
 	}
 	
+	@Transactional(readOnly = true)
+	public List<CodigoDiferenciado> buscarTodosQueNaoPrecisaDeAtribuicaoRh(Unidades unidade) {
+		// TODO Auto-generated method stub
+		return reposytory.findByIdUnidadeFkAndIdNecessitaAtribuicaoRhFkAndDtCancelamentoIsNullOrderByNomeCodigoDiferenciadoAsc(unidade, simNaoService.buscarPorSigla("N").get(0));
+	}
+	
 }

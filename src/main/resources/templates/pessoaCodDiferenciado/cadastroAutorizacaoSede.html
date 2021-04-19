@@ -9,37 +9,63 @@
 					<a class="btn btn-outline-light oi oi-action-undo" type="button" href="javascript:history.back()"></a>
 					<a class="btn btn-outline-light oi oi-action-redo" type="button" href="javascript:history.forward()"></a>
 					<button class="btn btn-outline-dark" >Listar</button>
-					<a class="btn btn-outline-dark btn-md" th:href="@{/pessoaCodDiferenciado/listar/funcionarios}"
-						role="button"> <span class="oi oi-plus" title="Cadastro"
-						aria-hidden="true"></span> <span>Novo</span>
+					<a class="btn btn-outline-dark btn-md" th:href="@{/pessoaCodDiferenciado/valiar/cod/diferenciado/sede}"
+						role="button"> <span class="oi oi-loop-square" title="Cadastro"
+						aria-hidden="true"></span> <span>Atualizar</span>
 					</a>
 				</div>
 			</form>
 		</nav>
 		<div class="container" id="cadastro">
 			<tr th:each="d : ${pessoaCodDiferenciado}"> 
-			    <td style="font-size:11px;"  th:text="${d.idPessoaFk.nome +'-'+d.idPessoaFk.cpf}"></td>
+			    
 			    <td colspan="2">	
 			    		   
 			<div th:replace="fragments/alert"></div>
 			<form
-				th:action="@{/pessoaCodDiferenciado/salvar}"
+				th:action="@{/pessoaCodDiferenciado/salvar/aprovacao/sede}"
 				th:object="${pessoaCodDiferenciado}" method="POST">
 				<div class="form-row">
 
 					<div class="form-group col-md-6">
-						<label for="nome" class="fonte-tutulos-tamanho">Atribuir Código Diferenciado</label>
+						<label for="nome" class="fonte-tutulos-tamanho">Aprovar Cód Diferenciado (Sede)</label>
 
-						<label for="nome" class="">Código Diderenciado</label>
-						<select Style="width:1000px;" id="idCodDiferenciadoFk" class="form-select" th:field="*{idCodDiferenciadoFk}">
-								<option value="">Selecione o Código </option>
-								<option class="form-select" th:each="d : ${idCodDiferenciadoFkTodos}" th:value="${d.id}"th:text="${d.nomeCodigoDiferenciado+'-'+d.descricaoCodigoDiferenciado+'('+d.idNecessitaAtribuicaoSedeFk.descricao+' precisa confirmação da Sede)'}" selected >ADM</option>
+						<label for="nome" class="">Unidade </label>
+						<input disabled="disabled" Style="width:1000px;" type="text"	class="form-control form-control-md uppercase" autofocus="autofocus"
+						       id="observacaoCadastro" placeholder="" th:field="*{idCodDiferenciadoFk.idUnidadeFk.nomeFantasia}" />
+						<p></p>
+
+						<label for="nome" class="">Envolvido </label>
+						<input disabled="disabled" Style="width:1000px;" type="text"	class="form-control form-control-md uppercase" autofocus="autofocus"
+						       id="observacaoCadastro" placeholder="" th:field="*{idPessoaFk.nome}" />
+						<p></p>
+						
+						<label for="nome" class="">Código </label>
+						<input disabled="disabled" Style="width:1000px;" type="text"	class="form-control form-control-md uppercase" autofocus="autofocus"
+						       id="observacaoCadastro" placeholder="" th:Field="*{idCodDiferenciadoFk.nomeCodigoDiferenciado}" />
+						<p></p>
+						
+						<label for="nome" class="">Descrição </label>
+						<input disabled="disabled" Style="width:1000px;" type="text"	class="form-control form-control-md uppercase" autofocus="autofocus"
+						       id="observacaoCadastro" placeholder="" th:Field="*{idCodDiferenciadoFk.descricaoCodigoDiferenciado}" />
+						<p></p>
+						
+						<label for="nome" class="">Motivo </label>
+						<input disabled="disabled" Style="width:1000px;" type="text"	class="form-control form-control-md uppercase" autofocus="autofocus"
+						       id="observacaoCadastro" placeholder="" th:field="*{observacaoCadastro}" />
+						<p></p>
+
+
+						<label for="nome" class="">Aprova</label>
+						<select Style="width:1000px;" id="idCodDiferenciadoFk" class="form-select" th:field="*{idConfirmacaoSedeSimNaoFk}">
+								<option value="">Confirme se Aprova </option>
+								<option class="form-select" th:each="d : ${idConfirmacaoSedeSimNaoFk}" th:value="${d.id}"th:text="${d.descricao}" selected >ADM</option>
 						</select>							
 						<p></p>			
 									
 						<label for="nome" class="">Motivo </label>
 						<input Style="width:1000px;" type="text"	class="form-control form-control-md uppercase" autofocus="autofocus"
-						       id="observacaoCadastro" placeholder="Motivo" th:field="*{observacaoCadastro}" />
+						       id="observacaoCadastro" placeholder="Motivo" th:field="*{observacaoConfirmacao}" />
 						<p></p>
 									
 														
@@ -48,9 +74,9 @@
 							<input type="hidden" id="id" th:field="*{idOperadorCadastroFk}" />
 							<input type="hidden" id="id" th:field="*{dtCadastro}" />
 							<input type="hidden" id="id" th:field="*{idOperadorConfirmacaoSedeFk}" />
-							<input type="hidden" id="id" th:field="*{idConfirmacaoSedeSimNaoFk}" />
+							<input type="hidden" id="id" th:field="*{idCodDiferenciadoFk}" />
 							<input type="hidden" id="id" th:field="*{dtConfirmacaoSede}" />
-							<input type="hidden" id="id" th:field="*{observacaoConfirmacao}" />
+							<input type="hidden" id="id" th:field="*{observacaoCadastro}" />
 							<input type="hidden" id="id" th:field="*{idOperadorCancelamentoFk}" />
 							<input type="hidden" id="id" th:field="*{dtCancelamento}" />
 							
@@ -66,7 +92,6 @@
 	            	<thead>
 	          			<tr>
 		                	<th style="font-size:11px;">#</th>
-		                	<th style="font-size:11px;">Nome</th>
 		                    <th style="font-size:11px;">Diferenciado </th>
 		                    <th style="font-size:11px;">Atribuicão Rh </th>
 		                    <th style="font-size:11px;">Motivo </th>
@@ -83,22 +108,20 @@
 	                <tbody>
 		            	<tr th:each="f : ${listaPessoaCodDiferenciado}">
 		                	<td style="font-size:11px;" th:text="${f.id}"></td>		                    
-		                	<td style="font-size:11px;" th:text="${f.idPessoaFk.nome}"></td>
 		                    <td style="font-size:11px;" th:text="${f.idCodDiferenciadoFk != null} ? ${ f.idCodDiferenciadoFk.nomeCodigoDiferenciado+'-'+  f.idCodDiferenciadoFk.descricaoCodigoDiferenciado} : ''  "></td>
 		                    <td style="font-size:11px;" th:text="${f.idOperadorCadastroFk != null} ? ${ f.idOperadorCadastroFk.idPessoaFk.nome} : ''  "></td>
 		                    <td style="font-size:11px;" th:text="${f.observacaoCadastro != null} ? ${ f.observacaoCadastro} : ''  "></td>
 		                    <td style="font-size:11px;" th:text="${f.dtCadastro != null} ? ${#dates.format(f.dtCadastro, 'dd/MM/yyyy') } : ''  "></td>		                    		           		                  	                    		                     		         		                    
 		                    <td style="font-size:11px;" th:text="${f.idCodDiferenciadoFk != null} ? ${ f.idCodDiferenciadoFk.idNecessitaAtribuicaoSedeFk.descricao} : ''  "></td>
 		                    <td style="font-size:11px;" th:text="${f.idConfirmacaoSedeSimNaoFk != null} ? ${ f.idConfirmacaoSedeSimNaoFk.descricao } : ''  "></td>  
-		                    <td style="font-size:11px;" th:text="${f.idOperadorConfirmacaoSedeFk != null} ? ${ f.idOperadorConfirmacaoSedeFk.idPessoaFk.nome} : ''  "></td>
+		                    <td style="font-size:11px;" th:text="${f.idOperadorConfirmacaoSedeFk != null} ? ${ f.idOperadorConfirmacaoSedeFk.nome} : ''  "></td>
 		                    <td style="font-size:11px;" th:text="${f.observacaoConfirmacao != null} ? ${ f.observacaoConfirmacao} : ''  "></td>
 		                    <td style="font-size:11px;" th:text="${f.dtCadastro != null} ? ${#dates.format(f.dtCadastro, 'dd/MM/yyyy') } : ''  "></td>
 		                    
 		                    <td colspan="2">
-		                    	<button th:id="${ 'btn_pessoaCodDiferenciado/cancelar/' + f.id}" type="button" class="btn btn btn-outline-danger btn-sm" 
-		                            		data-toggle="modal" data-target="#myModal">
-		                                <span class="oi oi-circle-x" title="Exclusão habilitada" aria-hidden="true"></span>
-		                        </button>	                       
+		                    	<a class="btn btn-outline-success btn-sm" th:href="@{/pessoaCodDiferenciado/editar/aprovacao/sede/{id} (id=${f.id}) }" role="button">
+		                        	<span class="oi oi-check" title="Avaliar" aria-hidden="true"></span>
+		                        </a>                     
 		                   	</td>
 						</tr>
 					</tbody>                    

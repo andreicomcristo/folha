@@ -58,10 +58,13 @@ public class PessoaCodDiferenciadoService {
 		return reposytory.findByIdCodDiferenciadoFkIdUnidadeFkAndIdPessoaFkAndDtCancelamentoIsNullOrderByIdCodDiferenciadoFkIdUnidadeFkNomeFantasiaAscIdPessoaFkNomeAsc(unidades, pessoa);
 	}
 	
+	public List<PessoaCodDiferenciado> buscarPorAprovarSede() {
+		return reposytory.findByIdConfirmacaoSedeSimNaoFkIsNullAndIdCodDiferenciadoFkIdNecessitaAtribuicaoSedeFkAndDtCancelamentoIsNullOrderByIdCodDiferenciadoFkIdUnidadeFkNomeFantasiaAscIdPessoaFkNomeAsc(simNaoService.buscarPorSigla("S").get(0));
+	}
 	
 	
 	//Buscas para a Escala
-	public List<PessoaCodDiferenciado> buscarPorUnidadeEPessoaQuePrecisaAtribuicaoRhENaoPrecisaAprovacaoSede(Unidades unidades, Pessoa pessoa) {
+	public List<PessoaCodDiferenciado> buscarPorUnidadeEPessoaQuePrecisaAtribuicaoRhENaoPrecisaAprovacaoDaSede(Unidades unidades, Pessoa pessoa) {
 		return reposytory.findByIdCodDiferenciadoFkIdUnidadeFkAndIdPessoaFkAndIdCodDiferenciadoFkIdNecessitaAtribuicaoRhFkAndIdCodDiferenciadoFkIdNecessitaAtribuicaoSedeFkAndDtCancelamentoIsNullOrderByIdCodDiferenciadoFkIdUnidadeFkNomeFantasiaAscIdPessoaFkNomeAsc(unidades, pessoa, simNaoService.buscarPorSigla("S").get(0),  simNaoService.buscarPorSigla("N").get(0));
 	}
 	
@@ -78,11 +81,23 @@ public class PessoaCodDiferenciadoService {
 		Pageable pageable = PageRequest.of(pageNo -1, pageSize);
 		return this.reposytory.findByDtCancelamentoIsNullOrderByIdCodDiferenciadoFkIdUnidadeFkNomeFantasiaAscIdPessoaFkNomeAsc(  pageable);
 	}
+	
+	@Transactional(readOnly = true)
+	public Page<PessoaCodDiferenciado> findPaginatedUnidade(Unidades unidades, int pageNo, int pageSize) {
+		Pageable pageable = PageRequest.of(pageNo -1, pageSize);
+		return this.reposytory.findByIdCodDiferenciadoFkIdUnidadeFkAndDtCancelamentoIsNullOrderByIdCodDiferenciadoFkIdUnidadeFkNomeFantasiaAscIdPessoaFkNomeAsc(unidades,  pageable);
+	}
 
 	@Transactional(readOnly = true)
 	public Page<PessoaCodDiferenciado> findPaginatedNome(String nome, int pageNo, int pageSize ) {
 		Pageable pageable = PageRequest.of(pageNo -1, pageSize);
 		return this.reposytory.findByIdPessoaFkNomeContainingAndDtCancelamentoIsNullOrderByIdCodDiferenciadoFkIdUnidadeFkNomeFantasiaAscIdPessoaFkNomeAsc(  nome.toUpperCase().trim(), pageable);
+	}
+	
+	@Transactional(readOnly = true)
+	public Page<PessoaCodDiferenciado> findPaginatedNomeUnidade(Unidades unidades, String nome, int pageNo, int pageSize ) {
+		Pageable pageable = PageRequest.of(pageNo -1, pageSize);
+		return this.reposytory.findByIdCodDiferenciadoFkIdUnidadeFkAndIdPessoaFkNomeContainingAndDtCancelamentoIsNullOrderByIdCodDiferenciadoFkIdUnidadeFkNomeFantasiaAscIdPessoaFkNomeAsc( unidades, nome.toUpperCase().trim(), pageable);
 	}
 	
 	@Transactional(readOnly = true)

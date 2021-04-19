@@ -26,6 +26,8 @@ public interface PessoaCodDiferenciadoReposytory extends JpaRepository<PessoaCod
 	
 	public List<PessoaCodDiferenciado> findByIdCodDiferenciadoFkIdUnidadeFkAndIdPessoaFkAndIdCodDiferenciadoFkIdNecessitaAtribuicaoSedeFkAndIdOperadorConfirmacaoSedeFkIsNotNullAndDtCancelamentoIsNullOrderByIdCodDiferenciadoFkIdUnidadeFkNomeFantasiaAscIdPessoaFkNomeAsc(Unidades unidades, Pessoa pessoa, SimNao sim);
 	
+	public List<PessoaCodDiferenciado> findByIdConfirmacaoSedeSimNaoFkIsNullAndIdCodDiferenciadoFkIdNecessitaAtribuicaoSedeFkAndDtCancelamentoIsNullOrderByIdCodDiferenciadoFkIdUnidadeFkNomeFantasiaAscIdPessoaFkNomeAsc(SimNao sim);
+	
 	
 	
 	//Listagem normal paginada
@@ -36,6 +38,8 @@ public interface PessoaCodDiferenciadoReposytory extends JpaRepository<PessoaCod
 	
 	public Page<PessoaCodDiferenciado> findByIdCodDiferenciadoFkIdUnidadeFkNomeFantasiaContainingAndDtCancelamentoIsNullOrderByIdCodDiferenciadoFkIdUnidadeFkNomeFantasiaAscIdPessoaFkNomeAsc( String unidade, final Pageable page);
 	
+	public Page<PessoaCodDiferenciado> findByIdCodDiferenciadoFkIdUnidadeFkAndIdPessoaFkNomeContainingAndDtCancelamentoIsNullOrderByIdCodDiferenciadoFkIdUnidadeFkNomeFantasiaAscIdPessoaFkNomeAsc(Unidades unidades ,String nome, final Pageable page);
 	
+	public Page<PessoaCodDiferenciado> findByIdCodDiferenciadoFkIdUnidadeFkAndDtCancelamentoIsNullOrderByIdCodDiferenciadoFkIdUnidadeFkNomeFantasiaAscIdPessoaFkNomeAsc(Unidades unidades, final Pageable page);
 	
 }
