@@ -51,4 +51,8 @@ public class VinculosService {
 		return reposytory.findByNomeVinculoContainingOrderByNomeVinculoAsc(nomeVinculo);
 	}
 	
+	public List<Vinculos> buscarPorNomeExato(String nomeVinculo) {
+		return reposytory.findFirstByNomeVinculoOrderByNomeVinculoAsc(nomeVinculo);
+	}
+	
 }

@@ -16,16 +16,16 @@
 		<div class="container" id="cadastro">
 			<div th:replace="fragments/alert"></div>
 			<form
-				th:action= "@{/escalas/ir/para/escala/colaborador}"
-				th:object= "${escolhaAcessoEscala}" method="POST">
+				th:action= "@{/calculos/calcular}"
+				th:object= "${mesDoCalculo}" method="POST">
 				<div class="form-row">
 					<div class="form-group col-md-6">
-						<label for="nome" class="fonte-tutulos-tamanho">Escala Colaborador</label>
+						<label for="nome" class="fonte-tutulos-tamanho">Escolher o Mês</label>
 							<p></p>
 							<label for="nome" class="">Mês </label>
 							<select  id="anoMes" class="form-control form-select chat-input" th:field="*{anoMes}">
 								<option value="">Selecione o Mês</option>
-								<option th:each="d : ${anoMes}" th:value="${d.id}"th:text="${d.nomeAnoMes}"> </option>
+								<option th:each="d : ${idAnoMesFk}" th:value="${d.id}"th:text="${d.nomeAnoMes}"> </option>
 							</select>	
 							<p></p>	
 							<p></p>		

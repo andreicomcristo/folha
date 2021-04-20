@@ -101,6 +101,11 @@ public class Unidades extends AbstractEntity<Long> {
 	public List<CodigoDiferenciado> getCodigoDiferenciadoList() {
 		return codigoDiferenciadoList;
 	}
+	
+	@OneToMany(mappedBy = "idUnidadeFk")
+    private List<UnidadeAdmiteChDif> unidadeAdmiteChDifList;
+	@OneToMany(mappedBy = "idUnidadeFk")
+    private List<UnidadeAdmiteIncrementoDeRisco> unidadeAdmiteIncrementoDeRiscoList;
 
 	public void setCodigoDiferenciadoList(List<CodigoDiferenciado> codigoDiferenciadoList) {
 		this.codigoDiferenciadoList = codigoDiferenciadoList;
@@ -387,6 +392,23 @@ public class Unidades extends AbstractEntity<Long> {
 
 	public void setIdUnidadeGestoraFk(UnidadeGestora idUnidadeGestoraFk) {
 		this.idUnidadeGestoraFk = idUnidadeGestoraFk;
+	}
+
+	public List<UnidadeAdmiteChDif> getUnidadeAdmiteChDifList() {
+		return unidadeAdmiteChDifList;
+	}
+
+	public void setUnidadeAdmiteChDifList(List<UnidadeAdmiteChDif> unidadeAdmiteChDifList) {
+		this.unidadeAdmiteChDifList = unidadeAdmiteChDifList;
+	}
+
+	public List<UnidadeAdmiteIncrementoDeRisco> getUnidadeAdmiteIncrementoDeRiscoList() {
+		return unidadeAdmiteIncrementoDeRiscoList;
+	}
+
+	public void setUnidadeAdmiteIncrementoDeRiscoList(
+			List<UnidadeAdmiteIncrementoDeRisco> unidadeAdmiteIncrementoDeRiscoList) {
+		this.unidadeAdmiteIncrementoDeRiscoList = unidadeAdmiteIncrementoDeRiscoList;
 	}
 
 	

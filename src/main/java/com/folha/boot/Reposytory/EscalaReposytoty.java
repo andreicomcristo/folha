@@ -1,6 +1,7 @@
 package com.folha.boot.Reposytory;
 
 
+import java.util.Date;
 import java.util.List;
 
 import org.springframework.data.domain.Page;
@@ -13,6 +14,7 @@ import com.folha.boot.domain.AnoMes;
 import com.folha.boot.domain.CargosEspecialidade;
 import com.folha.boot.domain.CoordenacaoEscala;
 import com.folha.boot.domain.Escala;
+import com.folha.boot.domain.FuncionariosFeriasPeriodos;
 import com.folha.boot.domain.Pessoa;
 import com.folha.boot.domain.TiposDeFolha;
 import com.folha.boot.domain.Turmas;
@@ -64,4 +66,8 @@ public interface EscalaReposytoty extends JpaRepository<Escala, Long> {
 		public Page<Escala> findByIdFuncionarioFkIdPessoaFkAndIdAnoMesFkAndDtCancelamentoIsNullOrderByIdFuncionarioFkIdPessoaFkNomeAsc(Pessoa pessoa, AnoMes anoMes,  final Pageable page);
 	
 	
+		
+		
+		public List<Escala> findByIdAnoMesFkAndDtCancelamentoIsNullOrderByIdCoordenacaoFkIdLocalidadeFkIdUnidadeFkAscIdTipoFolhaFkAscIdFuncionarioFkIdPessoaFkNomeAsc (AnoMes anoMes);
+		
 }

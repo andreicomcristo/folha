@@ -41,7 +41,7 @@
 	            
 	            </br>
 	            
-	            <select  id="unidades" class="form-control form-select chat-input" th:field="${unidades}">
+	            <select  id="unidades" class="form-control form-select chat-input" th:name="unidade">
 					<option value="">Selecione a Unidade</option>
 					<option th:each="d : ${unidades}" th:value="${d.id}"th:text="${d.nomeFantasia}"> </option>
 				</select>	

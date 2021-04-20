@@ -85,6 +85,10 @@ public class FuncionariosLicencas extends AbstractEntity<Long> {
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "idFuncionariosLicencasFk")
     private List<FuncionariosLicencasCid> funcionariosLicencasCidList;
     
+    @JoinColumn(name = "id_categoria_fk", referencedColumnName = "id")
+    @ManyToOne
+    private CategoriaDeLicenca idCategoriaFk;
+    
     public Date getDtInicial() {
 		return dtInicial;
 	}
@@ -234,6 +238,12 @@ public class FuncionariosLicencas extends AbstractEntity<Long> {
 	}
 	public void setFuncionariosLicencasCidList(List<FuncionariosLicencasCid> funcionariosLicencasCidList) {
 		this.funcionariosLicencasCidList = funcionariosLicencasCidList;
+	}
+	public CategoriaDeLicenca getIdCategoriaFk() {
+		return idCategoriaFk;
+	}
+	public void setIdCategoriaFk(CategoriaDeLicenca idCategoriaFk) {
+		this.idCategoriaFk = idCategoriaFk;
 	}
  
     

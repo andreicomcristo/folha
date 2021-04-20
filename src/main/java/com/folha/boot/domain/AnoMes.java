@@ -35,6 +35,11 @@ public class AnoMes extends AbstractEntity<Long> {
     @OneToMany(mappedBy = "idAnoMesFk")
     private List<FaixasValoresParametrosCalculoFolhasExtras> faixasValoresParametrosCalculoFolhasExtrasList;
     
+    @OneToMany(mappedBy = "idAnoMesFk")
+    private List<UnidadeAdmiteChDif> unidadeAdmiteChDifList;
+    @OneToMany(mappedBy = "idAnoMesFk")
+    private List<UnidadeAdmiteIncrementoDeRisco> unidadeAdmiteIncrementoDeRiscoList;
+    
 	public String getNomeAnoMes() {
 		return nomeAnoMes;
 	}
@@ -83,6 +88,19 @@ public class AnoMes extends AbstractEntity<Long> {
 	}
 	public void setFaixasPrevidenciaList(List<FaixasPrevidencia> faixasPrevidenciaList) {
 		this.faixasPrevidenciaList = faixasPrevidenciaList;
+	}
+	public List<UnidadeAdmiteChDif> getUnidadeAdmiteChDifList() {
+		return unidadeAdmiteChDifList;
+	}
+	public void setUnidadeAdmiteChDifList(List<UnidadeAdmiteChDif> unidadeAdmiteChDifList) {
+		this.unidadeAdmiteChDifList = unidadeAdmiteChDifList;
+	}
+	public List<UnidadeAdmiteIncrementoDeRisco> getUnidadeAdmiteIncrementoDeRiscoList() {
+		return unidadeAdmiteIncrementoDeRiscoList;
+	}
+	public void setUnidadeAdmiteIncrementoDeRiscoList(
+			List<UnidadeAdmiteIncrementoDeRisco> unidadeAdmiteIncrementoDeRiscoList) {
+		this.unidadeAdmiteIncrementoDeRiscoList = unidadeAdmiteIncrementoDeRiscoList;
 	}
 	
 	

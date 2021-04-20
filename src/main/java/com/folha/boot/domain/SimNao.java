@@ -92,6 +92,8 @@ public class SimNao extends AbstractEntity<Long> {
     @OneToMany(mappedBy = "idConfirmacaoSedeSimNaoFk")
     private List<PessoaCodDiferenciado> pessoaCodDiferenciadoList;
     
+    
+    
     public SimNao() {
     }
 
@@ -455,6 +457,10 @@ public class SimNao extends AbstractEntity<Long> {
 		this.pessoaCodDiferenciadoList = pessoaCodDiferenciadoList;
 	}
 
+
+	
+	
+	
     
 	
 	

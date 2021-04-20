@@ -270,7 +270,7 @@ public class PessoaFuncionarios extends AbstractEntity<Long> {
 	}
 
 	public void setMatricula(String matricula) {
-		this.matricula = UtilidadesDeTexto.retiraEspacosDuplosAcentosEConverteEmMaiusculo(matricula);
+		this.matricula =  UtilidadesDeTexto.limpaPontosETracosCpf( UtilidadesDeTexto.retiraEspacosDuplosAcentosEConverteEmMaiusculo(matricula));
 	}
 
 	public Date getDtNomeacao() {
