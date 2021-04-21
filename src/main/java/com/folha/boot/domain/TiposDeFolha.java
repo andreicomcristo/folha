@@ -31,6 +31,9 @@ public class TiposDeFolha extends AbstractEntity<Long> {
 	@OneToMany(mappedBy = "idTipoFolhaFk")
     private List<EscalaAlteracoes> escalaAlteracoesList;
 	
+	@OneToMany(mappedBy = "idTipoDeFolhaFk")
+    private List<TiposDeFolhaNivelCargo> tiposDeFolhaNivelCargoList;
+	
 	public String getNomeTipoFolha() {
 		return nomeTipoFolha;
 	}
@@ -79,6 +82,12 @@ public class TiposDeFolha extends AbstractEntity<Long> {
 	}
 	public void setIdFolhaEfetivaSimNaoFk(SimNao idFolhaEfetivaSimNaoFk) {
 		this.idFolhaEfetivaSimNaoFk = idFolhaEfetivaSimNaoFk;
+	}
+	public List<TiposDeFolhaNivelCargo> getTiposDeFolhaNivelCargoList() {
+		return tiposDeFolhaNivelCargoList;
+	}
+	public void setTiposDeFolhaNivelCargoList(List<TiposDeFolhaNivelCargo> tiposDeFolhaNivelCargoList) {
+		this.tiposDeFolhaNivelCargoList = tiposDeFolhaNivelCargoList;
 	}
 	
 	

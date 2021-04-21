@@ -1,4 +1,4 @@
-package com.folha.boot.domain.calculos;
+package com.folha.boot.domain.models.calculos;
 
 import java.util.Date;
 

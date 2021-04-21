@@ -21,6 +21,8 @@ import com.folha.boot.domain.models.calculos.EscalasNoMes;
 import com.folha.boot.domain.models.calculos.FeriasNoMes;
 import com.folha.boot.domain.models.calculos.LicencasNoMes;
 import com.folha.boot.domain.models.calculos.ReferenciasDeEscala;
+import com.folha.boot.service.EscalaPosTransparenciaService;
+import com.folha.boot.service.EscalaService;
 import com.folha.boot.service.util.UtilidadesDeCalendarioEEscala;
 
 @Service
@@ -28,11 +30,11 @@ import com.folha.boot.service.util.UtilidadesDeCalendarioEEscala;
 public class CalculosColetaDeDadosService {
 
 	@Autowired
+	EscalaService escalaService;
+	@Autowired
 	private  UtilidadesDeCalendarioEEscala utilidadesDeCalendarioEEscala;
-	
 	@Autowired
 	private  FuncionariosFeriasPeriodosReposytory funcionariosFeriasPeriodosReposytory;
-	
 	@Autowired
 	private  FuncionariosLicencasReposytory funcionariosLicencasReposytory;
 	@Autowired
@@ -63,7 +65,7 @@ public class CalculosColetaDeDadosService {
 			r.setVinculos(lista.get(i).getIdFuncionarioFk().getIdVinculoAtualFk());
 			r.setUnidadesRegime(lista.get(i).getIdCoordenacaoFk().getIdLocalidadeFk().getIdUnidadeFk().getIdUnidadesRegimeFk());
 			
-			f.setEscala(lista.get(i));
+			f.setEscala( escalaService.converteDeEscalaParaEscalaComId(lista.get(i)) );
 			f.setReferencias(r);
 			listaResposta.add(f);
 		}

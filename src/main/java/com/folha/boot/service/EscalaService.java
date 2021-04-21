@@ -16,6 +16,7 @@ import com.folha.boot.domain.CargosEspecialidade;
 import com.folha.boot.domain.Cidades;
 import com.folha.boot.domain.CoordenacaoEscala;
 import com.folha.boot.domain.Escala;
+import com.folha.boot.domain.EscalaPosTransparencia;
 import com.folha.boot.domain.Pessoa;
 import com.folha.boot.domain.PessoaDocumentos;
 import com.folha.boot.domain.TiposDeFolha;
@@ -850,6 +851,145 @@ public class EscalaService {
 	    
     	return resposta;
     }
+	
+	
+	
+	public Escala converteDeEscalaParaEscala(Escala escala) {
+		Escala escalaNova = new Escala();
+	
+		escalaNova.setDia01Fk(escala.getDia01Fk());
+		escalaNova.setDia02Fk(escala.getDia02Fk());
+		escalaNova.setDia03Fk(escala.getDia03Fk());
+		escalaNova.setDia04Fk(escala.getDia04Fk());
+		escalaNova.setDia05Fk(escala.getDia05Fk());
+		escalaNova.setDia06Fk(escala.getDia06Fk());
+		escalaNova.setDia07Fk(escala.getDia07Fk());
+		escalaNova.setDia08Fk(escala.getDia08Fk());
+		escalaNova.setDia09Fk(escala.getDia09Fk());
+		escalaNova.setDia10Fk(escala.getDia10Fk());
+		escalaNova.setDia11Fk(escala.getDia11Fk());
+		escalaNova.setDia12Fk(escala.getDia12Fk());
+		escalaNova.setDia13Fk(escala.getDia13Fk());
+		escalaNova.setDia14Fk(escala.getDia14Fk());
+		escalaNova.setDia15Fk(escala.getDia15Fk());
+		escalaNova.setDia16Fk(escala.getDia16Fk());
+		escalaNova.setDia17Fk(escala.getDia17Fk());
+		escalaNova.setDia18Fk(escala.getDia18Fk());
+		escalaNova.setDia19Fk(escala.getDia19Fk());
+		escalaNova.setDia20Fk(escala.getDia20Fk());
+		escalaNova.setDia21Fk(escala.getDia21Fk());
+		escalaNova.setDia22Fk(escala.getDia22Fk());
+		escalaNova.setDia23Fk(escala.getDia23Fk());
+		escalaNova.setDia24Fk(escala.getDia24Fk());
+		escalaNova.setDia25Fk(escala.getDia25Fk());
+		escalaNova.setDia26Fk(escala.getDia26Fk());
+		escalaNova.setDia27Fk(escala.getDia27Fk());
+		escalaNova.setDia28Fk(escala.getDia28Fk());
+		escalaNova.setDia29Fk(escala.getDia29Fk());
+		escalaNova.setDia30Fk(escala.getDia30Fk());
+		escalaNova.setDia31Fk(escala.getDia31Fk());
+		
+		escalaNova.setDtCancelamento(escala.getDtCancelamento());
+		escalaNova.setDtMudanca(escala.getDtMudanca());
+		escalaNova.setHorasDia(escala.getHorasDia());
+		escalaNova.setHorasFimSemana(escala.getHorasFimSemana());
+		escalaNova.setHorasNoite(escala.getHorasNoite());
+		escalaNova.setHorasSemana(escala.getHorasSemana());
+		escalaNova.setHorasTotais(escala.getHorasTotais());
+		escalaNova.setId(null);
+		escalaNova.setIdAnoMesFk(escala.getIdAnoMesFk());
+		escalaNova.setIdAvaliacaoAssiduidadeFk(escala.getIdAvaliacaoAssiduidadeFk());
+		escalaNova.setIdAvaliacaoAtividadesBurocraticasFk(escala.getIdAvaliacaoAtividadesBurocraticasFk());
+		escalaNova.setIdAvaliacaoFormalizacaoPontoFk(escala.getIdAvaliacaoFormalizacaoPontoFk());
+		escalaNova.setIdAvaliacaoPermanenciaFk(escala.getIdAvaliacaoPermanenciaFk());
+		escalaNova.setIdChDifSimNaoFk(escala.getIdChDifSimNaoFk());
+		escalaNova.setIdCodigoDiferenciadoFk(escala.getIdCodigoDiferenciadoFk());
+		escalaNova.setIdCoordenacaoFk(escala.getIdCoordenacaoFk());
+		escalaNova.setIdOperadorCancelamentoFk(escala.getIdOperadorCancelamentoFk());
+		escalaNova.setIdOperadorMudancaFk(escala.getIdOperadorMudancaFk());
+		escalaNova.setIdFuncionarioFk(escala.getIdFuncionarioFk());
+		escalaNova.setIdIncrementoDeRiscoSimNaoFk(escala.getIdIncrementoDeRiscoSimNaoFk());
+		escalaNova.setIdLiberacaoDobraInvertidaSimNaoFk(escala.getIdLiberacaoDobraInvertidaSimNaoFk());
+		escalaNova.setIdPresencialSimNaoFk(escala.getIdPresencialSimNaoFk());
+		escalaNova.setIdRegimeFk(escala.getIdRegimeFk());
+		escalaNova.setIdTipoFolhaFk(escala.getIdTipoFolhaFk());
+		escalaNova.setIdTurmaFk(escala.getIdTurmaFk());
+		escalaNova.setPlantoes(escala.getPlantoes());
+		escalaNova.setObservacoes(escala.getObservacoes());
+	
+		escalaNova.setId(null);
+		
+		return escalaNova;
+	}
+	
+	
+	public Escala converteDeEscalaParaEscalaComId(Escala escala) {
+		Escala escalaNova = new Escala();
+	
+		escalaNova.setDia01Fk(escala.getDia01Fk());
+		escalaNova.setDia02Fk(escala.getDia02Fk());
+		escalaNova.setDia03Fk(escala.getDia03Fk());
+		escalaNova.setDia04Fk(escala.getDia04Fk());
+		escalaNova.setDia05Fk(escala.getDia05Fk());
+		escalaNova.setDia06Fk(escala.getDia06Fk());
+		escalaNova.setDia07Fk(escala.getDia07Fk());
+		escalaNova.setDia08Fk(escala.getDia08Fk());
+		escalaNova.setDia09Fk(escala.getDia09Fk());
+		escalaNova.setDia10Fk(escala.getDia10Fk());
+		escalaNova.setDia11Fk(escala.getDia11Fk());
+		escalaNova.setDia12Fk(escala.getDia12Fk());
+		escalaNova.setDia13Fk(escala.getDia13Fk());
+		escalaNova.setDia14Fk(escala.getDia14Fk());
+		escalaNova.setDia15Fk(escala.getDia15Fk());
+		escalaNova.setDia16Fk(escala.getDia16Fk());
+		escalaNova.setDia17Fk(escala.getDia17Fk());
+		escalaNova.setDia18Fk(escala.getDia18Fk());
+		escalaNova.setDia19Fk(escala.getDia19Fk());
+		escalaNova.setDia20Fk(escala.getDia20Fk());
+		escalaNova.setDia21Fk(escala.getDia21Fk());
+		escalaNova.setDia22Fk(escala.getDia22Fk());
+		escalaNova.setDia23Fk(escala.getDia23Fk());
+		escalaNova.setDia24Fk(escala.getDia24Fk());
+		escalaNova.setDia25Fk(escala.getDia25Fk());
+		escalaNova.setDia26Fk(escala.getDia26Fk());
+		escalaNova.setDia27Fk(escala.getDia27Fk());
+		escalaNova.setDia28Fk(escala.getDia28Fk());
+		escalaNova.setDia29Fk(escala.getDia29Fk());
+		escalaNova.setDia30Fk(escala.getDia30Fk());
+		escalaNova.setDia31Fk(escala.getDia31Fk());
+		
+		escalaNova.setDtCancelamento(escala.getDtCancelamento());
+		escalaNova.setDtMudanca(escala.getDtMudanca());
+		escalaNova.setHorasDia(escala.getHorasDia());
+		escalaNova.setHorasFimSemana(escala.getHorasFimSemana());
+		escalaNova.setHorasNoite(escala.getHorasNoite());
+		escalaNova.setHorasSemana(escala.getHorasSemana());
+		escalaNova.setHorasTotais(escala.getHorasTotais());
+		escalaNova.setIdAnoMesFk(escala.getIdAnoMesFk());
+		escalaNova.setIdAvaliacaoAssiduidadeFk(escala.getIdAvaliacaoAssiduidadeFk());
+		escalaNova.setIdAvaliacaoAtividadesBurocraticasFk(escala.getIdAvaliacaoAtividadesBurocraticasFk());
+		escalaNova.setIdAvaliacaoFormalizacaoPontoFk(escala.getIdAvaliacaoFormalizacaoPontoFk());
+		escalaNova.setIdAvaliacaoPermanenciaFk(escala.getIdAvaliacaoPermanenciaFk());
+		escalaNova.setIdChDifSimNaoFk(escala.getIdChDifSimNaoFk());
+		escalaNova.setIdCodigoDiferenciadoFk(escala.getIdCodigoDiferenciadoFk());
+		escalaNova.setIdCoordenacaoFk(escala.getIdCoordenacaoFk());
+		escalaNova.setIdOperadorCancelamentoFk(escala.getIdOperadorCancelamentoFk());
+		escalaNova.setIdOperadorMudancaFk(escala.getIdOperadorMudancaFk());
+		escalaNova.setIdFuncionarioFk(escala.getIdFuncionarioFk());
+		escalaNova.setIdIncrementoDeRiscoSimNaoFk(escala.getIdIncrementoDeRiscoSimNaoFk());
+		escalaNova.setIdLiberacaoDobraInvertidaSimNaoFk(escala.getIdLiberacaoDobraInvertidaSimNaoFk());
+		escalaNova.setIdPresencialSimNaoFk(escala.getIdPresencialSimNaoFk());
+		escalaNova.setIdRegimeFk(escala.getIdRegimeFk());
+		escalaNova.setIdTipoFolhaFk(escala.getIdTipoFolhaFk());
+		escalaNova.setIdTurmaFk(escala.getIdTurmaFk());
+		escalaNova.setPlantoes(escala.getPlantoes());
+		escalaNova.setObservacoes(escala.getObservacoes());
+	
+		escalaNova.setId(escala.getId());
+		
+		return escalaNova;
+	}
+	
 	
 	
 	

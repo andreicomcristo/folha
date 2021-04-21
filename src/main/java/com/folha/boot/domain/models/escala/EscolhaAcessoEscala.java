@@ -1,4 +1,4 @@
-package com.folha.boot.domain.models;
+package com.folha.boot.domain.models.escala;
 
 import com.folha.boot.domain.AnoMes;
 import com.folha.boot.domain.CoordenacaoEscala;
