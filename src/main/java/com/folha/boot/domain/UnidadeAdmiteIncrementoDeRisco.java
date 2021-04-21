@@ -12,6 +12,8 @@ import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
+import org.springframework.transaction.annotation.Transactional;
+
 import com.folha.boot.service.util.UtilidadesDeTexto;
 
 @SuppressWarnings("serial")
@@ -41,6 +43,7 @@ public class UnidadeAdmiteIncrementoDeRisco extends AbstractEntity<Long> {
 		this.idAnoMesFk = idAnoMesFk;
 	}
 	
-    
+	
+	
 	
 }

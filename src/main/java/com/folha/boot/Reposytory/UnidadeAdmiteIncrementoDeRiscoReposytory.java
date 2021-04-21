@@ -16,6 +16,8 @@ import com.folha.boot.domain.Unidades;
 @Repository
 public interface UnidadeAdmiteIncrementoDeRiscoReposytory extends JpaRepository<UnidadeAdmiteIncrementoDeRisco, Long>{
 
+	public List<UnidadeAdmiteIncrementoDeRisco> findByIdUnidadeFkOrderByIdAnoMesFkNomeAnoMesDescIdUnidadeFkNomeFantasiaAsc(Unidades unidades);
+	
 	public List<UnidadeAdmiteIncrementoDeRisco> findAllByOrderByIdAnoMesFkNomeAnoMesDescIdUnidadeFkNomeFantasiaAsc();
 
 	public List<UnidadeAdmiteIncrementoDeRisco> findByIdUnidadeFkNomeFantasiaContainingOrderByIdAnoMesFkNomeAnoMesDescIdUnidadeFkNomeFantasiaAsc(String nome);

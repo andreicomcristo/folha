@@ -79,6 +79,11 @@ public class UnidadeAdmiteChDifService {
 		return reposytory.findByIdUnidadeFkNomeFantasiaContainingOrderByIdAnoMesFkNomeAnoMesDescIdUnidadeFkNomeFantasiaAsc(nome);
 	}
 	
+	@Transactional(readOnly = true)
+	public List<UnidadeAdmiteChDif> buscarPorUnidade(Unidades unidades) {
+		return reposytory.findByIdUnidadeFkOrderByIdAnoMesFkNomeAnoMesDescIdUnidadeFkNomeFantasiaAsc(unidades);
+	}
+	
 	
 	@Transactional(readOnly = true)
 	public List<UnidadeAdmiteChDif> buscarPorMesExato(AnoMes anoMes) {

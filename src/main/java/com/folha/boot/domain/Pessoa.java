@@ -132,6 +132,11 @@ public class Pessoa extends AbstractEntity<Long> {
 	@OneToMany(mappedBy = "idPessoaFk")
     private List<PessoaCodDiferenciado> pessoaCodDiferenciadoList;
 
+	@OneToMany(mappedBy = "idPessoaFk")
+    private List<PessoaIncrementoDeRisco> pessoaIncrementoDeRiscoList;
+    @OneToMany(mappedBy = "idPessoaFk")
+    private List<PessoaChDif> pessoaChDifList;
+	
 	public String getCpf() {
 		return cpf;
 	}
@@ -420,6 +425,22 @@ public class Pessoa extends AbstractEntity<Long> {
 
 	public void setPessoaCodDiferenciadoList(List<PessoaCodDiferenciado> pessoaCodDiferenciadoList) {
 		this.pessoaCodDiferenciadoList = pessoaCodDiferenciadoList;
+	}
+
+	public List<PessoaIncrementoDeRisco> getPessoaIncrementoDeRiscoList() {
+		return pessoaIncrementoDeRiscoList;
+	}
+
+	public void setPessoaIncrementoDeRiscoList(List<PessoaIncrementoDeRisco> pessoaIncrementoDeRiscoList) {
+		this.pessoaIncrementoDeRiscoList = pessoaIncrementoDeRiscoList;
+	}
+
+	public List<PessoaChDif> getPessoaChDifList() {
+		return pessoaChDifList;
+	}
+
+	public void setPessoaChDifList(List<PessoaChDif> pessoaChDifList) {
+		this.pessoaChDifList = pessoaChDifList;
 	}
 
 	

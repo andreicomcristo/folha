@@ -16,6 +16,8 @@ import com.folha.boot.domain.Unidades;
 @Repository
 public interface UnidadeAdmiteChDifReposytory extends JpaRepository<UnidadeAdmiteChDif, Long>{
 
+	public List<UnidadeAdmiteChDif> findByIdUnidadeFkOrderByIdAnoMesFkNomeAnoMesDescIdUnidadeFkNomeFantasiaAsc(Unidades unidades);
+	
 	public List<UnidadeAdmiteChDif> findAllByOrderByIdAnoMesFkNomeAnoMesDescIdUnidadeFkNomeFantasiaAsc();
 
 	public List<UnidadeAdmiteChDif> findByIdUnidadeFkNomeFantasiaContainingOrderByIdAnoMesFkNomeAnoMesDescIdUnidadeFkNomeFantasiaAsc(String nome);

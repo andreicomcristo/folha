@@ -172,6 +172,15 @@ public class PessoaOperadores extends AbstractEntity<Long> {
     @OneToMany(mappedBy = "idOperadorConfirmacaoSedeFk")
     private List<PessoaCodDiferenciado> pessoaCodDiferenciadoList2;
     
+    @OneToMany(mappedBy = "idOperadorCadastroFk")
+    private List<PessoaChDif> pessoaChDifList;
+    @OneToMany(mappedBy = "idOperadorCancelamentoFk")
+    private List<PessoaChDif> pessoaChDifList1;
+    @OneToMany(mappedBy = "idOperadorCadastroFk")
+    private List<PessoaIncrementoDeRisco> pessoaIncrementoDeRiscoList;
+    @OneToMany(mappedBy = "idOperadorCancelamentoFk")
+    private List<PessoaIncrementoDeRisco> pessoaIncrementoDeRiscoList1;
+    
     
 	public Date getDtCadastro() {
 		return dtCadastro;
@@ -622,6 +631,30 @@ public class PessoaOperadores extends AbstractEntity<Long> {
 	}
 	public void setPessoaCodDiferenciadoList2(List<PessoaCodDiferenciado> pessoaCodDiferenciadoList2) {
 		this.pessoaCodDiferenciadoList2 = pessoaCodDiferenciadoList2;
+	}
+	public List<PessoaChDif> getPessoaChDifList() {
+		return pessoaChDifList;
+	}
+	public void setPessoaChDifList(List<PessoaChDif> pessoaChDifList) {
+		this.pessoaChDifList = pessoaChDifList;
+	}
+	public List<PessoaChDif> getPessoaChDifList1() {
+		return pessoaChDifList1;
+	}
+	public void setPessoaChDifList1(List<PessoaChDif> pessoaChDifList1) {
+		this.pessoaChDifList1 = pessoaChDifList1;
+	}
+	public List<PessoaIncrementoDeRisco> getPessoaIncrementoDeRiscoList() {
+		return pessoaIncrementoDeRiscoList;
+	}
+	public void setPessoaIncrementoDeRiscoList(List<PessoaIncrementoDeRisco> pessoaIncrementoDeRiscoList) {
+		this.pessoaIncrementoDeRiscoList = pessoaIncrementoDeRiscoList;
+	}
+	public List<PessoaIncrementoDeRisco> getPessoaIncrementoDeRiscoList1() {
+		return pessoaIncrementoDeRiscoList1;
+	}
+	public void setPessoaIncrementoDeRiscoList1(List<PessoaIncrementoDeRisco> pessoaIncrementoDeRiscoList1) {
+		this.pessoaIncrementoDeRiscoList1 = pessoaIncrementoDeRiscoList1;
 	}
     
 	

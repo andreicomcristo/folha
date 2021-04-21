@@ -79,6 +79,10 @@ public class UnidadeAdmiteIncrementoDeRiscoService {
 		return reposytory.findByIdUnidadeFkNomeFantasiaContainingOrderByIdAnoMesFkNomeAnoMesDescIdUnidadeFkNomeFantasiaAsc(nome);
 	}
 	
+	@Transactional(readOnly = true)
+	public List<UnidadeAdmiteIncrementoDeRisco> buscarPorUnidade(Unidades unidades) {
+		return reposytory.findByIdUnidadeFkOrderByIdAnoMesFkNomeAnoMesDescIdUnidadeFkNomeFantasiaAsc(unidades);
+	}
 	
 	@Transactional(readOnly = true)
 	public List<UnidadeAdmiteIncrementoDeRisco> buscarPorMesExato(AnoMes anoMes) {
