@@ -56,9 +56,9 @@ public class PessoaChDifService {
 	@Autowired
 	private PessoaOperadoresService pessoaOperadoresService;
 	@Autowired
-	UnidadeAdmiteChDifService unidadeAdmiteChDifService;
+	private UnidadeAdmiteChDifService unidadeAdmiteChDifService;
 	@Autowired
-	SimNaoService simNaoService;
+	private SimNaoService simNaoService;
 	
 
 	public void salvar(PessoaChDif pessoaChDif) {
@@ -164,6 +164,5 @@ public class PessoaChDifService {
 		if(!reposytory.findByIdUnidadeFkAndIdPessoaFkAndIdAnoMesFkAndDtCancelamentoIsNullOrderByIdAnoMesFkNomeAnoMesDescIdUnidadeFkNomeFantasiaAscIdPessoaFkNomeAsc( unidades,  pessoa,  anoMes).isEmpty()) {resposta = true;}
 		return resposta;
 	}
-	
 	
 }

@@ -152,7 +152,6 @@ public class PessoaIncrementoDeRiscoService {
 		return listaMeses;
 	}
 
-	
 	public List<SimNao> listaSimNaoCompativelComPessoa(Unidades unidades, Pessoa pessoa, AnoMes anoMes){
 		List<SimNao> lista = new ArrayList<>();
 		lista.add(simNaoService.buscarPorSigla("N").get(0));
@@ -167,7 +166,5 @@ public class PessoaIncrementoDeRiscoService {
 		if(!reposytory.findByIdUnidadeFkAndIdPessoaFkAndIdAnoMesFkAndDtCancelamentoIsNullOrderByIdAnoMesFkNomeAnoMesDescIdUnidadeFkNomeFantasiaAscIdPessoaFkNomeAsc( unidades,  pessoa,  anoMes).isEmpty()) {resposta = true;}
 		return resposta;
 	}
-	
-	
 	
 }
