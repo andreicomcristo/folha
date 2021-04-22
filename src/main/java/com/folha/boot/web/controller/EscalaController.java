@@ -61,9 +61,11 @@ import com.folha.boot.service.EscalaCalculosService;
 import com.folha.boot.service.EscalaExportacaoService;
 import com.folha.boot.service.EscalaPosTransparenciaService;
 import com.folha.boot.service.EscalaService;
+import com.folha.boot.service.PessoaChDifService;
 import com.folha.boot.service.PessoaCodDiferenciadoService;
 import com.folha.boot.service.PessoaDocumentosService;
 import com.folha.boot.service.PessoaFuncionariosService;
+import com.folha.boot.service.PessoaIncrementoDeRiscoService;
 import com.folha.boot.service.PessoaOperadoresService;
 import com.folha.boot.service.PessoaService;
 import com.folha.boot.service.RegimesDeTrabalhoService;
@@ -140,6 +142,10 @@ public class EscalaController {
 	EscalaAlteracoesService escalaAlteracoesService;
 	@Autowired
 	PessoaCodDiferenciadoService pessoaCodDiferenciadoService;
+	@Autowired
+	PessoaChDifService pessoaChDifService;
+	@Autowired
+	PessoaIncrementoDeRiscoService pessoaIncrementoDeRiscoService;
 	
 	
 	
@@ -545,7 +551,9 @@ public class EscalaController {
 		String nomeColuna7 = escalaCalculosService.obtemNomeDiaColuna(anoMesDaEscala, 7);
 		
 		model.addAttribute("idCodigoDiferenciadoFkCompativel", getCodigosDiferenciadoCompativel(escala.getIdFuncionarioFk().getIdPessoaFk()) );
-		
+		model.addAttribute("idChDifFkCompativel", pessoaChDifService.listaSimNaoCompativelComPessoa(unidadesService.buscarPorId(idUnidadeLogada), escala.getIdFuncionarioFk().getIdPessoaFk(), escala.getIdAnoMesFk()) );
+		model.addAttribute("idIncrementoDeRiscoCompativel", pessoaIncrementoDeRiscoService.listaSimNaoCompativelComPessoa(unidadesService.buscarPorId(idUnidadeLogada), escala.getIdFuncionarioFk().getIdPessoaFk(), escala.getIdAnoMesFk()) );
+	
 		model.addAttribute("escala", escala );
 		model.addAttribute("idLinha", id );
 		model.addAttribute("qtdDiasNoMes", qtdDiasNoMes );

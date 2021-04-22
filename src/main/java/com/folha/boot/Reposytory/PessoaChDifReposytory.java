@@ -18,6 +18,8 @@ import com.folha.boot.domain.Unidades;
 @Repository
 public interface PessoaChDifReposytory extends JpaRepository<PessoaChDif, Long>{
 
+	public List<PessoaChDif> findByIdUnidadeFkAndIdPessoaFkAndIdAnoMesFkAndDtCancelamentoIsNullOrderByIdAnoMesFkNomeAnoMesDescIdUnidadeFkNomeFantasiaAscIdPessoaFkNomeAsc(Unidades unidades, Pessoa pessoa, AnoMes anoMes);
+	
 	public List<PessoaChDif> findByIdUnidadeFkAndIdPessoaFkAndDtCancelamentoIsNullOrderByIdAnoMesFkNomeAnoMesDescIdUnidadeFkNomeFantasiaAscIdPessoaFkNomeAsc(Unidades unidades, Pessoa pessoa);
 	
 	public List<PessoaChDif> findByIdUnidadeFkAndDtCancelamentoIsNullOrderByIdAnoMesFkNomeAnoMesDescIdUnidadeFkNomeFantasiaAscIdPessoaFkNomeAsc(Unidades unidades);
