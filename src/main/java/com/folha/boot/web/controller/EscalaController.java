@@ -82,6 +82,8 @@ import com.folha.boot.service.util.UtilidadesDeCalendarioEEscala;
 public class EscalaController {
 
 	
+	
+	
 	Long ultimoIdEscala =0l ;
 	Long idAnoMesAtual =1l ;
 	Long idCoordenacaoAtual = 1l;
