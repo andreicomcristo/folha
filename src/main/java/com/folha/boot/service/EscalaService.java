@@ -79,6 +79,12 @@ public class EscalaService {
 		return reposytory.buscarPorPessoaEAnoMes( pessoa, anoMes);
 	}
 	
+	public List<Escala> buscarPorPessoaEAnoMes( Escala escala) {
+		Pessoa pessoa = escala.getIdFuncionarioFk().getIdPessoaFk();
+		AnoMes anoMes = escala.getIdAnoMesFk();
+		return this.reposytory.findByIdFuncionarioFkIdPessoaFkAndIdAnoMesFkAndDtCancelamentoIsNullOrderByIdCoordenacaoFkIdLocalidadeFkIdUnidadeFkAscIdTipoFolhaFkAscIdFuncionarioFkIdPessoaFkNomeAsc(pessoa, anoMes);
+	}
+	
 	//Busca Exportacao
 	public List<Escala> buscarExportacao( CoordenacaoEscala coordenacaoEscala, AnoMes anoMes) {
 		return this.reposytory.findByIdCoordenacaoFkAndIdAnoMesFkAndDtCancelamentoIsNullOrderByIdFuncionarioFkIdPessoaFkNomeAsc(coordenacaoEscala, anoMes);
@@ -572,6 +578,9 @@ public class EscalaService {
     	
     	if(resposta.length()>0) {resposta = "Choque: "+resposta;}
     	
+    	//Chamando metodo de limite de horas
+    	resposta = resposta +" "+excedeLimiteDeHoras(escala);
+    	
     	return resposta;
     }
 	
@@ -847,7 +856,7 @@ public class EscalaService {
 	    		resposta = "Descanso depois do noturno: "+resposta;}
 	    }else {resposta = "";}
     	
-    	
+	    
 	    
     	return resposta;
     }
@@ -991,6 +1000,44 @@ public class EscalaService {
 	}
 	
 	
+	public String excedeLimiteDeHoras(Escala escala) {
+		String resposta = "";
+		
+		if(escala.getIdTipoFolhaFk().getIdTipoRemuneracaoFk().getNomeTipoRemuneracao().contains("VARIAVEL")) {
+			if(limiteDeHorasIndividual(escala)<escala.getHorasTotais()) {
+				resposta = "Excede limite mensal de horas. A margem atual é de "+limiteDeHorasIndividual(escala)+" horas.";
+			}
+		}
+		
+		return resposta;
+	}
 	
+	public int limiteDeHorasIndividual(Escala escala) {
+		int resposta = 240;
+		
+		//Retirando as 48 horas para todos os medicos
+		if(escala.getIdFuncionarioFk().getIdEspecialidadeAtualFk().getIdCargoFk().getIdNivelCargoFk().getSiglaNivelCargo().equalsIgnoreCase("T") ) {resposta = resposta-48;}
+		
+		//Acrescentando as 48 horas a mais para as especioalidades médias diferentes
+		if(escala.getIdFuncionarioFk().getIdEspecialidadeAtualFk().getNomeEspecialidadeCargo().equalsIgnoreCase("ANESTESIOLOGIA") &&  escala.getIdFuncionarioFk().getIdCargoAtualFk().getNomeCargo().equalsIgnoreCase("MEDICO") ) {resposta = resposta+48;}
+		
+		
+		
+		//Tirando as horas efetivas
+		if(!escala.getIdFuncionarioFk().getIdVinculoAtualFk().getNomeVinculo().contains("PRESTADOR")) {
+			resposta = resposta - (escala.getIdFuncionarioFk().getIdCargaHorariaAtualFk().getCargaHoraria()*4);
+		}
+		//Tirando as horas variaveis
+		List <Escala> lista = buscarPorPessoaEAnoMes(escala);
+			for(int i=0;i<lista.size();i++) {
+				if(lista.get(i).getIdTipoFolhaFk().getIdTipoRemuneracaoFk().getNomeTipoRemuneracao().contains("VARIAVEL")) {
+					if(escala!=lista.get(i)) {
+						resposta = resposta-lista.get(i).getHorasTotais();
+					}
+				}
+			}
+		
+		return resposta;
+	}
 	
 }

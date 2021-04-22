@@ -31,6 +31,7 @@ import com.folha.boot.domain.Pessoa;
 import com.folha.boot.domain.PessoaChDif;
 import com.folha.boot.domain.PessoaCodDiferenciado;
 import com.folha.boot.domain.PessoaOperadores;
+import com.folha.boot.domain.SimNao;
 import com.folha.boot.domain.UnidadeAdmiteChDif;
 import com.folha.boot.domain.Unidades;
 import com.itextpdf.text.Document;
@@ -56,6 +57,8 @@ public class PessoaChDifService {
 	private PessoaOperadoresService pessoaOperadoresService;
 	@Autowired
 	UnidadeAdmiteChDifService unidadeAdmiteChDifService;
+	@Autowired
+	SimNaoService simNaoService;
 	
 
 	public void salvar(PessoaChDif pessoaChDif) {
@@ -147,6 +150,20 @@ public class PessoaChDifService {
 		return listaMeses;
 	}
 	
-
+	public List<SimNao> listaSimNaoCompativelComPessoa(Unidades unidades, Pessoa pessoa, AnoMes anoMes){
+		List<SimNao> lista = new ArrayList<>();
+		lista.add(simNaoService.buscarPorSigla("N").get(0));
+		if(cadastrado(unidades, pessoa, anoMes)==true) {
+			lista.add(simNaoService.buscarPorSigla("S").get(0));
+		}
+		return lista;
+	}
+	
+	public boolean cadastrado(Unidades unidades, Pessoa pessoa, AnoMes anoMes) {
+		boolean resposta = false;
+		if(!reposytory.findByIdUnidadeFkAndIdPessoaFkAndIdAnoMesFkAndDtCancelamentoIsNullOrderByIdAnoMesFkNomeAnoMesDescIdUnidadeFkNomeFantasiaAscIdPessoaFkNomeAsc( unidades,  pessoa,  anoMes).isEmpty()) {resposta = true;}
+		return resposta;
+	}
+	
 	
 }

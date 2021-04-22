@@ -32,6 +32,7 @@ import com.folha.boot.domain.PessoaChDif;
 import com.folha.boot.domain.PessoaCodDiferenciado;
 import com.folha.boot.domain.PessoaIncrementoDeRisco;
 import com.folha.boot.domain.PessoaOperadores;
+import com.folha.boot.domain.SimNao;
 import com.folha.boot.domain.UnidadeAdmiteChDif;
 import com.folha.boot.domain.UnidadeAdmiteIncrementoDeRisco;
 import com.folha.boot.domain.Unidades;
@@ -58,6 +59,8 @@ public class PessoaIncrementoDeRiscoService {
 	private PessoaOperadoresService pessoaOperadoresService;
 	@Autowired
 	private UnidadeAdmiteIncrementoDeRiscoService unidadeAdmiteIncrementoDeRiscoService;
+	@Autowired
+	private SimNaoService simNaoService;
 	
 
 	public void salvar(PessoaIncrementoDeRisco pessoaIncrementoDeRisco) {
@@ -149,5 +152,22 @@ public class PessoaIncrementoDeRiscoService {
 		return listaMeses;
 	}
 
+	
+	public List<SimNao> listaSimNaoCompativelComPessoa(Unidades unidades, Pessoa pessoa, AnoMes anoMes){
+		List<SimNao> lista = new ArrayList<>();
+		lista.add(simNaoService.buscarPorSigla("N").get(0));
+		if(cadastrado(unidades, pessoa, anoMes)==true) {
+			lista.add(simNaoService.buscarPorSigla("S").get(0));
+		}
+		return lista;
+	}
+	
+	public boolean cadastrado(Unidades unidades, Pessoa pessoa, AnoMes anoMes) {
+		boolean resposta = false;
+		if(!reposytory.findByIdUnidadeFkAndIdPessoaFkAndIdAnoMesFkAndDtCancelamentoIsNullOrderByIdAnoMesFkNomeAnoMesDescIdUnidadeFkNomeFantasiaAscIdPessoaFkNomeAsc( unidades,  pessoa,  anoMes).isEmpty()) {resposta = true;}
+		return resposta;
+	}
+	
+	
 	
 }
