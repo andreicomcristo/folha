@@ -181,6 +181,13 @@ public class PessoaOperadores extends AbstractEntity<Long> {
     @OneToMany(mappedBy = "idOperadorCancelamentoFk")
     private List<PessoaIncrementoDeRisco> pessoaIncrementoDeRiscoList1;
     
+    @OneToMany(mappedBy = "idOperadorAvaliacaoSedeFk")
+    private List<PessoaLimiteHoras> pessoaLimiteHorasList;
+    @OneToMany(mappedBy = "idOperadorCadastroFk")
+    private List<PessoaLimiteHoras> pessoaLimiteHorasList1;
+    @OneToMany(mappedBy = "idOperadorCancelamentoFk")
+    private List<PessoaLimiteHoras> pessoaLimiteHorasList2;
+    
     
 	public Date getDtCadastro() {
 		return dtCadastro;
@@ -655,6 +662,24 @@ public class PessoaOperadores extends AbstractEntity<Long> {
 	}
 	public void setPessoaIncrementoDeRiscoList1(List<PessoaIncrementoDeRisco> pessoaIncrementoDeRiscoList1) {
 		this.pessoaIncrementoDeRiscoList1 = pessoaIncrementoDeRiscoList1;
+	}
+	public List<PessoaLimiteHoras> getPessoaLimiteHorasList() {
+		return pessoaLimiteHorasList;
+	}
+	public void setPessoaLimiteHorasList(List<PessoaLimiteHoras> pessoaLimiteHorasList) {
+		this.pessoaLimiteHorasList = pessoaLimiteHorasList;
+	}
+	public List<PessoaLimiteHoras> getPessoaLimiteHorasList1() {
+		return pessoaLimiteHorasList1;
+	}
+	public void setPessoaLimiteHorasList1(List<PessoaLimiteHoras> pessoaLimiteHorasList1) {
+		this.pessoaLimiteHorasList1 = pessoaLimiteHorasList1;
+	}
+	public List<PessoaLimiteHoras> getPessoaLimiteHorasList2() {
+		return pessoaLimiteHorasList2;
+	}
+	public void setPessoaLimiteHorasList2(List<PessoaLimiteHoras> pessoaLimiteHorasList2) {
+		this.pessoaLimiteHorasList2 = pessoaLimiteHorasList2;
 	}
     
 	
