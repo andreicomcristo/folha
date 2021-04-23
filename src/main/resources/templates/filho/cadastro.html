@@ -26,7 +26,7 @@
 				<div class="form-row">
 
 					<div class="form-group col-md-6">
-						<label for="nome" class="fonte-tutulos-tamanho">Filhos</label>
+						<label for="nome" class="fonte-tutulos-tamanho">Filhos / Dependentes</label>
 							
 							<p></p>
 							<a class="btn btn-outline-danger btn-sm" th:href="@{/filhos/retroceder}"
@@ -56,7 +56,7 @@
 
 					<div class="form-group col-md-6">
 							
-							<label for="nome" class="">Tipo de Filiação </label>
+							<label for="nome" class="">Tipo </label>
 							<select id="cargos" class="form-select" th:field="*{idTipoFiliacaoFk}">
 								<option value="">Selecione a Filiação</option>
 								<option th:each="d : ${idTipoFiliacaoFk}" th:value="${d.id}"th:text="${d.nomeTipoFiliacao}">ADM</option>

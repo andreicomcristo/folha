@@ -57,6 +57,8 @@ public class CodigoDiferenciado extends AbstractEntity<Long> {
 	@OneToMany(mappedBy = "idCodDiferenciadoFk")
     private List<PessoaCodDiferenciado> pessoaCodDiferenciadoList;
 	
+	@OneToMany(mappedBy = "idCodigoDiferenciadoFk")
+    private List<EscalaCodDiferenciado> escalaCodDiferenciadoList;
 
 	public String getNomeCodigoDiferenciado() {
 		return nomeCodigoDiferenciado;
@@ -171,6 +173,14 @@ public class CodigoDiferenciado extends AbstractEntity<Long> {
 
 	public void setPessoaCodDiferenciadoList(List<PessoaCodDiferenciado> pessoaCodDiferenciadoList) {
 		this.pessoaCodDiferenciadoList = pessoaCodDiferenciadoList;
+	}
+
+	public List<EscalaCodDiferenciado> getEscalaCodDiferenciadoList() {
+		return escalaCodDiferenciadoList;
+	}
+
+	public void setEscalaCodDiferenciadoList(List<EscalaCodDiferenciado> escalaCodDiferenciadoList) {
+		this.escalaCodDiferenciadoList = escalaCodDiferenciadoList;
 	}
 
 	

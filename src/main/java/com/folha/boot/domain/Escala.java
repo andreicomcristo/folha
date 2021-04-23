@@ -1,10 +1,13 @@
 package com.folha.boot.domain;
 
 import java.util.Date;
+import java.util.List;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
@@ -182,6 +185,9 @@ public class Escala extends AbstractEntity<Long>{
     
     @Column(name = "observacoes")
     private String observacoes;
+    
+    @OneToMany(mappedBy = "idEscalaFk")
+    private List<EscalaCodDiferenciado> escalaCodDiferenciadoList;
 	
     
     

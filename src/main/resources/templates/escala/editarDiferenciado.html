@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html layout:decorate="~{layout}">
+<head><meta charset="UTF-8"/></head>
+<body>
+	<section class="layout-content" layout:fragment="corpo">	
+		<div class="container" id="cadastro">
+		<input type=hidden id="" th:field="${idLinha}" />			
+			<form
+				th:action="${escalaCodDiferenciado.id == null} ? @{/escalas/salvar/diferenciado} : @{/escalas/salvar/diferenciado}"
+				th:object="${escalaCodDiferenciado}" method="POST">
+				<div class="form-row">
+					<div class="form-group col-md-12 col-lg-12 col-sm-12">
+						<H5>
+						<a class="btn btn-outline-light oi oi-action-undo" type="button" href="javascript:history.back()"></a>
+						<a class="btn btn-outline-light oi oi-action-redo" type="button" href="javascript:history.forward()"></a>    
+						<a class="btn btn-outline-dark btn-md" href="/escalas/listar" role="button">
+				        	<span class="oi oi-list" title="Atualizar" aria-hidden="true"></span>
+				            <span>Listar Escala</span>
+				        </a>
+				        
+						<label for="nome" class="">Diferenciado</label></H5>
+									
+					<div>
+						
+						<table class="table table-striped table-hover table-sm myTable">
+			            	<thead>
+			          			<tr>
+				                	<th>
+				                	<input type=hidden id="" th:field="*{id}" />
+				                	<input type=hidden id="" th:field="*{idEscalaFk}" />
+				                	<input type=hidden id="" th:field="*{idOperadorCadastroFk}" />
+				                	<input type=hidden id="" th:field="*{dtCadastro}" />
+				                	<input type=hidden id="" th:field="*{idOperadorCancelamentoFk}" />
+				                	<input type=hidden id="" th:field="*{dtCancelamento}" />
+				                	
+				        				<label style="text-align: center; color:#008080;" th:text="${escala.idCoordenacaoFk.nomeCoordenacao+'-'+escala.idCoordenacaoFk.idLocalidadeFk.nomeLocalidade+'-'+escala.idCoordenacaoFk.idAtividadeFk.nomeAtividade+'-'+escala.idCoordenacaoFk.idLocalidadeFk.idUnidadeFk.nomeFantasia}" class="text" >Escala </label>
+									</th>
+									<th>
+				        				<label style="text-align: center; color:#008080;" th:text="${escala.idAnoMesFk.nomeAnoMes}" class="text" >Mes </label>
+									</th>
+								</tr>
+							</thead>
+						</table>
+			            	
+								 
+						<table class="table table-striped table-hover table-sm myTable">
+			            	<thead>			
+								<tr>							
+				                    <th>
+				        				<label class="text" >Nome : </label>
+				        				<div style="color:green;" th:text="${escala.idFuncionarioFk.idPessoaFk.nome}" class="text" >Nome Completo do Indivíduo em Questão </div>
+									</th>
+				                    <th>
+				                    	<label class="text" >CPF : </label>
+				                    	<label style="color:grey;" th:text="${escala.idFuncionarioFk.idPessoaFk.cpf}" class="text" >000 000 000 00 </label>
+									</th>
+									<th>
+										<label class="text" >Matrícula : </label>
+				                    	<label style="color:grey;" th:text="${escala.idFuncionarioFk.matricula}" class="text" >9 000 000 0 </label>
+									</th>
+									<th>
+										<label class="text" >Cargo : </label>
+				                    	<label style="color:grey;" th:text="${escala.idFuncionarioFk.idEspecialidadeAtualFk.idCargoFk.nomeCargo+'-'+escala.idFuncionarioFk.idEspecialidadeAtualFk.nomeEspecialidadeCargo}" class="text" >Cargo </label>
+									</th>									
+								 </tr>
+							 </thead>
+						</table>
+			            				
+			            <table class="table table-striped table-hover table-sm myTable">
+			            	<thead>
+								 
+								 <tr>
+				                 	
+									
+									<th>
+				                    	<label class="text" >CH Sem: </label>
+				                    	<label style="color:brown;" th:text="${escala.idFuncionarioFk.idCargaHorariaAtualFk.cargaHoraria}" class="text" >30 </label>
+									</th>
+				                 	<th>
+				                    	<label style="color:brown;" th:text="${escala.idTipoFolhaFk.nomeTipoFolha}" class="text" >HEMOD EXT MED </label>
+									</th>
+									<th>
+										<label class="text" >Plantão: </label>
+										<label style="color:blue;" th:text="${escala.plantoes}" class="text" >0 </label>
+									</th>
+				                    <th>
+										<label class="text" >H Dia: </label>
+										<label style="color:blue;" th:text="${escala.horasDia}" class="text" >0 </label>
+									</th>
+									<th>
+										<label class="text" >H Noite: </label>
+										<label style="color:blue;" th:text="${escala.horasNoite}" class="text" >0 </label>
+									</th>
+									<th>
+										<label class="text" >H Sem: </label>
+										<label style="color:blue;" th:text="${escala.horasSemana}" class="text" >0 </label>
+									</th>
+									<th>
+										<label class="text" >H F Sem: </label>
+										<label style="color:blue;" th:text="${escala.horasFimSemana}" class="text" >0 </label>
+									</th>
+									<th>
+										<label class="text" >H Tot: </label>
+										<label style="color:blue;" th:text="${escala.horasTotais}" class="text" >0 </label>
+									</th>
+								 </tr>
+			            	</thead>
+						</table>				
+			            									 
+						<table class="table table-striped table-hover table-sm myTable">
+			            	<thead>
+								 <div th:replace="fragments/alert"></div>
+								 <tr>
+								 	<th>
+								 		<label class="text" style="font-size:12px;">Diferenciado </label>
+					                	<select style="width:500px; height:25px; font-size:10px" id="turma" class="form-select"  th:field="*{idCodigoDiferenciadoFk}" >
+											<option value=""></option>
+											<option th:each="d : ${idCodigoDiferenciadoFkCompativel}" th:value="${d.id}"th:text="${d.nomeCodigoDiferenciado+'-'+ d.descricaoCodigoDiferenciado}">Presencial</option>
+										</select>
+										<p></p>									
+									
+										</th>
+								 	
+								 </tr>
+							 </thead>
+						</table>
+								
+							<button class="btn btn-outline-success">Lançar</button>	
+							
+						</div>	
+							
+							<input type="hidden" id="id" th:field="*{id}" />													
+						<p></p>					
+					</div>
+				</div>
+			</form>
+		</div>	
+		
+		
+	<div class="container" id="listagem">
+		<div style="height: 500px; overflow-y: auto;" class="table-responsive">
+	        	<table style="width: 1300px;" class="table table-striped table-hover table-sm myTable">
+	            	<thead>
+	          			<tr>
+		                	<th style="font-size:10px;" >#</th>
+		                    <th style="font-size:10px;" >Nome </th>
+		                    <th style="font-size:10px;" >Cpf </th>
+		                    <th style="font-size:10px;" >Código </th>
+		                    <th style="font-size:10px;" >Descrição </th>
+		                    <th style="font-size:10px;" >Responsável </th>
+		                    <th style="font-size:10px;" >Data </th>
+		                    
+		                    <th style="font-size:10px;" >Ações</th>
+	                    </tr>
+	                </thead>                  
+	                <tbody>
+		            	<tr th:each="d : ${lista1}">
+		                	<td style="font-size:10px;" th:text="${d.id}"></td>		                    
+		                    <td style="font-size:10px;"  th:text="${d.idEscalaFk != null} ? ${d.idEscalaFk.idFuncionarioFk.idPessoaFk.nome} : ''  "></td>		                    		           		                  	                    		                     		         		                    
+		                    <td style="font-size:10px;"  th:text="${d.idEscalaFk != null} ? ${d.idEscalaFk.idFuncionarioFk.idPessoaFk.cpf} : ''  "></td>
+		                    <td style="font-size:10px;"  th:text="${d.idCodigoDiferenciadoFk != null} ? ${d.idCodigoDiferenciadoFk.nomeCodigoDiferenciado} : ''  "></td>
+		                    <td style="font-size:10px;"  th:text="${d.idCodigoDiferenciadoFk != null} ? ${d.idCodigoDiferenciadoFk.descricaoCodigoDiferenciado} : ''  "></td>
+		                    <td style="font-size:10px;"  th:text="${d.idOperadorCadastroFk != null} ? ${d.idOperadorCadastroFk.idPessoaFk.nome} : ''  "></td>
+		                    <td style="font-size:10px;"  th:text="${d.dtCadastro != null} ? ${#dates.format(d.dtCadastro, 'dd/MM/yyyy')} : ''  "></td>
+		                    
+		                    <td colspan="2">
+		                    	<button style="width:155px; height:25px; text-align:center; font-size:09px; " th:id="${ 'btn_escalas/cancelar/diferenciado/' + d.id}" type="button" class="btn btn btn-outline-danger btn-sm" 
+					                data-toggle="modal" data-target="#myModal">
+					            	<span  class="" title="Exclusão habilitada" aria-hidden="true">Cancelar</span>
+					            </button>                       
+		                   	</td>
+						</tr>
+					</tbody>                    
+	            </table>
+	         </div>
+	     </div>
+		
+		
+		
+		
+		
+		
+		
+		<div th:replace="fragments/modal :: modal"></div>
+	</section>
+</body>
+</html>
+

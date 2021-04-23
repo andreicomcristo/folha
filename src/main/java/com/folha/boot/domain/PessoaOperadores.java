@@ -188,6 +188,11 @@ public class PessoaOperadores extends AbstractEntity<Long> {
     @OneToMany(mappedBy = "idOperadorCancelamentoFk")
     private List<PessoaLimiteHoras> pessoaLimiteHorasList2;
     
+    @OneToMany(mappedBy = "idOperadorCadastroFk")
+    private List<EscalaCodDiferenciado> escalaCodDiferenciadoList;
+    @OneToMany(mappedBy = "idOperadorCancelamentoFk")
+    private List<EscalaCodDiferenciado> escalaCodDiferenciadoList1;
+    
     
 	public Date getDtCadastro() {
 		return dtCadastro;
@@ -680,6 +685,18 @@ public class PessoaOperadores extends AbstractEntity<Long> {
 	}
 	public void setPessoaLimiteHorasList2(List<PessoaLimiteHoras> pessoaLimiteHorasList2) {
 		this.pessoaLimiteHorasList2 = pessoaLimiteHorasList2;
+	}
+	public List<EscalaCodDiferenciado> getEscalaCodDiferenciadoList() {
+		return escalaCodDiferenciadoList;
+	}
+	public void setEscalaCodDiferenciadoList(List<EscalaCodDiferenciado> escalaCodDiferenciadoList) {
+		this.escalaCodDiferenciadoList = escalaCodDiferenciadoList;
+	}
+	public List<EscalaCodDiferenciado> getEscalaCodDiferenciadoList1() {
+		return escalaCodDiferenciadoList1;
+	}
+	public void setEscalaCodDiferenciadoList1(List<EscalaCodDiferenciado> escalaCodDiferenciadoList1) {
+		this.escalaCodDiferenciadoList1 = escalaCodDiferenciadoList1;
 	}
     
 	

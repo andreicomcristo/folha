@@ -55,12 +55,13 @@
 	            	<thead>
 	          			<tr>
 		                	<th>#</th>
-		                    <th>Ano Referência </th>
+		                    <th>Diferenciado </th>
+		                    <th>Descrição </th>
 		                    <th>Ações</th>
 	                    </tr>
 	                </thead>                  
 	                <tbody>
-		            	<tr th:each="f : ${feriasLista}">
+		            	<tr th:each="f : ${lista1}">
 		                	<td th:text="${f.id}"></td>		                    
 		                    <td th:text="${f.anoReferencia}"></td>		                    		           		                  	                    		                     		         		                    
 		                    <td colspan="2">
