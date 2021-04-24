@@ -19,6 +19,9 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.provisioning.InMemoryUserDetailsManager;
+import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
+
+
 
 
 
@@ -32,9 +35,19 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 	@Autowired
 	private DataSource dataSource;
 
+	public AuthenticationFilter authenticationFilter() throws Exception {
+		AuthenticationFilter filter = new AuthenticationFilter();
+		filter.setAuthenticationManager(authenticationManagerBean());
+		return filter;
+	}
+	
 	@Override
 	protected void configure(HttpSecurity http) throws Exception {
-		http.authorizeRequests()
+		http
+		.addFilterBefore(authenticationFilter(),
+				UsernamePasswordAuthenticationFilter.class)
+		
+		.authorizeRequests()
 		
 			.antMatchers("/css/**").permitAll()
 			.antMatchers("/js/**").permitAll()
@@ -57,7 +70,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 	}
 	
 
-	/*
+	
 	@Override
 	protected void configure(AuthenticationManagerBuilder auth) throws Exception {
 		// TODO Auto-generated method stub
@@ -79,10 +92,10 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 //			.passwordEncoder(encoder);
 			//.withUser(user);
 	}
-	*/
 	
 	
 	
+	/*
 	@Override
 	protected void configure(AuthenticationManagerBuilder auth) throws Exception {
 
@@ -102,7 +115,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 		
 	
 	}
-	
+	*/
 	
 	
 	
