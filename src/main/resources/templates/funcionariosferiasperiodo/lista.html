@@ -14,7 +14,7 @@
 	        	<span class="oi oi-loop-square" title="Atualizar" aria-hidden="true"></span>
 	            <span>Atualizar</span>
 	        </a>
-	            <label for="nome" class= "fonte-tutulos-tamanho">Lista de Períodos de Férias </label>
+	            <label for="nome" class= "fonte-tutulos-tamanho">Listar Férias </label>
 	    </nav>
 	  <!--	<div class="container">
 	    	<p>                
@@ -56,6 +56,7 @@
 		            	<tr th:each="d : ${funcionariosFeriasPeriodos}">
 		                	<td th:text="${d.id}"></td>
 							<td th:text="${d.idFeriasFk.idFuncionarioFk.idPessoaFk.nome}"></td>		                			                    
+							<td th:text="${d.idFeriasFk.anoReferencia}"></td>
 		                    <td th:text="${d.dtInicial}"></td>
 		                    <td th:text="${d.dtFinal}"></td>
 		                    <td th:text="${d.dtAssinatura}"></td>

@@ -61,18 +61,27 @@
 	                </thead>                  
 	                <tbody>
 		            	<tr th:each="f : ${feriasLista}">
-		                	<td th:text="${f.id}"></td>		                    
-		                    <td th:text="${f.anoReferencia}"></td>		                    		           		                  	                    		                     		         		                    
+		                	<td th:text="${f.id}"></td>	
+		                	<td > <a th:href="@{/funcionariosferias/periodos/{id} (id=${f.id}) }" ><span th:text="${f.anoReferencia}"></span></a></td>	                    
+		                    <td ></td>		                    		           		                  	                    		                     		         		                    
 		                    <td colspan="2">
-		                    	<a class="btn btn-outline-success btn-sm" th:href="@{/funcionariosferias/periodos/{id} (id=${f.id}) }" role="button">
-		                        <span class="oi oi-check" title="Cadastrar férias" aria-hidden="true"></span>
-		                        </a>		                       
+		                    	
+		                    	<a class="btn btn-outline-info btn-sm" th:href="@{/funcionariosferias/editar/{id} (id=${f.id})}" role="button">
+		                        	<span class="oi oi-brush" title="Editar" aria-hidden="true"></span>
+		                        </a>
+		                        
+		                        <button th:id="${ 'btn_funcionariosferias/excluir/' + f.id}" type="button" class="btn btn btn-outline-danger btn-sm" 
+		                            		data-toggle="modal" data-target="#myModal">
+		                                <span class="oi oi-circle-x" title="Exclusão habilitada" aria-hidden="true"></span>
+		                        </button>
+		                    			                       
 		                   	</td>
 						</tr>
 					</tbody>                    
 	            </table>
 	         </div>
-		</div>	        
+		</div>	
+		 <div th:replace="fragments/modal :: modal"></div>         
 	</section>
 </body>
 </html>
