@@ -1,9 +1,10 @@
-package com.folha.boot.domain;
+package com.folha.boot.domain.seguranca;
 
 import java.util.List;
 
 import javax.persistence.*;
 
+import com.folha.boot.domain.AbstractEntity;
 import com.folha.boot.service.util.UtilidadesDeTexto;
 
 @SuppressWarnings("serial")
@@ -16,9 +17,9 @@ public class GrupoUsuario extends AbstractEntity<Long> {
     @OneToMany(mappedBy = "idGrupoUsuarioFk")
     private List<Perfil> perfilList;
     
-    @JoinColumn(name = "id_tipo_grupo_usuario_fk", referencedColumnName = "id")
-    @ManyToOne
-    private TiposDeGrupoUsuario idTipoGrupoUsuarioFk;
+    @OneToMany(mappedBy = "idGrupoUsuarioFk")
+    private List<GrupoUsuarioPermissao> grupoUsuarioPermissaoList;
+    
     
 	public String getNome() {
 		return nome;
@@ -32,12 +33,13 @@ public class GrupoUsuario extends AbstractEntity<Long> {
 	public void setPerfilList(List<Perfil> perfilList) {
 		this.perfilList = perfilList;
 	}
-	public TiposDeGrupoUsuario getIdTipoGrupoUsuarioFk() {
-		return idTipoGrupoUsuarioFk;
+	public List<GrupoUsuarioPermissao> getGrupoUsuarioPermissaoList() {
+		return grupoUsuarioPermissaoList;
 	}
-	public void setIdTipoGrupoUsuarioFk(TiposDeGrupoUsuario idTipoGrupoUsuarioFk) {
-		this.idTipoGrupoUsuarioFk = idTipoGrupoUsuarioFk;
+	public void setGrupoUsuarioPermissaoList(List<GrupoUsuarioPermissao> grupoUsuarioPermissaoList) {
+		this.grupoUsuarioPermissaoList = grupoUsuarioPermissaoList;
 	}
+	
 
     
 }

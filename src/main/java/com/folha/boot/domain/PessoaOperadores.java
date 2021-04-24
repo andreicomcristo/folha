@@ -5,6 +5,8 @@ import java.util.List;
 
 import javax.persistence.*;
 
+import com.folha.boot.domain.seguranca.Perfil;
+
 @SuppressWarnings("serial")
 @Entity
 @Table(name = "pessoa_operadores")
@@ -180,6 +182,18 @@ public class PessoaOperadores extends AbstractEntity<Long> {
     private List<PessoaIncrementoDeRisco> pessoaIncrementoDeRiscoList;
     @OneToMany(mappedBy = "idOperadorCancelamentoFk")
     private List<PessoaIncrementoDeRisco> pessoaIncrementoDeRiscoList1;
+    
+    @OneToMany(mappedBy = "idOperadorAvaliacaoSedeFk")
+    private List<PessoaLimiteHoras> pessoaLimiteHorasList;
+    @OneToMany(mappedBy = "idOperadorCadastroFk")
+    private List<PessoaLimiteHoras> pessoaLimiteHorasList1;
+    @OneToMany(mappedBy = "idOperadorCancelamentoFk")
+    private List<PessoaLimiteHoras> pessoaLimiteHorasList2;
+    
+    @OneToMany(mappedBy = "idOperadorCadastroFk")
+    private List<EscalaCodDiferenciado> escalaCodDiferenciadoList;
+    @OneToMany(mappedBy = "idOperadorCancelamentoFk")
+    private List<EscalaCodDiferenciado> escalaCodDiferenciadoList1;
     
     
 	public Date getDtCadastro() {
@@ -655,6 +669,36 @@ public class PessoaOperadores extends AbstractEntity<Long> {
 	}
 	public void setPessoaIncrementoDeRiscoList1(List<PessoaIncrementoDeRisco> pessoaIncrementoDeRiscoList1) {
 		this.pessoaIncrementoDeRiscoList1 = pessoaIncrementoDeRiscoList1;
+	}
+	public List<PessoaLimiteHoras> getPessoaLimiteHorasList() {
+		return pessoaLimiteHorasList;
+	}
+	public void setPessoaLimiteHorasList(List<PessoaLimiteHoras> pessoaLimiteHorasList) {
+		this.pessoaLimiteHorasList = pessoaLimiteHorasList;
+	}
+	public List<PessoaLimiteHoras> getPessoaLimiteHorasList1() {
+		return pessoaLimiteHorasList1;
+	}
+	public void setPessoaLimiteHorasList1(List<PessoaLimiteHoras> pessoaLimiteHorasList1) {
+		this.pessoaLimiteHorasList1 = pessoaLimiteHorasList1;
+	}
+	public List<PessoaLimiteHoras> getPessoaLimiteHorasList2() {
+		return pessoaLimiteHorasList2;
+	}
+	public void setPessoaLimiteHorasList2(List<PessoaLimiteHoras> pessoaLimiteHorasList2) {
+		this.pessoaLimiteHorasList2 = pessoaLimiteHorasList2;
+	}
+	public List<EscalaCodDiferenciado> getEscalaCodDiferenciadoList() {
+		return escalaCodDiferenciadoList;
+	}
+	public void setEscalaCodDiferenciadoList(List<EscalaCodDiferenciado> escalaCodDiferenciadoList) {
+		this.escalaCodDiferenciadoList = escalaCodDiferenciadoList;
+	}
+	public List<EscalaCodDiferenciado> getEscalaCodDiferenciadoList1() {
+		return escalaCodDiferenciadoList1;
+	}
+	public void setEscalaCodDiferenciadoList1(List<EscalaCodDiferenciado> escalaCodDiferenciadoList1) {
+		this.escalaCodDiferenciadoList1 = escalaCodDiferenciadoList1;
 	}
     
 	

@@ -15,11 +15,9 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.folha.boot.domain.Bancos;
 import com.folha.boot.domain.CargosEspecialidade;
-import com.folha.boot.domain.GrupoUsuario;
-import com.folha.boot.domain.TiposDeGrupoUsuario;
+import com.folha.boot.domain.seguranca.GrupoUsuario;
 import com.folha.boot.service.BancosService;
-import com.folha.boot.service.GrupoUsuarioService;
-import com.folha.boot.service.TiposDeGrupoUsuarioService;
+import com.folha.boot.service.seguranca.GrupoUsuarioService;
 
 @Controller
 @RequestMapping("/grupousuario")
@@ -27,8 +25,7 @@ public class GrupoUsuarioController {
 	
 	@Autowired
 	private GrupoUsuarioService service;
-	@Autowired
-	private TiposDeGrupoUsuarioService tiposDeGrupoUsuarioService;
+	
 	
 	
 	@GetMapping("/cadastrar")
@@ -76,10 +73,7 @@ public class GrupoUsuarioController {
 		return "/grupousuario/lista";
 	}
 	
-	@ModelAttribute("idTipoGrupoUsuarioFk")
-	public List<TiposDeGrupoUsuario> getIdTipoGrupoUsuarioFk() {
-		return tiposDeGrupoUsuarioService.buscarTodos();
-	}
+	
 	
 	
 	

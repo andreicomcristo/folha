@@ -35,12 +35,7 @@
 								id="nome" placeholder="Grupo Usuário" th:field="*{nome}" />						
 							<p></p>
 							
-							<label for="nome" class="">Tipo Grupo Usuário </label>
-							<select id="idCodDiferenciadoFk" class="form-select" th:field="*{idTipoGrupoUsuarioFk}">
-								<option value="">Selecione o Tipo</option>
-								<option class="form-select" th:each="d : ${idTipoGrupoUsuarioFk}" th:value="${d.id}"th:text="${d.nome}" selected >ADM</option>
-							</select>	
-							<p></p>	
+							
 							
 							<input type="hidden" id="id" th:field="*{id}" />
 								<p></p>					

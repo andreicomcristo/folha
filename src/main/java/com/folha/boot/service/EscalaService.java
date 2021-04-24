@@ -33,6 +33,10 @@ public class EscalaService {
 	@Autowired
 	private EscalaReposytoty reposytory;
 	
+	@Autowired
+	private PessoaLimiteHorasService pessoaLimiteHorasService;
+	
+	
 	
 	public Escala salvar(Escala escala) {
 		// TODO Auto-generated method stub
@@ -1007,8 +1011,8 @@ public class EscalaService {
 	public int limiteDeHorasIndividual(Escala escala) {
 		int resposta = 240;
 		
-		//Retirando as 66 horas para todos os medicos
-		if(escala.getIdFuncionarioFk().getIdEspecialidadeAtualFk().getIdCargoFk().getIdNivelCargoFk().getSiglaNivelCargo().equalsIgnoreCase("T") ) {resposta = resposta-66;}
+		//Retirando as 48 horas para todos os medicos
+		if(escala.getIdFuncionarioFk().getIdEspecialidadeAtualFk().getIdCargoFk().getIdNivelCargoFk().getSiglaNivelCargo().equalsIgnoreCase("T") ) {resposta = resposta-48;}
 		
 		//Acrescentando as 66 horas a mais para as especioalidades médias diferentes
 		if(escala.getIdFuncionarioFk().getIdEspecialidadeAtualFk().getNomeEspecialidadeCargo().equalsIgnoreCase("ANESTESIOLOGIA") &&  escala.getIdFuncionarioFk().getIdCargoAtualFk().getNomeCargo().equalsIgnoreCase("MEDICO") ) {resposta = resposta+66;}
@@ -1017,6 +1021,12 @@ public class EscalaService {
 		if(escala.getIdFuncionarioFk().getIdEspecialidadeAtualFk().getNomeEspecialidadeCargo().equalsIgnoreCase("CIRURGIA GERAL") &&  escala.getIdFuncionarioFk().getIdCargoAtualFk().getNomeCargo().equalsIgnoreCase("MEDICO") ) {resposta = resposta+66;}
 		if(escala.getIdFuncionarioFk().getIdEspecialidadeAtualFk().getNomeEspecialidadeCargo().equalsIgnoreCase("ORTOPEDIA E TRAUMATOLOGIA") &&  escala.getIdFuncionarioFk().getIdCargoAtualFk().getNomeCargo().equalsIgnoreCase("MEDICO") ) {resposta = resposta+66;}
 		if(escala.getIdFuncionarioFk().getIdEspecialidadeAtualFk().getNomeEspecialidadeCargo().equalsIgnoreCase("MEDICINA INTENSIVA") &&  escala.getIdFuncionarioFk().getIdCargoAtualFk().getNomeCargo().equalsIgnoreCase("MEDICO") ) {resposta = resposta+66;}
+		
+		
+		//Altereando limite de horas para excepcionalidades cadastradas
+		if(!pessoaLimiteHorasService.buscarPorUnidadeEPessoaAprovadoSede(escala.getIdCoordenacaoFk().getIdLocalidadeFk().getIdUnidadeFk(), escala.getIdFuncionarioFk().getIdPessoaFk()).isEmpty()) {
+			resposta = pessoaLimiteHorasService.buscarPorUnidadeEPessoaAprovadoSede(escala.getIdCoordenacaoFk().getIdLocalidadeFk().getIdUnidadeFk(), escala.getIdFuncionarioFk().getIdPessoaFk()).get(0).getHoras();
+		}
 		
 		
 		//Tirando as horas efetivas

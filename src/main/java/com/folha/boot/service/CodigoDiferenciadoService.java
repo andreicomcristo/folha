@@ -59,6 +59,12 @@ public class CodigoDiferenciadoService {
 	}
 	
 	@Transactional(readOnly = true)
+	public List<CodigoDiferenciado> buscarPorNomeExato(Unidades unidade, String nome) {
+		// TODO Auto-generated method stub
+		return reposytory.findByNomeCodigoDiferenciadoAndIdUnidadeFkAndDtCancelamentoIsNullOrderByNomeCodigoDiferenciadoAsc( nome, unidade);
+	}
+	
+	@Transactional(readOnly = true)
 	public List<CodigoDiferenciado> buscarPorNomeGeral( String nome) {
 		// TODO Auto-generated method stub
 		return reposytory.findByNomeCodigoDiferenciadoContainingAndDtCancelamentoIsNullOrderByNomeCodigoDiferenciadoAsc( nome);

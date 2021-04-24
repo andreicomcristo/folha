@@ -55,15 +55,18 @@
 	            	<thead>
 	          			<tr>
 		                	<th>#</th>
-		                    <th>Ano Referência </th>
+		                    <th>Diferenciado </th>
+		                    <th>Descrição </th>
 		                    <th>Ações</th>
 	                    </tr>
 	                </thead>                  
 	                <tbody>
+
 		            	<tr th:each="f : ${feriasLista}">
 		                	<td th:text="${f.id}"></td>	
 		                	<td > <a th:href="@{/funcionariosferias/periodos/{id} (id=${f.id}) }" ><span th:text="${f.anoReferencia}"></span></a></td>	                    
 		                    <td ></td>		                    		           		                  	                    		                     		         		                    
+
 		                    <td colspan="2">
 		                    	
 		                    	<a class="btn btn-outline-info btn-sm" th:href="@{/funcionariosferias/editar/{id} (id=${f.id})}" role="button">

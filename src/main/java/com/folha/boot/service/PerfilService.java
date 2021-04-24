@@ -5,7 +5,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import com.folha.boot.Reposytory.PerfilReposytory;
-import com.folha.boot.domain.Perfil;
+import com.folha.boot.domain.seguranca.Perfil;
 
 @Service
 @Transactional(readOnly = false)

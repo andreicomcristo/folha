@@ -34,6 +34,7 @@ import com.folha.boot.domain.CodigoDiferenciado;
 import com.folha.boot.domain.CoordenacaoEscala;
 import com.folha.boot.domain.Escala;
 import com.folha.boot.domain.EscalaAlteracoes;
+import com.folha.boot.domain.EscalaCodDiferenciado;
 import com.folha.boot.domain.EscalaPosTransparencia;
 import com.folha.boot.domain.Pessoa;
 import com.folha.boot.domain.PessoaCodDiferenciado;
@@ -58,6 +59,7 @@ import com.folha.boot.service.CoordenacaoEscalaService;
 import com.folha.boot.service.EscalaAlteracoesService;
 import com.folha.boot.service.EscalaAtalhosService;
 import com.folha.boot.service.EscalaCalculosService;
+import com.folha.boot.service.EscalaCodDiferenciadoService;
 import com.folha.boot.service.EscalaExportacaoService;
 import com.folha.boot.service.EscalaPosTransparenciaService;
 import com.folha.boot.service.EscalaService;
@@ -82,7 +84,8 @@ import com.folha.boot.service.util.UtilidadesDeCalendarioEEscala;
 public class EscalaController {
 
 	
-
+	
+	
 	Long ultimoIdEscala =0l ;
 	Long idAnoMesAtual =1l ;
 	Long idCoordenacaoAtual = 1l;
@@ -148,6 +151,8 @@ public class EscalaController {
 	PessoaChDifService pessoaChDifService;
 	@Autowired
 	PessoaIncrementoDeRiscoService pessoaIncrementoDeRiscoService;
+	@Autowired
+	EscalaCodDiferenciadoService escalaCodDiferenciadoService;
 	
 	
 	
@@ -689,7 +694,9 @@ public class EscalaController {
 		
 		boolean chocou = false;
 		boolean naoPresencialComNoturno = false;
-		
+		if(!codigoDiferenciadoService.buscarPorNomeExato(unidadesService.buscarPorId(idUnidadeLogada), "N").isEmpty()){
+			escala.setIdCodigoDiferenciadoFk(codigoDiferenciadoService.buscarPorNomeExato(unidadesService.buscarPorId(idUnidadeLogada), "N").get(0));
+		}
 		escala.setIdOperadorMudancaFk(pessoaOperadoresService.buscarPorId(idOperadorLogado));
 		escala.setDtMudanca(new Date());
 		
@@ -751,6 +758,50 @@ public class EscalaController {
 		return "redirect:/escalas/listar";
 	}
 	
+	
+	
+	
+	@PostMapping("/salvar/diferenciado")
+	public String salvarDiferenciado(Escala escala, EscalaCodDiferenciado escalaCodDiferenciado, String lancarTurma) {
+		//Tratando escala Bloqueada
+		if(anoMesService.buscarPorId(idAnoMesAtual).getIdEscalaBloqueadaFk().getSigla().equalsIgnoreCase("S")) {
+		return "redirect:/escalas/mensagem/de/escala/bloqueada";
+		}
+		
+		boolean podeSalvar = true;
+		
+		//Vendo se ja ta cadastrado
+		if( escalaCodDiferenciadoService.escalaCodDiferenciadoCadastrado(escala, escalaCodDiferenciado.getIdCodigoDiferenciadoFk())==true) {
+			podeSalvar = false;
+		}
+		
+		escalaCodDiferenciado.setIdEscalaFk(escala);		
+		escalaCodDiferenciado.setIdOperadorCadastroFk(pessoaOperadoresService.buscarPorId(idOperadorLogado));
+		escalaCodDiferenciado.setDtCadastro(new Date());
+			
+		
+		//salvando
+		if(podeSalvar==true ){
+			escalaCodDiferenciadoService.salvar(escalaCodDiferenciado);
+			//Tratando Salvar Alteracoes X9
+			escalaAlteracoesService.salvar(escalaAlteracoesService.converteDeEscalaParaEscalaAlteracoes(escala));
+			//Tratando Envio transparencia
+			if(anoMesService.buscarPorId(idAnoMesAtual).getIdTransparenciaEnviadaFk().getSigla().equalsIgnoreCase("S")) {			
+				escalaPosTransparenciaService.salvar(escalaPosTransparenciaService.converteDeEscalaParaEscalaPosTransparencia(escala));
+			}
+
+		}
+		
+		
+		
+		
+		return "redirect:/escalas/alterar/diferenciado/"+escala.getId();
+	}
+	
+	
+	
+	
+	//Cancelar Escala
 	@GetMapping("/cancelar/{id}")
 	public String cancelar(@PathVariable("id") Long id, ModelMap model) {
 		
@@ -777,6 +828,34 @@ public class EscalaController {
 		return "redirect:/escalas/listar";
 	}
 	
+	
+	//Cancelar Diferenciado
+	@GetMapping("/cancelar/diferenciado/{id}")
+	public String cancelarDiferenciado(@PathVariable("id") Long id, ModelMap model) {
+		
+		//Tratando escala Bloqueada
+		if(anoMesService.buscarPorId(idAnoMesAtual).getIdEscalaBloqueadaFk().getSigla().equalsIgnoreCase("S")) {
+		return "redirect:/escalas/mensagem/de/escala/bloqueada";
+		}		
+		
+		EscalaCodDiferenciado escalaCodDiferenciado = escalaCodDiferenciadoService.buscarPorId(id); 
+		
+		escalaCodDiferenciado.setIdOperadorCancelamentoFk(pessoaOperadoresService.buscarPorId(idOperadorLogado));
+		escalaCodDiferenciado.setDtCancelamento(new Date());
+		
+		escalaCodDiferenciadoService.salvar(escalaCodDiferenciado);
+		
+		//Tratando Salvar Alteracoes X9
+		//escalaAlteracoesService.salvar(escalaAlteracoesService.converteDeEscalaParaEscalaAlteracoes(escala));
+		//Tratando Envio transparencia
+		//if(anoMesService.buscarPorId(idAnoMesAtual).getIdTransparenciaEnviadaFk().getSigla().equalsIgnoreCase("S")) {			
+		//	escalaPosTransparenciaService.salvar(escalaPosTransparenciaService.converteDeEscalaParaEscalaPosTransparencia(escala));
+		//}
+		
+		return "redirect:/escalas/alterar/diferenciado/"+escalaCodDiferenciado.getIdEscalaFk().getId();
+	}
+	
+	
 	// Buscas para um setor específico
 	@GetMapping("/paginar/{pageNo}")
 	public String getPorNomePaginado(@PathVariable (value = "pageNo") int pageNo, ModelMap model) {
@@ -797,6 +876,12 @@ public class EscalaController {
 				return "redirect:/escalas/listar/{pageNo}" ;}
 			}
 	}
+	
+	
+	
+	
+	
+	
 	
 	@GetMapping("/buscar/nome")
 	public String getPorNome(@RequestParam("nome") String nome, ModelMap model) {
@@ -1151,6 +1236,34 @@ public class EscalaController {
 		
 		return "/escala/editarAvaliacao";
 	}
+	
+	// Código Diferenciado
+		@GetMapping("/alterar/diferenciado/{id}")
+		public String cadastrarDiferenciado(@PathVariable("id") Long id, Escala escala, EscalaCodDiferenciado escalaCodDiferenciado, ModelMap model) {	
+			//Tratando escala Bloqueada
+			if(anoMesService.buscarPorId(idAnoMesAtual).getIdEscalaBloqueadaFk().getSigla().equalsIgnoreCase("S")) {
+			return "redirect:/escalas/mensagem/de/escala/bloqueada";
+			}		
+			
+			ultimoIdEscala = id;
+			escala = service.buscarPorId(id);
+			
+			this.escalaAtual = escala;
+			escala = escalaCalculosService.converteTurnoNuloEmFolga(escala);
+			escala = escalaCalculosService.calcularDadosEscala(escala);
+			
+			model.addAttribute("idCodigoDiferenciadoFkCompativel", getCodigosDiferenciadoCompativel(escala.getIdFuncionarioFk().getIdPessoaFk()) );
+			model.addAttribute("escala", escala );
+			model.addAttribute("escalaCodDiferenciado", escalaCodDiferenciado );
+			model.addAttribute("lista1", escalaCodDiferenciadoService.buscarPorEscala(escala) );
+			
+			model.addAttribute("idLinha", id );
+			
+			this.escalaAtual = escala;
+			
+			return "/escala/editarDiferenciado";
+		}
+		
 	
 	
 	// Atalhos Escala
@@ -3502,6 +3615,11 @@ public class EscalaController {
 		
 		for(int i=0;i<lista2.size();i++) {
 			lista.add(lista2.get(i).getIdCodDiferenciadoFk());
+		}
+		
+		//Retirando letra N.
+		for(int i=0; i<lista.size(); i++) {
+			if(lista.get(i).getNomeCodigoDiferenciado().equalsIgnoreCase("N")) {lista.remove(i); i=i-1;}
 		}
 		
 		return lista;
