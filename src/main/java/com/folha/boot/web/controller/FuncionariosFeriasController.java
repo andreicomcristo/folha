@@ -49,13 +49,10 @@ public class FuncionariosFeriasController {
 	
 	@GetMapping("/listar")
 	public String listar(ModelMap model) {
-		
 		model.addAttribute("funcionariosFeriasPeriodos", periodosService.buscarTodos());
-		
-		System.out.println("Passei por aqui ");
-		
-		return "/funcionariosferiasperiodo/lista"; 
+		return "/funcionarioferias/lista"; 
 	}
+	
 	
 	@GetMapping("/paginar/funcionarios/{pageNo}")
 	public String getPorNomePaginadoInclusao(@PathVariable (value = "pageNo") int pageNo, ModelMap model) {
@@ -84,15 +81,15 @@ public class FuncionariosFeriasController {
 		return paginarFuncionario(pageNo, page, listaFuncionarios, model);
 	}
 	
-
 	public String paginarFuncionario(int pageNo, Page<PessoaFuncionarios> page, List<PessoaFuncionarios> lista, ModelMap model) {	
 
+		
 		model.addAttribute("currentePage", pageNo);
 		model.addAttribute("totalPages", page.getTotalPages());
 		model.addAttribute("totalItems", page.getTotalElements()); 
 		model.addAttribute("listaFuncionarios", lista);
 		return "/funcionarioferias/listafuncionario";	
-	}
+	}	
 	
 	@GetMapping("/buscar/funcionarios/nome")
 	public String getPorNomeFuncionario(@RequestParam("nome") String nome, ModelMap model) {
@@ -110,17 +107,15 @@ public class FuncionariosFeriasController {
 		return paginarFuncionario(pageNo, page, lista, model);
 	}
 	
-	
-	
 	@GetMapping("/ferias/{id}")//Recebe o id do funcionário da tela de lista de funcionários
 	public String cadastrarFerias(@PathVariable("id") Long id, FuncionariosFerias funcionariosFerias, ModelMap model) {
 		PessoaFuncionarios funcionario = pessoaFuncionariosService.buscarPorId(id);
-		funcionariosFerias.setIdFuncionarioFk(funcionario);//relaciona as férias ao funcionário
+		funcionariosFerias.setIdFuncionarioFk(funcionario);//relaciona as férias apero funcionário
 		model.addAttribute("funcionario", funcionario);
 		model.addAttribute("feriasLista", feriasService.buscarFuncionario(funcionario));
 		return "/funcionarioferias/cadastro"; 
 	}
-	
+	 
 	@PostMapping("/salvar")
 	public String salvar(FuncionariosFerias funcionariosFerias, RedirectAttributes attr) {	
 		//Long idAnoFerias = feriasService.salvar(funcionariosFerias).getId();//Após savar retorna um objeto do tipo salvo
@@ -141,6 +136,33 @@ public class FuncionariosFeriasController {
 		return "/funcionariosferiasperiodo/cadastro"; 
 	}
 	
+	
+
+	////////////////////////////////////////////////////////////////////////////////////////////////////////////
+	
+	@GetMapping("/listar/ferias/{id}")
+	public String listarFerias(@PathVariable("id") Long id, ModelMap model) {
+		
+		//PessoaFuncionarios funcionario = pessoaFuncionariosService.buscarPorId(id).getFuncionariosFeriasList();
+		
+		//model.addAttribute("funcionario", funcionario);
+		model.addAttribute("funcionariosFerias", pessoaFuncionariosService.buscarPorId(id).getFuncionariosFeriasList());
+						
+		return "/funcionarioferias/lista"; 
+	}
+	
+	
+	@GetMapping("/listar/periodos/{id}")
+	public String listarPeriodos(@PathVariable("id") Long id, ModelMap model) {
+				
+		FuncionariosFerias ferias = feriasService.buscarPorId(id);
+		model.addAttribute("periodos", ferias.getFuncionariosFeriasPeriodosList());
+		
+		return "/funcionariosferiasperiodo/cadastro"; ///retornar para a lista de férias ANO REFERENCIA
+	}
+	
+	
+	////////////////////////////////////////////////////////////////////////////////////////////////////////////
 	@PostMapping("/salvar/periodos")
 	public String salvarPeriodos(FuncionariosFeriasPeriodos peridoFerias, RedirectAttributes attr) {	
 		periodosService.salvar(peridoFerias);
@@ -152,12 +174,10 @@ public class FuncionariosFeriasController {
 	@GetMapping("/editar/periodos/{id}")
 	public String editarPeriodos(@PathVariable("id") Long id , ModelMap model) {
 		
-		//FuncionariosFerias ferias = feriasService.buscarPorId(periodosService.buscarPorId(id).getIdFeriasFk().getId());
-		model.addAttribute("ferias", feriasService.buscarPorId(periodosService.buscarPorId(id).getIdFeriasFk().getId()));
+	
+		model.addAttribute("ferias", feriasService.buscarPorId(periodosService.buscarPorId(id).getIdFeriasFk().getId()));// não precisa
 		model.addAttribute("funcionariosFeriasPeriodos", periodosService.buscarPorId(id));	
-		
-		
-		
+	
 		return "/funcionariosferiasperiodo/cadastro";
 	}
 		
@@ -166,8 +186,7 @@ public class FuncionariosFeriasController {
 		
 		Long idFerias = periodosService.buscarPorId(id).getIdFeriasFk().getId();
 		periodosService.excluir(id);  
-		model.addAttribute("success", "Excluído com sucesso.");
-		//model.addAttribute("funcionariosFeriasPeriodos", periodosService.buscarTodos());
+		model.addAttribute("success", "Excluído com sucesso.");		
 		return "redirect:/funcionariosferias/periodos/" + idFerias ;
 	}
 	
@@ -199,6 +218,7 @@ public class FuncionariosFeriasController {
 		model.addAttribute("funcionariosFerias", feriasService.buscarPorAnoReferencia(anoReferencia.toUpperCase().trim()));
 		return "/funcionarioferias/lista";
 	}
+	
 	
 	@ModelAttribute("idFuncionarioFk")
 	public List<PessoaFuncionarios> getPessoaFuncionarios() {
