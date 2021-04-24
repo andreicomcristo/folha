@@ -209,7 +209,6 @@ public class UsuarioService implements GenericService<PessoaOperadores>, UserDet
         List<Perfil> perfil = usuario.getPerfilList().stream().filter(p -> p.getIdUnidadeFk().getId().equals(Integer.valueOf(usuarioUnidade[1]))).collect(Collectors.toList());
         List<Permissao> listaPermissao = perfil.get(0).getIdOperadorFk().getperPermissoes();
 		*/
-
         
         String[] colecao = permissao.stream().toArray(String[]::new);
 		
