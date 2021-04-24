@@ -1,8 +1,12 @@
-package com.folha.boot.domain;
+package com.folha.boot.domain.seguranca;
 
 import java.util.List;
 
 import javax.persistence.*;
+
+import com.folha.boot.domain.AbstractEntity;
+import com.folha.boot.domain.PessoaOperadores;
+import com.folha.boot.domain.Unidades;
 
 @SuppressWarnings("serial")
 @Entity

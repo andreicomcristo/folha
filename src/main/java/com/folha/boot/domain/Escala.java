@@ -12,11 +12,14 @@ import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
+import org.springframework.transaction.annotation.Transactional;
+
 import com.folha.boot.service.util.UtilidadesDeTexto;
 
 @SuppressWarnings("serial")
 @Entity
 @Table(name = "escala")
+@Transactional
 public class Escala extends AbstractEntity<Long>{
 
 	@JoinColumn(name = "id_incremento_de_risco_sim_nao_fk", referencedColumnName = "id")

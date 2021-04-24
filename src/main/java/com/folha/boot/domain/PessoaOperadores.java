@@ -5,6 +5,8 @@ import java.util.List;
 
 import javax.persistence.*;
 
+import com.folha.boot.domain.seguranca.Perfil;
+
 @SuppressWarnings("serial")
 @Entity
 @Table(name = "pessoa_operadores")

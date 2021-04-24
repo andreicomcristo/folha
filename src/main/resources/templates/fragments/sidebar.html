@@ -5,7 +5,14 @@
 <body>
 	<nav class="sidebar" th:fragment="nav-sidebar">
 		
-		<div class="text" th:text="${usuario}" >GENTE-WEB </div>
+		<div class="text" > 
+		
+			<label  th:text="${usuario}" >Usuario</label> 
+			<br>
+			<label  th:text="${unidadeLogada}" >Unidade </label>
+		
+		</div>
+		
 		
 		<ul>
 			<li class="active">
