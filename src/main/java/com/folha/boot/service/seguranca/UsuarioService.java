@@ -20,6 +20,7 @@ import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -29,9 +30,13 @@ import javax.servlet.http.HttpSession;
 
 import com.folha.boot.Reposytory.PessoaOperadoresReposytory;
 import com.folha.boot.domain.PessoaOperadores;
+import com.folha.boot.domain.seguranca.GrupoUsuarioPermissao;
 import com.folha.boot.domain.seguranca.Perfil;
 import com.folha.boot.domain.seguranca.Permissao;
 import com.folha.boot.service.GenericService;
+import com.folha.boot.service.PerfilService;
+import com.folha.boot.service.UnidadesService;
+import com.folha.boot.web.controller.LoginController;
 import com.itextpdf.text.Document;
 import com.itextpdf.text.DocumentException;
 import com.itextpdf.text.Element;
@@ -48,6 +53,15 @@ public class UsuarioService implements GenericService<PessoaOperadores>, UserDet
 
     @Autowired
     private PessoaOperadoresReposytory usuarioRepository;
+    
+    @Autowired
+    private UnidadesService unidadesService;
+    
+    @Autowired
+    private PerfilService perfilService;
+    
+    @Autowired
+    private GrupoUsuarioPermissaoService grupoUsuarioPermissaoService;
 
     @Autowired
     ObjectFactory<HttpSession> httpSessionFactory;
@@ -147,30 +161,63 @@ public class UsuarioService implements GenericService<PessoaOperadores>, UserDet
 
         PessoaOperadores usuario = usuarioRepository.findFirstByUsername(usuarioUnidade[0]);
         
-        System.out.println("VEJA:"+usuario.getIdPessoaFk().getNome());
+        
         
         //System.out.println("----------->>>>>" + usuarioUnidade[0]);
         //System.out.println("----------->>>>>" + usuarioUnidade[1]);
 
         
-
+        System.out.println("VEJA:"+usuario.getIdPessoaFk().getNome());
         
         
         //comando para armazenar a unidade na sessão
         HttpSession session = httpSessionFactory.getObject();
-        session.setAttribute("unidade", "Unidade de teste");
-
+        
+        String operador = usuario.getIdPessoaFk().getNome();
+        if(operador.length()>0) {
+        	String nome = "";
+        	for(int i=0;i<operador.length();i++) {
+        		if(!operador.substring(i, (i+1)).equalsIgnoreCase(" ")  ) {nome = nome+operador.substring(i, (i+1));}else {break;}
+        	}
+        	operador = nome.toUpperCase();
+        }
+        
+        session.setAttribute("operador", operador  );
+        session.setAttribute("idOperadorLogado", usuario.getId()  );
+        session.setAttribute("unidade", unidadesService.buscarPorId( Long.parseLong( usuarioUnidade[1] ) ).getNomeFantasia()  );
+        session.setAttribute("idUnidadeLogada", unidadesService.buscarPorId( Long.parseLong( usuarioUnidade[1] ) ).getId()  );
+        
+        
+        List<Perfil> listaPerfil = perfilService.buscarPorOperadorEUnidade(usuario,  unidadesService.buscarPorId( Long.parseLong( usuarioUnidade[1] ) ));
+        
+        List<Permissao> listaPermissao = new ArrayList<>();
+        for(int i=0;i<listaPerfil.size();i++) {
+        	List<GrupoUsuarioPermissao> lista = grupoUsuarioPermissaoService.buscarPorGrupoUsuario(listaPerfil.get(i).getIdGrupoUsuarioFk());
+        		for(int j=0;j<lista.size();j++) { if(!listaPermissao.contains(lista.get(j).getIdPermissaoFk())) { listaPermissao.add(lista.get(j).getIdPermissaoFk()); } }
+        }
+        
+        
+        List<String> permissao = new ArrayList<>();
+        for(int i=0;i<listaPermissao.size();i++) {
+        	permissao.add(listaPermissao.get(i).getNome());
+        }
+        
+        
+        
+        /*
         //consulta sobre autorizações
         List<Perfil> perfil = usuario.getPerfilList().stream().filter(p -> p.getIdUnidadeFk().getId().equals(Integer.valueOf(usuarioUnidade[1]))).collect(Collectors.toList());
-        //List<Permissao> listaPermissao = perfil.get(0).getGrupoUsuario().getPermissoes();
-
-        //String[] colecao = listaPermissao.stream().toArray(String[]::new);
+        List<Permissao> listaPermissao = perfil.get(0).getIdOperadorFk().getperPermissoes();
+		*/
+        
+        String[] colecao = permissao.stream().toArray(String[]::new);
+		
 
         return new User(
                 usuario.getUsername(),
                 usuario.getPassword(),
-                AuthorityUtils.createAuthorityList(new String[]{ "ADM2" })
-                //AuthorityUtils.createAuthorityList(colecao)
+                //AuthorityUtils.createAuthorityList(new String[]{ "ADM2" })
+                AuthorityUtils.createAuthorityList(colecao)
         );
     }
 

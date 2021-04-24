@@ -42,6 +42,9 @@ public class Permissao extends AbstractEntity<Long> {
 	}
    
 	
-	
+	 @Override
+	    public String toString() {
+	        return this.nome;
+	    }
 	
 }

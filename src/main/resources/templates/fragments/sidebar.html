@@ -6,11 +6,7 @@
 	<nav class="sidebar" th:fragment="nav-sidebar">
 		
 		<div class="text" > 
-		
-			<label  th:text="${usuario}" >Usuario</label> 
-			<br>
-			<label  th:text="${unidadeLogada}" >Unidade </label>
-		
+			<label style="font-size:10px;" th:text="${operador} + '['+ ${unidadeLogada} + ']' " >Usuario</label> 
 		</div>
 		
 		

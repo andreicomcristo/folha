@@ -8,9 +8,10 @@ import org.springframework.stereotype.Repository;
 import com.folha.boot.domain.PessoaOperadores;
 import com.folha.boot.domain.Unidades;
 import com.folha.boot.domain.seguranca.Perfil;
+import com.folha.boot.domain.seguranca.Permissao;
 
 @Repository
-public interface PerfilReposytory extends JpaRepository<Perfil, Long> {
+public interface PermissaoReposytory extends JpaRepository<Permissao, Long> {
 
-	List<Perfil> findFirstByIdOperadorFkAndIdUnidadeFk(PessoaOperadores pessoaopOperadores, Unidades unidades);
+	
 }

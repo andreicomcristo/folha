@@ -13,6 +13,8 @@ import org.springframework.web.bind.annotation.GetMapping;
 @Controller
 public class HomeController {
 
+	
+	/*
 	@GetMapping("/")
 	public String home(ModelMap model, HttpServletRequest request) {
 		String username = SecurityContextHolder.getContext().getAuthentication().getName();
@@ -22,4 +24,25 @@ public class HomeController {
 		
 		return "/home";
 	}
+	*/
+	@GetMapping("/home")
+	public String homeSpringSecurity(ModelMap model, HttpServletRequest request) {
+		
+		model.addAttribute("operador", request.getSession().getAttribute("operador"));
+		model.addAttribute("unidadeLogada", request.getSession().getAttribute("unidade").toString());
+		
+		return "/home";
+	}
+	
+	@GetMapping("/")
+	public String home(ModelMap model, HttpServletRequest request) {
+		
+		model.addAttribute("operador", request.getSession().getAttribute("operador"));
+		model.addAttribute("unidadeLogada", request.getSession().getAttribute("unidade").toString());
+		
+		return "/home";
+	}
+	
+	
+	
 }

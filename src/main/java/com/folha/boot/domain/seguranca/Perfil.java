@@ -8,6 +8,8 @@ import com.folha.boot.domain.AbstractEntity;
 import com.folha.boot.domain.PessoaOperadores;
 import com.folha.boot.domain.Unidades;
 
+
+
 @SuppressWarnings("serial")
 @Entity
 @Table(name = "perfil")
@@ -22,6 +24,8 @@ public class Perfil extends AbstractEntity<Long> {
     @JoinColumn(name = "id_unidade_fk", referencedColumnName = "id")
     @ManyToOne
     private Unidades idUnidadeFk;
+    
+    
 	public GrupoUsuario getIdGrupoUsuarioFk() {
 		return idGrupoUsuarioFk;
 	}
