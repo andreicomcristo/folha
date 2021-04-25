@@ -5,14 +5,20 @@
 	<section class="layout-content" layout:fragment="corpo">
 
 		<nav class="navbar navbar-expand-md bg-light">
-			<form th:action="@{/funcionariosferias/listar}"><!-- corrigir rota  -->
+			<form th:action="@{/funcionariosferias/ferias/listar/{id}  (id=${ferias.idFuncionarioFk.id}) }"><!-- corrigir rota  --> 
 				<div class=" layout-content">
 					<a class="btn btn-outline-light oi oi-action-undo" type="button" href="javascript:history.back()"></a>
 					<a class="btn btn-outline-light oi oi-action-redo" type="button" href="javascript:history.forward()"></a>
 					<button class="btn btn-outline-dark" >Listar</button>
-					<a class="btn btn-outline-dark btn-md" th:href="@{/funcionariosferias/periodos/{id} (id=${ferias.id})}"
+					
+					<a class="btn btn-outline-dark btn-md" th:href="@{/funcionariosferias/ferias/{id} (id=${ferias.idFuncionarioFk.id})}"
 						role="button"> <span class="oi oi-plus" title="Cadastro"
 						aria-hidden="true"></span> <span>Novo</span>
+					</a>
+					
+					<a class="btn btn-outline-dark btn-md" th:href="@{/funcionariosferias/funcionarios/listar}"
+						role="button"> <span class="oi oi-plus" title="Cadastro"
+						aria-hidden="true"></span> <span>Lista de Funcionários</span>
 					</a>
 				</div>
 			</form>
@@ -22,12 +28,12 @@
 			<tr th:each="f : ${ferias}"> 
 			    <td style="font-size:11px;"  th:text="${f.idFuncionarioFk.idPessoaFk.nome}"></td>
 			    <td style="font-size:11px;"  th:text="${f.idFuncionarioFk.idEspecialidadeAtualFk.idCargoFk.nomeCargo+'-'+f.idFuncionarioFk.idEspecialidadeAtualFk.nomeEspecialidadeCargo}"></td>
-			    <td style="font-size:11px;"  th:text="${f.anoReferencia}"></td> 
+			   <!--  <td style="font-size:11px;"  th:text="${f.anoReferencia}"></td> --> 
 			    <td colspan="2">
 			</tr>
 			<div th:replace="fragments/alert"></div>
 			<form
-				th:action="@{/funcionariosferias/salvar/periodos}"
+				th:action="@{/funcionariosferias/periodos/salvar}"
 				th:object="${funcionariosFeriasPeriodos}" method="POST">
 				<div class="form-row">
 					<div class="form-group col-md-6">
@@ -82,11 +88,11 @@
 		                    <td th:text="${p.dtFinal}"></td>
 		                    <td th:text="${p.dtAssinatura}"></td>		                    		           		                  	                    		                     		         		                    
 		                    <td colspan="2">
-		                    	<a class="btn btn-outline-info btn-sm" th:href="@{/funcionariosferias/editar/periodos/{id} (id=${p.id}) }" role="button">
+		                    	<a class="btn btn-outline-info btn-sm" th:href="@{/funcionariosferias/periodos/editar/{id} (id=${p.id}) }" role="button">
 		                        	<span class="oi oi-brush" title="Editar" aria-hidden="true"></span>
 		                        </a>
 		                        
-		                        <button th:id="${' btn_funcionariosferias/excluir/periodos/' + p.id}" type="button" class="btn btn btn-outline-danger btn-sm" 
+		                        <button th:id="${' btn_funcionariosferias/periodos/excluir/' + p.id}" type="button" class="btn btn btn-outline-danger btn-sm" 
 		                            		data-toggle="modal" data-target="#myModal">
 		                        	<span class="oi oi-circle-x" title="Exclusão habilitada" aria-hidden="true"></span>
 		                        </button>		                         	                       

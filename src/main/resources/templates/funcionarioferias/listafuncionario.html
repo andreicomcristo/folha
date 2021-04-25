@@ -8,17 +8,18 @@
 	        	<span class="oi oi-list" title="Cadastro" aria-hidden="true"></span>
 	            <span>Voltar para Escalas</span>
 	        </a>-->
-	        <a class="btn btn-outline-dark btn-md" th:href="@{/funcionariosferias/listar/funcionarios}" role="button">
+	        <a class="btn btn-outline-dark btn-md" th:href="@{/funcionariosferias/funcionarios/listar}" role="button">
 	        	<span class="oi oi-loop-square" title="Atualizar" aria-hidden="true"></span>
 	            <span>Atualizar</span>
 	        </a>
-	            <label for="nome" class= "fonte-tutulos-tamanho"> Funcionários</label>
+	           
 	    </nav>
 	  		<!-- <div class="container">
 	  			<label style="text-align: center; color:#008080;" th:text="${mes.nomeAnoMes+'-'+escala.nomeCoordenacao+'-'+escala.idLocalidadeFk.nomeLocalidade+'-'+escala.idAtividadeFk.nomeAtividade+'-'+escala.idLocalidadeFk.idUnidadeFk.nomeFantasia}" class="text" >Mes </label>
 			</div> -->
 	  	
 	  	<div class="container">
+	  	 <label for="nome" class= "fonte-tutulos-tamanho"> Lista de Funcionários</label>
 	    	<p>                
 	        	<button class=" oi oi-magnifying-glass btn btn-outline-success my-2 my-sm-0" type="button" data-toggle="collapse" data-target="#collapseCidade"
 	            		aria-controls="collapseCidade">Filtrar Nome
@@ -67,7 +68,7 @@
 		                    <td style="font-size:11px;"  th:text="${d.idEspecialidadeAtualFk.idCargoFk.nomeCargo+'-'+d.idEspecialidadeAtualFk.nomeEspecialidadeCargo}"></td> 
 		                    <td colspan="2">
 		                    	
-		                        <a class="btn btn-outline-success btn-sm" th:href="@{/funcionariosferias/listar/ferias/{id} (id=${d.id}) }" role="button">
+		                        <a class="btn btn-outline-success btn-sm" th:href="@{/funcionariosferias/ferias/listar/{id} (id=${d.id}) }" role="button">
 		                        	<span class="oi oi-check" title="Listar férias" aria-hidden="true"></span>
 		                        </a>
 		                        <!-- não é permitido excluir aqui
