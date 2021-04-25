@@ -49,10 +49,16 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 		
 		.authorizeRequests()
 		
+			//Permissões
+			//.antMatchers("/anomes/**").hasAnyAuthority("PERMISSAO 1")
+			//.antMatchers("/areasdecapacitacoes/**").hasAnyAuthority("PERMISSAO 2")
+		
+		
 			.antMatchers("/css/**").permitAll()
 			.antMatchers("/js/**").permitAll()
 			.antMatchers("/fonts/**").permitAll()
 			.antMatchers("/img/**").permitAll()
+			.antMatchers("/image/**").permitAll()
 			.anyRequest().authenticated().and()
 
 				.formLogin(form -> form.loginPage("/login").defaultSuccessUrl("/", true).permitAll())

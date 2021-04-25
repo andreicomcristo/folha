@@ -22,6 +22,14 @@ public class WebConfig implements WebMvcConfigurer {
         registry.addResourceHandler("/**/img/*.jpg")
                 .addResourceLocations("classpath:/static/")
                 .setCacheControl(CacheControl.maxAge(1, TimeUnit.DAYS));
+        
+        registry.addResourceHandler("/**/image/*.jpg")
+		        .addResourceLocations("classpath:/static/")
+		        .setCacheControl(CacheControl.maxAge(1, TimeUnit.DAYS));
+        
+        registry.addResourceHandler("/**/image/*.png")
+        		.addResourceLocations("classpath:/static/")
+        		.setCacheControl(CacheControl.maxAge(1, TimeUnit.DAYS));
 
         registry.addResourceHandler("/**/js/*.js")
                 .addResourceLocations("classpath:/static/")

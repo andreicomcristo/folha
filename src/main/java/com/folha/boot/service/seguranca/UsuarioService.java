@@ -14,7 +14,9 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.ui.ModelMap;
 import org.springframework.util.StringUtils;
+import org.springframework.web.bind.annotation.GetMapping;
 
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
@@ -26,15 +28,18 @@ import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import com.folha.boot.Reposytory.PessoaOperadoresReposytory;
 import com.folha.boot.domain.PessoaOperadores;
+import com.folha.boot.domain.Unidades;
 import com.folha.boot.domain.seguranca.GrupoUsuarioPermissao;
 import com.folha.boot.domain.seguranca.Perfil;
 import com.folha.boot.domain.seguranca.Permissao;
 import com.folha.boot.service.GenericService;
 import com.folha.boot.service.PerfilService;
+import com.folha.boot.service.PessoaOperadoresService;
 import com.folha.boot.service.UnidadesService;
 import com.folha.boot.web.controller.LoginController;
 import com.itextpdf.text.Document;
@@ -51,6 +56,9 @@ import com.itextpdf.text.pdf.PdfWriter;
 @Service
 public class UsuarioService implements GenericService<PessoaOperadores>, UserDetailsService {
 
+	@Autowired
+	PessoaOperadoresService pessoaOperadoresService;
+	
     @Autowired
     private PessoaOperadoresReposytory usuarioRepository;
     
@@ -203,7 +211,6 @@ public class UsuarioService implements GenericService<PessoaOperadores>, UserDet
         }
         
         
-        
         /*
         //consulta sobre autorizações
         List<Perfil> perfil = usuario.getPerfilList().stream().filter(p -> p.getIdUnidadeFk().getId().equals(Integer.valueOf(usuarioUnidade[1]))).collect(Collectors.toList());
@@ -222,6 +229,23 @@ public class UsuarioService implements GenericService<PessoaOperadores>, UserDet
     }
 
  
+    
+	public PessoaOperadores pegarOperadorLogado() {
+		HttpSession session = httpSessionFactory.getObject();
+		Long idOperadorLogado = Long.parseLong(session.getAttribute("idOperadorLogado").toString());
+		PessoaOperadores pessoaOperadores = pessoaOperadoresService.buscarPorId(idOperadorLogado);
+		return pessoaOperadores;
+	}
+    
+	public Unidades pegarUnidadeLogada() {
+		HttpSession session = httpSessionFactory.getObject();
+		Long idUnidadeLogada =  Long.parseLong(session.getAttribute("idUnidadeLogada").toString());
+		Unidades unidades = unidadesService.buscarPorId(idUnidadeLogada); 
+		return unidades;
+	}
+    
+	
+    
 }
 
 

@@ -5,9 +5,12 @@ import java.io.IOException;
 import java.util.Date;
 import java.util.List;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import org.apache.commons.compress.utils.IOUtils;
+import org.springframework.beans.factory.ObjectFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.InputStreamResource;
 import org.springframework.data.domain.Page;
@@ -77,6 +80,7 @@ import com.folha.boot.service.TiposDeFolhaService;
 import com.folha.boot.service.TurmasService;
 import com.folha.boot.service.TurnosService;
 import com.folha.boot.service.UnidadesService;
+import com.folha.boot.service.seguranca.UsuarioService;
 import com.folha.boot.service.util.UtilidadesDeCalendarioEEscala;
 
 @Controller
@@ -85,12 +89,13 @@ public class EscalaController {
 
 	
 	
+	Long idOperadorLogado = 1l ;
+	Long idUnidadeLogada = 1l ;  
 	
 	Long ultimoIdEscala =0l ;
 	Long idAnoMesAtual =1l ;
 	Long idCoordenacaoAtual = 1l;
-	Long idUnidadeLogada = 1l;
-	Long idOperadorLogado = 1l;
+	
 	Escala escalaAtual;
 	String choque = "";
 	String choqueDescansoDepoisNoturno = "";
@@ -105,7 +110,8 @@ public class EscalaController {
 	TiposDeFolha tiposDeFolha;
 	
 	
-	
+	@Autowired
+	UsuarioService usuarioService;
 	
 	@Autowired
 	private EscalaService service;
@@ -694,10 +700,10 @@ public class EscalaController {
 		
 		boolean chocou = false;
 		boolean naoPresencialComNoturno = false;
-		if(!codigoDiferenciadoService.buscarPorNomeExato(unidadesService.buscarPorId(idUnidadeLogada), "N").isEmpty()){
-			escala.setIdCodigoDiferenciadoFk(codigoDiferenciadoService.buscarPorNomeExato(unidadesService.buscarPorId(idUnidadeLogada), "N").get(0));
+		if(!codigoDiferenciadoService.buscarPorNomeExato(usuarioService.pegarUnidadeLogada(), "N").isEmpty()){
+			escala.setIdCodigoDiferenciadoFk(codigoDiferenciadoService.buscarPorNomeExato(usuarioService.pegarUnidadeLogada(), "N").get(0));
 		}
-		escala.setIdOperadorMudancaFk(pessoaOperadoresService.buscarPorId(idOperadorLogado));
+		escala.setIdOperadorMudancaFk(usuarioService.pegarOperadorLogado());
 		escala.setDtMudanca(new Date());
 		
 		//Avaliando Choques

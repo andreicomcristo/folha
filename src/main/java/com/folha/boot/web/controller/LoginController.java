@@ -32,7 +32,11 @@ public class LoginController {
 	
 	
 	@RequestMapping("/acesso-negado")
-	public String acessoNegado() {
+	public String acessoNegado(ModelMap model) {
+		
+		model.addAttribute("atencao", "");
+		model.addAttribute("choque", "ACESSO NÃO PERMITIDO");
+		model.addAttribute("mensagem", "Desculpe, você não está autorizado a acessar a página que solicitou. Se você acha que isso é um engano, entre em contato conosco.");
 		return "/acessoNegado/acessoNegado";
 	}
 	
