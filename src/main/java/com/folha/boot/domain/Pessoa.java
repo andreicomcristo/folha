@@ -6,7 +6,9 @@ import javax.persistence.*;
 import javax.validation.constraints.*;
 
 import org.hibernate.validator.constraints.br.CPF;
+import org.springframework.beans.factory.annotation.Autowired;
 
+import com.folha.boot.service.PessoaService;
 import com.folha.boot.service.util.UtilidadesDeTexto;
 
 @SuppressWarnings("serial")
@@ -14,6 +16,7 @@ import com.folha.boot.service.util.UtilidadesDeTexto;
 @Table(name = "pessoa")
 public class Pessoa extends AbstractEntity<Long> {
 
+	
 	@CPF
 	@NotBlank(message = "CPF obrigatório")
 	@Column(name = "cpf", nullable = false, length = 20)
@@ -125,13 +128,26 @@ public class Pessoa extends AbstractEntity<Long> {
 	
 	@OneToMany(cascade = CascadeType.ALL, mappedBy = "idPessoaFk")
 	private List<PessoaDocumentosTitulo> pessoaDocumentosTituloList;
+	
+	@OneToMany(mappedBy = "idPessoaFk")
+    private List<PessoaCodDiferenciado> pessoaCodDiferenciadoList;
 
+	@OneToMany(mappedBy = "idPessoaFk")
+    private List<PessoaIncrementoDeRisco> pessoaIncrementoDeRiscoList;
+    @OneToMany(mappedBy = "idPessoaFk")
+    private List<PessoaChDif> pessoaChDifList;
+    
+    @OneToMany(mappedBy = "idPessoaFk")
+    private List<PessoaLimiteHoras> pessoaLimiteHorasList;
+	
 	public String getCpf() {
 		return cpf;
 	}
 
 	public void setCpf(String cpf) {
-		this.cpf = UtilidadesDeTexto.retiraEspacosDuplosAcentosEConverteEmMaiusculo(cpf);
+		
+		cpf = UtilidadesDeTexto.retiraEspacosDuplosAcentosEConverteEmMaiusculo(cpf);
+		this.cpf = UtilidadesDeTexto.limpaPontosETracosCpf(cpf);
 	}
 
 	public String getNome() {
@@ -398,4 +414,46 @@ public class Pessoa extends AbstractEntity<Long> {
 		this.pessoaDocumentosTituloList = pessoaDocumentosTituloList;
 	}
 
+	public List<HistUnidadesDiretor> getHistUnidadesDiretorList() {
+		return histUnidadesDiretorList;
+	}
+
+	public void setHistUnidadesDiretorList(List<HistUnidadesDiretor> histUnidadesDiretorList) {
+		this.histUnidadesDiretorList = histUnidadesDiretorList;
+	}
+
+	public List<PessoaCodDiferenciado> getPessoaCodDiferenciadoList() {
+		return pessoaCodDiferenciadoList;
+	}
+
+	public void setPessoaCodDiferenciadoList(List<PessoaCodDiferenciado> pessoaCodDiferenciadoList) {
+		this.pessoaCodDiferenciadoList = pessoaCodDiferenciadoList;
+	}
+
+	public List<PessoaIncrementoDeRisco> getPessoaIncrementoDeRiscoList() {
+		return pessoaIncrementoDeRiscoList;
+	}
+
+	public void setPessoaIncrementoDeRiscoList(List<PessoaIncrementoDeRisco> pessoaIncrementoDeRiscoList) {
+		this.pessoaIncrementoDeRiscoList = pessoaIncrementoDeRiscoList;
+	}
+
+	public List<PessoaChDif> getPessoaChDifList() {
+		return pessoaChDifList;
+	}
+
+	public void setPessoaChDifList(List<PessoaChDif> pessoaChDifList) {
+		this.pessoaChDifList = pessoaChDifList;
+	}
+
+	public List<PessoaLimiteHoras> getPessoaLimiteHorasList() {
+		return pessoaLimiteHorasList;
+	}
+
+	public void setPessoaLimiteHorasList(List<PessoaLimiteHoras> pessoaLimiteHorasList) {
+		this.pessoaLimiteHorasList = pessoaLimiteHorasList;
+	}
+
+	
+	
 }

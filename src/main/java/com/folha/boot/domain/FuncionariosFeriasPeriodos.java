@@ -11,8 +11,7 @@ public class FuncionariosFeriasPeriodos extends AbstractEntity<Long> {
 	@Column(name = "dt_inicial")
     @Temporal(TemporalType.DATE)
     private Date dtInicial;
-    
-	
+   	
 	@Basic(optional = false)
     @Column(name = "dt_final")
     @Temporal(TemporalType.DATE)
@@ -35,7 +34,7 @@ public class FuncionariosFeriasPeriodos extends AbstractEntity<Long> {
     
 	@JoinColumn(name = "id_ferias_fk", referencedColumnName = "id")
     @ManyToOne(optional = false)
-    private FuncionariosFerias idFeriasFk;
+    private FuncionariosFerias idFeriasFk; 
     
 	@JoinColumn(name = "id_operador_cadastro_fk", referencedColumnName = "id")
     @ManyToOne

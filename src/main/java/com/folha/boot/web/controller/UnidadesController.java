@@ -1,5 +1,6 @@
 package com.folha.boot.web.controller;
 
+import java.util.Date;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,20 +16,25 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import com.folha.boot.domain.Cidades;
 import com.folha.boot.domain.PessoaOperadores;
 import com.folha.boot.domain.TiposLogradouro;
+import com.folha.boot.domain.UnidadeGestora;
 import com.folha.boot.domain.Unidades;
 import com.folha.boot.domain.UnidadesNaturezaJuridica;
 import com.folha.boot.domain.UnidadesRegime;
 import com.folha.boot.service.CidadesService;
 import com.folha.boot.service.PessoaOperadoresService;
 import com.folha.boot.service.TiposLogradouroService;
+import com.folha.boot.service.UnidadeGestoraService;
 import com.folha.boot.service.UnidadesNaturezaJuridicaService;
 import com.folha.boot.service.UnidadesRegimeService;
 import com.folha.boot.service.UnidadesService;
+import com.folha.boot.service.seguranca.UsuarioService;
 
 @Controller
 @RequestMapping("/unidades")
 public class UnidadesController {
 
+	@Autowired
+	private UsuarioService usuarioService;
 	@Autowired
 	private UnidadesService service;
 	@Autowired
@@ -41,6 +47,8 @@ public class UnidadesController {
 	private UnidadesNaturezaJuridicaService unidadesNaturezaJuridicaService; 
 	@Autowired
 	private UnidadesRegimeService unidadesRegimeService;
+	@Autowired
+	private UnidadeGestoraService unidadeGestoraService;
 	
 	
 	@GetMapping("/cadastrar")
@@ -57,10 +65,15 @@ public class UnidadesController {
 	@PostMapping("/salvar")
 	public String salvar(Unidades unidades, RedirectAttributes attr) {
 		
+		unidades.setIdOperadorCadastroFk(usuarioService.pegarOperadorLogado());
+		unidades.setDtCadastro(new Date());
+		
 		service.salvar(unidades);
 		attr.addFlashAttribute("success", "Inserido com sucesso.");
 		return "redirect:/unidades/cadastrar";
 	}
+	
+	
 	
 	@GetMapping("/editar/{id}")
 	public String preEditar(@PathVariable("id") Long id, ModelMap model) {
@@ -75,10 +88,13 @@ public class UnidadesController {
 		return "redirect:/unidades/listar";
 	}
 	
-	@GetMapping("/excluir/{id}")
+	@GetMapping("/cancelar/{id}")
 	public String excluir(@PathVariable("id") Long id, ModelMap model) {
-		service.excluir(id);  
-		model.addAttribute("success", "Excluído com sucesso.");
+		Unidades unidades = service.buscarPorId(id);
+		unidades.setIdOperadorCancelamentoFk(usuarioService.pegarOperadorLogado());
+		unidades.setDtCancelamento(new Date());
+		service.salvar(unidades);
+		model.addAttribute("success", "Cancelado com sucesso.");
 		return listar(model);
 	}
 	
@@ -118,4 +134,9 @@ public class UnidadesController {
 		return unidadesRegimeService.buscarTodos();
 	}
 		
+	@ModelAttribute("idUnidadeGestoraFk")
+	public List<UnidadeGestora> getUnidadeGestoraFk() {
+		return unidadeGestoraService.buscarTodos();
+	}
+	
 }

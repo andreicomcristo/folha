@@ -1,11 +1,18 @@
 package com.folha.boot.domain;
 
+import java.util.Date;
 import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
+
+import com.folha.boot.service.util.UtilidadesDeTexto;
 
 @SuppressWarnings("serial")
 @Entity
@@ -18,15 +25,24 @@ public class AtividadeEscala extends AbstractEntity<Long> {
 	@Column(name = "descricao_atividade")
 	private String descricaoAtividade;
 	
+	@Column(name = "dt_cancelamento")
+	@Temporal(TemporalType.DATE)
+	private Date dtCancelamento;
+	
+	
 	@OneToMany(mappedBy = "idAtividadeFk")
 	private List<CoordenacaoEscala> coordenacaoEscalaList;
+	
+	@JoinColumn(name = "id_unidade_fk", referencedColumnName = "id")
+    @ManyToOne
+    private Unidades idUnidadeFk;
 
 	public String getNomeAtividade() {
 		return nomeAtividade;
 	}
 
 	public void setNomeAtividade(String nomeAtividade) {
-		this.nomeAtividade = nomeAtividade;
+		this.nomeAtividade = UtilidadesDeTexto.retiraEspacosDuplosAcentosEConverteEmMaiusculo(nomeAtividade);
 	}
 
 	public String getDescricaoAtividade() {
@@ -34,7 +50,7 @@ public class AtividadeEscala extends AbstractEntity<Long> {
 	}
 
 	public void setDescricaoAtividade(String descricaoAtividade) {
-		this.descricaoAtividade = descricaoAtividade;
+		this.descricaoAtividade = UtilidadesDeTexto.retiraEspacosDuplosAcentosEConverteEmMaiusculo(descricaoAtividade);
 	}
 
 	public List<CoordenacaoEscala> getCoordenacaoEscalaList() {
@@ -45,4 +61,24 @@ public class AtividadeEscala extends AbstractEntity<Long> {
 		this.coordenacaoEscalaList = coordenacaoEscalaList;
 	}
 
+	public Date getDtCancelamento() {
+		return dtCancelamento;
+	}
+
+	public void setDtCancelamento(Date dtCancelamento) {
+		this.dtCancelamento = dtCancelamento;
+	}
+
+	public Unidades getIdUnidadeFk() {
+		return idUnidadeFk;
+	}
+
+	public void setIdUnidadeFk(Unidades idUnidadeFk) {
+		this.idUnidadeFk = idUnidadeFk;
+	}
+
+	
+
+	
+	
 }

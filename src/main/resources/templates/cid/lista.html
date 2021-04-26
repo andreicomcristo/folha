@@ -4,12 +4,13 @@
 <body>	
 	<section class="layout-content" layout:fragment="corpo">		
 		<nav class="navbar navbar-expand-md bg-light">
-	            
-	    	<a class="btn btn-outline-dark btn-md" href="/cids/cadastrar" role="button">
+	        <a class="btn btn-outline-light oi oi-action-undo" type="button" href="javascript:history.back()"></a>
+			<a class="btn btn-outline-light oi oi-action-redo" type="button" href="javascript:history.forward()"></a>    
+	    	<a class="btn btn-outline-dark btn-md" th:href="@{/cids/cadastrar}" role="button">
 	        	<span class="oi oi-plus" title="Cadastro" aria-hidden="true"></span>
 	            <span>Novo</span>
 	        </a>
-	        <a class="btn btn-outline-dark btn-md" href="/cids/listar" role="button">
+	        <a class="btn btn-outline-dark btn-md" th:href="@{/cids/listar}" role="button">
 	        	<span class="oi oi-loop-square" title="Atualizar" aria-hidden="true"></span>
 	            <span>Atualizar</span>
 	        </a>
@@ -17,17 +18,36 @@
 	    </nav>
 	  	<div class="container">
 	    	<p>                
-	        	<button class=" oi oi-magnifying-glass btn btn-outline-success my-2 my-sm-0" type="button" data-toggle="collapse" data-target="#collapseNome"
-	            		aria-controls="collapseNome">Filtrar
+	        	<button class=" oi oi-magnifying-glass btn btn-outline-success my-2 my-sm-0" type="button" data-toggle="collapse" data-target="#collapseCodigo"
+	            		aria-controls="collapseCodigo">Filtrar Código
 	            </button>
+	            <button class=" oi oi-magnifying-glass btn btn-outline-success my-2 my-sm-0" type="button" data-toggle="collapse" data-target="#collapseDescricao"
+	            		aria-controls="collapseDescricao">Filtrar Descrição
+	            </button>
+	            
 	      </p>
+	      
 	      <div class="row">
 	      	<div class="col">
-	        	<div class="collapse" id="collapseNome">
+	        	<div class="collapse" id="collapseCodigo">
 		            <nav class="navbar navbar-light bg-light">
-	    	           <form class="form-inline" method="GET" th:action="@{/cids/buscar/codcid}">
-	        	           <input class="form-control mr-sm-2" type="search" placeholder="Cid" aria-label="Search"
-	                              th:name="codCid"/>
+	    	           <form class="form-inline" method="GET" th:action="@{/cids/buscar/codigo}">
+	        	           <input class="form-control mr-sm-2" type="search" placeholder="Codigo" aria-label="Search"
+	                              th:name="codigo"/>
+	                       <button class="btn btn-outline-success my-2 my-sm-0">Buscar</button>
+	                   </form>
+	                </nav>
+	            </div>
+	    	</div>
+	    </div>
+	    
+	    <div class="row">
+	      	<div class="col">
+	        	<div class="collapse" id="collapseDescricao">
+		            <nav class="navbar navbar-light bg-light">
+	    	           <form class="form-inline" method="GET" th:action="@{/cids/buscar/descricao}">
+	        	           <input class="form-control mr-sm-2" type="search" placeholder="Descricao" aria-label="Search"
+	                              th:name="descricao"/>
 	                       <button class="btn btn-outline-success my-2 my-sm-0">Buscar</button>
 	                   </form>
 	                </nav>
@@ -66,7 +86,41 @@
 					</tbody>                    
 	            </table>
 	         </div>
-		</div>	        
+		</div>	   
+		
+		<nav aria-label="Page navigation example">
+		 <div> Quantidade de registros: [[${totalItems}]]<br>  Página: [[${currentePage}]] de [[${totalPages}]] </div> 
+		 <div>
+		 	<span >
+		 		<a></a>
+		 		<samp >[[${i}]]</samp> &nbsp; &nbsp;
+		 	</span>
+		 </div>
+		 	<ul class="pagination justify-content-center" >
+		 		<li class="page-item disabled" ></li>		 		
+	
+			 	<li ><a class="btn btn-light    btn-paginacao   oi oi-media-step-backward" th:if="${currentePage != i}"  th:href="@{'/cids/paginar/'+ 1 }" ></a></li>
+			 	
+			 	<li ><a class="btn btn-light    btn-paginacao    oi oi-media-skip-backward" th:if="${currentePage > 1}"  th:href="@{'/cids/paginar/'+ ${currentePage -1}}" ></a></li> 
+			 	
+			 	<li ><a class="btn btn-light    btn-paginacao"    th:if="${currentePage > 1000}"  th:href="@{'/cids/paginar/'+ ${currentePage-1000} }" >-1000</a></li>
+			 	
+			 	<li ><a class="btn btn-light    btn-paginacao"    th:if="${currentePage > 100}"  th:href="@{'/cids/paginar/'+ ${currentePage-100} }" >-100</a></li>
+			 	
+			 	<li ><a class="btn btn-light    btn-paginacao"    th:if="${currentePage > 10}"  th:href="@{'/cids/paginar/'+ ${currentePage-10} }" >-10</a></li>
+
+			 	<li ><a class="btn btn-light    btn-paginacao"    th:if="${currentePage < totalPages - 10}"  th:href="@{'/cids/paginar/'+ ${currentePage+10} }" >+10</a></li>
+			 	
+			 	<li ><a class="btn btn-light    btn-paginacao"    th:if="${currentePage < totalPages - 100}"  th:href="@{'/cids/paginar/'+ ${currentePage+100} }" >+100</a></li>
+			 	
+			 	<li ><a class="btn btn-light    btn-paginacao"    th:if="${currentePage < totalPages - 1000}"  th:href="@{'/cids/paginar/'+ ${currentePage+1000} }" >+1000</a></li>
+			 	
+			 	<li ><a class="btn btn-light    btn-paginacao    oi oi-media-skip-forward" th:if="${currentePage < totalPages}"  th:href="@{'/cids/paginar/' + ${currentePage +1}}"></a> </li>
+		 		
+		 		<li ><a class="btn btn-light    btn-paginacao    oi oi-media-step-forward"  th:if="${currentePage != i}"  th:href="@{'/cids/paginar/'+ ${totalPages} }" ></a></li> 
+		 	</ul>
+		</nav>     	        
+		     
 	        <div th:replace="fragments/modal :: modal"></div>   
 	</section>	
 </body>

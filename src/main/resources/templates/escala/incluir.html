@@ -5,15 +5,14 @@
 	<section class="layout-content" layout:fragment="corpo">
 
 		<nav class="navbar navbar-expand-md bg-light">
-			<form action="/documentos/listar">
+			<form th:action="@{/documentos/listar}">
 				<div class=" layout-content">
-					
+					<a class="btn btn-outline-light oi oi-action-undo" type="button" href="javascript:history.back()"></a>
+					<a class="btn btn-outline-light oi oi-action-redo" type="button" href="javascript:history.forward()"></a>    	
 				</div>
 			</form>
 		</nav>
-
-		
-		
+	
 		<div class="container" id="cadastro">
 
 			<div th:replace="fragments/alert"></div>
@@ -29,16 +28,19 @@
 								<label style="text-align: center; color:#008080;" th:text="${nome}" class="text" >Escala </label>
 							</div>
 							
+							<label for="nome" class="">Regime de Trabalho </label>
 							<select  id="anoMes" class="form-control form-select chat-input" th:field="*{regiDeTrabalho}">
 								<option value="">Selecione o Regime de Trabalho</option>
 								<option th:each="d : ${idRegimeFk}" th:value="${d.id}"th:text="${d.nomeRegimeDeTrabalho}"> </option>
 							</select>	
 							<p></p>
+							<label for="nome" class="">Tipo de Folha </label>
 							<select id="cargos" class="form-select" th:field="*{tiposDeFolha}">
 								<option value="">Selecione o Tipo de Folha</option>
 								<option th:each="d : ${idTipoFolhaFk}" th:value="${d.id}"th:text="${d.nomeTipoFolha}">ADM</option>
 							</select>	
 							<p></p>
+							<label for="nome" class="">Turma </label>
 							<select id="cargos" class="form-select" th:field="*{turma}">
 								<option value="">Selecione a Turma</option>
 								<option th:each="d : ${idTurmaFk}" th:value="${d.id}"th:text="${d.descricaoTurma}">ADM</option>
@@ -48,24 +50,14 @@
 							
 								<p></p>					
 						
-						<button class="btn btn-outline-dark">Submeter</button>
+						<button class="btn btn-outline-dark">Incluir</button>
 						<p></p>	
-						
-						
-						
+	
 					</div>
 				</div>
 			</form>
 		</div>
-		
-		
-		
-		
-		
-		
-		
-		
-		
+	
 		<div th:replace="fragments/modal :: modal"></div>
 	</section>
 </body>

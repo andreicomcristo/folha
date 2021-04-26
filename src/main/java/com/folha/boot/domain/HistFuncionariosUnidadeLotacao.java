@@ -4,14 +4,17 @@ import java.util.Date;
 
 import javax.persistence.*;
 
+import com.folha.boot.service.util.UtilidadesDeTexto;
+
 @SuppressWarnings("serial")
 @Entity
 @Table(name = "hist_funcionarios_unidade_lotacao")
 
 public class HistFuncionariosUnidadeLotacao extends AbstractEntity<Long> {
 
-	@Column(name = "id_funcionario_fk", nullable = false)
-	private long idFuncionarioFk;
+	@JoinColumn(name = "id_funcionario_fk", referencedColumnName = "id", nullable = false)
+	@ManyToOne(optional = false)
+	private PessoaFuncionarios idFuncionarioFk;
 
 	@Column(name = "dt_cadastro", nullable = false)
 	@Temporal(TemporalType.DATE)
@@ -39,11 +42,13 @@ public class HistFuncionariosUnidadeLotacao extends AbstractEntity<Long> {
 	@ManyToOne(optional = false)
 	private Unidades idUnidadeFk;
 
-	public long getIdFuncionarioFk() {
+	
+
+	public PessoaFuncionarios getIdFuncionarioFk() {
 		return idFuncionarioFk;
 	}
 
-	public void setIdFuncionarioFk(long idFuncionarioFk) {
+	public void setIdFuncionarioFk(PessoaFuncionarios idFuncionarioFk) {
 		this.idFuncionarioFk = idFuncionarioFk;
 	}
 
@@ -60,7 +65,7 @@ public class HistFuncionariosUnidadeLotacao extends AbstractEntity<Long> {
 	}
 
 	public void setMotivoCadastro(String motivoCadastro) {
-		this.motivoCadastro = motivoCadastro;
+		this.motivoCadastro = UtilidadesDeTexto.retiraEspacosDuplosAcentosEConverteEmMaiusculo(motivoCadastro);
 	}
 
 	public Date getDtCancelamento() {
@@ -76,7 +81,7 @@ public class HistFuncionariosUnidadeLotacao extends AbstractEntity<Long> {
 	}
 
 	public void setMotivoCancelamento(String motivoCancelamento) {
-		this.motivoCancelamento = motivoCancelamento;
+		this.motivoCancelamento = UtilidadesDeTexto.retiraEspacosDuplosAcentosEConverteEmMaiusculo(motivoCancelamento);
 	}
 
 	public PessoaOperadores getIdOperadorCadastroFk() {

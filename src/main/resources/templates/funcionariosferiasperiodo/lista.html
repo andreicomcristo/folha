@@ -4,16 +4,17 @@
 <body>	
 	<section class="layout-content" layout:fragment="corpo">		
 		<nav class="navbar navbar-expand-md bg-light">
-	            
-	    	<a class="btn btn-outline-dark btn-md" href="/funcionariosferiasperiodos/cadastrar" role="button">
+	        <a class="btn btn-outline-light oi oi-action-undo" type="button" href="javascript:history.back()"></a>
+			<a class="btn btn-outline-light oi oi-action-redo" type="button" href="javascript:history.forward()"></a>    
+	    	<a class="btn btn-outline-dark btn-md" th:href="@{/funcionariosferiasperiodos/cadastrar}" role="button">
 	        	<span class="oi oi-plus" title="Cadastro" aria-hidden="true"></span>
 	            <span>Novo</span>
 	        </a>
-	        <a class="btn btn-outline-dark btn-md" href="/funcionariosferiasperiodos/listar" role="button">
+	        <a class="btn btn-outline-dark btn-md" th:href="@{/funcionariosferias/listar}" role="button">
 	        	<span class="oi oi-loop-square" title="Atualizar" aria-hidden="true"></span>
 	            <span>Atualizar</span>
 	        </a>
-	            <label for="nome" class= "fonte-tutulos-tamanho">Lista de Períodos de Férias </label>
+	            <label for="nome" class= "fonte-tutulos-tamanho">Listar Férias </label>
 	    </nav>
 	  <!--	<div class="container">
 	    	<p>                
@@ -43,26 +44,23 @@
 	            	<thead>
 	          			<tr>
 		                	<th>#</th>
+		                	<th>Funcionário </th>
 		                    <th>Data inicial </th>
 		                    <th>Data Final</th>
-		                    <th>Data de Assinatura</th>
-		                    <th>Data de Cadastro</th>
-		                    <th>Data de Cancelamento</th>
-		                    <th>Motivo do Cancelamento</th>
-		                    <th>Matrícula do Funcionário</th>		                   
+		                    <th>Data de Assinatura</th>		   	                   
 		                    <th>Ano de Refêrencia</th>
 		                    <th>Ações</th>
 	                    </tr>
 	                </thead>                  
 	                <tbody>
 		            	<tr th:each="d : ${funcionariosFeriasPeriodos}">
-		                	<td th:text="${d.id}"></td>		                    
+		                	<td th:text="${d.id}"></td>
+							<td th:text="${d.idFeriasFk.idFuncionarioFk.idPessoaFk.nome}"></td>		                			                    
+							<td th:text="${d.idFeriasFk.anoReferencia}"></td>
 		                    <td th:text="${d.dtInicial}"></td>
 		                    <td th:text="${d.dtFinal}"></td>
 		                    <td th:text="${d.dtAssinatura}"></td>
-		                    <td th:text="${d.dtCadastro}"></td>
-		                    <td th:text="${d.dtCancelamento}"></td>
-		                    <td th:text="${d.motivoCancelamento}"></td>
+		                   
 		                    <td th:text="${d.idFeriasFk.anoReferencia}"></td>		           		                  	                    		                     		         		                    
 		                    <td colspan="2">
 		                    	<a class="btn btn-outline-info btn-sm" th:href="@{/funcionariosferiasperiodos/editar/{id} (id=${d.id})}" role="button">

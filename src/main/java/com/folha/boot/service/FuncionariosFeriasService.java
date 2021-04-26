@@ -6,6 +6,9 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import com.folha.boot.Reposytory.FuncionariosFeriasReposytory;
 import com.folha.boot.domain.FuncionariosFerias;
+import com.folha.boot.domain.Pessoa;
+import com.folha.boot.domain.PessoaDocumentos;
+import com.folha.boot.domain.PessoaFuncionarios;
 
 @Service
 @Transactional(readOnly = false)
@@ -14,8 +17,8 @@ public class FuncionariosFeriasService {
 	@Autowired
 	private  FuncionariosFeriasReposytory reposytory;
 
-	public void salvar(FuncionariosFerias funcionariosFerias) {
-		reposytory.save(funcionariosFerias);
+	public FuncionariosFerias salvar(FuncionariosFerias funcionariosFerias) {
+		return reposytory.save(funcionariosFerias);
 	}
 
 	public void editar(FuncionariosFerias funcionariosFerias) {
@@ -43,4 +46,10 @@ public class FuncionariosFeriasService {
 	public List<FuncionariosFerias> buscarPorAnoReferencia(String anoReferencia) {
 		return reposytory.findByAnoReferenciaContainingOrderByAnoReferenciaAsc(anoReferencia);
 	}
+	
+	public List<FuncionariosFerias> buscarFuncionario(PessoaFuncionarios funcionario) {
+		// TODO Auto-generated method stub
+		return reposytory.findByIdFuncionarioFk(funcionario);
+	}
+
 }

@@ -5,10 +5,12 @@
 	<section class="layout-content" layout:fragment="corpo">
 
 		<nav class="navbar navbar-expand-md bg-light">
-			<form action="/documentos/listar">
+			<form th:action="@{/documentos/listar}">
 				<div class=" layout-content">
+					<a class="btn btn-outline-light oi oi-action-undo" type="button" href="javascript:history.back()"></a>
+					<a class="btn btn-outline-light oi oi-action-redo" type="button" href="javascript:history.forward()"></a>    
 					<button class="btn btn-outline-dark" >Listar</button>
-					<a class="btn btn-outline-dark btn-md" href="/documentos/cadastrar"
+					<a class="btn btn-outline-dark btn-md" th:href="@{/documentos/cadastrar}"
 						role="button"> <span class="oi oi-plus" title="Cadastro"
 						aria-hidden="true"></span> <span>Novo</span>
 					</a>
@@ -27,26 +29,31 @@
 					<div class="form-group col-md-6">
 						<label for="nome" class="fonte-tutulos-tamanho">Cadastro de Documentos Habilitação</label>
 							
-							<input type="text"
-								class="form-control form-control-md uppercase" autofocus="autofocus" data-mask="000000000000000000"
+							<label for="nome" class="">Número Registro </label>
+							<input type="number"
+								class="form-control form-control-md uppercase" autofocus="autofocus" 
 								id="codigo" placeholder="Registro" th:field="*{numeroRegistro}" /> 
 							<p></p>
 							
+							<label for="nome" class="">Data Emissão </label>
 							<input type="text"
 								class="form-control form-control-md" autofocus="autofocus" data-mask="00/00/0000"
 								id="codigo" placeholder="Data emissao" th:field="*{dtEmissao}" />
 							<p></p>
 							
+							<label for="nome" class="">Data Validade </label>
 							<input type="text"
 								class="form-control form-control-md" autofocus="autofocus" data-mask="00/00/0000"
 								id="codigo" placeholder="Data validade" th:field="*{dtValidade}" />
 							<p></p>
 							
+							<label for="nome" class="">Data Primeira Habilitação </label>
 							<input type="text"
 								class="form-control form-control-md" autofocus="autofocus" data-mask="00/00/0000"
 								id="codigo" placeholder="data Primeira Habilitacao" th:field="*{dtPrimeiraHabilitacao}" />
 							<p></p>
 							
+							<label for="nome" class="">Categoria </label>
 							<select id="cargos" class="form-select" th:field="*{idHabilitacaoCategoriasFk}">
 								<option value="">Selecione a Categoria</option>
 								<option th:each="d : ${idHabilitacaoCategoriasFk}" th:value="${d.id}"th:text="${d.nomeHabilitacaoCategoria}">ADM</option>
@@ -57,14 +64,14 @@
 							<input type="hidden" id="pessoa" th:field="${pessoa}" />
 								<p></p>					
 						
-						<button class="btn btn-outline-dark">Submeter</button>
+						<button class="btn btn-outline-dark">Enviar</button>
 						
-						<a class="btn btn-outline-danger btn-md" href="/habilitacaodocs/retroceder"
+						<a class="btn btn-outline-danger btn-md" th:href="@{/habilitacaodocs/retroceder}"
 							role="button"> <span class="oi oi-arrow-thick-left" title="Cadastro"
 							aria-hidden="true"></span> <span>Retroceder</span>
 						</a>
 						
-						<a class="btn btn-outline-success btn-md" href="/habilitacaodocs/avancar"
+						<a class="btn btn-outline-success btn-md" th:href="@{/habilitacaodocs/avancar}"
 							role="button"> <span class="oi oi-arrow-thick-right" title="Cadastro"
 							aria-hidden="true"></span> <span>Avançar</span>
 						</a>

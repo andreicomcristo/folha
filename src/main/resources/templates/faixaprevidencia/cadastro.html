@@ -6,10 +6,12 @@
 	<section class="layout-content" layout:fragment="corpo">
 
 		<nav class="navbar navbar-expand-md bg-light">
-			<form action="/faixasprevidencia/listar">
+			<form th:action="@{/faixasprevidencia/listar}">
 				<div class=" layout-content">
+					<a class="btn btn-outline-light oi oi-action-undo" type="button" href="javascript:history.back()"></a>
+					<a class="btn btn-outline-light oi oi-action-redo" type="button" href="javascript:history.forward()"></a>
 					<button class="btn btn-outline-dark" >Listar</button>
-					<a class="btn btn-outline-dark btn-md" href="/faixasprevidencia/cadastrar"
+					<a class="btn btn-outline-dark btn-md" th:href="@{/faixasprevidencia/cadastrar}"
 						role="button"> <span class="oi oi-plus" title="Cadastro"
 						aria-hidden="true"></span> <span>Novo</span>
 					</a>
@@ -28,36 +30,44 @@
 					<div class="form-group col-md-6">
 						<label for="nome" class="fonte-tutulos-tamanho">Cadastro de Faixas da Previdência</label>
 							
+							<label for="nome" class="">Base de Cálculo Valor Inicial </label>
 							<input type="text"
 								class="form-control form-control-md" autofocus="autofocus"
 								id="CalculoValorInicial" placeholder="Base cálculo valor inicial" th:field="*{baseCalculoValorInicial}" /> 
 							<p></p>
 							
+							<label for="nome" class="">Base de Cálculo Valor Final </label>
 							<input type="text"
 								class="form-control form-control-md" autofocus="autofocus"
 								id="CalculoValorFinal" placeholder="Base cálculo valor final" th:field="*{baseCalculoValorFinal}" /> 
 							<p></p>
 							
+							<label for="nome" class="">Alíquota </label>
 							<input type="text"
 								class="form-control form-control-md" autofocus="autofocus"
 								id="aliquota" placeholder="Aliquota" th:field="*{aliquota}" /> 
 							<p></p>
-														
+							
+							<label for="nome" class="">Parcerla a subtrair </label>							
 							<input type="text"
 								class="form-control form-control-md" autofocus="autofocus"
 								id="parcelaASubtrair" placeholder="Parcela a subtrair" th:field="*{parcelaASubtrair}" /> 
 							<p></p>
 							
+							<label for="nome" class="">Parcela a devolver </label>
 							<input type="text"
 								class="form-control form-control-md" autofocus="autofocus"
 								id="parcelaADevolver" placeholder="Parcela a devolver" th:field="*{parcelaADevolver}" /> 
 							<p></p>
 							
-							<input type="text"
-								class="form-control form-control-md" autofocus="autofocus"
-								id="anoMes" placeholder="Ano mês" th:field="*{anoMes}" /> 
-							<p></p>
+							<label for="nome" class="">Mês </label>
+							<select id="idCodDiferenciadoFk" class="form-select" th:field="*{idAnoMesFk}">
+								<option value="">Selecione o Mes</option>
+								<option class="form-select" th:each="d : ${idAnoMesFk}" th:value="${d.id}"th:text="${d.nomeAnoMes}" selected >ADM</option>
+							</select>	
+							<p></p>	
 							
+							<label for="nome" class="">Faixa </label>
 							<select id="FaixasPrevidencia" class="form-select" th:field="*{idFaixasPrevidenciaNomeFk}">
 								<option value="">Selecione a Faixa</option>
 								<option class="form-select" th:each="d : ${idFaixasPrevidenciaNomeFk}" th:value="${d.id}"th:text="${d.nomeFaixa}" selected >ADM</option>

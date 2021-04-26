@@ -6,7 +6,7 @@
 
 		
 		<div class="container" id="cadastro">
-
+			    
 		<input type=hidden id="" th:field="${idLinha}" />
 
 			
@@ -17,6 +17,8 @@
 
 					<div class="form-group col-md-12 col-lg-12 col-sm-12">
 						<H5>
+						<a class="btn btn-outline-light oi oi-action-undo" type="button" href="javascript:history.back()"></a>
+						<a class="btn btn-outline-light oi oi-action-redo" type="button" href="javascript:history.forward()"></a>    
 						<a class="btn btn-outline-dark btn-md" href="/escalas/listar" role="button">
 				        	<span class="oi oi-list" title="Atualizar" aria-hidden="true"></span>
 				            <span>Listar Escala</span>
@@ -36,6 +38,7 @@
 				                	<input type=hidden id="" th:field="*{idCoordenacaoFk}" />
 				                	<input type=hidden id="" th:field="*{idFuncionarioFk}" />
 				                	<input type=hidden id="" th:field="*{idTipoFolhaFk}" />
+				                	<input type=hidden id="" th:field="*{idCodigoDiferenciadoFk}" />
 				                	
 				                	<input type=hidden id="" th:field="*{idAvaliacaoAssiduidadeFk}" />
 				                	<input type=hidden id="" th:field="*{idAvaliacaoPermanenciaFk}" />
@@ -98,21 +101,21 @@
 								 		<label class="text" style="font-size:12px;">CH Dif</label>
 								 		<select style="width:180px; height:25px; font-size:10px" id="turma" class="form-select"  th:field="*{idChDifSimNaoFk}" >
 											<option value=""></option>
-											<option th:each="d : ${idChDifSimNaoFk}" th:value="${d.id}"th:text="${d.descricao}">CH Dif</option>
+											<option th:each="d : ${idChDifFkCompativel}" th:value="${d.id}"th:text="${d.descricao}">CH Dif</option>
 										</select>
 								 	</th>
 								 	<th>
 								 		<label class="text" style="font-size:12px;">Incremento de Risco </label>
 								 		<select style="width:180px; height:25px; font-size:10px" id="turma" class="form-select"   th:field="*{idIncrementoDeRiscoSimNaoFk}" >
 											<option value=""></option>
-											<option th:each="d : ${idIncrementoDeRiscoSimNaoFk}" th:value="${d.id}"th:text="${d.descricao}">Incremento de Risco</option>
+											<option th:each="d : ${idIncrementoDeRiscoCompativel}" th:value="${d.id}"th:text="${d.descricao}">Incremento de Risco</option>
 										</select>
 								 	</th>
 								 	<th>
 								 		<label class="text" style="font-size:12px;">Diferenciado </label>
 								 		<select style="width:180px; height:25px; font-size:10px" id="turma" class="form-select" th:field="*{idCodigoDiferenciadoFk}" >
 											<option value=""></option>
-											<option th:each="d : ${idCodigoDiferenciadoFk}" th:value="${d.id}"th:text="${d.nomeCodigoDiferenciado}">DIFERENCIADO</option>
+											<option th:each="d : ${idCodigoDiferenciadoFkCompativel}" th:value="${d.id}"th:text="${d.nomeCodigoDiferenciado}">DIFERENCIADO</option>
 										</select>
 									</th>
 								 	<th>
@@ -412,24 +415,43 @@
 						
 						</table>
 						
+						
+						<button class=" btn btn-outline-secondary my-2 my-sm-0" type="button" data-toggle="collapse" data-target="#collapseBlocoLegenda"
+	            					aria-controls="collapseBlocoLegenda">Legenda
+	            		</button>
+						
+						<div class="collapse" id="collapseBlocoLegenda">	
+							<div class="span12" >
+						        <p></p>
+						        <img src="/image/LEGENDA.jpg" heigh = "500px" width="300px"/>
+						        <p></p>
+						    </div>
+						</div>					
+						
+						
 						<button class=" btn btn-outline-secondary my-2 my-sm-0" type="button" data-toggle="collapse" data-target="#collapseBloco01"
 	            					aria-controls="collapseBloco01">Opções
 	            		</button>
 						
 						<div class="collapse" id="collapseBloco01">	
 							<div>
-							<input type="checkbox" id="recalcular" name="recalcular"    value="S">Recalcular</input>
-							<input type="checkbox" id="lancarTurma" name="lancarTurma"  value="S">Lançar Turma</input>
+							<input type="checkbox" id="recalcular" th:name="recalcular"    value="S">Recalcular</input>
+							<input type="checkbox" id="lancarTurma" th:name="lancarTurma"  value="S">Lançar Turma</input>
 							<p></p>
 							<th>
-								
-								<select style="width:1000px; height:28px; font-size:10px" id="turma" class="form-select"  th:field="*{idLiberacaoDobraInvertidaSimNaoFk}" >
-									<option value="">Estou ciente de que não prover o descanço depois de atividade noturna é ilegal. Todavia, posso comprovar legalmente que esta situação é excepcionalmente de força maior.</option>
+								<h6><label style="width:500px;">Estou ciente de que não prover o descanso depois de atividade noturna é proibido. Todavia, posso comprovar legalmente que esta situação é excepcionalmente de força maior.</label></h6>
+								<select style="width:500px; height:28px; font-size:10px" id="turma" class="form-select"  th:field="*{idLiberacaoDobraInvertidaSimNaoFk}" >
+									<option value=""></option>
 									<option th:each="d : ${idLiberacaoDobraInvertidaSimNaoFk}" th:value="${d.id}"th:text="${d.descricao}">CH Dif</option>
 								</select>
 							</th>
 							<p></p>
 							
+							<label for="nome" class="">Observações</label>
+							<input type="text"
+								class="form-control form-control-md uppercase" autofocus="autofocus"
+								id="observacoes" placeholder="Observações" th:field="*{observacoes}" />						
+							<p></p>
 							
 							
 							
@@ -458,84 +480,84 @@
 								
 									<tr>
 										<th>
-											<a  style="font-size:10px" th:object="${escala}" class="btn btn-outline-secondary btn-sm" href="/escalas/atalho/ciclo1_a"
+											<a  style="font-size:10px" th:object="${escala}" class="btn btn-outline-secondary btn-sm" th:href="@{/escalas/atalho/ciclo1_a}"
 												role="button"> <span>MT N F F F F</span><span  
 												title="Cadastro" aria-hidden="true"></span>
 											</a>
 									   </th>
 									   
 									   <th>
-											<a  style="font-size:10px" class="btn btn-outline-secondary btn-sm" href="/escalas/atalho/ciclo2_a"
+											<a  style="font-size:10px" class="btn btn-outline-secondary btn-sm" th:href="@{/escalas/atalho/ciclo2_a}"
 												role="button"> <span>MTN F F F F F</span><span  
 												title="Cadastro" aria-hidden="true"></span>
 											</a>
 									   </th>
 									   
 									   <th>
-											<a  style="font-size:10px; width:100px;" class="btn btn-outline-warning btn-sm" href="/escalas/atalho/limpar_escala"
+											<a  style="font-size:10px; width:100px;" class="btn btn-outline-warning btn-sm" th:href="@{/escalas/atalho/limpar_escala}"
 												role="button"> <span>Limpar Escala</span><span  
 												title="Cadastro" aria-hidden="true"></span>
 											</a>
 										</th>
 									   
 									   <th>
-											<a  style="font-size:10px" class="btn btn-outline-secondary btn-sm" href="/escalas/atalho/ciclo4_a"
+											<a  style="font-size:10px" class="btn btn-outline-secondary btn-sm" th:href="@{/escalas/atalho/ciclo4_a}"
 												role="button"> <span>M M N F F F</span><span  
 												title="Cadastro" aria-hidden="true"></span>
 											</a>
 									   </th>
 									   
 									   <th>
-											<a  style="font-size:10px" class="btn btn-outline-secondary btn-sm" href="/escalas/atalho/ciclo5_a"
+											<a  style="font-size:10px" class="btn btn-outline-secondary btn-sm" th:href="@{/escalas/atalho/ciclo5_a}"
 												role="button"> <span>T T N F F F</span><span  
 												title="Cadastro" aria-hidden="true"></span>
 											</a>
 									   </th>
 									   
 									   <th>
-											<a  style="font-size:10px" class="btn btn-outline-secondary btn-sm" href="/escalas/atalho/ciclo6_a"
+											<a  style="font-size:10px" class="btn btn-outline-secondary btn-sm" th:href="@{/escalas/atalho/ciclo6_a}"
 												role="button"> <span>MT MT F F F F</span><span  
 												title="Cadastro" aria-hidden="true"></span>
 											</a>
 									   </th>
 									   
 									   <th>
-											<a  style="font-size:10px" class="btn btn-outline-secondary btn-sm" href="/escalas/atalho/ciclo7_a"
+											<a  style="font-size:10px" class="btn btn-outline-secondary btn-sm" th:href="@{/escalas/atalho/ciclo7_a}"
 												role="button"> <span>M T N F F F</span><span  
 												title="Cadastro" aria-hidden="true"></span>
 											</a>
 									   </th>
 									   
 									   <th>
-											<a  style="font-size:10px; width:153px;" class="btn btn-outline-secondary btn-sm" href="/escalas/atalho/ciclo8_a"
+											<a  style="font-size:10px; width:153px;" class="btn btn-outline-secondary btn-sm" th:href="@{/escalas/atalho/ciclo8_a}"
 												role="button"> <span>SEGUNDA MTN</span><span  
 												title="Cadastro" aria-hidden="true"></span>
 											</a>
 									   </th>
 									   
 									   <th>
-											<a  style="font-size:10px; width:153px;" class="btn btn-outline-secondary btn-sm" href="/escalas/atalho/ciclo9_a"
+											<a  style="font-size:10px; width:153px;" class="btn btn-outline-secondary btn-sm" th:href="@{/escalas/atalho/ciclo9_a}"
 												role="button"> <span>SEGUNDA M</span><span  
 												title="Cadastro" aria-hidden="true"></span>
 											</a>
 									   </th>
 									   
 									   <th>
-											<a  style="font-size:10px; width:153px;" class="btn btn-outline-secondary btn-sm" href="/escalas/atalho/ciclo10_a"
+											<a  style="font-size:10px; width:153px;" class="btn btn-outline-secondary btn-sm" th:href="@{/escalas/atalho/ciclo10_a}"
 												role="button"> <span>SEGUNDA T</span><span  
 												title="Cadastro" aria-hidden="true"></span>
 											</a>
 									   </th>
 									   
 									   <th>
-											<a  style="font-size:10px; width:153px;" class="btn btn-outline-secondary btn-sm" href="/escalas/atalho/ciclo11_a"
+											<a  style="font-size:10px; width:153px;" class="btn btn-outline-secondary btn-sm" th:href="@{/escalas/atalho/ciclo11_a}"
 												role="button"> <span>SEGUNDA MT</span><span  
 												title="Cadastro" aria-hidden="true"></span>
 											</a>
 									   </th>
 									   
 									   <th>
-											<a  style="font-size:10px; width:153px;" class="btn btn-outline-secondary btn-sm" href="/escalas/atalho/ciclo12_a"
+											<a  style="font-size:10px; width:153px;" class="btn btn-outline-secondary btn-sm" th:href="@{/escalas/atalho/ciclo12_a}"
 												role="button"> <span>SEGUNDA N</span><span  
 												title="Cadastro" aria-hidden="true"></span>
 											</a>
@@ -547,84 +569,84 @@
 									
 									<tr>
 									   <th>
-											<a  style="font-size:10px" class="btn btn-outline-secondary btn-sm" href="/escalas/atalho/ciclo1_b"
+											<a  style="font-size:10px" class="btn btn-outline-secondary btn-sm" th:href="@{/escalas/atalho/ciclo1_b}"
 												role="button"> <span>F MT N F F F</span><span  
 												title="Cadastro" aria-hidden="true"></span>
 											</a>
 									   </th>
 									   
 									   <th>
-											<a  style="font-size:10px" class="btn btn-outline-secondary btn-sm" href="/escalas/atalho/ciclo2_b"
+											<a  style="font-size:10px" class="btn btn-outline-secondary btn-sm" th:href="@{/escalas/atalho/ciclo2_b}"
 												role="button"> <span>F MTN F F F F</span><span  
 												title="Cadastro" aria-hidden="true"></span>
 											</a>
 									   </th>
 									   
 									   <th>
-											<a  style="font-size:10px; width:100px;" class="btn btn-outline-secondary btn-sm" href="/escalas/atalho/diarista_manha"
+											<a  style="font-size:10px; width:100px;" class="btn btn-outline-secondary btn-sm" th:href="@{/escalas/atalho/diarista_manha}"
 												role="button"> <span>M DE SEG A SEX</span><span  
 												title="Cadastro" aria-hidden="true"></span>
 											</a>
 									   </th>
 									   
 									   <th>
-											<a  style="font-size:10px" class="btn btn-outline-secondary btn-sm" href="/escalas/atalho/ciclo4_b"
+											<a  style="font-size:10px" class="btn btn-outline-secondary btn-sm" th:href="@{/escalas/atalho/ciclo4_b}"
 												role="button"> <span>F M M N F F</span><span  
 												title="Cadastro" aria-hidden="true"></span>
 											</a>
 									   </th>
 									   
 									   <th>
-											<a  style="font-size:10px" class="btn btn-outline-secondary btn-sm" href="/escalas/atalho/ciclo5_b"
+											<a  style="font-size:10px" class="btn btn-outline-secondary btn-sm" th:href="@{/escalas/atalho/ciclo5_b}"
 												role="button"> <span>F T T N F F</span><span  
 												title="Cadastro" aria-hidden="true"></span>
 											</a>
 									   </th>
 									   
 									   <th>
-											<a  style="font-size:10px" class="btn btn-outline-secondary btn-sm" href="/escalas/atalho/ciclo6_b"
+											<a  style="font-size:10px" class="btn btn-outline-secondary btn-sm" th:href="@{/escalas/atalho/ciclo6_b}"
 												role="button"> <span>F MT MT F F F</span><span  
 												title="Cadastro" aria-hidden="true"></span>
 											</a>
 									   </th>
 									   
 									   <th>
-											<a  style="font-size:10px" class="btn btn-outline-secondary btn-sm" href="/escalas/atalho/ciclo7_b"
+											<a  style="font-size:10px" class="btn btn-outline-secondary btn-sm" th:href="@{/escalas/atalho/ciclo7_b}"
 												role="button"> <span>F M T N F F</span><span  
 												title="Cadastro" aria-hidden="true"></span>
 											</a>
 									   </th>
 									   
 									   <th>
-											<a  style="font-size:10px; width:153px;" class="btn btn-outline-secondary btn-sm" href="/escalas/atalho/ciclo8_b"
+											<a  style="font-size:10px; width:153px;" class="btn btn-outline-secondary btn-sm" th:href="@{/escalas/atalho/ciclo8_b}"
 												role="button"> <span>TERCA MTN</span><span  
 												title="Cadastro" aria-hidden="true"></span>
 											</a>
 									   </th>
 									   
 									   <th>
-											<a  style="font-size:10px; width:153px;" class="btn btn-outline-secondary btn-sm" href="/escalas/atalho/ciclo9_b"
+											<a  style="font-size:10px; width:153px;" class="btn btn-outline-secondary btn-sm" th:href="@{/escalas/atalho/ciclo9_b}"
 												role="button"> <span>TERCA M</span><span  
 												title="Cadastro" aria-hidden="true"></span>
 											</a>
 									   </th>
 									   
 									   <th>
-											<a  style="font-size:10px; width:153px;" class="btn btn-outline-secondary btn-sm" href="/escalas/atalho/ciclo10_b"
+											<a  style="font-size:10px; width:153px;" class="btn btn-outline-secondary btn-sm" th:href="@{/escalas/atalho/ciclo10_b}"
 												role="button"> <span>TERCA T</span><span  
 												title="Cadastro" aria-hidden="true"></span>
 											</a>
 									   </th>
 									   
 									   <th>
-											<a  style="font-size:10px; width:153px;" class="btn btn-outline-secondary btn-sm" href="/escalas/atalho/ciclo11_b"
+											<a  style="font-size:10px; width:153px;" class="btn btn-outline-secondary btn-sm" th:href="@{/escalas/atalho/ciclo11_b}"
 												role="button"> <span>TERCA MT</span><span  
 												title="Cadastro" aria-hidden="true"></span>
 											</a>
 									   </th>
 									   
 									   <th>
-											<a  style="font-size:10px; width:153px;" class="btn btn-outline-secondary btn-sm" href="/escalas/atalho/ciclo12_b"
+											<a  style="font-size:10px; width:153px;" class="btn btn-outline-secondary btn-sm" th:href="@{/escalas/atalho/ciclo12_b}"
 												role="button"> <span>TERCA N</span><span  
 												title="Cadastro" aria-hidden="true"></span>
 											</a>
@@ -635,84 +657,84 @@
 								   
 								   <tr>
 									   <th>
-											<a  style="font-size:10px" class="btn btn-outline-secondary btn-sm" href="/escalas/atalho/ciclo1_c"
+											<a  style="font-size:10px" class="btn btn-outline-secondary btn-sm" th:href="@{/escalas/atalho/ciclo1_c}"
 												role="button"> <span>F F MT N F F</span><span  
 												title="Cadastro" aria-hidden="true"></span>
 											</a>
 									   </th>
 									   
 									   <th>
-											<a  style="font-size:10px" class="btn btn-outline-secondary btn-sm" href="/escalas/atalho/ciclo2_c"
+											<a  style="font-size:10px" class="btn btn-outline-secondary btn-sm" th:href="@{/escalas/atalho/ciclo2_c}"
 												role="button"> <span>F F MTN F F F</span><span  
 												title="Cadastro" aria-hidden="true"></span>
 											</a>
 									   </th>
 									   
 									   <th>
-											<a  style="font-size:10px; width:100px;" class="btn btn-outline-secondary btn-sm" href="/escalas/atalho/diarista_tarde"
+											<a  style="font-size:10px; width:100px;" class="btn btn-outline-secondary btn-sm" th:href="@{/escalas/atalho/diarista_tarde}"
 												role="button"> <span>T DE SEG A SEX</span><span  
 												title="Cadastro" aria-hidden="true"></span>
 											</a>
 									   </th>
 									   
 									   <th>
-											<a  style="font-size:10px" class="btn btn-outline-secondary btn-sm" href="/escalas/atalho/ciclo4_c"
+											<a  style="font-size:10px" class="btn btn-outline-secondary btn-sm" th:href="@{/escalas/atalho/ciclo4_c}"
 												role="button"> <span>F F M M N F</span><span  
 												title="Cadastro" aria-hidden="true"></span>
 											</a>
 									   </th>
 									   
 									   <th>
-											<a  style="font-size:10px" class="btn btn-outline-secondary btn-sm" href="/escalas/atalho/ciclo5_c"
+											<a  style="font-size:10px" class="btn btn-outline-secondary btn-sm" th:href="@{/escalas/atalho/ciclo5_c}"
 												role="button"> <span>F F T T N F</span><span  
 												title="Cadastro" aria-hidden="true"></span>
 											</a>
 									   </th>
 									   
 									   <th>
-											<a  style="font-size:10px" class="btn btn-outline-secondary btn-sm" href="/escalas/atalho/ciclo6_c"
+											<a  style="font-size:10px" class="btn btn-outline-secondary btn-sm" th:href="@{/escalas/atalho/ciclo6_c}"
 												role="button"> <span>F F MT MT F F</span><span  
 												title="Cadastro" aria-hidden="true"></span>
 											</a>
 									   </th>
 									   
 									   <th>
-											<a  style="font-size:10px" class="btn btn-outline-secondary btn-sm" href="/escalas/atalho/ciclo7_c"
+											<a  style="font-size:10px" class="btn btn-outline-secondary btn-sm" th:href="@{/escalas/atalho/ciclo7_c}"
 												role="button"> <span>F F M T N F</span><span  
 												title="Cadastro" aria-hidden="true"></span>
 											</a>
 									   </th>
 									   
 									   <th>
-											<a  style="font-size:10px; width:153px;" class="btn btn-outline-secondary btn-sm" href="/escalas/atalho/ciclo8_c"
+											<a  style="font-size:10px; width:153px;" class="btn btn-outline-secondary btn-sm" th:href="@{/escalas/atalho/ciclo8_c}"
 												role="button"> <span>QUARTA MTN</span><span  
 												title="Cadastro" aria-hidden="true"></span>
 											</a>
 									   </th>
 									   
 									   <th>
-											<a  style="font-size:10px; width:153px;" class="btn btn-outline-secondary btn-sm" href="/escalas/atalho/ciclo9_c"
+											<a  style="font-size:10px; width:153px;" class="btn btn-outline-secondary btn-sm" th:href="@{/escalas/atalho/ciclo9_c}"
 												role="button"> <span>QUARTA M</span><span  
 												title="Cadastro" aria-hidden="true"></span>
 											</a>
 									   </th>
 									   
 									   <th>
-											<a  style="font-size:10px; width:153px;" class="btn btn-outline-secondary btn-sm" href="/escalas/atalho/ciclo10_c"
+											<a  style="font-size:10px; width:153px;" class="btn btn-outline-secondary btn-sm" th:href="@{/escalas/atalho/ciclo10_c}"
 												role="button"> <span>QUARTA T</span><span  
 												title="Cadastro" aria-hidden="true"></span>
 											</a>
 									   </th>
 									   
 									   <th>
-											<a  style="font-size:10px; width:153px;" class="btn btn-outline-secondary btn-sm" href="/escalas/atalho/ciclo11_c"
+											<a  style="font-size:10px; width:153px;" class="btn btn-outline-secondary btn-sm" th:href="@{/escalas/atalho/ciclo11_c}"
 												role="button"> <span>QUARTA MT</span><span  
 												title="Cadastro" aria-hidden="true"></span>
 											</a>
 									   </th>
 									   
 									   <th>
-											<a  style="font-size:10px; width:153px;" class="btn btn-outline-secondary btn-sm" href="/escalas/atalho/ciclo12_c"
+											<a  style="font-size:10px; width:153px;" class="btn btn-outline-secondary btn-sm" th:href="@{/escalas/atalho/ciclo12_c}"
 												role="button"> <span>QUARTA N</span><span  
 												title="Cadastro" aria-hidden="true"></span>
 											</a>
@@ -724,84 +746,84 @@
 								   
 								   <tr>
 									   <th>
-											<a  style="font-size:10px" class="btn btn-outline-secondary btn-sm" href="/escalas/atalho/ciclo1_d"
+											<a  style="font-size:10px" class="btn btn-outline-secondary btn-sm" th:href="@{/escalas/atalho/ciclo1_d}"
 												role="button"> <span>F F F MT N F</span><span  
 												title="Cadastro" aria-hidden="true"></span>
 											</a>
 									   </th>
 									   
 									   <th>
-											<a  style="font-size:10px" class="btn btn-outline-secondary btn-sm" href="/escalas/atalho/ciclo2_d"
+											<a  style="font-size:10px" class="btn btn-outline-secondary btn-sm" th:href="@{/escalas/atalho/ciclo2_d}"
 												role="button"> <span>F F F MTN F F</span><span  
 												title="Cadastro" aria-hidden="true"></span>
 											</a>
 									   </th>
 									   
 									   <th>
-											<a  style="font-size:10px; width:100px;" class="btn btn-outline-secondary btn-sm" href="/escalas/atalho/diarista_dia"
+											<a  style="font-size:10px; width:100px;" class="btn btn-outline-secondary btn-sm" th:href="@{/escalas/atalho/diarista_dia}"
 												role="button"> <span>D DE SEG A SEX</span><span  
 												title="Cadastro" aria-hidden="true"></span>
 											</a>
 									   </th>
 									   
 									   <th>
-											<a  style="font-size:10px" class="btn btn-outline-secondary btn-sm" href="/escalas/atalho/ciclo4_d"
+											<a  style="font-size:10px" class="btn btn-outline-secondary btn-sm" th:href="@{/escalas/atalho/ciclo4_d}"
 												role="button"> <span>F F F M M N</span><span  
 												title="Cadastro" aria-hidden="true"></span>
 											</a>
 									   </th>
 									   
 									   <th>
-											<a  style="font-size:10px" class="btn btn-outline-secondary btn-sm" href="/escalas/atalho/ciclo5_d"
+											<a  style="font-size:10px" class="btn btn-outline-secondary btn-sm" th:href="@{/escalas/atalho/ciclo5_d}"
 												role="button"> <span>F F F T T N</span><span  
 												title="Cadastro" aria-hidden="true"></span>
 											</a>
 									   </th>
 									   
 									   <th>
-											<a  style="font-size:10px" class="btn btn-outline-secondary btn-sm" href="/escalas/atalho/ciclo6_d"
+											<a  style="font-size:10px" class="btn btn-outline-secondary btn-sm" th:href="@{/escalas/atalho/ciclo6_d}"
 												role="button"> <span>F F F MT MT F</span><span  
 												title="Cadastro" aria-hidden="true"></span>
 											</a>
 									   </th>
 									   
 									   <th>
-											<a  style="font-size:10px" class="btn btn-outline-secondary btn-sm" href="/escalas/atalho/ciclo7_d"
+											<a  style="font-size:10px" class="btn btn-outline-secondary btn-sm" th:href="@{/escalas/atalho/ciclo7_d}"
 												role="button"> <span>F F F M T N</span><span  
 												title="Cadastro" aria-hidden="true"></span>
 											</a>
 									   </th>
 									   
 									   <th>
-											<a  style="font-size:10px; width:153px;" class="btn btn-outline-secondary btn-sm" href="/escalas/atalho/ciclo8_d"
+											<a  style="font-size:10px; width:153px;" class="btn btn-outline-secondary btn-sm" th:href="@{/escalas/atalho/ciclo8_d}"
 												role="button"> <span>QUINTA MTN</span><span  
 												title="Cadastro" aria-hidden="true"></span>
 											</a>
 									   </th>
 									   
 									   <th>
-											<a  style="font-size:10px; width:153px;" class="btn btn-outline-secondary btn-sm" href="/escalas/atalho/ciclo9_d"
+											<a  style="font-size:10px; width:153px;" class="btn btn-outline-secondary btn-sm" th:href="@{/escalas/atalho/ciclo9_d}"
 												role="button"> <span>QUINTA M</span><span  
 												title="Cadastro" aria-hidden="true"></span>
 											</a>
 									   </th>
 									   
 									   <th>
-											<a  style="font-size:10px; width:153px;" class="btn btn-outline-secondary btn-sm" href="/escalas/atalho/ciclo10_d"
+											<a  style="font-size:10px; width:153px;" class="btn btn-outline-secondary btn-sm" th:href="@{/escalas/atalho/ciclo10_d}"
 												role="button"> <span>QUINTA T</span><span  
 												title="Cadastro" aria-hidden="true"></span>
 											</a>
 									   </th>
 									   
 									   <th>
-											<a  style="font-size:10px; width:153px;" class="btn btn-outline-secondary btn-sm" href="/escalas/atalho/ciclo11_d"
+											<a  style="font-size:10px; width:153px;" class="btn btn-outline-secondary btn-sm" th:href="@{/escalas/atalho/ciclo11_d}"
 												role="button"> <span>QUINTA MT</span><span  
 												title="Cadastro" aria-hidden="true"></span>
 											</a>
 									   </th>
 									   
 									   <th>
-											<a  style="font-size:10px; width:153px;" class="btn btn-outline-secondary btn-sm" href="/escalas/atalho/ciclo12_d"
+											<a  style="font-size:10px; width:153px;" class="btn btn-outline-secondary btn-sm" th:href="@{/escalas/atalho/ciclo12_d}"
 												role="button"> <span>QUINTA N</span><span  
 												title="Cadastro" aria-hidden="true"></span>
 											</a>
@@ -813,84 +835,84 @@
 								   
 								   <tr>
 									   <th>
-											<a  style="font-size:10px" class="btn btn-outline-secondary btn-sm" href="/escalas/atalho/ciclo1_e"
+											<a  style="font-size:10px" class="btn btn-outline-secondary btn-sm" th:href="@{/escalas/atalho/ciclo1_e}"
 												role="button"> <span>F F F F MT N</span><span  
 												title="Cadastro" aria-hidden="true"></span>
 											</a>
 									   </th>
 									   
 									   <th>
-											<a  style="font-size:10px" class="btn btn-outline-secondary btn-sm" href="/escalas/atalho/ciclo2_e"
+											<a  style="font-size:10px" class="btn btn-outline-secondary btn-sm" th:href="@{/escalas/atalho/ciclo2_e}"
 												role="button"> <span>F F F F MTN F</span><span  
 												title="Cadastro" aria-hidden="true"></span>
 											</a>
 									   </th>
 									   
 									   <th>
-											<a  style="font-size:10px; width:100px;" class="btn btn-outline-secondary btn-sm" href="/escalas/atalho/mt_dias_impares"
+											<a  style="font-size:10px; width:100px;" class="btn btn-outline-secondary btn-sm" th:href="@{/escalas/atalho/mt_dias_impares}"
 												role="button"> <span>MT DIAS IMPAR</span><span  
 												title="Cadastro" aria-hidden="true"></span>
 											</a>
 									   </th>
 									   
 									   <th>
-											<a  style="font-size:10px" class="btn btn-outline-secondary btn-sm" href="/escalas/atalho/ciclo4_e"
+											<a  style="font-size:10px" class="btn btn-outline-secondary btn-sm" th:href="@{/escalas/atalho/ciclo4_e}"
 												role="button"> <span>N F F F M M</span><span  
 												title="Cadastro" aria-hidden="true"></span>
 											</a>
 									   </th>
 									   
 									   <th>
-											<a  style="font-size:10px" class="btn btn-outline-secondary btn-sm" href="/escalas/atalho/ciclo5_e"
+											<a  style="font-size:10px" class="btn btn-outline-secondary btn-sm" th:href="@{/escalas/atalho/ciclo5_e}"
 												role="button"> <span>N F F F T T</span><span  
 												title="Cadastro" aria-hidden="true"></span>
 											</a>
 									   </th>
 									   
 									   <th>
-											<a  style="font-size:10px" class="btn btn-outline-secondary btn-sm" href="/escalas/atalho/ciclo6_e"
+											<a  style="font-size:10px" class="btn btn-outline-secondary btn-sm" th:href="@{/escalas/atalho/ciclo6_e}"
 												role="button"> <span>F F F F MT MT</span><span  
 												title="Cadastro" aria-hidden="true"></span>
 											</a>
 									   </th>
 									   
 									   <th>
-											<a  style="font-size:10px" class="btn btn-outline-secondary btn-sm" href="/escalas/atalho/ciclo7_e"
+											<a  style="font-size:10px" class="btn btn-outline-secondary btn-sm" th:href="@{/escalas/atalho/ciclo7_e}"
 												role="button"> <span>N F F F M T</span><span  
 												title="Cadastro" aria-hidden="true"></span>
 											</a>
 									   </th>
 									   
 									   <th>
-											<a  style="font-size:10px; width:153px;" class="btn btn-outline-secondary btn-sm" href="/escalas/atalho/ciclo8_e"
+											<a  style="font-size:10px; width:153px;" class="btn btn-outline-secondary btn-sm" th:href="@{/escalas/atalho/ciclo8_e}"
 												role="button"> <span>SEXTA MTN</span><span  
 												title="Cadastro" aria-hidden="true"></span>
 											</a>
 									   </th>
 									   
 									   <th>
-											<a  style="font-size:10px; width:153px;" class="btn btn-outline-secondary btn-sm" href="/escalas/atalho/ciclo9_e"
+											<a  style="font-size:10px; width:153px;" class="btn btn-outline-secondary btn-sm" th:href="@{/escalas/atalho/ciclo9_e}"
 												role="button"> <span>SEXTA M</span><span  
 												title="Cadastro" aria-hidden="true"></span>
 											</a>
 									   </th>
 									   
 									   <th>
-											<a  style="font-size:10px; width:153px;" class="btn btn-outline-secondary btn-sm" href="/escalas/atalho/ciclo10_e"
+											<a  style="font-size:10px; width:153px;" class="btn btn-outline-secondary btn-sm" th:href="@{/escalas/atalho/ciclo10_e}"
 												role="button"> <span>SEXTA T</span><span  
 												title="Cadastro" aria-hidden="true"></span>
 											</a>
 									   </th>
 									   
 									   <th>
-											<a  style="font-size:10px; width:153px;" class="btn btn-outline-secondary btn-sm" href="/escalas/atalho/ciclo11_e"
+											<a  style="font-size:10px; width:153px;" class="btn btn-outline-secondary btn-sm" th:href="@{/escalas/atalho/ciclo11_e}"
 												role="button"> <span>SEXTA MT</span><span  
 												title="Cadastro" aria-hidden="true"></span>
 											</a>
 									   </th>
 									   
 									   <th>
-											<a  style="font-size:10px; width:153px;" class="btn btn-outline-secondary btn-sm" href="/escalas/atalho/ciclo12_e"
+											<a  style="font-size:10px; width:153px;" class="btn btn-outline-secondary btn-sm" th:href="@{/escalas/atalho/ciclo12_e}"
 												role="button"> <span>SEXTA N</span><span  
 												title="Cadastro" aria-hidden="true"></span>
 											</a>
@@ -902,61 +924,61 @@
 								   
 								   <tr>
 									   <th>
-											<a  style="font-size:10px" class="btn btn-outline-secondary btn-sm" href="/escalas/atalho/ciclo1_f"
+											<a  style="font-size:10px" class="btn btn-outline-secondary btn-sm" th:href="@{/escalas/atalho/ciclo1_f}"
 												role="button"> <span>N F F F F MT</span><span  
 												title="Cadastro" aria-hidden="true"></span>
 											</a>
 									   </th>
 									   
 									   <th>
-											<a  style="font-size:10px" class="btn btn-outline-secondary btn-sm" href="/escalas/atalho/ciclo2_f"
+											<a  style="font-size:10px" class="btn btn-outline-secondary btn-sm" th:href="@{/escalas/atalho/ciclo2_f}"
 												role="button"> <span>F F F F F MTN</span><span  
 												title="Cadastro" aria-hidden="true"></span>
 											</a>
 									   </th>
 									   
 									   <th>
-									   		<a  style="font-size:10px; width:100px;" class="btn btn-outline-secondary btn-sm" href="/escalas/atalho/mt_dias_pares"
+									   		<a  style="font-size:10px; width:100px;" class="btn btn-outline-secondary btn-sm" th:href="@{/escalas/atalho/mt_dias_pares}"
 												role="button"> <span>MT DIAS PARES</span><span  
 												title="Cadastro" aria-hidden="true"></span>
 											</a>
 									   </th>
 									   
 									   <th>
-											<a  style="font-size:10px" class="btn btn-outline-secondary btn-sm" href="/escalas/atalho/ciclo4_f"
+											<a  style="font-size:10px" class="btn btn-outline-secondary btn-sm" th:href="@{/escalas/atalho/ciclo4_f}"
 												role="button"> <span>M N F F F M</span><span  
 												title="Cadastro" aria-hidden="true"></span>
 											</a>
 									   </th>
 									   
 									   <th>
-											<a  style="font-size:10px" class="btn btn-outline-secondary btn-sm" href="/escalas/atalho/ciclo5_f"
+											<a  style="font-size:10px" class="btn btn-outline-secondary btn-sm" th:href="@{/escalas/atalho/ciclo5_f}"
 												role="button"> <span>T N F F F T</span><span  
 												title="Cadastro" aria-hidden="true"></span>
 											</a>
 									   </th>
 									   
 									   <th>
-											<a  style="font-size:10px" class="btn btn-outline-secondary btn-sm" href="/escalas/atalho/ciclo6_f"
+											<a  style="font-size:10px" class="btn btn-outline-secondary btn-sm" th:href="@{/escalas/atalho/ciclo6_f}"
 												role="button"> <span>MT F F F F MT</span><span  
 												title="Cadastro" aria-hidden="true"></span>
 											</a>
 									   </th>
 									   
 									   <th>
-											<a  style="font-size:10px" class="btn btn-outline-secondary btn-sm" href="/escalas/atalho/ciclo7_f"
+											<a  style="font-size:10px" class="btn btn-outline-secondary btn-sm" th:href="@{/escalas/atalho/ciclo7_f}"
 												role="button"> <span>T N F F F M</span><span  
 												title="Cadastro" aria-hidden="true"></span>
 											</a>
 									   </th>
 									   
 									   <th>
-											<a  style="font-size:10px; width:75px;" class="btn btn-outline-secondary btn-sm" href="/escalas/atalho/ciclo8_f"
+											<a  style="font-size:10px; width:75px;" class="btn btn-outline-secondary btn-sm" th:href="@{/escalas/atalho/ciclo8_f}"
 												role="button"> <span>SAB MTN</span><span  
 												title="Cadastro" aria-hidden="true"></span>
 											</a>
 											
-											<a  style="font-size:10px; width:75px;" class="btn btn-outline-secondary btn-sm" href="/escalas/atalho/ciclo8_g"
+											<a  style="font-size:10px; width:75px;" class="btn btn-outline-secondary btn-sm" th:href="@{/escalas/atalho/ciclo8_g}"
 												role="button"> <span>DOM MTN</span><span  
 												title="Cadastro" aria-hidden="true"></span>
 											</a>
@@ -965,12 +987,12 @@
 									   </th>
 									   
 									   <th>
-											<a  style="font-size:10px; width:75px;" class="btn btn-outline-secondary btn-sm" href="/escalas/atalho/ciclo9_f"
+											<a  style="font-size:10px; width:75px;" class="btn btn-outline-secondary btn-sm" th:href="@{/escalas/atalho/ciclo9_f}"
 												role="button"> <span>SAB M</span><span  
 												title="Cadastro" aria-hidden="true"></span>
 											</a>
 											
-											<a  style="font-size:10px; width:75px;" class="btn btn-outline-secondary btn-sm" href="/escalas/atalho/ciclo9_g"
+											<a  style="font-size:10px; width:75px;" class="btn btn-outline-secondary btn-sm" th:href="@{/escalas/atalho/ciclo9_g}"
 												role="button"> <span>DOM M</span><span  
 												title="Cadastro" aria-hidden="true"></span>
 											</a>
@@ -979,12 +1001,12 @@
 									   </th>
 									   
 									   <th>
-											<a  style="font-size:10px; width:75px;" class="btn btn-outline-secondary btn-sm" href="/escalas/atalho/ciclo10_f"
+											<a  style="font-size:10px; width:75px;" class="btn btn-outline-secondary btn-sm" th:href="@{/escalas/atalho/ciclo10_f}"
 												role="button"> <span>SAB T</span><span  
 												title="Cadastro" aria-hidden="true"></span>
 											</a>
 											
-											<a  style="font-size:10px; width:75px;" class="btn btn-outline-secondary btn-sm" href="/escalas/atalho/ciclo10_g"
+											<a  style="font-size:10px; width:75px;" class="btn btn-outline-secondary btn-sm" th:href="@{/escalas/atalho/ciclo10_g}"
 												role="button"> <span>DOM T</span><span  
 												title="Cadastro" aria-hidden="true"></span>
 											</a>
@@ -993,12 +1015,12 @@
 									   </th>
 									   
 									   <th>
-											<a  style="font-size:10px; width:75px;" class="btn btn-outline-secondary btn-sm" href="/escalas/atalho/ciclo11_f"
+											<a  style="font-size:10px; width:75px;" class="btn btn-outline-secondary btn-sm" th:href="@{/escalas/atalho/ciclo11_f}"
 												role="button"> <span>SAB MT</span><span  
 												title="Cadastro" aria-hidden="true"></span>
 											</a>
 											
-											<a  style="font-size:10px; width:75px;" class="btn btn-outline-secondary btn-sm" href="/escalas/atalho/ciclo11_g"
+											<a  style="font-size:10px; width:75px;" class="btn btn-outline-secondary btn-sm" th:href="@{/escalas/atalho/ciclo11_g}"
 												role="button"> <span>DOM MT</span><span  
 												title="Cadastro" aria-hidden="true"></span>
 											</a>
@@ -1006,12 +1028,12 @@
 									   </th>
 									   
 									   <th>
-											<a  style="font-size:10px; width:75px;" class="btn btn-outline-secondary btn-sm" href="/escalas/atalho/ciclo12_f"
+											<a  style="font-size:10px; width:75px;" class="btn btn-outline-secondary btn-sm" th:href="@{/escalas/atalho/ciclo12_f}"
 												role="button"> <span>SAB N</span><span  
 												title="Cadastro" aria-hidden="true"></span>
 											</a>
 											
-											<a  style="font-size:10px; width:75px;" class="btn btn-outline-secondary btn-sm" href="/escalas/atalho/ciclo12_g"
+											<a  style="font-size:10px; width:75px;" class="btn btn-outline-secondary btn-sm" th:href="@{/escalas/atalho/ciclo12_g}"
 												role="button"> <span>DOM N</span><span  
 												title="Cadastro" aria-hidden="true"></span>
 											</a>

@@ -5,9 +5,10 @@
 	<section class="layout-content" layout:fragment="corpo">
 
 		<nav class="navbar navbar-expand-md bg-light">
-			<form action="/bancos/listar">
+			<form th:action="@{/bancos/listar}">
 				<div class=" layout-content">
-					
+					<a class="btn btn-outline-light oi oi-action-undo" type="button" href="javascript:history.back()"></a>
+					<a class="btn btn-outline-light oi oi-action-redo" type="button" href="javascript:history.forward()"></a>    
 				</div>
 			</form>
 		</nav>
@@ -28,6 +29,7 @@
 
 					<div class="form-group col-md-6">
 						<label for="nome" class="fonte-tutulos-tamanho">Endereço</label>
+							
 							
 							<input type="text"
 								class="form-control form-control-sm uppercase" autofocus="autofocus" 
@@ -62,39 +64,44 @@
 
 					<div class="form-group col-md-6">
 							
+							<label for="nome" class="">Cep </label>
 							<input type="text"
 								class="form-control form-control-sm uppercase" autofocus="autofocus" 
 								id="codigo" placeholder="Cep" th:field="*{enderecoCep}" />
 							<p></p>
 							
-							
-							
+							<label for="nome" class="">Tipo Logradouro </label>
 							<select id="cargos" class="form-select" th:field="*{idTipoLogradouroFk}">
 								<option value="">Selecione o tipo</option>
 								<option th:each="d : ${idTipoLogradouroFk}" th:value="${d.id}"th:text="${d.nomeTipoLogradouro}">ADM</option>
 							</select>	
 							<p></p>
 							
+							<label for="nome" class="">Logradouro </label>
 							<input type="text"
 								class="form-control form-control-sm uppercase" autofocus="autofocus" 
 								id="codigo" placeholder="Logradouro" th:field="*{enderecoLogradouro}" /> 
 							<p></p>
 							
+							<label for="nome" class="">Número </label>
 							<input type="text"
 								class="form-control form-control-sm uppercase" autofocus="autofocus" 
 								id="codigo" placeholder="Número" th:field="*{enderecoNumero}" />
 							<p></p>
 							
+							<label for="nome" class="">Complemento </label>
 							<input type="text"
 								class="form-control form-control-sm uppercase" autofocus="autofocus" 
 								id="codigo" placeholder="Complemento" th:field="*{enderecoComplemento}" />
 							<p></p>
 							
+							<label for="nome" class="">Bairro </label>
 							<input type="text"
 								class="form-control form-control-sm uppercase" autofocus="autofocus" 
 								id="codigo" placeholder="Bairro" th:field="*{enderecoBairro}" />
 							<p></p>
 							
+							<label for="nome" class="">Cidade </label>
 							<select id="cargos" class="form-select" th:field="*{idEnderecoCidadeFk}">
 								<option value="">Selecione a Cidade</option>
 								<option th:each="d : ${idEnderecoCidadeFk}" th:value="${d.id}"th:text="${d.nomeCidade+' - '+d.idUfFk.nomeUf+' - '+d.idPaisFk.nomePais}">ADM</option>
@@ -105,7 +112,7 @@
 							<input type="hidden" id="pessoa" th:field="${pessoa}" />
 							<p></p>					
 						
-						<button class="btn btn-outline-dark">Submeter</button>
+						<button class="btn btn-outline-dark">Enviar</button>
 						
 						
 					</div>

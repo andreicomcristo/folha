@@ -5,10 +5,12 @@
 	<section class="layout-content" layout:fragment="corpo">
 	
 		<nav class="navbar navbar-expand-md bg-light">
-			<form action="/especialidades/listar">
+			<form th:action="@{/especialidades/listar}">
 				<div class=" layout-content">
+					<a class="btn btn-outline-light oi oi-action-undo" type="button" href="javascript:history.back()"></a>
+					<a class="btn btn-outline-light oi oi-action-redo" type="button" href="javascript:history.forward()"></a>
 					<button class="btn btn-outline-dark ">Listar</button>
-					<a class="btn btn-outline-dark btn-md" href="/especialidades/cadastrar"
+					<a class="btn btn-outline-dark btn-md" th:href="@{/especialidades/cadastrar}"
 						role="button"> <span class="oi oi-plus" title="Cadastro"
 						aria-hidden="true"></span> <span>Novo</span>
 					</a>
@@ -26,14 +28,17 @@
 	                    <div class="form-group col-md-6">
 	                        <label for="nome">Cadastro de Especialidades</label>
 	                        
+	                        <label for="nome" class="">Especialidade </label>
 	                        <input type="text" class="form-control" id="nome"
 	                               placeholder="Nome da Especialidade" autofocus="autofocus" th:field="*{nomeEspecialidadeCargo}"/>
 	                        <p></p>
 							
+							<label for="nome" class="">Descrição </label>
 							<input type="text" class="form-control form-control-md" autofocus="autofocus" 
 							   id="nome" placeholder="Descrição da Especialidade"th:field="*{descricaoEspecialidadeCargo}"/>
 							<p></p>   
 							
+							<label for="nome" class="">Cargo </label>
 							<select id="cargos" class="form-control" th:field="*{idCargoFk}">
 								<option value="">Selecione o Cargo</option>
 								<option th:each="d : ${idCargoFk}" th:value="${d.id}"th:text="${d.nomeCargo}">ADM</option>

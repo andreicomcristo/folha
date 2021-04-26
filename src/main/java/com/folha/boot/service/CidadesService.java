@@ -3,7 +3,6 @@ package com.folha.boot.service;
 import java.io.ByteArrayInputStream;
 import java.util.Date;
 import java.util.List;
-
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import org.apache.poi.ss.usermodel.Cell;
@@ -14,7 +13,6 @@ import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.ss.usermodel.Sheet;
 import org.apache.poi.ss.usermodel.Workbook;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -24,7 +22,6 @@ import org.springframework.transaction.annotation.Transactional;
 import com.folha.boot.Reposytory.CidadesReposytory;
 import com.folha.boot.domain.Cidades;
 import com.folha.boot.domain.Uf;
-
 import com.itextpdf.text.Document;
 import com.itextpdf.text.DocumentException;
 import com.itextpdf.text.Element;
@@ -34,8 +31,6 @@ import com.itextpdf.text.Phrase;
 import com.itextpdf.text.pdf.PdfPCell;
 import com.itextpdf.text.pdf.PdfPTable;
 import com.itextpdf.text.pdf.PdfWriter;
-
-
 
 @Service
 @Transactional(readOnly = false)
@@ -95,7 +90,7 @@ public class CidadesService {
 		return reposytory.findByIdUfFk(uf);
 	}
 	
-	@Transactional(readOnly = true)
+	/*@Transactional(readOnly = true)
 	public List<Cidades> buscarDuzentos(Uf uf) {
 		// TODO Auto-generated method stub
 		List<Cidades> lista = reposytory.findByIdUfFk(uf);
@@ -105,9 +100,9 @@ public class CidadesService {
 			}			
 		}
 		return lista;
-	}
+	}*/
 	
-	@Transactional(readOnly = true)
+	/*@Transactional(readOnly = true)
 	public List<Cidades> buscarDuzentos(String nomeCidade) {
 		// TODO Auto-generated method stub
 		List<Cidades> lista = reposytory.findByNomeCidadeContainingOrderByNomeCidadeAsc(nomeCidade.toUpperCase().trim());
@@ -117,28 +112,25 @@ public class CidadesService {
 			}			
 		}
 		return lista;
-	}
-
+	}*/
+	@Transactional(readOnly = true)
 	public Page<Cidades> findPaginated(int pageNo, int pageSize) {
 		Pageable pageable = PageRequest.of(pageNo -1, pageSize);
 		return this.reposytory.findAllByOrderByNomeCidadeAsc(pageable);
 	}
 
+	@Transactional(readOnly = true)
 	public Page<Cidades> findPaginatedNome(int pageNo, int pageSize, String nomeCidade) {
 		Pageable pageable = PageRequest.of(pageNo -1, pageSize);
 		return this.reposytory.findByNomeCidadeContainingOrderByNomeCidadeAsc(nomeCidade.toUpperCase().trim(), pageable);
 	}
 
+	@Transactional(readOnly = true)
 	public Page<Cidades> findPaginatedEstado(int pageNo, int pageSize, Uf uf) {
 		Pageable pageable = PageRequest.of(pageNo -1, pageSize);
 		return this.reposytory.findByIdUfFkOrderByNomeCidadeAsc(uf, pageable);
 	}
-	
-	
-	
-	
-	
-	
+			
 	public ByteArrayInputStream exportarExcel(List<Cidades> listaCidades) {
 		try(Workbook workbook = new XSSFWorkbook()){
 			Sheet sheet = workbook.createSheet("Cidades");
@@ -279,9 +271,7 @@ public class CidadesService {
 				cell = new PdfPCell(new Phrase(listaCidades.get(i).getIdPaisFk().getNomePais() ,corpoFont) );
 				cell.setVerticalAlignment(Element.ALIGN_MIDDLE);
 				cell.setHorizontalAlignment(Element.ALIGN_CENTER);
-				table.addCell(cell);
-			
-			
+				table.addCell(cell);		
 			}
 			
 			// Titulo
@@ -294,8 +284,7 @@ public class CidadesService {
 			cellTitulo.setVerticalAlignment(Element.ALIGN_MIDDLE);
 			cellTitulo.setHorizontalAlignment(Element.ALIGN_CENTER);
 			tableTitulo.addCell(cellTitulo);
-			
-			
+						
 			// Rodape
 			PdfPTable tableRodape = new PdfPTable(1);
 			tableRodape.setWidthPercentage(90);

@@ -7,16 +7,20 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
+import com.folha.boot.domain.AnoMes;
 import com.folha.boot.domain.FaixasValoresParametrosCalculoFolhasExtras;
+import com.folha.boot.domain.Unidades;
 
 @Repository
 public interface FaixasValoresParametrosCalculoFolhasExtrasReposytory extends JpaRepository<FaixasValoresParametrosCalculoFolhasExtras, Long>{
 
-	public List<FaixasValoresParametrosCalculoFolhasExtras> findAllByOrderByCnesUnidadeAsc();
+	public List<FaixasValoresParametrosCalculoFolhasExtras> findAllByOrderByIdAnoMesFkNomeAnoMesAscIdCodDiferenciadoFkIdUnidadeFkNomeFantasiaAsc();
 
-	public List<FaixasValoresParametrosCalculoFolhasExtras> findByCnesUnidadeContainingOrderByCnesUnidadeAsc(String cnesUnidade);
+	public List<FaixasValoresParametrosCalculoFolhasExtras> findByIdCodDiferenciadoFkIdUnidadeFkNomeFantasiaContainingOrderByIdAnoMesFkNomeAnoMesAscIdCodDiferenciadoFkIdUnidadeFkNomeFantasiaAsc(String nome);
 	
-	public Page<FaixasValoresParametrosCalculoFolhasExtras> findAllByOrderByAnoMesAscCnesUnidadeAsc(final Pageable page);
+	public List<FaixasValoresParametrosCalculoFolhasExtras> findByIdAnoMesFkOrderByIdAnoMesFkNomeAnoMesAscIdCodDiferenciadoFkIdUnidadeFkNomeFantasiaAsc(AnoMes anoMes);
 	
-	public Page<FaixasValoresParametrosCalculoFolhasExtras> findByAnoMesContainingOrderByAnoMesAscCnesUnidadeAsc(String nomeCidade, final Pageable page);
+	public Page<FaixasValoresParametrosCalculoFolhasExtras> findAllByOrderByIdAnoMesFkNomeAnoMesAscIdCodDiferenciadoFkIdUnidadeFkNomeFantasiaAsc(final Pageable page);
+	
+	public Page<FaixasValoresParametrosCalculoFolhasExtras> findByIdAnoMesFkNomeAnoMesContainingOrderByIdAnoMesFkNomeAnoMesAscIdCodDiferenciadoFkIdUnidadeFkNomeFantasiaAsc(String nome, final Pageable page);
 }

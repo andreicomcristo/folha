@@ -25,6 +25,9 @@ public class NiveisCargo extends AbstractEntity<Long> {
 
 	@OneToMany(mappedBy = "idNivelFk")
 	private List<FaixasValoresParametrosCalculoFolhasExtras> faixasValoresParametrosCalculoFolhasExtrasList;
+	
+	@OneToMany(mappedBy = "idNivelCargoFk")
+    private List<TiposDeFolhaNivelCargo> tiposDeFolhaNivelCargoList;
 
 	public String getSiglaNivelCargo() {
 		return siglaNivelCargo;
@@ -68,4 +71,14 @@ public class NiveisCargo extends AbstractEntity<Long> {
 		this.faixasValoresParametrosCalculoFolhasExtrasList = faixasValoresParametrosCalculoFolhasExtrasList;
 	}
 
+	public List<TiposDeFolhaNivelCargo> getTiposDeFolhaNivelCargoList() {
+		return tiposDeFolhaNivelCargoList;
+	}
+
+	public void setTiposDeFolhaNivelCargoList(List<TiposDeFolhaNivelCargo> tiposDeFolhaNivelCargoList) {
+		this.tiposDeFolhaNivelCargoList = tiposDeFolhaNivelCargoList;
+	}
+
+	
+	
 }

@@ -21,6 +21,8 @@ public class RegimesDeTrabalho extends AbstractEntity<Long> {
     private List<EscalaPosTransparencia> escalaPosTransparenciaList;
     @OneToMany(mappedBy = "idRegimeDeTrabalhoFk")
     private List<FaixasValoresParametrosCalculoFolhasExtras> faixasValoresParametrosCalculoFolhasExtrasList;
+    @OneToMany(mappedBy = "idRegimeFk")
+    private List<EscalaAlteracoes> escalaAlteracoesList;
 
 	public String getNomeRegimeDeTrabalho() {
 		return nomeRegimeDeTrabalho;
@@ -63,5 +65,14 @@ public class RegimesDeTrabalho extends AbstractEntity<Long> {
 		this.escalaPosTransparenciaList = escalaPosTransparenciaList;
 	}
 
+	public List<EscalaAlteracoes> getEscalaAlteracoesList() {
+		return escalaAlteracoesList;
+	}
+
+	public void setEscalaAlteracoesList(List<EscalaAlteracoes> escalaAlteracoesList) {
+		this.escalaAlteracoesList = escalaAlteracoesList;
+	}
+
+	
 	
 }

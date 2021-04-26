@@ -3,29 +3,41 @@
 <head><meta charset="UTF-8"/></head>
 <body>	
 	<section class="layout-content" layout:fragment="corpo">		
-		<nav class="navbar navbar-expand-md bg-light">
-	            
-	    	<a class="btn btn-outline-dark btn-md" href="/funcionariosferias/cadastrar" role="button">
+		<tr th:each="d : ${funcionario}">
+		<nav class="navbar navbar-expand-md bg-light" >
+      		<a class="btn btn-outline-light oi oi-action-undo" type="button" href="javascript:history.back()"></a>
+			<a class="btn btn-outline-light oi oi-action-redo" type="button" href="javascript:history.forward()"></a>    
+	    	<a class="btn btn-outline-dark btn-md" th:href="@{/funcionariosferias/ferias/{id} (id=${d.id})}" role="button">
 	        	<span class="oi oi-plus" title="Cadastro" aria-hidden="true"></span>
 	            <span>Novo</span>
 	        </a>
-	        <a class="btn btn-outline-dark btn-md" href="/funcionariosferias/listar" role="button">
+	        <a class="btn btn-outline-dark btn-md" th:href="@{/funcionariosferias/ferias/listar/{id} (id=${d.id})}" role="button">
 	        	<span class="oi oi-loop-square" title="Atualizar" aria-hidden="true"></span>
 	            <span>Atualizar</span>
 	        </a>
-	            <label for="nome" class= "fonte-tutulos-tamanho">Lista de Férias </label>
+	        <a class="btn btn-outline-dark btn-md" th:href="@{/funcionariosferias/funcionarios/listar}"
+						role="button"> <span class="oi oi-plus" title="Cadastro"
+						aria-hidden="true"></span> <span>Lista de Funcionários</span>
+			</a>
+	            	                             		
 	    </nav>
 	  	<div class="container">
-	    	<p>                
-	        	<button class=" oi oi-magnifying-glass btn btn-outline-success my-2 my-sm-0" type="button" data-toggle="collapse" data-target="#collapseNome"
+
+	  		<td style="font-size:11px;"  th:text="${d.idPessoaFk.nome}"></td>
+			<td style="font-size:11px;"  th:text="${d.idEspecialidadeAtualFk.idCargoFk.nomeCargo+'-'+d.idEspecialidadeAtualFk.nomeEspecialidadeCargo}"></td> 
+			<td colspan="2"> 
+	    	
+				<p>                
+	        		<button class=" oi oi-magnifying-glass btn btn-outline-success my-2 my-sm-0" type="button" data-toggle="collapse" data-target="#collapseNome"
 	            		aria-controls="collapseNome">Filtrar
-	            </button>
-	      </p>
-	      <div class="row">
-	      	<div class="col">
+	            	</button>
+	   		 	</p>
+	    <div class="row">
+	     <label for="nome" class= "fonte-tutulos-tamanho">Lista de Férias </label>
+	    	<div class="col">
 	        	<div class="collapse" id="collapseNome">
 		            <nav class="navbar navbar-light bg-light">
-	    	           <form class="form-inline" method="GET" th:action="@{/funcionariosferias/buscar/ano/referencia}">
+	    	           <form class="form-inline" method="GET" th:action="@{/funcionariosferias/buscar/ano/referencia/{id} (id=${d.id})}">
 	        	           <input class="form-control mr-sm-2" type="search" placeholder="Ano Referência" aria-label="Search"
 	                              th:name="anoReferencia" />
 	                       <button class="btn btn-outline-success my-2 my-sm-0">Buscar</button>
@@ -44,26 +56,20 @@
 	          			<tr>
 		                	<th>#</th>
 		                    <th>Ano Referência </th>
-		                    <th>Data de Cadastro</th>
-		                    <th>Data de Cancelamento</th>
-		                    <th>Motivo do Cancelamento</th>
-		                    <th>Matrícula do Funcionário</th>		                   
-		                    <th>Unidade</th>
 		                    <th>Ações</th>
 	                    </tr>
 	                </thead>                  
 	                <tbody>
 		            	<tr th:each="d : ${funcionariosFerias}">
-		                	<td th:text="${d.id}"></td>		                    
-		                    <td th:text="${d.anoReferencia}"></td>
-		                    <td th:text="${d.dtCadastro}"></td>
-		                    <td th:text="${d.dtCancelamento}"></td>
-		                    <td th:text="${d.motivoCancelamento}"></td>
-		                    <td th:text="${d.idFuncionarioFk.matricula}"></td>
-		                    <td th:text="${d.idUnidadeLancamentoFk.nomeFantasia}"></td>		           		                  	                    		                     		         		                    
+		                	<td th:text="${d.id}"></td>
+		                	<td ><a th:href="@{/funcionariosferias/periodos/{id} (id=${d.id}) }" ><span th:text="${d.anoReferencia}"></span></a></td>		                    
+		                    		                    		           		                  	                    		                     		         		                    
 		                    <td colspan="2">
 		                    	<a class="btn btn-outline-info btn-sm" th:href="@{/funcionariosferias/editar/{id} (id=${d.id})}" role="button">
 		                        	<span class="oi oi-brush" title="Editar" aria-hidden="true"></span>
+		                        </a>
+		                        <a class="btn btn-outline-success btn-sm" th:href="@{/funcionariosferias/ferias/{id} (id=${d.idFuncionarioFk.id}) }" role="button">
+		                        	<span class="oi oi-check" title="Cadastrar férias" aria-hidden="true"></span>
 		                        </a>
 		                        <button th:id="${ 'btn_funcionariosferias/excluir/' + d.id}" type="button" class="btn btn btn-outline-danger btn-sm" 
 		                            		data-toggle="modal" data-target="#myModal">

@@ -5,7 +5,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import com.folha.boot.Reposytory.PerfilReposytory;
-import com.folha.boot.domain.Perfil;
+import com.folha.boot.domain.PessoaOperadores;
+import com.folha.boot.domain.Unidades;
+import com.folha.boot.domain.seguranca.Perfil;
 
 @Service
 @Transactional(readOnly = false)
@@ -39,4 +41,15 @@ public class PerfilService {
 		// TODO Auto-generated method stub
 		return reposytory.findAll();
 	}
+	
+	@Transactional(readOnly = true)
+	public List<Perfil> buscarPorOperadorEUnidade(PessoaOperadores pessoaopOperadores, Unidades unidades) {
+		// TODO Auto-generated method stub
+		return reposytory.findFirstByIdOperadorFkAndIdUnidadeFk( pessoaopOperadores,  unidades);
+		 
+	}
+	
+	
+	
+	
 }

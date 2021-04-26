@@ -9,10 +9,23 @@ import org.springframework.stereotype.Component;
 @Component
 public class UtilidadesDeTexto {
 
+
 	// UTILIDADES DE TEXTO
 	
-	public boolean validaCpfCompleto (String cpf) {
+	public static String limpaPontosETracosCpf (String cpf) {
+		
+		cpf = cpf.replace(".", "");
+		cpf = cpf.replace("-", "");
+		cpf = cpf.replace("_", "");
+		cpf = cpf.trim();
+		
+		return cpf;
+	}
+
+	
+	public static boolean validaCpfCompleto (String cpf) {
 		boolean resposta = true;
+		
 		if(cpf.length()!=11) {resposta = false;}else {
 			
 			String d1=cpf.substring(0, 1);
@@ -33,7 +46,7 @@ public class UtilidadesDeTexto {
 	}
 	
 	
-	public boolean validaCpf(String d1, String d2, String d3, String d4, String d5, String d6, String d7, String d8,
+	public static boolean validaCpf(String d1, String d2, String d3, String d4, String d5, String d6, String d7, String d8,
 			String d9, String d10, String d11) {
 
 		boolean resposta = false;
@@ -147,7 +160,8 @@ public class UtilidadesDeTexto {
 		return resposta;
 
 	}
-
+	
+	/*
 	public void escreverTexto(String texto) {
 		Robot robo;
 
@@ -608,7 +622,8 @@ public class UtilidadesDeTexto {
 		}
 
 	}
-
+	*/
+	/*
 	public void teclarEnter(int quantidade) {
 
 		Robot robo;
@@ -631,7 +646,8 @@ public class UtilidadesDeTexto {
 		}
 
 	}
-
+	*/
+	/*
 	public void teclarTab(int quantidade) {
 
 		Robot robo;
@@ -654,7 +670,8 @@ public class UtilidadesDeTexto {
 		}
 
 	}
-
+	*/
+	/*
 	public void teclarSetaParaBaixo(int quantidade) {
 
 		Robot robo;
@@ -677,7 +694,8 @@ public class UtilidadesDeTexto {
 		}
 
 	}
-
+	*/
+	/*
 	public void teclarSetaParaCima(int quantidade) {
 
 		Robot robo;
@@ -701,8 +719,13 @@ public class UtilidadesDeTexto {
 
 	}
 
+	
+	*/
+	
 	public static String retiraEspacosDuplosAcentosEConverteEmMaiusculo(String textoInicial) {
 
+		if(textoInicial==null) {textoInicial="";}
+		
 		String resposta = "";
 
 		String semDuplos = "";

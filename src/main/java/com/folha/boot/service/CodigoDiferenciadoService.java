@@ -15,6 +15,9 @@ public class CodigoDiferenciadoService {
 
 	@Autowired
 	private CodigoDiferenciadoReposytory reposytory;
+	
+	@Autowired
+	private SimNaoService simNaoService;
 
 	public void salvar(CodigoDiferenciado codigoDiferenciado) {
 		// TODO Auto-generated method stub
@@ -40,26 +43,44 @@ public class CodigoDiferenciadoService {
 	@Transactional(readOnly = true)
 	public List<CodigoDiferenciado> buscarTodosGeral() {
 		// TODO Auto-generated method stub
-		return reposytory.findAllByOrderByNomeCodigoDiferenciadoAsc();
+		return reposytory.findByDtCancelamentoIsNullOrderByIdUnidadeFkNomeFantasiaAscNomeCodigoDiferenciadoAsc();
 	}
 	
 	@Transactional(readOnly = true)
 	public List<CodigoDiferenciado> buscarTodos(Unidades unidade) {
 		// TODO Auto-generated method stub
-		return reposytory.findByIdUnidadeFkOrderByNomeCodigoDiferenciadoAsc(unidade);
+		return reposytory.findByIdUnidadeFkAndDtCancelamentoIsNullOrderByNomeCodigoDiferenciadoAsc(unidade);
 	}
 	
 	@Transactional(readOnly = true)
 	public List<CodigoDiferenciado> buscarPorNome(Unidades unidade, String nome) {
 		// TODO Auto-generated method stub
-		return reposytory.findByNomeCodigoDiferenciadoContainingAndIdUnidadeFkOrderByNomeCodigoDiferenciadoAsc( nome, unidade);
+		return reposytory.findByNomeCodigoDiferenciadoContainingAndIdUnidadeFkAndDtCancelamentoIsNullOrderByNomeCodigoDiferenciadoAsc( nome, unidade);
+	}
+	
+	@Transactional(readOnly = true)
+	public List<CodigoDiferenciado> buscarPorNomeExato(Unidades unidade, String nome) {
+		// TODO Auto-generated method stub
+		return reposytory.findByNomeCodigoDiferenciadoAndIdUnidadeFkAndDtCancelamentoIsNullOrderByNomeCodigoDiferenciadoAsc( nome, unidade);
 	}
 	
 	@Transactional(readOnly = true)
 	public List<CodigoDiferenciado> buscarPorNomeGeral( String nome) {
 		// TODO Auto-generated method stub
-		return reposytory.findByNomeCodigoDiferenciadoContainingOrderByNomeCodigoDiferenciadoAsc( nome);
+		return reposytory.findByNomeCodigoDiferenciadoContainingAndDtCancelamentoIsNullOrderByNomeCodigoDiferenciadoAsc( nome);
 	}
 
+	
+	@Transactional(readOnly = true)
+	public List<CodigoDiferenciado> buscarTodosQuePrecisaDeAtribuicaoRh(Unidades unidade) {
+		// TODO Auto-generated method stub
+		return reposytory.findByIdUnidadeFkAndIdNecessitaAtribuicaoRhFkAndDtCancelamentoIsNullOrderByNomeCodigoDiferenciadoAsc(unidade, simNaoService.buscarPorSigla("S").get(0));
+	}
+	
+	@Transactional(readOnly = true)
+	public List<CodigoDiferenciado> buscarTodosQueNaoPrecisaDeAtribuicaoRh(Unidades unidade) {
+		// TODO Auto-generated method stub
+		return reposytory.findByIdUnidadeFkAndIdNecessitaAtribuicaoRhFkAndDtCancelamentoIsNullOrderByNomeCodigoDiferenciadoAsc(unidade, simNaoService.buscarPorSigla("N").get(0));
+	}
 	
 }

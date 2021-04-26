@@ -7,7 +7,9 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.folha.boot.Reposytory.PessoaBancosReposytory;
+import com.folha.boot.domain.Pessoa;
 import com.folha.boot.domain.PessoaBancos;
+import com.folha.boot.domain.PessoaDocumentos;
 
 @Service
 @Transactional(readOnly = false)
@@ -48,9 +50,22 @@ public class PessoaBancosService {
 	}
 
 	
-	public List<PessoaBancos> buscarPorNome(String prioritario) {
+	public List<PessoaBancos> buscarPorNome(String nome) {
 		// TODO Auto-generated method stub
-		return reposytory.findByPrioritarioContainingOrderByPrioritarioAsc(prioritario);
+		return reposytory.findByIdBancoFkNomeBancoContainingAndDtCancelamentoIsNullOrderByIdPrioritarioFkSiglaAsc(nome);
+	}
+	
+	public List<PessoaBancos> buscarPorPessoa(Pessoa pessoa) {
+		// TODO Auto-generated method stub
+		return reposytory.findByIdPessoaFkAndDtCancelamentoIsNull(pessoa);
+	}
+	
+	public boolean buscarPrioritarioCadastradoPorPessoa(Pessoa pessoa) {
+		// TODO Auto-generated method stub
+		boolean resposta = true;
+		List<PessoaBancos> lista =  reposytory.findByIdPessoaFkAndIdPrioritarioFkSiglaAndDtCancelamentoIsNull(pessoa, "S"); 
+		if(lista.isEmpty()) {resposta = false;}
+		return resposta;
 	}
 	
 }

@@ -24,8 +24,9 @@ public class FaixasPrevidencia extends AbstractEntity<Long>{
     @Column(name = "parcela_a_devolver")
     private Double parcelaADevolver;
     
-    @Column(name = "ano_mes")
-    private String anoMes;
+    @JoinColumn(name = "id_ano_mes_fk", referencedColumnName = "id")
+    @ManyToOne
+    private AnoMes idAnoMesFk;
     
     @JoinColumn(name = "id_faixas_previdencia_nome_fk", referencedColumnName = "id")
     @ManyToOne
@@ -79,13 +80,15 @@ public class FaixasPrevidencia extends AbstractEntity<Long>{
 		this.parcelaADevolver = parcelaADevolver;
 	}
 
-	public String getAnoMes() {
-		return anoMes;
+	public AnoMes getIdAnoMesFk() {
+		return idAnoMesFk;
 	}
 
-	public void setAnoMes(String anoMes) {
-		this.anoMes = UtilidadesDeTexto.retiraEspacosDuplosAcentosEConverteEmMaiusculo(anoMes);
+	public void setIdAnoMesFk(AnoMes idAnoMesFk) {
+		this.idAnoMesFk = idAnoMesFk;
 	}
+
+	
     
     
 }

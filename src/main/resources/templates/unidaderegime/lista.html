@@ -4,12 +4,17 @@
 <body>	
 	<section class="layout-content" layout:fragment="corpo">		
 		<nav class="navbar navbar-expand-md bg-light">
-	            
-	    	<a class="btn btn-outline-dark btn-md" href="/bancos/cadastrar" role="button">
+	        <a class="btn btn-outline-light oi oi-action-undo" type="button" href="javascript:history.back()"></a>
+			<a class="btn btn-outline-light oi oi-action-redo" type="button" href="javascript:history.forward()"></a>        
+	    	<a class="btn btn-outline-dark btn-md" th:href="@{/regimes/cadastrar}" role="button">
 	        	<span class="oi oi-plus" title="Cadastro" aria-hidden="true"></span>
 	            <span>Novo</span>
 	        </a>
-	            <label for="nome" class= "fonte-tutulos-tamanho">Lista de Bancos </label>
+	        <a class="btn btn-outline-dark btn-md" th:href="@{/regimes/listar}" role="button">
+	        	<span class="oi oi-loop-square" title="Atualizar" aria-hidden="true"></span>
+	            <span>Atualizar</span>
+	        </a>
+	            <label for="nome" class= "fonte-tutulos-tamanho">Lista de Regimes das Unidades</label>
 	    </nav>
 	  	<div class="container">
 	    	<p>                
@@ -21,9 +26,9 @@
 	      	<div class="col">
 	        	<div class="collapse" id="collapseNome">
 		            <nav class="navbar navbar-light bg-light">
-	    	           <form class="form-inline" method="GET" th:action="@{/bancos/buscar/nomebanco}">
-	        	           <input class="form-control mr-sm-2" type="search" placeholder="Nome do Banco" aria-label="Search"
-	                              th:name="nomeBanco" />
+	    	           <form class="form-inline" method="GET" th:action="@{/regimes/buscar/nome}">
+	        	           <input class="form-control mr-sm-2" type="search" placeholder="Regime" aria-label="Search"
+	                              th:name="nome" />
 	                       <button class="btn btn-outline-success my-2 my-sm-0">Buscar</button>
 	                   </form>
 	                </nav>
@@ -36,27 +41,28 @@
 	    	<div th:replace="fragments/alert"></div>
 	    	
 	        <div style="height: 500px; overflow-y: auto;" class="table-responsive">
-	        	<table class="table table-striped table-hover table-sm myTable">
+	        	<table style="width: 1200px;" class="table table-striped table-hover table-sm myTable">
 	            	<thead>
 	          			<tr>
-		                	<th>#</th>
-		                    <th>Código</th>
-		                    <th>Nome</th>
-		                    <th>Sigla</th>
-		                    <th>Ações</th>
+		                	<th style="font-size:10px;" >#</th>
+		                    <th style="font-size:10px;" >Sigla</th>
+		                    <th style="font-size:10px;" >Nome</th>
+		                    <th style="font-size:10px;" >Descrição</th>
+		                    <th style="font-size:10px;" >Ações</th>
 	                    </tr>
 	                </thead>                  
 	                <tbody>
-		            	<tr th:each="d : ${bancos}">
-		                	<td th:text="${d.id}"></td>
-		                    <td th:text="${d.codigoBanco}"></td>
-		                    <td th:text="${d.nomeBanco}"></td>
-		                    <td th:text="${d.siglaBanco}"></td>
+		            	<tr th:each="d : ${regime}">
+		                	<td style="font-size:10px;"  th:text="${d.id}"></td>
+		                    <td style="font-size:10px;"  th:text="${d.siglaRegimeUnidLotacao != null} ? ${d.siglaRegimeUnidLotacao} : ''  "></td>
+		                    <td style="font-size:10px;"  th:text="${d.nomeRegimeUnidLotacao != null} ? ${d.nomeRegimeUnidLotacao} : ''  "></td>
+		                    <td style="font-size:10px;"  th:text="${d.descricaoRegimeUnidLotacao != null} ? ${d.descricaoRegimeUnidLotacao} : ''  "></td>
+		                    
 		                    <td colspan="2">
-		                    	<a class="btn btn-outline-info btn-sm" th:href="@{/bancos/editar/{id} (id=${d.id}) }" role="button">
+		                    	<a class="btn btn-outline-info btn-sm" th:href="@{/regimes/editar/{id} (id=${d.id}) }" role="button">
 		                        	<span class="oi oi-brush" title="Editar" aria-hidden="true"></span>
 		                        </a>
-		                        <button th:id="${ 'btn_bancos/excluir/' + d.id}" type="button" class="btn btn btn-outline-danger btn-sm" 
+		                        <button th:id="${ 'btn_regimes/cancelar/' + d.id}" type="button" class="btn btn btn-outline-danger btn-sm" 
 		                            		data-toggle="modal" data-target="#myModal">
 		                                <span class="oi oi-circle-x" title="Exclusão habilitada" aria-hidden="true"></span>
 		                        </button>
@@ -65,7 +71,46 @@
 					</tbody>                    
 	            </table>
 	         </div>
-		</div>	        
+		</div>	      
+		
+		
+		
+		 <nav aria-label="Page navigation example">
+			 <div> Quantidade de registros: [[${totalItems}]]<br>  Página: [[${currentePage}]] de [[${totalPages}]] </div> 
+			 <div>
+			 	<span >
+			 		<a></a>
+			 		<samp >[[${i}]]</samp> &nbsp; &nbsp;
+			 	</span>
+			 </div>
+			 	<ul class="pagination justify-content-center" >
+			 		<li class="page-item disabled" ></li>		 		
+		
+				 	<li ><a class="btn btn-light btn-paginacao oi oi-media-step-backward" th:if="${currentePage != i}"  th:href="@{'/regimes/paginar/'+ 1 }" ></a></li>
+				 	
+				 	<li ><a class="btn btn-light    btn-paginacao    oi oi-media-skip-backward" th:if="${currentePage > 1}"  th:href="@{'/regimes/paginar/'+ ${currentePage -1}}" ></a></li> 
+				 	
+				 	<li ><a class="btn btn-light    btn-paginacao oi" th:if="${currentePage > 1000}"  th:href="@{'/regimes/paginar/'+ ${currentePage-1000} }" >-1000</a></li>
+				 	
+				 	<li ><a class="btn btn-light    btn-paginacao" th:if="${currentePage > 100}"  th:href="@{'/regimes/paginar/'+ ${currentePage-100} }" >-100</a></li>
+				 	
+				 	<li ><a class="btn btn-light    btn-paginacao" th:if="${currentePage > 10}"  th:href="@{'/regimes/paginar/'+ ${currentePage-10} }" >-10</a></li>
+	
+				 	<li ><a class="btn btn-light    btn-paginacao"  th:if="${currentePage < totalPages - 10}"  th:href="@{'/regimes/paginar/'+ ${currentePage+10} }" >+10</a></li>
+				 	
+				 	<li ><a class="btn btn-light    btn-paginacao"  th:if="${currentePage < totalPages - 100}"  th:href="@{'/regimes/paginar/'+ ${currentePage+100} }" >+100</a></li>
+				 	
+				 	<li ><a class="btn btn-light    btn-paginacao"  th:if="${currentePage < totalPages - 1000}"  th:href="@{'/regimes/paginar/'+ ${currentePage+1000} }" >+1000</a></li>
+				 	
+				 	<li ><a class="btn btn-light    btn-paginacao    oi oi-media-skip-forward" th:if="${currentePage < totalPages}"  th:href="@{'/regimes/paginar/' + ${currentePage +1}}"></a> </li>
+			 		
+			 		<li ><a class="btn btn-light    btn-paginacao    oi oi-media-step-forward"  th:if="${currentePage != i}"  th:href="@{'/regimes/paginar/'+ ${totalPages} }" ></a></li> 
+			 	</ul>
+			</nav>    
+		
+		
+		
+		  
 	        <div th:replace="fragments/modal :: modal"></div>   
 	</section>	
 </body>

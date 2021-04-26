@@ -5,6 +5,8 @@ import java.util.List;
 
 import javax.persistence.*;
 
+import com.folha.boot.domain.seguranca.Perfil;
+
 @SuppressWarnings("serial")
 @Entity
 @Table(name = "pessoa_operadores")
@@ -68,9 +70,6 @@ public class PessoaOperadores extends AbstractEntity<Long> {
     private List<FuncionariosFeriasPeriodos> funcionariosFeriasPeriodosList;
     @OneToMany(mappedBy = "idOperadorCancelamentoFk")
     private List<FuncionariosFeriasPeriodos> funcionariosFeriasPeriodosList1;
-    @JoinColumn(name = "id_privilegio_fk", referencedColumnName = "id")
-    @ManyToOne
-    private Perfil idPrivilegioFk;
     @JoinColumn(name = "id_pessoa_fk", referencedColumnName = "id")
     @ManyToOne(optional = false)
     private Pessoa idPessoaFk;
@@ -152,6 +151,51 @@ public class PessoaOperadores extends AbstractEntity<Long> {
     private List<HistFuncionariosUnidadeAtuacao> histFuncionariosUnidadeAtuacaoList;
     @OneToMany(mappedBy = "idOperadorCancelamentoFk")
     private List<HistFuncionariosUnidadeAtuacao> histFuncionariosUnidadeAtuacaoList1;
+    
+    @OneToMany(mappedBy = "idOperadorCancelamentoFk")
+    private List<EscalaAlteracoes> escalaAlteracoesList;
+    @OneToMany(mappedBy = "idOperadorMudancaFk")
+    private List<EscalaAlteracoes> escalaAlteracoesList1;
+    
+    @OneToMany(mappedBy = "idOperadorCadastroFk")
+    private List<CodigoDiferenciado> codigoDiferenciadoList;
+    @OneToMany(mappedBy = "idOperadorCancelamentoFk")
+    private List<CodigoDiferenciado> codigoDiferenciadoList1;
+    
+    
+    @OneToMany(mappedBy = "idOperadorFk")
+    private List<Perfil> perfilList;
+    
+    
+    @OneToMany(mappedBy = "idOperadorCadastroFk")
+    private List<PessoaCodDiferenciado> pessoaCodDiferenciadoList;
+    @OneToMany(mappedBy = "idOperadorCancelamentoFk")
+    private List<PessoaCodDiferenciado> pessoaCodDiferenciadoList1;
+    @OneToMany(mappedBy = "idOperadorConfirmacaoSedeFk")
+    private List<PessoaCodDiferenciado> pessoaCodDiferenciadoList2;
+    
+    @OneToMany(mappedBy = "idOperadorCadastroFk")
+    private List<PessoaChDif> pessoaChDifList;
+    @OneToMany(mappedBy = "idOperadorCancelamentoFk")
+    private List<PessoaChDif> pessoaChDifList1;
+    @OneToMany(mappedBy = "idOperadorCadastroFk")
+    private List<PessoaIncrementoDeRisco> pessoaIncrementoDeRiscoList;
+    @OneToMany(mappedBy = "idOperadorCancelamentoFk")
+    private List<PessoaIncrementoDeRisco> pessoaIncrementoDeRiscoList1;
+    
+    @OneToMany(mappedBy = "idOperadorAvaliacaoSedeFk")
+    private List<PessoaLimiteHoras> pessoaLimiteHorasList;
+    @OneToMany(mappedBy = "idOperadorCadastroFk")
+    private List<PessoaLimiteHoras> pessoaLimiteHorasList1;
+    @OneToMany(mappedBy = "idOperadorCancelamentoFk")
+    private List<PessoaLimiteHoras> pessoaLimiteHorasList2;
+    
+    @OneToMany(mappedBy = "idOperadorCadastroFk")
+    private List<EscalaCodDiferenciado> escalaCodDiferenciadoList;
+    @OneToMany(mappedBy = "idOperadorCancelamentoFk")
+    private List<EscalaCodDiferenciado> escalaCodDiferenciadoList1;
+    
+    
 	public Date getDtCadastro() {
 		return dtCadastro;
 	}
@@ -321,12 +365,6 @@ public class PessoaOperadores extends AbstractEntity<Long> {
 	}
 	public void setFuncionariosFeriasPeriodosList1(List<FuncionariosFeriasPeriodos> funcionariosFeriasPeriodosList1) {
 		this.funcionariosFeriasPeriodosList1 = funcionariosFeriasPeriodosList1;
-	}
-	public Perfil getIdPrivilegioFk() {
-		return idPrivilegioFk;
-	}
-	public void setIdPrivilegioFk(Perfil idPrivilegioFk) {
-		this.idPrivilegioFk = idPrivilegioFk;
 	}
 	public Pessoa getIdPessoaFk() {
 		return idPessoaFk;
@@ -560,6 +598,109 @@ public class PessoaOperadores extends AbstractEntity<Long> {
 	public void setEscalaPosTransparenciaList1(List<EscalaPosTransparencia> escalaPosTransparenciaList1) {
 		this.escalaPosTransparenciaList1 = escalaPosTransparenciaList1;
 	}
+	public List<EscalaAlteracoes> getEscalaAlteracoesList() {
+		return escalaAlteracoesList;
+	}
+	public void setEscalaAlteracoesList(List<EscalaAlteracoes> escalaAlteracoesList) {
+		this.escalaAlteracoesList = escalaAlteracoesList;
+	}
+	public List<EscalaAlteracoes> getEscalaAlteracoesList1() {
+		return escalaAlteracoesList1;
+	}
+	public void setEscalaAlteracoesList1(List<EscalaAlteracoes> escalaAlteracoesList1) {
+		this.escalaAlteracoesList1 = escalaAlteracoesList1;
+	}
+	public List<Perfil> getPerfilList() {
+		return perfilList;
+	}
+	public void setPerfilList(List<Perfil> perfilList) {
+		this.perfilList = perfilList;
+	}
+	public List<CodigoDiferenciado> getCodigoDiferenciadoList() {
+		return codigoDiferenciadoList;
+	}
+	public void setCodigoDiferenciadoList(List<CodigoDiferenciado> codigoDiferenciadoList) {
+		this.codigoDiferenciadoList = codigoDiferenciadoList;
+	}
+	public List<CodigoDiferenciado> getCodigoDiferenciadoList1() {
+		return codigoDiferenciadoList1;
+	}
+	public void setCodigoDiferenciadoList1(List<CodigoDiferenciado> codigoDiferenciadoList1) {
+		this.codigoDiferenciadoList1 = codigoDiferenciadoList1;
+	}
+	public List<PessoaCodDiferenciado> getPessoaCodDiferenciadoList() {
+		return pessoaCodDiferenciadoList;
+	}
+	public void setPessoaCodDiferenciadoList(List<PessoaCodDiferenciado> pessoaCodDiferenciadoList) {
+		this.pessoaCodDiferenciadoList = pessoaCodDiferenciadoList;
+	}
+	public List<PessoaCodDiferenciado> getPessoaCodDiferenciadoList1() {
+		return pessoaCodDiferenciadoList1;
+	}
+	public void setPessoaCodDiferenciadoList1(List<PessoaCodDiferenciado> pessoaCodDiferenciadoList1) {
+		this.pessoaCodDiferenciadoList1 = pessoaCodDiferenciadoList1;
+	}
+	public List<PessoaCodDiferenciado> getPessoaCodDiferenciadoList2() {
+		return pessoaCodDiferenciadoList2;
+	}
+	public void setPessoaCodDiferenciadoList2(List<PessoaCodDiferenciado> pessoaCodDiferenciadoList2) {
+		this.pessoaCodDiferenciadoList2 = pessoaCodDiferenciadoList2;
+	}
+	public List<PessoaChDif> getPessoaChDifList() {
+		return pessoaChDifList;
+	}
+	public void setPessoaChDifList(List<PessoaChDif> pessoaChDifList) {
+		this.pessoaChDifList = pessoaChDifList;
+	}
+	public List<PessoaChDif> getPessoaChDifList1() {
+		return pessoaChDifList1;
+	}
+	public void setPessoaChDifList1(List<PessoaChDif> pessoaChDifList1) {
+		this.pessoaChDifList1 = pessoaChDifList1;
+	}
+	public List<PessoaIncrementoDeRisco> getPessoaIncrementoDeRiscoList() {
+		return pessoaIncrementoDeRiscoList;
+	}
+	public void setPessoaIncrementoDeRiscoList(List<PessoaIncrementoDeRisco> pessoaIncrementoDeRiscoList) {
+		this.pessoaIncrementoDeRiscoList = pessoaIncrementoDeRiscoList;
+	}
+	public List<PessoaIncrementoDeRisco> getPessoaIncrementoDeRiscoList1() {
+		return pessoaIncrementoDeRiscoList1;
+	}
+	public void setPessoaIncrementoDeRiscoList1(List<PessoaIncrementoDeRisco> pessoaIncrementoDeRiscoList1) {
+		this.pessoaIncrementoDeRiscoList1 = pessoaIncrementoDeRiscoList1;
+	}
+	public List<PessoaLimiteHoras> getPessoaLimiteHorasList() {
+		return pessoaLimiteHorasList;
+	}
+	public void setPessoaLimiteHorasList(List<PessoaLimiteHoras> pessoaLimiteHorasList) {
+		this.pessoaLimiteHorasList = pessoaLimiteHorasList;
+	}
+	public List<PessoaLimiteHoras> getPessoaLimiteHorasList1() {
+		return pessoaLimiteHorasList1;
+	}
+	public void setPessoaLimiteHorasList1(List<PessoaLimiteHoras> pessoaLimiteHorasList1) {
+		this.pessoaLimiteHorasList1 = pessoaLimiteHorasList1;
+	}
+	public List<PessoaLimiteHoras> getPessoaLimiteHorasList2() {
+		return pessoaLimiteHorasList2;
+	}
+	public void setPessoaLimiteHorasList2(List<PessoaLimiteHoras> pessoaLimiteHorasList2) {
+		this.pessoaLimiteHorasList2 = pessoaLimiteHorasList2;
+	}
+	public List<EscalaCodDiferenciado> getEscalaCodDiferenciadoList() {
+		return escalaCodDiferenciadoList;
+	}
+	public void setEscalaCodDiferenciadoList(List<EscalaCodDiferenciado> escalaCodDiferenciadoList) {
+		this.escalaCodDiferenciadoList = escalaCodDiferenciadoList;
+	}
+	public List<EscalaCodDiferenciado> getEscalaCodDiferenciadoList1() {
+		return escalaCodDiferenciadoList1;
+	}
+	public void setEscalaCodDiferenciadoList1(List<EscalaCodDiferenciado> escalaCodDiferenciadoList1) {
+		this.escalaCodDiferenciadoList1 = escalaCodDiferenciadoList1;
+	}
     
+	
 	
 }

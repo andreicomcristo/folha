@@ -7,8 +7,11 @@ import javax.persistence.Entity;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
+import org.springframework.transaction.annotation.Transactional;
+
 @SuppressWarnings("serial")
 @Entity
+@Transactional
 @Table(name = "turnos") 
 public class Turnos extends AbstractEntity<Long>{
 
@@ -150,6 +153,69 @@ public class Turnos extends AbstractEntity<Long>{
     private List<EscalaPosTransparencia> escalaPosTransparenciaList29;
     @OneToMany(mappedBy = "dia04Fk")
     private List<EscalaPosTransparencia> escalaPosTransparenciaList30;
+
+    @OneToMany(mappedBy = "dia06Fk")
+    private List<EscalaAlteracoes> escalaAlteracoesList;
+    @OneToMany(mappedBy = "dia22Fk")
+    private List<EscalaAlteracoes> escalaAlteracoesList1;
+    @OneToMany(mappedBy = "dia29Fk")
+    private List<EscalaAlteracoes> escalaAlteracoesList2;
+    @OneToMany(mappedBy = "dia28Fk")
+    private List<EscalaAlteracoes> escalaAlteracoesList3;
+    @OneToMany(mappedBy = "dia27Fk")
+    private List<EscalaAlteracoes> escalaAlteracoesList4;
+    @OneToMany(mappedBy = "dia21Fk")
+    private List<EscalaAlteracoes> escalaAlteracoesList5;
+    @OneToMany(mappedBy = "dia18Fk")
+    private List<EscalaAlteracoes> escalaAlteracoesList6;
+    @OneToMany(mappedBy = "dia20Fk")
+    private List<EscalaAlteracoes> escalaAlteracoesList7;
+    @OneToMany(mappedBy = "dia10Fk")
+    private List<EscalaAlteracoes> escalaAlteracoesList8;
+    @OneToMany(mappedBy = "dia11Fk")
+    private List<EscalaAlteracoes> escalaAlteracoesList9;
+    @OneToMany(mappedBy = "dia15Fk")
+    private List<EscalaAlteracoes> escalaAlteracoesList10;
+    @OneToMany(mappedBy = "dia01Fk")
+    private List<EscalaAlteracoes> escalaAlteracoesList11;
+    @OneToMany(mappedBy = "dia04Fk")
+    private List<EscalaAlteracoes> escalaAlteracoesList12;
+    @OneToMany(mappedBy = "dia12Fk")
+    private List<EscalaAlteracoes> escalaAlteracoesList13;
+    @OneToMany(mappedBy = "dia26Fk")
+    private List<EscalaAlteracoes> escalaAlteracoesList14;
+    @OneToMany(mappedBy = "dia25Fk")
+    private List<EscalaAlteracoes> escalaAlteracoesList15;
+    @OneToMany(mappedBy = "dia17Fk")
+    private List<EscalaAlteracoes> escalaAlteracoesList16;
+    @OneToMany(mappedBy = "dia09Fk")
+    private List<EscalaAlteracoes> escalaAlteracoesList17;
+    @OneToMany(mappedBy = "dia16Fk")
+    private List<EscalaAlteracoes> escalaAlteracoesList18;
+    @OneToMany(mappedBy = "dia02Fk")
+    private List<EscalaAlteracoes> escalaAlteracoesList19;
+    @OneToMany(mappedBy = "dia31Fk")
+    private List<EscalaAlteracoes> escalaAlteracoesList20;
+    @OneToMany(mappedBy = "dia05Fk")
+    private List<EscalaAlteracoes> escalaAlteracoesList21;
+    @OneToMany(mappedBy = "dia07Fk")
+    private List<EscalaAlteracoes> escalaAlteracoesList22;
+    @OneToMany(mappedBy = "dia03Fk")
+    private List<EscalaAlteracoes> escalaAlteracoesList23;
+    @OneToMany(mappedBy = "dia08Fk")
+    private List<EscalaAlteracoes> escalaAlteracoesList24;
+    @OneToMany(mappedBy = "dia23Fk")
+    private List<EscalaAlteracoes> escalaAlteracoesList25;
+    @OneToMany(mappedBy = "dia30Fk")
+    private List<EscalaAlteracoes> escalaAlteracoesList26;
+    @OneToMany(mappedBy = "dia14Fk")
+    private List<EscalaAlteracoes> escalaAlteracoesList27;
+    @OneToMany(mappedBy = "dia13Fk")
+    private List<EscalaAlteracoes> escalaAlteracoesList28;
+    @OneToMany(mappedBy = "dia19Fk")
+    private List<EscalaAlteracoes> escalaAlteracoesList29;
+    @OneToMany(mappedBy = "dia24Fk")
+    private List<EscalaAlteracoes> escalaAlteracoesList30;
 
     
 	public String getNomeTurno() {
@@ -560,6 +626,193 @@ public class Turnos extends AbstractEntity<Long>{
 	public void setEscalaPosTransparenciaList30(List<EscalaPosTransparencia> escalaPosTransparenciaList30) {
 		this.escalaPosTransparenciaList30 = escalaPosTransparenciaList30;
 	}
+	public List<EscalaAlteracoes> getEscalaAlteracoesList() {
+		return escalaAlteracoesList;
+	}
+	public void setEscalaAlteracoesList(List<EscalaAlteracoes> escalaAlteracoesList) {
+		this.escalaAlteracoesList = escalaAlteracoesList;
+	}
+	public List<EscalaAlteracoes> getEscalaAlteracoesList1() {
+		return escalaAlteracoesList1;
+	}
+	public void setEscalaAlteracoesList1(List<EscalaAlteracoes> escalaAlteracoesList1) {
+		this.escalaAlteracoesList1 = escalaAlteracoesList1;
+	}
+	public List<EscalaAlteracoes> getEscalaAlteracoesList2() {
+		return escalaAlteracoesList2;
+	}
+	public void setEscalaAlteracoesList2(List<EscalaAlteracoes> escalaAlteracoesList2) {
+		this.escalaAlteracoesList2 = escalaAlteracoesList2;
+	}
+	public List<EscalaAlteracoes> getEscalaAlteracoesList3() {
+		return escalaAlteracoesList3;
+	}
+	public void setEscalaAlteracoesList3(List<EscalaAlteracoes> escalaAlteracoesList3) {
+		this.escalaAlteracoesList3 = escalaAlteracoesList3;
+	}
+	public List<EscalaAlteracoes> getEscalaAlteracoesList4() {
+		return escalaAlteracoesList4;
+	}
+	public void setEscalaAlteracoesList4(List<EscalaAlteracoes> escalaAlteracoesList4) {
+		this.escalaAlteracoesList4 = escalaAlteracoesList4;
+	}
+	public List<EscalaAlteracoes> getEscalaAlteracoesList5() {
+		return escalaAlteracoesList5;
+	}
+	public void setEscalaAlteracoesList5(List<EscalaAlteracoes> escalaAlteracoesList5) {
+		this.escalaAlteracoesList5 = escalaAlteracoesList5;
+	}
+	public List<EscalaAlteracoes> getEscalaAlteracoesList6() {
+		return escalaAlteracoesList6;
+	}
+	public void setEscalaAlteracoesList6(List<EscalaAlteracoes> escalaAlteracoesList6) {
+		this.escalaAlteracoesList6 = escalaAlteracoesList6;
+	}
+	public List<EscalaAlteracoes> getEscalaAlteracoesList7() {
+		return escalaAlteracoesList7;
+	}
+	public void setEscalaAlteracoesList7(List<EscalaAlteracoes> escalaAlteracoesList7) {
+		this.escalaAlteracoesList7 = escalaAlteracoesList7;
+	}
+	public List<EscalaAlteracoes> getEscalaAlteracoesList8() {
+		return escalaAlteracoesList8;
+	}
+	public void setEscalaAlteracoesList8(List<EscalaAlteracoes> escalaAlteracoesList8) {
+		this.escalaAlteracoesList8 = escalaAlteracoesList8;
+	}
+	public List<EscalaAlteracoes> getEscalaAlteracoesList9() {
+		return escalaAlteracoesList9;
+	}
+	public void setEscalaAlteracoesList9(List<EscalaAlteracoes> escalaAlteracoesList9) {
+		this.escalaAlteracoesList9 = escalaAlteracoesList9;
+	}
+	public List<EscalaAlteracoes> getEscalaAlteracoesList10() {
+		return escalaAlteracoesList10;
+	}
+	public void setEscalaAlteracoesList10(List<EscalaAlteracoes> escalaAlteracoesList10) {
+		this.escalaAlteracoesList10 = escalaAlteracoesList10;
+	}
+	public List<EscalaAlteracoes> getEscalaAlteracoesList11() {
+		return escalaAlteracoesList11;
+	}
+	public void setEscalaAlteracoesList11(List<EscalaAlteracoes> escalaAlteracoesList11) {
+		this.escalaAlteracoesList11 = escalaAlteracoesList11;
+	}
+	public List<EscalaAlteracoes> getEscalaAlteracoesList12() {
+		return escalaAlteracoesList12;
+	}
+	public void setEscalaAlteracoesList12(List<EscalaAlteracoes> escalaAlteracoesList12) {
+		this.escalaAlteracoesList12 = escalaAlteracoesList12;
+	}
+	public List<EscalaAlteracoes> getEscalaAlteracoesList13() {
+		return escalaAlteracoesList13;
+	}
+	public void setEscalaAlteracoesList13(List<EscalaAlteracoes> escalaAlteracoesList13) {
+		this.escalaAlteracoesList13 = escalaAlteracoesList13;
+	}
+	public List<EscalaAlteracoes> getEscalaAlteracoesList14() {
+		return escalaAlteracoesList14;
+	}
+	public void setEscalaAlteracoesList14(List<EscalaAlteracoes> escalaAlteracoesList14) {
+		this.escalaAlteracoesList14 = escalaAlteracoesList14;
+	}
+	public List<EscalaAlteracoes> getEscalaAlteracoesList15() {
+		return escalaAlteracoesList15;
+	}
+	public void setEscalaAlteracoesList15(List<EscalaAlteracoes> escalaAlteracoesList15) {
+		this.escalaAlteracoesList15 = escalaAlteracoesList15;
+	}
+	public List<EscalaAlteracoes> getEscalaAlteracoesList16() {
+		return escalaAlteracoesList16;
+	}
+	public void setEscalaAlteracoesList16(List<EscalaAlteracoes> escalaAlteracoesList16) {
+		this.escalaAlteracoesList16 = escalaAlteracoesList16;
+	}
+	public List<EscalaAlteracoes> getEscalaAlteracoesList17() {
+		return escalaAlteracoesList17;
+	}
+	public void setEscalaAlteracoesList17(List<EscalaAlteracoes> escalaAlteracoesList17) {
+		this.escalaAlteracoesList17 = escalaAlteracoesList17;
+	}
+	public List<EscalaAlteracoes> getEscalaAlteracoesList18() {
+		return escalaAlteracoesList18;
+	}
+	public void setEscalaAlteracoesList18(List<EscalaAlteracoes> escalaAlteracoesList18) {
+		this.escalaAlteracoesList18 = escalaAlteracoesList18;
+	}
+	public List<EscalaAlteracoes> getEscalaAlteracoesList19() {
+		return escalaAlteracoesList19;
+	}
+	public void setEscalaAlteracoesList19(List<EscalaAlteracoes> escalaAlteracoesList19) {
+		this.escalaAlteracoesList19 = escalaAlteracoesList19;
+	}
+	public List<EscalaAlteracoes> getEscalaAlteracoesList20() {
+		return escalaAlteracoesList20;
+	}
+	public void setEscalaAlteracoesList20(List<EscalaAlteracoes> escalaAlteracoesList20) {
+		this.escalaAlteracoesList20 = escalaAlteracoesList20;
+	}
+	public List<EscalaAlteracoes> getEscalaAlteracoesList21() {
+		return escalaAlteracoesList21;
+	}
+	public void setEscalaAlteracoesList21(List<EscalaAlteracoes> escalaAlteracoesList21) {
+		this.escalaAlteracoesList21 = escalaAlteracoesList21;
+	}
+	public List<EscalaAlteracoes> getEscalaAlteracoesList22() {
+		return escalaAlteracoesList22;
+	}
+	public void setEscalaAlteracoesList22(List<EscalaAlteracoes> escalaAlteracoesList22) {
+		this.escalaAlteracoesList22 = escalaAlteracoesList22;
+	}
+	public List<EscalaAlteracoes> getEscalaAlteracoesList23() {
+		return escalaAlteracoesList23;
+	}
+	public void setEscalaAlteracoesList23(List<EscalaAlteracoes> escalaAlteracoesList23) {
+		this.escalaAlteracoesList23 = escalaAlteracoesList23;
+	}
+	public List<EscalaAlteracoes> getEscalaAlteracoesList24() {
+		return escalaAlteracoesList24;
+	}
+	public void setEscalaAlteracoesList24(List<EscalaAlteracoes> escalaAlteracoesList24) {
+		this.escalaAlteracoesList24 = escalaAlteracoesList24;
+	}
+	public List<EscalaAlteracoes> getEscalaAlteracoesList25() {
+		return escalaAlteracoesList25;
+	}
+	public void setEscalaAlteracoesList25(List<EscalaAlteracoes> escalaAlteracoesList25) {
+		this.escalaAlteracoesList25 = escalaAlteracoesList25;
+	}
+	public List<EscalaAlteracoes> getEscalaAlteracoesList26() {
+		return escalaAlteracoesList26;
+	}
+	public void setEscalaAlteracoesList26(List<EscalaAlteracoes> escalaAlteracoesList26) {
+		this.escalaAlteracoesList26 = escalaAlteracoesList26;
+	}
+	public List<EscalaAlteracoes> getEscalaAlteracoesList27() {
+		return escalaAlteracoesList27;
+	}
+	public void setEscalaAlteracoesList27(List<EscalaAlteracoes> escalaAlteracoesList27) {
+		this.escalaAlteracoesList27 = escalaAlteracoesList27;
+	}
+	public List<EscalaAlteracoes> getEscalaAlteracoesList28() {
+		return escalaAlteracoesList28;
+	}
+	public void setEscalaAlteracoesList28(List<EscalaAlteracoes> escalaAlteracoesList28) {
+		this.escalaAlteracoesList28 = escalaAlteracoesList28;
+	}
+	public List<EscalaAlteracoes> getEscalaAlteracoesList29() {
+		return escalaAlteracoesList29;
+	}
+	public void setEscalaAlteracoesList29(List<EscalaAlteracoes> escalaAlteracoesList29) {
+		this.escalaAlteracoesList29 = escalaAlteracoesList29;
+	}
+	public List<EscalaAlteracoes> getEscalaAlteracoesList30() {
+		return escalaAlteracoesList30;
+	}
+	public void setEscalaAlteracoesList30(List<EscalaAlteracoes> escalaAlteracoesList30) {
+		this.escalaAlteracoesList30 = escalaAlteracoesList30;
+	}
     
     
+	
 }

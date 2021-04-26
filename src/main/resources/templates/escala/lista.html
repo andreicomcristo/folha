@@ -4,11 +4,17 @@
 <body>	
 	<section class="layout-content" layout:fragment="corpo">		
 		<nav class="navbar navbar-expand-md bg-light">    
-	    	<a class="btn btn-outline-dark btn-md" href="/escalas/listar/inclusao" role="button">;bpigvlhvlyuv
+
+	    	
+
+	    	<a class="btn btn-outline-light oi oi-action-undo" type="button" href="javascript:history.back()"></a>
+			<a class="btn btn-outline-light oi oi-action-redo" type="button" href="javascript:history.forward()"></a>    
+	    	
+	    	<a class="btn btn-outline-dark btn-md" th:href="@{/escalas/listar/inclusao}" role="button">
 	        	<span class="oi oi-plus" title="Cadastro" aria-hidden="true"></span>
-	            <span>Novo</span>
+	            <span>Incluir</span>
 	        </a>
-	        <a class="btn btn-outline-dark btn-md" href="/escalas/listar" role="button">
+	        <a class="btn btn-outline-dark btn-md" th:href="@{/escalas/listar}" role="button">
 	        	<span class="oi oi-loop-square" title="Atualizar" aria-hidden="true"></span>
 	            <span>Atualizar</span>
 	        </a>
@@ -134,15 +140,15 @@
 	    <div style=" left:0px;"  id="listagem">	        
 	    	<div th:replace="fragments/alert"></div>
 	    	
-	        <div style=" left:0px; height: 470px; width:1260px; overflow-y: auto;" class="table-responsive">
-	        	<table class="table table-striped table-hover table-sm myTable">
+	    	<label style="font-size:14px; text-align: center; color:#b30000;" th:text="${transparencia}" class="text" >Mes </label>
+	    	
+	        <div style=" left:0px; height: 470px;  overflow-y: auto;" class="table-responsive">
+	        	<table class="table table-striped table-hover table-sm myTable" style= "width:1260px;" >
 	            	<thead>
 	          			<tr>
 		                	<th style="font-size:10px;" >#</th>
 		                	<th style="font-size:10px;" >Ver</th>
-		                    <th style="font-size:10px;" >Ver</th>
 		                    <th style="font-size:10px;" >Nome</th>
-		                    <th style="font-size:10px;" >Ni</th>
 		                    <th style="font-size:10px;" >Cargo</th>		                    
 		                    <th style="font-size:10px;" >Turm</th>
 		                    <th style="font-size:10px;" >Hr</th>	                    
@@ -183,40 +189,40 @@
 	                <tbody>
 		            	<tr th:each="d : ${listaEscala}">		            	
 		                	<td style="font-size:08px;"  th:text="${d.id}"></td>		                	
+		                    
 		                    <td>
-			                    <button type="button" class="btn btn-outline-secondary btn-sm" data-container="body" style="font-size:09px;"
-			                    data-toggle="popover"  th:attr="title=${#strings.concat(
-				                                    
-			                                    'CPF: ', d.idFuncionarioFk.idPessoaFk.cpf, '; ', 
-			                                    'Mat: ', d.idFuncionarioFk.matricula, '; ' 
-			                                    
-			                                    
-		                                    )}" >
-
-								 	<span class="oi oi-eye" title="Visualizar" aria-hidden="true"></span>
-		                         </button>
-		                    </td>
-		                    		                    
+				                <div class="btn-group">
+				                    <button style="width:35px; height:25px; text-align:center; font-size:09px; " type="button" class="btn btn-outline-dark btn-sm dropdown-toggle" data-toggle="dropdown">
+				                        <span class="oi oi-eye"></span>
+				                    </button>
+				                    <ul class="dropdown-menu dropdown-menu-right" role="menu">
+				                        
+				                        <li>
+				                        	<a th:text="'CPF: '+${d.idFuncionarioFk.idPessoaFk.cpf}" style="width:155px; height:25px; text-align:left; font-size:09px;  " role="button"></a><br>
+				                        	<a th:text="'Matrícula: '+${d.idFuncionarioFk.matricula}" style="width:155px; height:25px; text-align:left; font-size:09px;  " role="button"></a><br>
+				                        	<a th:text="'Ch Semanal: '+${d.idFuncionarioFk.idCargaHorariaAtualFk.cargaHoraria} " style="width:155px; height:25px; text-align:left; font-size:09px;  " role="button"></a><br>
+				                        	<a th:text="${d.idFuncionarioFk.idEspecialidadeAtualFk.idCargoFk.idNivelCargoFk.nomeNivelCargo} " style="width:155px; height:25px; text-align:left; font-size:09px;  " role="button"></a><br>
+				                        	<a th:text="'Folha: '+${d.idTipoFolhaFk.nomeTipoFolha}" style="width:155px; height:25px; text-align:left; font-size:09px;  " role="button"></a><br>
+				                        	<a th:text="'Regime: '+${d.idRegimeFk.nomeRegimeDeTrabalho}" style="width:155px; height:25px; text-align:left; font-size:09px;  " role="button"></a><br>
+				                        	<a th:text="'Diferenciado: '+${d.idCodigoDiferenciadoFk.nomeCodigoDiferenciado}" style="width:155px; height:25px; text-align:left; font-size:09px;  " role="button"></a><br>
+				                        	<a th:text="'Ch Dif: '+${d.idChDifSimNaoFk.descricao}" style="width:155px; height:25px; text-align:left; font-size:09px;  " role="button"></a><br>
+				                        	<a th:text="'Incremento Risco: '+${d.idIncrementoDeRiscoSimNaoFk.descricao}" style="width:155px; height:25px; text-align:left; font-size:09px;  " role="button"></a><br>
+				                        	<a th:text="'Presencial: '+${d.idPresencialSimNaoFk.descricao}" style="width:155px; height:25px; text-align:left; font-size:09px;  " role="button"></a><br>
+				                        	<a th:text="'Obs: '+${d.observacoes}" style="width:155px; height:25px; text-align:left; font-size:09px;  " role="button"></a>
+				                        	
+				                        </li>
+				                        
+				                    </ul>
+				                </div>
+				            </td>
+		                    
+		                    
 		                    <td> 
-		                        <button type="button" class="btn btn-outline-secondary btn-sm" data-container="body" style="font-size:09px;"
-			                    data-toggle="popover"  th:attr="title=${#strings.concat(
-			                                    
-			                                    'CH: ', d.idFuncionarioFk.idCargaHorariaAtualFk.cargaHoraria, '; ', 
-			                                    'Folha: ', d.idTipoFolhaFk.nomeTipoFolha, '; ', 
-			                                    'Regime: ', d.idRegimeFk.nomeRegimeDeTrabalho, '; ', 
-			                                    'Diferenciado: ', d.idCodigoDiferenciadoFk.nomeCodigoDiferenciado, '; ',
-			                                    'CH Dif: ', d.idChDifSimNaoFk.sigla, '; ', 
-			                                    'Incremento de Risco: ', d.idIncrementoDeRiscoSimNaoFk.sigla, '; ',
-			                                    'Presencial: ', d.idPresencialSimNaoFk.sigla, ';'
-			                                    
-		                                    )}" >
-
-								    <span class="oi oi-eye" title="Visualizar" aria-hidden="true"></span>
-		                    	</button>
+		                    	<a style="width:150px; height:25px; text-align:center; font-size:09px; " class="link" th:text="${d.idFuncionarioFk.idPessoaFk.nome}" th:href="@{/escalas/alterar/escala/{id} (id=${d.id}) }" role="button">
+					            	<span class="" title="Editar Escala" aria-hidden="true">Editar Escala</span>
+					            </a>
 		                    </td>
-		                                       
-		                    <td style="font-size:09px;"  th:text="${d.idFuncionarioFk.idPessoaFk.nome}"></td>
-		                    <td style="font-size:08px;"  th:text="${d.idFuncionarioFk.idEspecialidadeAtualFk.idCargoFk.idNivelCargoFk.siglaNivelCargo}"></td>
+		                    
 		                    <td style="font-size:07px;"  th:text="${d.idFuncionarioFk.idEspecialidadeAtualFk.idCargoFk.nomeCargo+'-'+d.idFuncionarioFk.idEspecialidadeAtualFk.nomeEspecialidadeCargo}"></td>		                    
 		                    <td style="font-size:08px;"  th:text="${d.idTurmaFk.nomeTurma}"></td>
 		                    <td style="font-size:08px;"  th:text="${d.horasTotais}"></td>		                    
@@ -252,25 +258,47 @@
 		                    <td style="font-size:10px;"  th:text="${d.dia30Fk.nomeTurno}"></td>
 		                    <td style="font-size:10px;"  th:text="${d.dia31Fk.nomeTurno}"></td>
 		                    
-		                    <td colspan="2">
-		                    	<a style="width:25px; height:25px; text-align:center; font-size:09px; " class="btn btn-outline-info btn-sm" th:href="@{/escalas/alterar/escala/{id} (id=${d.id}) }" role="button">
-		                        	<span class="oi oi-brush" title="Editar Escala" aria-hidden="true"></span>
-		                        </a>
-		                        <a style="width:25px; height:25px; text-align:center; font-size:09px; " class="btn btn-outline-warning btn-sm" th:href="@{/escalas/alterar/avaliacao/{id} (id=${d.id}) }" role="button">
-		                        	<span class="oi oi-folder" title="Avaliação (NOTA)" aria-hidden="true"></span>
-		                        </a>
-		                        <button style="width:25px; height:25px; text-align:center; font-size:09px; " th:id="${ 'btn_escalas/cancelar/' + d.id}" type="button" class="btn btn btn-outline-danger btn-sm" 
-		                            		data-toggle="modal" data-target="#myModal">
-		                                <span  class="oi oi-circle-x" title="Exclusão habilitada" aria-hidden="true"></span>
-		                        </button>
-		                   	</td>		                   	
+		                    
+		                    <td>
+				                <div class="btn-group">
+				                    <button style="width:25px; height:25px; text-align:center; font-size:09px; " type="button" class="btn btn-outline-danger btn-sm dropdown-toggle" data-toggle="dropdown" title="Ações">
+				                        <span class="glyphicon glyphicon-th-list"></span>
+				                    </button>
+				                    <ul class="dropdown-menu dropdown-menu-right" role="menu">
+				                        
+				                        <li>
+				                        	<a style="width:155px; height:25px; text-align:center; font-size:09px; " class="btn btn-outline-success btn-sm" th:href="@{/escalas/alterar/diferenciado/{id} (id=${d.id}) }" role="button">
+					                        	<span class="" title="Avaliação (NOTA)" aria-hidden="true">Diferenciado</span>
+					                        </a>
+					                        <p></p>
+				                        </li>
+				                        
+				                        <li>
+				                        	<a style="width:155px; height:25px; text-align:center; font-size:09px; " class="btn btn-outline-warning btn-sm" th:href="@{/escalas/alterar/avaliacao/{id} (id=${d.id}) }" role="button">
+					                        	<span class="" title="Avaliação (NOTA)" aria-hidden="true">Avaliação (NOTA)</span>
+					                        </a>
+					                        <p></p>
+				                        </li>
+				                        
+				                        <li>
+				                        	<button style="width:155px; height:25px; text-align:center; font-size:09px; " th:id="${ 'btn_escalas/cancelar/' + d.id}" type="button" class="btn btn btn-outline-danger btn-sm" 
+					                            		data-toggle="modal" data-target="#myModal">
+					                                <span  class="" title="Exclusão habilitada" aria-hidden="true">Cancelar</span>
+					                        </button>
+				                        
+				                        </li>
+				                    </ul>
+				                </div>
+				            </td>
+		                    
+		                   	                   	
 						</tr>
 					</tbody>                    
 	            </table>                 
 	         </div>
 		</div>
 		 <nav aria-label="Page navigation example">
-		 <label style="font-size:13px; text-align: center; color:#b30000;" th:text="${transparencia}" class="text" >Mes </label>
+		 
 		 <div style="font-size:10px;" > Quantidade de registros: [[${totalItems}]]<br>  Página: [[${currentePage}]] de [[${totalPages}]] </div> 
 		 
 		 <div>

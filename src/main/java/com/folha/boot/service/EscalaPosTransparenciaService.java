@@ -67,6 +67,38 @@ public class EscalaPosTransparenciaService {
 		// TODO Auto-generated method stub
 		return reposytory.findAll();
 	}
+	
+	@Transactional(readOnly = true)
+	public List<EscalaPosTransparencia> buscarNaUnidade(Unidades unidades, AnoMes anoMes) {
+		// TODO Auto-generated method stub
+		return reposytory.findByIdCoordenacaoFkIdLocalidadeFkIdUnidadeFkAndIdAnoMesFkOrderByIdFuncionarioFkIdPessoaFkNomeAsc(unidades, anoMes);
+	}
+	
+	@Transactional(readOnly = true)
+	public List<EscalaPosTransparencia> buscarEmTodasAsUnidades( AnoMes anoMes) {
+		// TODO Auto-generated method stub
+		return reposytory.findByIdAnoMesFkOrderByIdFuncionarioFkIdPessoaFkNomeAsc( anoMes);
+	}
+	
+	public Page<EscalaPosTransparencia> findPaginatedPosTransparenciaGlobal(int pageNo, int pageSize,  AnoMes anoMes) {
+		Pageable pageable = PageRequest.of(pageNo -1, pageSize);
+		return this.reposytory.findByIdAnoMesFkOrderByIdFuncionarioFkIdPessoaFkNomeAsc( anoMes, pageable);
+	}
+	
+	public Page<EscalaPosTransparencia> findPaginatedNomePosTransparenciaGlobal(int pageNo, int pageSize, String nome, AnoMes anoMes) {
+		Pageable pageable = PageRequest.of(pageNo -1, pageSize);
+		return this.reposytory.findByIdAnoMesFkAndIdFuncionarioFkIdPessoaFkNomeContainingOrderByIdFuncionarioFkIdPessoaFkNomeAsc(anoMes, nome, pageable);
+	}
+	
+	public Page<EscalaPosTransparencia> findPaginatedPosTransparencia(int pageNo, int pageSize, Unidades unidades, AnoMes anoMes) {
+		Pageable pageable = PageRequest.of(pageNo -1, pageSize);
+		return this.reposytory.findByIdCoordenacaoFkIdLocalidadeFkIdUnidadeFkAndIdAnoMesFkOrderByIdFuncionarioFkIdPessoaFkNomeAsc(unidades, anoMes, pageable);
+	}
+	
+	public Page<EscalaPosTransparencia> findPaginatedNomePosTransparencia(int pageNo, int pageSize, Unidades unidades, AnoMes anoMes, String nome) {
+		Pageable pageable = PageRequest.of(pageNo -1, pageSize);
+		return this.reposytory.findByIdCoordenacaoFkIdLocalidadeFkIdUnidadeFkAndIdAnoMesFkAndIdFuncionarioFkIdPessoaFkNomeContainingOrderByIdFuncionarioFkIdPessoaFkNomeAsc(unidades, anoMes, nome.toUpperCase().trim(), pageable);
+	}
 
 	public EscalaPosTransparencia converteDeEscalaParaEscalaPosTransparencia(Escala escala) {
 		EscalaPosTransparencia escalaPosTransparencia = new EscalaPosTransparencia();
@@ -129,6 +161,9 @@ public class EscalaPosTransparenciaService {
 		escalaPosTransparencia.setIdTipoFolhaFk(escala.getIdTipoFolhaFk());
 		escalaPosTransparencia.setIdTurmaFk(escala.getIdTurmaFk());
 		escalaPosTransparencia.setPlantoes(escala.getPlantoes());
+		escalaPosTransparencia.setObservacoes(escala.getObservacoes());
+	
+		escalaPosTransparencia.setId(null);
 		
 		return escalaPosTransparencia;
 	}

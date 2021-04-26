@@ -24,6 +24,31 @@ public class AnoMes extends AbstractEntity<Long> {
     @JoinColumn(name = "id_transparencia_enviada_fk", referencedColumnName = "id")
     @ManyToOne
     private SimNao idTransparenciaEnviadaFk;
+    @OneToMany(mappedBy = "idAnoMesFk")
+    private List<EscalaAlteracoes> escalaAlteracoesList;
+    
+    @OneToMany(mappedBy = "idAnoMesFk")
+    private List<FaixasImpostoDeRenda> faixasImpostoDeRendaList;
+    @OneToMany(mappedBy = "idAnoMesFk")
+    private List<FaixasPrevidencia> faixasPrevidenciaList;
+    
+    @OneToMany(mappedBy = "idAnoMesFk")
+    private List<FaixasValoresParametrosCalculoFolhasExtras> faixasValoresParametrosCalculoFolhasExtrasList;
+    
+    @OneToMany(mappedBy = "idAnoMesFk")
+    private List<UnidadeAdmiteChDif> unidadeAdmiteChDifList;
+    @OneToMany(mappedBy = "idAnoMesFk")
+    private List<UnidadeAdmiteIncrementoDeRisco> unidadeAdmiteIncrementoDeRiscoList;
+    
+    @OneToMany(mappedBy = "idAnoMesFk")
+    private List<FatorChDif> fatorChDifList;
+    @OneToMany(mappedBy = "idAnoMesFk")
+    private List<TiposDeFolhaNivelCargo> tiposDeFolhaNivelCargoList;
+    
+    @OneToMany(mappedBy = "idAnoMesFk")
+    private List<PessoaIncrementoDeRisco> pessoaIncrementoDeRiscoList;
+    @OneToMany(mappedBy = "idAnoMesFk")
+    private List<PessoaChDif> pessoaChDifList;
     
 	public String getNomeAnoMes() {
 		return nomeAnoMes;
@@ -48,6 +73,68 @@ public class AnoMes extends AbstractEntity<Long> {
 	}
 	public void setEscalaPosTransparenciaList(List<EscalaPosTransparencia> escalaPosTransparenciaList) {
 		this.escalaPosTransparenciaList = escalaPosTransparenciaList;
+	}
+	public List<EscalaAlteracoes> getEscalaAlteracoesList() {
+		return escalaAlteracoesList;
+	}
+	public void setEscalaAlteracoesList(List<EscalaAlteracoes> escalaAlteracoesList) {
+		this.escalaAlteracoesList = escalaAlteracoesList;
+	}
+	public List<FaixasValoresParametrosCalculoFolhasExtras> getFaixasValoresParametrosCalculoFolhasExtrasList() {
+		return faixasValoresParametrosCalculoFolhasExtrasList;
+	}
+	public void setFaixasValoresParametrosCalculoFolhasExtrasList(
+			List<FaixasValoresParametrosCalculoFolhasExtras> faixasValoresParametrosCalculoFolhasExtrasList) {
+		this.faixasValoresParametrosCalculoFolhasExtrasList = faixasValoresParametrosCalculoFolhasExtrasList;
+	}
+	public List<FaixasImpostoDeRenda> getFaixasImpostoDeRendaList() {
+		return faixasImpostoDeRendaList;
+	}
+	public void setFaixasImpostoDeRendaList(List<FaixasImpostoDeRenda> faixasImpostoDeRendaList) {
+		this.faixasImpostoDeRendaList = faixasImpostoDeRendaList;
+	}
+	public List<FaixasPrevidencia> getFaixasPrevidenciaList() {
+		return faixasPrevidenciaList;
+	}
+	public void setFaixasPrevidenciaList(List<FaixasPrevidencia> faixasPrevidenciaList) {
+		this.faixasPrevidenciaList = faixasPrevidenciaList;
+	}
+	public List<UnidadeAdmiteChDif> getUnidadeAdmiteChDifList() {
+		return unidadeAdmiteChDifList;
+	}
+	public void setUnidadeAdmiteChDifList(List<UnidadeAdmiteChDif> unidadeAdmiteChDifList) {
+		this.unidadeAdmiteChDifList = unidadeAdmiteChDifList;
+	}
+	public List<UnidadeAdmiteIncrementoDeRisco> getUnidadeAdmiteIncrementoDeRiscoList() {
+		return unidadeAdmiteIncrementoDeRiscoList;
+	}
+	public void setUnidadeAdmiteIncrementoDeRiscoList(
+			List<UnidadeAdmiteIncrementoDeRisco> unidadeAdmiteIncrementoDeRiscoList) {
+		this.unidadeAdmiteIncrementoDeRiscoList = unidadeAdmiteIncrementoDeRiscoList;
+	}
+	public List<FatorChDif> getFatorChDifList() {
+		return fatorChDifList;
+	}
+	public void setFatorChDifList(List<FatorChDif> fatorChDifList) {
+		this.fatorChDifList = fatorChDifList;
+	}
+	public List<TiposDeFolhaNivelCargo> getTiposDeFolhaNivelCargoList() {
+		return tiposDeFolhaNivelCargoList;
+	}
+	public void setTiposDeFolhaNivelCargoList(List<TiposDeFolhaNivelCargo> tiposDeFolhaNivelCargoList) {
+		this.tiposDeFolhaNivelCargoList = tiposDeFolhaNivelCargoList;
+	}
+	public List<PessoaIncrementoDeRisco> getPessoaIncrementoDeRiscoList() {
+		return pessoaIncrementoDeRiscoList;
+	}
+	public void setPessoaIncrementoDeRiscoList(List<PessoaIncrementoDeRisco> pessoaIncrementoDeRiscoList) {
+		this.pessoaIncrementoDeRiscoList = pessoaIncrementoDeRiscoList;
+	}
+	public List<PessoaChDif> getPessoaChDifList() {
+		return pessoaChDifList;
+	}
+	public void setPessoaChDifList(List<PessoaChDif> pessoaChDifList) {
+		this.pessoaChDifList = pessoaChDifList;
 	}
 	
 	

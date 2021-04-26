@@ -4,12 +4,14 @@
 <body>	
 	<section class="layout-content" layout:fragment="corpo">		
 		<nav class="navbar navbar-expand-md bg-light">
-	            
-	    	<a class="btn btn-outline-dark btn-md" href="/codigodiferenciados/cadastrar" role="button">
+	         
+	        <a class="btn btn-outline-light oi oi-action-undo" type="button" href="javascript:history.back()"></a>
+			<a class="btn btn-outline-light oi oi-action-redo" type="button" href="javascript:history.forward()"></a>        
+	    	<a class="btn btn-outline-dark btn-md" th:href="@{/codigodiferenciados/cadastrar}" role="button">
 	        	<span class="oi oi-plus" title="Cadastro" aria-hidden="true"></span>
 	            <span>Novo</span>
 	        </a>
-	        <a class="btn btn-outline-dark btn-md" href="/codigodiferenciados/listar" role="button">
+	        <a class="btn btn-outline-dark btn-md" th:href="@{/codigodiferenciados/listar}" role="button">
 	        	<span class="oi oi-loop-square" title="Atualizar" aria-hidden="true"></span>
 	            <span>Atualizar</span>
 	        </a>
@@ -46,6 +48,8 @@
 		                    <th>Nome</th>
 		                    <th>Descrição</th>
 		                    <th>Unidade</th>
+		                    <th>Necessita Atribuição Rh</th>
+		                    <th>Necessita Aprovação Sede</th>
 		                    <th>Ações</th>
 	                    </tr>
 	                </thead>                  
@@ -55,11 +59,15 @@
 		                    <td th:text="${d.nomeCodigoDiferenciado}"></td>
 		                    <td th:text="${d.descricaoCodigoDiferenciado}"></td>
 		                    <td th:text="${d.idUnidadeFk.nomeFantasia}"></td>
+		                    
+		                    <td th:text="${d.idNecessitaAtribuicaoRhFk.descricao}"></td>
+		                    <td th:text="${d.idNecessitaAtribuicaoSedeFk.descricao}"></td>
+		                    
 		                    <td colspan="2">
 		                    	<a class="btn btn-outline-info btn-sm" th:href="@{/codigodiferenciados/editar/{id} (id=${d.id}) }" role="button">
 		                        	<span class="oi oi-brush" title="Editar" aria-hidden="true"></span>
 		                        </a>
-		                        <button th:id="${ 'btn_codigodiferenciados/excluir/' + d.id}" type="button" class="btn btn btn-outline-danger btn-sm" 
+		                        <button th:id="${ 'btn_codigodiferenciados/cancelar/' + d.id}" type="button" class="btn btn btn-outline-danger btn-sm" 
 		                            		data-toggle="modal" data-target="#myModal">
 		                                <span class="oi oi-circle-x" title="Exclusão habilitada" aria-hidden="true"></span>
 		                        </button>

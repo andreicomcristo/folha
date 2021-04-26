@@ -5,7 +5,9 @@
 	<section class="layout-content" layout:fragment="corpo">
 
 		<nav class="navbar navbar-expand-md bg-light">
-			<form action="/documentos/listar">
+			<a class="btn btn-outline-light oi oi-action-undo" type="button" href="javascript:history.back()"></a>
+			<a class="btn btn-outline-light oi oi-action-redo" type="button" href="javascript:history.forward()"></a>    
+			<form th:action="@{/documentos/listar}">
 				<div class=" layout-content">
 					
 				</div>
@@ -67,11 +69,13 @@
 					<div class="form-group col-md-6">
 						<label for="nome" class="fonte-tutulos-tamanho">Documentos CTPS</label>
 							
+							<label for="nome" class="">Número </label>
 							<input type="text"
 								class="form-control form-control-sm uppercase" autofocus="autofocus"
 								id="codigo" placeholder="Numero do documento" th:field="*{numero}" /> 
 							<p></p>
 							
+							<label for="nome" class="">Série </label>
 							<input type="text"
 								class="form-control form-control-sm uppercase" autofocus="autofocus"
 								id="codigo" placeholder="série" th:field="*{serie}" />
@@ -82,7 +86,7 @@
 							<input type="hidden" id="pessoa" th:field="${pessoa}" />
 								<p></p>					
 						
-						<button class="btn btn-outline-dark">Submeter</button>
+						<button class="btn btn-outline-dark">Enviar</button>
 						
 						
 					</div>
@@ -175,26 +179,31 @@
 					<div class="form-group col-md-6">
 						<label for="nome" class="fonte-tutulos-tamanho">Documentos Habilitação</label>
 							
+							<label for="nome" class="">Registro </label>
 							<input type="text"
 								class="form-control form-control-sm uppercase" autofocus="autofocus" data-mask="000000000000000000"
 								id="codigo" placeholder="Registro" th:field="*{numeroRegistro}" /> 
 							<p></p>
 							
+							<label for="nome" class="">Data Emissão </label>
 							<input type="text"
 								class="form-control form-control-sm" autofocus="autofocus" data-mask="00/00/0000"
 								id="codigo" placeholder="Data emissao" th:field="*{dtEmissao}" />
 							<p></p>
 							
+							<label for="nome" class="">Data Validade </label>
 							<input type="text"
 								class="form-control form-control-sm" autofocus="autofocus" data-mask="00/00/0000"
 								id="codigo" placeholder="Data validade" th:field="*{dtValidade}" />
 							<p></p>
 							
+							<label for="nome" class="">Data Primeira Habilitação </label>
 							<input type="text"
 								class="form-control form-control-sm" autofocus="autofocus" data-mask="00/00/0000"
 								id="codigo" placeholder="data Primeira Habilitacao" th:field="*{dtPrimeiraHabilitacao}" />
 							<p></p>
 							
+							<label for="nome" class="">Categoria </label>
 							<select id="cargos" class="form-select" th:field="*{idHabilitacaoCategoriasFk}">
 								<option value="">Selecione a Categoria</option>
 								<option th:each="d : ${idHabilitacaoCategoriasFk}" th:value="${d.id}"th:text="${d.nomeHabilitacaoCategoria}">ADM</option>
@@ -205,7 +214,7 @@
 							<input type="hidden" id="pessoa" th:field="${pessoa}" />
 								<p></p>					
 						
-						<button class="btn btn-outline-dark">Submeter</button>
+						<button class="btn btn-outline-dark">Enviar</button>
 						
 						
 					</div>
@@ -300,11 +309,13 @@
 					<div class="form-group col-md-6">
 						<label for="nome" class="fonte-tutulos-tamanho">Documentos Reservista</label>
 							
+							<label for="nome" class="">Número </label>
 							<input type="text"
 								class="form-control form-control-sm uppercase" autofocus="autofocus" data-mask="000000000000000000"
 								id="codigo" placeholder="número" th:field="*{numero}" /> 
 							<p></p>
 							
+							<label for="nome" class="">Série </label>
 							<input type="text"
 								class="form-control form-control-sm" autofocus="autofocus" 
 								id="codigo" placeholder="serie" th:field="*{serie}" />
@@ -314,7 +325,7 @@
 							<input type="hidden" id="pessoa" th:field="${pessoa}" />
 								<p></p>					
 						
-						<button class="btn btn-outline-dark">Submeter</button>
+						<button class="btn btn-outline-dark">Enviar</button>
 						
 						
 					</div>
@@ -404,27 +415,32 @@
 					<div class="form-group col-md-6">
 						<label for="nome" class="fonte-tutulos-tamanho">Documentos Conselho</label>
 							
+							<label for="nome" class="">Número </label>
 							<input type="text"
 								class="form-control form-control-sm uppercase" autofocus="autofocus" 
 								id="codigo" placeholder="número" th:field="*{numeroConselho}" /> 
 							<p></p>
 							
+							<label for="nome" class="">Data Emissão </label>
 							<input type="text"
 								class="form-control form-control-sm" autofocus="autofocus" data-mask="00/00/0000"
 								id="codigo" placeholder="Dt Emissao" th:field="*{dtEmissao}" />
 							<p></p>
 							
+							<label for="nome" class="">Data Validade </label>
 							<input type="text"
 								class="form-control form-control-sm" autofocus="autofocus" data-mask="00/00/0000"
 								id="codigo" placeholder="Dt Validade" th:field="*{dtValidade}" />
 							<p></p>
 							
+							<label for="nome" class="">Estado </label>
 							<select id="cargos" class="form-select" th:field="*{idUfFk}">
 								<option value="">Selecione o Estado</option>
 								<option th:each="d : ${idUfFk}" th:value="${d.id}"th:text="${d.nomeUf}">ADM</option>
 							</select>	
 							<p></p>
 							
+							<label for="nome" class="">Conselho </label>
 							<select id="cargos" class="form-select" th:field="*{idConselhosFk}">
 								<option value="">Selecione o Conselho</option>
 								<option th:each="d : ${idConselhosFk}" th:value="${d.id}"th:text="${d.nomeConselho}">ADM</option>
@@ -435,7 +451,7 @@
 							<input type="hidden" id="pessoa" th:field="${pessoa}" />
 								<p></p>					
 						
-						<button class="btn btn-outline-dark">Submeter</button>
+						<button class="btn btn-outline-dark">Enviar</button>
 						
 						
 					</div>
@@ -532,22 +548,26 @@
 					<div class="form-group col-md-6">
 						<label for="nome" class="fonte-tutulos-tamanho">Documentos RG</label>
 							
+							<label for="nome" class="">Número </label>
 							<input type="text"
 								class="form-control form-control-sm uppercase" autofocus="autofocus" 
 								id="codigo" placeholder="número" th:field="*{rgNumero}" /> 
 							<p></p>
 							
+							<label for="nome" class="">Emissor </label>
 							<input type="text"
 								class="form-control form-control-sm uppercase" autofocus="autofocus" 
 								id="codigo" placeholder="Emissor" th:field="*{rgOrgaoEmissor}" />
 							<p></p>
 							
+							<label for="nome" class="">UF Emissão </label>
 							<select id="cargos" class="form-select" th:field="*{idUfEmissao}">
 								<option value="">Selecione o Estado</option>
 								<option th:each="d : ${idUfEmissao}" th:value="${d.id}"th:text="${d.nomeUf}">ADM</option>
 							</select>	
 							<p></p>
 							
+							<label for="nome" class="">Data Emissão </label>
 							<input type="text"
 								class="form-control form-control-sm" autofocus="autofocus" data-mask="00/00/0000"
 								id="codigo" placeholder="Dt Emissão" th:field="*{dtEmissao}" />
@@ -557,7 +577,7 @@
 							<input type="hidden" id="pessoa" th:field="${pessoa}" />
 							<p></p>					
 						
-						<button class="btn btn-outline-dark">Submeter</button>
+						<button class="btn btn-outline-dark">Enviar</button>
 						
 						
 					</div>
@@ -673,7 +693,7 @@
 							<input type="hidden" id="pessoa" th:field="${pessoa}" />
 							<p></p>					
 						
-						<button class="btn btn-outline-dark">Submeter</button>
+						<button class="btn btn-outline-dark">Enviar</button>
 						
 						
 					</div>
@@ -742,12 +762,12 @@
 		
 		<div class="container" id="navegacao">
 			<p></p>
-				<a class="btn btn-outline-danger btn-sm" href="/ctpsdocs/retroceder"
+				<a class="btn btn-outline-danger btn-sm" th:href="@{/ctpsdocs/retroceder}"
 					role="button"> <span class="oi oi-arrow-thick-left" title="Cadastro"
 					aria-hidden="true"></span> <span>Retroceder</span>
 				</a>
 							
-				<a class="btn btn-outline-success btn-sm" href="/ctpsdocs/avancar"
+				<a class="btn btn-outline-success btn-sm" th:href="@{/ctpsdocs/avancar}"
 					role="button"> <span>Avançar</span><span class="oi oi-arrow-thick-right" 
 					title="Cadastro" aria-hidden="true"></span>
 				</a>

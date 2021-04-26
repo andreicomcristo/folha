@@ -5,6 +5,7 @@ import java.util.List;
 
 import javax.persistence.*;
 
+import com.folha.boot.domain.seguranca.Perfil;
 import com.folha.boot.service.util.UtilidadesDeTexto;
 
 @SuppressWarnings("serial")
@@ -41,6 +42,11 @@ public class Unidades extends AbstractEntity<Long> {
     private Date dtCancelamento;
     @Column(name = "motivo_cancelamento")
     private String motivoCancelamento;
+    @Column(name = "cnpj")
+    private String cnpj;
+    @JoinColumn(name = "id_unidade_gestora_fk", referencedColumnName = "id")
+    @ManyToOne
+    private UnidadeGestora idUnidadeGestoraFk;
     @OneToMany(mappedBy = "idUnidadeAtuacaoAtualFk")
     private List<FuncionariosLicencas> funcionariosLicencasList;
     @OneToMany(mappedBy = "idUnidadeLotacaoAtualFk")
@@ -71,8 +77,6 @@ public class Unidades extends AbstractEntity<Long> {
     private List<FuncionariosFerias> funcionariosFeriasList;
     @OneToMany(mappedBy = "idUnidadeDeSaudeFk")
     private List<Autorizacoes> autorizacoesList;
-    @OneToMany(mappedBy = "idUnidadeFk")
-    private List<FaixasValoresParametrosCalculoFolhasExtras> faixasValoresParametrosCalculoFolhasExtrasList;
     @OneToMany(mappedBy = "idUnidadeDeSaudeFk")
     private List<HistUnidadesDiretor> histUnidadesDiretorList;
     @OneToMany(mappedBy = "idUnidadeAtuacaoAtualFk")
@@ -86,11 +90,34 @@ public class Unidades extends AbstractEntity<Long> {
     @OneToMany(mappedBy = "idUnidadeFk")
     private List<CodigoDiferenciado> codigoDiferenciadoList;
 
+    @OneToMany(mappedBy = "idUnidadeFk")
+    private List<Perfil> perfilList;
     
+    @OneToMany(mappedBy = "idUnidadeFk")
+    private List<AtividadeEscala> atividadeEscalaList;
+    
+    @OneToMany(mappedBy = "idUnidadeLotacaoAtualFk")
+    private List<PessoaFuncionarios> pessoaFuncionariosList1;
+    
+    @OneToMany(mappedBy = "idUnidadeFk")
+    private List<PessoaChDif> pessoaChDifList;
+    @OneToMany(mappedBy = "idUnidadeFk")
+    private List<PessoaIncrementoDeRisco> pessoaIncrementoDeRiscoList;
+    
+    @OneToMany(mappedBy = "idUnidadeFk")
+    private List<PessoaLimiteHoras> pessoaLimiteHorasList;
     
 	public List<CodigoDiferenciado> getCodigoDiferenciadoList() {
 		return codigoDiferenciadoList;
 	}
+	
+	@OneToMany(mappedBy = "idUnidadeFk")
+    private List<UnidadeAdmiteChDif> unidadeAdmiteChDifList;
+	@OneToMany(mappedBy = "idUnidadeFk")
+    private List<UnidadeAdmiteIncrementoDeRisco> unidadeAdmiteIncrementoDeRiscoList;
+	
+	@OneToMany(mappedBy = "idUnidadeFk")
+    private List<FatorChDif> fatorChDifList;
 
 	public void setCodigoDiferenciadoList(List<CodigoDiferenciado> codigoDiferenciadoList) {
 		this.codigoDiferenciadoList = codigoDiferenciadoList;
@@ -331,15 +358,6 @@ public class Unidades extends AbstractEntity<Long> {
 		this.histUnidadesDiretorList = histUnidadesDiretorList;
 	}
 
-	public List<FaixasValoresParametrosCalculoFolhasExtras> getFaixasValoresParametrosCalculoFolhasExtrasList() {
-		return faixasValoresParametrosCalculoFolhasExtrasList;
-	}
-
-	public void setFaixasValoresParametrosCalculoFolhasExtrasList(
-			List<FaixasValoresParametrosCalculoFolhasExtras> faixasValoresParametrosCalculoFolhasExtrasList) {
-		this.faixasValoresParametrosCalculoFolhasExtrasList = faixasValoresParametrosCalculoFolhasExtrasList;
-	}
-
 	public List<LocalidadeEscala> getLocalidadeEscalaList() {
 		return localidadeEscalaList;
 	}
@@ -348,5 +366,95 @@ public class Unidades extends AbstractEntity<Long> {
 		this.localidadeEscalaList = localidadeEscalaList;
 	}
 
+	public List<Perfil> getPerfilList() {
+		return perfilList;
+	}
+
+	public void setPerfilList(List<Perfil> perfilList) {
+		this.perfilList = perfilList;
+	}
+
+	public List<AtividadeEscala> getAtividadeEscalaList() {
+		return atividadeEscalaList;
+	}
+
+	public void setAtividadeEscalaList(List<AtividadeEscala> atividadeEscalaList) {
+		this.atividadeEscalaList = atividadeEscalaList;
+	}
+
+	public List<PessoaFuncionarios> getPessoaFuncionariosList1() {
+		return pessoaFuncionariosList1;
+	}
+
+	public void setPessoaFuncionariosList1(List<PessoaFuncionarios> pessoaFuncionariosList1) {
+		this.pessoaFuncionariosList1 = pessoaFuncionariosList1;
+	}
+
+	public String getCnpj() {
+		return cnpj;
+	}
+
+	public void setCnpj(String cnpj) {
+		this.cnpj = UtilidadesDeTexto.retiraEspacosDuplosAcentosEConverteEmMaiusculo(cnpj);
+	}
+
+	public UnidadeGestora getIdUnidadeGestoraFk() {
+		return idUnidadeGestoraFk;
+	}
+
+	public void setIdUnidadeGestoraFk(UnidadeGestora idUnidadeGestoraFk) {
+		this.idUnidadeGestoraFk = idUnidadeGestoraFk;
+	}
+
+	public List<UnidadeAdmiteChDif> getUnidadeAdmiteChDifList() {
+		return unidadeAdmiteChDifList;
+	}
+
+	public void setUnidadeAdmiteChDifList(List<UnidadeAdmiteChDif> unidadeAdmiteChDifList) {
+		this.unidadeAdmiteChDifList = unidadeAdmiteChDifList;
+	}
+
+	public List<UnidadeAdmiteIncrementoDeRisco> getUnidadeAdmiteIncrementoDeRiscoList() {
+		return unidadeAdmiteIncrementoDeRiscoList;
+	}
+
+	public void setUnidadeAdmiteIncrementoDeRiscoList(
+			List<UnidadeAdmiteIncrementoDeRisco> unidadeAdmiteIncrementoDeRiscoList) {
+		this.unidadeAdmiteIncrementoDeRiscoList = unidadeAdmiteIncrementoDeRiscoList;
+	}
+
+	public List<FatorChDif> getFatorChDifList() {
+		return fatorChDifList;
+	}
+
+	public void setFatorChDifList(List<FatorChDif> fatorChDifList) {
+		this.fatorChDifList = fatorChDifList;
+	}
+
+	public List<PessoaChDif> getPessoaChDifList() {
+		return pessoaChDifList;
+	}
+
+	public void setPessoaChDifList(List<PessoaChDif> pessoaChDifList) {
+		this.pessoaChDifList = pessoaChDifList;
+	}
+
+	public List<PessoaIncrementoDeRisco> getPessoaIncrementoDeRiscoList() {
+		return pessoaIncrementoDeRiscoList;
+	}
+
+	public void setPessoaIncrementoDeRiscoList(List<PessoaIncrementoDeRisco> pessoaIncrementoDeRiscoList) {
+		this.pessoaIncrementoDeRiscoList = pessoaIncrementoDeRiscoList;
+	}
+
+	public List<PessoaLimiteHoras> getPessoaLimiteHorasList() {
+		return pessoaLimiteHorasList;
+	}
+
+	public void setPessoaLimiteHorasList(List<PessoaLimiteHoras> pessoaLimiteHorasList) {
+		this.pessoaLimiteHorasList = pessoaLimiteHorasList;
+	}
+
+	
 	
 }

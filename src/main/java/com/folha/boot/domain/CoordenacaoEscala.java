@@ -1,5 +1,6 @@
 package com.folha.boot.domain;
 
+import java.util.Date;
 import java.util.List;
 
 import javax.persistence.Column;
@@ -8,6 +9,8 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 
 @SuppressWarnings("serial")
 @Entity
@@ -33,6 +36,13 @@ public class CoordenacaoEscala extends AbstractEntity<Long>{
 	
 	@OneToMany(mappedBy = "idCoordenacaoFk")
     private List<AcessoOperadoresCoordenacao> acessoOperadoresCoordenacaoList;
+	
+	@OneToMany(mappedBy = "idCoordenacaoFk")
+    private List<EscalaAlteracoes> escalaAlteracoesList;
+	
+	@Column(name = "dt_cancelamento")
+	@Temporal(TemporalType.DATE)
+	private Date dtCancelamento;
 
 	public String getNomeCoordenacao() {
 		return nomeCoordenacao;
@@ -81,6 +91,24 @@ public class CoordenacaoEscala extends AbstractEntity<Long>{
 	public void setEscalaPosTransparenciaList(List<EscalaPosTransparencia> escalaPosTransparenciaList) {
 		this.escalaPosTransparenciaList = escalaPosTransparenciaList;
 	}
+
+	public List<EscalaAlteracoes> getEscalaAlteracoesList() {
+		return escalaAlteracoesList;
+	}
+
+	public void setEscalaAlteracoesList(List<EscalaAlteracoes> escalaAlteracoesList) {
+		this.escalaAlteracoesList = escalaAlteracoesList;
+	}
+
+	public Date getDtCancelamento() {
+		return dtCancelamento;
+	}
+
+	public void setDtCancelamento(Date dtCancelamento) {
+		this.dtCancelamento = dtCancelamento;
+	}
+
+	
     
 	
 	

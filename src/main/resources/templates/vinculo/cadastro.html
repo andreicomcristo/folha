@@ -5,10 +5,12 @@
 	<section class="layout-content" layout:fragment="corpo">
 
 		<nav class="navbar navbar-expand-md bg-light">
-			<form action="/vinculos/listar">
+			<form th:action="@{/vinculos/listar}">
 				<div class=" layout-content">
+					<a class="btn btn-outline-light oi oi-action-undo" type="button" href="javascript:history.back()"></a>
+					<a class="btn btn-outline-light oi oi-action-redo" type="button" href="javascript:history.forward()"></a>
 					<button class="btn btn-outline-dark" >Listar</button>
-					<a class="btn btn-outline-dark btn-md" href="/vinculos/cadastrar"
+					<a class="btn btn-outline-dark btn-md" th:href="@{/vinculos/cadastrar}"
 						role="button"> <span class="oi oi-plus" title="Cadastro"
 						aria-hidden="true"></span> <span>Novo</span>
 					</a>
@@ -27,10 +29,13 @@
 					<div class="form-group col-md-6">
 						<label for="nome" class="fonte-tutulos-tamanho">Cadastro de Vínculos</label>
 							
+							<label for="nome" class="">Vínculo </label>
 							<input type="text"
 								class="form-control form-control-md" autofocus="autofocus"
 								id="nomeVinculo" placeholder="Vínculo" th:field="*{nomeVinculo}" /> 
 							<p></p>
+							
+							<label for="nome" class="">Descrição </label>
 							<input type="text"
 								class="form-control form-control-md" autofocus="autofocus"
 								id="descricaoVinculo" placeholder="Descrição" th:field="*{descricaoVinculo}" />						

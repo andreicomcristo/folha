@@ -14,12 +14,25 @@ public class TiposDeFolha extends AbstractEntity<Long> {
 	private String nomeTipoFolha;
 	@Column(name = "descricao_tipo_folha")
 	private String descricaoTipoFolha;
+	@JoinColumn(name = "id_tipo_remuneracao_fk", referencedColumnName = "id")
+    @ManyToOne
+    private TiposDeRemuneracao idTipoRemuneracaoFk;
 	@OneToMany(mappedBy = "idTipoFolhaFk")
 	private List<Escala> escalaList;
 	@OneToMany(mappedBy = "idTipoFolhaFk")
     private List<EscalaPosTransparencia> escalaPosTransparenciaList;
 	@OneToMany(mappedBy = "idTipoDeFolhaFk")
 	private List<FaixasValoresParametrosCalculoFolhasExtras> faixasValoresParametrosCalculoFolhasExtrasList;
+	
+	@JoinColumn(name = "id_folha_efetiva_sim_nao_fk", referencedColumnName = "id")
+    @ManyToOne
+    private SimNao idFolhaEfetivaSimNaoFk;
+	
+	@OneToMany(mappedBy = "idTipoFolhaFk")
+    private List<EscalaAlteracoes> escalaAlteracoesList;
+	
+	@OneToMany(mappedBy = "idTipoDeFolhaFk")
+    private List<TiposDeFolhaNivelCargo> tiposDeFolhaNivelCargoList;
 	
 	public String getNomeTipoFolha() {
 		return nomeTipoFolha;
@@ -52,6 +65,31 @@ public class TiposDeFolha extends AbstractEntity<Long> {
 	public void setEscalaPosTransparenciaList(List<EscalaPosTransparencia> escalaPosTransparenciaList) {
 		this.escalaPosTransparenciaList = escalaPosTransparenciaList;
 	}
+	public List<EscalaAlteracoes> getEscalaAlteracoesList() {
+		return escalaAlteracoesList;
+	}
+	public void setEscalaAlteracoesList(List<EscalaAlteracoes> escalaAlteracoesList) {
+		this.escalaAlteracoesList = escalaAlteracoesList;
+	}
+	public TiposDeRemuneracao getIdTipoRemuneracaoFk() {
+		return idTipoRemuneracaoFk;
+	}
+	public void setIdTipoRemuneracaoFk(TiposDeRemuneracao idTipoRemuneracaoFk) {
+		this.idTipoRemuneracaoFk = idTipoRemuneracaoFk;
+	}
+	public SimNao getIdFolhaEfetivaSimNaoFk() {
+		return idFolhaEfetivaSimNaoFk;
+	}
+	public void setIdFolhaEfetivaSimNaoFk(SimNao idFolhaEfetivaSimNaoFk) {
+		this.idFolhaEfetivaSimNaoFk = idFolhaEfetivaSimNaoFk;
+	}
+	public List<TiposDeFolhaNivelCargo> getTiposDeFolhaNivelCargoList() {
+		return tiposDeFolhaNivelCargoList;
+	}
+	public void setTiposDeFolhaNivelCargoList(List<TiposDeFolhaNivelCargo> tiposDeFolhaNivelCargoList) {
+		this.tiposDeFolhaNivelCargoList = tiposDeFolhaNivelCargoList;
+	}
+	
 	
 	
 }

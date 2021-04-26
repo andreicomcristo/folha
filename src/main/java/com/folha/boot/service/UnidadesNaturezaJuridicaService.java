@@ -3,10 +3,15 @@ package com.folha.boot.service;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.folha.boot.Reposytory.UnidadesNaturezaJuridicaReposytory;
+import com.folha.boot.domain.AtividadeEscala;
+import com.folha.boot.domain.Unidades;
 import com.folha.boot.domain.UnidadesNaturezaJuridica;
 
 @Service
@@ -45,7 +50,7 @@ public class UnidadesNaturezaJuridicaService {
 	
 	public List<UnidadesNaturezaJuridica> buscarTodos() {
 		// TODO Auto-generated method stub
-		return reposytory.findAll();
+		return reposytory.findAllByOrderByNomeNaturezaJuridicaAsc();
 	}
 
 	
@@ -54,4 +59,16 @@ public class UnidadesNaturezaJuridicaService {
 		return reposytory.findByNomeNaturezaJuridicaContainingOrderByNomeNaturezaJuridicaAsc(nomeNaturezaJuridica);
 	}
 
+	@Transactional(readOnly = true)
+	public Page<UnidadesNaturezaJuridica> findPaginated(int pageNo, int pageSize) {
+		Pageable pageable = PageRequest.of(pageNo -1, pageSize);
+		return this.reposytory.findAllByOrderByNomeNaturezaJuridicaAsc(  pageable);
+	}
+
+	@Transactional(readOnly = true)
+	public Page<UnidadesNaturezaJuridica> findPaginatedNome(String nome, int pageNo, int pageSize ) {
+		Pageable pageable = PageRequest.of(pageNo -1, pageSize);
+		return this.reposytory.findByNomeNaturezaJuridicaContainingOrderByNomeNaturezaJuridicaAsc(  nome.toUpperCase().trim(), pageable);
+	}
+	
 }
