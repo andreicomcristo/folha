@@ -24,8 +24,6 @@ import com.folha.boot.service.UnidadesService;
 @RequestMapping("/turnos")
 public class TurnosController {
 
-	Long idUnidadeLogada = 1l;
-	Long idOperadorLogado = 1l;
 	
 	String ultimaBuscaNome = "";
 	

@@ -22,14 +22,17 @@ import com.folha.boot.service.FuncionariosFeriasService;
 import com.folha.boot.service.PessoaFuncionariosService;
 import com.folha.boot.service.PessoaOperadoresService;
 import com.folha.boot.service.UnidadesService;
+import com.folha.boot.service.seguranca.UsuarioService;
 
 @Controller
 @RequestMapping("/funcionariosferias")
 public class FuncionariosFeriasController {
 
-	private Long idUnidadeLogada = 1l;
+	
 	private String ultimaBuscaNome = "";
 	
+	@Autowired
+	private UsuarioService usuarioService;
 	@Autowired
 	private FuncionariosFeriasService feriasService;
 	@Autowired
@@ -76,7 +79,7 @@ public class FuncionariosFeriasController {
 	@GetMapping("/funcionarios/listar/{pageNo}")
 	public String findPaginatedFuncionario(@PathVariable (value = "pageNo") int pageNo, ModelMap model) {
 		int pageSeze = 5;
-		Page<PessoaFuncionarios> page = pessoaFuncionariosService.findPaginated(pageNo, pageSeze, unidadesService.buscarPorId(idUnidadeLogada), "ATIVO");
+		Page<PessoaFuncionarios> page = pessoaFuncionariosService.findPaginated(pageNo, pageSeze, usuarioService.pegarUnidadeLogada(), "ATIVO");
 		List<PessoaFuncionarios> listaFuncionarios = page.getContent();
 		return paginarFuncionario(pageNo, page, listaFuncionarios, model);
 	}
@@ -100,7 +103,7 @@ public class FuncionariosFeriasController {
 	
 	public String findPaginatedFuncionario(@PathVariable (value = "pageNo") int pageNo, String nome, ModelMap model) {
 		int pageSeze = 5;
-		Page<PessoaFuncionarios> page = pessoaFuncionariosService.findPaginatedNome(pageNo, pageSeze, unidadesService.buscarPorId(idUnidadeLogada), "ATIVO", nome);
+		Page<PessoaFuncionarios> page = pessoaFuncionariosService.findPaginatedNome(pageNo, pageSeze, usuarioService.pegarUnidadeLogada(), "ATIVO", nome);
 		List<PessoaFuncionarios> lista = page.getContent();
 		//ultimaBuscaNome = "";
 		//ultimaBuscaTurma = null;

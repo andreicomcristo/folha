@@ -21,17 +21,19 @@ import com.folha.boot.service.AcessoOperadoresCoordenacaoService;
 import com.folha.boot.service.CoordenacaoEscalaService;
 import com.folha.boot.service.PessoaOperadoresService;
 import com.folha.boot.service.UnidadesService;
+import com.folha.boot.service.seguranca.UsuarioService;
 
 @Controller
 @RequestMapping("/acessooperadorescoordenacao")
 public class AcessoOperadoresCoordenacaoController {
 
-	Long idUnidadeLogada = 1l;
-	Long idOperadorLogado = 1l;
 	
 	Long idOperadorAlterado =1l ;
 	
 	String ultimaBuscaNome = "";
+	
+	@Autowired
+	UsuarioService usuarioService;
 	
 	@Autowired
 	private AcessoOperadoresCoordenacaoService service;
@@ -52,7 +54,7 @@ public class AcessoOperadoresCoordenacaoController {
 	@GetMapping("/cadastrar")
 	public String cadastrar(AcessoOperadoresCoordenacao acessoOperadoresCoordenacao, ModelMap model) {
 		
-		model.addAttribute("unidade", unidadesService.buscarPorId(idUnidadeLogada));
+		model.addAttribute("unidade", usuarioService.pegarUnidadeLogada());
 		model.addAttribute("operador", pessoaOperadoresService.buscarPorId(idOperadorAlterado));
 		model.addAttribute("acessoOperadoresCoordenacaoLista", service.buscarPorOperador(pessoaOperadoresService.buscarPorId(idOperadorAlterado)));
 		return "/acessoOperadoresCoordenacaoEscala/cadastro";
@@ -95,7 +97,7 @@ public class AcessoOperadoresCoordenacaoController {
 	
 	@GetMapping("/tirar/todos")
 	public String irarTodos() {
-		List <AcessoOperadoresCoordenacao> lista = service.buscarPorOperadorEUnidade(pessoaOperadoresService.buscarPorId(idOperadorAlterado), unidadesService.buscarPorId(idUnidadeLogada));
+		List <AcessoOperadoresCoordenacao> lista = service.buscarPorOperadorEUnidade(pessoaOperadoresService.buscarPorId(idOperadorAlterado), usuarioService.pegarUnidadeLogada());
 		//Apagando
 		for(int i=0;i<lista.size();i++) {
 			service.excluir(lista.get(i).getId());
@@ -182,7 +184,7 @@ public class AcessoOperadoresCoordenacaoController {
 	
 	@ModelAttribute("idCoordenacaoFk")
 	public List<CoordenacaoEscala> getidCoordenacaoFk() {
-		List<CoordenacaoEscala> lista = coordenacaoEscalaService.buscarAcessoIndividualQueNaoTem(unidadesService.buscarPorId(idUnidadeLogada), pessoaOperadoresService.buscarPorId(idOperadorAlterado)); 
+		List<CoordenacaoEscala> lista = coordenacaoEscalaService.buscarAcessoIndividualQueNaoTem(usuarioService.pegarUnidadeLogada(), pessoaOperadoresService.buscarPorId(idOperadorAlterado)); 
 		return lista;
 	}
 	

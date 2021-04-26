@@ -52,6 +52,7 @@ import com.folha.boot.service.RegimesDeTrabalhoService;
 import com.folha.boot.service.TiposDeFolhaService;
 import com.folha.boot.service.UnidadeAdmiteChDifService;
 import com.folha.boot.service.UnidadesService;
+import com.folha.boot.service.seguranca.UsuarioService;
 
 
 @Controller
@@ -59,13 +60,15 @@ import com.folha.boot.service.UnidadesService;
 public class PessoaChDifController {
 
 	Long idUnidadeLogada = 1l;
-	Long idOperadorLogado = 1l;
+	
 	
 	Long idPessoaAtual = null;
 	
 	String ultimoAnoMes = "";
 	String ultimaBuscaNome = "";
 	
+	@Autowired
+	private UsuarioService usuarioService;
 	@Autowired
 	private PessoaChDifService service;
 	@Autowired
@@ -226,7 +229,7 @@ public class PessoaChDifController {
 	@PostMapping("/salvar")
 	public String salvar(PessoaChDif pessoaChDif, RedirectAttributes attr) {
 		pessoaChDif.setDtCadastro(new Date());
-		pessoaChDif.setIdOperadorCadastroFk(pessoaOperadoresService.buscarPorId(idOperadorLogado));
+		pessoaChDif.setIdOperadorCadastroFk(usuarioService.pegarOperadorLogado());
 		pessoaChDif.setIdUnidadeFk(unidadesService.buscarPorId(idUnidadeLogada));
 		
 		service.salvar(pessoaChDif);
@@ -245,7 +248,7 @@ public class PessoaChDifController {
 	@PostMapping("/editar")
 	public String editar(PessoaChDif pessoaChDif, RedirectAttributes attr) {	
 		pessoaChDif.setDtCadastro(new Date());
-		pessoaChDif.setIdOperadorCadastroFk(pessoaOperadoresService.buscarPorId(idOperadorLogado));
+		pessoaChDif.setIdOperadorCadastroFk(usuarioService.pegarOperadorLogado());
 		pessoaChDif.setIdUnidadeFk(unidadesService.buscarPorId(idUnidadeLogada));
 		
 		
@@ -257,7 +260,7 @@ public class PessoaChDifController {
 	@GetMapping("/cancelar/{id}")
 	public String cancelar(@PathVariable("id") Long id, ModelMap model) {
 		PessoaChDif pessoaChDif = service.buscarPorId(id);
-		pessoaChDif.setIdOperadorCancelamentoFk(pessoaOperadoresService.buscarPorId(idOperadorLogado) );
+		pessoaChDif.setIdOperadorCancelamentoFk(usuarioService.pegarOperadorLogado() );
 		pessoaChDif.setDtCancelamento(new Date());
 		service.salvar(pessoaChDif);  
 		model.addAttribute("success", "Excluído com sucesso.");
@@ -268,7 +271,7 @@ public class PessoaChDifController {
 	
 	@GetMapping("/herdar/de/mes") 
 	public String herdarDeMes( Long anoMesInicial,  Long anoMesFinal,  ModelMap model) {		
-		service.herdarDeUmMesParaOOutro(unidadesService.buscarPorId(idUnidadeLogada), pessoaOperadoresService.buscarPorId(idOperadorLogado)  ,anoMesInicial, anoMesFinal);
+		service.herdarDeUmMesParaOOutro(unidadesService.buscarPorId(idUnidadeLogada), usuarioService.pegarOperadorLogado()  ,anoMesInicial, anoMesFinal);
 		return "redirect:/pessoaChDif/listar" ;
 	}
 	

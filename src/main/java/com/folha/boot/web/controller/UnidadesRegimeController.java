@@ -24,8 +24,6 @@ import com.folha.boot.service.UnidadesRegimeService;
 @RequestMapping("/regimes")
 public class UnidadesRegimeController {
 
-	Long idUnidadeLogada = 1l;
-	Long idOperadorLogado = 1l;
 	
 	String ultimaBuscaNome = "";
 	

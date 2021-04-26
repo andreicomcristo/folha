@@ -28,13 +28,14 @@ import com.folha.boot.service.PessoaService;
 import com.folha.boot.service.SimNaoService;
 import com.folha.boot.service.TiposDeDocumentoService;
 import com.folha.boot.service.UnidadesService;
+import com.folha.boot.service.seguranca.UsuarioService;
 
 @Controller
 @RequestMapping("/pessoabancos")
 public class PessoaBancosController {
 
-	Long idUnidadeLogada = 1l;
-	Long idOperadorLogado = 1l;
+	
+	
 	@Autowired
 	private UnidadesService unidadesService;
 	@Autowired
@@ -43,6 +44,8 @@ public class PessoaBancosController {
 	
 	Long idPessoaAtual;
 	
+	@Autowired
+	private UsuarioService usuarioService;
 	@Autowired
 	private PessoaBancosService service;
 	@Autowired
@@ -90,7 +93,7 @@ public class PessoaBancosController {
 		
 		pessoaBancos.setIdPessoaFk(pessoaService.buscarPorId(idPessoaAtual));
 		
-		pessoaBancos.setIdOperadorCadastroFk(pessoaOperadoresService.buscarPorId(idOperadorLogado));
+		pessoaBancos.setIdOperadorCadastroFk(usuarioService.pegarOperadorLogado());
 		pessoaBancos.setDtCadastro(new Date());
 		
 		service.salvar(pessoaBancos);

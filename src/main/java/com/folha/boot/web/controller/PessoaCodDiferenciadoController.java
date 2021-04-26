@@ -32,17 +32,18 @@ import com.folha.boot.service.PessoaOperadoresService;
 import com.folha.boot.service.PessoaService;
 import com.folha.boot.service.SimNaoService;
 import com.folha.boot.service.UnidadesService;
+import com.folha.boot.service.seguranca.UsuarioService;
 
 @Controller
 @RequestMapping("/pessoaCodDiferenciado")
 public class PessoaCodDiferenciadoController {
 
-	Long idUnidadeLogada = 1l;
-	Long idOperadorLogado = 1l;
 	
 	String ultimaBuscaNome = "";
 	String ultimaBuscaUnidade = "";
 	
+	@Autowired
+	private UsuarioService usuarioService;
 	@Autowired
 	private PessoaCodDiferenciadoService service;
 	@Autowired
@@ -83,7 +84,7 @@ public class PessoaCodDiferenciadoController {
 	@GetMapping("/listar/funcionarios/{pageNo}")
 	public String findPaginatedFuncionario(@PathVariable (value = "pageNo") int pageNo, ModelMap model) {
 		int pageSeze = 10;
-		Page<PessoaFuncionarios> page = pessoaFuncionariosService.findPaginated(pageNo, pageSeze, unidadesService.buscarPorId(idUnidadeLogada), "ATIVO");
+		Page<PessoaFuncionarios> page = pessoaFuncionariosService.findPaginated(pageNo, pageSeze, usuarioService.pegarUnidadeLogada(), "ATIVO");
 		List<PessoaFuncionarios> listaFuncionarios = page.getContent();
 		return paginarFuncionario(pageNo, page, listaFuncionarios, model);
 	}
@@ -107,7 +108,7 @@ public class PessoaCodDiferenciadoController {
 	
 	public String findPaginatedFuncionario(@PathVariable (value = "pageNo") int pageNo, String nome, ModelMap model) {
 		int pageSeze = 10;
-		Page<PessoaFuncionarios> page = pessoaFuncionariosService.findPaginatedNome(pageNo, pageSeze, unidadesService.buscarPorId(idUnidadeLogada), "ATIVO", nome);
+		Page<PessoaFuncionarios> page = pessoaFuncionariosService.findPaginatedNome(pageNo, pageSeze, usuarioService.pegarUnidadeLogada(), "ATIVO", nome);
 		List<PessoaFuncionarios> lista = page.getContent();
 		//ultimaBuscaNome = "";
 		//ultimaBuscaTurma = null;
@@ -119,7 +120,7 @@ public class PessoaCodDiferenciadoController {
 		Pessoa pessoa = pessoaFuncionariosService.buscarPorId(id).getIdPessoaFk();
 		pessoaCodDiferenciado.setIdPessoaFk(pessoa);//relaciona as férias ao funcionário
 		model.addAttribute("pessoaCodDiferenciado", pessoaCodDiferenciado);
-		model.addAttribute("listaPessoaCodDiferenciado", service.buscarPorUnidadeEPessoa(unidadesService.buscarPorId(idUnidadeLogada), pessoa));
+		model.addAttribute("listaPessoaCodDiferenciado", service.buscarPorUnidadeEPessoa(usuarioService.pegarUnidadeLogada(), pessoa));
 		
 		return "/pessoaCodDiferenciado/cadastro"; 
 	}
@@ -129,7 +130,7 @@ public class PessoaCodDiferenciadoController {
 		Pessoa pessoa = pessoaService.buscarPorId(id);
 		pessoaCodDiferenciado.setIdPessoaFk(pessoa);//relaciona as férias ao funcionário
 		model.addAttribute("pessoaCodDiferenciado", pessoaCodDiferenciado);
-		model.addAttribute("listaPessoaCodDiferenciado", service.buscarPorUnidadeEPessoa(unidadesService.buscarPorId(idUnidadeLogada), pessoa));
+		model.addAttribute("listaPessoaCodDiferenciado", service.buscarPorUnidadeEPessoa(usuarioService.pegarUnidadeLogada(), pessoa));
 		
 		return "/pessoaCodDiferenciado/cadastro"; 
 	}
@@ -147,7 +148,7 @@ public class PessoaCodDiferenciadoController {
 	@PostMapping("/salvar/aprovacao/sede")
 	public String salvarAprovacaoSede(PessoaCodDiferenciado pessoaCodDiferenciado, RedirectAttributes attr) {
 		pessoaCodDiferenciado.setDtConfirmacaoSede(new Date());
-		pessoaCodDiferenciado.setIdOperadorConfirmacaoSedeFk(pessoaOperadoresService.buscarPorId(idOperadorLogado));
+		pessoaCodDiferenciado.setIdOperadorConfirmacaoSedeFk(usuarioService.pegarOperadorLogado());
 		
 		if(pessoaCodDiferenciado.getIdConfirmacaoSedeSimNaoFk()==null) {
 			return "redirect:/pessoaCodDiferenciado/mensagem/de/nao/escolha";
@@ -184,7 +185,7 @@ public class PessoaCodDiferenciadoController {
 	@PostMapping("/salvar")
 	public String salvar(PessoaCodDiferenciado pessoaCodDiferenciado, RedirectAttributes attr) {
 		pessoaCodDiferenciado.setDtCadastro(new Date());
-		pessoaCodDiferenciado.setIdOperadorCadastroFk(pessoaOperadoresService.buscarPorId(idOperadorLogado));
+		pessoaCodDiferenciado.setIdOperadorCadastroFk(usuarioService.pegarOperadorLogado());
 		
 		if(pessoaCodDiferenciado.getIdPessoaFk()==null  || pessoaCodDiferenciado.getIdCodDiferenciadoFk()==null || pessoaCodDiferenciado.getObservacaoCadastro().length()<1 ) {
 			return "redirect:/pessoaCodDiferenciado/mensagem/de/nao/escolha";
@@ -220,7 +221,7 @@ public class PessoaCodDiferenciadoController {
 	public String cancelar(@PathVariable("id") Long id, ModelMap model) {
 		PessoaCodDiferenciado pessoaCodDiferenciado = service.buscarPorId(id);
 		pessoaCodDiferenciado.setDtCancelamento(new Date());
-		pessoaCodDiferenciado.setIdOperadorCancelamentoFk(pessoaOperadoresService.buscarPorId(idOperadorLogado));
+		pessoaCodDiferenciado.setIdOperadorCancelamentoFk(usuarioService.pegarOperadorLogado());
 		service.salvar(pessoaCodDiferenciado); 
 		model.addAttribute("success", "Cancelado com sucesso.");
 		return "redirect:/pessoaCodDiferenciado/atribuir/cod/diferenciado/pessoa/"+pessoaCodDiferenciado.getIdPessoaFk().getId();
@@ -230,7 +231,7 @@ public class PessoaCodDiferenciadoController {
 	public String cancelarListaUnidade(@PathVariable("id") Long id, ModelMap model) {
 		PessoaCodDiferenciado pessoaCodDiferenciado = service.buscarPorId(id);
 		pessoaCodDiferenciado.setDtCancelamento(new Date());
-		pessoaCodDiferenciado.setIdOperadorCancelamentoFk(pessoaOperadoresService.buscarPorId(idOperadorLogado));
+		pessoaCodDiferenciado.setIdOperadorCancelamentoFk(usuarioService.pegarOperadorLogado());
 		service.salvar(pessoaCodDiferenciado); 
 		model.addAttribute("success", "Cancelado com sucesso.");
 		return "redirect:/pessoaCodDiferenciado/listar/unidade";
@@ -348,14 +349,14 @@ public class PessoaCodDiferenciadoController {
 	@GetMapping("/listar/unidade/{pageNo}")
 	public String findPaginatedUnidade(@PathVariable (value = "pageNo") int pageNo, ModelMap model) {
 		int pageSeze = 10;
-		Page<PessoaCodDiferenciado> page = service.findPaginatedUnidade(unidadesService.buscarPorId(idUnidadeLogada), pageNo, pageSeze);
+		Page<PessoaCodDiferenciado> page = service.findPaginatedUnidade(usuarioService.pegarUnidadeLogada(), pageNo, pageSeze);
 		List<PessoaCodDiferenciado> lista = page.getContent();
 		return paginarUnidade(pageNo, page, lista, model);
 	}
 
 	public String findPaginatedNomeUnidade(@PathVariable (value = "pageNo") int pageNo, String nome, ModelMap model) {
 		int pageSeze = 10;
-		Page<PessoaCodDiferenciado> page = service.findPaginatedNomeUnidade(unidadesService.buscarPorId(idUnidadeLogada),  nome, pageNo, pageSeze);
+		Page<PessoaCodDiferenciado> page = service.findPaginatedNomeUnidade(usuarioService.pegarUnidadeLogada(),  nome, pageNo, pageSeze);
 		List<PessoaCodDiferenciado> lista = page.getContent();
 		return paginarUnidade(pageNo, page, lista, model);
 	}
@@ -385,14 +386,14 @@ public class PessoaCodDiferenciadoController {
 	
 	@ModelAttribute("idCodDiferenciadoFkTodos")
 	public List<CodigoDiferenciado> getIdCodDiferenciadoFkTodos() {
-		List<CodigoDiferenciado> lista = codigoDiferenciadoService.buscarTodosQuePrecisaDeAtribuicaoRh(unidadesService.buscarPorId(idUnidadeLogada));
+		List<CodigoDiferenciado> lista = codigoDiferenciadoService.buscarTodosQuePrecisaDeAtribuicaoRh(usuarioService.pegarUnidadeLogada());
 		return lista;
 	}	
 	
 	@ModelAttribute("idUnidadeFk")
 	public List<Unidades> getUfs() {
 		List<Unidades> lista = new ArrayList<Unidades>();
-		lista.add(unidadesService.buscarPorId(idUnidadeLogada));
+		lista.add(usuarioService.pegarUnidadeLogada());
 		return lista;
 	}	
 	

@@ -50,20 +50,21 @@ import com.folha.boot.service.RegimesDeTrabalhoService;
 import com.folha.boot.service.TiposDeFolhaService;
 import com.folha.boot.service.UnidadeAdmiteChDifService;
 import com.folha.boot.service.UnidadesService;
+import com.folha.boot.service.seguranca.UsuarioService;
 
 
 @Controller
 @RequestMapping("/pessoaIncrementoDeRisco")
 public class PessoaIncrementoDeRiscoController {
 
-	Long idUnidadeLogada = 1l;
-	Long idOperadorLogado = 1l;
 	
 	Long idPessoaAtual = null;
 	
 	String ultimoAnoMes = "";
 	String ultimaBuscaNome = "";
 	
+	@Autowired
+	private UsuarioService usuarioService;
 	@Autowired
 	private PessoaIncrementoDeRiscoService service;
 	@Autowired
@@ -100,7 +101,7 @@ public class PessoaIncrementoDeRiscoController {
 		@GetMapping("/listar/funcionarios/{pageNo}")
 		public String findPaginatedFuncionario(@PathVariable (value = "pageNo") int pageNo, ModelMap model) {
 			int pageSeze = 10;
-			Page<PessoaFuncionarios> page = pessoaFuncionariosService.findPaginated(pageNo, pageSeze, unidadesService.buscarPorId(idUnidadeLogada), "ATIVO");
+			Page<PessoaFuncionarios> page = pessoaFuncionariosService.findPaginated(pageNo, pageSeze, usuarioService.pegarUnidadeLogada(), "ATIVO");
 			List<PessoaFuncionarios> listaFuncionarios = page.getContent();
 			return paginarFuncionario(pageNo, page, listaFuncionarios, model);
 		}
@@ -124,7 +125,7 @@ public class PessoaIncrementoDeRiscoController {
 		
 		public String findPaginatedFuncionario(@PathVariable (value = "pageNo") int pageNo, String nome, ModelMap model) {
 			int pageSeze = 10;
-			Page<PessoaFuncionarios> page = pessoaFuncionariosService.findPaginatedNome(pageNo, pageSeze, unidadesService.buscarPorId(idUnidadeLogada), "ATIVO", nome);
+			Page<PessoaFuncionarios> page = pessoaFuncionariosService.findPaginatedNome(pageNo, pageSeze, usuarioService.pegarUnidadeLogada(), "ATIVO", nome);
 			List<PessoaFuncionarios> lista = page.getContent();
 			//ultimaBuscaNome = "";
 			//ultimaBuscaTurma = null;
@@ -137,8 +138,8 @@ public class PessoaIncrementoDeRiscoController {
 			Pessoa pessoa = pessoaFuncionariosService.buscarPorId(id).getIdPessoaFk();
 			pessoaIncrementoDeRisco.setIdPessoaFk(pessoa);//relaciona as férias ao funcionário
 			model.addAttribute("pessoaIncrementoDeRisco", pessoaIncrementoDeRisco);
-			model.addAttribute("listaPessoaIncrementoDeRisco", service.buscarPorUnidadeEPessoa(unidadesService.buscarPorId(idUnidadeLogada), pessoa));
-			model.addAttribute("idAnoMes", service.buscarMesesCompativeis(unidadesService.buscarPorId(idUnidadeLogada)));
+			model.addAttribute("listaPessoaIncrementoDeRisco", service.buscarPorUnidadeEPessoa(usuarioService.pegarUnidadeLogada(), pessoa));
+			model.addAttribute("idAnoMes", service.buscarMesesCompativeis(usuarioService.pegarUnidadeLogada()));
 			
 			return "/pessoaIncrementoDeRisco/cadastro"; 
 		}
@@ -149,8 +150,8 @@ public class PessoaIncrementoDeRiscoController {
 			Pessoa pessoa = pessoaService.buscarPorId(id);
 			pessoaIncrementoDeRisco.setIdPessoaFk(pessoa);//relaciona as férias ao funcionário
 			model.addAttribute("pessoaIncrementoDeRisco", pessoaIncrementoDeRisco);
-			model.addAttribute("listaPessoaIncrementoDeRisco", service.buscarPorUnidadeEPessoa(unidadesService.buscarPorId(idUnidadeLogada), pessoa));
-			model.addAttribute("idAnoMes", service.buscarMesesCompativeis(unidadesService.buscarPorId(idUnidadeLogada)));
+			model.addAttribute("listaPessoaIncrementoDeRisco", service.buscarPorUnidadeEPessoa(usuarioService.pegarUnidadeLogada(), pessoa));
+			model.addAttribute("idAnoMes", service.buscarMesesCompativeis(usuarioService.pegarUnidadeLogada()));
 			
 			return "/pessoaIncrementoDeRisco/cadastro"; 
 		}
@@ -167,9 +168,9 @@ public class PessoaIncrementoDeRiscoController {
 		
 		
 		
-		model.addAttribute("listaPessoaIncrementoDeRisco", service.buscarPorUnidadeEPessoa(unidadesService.buscarPorId(idUnidadeLogada), pessoaService.buscarPorId(idPessoaAtual)));
+		model.addAttribute("listaPessoaIncrementoDeRisco", service.buscarPorUnidadeEPessoa(usuarioService.pegarUnidadeLogada(), pessoaService.buscarPorId(idPessoaAtual)));
 		model.addAttribute("pessoaIncrementoDeRisco", pessoaIncrementoDeRisco);
-		model.addAttribute("idAnoMes", service.buscarMesesCompativeis(unidadesService.buscarPorId(idUnidadeLogada)));
+		model.addAttribute("idAnoMes", service.buscarMesesCompativeis(usuarioService.pegarUnidadeLogada()));
 		return "/pessoaIncrementoDeRisco/cadastro";
 	}
 	
@@ -183,20 +184,20 @@ public class PessoaIncrementoDeRiscoController {
 	public String findPaginated(@PathVariable (value = "pageNo") int pageNo, ModelMap model) {
 		int pageSeze = 10;
 		if(pageNo<1) {pageNo=1;}
-		Page<PessoaIncrementoDeRisco> page = service.findPaginated(pageNo, pageSeze, unidadesService.buscarPorId(idUnidadeLogada));
+		Page<PessoaIncrementoDeRisco> page = service.findPaginated(pageNo, pageSeze, usuarioService.pegarUnidadeLogada());
 		List<PessoaIncrementoDeRisco> lista = page.getContent();
 		return paginar(pageNo, page, lista, model);
 	}
 	
 	public String findPaginated(@PathVariable (value = "pageNo") int pageNo, String nome, ModelMap model) {
 		int pageSeze = 10;
-		Page<PessoaIncrementoDeRisco> page = service.findPaginatedAnoMes(pageNo, pageSeze, nome, unidadesService.buscarPorId(idUnidadeLogada));
+		Page<PessoaIncrementoDeRisco> page = service.findPaginatedAnoMes(pageNo, pageSeze, nome, usuarioService.pegarUnidadeLogada());
 		List<PessoaIncrementoDeRisco> lista = page.getContent();
 		return paginar(pageNo, page, lista, model);
 	}
 	
 	public String paginar(int pageNo, Page<PessoaIncrementoDeRisco> page, List<PessoaIncrementoDeRisco> lista, ModelMap model) {	
-		model.addAttribute("idAnoMes", service.buscarMesesCompativeis(unidadesService.buscarPorId(idUnidadeLogada)));
+		model.addAttribute("idAnoMes", service.buscarMesesCompativeis(usuarioService.pegarUnidadeLogada()));
 		model.addAttribute("currentePage", pageNo);
 		model.addAttribute("totalPages", page.getTotalPages());
 		model.addAttribute("totalItems", page.getTotalElements()); 
@@ -221,8 +222,8 @@ public class PessoaIncrementoDeRiscoController {
 	@PostMapping("/salvar")
 	public String salvar(PessoaIncrementoDeRisco pessoaIncrementoDeRisco, RedirectAttributes attr) {
 		pessoaIncrementoDeRisco.setDtCadastro(new Date());
-		pessoaIncrementoDeRisco.setIdOperadorCadastroFk(pessoaOperadoresService.buscarPorId(idOperadorLogado));
-		pessoaIncrementoDeRisco.setIdUnidadeFk(unidadesService.buscarPorId(idUnidadeLogada));
+		pessoaIncrementoDeRisco.setIdOperadorCadastroFk(usuarioService.pegarOperadorLogado());
+		pessoaIncrementoDeRisco.setIdUnidadeFk(usuarioService.pegarUnidadeLogada());
 		
 		
 		service.salvar(pessoaIncrementoDeRisco);
@@ -239,8 +240,8 @@ public class PessoaIncrementoDeRiscoController {
 	@PostMapping("/editar")
 	public String editar(PessoaIncrementoDeRisco pessoaIncrementoDeRisco, RedirectAttributes attr) {	
 		pessoaIncrementoDeRisco.setDtCadastro(new Date());
-		pessoaIncrementoDeRisco.setIdOperadorCadastroFk(pessoaOperadoresService.buscarPorId(idOperadorLogado));
-		pessoaIncrementoDeRisco.setIdUnidadeFk(unidadesService.buscarPorId(idUnidadeLogada));
+		pessoaIncrementoDeRisco.setIdOperadorCadastroFk(usuarioService.pegarOperadorLogado());
+		pessoaIncrementoDeRisco.setIdUnidadeFk(usuarioService.pegarUnidadeLogada());
 		
 		
 		service.editar(pessoaIncrementoDeRisco);
@@ -251,7 +252,7 @@ public class PessoaIncrementoDeRiscoController {
 	@GetMapping("/cancelar/{id}")
 	public String cancelar(@PathVariable("id") Long id, ModelMap model) {
 		PessoaIncrementoDeRisco pessoaIncrementoDeRisco = service.buscarPorId(id);
-		pessoaIncrementoDeRisco.setIdOperadorCancelamentoFk(pessoaOperadoresService.buscarPorId(idOperadorLogado) );
+		pessoaIncrementoDeRisco.setIdOperadorCancelamentoFk(usuarioService.pegarOperadorLogado() );
 		pessoaIncrementoDeRisco.setDtCancelamento(new Date());
 		service.salvar(pessoaIncrementoDeRisco);  
 		model.addAttribute("success", "Excluído com sucesso.");
@@ -261,7 +262,7 @@ public class PessoaIncrementoDeRiscoController {
 	
 	@GetMapping("/herdar/de/mes") 
 	public String herdarDeMes( Long anoMesInicial,  Long anoMesFinal,  ModelMap model) {		
-		service.herdarDeUmMesParaOOutro(unidadesService.buscarPorId(idUnidadeLogada), pessoaOperadoresService.buscarPorId(idOperadorLogado)  ,anoMesInicial, anoMesFinal);
+		service.herdarDeUmMesParaOOutro(usuarioService.pegarUnidadeLogada(), usuarioService.pegarOperadorLogado() ,anoMesInicial, anoMesFinal);
 		return "redirect:/pessoaIncrementoDeRisco/listar" ;
 	}
 	
@@ -269,8 +270,8 @@ public class PessoaIncrementoDeRiscoController {
 	
 	@GetMapping("/buscar/nome")
 	public String getPorNome(@RequestParam("nome") String nome, ModelMap model) {
-		model.addAttribute("idAnoMes", service.buscarMesesCompativeis(unidadesService.buscarPorId(idUnidadeLogada)));
-		model.addAttribute("pessoaIncrementoDeRisco", service.buscarPorNome(nome.toUpperCase().trim(), unidadesService.buscarPorId(idUnidadeLogada)));
+		model.addAttribute("idAnoMes", service.buscarMesesCompativeis(usuarioService.pegarUnidadeLogada()));
+		model.addAttribute("pessoaIncrementoDeRisco", service.buscarPorNome(nome.toUpperCase().trim(), usuarioService.pegarUnidadeLogada()));
 		return "/pessoaIncrementoDeRisco/listaUnidade";
 	}
 	

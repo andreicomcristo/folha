@@ -25,19 +25,21 @@ import com.folha.boot.service.PessoaFuncionariosService;
 import com.folha.boot.service.PessoaOperadoresService;
 import com.folha.boot.service.TiposDeCapacitacaoService;
 import com.folha.boot.service.UnidadesService;
+import com.folha.boot.service.seguranca.UsuarioService;
 
 @Controller
 @RequestMapping("/funcionarioscapacitacoes")
 public class FuncionariosCapacitacoesController {
 
-	Long idUnidadeLogada = 1l;
-	Long idOperadorLogado = 1l;
+	
+	
 	
 	Long idFuncionarioAtual = 34l;
 	
 	String ultimaBuscaNome = "";
 	
-	
+	@Autowired
+	private UsuarioService usuarioService;
 	@Autowired
 	private FuncionariosCapacitacoesService service;
 	@Autowired
@@ -65,7 +67,7 @@ public class FuncionariosCapacitacoesController {
 	*/
 	@PostMapping("/salvar")
 	public String salvar(FuncionariosCapacitacoes funcionariosCapacitacoes, RedirectAttributes attr) {
-		funcionariosCapacitacoes.setIdOperadorCadastroFk(pessoaOperadoresService.buscarPorId(idOperadorLogado));
+		funcionariosCapacitacoes.setIdOperadorCadastroFk(usuarioService.pegarOperadorLogado());
 		funcionariosCapacitacoes.setDtCadastro(new Date());
 		funcionariosCapacitacoes.setIdFuncionarioFk(pessoaFuncionariosService.buscarPorId(idFuncionarioAtual));
 		service.salvar(funcionariosCapacitacoes);
@@ -96,10 +98,10 @@ public class FuncionariosCapacitacoesController {
 	@GetMapping("/cancelar/{id}")
 	public String cancelar(@PathVariable("id") Long id, ModelMap model) {
 		FuncionariosCapacitacoes funcionariosCapacitacoes = service.buscarPorId(id);
-		funcionariosCapacitacoes.setIdOperadorCadastroFk(pessoaOperadoresService.buscarPorId(idOperadorLogado));
+		funcionariosCapacitacoes.setIdOperadorCadastroFk(usuarioService.pegarOperadorLogado());
 		funcionariosCapacitacoes.setDtCadastro(new Date());
 		funcionariosCapacitacoes.setDtCancelamento(new Date());
-		funcionariosCapacitacoes.setIdOperadorCancelamentoFk(pessoaOperadoresService.buscarPorId(idOperadorLogado));
+		funcionariosCapacitacoes.setIdOperadorCancelamentoFk(usuarioService.pegarOperadorLogado());
 		service.salvar(funcionariosCapacitacoes);  
 		model.addAttribute("success", "Excluído com sucesso.");
 		return "redirect:/funcionarioscapacitacoes/listar";
@@ -138,14 +140,14 @@ public class FuncionariosCapacitacoesController {
 	@GetMapping("/listar/{pageNo}")
 	public String findPaginated(@PathVariable (value = "pageNo") int pageNo, ModelMap model) {
 		int pageSeze = 10;
-		Page<FuncionariosCapacitacoes> page = service.findPaginated( unidadesService.buscarPorId(idUnidadeLogada),pageNo, pageSeze);
+		Page<FuncionariosCapacitacoes> page = service.findPaginated( usuarioService.pegarUnidadeLogada(),pageNo, pageSeze);
 		List<FuncionariosCapacitacoes> lista = page.getContent();
 		return paginar(pageNo, page, lista, model);
 	}
 
 	public String findPaginated(@PathVariable (value = "pageNo") int pageNo, String nome, ModelMap model) {
 		int pageSeze = 10;
-		Page<FuncionariosCapacitacoes> page = service.findPaginatedNome( unidadesService.buscarPorId(idUnidadeLogada), nome, pageNo, pageSeze);
+		Page<FuncionariosCapacitacoes> page = service.findPaginatedNome( usuarioService.pegarUnidadeLogada(), nome, pageNo, pageSeze);
 		List<FuncionariosCapacitacoes> lista = page.getContent();
 		return paginar(pageNo, page, lista, model);
 	}

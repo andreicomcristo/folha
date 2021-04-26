@@ -20,13 +20,18 @@ import com.folha.boot.service.CodigoDiferenciadoService;
 import com.folha.boot.service.PessoaOperadoresService;
 import com.folha.boot.service.SimNaoService;
 import com.folha.boot.service.UnidadesService;
+import com.folha.boot.service.seguranca.UsuarioService;
 
 @Controller
 @RequestMapping("/codigodiferenciados")
 public class CodigoDiferenciadoController {
 
-	Long idUnidadeLogada = 1l;
-	Long idOperadorLogado = 1l;
+	
+	
+	
+	
+	@Autowired
+	private UsuarioService usuarioService;
 	
 	@Autowired
 	private PessoaOperadoresService pessoaOperadoresService;
@@ -50,7 +55,7 @@ public class CodigoDiferenciadoController {
 	
 	@PostMapping("/salvar")
 	public String salvar(CodigoDiferenciado codigoDiferenciado, RedirectAttributes attr) {
-		codigoDiferenciado.setIdOperadorCadastroFk(pessoaOperadoresService.buscarPorId(idOperadorLogado));
+		codigoDiferenciado.setIdOperadorCadastroFk(usuarioService.pegarOperadorLogado());
 		codigoDiferenciado.setDtCadastro( new Date() );
 		service.salvar(codigoDiferenciado);
 		attr.addFlashAttribute("success", "Inserido com sucesso.");
@@ -80,7 +85,7 @@ public class CodigoDiferenciadoController {
 	@GetMapping("/cancelar/{id}")
 	public String cancelar(@PathVariable("id") Long id, ModelMap model) {
 		CodigoDiferenciado codigoDiferenciado = service.buscarPorId(id);
-		codigoDiferenciado.setIdOperadorCancelamentoFk(pessoaOperadoresService.buscarPorId(idOperadorLogado));
+		codigoDiferenciado.setIdOperadorCancelamentoFk(usuarioService.pegarOperadorLogado());
 		codigoDiferenciado.setDtCancelamento( new Date() );
 		service.salvar(codigoDiferenciado);  
 		model.addAttribute("success", "Excluído com sucesso.");

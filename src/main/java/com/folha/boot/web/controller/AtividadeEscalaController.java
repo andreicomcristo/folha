@@ -20,15 +20,17 @@ import com.folha.boot.domain.LocalidadeEscala;
 import com.folha.boot.domain.Unidades;
 import com.folha.boot.service.AtividadeEscalaService;
 import com.folha.boot.service.UnidadesService;
+import com.folha.boot.service.seguranca.UsuarioService;
 
 @Controller
 @RequestMapping("/atividadesescalas")
 public class AtividadeEscalaController {
 
-	Long idUnidadeLogada = 1l;
-	Long idOperadorLogado = 1l;
 	
 	String ultimaBuscaNome = "";
+	
+	@Autowired
+	private UsuarioService usuarioService;
 	
 	@Autowired
 	private AtividadeEscalaService service;
@@ -120,14 +122,14 @@ public class AtividadeEscalaController {
 	@GetMapping("/listar/{pageNo}")
 	public String findPaginated(@PathVariable (value = "pageNo") int pageNo, ModelMap model) {
 		int pageSeze = 10;
-		Page<AtividadeEscala> page = service.findPaginated( unidadesService.buscarPorId(idUnidadeLogada),pageNo, pageSeze);
+		Page<AtividadeEscala> page = service.findPaginated( usuarioService.pegarUnidadeLogada(),pageNo, pageSeze);
 		List<AtividadeEscala> lista = page.getContent();
 		return paginar(pageNo, page, lista, model);
 	}
 
 	public String findPaginated(@PathVariable (value = "pageNo") int pageNo, String nome, ModelMap model) {
 		int pageSeze = 10;
-		Page<AtividadeEscala> page = service.findPaginatedNome( unidadesService.buscarPorId(idUnidadeLogada), nome, pageNo, pageSeze);
+		Page<AtividadeEscala> page = service.findPaginatedNome( usuarioService.pegarUnidadeLogada(), nome, pageNo, pageSeze);
 		List<AtividadeEscala> lista = page.getContent();
 		return paginar(pageNo, page, lista, model);
 	}
@@ -148,7 +150,7 @@ public class AtividadeEscalaController {
 	@ModelAttribute("idUnidadeFk")
 	public List<Unidades> getUfs() {
 		List<Unidades> lista = new ArrayList<Unidades>();
-		lista.add(unidadesService.buscarPorId(idUnidadeLogada));
+		lista.add(usuarioService.pegarUnidadeLogada());
 		return lista;
 	}	
 }

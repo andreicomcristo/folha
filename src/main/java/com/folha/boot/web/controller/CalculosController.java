@@ -75,16 +75,18 @@ import com.folha.boot.service.TurmasService;
 import com.folha.boot.service.TurnosService;
 import com.folha.boot.service.UnidadesService;
 import com.folha.boot.service.calculos.CalculosCalcularService;
+import com.folha.boot.service.seguranca.UsuarioService;
 import com.folha.boot.service.util.UtilidadesDeCalendarioEEscala;
 
 @Controller
 @RequestMapping("/calculos")
 public class CalculosController {
 
-	Long idUnidadeLogada = 1l;
-	Long idOperadorLogado = 1l;
 	
 	
+	
+	@Autowired
+	private UsuarioService usuarioService;
 	
 	@Autowired
 	private AnoMesService anoMesService;

@@ -30,8 +30,6 @@ import com.folha.boot.service.UnidadesService;
 @RequestMapping("/unidadeGestora")
 public class UnidadeGestoraController {
 
-	Long idUnidadeLogada = 1l;
-	Long idOperadorLogado = 1l;
 	
 	@Autowired
 	private UnidadeGestoraService service;

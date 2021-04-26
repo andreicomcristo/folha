@@ -27,14 +27,14 @@ import com.folha.boot.service.UnidadeGestoraService;
 import com.folha.boot.service.UnidadesNaturezaJuridicaService;
 import com.folha.boot.service.UnidadesRegimeService;
 import com.folha.boot.service.UnidadesService;
+import com.folha.boot.service.seguranca.UsuarioService;
 
 @Controller
 @RequestMapping("/unidades")
 public class UnidadesController {
 
-	Long idUnidadeLogada = 1l;
-	Long idOperadorLogado = 1l;
-	
+	@Autowired
+	private UsuarioService usuarioService;
 	@Autowired
 	private UnidadesService service;
 	@Autowired
@@ -65,7 +65,7 @@ public class UnidadesController {
 	@PostMapping("/salvar")
 	public String salvar(Unidades unidades, RedirectAttributes attr) {
 		
-		unidades.setIdOperadorCadastroFk(pessoaOperadoresService.buscarPorId(idOperadorLogado));
+		unidades.setIdOperadorCadastroFk(usuarioService.pegarOperadorLogado());
 		unidades.setDtCadastro(new Date());
 		
 		service.salvar(unidades);
@@ -91,7 +91,7 @@ public class UnidadesController {
 	@GetMapping("/cancelar/{id}")
 	public String excluir(@PathVariable("id") Long id, ModelMap model) {
 		Unidades unidades = service.buscarPorId(id);
-		unidades.setIdOperadorCancelamentoFk(pessoaOperadoresService.buscarPorId(idOperadorLogado));
+		unidades.setIdOperadorCancelamentoFk(usuarioService.pegarOperadorLogado());
 		unidades.setDtCancelamento(new Date());
 		service.salvar(unidades);
 		model.addAttribute("success", "Cancelado com sucesso.");

@@ -20,11 +20,15 @@ import com.folha.boot.service.AtividadeEscalaService;
 import com.folha.boot.service.CoordenacaoEscalaService;
 import com.folha.boot.service.LocalidadeEscalaService;
 import com.folha.boot.service.UnidadesService;
+import com.folha.boot.service.seguranca.UsuarioService;
 
 @Controller
 @RequestMapping("/coordenacaoescalas")
 public class CoordenacaoEscalaController {
 
+	@Autowired
+	private UsuarioService usuarioService;
+	
 	@Autowired
 	private CoordenacaoEscalaService service;
 	@Autowired
@@ -34,8 +38,8 @@ public class CoordenacaoEscalaController {
 	@Autowired
 	private UnidadesService unidadesService;
 	
-	Long idUnidadeLogada = 1l;
-	Long idOperadorLogado = 1l;
+	
+	
 	
 	String ultimaBuscaNome = "";
 	
@@ -127,14 +131,14 @@ public class CoordenacaoEscalaController {
 	@GetMapping("/listar/{pageNo}")
 	public String findPaginated(@PathVariable (value = "pageNo") int pageNo, ModelMap model) {
 		int pageSeze = 10;
-		Page<CoordenacaoEscala> page = service.findPaginated( unidadesService.buscarPorId(idUnidadeLogada),pageNo, pageSeze);
+		Page<CoordenacaoEscala> page = service.findPaginated( usuarioService.pegarUnidadeLogada(),pageNo, pageSeze);
 		List<CoordenacaoEscala> lista = page.getContent();
 		return paginar(pageNo, page, lista, model);
 	}
 
 	public String findPaginated(@PathVariable (value = "pageNo") int pageNo, String nome, ModelMap model) {
 		int pageSeze = 10;
-		Page<CoordenacaoEscala> page = service.findPaginatedNome( unidadesService.buscarPorId(idUnidadeLogada), nome, pageNo, pageSeze);
+		Page<CoordenacaoEscala> page = service.findPaginatedNome( usuarioService.pegarUnidadeLogada(), nome, pageNo, pageSeze);
 		List<CoordenacaoEscala> lista = page.getContent();
 		return paginar(pageNo, page, lista, model);
 	}
@@ -158,11 +162,11 @@ public class CoordenacaoEscalaController {
 	
 	@ModelAttribute("idAtividadeFk")
 	public List<AtividadeEscala> getAtividadeEscala() {
-		return atividadeEscalaservice.buscarNaUnidade(unidadesService.buscarPorId(idUnidadeLogada));
+		return atividadeEscalaservice.buscarNaUnidade(usuarioService.pegarUnidadeLogada());
 	}
 	
 	@ModelAttribute("idLocalidadeFk")
 	public List<LocalidadeEscala> getLocalidadeEscala() {
-		return localidadeEscalaService.buscarPorUnidade(unidadesService.buscarPorId(idUnidadeLogada));
+		return localidadeEscalaService.buscarPorUnidade(usuarioService.pegarUnidadeLogada());
 	}
 }

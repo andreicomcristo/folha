@@ -20,16 +20,19 @@ import com.folha.boot.domain.PessoaOperadores;
 import com.folha.boot.service.PessoaOperadoresService;
 import com.folha.boot.service.PessoaService;
 import com.folha.boot.service.UnidadesService;
+import com.folha.boot.service.seguranca.UsuarioService;
 
 @Controller
 @RequestMapping("/operadores")
 public class PessoaOperadoresController {
 	
-	Long idUnidadeLogada = 1l;
-	Long idOperadorLogado = 1l;
+	
+	
 	
 	String ultimaBuscaNome = "";
 	
+	@Autowired
+	private UsuarioService usuarioService;
 	@Autowired
 	private PessoaOperadoresService service;
 	@Autowired
@@ -73,7 +76,7 @@ public class PessoaOperadoresController {
 		
 		BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
 		operadores.setPassword(encoder.encode(operadores.getPassword()));
-		operadores.setIdOperadorCadastroFk(service.buscarPorId(idOperadorLogado));
+		operadores.setIdOperadorCadastroFk(usuarioService.pegarOperadorLogado());
 		operadores.setDtCadastro(new Date());
 		if(operadores.getEnabled()==null) {operadores.setEnabled(true);}
 		

@@ -34,17 +34,18 @@ import com.folha.boot.service.PessoaOperadoresService;
 import com.folha.boot.service.PessoaService;
 import com.folha.boot.service.SimNaoService;
 import com.folha.boot.service.UnidadesService;
+import com.folha.boot.service.seguranca.UsuarioService;
 
 @Controller
 @RequestMapping("/pessoaLimiteHoras")
 public class PessoaLimiteHorasController {
-
-	Long idUnidadeLogada = 1l;
-	Long idOperadorLogado = 1l;
+	
 	
 	String ultimaBuscaNome = "";
 	String ultimaBuscaUnidade = "";
 	
+	@Autowired
+	private UsuarioService usuarioService;
 	@Autowired
 	private PessoaLimiteHorasService service;
 	@Autowired
@@ -83,7 +84,7 @@ public class PessoaLimiteHorasController {
 	@GetMapping("/listar/funcionarios/{pageNo}")
 	public String findPaginatedFuncionario(@PathVariable (value = "pageNo") int pageNo, ModelMap model) {
 		int pageSeze = 10;
-		Page<PessoaFuncionarios> page = pessoaFuncionariosService.findPaginated(pageNo, pageSeze, unidadesService.buscarPorId(idUnidadeLogada), "ATIVO");
+		Page<PessoaFuncionarios> page = pessoaFuncionariosService.findPaginated(pageNo, pageSeze, usuarioService.pegarUnidadeLogada(), "ATIVO");
 		List<PessoaFuncionarios> listaFuncionarios = page.getContent();
 		return paginarFuncionario(pageNo, page, listaFuncionarios, model);
 	}
@@ -107,7 +108,7 @@ public class PessoaLimiteHorasController {
 	
 	public String findPaginatedFuncionario(@PathVariable (value = "pageNo") int pageNo, String nome, ModelMap model) {
 		int pageSeze = 10;
-		Page<PessoaFuncionarios> page = pessoaFuncionariosService.findPaginatedNome(pageNo, pageSeze, unidadesService.buscarPorId(idUnidadeLogada), "ATIVO", nome);
+		Page<PessoaFuncionarios> page = pessoaFuncionariosService.findPaginatedNome(pageNo, pageSeze, usuarioService.pegarUnidadeLogada(), "ATIVO", nome);
 		List<PessoaFuncionarios> lista = page.getContent();
 		//ultimaBuscaNome = "";
 		//ultimaBuscaTurma = null;
@@ -119,7 +120,7 @@ public class PessoaLimiteHorasController {
 		Pessoa pessoa = pessoaFuncionariosService.buscarPorId(id).getIdPessoaFk();
 		pessoaLimiteHoras.setIdPessoaFk(pessoa);//relaciona as férias ao funcionário
 		model.addAttribute("pessoaLimiteHoras", pessoaLimiteHoras);
-		model.addAttribute("listaPessoaLimiteHoras", service.buscarPorUnidadeEPessoa(unidadesService.buscarPorId(idUnidadeLogada), pessoa));
+		model.addAttribute("listaPessoaLimiteHoras", service.buscarPorUnidadeEPessoa(usuarioService.pegarUnidadeLogada(), pessoa));
 		
 		return "/pessoaLimiteHoras/cadastro"; 
 	}
@@ -129,7 +130,7 @@ public class PessoaLimiteHorasController {
 		Pessoa pessoa = pessoaService.buscarPorId(id);
 		pessoaLimiteHoras.setIdPessoaFk(pessoa);//relaciona as férias ao funcionário
 		model.addAttribute("pessoaLimiteHoras", pessoaLimiteHoras);
-		model.addAttribute("listaPessoaLimiteHoras", service.buscarPorUnidadeEPessoa(unidadesService.buscarPorId(idUnidadeLogada), pessoa));
+		model.addAttribute("listaPessoaLimiteHoras", service.buscarPorUnidadeEPessoa(usuarioService.pegarUnidadeLogada(), pessoa));
 		
 		return "/pessoaLimiteHoras/cadastro"; 
 	}
@@ -147,7 +148,7 @@ public class PessoaLimiteHorasController {
 	@PostMapping("/salvar/aprovacao/sede")
 	public String salvarAprovacaoSede(PessoaLimiteHoras pessoaLimiteHoras, RedirectAttributes attr) {
 		pessoaLimiteHoras.setDtAvaliacaoSede(new Date());
-		pessoaLimiteHoras.setIdOperadorAvaliacaoSedeFk(pessoaOperadoresService.buscarPorId(idOperadorLogado));
+		pessoaLimiteHoras.setIdOperadorAvaliacaoSedeFk(usuarioService.pegarOperadorLogado());
 		
 		if(pessoaLimiteHoras.getIdAvaliacaoSedeSimNaoFk()==null) {
 			return "redirect:/pessoaLimiteHoras/mensagem/de/nao/escolha";
@@ -184,14 +185,14 @@ public class PessoaLimiteHorasController {
 	@PostMapping("/salvar")
 	public String salvar(PessoaLimiteHoras pessoaLimiteHoras, RedirectAttributes attr) {
 		pessoaLimiteHoras.setDtCadastro(new Date());
-		pessoaLimiteHoras.setIdOperadorCadastroFk(pessoaOperadoresService.buscarPorId(idOperadorLogado));
-		pessoaLimiteHoras.setIdUnidadeFk(unidadesService.buscarPorId(idUnidadeLogada));
+		pessoaLimiteHoras.setIdOperadorCadastroFk(usuarioService.pegarOperadorLogado());
+		pessoaLimiteHoras.setIdUnidadeFk(usuarioService.pegarUnidadeLogada());
 		
 		if(pessoaLimiteHoras.getIdPessoaFk()==null  || pessoaLimiteHoras.getHoras()==null || pessoaLimiteHoras.getHoras()==0 || pessoaLimiteHoras.getMotivo().length()<1 ) {
 			return "redirect:/pessoaLimiteHoras/mensagem/de/nao/escolha";
 		}
 		
-		if(!service.buscarPorUnidadeEPessoa(unidadesService.buscarPorId(idUnidadeLogada), pessoaLimiteHoras.getIdPessoaFk()).isEmpty()) {
+		if(!service.buscarPorUnidadeEPessoa(usuarioService.pegarUnidadeLogada(), pessoaLimiteHoras.getIdPessoaFk()).isEmpty()) {
 			return "redirect:/pessoaLimiteHoras/mensagem/de/ja/cadastrado";
 		}
 		
@@ -224,7 +225,7 @@ public class PessoaLimiteHorasController {
 	public String cancelar(@PathVariable("id") Long id, ModelMap model) {
 		PessoaLimiteHoras pessoaLimiteHoras = service.buscarPorId(id);
 		pessoaLimiteHoras.setDtCancelamento(new Date());
-		pessoaLimiteHoras.setIdOperadorCancelamentoFk(pessoaOperadoresService.buscarPorId(idOperadorLogado));
+		pessoaLimiteHoras.setIdOperadorCancelamentoFk(usuarioService.pegarOperadorLogado());
 		service.salvar(pessoaLimiteHoras); 
 		model.addAttribute("success", "Cancelado com sucesso.");
 		return "redirect:/pessoaLimiteHoras/atribuir/cod/diferenciado/pessoa/"+pessoaLimiteHoras.getIdPessoaFk().getId();
@@ -234,7 +235,7 @@ public class PessoaLimiteHorasController {
 	public String cancelarListaUnidade(@PathVariable("id") Long id, ModelMap model) {
 		PessoaLimiteHoras pessoaLimiteHoras = service.buscarPorId(id);
 		pessoaLimiteHoras.setDtCancelamento(new Date());
-		pessoaLimiteHoras.setIdOperadorCancelamentoFk(pessoaOperadoresService.buscarPorId(idOperadorLogado));
+		pessoaLimiteHoras.setIdOperadorCancelamentoFk(usuarioService.pegarOperadorLogado());
 		service.salvar(pessoaLimiteHoras); 
 		model.addAttribute("success", "Cancelado com sucesso.");
 		return "redirect:/pessoaLimiteHoras/listar/unidade";
@@ -352,14 +353,14 @@ public class PessoaLimiteHorasController {
 	@GetMapping("/listar/unidade/{pageNo}")
 	public String findPaginatedUnidade(@PathVariable (value = "pageNo") int pageNo, ModelMap model) {
 		int pageSeze = 10;
-		Page<PessoaLimiteHoras> page = service.findPaginatedUnidade(unidadesService.buscarPorId(idUnidadeLogada), pageNo, pageSeze);
+		Page<PessoaLimiteHoras> page = service.findPaginatedUnidade(usuarioService.pegarUnidadeLogada(), pageNo, pageSeze);
 		List<PessoaLimiteHoras> lista = page.getContent();
 		return paginarUnidade(pageNo, page, lista, model);
 	}
 
 	public String findPaginatedNomeUnidade(@PathVariable (value = "pageNo") int pageNo, String nome, ModelMap model) {
 		int pageSeze = 10;
-		Page<PessoaLimiteHoras> page = service.findPaginatedNomeUnidade(unidadesService.buscarPorId(idUnidadeLogada),  nome, pageNo, pageSeze);
+		Page<PessoaLimiteHoras> page = service.findPaginatedNomeUnidade(usuarioService.pegarUnidadeLogada(),  nome, pageNo, pageSeze);
 		List<PessoaLimiteHoras> lista = page.getContent();
 		return paginarUnidade(pageNo, page, lista, model);
 	}
@@ -402,7 +403,7 @@ public class PessoaLimiteHorasController {
 	@ModelAttribute("idUnidadeFk")
 	public List<Unidades> getUfs() {
 		List<Unidades> lista = new ArrayList<Unidades>();
-		lista.add(unidadesService.buscarPorId(idUnidadeLogada));
+		lista.add(usuarioService.pegarUnidadeLogada());
 		return lista;
 	}	
 	

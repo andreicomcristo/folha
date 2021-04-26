@@ -52,20 +52,23 @@ import com.folha.boot.service.PessoaService;
 import com.folha.boot.service.SituacoesService;
 import com.folha.boot.service.UnidadesService;
 import com.folha.boot.service.VinculosService;
+import com.folha.boot.service.seguranca.UsuarioService;
 import com.folha.boot.service.util.UtilidadesDeTexto;
 
 @Controller
 @RequestMapping("/funcionarios")
 public class PessoaFuncionariosController {
 
-	Long idUnidadeLogada = 1l;
-	Long idOperadorLogado = 1l;
+	
+	
 	@Autowired
 	private PessoaOperadoresService pessoaOperadoresService;
 	
 	Long idPessoaAtual;
 	PessoaFuncionarios pessoaFuncionarios = new PessoaFuncionarios();
 	
+	@Autowired
+	private UsuarioService usuarioService;
 	@Autowired
 	private PessoaService pessoaService;
 	@Autowired
@@ -164,7 +167,7 @@ public class PessoaFuncionariosController {
 			pessoaFuncionarios.setIdCargoAtualFk(pessoaFuncionarios.getIdEspecialidadeAtualFk().getIdCargoFk());
 		}
 		pessoaFuncionarios.setDtCadastro(new Date());
-		pessoaFuncionarios.setIdOperadorCadastroFk(pessoaOperadoresService.buscarPorId(idOperadorLogado));
+		pessoaFuncionarios.setIdOperadorCadastroFk(usuarioService.pegarOperadorLogado());
 		
 		if(podeSalvar==true) {
 			//Salvando

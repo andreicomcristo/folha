@@ -87,10 +87,7 @@ import com.folha.boot.service.util.UtilidadesDeCalendarioEEscala;
 @RequestMapping("/escalas")
 public class EscalaController {
 
-	
-	
-	Long idOperadorLogado = 1l ;
-	Long idUnidadeLogada = 1l ;  
+	  
 	
 	Long ultimoIdEscala =0l ;
 	Long idAnoMesAtual =1l ;
@@ -166,9 +163,9 @@ public class EscalaController {
 	@GetMapping("/escolher/escala")
 	public String escolherEscala(ModelMap model) {
 		
-		List<AcessoOperadoresCoordenacao> listaDeCoordenacoes = acessoOperadoresCoordenacaoService.buscarPorOperador(pessoaOperadoresService.buscarPorId( this.idOperadorLogado));
+		List<AcessoOperadoresCoordenacao> listaDeCoordenacoes = acessoOperadoresCoordenacaoService.buscarPorOperador(usuarioService.pegarOperadorLogado());
 		model.addAttribute("escolhaAcessoEscala", new EscolhaAcessoEscala()); 
-		model.addAttribute("coordenacaoEscala", coordenacaoEscalaService.buscarAcessoIndividual(unidadesService.buscarPorId(this.idUnidadeLogada) , pessoaOperadoresService.buscarPorId( this.idOperadorLogado) , listaDeCoordenacoes ) );
+		model.addAttribute("coordenacaoEscala", coordenacaoEscalaService.buscarAcessoIndividual(usuarioService.pegarUnidadeLogada() , usuarioService.pegarOperadorLogado() , listaDeCoordenacoes ) );
 		model.addAttribute("anoMes", anoMesService.buscarTodos());
 		return "/escala/escolher"; 
 	}
@@ -176,7 +173,7 @@ public class EscalaController {
 	@GetMapping("/escolher/escala/todos")
 	public String escolherEscalaTodos(ModelMap model) {
 		
-		Unidades unidade = unidadesService.buscarPorId(idUnidadeLogada);
+		Unidades unidade = usuarioService.pegarUnidadeLogada();
 		model.addAttribute("escolhaAcessoEscala", new EscolhaAcessoEscala());
 		model.addAttribute("unidade", unidade); 
 		model.addAttribute("anoMes", anoMesService.buscarTodos());
@@ -186,7 +183,7 @@ public class EscalaController {
 	@GetMapping("/escolher/escala/pos/transparencia")
 	public String escolherEscalaPosTransparencia(ModelMap model) {
 		
-		Unidades unidade = unidadesService.buscarPorId(idUnidadeLogada);
+		Unidades unidade = usuarioService.pegarUnidadeLogada();
 		model.addAttribute("escolhaAcessoEscala", new EscolhaAcessoEscala());
 		model.addAttribute("unidade", unidade); 
 		model.addAttribute("anoMes", anoMesService.buscarTodos());
@@ -196,7 +193,7 @@ public class EscalaController {
 	@GetMapping("/escolher/escala/pos/transparencia/global")
 	public String escolherEscalaPosTransparenciaGlobal(ModelMap model) {
 		
-		Unidades unidade = unidadesService.buscarPorId(idUnidadeLogada);
+		Unidades unidade = usuarioService.pegarUnidadeLogada();
 		model.addAttribute("escolhaAcessoEscala", new EscolhaAcessoEscala());
 		model.addAttribute("unidade", unidade); 
 		model.addAttribute("anoMes", anoMesService.buscarTodos());
@@ -207,7 +204,7 @@ public class EscalaController {
 	@GetMapping("/escolher/escala/alteracao")
 	public String escolherEscalaAlteracao(ModelMap model) {
 		
-		Unidades unidade = unidadesService.buscarPorId(idUnidadeLogada);
+		Unidades unidade = usuarioService.pegarUnidadeLogada();
 		model.addAttribute("escolhaAcessoEscala", new EscolhaAcessoEscala());
 		model.addAttribute("unidade", unidade); 
 		model.addAttribute("anoMes", anoMesService.buscarTodos());
@@ -217,7 +214,7 @@ public class EscalaController {
 	@GetMapping("/escolher/escala/alteracao/global")
 	public String escolherEscalaAlteracaoGlobal(ModelMap model) {
 		
-		Unidades unidade = unidadesService.buscarPorId(idUnidadeLogada);
+		Unidades unidade = usuarioService.pegarUnidadeLogada();
 		model.addAttribute("escolhaAcessoEscala", new EscolhaAcessoEscala());
 		model.addAttribute("unidade", unidade); 
 		model.addAttribute("anoMes", anoMesService.buscarTodos());
@@ -228,7 +225,7 @@ public class EscalaController {
 	@GetMapping("/escolher/escala/colaborador")
 	public String escolherEscalaColaborador(ModelMap model) {
 		
-		Unidades unidade = unidadesService.buscarPorId(idUnidadeLogada);
+		Unidades unidade = usuarioService.pegarUnidadeLogada();
 		model.addAttribute("escolhaAcessoEscala", new EscolhaAcessoEscala());
 		model.addAttribute("unidade", unidade); 
 		model.addAttribute("anoMes", anoMesService.buscarTodos());
@@ -407,7 +404,7 @@ public class EscalaController {
 	@GetMapping("/listar/todos/{pageNo}")
 	public String findPaginatedTodos(@PathVariable (value = "pageNo") int pageNo, ModelMap model) {
 		int pageSeze = 5;
-		Page<Escala> page = service.findPaginatedTodos(pageNo, pageSeze, unidadesService.buscarPorId(idUnidadeLogada), anoMesService.buscarPorId(idAnoMesAtual));
+		Page<Escala> page = service.findPaginatedTodos(pageNo, pageSeze, usuarioService.pegarUnidadeLogada(), anoMesService.buscarPorId(idAnoMesAtual));
 		List<Escala> lista = page.getContent();
 		return paginarTodos(pageNo, page, lista, model);
 	}
@@ -415,7 +412,7 @@ public class EscalaController {
 	@GetMapping("/listar/pos/transparencia/{pageNo}")
 	public String findPaginatedPosTransparencia(@PathVariable (value = "pageNo") int pageNo, ModelMap model) {
 		int pageSeze = 5;
-		Page<EscalaPosTransparencia> page = escalaPosTransparenciaService.findPaginatedPosTransparencia(pageNo, pageSeze, unidadesService.buscarPorId(idUnidadeLogada), anoMesService.buscarPorId(idAnoMesAtual));
+		Page<EscalaPosTransparencia> page = escalaPosTransparenciaService.findPaginatedPosTransparencia(pageNo, pageSeze, usuarioService.pegarUnidadeLogada(), anoMesService.buscarPorId(idAnoMesAtual));
 		List<EscalaPosTransparencia> lista = page.getContent();
 		return paginarPosTransparencia(pageNo, page, lista, model);
 	}
@@ -432,7 +429,7 @@ public class EscalaController {
 	@GetMapping("/listar/escala/alteracao/{pageNo}")
 	public String findPaginatedEscalaAlteracao(@PathVariable (value = "pageNo") int pageNo, ModelMap model) {
 		int pageSeze = 5;
-		Page<EscalaAlteracoes> page = escalaAlteracoesService.findPaginatedEscalaAlteracao(pageNo, pageSeze, unidadesService.buscarPorId(idUnidadeLogada), anoMesService.buscarPorId(idAnoMesAtual));
+		Page<EscalaAlteracoes> page = escalaAlteracoesService.findPaginatedEscalaAlteracao(pageNo, pageSeze, usuarioService.pegarUnidadeLogada(), anoMesService.buscarPorId(idAnoMesAtual));
 		List<EscalaAlteracoes> lista = page.getContent();
 		return paginarEscalaAlteracao(pageNo, page, lista, model);
 	}
@@ -449,7 +446,7 @@ public class EscalaController {
 	@GetMapping("/listar/escala/colaborador/{pageNo}")
 	public String findPaginatedEscalaColaborador(@PathVariable (value = "pageNo") int pageNo, ModelMap model) {
 		int pageSeze = 5;
-		Page<Escala> page = service.findPaginatedColaborador(pageNo, pageSeze, pessoaOperadoresService.buscarPorId(idOperadorLogado).getIdPessoaFk() , anoMesService.buscarPorId(idAnoMesAtual));
+		Page<Escala> page = service.findPaginatedColaborador(pageNo, pageSeze, usuarioService.pegarOperadorLogado().getIdPessoaFk() , anoMesService.buscarPorId(idAnoMesAtual));
 		List<Escala> lista = page.getContent();
 		return paginarEscalaColaborador(pageNo, page, lista, model);
 	}
@@ -532,7 +529,7 @@ public class EscalaController {
 	//Escala Colaborador
 	public String paginarEscalaColaborador(int pageNo, Page<Escala> page, List<Escala> lista, ModelMap model) {	
 		
-		model.addAttribute("escala", "Escalas para "+pessoaOperadoresService.buscarPorId(idOperadorLogado).getIdPessoaFk().getNome()+":");
+		model.addAttribute("escala", "Escalas para "+usuarioService.pegarOperadorLogado().getIdPessoaFk().getNome()+":");
 		model.addAttribute("mes", anoMesService.buscarPorId(idAnoMesAtual));
 		model.addAttribute("currentePage", pageNo);
 		model.addAttribute("totalPages", page.getTotalPages());
@@ -564,8 +561,8 @@ public class EscalaController {
 		String nomeColuna7 = escalaCalculosService.obtemNomeDiaColuna(anoMesDaEscala, 7);
 		
 		model.addAttribute("idCodigoDiferenciadoFkCompativel", getCodigosDiferenciadoCompativel(escala.getIdFuncionarioFk().getIdPessoaFk()) );
-		model.addAttribute("idChDifFkCompativel", pessoaChDifService.listaSimNaoCompativelComPessoa(unidadesService.buscarPorId(idUnidadeLogada), escala.getIdFuncionarioFk().getIdPessoaFk(), escala.getIdAnoMesFk()) );
-		model.addAttribute("idIncrementoDeRiscoCompativel", pessoaIncrementoDeRiscoService.listaSimNaoCompativelComPessoa(unidadesService.buscarPorId(idUnidadeLogada), escala.getIdFuncionarioFk().getIdPessoaFk(), escala.getIdAnoMesFk()) );
+		model.addAttribute("idChDifFkCompativel", pessoaChDifService.listaSimNaoCompativelComPessoa(usuarioService.pegarUnidadeLogada(), escala.getIdFuncionarioFk().getIdPessoaFk(), escala.getIdAnoMesFk()) );
+		model.addAttribute("idIncrementoDeRiscoCompativel", pessoaIncrementoDeRiscoService.listaSimNaoCompativelComPessoa(usuarioService.pegarUnidadeLogada(), escala.getIdFuncionarioFk().getIdPessoaFk(), escala.getIdAnoMesFk()) );
 	
 		model.addAttribute("escala", escala );
 		model.addAttribute("idLinha", id );
@@ -782,7 +779,7 @@ public class EscalaController {
 		}
 		
 		escalaCodDiferenciado.setIdEscalaFk(escala);		
-		escalaCodDiferenciado.setIdOperadorCadastroFk(pessoaOperadoresService.buscarPorId(idOperadorLogado));
+		escalaCodDiferenciado.setIdOperadorCadastroFk(usuarioService.pegarOperadorLogado());
 		escalaCodDiferenciado.setDtCadastro(new Date());
 			
 		
@@ -818,9 +815,9 @@ public class EscalaController {
 		
 		Escala escala = service.buscarPorId(id); 
 		
-		escala.setIdOperadorCancelamentoFk(pessoaOperadoresService.buscarPorId(idOperadorLogado));
+		escala.setIdOperadorCancelamentoFk(usuarioService.pegarOperadorLogado());
 		escala.setDtCancelamento(new Date());
-		escala.setIdOperadorMudancaFk(pessoaOperadoresService.buscarPorId(idOperadorLogado));
+		escala.setIdOperadorMudancaFk(usuarioService.pegarOperadorLogado());
 		escala.setDtMudanca(new Date());
 		
 		service.salvar(escala);
@@ -846,7 +843,7 @@ public class EscalaController {
 		
 		EscalaCodDiferenciado escalaCodDiferenciado = escalaCodDiferenciadoService.buscarPorId(id); 
 		
-		escalaCodDiferenciado.setIdOperadorCancelamentoFk(pessoaOperadoresService.buscarPorId(idOperadorLogado));
+		escalaCodDiferenciado.setIdOperadorCancelamentoFk(usuarioService.pegarOperadorLogado());
 		escalaCodDiferenciado.setDtCancelamento(new Date());
 		
 		escalaCodDiferenciadoService.salvar(escalaCodDiferenciado);
@@ -1001,7 +998,7 @@ public class EscalaController {
 	
 	public String findPaginatedTodos(@PathVariable (value = "pageNo") int pageNo, String nome, ModelMap model) {
 		int pageSeze = 5;
-		Page<Escala> page = service.findPaginatedNomeTodos(pageNo, pageSeze, unidadesService.buscarPorId(idUnidadeLogada), anoMesService.buscarPorId(idAnoMesAtual), nome );
+		Page<Escala> page = service.findPaginatedNomeTodos(pageNo, pageSeze, usuarioService.pegarUnidadeLogada(), anoMesService.buscarPorId(idAnoMesAtual), nome );
 		List<Escala> lista = page.getContent();
 		return paginarTodos(pageNo, page, lista, model);
 	}
@@ -1022,7 +1019,7 @@ public class EscalaController {
 	
 	public String findPaginatedTodos(@PathVariable (value = "pageNo") int pageNo, Turmas turmas, ModelMap model) {
 		int pageSeze = 5;
-		Page<Escala> page = service.findPaginatedTurmaTodos(pageNo, pageSeze, unidadesService.buscarPorId(idUnidadeLogada), anoMesService.buscarPorId(idAnoMesAtual), turmas );
+		Page<Escala> page = service.findPaginatedTurmaTodos(pageNo, pageSeze, usuarioService.pegarUnidadeLogada(), anoMesService.buscarPorId(idAnoMesAtual), turmas );
 		List<Escala> lista = page.getContent();
 		return paginarTodos(pageNo, page, lista, model);
 	}
@@ -1043,7 +1040,7 @@ public class EscalaController {
 	
 	public String findPaginatedTodos(@PathVariable (value = "pageNo") int pageNo, CargosEspecialidade cargosEspecialidade, ModelMap model) {
 		int pageSeze = 5;
-		Page<Escala> page = service.findPaginatedCargoTodos(pageNo, pageSeze, unidadesService.buscarPorId(idUnidadeLogada), anoMesService.buscarPorId(idAnoMesAtual), cargosEspecialidade );
+		Page<Escala> page = service.findPaginatedCargoTodos(pageNo, pageSeze, usuarioService.pegarUnidadeLogada(), anoMesService.buscarPorId(idAnoMesAtual), cargosEspecialidade );
 		List<Escala> lista = page.getContent();
 		return paginarTodos(pageNo, page, lista, model);
 	}
@@ -1064,7 +1061,7 @@ public class EscalaController {
 	
 	public String findPaginatedTodos(@PathVariable (value = "pageNo") int pageNo, TiposDeFolha tiposDeFolha, ModelMap model) {
 		int pageSeze = 5;
-		Page<Escala> page = service.findPaginatedFolhaTodos(pageNo, pageSeze, unidadesService.buscarPorId(idUnidadeLogada), anoMesService.buscarPorId(idAnoMesAtual), tiposDeFolha );
+		Page<Escala> page = service.findPaginatedFolhaTodos(pageNo, pageSeze, usuarioService.pegarUnidadeLogada(), anoMesService.buscarPorId(idAnoMesAtual), tiposDeFolha );
 		List<Escala> lista = page.getContent();
 		return paginarTodos(pageNo, page, lista, model);
 	}
@@ -1095,7 +1092,7 @@ public class EscalaController {
 	
 	public String findPaginatedPosTransparencia(@PathVariable (value = "pageNo") int pageNo, String nome, ModelMap model) {
 		int pageSeze = 5;
-		Page<EscalaPosTransparencia> page = escalaPosTransparenciaService.findPaginatedNomePosTransparencia(pageNo, pageSeze, unidadesService.buscarPorId(idUnidadeLogada), anoMesService.buscarPorId(idAnoMesAtual), nome );
+		Page<EscalaPosTransparencia> page = escalaPosTransparenciaService.findPaginatedNomePosTransparencia(pageNo, pageSeze, usuarioService.pegarUnidadeLogada(), anoMesService.buscarPorId(idAnoMesAtual), nome );
 		List<EscalaPosTransparencia> lista = page.getContent();
 		return paginarPosTransparencia(pageNo, page, lista, model);
 	}
@@ -1161,7 +1158,7 @@ public class EscalaController {
 	
 	public String findPaginatedEscalaAlteracao(@PathVariable (value = "pageNo") int pageNo, String nome, ModelMap model) {
 		int pageSeze = 5;
-		Page<EscalaAlteracoes> page = escalaAlteracoesService.findPaginatedNomeEscalaAlteracao(pageNo, pageSeze, unidadesService.buscarPorId(idUnidadeLogada), anoMesService.buscarPorId(idAnoMesAtual), nome );
+		Page<EscalaAlteracoes> page = escalaAlteracoesService.findPaginatedNomeEscalaAlteracao(pageNo, pageSeze, usuarioService.pegarUnidadeLogada(), anoMesService.buscarPorId(idAnoMesAtual), nome );
 		List<EscalaAlteracoes> lista = page.getContent();
 		return paginarEscalaAlteracao(pageNo, page, lista, model);
 	}
@@ -3303,7 +3300,7 @@ public class EscalaController {
 	@GetMapping("/listar/inclusao/{pageNo}")
 	public String findPaginatedInclusao(@PathVariable (value = "pageNo") int pageNo, ModelMap model) {
 		int pageSeze = 5;
-		Page<PessoaFuncionarios> page = pessoaFuncionariosService.findPaginated(pageNo, pageSeze, unidadesService.buscarPorId(idUnidadeLogada), "ATIVO");
+		Page<PessoaFuncionarios> page = pessoaFuncionariosService.findPaginated(pageNo, pageSeze, usuarioService.pegarUnidadeLogada(), "ATIVO");
 		List<PessoaFuncionarios> lista = page.getContent();
 		return paginarInclusao(pageNo, page, lista, model);
 	}
@@ -3329,7 +3326,7 @@ public class EscalaController {
 	
 	public String findPaginatedInclusao(@PathVariable (value = "pageNo") int pageNo, String nome, ModelMap model) {
 		int pageSeze = 5;
-		Page<PessoaFuncionarios> page = pessoaFuncionariosService.findPaginatedNome(pageNo, pageSeze, unidadesService.buscarPorId(idUnidadeLogada), "ATIVO", nome);
+		Page<PessoaFuncionarios> page = pessoaFuncionariosService.findPaginatedNome(pageNo, pageSeze, usuarioService.pegarUnidadeLogada(), "ATIVO", nome);
 		List<PessoaFuncionarios> lista = page.getContent();
 		//ultimaBuscaNome = "";
 		//ultimaBuscaTurma = null;
@@ -3343,9 +3340,9 @@ public class EscalaController {
 		
 		InclusaoEscala inclusaoEscala = new InclusaoEscala();
 		inclusaoEscala.setId(id);		
-		List<AcessoOperadoresCoordenacao> listaDeCoordenacoes = acessoOperadoresCoordenacaoService.buscarPorOperador(pessoaOperadoresService.buscarPorId( this.idOperadorLogado));
+		List<AcessoOperadoresCoordenacao> listaDeCoordenacoes = acessoOperadoresCoordenacaoService.buscarPorOperador(usuarioService.pegarOperadorLogado());
 		model.addAttribute("escolhaAcessoEscala", new EscolhaAcessoEscala()); 
-		model.addAttribute("coordenacaoEscala", coordenacaoEscalaService.buscarAcessoIndividual(unidadesService.buscarPorId(this.idUnidadeLogada) , pessoaOperadoresService.buscarPorId( this.idOperadorLogado) , listaDeCoordenacoes ) );
+		model.addAttribute("coordenacaoEscala", coordenacaoEscalaService.buscarAcessoIndividual(usuarioService.pegarUnidadeLogada() , usuarioService.pegarOperadorLogado() , listaDeCoordenacoes ) );
 		model.addAttribute("anoMes", anoMesService.buscarTodos());
 		model.addAttribute("nome", nome);
 		model.addAttribute("inclusaoEscala", inclusaoEscala);
@@ -3370,9 +3367,9 @@ public class EscalaController {
 			PessoaFuncionarios pessoaFuncionarios = pessoaFuncionariosService.buscarPorId(inclusaoEscala.getId());
 			AnoMes anoMes = anoMesService.buscarPorId(idAnoMesAtual);
 			CoordenacaoEscala coordenacaoEscala = coordenacaoEscalaService.buscarPorId(idCoordenacaoAtual);
-			CodigoDiferenciado codigoDiferenciado = codigoDiferenciadoService.buscarPorNome(unidadesService.buscarPorId(idUnidadeLogada) ,"N" ).get(0);
+			CodigoDiferenciado codigoDiferenciado = codigoDiferenciadoService.buscarPorNome(usuarioService.pegarUnidadeLogada() ,"N" ).get(0);
 			Date dtMudanca = new Date();
-			PessoaOperadores idOperadorMudanca = pessoaOperadoresService.buscarPorId(idOperadorLogado);
+			PessoaOperadores idOperadorMudanca = usuarioService.pegarOperadorLogado();
 			Date dtCancelamento = null;
 			PessoaOperadores idOperadorCancelamento = null;
 			Double plantoes = 0.0;
@@ -3481,13 +3478,13 @@ public class EscalaController {
 	    public void downloadExcelTodos(HttpServletResponse response, ModelMap model) throws IOException {
 	        response.setContentType("application/octet-stream");
 	        response.setHeader("Content-Disposition", "attachment; filename=dados.xlsx");
-	        ByteArrayInputStream stream = escalaExportacaoService.exportarExcel(service.buscarExportacaoTodos(unidadesService.buscarPorId(idUnidadeLogada), anoMesService.buscarPorId(idAnoMesAtual)));
+	        ByteArrayInputStream stream = escalaExportacaoService.exportarExcel(service.buscarExportacaoTodos(usuarioService.pegarUnidadeLogada(), anoMesService.buscarPorId(idAnoMesAtual)));
 	        IOUtils.copy(stream, response.getOutputStream());
 	    }
 		
 		@GetMapping(value = "/exporta/pdf/todos", produces = MediaType.APPLICATION_PDF_VALUE)
 		public ResponseEntity<InputStreamResource> employeeReportsTodos(HttpServletResponse response) throws IOException {
-			ByteArrayInputStream bis = escalaExportacaoService.exportarPdf(service.buscarExportacaoTodos(unidadesService.buscarPorId(idUnidadeLogada), anoMesService.buscarPorId(idAnoMesAtual)));
+			ByteArrayInputStream bis = escalaExportacaoService.exportarPdf(service.buscarExportacaoTodos(usuarioService.pegarUnidadeLogada(), anoMesService.buscarPorId(idAnoMesAtual)));
 			HttpHeaders headers = new HttpHeaders();
 			headers.add("Content-Disposition", "attachment;filename=dados.pdf");
 			return ResponseEntity.ok().headers(headers).contentType(MediaType.APPLICATION_PDF)
@@ -3499,13 +3496,13 @@ public class EscalaController {
 	    public void downloadExcelPosTransparencia(HttpServletResponse response, ModelMap model) throws IOException {
 	        response.setContentType("application/octet-stream");
 	        response.setHeader("Content-Disposition", "attachment; filename=dados.xlsx");
-	        ByteArrayInputStream stream = escalaExportacaoService.exportarExcelPosTransparencia(escalaPosTransparenciaService.buscarNaUnidade(unidadesService.buscarPorId(idUnidadeLogada), anoMesService.buscarPorId(idAnoMesAtual)));
+	        ByteArrayInputStream stream = escalaExportacaoService.exportarExcelPosTransparencia(escalaPosTransparenciaService.buscarNaUnidade(usuarioService.pegarUnidadeLogada(), anoMesService.buscarPorId(idAnoMesAtual)));
 	        IOUtils.copy(stream, response.getOutputStream());
 	    }
 		
 		@GetMapping(value = "/exporta/pdf/pos/transparencia", produces = MediaType.APPLICATION_PDF_VALUE)
 		public ResponseEntity<InputStreamResource> employeeReportsPosTransparencia(HttpServletResponse response) throws IOException {
-			ByteArrayInputStream bis = escalaExportacaoService.exportarPdfPosTransparencia(escalaPosTransparenciaService.buscarNaUnidade(unidadesService.buscarPorId(idUnidadeLogada), anoMesService.buscarPorId(idAnoMesAtual)));
+			ByteArrayInputStream bis = escalaExportacaoService.exportarPdfPosTransparencia(escalaPosTransparenciaService.buscarNaUnidade(usuarioService.pegarUnidadeLogada(), anoMesService.buscarPorId(idAnoMesAtual)));
 			HttpHeaders headers = new HttpHeaders();
 			headers.add("Content-Disposition", "attachment;filename=dados.pdf");
 			return ResponseEntity.ok().headers(headers).contentType(MediaType.APPLICATION_PDF)
@@ -3536,13 +3533,13 @@ public class EscalaController {
 	    public void downloadExcelEscalaAlteracao(HttpServletResponse response, ModelMap model) throws IOException {
 	        response.setContentType("application/octet-stream");
 	        response.setHeader("Content-Disposition", "attachment; filename=dados.xlsx");
-	        ByteArrayInputStream stream = escalaExportacaoService.exportarExcelEscalaAlteracao(escalaAlteracoesService.buscarNaUnidade(unidadesService.buscarPorId(idUnidadeLogada), anoMesService.buscarPorId(idAnoMesAtual)));
+	        ByteArrayInputStream stream = escalaExportacaoService.exportarExcelEscalaAlteracao(escalaAlteracoesService.buscarNaUnidade(usuarioService.pegarUnidadeLogada(), anoMesService.buscarPorId(idAnoMesAtual)));
 	        IOUtils.copy(stream, response.getOutputStream());
 	    }
 		
 		@GetMapping(value = "/exporta/pdf/escala/alteracao", produces = MediaType.APPLICATION_PDF_VALUE)
 		public ResponseEntity<InputStreamResource> employeeReportsEscalaAlteracao(HttpServletResponse response) throws IOException {
-			ByteArrayInputStream bis = escalaExportacaoService.exportarPdfEscalaAlteracao(escalaAlteracoesService.buscarNaUnidade(unidadesService.buscarPorId(idUnidadeLogada), anoMesService.buscarPorId(idAnoMesAtual)));
+			ByteArrayInputStream bis = escalaExportacaoService.exportarPdfEscalaAlteracao(escalaAlteracoesService.buscarNaUnidade(usuarioService.pegarUnidadeLogada(), anoMesService.buscarPorId(idAnoMesAtual)));
 			HttpHeaders headers = new HttpHeaders();
 			headers.add("Content-Disposition", "attachment;filename=dados.pdf");
 			return ResponseEntity.ok().headers(headers).contentType(MediaType.APPLICATION_PDF)
@@ -3604,16 +3601,16 @@ public class EscalaController {
 	
 	@ModelAttribute("idCodigoDiferenciadoFk")
 	public List<CodigoDiferenciado> getCodigosDiferenciado() {
-		List<CodigoDiferenciado> lista = codigoDiferenciadoService.buscarTodos(unidadesService.buscarPorId(idUnidadeLogada));
-		return codigoDiferenciadoService.buscarTodos(unidadesService.buscarPorId(idUnidadeLogada));
+		List<CodigoDiferenciado> lista = codigoDiferenciadoService.buscarTodos(usuarioService.pegarUnidadeLogada());
+		return codigoDiferenciadoService.buscarTodos(usuarioService.pegarUnidadeLogada());
 	}
 	
 	
 	
 	public List<CodigoDiferenciado> getCodigosDiferenciadoCompativel(Pessoa pessoa) {
-		List<CodigoDiferenciado> lista = codigoDiferenciadoService.buscarTodosQueNaoPrecisaDeAtribuicaoRh(unidadesService.buscarPorId(idUnidadeLogada));
-		List<PessoaCodDiferenciado> lista1 = pessoaCodDiferenciadoService.buscarPorUnidadeEPessoaQuePrecisaAtribuicaoRhENaoPrecisaAprovacaoDaSede(unidadesService.buscarPorId(idUnidadeLogada), pessoa);
-		List<PessoaCodDiferenciado> lista2 = pessoaCodDiferenciadoService.buscarPorUnidadeEPessoaAprovadoSede(unidadesService.buscarPorId(idUnidadeLogada), pessoa);
+		List<CodigoDiferenciado> lista = codigoDiferenciadoService.buscarTodosQueNaoPrecisaDeAtribuicaoRh(usuarioService.pegarUnidadeLogada());
+		List<PessoaCodDiferenciado> lista1 = pessoaCodDiferenciadoService.buscarPorUnidadeEPessoaQuePrecisaAtribuicaoRhENaoPrecisaAprovacaoDaSede(usuarioService.pegarUnidadeLogada(), pessoa);
+		List<PessoaCodDiferenciado> lista2 = pessoaCodDiferenciadoService.buscarPorUnidadeEPessoaAprovadoSede(usuarioService.pegarUnidadeLogada(), pessoa);
 		
 		for(int i=0;i<lista1.size();i++) {
 			lista.add(lista1.get(i).getIdCodDiferenciadoFk());

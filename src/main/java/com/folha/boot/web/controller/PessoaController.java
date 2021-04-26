@@ -29,6 +29,7 @@ import com.folha.boot.service.PessoaOperadoresService;
 import com.folha.boot.service.PessoaService;
 import com.folha.boot.service.SexosService;
 import com.folha.boot.service.UnidadesService;
+import com.folha.boot.service.seguranca.UsuarioService;
 import com.folha.boot.service.util.UtilidadesDeTexto;
 import com.folha.boot.service.util.UtilidadesMatematicas;
 
@@ -54,13 +55,10 @@ public class PessoaController {
 	UnidadesService unidadesService;
 	@Autowired
 	PessoaFuncionariosService pessoaFuncionariosService;
-	
-	
-	
+	@Autowired
+	private UsuarioService usuarioService;
 	
 	Pessoa ultimaPessoaSalva = null;
-	Long idUnidadeLogada = 1l;
-	Long idOperadorLogado = 1l;
 	
 	String ultimaBuscaNome = "";
 	String ultimaBuscaCpf = "";
@@ -171,21 +169,21 @@ public class PessoaController {
 	@GetMapping("/listar/unidade/{pageNo}")
 	public String findPaginatedUnidade(@PathVariable (value = "pageNo") int pageNo, ModelMap model) {
 		int pageSeze = 10;
-		Page<PessoaFuncionarios> page = pessoaFuncionariosService.findPaginated(unidadesService.buscarPorId(idUnidadeLogada), pageNo, pageSeze);
+		Page<PessoaFuncionarios> page = pessoaFuncionariosService.findPaginated(usuarioService.pegarUnidadeLogada(), pageNo, pageSeze);
 		List<PessoaFuncionarios> lista = page.getContent();
 		return paginarUnidade(pageNo, page, lista, model);
 	}
 	
 	public String findPaginatedNomeUnidade(@PathVariable (value = "pageNo") int pageNo, String nome, ModelMap model) {
 		int pageSeze = 10;
-		Page<PessoaFuncionarios> page = pessoaFuncionariosService.findPaginatedNome(nome, unidadesService.buscarPorId(idUnidadeLogada), pageNo, pageSeze);
+		Page<PessoaFuncionarios> page = pessoaFuncionariosService.findPaginatedNome(nome, usuarioService.pegarUnidadeLogada(), pageNo, pageSeze);
 		List<PessoaFuncionarios> lista = page.getContent();
 		return paginarUnidade(pageNo, page, lista, model);
 	}
 	
 	public String findPaginatedCpfUnidade(@PathVariable (value = "pageNo") int pageNo, String cpf, ModelMap model) {
 		int pageSeze = 10;
-		Page<PessoaFuncionarios> page = pessoaFuncionariosService.findPaginatedCpf(cpf, unidadesService.buscarPorId(idUnidadeLogada), pageNo, pageSeze);
+		Page<PessoaFuncionarios> page = pessoaFuncionariosService.findPaginatedCpf(cpf, usuarioService.pegarUnidadeLogada(), pageNo, pageSeze);
 		List<PessoaFuncionarios> lista = page.getContent();
 		return paginarUnidade(pageNo, page, lista, model);
 	}
@@ -317,21 +315,21 @@ public class PessoaController {
 	@GetMapping("/operador/listar/unidade/{pageNo}")
 	public String findPaginatedUnidadeOperador(@PathVariable (value = "pageNo") int pageNo, ModelMap model) {
 		int pageSeze = 10;
-		Page<PessoaFuncionarios> page = pessoaFuncionariosService.findPaginated(unidadesService.buscarPorId(idUnidadeLogada), pageNo, pageSeze);
+		Page<PessoaFuncionarios> page = pessoaFuncionariosService.findPaginated(usuarioService.pegarUnidadeLogada(), pageNo, pageSeze);
 		List<PessoaFuncionarios> lista = page.getContent();
 		return paginarUnidadeOperador(pageNo, page, lista, model);
 	}
 	
 	public String findPaginatedNomeUnidadeOperador(@PathVariable (value = "pageNo") int pageNo, String nome, ModelMap model) {
 		int pageSeze = 10;
-		Page<PessoaFuncionarios> page = pessoaFuncionariosService.findPaginatedNome(nome, unidadesService.buscarPorId(idUnidadeLogada), pageNo, pageSeze);
+		Page<PessoaFuncionarios> page = pessoaFuncionariosService.findPaginatedNome(nome, usuarioService.pegarUnidadeLogada(), pageNo, pageSeze);
 		List<PessoaFuncionarios> lista = page.getContent();
 		return paginarUnidadeOperador(pageNo, page, lista, model);
 	}
 	
 	public String findPaginatedCpfUnidadeOperador(@PathVariable (value = "pageNo") int pageNo, String cpf, ModelMap model) {
 		int pageSeze = 10;
-		Page<PessoaFuncionarios> page = pessoaFuncionariosService.findPaginatedCpf(cpf, unidadesService.buscarPorId(idUnidadeLogada), pageNo, pageSeze);
+		Page<PessoaFuncionarios> page = pessoaFuncionariosService.findPaginatedCpf(cpf, usuarioService.pegarUnidadeLogada(), pageNo, pageSeze);
 		List<PessoaFuncionarios> lista = page.getContent();
 		return paginarUnidadeOperador(pageNo, page, lista, model);
 	}
@@ -389,10 +387,10 @@ public class PessoaController {
 	//Salvar
 	@PostMapping("/salvar")
 	public String salvar( Pessoa pessoa, PessoaFotos pessoafotos,  RedirectAttributes attr) {
-		pessoa.setIdOperadorCadastroFk(pessoaOperadoresService.buscarPorId(idOperadorLogado));
+		pessoa.setIdOperadorCadastroFk(usuarioService.pegarOperadorLogado());
 		pessoa.setDtCadastro(new Date());
 		
-		pessoa.setIdOperadorCadastroFk(pessoaOperadoresService.buscarPorId(idOperadorLogado));
+		pessoa.setIdOperadorCadastroFk(usuarioService.pegarOperadorLogado());
 		pessoa.setDtCadastro(new Date());
 		
 		System.out.println("MEU CPF"+pessoa.getCpf());
