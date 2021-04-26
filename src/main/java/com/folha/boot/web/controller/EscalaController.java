@@ -2331,7 +2331,7 @@ public class EscalaController {
 	
 	@GetMapping("/atalho/ciclo11_f")
 	public String atalhoCiclo11F( RedirectAttributes attr) {	
-		//Tratando escala Bloqueada
+		
 		if(anoMesService.buscarPorId(idAnoMesAtual).getIdEscalaBloqueadaFk().getSigla().equalsIgnoreCase("S")) {
 		return "redirect:/escalas/mensagem/de/escala/bloqueada";
 		}		
@@ -2356,7 +2356,7 @@ public class EscalaController {
 	
 	@GetMapping("/atalho/ciclo11_g")
 	public String atalhoCiclo11G( RedirectAttributes attr) {	
-		//Tratando escala Bloqueada
+		
 		if(anoMesService.buscarPorId(idAnoMesAtual).getIdEscalaBloqueadaFk().getSigla().equalsIgnoreCase("S")) {
 		return "redirect:/escalas/mensagem/de/escala/bloqueada";
 		}		
@@ -2611,7 +2611,6 @@ public class EscalaController {
 	
 		
 	
-	// Metodos da Inclusão
 	
 	@GetMapping("/paginar/inclusao/{pageNo}")
 	public String getPorNomePaginadoInclusao(@PathVariable (value = "pageNo") int pageNo, ModelMap model) {
@@ -2626,7 +2625,7 @@ public class EscalaController {
 			}
 	}
 	
-	@GetMapping("/listar/inclusao")
+	@GetMapping("/listar/inclusao") 
 	public String listarInclusao(ModelMap model) {
 		ultimaBuscaNome = "";
 		return this.findPaginatedInclusao(1, model);
@@ -2688,7 +2687,7 @@ public class EscalaController {
 	@PostMapping("/incluindo")
 	public String incluindo(ModelMap model, InclusaoEscala inclusaoEscala ) {
 
-		//Tratando escala Bloqueada
+		
 		if(anoMesService.buscarPorId(idAnoMesAtual).getIdEscalaBloqueadaFk().getSigla().equalsIgnoreCase("S")) {
 		return "redirect:/escalas/mensagem/de/escala/bloqueada";
 		}		
@@ -2808,7 +2807,7 @@ public class EscalaController {
 				.body(new InputStreamResource(bis));
 	}
 	
-	//Exportacao Todos os setores
+	
 		@GetMapping("/exporta/excel/todos")
 	    public void downloadExcelTodos(HttpServletResponse response, ModelMap model) throws IOException {
 	        response.setContentType("application/octet-stream");
@@ -2827,7 +2826,7 @@ public class EscalaController {
 		}
 	
 	
-	// Metodos para preencher os combobox
+	
 	
 	@ModelAttribute("idTipoFolhaFk")
 	public List<TiposDeFolha> getTipoFolha() {
