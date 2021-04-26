@@ -7,8 +7,11 @@ import javax.persistence.Entity;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
+import org.springframework.transaction.annotation.Transactional;
+
 @SuppressWarnings("serial")
 @Entity
+@Transactional
 @Table(name = "turnos") 
 public class Turnos extends AbstractEntity<Long>{
 
