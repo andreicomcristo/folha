@@ -16,7 +16,7 @@
 			</li>
 			<!--submenu configuracoes-->
 			<li>
-				<a class="k-btn"><span class=" oi oi-chevron-bottom eleventh icones-sidebar-tamanho align-middle"></span> Configurações </a>				
+				<a sec:authorize="hasAnyAuthority( 'MASTER' )" class="k-btn"><span  class=" oi oi-chevron-bottom eleventh icones-sidebar-tamanho align-middle"></span> Configurações </a>				
 				<ul class="k-show">
 					
 					<li><a href="#" class="bi-btn"><span class=" oi oi-chevron-bottom z60 icones-sidebar-tamanho align-middle"></span>Configurações Pontuais </a>
@@ -363,7 +363,7 @@
 				</ul>			
 			</li>
 
-			<li><a href="#" class="bg-btn"><span class=" oi oi-chevron-bottom z58 icones-sidebar-tamanho align-middle"></span>Folha </a>
+			<li><a sec:authorize="hasAnyAuthority( 'MASTER' , 'FOLHA_SEDE' , 'MASTER_RH_SEDE' )" href="#" class="bg-btn"><span class=" oi oi-chevron-bottom z58 icones-sidebar-tamanho align-middle"></span>Folha </a>
 				<ul class="bg-show">
 					
 					<li><a href="#" class="ct-btn"><span class=" oi oi-chevron-bottom z97 icones-sidebar-tamanho align-middle"></span>Cálculos </a>
@@ -455,7 +455,7 @@
 				</ul>
 			</li>
 
-			<li><a href="#" class="h-btn"><span class=" oi oi-chevron-bottom eigth icones-sidebar-tamanho align-middle"></span> Recursos Humanos - Sede </a>
+			<li><a sec:authorize="hasAnyAuthority( 'MASTER' , 'RH_SEDE' , 'MASTER_RH_SEDE' )" href="#" class="h-btn"><span class=" oi oi-chevron-bottom eigth icones-sidebar-tamanho align-middle"></span> Recursos Humanos - Sede </a>
 				<ul class="h-show">	
 							
 					<li><a href="#" class="cf-btn"><span class=" oi oi-chevron-bottom z83 icones-sidebar-tamanho align-middle"></span>Operadores </a>
@@ -529,7 +529,7 @@
 				</ul>
 			</li>		
 						
-			<li><a href="#" class="by-btn"><span class=" oi oi-chevron-bottom z76 icones-sidebar-tamanho align-middle"></span>Recursos Humanos - Unidade </a>
+			<li><a sec:authorize="hasAnyAuthority( 'MASTER' , 'RH_UNIDADE' , 'MASTER_RH_UNIDADE' )" href="#" class="by-btn"><span class=" oi oi-chevron-bottom z76 icones-sidebar-tamanho align-middle"></span>Recursos Humanos - Unidade </a>
 				<ul class="by-show">
 					
 					<li><a href="#" class="ce-btn"><span class=" oi oi-chevron-bottom z82 icones-sidebar-tamanho align-middle"></span>Operadores </a>
@@ -682,7 +682,7 @@
 				</ul>
 			</li>
 	
-			<li><a href="#" class="bz-btn"><span class=" oi oi-chevron-bottom z77 icones-sidebar-tamanho align-middle"></span>Setores - Unidade </a>
+			<li><a sec:authorize="hasAnyAuthority( 'MASTER' , 'RH_UNIDADE' , 'MASTER_RH_UNIDADE', 'SAP_UNIDADE', 'PREENCHEDOR' )" href="#" class="bz-btn"><span class=" oi oi-chevron-bottom z77 icones-sidebar-tamanho align-middle"></span>Setores - Unidade </a>
 				<ul class="bz-show">
 					
 					<li><a href="#" class="bf-btn"><span class=" oi oi-chevron-bottom z57 icones-sidebar-tamanho align-middle"></span>Escala </a>
@@ -693,7 +693,7 @@
 				</ul>
 			</li>
 		
-			<li><a href="#" class="bu-btn"><span class=" oi oi-chevron-bottom z72 icones-sidebar-tamanho align-middle"></span>Acesso Colaboradores</a>
+			<li><a sec:authorize="hasAnyAuthority( 'MASTER' , 'RH_UNIDADE' , 'MASTER_RH_UNIDADE', 'COLABORADOR', 'FOLHA_SEDE', 'GESTOR_SEDE', 'MASTER_RH_SEDE', 'PONTO_UNIDADE', 'PREENCHEDOR', 'QVT_UNIDADE', 'RH_SEDE', 'SAP_UNIDADE' )" href="#" class="bu-btn"><span class=" oi oi-chevron-bottom z72 icones-sidebar-tamanho align-middle"></span>Acesso Colaboradores</a>
 				<ul class="bu-show">
 					
 					<li><a href="#" class="bv-btn"><span class=" oi oi-chevron-bottom z73 icones-sidebar-tamanho align-middle"></span>Escalas </a>

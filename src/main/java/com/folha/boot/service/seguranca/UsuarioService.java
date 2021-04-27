@@ -193,22 +193,30 @@ public class UsuarioService implements GenericService<PessoaOperadores>, UserDet
         session.setAttribute("unidade", unidadesService.buscarPorId( Long.parseLong( usuarioUnidade[1] ) ).getNomeFantasia()  );
         session.setAttribute("idUnidadeLogada", unidadesService.buscarPorId( Long.parseLong( usuarioUnidade[1] ) ).getId()  );
         
-        
+        //Buscando perfis
         List<Perfil> listaPerfil = perfilService.buscarPorOperadorEUnidade(usuario,  unidadesService.buscarPorId( Long.parseLong( usuarioUnidade[1] ) ));
         
+        //Buscando permissoes
         List<Permissao> listaPermissao = new ArrayList<>();
         for(int i=0;i<listaPerfil.size();i++) {
         	List<GrupoUsuarioPermissao> lista = grupoUsuarioPermissaoService.buscarPorGrupoUsuario(listaPerfil.get(i).getIdGrupoUsuarioFk());
         		for(int j=0;j<lista.size();j++) { if(!listaPermissao.contains(lista.get(j).getIdPermissaoFk())) { listaPermissao.add(lista.get(j).getIdPermissaoFk()); } }
         }
         
-        
+        //Convertendo permissoes em String
         List<String> permissao = new ArrayList<>();
         for(int i=0;i<listaPermissao.size();i++) {
         	permissao.add(listaPermissao.get(i).getNome());
         }
         
+        //Colocando o nome do grupo usuario nas permissoes
+        if(!listaPerfil.isEmpty()) {
+        	for(int i=0;i<listaPerfil.size();i++) {
+        		permissao.add(listaPerfil.get(i).getIdGrupoUsuarioFk().getNome());
+        	}
+        }
         
+                
         /*
         //consulta sobre autorizações
         List<Perfil> perfil = usuario.getPerfilList().stream().filter(p -> p.getIdUnidadeFk().getId().equals(Integer.valueOf(usuarioUnidade[1]))).collect(Collectors.toList());
