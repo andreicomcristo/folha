@@ -6,6 +6,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.apache.commons.compress.utils.IOUtils;
@@ -158,5 +159,16 @@ public class LocalidadeEscalaController {
 		lista.add(usuarioService.pegarUnidadeLogada());
 		return lista;
 	}	
+	
+	@Autowired
+	HttpServletRequest request;
+	@ModelAttribute("nomeOperadorLogado")
+	public String operadorLogado() {
+		return request.getSession().getAttribute("operador").toString();
+	}
+	@ModelAttribute("nomeUnidadeLogada")
+	public String unidadeLogada() {
+		return request.getSession().getAttribute("unidade").toString();
+	}
 	
 }

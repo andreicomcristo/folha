@@ -3,10 +3,12 @@ package com.folha.boot.web.controller;
 
 import javax.servlet.http.HttpServletRequest;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 
 
 
@@ -28,8 +30,8 @@ public class HomeController {
 	@GetMapping("/home")
 	public String homeSpringSecurity(ModelMap model, HttpServletRequest request) {
 		
-		model.addAttribute("operador", request.getSession().getAttribute("operador"));
-		model.addAttribute("unidadeLogada", request.getSession().getAttribute("unidade").toString());
+		model.addAttribute("nomeOperadorLogado", request.getSession().getAttribute("operador"));
+		model.addAttribute("nomeUnidadeLogada", request.getSession().getAttribute("unidade").toString());
 		
 		return "/home";
 	}
@@ -37,12 +39,23 @@ public class HomeController {
 	@GetMapping("/")
 	public String home(ModelMap model, HttpServletRequest request) {
 		
-		model.addAttribute("operador", request.getSession().getAttribute("operador"));
-		model.addAttribute("unidadeLogada", request.getSession().getAttribute("unidade").toString());
+		model.addAttribute("nomeOperadorLogado", request.getSession().getAttribute("operador"));
+		model.addAttribute("nomeUnidadeLogada", request.getSession().getAttribute("unidade").toString());
 		
 		return "/home";
 	}
 	
+	
+	@Autowired
+	HttpServletRequest request;
+	@ModelAttribute("nomeOperadorLogado")
+	public String operadorLogado() {
+		return request.getSession().getAttribute("operador").toString();
+	}
+	@ModelAttribute("nomeUnidadeLogada")
+	public String unidadeLogada() {
+		return request.getSession().getAttribute("unidade").toString();
+	}
 	
 	
 }

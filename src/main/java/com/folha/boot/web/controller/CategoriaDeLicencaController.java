@@ -1,9 +1,12 @@
 package com.folha.boot.web.controller;
 
+import javax.servlet.http.HttpServletRequest;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -18,10 +21,10 @@ import com.folha.boot.service.CategoriaDeLicencaService;
 @Controller
 @RequestMapping("/categoriaDeLicenca")
 public class CategoriaDeLicencaController {
-	
+	@Autowired
+	HttpServletRequest request;
 	@Autowired
 	private CategoriaDeLicencaService service;
-	
 	@GetMapping("/cadastrar")
 	public String cadastrar(CategoriaDeLicenca categoriaDeLicenca) {
 		return "/categoriaDeLicenca/cadastro";
@@ -29,6 +32,8 @@ public class CategoriaDeLicencaController {
 	
 	@GetMapping("/listar")
 	public String listar(ModelMap model) {
+		model.addAttribute("nomeOperadorLogado", request.getSession().getAttribute("operador"));
+		model.addAttribute("nomeUnidadeLogada", request.getSession().getAttribute("unidade").toString());
 		model.addAttribute("categoriaDeLicenca", service.buscarTodos());
 		return "/categoriaDeLicenca/lista"; 
 	}
@@ -42,6 +47,8 @@ public class CategoriaDeLicencaController {
 	
 	@GetMapping("/editar/{id}")
 	public String preEditar(@PathVariable("id") Long id, ModelMap model) {
+		model.addAttribute("nomeOperadorLogado", request.getSession().getAttribute("operador"));
+		model.addAttribute("nomeUnidadeLogada", request.getSession().getAttribute("unidade").toString());
 		model.addAttribute("categoriaDeLicenca", service.buscarPorId(id));
 		
 		return "/categoriaDeLicenca/cadastro";
@@ -56,15 +63,32 @@ public class CategoriaDeLicencaController {
 	
 	@GetMapping("/excluir/{id}")
 	public String excluir(@PathVariable("id") Long id, ModelMap model) {
-		service.excluir(id);  
+		service.excluir(id); 
+		model.addAttribute("nomeOperadorLogado", request.getSession().getAttribute("operador"));
+		model.addAttribute("nomeUnidadeLogada", request.getSession().getAttribute("unidade").toString());
 		model.addAttribute("success", "Excluído com sucesso.");
 		return listar(model);
 	}
 	
 	@GetMapping("/buscar/nome")
-	public String getPorNome(@RequestParam("nome") String nome, ModelMap model) {		
+	public String getPorNome(@RequestParam("nome") String nome, ModelMap model) {
+		model.addAttribute("nomeOperadorLogado", request.getSession().getAttribute("operador"));
+		model.addAttribute("nomeUnidadeLogada", request.getSession().getAttribute("unidade").toString());
 		model.addAttribute("categoriaDeLicenca", service.buscarPorNome(nome));
 		return "/categoriaDeLicenca/lista";
 	}
+	
+	
+	
+	
+	@ModelAttribute("nomeOperadorLogado")
+	public String operadorLogado() {
+		return request.getSession().getAttribute("operador").toString();
+	}
+	@ModelAttribute("nomeUnidadeLogada")
+	public String unidadeLogada() {
+		return request.getSession().getAttribute("unidade").toString();
+	}
+	
 	
 }

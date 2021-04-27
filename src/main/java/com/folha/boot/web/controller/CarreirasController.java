@@ -2,6 +2,8 @@ package com.folha.boot.web.controller;
 
 import java.util.List;
 
+import javax.servlet.http.HttpServletRequest;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.ByteArrayResource;
 import org.springframework.http.HttpHeaders;
@@ -10,6 +12,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -72,7 +75,7 @@ public class CarreirasController {
 	}
 	
 	@GetMapping("/buscar/nome/carreira")
-	public String getPorNome(@RequestParam("nomeCarreira") String nomeCarreira, ModelMap model) {		
+	public String getPorNome(@RequestParam("nomeCarreira") String nomeCarreira, ModelMap model) {	
 		model.addAttribute("carreiras", service.buscarPorNome(nomeCarreira.toUpperCase().trim()));
 		return "/carreira/lista";
 	}
@@ -95,5 +98,18 @@ public class CarreirasController {
 				.header(HttpHeaders.CONTENT_DISPOSITION,"attachment:filename=\""+doc.getDocName()+"\"")
 				.body(new ByteArrayResource(doc.getData()));
 	}
+	
+	
+	@Autowired
+	HttpServletRequest request;
+	@ModelAttribute("nomeOperadorLogado")
+	public String operadorLogado() {
+		return request.getSession().getAttribute("operador").toString();
+	}
+	@ModelAttribute("nomeUnidadeLogada")
+	public String unidadeLogada() {
+		return request.getSession().getAttribute("unidade").toString();
+	}
+	
 	
 }

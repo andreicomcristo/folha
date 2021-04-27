@@ -4,6 +4,7 @@ import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.util.List;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.apache.commons.compress.utils.IOUtils;
@@ -172,5 +173,17 @@ public class CidadesController {
 	public List<Uf> getUfs() {
 		return ufService.buscarTodos();
 	}	
+	
+	
+	@Autowired
+	HttpServletRequest request;
+	@ModelAttribute("nomeOperadorLogado")
+	public String operadorLogado() {
+		return request.getSession().getAttribute("operador").toString();
+	}
+	@ModelAttribute("nomeUnidadeLogada")
+	public String unidadeLogada() {
+		return request.getSession().getAttribute("unidade").toString();
+	}
 	
 }

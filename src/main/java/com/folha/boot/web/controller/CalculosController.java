@@ -5,6 +5,7 @@ import java.io.IOException;
 import java.util.Date;
 import java.util.List;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.apache.commons.compress.utils.IOUtils;
@@ -111,7 +112,6 @@ public class CalculosController {
 	
 	@GetMapping("/escolher/mes")
 	public String escolherMes(ModelMap model) {
-		
 		model.addAttribute("mesDoCalculo", new MesDoCalculo());
 		model.addAttribute("anoMes", anoMesService.buscarTodos());
 		return "/calculos/escolherMes"; 
@@ -135,6 +135,18 @@ public class CalculosController {
 		return anoMesService.buscarTodos();
 	}
 	
+	
+	
+	@Autowired
+	HttpServletRequest request;
+	@ModelAttribute("nomeOperadorLogado")
+	public String operadorLogado() {
+		return request.getSession().getAttribute("operador").toString();
+	}
+	@ModelAttribute("nomeUnidadeLogada")
+	public String unidadeLogada() {
+		return request.getSession().getAttribute("unidade").toString();
+	}
 	
 	
 }

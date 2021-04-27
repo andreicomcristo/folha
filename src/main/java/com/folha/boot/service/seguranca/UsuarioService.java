@@ -175,8 +175,6 @@ public class UsuarioService implements GenericService<PessoaOperadores>, UserDet
         //System.out.println("----------->>>>>" + usuarioUnidade[1]);
 
         
-        System.out.println("VEJA:"+usuario.getIdPessoaFk().getNome());
-        
         
         //comando para armazenar a unidade na sessão
         HttpSession session = httpSessionFactory.getObject();

@@ -2,6 +2,9 @@ package com.folha.boot.web.controller;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import javax.servlet.http.HttpServletRequest;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Controller;
@@ -34,7 +37,8 @@ public class AcessoOperadoresCoordenacaoController {
 	
 	@Autowired
 	UsuarioService usuarioService;
-	
+	@Autowired
+	HttpServletRequest request;
 	@Autowired
 	private AcessoOperadoresCoordenacaoService service;
 	@Autowired
@@ -107,6 +111,7 @@ public class AcessoOperadoresCoordenacaoController {
 	
 	@GetMapping("/editar/{id}")
 	public String preEditar(@PathVariable("id") Long id, ModelMap model) {
+		
 		model.addAttribute("acessoOperadoresCoordenacao", service.buscarPorId(id));
 		
 		return "/operadorecoordenacao/cadastro";
@@ -165,6 +170,7 @@ public class AcessoOperadoresCoordenacaoController {
 	}
 	
 	public String paginarUnidade(int pageNo, Page<PessoaOperadores> page, List<PessoaOperadores> lista, ModelMap model) {	
+		
 		model.addAttribute("currentePage", pageNo);
 		model.addAttribute("totalPages", page.getTotalPages());
 		model.addAttribute("totalItems", page.getTotalElements()); 
@@ -188,6 +194,15 @@ public class AcessoOperadoresCoordenacaoController {
 		return lista;
 	}
 	
+	
+	@ModelAttribute("nomeOperadorLogado")
+	public String operadorLogado() {
+		return request.getSession().getAttribute("operador").toString();
+	}
+	@ModelAttribute("nomeUnidadeLogada")
+	public String unidadeLogada() {
+		return request.getSession().getAttribute("unidade").toString();
+	}
 	
 	
 }

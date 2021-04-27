@@ -1,9 +1,12 @@
 package com.folha.boot.web.controller;
 
+import javax.servlet.http.HttpServletRequest;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -54,15 +57,26 @@ public class BancosController {
 	
 	@GetMapping("/excluir/{id}")
 	public String excluir(@PathVariable("id") Long id, ModelMap model) {
-		service.excluir(id);  
+		service.excluir(id); 
 		model.addAttribute("success", "Excluído com sucesso.");
 		return listar(model);
 	}
 	
 	@GetMapping("/buscar/nome/banco")
-	public String getPorNome(@RequestParam("nomeBanco") String nomeBanco, ModelMap model) {		
+	public String getPorNome(@RequestParam("nomeBanco") String nomeBanco, ModelMap model) {	
 		model.addAttribute("bancos", service.buscarPorNome(nomeBanco.toUpperCase().trim()));
 		return "/banco/lista";
+	}
+	
+	@Autowired
+	HttpServletRequest request;
+	@ModelAttribute("nomeOperadorLogado")
+	public String operadorLogado() {
+		return request.getSession().getAttribute("operador").toString();
+	}
+	@ModelAttribute("nomeUnidadeLogada")
+	public String unidadeLogada() {
+		return request.getSession().getAttribute("unidade").toString();
 	}
 	
 }

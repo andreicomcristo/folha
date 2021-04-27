@@ -2,6 +2,8 @@ package com.folha.boot.web.controller;
 
 import java.util.List;
 
+import javax.servlet.http.HttpServletRequest;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
@@ -71,7 +73,7 @@ public class AnoMesController {
 	}
 	
 	@GetMapping("/buscar/nome/AnoMes")
-	public String getPorNome(@RequestParam("nomeAnoMes") String nomeAnoMes, ModelMap model) {		
+	public String getPorNome(@RequestParam("nomeAnoMes") String nomeAnoMes, ModelMap model) {	
 		model.addAttribute("anoMes", service.buscarPorNome(nomeAnoMes.toUpperCase().trim()));
 		return "/anomes/lista";
 	}
@@ -84,6 +86,18 @@ public class AnoMesController {
 	@ModelAttribute("idTransparenciaEnviadaFk")
 	public List<SimNao> getTransparenciaEnviadaFk() {
 		return simNaoService.buscarTodos();
+	}
+	
+	
+	@Autowired
+	HttpServletRequest request;
+	@ModelAttribute("nomeOperadorLogado")
+	public String operadorLogado() {
+		return request.getSession().getAttribute("operador").toString();
+	}
+	@ModelAttribute("nomeUnidadeLogada")
+	public String unidadeLogada() {
+		return request.getSession().getAttribute("unidade").toString();
 	}
 	
 }

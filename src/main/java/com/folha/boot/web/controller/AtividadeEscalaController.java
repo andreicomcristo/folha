@@ -4,6 +4,8 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+import javax.servlet.http.HttpServletRequest;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Controller;
@@ -70,7 +72,7 @@ public class AtividadeEscalaController {
 	
 	@GetMapping("/excluir/{id}")
 	public String excluir(@PathVariable("id") Long id, ModelMap model) {
-		service.excluir(id);  
+		service.excluir(id);
 		model.addAttribute("success", "Excluído com sucesso.");
 		return listar(model);
 	}
@@ -85,7 +87,7 @@ public class AtividadeEscalaController {
 	}
 	/*
 	@GetMapping("/buscar/nome/atividade/escala")
-	public String getPorNome(@RequestParam("nomeAtividade") String nomeAtividade, ModelMap model) {		
+	public String getPorNome(@RequestParam("nomeAtividade") String nomeAtividade, ModelMap model) {	
 		model.addAttribute("atividadeEscala", service.buscarNaUnidadePorNome( unidadesService.buscarPorId(idUnidadeLogada) ,nomeAtividade.toUpperCase().trim()));
 		return "/atividadeescala/lista";
 	}
@@ -153,4 +155,17 @@ public class AtividadeEscalaController {
 		lista.add(usuarioService.pegarUnidadeLogada());
 		return lista;
 	}	
+	
+	
+	@Autowired
+	HttpServletRequest request;
+	@ModelAttribute("nomeOperadorLogado")
+	public String operadorLogado() {
+		return request.getSession().getAttribute("operador").toString();
+	}
+	@ModelAttribute("nomeUnidadeLogada")
+	public String unidadeLogada() {
+		return request.getSession().getAttribute("unidade").toString();
+	}
+	
 }

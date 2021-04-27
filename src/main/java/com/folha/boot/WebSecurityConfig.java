@@ -50,8 +50,8 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 		.authorizeRequests()
 		
 			//Permissões
-			//.antMatchers("/anomes/**").hasAnyAuthority("PERMISSAO 1")
-			//.antMatchers("/areasdecapacitacoes/**").hasAnyAuthority("PERMISSAO 2")
+			//.antMatchers("/anomes/**").hasAnyAuthority("ANO_MES")
+			//.antMatchers("/areasdecapacitacoes/**").hasAnyAuthority("PERMISSAO 3")
 		
 		
 			.antMatchers("/css/**").permitAll()

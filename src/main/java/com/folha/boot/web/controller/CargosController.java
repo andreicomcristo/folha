@@ -1,6 +1,9 @@
 package com.folha.boot.web.controller;
 
 import java.util.List;
+
+import javax.servlet.http.HttpServletRequest;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
@@ -20,6 +23,7 @@ import com.folha.boot.service.NiveisCargoService;
 @RequestMapping("/cargos")
 public class CargosController {
 
+	
 	@Autowired
 	private CargosService service;	
 	@Autowired
@@ -65,7 +69,7 @@ public class CargosController {
 	}
 	
 	@GetMapping("/buscar/nome/cargo")
-	public String getPorNome(@RequestParam("nomeCargo") String nomeCargo, ModelMap model) {		
+	public String getPorNome(@RequestParam("nomeCargo") String nomeCargo, ModelMap model) {	
 		model.addAttribute("cargos", service.buscarPorNome(nomeCargo.toUpperCase().trim()));
 		return "/cargo/lista";
 	}
@@ -74,6 +78,20 @@ public class CargosController {
 	public List<NiveisCargo> listaDeNiveisCargo() {
 		return niveisCargoService.buscarTodos();
 	}
+	
+	
+	@Autowired
+	HttpServletRequest request;
+	@ModelAttribute("nomeOperadorLogado")
+	public String operadorLogado() {
+		return request.getSession().getAttribute("operador").toString();
+	}
+	@ModelAttribute("nomeUnidadeLogada")
+	public String unidadeLogada() {
+		return request.getSession().getAttribute("unidade").toString();
+	}
+	
+	
 	
 	/*@ModelAttribute("cargosEspecialidadeList")
 	public List<CargosEspecialidade> listaDeEspecialidadeCargo() {
