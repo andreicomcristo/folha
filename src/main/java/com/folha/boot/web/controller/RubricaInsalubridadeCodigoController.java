@@ -34,9 +34,6 @@ public class RubricaInsalubridadeCodigoController {
 	String ultimaBuscaNome = "";
 	
 	@Autowired
-	private UsuarioService usuarioService;
-	
-	@Autowired
 	private RubricaInsalubridadeCodigoService service;
 	
 
@@ -47,6 +44,15 @@ public class RubricaInsalubridadeCodigoController {
 	
 	@PostMapping("/salvar")
 	public String salvar(RubricaInsalubridadeCodigo rubricaInsalubridadeCodigo, RedirectAttributes attr) {
+		// Evitando salvar quem já está cadastrado
+		if(rubricaInsalubridadeCodigo!=null) {
+			if(rubricaInsalubridadeCodigo.getId()==null) {
+				if(service.avaliarCadastrado(rubricaInsalubridadeCodigo.getCodigo())==true) {
+					return "redirect:/mensagens/mensagem/de/ja/cadastrado";	
+				}
+			}
+		}
+		
 		service.salvar(rubricaInsalubridadeCodigo);
 		attr.addFlashAttribute("success", "Inserido com sucesso.");
 		return "redirect:/rubricaInsalubridadeCodigo/cadastrar";
@@ -125,7 +131,6 @@ public class RubricaInsalubridadeCodigoController {
 		return "/rubricaInsalubridadeCodigo/lista";	
 	}
 
-	
 	
 	
 	

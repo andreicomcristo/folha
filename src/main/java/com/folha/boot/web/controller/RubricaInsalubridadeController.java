@@ -123,6 +123,16 @@ public class RubricaInsalubridadeController {
 	@PostMapping("/salvar")
 	public String salvar(RubricaInsalubridade rubricaInsalubridade, RedirectAttributes attr) {
 		
+		// Evitando salvar quem já está cadastrado
+			if(rubricaInsalubridade!=null) {
+				if(rubricaInsalubridade.getId()==null) {
+					if(service.avaliarCadastrado(rubricaInsalubridade.getIdCodigoFk(), rubricaInsalubridade.getIdAnoMesFk() )==true) {
+						return "redirect:/mensagens/mensagem/de/ja/cadastrado";	
+					}
+				}
+			}
+				
+		
 		if(rubricaInsalubridade.getValor()==null) {
 			rubricaInsalubridade.setValor(0.0);
 		}
@@ -188,7 +198,6 @@ public class RubricaInsalubridadeController {
 		return ResponseEntity.ok().headers(headers).contentType(MediaType.APPLICATION_PDF)
 				.body(new InputStreamResource(bis));
 	}
-	
 	
 	
 	

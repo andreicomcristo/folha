@@ -10,7 +10,9 @@ import org.springframework.stereotype.Repository;
 import com.folha.boot.domain.AnoMes;
 import com.folha.boot.domain.FaixasValoresParametrosCalculoFolhasExtras;
 import com.folha.boot.domain.FaixasValoresSubsidio;
+import com.folha.boot.domain.PessoaFuncionarios;
 import com.folha.boot.domain.RubricaInsalubridade;
+import com.folha.boot.domain.RubricaInsalubridadeCodigo;
 import com.folha.boot.domain.RubricaInsalubridadeFuncionario;
 import com.folha.boot.domain.Unidades;
 
@@ -22,6 +24,8 @@ public interface RubricaInsalubridadeFuncionarioReposytory extends JpaRepository
 	public List<RubricaInsalubridadeFuncionario> findByIdAnoMesFkOrderByIdAnoMesFkNomeAnoMesDesc(AnoMes anoMes);
 	
 	public List<RubricaInsalubridadeFuncionario> findByIdAnoMesFkNomeAnoMesContainingOrderByIdAnoMesFkNomeAnoMesDesc(String nome);
+	
+	public List<RubricaInsalubridadeFuncionario> findByIdCodigoFkAndIdAnoMesFkAndIdFuncionarioFk(RubricaInsalubridadeCodigo rubricaInsalubridadeCodigo, AnoMes anoMes, PessoaFuncionarios pessoaFuncionarios);
 	
 	public Page<RubricaInsalubridadeFuncionario> findAllByOrderByIdAnoMesFkNomeAnoMesDesc(final Pageable page);
 	

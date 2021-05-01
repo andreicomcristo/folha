@@ -11,6 +11,7 @@ import com.folha.boot.domain.AnoMes;
 import com.folha.boot.domain.FaixasValoresParametrosCalculoFolhasExtras;
 import com.folha.boot.domain.FaixasValoresSubsidio;
 import com.folha.boot.domain.RubricaInsalubridade;
+import com.folha.boot.domain.RubricaInsalubridadeCodigo;
 import com.folha.boot.domain.Unidades;
 
 @Repository
@@ -21,6 +22,8 @@ public interface RubricaInsalubridadeReposytory extends JpaRepository<RubricaIns
 	public List<RubricaInsalubridade> findByIdAnoMesFkOrderByIdAnoMesFkNomeAnoMesDesc(AnoMes anoMes);
 	
 	public List<RubricaInsalubridade> findByIdAnoMesFkNomeAnoMesContainingOrderByIdAnoMesFkNomeAnoMesDesc(String nome);
+	
+	public List<RubricaInsalubridade> findByIdCodigoFkAndIdAnoMesFk(RubricaInsalubridadeCodigo rubricaInsalubridadeCodigo, AnoMes anoMes);
 	
 	public Page<RubricaInsalubridade> findAllByOrderByIdAnoMesFkNomeAnoMesDesc(final Pageable page);
 	

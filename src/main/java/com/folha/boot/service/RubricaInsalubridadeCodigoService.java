@@ -37,7 +37,6 @@ public class RubricaInsalubridadeCodigoService {
 	
 	@Transactional(readOnly = true)
 	public RubricaInsalubridadeCodigo buscarPorId(Long id) {
-		
 		return reposytory.findById(id).get();
 	}
 		
@@ -60,6 +59,14 @@ public class RubricaInsalubridadeCodigoService {
 	public Page<RubricaInsalubridadeCodigo> findPaginatedNome(String nome, int pageNo, int pageSize ) {
 		Pageable pageable = PageRequest.of(pageNo -1, pageSize);
 		return this.reposytory.findByCodigoContainingOrderByCodigoAsc( nome.toUpperCase().trim(), pageable);
+	}
+	
+	
+	public boolean avaliarCadastrado( String nome) {
+		boolean resposta = false;
+		List<RubricaInsalubridadeCodigo> lista = reposytory.findByCodigoOrderByCodigoAsc( nome.toUpperCase().trim()); 
+		if(!lista.isEmpty()) {resposta = true;}
+		return resposta;
 	}
 	
 	

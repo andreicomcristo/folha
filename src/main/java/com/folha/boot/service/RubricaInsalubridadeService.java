@@ -28,6 +28,7 @@ import com.folha.boot.domain.Cidades;
 import com.folha.boot.domain.FaixasValoresParametrosCalculoFolhasExtras;
 import com.folha.boot.domain.FaixasValoresSubsidio;
 import com.folha.boot.domain.RubricaInsalubridade;
+import com.folha.boot.domain.RubricaInsalubridadeCodigo;
 import com.folha.boot.domain.Unidades;
 import com.itextpdf.text.Document;
 import com.itextpdf.text.DocumentException;
@@ -95,6 +96,13 @@ public class RubricaInsalubridadeService {
 	public Page<RubricaInsalubridade> findPaginatedAnoMes(int pageNo, int pageSize, String nome) {
 		Pageable pageable = PageRequest.of(pageNo -1, pageSize);
 		return this.reposytory.findByIdAnoMesFkNomeAnoMesContainingOrderByIdAnoMesFkNomeAnoMesDesc(nome.toUpperCase().trim(), pageable);
+	}
+	
+	public boolean avaliarCadastrado( RubricaInsalubridadeCodigo rubricaInsalubridadeCodigo, AnoMes anoMes) {
+		boolean resposta = false;
+		List<RubricaInsalubridade> lista = reposytory.findByIdCodigoFkAndIdAnoMesFk( rubricaInsalubridadeCodigo, anoMes); 
+		if(!lista.isEmpty()) {resposta = true;}
+		return resposta;
 	}
 	
 	//Herdar de um mes para o outro

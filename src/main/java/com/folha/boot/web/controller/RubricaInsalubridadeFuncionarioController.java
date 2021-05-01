@@ -194,7 +194,15 @@ public class RubricaInsalubridadeFuncionarioController {
 	
 	@PostMapping("/salvar")
 	public String salvar(RubricaInsalubridadeFuncionario rubricaInsalubridadeFuncionario, RedirectAttributes attr) {
-					
+		// Evitando salvar quem já está cadastrado
+		if(rubricaInsalubridadeFuncionario!=null) {
+			if(rubricaInsalubridadeFuncionario.getId()==null) {
+				if(service.avaliarCadastrado(rubricaInsalubridadeFuncionario.getIdCodigoFk(), rubricaInsalubridadeFuncionario.getIdAnoMesFk(), rubricaInsalubridadeFuncionario.getIdFuncionarioFk() )==true) {
+					return "redirect:/mensagens/mensagem/de/ja/cadastrado";	
+				}
+			}
+		}			
+		
 		service.salvar(rubricaInsalubridadeFuncionario);
 		attr.addFlashAttribute("success", "Inserido com sucesso.");
 		return "redirect:/rubricaInsalubridadeFuncionario/listar";
@@ -255,9 +263,7 @@ public class RubricaInsalubridadeFuncionarioController {
 	}
 	
 	
-	
-	
-	
+		
 	
 	@ModelAttribute("idAnoMesFk")
 	public List<AnoMes> getIdAnoMesFk() {

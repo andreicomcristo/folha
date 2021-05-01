@@ -17,6 +17,8 @@ public interface RubricaInsalubridadeCodigoReposytory extends JpaRepository<Rubr
 
 	public List<RubricaInsalubridadeCodigo> findByCodigoContainingOrderByCodigoAsc(String nome);
 	
+	public List<RubricaInsalubridadeCodigo> findByCodigoOrderByCodigoAsc(String nome);
+	
 	public Page<RubricaInsalubridadeCodigo> findAllByOrderByCodigoAsc( final Pageable page);
 	
 	public Page<RubricaInsalubridadeCodigo> findByCodigoContainingOrderByCodigoAsc(String nome, final Pageable page);
