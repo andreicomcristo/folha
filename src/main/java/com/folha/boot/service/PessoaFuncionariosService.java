@@ -71,9 +71,19 @@ public class PessoaFuncionariosService {
 		return this.reposytory.findByIdUnidadeAtuacaoAtualFkAndDtCancelamentoIsNullAndIdPessoaFkDtCancelamentoIsNullAndIdSituacaoAtualFkNomeSituacao(unidades, ativo, pageable);
 	}
 	
+	public Page<PessoaFuncionarios> findPaginatedDeTodasAsUnidades(int pageNo, int pageSize, String ativo) {
+		Pageable pageable = PageRequest.of(pageNo -1, pageSize);
+		return this.reposytory.findByDtCancelamentoIsNullAndIdPessoaFkDtCancelamentoIsNullAndIdSituacaoAtualFkNomeSituacao( ativo, pageable);
+	}
+	
 	public Page<PessoaFuncionarios> findPaginatedNome(int pageNo, int pageSize, Unidades unidades, String ativo, String nome) {
 		Pageable pageable = PageRequest.of(pageNo -1, pageSize);
 		return this.reposytory.findByIdUnidadeAtuacaoAtualFkAndDtCancelamentoIsNullAndIdPessoaFkDtCancelamentoIsNullAndIdSituacaoAtualFkNomeSituacaoAndIdPessoaFkNomeContaining(unidades, ativo, nome.toUpperCase().trim(), pageable);
+	}
+
+	public Page<PessoaFuncionarios> findPaginatedNomeDeTodasAsUnidades(int pageNo, int pageSize, String ativo, String nome) {
+		Pageable pageable = PageRequest.of(pageNo -1, pageSize);
+		return this.reposytory.findByDtCancelamentoIsNullAndIdPessoaFkDtCancelamentoIsNullAndIdSituacaoAtualFkNomeSituacaoAndIdPessoaFkNomeContaining( ativo, nome.toUpperCase().trim(), pageable);
 	}
 
 	

@@ -25,7 +25,11 @@ public interface PessoaFuncionariosReposytory extends JpaRepository<PessoaFuncio
 	
 	public Page<PessoaFuncionarios> findByIdUnidadeAtuacaoAtualFkAndDtCancelamentoIsNullAndIdPessoaFkDtCancelamentoIsNullAndIdSituacaoAtualFkNomeSituacao(Unidades idUnidadeAtuacaoAtualFk, String nomeSituacao, final Pageable page);
 	
+	public Page<PessoaFuncionarios> findByDtCancelamentoIsNullAndIdPessoaFkDtCancelamentoIsNullAndIdSituacaoAtualFkNomeSituacao( String nomeSituacao, final Pageable page);
+	
 	public Page<PessoaFuncionarios> findByIdUnidadeAtuacaoAtualFkAndDtCancelamentoIsNullAndIdPessoaFkDtCancelamentoIsNullAndIdSituacaoAtualFkNomeSituacaoAndIdPessoaFkNomeContaining(Unidades idUnidadeAtuacaoAtualFk, String nomeSituacao, String nome, final Pageable page);
+	
+	public Page<PessoaFuncionarios> findByDtCancelamentoIsNullAndIdPessoaFkDtCancelamentoIsNullAndIdSituacaoAtualFkNomeSituacaoAndIdPessoaFkNomeContaining( String nomeSituacao, String nome, final Pageable page);
 	
 	//public Page<PessoaFuncionarios> findByIdCoordenacaoFkAndIdAnoMesFkAndDtCancelamentoIsNull(CoordenacaoEscala idCoordenacaoFk, AnoMes anoMes,  final Pageable page);
 	
