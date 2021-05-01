@@ -45,6 +45,10 @@ public class RubricaInsalubridadeCodigoService {
 		return reposytory.findByCodigoContainingOrderByCodigoAsc( nome.toUpperCase().trim());
 	}
 	
+	public List<RubricaInsalubridadeCodigo> buscarTodos( ) {
+		return reposytory.findAllByOrderByCodigoAsc();
+	}
+	
 	
 	@Transactional(readOnly = true)
 	public Page<RubricaInsalubridadeCodigo> findPaginated(int pageNo, int pageSize) {
