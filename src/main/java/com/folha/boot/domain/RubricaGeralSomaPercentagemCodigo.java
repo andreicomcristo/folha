@@ -22,13 +22,13 @@ public class RubricaGeralSomaPercentagemCodigo extends AbstractEntity<Long> {
 		return codigo;
 	}
 	public void setCodigo(String codigo) {
-		this.codigo = codigo;
+		this.codigo = UtilidadesDeTexto.retiraEspacosDuplosAcentosEConverteEmMaiusculo(codigo);
 	}
 	public String getDescricao() {
 		return descricao;
 	}
 	public void setDescricao(String descricao) {
-		this.descricao = descricao;
+		this.descricao = UtilidadesDeTexto.retiraEspacosDuplosAcentosEConverteEmMaiusculo(descricao);
 	}
 	public List<RubricaGeralSomaPercentagemFuncionario> getRubricaGeralSomaPercentagemFuncionarioList() {
 		return rubricaGeralSomaPercentagemFuncionarioList;
