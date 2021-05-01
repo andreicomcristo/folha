@@ -20,6 +20,8 @@ public class CargaHorariaSemanal extends AbstractEntity<Long> {
     private List<HistFuncionariosCargaHoraria> histFuncionariosCargaHorariaList;
     @OneToMany(mappedBy = "idCargaHorariaAtualFk")
     private List<PessoaFuncionarios> pessoaFuncionariosList;
+    @OneToMany(mappedBy = "idCargaHorariaSemanalFk")
+    private List<FaixasValoresSubsidio> faixasValoresSubsidioList;
 	public List<HistFuncionariosCargaHoraria> getHistFuncionariosCargaHorariaList() {
 		return histFuncionariosCargaHorariaList;
 	}
@@ -50,6 +52,14 @@ public class CargaHorariaSemanal extends AbstractEntity<Long> {
 
 	public void setDescricaoCargaHoraria(String descricaoCargaHoraria) {
 		this.descricaoCargaHoraria = UtilidadesDeTexto.retiraEspacosDuplosAcentosEConverteEmMaiusculo(descricaoCargaHoraria);
+	}
+
+	public List<FaixasValoresSubsidio> getFaixasValoresSubsidioList() {
+		return faixasValoresSubsidioList;
+	}
+
+	public void setFaixasValoresSubsidioList(List<FaixasValoresSubsidio> faixasValoresSubsidioList) {
+		this.faixasValoresSubsidioList = faixasValoresSubsidioList;
 	}
 	
 }

@@ -25,6 +25,10 @@ public class ClassesCarreira extends AbstractEntity<Long> {
 
 	@OneToMany(mappedBy = "idClasseCarreiraAtualFk")
     private List<PessoaFuncionarios> pessoaFuncionariosList;
+	
+	@OneToMany(mappedBy = "idClasseCarreiraFk")
+    private List<FaixasValoresSubsidio> faixasValoresSubsidioList;
+	
 	public String getSiglaClasse() {
 		return siglaClasse;
 	}
@@ -57,4 +61,21 @@ public class ClassesCarreira extends AbstractEntity<Long> {
 		this.descricaoClasse = UtilidadesDeTexto.retiraEspacosDuplosAcentosEConverteEmMaiusculo(descricaoClasse);
 	}
 
+	public List<PessoaFuncionarios> getPessoaFuncionariosList() {
+		return pessoaFuncionariosList;
+	}
+
+	public void setPessoaFuncionariosList(List<PessoaFuncionarios> pessoaFuncionariosList) {
+		this.pessoaFuncionariosList = pessoaFuncionariosList;
+	}
+
+	public List<FaixasValoresSubsidio> getFaixasValoresSubsidioList() {
+		return faixasValoresSubsidioList;
+	}
+
+	public void setFaixasValoresSubsidioList(List<FaixasValoresSubsidio> faixasValoresSubsidioList) {
+		this.faixasValoresSubsidioList = faixasValoresSubsidioList;
+	}
+
+	
 }

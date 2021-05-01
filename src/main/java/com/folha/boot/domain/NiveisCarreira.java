@@ -22,6 +22,9 @@ public class NiveisCarreira extends AbstractEntity<Long> {
 	
 	@OneToMany(mappedBy = "idNivelCarreiraAtualFk")
 	private List<PessoaFuncionarios> pessoaFuncionariosList;
+	
+	@OneToMany(mappedBy = "idNivelCarreiraFk")
+    private List<FaixasValoresSubsidio> faixasValoresSubsidioList;
 
 	
 	public List<HistFuncionariosNiveisCarreira> getHistFuncionariosNiveisCarreiraList() {
@@ -58,4 +61,13 @@ public class NiveisCarreira extends AbstractEntity<Long> {
 				.retiraEspacosDuplosAcentosEConverteEmMaiusculo(descricaoNivelCarreira);
 	}
 
+	public List<FaixasValoresSubsidio> getFaixasValoresSubsidioList() {
+		return faixasValoresSubsidioList;
+	}
+
+	public void setFaixasValoresSubsidioList(List<FaixasValoresSubsidio> faixasValoresSubsidioList) {
+		this.faixasValoresSubsidioList = faixasValoresSubsidioList;
+	}
+
+	
 }

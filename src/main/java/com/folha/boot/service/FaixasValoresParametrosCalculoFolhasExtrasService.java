@@ -70,28 +70,28 @@ public class FaixasValoresParametrosCalculoFolhasExtrasService {
 	@Transactional(readOnly = true)
 	public List<FaixasValoresParametrosCalculoFolhasExtras> buscarTodos() {
 		// TODO Auto-generated method stub
-		return reposytory.findAllByOrderByIdAnoMesFkNomeAnoMesAscIdCodDiferenciadoFkIdUnidadeFkNomeFantasiaAsc();
+		return reposytory.findAllByOrderByIdAnoMesFkNomeAnoMesDescIdCodDiferenciadoFkIdUnidadeFkNomeFantasiaAsc();
 	}
 	@Transactional(readOnly = true)
 	public List<FaixasValoresParametrosCalculoFolhasExtras> buscarPorNome(String nome) {
-		return reposytory.findByIdCodDiferenciadoFkIdUnidadeFkNomeFantasiaContainingOrderByIdAnoMesFkNomeAnoMesAscIdCodDiferenciadoFkIdUnidadeFkNomeFantasiaAsc(nome);
+		return reposytory.findByIdCodDiferenciadoFkIdUnidadeFkNomeFantasiaContainingOrderByIdAnoMesFkNomeAnoMesDescIdCodDiferenciadoFkIdUnidadeFkNomeFantasiaAsc(nome);
 	}
 	
 	
 	@Transactional(readOnly = true)
 	public List<FaixasValoresParametrosCalculoFolhasExtras> buscarPorMesExato(AnoMes anoMes) {
-		return reposytory.findByIdAnoMesFkOrderByIdAnoMesFkNomeAnoMesAscIdCodDiferenciadoFkIdUnidadeFkNomeFantasiaAsc(anoMes);
+		return reposytory.findByIdAnoMesFkOrderByIdAnoMesFkNomeAnoMesDescIdCodDiferenciadoFkIdUnidadeFkNomeFantasiaAsc(anoMes);
 	}
 	
 	
 	public Page<FaixasValoresParametrosCalculoFolhasExtras> findPaginated(int pageNo, int pageSize) {
 		Pageable pageable = PageRequest.of(pageNo -1, pageSize);
-		return this.reposytory.findAllByOrderByIdAnoMesFkNomeAnoMesAscIdCodDiferenciadoFkIdUnidadeFkNomeFantasiaAsc(pageable);
+		return this.reposytory.findAllByOrderByIdAnoMesFkNomeAnoMesDescIdCodDiferenciadoFkIdUnidadeFkNomeFantasiaAsc(pageable);
 	}
 
 	public Page<FaixasValoresParametrosCalculoFolhasExtras> findPaginatedAnoMes(int pageNo, int pageSize, String nomeCidade) {
 		Pageable pageable = PageRequest.of(pageNo -1, pageSize);
-		return this.reposytory.findByIdAnoMesFkNomeAnoMesContainingOrderByIdAnoMesFkNomeAnoMesAscIdCodDiferenciadoFkIdUnidadeFkNomeFantasiaAsc(nomeCidade.toUpperCase().trim(), pageable);
+		return this.reposytory.findByIdAnoMesFkNomeAnoMesContainingOrderByIdAnoMesFkNomeAnoMesDescIdCodDiferenciadoFkIdUnidadeFkNomeFantasiaAsc(nomeCidade.toUpperCase().trim(), pageable);
 	}
 	
 	//Herdar de um mes para o outro

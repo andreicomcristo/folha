@@ -25,6 +25,9 @@ public class UnidadesRegime extends AbstractEntity<Long> {
 
 	@OneToMany(mappedBy = "idUnidadesRegimeFk")
 	private List<Unidades> unidadesList;
+	
+	@OneToMany(mappedBy = "idUnidadeRegimeFk")
+    private List<FaixasValoresSubsidio> faixasValoresSubsidioList;
 
 	public String getSiglaRegimeUnidLotacao() {
 		return siglaRegimeUnidLotacao;
@@ -69,4 +72,13 @@ public class UnidadesRegime extends AbstractEntity<Long> {
 		this.unidadesList = unidadesList;
 	}
 
+	public List<FaixasValoresSubsidio> getFaixasValoresSubsidioList() {
+		return faixasValoresSubsidioList;
+	}
+
+	public void setFaixasValoresSubsidioList(List<FaixasValoresSubsidio> faixasValoresSubsidioList) {
+		this.faixasValoresSubsidioList = faixasValoresSubsidioList;
+	}
+
+	
 }

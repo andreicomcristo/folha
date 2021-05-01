@@ -25,6 +25,9 @@ public class Carreiras extends AbstractEntity<Long> {
 	
 	@OneToMany(mappedBy = "idCarreiraAtualFk")
 	private List<PessoaFuncionarios> pessoaFuncionariosList;
+	
+	@OneToMany(mappedBy = "idCarreiraFk")
+    private List<FaixasValoresSubsidio> faixasValoresSubsidioList;
 
 	public List<PessoaFuncionarios> getPessoaFuncionariosList() {
 		return pessoaFuncionariosList;
@@ -66,4 +69,13 @@ public class Carreiras extends AbstractEntity<Long> {
 		this.histFuncionariosCarreiraList = histFuncionariosCarreiraList;
 	}
 
+	public List<FaixasValoresSubsidio> getFaixasValoresSubsidioList() {
+		return faixasValoresSubsidioList;
+	}
+
+	public void setFaixasValoresSubsidioList(List<FaixasValoresSubsidio> faixasValoresSubsidioList) {
+		this.faixasValoresSubsidioList = faixasValoresSubsidioList;
+	}
+
+	
 }

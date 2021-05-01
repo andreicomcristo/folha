@@ -15,8 +15,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import com.folha.boot.domain.AreaDoCargo;
 import com.folha.boot.domain.Cargos;
 import com.folha.boot.domain.CargosEspecialidade;
+import com.folha.boot.service.AreaDoCargoService;
 import com.folha.boot.service.CargosEspecialidadeService;
 import com.folha.boot.service.CargosService;
 
@@ -28,6 +30,8 @@ public class CargosEspecialidadeController {
 	CargosService cargos;
 	@Autowired
 	private CargosEspecialidadeService service;
+	@Autowired
+	private AreaDoCargoService areaDoCargoService;
 	
 	@GetMapping("/cadastrar")
 	public String cadastrar(CargosEspecialidade especialidade) {		
@@ -77,6 +81,10 @@ public class CargosEspecialidadeController {
 	public List<Cargos> listaDecargos() {
 		return cargos.buscarTodos();
 	}
+	@ModelAttribute("idAreaDoCargoFk")
+	public List<AreaDoCargo> listaAreaDoCargo() {
+		return areaDoCargoService.buscarTodos();
+	}
 	
 	
 	
@@ -90,6 +98,7 @@ public class CargosEspecialidadeController {
 	public String unidadeLogada() {
 		return request.getSession().getAttribute("unidade").toString();
 	}
+	
 	
 	
 }

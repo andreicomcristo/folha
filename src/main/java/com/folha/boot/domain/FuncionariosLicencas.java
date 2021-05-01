@@ -70,6 +70,9 @@ public class FuncionariosLicencas extends AbstractEntity<Long> {
     @JoinColumn(name = "id_corte_folha_extra_sim_nao_fk", referencedColumnName = "id")
     @ManyToOne
     private SimNao idCorteFolhaExtraSimNaoFk;
+    @JoinColumn(name = "id_corte_adicional_noturno_sim_nao_fk", referencedColumnName = "id")
+    @ManyToOne
+    private SimNao idCorteAdicionalNoturnoSimNaoFk;
     @JoinColumn(name = "id_pendencia_exame_comprobatorio_sim_nao_fk", referencedColumnName = "id")
     @ManyToOne
     private SimNao idPendenciaExameComprobatorioSimNaoFk;
@@ -84,6 +87,8 @@ public class FuncionariosLicencas extends AbstractEntity<Long> {
     private Unidades idUnidadeLotacaoAtualFk;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "idFuncionariosLicencasFk")
     private List<FuncionariosLicencasCid> funcionariosLicencasCidList;
+    
+    
     
     @JoinColumn(name = "id_categoria_fk", referencedColumnName = "id")
     @ManyToOne
@@ -245,7 +250,13 @@ public class FuncionariosLicencas extends AbstractEntity<Long> {
 	public void setIdCategoriaFk(CategoriaDeLicenca idCategoriaFk) {
 		this.idCategoriaFk = idCategoriaFk;
 	}
- 
+	public SimNao getIdCorteAdicionalNoturnoSimNaoFk() {
+		return idCorteAdicionalNoturnoSimNaoFk;
+	}
+	public void setIdCorteAdicionalNoturnoSimNaoFk(SimNao idCorteAdicionalNoturnoSimNaoFk) {
+		this.idCorteAdicionalNoturnoSimNaoFk = idCorteAdicionalNoturnoSimNaoFk;
+	}
+	
     
     
 }

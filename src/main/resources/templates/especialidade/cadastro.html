@@ -43,6 +43,13 @@
 								<option value="">Selecione o Cargo</option>
 								<option th:each="d : ${idCargoFk}" th:value="${d.id}"th:text="${d.nomeCargo}">ADM</option>
 							</select>
+							
+							<label for="nome" class="">Área </label>
+							<select id="cargos" class="form-control" th:field="*{idAreaDoCargoFk}">
+								<option value="">Selecione a Área</option>
+								<option th:each="d : ${idAreaDoCargoFk}" th:value="${d.id}"th:text="${d.nome}">ADM</option>
+							</select>
+							
 							<p></p>							
 							<input type="hidden" id="id" th:field="*{id}" />
 							<button class="btn btn-outline-dark">Cadastrar</button>   

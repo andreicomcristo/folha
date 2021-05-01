@@ -57,6 +57,8 @@ public class SimNao extends AbstractEntity<Long> {
     private List<FuncionariosLicencas> funcionariosLicencasList1;
     @OneToMany(mappedBy = "idPendenciaExameComprobatorioSimNaoFk")
     private List<FuncionariosLicencas> funcionariosLicencasList2;
+    @OneToMany(mappedBy = "idCorteAdicionalNoturnoSimNaoFk")
+    private List<FuncionariosLicencas> funcionariosLicencasList3;
     @OneToMany(mappedBy = "idEscalaBloqueadaFk")
     private List<AnoMes> anoMesList;
     @OneToMany(mappedBy = "idTransparenciaEnviadaFk")
@@ -467,6 +469,16 @@ public class SimNao extends AbstractEntity<Long> {
 
 	public void setPessoaLimiteHorasList(List<PessoaLimiteHoras> pessoaLimiteHorasList) {
 		this.pessoaLimiteHorasList = pessoaLimiteHorasList;
+	}
+
+
+	public List<FuncionariosLicencas> getFuncionariosLicencasList3() {
+		return funcionariosLicencasList3;
+	}
+
+
+	public void setFuncionariosLicencasList3(List<FuncionariosLicencas> funcionariosLicencasList3) {
+		this.funcionariosLicencasList3 = funcionariosLicencasList3;
 	}
 
 	
