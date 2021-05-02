@@ -38,6 +38,8 @@ import com.folha.boot.domain.NiveisCarreira;
 import com.folha.boot.domain.RegimesDeTrabalho;
 import com.folha.boot.domain.RubricaComplementoConstitucional;
 import com.folha.boot.domain.RubricaComplementoConstitucionalCodigo;
+import com.folha.boot.domain.RubricaGeralSoma;
+import com.folha.boot.domain.RubricaGeralSomaCodigo;
 import com.folha.boot.domain.RubricaInsalubridade;
 import com.folha.boot.domain.RubricaInsalubridadeCodigo;
 import com.folha.boot.domain.TiposDeFolha;
@@ -55,6 +57,8 @@ import com.folha.boot.service.NiveisCarreiraService;
 import com.folha.boot.service.RegimesDeTrabalhoService;
 import com.folha.boot.service.RubricaComplementoConstitucionalCodigoService;
 import com.folha.boot.service.RubricaComplementoConstitucionalService;
+import com.folha.boot.service.RubricaGeralSomaCodigoService;
+import com.folha.boot.service.RubricaGeralSomaService;
 import com.folha.boot.service.RubricaInsalubridadeCodigoService;
 import com.folha.boot.service.RubricaInsalubridadeService;
 import com.folha.boot.service.TiposDeFolhaService;
@@ -63,22 +67,22 @@ import com.folha.boot.service.UnidadesService;
 
 
 @Controller
-@RequestMapping("/rubricaComplementoConstitucional")
-public class RubricaComplementoConstitucionalController {
+@RequestMapping("/rubricaGeralSoma")
+public class RubricaGeralSomaController {
 
 	String ultimoAnoMes = "";
 	
 	@Autowired
-	private RubricaComplementoConstitucionalService service;
+	private RubricaGeralSomaService service;
 	@Autowired
-	private RubricaComplementoConstitucionalCodigoService rubricaCodigoService;
+	private RubricaGeralSomaCodigoService rubricaCodigoService;
 	@Autowired
 	private AnoMesService anoMesService;
 	
 	@GetMapping("/cadastrar")
-	public String cadastrar(RubricaComplementoConstitucional rubricaComplementoConstitucional) {
+	public String cadastrar(RubricaGeralSoma rubricaGeralSoma) {
 		
-		return "/rubricaComplementoConstitucional/cadastro";
+		return "/rubricaGeralSoma/cadastro";
 	}
 	
 	@GetMapping("/listar")
@@ -90,31 +94,31 @@ public class RubricaComplementoConstitucionalController {
 	@GetMapping("/listar/{pageNo}")
 	public String findPaginated(@PathVariable (value = "pageNo") int pageNo, ModelMap model) {
 		int pageSeze = 10;
-		Page<RubricaComplementoConstitucional> page = service.findPaginated(pageNo, pageSeze);
-		List<RubricaComplementoConstitucional> lista = page.getContent();
+		Page<RubricaGeralSoma> page = service.findPaginated(pageNo, pageSeze);
+		List<RubricaGeralSoma> lista = page.getContent();
 		return paginar(pageNo, page, lista, model);
 	}
 	
 	public String findPaginated(@PathVariable (value = "pageNo") int pageNo, String cnes, ModelMap model) {
 		int pageSeze = 10;
-		Page<RubricaComplementoConstitucional> page = service.findPaginatedAnoMes(pageNo, pageSeze, cnes);
-		List<RubricaComplementoConstitucional> lista = page.getContent();
+		Page<RubricaGeralSoma> page = service.findPaginatedAnoMes(pageNo, pageSeze, cnes);
+		List<RubricaGeralSoma> lista = page.getContent();
 		return paginar(pageNo, page, lista, model);
 	}
 	
-	public String paginar(int pageNo, Page<RubricaComplementoConstitucional> page, List<RubricaComplementoConstitucional> lista, ModelMap model) {	
+	public String paginar(int pageNo, Page<RubricaGeralSoma> page, List<RubricaGeralSoma> lista, ModelMap model) {	
 		model.addAttribute("currentePage", pageNo);
 		model.addAttribute("totalPages", page.getTotalPages());
 		model.addAttribute("totalItems", page.getTotalElements()); 
-		model.addAttribute("rubricaComplementoConstitucional", lista);
-		return "/rubricaComplementoConstitucional/lista";	
+		model.addAttribute("rubricaGeralSoma", lista);
+		return "/rubricaGeralSoma/lista";	
 	}
 	
 	@GetMapping("/paginar/{pageNo}")
 	public String getPorCnesPaginado(@PathVariable (value = "pageNo") int pageNo, ModelMap model) {
 		if(pageNo<1) {pageNo = 1;}
 		if( (ultimoAnoMes.equals("")) ){
-			return "redirect:/rubricaComplementoConstitucional/listar/{pageNo}" ;}
+			return "redirect:/rubricaGeralSoma/listar/{pageNo}" ;}
 		else {return this.findPaginated(pageNo, ultimoAnoMes, model);}
 	}
 	
@@ -125,43 +129,43 @@ public class RubricaComplementoConstitucionalController {
 	}
 	
 	@PostMapping("/salvar")
-	public String salvar(RubricaComplementoConstitucional rubricaComplementoConstitucional, RedirectAttributes attr) {
+	public String salvar(RubricaGeralSoma rubricaGeralSoma, RedirectAttributes attr) {
 		
 		// Evitando salvar quem já está cadastrado
-			if(rubricaComplementoConstitucional!=null) {
-				if(rubricaComplementoConstitucional.getId()==null) {
-					if(service.avaliarCadastrado(rubricaComplementoConstitucional.getIdCodigoFk(), rubricaComplementoConstitucional.getIdAnoMesFk() )==true) {
+			if(rubricaGeralSoma!=null) {
+				if(rubricaGeralSoma.getId()==null) {
+					if(service.avaliarCadastrado(rubricaGeralSoma.getIdCodigoFk(), rubricaGeralSoma.getIdAnoMesFk() )==true) {
 						return "redirect:/mensagens/mensagem/de/ja/cadastrado";	
 					}
 				}
 			}
 				
 		
-		if(rubricaComplementoConstitucional.getValor()==null) {
-			rubricaComplementoConstitucional.setValor(0.0);
+		if(rubricaGeralSoma.getValor()==null) {
+			rubricaGeralSoma.setValor(0.0);
 		}
 		
-		service.salvar(rubricaComplementoConstitucional);
+		service.salvar(rubricaGeralSoma);
 		attr.addFlashAttribute("success", "Inserido com sucesso.");
-		return "redirect:/rubricaComplementoConstitucional/cadastrar";
+		return "redirect:/rubricaGeralSoma/cadastrar";
 	}
 	
 	@GetMapping("/editar/{id}")
 	public String preEditar(@PathVariable("id") Long id, ModelMap model) {
-		model.addAttribute("rubricaComplementoConstitucional", service.buscarPorId(id));
-		return "/rubricaComplementoConstitucional/cadastro";
+		model.addAttribute("rubricaGeralSoma", service.buscarPorId(id));
+		return "/rubricaGeralSoma/cadastro";
 	}
 	
 	@PostMapping("/editar")
-	public String editar(RubricaComplementoConstitucional rubricaComplementoConstitucional, RedirectAttributes attr) {	
+	public String editar(RubricaGeralSoma rubricaGeralSoma, RedirectAttributes attr) {	
 		
-		if(rubricaComplementoConstitucional.getValor()==null) {
-			rubricaComplementoConstitucional.setValor(0.0);
+		if(rubricaGeralSoma.getValor()==null) {
+			rubricaGeralSoma.setValor(0.0);
 		}
 		
-		service.editar(rubricaComplementoConstitucional);
+		service.editar(rubricaGeralSoma);
 		attr.addFlashAttribute("success", "Editado com sucesso.");
-		return "redirect:/rubricaComplementoConstitucional/listar";
+		return "redirect:/rubricaGeralSoma/listar";
 	}
 	
 	@GetMapping("/excluir/{id}")
@@ -175,15 +179,15 @@ public class RubricaComplementoConstitucionalController {
 	@GetMapping("/herdar/de/mes") 
 	public String herdarDeMes( Long anoMesInicial,  Long anoMesFinal,  ModelMap model) {		
 		service.herdarDeUmMesParaOOutro(anoMesInicial, anoMesFinal);
-		return "redirect:/rubricaComplementoConstitucional/listar" ;
+		return "redirect:/rubricaGeralSoma/listar" ;
 	}
 	
 	
 	
 	@GetMapping("/buscar/nome")
 	public String getPorNome(@RequestParam("cnesUnidade") String nome, ModelMap model) {		
-		model.addAttribute("rubricaComplementoConstitucional", service.buscarPorNome(nome.toUpperCase().trim()));
-		return "/rubricaComplementoConstitucional/lista";
+		model.addAttribute("rubricaGeralSoma", service.buscarPorNome(nome.toUpperCase().trim()));
+		return "/rubricaGeralSoma/lista";
 	}
 	
 	@GetMapping("/exporta/excel")
@@ -212,7 +216,7 @@ public class RubricaComplementoConstitucionalController {
 		return anoMesService.buscarTodos();	
 	}
 	@ModelAttribute("idCodigoFk")
-	public List<RubricaComplementoConstitucionalCodigo> getIdCodigoFk() {
+	public List<RubricaGeralSomaCodigo> getIdCodigoFk() {
 		return rubricaCodigoService.buscarTodos();	
 	}
 	

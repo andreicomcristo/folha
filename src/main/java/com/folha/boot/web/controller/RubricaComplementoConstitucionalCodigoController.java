@@ -30,7 +30,7 @@ import com.folha.boot.service.seguranca.UsuarioService;
 
 @Controller
 @RequestMapping("/rubricaComplementoConstitucionalCodigo")
-public class RubricaInsaComplementoConstitucionalCodigoController {
+public class RubricaComplementoConstitucionalCodigoController {
 
 	
 	String ultimaBuscaNome = "";

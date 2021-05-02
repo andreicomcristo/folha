@@ -20,7 +20,7 @@ import com.folha.boot.domain.RubricaInsalubridadeFuncionario;
 import com.folha.boot.domain.Unidades;
 
 @Repository
-public interface RubricaInsaComplementoConstitucionalFuncionarioReposytory extends JpaRepository<RubricaComplementoConstitucionalFuncionario, Long>{
+public interface RubricaComplementoConstitucionalFuncionarioReposytory extends JpaRepository<RubricaComplementoConstitucionalFuncionario, Long>{
 
 	public List<RubricaComplementoConstitucionalFuncionario> findAllByOrderByIdAnoMesFkNomeAnoMesDesc();
 	
