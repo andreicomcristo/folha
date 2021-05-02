@@ -292,7 +292,7 @@ public class RubricaComplementoConstitucionalFuncionarioService {
 			tableTitulo.setWidthPercentage(90);
 			tableTitulo.setWidths(new int[] { 6 });
 			PdfPCell cellTitulo;
-			cellTitulo = new PdfPCell(new Phrase("Pessoas com Rubrica Insalubridade", tituloFont) );
+			cellTitulo = new PdfPCell(new Phrase("Pessoas com Rubrica Complemento Constitucional", tituloFont) );
 			cellTitulo.setVerticalAlignment(Element.ALIGN_MIDDLE);
 			cellTitulo.setHorizontalAlignment(Element.ALIGN_CENTER);
 			tableTitulo.addCell(cellTitulo);

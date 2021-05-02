@@ -23,6 +23,8 @@ import org.springframework.transaction.annotation.Transactional;
 import com.folha.boot.Reposytory.FaixasValoresParametrosCalculoFolhasExtrasReposytory;
 import com.folha.boot.Reposytory.FaixasValoresSubsidioReposytory;
 import com.folha.boot.Reposytory.RubricaComplementoConstitucionalReposytory;
+import com.folha.boot.Reposytory.RubricaGeralSomaPercentagemReposytory;
+import com.folha.boot.Reposytory.RubricaGeralSomaReposytory;
 import com.folha.boot.Reposytory.RubricaInsalubridadeReposytory;
 import com.folha.boot.domain.AnoMes;
 import com.folha.boot.domain.Cidades;
@@ -30,6 +32,10 @@ import com.folha.boot.domain.FaixasValoresParametrosCalculoFolhasExtras;
 import com.folha.boot.domain.FaixasValoresSubsidio;
 import com.folha.boot.domain.RubricaComplementoConstitucional;
 import com.folha.boot.domain.RubricaComplementoConstitucionalCodigo;
+import com.folha.boot.domain.RubricaGeralSoma;
+import com.folha.boot.domain.RubricaGeralSomaCodigo;
+import com.folha.boot.domain.RubricaGeralSomaPercentagem;
+import com.folha.boot.domain.RubricaGeralSomaPercentagemCodigo;
 import com.folha.boot.domain.RubricaInsalubridade;
 import com.folha.boot.domain.RubricaInsalubridadeCodigo;
 import com.folha.boot.domain.Unidades;
@@ -45,23 +51,23 @@ import com.itextpdf.text.pdf.PdfWriter;
 
 @Service
 @Transactional(readOnly = false)
-public class RubricaComplementoConstitucionalService {
+public class RubricaGeralSomaPercentagemService {
 
 	@Autowired
-	private RubricaComplementoConstitucionalReposytory reposytory;
+	private RubricaGeralSomaPercentagemReposytory reposytory;
 	
 	@Autowired
 	private AnoMesService anoMesService;
 	
 
-	public void salvar(RubricaComplementoConstitucional rubricaComplementoConstitucional) {
+	public void salvar(RubricaGeralSomaPercentagem rubricaGeralSomaPercentagem) {
 		// TODO Auto-generated method stub
-		reposytory.save(rubricaComplementoConstitucional);
+		reposytory.save(rubricaGeralSomaPercentagem);
 	}
 
-	public void editar(RubricaComplementoConstitucional rubricaComplementoConstitucional) {
+	public void editar(RubricaGeralSomaPercentagem rubricaGeralSomaPercentagem) {
 		// TODO Auto-generated method stub
-		reposytory.save(rubricaComplementoConstitucional);
+		reposytory.save(rubricaGeralSomaPercentagem);
 	}
 
 	public void excluir(Long id) {
@@ -70,40 +76,40 @@ public class RubricaComplementoConstitucionalService {
 	}
 
 	@Transactional(readOnly = true)
-	public RubricaComplementoConstitucional buscarPorId(Long id) {
+	public RubricaGeralSomaPercentagem buscarPorId(Long id) {
 		// TODO Auto-generated method stub
 		return reposytory.findById(id).get();
 	}
 
 	@Transactional(readOnly = true)
-	public List<RubricaComplementoConstitucional> buscarTodos() {
+	public List<RubricaGeralSomaPercentagem> buscarTodos() {
 		// TODO Auto-generated method stub
 		return reposytory.findAllByOrderByIdAnoMesFkNomeAnoMesDesc();
 	}
 	
 	@Transactional(readOnly = true)
-	public List<RubricaComplementoConstitucional> buscarPorMesExato(AnoMes anoMes) {
+	public List<RubricaGeralSomaPercentagem> buscarPorMesExato(AnoMes anoMes) {
 		return reposytory.findByIdAnoMesFkOrderByIdAnoMesFkNomeAnoMesDesc(anoMes);
 	}
 	
 	@Transactional(readOnly = true)
-	public List<RubricaComplementoConstitucional> buscarPorNome(String nome) {
+	public List<RubricaGeralSomaPercentagem> buscarPorNome(String nome) {
 		return reposytory.findByIdAnoMesFkNomeAnoMesContainingOrderByIdAnoMesFkNomeAnoMesDesc(nome);
 	}
 	
-	public Page<RubricaComplementoConstitucional> findPaginated(int pageNo, int pageSize) {
+	public Page<RubricaGeralSomaPercentagem> findPaginated(int pageNo, int pageSize) {
 		Pageable pageable = PageRequest.of(pageNo -1, pageSize);
 		return this.reposytory.findAllByOrderByIdAnoMesFkNomeAnoMesDesc(pageable);
 	}
 
-	public Page<RubricaComplementoConstitucional> findPaginatedAnoMes(int pageNo, int pageSize, String nome) {
+	public Page<RubricaGeralSomaPercentagem> findPaginatedAnoMes(int pageNo, int pageSize, String nome) {
 		Pageable pageable = PageRequest.of(pageNo -1, pageSize);
 		return this.reposytory.findByIdAnoMesFkNomeAnoMesContainingOrderByIdAnoMesFkNomeAnoMesDesc(nome.toUpperCase().trim(), pageable);
 	}
 	
-	public boolean avaliarCadastrado( RubricaComplementoConstitucionalCodigo rubricaComplementoConstitucionalCodigo, AnoMes anoMes) {
+	public boolean avaliarCadastrado( RubricaGeralSomaPercentagemCodigo rubricaGeralSomaPercentagemCodigo, AnoMes anoMes) {
 		boolean resposta = false;
-		List<RubricaComplementoConstitucional> lista = reposytory.findByIdCodigoFkAndIdAnoMesFk( rubricaComplementoConstitucionalCodigo, anoMes); 
+		List<RubricaGeralSomaPercentagem> lista = reposytory.findByIdCodigoFkAndIdAnoMesFk( rubricaGeralSomaPercentagemCodigo, anoMes); 
 		if(!lista.isEmpty()) {resposta = true;}
 		return resposta;
 	}
@@ -111,12 +117,12 @@ public class RubricaComplementoConstitucionalService {
 	//Herdar de um mes para o outro
 	public void herdarDeUmMesParaOOutro(Long anoMesInicial, Long anoMesFinal) {
 		
-		List<RubricaComplementoConstitucional> listaInicial = buscarPorMesExato(anoMesService.buscarPorId(anoMesInicial)); 
-		List<RubricaComplementoConstitucional> listaFinal = buscarPorMesExato(anoMesService.buscarPorId(anoMesFinal));
+		List<RubricaGeralSomaPercentagem> listaInicial = buscarPorMesExato(anoMesService.buscarPorId(anoMesInicial)); 
+		List<RubricaGeralSomaPercentagem> listaFinal = buscarPorMesExato(anoMesService.buscarPorId(anoMesFinal));
 		
 		if( (!listaInicial.isEmpty())  &&  (listaFinal.isEmpty()) ) {
 			for(int i=0;i<listaInicial.size();i++) {
-				RubricaComplementoConstitucional f = new RubricaComplementoConstitucional();
+				RubricaGeralSomaPercentagem f = new RubricaGeralSomaPercentagem();
 				f.setId(null);
 				f.setIdAnoMesFk(anoMesService.buscarPorId(anoMesFinal));
 				f.setIdCodigoFk( listaInicial.get(i).getIdCodigoFk() );
@@ -128,7 +134,7 @@ public class RubricaComplementoConstitucionalService {
 	}
 	
 	
-	public ByteArrayInputStream exportarExcel(List<RubricaComplementoConstitucional> lista) {
+	public ByteArrayInputStream exportarExcel(List<RubricaGeralSomaPercentagem> lista) {
 		try(Workbook workbook = new XSSFWorkbook()){
 			Sheet sheet = workbook.createSheet("Dados");
 			
@@ -189,7 +195,7 @@ public class RubricaComplementoConstitucionalService {
 		}
 	}
 
-	public ByteArrayInputStream exportarPdf(List<RubricaComplementoConstitucional> lista) {
+	public ByteArrayInputStream exportarPdf(List<RubricaGeralSomaPercentagem> lista) {
 
 		Document document = new Document();
 		ByteArrayOutputStream out = new ByteArrayOutputStream();
@@ -275,7 +281,7 @@ public class RubricaComplementoConstitucionalService {
 			tableTitulo.setWidthPercentage(90);
 			tableTitulo.setWidths(new int[] { 6 });
 			PdfPCell cellTitulo;
-			cellTitulo = new PdfPCell(new Phrase("Rubrica Complemento Constitucional", tituloFont) );
+			cellTitulo = new PdfPCell(new Phrase("Rubrica Geral Soma Percentagem", tituloFont) );
 			cellTitulo.setVerticalAlignment(Element.ALIGN_MIDDLE);
 			cellTitulo.setHorizontalAlignment(Element.ALIGN_CENTER);
 			tableTitulo.addCell(cellTitulo);

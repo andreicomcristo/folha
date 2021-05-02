@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html layout:decorate="~{layout}">
+<head><meta charset="UTF-8"/></head>
+<body>
+	<section class="layout-content" layout:fragment="corpo">
+
+		<nav class="navbar navbar-expand-md bg-light">
+			<form th:action="@{/rubricaGeralSomaPercentagem/listar}">
+				<div class=" layout-content">
+					<a class="btn btn-outline-light oi oi-action-undo" type="button" href="javascript:history.back()"></a>
+					<a class="btn btn-outline-light oi oi-action-redo" type="button" href="javascript:history.forward()"></a>
+					<button class="btn btn-outline-dark" >Listar</button>
+					<a class="btn btn-outline-dark btn-md" th:href="@{/rubricaGeralSomaPercentagem/cadastrar}"
+						role="button"> <span class="oi oi-plus" title="Cadastro"
+						aria-hidden="true"></span> <span>Novo</span>
+					</a>
+				</div>
+			</form>
+		</nav>
+
+		<div class="container" id="cadastro">
+
+			<div th:replace="fragments/alert"></div>
+			<form
+				th:action="${rubricaGeralSomaPercentagem.id == null} ? @{/rubricaGeralSomaPercentagem/salvar} : @{/rubricaGeralSomaPercentagem/salvar}"
+				th:object="${rubricaGeralSomaPercentagem}" method="POST">
+				<div class="form-row">
+
+					<div class="form-group col-md-6">
+						<label for="nome" class="fonte-tutulos-tamanho">Rubrica Geral Soma (Percentagem)</label>
+							<p></p>	
+							
+							<label for="nome" class="">Mês </label>
+							<select id="idCodDiferenciadoFk" class="form-select" th:field="*{idAnoMesFk}">
+								<option value="">Selecione o Mes</option>
+								<option class="form-select" th:each="d : ${idAnoMesFk}" th:value="${d.id}"th:text="${d.nomeAnoMes}" selected >ADM</option>
+							</select>	
+							<p></p>	
+							
+							<label for="nome" class="">Código </label>
+							<select id="idCodigoFk" class="form-select" th:field="*{idCodigoFk}">
+								<option value="">Selecione o Código</option>
+								<option class="form-select" th:each="d : ${idCodigoFk}" th:value="${d.id}"th:text="${d.codigo +'-'+ d.descricao }" selected >ADM</option>
+							</select>	
+							<p></p>	
+							
+							<label for="nome" class="">Valor </label>							
+							<input type="text"
+								class="dinheiro form-control form-control-md"  
+								id="valorHoraDia" placeholder="Valor " th:field="*{valor}" /> 
+							<p></p>
+							
+							
+							
+												
+					<input type="hidden" id="id" th:field="*{id}" />
+								<p></p>					
+						<button class="btn btn-outline-dark">Cadastrar</button>
+					</div>
+				</div>
+			</form>
+		</div>
+	</section>
+</body>
+</html>

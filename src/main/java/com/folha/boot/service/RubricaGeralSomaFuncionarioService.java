@@ -295,7 +295,7 @@ public class RubricaGeralSomaFuncionarioService {
 			tableTitulo.setWidthPercentage(90);
 			tableTitulo.setWidths(new int[] { 6 });
 			PdfPCell cellTitulo;
-			cellTitulo = new PdfPCell(new Phrase("Pessoas com Rubrica Insalubridade", tituloFont) );
+			cellTitulo = new PdfPCell(new Phrase("Pessoas com Rubrica Geral Soma", tituloFont) );
 			cellTitulo.setVerticalAlignment(Element.ALIGN_MIDDLE);
 			cellTitulo.setHorizontalAlignment(Element.ALIGN_CENTER);
 			tableTitulo.addCell(cellTitulo);
