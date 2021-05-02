@@ -147,7 +147,8 @@ public class PessoaFuncionarios extends AbstractEntity<Long> {
     @ManyToOne
     private Unidades idUnidadeLotacaoAtualFk;
 
-    
+    @OneToMany(mappedBy = "idFuncionarioFk")
+    private List<RubricaSomaIrfFuncionario> rubricaSomaIrfFuncionarioList;
 	
 
 	public List<FuncionariosCapacitacoes> getFuncionariosCapacitacoesList() {
@@ -473,6 +474,14 @@ public class PessoaFuncionarios extends AbstractEntity<Long> {
 
 	public void setIdUnidadeLotacaoAtualFk(Unidades idUnidadeLotacaoAtualFk) {
 		this.idUnidadeLotacaoAtualFk = idUnidadeLotacaoAtualFk;
+	}
+
+	public List<RubricaSomaIrfFuncionario> getRubricaSomaIrfFuncionarioList() {
+		return rubricaSomaIrfFuncionarioList;
+	}
+
+	public void setRubricaSomaIrfFuncionarioList(List<RubricaSomaIrfFuncionario> rubricaSomaIrfFuncionarioList) {
+		this.rubricaSomaIrfFuncionarioList = rubricaSomaIrfFuncionarioList;
 	}
 
 	
