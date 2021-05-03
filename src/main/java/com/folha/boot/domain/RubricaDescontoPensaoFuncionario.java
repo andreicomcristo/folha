@@ -51,7 +51,7 @@ public class RubricaDescontoPensaoFuncionario extends AbstractEntity<Long> {
 		return descricao;
 	}
 	public void setDescricao(String descricao) {
-		this.descricao = descricao;
+		this.descricao = UtilidadesDeTexto.retiraEspacosDuplosAcentosEConverteEmMaiusculo(descricao);
 	}
 	public Date getDtCadastro() {
 		return dtCadastro;
