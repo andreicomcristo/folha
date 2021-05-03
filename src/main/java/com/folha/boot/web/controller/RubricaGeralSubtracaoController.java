@@ -35,17 +35,15 @@ import com.folha.boot.domain.FaixasValoresParametrosCalculoFolhasExtras;
 import com.folha.boot.domain.FaixasValoresSubsidio;
 import com.folha.boot.domain.NiveisCargo;
 import com.folha.boot.domain.NiveisCarreira;
-import com.folha.boot.domain.PessoaFuncionarios;
 import com.folha.boot.domain.RegimesDeTrabalho;
+import com.folha.boot.domain.RubricaComplementoConstitucional;
 import com.folha.boot.domain.RubricaComplementoConstitucionalCodigo;
-import com.folha.boot.domain.RubricaComplementoConstitucionalFuncionario;
+import com.folha.boot.domain.RubricaGeralSoma;
 import com.folha.boot.domain.RubricaGeralSomaCodigo;
-import com.folha.boot.domain.RubricaGeralSomaFuncionario;
+import com.folha.boot.domain.RubricaGeralSubtracao;
+import com.folha.boot.domain.RubricaGeralSubtracaoCodigo;
 import com.folha.boot.domain.RubricaInsalubridade;
 import com.folha.boot.domain.RubricaInsalubridadeCodigo;
-import com.folha.boot.domain.RubricaInsalubridadeFuncionario;
-import com.folha.boot.domain.RubricaSomaIrfCodigo;
-import com.folha.boot.domain.RubricaSomaIrfFuncionario;
 import com.folha.boot.domain.TiposDeFolha;
 import com.folha.boot.domain.Unidades;
 import com.folha.boot.domain.UnidadesRegime;
@@ -58,107 +56,37 @@ import com.folha.boot.service.FaixasValoresParametrosCalculoFolhasExtrasService;
 import com.folha.boot.service.FaixasValoresSubsidioService;
 import com.folha.boot.service.NiveisCargoService;
 import com.folha.boot.service.NiveisCarreiraService;
-import com.folha.boot.service.PessoaFuncionariosService;
 import com.folha.boot.service.RegimesDeTrabalhoService;
 import com.folha.boot.service.RubricaComplementoConstitucionalCodigoService;
-import com.folha.boot.service.RubricaComplementoConstitucionalFuncionarioService;
+import com.folha.boot.service.RubricaComplementoConstitucionalService;
 import com.folha.boot.service.RubricaGeralSomaCodigoService;
-import com.folha.boot.service.RubricaGeralSomaFuncionarioService;
+import com.folha.boot.service.RubricaGeralSomaService;
+import com.folha.boot.service.RubricaGeralSubtracaoCodigoService;
+import com.folha.boot.service.RubricaGeralSubtracaoService;
 import com.folha.boot.service.RubricaInsalubridadeCodigoService;
-import com.folha.boot.service.RubricaInsalubridadeFuncionarioService;
 import com.folha.boot.service.RubricaInsalubridadeService;
-import com.folha.boot.service.RubricaSomaIrfCodigoService;
-import com.folha.boot.service.RubricaSomaIrfFuncionarioService;
 import com.folha.boot.service.TiposDeFolhaService;
 import com.folha.boot.service.UnidadesRegimeService;
 import com.folha.boot.service.UnidadesService;
 
 
 @Controller
-@RequestMapping("/rubricaSomaIrfFuncionario")
-public class RubricaSomaIrfFuncionarioController {
+@RequestMapping("/rubricaGeralSubtracao")
+public class RubricaGeralSubtracaoController {
 
 	String ultimoAnoMes = "";
-	String ultimaBuscaNome = "";
 	
 	@Autowired
-	private RubricaSomaIrfFuncionarioService service;
+	private RubricaGeralSubtracaoService service;
 	@Autowired
-	private RubricaSomaIrfCodigoService rubricaCodigoService;
+	private RubricaGeralSubtracaoCodigoService rubricaCodigoService;
 	@Autowired
 	private AnoMesService anoMesService;
-	@Autowired
-	private PessoaFuncionariosService pessoaFuncionariosService;
-	
-	
-	//Funcionarios Todos os Possíveis
-	@GetMapping("/paginar/funcionarios/{pageNo}")
-	public String getPorNomePaginadoInclusao(@PathVariable (value = "pageNo") int pageNo, ModelMap model) {
-		
-		if( (ultimaBuscaNome.equals("")) ){
-			return "redirect:/rubricaSomaIrfFuncionario/funcionarios/listar/{pageNo}" ;}
-		else {		
-			if(!ultimaBuscaNome.equals("")) {
-				return this.findPaginatedFuncionario(pageNo, ultimaBuscaNome, model);}
-			else {
-				return "redirect:/rubricaSomaIrfFuncionario/funcionarios/listar/{pageNo}" ;}
-			}
-	}
-	
-	@GetMapping("/funcionarios/listar")
-	public String listarFuncionarios(ModelMap model) {
-		ultimaBuscaNome = "";
-		return this.findPaginatedFuncionario(1, model);
-	}	
-	
-	@GetMapping("/funcionarios/listar/{pageNo}")
-	public String findPaginatedFuncionario(@PathVariable (value = "pageNo") int pageNo, ModelMap model) {
-		int pageSeze = 30;
-		Page<PessoaFuncionarios> page = pessoaFuncionariosService.findPaginatedDeTodasAsUnidades(pageNo, pageSeze, "ATIVO");
-		List<PessoaFuncionarios> listaFuncionarios = page.getContent();
-		return paginarFuncionario(pageNo, page, listaFuncionarios, model);
-	}
-	
-	public String paginarFuncionario(int pageNo, Page<PessoaFuncionarios> page, List<PessoaFuncionarios> lista, ModelMap model) {	
-
-		
-		model.addAttribute("currentePage", pageNo);
-		model.addAttribute("totalPages", page.getTotalPages());
-		model.addAttribute("totalItems", page.getTotalElements()); 
-		model.addAttribute("listaFuncionarios", lista);
-		return "/rubricaSomaIrfFuncionario/listafuncionario";	
-	}	
-	
-	@GetMapping("/buscar/funcionarios/nome")
-	public String getPorNomeFuncionario(@RequestParam("nome") String nome, ModelMap model) {
-		this.ultimaBuscaNome = nome;
-		//this.ultimaBuscaTurma = null;	
-		return this.findPaginatedFuncionario(1, nome, model);
-	}
-	
-	public String findPaginatedFuncionario(@PathVariable (value = "pageNo") int pageNo, String nome, ModelMap model) {
-		int pageSeze = 30;
-		Page<PessoaFuncionarios> page = pessoaFuncionariosService.findPaginatedNomeDeTodasAsUnidades(pageNo, pageSeze, "ATIVO", nome);
-		List<PessoaFuncionarios> lista = page.getContent();
-		//ultimaBuscaNome = "";
-		//ultimaBuscaTurma = null;
-		return paginarFuncionario(pageNo, page, lista, model);
-	}
-
-	
-	
-	
-	// Dados para Atribuição
-	@GetMapping("/cadastrar/{id}")
-	public String cadastrar(@PathVariable("id") Long id, RubricaSomaIrfFuncionario rubricaSomaIrfFuncionario) {
-		rubricaSomaIrfFuncionario.setIdFuncionarioFk(pessoaFuncionariosService.buscarPorId(id));
-		return "/rubricaSomaIrfFuncionario/cadastro";
-	}
 	
 	@GetMapping("/cadastrar")
-	public String cadastrar(RubricaSomaIrfFuncionario rubricaSomaIrfFuncionario) {
+	public String cadastrar(RubricaGeralSubtracao rubricaGeralSubtracao) {
 		
-		return "/rubricaSomaIrfFuncionario/cadastro";
+		return "/rubricaGeralSubtracao/cadastro";
 	}
 	
 	@GetMapping("/listar")
@@ -169,32 +97,32 @@ public class RubricaSomaIrfFuncionarioController {
 	
 	@GetMapping("/listar/{pageNo}")
 	public String findPaginated(@PathVariable (value = "pageNo") int pageNo, ModelMap model) {
-		int pageSeze = 30;
-		Page<RubricaSomaIrfFuncionario> page = service.findPaginated(pageNo, pageSeze);
-		List<RubricaSomaIrfFuncionario> lista = page.getContent();
+		int pageSeze = 10;
+		Page<RubricaGeralSubtracao> page = service.findPaginated(pageNo, pageSeze);
+		List<RubricaGeralSubtracao> lista = page.getContent();
 		return paginar(pageNo, page, lista, model);
 	}
 	
 	public String findPaginated(@PathVariable (value = "pageNo") int pageNo, String cnes, ModelMap model) {
-		int pageSeze = 30;
-		Page<RubricaSomaIrfFuncionario> page = service.findPaginatedAnoMes(pageNo, pageSeze, cnes);
-		List<RubricaSomaIrfFuncionario> lista = page.getContent();
+		int pageSeze = 10;
+		Page<RubricaGeralSubtracao> page = service.findPaginatedAnoMes(pageNo, pageSeze, cnes);
+		List<RubricaGeralSubtracao> lista = page.getContent();
 		return paginar(pageNo, page, lista, model);
 	}
 	
-	public String paginar(int pageNo, Page<RubricaSomaIrfFuncionario> page, List<RubricaSomaIrfFuncionario> lista, ModelMap model) {	
+	public String paginar(int pageNo, Page<RubricaGeralSubtracao> page, List<RubricaGeralSubtracao> lista, ModelMap model) {	
 		model.addAttribute("currentePage", pageNo);
 		model.addAttribute("totalPages", page.getTotalPages());
 		model.addAttribute("totalItems", page.getTotalElements()); 
-		model.addAttribute("rubricaSomaIrfFuncionario", lista);
-		return "/rubricaSomaIrfFuncionario/lista";	
+		model.addAttribute("rubricaGeralSubtracao", lista);
+		return "/rubricaGeralSubtracao/lista";	
 	}
 	
 	@GetMapping("/paginar/{pageNo}")
 	public String getPorCnesPaginado(@PathVariable (value = "pageNo") int pageNo, ModelMap model) {
 		if(pageNo<1) {pageNo = 1;}
 		if( (ultimoAnoMes.equals("")) ){
-			return "redirect:/rubricaSomaIrfFuncionario/listar/{pageNo}" ;}
+			return "redirect:/rubricaGeralSubtracao/listar/{pageNo}" ;}
 		else {return this.findPaginated(pageNo, ultimoAnoMes, model);}
 	}
 	
@@ -205,34 +133,43 @@ public class RubricaSomaIrfFuncionarioController {
 	}
 	
 	@PostMapping("/salvar")
-	public String salvar(RubricaSomaIrfFuncionario rubricaSomaIrfFuncionario, RedirectAttributes attr) {
+	public String salvar(RubricaGeralSubtracao rubricaGeralSubtracao, RedirectAttributes attr) {
+		
 		// Evitando salvar quem já está cadastrado
-		if(rubricaSomaIrfFuncionario!=null) {
-			if(rubricaSomaIrfFuncionario.getId()==null) {
-				if(service.avaliarCadastrado(rubricaSomaIrfFuncionario.getIdCodigoFk(), rubricaSomaIrfFuncionario.getIdAnoMesFk(), rubricaSomaIrfFuncionario.getIdFuncionarioFk() )==true) {
-					return "redirect:/mensagens/mensagem/de/ja/cadastrado";	
+			if(rubricaGeralSubtracao!=null) {
+				if(rubricaGeralSubtracao.getId()==null) {
+					if(service.avaliarCadastrado(rubricaGeralSubtracao.getIdCodigoFk(), rubricaGeralSubtracao.getIdAnoMesFk() )==true) {
+						return "redirect:/mensagens/mensagem/de/ja/cadastrado";	
+					}
 				}
 			}
-		}			
+				
 		
-		service.salvar(rubricaSomaIrfFuncionario);
+		if(rubricaGeralSubtracao.getValor()==null) {
+			rubricaGeralSubtracao.setValor(0.0);
+		}
+		
+		service.salvar(rubricaGeralSubtracao);
 		attr.addFlashAttribute("success", "Inserido com sucesso.");
-		return "redirect:/rubricaSomaIrfFuncionario/listar";
+		return "redirect:/rubricaGeralSubtracao/cadastrar";
 	}
 	
 	@GetMapping("/editar/{id}")
 	public String preEditar(@PathVariable("id") Long id, ModelMap model) {
-		model.addAttribute("rubricaSomaIrfFuncionario", service.buscarPorId(id));
-		return "/rubricaSomaIrfFuncionario/cadastro";
+		model.addAttribute("rubricaGeralSubtracao", service.buscarPorId(id));
+		return "/rubricaGeralSubtracao/cadastro";
 	}
 	
 	@PostMapping("/editar")
-	public String editar(RubricaSomaIrfFuncionario rubricaSomaIrfFuncionario, RedirectAttributes attr) {	
+	public String editar(RubricaGeralSubtracao rubricaGeralSubtracao, RedirectAttributes attr) {	
 		
+		if(rubricaGeralSubtracao.getValor()==null) {
+			rubricaGeralSubtracao.setValor(0.0);
+		}
 		
-		service.editar(rubricaSomaIrfFuncionario);
+		service.editar(rubricaGeralSubtracao);
 		attr.addFlashAttribute("success", "Editado com sucesso.");
-		return "redirect:/rubricaSomaIrfFuncionario/listar";
+		return "redirect:/rubricaGeralSubtracao/listar";
 	}
 	
 	@GetMapping("/excluir/{id}")
@@ -246,15 +183,15 @@ public class RubricaSomaIrfFuncionarioController {
 	@GetMapping("/herdar/de/mes") 
 	public String herdarDeMes( Long anoMesInicial,  Long anoMesFinal,  ModelMap model) {		
 		service.herdarDeUmMesParaOOutro(anoMesInicial, anoMesFinal);
-		return "redirect:/rubricaSomaIrfFuncionario/listar" ;
+		return "redirect:/rubricaGeralSubtracao/listar" ;
 	}
 	
 	
 	
 	@GetMapping("/buscar/nome")
 	public String getPorNome(@RequestParam("cnesUnidade") String nome, ModelMap model) {		
-		model.addAttribute("rubricaSomaIrfFuncionario", service.buscarPorNome(nome.toUpperCase().trim()));
-		return "/rubricaSomaIrfFuncionario/lista";
+		model.addAttribute("rubricaGeralSubtracao", service.buscarPorNome(nome.toUpperCase().trim()));
+		return "/rubricaGeralSubtracao/lista";
 	}
 	
 	@GetMapping("/exporta/excel")
@@ -275,14 +212,15 @@ public class RubricaSomaIrfFuncionarioController {
 	}
 	
 	
-		
+	
+	
 	
 	@ModelAttribute("idAnoMesFk")
 	public List<AnoMes> getIdAnoMesFk() {
 		return anoMesService.buscarTodos();	
 	}
 	@ModelAttribute("idCodigoFk")
-	public List<RubricaSomaIrfCodigo> getIdCodigoFk() {
+	public List<RubricaGeralSubtracaoCodigo> getIdCodigoFk() {
 		return rubricaCodigoService.buscarTodos();	
 	}
 	

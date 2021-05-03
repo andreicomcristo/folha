@@ -25,7 +25,7 @@ public class RubricaSomaIrfFuncionario extends AbstractEntity<Long> {
 		return obs;
 	}
 	public void setObs(String obs) {
-		this.obs = obs;
+		this.obs = UtilidadesDeTexto.retiraEspacosDuplosAcentosEConverteEmMaiusculo(obs);
 	}
 	public AnoMes getIdAnoMesFk() {
 		return idAnoMesFk;

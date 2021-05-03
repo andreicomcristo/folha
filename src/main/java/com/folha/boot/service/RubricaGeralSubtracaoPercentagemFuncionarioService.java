@@ -25,6 +25,7 @@ import com.folha.boot.Reposytory.FaixasValoresSubsidioReposytory;
 import com.folha.boot.Reposytory.RubricaComplementoConstitucionalFuncionarioReposytory;
 import com.folha.boot.Reposytory.RubricaGeralSomaFuncionarioReposytory;
 import com.folha.boot.Reposytory.RubricaGeralSubtracaoFuncionarioReposytory;
+import com.folha.boot.Reposytory.RubricaGeralSubtracaoPercentagemFuncionarioReposytory;
 import com.folha.boot.Reposytory.RubricaInsalubridadeFuncionarioReposytory;
 import com.folha.boot.Reposytory.RubricaInsalubridadeReposytory;
 import com.folha.boot.domain.AnoMes;
@@ -38,6 +39,8 @@ import com.folha.boot.domain.RubricaGeralSomaCodigo;
 import com.folha.boot.domain.RubricaGeralSomaFuncionario;
 import com.folha.boot.domain.RubricaGeralSubtracaoCodigo;
 import com.folha.boot.domain.RubricaGeralSubtracaoFuncionario;
+import com.folha.boot.domain.RubricaGeralSubtracaoPercentagemCodigo;
+import com.folha.boot.domain.RubricaGeralSubtracaoPercentagemFuncionario;
 import com.folha.boot.domain.RubricaInsalubridade;
 import com.folha.boot.domain.RubricaInsalubridadeCodigo;
 import com.folha.boot.domain.RubricaInsalubridadeFuncionario;
@@ -57,20 +60,20 @@ import com.itextpdf.text.pdf.PdfWriter;
 public class RubricaGeralSubtracaoPercentagemFuncionarioService {
 
 	@Autowired
-	private RubricaGeralSubtracaoFuncionarioReposytory reposytory;
+	private RubricaGeralSubtracaoPercentagemFuncionarioReposytory reposytory;
 	
 	@Autowired
 	private AnoMesService anoMesService;
 	
 
-	public void salvar(RubricaGeralSubtracaoFuncionario rubricaGeralSubtracaoFuncionario) {
+	public void salvar(RubricaGeralSubtracaoPercentagemFuncionario rubricaGeralSubtracaoPercentagemFuncionario) {
 		// TODO Auto-generated method stub
-		reposytory.save(rubricaGeralSubtracaoFuncionario);
+		reposytory.save(rubricaGeralSubtracaoPercentagemFuncionario);
 	}
 
-	public void editar(RubricaGeralSubtracaoFuncionario rubricaGeralSubtracaoFuncionario) {
+	public void editar(RubricaGeralSubtracaoPercentagemFuncionario rubricaGeralSubtracaoPercentagemFuncionario) {
 		// TODO Auto-generated method stub
-		reposytory.save(rubricaGeralSubtracaoFuncionario);
+		reposytory.save(rubricaGeralSubtracaoPercentagemFuncionario);
 	}
 
 	public void excluir(Long id) {
@@ -79,40 +82,40 @@ public class RubricaGeralSubtracaoPercentagemFuncionarioService {
 	}
 
 	@Transactional(readOnly = true)
-	public RubricaGeralSubtracaoFuncionario buscarPorId(Long id) {
+	public RubricaGeralSubtracaoPercentagemFuncionario buscarPorId(Long id) {
 		// TODO Auto-generated method stub
 		return reposytory.findById(id).get();
 	}
 
 	@Transactional(readOnly = true)
-	public List<RubricaGeralSubtracaoFuncionario> buscarTodos() {
+	public List<RubricaGeralSubtracaoPercentagemFuncionario> buscarTodos() {
 		// TODO Auto-generated method stub
 		return reposytory.findAllByOrderByIdAnoMesFkNomeAnoMesDesc();
 	}
 	
 	@Transactional(readOnly = true)
-	public List<RubricaGeralSubtracaoFuncionario> buscarPorMesExato(AnoMes anoMes) {
+	public List<RubricaGeralSubtracaoPercentagemFuncionario> buscarPorMesExato(AnoMes anoMes) {
 		return reposytory.findByIdAnoMesFkOrderByIdAnoMesFkNomeAnoMesDesc(anoMes);
 	}
 	
 	@Transactional(readOnly = true)
-	public List<RubricaGeralSubtracaoFuncionario> buscarPorNome(String nome) {
+	public List<RubricaGeralSubtracaoPercentagemFuncionario> buscarPorNome(String nome) {
 		return reposytory.findByIdAnoMesFkNomeAnoMesContainingOrderByIdAnoMesFkNomeAnoMesDesc(nome);
 	}
 	
-	public Page<RubricaGeralSubtracaoFuncionario> findPaginated(int pageNo, int pageSize) {
+	public Page<RubricaGeralSubtracaoPercentagemFuncionario> findPaginated(int pageNo, int pageSize) {
 		Pageable pageable = PageRequest.of(pageNo -1, pageSize);
 		return this.reposytory.findAllByOrderByIdAnoMesFkNomeAnoMesDesc(pageable);
 	}
 
-	public Page<RubricaGeralSubtracaoFuncionario> findPaginatedAnoMes(int pageNo, int pageSize, String nome) {
+	public Page<RubricaGeralSubtracaoPercentagemFuncionario> findPaginatedAnoMes(int pageNo, int pageSize, String nome) {
 		Pageable pageable = PageRequest.of(pageNo -1, pageSize);
 		return this.reposytory.findByIdAnoMesFkNomeAnoMesContainingOrderByIdAnoMesFkNomeAnoMesDesc(nome.toUpperCase().trim(), pageable);
 	}
 	
-	public boolean avaliarCadastrado( RubricaGeralSubtracaoCodigo rubricaGeralSubtracaoCodigo, AnoMes anoMes, PessoaFuncionarios PessoaFuncionarios) {
+	public boolean avaliarCadastrado( RubricaGeralSubtracaoPercentagemCodigo rubricaGeralSubtracaoPercentagemCodigo, AnoMes anoMes, PessoaFuncionarios PessoaFuncionarios) {
 		boolean resposta = false;
-		List<RubricaGeralSubtracaoFuncionario> lista = reposytory.findByIdCodigoFkAndIdAnoMesFkAndIdFuncionarioFk( rubricaGeralSubtracaoCodigo, anoMes, PessoaFuncionarios); 
+		List<RubricaGeralSubtracaoPercentagemFuncionario> lista = reposytory.findByIdCodigoFkAndIdAnoMesFkAndIdFuncionarioFk( rubricaGeralSubtracaoPercentagemCodigo, anoMes, PessoaFuncionarios); 
 		if(!lista.isEmpty()) {resposta = true;}
 		return resposta;
 	}
@@ -120,12 +123,12 @@ public class RubricaGeralSubtracaoPercentagemFuncionarioService {
 	//Herdar de um mes para o outro
 	public void herdarDeUmMesParaOOutro(Long anoMesInicial, Long anoMesFinal) {
 		
-		List<RubricaGeralSubtracaoFuncionario> listaInicial = buscarPorMesExato(anoMesService.buscarPorId(anoMesInicial)); 
-		List<RubricaGeralSubtracaoFuncionario> listaFinal = buscarPorMesExato(anoMesService.buscarPorId(anoMesFinal));
+		List<RubricaGeralSubtracaoPercentagemFuncionario> listaInicial = buscarPorMesExato(anoMesService.buscarPorId(anoMesInicial)); 
+		List<RubricaGeralSubtracaoPercentagemFuncionario> listaFinal = buscarPorMesExato(anoMesService.buscarPorId(anoMesFinal));
 		
 		if( (!listaInicial.isEmpty())  &&  (listaFinal.isEmpty()) ) {
 			for(int i=0;i<listaInicial.size();i++) {
-				RubricaGeralSubtracaoFuncionario f = new RubricaGeralSubtracaoFuncionario();
+				RubricaGeralSubtracaoPercentagemFuncionario f = new RubricaGeralSubtracaoPercentagemFuncionario();
 				f.setId(null);
 				f.setIdAnoMesFk(anoMesService.buscarPorId(anoMesFinal));
 				f.setIdCodigoFk( listaInicial.get(i).getIdCodigoFk() );
@@ -137,7 +140,7 @@ public class RubricaGeralSubtracaoPercentagemFuncionarioService {
 	}
 	
 	
-	public ByteArrayInputStream exportarExcel(List<RubricaGeralSubtracaoFuncionario> lista) {
+	public ByteArrayInputStream exportarExcel(List<RubricaGeralSubtracaoPercentagemFuncionario> lista) {
 		try(Workbook workbook = new XSSFWorkbook()){
 			Sheet sheet = workbook.createSheet("Dados");
 			
@@ -204,7 +207,7 @@ public class RubricaGeralSubtracaoPercentagemFuncionarioService {
 		}
 	}
 
-	public ByteArrayInputStream exportarPdf(List<RubricaGeralSubtracaoFuncionario> lista) {
+	public ByteArrayInputStream exportarPdf(List<RubricaGeralSubtracaoPercentagemFuncionario> lista) {
 
 		Document document = new Document();
 		ByteArrayOutputStream out = new ByteArrayOutputStream();

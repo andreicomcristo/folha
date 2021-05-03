@@ -24,6 +24,7 @@ import com.folha.boot.Reposytory.FaixasValoresParametrosCalculoFolhasExtrasRepos
 import com.folha.boot.Reposytory.FaixasValoresSubsidioReposytory;
 import com.folha.boot.Reposytory.RubricaComplementoConstitucionalReposytory;
 import com.folha.boot.Reposytory.RubricaGeralSomaReposytory;
+import com.folha.boot.Reposytory.RubricaGeralSubtracaoPercentagemReposytory;
 import com.folha.boot.Reposytory.RubricaGeralSubtracaoReposytory;
 import com.folha.boot.Reposytory.RubricaInsalubridadeReposytory;
 import com.folha.boot.domain.AnoMes;
@@ -36,6 +37,8 @@ import com.folha.boot.domain.RubricaGeralSoma;
 import com.folha.boot.domain.RubricaGeralSomaCodigo;
 import com.folha.boot.domain.RubricaGeralSubtracao;
 import com.folha.boot.domain.RubricaGeralSubtracaoCodigo;
+import com.folha.boot.domain.RubricaGeralSubtracaoPercentagem;
+import com.folha.boot.domain.RubricaGeralSubtracaoPercentagemCodigo;
 import com.folha.boot.domain.RubricaInsalubridade;
 import com.folha.boot.domain.RubricaInsalubridadeCodigo;
 import com.folha.boot.domain.Unidades;
@@ -54,20 +57,20 @@ import com.itextpdf.text.pdf.PdfWriter;
 public class RubricaGeralSubtracaoPercentagemService {
 
 	@Autowired
-	private RubricaGeralSubtracaoReposytory reposytory;
+	private RubricaGeralSubtracaoPercentagemReposytory reposytory;
 	
 	@Autowired
 	private AnoMesService anoMesService;
 	
 
-	public void salvar(RubricaGeralSubtracao rubricaGeralSubtracao) {
+	public void salvar(RubricaGeralSubtracaoPercentagem rubricaGeralSubtracaoPercentagem) {
 		// TODO Auto-generated method stub
-		reposytory.save(rubricaGeralSubtracao);
+		reposytory.save(rubricaGeralSubtracaoPercentagem);
 	}
 
-	public void editar(RubricaGeralSubtracao rubricaGeralSoma) {
+	public void editar(RubricaGeralSubtracaoPercentagem rubricaGeralSomaPercentagem) {
 		// TODO Auto-generated method stub
-		reposytory.save(rubricaGeralSoma);
+		reposytory.save(rubricaGeralSomaPercentagem);
 	}
 
 	public void excluir(Long id) {
@@ -76,40 +79,40 @@ public class RubricaGeralSubtracaoPercentagemService {
 	}
 
 	@Transactional(readOnly = true)
-	public RubricaGeralSubtracao buscarPorId(Long id) {
+	public RubricaGeralSubtracaoPercentagem buscarPorId(Long id) {
 		// TODO Auto-generated method stub
 		return reposytory.findById(id).get();
 	}
 
 	@Transactional(readOnly = true)
-	public List<RubricaGeralSubtracao> buscarTodos() {
+	public List<RubricaGeralSubtracaoPercentagem> buscarTodos() {
 		// TODO Auto-generated method stub
 		return reposytory.findAllByOrderByIdAnoMesFkNomeAnoMesDesc();
 	}
 	
 	@Transactional(readOnly = true)
-	public List<RubricaGeralSubtracao> buscarPorMesExato(AnoMes anoMes) {
+	public List<RubricaGeralSubtracaoPercentagem> buscarPorMesExato(AnoMes anoMes) {
 		return reposytory.findByIdAnoMesFkOrderByIdAnoMesFkNomeAnoMesDesc(anoMes);
 	}
 	
 	@Transactional(readOnly = true)
-	public List<RubricaGeralSubtracao> buscarPorNome(String nome) {
+	public List<RubricaGeralSubtracaoPercentagem> buscarPorNome(String nome) {
 		return reposytory.findByIdAnoMesFkNomeAnoMesContainingOrderByIdAnoMesFkNomeAnoMesDesc(nome);
 	}
 	
-	public Page<RubricaGeralSubtracao> findPaginated(int pageNo, int pageSize) {
+	public Page<RubricaGeralSubtracaoPercentagem> findPaginated(int pageNo, int pageSize) {
 		Pageable pageable = PageRequest.of(pageNo -1, pageSize);
 		return this.reposytory.findAllByOrderByIdAnoMesFkNomeAnoMesDesc(pageable);
 	}
 
-	public Page<RubricaGeralSubtracao> findPaginatedAnoMes(int pageNo, int pageSize, String nome) {
+	public Page<RubricaGeralSubtracaoPercentagem> findPaginatedAnoMes(int pageNo, int pageSize, String nome) {
 		Pageable pageable = PageRequest.of(pageNo -1, pageSize);
 		return this.reposytory.findByIdAnoMesFkNomeAnoMesContainingOrderByIdAnoMesFkNomeAnoMesDesc(nome.toUpperCase().trim(), pageable);
 	}
 	
-	public boolean avaliarCadastrado( RubricaGeralSubtracaoCodigo rubricaGeralSubtracaoCodigo, AnoMes anoMes) {
+	public boolean avaliarCadastrado( RubricaGeralSubtracaoPercentagemCodigo rubricaGeralSubtracaoPercentagemCodigo, AnoMes anoMes) {
 		boolean resposta = false;
-		List<RubricaGeralSubtracao> lista = reposytory.findByIdCodigoFkAndIdAnoMesFk( rubricaGeralSubtracaoCodigo, anoMes); 
+		List<RubricaGeralSubtracaoPercentagem> lista = reposytory.findByIdCodigoFkAndIdAnoMesFk( rubricaGeralSubtracaoPercentagemCodigo, anoMes); 
 		if(!lista.isEmpty()) {resposta = true;}
 		return resposta;
 	}
@@ -117,12 +120,12 @@ public class RubricaGeralSubtracaoPercentagemService {
 	//Herdar de um mes para o outro
 	public void herdarDeUmMesParaOOutro(Long anoMesInicial, Long anoMesFinal) {
 		
-		List<RubricaGeralSubtracao> listaInicial = buscarPorMesExato(anoMesService.buscarPorId(anoMesInicial)); 
-		List<RubricaGeralSubtracao> listaFinal = buscarPorMesExato(anoMesService.buscarPorId(anoMesFinal));
+		List<RubricaGeralSubtracaoPercentagem> listaInicial = buscarPorMesExato(anoMesService.buscarPorId(anoMesInicial)); 
+		List<RubricaGeralSubtracaoPercentagem> listaFinal = buscarPorMesExato(anoMesService.buscarPorId(anoMesFinal));
 		
 		if( (!listaInicial.isEmpty())  &&  (listaFinal.isEmpty()) ) {
 			for(int i=0;i<listaInicial.size();i++) {
-				RubricaGeralSubtracao f = new RubricaGeralSubtracao();
+				RubricaGeralSubtracaoPercentagem f = new RubricaGeralSubtracaoPercentagem();
 				f.setId(null);
 				f.setIdAnoMesFk(anoMesService.buscarPorId(anoMesFinal));
 				f.setIdCodigoFk( listaInicial.get(i).getIdCodigoFk() );
@@ -134,7 +137,7 @@ public class RubricaGeralSubtracaoPercentagemService {
 	}
 	
 	
-	public ByteArrayInputStream exportarExcel(List<RubricaGeralSubtracao> lista) {
+	public ByteArrayInputStream exportarExcel(List<RubricaGeralSubtracaoPercentagem> lista) {
 		try(Workbook workbook = new XSSFWorkbook()){
 			Sheet sheet = workbook.createSheet("Dados");
 			
@@ -195,7 +198,7 @@ public class RubricaGeralSubtracaoPercentagemService {
 		}
 	}
 
-	public ByteArrayInputStream exportarPdf(List<RubricaGeralSubtracao> lista) {
+	public ByteArrayInputStream exportarPdf(List<RubricaGeralSubtracaoPercentagem> lista) {
 
 		Document document = new Document();
 		ByteArrayOutputStream out = new ByteArrayOutputStream();
