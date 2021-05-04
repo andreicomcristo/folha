@@ -22,12 +22,14 @@ import com.folha.boot.domain.LocalidadeEscala;
 import com.folha.boot.domain.RubricaComplementoConstitucionalCodigo;
 import com.folha.boot.domain.RubricaGeralSomaCodigo;
 import com.folha.boot.domain.RubricaInsalubridadeCodigo;
+import com.folha.boot.domain.RubricaNatureza;
 import com.folha.boot.domain.RubricaSomaIrfCodigo;
 import com.folha.boot.domain.Unidades;
 import com.folha.boot.service.AtividadeEscalaService;
 import com.folha.boot.service.RubricaComplementoConstitucionalCodigoService;
 import com.folha.boot.service.RubricaGeralSomaCodigoService;
 import com.folha.boot.service.RubricaInsalubridadeCodigoService;
+import com.folha.boot.service.RubricaNaturezaService;
 import com.folha.boot.service.RubricaSomaIrfCodigoService;
 import com.folha.boot.service.UnidadesService;
 import com.folha.boot.service.seguranca.UsuarioService;
@@ -41,6 +43,8 @@ public class RubricaSomaIrfCodigoController {
 	
 	@Autowired
 	private RubricaSomaIrfCodigoService service;
+	@Autowired
+	private RubricaNaturezaService rubricaNaturezaService;
 	
 
 	@GetMapping("/cadastrar")
@@ -137,7 +141,10 @@ public class RubricaSomaIrfCodigoController {
 		return "/rubricaSomaIrfCodigo/lista";	
 	}
 
-	
+	@ModelAttribute("idNaturezaFk")
+	public List<RubricaNatureza> getIdNaturezaFk() {
+		return rubricaNaturezaService.buscarTodos();
+	}
 	
 	
 	

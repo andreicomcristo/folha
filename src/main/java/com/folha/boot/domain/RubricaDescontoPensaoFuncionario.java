@@ -35,7 +35,10 @@ public class RubricaDescontoPensaoFuncionario extends AbstractEntity<Long> {
     @JoinColumn(name = "id_operador_cancelamento_fk", referencedColumnName = "id")
     @ManyToOne
     private PessoaOperadores idOperadorCancelamentoFk;
-	public Double getValorCheio() {
+    @JoinColumn(name = "id_natureza_fk", referencedColumnName = "id")
+    @ManyToOne
+    private RubricaNatureza idNaturezaFk;
+    public Double getValorCheio() {
 		return valorCheio;
 	}
 	public void setValorCheio(Double valorCheio) {
@@ -88,6 +91,12 @@ public class RubricaDescontoPensaoFuncionario extends AbstractEntity<Long> {
 	}
 	public void setIdOperadorCancelamentoFk(PessoaOperadores idOperadorCancelamentoFk) {
 		this.idOperadorCancelamentoFk = idOperadorCancelamentoFk;
+	}
+	public RubricaNatureza getIdNaturezaFk() {
+		return idNaturezaFk;
+	}
+	public void setIdNaturezaFk(RubricaNatureza idNaturezaFk) {
+		this.idNaturezaFk = idNaturezaFk;
 	}
     
     

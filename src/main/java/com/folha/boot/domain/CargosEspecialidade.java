@@ -27,6 +27,9 @@ public class CargosEspecialidade extends AbstractEntity<Long> {
     @JoinColumn(name = "id_area_do_cargo_fk", referencedColumnName = "id")
     @ManyToOne
     private AreaDoCargo idAreaDoCargoFk;
+    
+    @OneToMany(mappedBy = "idEspecialidadeFk")
+    private List<LimiteHorasAcrescimoPorUnidadeEEspecialidade> limiteHorasAcrescimoPorUnidadeEEspecialidadeList;
 	
 	public List<FuncionariosLicencas> getFuncionariosLicencasList() {
 		return funcionariosLicencasList;
@@ -78,6 +81,15 @@ public class CargosEspecialidade extends AbstractEntity<Long> {
 		this.idAreaDoCargoFk = idAreaDoCargoFk;
 	}
 
+	public List<LimiteHorasAcrescimoPorUnidadeEEspecialidade> getLimiteHorasAcrescimoPorUnidadeEEspecialidadeList() {
+		return limiteHorasAcrescimoPorUnidadeEEspecialidadeList;
+	}
+
+	public void setLimiteHorasAcrescimoPorUnidadeEEspecialidadeList(
+			List<LimiteHorasAcrescimoPorUnidadeEEspecialidade> limiteHorasAcrescimoPorUnidadeEEspecialidadeList) {
+		this.limiteHorasAcrescimoPorUnidadeEEspecialidadeList = limiteHorasAcrescimoPorUnidadeEEspecialidadeList;
+	}
+	
 	
 	
 }

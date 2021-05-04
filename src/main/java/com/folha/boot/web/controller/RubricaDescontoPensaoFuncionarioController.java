@@ -44,6 +44,7 @@ import com.folha.boot.domain.RubricaDescontoPensaoFuncionario;
 import com.folha.boot.domain.RubricaInsalubridade;
 import com.folha.boot.domain.RubricaInsalubridadeCodigo;
 import com.folha.boot.domain.RubricaInsalubridadeFuncionario;
+import com.folha.boot.domain.RubricaNatureza;
 import com.folha.boot.domain.TiposDeFolha;
 import com.folha.boot.domain.Unidades;
 import com.folha.boot.domain.UnidadesRegime;
@@ -64,6 +65,7 @@ import com.folha.boot.service.RubricaDescontoPensaoFuncionarioService;
 import com.folha.boot.service.RubricaInsalubridadeCodigoService;
 import com.folha.boot.service.RubricaInsalubridadeFuncionarioService;
 import com.folha.boot.service.RubricaInsalubridadeService;
+import com.folha.boot.service.RubricaNaturezaService;
 import com.folha.boot.service.TiposDeFolhaService;
 import com.folha.boot.service.UnidadesRegimeService;
 import com.folha.boot.service.UnidadesService;
@@ -85,6 +87,8 @@ public class RubricaDescontoPensaoFuncionarioController {
 	private PessoaFuncionariosService pessoaFuncionariosService;
 	@Autowired
 	private UsuarioService usuarioService;
+	@Autowired
+	private RubricaNaturezaService rubricaNaturezaService;
 	
 	
 	//Funcionarios Todos os Possíveis
@@ -296,7 +300,10 @@ public class RubricaDescontoPensaoFuncionarioController {
 	public List<AnoMes> getIdAnoMesFk() {
 		return anoMesService.buscarTodos();	
 	}
-	
+	@ModelAttribute("idNaturezaFk")
+	public List<RubricaNatureza> getIdNaturezaFk() {
+		return rubricaNaturezaService.buscarTodos();
+	}
 	
 	
 	

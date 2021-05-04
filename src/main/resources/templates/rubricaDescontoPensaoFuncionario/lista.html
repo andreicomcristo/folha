@@ -114,6 +114,7 @@
 		                    <th style="font-size:10px;" >Valor</th>
 		                    <th style="font-size:10px;" >Percentagem</th>
 		                    <th style="font-size:10px;" >Descrição</th>
+		                    <th style="font-size:10px;" >Natureza</th>
 		                    
 		                    
 		                    <th style="font-size:10px;" >Ações</th>
@@ -129,6 +130,7 @@
 		                    <td style="font-size:10px;"  th:text="${d.valorCheio != null} ? ${d.valorCheio} : ''  "></td>
 		                    <td style="font-size:10px;"  th:text="${d.percentagem != null} ? ${d.percentagem} : ''  "></td>
 		                    <td style="font-size:10px;"  th:text="${d.descricao != null} ? ${d.descricao} : ''  "></td>
+		                    <td style="font-size:10px;"  th:text="${d.idNaturezaFk != null} ? ${d.idNaturezaFk.descricao} : ''  "></td>
 		                    
 		                    <td colspan="2">
 		                    	<a class="btn btn-outline-info btn-sm" th:href="@{/rubricaDescontoPensaoFuncionario/editar/{id} (id=${d.id}) }" role="button">

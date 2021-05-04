@@ -18,7 +18,10 @@ public class RubricaGeralSomaPercentagemCodigo extends AbstractEntity<Long> {
     private List<RubricaGeralSomaPercentagemFuncionario> rubricaGeralSomaPercentagemFuncionarioList;
     @OneToMany(mappedBy = "idCodigoFk")
     private List<RubricaGeralSomaPercentagem> rubricaGeralSomaPercentagemList;
-	public String getCodigo() {
+    @JoinColumn(name = "id_natureza_fk", referencedColumnName = "id")
+    @ManyToOne
+    private RubricaNatureza idNaturezaFk;
+    public String getCodigo() {
 		return codigo;
 	}
 	public void setCodigo(String codigo) {
@@ -42,6 +45,12 @@ public class RubricaGeralSomaPercentagemCodigo extends AbstractEntity<Long> {
 	}
 	public void setRubricaGeralSomaPercentagemList(List<RubricaGeralSomaPercentagem> rubricaGeralSomaPercentagemList) {
 		this.rubricaGeralSomaPercentagemList = rubricaGeralSomaPercentagemList;
+	}
+	public RubricaNatureza getIdNaturezaFk() {
+		return idNaturezaFk;
+	}
+	public void setIdNaturezaFk(RubricaNatureza idNaturezaFk) {
+		this.idNaturezaFk = idNaturezaFk;
 	}
     
     

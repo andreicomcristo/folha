@@ -35,6 +35,8 @@ public class EscalaService {
 	
 	@Autowired
 	private PessoaLimiteHorasService pessoaLimiteHorasService;
+	@Autowired
+	private LimiteHorasAcrescimoPorUnidadeEEspecialidadeService limiteHorasAcrescimoPorUnidadeEEspecialidadeService;
 	
 	
 	
@@ -1015,12 +1017,9 @@ public class EscalaService {
 		if(escala.getIdFuncionarioFk().getIdEspecialidadeAtualFk().getIdCargoFk().getIdNivelCargoFk().getSiglaNivelCargo().equalsIgnoreCase("T") ) {resposta = resposta-48;}
 		
 		//Acrescentando as 66 horas a mais para as especioalidades médias diferentes
-		if(escala.getIdFuncionarioFk().getIdEspecialidadeAtualFk().getNomeEspecialidadeCargo().equalsIgnoreCase("ANESTESIOLOGIA") &&  escala.getIdFuncionarioFk().getIdCargoAtualFk().getNomeCargo().equalsIgnoreCase("MEDICO") ) {resposta = resposta+66;}
-		if(escala.getIdFuncionarioFk().getIdEspecialidadeAtualFk().getNomeEspecialidadeCargo().equalsIgnoreCase("CLINICA MEDICA") &&  escala.getIdFuncionarioFk().getIdCargoAtualFk().getNomeCargo().equalsIgnoreCase("MEDICO") ) {resposta = resposta+66;}
-		if(escala.getIdFuncionarioFk().getIdEspecialidadeAtualFk().getNomeEspecialidadeCargo().equalsIgnoreCase("PEDIATRIA") &&  escala.getIdFuncionarioFk().getIdCargoAtualFk().getNomeCargo().equalsIgnoreCase("MEDICO") ) {resposta = resposta+66;}
-		if(escala.getIdFuncionarioFk().getIdEspecialidadeAtualFk().getNomeEspecialidadeCargo().equalsIgnoreCase("CIRURGIA GERAL") &&  escala.getIdFuncionarioFk().getIdCargoAtualFk().getNomeCargo().equalsIgnoreCase("MEDICO") ) {resposta = resposta+66;}
-		if(escala.getIdFuncionarioFk().getIdEspecialidadeAtualFk().getNomeEspecialidadeCargo().equalsIgnoreCase("ORTOPEDIA E TRAUMATOLOGIA") &&  escala.getIdFuncionarioFk().getIdCargoAtualFk().getNomeCargo().equalsIgnoreCase("MEDICO") ) {resposta = resposta+66;}
-		if(escala.getIdFuncionarioFk().getIdEspecialidadeAtualFk().getNomeEspecialidadeCargo().equalsIgnoreCase("MEDICINA INTENSIVA") &&  escala.getIdFuncionarioFk().getIdCargoAtualFk().getNomeCargo().equalsIgnoreCase("MEDICO") ) {resposta = resposta+66;}
+		if( !limiteHorasAcrescimoPorUnidadeEEspecialidadeService.buscarLimite( escala.getIdCoordenacaoFk().getIdLocalidadeFk().getIdUnidadeFk() , escala.getIdAnoMesFk(), escala.getIdFuncionarioFk().getIdEspecialidadeAtualFk()).isEmpty()  ) {
+			resposta = resposta+  limiteHorasAcrescimoPorUnidadeEEspecialidadeService.buscarLimite( escala.getIdCoordenacaoFk().getIdLocalidadeFk().getIdUnidadeFk() , escala.getIdAnoMesFk(), escala.getIdFuncionarioFk().getIdEspecialidadeAtualFk()).get(0).getHoras();
+		}
 		
 		
 		//Altereando limite de horas para excepcionalidades cadastradas

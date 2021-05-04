@@ -64,6 +64,12 @@
 								id="nome" placeholder="Descrição" th:field="*{descricao}" />			
 							<p></p>
 							
+							<label for="nome" class="">Natureza </label>
+							<select id="idNaturezaFk" class="form-select" th:field="*{idNaturezaFk}">
+								<option value="">Selecione a Natureza</option>
+								<option class="form-select" th:each="d : ${idNaturezaFk}" th:value="${d.id}"th:text="${d.descricao }" selected >ADM</option>
+							</select>	
+							<p></p>	
 							
 												
 					<input type="hidden" id="id" th:field="*{id}" />

@@ -47,6 +47,7 @@
 		                	<th style="font-size:10px;" >#</th>
 		                    <th style="font-size:10px;" >Código</th>
 		                    <th style="font-size:10px;" >Descrição</th>
+		                    <th style="font-size:10px;" >Natureza</th>
 		                    <th style="font-size:10px;" >Ações</th>
 	                    </tr>
 	                </thead>                  
@@ -55,6 +56,7 @@
 		                	<td style="font-size:10px;"  th:text="${d.id}"></td>
 		                    <td style="font-size:10px;"  th:text="${d.codigo} ? ${d.codigo} : ''  "></td>
 		                    <td style="font-size:10px;"  th:text="${d.descricao != null} ? ${d.descricao} : ''  "></td>
+		                    <td style="font-size:10px;"  th:text="${d.idNaturezaFk != null} ? ${d.idNaturezaFk.descricao} : ''  "></td>
 		                    
 		                    <td colspan="2">
 		                    	<a class="btn btn-outline-info btn-sm" th:href="@{/rubricaGeralSubtracaoCodigo/editar/{id} (id=${d.id}) }" role="button">

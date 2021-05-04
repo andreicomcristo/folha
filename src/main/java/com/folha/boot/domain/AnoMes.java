@@ -82,6 +82,8 @@ public class AnoMes extends AbstractEntity<Long> {
     private List<RubricaSomaIrf> rubricaSomaIrfList;
     @OneToMany(mappedBy = "idAnoMesFk")
     private List<RubricaSomaIrfFuncionario> rubricaSomaIrfFuncionarioList;
+    @OneToMany(mappedBy = "idAnoMesFk")
+    private List<LimiteHorasAcrescimoPorUnidadeEEspecialidade> limiteHorasAcrescimoPorUnidadeEEspecialidadeList;
     
 	public String getNomeAnoMes() {
 		return nomeAnoMes;
@@ -272,6 +274,13 @@ public class AnoMes extends AbstractEntity<Long> {
 	}
 	public void setRubricaSomaIrfFuncionarioList(List<RubricaSomaIrfFuncionario> rubricaSomaIrfFuncionarioList) {
 		this.rubricaSomaIrfFuncionarioList = rubricaSomaIrfFuncionarioList;
+	}
+	public List<LimiteHorasAcrescimoPorUnidadeEEspecialidade> getLimiteHorasAcrescimoPorUnidadeEEspecialidadeList() {
+		return limiteHorasAcrescimoPorUnidadeEEspecialidadeList;
+	}
+	public void setLimiteHorasAcrescimoPorUnidadeEEspecialidadeList(
+			List<LimiteHorasAcrescimoPorUnidadeEEspecialidade> limiteHorasAcrescimoPorUnidadeEEspecialidadeList) {
+		this.limiteHorasAcrescimoPorUnidadeEEspecialidadeList = limiteHorasAcrescimoPorUnidadeEEspecialidadeList;
 	}
 	
 	

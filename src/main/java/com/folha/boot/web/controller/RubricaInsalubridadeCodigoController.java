@@ -20,9 +20,11 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import com.folha.boot.domain.AtividadeEscala;
 import com.folha.boot.domain.LocalidadeEscala;
 import com.folha.boot.domain.RubricaInsalubridadeCodigo;
+import com.folha.boot.domain.RubricaNatureza;
 import com.folha.boot.domain.Unidades;
 import com.folha.boot.service.AtividadeEscalaService;
 import com.folha.boot.service.RubricaInsalubridadeCodigoService;
+import com.folha.boot.service.RubricaNaturezaService;
 import com.folha.boot.service.UnidadesService;
 import com.folha.boot.service.seguranca.UsuarioService;
 
@@ -35,6 +37,8 @@ public class RubricaInsalubridadeCodigoController {
 	
 	@Autowired
 	private RubricaInsalubridadeCodigoService service;
+	@Autowired
+	private RubricaNaturezaService rubricaNaturezaService;
 	
 
 	@GetMapping("/cadastrar")
@@ -131,7 +135,10 @@ public class RubricaInsalubridadeCodigoController {
 		return "/rubricaInsalubridadeCodigo/lista";	
 	}
 
-	
+	@ModelAttribute("idNaturezaFk")
+	public List<RubricaNatureza> getIdNaturezaFk() {
+		return rubricaNaturezaService.buscarTodos();
+	}
 	
 	
 	
