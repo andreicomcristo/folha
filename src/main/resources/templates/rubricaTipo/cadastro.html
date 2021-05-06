@@ -5,12 +5,12 @@
 	<section class="layout-content" layout:fragment="corpo">
 
 		<nav class="navbar navbar-expand-md bg-light">
-			<form th:action="@{/rubricaGeralCodigo/listar}">
+			<form th:action="@{/rubricaTipo/listar}">
 				<div class=" layout-content">
 			        <a class="btn btn-outline-light oi oi-action-undo" type="button" href="javascript:history.back()"></a>
 					<a class="btn btn-outline-light oi oi-action-redo" type="button" href="javascript:history.forward()"></a>    
 					<button class="btn btn-outline-dark" >Listar</button>
-					<a class="btn btn-outline-dark btn-md" th:href="@{/rubricaGeralCodigo/cadastrar}"
+					<a class="btn btn-outline-dark btn-md" th:href="@{/rubricaTipo/cadastrar}"
 						role="button"> <span class="oi oi-plus" title="Cadastro"
 						aria-hidden="true"></span> <span>Novo</span>
 					</a>
@@ -22,32 +22,32 @@
 
 			<div th:replace="fragments/alert"></div>
 			<form
-				th:action="${rubricaGeralCodigo.id == null} ? @{/rubricaGeralCodigo/salvar} : @{/rubricaGeralCodigo/editar}"
-				th:object="${rubricaGeralCodigo}" method="POST">
+				th:action="${rubricaTipo.id == null} ? @{/rubricaTipo/salvar} : @{/rubricaTipo/editar}"
+				th:object="${rubricaTipo}" method="POST">
 				<div class="form-row">
 
 					<div class="form-group col-md-6">
-						<label for="nome" class="fonte-tutulos-tamanho">Cadastro de Códigos para Rubrica Geral </label>
+						<label for="nome" class="fonte-tutulos-tamanho">Cadastro de Tipos de Rubrica</label>
 							<p></p>
 							
-							<label for="nome" class="">Código </label>
+							<label for="nome" class="">Tipo </label>
 							<input type="text"
 								class="form-control form-control-md" autofocus="autofocus"
-								id="codigo" placeholder="Código" th:field="*{codigo}" /> 
+								id="codigo" placeholder="Atividade" th:field="*{nome}" /> 
 							<p></p>
 							
 							<label for="nome" class="">Descrição </label>
 							<input type="text"
-								class="form-control form-control-md" autofocus="autofocus"
+								class="form-control form-control-md" 
 								id="descricao" placeholder="Descricao" th:field="*{descricao}" /> 
 							<p></p>
 							
-							<label for="nome" class="">Natureza </label>
-							<select id="idNaturezaFk" class="form-select" th:field="*{idNaturezaFk}">
-								<option value="">Selecione a Natureza</option>
-								<option class="form-select" th:each="d : ${idNaturezaFk}" th:value="${d.id}"th:text="${d.descricao }" selected >ADM</option>
-							</select>	
-							<p></p>	
+							<label for="nome" class="">Sequência </label>
+							<input type="number"
+								class="form-control form-control-md" 
+								id="descricao" placeholder="Sequencia" th:field="*{sequencia}" /> 
+							<p></p>
+							
 							
 							
 							<input type="hidden" id="id" th:field="*{id}" />

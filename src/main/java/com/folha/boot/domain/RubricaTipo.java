@@ -9,27 +9,31 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
+import com.folha.boot.service.util.UtilidadesDeTexto;
+
 @SuppressWarnings("serial")
 @Entity
-@Table(name = "rubrica_natureza")
-public class RubricaNatureza extends AbstractEntity<Long> {
+@Table(name = "rubrica_tipo")
+public class RubricaTipo extends AbstractEntity<Long> {
 
-	@Column(name = "sigla")
-    private String sigla;
+	@Column(name = "nome")
+    private String nome;
     @Column(name = "descricao")
     private String descricao;
-    @OneToMany(mappedBy = "idNaturezaFk")
+    @Column(name = "sequencia")
+    private Integer sequencia;
+    @OneToMany(mappedBy = "idTipoFk")
     private List<RubricaCodigo> rubricaCodigoList;
 
-    public RubricaNatureza() {
+    public RubricaTipo() {
     }
 
-	public String getSigla() {
-		return sigla;
+	public String getNome() {
+		return nome;
 	}
 
-	public void setSigla(String sigla) {
-		this.sigla = sigla;
+	public void setNome(String nome) {
+		this.nome = UtilidadesDeTexto.retiraEspacosDuplosAcentosEConverteEmMaiusculo(nome);
 	}
 
 	public String getDescricao() {
@@ -37,7 +41,15 @@ public class RubricaNatureza extends AbstractEntity<Long> {
 	}
 
 	public void setDescricao(String descricao) {
-		this.descricao = descricao;
+		this.descricao = UtilidadesDeTexto.retiraEspacosDuplosAcentosEConverteEmMaiusculo(descricao);
+	}
+
+	public Integer getSequencia() {
+		return sequencia;
+	}
+
+	public void setSequencia(Integer sequencia) {
+		this.sequencia = sequencia;
 	}
 
 	public List<RubricaCodigo> getRubricaCodigoList() {
@@ -47,6 +59,8 @@ public class RubricaNatureza extends AbstractEntity<Long> {
 	public void setRubricaCodigoList(List<RubricaCodigo> rubricaCodigoList) {
 		this.rubricaCodigoList = rubricaCodigoList;
 	}
+    
+    
 
     
 	

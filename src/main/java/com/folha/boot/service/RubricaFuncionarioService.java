@@ -20,10 +20,11 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import com.folha.boot.Reposytory.RubricaGeralReposytory;
+import com.folha.boot.Reposytory.RubricaFuncionarioReposytory;
 import com.folha.boot.domain.AnoMes;
-import com.folha.boot.domain.RubricaGeral;
-import com.folha.boot.domain.RubricaGeralCodigo;
+import com.folha.boot.domain.PessoaFuncionarios;
+import com.folha.boot.domain.RubricaCodigo;
+import com.folha.boot.domain.RubricaFuncionario;
 import com.itextpdf.text.Document;
 import com.itextpdf.text.DocumentException;
 import com.itextpdf.text.Element;
@@ -36,23 +37,26 @@ import com.itextpdf.text.pdf.PdfWriter;
 
 @Service
 @Transactional(readOnly = false)
-public class RubricaGeralService {
+public class RubricaFuncionarioService {
 
 	@Autowired
-	private RubricaGeralReposytory reposytory;
+	private RubricaFuncionarioReposytory reposytory;
 	
 	@Autowired
 	private AnoMesService anoMesService;
 	
+	@Autowired
+	private RubricaService rubricaService;
+	
 
-	public void salvar(RubricaGeral rubricaGeralSoma) {
+	public void salvar(RubricaFuncionario rubricaGeralSomaFuncionario) {
 		// TODO Auto-generated method stub
-		reposytory.save(rubricaGeralSoma);
+		reposytory.save(rubricaGeralSomaFuncionario);
 	}
 
-	public void editar(RubricaGeral rubricaGeralSoma) {
+	public void editar(RubricaFuncionario rubricaGeralSomaFuncionario) {
 		// TODO Auto-generated method stub
-		reposytory.save(rubricaGeralSoma);
+		reposytory.save(rubricaGeralSomaFuncionario);
 	}
 
 	public void excluir(Long id) {
@@ -61,40 +65,40 @@ public class RubricaGeralService {
 	}
 
 	@Transactional(readOnly = true)
-	public RubricaGeral buscarPorId(Long id) {
+	public RubricaFuncionario buscarPorId(Long id) {
 		// TODO Auto-generated method stub
 		return reposytory.findById(id).get();
 	}
 
 	@Transactional(readOnly = true)
-	public List<RubricaGeral> buscarTodos() {
+	public List<RubricaFuncionario> buscarTodos() {
 		// TODO Auto-generated method stub
 		return reposytory.findAllByOrderByIdAnoMesFkNomeAnoMesDesc();
 	}
 	
 	@Transactional(readOnly = true)
-	public List<RubricaGeral> buscarPorMesExato(AnoMes anoMes) {
+	public List<RubricaFuncionario> buscarPorMesExato(AnoMes anoMes) {
 		return reposytory.findByIdAnoMesFkOrderByIdAnoMesFkNomeAnoMesDesc(anoMes);
 	}
 	
 	@Transactional(readOnly = true)
-	public List<RubricaGeral> buscarPorNome(String nome) {
+	public List<RubricaFuncionario> buscarPorNome(String nome) {
 		return reposytory.findByIdAnoMesFkNomeAnoMesContainingOrderByIdAnoMesFkNomeAnoMesDesc(nome);
 	}
 	
-	public Page<RubricaGeral> findPaginated(int pageNo, int pageSize) {
+	public Page<RubricaFuncionario> findPaginated(int pageNo, int pageSize) {
 		Pageable pageable = PageRequest.of(pageNo -1, pageSize);
 		return this.reposytory.findAllByOrderByIdAnoMesFkNomeAnoMesDesc(pageable);
 	}
 
-	public Page<RubricaGeral> findPaginatedAnoMes(int pageNo, int pageSize, String nome) {
+	public Page<RubricaFuncionario> findPaginatedAnoMes(int pageNo, int pageSize, String nome) {
 		Pageable pageable = PageRequest.of(pageNo -1, pageSize);
 		return this.reposytory.findByIdAnoMesFkNomeAnoMesContainingOrderByIdAnoMesFkNomeAnoMesDesc(nome.toUpperCase().trim(), pageable);
 	}
 	
-	public boolean avaliarCadastrado( RubricaGeralCodigo rubricaGeralSomaCodigo, AnoMes anoMes) {
+	public boolean avaliarCadastrado( RubricaCodigo rubricaGeralSomaCodigo, AnoMes anoMes, PessoaFuncionarios PessoaFuncionarios) {
 		boolean resposta = false;
-		List<RubricaGeral> lista = reposytory.findByIdCodigoFkAndIdAnoMesFk( rubricaGeralSomaCodigo, anoMes); 
+		List<RubricaFuncionario> lista = reposytory.findByIdCodigoFkAndIdAnoMesFkAndIdFuncionarioFk( rubricaGeralSomaCodigo, anoMes, PessoaFuncionarios); 
 		if(!lista.isEmpty()) {resposta = true;}
 		return resposta;
 	}
@@ -102,16 +106,16 @@ public class RubricaGeralService {
 	//Herdar de um mes para o outro
 	public void herdarDeUmMesParaOOutro(Long anoMesInicial, Long anoMesFinal) {
 		
-		List<RubricaGeral> listaInicial = buscarPorMesExato(anoMesService.buscarPorId(anoMesInicial)); 
-		List<RubricaGeral> listaFinal = buscarPorMesExato(anoMesService.buscarPorId(anoMesFinal));
+		List<RubricaFuncionario> listaInicial = buscarPorMesExato(anoMesService.buscarPorId(anoMesInicial)); 
+		List<RubricaFuncionario> listaFinal = buscarPorMesExato(anoMesService.buscarPorId(anoMesFinal));
 		
 		if( (!listaInicial.isEmpty())  &&  (listaFinal.isEmpty()) ) {
 			for(int i=0;i<listaInicial.size();i++) {
-				RubricaGeral f = new RubricaGeral();
+				RubricaFuncionario f = new RubricaFuncionario();
 				f.setId(null);
 				f.setIdAnoMesFk(anoMesService.buscarPorId(anoMesFinal));
 				f.setIdCodigoFk( listaInicial.get(i).getIdCodigoFk() );
-				f.setValor(listaInicial.get(i).getValor());
+				f.setIdFuncionarioFk(listaInicial.get(i).getIdFuncionarioFk());
 				
 				salvar(f);
 			}
@@ -119,7 +123,7 @@ public class RubricaGeralService {
 	}
 	
 	
-	public ByteArrayInputStream exportarExcel(List<RubricaGeral> lista) {
+	public ByteArrayInputStream exportarExcel(List<RubricaFuncionario> lista) {
 		try(Workbook workbook = new XSSFWorkbook()){
 			Sheet sheet = workbook.createSheet("Dados");
 			
@@ -146,7 +150,31 @@ public class RubricaGeralService {
 	        cell.setCellStyle(headerCellStyle);
 	        
 	        cell = row.createCell(4);
+	        cell.setCellValue("Descrição");
+	        cell.setCellStyle(headerCellStyle);
+	        
+	        cell = row.createCell(5);
 	        cell.setCellValue("Valor");
+	        cell.setCellStyle(headerCellStyle);
+	        
+	        cell = row.createCell(6);
+	        cell.setCellValue("Percentagem");
+	        cell.setCellStyle(headerCellStyle);
+	        
+	        cell = row.createCell(7);
+	        cell.setCellValue("Quantidade");
+	        cell.setCellStyle(headerCellStyle);
+	        
+	        cell = row.createCell(8);
+	        cell.setCellValue("Natureza");
+	        cell.setCellStyle(headerCellStyle);
+	        
+	        cell = row.createCell(9);
+	        cell.setCellValue("Nome");
+	        cell.setCellStyle(headerCellStyle);
+	        
+	        cell = row.createCell(10);
+	        cell.setCellValue("Cpf");
 	        cell.setCellStyle(headerCellStyle);
 	        
 	        
@@ -156,8 +184,26 @@ public class RubricaGeralService {
 	        	dataRow.createCell(0).setCellValue((i+1));
 	        	dataRow.createCell(1).setCellValue(lista.get(i).getId());
 	        	dataRow.createCell(2).setCellValue(lista.get(i).getIdAnoMesFk().getNomeAnoMes());
-	        	dataRow.createCell(3).setCellValue(lista.get(i).getIdCodigoFk().getCodigo());
-	        	dataRow.createCell(4).setCellValue(lista.get(i).getValor());
+	        	dataRow.createCell(3).setCellValue(lista.get(i).getIdCodigoFk().getCodigo()+"-"+lista.get(i).getIdCodigoFk().getVariacao() );
+	        	dataRow.createCell(4).setCellValue(lista.get(i).getIdCodigoFk().getDescricao());
+	        	
+	        	Double valor = 0.0;
+	        	Double percentagem = 0.0;
+	        	int quantidade = 0;
+	        	if(! rubricaService.buscarPorMesECodigo(lista.get(i).getIdAnoMesFk(), lista.get(i).getIdCodigoFk()).isEmpty() ) {
+	        	valor= rubricaService.buscarPorMesECodigo(lista.get(i).getIdAnoMesFk(), lista.get(i).getIdCodigoFk()).get(0).getValor();
+	        	percentagem= rubricaService.buscarPorMesECodigo(lista.get(i).getIdAnoMesFk(), lista.get(i).getIdCodigoFk()).get(0).getPercentagem();
+	        	quantidade= rubricaService.buscarPorMesECodigo(lista.get(i).getIdAnoMesFk(), lista.get(i).getIdCodigoFk()).get(0).getQuantidade();
+	        	}
+	        	
+	        	dataRow.createCell(5).setCellValue(valor);
+	        	dataRow.createCell(6).setCellValue(percentagem);
+	        	dataRow.createCell(7).setCellValue(quantidade);
+	        	
+	        	dataRow.createCell(8).setCellValue(lista.get(i).getIdCodigoFk().getIdNaturezaFk().getDescricao());
+	        	
+	        	dataRow.createCell(9).setCellValue(lista.get(i).getIdFuncionarioFk().getIdPessoaFk().getNome());
+	        	dataRow.createCell(10).setCellValue(lista.get(i).getIdFuncionarioFk().getIdPessoaFk().getCpf());
 	        	
 	        	
 	        }
@@ -168,6 +214,14 @@ public class RubricaGeralService {
 	        sheet.autoSizeColumn(2);
 	        sheet.autoSizeColumn(3);
 	        sheet.autoSizeColumn(4);
+	        sheet.autoSizeColumn(5);
+	        sheet.autoSizeColumn(6);
+	        sheet.autoSizeColumn(7);
+	        sheet.autoSizeColumn(8);
+	        sheet.autoSizeColumn(9);
+	        sheet.autoSizeColumn(10);
+	        
+	        
 	        
 	        
 	        
@@ -180,16 +234,16 @@ public class RubricaGeralService {
 		}
 	}
 
-	public ByteArrayInputStream exportarPdf(List<RubricaGeral> lista) {
+	public ByteArrayInputStream exportarPdf(List<RubricaFuncionario> lista) {
 
 		Document document = new Document();
 		ByteArrayOutputStream out = new ByteArrayOutputStream();
 
 		try {
 
-			PdfPTable table = new PdfPTable(5);
+			PdfPTable table = new PdfPTable(11);
 			table.setWidthPercentage(90);
-			table.setWidths(new int[] { 2, 2, 2, 2, 2 });
+			table.setWidths(new int[] { 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2 });
 
 			// Tipos de Fonte
 			Font tituloFont = FontFactory.getFont(FontFactory.HELVETICA_BOLD,14);
@@ -216,7 +270,31 @@ public class RubricaGeralService {
 			hcell.setHorizontalAlignment(Element.ALIGN_CENTER);
 			table.addCell(hcell);
 			
+			hcell = new PdfPCell(new Phrase("Descrição", cabecalhoFont));
+			hcell.setHorizontalAlignment(Element.ALIGN_CENTER);
+			table.addCell(hcell);
+			
 			hcell = new PdfPCell(new Phrase("Valor", cabecalhoFont));
+			hcell.setHorizontalAlignment(Element.ALIGN_CENTER);
+			table.addCell(hcell);
+			
+			hcell = new PdfPCell(new Phrase("Percentagem", cabecalhoFont));
+			hcell.setHorizontalAlignment(Element.ALIGN_CENTER);
+			table.addCell(hcell);
+			
+			hcell = new PdfPCell(new Phrase("Quantidade", cabecalhoFont));
+			hcell.setHorizontalAlignment(Element.ALIGN_CENTER);
+			table.addCell(hcell);
+			
+			hcell = new PdfPCell(new Phrase("Natureza", cabecalhoFont));
+			hcell.setHorizontalAlignment(Element.ALIGN_CENTER);
+			table.addCell(hcell);
+			
+			hcell = new PdfPCell(new Phrase("Nome", cabecalhoFont));
+			hcell.setHorizontalAlignment(Element.ALIGN_CENTER);
+			table.addCell(hcell);
+			
+			hcell = new PdfPCell(new Phrase("Cpf", cabecalhoFont));
 			hcell.setHorizontalAlignment(Element.ALIGN_CENTER);
 			table.addCell(hcell);
 			
@@ -243,16 +321,54 @@ public class RubricaGeralService {
 				cell.setHorizontalAlignment(Element.ALIGN_CENTER);
 				table.addCell(cell);
 				
-				cell = new PdfPCell(new Phrase(lista.get(i).getIdCodigoFk().getCodigo() ,corpoFont) );
+				cell = new PdfPCell(new Phrase(lista.get(i).getIdCodigoFk().getCodigo()+"-"+lista.get(i).getIdCodigoFk().getVariacao() ,corpoFont) );
 				cell.setVerticalAlignment(Element.ALIGN_MIDDLE);
 				cell.setHorizontalAlignment(Element.ALIGN_CENTER);
 				table.addCell(cell);
 				
-				cell = new PdfPCell(new Phrase(String.valueOf(lista.get(i).getValor()) ,corpoFont) );
+				cell = new PdfPCell(new Phrase(lista.get(i).getIdCodigoFk().getDescricao() ,corpoFont) );
 				cell.setVerticalAlignment(Element.ALIGN_MIDDLE);
 				cell.setHorizontalAlignment(Element.ALIGN_CENTER);
 				table.addCell(cell);
 				
+				Double valor = 0.0;
+	        	Double percentagem = 0.0;
+	        	int quantidade = 0;
+	        	if(! rubricaService.buscarPorMesECodigo(lista.get(i).getIdAnoMesFk(), lista.get(i).getIdCodigoFk()).isEmpty() ) {
+	        	valor= rubricaService.buscarPorMesECodigo(lista.get(i).getIdAnoMesFk(), lista.get(i).getIdCodigoFk()).get(0).getValor();
+	        	percentagem= rubricaService.buscarPorMesECodigo(lista.get(i).getIdAnoMesFk(), lista.get(i).getIdCodigoFk()).get(0).getPercentagem();
+	        	quantidade= rubricaService.buscarPorMesECodigo(lista.get(i).getIdAnoMesFk(), lista.get(i).getIdCodigoFk()).get(0).getQuantidade();
+	        	}
+	        	
+	        	cell = new PdfPCell(new Phrase(String.valueOf(valor) ,corpoFont) );
+				cell.setVerticalAlignment(Element.ALIGN_MIDDLE);
+				cell.setHorizontalAlignment(Element.ALIGN_CENTER);
+				table.addCell(cell);
+				
+				cell = new PdfPCell(new Phrase(String.valueOf(percentagem) ,corpoFont) );
+				cell.setVerticalAlignment(Element.ALIGN_MIDDLE);
+				cell.setHorizontalAlignment(Element.ALIGN_CENTER);
+				table.addCell(cell);
+				
+				cell = new PdfPCell(new Phrase(String.valueOf(quantidade) ,corpoFont) );
+				cell.setVerticalAlignment(Element.ALIGN_MIDDLE);
+				cell.setHorizontalAlignment(Element.ALIGN_CENTER);
+				table.addCell(cell);
+				
+				cell = new PdfPCell(new Phrase(String.valueOf(lista.get(i).getIdCodigoFk().getIdNaturezaFk().getDescricao()) ,corpoFont) );
+				cell.setVerticalAlignment(Element.ALIGN_MIDDLE);
+				cell.setHorizontalAlignment(Element.ALIGN_CENTER);
+				table.addCell(cell);
+				
+				cell = new PdfPCell(new Phrase(String.valueOf(lista.get(i).getIdFuncionarioFk().getIdPessoaFk().getNome()) ,corpoFont) );
+				cell.setVerticalAlignment(Element.ALIGN_MIDDLE);
+				cell.setHorizontalAlignment(Element.ALIGN_CENTER);
+				table.addCell(cell);
+				
+				cell = new PdfPCell(new Phrase(String.valueOf(lista.get(i).getIdFuncionarioFk().getIdPessoaFk().getCpf()) ,corpoFont) );
+				cell.setVerticalAlignment(Element.ALIGN_MIDDLE);
+				cell.setHorizontalAlignment(Element.ALIGN_CENTER);
+				table.addCell(cell);
 				
 				
 				
@@ -266,7 +382,7 @@ public class RubricaGeralService {
 			tableTitulo.setWidthPercentage(90);
 			tableTitulo.setWidths(new int[] { 6 });
 			PdfPCell cellTitulo;
-			cellTitulo = new PdfPCell(new Phrase("Rubrica Geral Soma", tituloFont) );
+			cellTitulo = new PdfPCell(new Phrase("Pessoas com Rubrica Geral Soma", tituloFont) );
 			cellTitulo.setVerticalAlignment(Element.ALIGN_MIDDLE);
 			cellTitulo.setHorizontalAlignment(Element.ALIGN_CENTER);
 			tableTitulo.addCell(cellTitulo);

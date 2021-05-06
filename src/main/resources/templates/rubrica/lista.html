@@ -7,15 +7,15 @@
 	    	<a class="btn btn-outline-light oi oi-action-undo" type="button" href="javascript:history.back()"></a>
 			<a class="btn btn-outline-light oi oi-action-redo" type="button" href="javascript:history.forward()"></a>
 	    	
-	    	<a class="btn btn-outline-dark btn-md" th:href="@{/rubricaGeral/cadastrar}" role="button">
+	    	<a class="btn btn-outline-dark btn-md" th:href="@{/rubrica/cadastrar}" role="button">
 	        	<span class="oi oi-plus" title="Cadastro" aria-hidden="true"></span>
 	            <span>Novo</span>
 	        </a>
-	        <a class="btn btn-outline-dark btn-md" th:href="@{/rubricaGeral/listar}" role="button">
+	        <a class="btn btn-outline-dark btn-md" th:href="@{/rubrica/listar}" role="button">
 	        	<span class="oi oi-loop-square" title="Atualizar" aria-hidden="true"></span>
 	            <span>Atualizar</span>
 	        </a>
-	            <label for="nome" class= "fonte-tutulos-tamanho">Lista de Valores para Rubrica Geral </label>
+	            <label for="nome" class= "fonte-tutulos-tamanho">Lista de Valores para Rubrica </label>
 	    </nav>
 	  	
 	  	<div class="container">
@@ -35,7 +35,7 @@
 	      	<div class="col">
 	        	<div class="collapse" id="collapseAnoMes">
 		            <nav class="navbar navbar-light bg-light">
-	    	           <form class="form-inline" method="GET" th:action="@{/rubricaGeral/buscar/nome/anomes}">	        	           
+	    	           <form class="form-inline" method="GET" th:action="@{/rubrica/buscar/nome/anomes}">	        	           
 	        	           
 	        	           <input class="form-control mr-sm-2" type="search" placeholder="Ano mes" aria-label="Search"
 	                              th:name="anoMes"/> 
@@ -54,7 +54,7 @@
 	      	<div class="col">
 	        	<div class="collapse" id="collapseHerdar">
 		            <nav class="navbar navbar-light bg-light">
-	    	           <form class="form-inline" method="GET" th:action="@{/rubricaGeral/herdar/de/mes}">	        	           
+	    	           <form class="form-inline" method="GET" th:action="@{/rubrica/herdar/de/mes}">	        	           
 	        	           
 	        	           <select class=" form-select form-control mr-sm-2" 
 	                   				th:name="anoMesInicial" aria-label="Search">
@@ -82,14 +82,14 @@
 	      	<div class="col">
 	        	<div class="collapse" id="collapseDownload">
 		            <nav class="navbar navbar-light bg-light">
-	                	<form class="form-inline" method="GET" th:action="@{/rubricaGeral/buscar/id/uf}">
+	                	<form class="form-inline" method="GET" th:action="@{/rubrica/buscar/id/uf}">
 	                   		
-	                        <a class="btn btn-outline-success btn-md" th:href="@{/rubricaGeral/exporta/excel}" role="button">
+	                        <a class="btn btn-outline-success btn-md" th:href="@{/rubrica/exporta/excel}" role="button">
 				        		<span class="oi oi-cloud-download" title="exportaExcel" aria-hidden="true"></span>
 				            	<span>Exporta Excel</span>
 				       	    </a>
 				       	    
-				       	    <a class="btn btn-outline-danger btn-md" th:href="@{/rubricaGeral/exporta/pdf}" role="button">
+				       	    <a class="btn btn-outline-danger btn-md" th:href="@{/rubrica/exporta/pdf}" role="button">
 				        		<span class="oi oi-cloud-download" title="exportaPdf" aria-hidden="true"></span>
 				            	<span>Exporta Pdf</span>
 				       	    </a>
@@ -111,22 +111,26 @@
 		                    <th style="font-size:10px;" >Ano Mes</th>
 		                    <th style="font-size:10px;" >Código</th>
 		                    <th style="font-size:10px;" >Valor</th>
+		                    <th style="font-size:10px;" >Percentagem</th>
+		                    <th style="font-size:10px;" >Quantidade</th>
 		                    <th style="font-size:10px;" >Ações</th>
 	                    </tr>
 	                </thead>                  
 	                <tbody>
-		            	<tr th:each="d : ${rubricaGeral}">
+		            	<tr th:each="d : ${rubrica}">
 		                	<td style="font-size:10px;"  th:text="${d.id}"></td>
 		                    <td style="font-size:10px;"  th:text="${d.idAnoMesFk != null} ? ${d.idAnoMesFk.nomeAnoMes} : ''  "></td>
 		                    <td style="font-size:10px;"  th:text="${d.idCodigoFk != null} ? ${d.idCodigoFk.codigo} : ''  "></td>
 		                    <td style="font-size:10px;"  th:text="${d.valor != null} ? ${d.valor} : ''  "></td>
+		                    <td style="font-size:10px;"  th:text="${d.percentagem != null} ? ${d.percentagem} : ''  "></td>
+		                    <td style="font-size:10px;"  th:text="${d.quantidade != null} ? ${d.quantidade} : ''  "></td>
 		                    
 		                    
 		                    <td colspan="2">
-		                    	<a class="btn btn-outline-info btn-sm" th:href="@{/rubricaGeral/editar/{id} (id=${d.id}) }" role="button">
+		                    	<a class="btn btn-outline-info btn-sm" th:href="@{/rubrica/editar/{id} (id=${d.id}) }" role="button">
 		                        	<span class="oi oi-brush" title="Editar" aria-hidden="true"></span>
 		                        </a>
-		                        <button th:id="${ 'btn_rubricaGeral/excluir/' + d.id}" type="button" class="btn btn btn-outline-danger btn-sm" 
+		                        <button th:id="${ 'btn_rubrica/excluir/' + d.id}" type="button" class="btn btn btn-outline-danger btn-sm" 
 		                            		data-toggle="modal" data-target="#myModal">
 		                                <span class="oi oi-circle-x" title="Exclusão habilitada" aria-hidden="true"></span>
 		                        </button>
@@ -147,25 +151,25 @@
 		 	<ul class="pagination justify-content-center" >
 		 		<li class="page-item disabled" ></li>		 		
 	
-			 	<li ><a class="btn btn-light btn-paginacao oi oi-media-step-backward" th:if="${currentePage != i}"  th:href="@{'/rubricaGeral/paginar/'+ 1 }" ></a></li>
+			 	<li ><a class="btn btn-light btn-paginacao oi oi-media-step-backward" th:if="${currentePage != i}"  th:href="@{'/rubrica/paginar/'+ 1 }" ></a></li>
 			 	
-			 	<li ><a class="btn btn-light    btn-paginacao    oi oi-media-skip-backward" th:if="${currentePage > 1}"  th:href="@{'/rubricaGeral/paginar/'+ ${currentePage -1}}" ></a></li> 
+			 	<li ><a class="btn btn-light    btn-paginacao    oi oi-media-skip-backward" th:if="${currentePage > 1}"  th:href="@{'/rubrica/paginar/'+ ${currentePage -1}}" ></a></li> 
 			 	
-			 	<li ><a class="btn btn-light    btn-paginacao oi" th:if="${currentePage > 1000}"  th:href="@{'/rubricaGeral/paginar/'+ ${currentePage-1000} }" >-1000</a></li>
+			 	<li ><a class="btn btn-light    btn-paginacao oi" th:if="${currentePage > 1000}"  th:href="@{'/rubrica/paginar/'+ ${currentePage-1000} }" >-1000</a></li>
 			 	
-			 	<li ><a class="btn btn-light    btn-paginacao" th:if="${currentePage > 100}"  th:href="@{'/rubricaGeral/paginar/'+ ${currentePage-100} }" >-100</a></li>
+			 	<li ><a class="btn btn-light    btn-paginacao" th:if="${currentePage > 100}"  th:href="@{'/rubrica/paginar/'+ ${currentePage-100} }" >-100</a></li>
 			 	
-			 	<li ><a class="btn btn-light    btn-paginacao" th:if="${currentePage > 10}"  th:href="@{'/rubricaGeral/paginar/'+ ${currentePage-10} }" >-10</a></li>
+			 	<li ><a class="btn btn-light    btn-paginacao" th:if="${currentePage > 10}"  th:href="@{'/rubrica/paginar/'+ ${currentePage-10} }" >-10</a></li>
 
-			 	<li ><a class="btn btn-light    btn-paginacao"  th:if="${currentePage < totalPages - 10}"  th:href="@{'/rubricaGeral/paginar/'+ ${currentePage+10} }" >+10</a></li>
+			 	<li ><a class="btn btn-light    btn-paginacao"  th:if="${currentePage < totalPages - 10}"  th:href="@{'/rubrica/paginar/'+ ${currentePage+10} }" >+10</a></li>
 			 	
-			 	<li ><a class="btn btn-light    btn-paginacao"  th:if="${currentePage < totalPages - 100}"  th:href="@{'/rubricaGeral/paginar/'+ ${currentePage+100} }" >+100</a></li>
+			 	<li ><a class="btn btn-light    btn-paginacao"  th:if="${currentePage < totalPages - 100}"  th:href="@{'/rubrica/paginar/'+ ${currentePage+100} }" >+100</a></li>
 			 	
-			 	<li ><a class="btn btn-light    btn-paginacao"  th:if="${currentePage < totalPages - 1000}"  th:href="@{'/rubricaGeral/paginar/'+ ${currentePage+1000} }" >+1000</a></li>
+			 	<li ><a class="btn btn-light    btn-paginacao"  th:if="${currentePage < totalPages - 1000}"  th:href="@{'/rubrica/paginar/'+ ${currentePage+1000} }" >+1000</a></li>
 			 	
-			 	<li ><a class="btn btn-light    btn-paginacao    oi oi-media-skip-forward" th:if="${currentePage < totalPages}"  th:href="@{'/rubricaGeral/paginar/' + ${currentePage +1}}"></a> </li>
+			 	<li ><a class="btn btn-light    btn-paginacao    oi oi-media-skip-forward" th:if="${currentePage < totalPages}"  th:href="@{'/rubrica/paginar/' + ${currentePage +1}}"></a> </li>
 		 		
-		 		<li ><a class="btn btn-light    btn-paginacao    oi oi-media-step-forward"  th:if="${currentePage != i}"  th:href="@{'/rubricaGeral/paginar/'+ ${totalPages} }" ></a></li> 
+		 		<li ><a class="btn btn-light    btn-paginacao    oi oi-media-step-forward"  th:if="${currentePage != i}"  th:href="@{'/rubrica/paginar/'+ ${totalPages} }" ></a></li> 
 		 	</ul>
 		</nav>     	        
 	    <div th:replace="fragments/modal :: modal"></div>   

@@ -52,12 +52,12 @@ public class AnoMes extends AbstractEntity<Long> {
     
     
     @OneToMany(mappedBy = "idAnoMesFk")
-    private List<RubricaGeralFuncionario> rubricaGeralSomaFuncionarioList;
+    private List<RubricaFuncionario> rubricaFuncionarioList;
     @OneToMany(mappedBy = "idAnoMesFk")
     private List<FaixasValoresSubsidio> faixasValoresSubsidioList;
     
     @OneToMany(mappedBy = "idAnoMesFk")
-    private List<RubricaGeral> rubricaGeralList;
+    private List<Rubrica> rubricaList;
     @OneToMany(mappedBy = "idAnoMesFk")
     private List<LimiteHorasAcrescimoPorUnidadeEEspecialidade> limiteHorasAcrescimoPorUnidadeEEspecialidadeList;
     
@@ -144,12 +144,7 @@ public class AnoMes extends AbstractEntity<Long> {
 	public List<PessoaChDif> getPessoaChDifList() {
 		return pessoaChDifList;
 	}
-	public List<RubricaGeralFuncionario> getRubricaGeralSomaFuncionarioList() {
-		return rubricaGeralSomaFuncionarioList;
-	}
-	public void setRubricaGeralSomaFuncionarioList(List<RubricaGeralFuncionario> rubricaGeralSomaFuncionarioList) {
-		this.rubricaGeralSomaFuncionarioList = rubricaGeralSomaFuncionarioList;
-	}
+	
 	public List<FaixasValoresSubsidio> getFaixasValoresSubsidioList() {
 		return faixasValoresSubsidioList;
 	}
@@ -158,11 +153,18 @@ public class AnoMes extends AbstractEntity<Long> {
 	}
 	
 	
-	public List<RubricaGeral> getRubricaGeralList() {
-		return rubricaGeralList;
+	
+	public List<RubricaFuncionario> getRubricaFuncionarioList() {
+		return rubricaFuncionarioList;
 	}
-	public void setRubricaGeralList(List<RubricaGeral> rubricaGeralList) {
-		this.rubricaGeralList = rubricaGeralList;
+	public void setRubricaFuncionarioList(List<RubricaFuncionario> rubricaFuncionarioList) {
+		this.rubricaFuncionarioList = rubricaFuncionarioList;
+	}
+	public List<Rubrica> getRubricaList() {
+		return rubricaList;
+	}
+	public void setRubricaList(List<Rubrica> rubricaList) {
+		this.rubricaList = rubricaList;
 	}
 	public List<LimiteHorasAcrescimoPorUnidadeEEspecialidade> getLimiteHorasAcrescimoPorUnidadeEEspecialidadeList() {
 		return limiteHorasAcrescimoPorUnidadeEEspecialidadeList;
