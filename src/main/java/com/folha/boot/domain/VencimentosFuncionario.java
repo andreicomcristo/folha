@@ -7,8 +7,8 @@ import com.folha.boot.service.util.UtilidadesDeTexto;
 
 @SuppressWarnings("serial")
 @Entity
-@Table(name = "rubrica_funcionario")
-public class RubricaFuncionario extends AbstractEntity<Long> {
+@Table(name = "vencimentos_funcionario")
+public class VencimentosFuncionario extends AbstractEntity<Long> {
 
 	@JoinColumn(name = "id_ano_mes_fk", referencedColumnName = "id")
     @ManyToOne
@@ -20,7 +20,7 @@ public class RubricaFuncionario extends AbstractEntity<Long> {
     @ManyToOne
     private RubricaCodigo idCodigoFk;
 
-    public RubricaFuncionario() {
+    public VencimentosFuncionario() {
     }
 
 	public AnoMes getIdAnoMesFk() {

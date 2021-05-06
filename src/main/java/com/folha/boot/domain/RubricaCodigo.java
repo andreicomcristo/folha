@@ -19,7 +19,7 @@ public class RubricaCodigo extends AbstractEntity<Long> {
     @OneToMany(mappedBy = "idCodigoFk")
     private List<Rubrica> rubricaList;
     @OneToMany(mappedBy = "idCodigoFk")
-    private List<RubricaFuncionario> rubricaFuncionarioList;
+    private List<VencimentosFuncionario> rubricaFuncionarioList;
     @JoinColumn(name = "id_natureza_fk", referencedColumnName = "id")
     @ManyToOne
     private RubricaNatureza idNaturezaFk;
@@ -62,11 +62,11 @@ public class RubricaCodigo extends AbstractEntity<Long> {
 		this.rubricaList = rubricaList;
 	}
 
-	public List<RubricaFuncionario> getRubricaFuncionarioList() {
+	public List<VencimentosFuncionario> getRubricaFuncionarioList() {
 		return rubricaFuncionarioList;
 	}
 
-	public void setRubricaFuncionarioList(List<RubricaFuncionario> rubricaFuncionarioList) {
+	public void setRubricaFuncionarioList(List<VencimentosFuncionario> rubricaFuncionarioList) {
 		this.rubricaFuncionarioList = rubricaFuncionarioList;
 	}
 

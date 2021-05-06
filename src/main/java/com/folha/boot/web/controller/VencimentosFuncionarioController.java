@@ -27,22 +27,22 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import com.folha.boot.domain.AnoMes;
 import com.folha.boot.domain.PessoaFuncionarios;
 import com.folha.boot.domain.RubricaCodigo;
-import com.folha.boot.domain.RubricaFuncionario;
+import com.folha.boot.domain.VencimentosFuncionario;
 import com.folha.boot.service.AnoMesService;
 import com.folha.boot.service.PessoaFuncionariosService;
 import com.folha.boot.service.RubricaCodigoService;
-import com.folha.boot.service.RubricaFuncionarioService;
+import com.folha.boot.service.VencimentosFuncionarioService;
 
 
 @Controller
-@RequestMapping("/rubricaFuncionario")
-public class RubricaFuncionarioController {
+@RequestMapping("/vencimentosFuncionario")
+public class VencimentosFuncionarioController {
 
 	String ultimoAnoMes = "";
 	String ultimaBuscaNome = "";
 	
 	@Autowired
-	private RubricaFuncionarioService service;
+	private VencimentosFuncionarioService service;
 	@Autowired
 	private RubricaCodigoService rubricaCodigoService;
 	@Autowired
@@ -56,12 +56,12 @@ public class RubricaFuncionarioController {
 	public String getPorNomePaginadoInclusao(@PathVariable (value = "pageNo") int pageNo, ModelMap model) {
 		
 		if( (ultimaBuscaNome.equals("")) ){
-			return "redirect:/rubricaFuncionario/funcionarios/listar/{pageNo}" ;}
+			return "redirect:/vencimentosFuncionario/funcionarios/listar/{pageNo}" ;}
 		else {		
 			if(!ultimaBuscaNome.equals("")) {
 				return this.findPaginatedFuncionario(pageNo, ultimaBuscaNome, model);}
 			else {
-				return "redirect:/rubricaFuncionario/funcionarios/listar/{pageNo}" ;}
+				return "redirect:/vencimentosFuncionario/funcionarios/listar/{pageNo}" ;}
 			}
 	}
 	
@@ -86,7 +86,7 @@ public class RubricaFuncionarioController {
 		model.addAttribute("totalPages", page.getTotalPages());
 		model.addAttribute("totalItems", page.getTotalElements()); 
 		model.addAttribute("listaFuncionarios", lista);
-		return "/rubricaFuncionario/listafuncionario";	
+		return "/vencimentosFuncionario/listafuncionario";	
 	}	
 	
 	@GetMapping("/buscar/funcionarios/nome")
@@ -110,15 +110,15 @@ public class RubricaFuncionarioController {
 	
 	// Dados para Atribuição
 	@GetMapping("/cadastrar/{id}")
-	public String cadastrar(@PathVariable("id") Long id, RubricaFuncionario rubricaFuncionario) {
-		rubricaFuncionario.setIdFuncionarioFk(pessoaFuncionariosService.buscarPorId(id));
-		return "/rubricaFuncionario/cadastro";
+	public String cadastrar(@PathVariable("id") Long id, VencimentosFuncionario vencimentosFuncionario) {
+		vencimentosFuncionario.setIdFuncionarioFk(pessoaFuncionariosService.buscarPorId(id));
+		return "/vencimentosFuncionario/cadastro";
 	}
 	
 	@GetMapping("/cadastrar")
-	public String cadastrar(RubricaFuncionario rubricaFuncionario) {
+	public String cadastrar(VencimentosFuncionario vencimentosFuncionario) {
 		
-		return "/rubricaFuncionario/cadastro";
+		return "/vencimentosFuncionario/cadastro";
 	}
 	
 	@GetMapping("/listar")
@@ -130,31 +130,31 @@ public class RubricaFuncionarioController {
 	@GetMapping("/listar/{pageNo}")
 	public String findPaginated(@PathVariable (value = "pageNo") int pageNo, ModelMap model) {
 		int pageSeze = 30;
-		Page<RubricaFuncionario> page = service.findPaginated(pageNo, pageSeze);
-		List<RubricaFuncionario> lista = page.getContent();
+		Page<VencimentosFuncionario> page = service.findPaginated(pageNo, pageSeze);
+		List<VencimentosFuncionario> lista = page.getContent();
 		return paginar(pageNo, page, lista, model);
 	}
 	
 	public String findPaginated(@PathVariable (value = "pageNo") int pageNo, String cnes, ModelMap model) {
 		int pageSeze = 30;
-		Page<RubricaFuncionario> page = service.findPaginatedAnoMes(pageNo, pageSeze, cnes);
-		List<RubricaFuncionario> lista = page.getContent();
+		Page<VencimentosFuncionario> page = service.findPaginatedAnoMes(pageNo, pageSeze, cnes);
+		List<VencimentosFuncionario> lista = page.getContent();
 		return paginar(pageNo, page, lista, model);
 	}
 	
-	public String paginar(int pageNo, Page<RubricaFuncionario> page, List<RubricaFuncionario> lista, ModelMap model) {	
+	public String paginar(int pageNo, Page<VencimentosFuncionario> page, List<VencimentosFuncionario> lista, ModelMap model) {	
 		model.addAttribute("currentePage", pageNo);
 		model.addAttribute("totalPages", page.getTotalPages());
 		model.addAttribute("totalItems", page.getTotalElements()); 
-		model.addAttribute("rubricaFuncionario", lista);
-		return "/rubricaFuncionario/lista";	
+		model.addAttribute("vencimentosFuncionario", lista);
+		return "/vencimentosFuncionario/lista";	
 	}
 	
 	@GetMapping("/paginar/{pageNo}")
 	public String getPorCnesPaginado(@PathVariable (value = "pageNo") int pageNo, ModelMap model) {
 		if(pageNo<1) {pageNo = 1;}
 		if( (ultimoAnoMes.equals("")) ){
-			return "redirect:/rubricaFuncionario/listar/{pageNo}" ;}
+			return "redirect:/vencimentosFuncionario/listar/{pageNo}" ;}
 		else {return this.findPaginated(pageNo, ultimoAnoMes, model);}
 	}
 	
@@ -165,34 +165,34 @@ public class RubricaFuncionarioController {
 	}
 	
 	@PostMapping("/salvar")
-	public String salvar(RubricaFuncionario rubricaFuncionario, RedirectAttributes attr) {
+	public String salvar(VencimentosFuncionario vencimentosFuncionario, RedirectAttributes attr) {
 		// Evitando salvar quem já está cadastrado
-		if(rubricaFuncionario!=null) {
-			if(rubricaFuncionario.getId()==null) {
-				if(service.avaliarCadastrado(rubricaFuncionario.getIdCodigoFk(), rubricaFuncionario.getIdAnoMesFk(), rubricaFuncionario.getIdFuncionarioFk() )==true) {
+		if(vencimentosFuncionario!=null) {
+			if(vencimentosFuncionario.getId()==null) {
+				if(service.avaliarCadastrado(vencimentosFuncionario.getIdCodigoFk(), vencimentosFuncionario.getIdAnoMesFk(), vencimentosFuncionario.getIdFuncionarioFk() )==true) {
 					return "redirect:/mensagens/mensagem/de/ja/cadastrado";	
 				}
 			}
 		}			
 		
-		service.salvar(rubricaFuncionario);
+		service.salvar(vencimentosFuncionario);
 		attr.addFlashAttribute("success", "Inserido com sucesso.");
-		return "redirect:/rubricaFuncionario/listar";
+		return "redirect:/vencimentosFuncionario/listar";
 	}
 	
 	@GetMapping("/editar/{id}")
 	public String preEditar(@PathVariable("id") Long id, ModelMap model) {
-		model.addAttribute("rubricaFuncionario", service.buscarPorId(id));
-		return "/rubricaFuncionario/cadastro";
+		model.addAttribute("vencimentosFuncionario", service.buscarPorId(id));
+		return "/vencimentosFuncionario/cadastro";
 	}
 	
 	@PostMapping("/editar")
-	public String editar(RubricaFuncionario rubricaFuncionario, RedirectAttributes attr) {	
+	public String editar(VencimentosFuncionario vencimentosFuncionario, RedirectAttributes attr) {	
 		
 		
-		service.editar(rubricaFuncionario);
+		service.editar(vencimentosFuncionario);
 		attr.addFlashAttribute("success", "Editado com sucesso.");
-		return "redirect:/rubricaFuncionario/listar";
+		return "redirect:/vencimentosFuncionario/listar";
 	}
 	
 	@GetMapping("/excluir/{id}")
@@ -206,15 +206,15 @@ public class RubricaFuncionarioController {
 	@GetMapping("/herdar/de/mes") 
 	public String herdarDeMes( Long anoMesInicial,  Long anoMesFinal,  ModelMap model) {		
 		service.herdarDeUmMesParaOOutro(anoMesInicial, anoMesFinal);
-		return "redirect:/rubricaFuncionario/listar" ;
+		return "redirect:/vencimentosFuncionario/listar" ;
 	}
 	
 	
 	
 	@GetMapping("/buscar/nome")
 	public String getPorNome(@RequestParam("cnesUnidade") String nome, ModelMap model) {		
-		model.addAttribute("rubricaFuncionario", service.buscarPorNome(nome.toUpperCase().trim()));
-		return "/rubricaFuncionario/lista";
+		model.addAttribute("vencimentosFuncionario", service.buscarPorNome(nome.toUpperCase().trim()));
+		return "/vencimentosFuncionario/lista";
 	}
 	
 	@GetMapping("/exporta/excel")

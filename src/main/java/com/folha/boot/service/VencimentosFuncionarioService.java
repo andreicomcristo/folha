@@ -20,11 +20,11 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import com.folha.boot.Reposytory.RubricaFuncionarioReposytory;
+import com.folha.boot.Reposytory.VencimentosFuncionarioReposytory;
 import com.folha.boot.domain.AnoMes;
 import com.folha.boot.domain.PessoaFuncionarios;
 import com.folha.boot.domain.RubricaCodigo;
-import com.folha.boot.domain.RubricaFuncionario;
+import com.folha.boot.domain.VencimentosFuncionario;
 import com.itextpdf.text.Document;
 import com.itextpdf.text.DocumentException;
 import com.itextpdf.text.Element;
@@ -37,10 +37,10 @@ import com.itextpdf.text.pdf.PdfWriter;
 
 @Service
 @Transactional(readOnly = false)
-public class RubricaFuncionarioService {
+public class VencimentosFuncionarioService {
 
 	@Autowired
-	private RubricaFuncionarioReposytory reposytory;
+	private VencimentosFuncionarioReposytory reposytory;
 	
 	@Autowired
 	private AnoMesService anoMesService;
@@ -49,12 +49,12 @@ public class RubricaFuncionarioService {
 	private RubricaService rubricaService;
 	
 
-	public void salvar(RubricaFuncionario rubricaGeralSomaFuncionario) {
+	public void salvar(VencimentosFuncionario rubricaGeralSomaFuncionario) {
 		// TODO Auto-generated method stub
 		reposytory.save(rubricaGeralSomaFuncionario);
 	}
 
-	public void editar(RubricaFuncionario rubricaGeralSomaFuncionario) {
+	public void editar(VencimentosFuncionario rubricaGeralSomaFuncionario) {
 		// TODO Auto-generated method stub
 		reposytory.save(rubricaGeralSomaFuncionario);
 	}
@@ -65,40 +65,40 @@ public class RubricaFuncionarioService {
 	}
 
 	@Transactional(readOnly = true)
-	public RubricaFuncionario buscarPorId(Long id) {
+	public VencimentosFuncionario buscarPorId(Long id) {
 		// TODO Auto-generated method stub
 		return reposytory.findById(id).get();
 	}
 
 	@Transactional(readOnly = true)
-	public List<RubricaFuncionario> buscarTodos() {
+	public List<VencimentosFuncionario> buscarTodos() {
 		// TODO Auto-generated method stub
 		return reposytory.findAllByOrderByIdAnoMesFkNomeAnoMesDesc();
 	}
 	
 	@Transactional(readOnly = true)
-	public List<RubricaFuncionario> buscarPorMesExato(AnoMes anoMes) {
+	public List<VencimentosFuncionario> buscarPorMesExato(AnoMes anoMes) {
 		return reposytory.findByIdAnoMesFkOrderByIdAnoMesFkNomeAnoMesDesc(anoMes);
 	}
 	
 	@Transactional(readOnly = true)
-	public List<RubricaFuncionario> buscarPorNome(String nome) {
+	public List<VencimentosFuncionario> buscarPorNome(String nome) {
 		return reposytory.findByIdAnoMesFkNomeAnoMesContainingOrderByIdAnoMesFkNomeAnoMesDesc(nome);
 	}
 	
-	public Page<RubricaFuncionario> findPaginated(int pageNo, int pageSize) {
+	public Page<VencimentosFuncionario> findPaginated(int pageNo, int pageSize) {
 		Pageable pageable = PageRequest.of(pageNo -1, pageSize);
 		return this.reposytory.findAllByOrderByIdAnoMesFkNomeAnoMesDesc(pageable);
 	}
 
-	public Page<RubricaFuncionario> findPaginatedAnoMes(int pageNo, int pageSize, String nome) {
+	public Page<VencimentosFuncionario> findPaginatedAnoMes(int pageNo, int pageSize, String nome) {
 		Pageable pageable = PageRequest.of(pageNo -1, pageSize);
 		return this.reposytory.findByIdAnoMesFkNomeAnoMesContainingOrderByIdAnoMesFkNomeAnoMesDesc(nome.toUpperCase().trim(), pageable);
 	}
 	
 	public boolean avaliarCadastrado( RubricaCodigo rubricaGeralSomaCodigo, AnoMes anoMes, PessoaFuncionarios PessoaFuncionarios) {
 		boolean resposta = false;
-		List<RubricaFuncionario> lista = reposytory.findByIdCodigoFkAndIdAnoMesFkAndIdFuncionarioFk( rubricaGeralSomaCodigo, anoMes, PessoaFuncionarios); 
+		List<VencimentosFuncionario> lista = reposytory.findByIdCodigoFkAndIdAnoMesFkAndIdFuncionarioFk( rubricaGeralSomaCodigo, anoMes, PessoaFuncionarios); 
 		if(!lista.isEmpty()) {resposta = true;}
 		return resposta;
 	}
@@ -106,12 +106,12 @@ public class RubricaFuncionarioService {
 	//Herdar de um mes para o outro
 	public void herdarDeUmMesParaOOutro(Long anoMesInicial, Long anoMesFinal) {
 		
-		List<RubricaFuncionario> listaInicial = buscarPorMesExato(anoMesService.buscarPorId(anoMesInicial)); 
-		List<RubricaFuncionario> listaFinal = buscarPorMesExato(anoMesService.buscarPorId(anoMesFinal));
+		List<VencimentosFuncionario> listaInicial = buscarPorMesExato(anoMesService.buscarPorId(anoMesInicial)); 
+		List<VencimentosFuncionario> listaFinal = buscarPorMesExato(anoMesService.buscarPorId(anoMesFinal));
 		
 		if( (!listaInicial.isEmpty())  &&  (listaFinal.isEmpty()) ) {
 			for(int i=0;i<listaInicial.size();i++) {
-				RubricaFuncionario f = new RubricaFuncionario();
+				VencimentosFuncionario f = new VencimentosFuncionario();
 				f.setId(null);
 				f.setIdAnoMesFk(anoMesService.buscarPorId(anoMesFinal));
 				f.setIdCodigoFk( listaInicial.get(i).getIdCodigoFk() );
@@ -123,7 +123,7 @@ public class RubricaFuncionarioService {
 	}
 	
 	
-	public ByteArrayInputStream exportarExcel(List<RubricaFuncionario> lista) {
+	public ByteArrayInputStream exportarExcel(List<VencimentosFuncionario> lista) {
 		try(Workbook workbook = new XSSFWorkbook()){
 			Sheet sheet = workbook.createSheet("Dados");
 			
@@ -234,7 +234,7 @@ public class RubricaFuncionarioService {
 		}
 	}
 
-	public ByteArrayInputStream exportarPdf(List<RubricaFuncionario> lista) {
+	public ByteArrayInputStream exportarPdf(List<VencimentosFuncionario> lista) {
 
 		Document document = new Document();
 		ByteArrayOutputStream out = new ByteArrayOutputStream();
