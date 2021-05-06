@@ -7,17 +7,17 @@ import com.folha.boot.service.util.UtilidadesDeTexto;
 
 @SuppressWarnings("serial")
 @Entity
-@Table(name = "rubrica_geral_soma_codigo")
-public class RubricaGeralSomaCodigo extends AbstractEntity<Long> {
+@Table(name = "rubrica_geral_codigo")
+public class RubricaGeralCodigo extends AbstractEntity<Long> {
 
 	@Column(name = "codigo")
     private String codigo;
     @Column(name = "descricao")
     private String descricao;
     @OneToMany(mappedBy = "idCodigoFk")
-    private List<RubricaGeralSomaFuncionario> rubricaGeralSomaFuncionarioList;
+    private List<RubricaGeralFuncionario> rubricaGeralSomaFuncionarioList;
     @OneToMany(mappedBy = "idCodigoFk")
-    private List<RubricaGeralSoma> rubricaGeralSomaList;
+    private List<RubricaGeral> rubricaGeralSomaList;
     @JoinColumn(name = "id_natureza_fk", referencedColumnName = "id")
     @ManyToOne
     private RubricaNatureza idNaturezaFk;
@@ -33,16 +33,16 @@ public class RubricaGeralSomaCodigo extends AbstractEntity<Long> {
 	public void setDescricao(String descricao) {
 		this.descricao = UtilidadesDeTexto.retiraEspacosDuplosAcentosEConverteEmMaiusculo(descricao);
 	}
-	public List<RubricaGeralSomaFuncionario> getRubricaGeralSomaFuncionarioList() {
+	public List<RubricaGeralFuncionario> getRubricaGeralSomaFuncionarioList() {
 		return rubricaGeralSomaFuncionarioList;
 	}
-	public void setRubricaGeralSomaFuncionarioList(List<RubricaGeralSomaFuncionario> rubricaGeralSomaFuncionarioList) {
+	public void setRubricaGeralSomaFuncionarioList(List<RubricaGeralFuncionario> rubricaGeralSomaFuncionarioList) {
 		this.rubricaGeralSomaFuncionarioList = rubricaGeralSomaFuncionarioList;
 	}
-	public List<RubricaGeralSoma> getRubricaGeralSomaList() {
+	public List<RubricaGeral> getRubricaGeralSomaList() {
 		return rubricaGeralSomaList;
 	}
-	public void setRubricaGeralSomaList(List<RubricaGeralSoma> rubricaGeralSomaList) {
+	public void setRubricaGeralSomaList(List<RubricaGeral> rubricaGeralSomaList) {
 		this.rubricaGeralSomaList = rubricaGeralSomaList;
 	}
 	public RubricaNatureza getIdNaturezaFk() {

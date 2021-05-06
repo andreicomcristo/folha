@@ -14,7 +14,7 @@ import com.folha.boot.domain.AtividadeEscala;
 import com.folha.boot.domain.CargosEspecialidade;
 import com.folha.boot.domain.LimiteHorasAcrescimoPorUnidadeEEspecialidade;
 import com.folha.boot.domain.LocalidadeEscala;
-import com.folha.boot.domain.RubricaGeralSoma;
+import com.folha.boot.domain.RubricaGeral;
 import com.folha.boot.domain.Unidades;
 
 @Service

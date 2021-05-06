@@ -7,29 +7,22 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import com.folha.boot.Reposytory.AtividadeEscalaReposytory;
-import com.folha.boot.Reposytory.RubricaComplementoConstitucionalCodigoReposytory;
-import com.folha.boot.Reposytory.RubricaGeralSomaCodigoReposytory;
-import com.folha.boot.Reposytory.RubricaInsalubridadeCodigoReposytory;
-import com.folha.boot.domain.AtividadeEscala;
-import com.folha.boot.domain.LocalidadeEscala;
-import com.folha.boot.domain.RubricaComplementoConstitucionalCodigo;
-import com.folha.boot.domain.RubricaGeralSomaCodigo;
-import com.folha.boot.domain.RubricaInsalubridadeCodigo;
-import com.folha.boot.domain.Unidades;
+import com.folha.boot.Reposytory.RubricaGeralCodigoReposytory;
+import com.folha.boot.domain.RubricaGeralCodigo;
+
 
 @Service
 @Transactional(readOnly = false)
-public class RubricaGeralSomaCodigoService {
+public class RubricaGeralCodigoService {
 
 	@Autowired
-	private  RubricaGeralSomaCodigoReposytory reposytory;
+	private  RubricaGeralCodigoReposytory reposytory;
 
-	public void salvar(RubricaGeralSomaCodigo rubricaGeralSomaCodigo) {
+	public void salvar(RubricaGeralCodigo rubricaGeralSomaCodigo) {
 		reposytory.save(rubricaGeralSomaCodigo);
 	}
 
-	public void editar(RubricaGeralSomaCodigo rubricaGeralSomaCodigo) {
+	public void editar(RubricaGeralCodigo rubricaGeralSomaCodigo) {
 		reposytory.save(rubricaGeralSomaCodigo);
 
 	}
@@ -40,27 +33,27 @@ public class RubricaGeralSomaCodigoService {
 	}
 	
 	@Transactional(readOnly = true)
-	public RubricaGeralSomaCodigo buscarPorId(Long id) {
+	public RubricaGeralCodigo buscarPorId(Long id) {
 		return reposytory.findById(id).get();
 	}
 		
-	public List<RubricaGeralSomaCodigo> buscarPorNome( String nome) {
+	public List<RubricaGeralCodigo> buscarPorNome( String nome) {
 		return reposytory.findByCodigoContainingOrderByCodigoAsc( nome.toUpperCase().trim());
 	}
 	
-	public List<RubricaGeralSomaCodigo> buscarTodos( ) {
+	public List<RubricaGeralCodigo> buscarTodos( ) {
 		return reposytory.findAllByOrderByCodigoAsc();
 	}
 	
 	
 	@Transactional(readOnly = true)
-	public Page<RubricaGeralSomaCodigo> findPaginated(int pageNo, int pageSize) {
+	public Page<RubricaGeralCodigo> findPaginated(int pageNo, int pageSize) {
 		Pageable pageable = PageRequest.of(pageNo -1, pageSize);
 		return this.reposytory.findAll(  pageable);
 	}
 
 	@Transactional(readOnly = true)
-	public Page<RubricaGeralSomaCodigo> findPaginatedNome(String nome, int pageNo, int pageSize ) {
+	public Page<RubricaGeralCodigo> findPaginatedNome(String nome, int pageNo, int pageSize ) {
 		Pageable pageable = PageRequest.of(pageNo -1, pageSize);
 		return this.reposytory.findByCodigoContainingOrderByCodigoAsc( nome.toUpperCase().trim(), pageable);
 	}
@@ -68,7 +61,7 @@ public class RubricaGeralSomaCodigoService {
 	
 	public boolean avaliarCadastrado( String nome) {
 		boolean resposta = false;
-		List<RubricaGeralSomaCodigo> lista = reposytory.findByCodigoOrderByCodigoAsc( nome.toUpperCase().trim()); 
+		List<RubricaGeralCodigo> lista = reposytory.findByCodigoOrderByCodigoAsc( nome.toUpperCase().trim()); 
 		if(!lista.isEmpty()) {resposta = true;}
 		return resposta;
 	}

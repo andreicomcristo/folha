@@ -20,22 +20,10 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import com.folha.boot.Reposytory.FaixasValoresParametrosCalculoFolhasExtrasReposytory;
-import com.folha.boot.Reposytory.FaixasValoresSubsidioReposytory;
-import com.folha.boot.Reposytory.RubricaComplementoConstitucionalReposytory;
-import com.folha.boot.Reposytory.RubricaGeralSomaReposytory;
-import com.folha.boot.Reposytory.RubricaInsalubridadeReposytory;
+import com.folha.boot.Reposytory.RubricaGeralReposytory;
 import com.folha.boot.domain.AnoMes;
-import com.folha.boot.domain.Cidades;
-import com.folha.boot.domain.FaixasValoresParametrosCalculoFolhasExtras;
-import com.folha.boot.domain.FaixasValoresSubsidio;
-import com.folha.boot.domain.RubricaComplementoConstitucional;
-import com.folha.boot.domain.RubricaComplementoConstitucionalCodigo;
-import com.folha.boot.domain.RubricaGeralSoma;
-import com.folha.boot.domain.RubricaGeralSomaCodigo;
-import com.folha.boot.domain.RubricaInsalubridade;
-import com.folha.boot.domain.RubricaInsalubridadeCodigo;
-import com.folha.boot.domain.Unidades;
+import com.folha.boot.domain.RubricaGeral;
+import com.folha.boot.domain.RubricaGeralCodigo;
 import com.itextpdf.text.Document;
 import com.itextpdf.text.DocumentException;
 import com.itextpdf.text.Element;
@@ -48,21 +36,21 @@ import com.itextpdf.text.pdf.PdfWriter;
 
 @Service
 @Transactional(readOnly = false)
-public class RubricaGeralSomaService {
+public class RubricaGeralService {
 
 	@Autowired
-	private RubricaGeralSomaReposytory reposytory;
+	private RubricaGeralReposytory reposytory;
 	
 	@Autowired
 	private AnoMesService anoMesService;
 	
 
-	public void salvar(RubricaGeralSoma rubricaGeralSoma) {
+	public void salvar(RubricaGeral rubricaGeralSoma) {
 		// TODO Auto-generated method stub
 		reposytory.save(rubricaGeralSoma);
 	}
 
-	public void editar(RubricaGeralSoma rubricaGeralSoma) {
+	public void editar(RubricaGeral rubricaGeralSoma) {
 		// TODO Auto-generated method stub
 		reposytory.save(rubricaGeralSoma);
 	}
@@ -73,40 +61,40 @@ public class RubricaGeralSomaService {
 	}
 
 	@Transactional(readOnly = true)
-	public RubricaGeralSoma buscarPorId(Long id) {
+	public RubricaGeral buscarPorId(Long id) {
 		// TODO Auto-generated method stub
 		return reposytory.findById(id).get();
 	}
 
 	@Transactional(readOnly = true)
-	public List<RubricaGeralSoma> buscarTodos() {
+	public List<RubricaGeral> buscarTodos() {
 		// TODO Auto-generated method stub
 		return reposytory.findAllByOrderByIdAnoMesFkNomeAnoMesDesc();
 	}
 	
 	@Transactional(readOnly = true)
-	public List<RubricaGeralSoma> buscarPorMesExato(AnoMes anoMes) {
+	public List<RubricaGeral> buscarPorMesExato(AnoMes anoMes) {
 		return reposytory.findByIdAnoMesFkOrderByIdAnoMesFkNomeAnoMesDesc(anoMes);
 	}
 	
 	@Transactional(readOnly = true)
-	public List<RubricaGeralSoma> buscarPorNome(String nome) {
+	public List<RubricaGeral> buscarPorNome(String nome) {
 		return reposytory.findByIdAnoMesFkNomeAnoMesContainingOrderByIdAnoMesFkNomeAnoMesDesc(nome);
 	}
 	
-	public Page<RubricaGeralSoma> findPaginated(int pageNo, int pageSize) {
+	public Page<RubricaGeral> findPaginated(int pageNo, int pageSize) {
 		Pageable pageable = PageRequest.of(pageNo -1, pageSize);
 		return this.reposytory.findAllByOrderByIdAnoMesFkNomeAnoMesDesc(pageable);
 	}
 
-	public Page<RubricaGeralSoma> findPaginatedAnoMes(int pageNo, int pageSize, String nome) {
+	public Page<RubricaGeral> findPaginatedAnoMes(int pageNo, int pageSize, String nome) {
 		Pageable pageable = PageRequest.of(pageNo -1, pageSize);
 		return this.reposytory.findByIdAnoMesFkNomeAnoMesContainingOrderByIdAnoMesFkNomeAnoMesDesc(nome.toUpperCase().trim(), pageable);
 	}
 	
-	public boolean avaliarCadastrado( RubricaGeralSomaCodigo rubricaGeralSomaCodigo, AnoMes anoMes) {
+	public boolean avaliarCadastrado( RubricaGeralCodigo rubricaGeralSomaCodigo, AnoMes anoMes) {
 		boolean resposta = false;
-		List<RubricaGeralSoma> lista = reposytory.findByIdCodigoFkAndIdAnoMesFk( rubricaGeralSomaCodigo, anoMes); 
+		List<RubricaGeral> lista = reposytory.findByIdCodigoFkAndIdAnoMesFk( rubricaGeralSomaCodigo, anoMes); 
 		if(!lista.isEmpty()) {resposta = true;}
 		return resposta;
 	}
@@ -114,12 +102,12 @@ public class RubricaGeralSomaService {
 	//Herdar de um mes para o outro
 	public void herdarDeUmMesParaOOutro(Long anoMesInicial, Long anoMesFinal) {
 		
-		List<RubricaGeralSoma> listaInicial = buscarPorMesExato(anoMesService.buscarPorId(anoMesInicial)); 
-		List<RubricaGeralSoma> listaFinal = buscarPorMesExato(anoMesService.buscarPorId(anoMesFinal));
+		List<RubricaGeral> listaInicial = buscarPorMesExato(anoMesService.buscarPorId(anoMesInicial)); 
+		List<RubricaGeral> listaFinal = buscarPorMesExato(anoMesService.buscarPorId(anoMesFinal));
 		
 		if( (!listaInicial.isEmpty())  &&  (listaFinal.isEmpty()) ) {
 			for(int i=0;i<listaInicial.size();i++) {
-				RubricaGeralSoma f = new RubricaGeralSoma();
+				RubricaGeral f = new RubricaGeral();
 				f.setId(null);
 				f.setIdAnoMesFk(anoMesService.buscarPorId(anoMesFinal));
 				f.setIdCodigoFk( listaInicial.get(i).getIdCodigoFk() );
@@ -131,7 +119,7 @@ public class RubricaGeralSomaService {
 	}
 	
 	
-	public ByteArrayInputStream exportarExcel(List<RubricaGeralSoma> lista) {
+	public ByteArrayInputStream exportarExcel(List<RubricaGeral> lista) {
 		try(Workbook workbook = new XSSFWorkbook()){
 			Sheet sheet = workbook.createSheet("Dados");
 			
@@ -192,7 +180,7 @@ public class RubricaGeralSomaService {
 		}
 	}
 
-	public ByteArrayInputStream exportarPdf(List<RubricaGeralSoma> lista) {
+	public ByteArrayInputStream exportarPdf(List<RubricaGeral> lista) {
 
 		Document document = new Document();
 		ByteArrayOutputStream out = new ByteArrayOutputStream();

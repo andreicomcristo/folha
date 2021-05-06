@@ -25,64 +25,30 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.folha.boot.domain.AnoMes;
-import com.folha.boot.domain.CargaHorariaSemanal;
-import com.folha.boot.domain.Carreiras;
-import com.folha.boot.domain.Cidades;
-import com.folha.boot.domain.ClassesCarreira;
-import com.folha.boot.domain.CodigoDiferenciado;
-import com.folha.boot.domain.FaixasPrevidencia;
-import com.folha.boot.domain.FaixasValoresParametrosCalculoFolhasExtras;
-import com.folha.boot.domain.FaixasValoresSubsidio;
-import com.folha.boot.domain.NiveisCargo;
-import com.folha.boot.domain.NiveisCarreira;
-import com.folha.boot.domain.RegimesDeTrabalho;
-import com.folha.boot.domain.RubricaComplementoConstitucional;
-import com.folha.boot.domain.RubricaComplementoConstitucionalCodigo;
-import com.folha.boot.domain.RubricaGeralSoma;
-import com.folha.boot.domain.RubricaGeralSomaCodigo;
-import com.folha.boot.domain.RubricaInsalubridade;
-import com.folha.boot.domain.RubricaInsalubridadeCodigo;
-import com.folha.boot.domain.TiposDeFolha;
-import com.folha.boot.domain.Unidades;
-import com.folha.boot.domain.UnidadesRegime;
+import com.folha.boot.domain.RubricaGeral;
+import com.folha.boot.domain.RubricaGeralCodigo;
 import com.folha.boot.service.AnoMesService;
-import com.folha.boot.service.CargaHorariaSemanalService;
-import com.folha.boot.service.CarreirasService;
-import com.folha.boot.service.ClassesCarreiraService;
-import com.folha.boot.service.CodigoDiferenciadoService;
-import com.folha.boot.service.FaixasValoresParametrosCalculoFolhasExtrasService;
-import com.folha.boot.service.FaixasValoresSubsidioService;
-import com.folha.boot.service.NiveisCargoService;
-import com.folha.boot.service.NiveisCarreiraService;
-import com.folha.boot.service.RegimesDeTrabalhoService;
-import com.folha.boot.service.RubricaComplementoConstitucionalCodigoService;
-import com.folha.boot.service.RubricaComplementoConstitucionalService;
-import com.folha.boot.service.RubricaGeralSomaCodigoService;
-import com.folha.boot.service.RubricaGeralSomaService;
-import com.folha.boot.service.RubricaInsalubridadeCodigoService;
-import com.folha.boot.service.RubricaInsalubridadeService;
-import com.folha.boot.service.TiposDeFolhaService;
-import com.folha.boot.service.UnidadesRegimeService;
-import com.folha.boot.service.UnidadesService;
+import com.folha.boot.service.RubricaGeralCodigoService;
+import com.folha.boot.service.RubricaGeralService;
 
 
 @Controller
-@RequestMapping("/rubricaGeralSoma")
-public class RubricaGeralSomaController {
+@RequestMapping("/rubricaGeral")
+public class RubricaGeralController {
 
 	String ultimoAnoMes = "";
 	
 	@Autowired
-	private RubricaGeralSomaService service;
+	private RubricaGeralService service;
 	@Autowired
-	private RubricaGeralSomaCodigoService rubricaCodigoService;
+	private RubricaGeralCodigoService rubricaCodigoService;
 	@Autowired
 	private AnoMesService anoMesService;
 	
 	@GetMapping("/cadastrar")
-	public String cadastrar(RubricaGeralSoma rubricaGeralSoma) {
+	public String cadastrar(RubricaGeral rubricaGeral) {
 		
-		return "/rubricaGeralSoma/cadastro";
+		return "/rubricaGeral/cadastro";
 	}
 	
 	@GetMapping("/listar")
@@ -94,31 +60,31 @@ public class RubricaGeralSomaController {
 	@GetMapping("/listar/{pageNo}")
 	public String findPaginated(@PathVariable (value = "pageNo") int pageNo, ModelMap model) {
 		int pageSeze = 10;
-		Page<RubricaGeralSoma> page = service.findPaginated(pageNo, pageSeze);
-		List<RubricaGeralSoma> lista = page.getContent();
+		Page<RubricaGeral> page = service.findPaginated(pageNo, pageSeze);
+		List<RubricaGeral> lista = page.getContent();
 		return paginar(pageNo, page, lista, model);
 	}
 	
 	public String findPaginated(@PathVariable (value = "pageNo") int pageNo, String cnes, ModelMap model) {
 		int pageSeze = 10;
-		Page<RubricaGeralSoma> page = service.findPaginatedAnoMes(pageNo, pageSeze, cnes);
-		List<RubricaGeralSoma> lista = page.getContent();
+		Page<RubricaGeral> page = service.findPaginatedAnoMes(pageNo, pageSeze, cnes);
+		List<RubricaGeral> lista = page.getContent();
 		return paginar(pageNo, page, lista, model);
 	}
 	
-	public String paginar(int pageNo, Page<RubricaGeralSoma> page, List<RubricaGeralSoma> lista, ModelMap model) {	
+	public String paginar(int pageNo, Page<RubricaGeral> page, List<RubricaGeral> lista, ModelMap model) {	
 		model.addAttribute("currentePage", pageNo);
 		model.addAttribute("totalPages", page.getTotalPages());
 		model.addAttribute("totalItems", page.getTotalElements()); 
-		model.addAttribute("rubricaGeralSoma", lista);
-		return "/rubricaGeralSoma/lista";	
+		model.addAttribute("rubricaGeral", lista);
+		return "/rubricaGeral/lista";	
 	}
 	
 	@GetMapping("/paginar/{pageNo}")
 	public String getPorCnesPaginado(@PathVariable (value = "pageNo") int pageNo, ModelMap model) {
 		if(pageNo<1) {pageNo = 1;}
 		if( (ultimoAnoMes.equals("")) ){
-			return "redirect:/rubricaGeralSoma/listar/{pageNo}" ;}
+			return "redirect:/rubricaGeral/listar/{pageNo}" ;}
 		else {return this.findPaginated(pageNo, ultimoAnoMes, model);}
 	}
 	
@@ -129,43 +95,43 @@ public class RubricaGeralSomaController {
 	}
 	
 	@PostMapping("/salvar")
-	public String salvar(RubricaGeralSoma rubricaGeralSoma, RedirectAttributes attr) {
+	public String salvar(RubricaGeral rubricaGeral, RedirectAttributes attr) {
 		
 		// Evitando salvar quem já está cadastrado
-			if(rubricaGeralSoma!=null) {
-				if(rubricaGeralSoma.getId()==null) {
-					if(service.avaliarCadastrado(rubricaGeralSoma.getIdCodigoFk(), rubricaGeralSoma.getIdAnoMesFk() )==true) {
+			if(rubricaGeral!=null) {
+				if(rubricaGeral.getId()==null) {
+					if(service.avaliarCadastrado(rubricaGeral.getIdCodigoFk(), rubricaGeral.getIdAnoMesFk() )==true) {
 						return "redirect:/mensagens/mensagem/de/ja/cadastrado";	
 					}
 				}
 			}
 				
 		
-		if(rubricaGeralSoma.getValor()==null) {
-			rubricaGeralSoma.setValor(0.0);
+		if(rubricaGeral.getValor()==null) {
+			rubricaGeral.setValor(0.0);
 		}
 		
-		service.salvar(rubricaGeralSoma);
+		service.salvar(rubricaGeral);
 		attr.addFlashAttribute("success", "Inserido com sucesso.");
-		return "redirect:/rubricaGeralSoma/cadastrar";
+		return "redirect:/rubricaGeral/cadastrar";
 	}
 	
 	@GetMapping("/editar/{id}")
 	public String preEditar(@PathVariable("id") Long id, ModelMap model) {
-		model.addAttribute("rubricaGeralSoma", service.buscarPorId(id));
-		return "/rubricaGeralSoma/cadastro";
+		model.addAttribute("rubricaGeral", service.buscarPorId(id));
+		return "/rubricaGeral/cadastro";
 	}
 	
 	@PostMapping("/editar")
-	public String editar(RubricaGeralSoma rubricaGeralSoma, RedirectAttributes attr) {	
+	public String editar(RubricaGeral rubricaGeral, RedirectAttributes attr) {	
 		
-		if(rubricaGeralSoma.getValor()==null) {
-			rubricaGeralSoma.setValor(0.0);
+		if(rubricaGeral.getValor()==null) {
+			rubricaGeral.setValor(0.0);
 		}
 		
-		service.editar(rubricaGeralSoma);
+		service.editar(rubricaGeral);
 		attr.addFlashAttribute("success", "Editado com sucesso.");
-		return "redirect:/rubricaGeralSoma/listar";
+		return "redirect:/rubricaGeral/listar";
 	}
 	
 	@GetMapping("/excluir/{id}")
@@ -179,15 +145,15 @@ public class RubricaGeralSomaController {
 	@GetMapping("/herdar/de/mes") 
 	public String herdarDeMes( Long anoMesInicial,  Long anoMesFinal,  ModelMap model) {		
 		service.herdarDeUmMesParaOOutro(anoMesInicial, anoMesFinal);
-		return "redirect:/rubricaGeralSoma/listar" ;
+		return "redirect:/rubricaGeral/listar" ;
 	}
 	
 	
 	
 	@GetMapping("/buscar/nome")
 	public String getPorNome(@RequestParam("cnesUnidade") String nome, ModelMap model) {		
-		model.addAttribute("rubricaGeralSoma", service.buscarPorNome(nome.toUpperCase().trim()));
-		return "/rubricaGeralSoma/lista";
+		model.addAttribute("rubricaGeral", service.buscarPorNome(nome.toUpperCase().trim()));
+		return "/rubricaGeral/lista";
 	}
 	
 	@GetMapping("/exporta/excel")
@@ -216,7 +182,7 @@ public class RubricaGeralSomaController {
 		return anoMesService.buscarTodos();	
 	}
 	@ModelAttribute("idCodigoFk")
-	public List<RubricaGeralSomaCodigo> getIdCodigoFk() {
+	public List<RubricaGeralCodigo> getIdCodigoFk() {
 		return rubricaCodigoService.buscarTodos();	
 	}
 	

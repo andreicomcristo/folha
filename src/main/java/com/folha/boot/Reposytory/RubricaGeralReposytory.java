@@ -8,28 +8,22 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
 import com.folha.boot.domain.AnoMes;
-import com.folha.boot.domain.FaixasValoresParametrosCalculoFolhasExtras;
-import com.folha.boot.domain.FaixasValoresSubsidio;
-import com.folha.boot.domain.RubricaComplementoConstitucional;
-import com.folha.boot.domain.RubricaComplementoConstitucionalCodigo;
-import com.folha.boot.domain.RubricaGeralSoma;
-import com.folha.boot.domain.RubricaGeralSomaCodigo;
-import com.folha.boot.domain.RubricaInsalubridade;
-import com.folha.boot.domain.RubricaInsalubridadeCodigo;
-import com.folha.boot.domain.Unidades;
+import com.folha.boot.domain.RubricaGeral;
+import com.folha.boot.domain.RubricaGeralCodigo;
+
 
 @Repository
-public interface RubricaGeralSomaReposytory extends JpaRepository<RubricaGeralSoma, Long>{
+public interface RubricaGeralReposytory extends JpaRepository<RubricaGeral, Long>{
 
-	public List<RubricaGeralSoma> findAllByOrderByIdAnoMesFkNomeAnoMesDesc();
+	public List<RubricaGeral> findAllByOrderByIdAnoMesFkNomeAnoMesDesc();
 	
-	public List<RubricaGeralSoma> findByIdAnoMesFkOrderByIdAnoMesFkNomeAnoMesDesc(AnoMes anoMes);
+	public List<RubricaGeral> findByIdAnoMesFkOrderByIdAnoMesFkNomeAnoMesDesc(AnoMes anoMes);
 	
-	public List<RubricaGeralSoma> findByIdAnoMesFkNomeAnoMesContainingOrderByIdAnoMesFkNomeAnoMesDesc(String nome);
+	public List<RubricaGeral> findByIdAnoMesFkNomeAnoMesContainingOrderByIdAnoMesFkNomeAnoMesDesc(String nome);
 	
-	public List<RubricaGeralSoma> findByIdCodigoFkAndIdAnoMesFk(RubricaGeralSomaCodigo rubricaGeralSomaCodigo, AnoMes anoMes);
+	public List<RubricaGeral> findByIdCodigoFkAndIdAnoMesFk(RubricaGeralCodigo rubricaGeralSomaCodigo, AnoMes anoMes);
 	
-	public Page<RubricaGeralSoma> findAllByOrderByIdAnoMesFkNomeAnoMesDesc(final Pageable page);
+	public Page<RubricaGeral> findAllByOrderByIdAnoMesFkNomeAnoMesDesc(final Pageable page);
 	
-	public Page<RubricaGeralSoma> findByIdAnoMesFkNomeAnoMesContainingOrderByIdAnoMesFkNomeAnoMesDesc(String nome, final Pageable page);
+	public Page<RubricaGeral> findByIdAnoMesFkNomeAnoMesContainingOrderByIdAnoMesFkNomeAnoMesDesc(String nome, final Pageable page);
 }

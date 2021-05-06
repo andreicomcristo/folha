@@ -7,8 +7,8 @@ import com.folha.boot.service.util.UtilidadesDeTexto;
 
 @SuppressWarnings("serial")
 @Entity
-@Table(name = "rubrica_geral_soma_funcionario")
-public class RubricaGeralSomaFuncionario extends AbstractEntity<Long> {
+@Table(name = "rubrica_geral_funcionario")
+public class RubricaGeralFuncionario extends AbstractEntity<Long> {
 
 	@JoinColumn(name = "id_ano_mes_fk", referencedColumnName = "id")
     @ManyToOne
@@ -18,7 +18,7 @@ public class RubricaGeralSomaFuncionario extends AbstractEntity<Long> {
     private PessoaFuncionarios idFuncionarioFk;
     @JoinColumn(name = "id_codigo_fk", referencedColumnName = "id")
     @ManyToOne
-    private RubricaGeralSomaCodigo idCodigoFk;
+    private RubricaGeralCodigo idCodigoFk;
 	public AnoMes getIdAnoMesFk() {
 		return idAnoMesFk;
 	}
@@ -31,10 +31,10 @@ public class RubricaGeralSomaFuncionario extends AbstractEntity<Long> {
 	public void setIdFuncionarioFk(PessoaFuncionarios idFuncionarioFk) {
 		this.idFuncionarioFk = idFuncionarioFk;
 	}
-	public RubricaGeralSomaCodigo getIdCodigoFk() {
+	public RubricaGeralCodigo getIdCodigoFk() {
 		return idCodigoFk;
 	}
-	public void setIdCodigoFk(RubricaGeralSomaCodigo idCodigoFk) {
+	public void setIdCodigoFk(RubricaGeralCodigo idCodigoFk) {
 		this.idCodigoFk = idCodigoFk;
 	}
     

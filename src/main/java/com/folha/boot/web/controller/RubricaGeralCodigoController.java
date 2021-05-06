@@ -17,66 +17,56 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
-import com.folha.boot.domain.AtividadeEscala;
-import com.folha.boot.domain.LocalidadeEscala;
-import com.folha.boot.domain.RubricaComplementoConstitucionalCodigo;
-import com.folha.boot.domain.RubricaGeralSomaCodigo;
-import com.folha.boot.domain.RubricaInsalubridadeCodigo;
+import com.folha.boot.domain.RubricaGeralCodigo;
 import com.folha.boot.domain.RubricaNatureza;
-import com.folha.boot.domain.Unidades;
-import com.folha.boot.service.AtividadeEscalaService;
-import com.folha.boot.service.RubricaComplementoConstitucionalCodigoService;
-import com.folha.boot.service.RubricaGeralSomaCodigoService;
-import com.folha.boot.service.RubricaInsalubridadeCodigoService;
+import com.folha.boot.service.RubricaGeralCodigoService;
 import com.folha.boot.service.RubricaNaturezaService;
-import com.folha.boot.service.UnidadesService;
-import com.folha.boot.service.seguranca.UsuarioService;
 
 @Controller
-@RequestMapping("/rubricaGeralSomaCodigo")
-public class RubricaGeralSomaCodigoController {
+@RequestMapping("/rubricaGeralCodigo")
+public class RubricaGeralCodigoController {
 
 	
 	String ultimaBuscaNome = "";
 	
 	@Autowired
-	private RubricaGeralSomaCodigoService service;
+	private RubricaGeralCodigoService service;
 	@Autowired
 	private RubricaNaturezaService rubricaNaturezaService;
 	
 
 	@GetMapping("/cadastrar")
-	public String cadastrar(RubricaGeralSomaCodigo rubricaGeralSomaCodigo) {		
-		return "/rubricaGeralSomaCodigo/cadastro";
+	public String cadastrar(RubricaGeralCodigo rubricaGeralCodigo) {		
+		return "/rubricaGeralCodigo/cadastro";
 	}
 	
 	@PostMapping("/salvar")
-	public String salvar(RubricaGeralSomaCodigo rubricaGeralSomaCodigo, RedirectAttributes attr) {
+	public String salvar(RubricaGeralCodigo rubricaGeralCodigo, RedirectAttributes attr) {
 		// Evitando salvar quem já está cadastrado
-		if(rubricaGeralSomaCodigo!=null) {
-			if(rubricaGeralSomaCodigo.getId()==null) {
-				if(service.avaliarCadastrado(rubricaGeralSomaCodigo.getCodigo())==true) {
+		if(rubricaGeralCodigo!=null) {
+			if(rubricaGeralCodigo.getId()==null) {
+				if(service.avaliarCadastrado(rubricaGeralCodigo.getCodigo())==true) {
 					return "redirect:/mensagens/mensagem/de/ja/cadastrado";	
 				}
 			}
 		}
 		
-		service.salvar(rubricaGeralSomaCodigo);
+		service.salvar(rubricaGeralCodigo);
 		attr.addFlashAttribute("success", "Inserido com sucesso.");
-		return "redirect:/rubricaGeralSomaCodigo/cadastrar";
+		return "redirect:/rubricaGeralCodigo/cadastrar";
 	}
 	
 	@GetMapping("/editar/{id}")
 	public String preEditar(@PathVariable("id") Long id, ModelMap model) {
-		model.addAttribute("rubricaGeralSomaCodigo", service.buscarPorId(id));
-		return "/rubricaGeralSomaCodigo/cadastro";
+		model.addAttribute("rubricaGeralCodigo", service.buscarPorId(id));
+		return "/rubricaGeralCodigo/cadastro";
 	}
 	
 	@PostMapping("/editar")
-	public String editar(RubricaGeralSomaCodigo rubricaGeralSomaCodigo, RedirectAttributes attr) {
-		service.editar(rubricaGeralSomaCodigo);
+	public String editar(RubricaGeralCodigo rubricaGeralCodigo, RedirectAttributes attr) {
+		service.editar(rubricaGeralCodigo);
 		attr.addFlashAttribute("success", "Editado com sucesso.");
-		return "redirect:/rubricaGeralSomaCodigo/listar";
+		return "redirect:/rubricaGeralCodigo/listar";
 	}
 	
 	@GetMapping("/excluir/{id}")
@@ -104,12 +94,12 @@ public class RubricaGeralSomaCodigoController {
 		if(pageNo<1) {pageNo=1;}
 		
 		if( (ultimaBuscaNome.equals("")) && (ultimaBuscaNome.equals("")) ){
-			return "redirect:/rubricaGeralSomaCodigo/listar/{pageNo}" ;}
+			return "redirect:/rubricaGeralCodigo/listar/{pageNo}" ;}
 		else {		
 			if(!ultimaBuscaNome.equals("")) {
 				return this.findPaginated(pageNo, ultimaBuscaNome, model);}
 			else {
-				return "redirect:/rubricaGeralSomaCodigo/listar/{pageNo}" ;}
+				return "redirect:/rubricaGeralCodigo/listar/{pageNo}" ;}
 			}
 	}
 	
@@ -117,26 +107,26 @@ public class RubricaGeralSomaCodigoController {
 	@GetMapping("/listar/{pageNo}")
 	public String findPaginated(@PathVariable (value = "pageNo") int pageNo, ModelMap model) {
 		int pageSeze = 10;
-		Page<RubricaGeralSomaCodigo> page = service.findPaginated( pageNo, pageSeze);
-		List<RubricaGeralSomaCodigo> lista = page.getContent();
+		Page<RubricaGeralCodigo> page = service.findPaginated( pageNo, pageSeze);
+		List<RubricaGeralCodigo> lista = page.getContent();
 		return paginar(pageNo, page, lista, model);
 	}
 
 	public String findPaginated(@PathVariable (value = "pageNo") int pageNo, String nome, ModelMap model) {
 		int pageSeze = 10;
-		Page<RubricaGeralSomaCodigo> page = service.findPaginatedNome( nome, pageNo, pageSeze);
-		List<RubricaGeralSomaCodigo> lista = page.getContent();
+		Page<RubricaGeralCodigo> page = service.findPaginatedNome( nome, pageNo, pageSeze);
+		List<RubricaGeralCodigo> lista = page.getContent();
 		return paginar(pageNo, page, lista, model);
 	}
 	
 	
 	
-	public String paginar(int pageNo, Page<RubricaGeralSomaCodigo> page, List<RubricaGeralSomaCodigo> lista, ModelMap model) {	
+	public String paginar(int pageNo, Page<RubricaGeralCodigo> page, List<RubricaGeralCodigo> lista, ModelMap model) {	
 		model.addAttribute("currentePage", pageNo);
 		model.addAttribute("totalPages", page.getTotalPages());
 		model.addAttribute("totalItems", page.getTotalElements()); 
-		model.addAttribute("rubricaGeralSomaCodigo", lista);
-		return "/rubricaGeralSomaCodigo/lista";	
+		model.addAttribute("rubricaGeralCodigo", lista);
+		return "/rubricaGeralCodigo/lista";	
 	}
 
 	@ModelAttribute("idNaturezaFk")
