@@ -1,4 +1,4 @@
-package com.folha.boot.service.calculos;
+package com.folha.boot.service.calculos.escala;
 
 import java.util.ArrayList;
 import java.util.Date;

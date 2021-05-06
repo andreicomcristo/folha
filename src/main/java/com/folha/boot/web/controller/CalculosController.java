@@ -75,7 +75,7 @@ import com.folha.boot.service.TiposDeFolhaService;
 import com.folha.boot.service.TurmasService;
 import com.folha.boot.service.TurnosService;
 import com.folha.boot.service.UnidadesService;
-import com.folha.boot.service.calculos.CalculosCalcularService;
+import com.folha.boot.service.calculos.escala.CalculosCalcularService;
 import com.folha.boot.service.seguranca.UsuarioService;
 import com.folha.boot.service.util.UtilidadesDeCalendarioEEscala;
 
