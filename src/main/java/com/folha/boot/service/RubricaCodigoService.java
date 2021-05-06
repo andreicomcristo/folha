@@ -7,22 +7,22 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import com.folha.boot.Reposytory.RubricaGeralCodigoReposytory;
-import com.folha.boot.domain.RubricaGeralCodigo;
+import com.folha.boot.Reposytory.RubricaCodigoReposytory;
+import com.folha.boot.domain.RubricaCodigo;
 
 
 @Service
 @Transactional(readOnly = false)
-public class RubricaGeralCodigoService {
+public class RubricaCodigoService {
 
 	@Autowired
-	private  RubricaGeralCodigoReposytory reposytory;
+	private  RubricaCodigoReposytory reposytory;
 
-	public void salvar(RubricaGeralCodigo rubricaGeralSomaCodigo) {
+	public void salvar(RubricaCodigo rubricaGeralSomaCodigo) {
 		reposytory.save(rubricaGeralSomaCodigo);
 	}
 
-	public void editar(RubricaGeralCodigo rubricaGeralSomaCodigo) {
+	public void editar(RubricaCodigo rubricaGeralSomaCodigo) {
 		reposytory.save(rubricaGeralSomaCodigo);
 
 	}
@@ -33,27 +33,27 @@ public class RubricaGeralCodigoService {
 	}
 	
 	@Transactional(readOnly = true)
-	public RubricaGeralCodigo buscarPorId(Long id) {
+	public RubricaCodigo buscarPorId(Long id) {
 		return reposytory.findById(id).get();
 	}
 		
-	public List<RubricaGeralCodigo> buscarPorNome( String nome) {
+	public List<RubricaCodigo> buscarPorNome( String nome) {
 		return reposytory.findByCodigoContainingOrderByCodigoAsc( nome.toUpperCase().trim());
 	}
 	
-	public List<RubricaGeralCodigo> buscarTodos( ) {
+	public List<RubricaCodigo> buscarTodos( ) {
 		return reposytory.findAllByOrderByCodigoAsc();
 	}
 	
 	
 	@Transactional(readOnly = true)
-	public Page<RubricaGeralCodigo> findPaginated(int pageNo, int pageSize) {
+	public Page<RubricaCodigo> findPaginated(int pageNo, int pageSize) {
 		Pageable pageable = PageRequest.of(pageNo -1, pageSize);
 		return this.reposytory.findAll(  pageable);
 	}
 
 	@Transactional(readOnly = true)
-	public Page<RubricaGeralCodigo> findPaginatedNome(String nome, int pageNo, int pageSize ) {
+	public Page<RubricaCodigo> findPaginatedNome(String nome, int pageNo, int pageSize ) {
 		Pageable pageable = PageRequest.of(pageNo -1, pageSize);
 		return this.reposytory.findByCodigoContainingOrderByCodigoAsc( nome.toUpperCase().trim(), pageable);
 	}
@@ -61,7 +61,7 @@ public class RubricaGeralCodigoService {
 	
 	public boolean avaliarCadastrado( String nome) {
 		boolean resposta = false;
-		List<RubricaGeralCodigo> lista = reposytory.findByCodigoOrderByCodigoAsc( nome.toUpperCase().trim()); 
+		List<RubricaCodigo> lista = reposytory.findByCodigoOrderByCodigoAsc( nome.toUpperCase().trim()); 
 		if(!lista.isEmpty()) {resposta = true;}
 		return resposta;
 	}

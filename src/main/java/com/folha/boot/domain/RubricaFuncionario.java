@@ -7,8 +7,8 @@ import com.folha.boot.service.util.UtilidadesDeTexto;
 
 @SuppressWarnings("serial")
 @Entity
-@Table(name = "rubrica_geral_funcionario")
-public class RubricaGeralFuncionario extends AbstractEntity<Long> {
+@Table(name = "rubrica_funcionario")
+public class RubricaFuncionario extends AbstractEntity<Long> {
 
 	@JoinColumn(name = "id_ano_mes_fk", referencedColumnName = "id")
     @ManyToOne
@@ -18,25 +18,36 @@ public class RubricaGeralFuncionario extends AbstractEntity<Long> {
     private PessoaFuncionarios idFuncionarioFk;
     @JoinColumn(name = "id_codigo_fk", referencedColumnName = "id")
     @ManyToOne
-    private RubricaGeralCodigo idCodigoFk;
+    private RubricaCodigo idCodigoFk;
+
+    public RubricaFuncionario() {
+    }
+
 	public AnoMes getIdAnoMesFk() {
 		return idAnoMesFk;
 	}
+
 	public void setIdAnoMesFk(AnoMes idAnoMesFk) {
 		this.idAnoMesFk = idAnoMesFk;
 	}
+
 	public PessoaFuncionarios getIdFuncionarioFk() {
 		return idFuncionarioFk;
 	}
+
 	public void setIdFuncionarioFk(PessoaFuncionarios idFuncionarioFk) {
 		this.idFuncionarioFk = idFuncionarioFk;
 	}
-	public RubricaGeralCodigo getIdCodigoFk() {
+
+	public RubricaCodigo getIdCodigoFk() {
 		return idCodigoFk;
 	}
-	public void setIdCodigoFk(RubricaGeralCodigo idCodigoFk) {
+
+	public void setIdCodigoFk(RubricaCodigo idCodigoFk) {
 		this.idCodigoFk = idCodigoFk;
 	}
+    
+    
     
     
 	

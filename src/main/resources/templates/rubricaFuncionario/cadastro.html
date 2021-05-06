@@ -5,12 +5,12 @@
 	<section class="layout-content" layout:fragment="corpo">
 
 		<nav class="navbar navbar-expand-md bg-light">
-			<form th:action="@{/rubricaGeralFuncionario/listar}">
+			<form th:action="@{/rubricaFuncionario/listar}">
 				<div class=" layout-content">
 					<a class="btn btn-outline-light oi oi-action-undo" type="button" href="javascript:history.back()"></a>
 					<a class="btn btn-outline-light oi oi-action-redo" type="button" href="javascript:history.forward()"></a>
 					<button class="btn btn-outline-dark" >Listar</button>
-					<a class="btn btn-outline-dark btn-md" th:href="@{/rubricaGeralFuncionario/funcionarios/listar}"
+					<a class="btn btn-outline-dark btn-md" th:href="@{/rubricaFuncionario/funcionarios/listar}"
 						role="button"> <span class="oi oi-plus" title="Cadastro"
 						aria-hidden="true"></span> <span>Novo</span>
 					</a>
@@ -22,14 +22,14 @@
 
 			<div th:replace="fragments/alert"></div>
 			<form
-				th:action="${rubricaGeralFuncionario.id == null} ? @{/rubricaGeralFuncionario/salvar} : @{/rubricaGeralFuncionario/salvar}"
-				th:object="${rubricaGeralFuncionario}" method="POST">
+				th:action="${rubricaFuncionario.id == null} ? @{/rubricaFuncionario/salvar} : @{/rubricaFuncionario/salvar}"
+				th:object="${rubricaFuncionario}" method="POST">
 				<div class="form-row">
 
 					
 
 					<div class="form-group col-md-6">
-						<label for="nome" class="fonte-tutulos-tamanho">Rubrica Geral (Funcionario)</label>
+						<label for="nome" class="fonte-tutulos-tamanho">Rubrica (Funcionario)</label>
 							<p></p>	
 					
 							<label for="nome" class="" th:text = "*{idFuncionarioFk.idPessoaFk.nome} +'-'+ *{idFuncionarioFk.idPessoaFk.cpf} +'-'+ *{idFuncionarioFk.matricula }">Mês </label>
