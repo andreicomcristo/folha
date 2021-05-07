@@ -81,7 +81,8 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 	protected void configure(AuthenticationManagerBuilder auth) throws Exception {
 		// TODO Auto-generated method stub
 		BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
-
+		
+		
 		auth.userDetailsService(usuarioService).passwordEncoder(encoder);
 		
 		//Usuário inicial

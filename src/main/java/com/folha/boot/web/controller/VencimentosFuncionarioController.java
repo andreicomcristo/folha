@@ -2,6 +2,7 @@ package com.folha.boot.web.controller;
 
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
@@ -28,9 +29,11 @@ import com.folha.boot.domain.AnoMes;
 import com.folha.boot.domain.PessoaFuncionarios;
 import com.folha.boot.domain.RubricaCodigo;
 import com.folha.boot.domain.VencimentosFuncionario;
+import com.folha.boot.domain.models.outros.VencimentosFuncionarioComValores;
 import com.folha.boot.service.AnoMesService;
 import com.folha.boot.service.PessoaFuncionariosService;
 import com.folha.boot.service.RubricaCodigoService;
+import com.folha.boot.service.RubricaService;
 import com.folha.boot.service.VencimentosFuncionarioService;
 
 
@@ -49,6 +52,8 @@ public class VencimentosFuncionarioController {
 	private AnoMesService anoMesService;
 	@Autowired
 	private PessoaFuncionariosService pessoaFuncionariosService;
+	@Autowired
+	private RubricaService rubricaService;
 	
 	
 	//Funcionarios Todos os Possíveis
@@ -143,10 +148,34 @@ public class VencimentosFuncionarioController {
 	}
 	
 	public String paginar(int pageNo, Page<VencimentosFuncionario> page, List<VencimentosFuncionario> lista, ModelMap model) {	
+		
+		List<VencimentosFuncionarioComValores> lista1 = new ArrayList<>();
+		
+		for(int i=0;i<lista.size();i++) {
+			VencimentosFuncionarioComValores v = new VencimentosFuncionarioComValores();
+			v.setId(lista.get(i).getId());
+			v.setIdAnoMesFk(lista.get(i).getIdAnoMesFk());
+			v.setIdCodigoFk(lista.get(i).getIdCodigoFk());
+			v.setIdFuncionarioFk(lista.get(i).getIdFuncionarioFk());
+			
+			Double valor = 0.0;
+        	Double percentagem = 0.0;
+        	int quantidade = 0;
+        	if(! rubricaService.buscarPorMesECodigo(lista.get(i).getIdAnoMesFk(), lista.get(i).getIdCodigoFk()).isEmpty() ) {
+        	valor= rubricaService.buscarPorMesECodigo(lista.get(i).getIdAnoMesFk(), lista.get(i).getIdCodigoFk()).get(0).getValor();
+        	percentagem= rubricaService.buscarPorMesECodigo(lista.get(i).getIdAnoMesFk(), lista.get(i).getIdCodigoFk()).get(0).getPercentagem();
+        	quantidade= rubricaService.buscarPorMesECodigo(lista.get(i).getIdAnoMesFk(), lista.get(i).getIdCodigoFk()).get(0).getQuantidade();
+        	}
+        	v.setValor(valor);
+        	v.setPercentagem(percentagem);
+        	v.setQuantidade(quantidade);
+		lista1.add(v);
+		}
+		
 		model.addAttribute("currentePage", pageNo);
 		model.addAttribute("totalPages", page.getTotalPages());
 		model.addAttribute("totalItems", page.getTotalElements()); 
-		model.addAttribute("vencimentosFuncionario", lista);
+		model.addAttribute("vencimentosFuncionario", lista1);
 		return "/vencimentosFuncionario/lista";	
 	}
 	

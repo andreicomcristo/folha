@@ -70,6 +70,9 @@ public class UsuarioService implements GenericService<PessoaOperadores>, UserDet
     
     @Autowired
     private GrupoUsuarioPermissaoService grupoUsuarioPermissaoService;
+    
+    @Autowired
+	LoginController loginController;
 
     @Autowired
     ObjectFactory<HttpSession> httpSessionFactory;
@@ -166,7 +169,8 @@ public class UsuarioService implements GenericService<PessoaOperadores>, UserDet
     	
         String[] usuarioUnidade = StringUtils.split(
                 username, String.valueOf(Character.LINE_SEPARATOR));
-
+        
+       
         PessoaOperadores usuario = usuarioRepository.findFirstByUsername(usuarioUnidade[0]);
         
         
@@ -216,6 +220,7 @@ public class UsuarioService implements GenericService<PessoaOperadores>, UserDet
         	}
         }
         
+      
                 
         /*
         //consulta sobre autorizações
@@ -225,13 +230,22 @@ public class UsuarioService implements GenericService<PessoaOperadores>, UserDet
         
         String[] colecao = permissao.stream().toArray(String[]::new);
 		
-
-        return new User(
+        //Criando user
+        User user = new User(
                 usuario.getUsername(),
                 usuario.getPassword(),
                 //AuthorityUtils.createAuthorityList(new String[]{ "ADM2" })
                 AuthorityUtils.createAuthorityList(colecao)
         );
+        
+        
+      //Fazendo logout se nao tiver permissões
+        if(listaPerfil.isEmpty() || usuario.getUsername()==null || usuario.getPassword()==null ) {
+        	return null;
+        }
+        
+        return user;
+        
     }
 
  

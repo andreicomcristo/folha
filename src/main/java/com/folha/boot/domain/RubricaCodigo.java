@@ -35,7 +35,7 @@ public class RubricaCodigo extends AbstractEntity<Long> {
 	}
 
 	public void setCodigo(String codigo) {
-		this.codigo = codigo;
+		this.codigo = UtilidadesDeTexto.retiraEspacosDuplosAcentosEConverteEmMaiusculo(codigo);
 	}
 
 	public String getDescricao() {
@@ -43,7 +43,7 @@ public class RubricaCodigo extends AbstractEntity<Long> {
 	}
 
 	public void setDescricao(String descricao) {
-		this.descricao = descricao;
+		this.descricao = UtilidadesDeTexto.retiraEspacosDuplosAcentosEConverteEmMaiusculo(descricao);
 	}
 
 	public String getVariacao() {
@@ -51,7 +51,7 @@ public class RubricaCodigo extends AbstractEntity<Long> {
 	}
 
 	public void setVariacao(String variacao) {
-		this.variacao = variacao;
+		this.variacao = UtilidadesDeTexto.retiraEspacosDuplosAcentosEConverteEmMaiusculo(variacao);
 	}
 
 	public List<Rubrica> getRubricaList() {

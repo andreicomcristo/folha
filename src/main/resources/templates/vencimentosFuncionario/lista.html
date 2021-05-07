@@ -103,7 +103,7 @@
 	    <div class="container" id="listagem">	        
 	    	<div th:replace="fragments/alert"></div>
 	    	
-	        <div style="height: 450px; overflow-y: auto;" class="table-responsive">
+	        <div style=" overflow-y: auto;" class="table-responsive">
 	        	<table style="width: 1270px;" class="table table-striped table-hover table-sm myTable">
 	            	<thead>
 	          			<tr>
@@ -111,6 +111,9 @@
 		                    <th style="font-size:10px;" >Ano Mes</th>
 		                    <th style="font-size:10px;" >Código</th>
 		                    <th style="font-size:10px;" >Descrição</th>
+		                    <th style="font-size:10px;" >Valor</th>
+		                    <th style="font-size:10px;" >Percentagem</th>
+		                    <th style="font-size:10px;" >Quantidade</th>
 		                    <th style="font-size:10px;" >Nome</th>
 		                    <th style="font-size:10px;" >Cpf</th>
 		                    
@@ -123,6 +126,12 @@
 		                    <td style="font-size:10px;"  th:text="${d.idAnoMesFk != null} ? ${d.idAnoMesFk.nomeAnoMes} : ''  "></td>
 		                    <td style="font-size:10px;"  th:text="${d.idCodigoFk != null} ? ${d.idCodigoFk.codigo +'-'+d.idCodigoFk.variacao} : ''  "></td>
 		                    <td style="font-size:10px;"  th:text="${d.idCodigoFk != null} ? ${d.idCodigoFk.descricao } : ''  "></td>
+		                    <td style="font-size:10px;"  th:text="${d.valor != null} ? ${d.valor } : ''  "></td>
+		                    <td style="font-size:10px;"  th:text="${d.percentagem != null} ? ${d.percentagem } : ''  "></td>
+		                    <td style="font-size:10px;"  th:text="${d.quantidade != null} ? ${d.quantidade } : ''  "></td>
+		                    
+		                    
+		                    
 		                    <td style="font-size:10px;"  th:text="${d.idFuncionarioFk != null} ? ${d.idFuncionarioFk.idPessoaFk.nome} : ''  "></td>
 		                    <td style="font-size:10px;"  th:text="${d.idFuncionarioFk != null} ? ${d.idFuncionarioFk.idPessoaFk.cpf} : ''  "></td>
 		                    

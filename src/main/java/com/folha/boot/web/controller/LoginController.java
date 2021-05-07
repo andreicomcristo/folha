@@ -34,6 +34,14 @@ public class LoginController {
 	}
 	
 	
+	@GetMapping
+	@RequestMapping("/logout")  
+	public String logout() {
+		return "logout";
+	}
+	
+	
+	
 	@RequestMapping("/acesso-negado")
 	public String acessoNegado(ModelMap model) {
 		
