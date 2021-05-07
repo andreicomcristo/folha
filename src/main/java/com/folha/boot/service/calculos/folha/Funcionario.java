@@ -4,7 +4,7 @@ import java.util.List;
 
 public class Funcionario {
 	
-@SuppressWarnings("unused")
-private List<Vencimentos> vencimentos;
+	private int id;
+	private List<Vencimentos> vencimentos;
 
 }
