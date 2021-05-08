@@ -26,7 +26,6 @@ public class AreaDoCargo extends AbstractEntity<Long> {
 	public void setCargosEspecialidadeList(List<CargosEspecialidade> cargosEspecialidadeList) {
 		this.cargosEspecialidadeList = cargosEspecialidadeList;
 	}
-    
-	
+    	
     
 }
