@@ -47,9 +47,9 @@ public class EscalaPosTransparencia extends AbstractEntity<Long> {
     @JoinColumn(name = "id_ano_mes_fk", referencedColumnName = "id")
     @ManyToOne
     private AnoMes idAnoMesFk;
-    @JoinColumn(name = "id_codigo_diferenciado_fk", referencedColumnName = "id")
+    @JoinColumn(name = "id_complemento_plantao_sim_nao_fk", referencedColumnName = "id")
     @ManyToOne
-    private CodigoDiferenciado idCodigoDiferenciadoFk;
+    private SimNao idComplementoPlantaoSimNaoFk;
     @JoinColumn(name = "dia14_fk", referencedColumnName = "id")
     @ManyToOne
     private Turnos dia14Fk;
@@ -251,11 +251,12 @@ public class EscalaPosTransparencia extends AbstractEntity<Long> {
 	public void setIdAnoMesFk(AnoMes idAnoMesFk) {
 		this.idAnoMesFk = idAnoMesFk;
 	}
-	public CodigoDiferenciado getIdCodigoDiferenciadoFk() {
-		return idCodigoDiferenciadoFk;
+	
+	public SimNao getIdComplementoPlantaoSimNaoFk() {
+		return idComplementoPlantaoSimNaoFk;
 	}
-	public void setIdCodigoDiferenciadoFk(CodigoDiferenciado idCodigoDiferenciadoFk) {
-		this.idCodigoDiferenciadoFk = idCodigoDiferenciadoFk;
+	public void setIdComplementoPlantaoSimNaoFk(SimNao idComplementoPlantaoSimNaoFk) {
+		this.idComplementoPlantaoSimNaoFk = idComplementoPlantaoSimNaoFk;
 	}
 	public Turnos getDia14Fk() {
 		return dia14Fk;

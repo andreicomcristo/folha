@@ -41,6 +41,9 @@ public class AnoMes extends AbstractEntity<Long> {
     private List<UnidadeAdmiteIncrementoDeRisco> unidadeAdmiteIncrementoDeRiscoList;
     
     @OneToMany(mappedBy = "idAnoMesFk")
+    private List<UnidadeAdmiteComplementoPlantao> unidadeAdmiteComplementoPlantaoList;
+    
+    @OneToMany(mappedBy = "idAnoMesFk")
     private List<FatorChDif> fatorChDifList;
     @OneToMany(mappedBy = "idAnoMesFk")
     private List<TiposDeFolhaNivelCargo> tiposDeFolhaNivelCargoList;
@@ -175,6 +178,13 @@ public class AnoMes extends AbstractEntity<Long> {
 	}
 	public void setPessoaChDifList(List<PessoaChDif> pessoaChDifList) {
 		this.pessoaChDifList = pessoaChDifList;
+	}
+	public List<UnidadeAdmiteComplementoPlantao> getUnidadeAdmiteComplementoPlantaoList() {
+		return unidadeAdmiteComplementoPlantaoList;
+	}
+	public void setUnidadeAdmiteComplementoPlantaoList(
+			List<UnidadeAdmiteComplementoPlantao> unidadeAdmiteComplementoPlantaoList) {
+		this.unidadeAdmiteComplementoPlantaoList = unidadeAdmiteComplementoPlantaoList;
 	}
 		
 	

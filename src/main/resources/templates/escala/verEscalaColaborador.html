@@ -127,8 +127,8 @@
 										</select>
 								 	</th>
 								 	<th>
-								 		<label class="text" style="font-size:12px;">Diferenciado </label>
-								 		<select disabled="disabled" style="width:180px; height:25px; font-size:10px" id="turma" class="form-select" th:field="*{idCodigoDiferenciadoFk}" >
+								 		<label class="text" style="font-size:12px;">Complemento de Plantão </label>
+								 		<select disabled="disabled" style="width:180px; height:25px; font-size:10px" id="turma" class="form-select" th:field="*{idComplementoPlantaoSimNaoFk}" >
 											<option value=""></option>
 											<option th:each="d : ${idCodigoDiferenciadoFk}" th:value="${d.id}"th:text="${d.nomeCodigoDiferenciado}">DIFERENCIADO</option>
 										</select>

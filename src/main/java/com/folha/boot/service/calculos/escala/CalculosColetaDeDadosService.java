@@ -50,7 +50,6 @@ public class CalculosColetaDeDadosService {
 			EscalasNoMes f= new EscalasNoMes();
 			ReferenciasDeEscala r = new ReferenciasDeEscala();
 			
-			r.setCodigoDiferenciado(lista.get(i).getIdCodigoDiferenciadoFk());
 			r.setCpf(lista.get(i).getIdFuncionarioFk().getIdPessoaFk().getCpf());
 			r.setNome(lista.get(i).getIdFuncionarioFk().getIdPessoaFk().getNome());
 			r.setDiasFerias(0);

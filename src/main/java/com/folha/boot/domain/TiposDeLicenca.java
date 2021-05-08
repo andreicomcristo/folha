@@ -1,6 +1,9 @@
 package com.folha.boot.domain;
 
 import javax.persistence.*;
+
+import com.folha.boot.service.util.UtilidadesDeTexto;
+
 import java.util.List;
 
 
@@ -12,6 +15,9 @@ public class TiposDeLicenca extends AbstractEntity<Long>  {
 
 	@Column(name = "descricao_tipo_licenca")
     private String descricaoTipoLicenca;
+	
+	@Column(name = "limite_dias")
+    private Integer limiteDias;
     
 	@OneToMany(mappedBy = "idTipoLicencaFk")
     private List<FuncionariosLicencas> funcionariosLicencasList;
@@ -21,7 +27,7 @@ public class TiposDeLicenca extends AbstractEntity<Long>  {
 	}
     
 	public void setDescricaoTipoLicenca(String descricaoTipoLicenca) {
-		this.descricaoTipoLicenca = descricaoTipoLicenca;
+		this.descricaoTipoLicenca = UtilidadesDeTexto.retiraEspacosDuplosAcentosEConverteEmMaiusculo(descricaoTipoLicenca);
 	}
 	
 	public List<FuncionariosLicencas> getFuncionariosLicencasList() {
@@ -30,6 +36,14 @@ public class TiposDeLicenca extends AbstractEntity<Long>  {
 	
 	public void setFuncionariosLicencasList(List<FuncionariosLicencas> funcionariosLicencasList) {
 		this.funcionariosLicencasList = funcionariosLicencasList;
+	}
+
+	public Integer getLimiteDias() {
+		return limiteDias;
+	}
+
+	public void setLimiteDias(Integer limiteDias) {
+		this.limiteDias = limiteDias;
 	}
     
 }

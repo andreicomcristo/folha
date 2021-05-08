@@ -48,6 +48,7 @@
 		                    <th>Nome</th>
 		                    <th>Descrição</th>
 		                    <th>Unidade</th>
+		                    <th>Fonte</th>
 		                    <th>Necessita Atribuição Rh</th>
 		                    <th>Necessita Aprovação Sede</th>
 		                    <th>Ações</th>
@@ -55,13 +56,13 @@
 	                </thead>                  
 	                <tbody>
 		            	<tr th:each="d : ${codigoDiferenciado}">
-		                	<td th:text="${d.id}"></td>
-		                    <td th:text="${d.nomeCodigoDiferenciado}"></td>
-		                    <td th:text="${d.descricaoCodigoDiferenciado}"></td>
-		                    <td th:text="${d.idUnidadeFk.nomeFantasia}"></td>
-		                    
-		                    <td th:text="${d.idNecessitaAtribuicaoRhFk.descricao}"></td>
-		                    <td th:text="${d.idNecessitaAtribuicaoSedeFk.descricao}"></td>
+		                	<td style="font-size:10px;"  th:text="${d.id}"></td>
+		                    <td style="font-size:10px;"  th:text="${d.nomeCodigoDiferenciado}"></td>
+		                    <td style="font-size:10px;"  th:text="${d.descricaoCodigoDiferenciado}"></td>
+		                    <td style="font-size:10px;"  th:text="${d.idUnidadeFk.nomeFantasia}"></td>
+		                    <td style="font-size:10px;"  th:text="${d.idFonteFk != null} ? ${d.idFonteFk.nome +'-'+ d.idFonteFk.descricao} : ''  "></td>
+		                    <td style="font-size:10px;"  th:text="${d.idNecessitaAtribuicaoRhFk.descricao}"></td>
+		                    <td style="font-size:10px;"  th:text="${d.idNecessitaAtribuicaoSedeFk.descricao}"></td>
 		                    
 		                    <td colspan="2">
 		                    	<a class="btn btn-outline-info btn-sm" th:href="@{/codigodiferenciados/editar/{id} (id=${d.id}) }" role="button">

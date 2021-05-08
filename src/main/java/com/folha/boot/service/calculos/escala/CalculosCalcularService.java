@@ -42,7 +42,6 @@ public class CalculosCalcularService {
 			System.out.println("Vinculo:"+listaEscalas.get(i).getEscala().getIdFuncionarioFk().getIdVinculoAtualFk().getNomeVinculo());
 			System.out.println("Folha:"+listaEscalas.get(i).getReferencias().getTiposDeFolha().getNomeTipoFolha());
 			System.out.println("Regime:"+listaEscalas.get(i).getReferencias().getRegimesDeTrabalho().getNomeRegimeDeTrabalho());
-			System.out.println("Diferenciado:"+listaEscalas.get(i).getReferencias().getCodigoDiferenciado().getNomeCodigoDiferenciado());
 			System.out.println("Dias Ferias:"+listaEscalas.get(i).getReferencias().getDiasFerias());
 			System.out.println("Horas Ferias:"+listaEscalas.get(i).getReferencias().getHorasFeriasDescontadas());
 			System.out.println("Dias Licenca:"+listaEscalas.get(i).getReferencias().getDiasLicenca());

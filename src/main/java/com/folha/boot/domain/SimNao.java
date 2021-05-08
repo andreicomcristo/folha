@@ -97,6 +97,14 @@ public class SimNao extends AbstractEntity<Long> {
     @OneToMany(mappedBy = "idAvaliacaoSedeSimNaoFk")
     private List<PessoaLimiteHoras> pessoaLimiteHorasList;
     
+    @OneToMany(mappedBy = "idComplementoPlantaoSimNaoFk")
+    private List<Escala> escalaList8;
+    
+    @OneToMany(mappedBy = "idComplementoPlantaoSimNaoFk")
+    private List<EscalaAlteracoes> escalaAlteracoesList8;
+    
+    @OneToMany(mappedBy = "idComplementoPlantaoSimNaoFk")
+    private List<EscalaPosTransparencia> escalaPosTransparenciaList8;
     
     public SimNao() {
     }
@@ -479,6 +487,36 @@ public class SimNao extends AbstractEntity<Long> {
 
 	public void setFuncionariosLicencasList3(List<FuncionariosLicencas> funcionariosLicencasList3) {
 		this.funcionariosLicencasList3 = funcionariosLicencasList3;
+	}
+
+
+	public List<Escala> getEscalaList8() {
+		return escalaList8;
+	}
+
+
+	public void setEscalaList8(List<Escala> escalaList8) {
+		this.escalaList8 = escalaList8;
+	}
+
+
+	public List<EscalaAlteracoes> getEscalaAlteracoesList8() {
+		return escalaAlteracoesList8;
+	}
+
+
+	public void setEscalaAlteracoesList8(List<EscalaAlteracoes> escalaAlteracoesList8) {
+		this.escalaAlteracoesList8 = escalaAlteracoesList8;
+	}
+
+
+	public List<EscalaPosTransparencia> getEscalaPosTransparenciaList8() {
+		return escalaPosTransparenciaList8;
+	}
+
+
+	public void setEscalaPosTransparenciaList8(List<EscalaPosTransparencia> escalaPosTransparenciaList8) {
+		this.escalaPosTransparenciaList8 = escalaPosTransparenciaList8;
 	}
 
 	

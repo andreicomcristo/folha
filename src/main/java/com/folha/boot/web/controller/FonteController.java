@@ -17,65 +17,59 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
-
+import com.folha.boot.domain.AtividadeEscala;
 import com.folha.boot.domain.Fonte;
-import com.folha.boot.domain.RubricaCodigo;
-import com.folha.boot.domain.RubricaNatureza;
-import com.folha.boot.domain.RubricaTipo;
+import com.folha.boot.domain.LocalidadeEscala;
+import com.folha.boot.domain.Unidades;
+import com.folha.boot.service.AtividadeEscalaService;
 import com.folha.boot.service.FonteService;
-import com.folha.boot.service.RubricaCodigoService;
-import com.folha.boot.service.RubricaNaturezaService;
-import com.folha.boot.service.RubricaTipoService;
+import com.folha.boot.service.UnidadesService;
+import com.folha.boot.service.seguranca.UsuarioService;
 
 @Controller
-@RequestMapping("/rubricaCodigo")
-public class RubricaCodigoController {
+@RequestMapping("/fonte")
+public class FonteController {
 
 	
 	String ultimaBuscaNome = "";
 	
 	@Autowired
-	private RubricaCodigoService service;
-	@Autowired
-	private FonteService fonteService;
-	@Autowired
-	private RubricaNaturezaService rubricaNaturezaService;
-	@Autowired
-	private RubricaTipoService rubricaTipoService;
+	private UsuarioService usuarioService;
 	
+	@Autowired
+	private FonteService service;
+	@Autowired
+	private UnidadesService unidadesService;
 
 	@GetMapping("/cadastrar")
-	public String cadastrar(RubricaCodigo rubricaCodigo) {		
-		return "/rubricaCodigo/cadastro";
+	public String cadastrar(Fonte fonte) {		
+		return "/fonte/cadastro";
 	}
-	
+	/*
+	@GetMapping("/listar")
+	public String listar(ModelMap model) {
+		model.addAttribute("fonte", service.buscarNaUnidade(unidadesService.buscarPorId(idUnidadeLogada)));
+		return "/fonte/lista"; 
+	}
+	*/
 	@PostMapping("/salvar")
-	public String salvar(RubricaCodigo rubricaCodigo, RedirectAttributes attr) {
-		// Evitando salvar quem já está cadastrado
-		if(rubricaCodigo!=null) {
-			if(rubricaCodigo.getId()==null) {
-				if(service.avaliarCadastrado(rubricaCodigo.getCodigo())==true) {
-					return "redirect:/mensagens/mensagem/de/ja/cadastrado";	
-				}
-			}
-		}
-		
-		service.salvar(rubricaCodigo);
+	public String salvar(Fonte fonte, RedirectAttributes attr) {
+		service.salvar(fonte);
 		attr.addFlashAttribute("success", "Inserido com sucesso.");
-		return "redirect:/rubricaCodigo/cadastrar";
+		return "redirect:/fonte/cadastrar";
 	}
 	
 	@GetMapping("/editar/{id}")
 	public String preEditar(@PathVariable("id") Long id, ModelMap model) {
-		model.addAttribute("rubricaCodigo", service.buscarPorId(id));
-		return "/rubricaCodigo/cadastro";
+		model.addAttribute("fonte", service.buscarPorId(id));
+		return "/fonte/cadastro";
 	}
 	
 	@PostMapping("/editar")
-	public String editar(RubricaCodigo rubricaCodigo, RedirectAttributes attr) {
-		service.editar(rubricaCodigo);
+	public String editar(Fonte fonte, RedirectAttributes attr) {
+		service.editar(fonte);
 		attr.addFlashAttribute("success", "Editado com sucesso.");
-		return "redirect:/rubricaCodigo/listar";
+		return "redirect:/fonte/listar";
 	}
 	
 	@GetMapping("/excluir/{id}")
@@ -84,6 +78,8 @@ public class RubricaCodigoController {
 		model.addAttribute("success", "Excluído com sucesso.");
 		return listar(model);
 	}
+	
+	
 	
 	@GetMapping("/listar")
 	public String listar(ModelMap model) {
@@ -103,12 +99,12 @@ public class RubricaCodigoController {
 		if(pageNo<1) {pageNo=1;}
 		
 		if( (ultimaBuscaNome.equals("")) && (ultimaBuscaNome.equals("")) ){
-			return "redirect:/rubricaCodigo/listar/{pageNo}" ;}
+			return "redirect:/fonte/listar/{pageNo}" ;}
 		else {		
 			if(!ultimaBuscaNome.equals("")) {
 				return this.findPaginated(pageNo, ultimaBuscaNome, model);}
 			else {
-				return "redirect:/rubricaCodigo/listar/{pageNo}" ;}
+				return "redirect:/fonte/listar/{pageNo}" ;}
 			}
 	}
 	
@@ -116,44 +112,37 @@ public class RubricaCodigoController {
 	@GetMapping("/listar/{pageNo}")
 	public String findPaginated(@PathVariable (value = "pageNo") int pageNo, ModelMap model) {
 		int pageSeze = 10;
-		Page<RubricaCodigo> page = service.findPaginated( pageNo, pageSeze);
-		List<RubricaCodigo> lista = page.getContent();
+		Page<Fonte> page = service.findPaginated( pageNo, pageSeze);
+		List<Fonte> lista = page.getContent();
 		return paginar(pageNo, page, lista, model);
 	}
 
 	public String findPaginated(@PathVariable (value = "pageNo") int pageNo, String nome, ModelMap model) {
 		int pageSeze = 10;
-		Page<RubricaCodigo> page = service.findPaginatedNome( nome, pageNo, pageSeze);
-		List<RubricaCodigo> lista = page.getContent();
+		Page<Fonte> page = service.findPaginatedNome(  nome, pageNo, pageSeze);
+		List<Fonte> lista = page.getContent();
 		return paginar(pageNo, page, lista, model);
 	}
 	
 	
 	
-	public String paginar(int pageNo, Page<RubricaCodigo> page, List<RubricaCodigo> lista, ModelMap model) {	
+	public String paginar(int pageNo, Page<Fonte> page, List<Fonte> lista, ModelMap model) {	
 		model.addAttribute("currentePage", pageNo);
 		model.addAttribute("totalPages", page.getTotalPages());
 		model.addAttribute("totalItems", page.getTotalElements()); 
-		model.addAttribute("rubricaCodigo", lista);
-		return "/rubricaCodigo/lista";	
+		model.addAttribute("fonte", lista);
+		return "/fonte/lista";	
 	}
 
-	@ModelAttribute("idFonteFk")
-	public List<Fonte> getIdFonteFk() {
-		return fonteService.buscarTodos();
-	}
-	
-	@ModelAttribute("idNaturezaFk")
-	public List<RubricaNatureza> getIdNaturezaFk() {
-		return rubricaNaturezaService.buscarTodos();
-	}
 	
 	
-	@ModelAttribute("idTipoFk")
-	public List<RubricaTipo> getIdTipoFk() {
-		return rubricaTipoService.buscarTodos();
-	}
 	
+	@ModelAttribute("idUnidadeFk")
+	public List<Unidades> getUfs() {
+		List<Unidades> lista = new ArrayList<Unidades>();
+		lista.add(usuarioService.pegarUnidadeLogada());
+		return lista;
+	}	
 	
 	
 	@Autowired

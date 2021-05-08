@@ -149,7 +149,7 @@ public class EscalaPosTransparenciaService {
 		escalaPosTransparencia.setIdAvaliacaoFormalizacaoPontoFk(escala.getIdAvaliacaoFormalizacaoPontoFk());
 		escalaPosTransparencia.setIdAvaliacaoPermanenciaFk(escala.getIdAvaliacaoPermanenciaFk());
 		escalaPosTransparencia.setIdChDifSimNaoFk(escala.getIdChDifSimNaoFk());
-		escalaPosTransparencia.setIdCodigoDiferenciadoFk(escala.getIdCodigoDiferenciadoFk());
+		escalaPosTransparencia.setIdComplementoPlantaoSimNaoFk(escala.getIdComplementoPlantaoSimNaoFk());
 		escalaPosTransparencia.setIdCoordenacaoFk(escala.getIdCoordenacaoFk());
 		escalaPosTransparencia.setIdOperadorCancelamentoFk(escala.getIdOperadorCancelamentoFk());
 		escalaPosTransparencia.setIdOperadorMudancaFk(escala.getIdOperadorMudancaFk());

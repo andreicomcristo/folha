@@ -911,7 +911,7 @@ public class EscalaService {
 		escalaNova.setIdAvaliacaoFormalizacaoPontoFk(escala.getIdAvaliacaoFormalizacaoPontoFk());
 		escalaNova.setIdAvaliacaoPermanenciaFk(escala.getIdAvaliacaoPermanenciaFk());
 		escalaNova.setIdChDifSimNaoFk(escala.getIdChDifSimNaoFk());
-		escalaNova.setIdCodigoDiferenciadoFk(escala.getIdCodigoDiferenciadoFk());
+		escalaNova.setIdComplementoPlantaoSimNaoFk(escala.getIdComplementoPlantaoSimNaoFk());
 		escalaNova.setIdCoordenacaoFk(escala.getIdCoordenacaoFk());
 		escalaNova.setIdOperadorCancelamentoFk(escala.getIdOperadorCancelamentoFk());
 		escalaNova.setIdOperadorMudancaFk(escala.getIdOperadorMudancaFk());
@@ -979,7 +979,7 @@ public class EscalaService {
 		escalaNova.setIdAvaliacaoFormalizacaoPontoFk(escala.getIdAvaliacaoFormalizacaoPontoFk());
 		escalaNova.setIdAvaliacaoPermanenciaFk(escala.getIdAvaliacaoPermanenciaFk());
 		escalaNova.setIdChDifSimNaoFk(escala.getIdChDifSimNaoFk());
-		escalaNova.setIdCodigoDiferenciadoFk(escala.getIdCodigoDiferenciadoFk());
+		escalaNova.setIdComplementoPlantaoSimNaoFk(escala.getIdComplementoPlantaoSimNaoFk());
 		escalaNova.setIdCoordenacaoFk(escala.getIdCoordenacaoFk());
 		escalaNova.setIdOperadorCancelamentoFk(escala.getIdOperadorCancelamentoFk());
 		escalaNova.setIdOperadorMudancaFk(escala.getIdOperadorMudancaFk());

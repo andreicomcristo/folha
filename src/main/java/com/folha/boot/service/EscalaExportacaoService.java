@@ -352,7 +352,7 @@ public class EscalaExportacaoService {
 	        	dataRow.createCell(10).setCellValue(lista.get(i).getIdTipoFolhaFk().getNomeTipoFolha() );
 	        	dataRow.createCell(11).setCellValue(lista.get(i).getIdRegimeFk().getNomeRegimeDeTrabalho() );
 	        	dataRow.createCell(12).setCellValue(lista.get(i).getIdPresencialSimNaoFk().getDescricao() );
-	        	dataRow.createCell(13).setCellValue(lista.get(i).getIdCodigoDiferenciadoFk().getNomeCodigoDiferenciado() );
+	        	dataRow.createCell(13).setCellValue(lista.get(i).getIdComplementoPlantaoSimNaoFk().getDescricao() );
 	        	dataRow.createCell(14).setCellValue(lista.get(i).getIdChDifSimNaoFk().getDescricao() );
 	        	dataRow.createCell(15).setCellValue(lista.get(i).getIdIncrementoDeRiscoSimNaoFk().getDescricao() );
 	        	dataRow.createCell(16).setCellValue(lista.get(i).getIdTurmaFk().getNomeTurma() );
@@ -803,7 +803,7 @@ public class EscalaExportacaoService {
 				cell.setHorizontalAlignment(Element.ALIGN_CENTER);
 				table.addCell(cell);
 				
-				cell = new PdfPCell(new Phrase(lista.get(i).getIdCodigoDiferenciadoFk().getNomeCodigoDiferenciado() ,corpoFont) );
+				cell = new PdfPCell(new Phrase(lista.get(i).getIdComplementoPlantaoSimNaoFk().getDescricao() ,corpoFont) );
 				cell.setVerticalAlignment(Element.ALIGN_MIDDLE);
 				cell.setHorizontalAlignment(Element.ALIGN_CENTER);
 				table.addCell(cell);
@@ -1854,7 +1854,7 @@ public class EscalaExportacaoService {
 	        	dataRow.createCell(10).setCellValue(lista.get(i).getIdTipoFolhaFk().getNomeTipoFolha() );
 	        	dataRow.createCell(11).setCellValue(lista.get(i).getIdRegimeFk().getNomeRegimeDeTrabalho() );
 	        	dataRow.createCell(12).setCellValue(lista.get(i).getIdPresencialSimNaoFk().getDescricao() );
-	        	dataRow.createCell(13).setCellValue(lista.get(i).getIdCodigoDiferenciadoFk().getNomeCodigoDiferenciado() );
+	        	dataRow.createCell(13).setCellValue(lista.get(i).getIdComplementoPlantaoSimNaoFk().getDescricao() );
 	        	dataRow.createCell(14).setCellValue(lista.get(i).getIdChDifSimNaoFk().getDescricao() );
 	        	dataRow.createCell(15).setCellValue(lista.get(i).getIdIncrementoDeRiscoSimNaoFk().getDescricao() );
 	        	dataRow.createCell(16).setCellValue(lista.get(i).getIdTurmaFk().getNomeTurma() );
@@ -2321,7 +2321,7 @@ public class EscalaExportacaoService {
 				cell.setHorizontalAlignment(Element.ALIGN_CENTER);
 				table.addCell(cell);
 				
-				cell = new PdfPCell(new Phrase(lista.get(i).getIdCodigoDiferenciadoFk().getNomeCodigoDiferenciado() ,corpoFont) );
+				cell = new PdfPCell(new Phrase(lista.get(i).getIdComplementoPlantaoSimNaoFk().getDescricao() ,corpoFont) );
 				cell.setVerticalAlignment(Element.ALIGN_MIDDLE);
 				cell.setHorizontalAlignment(Element.ALIGN_CENTER);
 				table.addCell(cell);
@@ -2945,7 +2945,7 @@ public class EscalaExportacaoService {
 	        	dataRow.createCell(10).setCellValue(lista.get(i).getIdTipoFolhaFk().getNomeTipoFolha() );
 	        	dataRow.createCell(11).setCellValue(lista.get(i).getIdRegimeFk().getNomeRegimeDeTrabalho() );
 	        	dataRow.createCell(12).setCellValue(lista.get(i).getIdPresencialSimNaoFk().getDescricao() );
-	        	dataRow.createCell(13).setCellValue(lista.get(i).getIdCodigoDiferenciadoFk().getNomeCodigoDiferenciado() );
+	        	dataRow.createCell(13).setCellValue(lista.get(i).getIdComplementoPlantaoSimNaoFk().getDescricao() );
 	        	dataRow.createCell(14).setCellValue(lista.get(i).getIdChDifSimNaoFk().getDescricao() );
 	        	dataRow.createCell(15).setCellValue(lista.get(i).getIdIncrementoDeRiscoSimNaoFk().getDescricao() );
 	        	dataRow.createCell(16).setCellValue(lista.get(i).getIdTurmaFk().getNomeTurma() );
@@ -3427,7 +3427,7 @@ public class EscalaExportacaoService {
 				cell.setHorizontalAlignment(Element.ALIGN_CENTER);
 				table.addCell(cell);
 				
-				cell = new PdfPCell(new Phrase(lista.get(i).getIdCodigoDiferenciadoFk().getNomeCodigoDiferenciado() ,corpoFont) );
+				cell = new PdfPCell(new Phrase(lista.get(i).getIdComplementoPlantaoSimNaoFk().getDescricao() ,corpoFont) );
 				cell.setVerticalAlignment(Element.ALIGN_MIDDLE);
 				cell.setHorizontalAlignment(Element.ALIGN_CENTER);
 				table.addCell(cell);

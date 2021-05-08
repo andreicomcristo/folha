@@ -697,8 +697,8 @@ public class EscalaController {
 		
 		boolean chocou = false;
 		boolean naoPresencialComNoturno = false;
-		if(!codigoDiferenciadoService.buscarPorNomeExato(usuarioService.pegarUnidadeLogada(), "N").isEmpty()){
-			escala.setIdCodigoDiferenciadoFk(codigoDiferenciadoService.buscarPorNomeExato(usuarioService.pegarUnidadeLogada(), "N").get(0));
+		if(escala.getIdComplementoPlantaoSimNaoFk()==null){
+			escala.setIdComplementoPlantaoSimNaoFk(simNaoService.buscarPorSigla("N").get(0));
 		}
 		escala.setIdOperadorMudancaFk(usuarioService.pegarOperadorLogado());
 		escala.setDtMudanca(new Date());
@@ -3385,7 +3385,7 @@ public class EscalaController {
 			escala.setIdFuncionarioFk(pessoaFuncionarios);
 			escala.setIdTipoFolhaFk(tiposDeFolha);
 			escala.setIdRegimeFk(regimesDeTrabalho);
-			escala.setIdCodigoDiferenciadoFk(codigoDiferenciado);
+			escala.setIdComplementoPlantaoSimNaoFk(simNaoNAO);
 			escala.setHorasDia(0);
 			escala.setHorasFimSemana(0);
 			escala.setHorasNoite(0);

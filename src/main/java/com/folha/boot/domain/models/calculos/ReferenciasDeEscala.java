@@ -14,7 +14,6 @@ public class ReferenciasDeEscala {
 	AnoMes anoMes;
 	TiposDeFolha tiposDeFolha;
 	RegimesDeTrabalho regimesDeTrabalho;
-	CodigoDiferenciado codigoDiferenciado;
 	Vinculos vinculos;
 	Unidades unidades;
 	UnidadesRegime unidadesRegime;
@@ -50,14 +49,7 @@ public class ReferenciasDeEscala {
 		this.regimesDeTrabalho = regimesDeTrabalho;
 	}
 
-	public CodigoDiferenciado getCodigoDiferenciado() {
-		return codigoDiferenciado;
-	}
-
-	public void setCodigoDiferenciado(CodigoDiferenciado codigoDiferenciado) {
-		this.codigoDiferenciado = codigoDiferenciado;
-	}
-
+	
 	public Vinculos getVinculos() {
 		return vinculos;
 	}

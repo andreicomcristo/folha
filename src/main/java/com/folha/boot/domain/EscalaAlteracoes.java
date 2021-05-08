@@ -50,9 +50,9 @@ public class EscalaAlteracoes extends AbstractEntity<Long> {
     @JoinColumn(name = "id_operador_cancelamento_fk", referencedColumnName = "id")
     @ManyToOne
     private PessoaOperadores idOperadorCancelamentoFk;
-    @JoinColumn(name = "id_codigo_diferenciado_fk", referencedColumnName = "id")
+    @JoinColumn(name = "id_complemento_plantao_sim_nao_fk", referencedColumnName = "id")
     @ManyToOne
-    private CodigoDiferenciado idCodigoDiferenciadoFk;
+    private SimNao idComplementoPlantaoSimNaoFk;
     @JoinColumn(name = "dia06_fk", referencedColumnName = "id")
     @ManyToOne
     private Turnos dia06Fk;
@@ -265,11 +265,12 @@ public class EscalaAlteracoes extends AbstractEntity<Long> {
 	public void setIdOperadorCancelamentoFk(PessoaOperadores idOperadorCancelamentoFk) {
 		this.idOperadorCancelamentoFk = idOperadorCancelamentoFk;
 	}
-	public CodigoDiferenciado getIdCodigoDiferenciadoFk() {
-		return idCodigoDiferenciadoFk;
+	
+	public SimNao getIdComplementoPlantaoSimNaoFk() {
+		return idComplementoPlantaoSimNaoFk;
 	}
-	public void setIdCodigoDiferenciadoFk(CodigoDiferenciado idCodigoDiferenciadoFk) {
-		this.idCodigoDiferenciadoFk = idCodigoDiferenciadoFk;
+	public void setIdComplementoPlantaoSimNaoFk(SimNao idComplementoPlantaoSimNaoFk) {
+		this.idComplementoPlantaoSimNaoFk = idComplementoPlantaoSimNaoFk;
 	}
 	public Turnos getDia06Fk() {
 		return dia06Fk;

@@ -41,18 +41,15 @@ public class CodigoDiferenciado extends AbstractEntity<Long> {
     @JoinColumn(name = "id_necessita_atribuicao_sede_fk", referencedColumnName = "id")
     @ManyToOne
     private SimNao idNecessitaAtribuicaoSedeFk;
+    
+    @JoinColumn(name = "id_fonte_fk", referencedColumnName = "id")
+    @ManyToOne
+    private Fonte idFonteFk;
 	
-	@OneToMany(mappedBy = "idCodigoDiferenciadoFk")
-	private List<Escala> escalaList;
-	
-	@OneToMany(mappedBy = "idCodigoDiferenciadoFk")
-    private List<EscalaPosTransparencia> escalaPosTransparenciaList;
 	
 	@OneToMany(mappedBy = "idCodDiferenciadoFk")
 	private List<FaixasValoresParametrosCalculoFolhasExtras> faixasValoresParametrosCalculoFolhasExtrasList;
 	
-	@OneToMany(mappedBy = "idCodigoDiferenciadoFk")
-    private List<EscalaAlteracoes> escalaAlteracoesList;
 	
 	@OneToMany(mappedBy = "idCodDiferenciadoFk")
     private List<PessoaCodDiferenciado> pessoaCodDiferenciadoList;
@@ -87,13 +84,7 @@ public class CodigoDiferenciado extends AbstractEntity<Long> {
 		this.faixasValoresParametrosCalculoFolhasExtrasList = faixasValoresParametrosCalculoFolhasExtrasList;
 	}
 
-	public List<Escala> getEscalaList() {
-		return escalaList;
-	}
-
-	public void setEscalaList(List<Escala> escalaList) {
-		this.escalaList = escalaList;
-	}
+	
 
 	public Unidades getIdUnidadeFk() {
 		return idUnidadeFk;
@@ -103,22 +94,7 @@ public class CodigoDiferenciado extends AbstractEntity<Long> {
 		this.idUnidadeFk = idUnidadeFk;
 	}
 
-	public List<EscalaPosTransparencia> getEscalaPosTransparenciaList() {
-		return escalaPosTransparenciaList;
-	}
-
-	public void setEscalaPosTransparenciaList(List<EscalaPosTransparencia> escalaPosTransparenciaList) {
-		this.escalaPosTransparenciaList = escalaPosTransparenciaList;
-	}
-
-	public List<EscalaAlteracoes> getEscalaAlteracoesList() {
-		return escalaAlteracoesList;
-	}
-
-	public void setEscalaAlteracoesList(List<EscalaAlteracoes> escalaAlteracoesList) {
-		this.escalaAlteracoesList = escalaAlteracoesList;
-	}
-
+	
 	public SimNao getIdNecessitaAtribuicaoRhFk() {
 		return idNecessitaAtribuicaoRhFk;
 	}
@@ -181,6 +157,14 @@ public class CodigoDiferenciado extends AbstractEntity<Long> {
 
 	public void setEscalaCodDiferenciadoList(List<EscalaCodDiferenciado> escalaCodDiferenciadoList) {
 		this.escalaCodDiferenciadoList = escalaCodDiferenciadoList;
+	}
+
+	public Fonte getIdFonteFk() {
+		return idFonteFk;
+	}
+
+	public void setIdFonteFk(Fonte idFonteFk) {
+		this.idFonteFk = idFonteFk;
 	}
 
 	

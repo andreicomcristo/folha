@@ -153,7 +153,7 @@ public class EscalaAlteracoesService {
 		escalaAlteracoes.setIdAvaliacaoFormalizacaoPontoFk(escala.getIdAvaliacaoFormalizacaoPontoFk());
 		escalaAlteracoes.setIdAvaliacaoPermanenciaFk(escala.getIdAvaliacaoPermanenciaFk());
 		escalaAlteracoes.setIdChDifSimNaoFk(escala.getIdChDifSimNaoFk());
-		escalaAlteracoes.setIdCodigoDiferenciadoFk(escala.getIdCodigoDiferenciadoFk());
+		escalaAlteracoes.setIdComplementoPlantaoSimNaoFk(escala.getIdComplementoPlantaoSimNaoFk());
 		escalaAlteracoes.setIdCoordenacaoFk(escala.getIdCoordenacaoFk());
 		escalaAlteracoes.setIdOperadorCancelamentoFk(escala.getIdOperadorCancelamentoFk());
 		escalaAlteracoes.setIdOperadorMudancaFk(escala.getIdOperadorMudancaFk());
