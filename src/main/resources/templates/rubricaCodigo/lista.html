@@ -50,6 +50,7 @@
 		                    <th style="font-size:10px;" >Descrição</th>
 		                    <th style="font-size:10px;" >Natureza</th>
 		                    <th style="font-size:10px;" >Tipo</th>
+		                    <th style="font-size:10px;" >Característica</th>
 		                    <th style="font-size:10px;" >Fonte</th>
 		                    <th style="font-size:10px;" >Ações</th>
 	                    </tr>
@@ -62,6 +63,7 @@
 		                    <td style="font-size:10px;"  th:text="${d.descricao != null} ? ${d.descricao} : ''  "></td>
 		                    <td style="font-size:10px;"  th:text="${d.idNaturezaFk != null} ? ${d.idNaturezaFk.descricao} : ''  "></td>
 		                    <td style="font-size:10px;"  th:text="${d.idTipoFk != null} ? ${d.idTipoFk.nome +'-'+ d.idTipoFk.descricao} : ''  "></td>
+		                    <td style="font-size:10px;"  th:text="${d.idTipoBrutoLiquidoFk != null} ? ${d.idTipoBrutoLiquidoFk.nome +'-'+ d.idTipoBrutoLiquidoFk.descricao} : ''  "></td>
 		                    <td style="font-size:10px;"  th:text="${d.idFonteFk != null} ? ${d.idFonteFk.nome +'-'+ d.idFonteFk.descricao} : ''  "></td>
 		                    
 		                    

@@ -22,13 +22,6 @@
 					<li><a href="#" class="bi-btn"><span class=" oi oi-chevron-bottom z60 icones-sidebar-tamanho align-middle"></span>Configurações Pontuais </a>
 						<ul class="bi-show">
 							
-							<li><a href="#" class="ax-btn"><span class=" oi oi-chevron-bottom fiftyth icones-sidebar-tamanho align-middle"></span>Ano Mês </a>
-								<ul class="ax-show">
-									<li><a sec:authorize-url="/anomes/cadastrar" th:href="@{/anomes/cadastrar}"><span class=" oi oi-chevron-right icones-sidebar-tamanho align-middle"></span>Cadastrar</a></li>
-									<li><a sec:authorize-url="/anomes/listar" th:href="@{/anomes/listar}"><span class=" oi oi-chevron-right icones-sidebar-tamanho align-middle"></span>Listar</a></li>
-								</ul>
-							</li>
-							
 							<li><a href="#" class="aw-btn"><span class=" oi oi-chevron-bottom fourtynineth icones-sidebar-tamanho align-middle"></span>Cadastros de CIDS </a>
 								<ul class="aw-show">
 									<li><a sec:authorize-url="/cids/cadastrar" th:href="@{/cids/cadastrar}"><span class=" oi oi-chevron-right icones-sidebar-tamanho align-middle"></span>Cadastrar</a></li>
@@ -377,12 +370,12 @@
 					<li><a href="#" class="bh-btn"><span class=" oi oi-chevron-bottom z59 icones-sidebar-tamanho align-middle"></span>Configurações </a>
 						<ul class="bh-show">
 							
-							<li><a href="#" class="es-btn"><span class=" oi oi-chevron-bottom z148 icones-sidebar-tamanho align-middle"></span>Fontes </a>
-								<ul class="es-show">
-									<li><a sec:authorize-url="/fonte/cadastrar" th:href="@{/fonte/cadastrar}"><span class=" oi oi-chevron-right icones-sidebar-tamanho align-middle"></span>Cadastrar</a></li>
-									<li><a sec:authorize-url="/fonte/listar" th:href="@{/fonte/listar}"><span class=" oi oi-chevron-right icones-sidebar-tamanho align-middle"></span>Listar</a></li>
+							<li><a href="#" class="ax-btn"><span class=" oi oi-chevron-bottom fiftyth icones-sidebar-tamanho align-middle"></span>Ano Mês </a>
+								<ul class="ax-show">
+									<li><a sec:authorize-url="/anomes/cadastrar" th:href="@{/anomes/cadastrar}"><span class=" oi oi-chevron-right icones-sidebar-tamanho align-middle"></span>Cadastrar</a></li>
+									<li><a sec:authorize-url="/anomes/listar" th:href="@{/anomes/listar}"><span class=" oi oi-chevron-right icones-sidebar-tamanho align-middle"></span>Listar</a></li>
 								</ul>
-							</li>
+							</li>		
 							
 							<li><a href="#" class="cn-btn"><span class=" oi oi-chevron-bottom z91 icones-sidebar-tamanho align-middle"></span>IR e Previdência </a>
 								<ul class="cn-show">
@@ -481,12 +474,33 @@
 							<li><a href="#" class="dj-btn"><span class=" oi oi-chevron-bottom z113 icones-sidebar-tamanho align-middle"></span>Rubricas </a>
 								<ul class="dj-show">
 									
-									<li><a href="#" class="er-btn"><span class=" oi oi-chevron-bottom z147 icones-sidebar-tamanho align-middle"></span>Tipos </a>
-										<ul class="er-show">
-											<li><a sec:authorize-url="/rubricaTipo/cadastrar" th:href="@{/rubricaTipo/cadastrar}"><span class=" oi oi-chevron-right icones-sidebar-tamanho align-middle"></span>Cadastrar</a></li>
-											<li><a sec:authorize-url="/rubricaTipo/listar" th:href="@{/rubricaTipo/listar}"><span class=" oi oi-chevron-right icones-sidebar-tamanho align-middle"></span>Listar</a></li>
+									<li><a href="#" class="eu-btn"><span class=" oi oi-chevron-bottom z150 icones-sidebar-tamanho align-middle"></span>Parâmetros </a>
+										<ul class="eu-show">
+											
+											<li><a href="#" class="et-btn"><span class=" oi oi-chevron-bottom z149 icones-sidebar-tamanho align-middle"></span>Característica </a>
+												<ul class="et-show">
+													<li><a sec:authorize-url="/tipoBrutoLiquido/cadastrar" th:href="@{/tipoBrutoLiquido/cadastrar}"><span class=" oi oi-chevron-right icones-sidebar-tamanho align-middle"></span>Cadastrar</a></li>
+													<li><a sec:authorize-url="/tipoBrutoLiquido/listar" th:href="@{/tipoBrutoLiquido/listar}"><span class=" oi oi-chevron-right icones-sidebar-tamanho align-middle"></span>Listar</a></li>
+												</ul>
+											</li>
+											
+											<li><a href="#" class="er-btn"><span class=" oi oi-chevron-bottom z147 icones-sidebar-tamanho align-middle"></span>Tipos </a>
+												<ul class="er-show">
+													<li><a sec:authorize-url="/rubricaTipo/cadastrar" th:href="@{/rubricaTipo/cadastrar}"><span class=" oi oi-chevron-right icones-sidebar-tamanho align-middle"></span>Cadastrar</a></li>
+													<li><a sec:authorize-url="/rubricaTipo/listar" th:href="@{/rubricaTipo/listar}"><span class=" oi oi-chevron-right icones-sidebar-tamanho align-middle"></span>Listar</a></li>
+												</ul>
+											</li>
+											
+											<li><a href="#" class="es-btn"><span class=" oi oi-chevron-bottom z148 icones-sidebar-tamanho align-middle"></span>Fontes </a>
+												<ul class="es-show">
+													<li><a sec:authorize-url="/fonte/cadastrar" th:href="@{/fonte/cadastrar}"><span class=" oi oi-chevron-right icones-sidebar-tamanho align-middle"></span>Cadastrar</a></li>
+													<li><a sec:authorize-url="/fonte/listar" th:href="@{/fonte/listar}"><span class=" oi oi-chevron-right icones-sidebar-tamanho align-middle"></span>Listar</a></li>
+												</ul>
+											</li>		
+											
 										</ul>
 									</li>
+									
 									
 									<li><a href="#" class="ds-btn"><span class=" oi oi-chevron-bottom z122 icones-sidebar-tamanho align-middle"></span>Gerais</a>
 											<ul class="ds-show">
@@ -795,50 +809,6 @@
 			
 			
 			
-							
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			<li><a href="#" class="et-btn"><span class=" oi oi-chevron-bottom z149 icones-sidebar-tamanho align-middle"></span>Menu 1 </a>
-				<ul class="et-show">
-					<li><a href="#"><span class=" oi oi-chevron-right icones-sidebar-tamanho align-middle"></span>Cadastrar</a></li>
-					<li><a href="#"><span class=" oi oi-chevron-right icones-sidebar-tamanho align-middle"></span>Listar</a></li>
-				</ul>
-			</li>
-			
-			<li><a href="#" class="eu-btn"><span class=" oi oi-chevron-bottom z150 icones-sidebar-tamanho align-middle"></span>Menu 1 </a>
-				<ul class="eu-show">
-					<li><a href="#"><span class=" oi oi-chevron-right icones-sidebar-tamanho align-middle"></span>Cadastrar</a></li>
-					<li><a href="#"><span class=" oi oi-chevron-right icones-sidebar-tamanho align-middle"></span>Listar</a></li>
-				</ul>
-			</li>
-			
-			<li><a href="#" class="ev-btn"><span class=" oi oi-chevron-bottom z151 icones-sidebar-tamanho align-middle"></span>Menu 1 </a>
-				<ul class="ev-show">
-					<li><a href="#"><span class=" oi oi-chevron-right icones-sidebar-tamanho align-middle"></span>Cadastrar</a></li>
-					<li><a href="#"><span class=" oi oi-chevron-right icones-sidebar-tamanho align-middle"></span>Listar</a></li>
-				</ul>
-			</li>
 			
 			<li><a href="#" class="ew-btn"><span class=" oi oi-chevron-bottom z152 icones-sidebar-tamanho align-middle"></span>Menu 1 </a>
 				<ul class="ew-show">
@@ -863,6 +833,188 @@
 			
 			<li><a href="#" class="ez-btn"><span class=" oi oi-chevron-bottom z155 icones-sidebar-tamanho align-middle"></span>Menu 1 </a>
 				<ul class="ez-show">
+					<li><a href="#"><span class=" oi oi-chevron-right icones-sidebar-tamanho align-middle"></span>Cadastrar</a></li>
+					<li><a href="#"><span class=" oi oi-chevron-right icones-sidebar-tamanho align-middle"></span>Listar</a></li>
+				</ul>
+			</li>
+			
+			<li><a href="#" class="fa-btn"><span class=" oi oi-chevron-bottom z156 icones-sidebar-tamanho align-middle"></span>Menu 1 </a>
+				<ul class="fa-show">
+					<li><a href="#"><span class=" oi oi-chevron-right icones-sidebar-tamanho align-middle"></span>Cadastrar</a></li>
+					<li><a href="#"><span class=" oi oi-chevron-right icones-sidebar-tamanho align-middle"></span>Listar</a></li>
+				</ul>
+			</li>
+			
+			<li><a href="#" class="fb-btn"><span class=" oi oi-chevron-bottom z157 icones-sidebar-tamanho align-middle"></span>Menu 1 </a>
+				<ul class="fb-show">
+					<li><a href="#"><span class=" oi oi-chevron-right icones-sidebar-tamanho align-middle"></span>Cadastrar</a></li>
+					<li><a href="#"><span class=" oi oi-chevron-right icones-sidebar-tamanho align-middle"></span>Listar</a></li>
+				</ul>
+			</li>
+			
+			<li><a href="#" class="fc-btn"><span class=" oi oi-chevron-bottom z158 icones-sidebar-tamanho align-middle"></span>Menu 1 </a>
+				<ul class="fc-show">
+					<li><a href="#"><span class=" oi oi-chevron-right icones-sidebar-tamanho align-middle"></span>Cadastrar</a></li>
+					<li><a href="#"><span class=" oi oi-chevron-right icones-sidebar-tamanho align-middle"></span>Listar</a></li>
+				</ul>
+			</li>
+			
+			<li><a href="#" class="fd-btn"><span class=" oi oi-chevron-bottom z159 icones-sidebar-tamanho align-middle"></span>Menu 1 </a>
+				<ul class="fd-show">
+					<li><a href="#"><span class=" oi oi-chevron-right icones-sidebar-tamanho align-middle"></span>Cadastrar</a></li>
+					<li><a href="#"><span class=" oi oi-chevron-right icones-sidebar-tamanho align-middle"></span>Listar</a></li>
+				</ul>
+			</li>
+			
+			<li><a href="#" class="fe-btn"><span class=" oi oi-chevron-bottom z160 icones-sidebar-tamanho align-middle"></span>Menu 1 </a>
+				<ul class="fe-show">
+					<li><a href="#"><span class=" oi oi-chevron-right icones-sidebar-tamanho align-middle"></span>Cadastrar</a></li>
+					<li><a href="#"><span class=" oi oi-chevron-right icones-sidebar-tamanho align-middle"></span>Listar</a></li>
+				</ul>
+			</li>
+			
+			<li><a href="#" class="ff-btn"><span class=" oi oi-chevron-bottom z161 icones-sidebar-tamanho align-middle"></span>Menu 1 </a>
+				<ul class="ff-show">
+					<li><a href="#"><span class=" oi oi-chevron-right icones-sidebar-tamanho align-middle"></span>Cadastrar</a></li>
+					<li><a href="#"><span class=" oi oi-chevron-right icones-sidebar-tamanho align-middle"></span>Listar</a></li>
+				</ul>
+			</li>
+			
+			<li><a href="#" class="fg-btn"><span class=" oi oi-chevron-bottom z162 icones-sidebar-tamanho align-middle"></span>Menu 1 </a>
+				<ul class="fg-show">
+					<li><a href="#"><span class=" oi oi-chevron-right icones-sidebar-tamanho align-middle"></span>Cadastrar</a></li>
+					<li><a href="#"><span class=" oi oi-chevron-right icones-sidebar-tamanho align-middle"></span>Listar</a></li>
+				</ul>
+			</li>
+			
+			<li><a href="#" class="fh-btn"><span class=" oi oi-chevron-bottom z163 icones-sidebar-tamanho align-middle"></span>Menu 1 </a>
+				<ul class="fh-show">
+					<li><a href="#"><span class=" oi oi-chevron-right icones-sidebar-tamanho align-middle"></span>Cadastrar</a></li>
+					<li><a href="#"><span class=" oi oi-chevron-right icones-sidebar-tamanho align-middle"></span>Listar</a></li>
+				</ul>
+			</li>
+			
+			<li><a href="#" class="fi-btn"><span class=" oi oi-chevron-bottom z164 icones-sidebar-tamanho align-middle"></span>Menu 1 </a>
+				<ul class="fi-show">
+					<li><a href="#"><span class=" oi oi-chevron-right icones-sidebar-tamanho align-middle"></span>Cadastrar</a></li>
+					<li><a href="#"><span class=" oi oi-chevron-right icones-sidebar-tamanho align-middle"></span>Listar</a></li>
+				</ul>
+			</li>
+			
+			<li><a href="#" class="fj-btn"><span class=" oi oi-chevron-bottom z165 icones-sidebar-tamanho align-middle"></span>Menu 1 </a>
+				<ul class="fj-show">
+					<li><a href="#"><span class=" oi oi-chevron-right icones-sidebar-tamanho align-middle"></span>Cadastrar</a></li>
+					<li><a href="#"><span class=" oi oi-chevron-right icones-sidebar-tamanho align-middle"></span>Listar</a></li>
+				</ul>
+			</li>
+			
+			<li><a href="#" class="fk-btn"><span class=" oi oi-chevron-bottom z166 icones-sidebar-tamanho align-middle"></span>Menu 1 </a>
+				<ul class="fk-show">
+					<li><a href="#"><span class=" oi oi-chevron-right icones-sidebar-tamanho align-middle"></span>Cadastrar</a></li>
+					<li><a href="#"><span class=" oi oi-chevron-right icones-sidebar-tamanho align-middle"></span>Listar</a></li>
+				</ul>
+			</li>
+			
+			<li><a href="#" class="fl-btn"><span class=" oi oi-chevron-bottom z167 icones-sidebar-tamanho align-middle"></span>Menu 1 </a>
+				<ul class="fl-show">
+					<li><a href="#"><span class=" oi oi-chevron-right icones-sidebar-tamanho align-middle"></span>Cadastrar</a></li>
+					<li><a href="#"><span class=" oi oi-chevron-right icones-sidebar-tamanho align-middle"></span>Listar</a></li>
+				</ul>
+			</li>
+			
+			<li><a href="#" class="fm-btn"><span class=" oi oi-chevron-bottom z168 icones-sidebar-tamanho align-middle"></span>Menu 1 </a>
+				<ul class="fm-show">
+					<li><a href="#"><span class=" oi oi-chevron-right icones-sidebar-tamanho align-middle"></span>Cadastrar</a></li>
+					<li><a href="#"><span class=" oi oi-chevron-right icones-sidebar-tamanho align-middle"></span>Listar</a></li>
+				</ul>
+			</li>
+			
+			<li><a href="#" class="fn-btn"><span class=" oi oi-chevron-bottom z169 icones-sidebar-tamanho align-middle"></span>Menu 1 </a>
+				<ul class="fn-show">
+					<li><a href="#"><span class=" oi oi-chevron-right icones-sidebar-tamanho align-middle"></span>Cadastrar</a></li>
+					<li><a href="#"><span class=" oi oi-chevron-right icones-sidebar-tamanho align-middle"></span>Listar</a></li>
+				</ul>
+			</li>
+			
+			<li><a href="#" class="fo-btn"><span class=" oi oi-chevron-bottom z170 icones-sidebar-tamanho align-middle"></span>Menu 1 </a>
+				<ul class="fo-show">
+					<li><a href="#"><span class=" oi oi-chevron-right icones-sidebar-tamanho align-middle"></span>Cadastrar</a></li>
+					<li><a href="#"><span class=" oi oi-chevron-right icones-sidebar-tamanho align-middle"></span>Listar</a></li>
+				</ul>
+			</li>
+			
+			<li><a href="#" class="fp-btn"><span class=" oi oi-chevron-bottom z171 icones-sidebar-tamanho align-middle"></span>Menu 1 </a>
+				<ul class="fp-show">
+					<li><a href="#"><span class=" oi oi-chevron-right icones-sidebar-tamanho align-middle"></span>Cadastrar</a></li>
+					<li><a href="#"><span class=" oi oi-chevron-right icones-sidebar-tamanho align-middle"></span>Listar</a></li>
+				</ul>
+			</li>
+			
+			<li><a href="#" class="fq-btn"><span class=" oi oi-chevron-bottom z172 icones-sidebar-tamanho align-middle"></span>Menu 1 </a>
+				<ul class="fq-show">
+					<li><a href="#"><span class=" oi oi-chevron-right icones-sidebar-tamanho align-middle"></span>Cadastrar</a></li>
+					<li><a href="#"><span class=" oi oi-chevron-right icones-sidebar-tamanho align-middle"></span>Listar</a></li>
+				</ul>
+			</li>
+			
+			<li><a href="#" class="fr-btn"><span class=" oi oi-chevron-bottom z173 icones-sidebar-tamanho align-middle"></span>Menu 1 </a>
+				<ul class="fr-show">
+					<li><a href="#"><span class=" oi oi-chevron-right icones-sidebar-tamanho align-middle"></span>Cadastrar</a></li>
+					<li><a href="#"><span class=" oi oi-chevron-right icones-sidebar-tamanho align-middle"></span>Listar</a></li>
+				</ul>
+			</li>
+			
+			<li><a href="#" class="fs-btn"><span class=" oi oi-chevron-bottom z174 icones-sidebar-tamanho align-middle"></span>Menu 1 </a>
+				<ul class="fs-show">
+					<li><a href="#"><span class=" oi oi-chevron-right icones-sidebar-tamanho align-middle"></span>Cadastrar</a></li>
+					<li><a href="#"><span class=" oi oi-chevron-right icones-sidebar-tamanho align-middle"></span>Listar</a></li>
+				</ul>
+			</li>
+			
+			<li><a href="#" class="ft-btn"><span class=" oi oi-chevron-bottom z175 icones-sidebar-tamanho align-middle"></span>Menu 1 </a>
+				<ul class="ft-show">
+					<li><a href="#"><span class=" oi oi-chevron-right icones-sidebar-tamanho align-middle"></span>Cadastrar</a></li>
+					<li><a href="#"><span class=" oi oi-chevron-right icones-sidebar-tamanho align-middle"></span>Listar</a></li>
+				</ul>
+			</li>
+			
+			<li><a href="#" class="fu-btn"><span class=" oi oi-chevron-bottom z176 icones-sidebar-tamanho align-middle"></span>Menu 1 </a>
+				<ul class="fu-show">
+					<li><a href="#"><span class=" oi oi-chevron-right icones-sidebar-tamanho align-middle"></span>Cadastrar</a></li>
+					<li><a href="#"><span class=" oi oi-chevron-right icones-sidebar-tamanho align-middle"></span>Listar</a></li>
+				</ul>
+			</li>
+			
+			<li><a href="#" class="fv-btn"><span class=" oi oi-chevron-bottom z177 icones-sidebar-tamanho align-middle"></span>Menu 1 </a>
+				<ul class="fv-show">
+					<li><a href="#"><span class=" oi oi-chevron-right icones-sidebar-tamanho align-middle"></span>Cadastrar</a></li>
+					<li><a href="#"><span class=" oi oi-chevron-right icones-sidebar-tamanho align-middle"></span>Listar</a></li>
+				</ul>
+			</li>
+			
+			<li><a href="#" class="fw-btn"><span class=" oi oi-chevron-bottom z178 icones-sidebar-tamanho align-middle"></span>Menu 1 </a>
+				<ul class="fw-show">
+					<li><a href="#"><span class=" oi oi-chevron-right icones-sidebar-tamanho align-middle"></span>Cadastrar</a></li>
+					<li><a href="#"><span class=" oi oi-chevron-right icones-sidebar-tamanho align-middle"></span>Listar</a></li>
+				</ul>
+			</li>
+			
+			<li><a href="#" class="fx-btn"><span class=" oi oi-chevron-bottom z179 icones-sidebar-tamanho align-middle"></span>Menu 1 </a>
+				<ul class="fx-show">
+					<li><a href="#"><span class=" oi oi-chevron-right icones-sidebar-tamanho align-middle"></span>Cadastrar</a></li>
+					<li><a href="#"><span class=" oi oi-chevron-right icones-sidebar-tamanho align-middle"></span>Listar</a></li>
+				</ul>
+			</li>
+			
+			<li><a href="#" class="fy-btn"><span class=" oi oi-chevron-bottom z180 icones-sidebar-tamanho align-middle"></span>Menu 1 </a>
+				<ul class="fy-show">
+					<li><a href="#"><span class=" oi oi-chevron-right icones-sidebar-tamanho align-middle"></span>Cadastrar</a></li>
+					<li><a href="#"><span class=" oi oi-chevron-right icones-sidebar-tamanho align-middle"></span>Listar</a></li>
+				</ul>
+			</li>
+			
+			<li><a href="#" class="fz-btn"><span class=" oi oi-chevron-bottom z181 icones-sidebar-tamanho align-middle"></span>Menu 1 </a>
+				<ul class="fz-show">
 					<li><a href="#"><span class=" oi oi-chevron-right icones-sidebar-tamanho align-middle"></span>Cadastrar</a></li>
 					<li><a href="#"><span class=" oi oi-chevron-right icones-sidebar-tamanho align-middle"></span>Listar</a></li>
 				</ul>

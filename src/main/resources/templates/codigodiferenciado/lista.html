@@ -44,14 +44,15 @@
 	        	<table class="table table-striped table-hover table-sm myTable">
 	            	<thead>
 	          			<tr>
-		                	<th>#</th>
-		                    <th>Nome</th>
-		                    <th>Descrição</th>
-		                    <th>Unidade</th>
-		                    <th>Fonte</th>
-		                    <th>Necessita Atribuição Rh</th>
-		                    <th>Necessita Aprovação Sede</th>
-		                    <th>Ações</th>
+		                	<th style="font-size:10px;">#</th>
+		                    <th style="font-size:10px;">Nome</th>
+		                    <th style="font-size:10px;">Descrição</th>
+		                    <th style="font-size:10px;">Unidade</th>
+		                    <th style="font-size:10px;">Fonte</th>
+		                    <th style="font-size:10px;">Característica</th>
+		                    <th style="font-size:10px;">Necessita Atribuição Rh</th>
+		                    <th style="font-size:10px;">Necessita Aprovação Sede</th>
+		                    <th style="font-size:10px;">Ações</th>
 	                    </tr>
 	                </thead>                  
 	                <tbody>
@@ -61,6 +62,7 @@
 		                    <td style="font-size:10px;"  th:text="${d.descricaoCodigoDiferenciado}"></td>
 		                    <td style="font-size:10px;"  th:text="${d.idUnidadeFk.nomeFantasia}"></td>
 		                    <td style="font-size:10px;"  th:text="${d.idFonteFk != null} ? ${d.idFonteFk.nome +'-'+ d.idFonteFk.descricao} : ''  "></td>
+		                    <td style="font-size:10px;"  th:text="${d.idTipoBrutoLiquidoFk != null} ? ${d.idTipoBrutoLiquidoFk.nome +'-'+ d.idTipoBrutoLiquidoFk.descricao} : ''  "></td>
 		                    <td style="font-size:10px;"  th:text="${d.idNecessitaAtribuicaoRhFk.descricao}"></td>
 		                    <td style="font-size:10px;"  th:text="${d.idNecessitaAtribuicaoSedeFk.descricao}"></td>
 		                    

@@ -45,6 +45,10 @@ public class CodigoDiferenciado extends AbstractEntity<Long> {
     @JoinColumn(name = "id_fonte_fk", referencedColumnName = "id")
     @ManyToOne
     private Fonte idFonteFk;
+    
+    @JoinColumn(name = "id_tipo_bruto_liquido_fk", referencedColumnName = "id")
+    @ManyToOne
+    private TipoBrutoLiquido idTipoBrutoLiquidoFk;
 	
 	
 	@OneToMany(mappedBy = "idCodDiferenciadoFk")
@@ -167,6 +171,15 @@ public class CodigoDiferenciado extends AbstractEntity<Long> {
 		this.idFonteFk = idFonteFk;
 	}
 
+	public TipoBrutoLiquido getIdTipoBrutoLiquidoFk() {
+		return idTipoBrutoLiquidoFk;
+	}
+
+	public void setIdTipoBrutoLiquidoFk(TipoBrutoLiquido idTipoBrutoLiquidoFk) {
+		this.idTipoBrutoLiquidoFk = idTipoBrutoLiquidoFk;
+	}
+
+	
 	
 	
 }

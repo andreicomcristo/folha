@@ -17,69 +17,51 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
-
-import com.folha.boot.domain.Fonte;
-import com.folha.boot.domain.RubricaCodigo;
-import com.folha.boot.domain.RubricaNatureza;
-import com.folha.boot.domain.RubricaTipo;
 import com.folha.boot.domain.TipoBrutoLiquido;
-import com.folha.boot.service.FonteService;
-import com.folha.boot.service.RubricaCodigoService;
-import com.folha.boot.service.RubricaNaturezaService;
-import com.folha.boot.service.RubricaTipoService;
+import com.folha.boot.domain.Unidades;
 import com.folha.boot.service.TipoBrutoLiquidoService;
+import com.folha.boot.service.UnidadesService;
+import com.folha.boot.service.seguranca.UsuarioService;
 
 @Controller
-@RequestMapping("/rubricaCodigo")
-public class RubricaCodigoController {
+@RequestMapping("/tipoBrutoLiquido")
+public class TipoBrutoLiquidoController {
 
 	
 	String ultimaBuscaNome = "";
 	
 	@Autowired
-	private RubricaCodigoService service;
-	@Autowired
-	private FonteService fonteService;
-	@Autowired
-	private TipoBrutoLiquidoService tipoBrutoLiquidoService;
-	@Autowired
-	private RubricaNaturezaService rubricaNaturezaService;
-	@Autowired
-	private RubricaTipoService rubricaTipoService;
+	private UsuarioService usuarioService;
 	
+	@Autowired
+	private TipoBrutoLiquidoService service;
+	@Autowired
+	private UnidadesService unidadesService;
 
 	@GetMapping("/cadastrar")
-	public String cadastrar(RubricaCodigo rubricaCodigo) {		
-		return "/rubricaCodigo/cadastro";
+	public String cadastrar(TipoBrutoLiquido tipoBrutoLiquido) {		
+		return "/tipoBrutoLiquido/cadastro";
 	}
 	
+	
 	@PostMapping("/salvar")
-	public String salvar(RubricaCodigo rubricaCodigo, RedirectAttributes attr) {
-		// Evitando salvar quem já está cadastrado
-		if(rubricaCodigo!=null) {
-			if(rubricaCodigo.getId()==null) {
-				if(service.avaliarCadastrado(rubricaCodigo.getCodigo())==true) {
-					return "redirect:/mensagens/mensagem/de/ja/cadastrado";	
-				}
-			}
-		}
-		
-		service.salvar(rubricaCodigo);
+	public String salvar(TipoBrutoLiquido tipoBrutoLiquido, RedirectAttributes attr) {
+		service.salvar(tipoBrutoLiquido);
 		attr.addFlashAttribute("success", "Inserido com sucesso.");
-		return "redirect:/rubricaCodigo/cadastrar";
+		return "redirect:/tipoBrutoLiquido/cadastrar";
 	}
 	
 	@GetMapping("/editar/{id}")
 	public String preEditar(@PathVariable("id") Long id, ModelMap model) {
-		model.addAttribute("rubricaCodigo", service.buscarPorId(id));
-		return "/rubricaCodigo/cadastro";
+		model.addAttribute("tipoBrutoLiquido", service.buscarPorId(id));
+		return "/tipoBrutoLiquido/cadastro";
 	}
 	
 	@PostMapping("/editar")
-	public String editar(RubricaCodigo rubricaCodigo, RedirectAttributes attr) {
-		service.editar(rubricaCodigo);
+	public String editar(TipoBrutoLiquido tipoBrutoLiquido, RedirectAttributes attr) {
+		service.editar(tipoBrutoLiquido);
 		attr.addFlashAttribute("success", "Editado com sucesso.");
-		return "redirect:/rubricaCodigo/listar";
+		return "redirect:/tipoBrutoLiquido/listar";
 	}
 	
 	@GetMapping("/excluir/{id}")
@@ -88,6 +70,8 @@ public class RubricaCodigoController {
 		model.addAttribute("success", "Excluído com sucesso.");
 		return listar(model);
 	}
+	
+	
 	
 	@GetMapping("/listar")
 	public String listar(ModelMap model) {
@@ -107,12 +91,12 @@ public class RubricaCodigoController {
 		if(pageNo<1) {pageNo=1;}
 		
 		if( (ultimaBuscaNome.equals("")) && (ultimaBuscaNome.equals("")) ){
-			return "redirect:/rubricaCodigo/listar/{pageNo}" ;}
+			return "redirect:/tipoBrutoLiquido/listar/{pageNo}" ;}
 		else {		
 			if(!ultimaBuscaNome.equals("")) {
 				return this.findPaginated(pageNo, ultimaBuscaNome, model);}
 			else {
-				return "redirect:/rubricaCodigo/listar/{pageNo}" ;}
+				return "redirect:/tipoBrutoLiquido/listar/{pageNo}" ;}
 			}
 	}
 	
@@ -120,49 +104,37 @@ public class RubricaCodigoController {
 	@GetMapping("/listar/{pageNo}")
 	public String findPaginated(@PathVariable (value = "pageNo") int pageNo, ModelMap model) {
 		int pageSeze = 10;
-		Page<RubricaCodigo> page = service.findPaginated( pageNo, pageSeze);
-		List<RubricaCodigo> lista = page.getContent();
+		Page<TipoBrutoLiquido> page = service.findPaginated( pageNo, pageSeze);
+		List<TipoBrutoLiquido> lista = page.getContent();
 		return paginar(pageNo, page, lista, model);
 	}
 
 	public String findPaginated(@PathVariable (value = "pageNo") int pageNo, String nome, ModelMap model) {
 		int pageSeze = 10;
-		Page<RubricaCodigo> page = service.findPaginatedNome( nome, pageNo, pageSeze);
-		List<RubricaCodigo> lista = page.getContent();
+		Page<TipoBrutoLiquido> page = service.findPaginatedNome(  nome, pageNo, pageSeze);
+		List<TipoBrutoLiquido> lista = page.getContent();
 		return paginar(pageNo, page, lista, model);
 	}
 	
 	
 	
-	public String paginar(int pageNo, Page<RubricaCodigo> page, List<RubricaCodigo> lista, ModelMap model) {	
+	public String paginar(int pageNo, Page<TipoBrutoLiquido> page, List<TipoBrutoLiquido> lista, ModelMap model) {	
 		model.addAttribute("currentePage", pageNo);
 		model.addAttribute("totalPages", page.getTotalPages());
 		model.addAttribute("totalItems", page.getTotalElements()); 
-		model.addAttribute("rubricaCodigo", lista);
-		return "/rubricaCodigo/lista";	
+		model.addAttribute("tipoBrutoLiquido", lista);
+		return "/tipoBrutoLiquido/lista";	
 	}
 
-	@ModelAttribute("idFonteFk")
-	public List<Fonte> getIdFonteFk() {
-		return fonteService.buscarTodos();
-	}
-	
-	@ModelAttribute("idTipoBrutoLiquidoFk")
-	public List<TipoBrutoLiquido> getIdTipoBrutoLiquidoFk() {
-		return tipoBrutoLiquidoService.buscarTodos();
-	}
-	
-	@ModelAttribute("idNaturezaFk")
-	public List<RubricaNatureza> getIdNaturezaFk() {
-		return rubricaNaturezaService.buscarTodos();
-	}
 	
 	
-	@ModelAttribute("idTipoFk")
-	public List<RubricaTipo> getIdTipoFk() {
-		return rubricaTipoService.buscarTodos();
-	}
 	
+	@ModelAttribute("idUnidadeFk")
+	public List<Unidades> getUfs() {
+		List<Unidades> lista = new ArrayList<Unidades>();
+		lista.add(usuarioService.pegarUnidadeLogada());
+		return lista;
+	}	
 	
 	
 	@Autowired
