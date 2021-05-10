@@ -1,10 +1,9 @@
 package com.folha.boot.service.calculos.folha;
 
-public class Descontos extends Rubrica{
+public class Descontos{
 
 	private int id;
-	private CodigoDaRubrica idFkCodigoDaRubrica;
-	private double valorInformado;
+	
 	private char tipo; 
 	
 }
