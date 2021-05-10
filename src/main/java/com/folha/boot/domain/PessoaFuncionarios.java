@@ -89,6 +89,10 @@ public class PessoaFuncionarios extends AbstractEntity<Long> {
     @ManyToOne
     private Unidades idUnidadeAtuacaoAtualFk;
     
+    @JoinColumn(name = "id_situacao_variacao_atual_fk", referencedColumnName = "id")
+    @ManyToOne
+    private SituacaoVariacao idSituacaoVariacaoAtualFk;
+    
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "idFuncionarioFk")
     private List<HistFuncionariosVinculos> histFuncionariosVinculosList;
     
@@ -484,6 +488,14 @@ public class PessoaFuncionarios extends AbstractEntity<Long> {
 		this.rubricaFuncionarioList = rubricaFuncionarioList;
 	}
 
+	public SituacaoVariacao getIdSituacaoVariacaoAtualFk() {
+		return idSituacaoVariacaoAtualFk;
+	}
+
+	public void setIdSituacaoVariacaoAtualFk(SituacaoVariacao idSituacaoVariacaoAtualFk) {
+		this.idSituacaoVariacaoAtualFk = idSituacaoVariacaoAtualFk;
+	}
+	
 	
 
 	

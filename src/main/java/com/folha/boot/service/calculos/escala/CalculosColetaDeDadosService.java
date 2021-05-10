@@ -100,18 +100,20 @@ public class CalculosColetaDeDadosService {
 	
 
 	
+	@SuppressWarnings("deprecation")
 	@Transactional(readOnly = true)
 	public List<LicencasNoMes> buscarLicencasPorMes(AnoMes anoMes){
 		
-		@SuppressWarnings("deprecation")
 		Date dataInicial = new Date( Integer.parseInt(anoMes.getNomeAnoMes().substring(0, 4))-1900 , Integer.parseInt(anoMes.getNomeAnoMes().substring(4, 6))-1   ,  1 );
 		int diaFinala = utilidadesDeCalendarioEEscala.quantidadeDeDiasNoMes(anoMes.getNomeAnoMes());
-		@SuppressWarnings("deprecation")
+		
 		Date dataFinal = new Date( Integer.parseInt(anoMes.getNomeAnoMes().substring(0, 4))-1900 , Integer.parseInt(anoMes.getNomeAnoMes().substring(4, 6))-1   ,  diaFinala );
 		List<FuncionariosLicencas> lista = funcionariosLicencasReposytory.findByDtInicialLessThanEqualAndDtFinalGreaterThanEqualAndDtCancelamentoIsNullOrderByIdFuncionarioFkIdPessoaFkCpfAsc(dataFinal, dataInicial); 
+		
 		List<LicencasNoMes> listaResposta = new ArrayList<>();
 		for(int i=0;i<lista.size();i++) {
 			LicencasNoMes f= new LicencasNoMes();
+			
 			int diaInicial = dataInicial.getDate();
 			if(dataInicial.before(lista.get(i).getDtInicial())) {diaInicial = lista.get(i).getDtInicial().getDate();}
 			int diaFinal = dataFinal.getDate();
@@ -122,6 +124,7 @@ public class CalculosColetaDeDadosService {
 			f.setQtdDias((diaFinal-diaInicial)+1);
 			listaResposta.add(f);
 		}
+		
 		return listaResposta;
 	}
 

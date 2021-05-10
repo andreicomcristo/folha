@@ -126,6 +126,13 @@
 							</select>	
 							<p></p>
 							
+							<label for="nome" class="">Situação (Variação)</label>
+							<select id="cargos" class="form-select" th:field="*{idSituacaoVariacaoAtualFk}">
+								<option value="">Selecione a Variação</option>
+								<option th:each="d : ${idSituacaoVariacaoAtualFk}" th:value="${d.id}"th:text="${d.descricao}">ADM</option>
+							</select>	
+							<p></p>
+							
 							<label for="nome" class="">Unidade de Lotação </label>
 							<select id="cargos" class="form-select" th:field="*{idUnidadeLotacaoAtualFk}">
 								<option value="">Unidade de Lotação</option>

@@ -242,6 +242,13 @@
 								</ul>
 							</li>
 							
+							<li><a href="#" class="ey-btn"><span class=" oi oi-chevron-bottom z154 icones-sidebar-tamanho align-middle"></span>Variação Situação </a>
+								<ul class="ey-show">
+									<li><a sec:authorize-url="/situacaoVariacao/cadastrar" th:href="@{/situacaoVariacao/cadastrar}"><span class=" oi oi-chevron-right icones-sidebar-tamanho align-middle"></span>Cadastrar</a></li>
+									<li><a sec:authorize-url="/situacaoVariacao/listar" th:href="@{/situacaoVariacao/listar}"><span class=" oi oi-chevron-right icones-sidebar-tamanho align-middle"></span>Listar</a></li>
+								</ul>
+							</li>
+							
 							<li><a href="#" class="v-btn"><span class=" oi oi-chevron-bottom twentysecond icones-sidebar-tamanho align-middle"></span>Vínculos </a>
 								<ul class="v-show">
 									<li><a sec:authorize-url="/vinculos/cadastrar" th:href="@{/vinculos/cadastrar}"><span class=" oi oi-chevron-right icones-sidebar-tamanho align-middle"></span>Cadastrar</a></li>
@@ -427,10 +434,24 @@
 							<li><a href="#" class="cy-btn"><span class=" oi oi-chevron-bottom z102 icones-sidebar-tamanho align-middle"></span>Parâmetros Valores </a>
 								<ul class="cy-show">
 									
-									<li><a href="#" class="di-btn"><span class=" oi oi-chevron-bottom z112 icones-sidebar-tamanho align-middle"></span>Valores Subsídio </a>
+									<li><a href="#" class="ew-btn"><span class=" oi oi-chevron-bottom z152 icones-sidebar-tamanho align-middle"></span>Incentivo de Risco </a>
+										<ul class="ew-show">
+											<li><a sec:authorize-url="/faixasValoresIncentivoDeRisco/cadastrar" th:href="@{/faixasValoresIncentivoDeRisco/cadastrar}"><span class=" oi oi-chevron-right icones-sidebar-tamanho align-middle"></span>Cadastrar</a></li>
+											<li><a sec:authorize-url="/faixasValoresIncentivoDeRisco/listar" th:href="@{/faixasValoresIncentivoDeRisco/listar}"><span class=" oi oi-chevron-right icones-sidebar-tamanho align-middle"></span>Listar</a></li>
+										</ul>
+									</li>
+									
+									<li><a href="#" class="di-btn"><span class=" oi oi-chevron-bottom z112 icones-sidebar-tamanho align-middle"></span>Subsídio </a>
 										<ul class="di-show">
 											<li><a sec:authorize-url="/faixasValoresSubsidio/cadastrar" th:href="@{/faixasValoresSubsidio/cadastrar}"><span class=" oi oi-chevron-right icones-sidebar-tamanho align-middle"></span>Cadastrar</a></li>
 											<li><a sec:authorize-url="/faixasValoresSubsidio/listar" th:href="@{/faixasValoresSubsidio/listar}"><span class=" oi oi-chevron-right icones-sidebar-tamanho align-middle"></span>Listar</a></li>
+										</ul>
+									</li>
+									
+									<li><a href="#" class="ex-btn"><span class=" oi oi-chevron-bottom z153 icones-sidebar-tamanho align-middle"></span>Compl Plantão Geral </a>
+										<ul class="ex-show">
+											<li><a sec:authorize-url="/faixasValoresGpf/cadastrar" th:href="@{/faixasValoresGpf/cadastrar}"><span class=" oi oi-chevron-right icones-sidebar-tamanho align-middle"></span>Cadastrar</a></li>
+											<li><a sec:authorize-url="/faixasValoresGpf/listar" th:href="@{/faixasValoresGpf/listar}"><span class=" oi oi-chevron-right icones-sidebar-tamanho align-middle"></span>Listar</a></li>
 										</ul>
 									</li>
 									
@@ -451,13 +472,7 @@
 								</ul>
 							</li>
 							
-							<li><a href="#" class="aq-btn"><span class=" oi oi-chevron-bottom fourtythird icones-sidebar-tamanho align-middle"></span>Códigos Diferenciados </a>
-								<ul class="aq-show">
-									<li><a sec:authorize-url="/codigodiferenciados/cadastrar" th:href="@{/codigodiferenciados/cadastrar}"><span class=" oi oi-chevron-right icones-sidebar-tamanho align-middle"></span>Cadastrar</a></li>
-									<li><a sec:authorize-url="/codigodiferenciados/listar" th:href="@{/codigodiferenciados/listar}"><span class=" oi oi-chevron-right icones-sidebar-tamanho align-middle"></span>Listar</a></li>
-								</ul>
-							</li>
-							
+														
 							<li><a href="#" class="ep-btn"><span class=" oi oi-chevron-bottom z145 icones-sidebar-tamanho align-middle"></span>Limites </a>
 								<ul class="ep-show">
 								
@@ -529,6 +544,12 @@
 											</ul>
 										</li>
 									
+										<li><a href="#" class="aq-btn"><span class=" oi oi-chevron-bottom fourtythird icones-sidebar-tamanho align-middle"></span>Locais </a>
+											<ul class="aq-show">
+												<li><a sec:authorize-url="/codigodiferenciados/cadastrar" th:href="@{/codigodiferenciados/cadastrar}"><span class=" oi oi-chevron-right icones-sidebar-tamanho align-middle"></span>Cadastrar</a></li>
+												<li><a sec:authorize-url="/codigodiferenciados/listar" th:href="@{/codigodiferenciados/listar}"><span class=" oi oi-chevron-right icones-sidebar-tamanho align-middle"></span>Listar</a></li>
+											</ul>
+										</li>
 									
 								</ul>
 							</li>
@@ -810,26 +831,11 @@
 			
 			
 			
-			<li><a href="#" class="ew-btn"><span class=" oi oi-chevron-bottom z152 icones-sidebar-tamanho align-middle"></span>Menu 1 </a>
-				<ul class="ew-show">
-					<li><a href="#"><span class=" oi oi-chevron-right icones-sidebar-tamanho align-middle"></span>Cadastrar</a></li>
-					<li><a href="#"><span class=" oi oi-chevron-right icones-sidebar-tamanho align-middle"></span>Listar</a></li>
-				</ul>
-			</li>
 			
-			<li><a href="#" class="ex-btn"><span class=" oi oi-chevron-bottom z153 icones-sidebar-tamanho align-middle"></span>Menu 1 </a>
-				<ul class="ex-show">
-					<li><a href="#"><span class=" oi oi-chevron-right icones-sidebar-tamanho align-middle"></span>Cadastrar</a></li>
-					<li><a href="#"><span class=" oi oi-chevron-right icones-sidebar-tamanho align-middle"></span>Listar</a></li>
-				</ul>
-			</li>
 			
-			<li><a href="#" class="ey-btn"><span class=" oi oi-chevron-bottom z154 icones-sidebar-tamanho align-middle"></span>Menu 1 </a>
-				<ul class="ey-show">
-					<li><a href="#"><span class=" oi oi-chevron-right icones-sidebar-tamanho align-middle"></span>Cadastrar</a></li>
-					<li><a href="#"><span class=" oi oi-chevron-right icones-sidebar-tamanho align-middle"></span>Listar</a></li>
-				</ul>
-			</li>
+			
+			
+			
 			
 			<li><a href="#" class="ez-btn"><span class=" oi oi-chevron-bottom z155 icones-sidebar-tamanho align-middle"></span>Menu 1 </a>
 				<ul class="ez-show">

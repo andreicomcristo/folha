@@ -1,13 +1,16 @@
 package com.folha.boot.domain;
 
 import javax.persistence.*;
+
+import org.springframework.transaction.annotation.Transactional;
+
 import java.util.Date;
 import java.util.List;
 
 @SuppressWarnings("serial")
 @Entity
 @Table(name = "funcionarios_licencas")
-
+@Transactional
 public class FuncionariosLicencas extends AbstractEntity<Long> { 
 
 	@Column(name = "dt_inicial")

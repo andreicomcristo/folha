@@ -30,6 +30,7 @@ import com.folha.boot.domain.HistFuncionariosUnidadeLotacao;
 import com.folha.boot.domain.HistFuncionariosVinculos;
 import com.folha.boot.domain.NiveisCarreira;
 import com.folha.boot.domain.PessoaFuncionarios;
+import com.folha.boot.domain.SituacaoVariacao;
 import com.folha.boot.domain.Situacoes;
 import com.folha.boot.domain.Unidades;
 import com.folha.boot.domain.Vinculos;
@@ -51,6 +52,7 @@ import com.folha.boot.service.NiveisCarreiraService;
 import com.folha.boot.service.PessoaFuncionariosService;
 import com.folha.boot.service.PessoaOperadoresService;
 import com.folha.boot.service.PessoaService;
+import com.folha.boot.service.SituacaoVariacaoService;
 import com.folha.boot.service.SituacoesService;
 import com.folha.boot.service.UnidadesService;
 import com.folha.boot.service.VinculosService;
@@ -88,7 +90,9 @@ public class PessoaFuncionariosController {
 	@Autowired
 	private NiveisCarreiraService niveisCarreiraService;
 	@Autowired
-	private SituacoesService situacoesService;	
+	private SituacoesService situacoesService;
+	@Autowired
+	private SituacaoVariacaoService situacaoVariacaoService;	
 	@Autowired
 	private UnidadesService unidadesService;
 	@Autowired
@@ -258,6 +262,11 @@ public class PessoaFuncionariosController {
 	@ModelAttribute("idSituacaoAtualFk")
 	public List<Situacoes> getSituacao() {
 		return situacoesService.buscarTodos();
+	}
+	
+	@ModelAttribute("idSituacaoVariacaoAtualFk")
+	public List<SituacaoVariacao> getSituacaoVariacao() {
+		return situacaoVariacaoService.buscarTodos();
 	}
 	
 	@ModelAttribute("idUnidadeAtuacaoAtualFk")

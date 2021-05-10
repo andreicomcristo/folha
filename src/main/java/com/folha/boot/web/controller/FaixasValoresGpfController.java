@@ -27,51 +27,39 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import com.folha.boot.domain.AnoMes;
 import com.folha.boot.domain.CargaHorariaSemanal;
 import com.folha.boot.domain.Carreiras;
-import com.folha.boot.domain.Cidades;
 import com.folha.boot.domain.ClassesCarreira;
-import com.folha.boot.domain.CodigoDiferenciado;
-import com.folha.boot.domain.FaixasPrevidencia;
-import com.folha.boot.domain.FaixasValoresParametrosCalculoFolhasExtras;
-import com.folha.boot.domain.FaixasValoresSubsidio;
+import com.folha.boot.domain.FaixasValoresGpf;
 import com.folha.boot.domain.Fonte;
-import com.folha.boot.domain.NiveisCargo;
 import com.folha.boot.domain.NiveisCarreira;
-import com.folha.boot.domain.RegimesDeTrabalho;
 import com.folha.boot.domain.TipoBrutoLiquido;
-import com.folha.boot.domain.TiposDeFolha;
 import com.folha.boot.domain.Unidades;
 import com.folha.boot.domain.UnidadesRegime;
 import com.folha.boot.service.AnoMesService;
 import com.folha.boot.service.CargaHorariaSemanalService;
 import com.folha.boot.service.CarreirasService;
 import com.folha.boot.service.ClassesCarreiraService;
-import com.folha.boot.service.CodigoDiferenciadoService;
-import com.folha.boot.service.FaixasValoresParametrosCalculoFolhasExtrasService;
-import com.folha.boot.service.FaixasValoresSubsidioService;
+import com.folha.boot.service.FaixasValoresGpfService;
 import com.folha.boot.service.FonteService;
-import com.folha.boot.service.NiveisCargoService;
 import com.folha.boot.service.NiveisCarreiraService;
-import com.folha.boot.service.RegimesDeTrabalhoService;
 import com.folha.boot.service.TipoBrutoLiquidoService;
-import com.folha.boot.service.TiposDeFolhaService;
 import com.folha.boot.service.UnidadesRegimeService;
 import com.folha.boot.service.UnidadesService;
 
 
 @Controller
-@RequestMapping("/faixasValoresSubsidio")
-public class FaixasValoresSubsidioController {
+@RequestMapping("/faixasValoresGpf")
+public class FaixasValoresGpfController {
 
 	String ultimoAnoMes = "";
 	
 	@Autowired
-	private FaixasValoresSubsidioService service;
+	private FaixasValoresGpfService service;
 	@Autowired
 	private NiveisCarreiraService niveisCarreiraService;
 	@Autowired
 	private CarreirasService carreirasService;
 	@Autowired
-	private UnidadesRegimeService unidadesRegimeService;
+	private UnidadesService unidadesService;
 	@Autowired
 	private ClassesCarreiraService classesCarreiraService;
 	@Autowired
@@ -84,9 +72,9 @@ public class FaixasValoresSubsidioController {
 	private TipoBrutoLiquidoService tipoBrutoLiquidoService;
 	
 	@GetMapping("/cadastrar")
-	public String cadastrar(FaixasValoresSubsidio faixasValoresSubsidio) {
+	public String cadastrar(FaixasValoresGpf faixasValoresGpf) {
 		
-		return "/faixasValoresSubsidio/cadastro";
+		return "/faixasValoresGpf/cadastro";
 	}
 	
 	@GetMapping("/listar")
@@ -98,31 +86,31 @@ public class FaixasValoresSubsidioController {
 	@GetMapping("/listar/{pageNo}")
 	public String findPaginated(@PathVariable (value = "pageNo") int pageNo, ModelMap model) {
 		int pageSeze = 10;
-		Page<FaixasValoresSubsidio> page = service.findPaginated(pageNo, pageSeze);
-		List<FaixasValoresSubsidio> listaCidades = page.getContent();
+		Page<FaixasValoresGpf> page = service.findPaginated(pageNo, pageSeze);
+		List<FaixasValoresGpf> listaCidades = page.getContent();
 		return paginar(pageNo, page, listaCidades, model);
 	}
 	
 	public String findPaginated(@PathVariable (value = "pageNo") int pageNo, String cnes, ModelMap model) {
 		int pageSeze = 10;
-		Page<FaixasValoresSubsidio> page = service.findPaginatedAnoMes(pageNo, pageSeze, cnes);
-		List<FaixasValoresSubsidio> lista = page.getContent();
+		Page<FaixasValoresGpf> page = service.findPaginatedAnoMes(pageNo, pageSeze, cnes);
+		List<FaixasValoresGpf> lista = page.getContent();
 		return paginar(pageNo, page, lista, model);
 	}
 	
-	public String paginar(int pageNo, Page<FaixasValoresSubsidio> page, List<FaixasValoresSubsidio> lista, ModelMap model) {	
+	public String paginar(int pageNo, Page<FaixasValoresGpf> page, List<FaixasValoresGpf> lista, ModelMap model) {	
 		model.addAttribute("currentePage", pageNo);
 		model.addAttribute("totalPages", page.getTotalPages());
 		model.addAttribute("totalItems", page.getTotalElements()); 
-		model.addAttribute("faixasValoresSubsidio", lista);
-		return "/faixasValoresSubsidio/lista";	
+		model.addAttribute("faixasValoresGpf", lista);
+		return "/faixasValoresGpf/lista";	
 	}
 	
 	@GetMapping("/paginar/{pageNo}")
 	public String getPorCnesPaginado(@PathVariable (value = "pageNo") int pageNo, ModelMap model) {
 		if(pageNo<1) {pageNo = 1;}
 		if( (ultimoAnoMes.equals("")) ){
-			return "redirect:/faixasValoresSubsidio/listar/{pageNo}" ;}
+			return "redirect:/faixasValoresGpf/listar/{pageNo}" ;}
 		else {return this.findPaginated(pageNo, ultimoAnoMes, model);}
 	}
 	
@@ -133,33 +121,33 @@ public class FaixasValoresSubsidioController {
 	}
 	
 	@PostMapping("/salvar")
-	public String salvar(FaixasValoresSubsidio faixasValoresSubsidio, RedirectAttributes attr) {
+	public String salvar(FaixasValoresGpf faixasValoresGpf, RedirectAttributes attr) {
 		
-		if(faixasValoresSubsidio.getValor()==null) {
-			faixasValoresSubsidio.setValor(0.0);
+		if(faixasValoresGpf.getValor()==null) {
+			faixasValoresGpf.setValor(0.0);
 		}
 		
-		service.salvar(faixasValoresSubsidio);
+		service.salvar(faixasValoresGpf);
 		attr.addFlashAttribute("success", "Inserido com sucesso.");
-		return "redirect:/faixasValoresSubsidio/cadastrar";
+		return "redirect:/faixasValoresGpf/cadastrar";
 	}
 	
 	@GetMapping("/editar/{id}")
 	public String preEditar(@PathVariable("id") Long id, ModelMap model) {
-		model.addAttribute("faixasValoresSubsidio", service.buscarPorId(id));
-		return "/faixasValoresSubsidio/cadastro";
+		model.addAttribute("faixasValoresGpf", service.buscarPorId(id));
+		return "/faixasValoresGpf/cadastro";
 	}
 	
 	@PostMapping("/editar")
-	public String editar(FaixasValoresSubsidio faixasValoresSubsidio, RedirectAttributes attr) {	
+	public String editar(FaixasValoresGpf faixasValoresGpf, RedirectAttributes attr) {	
 		
-		if(faixasValoresSubsidio.getValor()==null) {
-			faixasValoresSubsidio.setValor(0.0);
+		if(faixasValoresGpf.getValor()==null) {
+			faixasValoresGpf.setValor(0.0);
 		}
 		
-		service.editar(faixasValoresSubsidio);
+		service.editar(faixasValoresGpf);
 		attr.addFlashAttribute("success", "Editado com sucesso.");
-		return "redirect:/faixasValoresSubsidio/listar";
+		return "redirect:/faixasValoresGpf/listar";
 	}
 	
 	@GetMapping("/excluir/{id}")
@@ -173,15 +161,15 @@ public class FaixasValoresSubsidioController {
 	@GetMapping("/herdar/de/mes") 
 	public String herdarDeMes( Long anoMesInicial,  Long anoMesFinal,  ModelMap model) {		
 		service.herdarDeUmMesParaOOutro(anoMesInicial, anoMesFinal);
-		return "redirect:/faixasValoresSubsidio/listar" ;
+		return "redirect:/faixasValoresGpf/listar" ;
 	}
 	
 	
 	
 	@GetMapping("/buscar/nome")
 	public String getPorNome(@RequestParam("cnesUnidade") String nome, ModelMap model) {		
-		model.addAttribute("faixasValoresSubsidio", service.buscarPorNome(nome.toUpperCase().trim()));
-		return "/faixasValoresSubsidio/lista";
+		model.addAttribute("faixasValoresGpf", service.buscarPorNome(nome.toUpperCase().trim()));
+		return "/faixasValoresGpf/lista";
 	}
 	
 	@GetMapping("/exporta/excel")
@@ -218,9 +206,9 @@ public class FaixasValoresSubsidioController {
 	public List<Carreiras> getIdCarreiraFk() {
 		return carreirasService.buscarTodos();	
 	}
-	@ModelAttribute("idUnidadeRegimeFk")
-	public List<UnidadesRegime> getIdUnidadeRegimeFk() {
-		return unidadesRegimeService.buscarTodos();	
+	@ModelAttribute("idUnidadeFk")
+	public List<Unidades> getIdUnidadeRegimeFk() {
+		return unidadesService.buscarTodos();	
 	}
 	@ModelAttribute("idClasseCarreiraFk")
 	public List<ClassesCarreira> getIdClasseCarreiraFk() {

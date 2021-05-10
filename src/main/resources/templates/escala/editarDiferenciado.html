@@ -115,7 +115,7 @@
 								 		<label class="text" style="font-size:12px;">Diferenciado </label>
 					                	<select style="width:500px; height:25px; font-size:10px" id="turma" class="form-select"  th:field="*{idCodigoDiferenciadoFk}" >
 											<option value=""></option>
-											<option th:each="d : ${idCodigoDiferenciadoFkCompativel}" th:value="${d.id}"th:text="${d.nomeCodigoDiferenciado+'-'+ d.descricaoCodigoDiferenciado}">Presencial</option>
+											<option th:each="d : ${idCodigoDiferenciadoFkCompativel}" th:value="${d.id}"th:text="${d.descricaoCodigoDiferenciado}">Presencial</option>
 										</select>
 										<p></p>									
 									

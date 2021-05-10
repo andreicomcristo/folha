@@ -18,6 +18,9 @@ public class CodigoDiferenciado extends AbstractEntity<Long> {
 	@Column(name = "descricao_codigo_diferenciado")
 	private String descricaoCodigoDiferenciado;
 	
+	@Column(name = "variacao")
+    private String variacao;
+	
 	@Column(name = "dt_cadastro")
     @Temporal(TemporalType.DATE)
     private Date dtCadastro;
@@ -179,6 +182,14 @@ public class CodigoDiferenciado extends AbstractEntity<Long> {
 		this.idTipoBrutoLiquidoFk = idTipoBrutoLiquidoFk;
 	}
 
+	public String getVariacao() {
+		return variacao;
+	}
+
+	public void setVariacao(String variacao) {
+		this.variacao = UtilidadesDeTexto.retiraEspacosDuplosAcentosEConverteEmMaiusculo(variacao);
+	}
+	
 	
 	
 	
