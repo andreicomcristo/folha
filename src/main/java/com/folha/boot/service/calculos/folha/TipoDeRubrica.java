@@ -1,7 +1,5 @@
 package com.folha.boot.service.calculos.folha;
 
-public class Calculadora {
+public class TipoDeRubrica {
 
-	private int id;
-	
 }

@@ -8,6 +8,7 @@ class FolhaWebApplicationTests {
 
 	@Test
 	void contextLoads() {
+		System.out.println("teste de teste");
 	}
 
 }
