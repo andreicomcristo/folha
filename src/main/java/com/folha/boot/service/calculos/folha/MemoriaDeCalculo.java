@@ -1,16 +1,21 @@
 package com.folha.boot.service.calculos.folha;
 
+import com.folha.boot.domain.Fonte;
+import com.folha.boot.domain.Unidades;
+
 public class MemoriaDeCalculo {
 
 	private int id;	
 	private Funcionario funcionario;
 	private AnoMes anoMes;
-	private CodigoDaRubrica codigoDaRubrica;
+	private String codigoDaRubrica;
 	private String descricao;
+	private Fonte fonte;
+	private Unidades unidade;
 	private Double vantegem;
 	private Double desconto;
 	private Double acumulado;
-	private Double Base;
+	private Double base;
 	private Double bruto;
 	private Double liquido;
 	
@@ -32,10 +37,10 @@ public class MemoriaDeCalculo {
 	public void setAnoMes(AnoMes anoMes) {
 		this.anoMes = anoMes;
 	}
-	public CodigoDaRubrica getCodigoDaRubrica() {
+	public String getCodigoDaRubrica() {
 		return codigoDaRubrica;
 	}
-	public void setCodigoDaRubrica(CodigoDaRubrica codigoDaRubrica) {
+	public void setCodigoDaRubrica(String codigoDaRubrica) {
 		this.codigoDaRubrica = codigoDaRubrica;
 	}
 	public String getDescricao() {
@@ -62,11 +67,24 @@ public class MemoriaDeCalculo {
 	public void setAcumulado(Double acumulado) {
 		this.acumulado = acumulado;
 	}
+	
+	public Fonte getFonte() {
+		return fonte;
+	}
+	public void setFonte(Fonte fonte) {
+		this.fonte = fonte;
+	}
+	public Unidades getUnidade() {
+		return unidade;
+	}
+	public void setUnidade(Unidades unidade) {
+		this.unidade = unidade;
+	}
 	public Double getBase() {
-		return Base;
+		return base;
 	}
 	public void setBase(Double base) {
-		Base = base;
+		this.base = base;
 	}
 	public Double getBruto() {
 		return bruto;

@@ -3,10 +3,13 @@ package com.folha.boot.domain;
 
 import javax.persistence.*;
 
+import org.springframework.transaction.annotation.Transactional;
+
 
 
 @SuppressWarnings("serial")
 @Entity
+@Transactional
 @Table(name = "rubrica")
 public class Rubrica extends AbstractEntity<Long> {
 

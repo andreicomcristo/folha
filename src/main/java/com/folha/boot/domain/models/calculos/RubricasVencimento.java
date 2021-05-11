@@ -25,6 +25,9 @@ public class RubricasVencimento {
 	AnoMes anoMes;
 	Double valorBruto;
 	Double valorLiquido;
+	Double valorIr;
+	Double valorPatronal;
+	Double valorPrevidencia;
 	Double percentagem;
 	
 	
@@ -110,6 +113,30 @@ public class RubricasVencimento {
 	}
 	public void setSequencia(int sequencia) {
 		this.sequencia = sequencia;
+	}
+
+	public Double getValorIr() {
+		return valorIr;
+	}
+
+	public void setValorIr(Double valorIr) {
+		this.valorIr = valorIr;
+	}
+
+	public Double getValorPatronal() {
+		return valorPatronal;
+	}
+
+	public void setValorPatronal(Double valorPatronal) {
+		this.valorPatronal = valorPatronal;
+	}
+
+	public Double getValorPrevidencia() {
+		return valorPrevidencia;
+	}
+
+	public void setValorPrevidencia(Double valorPrevidencia) {
+		this.valorPrevidencia = valorPrevidencia;
 	}
 	
 	

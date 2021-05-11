@@ -53,7 +53,7 @@ public class CalculosCalcularService {
 			System.out.println("Descricao  :"+listaVencimentos.get(i).getDescricao());
 			System.out.println("sequencia  :"+listaVencimentos.get(i).getSequencia());
 			System.out.println("Unidade    :"+listaVencimentos.get(i).getUnidade().getNomeFantasia());
-			System.out.println("Fonte      :"+listaVencimentos.get(i).getFonte().getDescricao());
+			System.out.println("Fonte      :"+listaVencimentos.get(i).getFonte().getNome());
 			System.out.println("Natureza   :"+listaVencimentos.get(i).getNatureza().getDescricao());
 			System.out.println("Tipo       :"+listaVencimentos.get(i).getTipoBrutoLiquido().getDescricao());
 			System.out.println("Bruto      :"+listaVencimentos.get(i).getValorBruto());

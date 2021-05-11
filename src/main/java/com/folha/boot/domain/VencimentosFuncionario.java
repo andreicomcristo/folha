@@ -3,10 +3,13 @@ package com.folha.boot.domain;
 import java.util.List;
 import javax.persistence.*;
 
+import org.springframework.transaction.annotation.Transactional;
+
 import com.folha.boot.service.util.UtilidadesDeTexto;
 
 @SuppressWarnings("serial")
 @Entity
+@Transactional
 @Table(name = "vencimentos_funcionario")
 public class VencimentosFuncionario extends AbstractEntity<Long> {
 
