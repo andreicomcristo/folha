@@ -20,6 +20,8 @@ public class RubricaNatureza extends AbstractEntity<Long> {
     private String descricao;
     @OneToMany(mappedBy = "idNaturezaFk")
     private List<RubricaCodigo> rubricaCodigoList;
+    @OneToMany(mappedBy = "idNaturezaFk")
+    private List<RubricaVencimento> rubricaVencimentoList;
 
     public RubricaNatureza() {
     }
@@ -48,6 +50,14 @@ public class RubricaNatureza extends AbstractEntity<Long> {
 		this.rubricaCodigoList = rubricaCodigoList;
 	}
 
+	public List<RubricaVencimento> getRubricaVencimentoList() {
+		return rubricaVencimentoList;
+	}
+
+	public void setRubricaVencimentoList(List<RubricaVencimento> rubricaVencimentoList) {
+		this.rubricaVencimentoList = rubricaVencimentoList;
+	}
+	
     
 	
     

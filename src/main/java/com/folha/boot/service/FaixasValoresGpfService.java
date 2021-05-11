@@ -103,9 +103,10 @@ public class FaixasValoresGpfService {
 				f.setId(null);
 				f.setIdAnoMesFk(anoMesService.buscarPorId(anoMesFinal));
 				f.setIdCargaHorariaSemanalFk( listaInicial.get(i).getIdCargaHorariaSemanalFk() );
-				f.setIdCarreiraFk(listaInicial.get(i).getIdCarreiraFk());
-				f.setIdClasseCarreiraFk(listaInicial.get(i).getIdClasseCarreiraFk());
-				f.setIdNivelCarreiraFk(listaInicial.get(i).getIdNivelCarreiraFk());
+				f.setIdClasseCarreiraFk( listaInicial.get(i).getIdClasseCarreiraFk() );
+				f.setIdFonteFk( listaInicial.get(i).getIdFonteFk() );
+				f.setIdNivelCargoFk( listaInicial.get(i).getIdNivelCargoFk() );
+				f.setIdTipoBrutoLiquidoFk(listaInicial.get(i).getIdTipoBrutoLiquidoFk());
 				f.setIdUnidadeFk(listaInicial.get(i).getIdUnidadeFk());
 				f.setValor(listaInicial.get(i).getValor());
 				
@@ -138,26 +139,30 @@ public class FaixasValoresGpfService {
 	        cell.setCellStyle(headerCellStyle);
 	
 	        cell = row.createCell(3);
-	        cell.setCellValue("Carreira");
-	        cell.setCellStyle(headerCellStyle);
-	
-	        cell = row.createCell(4);
-	        cell.setCellValue("Regime");
-	        cell.setCellStyle(headerCellStyle);
-	        
-	        cell = row.createCell(5);
 	        cell.setCellValue("Nível");
 	        cell.setCellStyle(headerCellStyle);
 	        
-	        cell = row.createCell(6);
+	        cell = row.createCell(4);
 	        cell.setCellValue("Classe");
 	        cell.setCellStyle(headerCellStyle);
 	        
-	        cell = row.createCell(7);
+	        cell = row.createCell(5);
 	        cell.setCellValue("CH Semanal");
 	        cell.setCellStyle(headerCellStyle);
 	        
+	        cell = row.createCell(6);
+	        cell.setCellValue("Unidade");
+	        cell.setCellStyle(headerCellStyle);
+	        
+	        cell = row.createCell(7);
+	        cell.setCellValue("Fonte");
+	        cell.setCellStyle(headerCellStyle);
+	        
 	        cell = row.createCell(8);
+	        cell.setCellValue("Característica");
+	        cell.setCellStyle(headerCellStyle);
+	        
+	        cell = row.createCell(9);
 	        cell.setCellValue("Valor");
 	        cell.setCellStyle(headerCellStyle);
 	        
@@ -168,13 +173,13 @@ public class FaixasValoresGpfService {
 	        	dataRow.createCell(0).setCellValue((i+1));
 	        	dataRow.createCell(1).setCellValue(lista.get(i).getId());
 	        	dataRow.createCell(2).setCellValue(lista.get(i).getIdAnoMesFk().getNomeAnoMes());
-	        	dataRow.createCell(3).setCellValue(lista.get(i).getIdCarreiraFk().getNomeCarreira());
-	        	dataRow.createCell(4).setCellValue(lista.get(i).getIdUnidadeFk().getNomeFantasia());
-	        	dataRow.createCell(5).setCellValue(lista.get(i).getIdNivelCarreiraFk().getNomeNivelCarreira());
-	        	dataRow.createCell(6).setCellValue(lista.get(i).getIdClasseCarreiraFk().getNomeClasse());
-	        	dataRow.createCell(7).setCellValue(lista.get(i).getIdCargaHorariaSemanalFk().getCargaHoraria());
-	        	dataRow.createCell(8).setCellValue(lista.get(i).getValor());
-	        	
+	        	dataRow.createCell(3).setCellValue(lista.get(i).getIdNivelCargoFk().getNomeNivelCargo());
+	        	dataRow.createCell(4).setCellValue(lista.get(i).getIdClasseCarreiraFk().getNomeClasse());
+	        	dataRow.createCell(5).setCellValue(lista.get(i).getIdCargaHorariaSemanalFk().getCargaHoraria());
+	        	dataRow.createCell(6).setCellValue(lista.get(i).getIdUnidadeFk().getNomeFantasia());
+	        	dataRow.createCell(7).setCellValue(lista.get(i).getIdFonteFk().getNome());
+	        	dataRow.createCell(8).setCellValue(lista.get(i).getIdTipoBrutoLiquidoFk().getDescricao());
+	        	dataRow.createCell(9).setCellValue(lista.get(i).getValor());
 	        	
 	        }
 	
@@ -188,6 +193,7 @@ public class FaixasValoresGpfService {
 	        sheet.autoSizeColumn(6);
 	        sheet.autoSizeColumn(7);
 	        sheet.autoSizeColumn(8);
+	        sheet.autoSizeColumn(9);
 	        
 	        
 	        ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
@@ -206,9 +212,9 @@ public class FaixasValoresGpfService {
 
 		try {
 
-			PdfPTable table = new PdfPTable(9);
+			PdfPTable table = new PdfPTable(10);
 			table.setWidthPercentage(90);
-			table.setWidths(new int[] { 2, 2, 2, 2, 2, 2, 2, 2, 2 });
+			table.setWidths(new int[] { 2, 2, 2, 2, 2, 2, 2, 2, 2, 2 });
 
 			// Tipos de Fonte
 			Font tituloFont = FontFactory.getFont(FontFactory.HELVETICA_BOLD,14);
@@ -231,14 +237,6 @@ public class FaixasValoresGpfService {
 			hcell.setHorizontalAlignment(Element.ALIGN_CENTER);
 			table.addCell(hcell);
 			
-			hcell = new PdfPCell(new Phrase("Carreira", cabecalhoFont));
-			hcell.setHorizontalAlignment(Element.ALIGN_CENTER);
-			table.addCell(hcell);
-			
-			hcell = new PdfPCell(new Phrase("Regime", cabecalhoFont));
-			hcell.setHorizontalAlignment(Element.ALIGN_CENTER);
-			table.addCell(hcell);
-			
 			hcell = new PdfPCell(new Phrase("Nível", cabecalhoFont));
 			hcell.setHorizontalAlignment(Element.ALIGN_CENTER);
 			table.addCell(hcell);
@@ -247,7 +245,19 @@ public class FaixasValoresGpfService {
 			hcell.setHorizontalAlignment(Element.ALIGN_CENTER);
 			table.addCell(hcell);
 			
-			hcell = new PdfPCell(new Phrase("CH Semanal", cabecalhoFont));
+			hcell = new PdfPCell(new Phrase("Ch Semanal", cabecalhoFont));
+			hcell.setHorizontalAlignment(Element.ALIGN_CENTER);
+			table.addCell(hcell);
+			
+			hcell = new PdfPCell(new Phrase("Unidade", cabecalhoFont));
+			hcell.setHorizontalAlignment(Element.ALIGN_CENTER);
+			table.addCell(hcell);
+			
+			hcell = new PdfPCell(new Phrase("Fonte", cabecalhoFont));
+			hcell.setHorizontalAlignment(Element.ALIGN_CENTER);
+			table.addCell(hcell);
+			
+			hcell = new PdfPCell(new Phrase("Característica", cabecalhoFont));
 			hcell.setHorizontalAlignment(Element.ALIGN_CENTER);
 			table.addCell(hcell);
 			
@@ -280,17 +290,7 @@ public class FaixasValoresGpfService {
 				cell.setHorizontalAlignment(Element.ALIGN_CENTER);
 				table.addCell(cell);
 				
-				cell = new PdfPCell(new Phrase(lista.get(i).getIdCarreiraFk().getNomeCarreira() ,corpoFont) );
-				cell.setVerticalAlignment(Element.ALIGN_MIDDLE);
-				cell.setHorizontalAlignment(Element.ALIGN_CENTER);
-				table.addCell(cell);
-				
-				cell = new PdfPCell(new Phrase(lista.get(i).getIdUnidadeFk().getNomeFantasia() ,corpoFont) );
-				cell.setVerticalAlignment(Element.ALIGN_MIDDLE);
-				cell.setHorizontalAlignment(Element.ALIGN_CENTER);
-				table.addCell(cell);
-				
-				cell = new PdfPCell(new Phrase(lista.get(i).getIdNivelCarreiraFk().getNomeNivelCarreira() ,corpoFont) );
+				cell = new PdfPCell(new Phrase(lista.get(i).getIdNivelCargoFk().getNomeNivelCargo() ,corpoFont) );
 				cell.setVerticalAlignment(Element.ALIGN_MIDDLE);
 				cell.setHorizontalAlignment(Element.ALIGN_CENTER);
 				table.addCell(cell);
@@ -300,10 +300,26 @@ public class FaixasValoresGpfService {
 				cell.setHorizontalAlignment(Element.ALIGN_CENTER);
 				table.addCell(cell);
 				
-				cell = new PdfPCell(new Phrase(String.valueOf(lista.get(i).getIdCargaHorariaSemanalFk().getCargaHoraria()) ,corpoFont) );
+				cell = new PdfPCell(new Phrase(  String.valueOf(lista.get(i).getIdCargaHorariaSemanalFk().getCargaHoraria())   ,corpoFont) );
 				cell.setVerticalAlignment(Element.ALIGN_MIDDLE);
 				cell.setHorizontalAlignment(Element.ALIGN_CENTER);
 				table.addCell(cell);
+				
+				cell = new PdfPCell(new Phrase(lista.get(i).getIdUnidadeFk().getNomeFantasia() ,corpoFont) );
+				cell.setVerticalAlignment(Element.ALIGN_MIDDLE);
+				cell.setHorizontalAlignment(Element.ALIGN_CENTER);
+				table.addCell(cell);
+				
+				cell = new PdfPCell(new Phrase(String.valueOf(lista.get(i).getIdFonteFk().getNome()) ,corpoFont) );
+				cell.setVerticalAlignment(Element.ALIGN_MIDDLE);
+				cell.setHorizontalAlignment(Element.ALIGN_CENTER);
+				table.addCell(cell);
+				
+				cell = new PdfPCell(new Phrase(String.valueOf(lista.get(i).getIdTipoBrutoLiquidoFk().getDescricao()) ,corpoFont) );
+				cell.setVerticalAlignment(Element.ALIGN_MIDDLE);
+				cell.setHorizontalAlignment(Element.ALIGN_CENTER);
+				table.addCell(cell);
+				
 				
 				cell = new PdfPCell(new Phrase(String.valueOf(lista.get(i).getValor()) ,corpoFont) );
 				cell.setVerticalAlignment(Element.ALIGN_MIDDLE);

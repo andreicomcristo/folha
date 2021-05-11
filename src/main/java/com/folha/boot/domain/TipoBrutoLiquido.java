@@ -22,6 +22,10 @@ public class TipoBrutoLiquido extends AbstractEntity<Long> {
     private List<FaixasValoresSubsidio> faixasValoresSubsidioList;
     @OneToMany(mappedBy = "idTipoBrutoLiquidoFk")
     private List<FaixasValoresIncentivoDeRisco> faixasValoresIncentivoDeRiscoList;
+    @OneToMany(mappedBy = "idTipoBrutoLiquidoFk")
+    private List<RubricaVencimento> rubricaVencimentoList;
+    @OneToMany(mappedBy = "idTipoBrutoLiquidoFk")
+    private List<FaixasValoresGpf> faixasValoresGpfList;
 
 
     public TipoBrutoLiquido() {
@@ -74,6 +78,22 @@ public class TipoBrutoLiquido extends AbstractEntity<Long> {
 	public void setFaixasValoresIncentivoDeRiscoList(
 			List<FaixasValoresIncentivoDeRisco> faixasValoresIncentivoDeRiscoList) {
 		this.faixasValoresIncentivoDeRiscoList = faixasValoresIncentivoDeRiscoList;
+	}
+
+	public List<RubricaVencimento> getRubricaVencimentoList() {
+		return rubricaVencimentoList;
+	}
+
+	public void setRubricaVencimentoList(List<RubricaVencimento> rubricaVencimentoList) {
+		this.rubricaVencimentoList = rubricaVencimentoList;
+	}
+
+	public List<FaixasValoresGpf> getFaixasValoresGpfList() {
+		return faixasValoresGpfList;
+	}
+
+	public void setFaixasValoresGpfList(List<FaixasValoresGpf> faixasValoresGpfList) {
+		this.faixasValoresGpfList = faixasValoresGpfList;
 	}
     
     

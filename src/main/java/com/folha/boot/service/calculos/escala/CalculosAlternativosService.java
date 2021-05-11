@@ -15,6 +15,7 @@ import com.folha.boot.Reposytory.RubricaNaturezaReposytory;
 import com.folha.boot.domain.AnoMes;
 import com.folha.boot.domain.Escala;
 import com.folha.boot.domain.EscalaCodDiferenciado;
+import com.folha.boot.domain.FaixasValoresGpf;
 import com.folha.boot.domain.FaixasValoresIncentivoDeRisco;
 import com.folha.boot.domain.FaixasValoresParametrosCalculoFolhasExtras;
 import com.folha.boot.domain.FuncionariosFerias;
@@ -29,6 +30,7 @@ import com.folha.boot.domain.models.calculos.ReferenciasDeEscala;
 import com.folha.boot.domain.models.calculos.RubricasVencimento;
 import com.folha.boot.service.EscalaCalculosService;
 import com.folha.boot.service.EscalaCodDiferenciadoService;
+import com.folha.boot.service.FaixasValoresGpfService;
 import com.folha.boot.service.FaixasValoresIncentivoDeRiscoService;
 import com.folha.boot.service.FaixasValoresParametrosCalculoFolhasExtrasService;
 import com.folha.boot.service.RubricaNaturezaService;
@@ -60,9 +62,12 @@ public class CalculosAlternativosService {
 	@Autowired
 	private FaixasValoresIncentivoDeRiscoService faixasValoresIncentivoDeRiscoService;
 	@Autowired
+	private FaixasValoresGpfService faixasValoresGpfService;
+	@Autowired
 	private VencimentosFuncionarioService vencimentosFuncionarioService;
 	@Autowired
 	private RubricaService rubricaService;
+	
 	
 
 	public List<EscalasNoMes> aplicarFeriasNaEscala(List<EscalasNoMes> listaEscalas, List<FeriasNoMes> listaFerias){
@@ -1929,6 +1934,90 @@ public class CalculosAlternativosService {
 				
 				
 	
+				
+				
+				
+				
+				
+				
+				
+				//Para Gpf Normal
+				List<FaixasValoresGpf> listaGpf = faixasValoresGpfService.buscarPorMesExato(anoMes);
+				for(int i=0;i<listaEscalas.size();i++) {
+					if(escalaCodDiferenciadoService.buscarPorEscala(listaEscalas.get(i).getEscala()).isEmpty()) {
+						boolean temIrf = false;
+						if(!vencimentosFuncionarioService.buscarPorMesExatoEFuncionarioETipo(anoMes, listaEscalas.get(i).getEscala().getIdFuncionarioFk(), "IRF"  ).isEmpty()) {temIrf = true;}
+						
+						
+						
+						for(int j=0;j<listaGpf.size();j++) {
+							RubricasVencimento r = new RubricasVencimento();
+							if(
+								listaEscalas.get(i).getEscala().getIdAnoMesFk() == listaGpf.get(j).getIdAnoMesFk() &&  	
+								listaEscalas.get(i).getEscala().getIdCoordenacaoFk().getIdLocalidadeFk().getIdUnidadeFk() == listaGpf.get(j).getIdUnidadeFk() && 
+								listaEscalas.get(i).getEscala().getIdFuncionarioFk().getIdCargaHorariaAtualFk() == listaGpf.get(j).getIdCargaHorariaSemanalFk() &&
+								listaEscalas.get(i).getEscala().getIdFuncionarioFk().getIdEspecialidadeAtualFk().getIdCargoFk().getIdNivelCargoFk() == listaGpf.get(j).getIdNivelCargoFk() &&
+								listaEscalas.get(i).getEscala().getIdFuncionarioFk().getIdClasseCarreiraAtualFk() == listaGpf.get(j).getIdClasseCarreiraFk() &&
+								listaEscalas.get(i).getEscala().getIdTipoFolhaFk().getIdFolhaEfetivaSimNaoFk().getSigla().equalsIgnoreCase("S") &&
+								listaEscalas.get(i).getEscala().getIdComplementoPlantaoSimNaoFk().getSigla().equalsIgnoreCase("N") &&
+								temIrf==false
+								 
+							) {
+								
+								//Calculando Valores
+								Double valorBruto = 0.0;
+								Double valorLiquido = 0.0;
+								int horasTotais = listaEscalas.get(i).getEscala().getHorasTotais();
+								Double valorBrutoFixoTotal = listaGpf.get(j).getValor();
+								Double valorPorHora = (valorBrutoFixoTotal/(listaEscalas.get(i).getEscala().getIdFuncionarioFk().getIdCargaHorariaAtualFk().getCargaHoraria()*4) );
+								
+								Double valorDaLinha = (valorPorHora*horasTotais) ;
+								
+								//Avaliando se já tem alguma linha já cadastrada
+								Double valorCadastrado = 0.0;
+								for(int k=0;k<lista.size();k++) {
+									if(lista.get(k).getAnoMes()==anoMes &&
+										lista.get(k).getCodigo().equalsIgnoreCase("COMPL PLANT COMUM") &&
+										lista.get(k).getPessoaFuncionarios()==listaEscalas.get(i).getEscala().getIdFuncionarioFk()
+									) {
+										valorCadastrado = valorCadastrado+lista.get(k).getValorBruto();
+									}
+								}
+								
+								// Ajustando casas decimais
+								if(valorCadastrado+valorDaLinha>valorBrutoFixoTotal) {valorDaLinha=valorBrutoFixoTotal-valorCadastrado;}
+								if(valorDaLinha<0) {valorDaLinha=0.0;}
+								valorDaLinha = UtilidadesMatematicas.ajustaValorDecimal(valorDaLinha, 2);
+								valorBruto=valorDaLinha;
+								
+								r.setAnoMes(anoMes);
+								r.setSequencia(1);
+								r.setCodigo("COMPL PLANT COMUM");
+								r.setDescricao("COMPLEMENTO DE PLANTAO COMUM");
+								r.setFonte(listaGpf.get(j).getIdFonteFk());
+								r.setNatureza(rubricaNaturezaService.buscarPorSigla("V").get(0));
+								r.setPercentagem(0.0);
+								r.setPessoaFuncionarios(listaEscalas.get(i).getEscala().getIdFuncionarioFk());
+								r.setTipoBrutoLiquido(listaGpf.get(j).getIdTipoBrutoLiquidoFk());
+								r.setUnidade(listaEscalas.get(i).getEscala().getIdCoordenacaoFk().getIdLocalidadeFk().getIdUnidadeFk());
+								r.setVariacao("00");
+								r.setValorBruto(valorBruto);
+								r.setValorLiquido(valorLiquido);
+								r.setValorIr(0.0);
+								r.setValorPatronal(0.0);
+								r.setValorPrevidencia(0.0);
+								
+								if(valorBruto+valorLiquido>0) {
+									if(!lista.contains(r)) {lista.add(r);
+									}
+								}
+							}
+						}
+					}
+				}
+			
+				
+				
 				
 				
 				

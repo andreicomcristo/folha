@@ -11,10 +11,12 @@ import com.folha.boot.domain.AnoMes;
 import com.folha.boot.domain.FuncionariosFerias;
 import com.folha.boot.domain.FuncionariosFeriasPeriodos;
 import com.folha.boot.domain.PessoaFuncionarios;
+import com.folha.boot.domain.RubricaVencimento;
 import com.folha.boot.domain.models.calculos.EscalasNoMes;
 import com.folha.boot.domain.models.calculos.FeriasNoMes;
 import com.folha.boot.domain.models.calculos.LicencasNoMes;
 import com.folha.boot.domain.models.calculos.RubricasVencimento;
+import com.folha.boot.service.RubricaVencimentoService;
 import com.folha.boot.service.util.UtilidadesDeCalendarioEEscala;
 
 @Service
@@ -25,6 +27,8 @@ public class CalculosCalcularService {
 	private  CalculosColetaDeDadosService calculosColetaDeDadosService;
 	@Autowired
 	private  CalculosAlternativosService calculosAlternativosService;
+	@Autowired
+	private RubricaVencimentoService rubricaVencimentoService;
 
 	
 	public void calcular(AnoMes anoMes){
@@ -44,6 +48,21 @@ public class CalculosCalcularService {
 		listaEscalas = calculosAlternativosService.aplicarLicencasNaEscala(listaEscalas, listaLicencas, anoMes);
 		//Obtendo valores
 		List<RubricasVencimento> listaVencimentos = calculosAlternativosService.obterVencimentosDiferenciadoPorEscala(listaEscalas,listaFerias , anoMes); 
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		//Limpando o banco
+		rubricaVencimentoService.excluirPorMes(anoMes);
+		//Persistindo
+		rubricaVencimentoService.salvarLista(listaVencimentos);
+		
+		
 		
 		for(int i=0;i<listaVencimentos.size();i++) {
 			System.out.println("Mes        :"+listaVencimentos.get(i).getAnoMes().getNomeAnoMes());

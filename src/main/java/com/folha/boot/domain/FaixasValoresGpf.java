@@ -18,18 +18,15 @@ public class FaixasValoresGpf extends AbstractEntity<Long> {
     @JoinColumn(name = "id_carga_horaria_semanal_fk", referencedColumnName = "id")
     @ManyToOne
     private CargaHorariaSemanal idCargaHorariaSemanalFk;
-    @JoinColumn(name = "id_carreira_fk", referencedColumnName = "id")
-    @ManyToOne
-    private Carreiras idCarreiraFk;
     @JoinColumn(name = "id_classe_carreira_fk", referencedColumnName = "id")
     @ManyToOne
     private ClassesCarreira idClasseCarreiraFk;
     @JoinColumn(name = "id_fonte_fk", referencedColumnName = "id")
     @ManyToOne
     private Fonte idFonteFk;
-    @JoinColumn(name = "id_nivel_carreira_fk", referencedColumnName = "id")
+    @JoinColumn(name = "id_nivel_cargo_fk", referencedColumnName = "id")
     @ManyToOne
-    private NiveisCarreira idNivelCarreiraFk;
+    private NiveisCargo idNivelCargoFk;
     @JoinColumn(name = "id_tipo_bruto_liquido_fk", referencedColumnName = "id")
     @ManyToOne
     private TipoBrutoLiquido idTipoBrutoLiquidoFk;
@@ -64,14 +61,6 @@ public class FaixasValoresGpf extends AbstractEntity<Long> {
 		this.idCargaHorariaSemanalFk = idCargaHorariaSemanalFk;
 	}
 
-	public Carreiras getIdCarreiraFk() {
-		return idCarreiraFk;
-	}
-
-	public void setIdCarreiraFk(Carreiras idCarreiraFk) {
-		this.idCarreiraFk = idCarreiraFk;
-	}
-
 	public ClassesCarreira getIdClasseCarreiraFk() {
 		return idClasseCarreiraFk;
 	}
@@ -88,12 +77,12 @@ public class FaixasValoresGpf extends AbstractEntity<Long> {
 		this.idFonteFk = idFonteFk;
 	}
 
-	public NiveisCarreira getIdNivelCarreiraFk() {
-		return idNivelCarreiraFk;
+	public NiveisCargo getIdNivelCargoFk() {
+		return idNivelCargoFk;
 	}
 
-	public void setIdNivelCarreiraFk(NiveisCarreira idNivelCarreiraFk) {
-		this.idNivelCarreiraFk = idNivelCarreiraFk;
+	public void setIdNivelCargoFk(NiveisCargo idNivelCargoFk) {
+		this.idNivelCargoFk = idNivelCargoFk;
 	}
 
 	public TipoBrutoLiquido getIdTipoBrutoLiquidoFk() {
@@ -111,7 +100,7 @@ public class FaixasValoresGpf extends AbstractEntity<Long> {
 	public void setIdUnidadeFk(Unidades idUnidadeFk) {
 		this.idUnidadeFk = idUnidadeFk;
 	}
-
+    
     
     
     

@@ -89,6 +89,8 @@ public class Unidades extends AbstractEntity<Long> {
     private List<HistFuncionariosUnidadeAtuacao> histFuncionariosUnidadeAtuacaoList;
     @OneToMany(mappedBy = "idUnidadeFk")
     private List<CodigoDiferenciado> codigoDiferenciadoList;
+    @OneToMany(mappedBy = "idUnidadeFk")
+    private List<RubricaVencimento> rubricaVencimentoList;
 
     @OneToMany(mappedBy = "idUnidadeFk")
     private List<Perfil> perfilList;
@@ -103,6 +105,9 @@ public class Unidades extends AbstractEntity<Long> {
     private List<PessoaChDif> pessoaChDifList;
     @OneToMany(mappedBy = "idUnidadeFk")
     private List<PessoaIncrementoDeRisco> pessoaIncrementoDeRiscoList;
+    
+    @OneToMany(mappedBy = "idUnidadeFk")
+    private List<FaixasValoresGpf> faixasValoresGpfList;
     
     @OneToMany(mappedBy = "idUnidadeFk")
     private List<PessoaLimiteHoras> pessoaLimiteHorasList;
@@ -477,6 +482,23 @@ public class Unidades extends AbstractEntity<Long> {
 			List<UnidadeAdmiteComplementoPlantao> unidadeAdmiteComplementoPlantaoList) {
 		this.unidadeAdmiteComplementoPlantaoList = unidadeAdmiteComplementoPlantaoList;
 	}
+
+	public List<RubricaVencimento> getRubricaVencimentoList() {
+		return rubricaVencimentoList;
+	}
+
+	public void setRubricaVencimentoList(List<RubricaVencimento> rubricaVencimentoList) {
+		this.rubricaVencimentoList = rubricaVencimentoList;
+	}
+
+	public List<FaixasValoresGpf> getFaixasValoresGpfList() {
+		return faixasValoresGpfList;
+	}
+
+	public void setFaixasValoresGpfList(List<FaixasValoresGpf> faixasValoresGpfList) {
+		this.faixasValoresGpfList = faixasValoresGpfList;
+	}
+	
 	
 	
 	

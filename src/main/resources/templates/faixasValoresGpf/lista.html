@@ -109,14 +109,13 @@
 	          			<tr>
 		                	<th style="font-size:10px;" >#</th>
 		                    <th style="font-size:10px;" >Ano Mes</th>
-		                    <th style="font-size:10px;" >Carreira</th>
 		                    <th style="font-size:10px;" >Unidade</th>
-		                    <th style="font-size:10px;" >Nivel</th>
 		                    <th style="font-size:10px;" >Classe</th>
 		                    <th style="font-size:10px;" >CH Semanal</th>
-		                    <th style="font-size:10px;" >Valor</th>
-		                    <th style="font-size:10px;" >Característica</th>
+		                    <th style="font-size:10px;" >Nivel</th>
 		                    <th style="font-size:10px;" >Fonte</th>
+		                    <th style="font-size:10px;" >Característica</th>
+		                    <th style="font-size:10px;" >Valor</th>
 		                    <th style="font-size:10px;" >Ações</th>
 	                    </tr>
 	                </thead>                  
@@ -124,14 +123,13 @@
 		            	<tr th:each="d : ${faixasValoresGpf}">
 		                	<td style="font-size:10px;"  th:text="${d.id}"></td>
 		                    <td style="font-size:10px;"  th:text="${d.idAnoMesFk != null} ? ${d.idAnoMesFk.nomeAnoMes} : ''  "></td>
-		                    <td style="font-size:10px;"  th:text="${d.idCarreiraFk != null} ? ${d.idCarreiraFk.nomeCarreira} : ''  "></td>
 		                    <td style="font-size:10px;"  th:text="${d.idUnidadeFk != null} ? ${d.idUnidadeFk.nomeFantasia} : ''  "></td>
-		                    <td style="font-size:10px;"  th:text="${d.idNivelCarreiraFk != null} ? ${d.idNivelCarreiraFk.nomeNivelCarreira} : ''  "></td>
 		                    <td style="font-size:10px;"  th:text="${d.idClasseCarreiraFk != null} ? ${d.idClasseCarreiraFk.nomeClasse} : ''  "></td>
 		                    <td style="font-size:10px;"  th:text="${d.idCargaHorariaSemanalFk != null} ? ${d.idCargaHorariaSemanalFk.cargaHoraria} : ''  "></td>
-		                    <td style="font-size:10px;"  th:text="${d.valor != null} ? ${d.valor} : ''  "></td>
-		                    <td style="font-size:10px;"  th:text="${d.idTipoBrutoLiquidoFk != null} ? ${d.idTipoBrutoLiquidoFk.nome +'-'+ d.idTipoBrutoLiquidoFk.descricao} : ''  "></td>
+		                    <td style="font-size:10px;"  th:text="${d.idNivelCargoFk != null} ? ${d.idNivelCargoFk.nomeNivelCargo} : ''  "></td>
 		                    <td style="font-size:10px;"  th:text="${d.idFonteFk != null} ? ${d.idFonteFk.nome +'-'+ d.idFonteFk.descricao} : ''  "></td>
+		                    <td style="font-size:10px;"  th:text="${d.idTipoBrutoLiquidoFk != null} ? ${d.idTipoBrutoLiquidoFk.nome +'-'+ d.idTipoBrutoLiquidoFk.descricao} : ''  "></td>
+		                    <td style="font-size:10px;"  th:text="${d.valor != null} ? ${d.valor} : ''  "></td>
 		                    
 		                    
 		                    <td colspan="2">

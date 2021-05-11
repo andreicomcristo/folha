@@ -82,6 +82,13 @@ public class VencimentosFuncionarioService {
 	}
 	
 	@Transactional(readOnly = true)
+	public List<VencimentosFuncionario> buscarPorMesExatoEFuncionarioETipo(AnoMes anoMes, PessoaFuncionarios pessoaFuncionarios, String nome) {
+		return reposytory.findByIdAnoMesFkAndIdFuncionarioFkAndIdCodigoFkIdTipoFkNomeOrderByIdAnoMesFkNomeAnoMesDesc(anoMes, pessoaFuncionarios, nome.toUpperCase().trim());
+	}
+	
+	
+	
+	@Transactional(readOnly = true)
 	public List<VencimentosFuncionario> buscarPorNome(String nome) {
 		return reposytory.findByIdAnoMesFkNomeAnoMesContainingOrderByIdAnoMesFkNomeAnoMesDesc(nome);
 	}
