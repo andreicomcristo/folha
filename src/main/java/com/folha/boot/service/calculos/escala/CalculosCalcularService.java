@@ -43,7 +43,7 @@ public class CalculosCalcularService {
 		//Aplicando licenças
 		listaEscalas = calculosAlternativosService.aplicarLicencasNaEscala(listaEscalas, listaLicencas, anoMes);
 		//Obtendo valores
-		List<RubricasVencimento> listaVencimentos = calculosAlternativosService.obterVencimentosDiferenciadoPorEscala(listaEscalas, anoMes); 
+		List<RubricasVencimento> listaVencimentos = calculosAlternativosService.obterVencimentosDiferenciadoPorEscala(listaEscalas,listaFerias , anoMes); 
 		
 		for(int i=0;i<listaVencimentos.size();i++) {
 			System.out.println("Mes        :"+listaVencimentos.get(i).getAnoMes().getNomeAnoMes());
@@ -61,6 +61,7 @@ public class CalculosCalcularService {
 			System.out.println();
 		}
 		
+		/*
 		for(int i=0;i<listaEscalas.size();i++) {
 			
 			
@@ -82,32 +83,10 @@ public class CalculosCalcularService {
 			
 			
 		}
-		
-		
-		
-		/*
-		//Aplicando descontos Escala por Férias
-		listaEscalas = calculosAlternativosService.aplicarFeriasNaEscala(listaEscalas, listaFerias);
-		
-		for(int i=0;i<listaEscalas.size();i++) {
-			
-			System.out.println("Nome:"+listaEscalas.get(i).getReferencias().getNome());
-			System.out.println("Cpf:"+listaEscalas.get(i).getReferencias().getCpf());
-			System.out.println("Matricula:"+listaEscalas.get(i).getReferencias().getMatricula());
-			System.out.println("Folha:"+listaEscalas.get(i).getReferencias().getTiposDeFolha().getNomeTipoFolha());
-			System.out.println("Regime:"+listaEscalas.get(i).getReferencias().getRegimesDeTrabalho().getNomeRegimeDeTrabalho());
-			System.out.println("Diferenciado:"+listaEscalas.get(i).getReferencias().getCodigoDiferenciado().getNomeCodigoDiferenciado());
-			System.out.println("Dias Ferias:"+listaEscalas.get(i).getReferencias().getDiasFerias());
-			System.out.println("Horas Ferias:"+listaEscalas.get(i).getReferencias().getHorasFeriasDescontadas());
-			System.out.println("Dias Licenca:"+listaEscalas.get(i).getReferencias().getDiasLicenca());
-			System.out.println("Horas Licenca:"+listaEscalas.get(i).getReferencias().getHorasLicencaDescontadas());
-			System.out.println("Anotacoes:"+listaEscalas.get(i).getReferencias().getObsReferencias());
-			
-			System.out.println();
-			
-			
-		}
 		*/
+		
+		
+		
 		
 		
 	}

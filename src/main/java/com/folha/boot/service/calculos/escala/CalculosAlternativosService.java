@@ -1651,7 +1651,7 @@ public class CalculosAlternativosService {
 	
 	
 	
-	public List<RubricasVencimento> obterVencimentosDiferenciadoPorEscala(List<EscalasNoMes> listaEscalas, AnoMes anoMes) {
+	public List<RubricasVencimento> obterVencimentosDiferenciadoPorEscala(List<EscalasNoMes> listaEscalas, List<FeriasNoMes> listaFerias , AnoMes anoMes) {
 		List<FaixasValoresParametrosCalculoFolhasExtras> listaValoresExtra = faixasValoresParametrosCalculoFolhasExtrasService.buscarPorMesExato(anoMes); 
 		List<RubricasVencimento> lista = new ArrayList<>();
 		
@@ -1933,7 +1933,12 @@ public class CalculosAlternativosService {
 				
 				
 				
+				//Buscando rubricas atribuidas aos colaboradores pela folha
+				List<RubricasVencimento> listaA= obterVencimentosRubricasAtribuidasPelaFolha(listaEscalas, listaFerias, anoMes);
 				
+				for(int m=0;m<listaA.size();m++) {
+					lista.add(listaA.get(m));
+				}
 				
 				
 		
@@ -1950,6 +1955,7 @@ public class CalculosAlternativosService {
 		List<VencimentosFuncionario> listaVencimentosFuncionarios = vencimentosFuncionarioService.buscarPorMesExato(anoMes); 
 		
 		for(int i=0;i<listaVencimentosFuncionarios.size();i++) {
+			RubricasVencimento r = new RubricasVencimento();
 			VencimentosFuncionario vencimentosFuncionario = listaVencimentosFuncionarios.get(i);
 			int horasEsperadas = vencimentosFuncionario.getIdFuncionarioFk().getIdCargaHorariaAtualFk().getCargaHoraria()*4;
 			Double valor = 0.0; 
@@ -1984,6 +1990,26 @@ public class CalculosAlternativosService {
 			if(valorDaPessoa<0) {valorDaPessoa=0.0;}
 			valorDaPessoa = UtilidadesMatematicas.ajustaValorDecimal(valorDaPessoa, 2);
 			
+			r.setAnoMes(anoMes);
+			r.setSequencia(1);
+			r.setCodigo(listaVencimentosFuncionarios.get(i).getIdCodigoFk().getCodigo());
+			r.setDescricao(listaVencimentosFuncionarios.get(i).getIdCodigoFk().getDescricao());
+			r.setFonte(listaVencimentosFuncionarios.get(i).getIdCodigoFk().getIdFonteFk());
+			r.setNatureza(rubricaNaturezaService.buscarPorSigla("V").get(0));
+			r.setPercentagem(0.0);
+			r.setPessoaFuncionarios(listaVencimentosFuncionarios.get(i).getIdFuncionarioFk());
+			r.setTipoBrutoLiquido(listaVencimentosFuncionarios.get(i).getIdCodigoFk().getIdTipoBrutoLiquidoFk());
+			r.setUnidade(listaVencimentosFuncionarios.get(i).getIdFuncionarioFk().getIdUnidadeAtuacaoAtualFk());
+			r.setVariacao(listaVencimentosFuncionarios.get(i).getIdCodigoFk().getVariacao());
+			
+			if(listaVencimentosFuncionarios.get(i).getIdCodigoFk().getIdTipoBrutoLiquidoFk().getNome().equalsIgnoreCase("B")) {r.setValorBruto(valorDaPessoa);} else {r.setValorBruto(0.0);}
+			if(listaVencimentosFuncionarios.get(i).getIdCodigoFk().getIdTipoBrutoLiquidoFk().getNome().equalsIgnoreCase("L")) {r.setValorLiquido(valorDaPessoa);} else {r.setValorLiquido(0.0);}
+			
+			r.setValorIr(0.0);
+			r.setValorPatronal(0.0);
+			r.setValorPrevidencia(0.0);
+			
+			lista.add(r);
 				
 				
 		}
