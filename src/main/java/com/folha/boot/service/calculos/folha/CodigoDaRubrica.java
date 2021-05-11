@@ -8,7 +8,6 @@ public class CodigoDaRubrica {
 	private String descricao;
 	private Natureza natureza;
 	
-	
 	public int getId() {
 		return id;
 	}

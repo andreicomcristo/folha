@@ -5,9 +5,8 @@ public class Rubrica {
 	private int id;
 	private CodigoDaRubrica CodigoDaRubrica;	
 	private AnoMes anoMes;
-	private int valor;
-	private double porcentagem;
-	private double quantidade;
+	private int valor;	
+	private char tipoDeValor;
 	
 	
 	public int getId() {
@@ -34,17 +33,11 @@ public class Rubrica {
 	public void setValor(int valor) {
 		this.valor = valor;
 	}
-	public double getPorcentagem() {
-		return porcentagem;
+	public char getTipoDeValor() {
+		return tipoDeValor;
 	}
-	public void setPorcentagem(double porcentagem) {
-		this.porcentagem = porcentagem;
-	}
-	public double getQuantidade() {
-		return quantidade;
-	}
-	public void setQuantidade(double quantidade) {
-		this.quantidade = quantidade;
+	public void setTipoDeValor(char tipoDeValor) {
+		this.tipoDeValor = tipoDeValor;
 	}
 	
 }

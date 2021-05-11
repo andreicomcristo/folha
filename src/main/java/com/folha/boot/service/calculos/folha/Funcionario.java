@@ -6,8 +6,7 @@ public class Funcionario {
 	
 	private int id;
 	private List<Vencimentos> vencimentos;
-	
-	
+		
 	public int getId() {
 		return id;
 	}
