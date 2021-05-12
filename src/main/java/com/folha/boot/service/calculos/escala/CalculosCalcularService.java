@@ -67,9 +67,8 @@ public class CalculosCalcularService {
 		
 		
 		
-		
-		
-		
+		//Colocando valores líquidos onde nao tiver
+		listaVencimentos = calculosAlternativosService.colocandoLiquidoNasRubricas(listaVencimentos);
 		
 		//Limpando o banco
 		rubricaVencimentoService.excluirPorMes(anoMes);

@@ -38,6 +38,7 @@ import com.folha.boot.service.RubricaService;
 import com.folha.boot.service.TurnosService;
 import com.folha.boot.service.VencimentosFuncionarioService;
 import com.folha.boot.service.VinculosService;
+import com.folha.boot.service.calculos.folha.CalcularLiquidoService;
 import com.folha.boot.service.util.UtilidadesDeCalendarioEEscala;
 import com.folha.boot.service.util.UtilidadesMatematicas;
 
@@ -67,6 +68,8 @@ public class CalculosAlternativosService {
 	private VencimentosFuncionarioService vencimentosFuncionarioService;
 	@Autowired
 	private RubricaService rubricaService;
+	@Autowired
+	private CalcularLiquidoService calcularLiquidoService;
 	
 	
 
@@ -1689,14 +1692,15 @@ public class CalculosAlternativosService {
 						Double valorHorasNoite = listaValoresExtra.get(j).getValorHoraNoite();
 						Double valorHorasSemana = listaValoresExtra.get(j).getValorHoraSemana();
 						Double valorHorasFimSemana = listaValoresExtra.get(j).getValorHoraFimDeSemana();
-						Double valorHorasTotais = listaValoresExtra.get(j).getValorBrutoPorHora();
+						Double valorHorasTotaisBruta = listaValoresExtra.get(j).getValorBrutoPorHora();
+						Double valorHorasTotaisLiquida =  listaValoresExtra.get(j).getValorLiquidoPorHora();
 						
 						if(listaValoresExtra.get(j).getIdCodDiferenciadoFk().getIdTipoBrutoLiquidoFk().getNome().equalsIgnoreCase("B")) {
-							valorBruto= (horasDia*valorHorasDia) + (horasNoite*valorHorasNoite) + (horasSemana*valorHorasSemana) + (horasFimSemana*valorHorasFimSemana) + (horasTotais*valorHorasTotais);
+							valorBruto= (horasDia*valorHorasDia) + (horasNoite*valorHorasNoite) + (horasSemana*valorHorasSemana) + (horasFimSemana*valorHorasFimSemana) + (horasTotais*valorHorasTotaisBruta);
 						}
 						
 						if(listaValoresExtra.get(j).getIdCodDiferenciadoFk().getIdTipoBrutoLiquidoFk().getNome().equalsIgnoreCase("L")) {
-							valorLiquido= (horasDia*valorHorasDia) + (horasNoite*valorHorasNoite) + (horasSemana*valorHorasSemana) + (horasFimSemana*valorHorasFimSemana) + (horasTotais*valorHorasTotais);
+							valorLiquido= (horasDia*valorHorasDia) + (horasNoite*valorHorasNoite) + (horasSemana*valorHorasSemana) + (horasFimSemana*valorHorasFimSemana) + (horasTotais*valorHorasTotaisLiquida);
 						}
 						
 						r.setAnoMes(anoMes);
@@ -1896,14 +1900,15 @@ public class CalculosAlternativosService {
 										Double valorHorasNoite = listaValoresExtra.get(j).getValorHoraNoite();
 										Double valorHorasSemana = listaValoresExtra.get(j).getValorHoraSemana();
 										Double valorHorasFimSemana = listaValoresExtra.get(j).getValorHoraFimDeSemana();
-										Double valorHorasTotais = listaValoresExtra.get(j).getValorBrutoPorHora();
+										Double valorHorasTotaisBruta = listaValoresExtra.get(j).getValorBrutoPorHora();
+										Double valorHorasTotaisLiquida =  listaValoresExtra.get(j).getValorLiquidoPorHora();
 										
 										if(listaValoresExtra.get(j).getIdCodDiferenciadoFk().getIdTipoBrutoLiquidoFk().getNome().equalsIgnoreCase("B")) {
-											valorBruto= (horasDia*valorHorasDia) + (horasNoite*valorHorasNoite) + (horasSemana*valorHorasSemana) + (horasFimSemana*valorHorasFimSemana) + (horasTotais*valorHorasTotais);
+											valorBruto= (horasDia*valorHorasDia) + (horasNoite*valorHorasNoite) + (horasSemana*valorHorasSemana) + (horasFimSemana*valorHorasFimSemana) + (horasTotais*valorHorasTotaisBruta);
 										}
 										
 										if(listaValoresExtra.get(j).getIdCodDiferenciadoFk().getIdTipoBrutoLiquidoFk().getNome().equalsIgnoreCase("L")) {
-											valorLiquido= (horasDia*valorHorasDia) + (horasNoite*valorHorasNoite) + (horasSemana*valorHorasSemana) + (horasFimSemana*valorHorasFimSemana) + (horasTotais*valorHorasTotais);
+											valorLiquido= (horasDia*valorHorasDia) + (horasNoite*valorHorasNoite) + (horasSemana*valorHorasSemana) + (horasFimSemana*valorHorasFimSemana) + (horasTotais*valorHorasTotaisLiquida);
 										}
 										
 										r.setAnoMes(anoMes);
@@ -2038,7 +2043,7 @@ public class CalculosAlternativosService {
 	
 	
 	
-	
+	//Obter Vencimentos Rubricas Atribuidas Pela Folha
 	public List<RubricasVencimento> obterVencimentosRubricasAtribuidasPelaFolha(List<EscalasNoMes> listaEscalas, List<FeriasNoMes> listaFerias, AnoMes anoMes) {
 		List<RubricasVencimento> lista = new ArrayList<>();
 		List<VencimentosFuncionario> listaVencimentosFuncionarios = vencimentosFuncionarioService.buscarPorMesExato(anoMes); 
@@ -2111,6 +2116,20 @@ public class CalculosAlternativosService {
 	
 	
 	
+	
+	
+	
+	
+	
+	
+	public List<RubricasVencimento> colocandoLiquidoNasRubricas(List<RubricasVencimento> listaVencimentos) {
+		for(int i=0;i<listaVencimentos.size();i++) {
+			if((listaVencimentos.get(i).getValorBruto()>0)  &&  (listaVencimentos.get(i).getValorLiquido()==0.0) ) {
+				listaVencimentos.get(i).setValorLiquido(calcularLiquidoService.calcularLiquido(listaVencimentos.get(i).getValorBruto(), listaVencimentos.get(i).getAnoMes()));
+			}
+		}
+		return listaVencimentos;
+	}
 	
 	
 	
