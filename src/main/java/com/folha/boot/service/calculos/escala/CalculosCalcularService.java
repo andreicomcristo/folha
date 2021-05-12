@@ -17,6 +17,10 @@ import com.folha.boot.domain.models.calculos.FeriasNoMes;
 import com.folha.boot.domain.models.calculos.LicencasNoMes;
 import com.folha.boot.domain.models.calculos.RubricasVencimento;
 import com.folha.boot.service.RubricaVencimentoService;
+import com.folha.boot.service.calculos.folha.CalcularBrutoService;
+import com.folha.boot.service.calculos.folha.CalcularInssService;
+import com.folha.boot.service.calculos.folha.CalcularIrService;
+import com.folha.boot.service.calculos.folha.CalcularLiquidoService;
 import com.folha.boot.service.util.UtilidadesDeCalendarioEEscala;
 
 @Service
@@ -29,6 +33,16 @@ public class CalculosCalcularService {
 	private  CalculosAlternativosService calculosAlternativosService;
 	@Autowired
 	private RubricaVencimentoService rubricaVencimentoService;
+	
+	@Autowired
+	private CalcularInssService calcularInssService;
+	@Autowired
+	private CalcularIrService calcularIrService;
+	@Autowired
+	private CalcularLiquidoService calcularLiquidoService;
+	@Autowired
+	private CalcularBrutoService calcularBrutoService;
+	
 
 	
 	public void calcular(AnoMes anoMes){
@@ -65,6 +79,11 @@ public class CalculosCalcularService {
 		
 		
 		for(int i=0;i<listaVencimentos.size();i++) {
+			
+			Double liquidoCalculado = calcularLiquidoService.calcularLiquido(listaVencimentos.get(i).getValorBruto(), anoMes);
+			Double brutoCalculado = calcularBrutoService.calcularBruto(liquidoCalculado, anoMes);
+			
+			
 			System.out.println("Mes        :"+listaVencimentos.get(i).getAnoMes().getNomeAnoMes());
 			System.out.println("Nome       :"+listaVencimentos.get(i).getPessoaFuncionarios().getIdPessoaFk().getNome());
 			System.out.println("Rubrica    :"+listaVencimentos.get(i).getCodigo());
@@ -77,6 +96,15 @@ public class CalculosCalcularService {
 			System.out.println("Tipo       :"+listaVencimentos.get(i).getTipoBrutoLiquido().getDescricao());
 			System.out.println("Bruto      :"+listaVencimentos.get(i).getValorBruto());
 			System.out.println("Liquido    :"+listaVencimentos.get(i).getValorLiquido());
+			System.out.println("Liquido Calculado :"+ liquidoCalculado );
+			System.out.println("Bruto   Calculado :"+ brutoCalculado );
+			
+			
+			
+			
+			
+			
+			
 			System.out.println();
 		}
 		
