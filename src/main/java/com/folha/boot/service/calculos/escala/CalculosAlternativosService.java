@@ -33,6 +33,7 @@ import com.folha.boot.service.EscalaCodDiferenciadoService;
 import com.folha.boot.service.FaixasValoresGpfService;
 import com.folha.boot.service.FaixasValoresIncentivoDeRiscoService;
 import com.folha.boot.service.FaixasValoresParametrosCalculoFolhasExtrasService;
+import com.folha.boot.service.NaoDescontaInssService;
 import com.folha.boot.service.RubricaNaturezaService;
 import com.folha.boot.service.RubricaService;
 import com.folha.boot.service.TurnosService;
@@ -70,6 +71,8 @@ public class CalculosAlternativosService {
 	private RubricaService rubricaService;
 	@Autowired
 	private CalcularLiquidoService calcularLiquidoService;
+	@Autowired
+	private NaoDescontaInssService naoDescontaInssService;
 	
 	
 
@@ -2125,7 +2128,13 @@ public class CalculosAlternativosService {
 	public List<RubricasVencimento> colocandoLiquidoNasRubricas(List<RubricasVencimento> listaVencimentos) {
 		for(int i=0;i<listaVencimentos.size();i++) {
 			if((listaVencimentos.get(i).getValorBruto()>0)  &&  (listaVencimentos.get(i).getValorLiquido()==0.0) ) {
-				listaVencimentos.get(i).setValorLiquido(calcularLiquidoService.calcularLiquido(listaVencimentos.get(i).getValorBruto(), listaVencimentos.get(i).getAnoMes()));
+			
+				if( (naoDescontaInssService.avaliarCadastrado(listaVencimentos.get(i).getAnoMes(), listaVencimentos.get(i).getPessoaFuncionarios())==false)  &&  (!listaVencimentos.get(i).getPessoaFuncionarios().getIdVinculoAtualFk().getNomeVinculo().equalsIgnoreCase("EFETIVO"))  ) {
+					listaVencimentos.get(i).setValorLiquido(calcularLiquidoService.calcularLiquidoComInss(listaVencimentos.get(i).getValorBruto(), listaVencimentos.get(i).getAnoMes()));
+				}else {
+					listaVencimentos.get(i).setValorLiquido(calcularLiquidoService.calcularLiquidoSemInss(listaVencimentos.get(i).getValorBruto(), listaVencimentos.get(i).getAnoMes()));
+				}
+			
 			}
 		}
 		return listaVencimentos;

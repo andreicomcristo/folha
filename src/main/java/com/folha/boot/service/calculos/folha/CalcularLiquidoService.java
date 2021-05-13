@@ -21,10 +21,17 @@ public class CalcularLiquidoService {
 	@Autowired
 	private  CalcularIrService calcularIrService;
 	
-	public Double calcularLiquido(Double valor, AnoMes anoMes) {
+	public Double calcularLiquidoComInss(Double valor, AnoMes anoMes) {
 		Double resposta = 0.0;
 		resposta = valor - calcularInssService.valorInss(valor, anoMes);
 		resposta = resposta - calcularIrService.valorIr(valor, anoMes);
+		if(resposta<0) {resposta=0.0;}
+		return resposta;
+	}
+	
+	public Double calcularLiquidoSemInss(Double valor, AnoMes anoMes) {
+		Double resposta = 0.0;
+		resposta = valor - calcularIrService.valorIr(valor, anoMes);
 		if(resposta<0) {resposta=0.0;}
 		return resposta;
 	}

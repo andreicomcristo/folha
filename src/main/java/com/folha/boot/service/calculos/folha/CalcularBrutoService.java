@@ -19,10 +19,20 @@ public class CalcularBrutoService {
 	@Autowired
 	private  CalcularLiquidoService calcularLiquidoService;
 	
-	public Double calcularBruto(Double valor, AnoMes anoMes) {
+	public Double calcularBrutoComInss(Double valor, AnoMes anoMes) {
 		Double resposta = 0.0;
 		for(Double i = valor; ; i=i+0.01 ) {
-			Double liquido = calcularLiquidoService.calcularLiquido(i, anoMes);
+			Double liquido = calcularLiquidoService.calcularLiquidoComInss(i, anoMes);
+			if((liquido+0.1)< valor ) { i=i+ valor-liquido-0.09; }
+			if(!(liquido<valor)) {resposta = i;break;}
+		}
+		return resposta;
+	}
+	
+	public Double calcularBrutoSemInss(Double valor, AnoMes anoMes) {
+		Double resposta = 0.0;
+		for(Double i = valor; ; i=i+0.01 ) {
+			Double liquido = calcularLiquidoService.calcularLiquidoSemInss(i, anoMes);
 			if((liquido+0.1)< valor ) { i=i+ valor-liquido-0.09; }
 			if(!(liquido<valor)) {resposta = i;break;}
 		}

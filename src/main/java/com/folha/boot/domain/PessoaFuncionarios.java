@@ -109,6 +109,9 @@ public class PessoaFuncionarios extends AbstractEntity<Long> {
     private List<FuncionariosLicencas> funcionariosLicencasList;
     
     @OneToMany(mappedBy = "idFuncionarioFk")
+    private List<NaoDescontaInss> naoDescontaInssList;
+    
+    @OneToMany(mappedBy = "idFuncionarioFk")
     private List<HistFuncionariosNiveisCarreira> histFuncionariosNiveisCarreiraList;
     
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "idFuncionarioFk")
@@ -505,6 +508,14 @@ public class PessoaFuncionarios extends AbstractEntity<Long> {
 
 	public void setRubricaVencimentoList(List<RubricaVencimento> rubricaVencimentoList) {
 		this.rubricaVencimentoList = rubricaVencimentoList;
+	}
+
+	public List<NaoDescontaInss> getNaoDescontaInssList() {
+		return naoDescontaInssList;
+	}
+
+	public void setNaoDescontaInssList(List<NaoDescontaInss> naoDescontaInssList) {
+		this.naoDescontaInssList = naoDescontaInssList;
 	}
 	
 	

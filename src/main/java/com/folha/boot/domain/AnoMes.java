@@ -53,6 +53,8 @@ public class AnoMes extends AbstractEntity<Long> {
     @OneToMany(mappedBy = "idAnoMesFk")
     private List<PessoaChDif> pessoaChDifList;
     
+    @OneToMany(mappedBy = "idAnoMesFk")
+    private List<NaoDescontaInss> naoDescontaInssList;
     
     @OneToMany(mappedBy = "idAnoMesFk")
     private List<VencimentosFuncionario> rubricaFuncionarioList;
@@ -203,6 +205,12 @@ public class AnoMes extends AbstractEntity<Long> {
 	}
 	public void setFaixasValoresGpfList(List<FaixasValoresGpf> faixasValoresGpfList) {
 		this.faixasValoresGpfList = faixasValoresGpfList;
+	}
+	public List<NaoDescontaInss> getNaoDescontaInssList() {
+		return naoDescontaInssList;
+	}
+	public void setNaoDescontaInssList(List<NaoDescontaInss> naoDescontaInssList) {
+		this.naoDescontaInssList = naoDescontaInssList;
 	}
 		
 	
