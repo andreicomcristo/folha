@@ -123,6 +123,9 @@ public class Unidades extends AbstractEntity<Long> {
 	@OneToMany(mappedBy = "idUnidadeFk")
     private List<UnidadeAdmiteComplementoPlantao> unidadeAdmiteComplementoPlantaoList;
 	
+	 @OneToMany(mappedBy = "idUnidadeFk")
+	 private List<HorasFaltasFolhasVariaveis> horasFaltasFolhasVariaveisList;
+	
 	@OneToMany(mappedBy = "idUnidadeFk")
     private List<FatorChDif> fatorChDifList;
 	
@@ -497,6 +500,14 @@ public class Unidades extends AbstractEntity<Long> {
 
 	public void setFaixasValoresGpfList(List<FaixasValoresGpf> faixasValoresGpfList) {
 		this.faixasValoresGpfList = faixasValoresGpfList;
+	}
+
+	public List<HorasFaltasFolhasVariaveis> getHorasFaltasFolhasVariaveisList() {
+		return horasFaltasFolhasVariaveisList;
+	}
+
+	public void setHorasFaltasFolhasVariaveisList(List<HorasFaltasFolhasVariaveis> horasFaltasFolhasVariaveisList) {
+		this.horasFaltasFolhasVariaveisList = horasFaltasFolhasVariaveisList;
 	}
 	
 	

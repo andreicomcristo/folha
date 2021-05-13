@@ -23,6 +23,8 @@ public interface PessoaFuncionariosReposytory extends JpaRepository<PessoaFuncio
 	
 	public List<PessoaFuncionarios> findByIdPessoaFk(Pessoa pessoa);
 	
+	public List<PessoaFuncionarios> findByIdUnidadeAtuacaoAtualFkAndDtCancelamentoIsNullAndIdPessoaFkDtCancelamentoIsNullAndIdSituacaoAtualFkNomeSituacaoOrderByIdPessoaFkNomeAscIdPessoaFkCpfAscMatriculaAsc(Unidades idUnidadeAtuacaoAtualFk, String nome);
+	
 	public Page<PessoaFuncionarios> findByIdUnidadeAtuacaoAtualFkAndDtCancelamentoIsNullAndIdPessoaFkDtCancelamentoIsNullAndIdSituacaoAtualFkNomeSituacao(Unidades idUnidadeAtuacaoAtualFk, String nomeSituacao, final Pageable page);
 	
 	public Page<PessoaFuncionarios> findByDtCancelamentoIsNullAndIdPessoaFkDtCancelamentoIsNullAndIdSituacaoAtualFkNomeSituacao( String nomeSituacao, final Pageable page);

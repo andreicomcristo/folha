@@ -14,8 +14,6 @@ public class EscalasNoMes {
 		super();
 	}
 
-
-
 	public Escala getEscala() {
 		return escala;
 	}

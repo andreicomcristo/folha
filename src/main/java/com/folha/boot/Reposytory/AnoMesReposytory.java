@@ -13,5 +13,7 @@ public interface AnoMesReposytory extends JpaRepository<AnoMes, Long> {
 
 	public List<AnoMes> findByNomeAnoMesOrderByNomeAnoMesDesc(String nomeAnoMes);
 	
+	public AnoMes findFirstByIdEscalaBloqueadaFkSiglaOrderByNomeAnoMesAsc(String nome);
+	
 	
 }

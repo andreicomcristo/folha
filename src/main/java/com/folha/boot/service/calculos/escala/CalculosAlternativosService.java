@@ -21,6 +21,7 @@ import com.folha.boot.domain.FaixasValoresParametrosCalculoFolhasExtras;
 import com.folha.boot.domain.FuncionariosFerias;
 import com.folha.boot.domain.FuncionariosFeriasPeriodos;
 import com.folha.boot.domain.FuncionariosLicencas;
+import com.folha.boot.domain.HorasFaltasFolhasVariaveis;
 import com.folha.boot.domain.PessoaFuncionarios;
 import com.folha.boot.domain.VencimentosFuncionario;
 import com.folha.boot.domain.models.calculos.EscalasNoMes;
@@ -33,6 +34,7 @@ import com.folha.boot.service.EscalaCodDiferenciadoService;
 import com.folha.boot.service.FaixasValoresGpfService;
 import com.folha.boot.service.FaixasValoresIncentivoDeRiscoService;
 import com.folha.boot.service.FaixasValoresParametrosCalculoFolhasExtrasService;
+import com.folha.boot.service.HorasFaltasFolhasVariaveisService;
 import com.folha.boot.service.NaoDescontaInssService;
 import com.folha.boot.service.RubricaNaturezaService;
 import com.folha.boot.service.RubricaService;
@@ -73,9 +75,260 @@ public class CalculosAlternativosService {
 	private CalcularLiquidoService calcularLiquidoService;
 	@Autowired
 	private NaoDescontaInssService naoDescontaInssService;
+	@Autowired
+	private HorasFaltasFolhasVariaveisService horasFaltasFolhasVariaveisService;
+	
 	
 	
 
+	public List<EscalasNoMes> aplicarFaltasVariaveisNaEscalaSemanaFimSemana(List<EscalasNoMes> listaEscalas){
+		List<HorasFaltasFolhasVariaveis> listaFaltas = horasFaltasFolhasVariaveisService.buscarFaltasADescontar();
+		List<EscalasNoMes> listaResposta = new ArrayList<>();
+		
+		for(int i=0;i<listaEscalas.size();i++) {
+			
+			if(listaEscalas.get(i).getEscala().getIdTipoFolhaFk().getIdTipoRemuneracaoFk().getNomeTipoRemuneracao().equalsIgnoreCase("VARIAVEL")  ) {
+				for(int j=0;j<listaFaltas.size();j++) {
+					
+					if(		(listaEscalas.get(i).getEscala().getIdFuncionarioFk().getIdEspecialidadeAtualFk().getIdCargoFk().getIdNivelCargoFk().getSiglaNivelCargo().equalsIgnoreCase("T")) &&
+							(listaEscalas.get(i).getEscala().getIdFuncionarioFk()==listaFaltas.get(j).getIdFuncionarioFk()) && 
+							(listaEscalas.get(i).getEscala().getIdCoordenacaoFk().getIdLocalidadeFk().getIdUnidadeFk()==listaFaltas.get(j).getIdUnidadeFk()) &&
+							(listaFaltas.get(j).getHorasRestantes()>0) 
+					) {
+						
+						int horasSemana = listaEscalas.get(i).getEscala().getHorasSemana();
+						int horasFimSemana = listaEscalas.get(i).getEscala().getHorasFimSemana();
+						int horasTotais = listaEscalas.get(i).getEscala().getHorasTotais();
+						
+						int horasDescontarSemana = listaFaltas.get(j).getHorasSemana();
+						int horasDescontarFimSemana = listaFaltas.get(j).getHorasFimSemana();
+						int horasRestantes = listaFaltas.get(j).getHorasRestantes();
+						
+						int horasSemanaDescontadas = listaFaltas.get(j).getHorasSemanaDescontadas();
+						int horasFimSemanaDescontadas = listaFaltas.get(j).getHorasFimSemanaDescontadas();
+						
+						//Horas Fim Semana
+						if(horasRestantes>0) {
+							if(horasFimSemana>0) {
+								if(horasDescontarFimSemana-horasFimSemanaDescontadas>0) {
+									int horasCortadas = horasFimSemana- (horasDescontarFimSemana-horasFimSemanaDescontadas); 
+									if(horasCortadas<0) {
+										horasCortadas = horasFimSemana;
+										horasFimSemana = 0;
+										horasFimSemanaDescontadas = horasFimSemanaDescontadas+horasCortadas;
+										horasRestantes = horasRestantes - horasCortadas;
+										listaFaltas.get(j).setObservacaoSistema( listaFaltas.get(j).getObservacaoSistema()+"DESCONTO: "+horasCortadas+" HORAS FIM SEMANA "+listaFaltas.get(j).getIdAnoMesFk().getNomeAnoMes()+"; " ); listaEscalas.get(i).getReferencias().setObsReferencias(listaEscalas.get(i).getReferencias().getObsReferencias()+ "DESCONTO: "+horasCortadas+" HORAS FIM SEMANA "+listaFaltas.get(j).getIdAnoMesFk().getNomeAnoMes()+"; " );
+										
+									}else { horasCortadas = (horasDescontarFimSemana-horasFimSemanaDescontadas); horasFimSemana = horasFimSemana-horasCortadas; horasFimSemanaDescontadas = horasFimSemanaDescontadas+horasCortadas; horasRestantes = horasRestantes - horasCortadas; listaFaltas.get(j).setObservacaoSistema( listaFaltas.get(j).getObservacaoSistema()+"DESCONTO: "+horasCortadas+" HORAS FIM SEMANA "+listaFaltas.get(j).getIdAnoMesFk().getNomeAnoMes()+"; " ); listaEscalas.get(i).getReferencias().setObsReferencias(listaEscalas.get(i).getReferencias().getObsReferencias()+ "DESCONTO: "+horasCortadas+" HORAS FIM SEMANA "+listaFaltas.get(j).getIdAnoMesFk().getNomeAnoMes()+"; " );}
+								}
+							}
+						}
+						horasTotais = horasSemana+horasFimSemana;
+						
+						//Horas Semana
+						if(horasRestantes>0) {
+							if(horasSemana>0) {
+								if(horasDescontarSemana-horasSemanaDescontadas>0) {
+									int horasCortadas = horasSemana- (horasDescontarSemana-horasSemanaDescontadas); 
+									if(horasCortadas<0) {
+										horasCortadas = horasSemana;
+										horasSemana = 0;
+										horasSemanaDescontadas = horasSemanaDescontadas+horasCortadas;
+										horasRestantes = horasRestantes - horasCortadas;
+										listaFaltas.get(j).setObservacaoSistema( listaFaltas.get(j).getObservacaoSistema()+"DESCONTO: "+horasCortadas+" HORAS SEMANA "+listaFaltas.get(j).getIdAnoMesFk().getNomeAnoMes()+"; " ); listaEscalas.get(i).getReferencias().setObsReferencias(listaEscalas.get(i).getReferencias().getObsReferencias()+ "DESCONTO: "+horasCortadas+" HORAS SEMANA "+listaFaltas.get(j).getIdAnoMesFk().getNomeAnoMes()+"; " );
+									}else { horasCortadas = (horasDescontarSemana-horasSemanaDescontadas); horasSemana = horasSemana-horasCortadas; horasSemanaDescontadas = horasSemanaDescontadas+horasCortadas; horasRestantes = horasRestantes - horasCortadas; listaFaltas.get(j).setObservacaoSistema( listaFaltas.get(j).getObservacaoSistema()+"DESCONTO: "+horasCortadas+" HORAS SEMANA "+listaFaltas.get(j).getIdAnoMesFk().getNomeAnoMes()+"; " ); listaEscalas.get(i).getReferencias().setObsReferencias(listaEscalas.get(i).getReferencias().getObsReferencias()+ "DESCONTO: "+horasCortadas+" HORAS SEMANA "+listaFaltas.get(j).getIdAnoMesFk().getNomeAnoMes()+"; " ); }
+								}
+							}
+						}
+						horasTotais = horasSemana+horasFimSemana;
+						
+						System.out.println("SSSSSS"+horasSemana);
+						
+						//Descontando os excedentes Semana
+						if(horasRestantes>0 && horasTotais>0) {
+							if(horasSemana>0) {
+								
+								int horasFicouNaEscala = horasSemana-horasRestantes;
+								int horasA = 0;
+								if(horasFicouNaEscala<0) { horasFicouNaEscala = 0;    }
+								horasA = horasSemana-horasFicouNaEscala;
+								horasSemanaDescontadas = horasSemanaDescontadas+horasA; 
+								horasRestantes = horasRestantes-horasA; 
+								horasSemana = horasSemana - horasA;
+								listaFaltas.get(j).setObservacaoSistema( listaFaltas.get(j).getObservacaoSistema()+"DESCONTO: "+horasA+" HORAS SEMANA "+listaFaltas.get(j).getIdAnoMesFk().getNomeAnoMes()+"; " ); listaEscalas.get(i).getReferencias().setObsReferencias(listaEscalas.get(i).getReferencias().getObsReferencias()+ "DESCONTO: "+horasA+" HORAS SEMANA "+listaFaltas.get(j).getIdAnoMesFk().getNomeAnoMes()+"; " );
+							}
+						}
+						horasTotais = horasSemana+horasFimSemana;
+						
+						//Descontando os excedentes FimSemana
+						if(horasRestantes>0 && horasTotais>0) {
+							if(horasFimSemana>0) {
+								int horasFicouNaEscala = horasFimSemana-horasRestantes;
+								int horasA = 0;
+								if(horasFicouNaEscala<0) { horasFicouNaEscala = 0;    }
+								horasA = horasFimSemana-horasFicouNaEscala;
+								horasFimSemanaDescontadas = horasFimSemanaDescontadas+horasA; 
+								horasRestantes = horasRestantes-horasA; 
+								horasFimSemana = horasFimSemana - horasA;
+								listaFaltas.get(j).setObservacaoSistema( listaFaltas.get(j).getObservacaoSistema()+"DESCONTO: "+horasA+" HORAS FIM SEMANA "+listaFaltas.get(j).getIdAnoMesFk().getNomeAnoMes()+"; " ); listaEscalas.get(i).getReferencias().setObsReferencias(listaEscalas.get(i).getReferencias().getObsReferencias()+ "DESCONTO: "+horasA+" HORAS FIM SEMANA "+listaFaltas.get(j).getIdAnoMesFk().getNomeAnoMes()+"; " );
+							}
+						}
+						horasTotais = horasSemana+horasFimSemana;
+						
+						
+						
+						listaFaltas.get(j).setHorasFimSemanaDescontadas(horasFimSemanaDescontadas);	
+						listaFaltas.get(j).setHorasSemanaDescontadas(horasSemanaDescontadas);
+						listaFaltas.get(j).setHorasDescontadas(horasSemanaDescontadas+horasFimSemanaDescontadas);
+						listaFaltas.get(j).setHorasRestantes(horasRestantes);
+						
+						listaEscalas.get(i).getEscala().setHorasSemana(horasSemana);
+						listaEscalas.get(i).getEscala().setHorasFimSemana(horasFimSemana);
+						listaEscalas.get(i).getEscala().setHorasTotais(horasTotais);
+						
+					}
+				}
+				
+			}
+		
+			
+			
+			//Inserindo na resposta
+			listaResposta.add(listaEscalas.get(i));
+		}
+		
+		horasFaltasFolhasVariaveisService.salvarLista(listaFaltas);
+		
+			return listaResposta;
+	}
+	
+	
+	
+	
+	public List<EscalasNoMes> aplicarFaltasVariaveisNaEscalaDiaNoite(List<EscalasNoMes> listaEscalas){
+		List<HorasFaltasFolhasVariaveis> listaFaltas = horasFaltasFolhasVariaveisService.buscarFaltasADescontar();
+		
+		List<EscalasNoMes> listaResposta = new ArrayList<>();
+		
+		for(int i=0;i<listaEscalas.size();i++) {
+			if(listaEscalas.get(i).getEscala().getIdTipoFolhaFk().getIdTipoRemuneracaoFk().getNomeTipoRemuneracao().equalsIgnoreCase("VARIAVEL")) {
+				for(int j=0;j<listaFaltas.size();j++) {
+					if(		(!listaEscalas.get(i).getEscala().getIdFuncionarioFk().getIdEspecialidadeAtualFk().getIdCargoFk().getIdNivelCargoFk().getSiglaNivelCargo().equalsIgnoreCase("T")) &&
+							(listaEscalas.get(i).getEscala().getIdFuncionarioFk()==listaFaltas.get(j).getIdFuncionarioFk()) && 
+							(listaEscalas.get(i).getEscala().getIdCoordenacaoFk().getIdLocalidadeFk().getIdUnidadeFk()==listaFaltas.get(j).getIdUnidadeFk()) &&
+							(listaFaltas.get(j).getHorasRestantes()>0) 
+					) {
+					
+						int horasDia = listaEscalas.get(i).getEscala().getHorasDia();
+						int horasNoite = listaEscalas.get(i).getEscala().getHorasNoite();
+						int horasTotais = listaEscalas.get(i).getEscala().getHorasTotais();
+						
+						int horasDescontarDia = listaFaltas.get(j).getHorasDia();
+						int horasDescontarNoite = listaFaltas.get(j).getHorasDia();
+						int horasRestantes = listaFaltas.get(j).getHorasRestantes();
+						
+						int horasDiaDescontadas = listaFaltas.get(j).getHorasDiaDescontadas();
+						int horasNoiteDescontadas = listaFaltas.get(j).getHorasNoiteDescontadas();
+						
+						
+						
+						//Horas Noite
+						if(horasRestantes>0) {
+							if(horasNoite>0) {
+								if(horasDescontarNoite-horasNoiteDescontadas>0) {
+									int horasCortadas = horasNoite- (horasDescontarNoite-horasNoiteDescontadas); 
+									if(horasCortadas<0) {
+										horasCortadas = horasNoite;
+										horasNoite = 0;
+										horasNoiteDescontadas = horasNoiteDescontadas+horasCortadas;
+										horasRestantes = horasRestantes - horasCortadas;
+										listaFaltas.get(j).setObservacaoSistema( listaFaltas.get(j).getObservacaoSistema()+"DESCONTO: "+horasCortadas+" HORAS NOITE "+listaFaltas.get(j).getIdAnoMesFk().getNomeAnoMes()+"; " ); listaEscalas.get(i).getReferencias().setObsReferencias(listaEscalas.get(i).getReferencias().getObsReferencias()+ "DESCONTO: "+horasCortadas+" HORAS NOITE "+listaFaltas.get(j).getIdAnoMesFk().getNomeAnoMes()+"; " ); 
+									}else {horasCortadas = (horasDescontarNoite-horasNoiteDescontadas); horasNoite = horasNoite-horasCortadas; horasNoiteDescontadas = horasNoiteDescontadas+horasCortadas; horasRestantes = horasRestantes - horasCortadas; listaFaltas.get(j).setObservacaoSistema( listaFaltas.get(j).getObservacaoSistema()+"DESCONTO: "+horasCortadas+" HORAS NOITE "+listaFaltas.get(j).getIdAnoMesFk().getNomeAnoMes()+"; " ); listaEscalas.get(i).getReferencias().setObsReferencias(listaEscalas.get(i).getReferencias().getObsReferencias()+ "DESCONTO: "+horasCortadas+" HORAS NOITE "+listaFaltas.get(j).getIdAnoMesFk().getNomeAnoMes()+"; " ); }
+								}
+							}
+						}
+						horasTotais = horasDia+horasNoite;
+						
+						
+						//Horas Dia
+						if(horasRestantes>0) {
+							if(horasDia>0) {
+								if(horasDescontarDia-horasDiaDescontadas>0) {
+									int horasCortadas = horasDia- (horasDescontarDia-horasDiaDescontadas); 
+									if(horasCortadas<0) {
+										horasCortadas = horasDia;
+										horasDia = 0;
+										horasDiaDescontadas = horasDiaDescontadas+horasCortadas;
+										horasRestantes = horasRestantes - horasCortadas;
+										listaFaltas.get(j).setObservacaoSistema( listaFaltas.get(j).getObservacaoSistema()+"DESCONTO: "+horasCortadas+" HORAS DIA "+listaFaltas.get(j).getIdAnoMesFk().getNomeAnoMes()+"; " ); listaEscalas.get(i).getReferencias().setObsReferencias(listaEscalas.get(i).getReferencias().getObsReferencias()+ "DESCONTO: "+horasCortadas+" HORAS DIA "+listaFaltas.get(j).getIdAnoMesFk().getNomeAnoMes()+"; " );
+									}else {horasCortadas = (horasDescontarDia-horasDiaDescontadas); horasDia = horasDia-horasCortadas; horasDiaDescontadas = horasDiaDescontadas+horasCortadas; horasRestantes = horasRestantes - horasCortadas; listaFaltas.get(j).setObservacaoSistema( listaFaltas.get(j).getObservacaoSistema()+"DESCONTO: "+horasCortadas+" HORAS DIA "+listaFaltas.get(j).getIdAnoMesFk().getNomeAnoMes()+"; " ); listaEscalas.get(i).getReferencias().setObsReferencias(listaEscalas.get(i).getReferencias().getObsReferencias()+ "DESCONTO: "+horasCortadas+" HORAS DIA "+listaFaltas.get(j).getIdAnoMesFk().getNomeAnoMes()+"; " ); }
+								}
+							}
+						}
+						horasTotais = horasDia+horasNoite;
+						
+						//Descontando os excedentes Dia
+						if(horasRestantes>0 && horasTotais>0) {
+							if(horasDia>0) {
+								int horasFicouNaEscala = horasDia-horasRestantes;
+								int horasA = 0;
+								if(horasFicouNaEscala<0) { horasFicouNaEscala = 0;    }
+								horasA = horasDia-horasFicouNaEscala;
+								horasDiaDescontadas = horasDiaDescontadas+horasA; 
+								horasRestantes = horasRestantes-horasA; 
+								horasDia = horasDia - horasA;
+								listaFaltas.get(j).setObservacaoSistema( listaFaltas.get(j).getObservacaoSistema()+"DESCONTO: "+horasA+" HORAS DIA "+listaFaltas.get(j).getIdAnoMesFk().getNomeAnoMes()+"; " ); listaEscalas.get(i).getReferencias().setObsReferencias(listaEscalas.get(i).getReferencias().getObsReferencias()+ "DESCONTO: "+horasA+" HORAS DIA "+listaFaltas.get(j).getIdAnoMesFk().getNomeAnoMes()+"; " );
+							}
+						}
+						horasTotais = horasDia+horasNoite;
+						
+						//Descontando os excedentes Noite
+						if(horasRestantes>0 && horasTotais>0) {
+							if(horasNoite>0) {
+								int horasFicouNaEscala = horasNoite-horasRestantes;
+								int horasA = 0;
+								if(horasFicouNaEscala<0) { horasFicouNaEscala = 0;    }
+								horasA = horasNoite-horasFicouNaEscala;
+								horasNoiteDescontadas = horasNoiteDescontadas+horasA; 
+								horasRestantes = horasRestantes-horasA; 
+								horasNoite = horasNoite - horasA;
+								listaFaltas.get(j).setObservacaoSistema( listaFaltas.get(j).getObservacaoSistema()+"DESCONTO: "+horasA+" HORAS NOITE "+listaFaltas.get(j).getIdAnoMesFk().getNomeAnoMes()+"; " ); listaEscalas.get(i).getReferencias().setObsReferencias(listaEscalas.get(i).getReferencias().getObsReferencias()+ "DESCONTO: "+horasA+" HORAS NOITE "+listaFaltas.get(j).getIdAnoMesFk().getNomeAnoMes()+"; " );
+							}
+						}
+						horasTotais = horasDia+horasNoite;
+						
+						
+						
+						
+						listaFaltas.get(j).setHorasNoiteDescontadas(horasNoiteDescontadas);	
+						listaFaltas.get(j).setHorasDiaDescontadas(horasDiaDescontadas);
+						listaFaltas.get(j).setHorasDescontadas(horasDiaDescontadas+horasNoiteDescontadas);
+						listaFaltas.get(j).setHorasRestantes(horasRestantes);
+						
+						listaEscalas.get(i).getEscala().setHorasDia(horasDia);
+						listaEscalas.get(i).getEscala().setHorasNoite(horasNoite);
+						listaEscalas.get(i).getEscala().setHorasTotais(horasTotais);
+						
+					}
+				}
+				
+			}
+		
+			
+			//Inserindo na resposta
+			listaResposta.add(listaEscalas.get(i));
+		}
+		
+		
+		
+		
+			horasFaltasFolhasVariaveisService.salvarLista(listaFaltas);
+		
+			return listaResposta;
+	}
+	
+	
+	
 	public List<EscalasNoMes> aplicarFeriasNaEscala(List<EscalasNoMes> listaEscalas, List<FeriasNoMes> listaFerias){
 		List<EscalasNoMes> listaResposta = new ArrayList<>();
 		
@@ -420,8 +673,6 @@ public class CalculosAlternativosService {
 		
 			return listaResposta;
 	}
-	
-	
 	
 	
 	

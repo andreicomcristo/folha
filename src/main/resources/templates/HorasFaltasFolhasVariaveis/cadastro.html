@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html layout:decorate="~{layout}">
+<head><meta charset="UTF-8"/></head>
+<body>
+	<section class="layout-content" layout:fragment="corpo">
+
+		<nav class="navbar navbar-expand-md bg-light">
+			<form th:action="@{/horasFaltasFolhasVariaveis/listar}">
+				<div class=" layout-content">
+			        <a class="btn btn-outline-light oi oi-action-undo" type="button" href="javascript:history.back()"></a>
+					<a class="btn btn-outline-light oi oi-action-redo" type="button" href="javascript:history.forward()"></a>    
+					<button class="btn btn-outline-dark" >Listar</button>
+					<a class="btn btn-outline-dark btn-md" th:href="@{/horasFaltasFolhasVariaveis/cadastrar}"
+						role="button"> <span class="oi oi-plus" title="Cadastro"
+						aria-hidden="true"></span> <span>Novo</span>
+					</a>
+				</div>
+			</form>
+		</nav>
+
+		<div class="container" id="cadastro">
+
+			<div th:replace="fragments/alert"></div>
+			<form
+				th:action="${horasFaltasFolhasVariaveis.id == null} ? @{/horasFaltasFolhasVariaveis/salvar} : @{/horasFaltasFolhasVariaveis/editar}"
+				th:object="${horasFaltasFolhasVariaveis}" method="POST">
+				<div class="form-row">
+
+					<div class="form-group col-md-6">
+						<label for="nome" class="fonte-tutulos-tamanho">Cadastro de Faltas Folhas Variáveis</label>
+							<p></p>
+							
+							<label for="nome" class="">Funcionário </label>
+							<select style="font-size:12px;" id="idCodDiferenciadoFk" class="form-select" th:field="*{idFuncionarioFk}">
+								<option value="">Selecione o Funcionario</option>
+								<option class="form-select" th:each="d : ${idFuncionarioFk}" th:value="${d.id}"th:text="${d.idPessoaFk.nome +' | '+ d.idPessoaFk.cpf +' | '+ d.matricula +' | '+d.idEspecialidadeAtualFk.idCargoFk.idNivelCargoFk.nomeNivelCargo }" selected >ADM</option>
+							</select>	
+							<p></p>	
+							
+							<label for="nome" class="">Mês </label>
+							<select style="font-size:12px;" id="idCodDiferenciadoFk" class="form-select" th:field="*{idAnoMesFk}">
+								<option value="">Selecione o Mês</option>
+								<option class="form-select" th:each="d : ${idAnoMesFk}" th:value="${d.id}"th:text="${d.nomeAnoMes }" selected >ADM</option>
+							</select>	
+							<p></p>	
+							
+							<label for="nome" class="">Horas Faltas Dia </label>
+							<input style="font-size:12px;" type="number"
+								class="form-control form-control-md" 
+								id="descricao" placeholder="Horas Dia" th:field="*{horasDia}" /> 
+							<p></p>
+							
+							<label for="nome" class="">Horas Faltas Noite </label>
+							<input style="font-size:12px;" type="number"
+								class="form-control form-control-md" 
+								id="descricao" placeholder="Horas Noite" th:field="*{horasNoite}" /> 
+							<p></p>
+							
+							<label for="nome" class="">Horas Faltas Semana </label>
+							<input style="font-size:12px;" type="number"
+								class="form-control form-control-md" 
+								id="descricao" placeholder="Horas Semana" th:field="*{horasSemana}" /> 
+							<p></p>
+							
+							<label for="nome" class="">Horas Faltas Fim de Semana </label>
+							<input style="font-size:12px;" type="number"
+								class="form-control form-control-md" 
+								id="descricao" placeholder="Horas Fim Semana" th:field="*{horasFimSemana}" /> 
+							<p></p>
+							
+							<label for="nome" class="">Observações </label>
+							<input style="font-size:12px;" type="text"
+								class="form-control form-control-md" 
+								id="descricao" placeholder="Observações" th:field="*{observacao}" /> 
+							<p></p>
+							
+							<input type="hidden" id="id" th:field="*{horasRestantes}" />
+							<input type="hidden" id="id" th:field="*{horasADescontar}" />
+							<input type="hidden" id="id" th:field="*{horasDescontadas}" />
+							<input type="hidden" id="id" th:field="*{horasDiaDescontadas}" />
+							<input type="hidden" id="id" th:field="*{horasNoiteDescontadas}" />
+							<input type="hidden" id="id" th:field="*{horasSemanaDescontadas}" />
+							<input type="hidden" id="id" th:field="*{horasFimSemanaDescontadas}" />
+							<input type="hidden" id="id" th:field="*{observacaoSistema}" />
+							<input type="hidden" id="id" th:field="*{dtCadastro}" />
+							<input type="hidden" id="id" th:field="*{dtCancelamento}" />
+							<input type="hidden" id="id" th:field="*{idAnoMesLancamentoFk}" />
+							<input type="hidden" id="id" th:field="*{idOperadorCadastroFk}" />
+							<input type="hidden" id="id" th:field="*{idOperadorCancelamentoFk}" />
+							<input type="hidden" id="id" th:field="*{idAnoMesLancamentoFk}" />
+							<input type="hidden" id="id" th:field="*{idUnidadeFk}" />
+							<input type="hidden" id="id" th:field="*{dtCancelamento}" />
+							<input type="hidden" id="id" th:field="*{id}" />
+								<p></p>					
+						<button class="btn btn-outline-dark">Cadastrar</button>
+					</div>
+				</div>
+			</form>
+		</div>
+	</section>
+</body>
+</html>

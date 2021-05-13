@@ -142,6 +142,9 @@ public class PessoaFuncionarios extends AbstractEntity<Long> {
     private List<Autorizacoes> autorizacoesList;
     
     @OneToMany(mappedBy = "idFuncionarioFk")
+    private List<HorasFaltasFolhasVariaveis> horasFaltasFolhasVariaveisList;
+    
+    @OneToMany(mappedBy = "idFuncionarioFk")
     private List<Escala> escalaList;
     
     @OneToMany(mappedBy = "idFuncionarioFk")
@@ -516,6 +519,14 @@ public class PessoaFuncionarios extends AbstractEntity<Long> {
 
 	public void setNaoDescontaInssList(List<NaoDescontaInss> naoDescontaInssList) {
 		this.naoDescontaInssList = naoDescontaInssList;
+	}
+
+	public List<HorasFaltasFolhasVariaveis> getHorasFaltasFolhasVariaveisList() {
+		return horasFaltasFolhasVariaveisList;
+	}
+
+	public void setHorasFaltasFolhasVariaveisList(List<HorasFaltasFolhasVariaveis> horasFaltasFolhasVariaveisList) {
+		this.horasFaltasFolhasVariaveisList = horasFaltasFolhasVariaveisList;
 	}
 	
 	

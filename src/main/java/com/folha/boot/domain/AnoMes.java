@@ -54,6 +54,11 @@ public class AnoMes extends AbstractEntity<Long> {
     private List<PessoaChDif> pessoaChDifList;
     
     @OneToMany(mappedBy = "idAnoMesFk")
+    private List<HorasFaltasFolhasVariaveis> horasFaltasFolhasVariaveisList;
+    @OneToMany(mappedBy = "idAnoMesLancamentoFk")
+    private List<HorasFaltasFolhasVariaveis> horasFaltasFolhasVariaveisList1;
+    
+    @OneToMany(mappedBy = "idAnoMesFk")
     private List<NaoDescontaInss> naoDescontaInssList;
     
     @OneToMany(mappedBy = "idAnoMesFk")
@@ -211,6 +216,18 @@ public class AnoMes extends AbstractEntity<Long> {
 	}
 	public void setNaoDescontaInssList(List<NaoDescontaInss> naoDescontaInssList) {
 		this.naoDescontaInssList = naoDescontaInssList;
+	}
+	public List<HorasFaltasFolhasVariaveis> getHorasFaltasFolhasVariaveisList() {
+		return horasFaltasFolhasVariaveisList;
+	}
+	public void setHorasFaltasFolhasVariaveisList(List<HorasFaltasFolhasVariaveis> horasFaltasFolhasVariaveisList) {
+		this.horasFaltasFolhasVariaveisList = horasFaltasFolhasVariaveisList;
+	}
+	public List<HorasFaltasFolhasVariaveis> getHorasFaltasFolhasVariaveisList1() {
+		return horasFaltasFolhasVariaveisList1;
+	}
+	public void setHorasFaltasFolhasVariaveisList1(List<HorasFaltasFolhasVariaveis> horasFaltasFolhasVariaveisList1) {
+		this.horasFaltasFolhasVariaveisList1 = horasFaltasFolhasVariaveisList1;
 	}
 		
 	
