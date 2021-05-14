@@ -8,6 +8,7 @@ import com.folha.boot.Reposytory.BancosReposytory;
 import com.folha.boot.Reposytory.RubricaVencimentoReposytory;
 import com.folha.boot.domain.AnoMes;
 import com.folha.boot.domain.Bancos;
+import com.folha.boot.domain.PessoaFuncionarios;
 import com.folha.boot.domain.RubricaVencimento;
 import com.folha.boot.domain.models.calculos.RubricasVencimento;
 
@@ -77,6 +78,11 @@ public class RubricaVencimentoService {
 	//@Override
 	public List<RubricaVencimento> buscarPorMes(AnoMes anoMes) {
 		return reposytory.findByIdAnoMesFkOrderByIdAnoMesFkAscIdFuncionarioFkIdPessoaFkCpfAscIdFuncionarioFkMatriculaAscSequenciaAscIdUnidadeFkNomeFantasiaAsc(anoMes);
+	}
+	
+	//@Override
+	public List<RubricaVencimento> buscarPorMesEFuncionario(AnoMes anoMes, PessoaFuncionarios funcionario) {
+		return reposytory.findByIdAnoMesFkAndIdFuncionarioFkOrderByIdAnoMesFkAscIdFuncionarioFkIdPessoaFkCpfAscIdFuncionarioFkMatriculaAscIdNaturezaFkSiglaDescSequenciaAscIdUnidadeFkNomeFantasiaAsc(anoMes, funcionario);
 	}
 	
 }

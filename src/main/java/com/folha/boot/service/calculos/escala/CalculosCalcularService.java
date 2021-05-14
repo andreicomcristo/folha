@@ -18,6 +18,7 @@ import com.folha.boot.domain.models.calculos.LicencasNoMes;
 import com.folha.boot.domain.models.calculos.RubricasVencimento;
 import com.folha.boot.service.RubricaVencimentoService;
 import com.folha.boot.service.calculos.folha.CalcularBrutoService;
+import com.folha.boot.service.calculos.folha.CalcularCalculadoraService;
 import com.folha.boot.service.calculos.folha.CalcularInssService;
 import com.folha.boot.service.calculos.folha.CalcularIrService;
 import com.folha.boot.service.calculos.folha.CalcularLiquidoService;
@@ -35,13 +36,8 @@ public class CalculosCalcularService {
 	private RubricaVencimentoService rubricaVencimentoService;
 	
 	@Autowired
-	private CalcularInssService calcularInssService;
-	@Autowired
-	private CalcularIrService calcularIrService;
-	@Autowired
-	private CalcularLiquidoService calcularLiquidoService;
-	@Autowired
-	private CalcularBrutoService calcularBrutoService;
+	private CalcularCalculadoraService calcularCalculadoraService;
+	
 	
 
 	
@@ -82,6 +78,8 @@ public class CalculosCalcularService {
 		//Persistindo
 		rubricaVencimentoService.salvarLista(listaVencimentos);
 		
+		//Chamando Calculadora
+		calcularCalculadoraService.calcularTudo(anoMes);
 		
 		
 		for(int i=0;i<listaVencimentos.size();i++) {
