@@ -29,6 +29,7 @@ public class CalcularIrService {
 					break;
 				}
 			}
+		if(resposta<0) {resposta=0.0;}	
 		return resposta;
 	}
 	

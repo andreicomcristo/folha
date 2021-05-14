@@ -25,6 +25,7 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.provisioning.InMemoryUserDetailsManager;
 import org.springframework.security.web.authentication.AuthenticationFailureHandler;
+import org.springframework.security.web.authentication.SimpleUrlAuthenticationFailureHandler;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
 
@@ -44,6 +45,18 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 	public AuthenticationFilter authenticationFilter() throws Exception {
 		AuthenticationFilter filter = new AuthenticationFilter();
 		filter.setAuthenticationManager(authenticationManagerBean());
+		
+		filter.setAuthenticationFailureHandler(new SimpleUrlAuthenticationFailureHandler() {
+			@Override
+			public void onAuthenticationFailure(HttpServletRequest request, HttpServletResponse response,
+												AuthenticationException exception) throws IOException, ServletException {
+				System.out.println("Login error: " + exception.getMessage());
+				super.setDefaultFailureUrl("/login?msg=" + exception.getMessage());
+				super.onAuthenticationFailure(request, response, exception);
+			}
+		});
+		
+		
 		return filter;
 	}
 	
