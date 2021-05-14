@@ -11,10 +11,16 @@ import com.folha.boot.domain.AnoMes;
 import com.folha.boot.domain.FuncionariosFerias;
 import com.folha.boot.domain.FuncionariosFeriasPeriodos;
 import com.folha.boot.domain.PessoaFuncionarios;
+import com.folha.boot.domain.RubricaVencimento;
 import com.folha.boot.domain.models.calculos.EscalasNoMes;
 import com.folha.boot.domain.models.calculos.FeriasNoMes;
 import com.folha.boot.domain.models.calculos.LicencasNoMes;
 import com.folha.boot.domain.models.calculos.RubricasVencimento;
+import com.folha.boot.service.RubricaVencimentoService;
+import com.folha.boot.service.calculos.folha.CalcularBrutoService;
+import com.folha.boot.service.calculos.folha.CalcularInssService;
+import com.folha.boot.service.calculos.folha.CalcularIrService;
+import com.folha.boot.service.calculos.folha.CalcularLiquidoService;
 import com.folha.boot.service.util.UtilidadesDeCalendarioEEscala;
 
 @Service
@@ -25,6 +31,18 @@ public class CalculosCalcularService {
 	private  CalculosColetaDeDadosService calculosColetaDeDadosService;
 	@Autowired
 	private  CalculosAlternativosService calculosAlternativosService;
+	@Autowired
+	private RubricaVencimentoService rubricaVencimentoService;
+	
+	@Autowired
+	private CalcularInssService calcularInssService;
+	@Autowired
+	private CalcularIrService calcularIrService;
+	@Autowired
+	private CalcularLiquidoService calcularLiquidoService;
+	@Autowired
+	private CalcularBrutoService calcularBrutoService;
+	
 
 	
 	public void calcular(AnoMes anoMes){
@@ -42,10 +60,33 @@ public class CalculosCalcularService {
 		listaEscalas = calculosAlternativosService.aplicarFeriasNaEscala(listaEscalas, listaFerias);
 		//Aplicando licenças
 		listaEscalas = calculosAlternativosService.aplicarLicencasNaEscala(listaEscalas, listaLicencas, anoMes);
+		
+		//Aplicando Faltas Semana Fim Semana
+		listaEscalas = calculosAlternativosService.aplicarFaltasVariaveisNaEscalaSemanaFimSemana(listaEscalas );
+		//Aplicando Faltas Semana Fim Semana
+		listaEscalas = calculosAlternativosService.aplicarFaltasVariaveisNaEscalaDiaNoite(listaEscalas );
+		
+		
 		//Obtendo valores
-		List<RubricasVencimento> listaVencimentos = calculosAlternativosService.obterVencimentosDiferenciadoPorEscala(listaEscalas, anoMes); 
+		List<RubricasVencimento> listaVencimentos = calculosAlternativosService.obterVencimentosDiferenciadoPorEscala(listaEscalas,listaFerias , anoMes); 
+		
+		
+		
+		
+		
+		//Colocando valores líquidos onde nao tiver
+		listaVencimentos = calculosAlternativosService.colocandoLiquidoNasRubricas(listaVencimentos);
+		
+		//Limpando o banco
+		rubricaVencimentoService.excluirPorMes(anoMes);
+		//Persistindo
+		rubricaVencimentoService.salvarLista(listaVencimentos);
+		
+		
 		
 		for(int i=0;i<listaVencimentos.size();i++) {
+			
+			
 			System.out.println("Mes        :"+listaVencimentos.get(i).getAnoMes().getNomeAnoMes());
 			System.out.println("Nome       :"+listaVencimentos.get(i).getPessoaFuncionarios().getIdPessoaFk().getNome());
 			System.out.println("Rubrica    :"+listaVencimentos.get(i).getCodigo());
@@ -58,9 +99,17 @@ public class CalculosCalcularService {
 			System.out.println("Tipo       :"+listaVencimentos.get(i).getTipoBrutoLiquido().getDescricao());
 			System.out.println("Bruto      :"+listaVencimentos.get(i).getValorBruto());
 			System.out.println("Liquido    :"+listaVencimentos.get(i).getValorLiquido());
+			
+			
+			
+			
+			
+			
+			
 			System.out.println();
 		}
 		
+		/*
 		for(int i=0;i<listaEscalas.size();i++) {
 			
 			
@@ -82,32 +131,10 @@ public class CalculosCalcularService {
 			
 			
 		}
-		
-		
-		
-		/*
-		//Aplicando descontos Escala por Férias
-		listaEscalas = calculosAlternativosService.aplicarFeriasNaEscala(listaEscalas, listaFerias);
-		
-		for(int i=0;i<listaEscalas.size();i++) {
-			
-			System.out.println("Nome:"+listaEscalas.get(i).getReferencias().getNome());
-			System.out.println("Cpf:"+listaEscalas.get(i).getReferencias().getCpf());
-			System.out.println("Matricula:"+listaEscalas.get(i).getReferencias().getMatricula());
-			System.out.println("Folha:"+listaEscalas.get(i).getReferencias().getTiposDeFolha().getNomeTipoFolha());
-			System.out.println("Regime:"+listaEscalas.get(i).getReferencias().getRegimesDeTrabalho().getNomeRegimeDeTrabalho());
-			System.out.println("Diferenciado:"+listaEscalas.get(i).getReferencias().getCodigoDiferenciado().getNomeCodigoDiferenciado());
-			System.out.println("Dias Ferias:"+listaEscalas.get(i).getReferencias().getDiasFerias());
-			System.out.println("Horas Ferias:"+listaEscalas.get(i).getReferencias().getHorasFeriasDescontadas());
-			System.out.println("Dias Licenca:"+listaEscalas.get(i).getReferencias().getDiasLicenca());
-			System.out.println("Horas Licenca:"+listaEscalas.get(i).getReferencias().getHorasLicencaDescontadas());
-			System.out.println("Anotacoes:"+listaEscalas.get(i).getReferencias().getObsReferencias());
-			
-			System.out.println();
-			
-			
-		}
 		*/
+		
+		
+		
 		
 		
 	}

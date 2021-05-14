@@ -30,6 +30,7 @@ import com.folha.boot.domain.Carreiras;
 import com.folha.boot.domain.ClassesCarreira;
 import com.folha.boot.domain.FaixasValoresGpf;
 import com.folha.boot.domain.Fonte;
+import com.folha.boot.domain.NiveisCargo;
 import com.folha.boot.domain.NiveisCarreira;
 import com.folha.boot.domain.TipoBrutoLiquido;
 import com.folha.boot.domain.Unidades;
@@ -40,6 +41,7 @@ import com.folha.boot.service.CarreirasService;
 import com.folha.boot.service.ClassesCarreiraService;
 import com.folha.boot.service.FaixasValoresGpfService;
 import com.folha.boot.service.FonteService;
+import com.folha.boot.service.NiveisCargoService;
 import com.folha.boot.service.NiveisCarreiraService;
 import com.folha.boot.service.TipoBrutoLiquidoService;
 import com.folha.boot.service.UnidadesRegimeService;
@@ -70,6 +72,8 @@ public class FaixasValoresGpfController {
 	private FonteService fonteService;
 	@Autowired
 	private TipoBrutoLiquidoService tipoBrutoLiquidoService;
+	@Autowired
+	private NiveisCargoService niveisCargoService;
 	
 	@GetMapping("/cadastrar")
 	public String cadastrar(FaixasValoresGpf faixasValoresGpf) {
@@ -198,13 +202,9 @@ public class FaixasValoresGpfController {
 	public List<AnoMes> getIdAnoMesFk() {
 		return anoMesService.buscarTodos();	
 	}
-	@ModelAttribute("idNivelCarreiraFk")
-	public List<NiveisCarreira> getIdNivelCarreiraFk() {
-		return niveisCarreiraService.buscarTodos();	
-	}
-	@ModelAttribute("idCarreiraFk")
-	public List<Carreiras> getIdCarreiraFk() {
-		return carreirasService.buscarTodos();	
+	@ModelAttribute("idNivelCargoFk")
+	public List<NiveisCargo> getIdNivelCarreiraFk() {
+		return niveisCargoService.buscarTodos();	
 	}
 	@ModelAttribute("idUnidadeFk")
 	public List<Unidades> getIdUnidadeRegimeFk() {

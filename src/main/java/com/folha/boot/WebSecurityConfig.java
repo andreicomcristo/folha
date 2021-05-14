@@ -1,6 +1,10 @@
 package com.folha.boot;
 
+import java.io.IOException;
+
+import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.sql.DataSource;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,12 +17,14 @@ import org.springframework.security.config.annotation.authentication.builders.Au
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
+import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.provisioning.InMemoryUserDetailsManager;
+import org.springframework.security.web.authentication.AuthenticationFailureHandler;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
 
@@ -43,6 +49,9 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 	
 	@Override
 	protected void configure(HttpSecurity http) throws Exception {
+		
+		http.cors();
+		
 		http
 		.addFilterBefore(authenticationFilter(),
 				UsernamePasswordAuthenticationFilter.class)
@@ -61,9 +70,25 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 			.antMatchers("/image/**").permitAll()
 			.anyRequest().authenticated().and()
 
-				.formLogin(form -> form.loginPage("/login").defaultSuccessUrl("/", true).permitAll())
+				.formLogin(form -> form.loginPage("/login")
+						
+						.failureHandler(new AuthenticationFailureHandler() {
+							@Override
+							public void onAuthenticationFailure(HttpServletRequest request, HttpServletResponse response, AuthenticationException exception) throws IOException, ServletException {
+								String email = request.getParameter("email");
+								String error = exception.getMessage();
+								System.out.println("Teste: " + error);
+								String redirectUrl = request.getContextPath() + "/login?error";
+								response.sendRedirect(redirectUrl);
+							}
+						})
+						
+				.defaultSuccessUrl("/", true).permitAll())
+				
 				.logout(logout -> logout.logoutUrl("/logout")).csrf().disable()
 				.exceptionHandling().accessDeniedPage("/acesso-negado")
+				
+				
 				
 			
 		.and()	

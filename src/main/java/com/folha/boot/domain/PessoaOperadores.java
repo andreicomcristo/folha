@@ -162,6 +162,11 @@ public class PessoaOperadores extends AbstractEntity<Long> {
     @OneToMany(mappedBy = "idOperadorCancelamentoFk")
     private List<CodigoDiferenciado> codigoDiferenciadoList1;
     
+    @OneToMany(mappedBy = "idOperadorCadastroFk")
+    private List<HorasFaltasFolhasVariaveis> horasFaltasFolhasVariaveisList;
+    @OneToMany(mappedBy = "idOperadorCancelamentoFk")
+    private List<HorasFaltasFolhasVariaveis> horasFaltasFolhasVariaveisList1;
+    
     
     @OneToMany(mappedBy = "idOperadorFk")
     private List<Perfil> perfilList;
@@ -699,6 +704,18 @@ public class PessoaOperadores extends AbstractEntity<Long> {
 	}
 	public void setEscalaCodDiferenciadoList1(List<EscalaCodDiferenciado> escalaCodDiferenciadoList1) {
 		this.escalaCodDiferenciadoList1 = escalaCodDiferenciadoList1;
+	}
+	public List<HorasFaltasFolhasVariaveis> getHorasFaltasFolhasVariaveisList() {
+		return horasFaltasFolhasVariaveisList;
+	}
+	public void setHorasFaltasFolhasVariaveisList(List<HorasFaltasFolhasVariaveis> horasFaltasFolhasVariaveisList) {
+		this.horasFaltasFolhasVariaveisList = horasFaltasFolhasVariaveisList;
+	}
+	public List<HorasFaltasFolhasVariaveis> getHorasFaltasFolhasVariaveisList1() {
+		return horasFaltasFolhasVariaveisList1;
+	}
+	public void setHorasFaltasFolhasVariaveisList1(List<HorasFaltasFolhasVariaveis> horasFaltasFolhasVariaveisList1) {
+		this.horasFaltasFolhasVariaveisList1 = horasFaltasFolhasVariaveisList1;
 	}
     
 	

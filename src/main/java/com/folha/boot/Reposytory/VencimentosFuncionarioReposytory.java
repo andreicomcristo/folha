@@ -20,6 +20,8 @@ public interface VencimentosFuncionarioReposytory extends JpaRepository<Vencimen
 	
 	public List<VencimentosFuncionario> findByIdAnoMesFkOrderByIdAnoMesFkNomeAnoMesDesc(AnoMes anoMes);
 	
+	public List<VencimentosFuncionario> findByIdAnoMesFkAndIdFuncionarioFkAndIdCodigoFkIdTipoFkNomeOrderByIdAnoMesFkNomeAnoMesDesc(AnoMes anoMes, PessoaFuncionarios pessoaFuncionarios, String nome);
+	
 	public List<VencimentosFuncionario> findByIdAnoMesFkNomeAnoMesContainingOrderByIdAnoMesFkNomeAnoMesDesc(String nome);
 	
 	public List<VencimentosFuncionario> findByIdCodigoFkAndIdAnoMesFkAndIdFuncionarioFk(RubricaCodigo rubricaGeralSomaCodigo, AnoMes anoMes, PessoaFuncionarios pessoaFuncionarios);

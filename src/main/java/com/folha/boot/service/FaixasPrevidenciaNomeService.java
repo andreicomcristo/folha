@@ -5,6 +5,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import com.folha.boot.Reposytory.FaixasPrevidenciaNomeReposytory;
+import com.folha.boot.domain.AnoMes;
 import com.folha.boot.domain.FaixasPrevidenciaNome;
 
 @Service
@@ -45,4 +46,7 @@ public class FaixasPrevidenciaNomeService {
 	public List<FaixasPrevidenciaNome> buscarNome(String nomeFaixa) {
 		return reposytory.findByNomeFaixaContainingOrderByNomeFaixaAsc(nomeFaixa);
 	}
+	
+	
+	
 }

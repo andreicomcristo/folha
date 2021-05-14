@@ -53,6 +53,13 @@ public class AnoMes extends AbstractEntity<Long> {
     @OneToMany(mappedBy = "idAnoMesFk")
     private List<PessoaChDif> pessoaChDifList;
     
+    @OneToMany(mappedBy = "idAnoMesFk")
+    private List<HorasFaltasFolhasVariaveis> horasFaltasFolhasVariaveisList;
+    @OneToMany(mappedBy = "idAnoMesLancamentoFk")
+    private List<HorasFaltasFolhasVariaveis> horasFaltasFolhasVariaveisList1;
+    
+    @OneToMany(mappedBy = "idAnoMesFk")
+    private List<NaoDescontaInss> naoDescontaInssList;
     
     @OneToMany(mappedBy = "idAnoMesFk")
     private List<VencimentosFuncionario> rubricaFuncionarioList;
@@ -63,6 +70,12 @@ public class AnoMes extends AbstractEntity<Long> {
     private List<Rubrica> rubricaList;
     @OneToMany(mappedBy = "idAnoMesFk")
     private List<LimiteHorasAcrescimoPorUnidadeEEspecialidade> limiteHorasAcrescimoPorUnidadeEEspecialidadeList;
+    
+    @OneToMany(mappedBy = "idAnoMesFk")
+    private List<FaixasValoresGpf> faixasValoresGpfList;
+    
+    @OneToMany(mappedBy = "idAnoMesFk")
+    private List<RubricaVencimento> rubricaVencimentoList;
     
 	public String getNomeAnoMes() {
 		return nomeAnoMes;
@@ -185,6 +198,36 @@ public class AnoMes extends AbstractEntity<Long> {
 	public void setUnidadeAdmiteComplementoPlantaoList(
 			List<UnidadeAdmiteComplementoPlantao> unidadeAdmiteComplementoPlantaoList) {
 		this.unidadeAdmiteComplementoPlantaoList = unidadeAdmiteComplementoPlantaoList;
+	}
+	public List<RubricaVencimento> getRubricaVencimentoList() {
+		return rubricaVencimentoList;
+	}
+	public void setRubricaVencimentoList(List<RubricaVencimento> rubricaVencimentoList) {
+		this.rubricaVencimentoList = rubricaVencimentoList;
+	}
+	public List<FaixasValoresGpf> getFaixasValoresGpfList() {
+		return faixasValoresGpfList;
+	}
+	public void setFaixasValoresGpfList(List<FaixasValoresGpf> faixasValoresGpfList) {
+		this.faixasValoresGpfList = faixasValoresGpfList;
+	}
+	public List<NaoDescontaInss> getNaoDescontaInssList() {
+		return naoDescontaInssList;
+	}
+	public void setNaoDescontaInssList(List<NaoDescontaInss> naoDescontaInssList) {
+		this.naoDescontaInssList = naoDescontaInssList;
+	}
+	public List<HorasFaltasFolhasVariaveis> getHorasFaltasFolhasVariaveisList() {
+		return horasFaltasFolhasVariaveisList;
+	}
+	public void setHorasFaltasFolhasVariaveisList(List<HorasFaltasFolhasVariaveis> horasFaltasFolhasVariaveisList) {
+		this.horasFaltasFolhasVariaveisList = horasFaltasFolhasVariaveisList;
+	}
+	public List<HorasFaltasFolhasVariaveis> getHorasFaltasFolhasVariaveisList1() {
+		return horasFaltasFolhasVariaveisList1;
+	}
+	public void setHorasFaltasFolhasVariaveisList1(List<HorasFaltasFolhasVariaveis> horasFaltasFolhasVariaveisList1) {
+		this.horasFaltasFolhasVariaveisList1 = horasFaltasFolhasVariaveisList1;
 	}
 		
 	

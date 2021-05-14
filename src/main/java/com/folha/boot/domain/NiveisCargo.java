@@ -28,6 +28,9 @@ public class NiveisCargo extends AbstractEntity<Long> {
 	
 	@OneToMany(mappedBy = "idNivelCargoFk")
     private List<TiposDeFolhaNivelCargo> tiposDeFolhaNivelCargoList;
+	
+	@OneToMany(mappedBy = "idNivelCargoFk")
+    private List<FaixasValoresGpf> faixasValoresGpfList;
 
 	public String getSiglaNivelCargo() {
 		return siglaNivelCargo;
@@ -79,6 +82,14 @@ public class NiveisCargo extends AbstractEntity<Long> {
 		this.tiposDeFolhaNivelCargoList = tiposDeFolhaNivelCargoList;
 	}
 
+	public List<FaixasValoresGpf> getFaixasValoresGpfList() {
+		return faixasValoresGpfList;
+	}
+
+	public void setFaixasValoresGpfList(List<FaixasValoresGpf> faixasValoresGpfList) {
+		this.faixasValoresGpfList = faixasValoresGpfList;
+	}
+	
 	
 	
 }

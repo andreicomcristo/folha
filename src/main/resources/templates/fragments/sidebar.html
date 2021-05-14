@@ -377,6 +377,19 @@
 					<li><a href="#" class="bh-btn"><span class=" oi oi-chevron-bottom z59 icones-sidebar-tamanho align-middle"></span>Configurações </a>
 						<ul class="bh-show">
 							
+							<li><a href="#" class="ez-btn"><span class=" oi oi-chevron-bottom z155 icones-sidebar-tamanho align-middle"></span>Excepcionalidades </a>
+								<ul class="ez-show">
+									
+									<li><a href="#" class="fa-btn"><span class=" oi oi-chevron-bottom z156 icones-sidebar-tamanho align-middle"></span>Não Desconta INSS </a>
+										<ul class="fa-show">
+											<li><a sec:authorize-url="/naoDescontaInss/funcionarios/listar" th:href="@{/naoDescontaInss/funcionarios/listar}"><span class=" oi oi-chevron-right icones-sidebar-tamanho align-middle"></span>Cadastrar</a></li>
+											<li><a sec:authorize-url="/naoDescontaInss/listar" th:href="@{/naoDescontaInss/listar}"><span class=" oi oi-chevron-right icones-sidebar-tamanho align-middle"></span>Listar</a></li>
+										</ul>
+									</li>
+								
+								</ul>
+							</li>
+							
 							<li><a href="#" class="ax-btn"><span class=" oi oi-chevron-bottom fiftyth icones-sidebar-tamanho align-middle"></span>Ano Mês </a>
 								<ul class="ax-show">
 									<li><a sec:authorize-url="/anomes/cadastrar" th:href="@{/anomes/cadastrar}"><span class=" oi oi-chevron-right icones-sidebar-tamanho align-middle"></span>Cadastrar</a></li>
@@ -785,6 +798,19 @@
 							</li>	
 						</ul>
 					</li>	
+						
+					<li><a href="#" class="fb-btn"><span class=" oi oi-chevron-bottom z157 icones-sidebar-tamanho align-middle"></span>Faltas </a>
+						<ul class="fb-show">
+							
+							<li><a href="#" class="fc-btn"><span class=" oi oi-chevron-bottom z158 icones-sidebar-tamanho align-middle"></span>Folhas Variáveis </a>
+								<ul class="fc-show">
+									<li><a sec:authorize-url="/horasFaltasFolhasVariaveis/cadastrar" th:href="@{/horasFaltasFolhasVariaveis/cadastrar}"><span class=" oi oi-chevron-right icones-sidebar-tamanho align-middle"></span>Cadastrar</a></li>
+									<li><a sec:authorize-url="/horasFaltasFolhasVariaveis/listar" th:href="@{/horasFaltasFolhasVariaveis/listar}"><span class=" oi oi-chevron-right icones-sidebar-tamanho align-middle"></span>Listar</a></li>
+								</ul>
+							</li>
+							
+						</ul>
+					</li>
 								
 				</ul>
 			</li>
@@ -837,33 +863,12 @@
 			
 			
 			
-			<li><a href="#" class="ez-btn"><span class=" oi oi-chevron-bottom z155 icones-sidebar-tamanho align-middle"></span>Menu 1 </a>
-				<ul class="ez-show">
-					<li><a href="#"><span class=" oi oi-chevron-right icones-sidebar-tamanho align-middle"></span>Cadastrar</a></li>
-					<li><a href="#"><span class=" oi oi-chevron-right icones-sidebar-tamanho align-middle"></span>Listar</a></li>
-				</ul>
-			</li>
 			
-			<li><a href="#" class="fa-btn"><span class=" oi oi-chevron-bottom z156 icones-sidebar-tamanho align-middle"></span>Menu 1 </a>
-				<ul class="fa-show">
-					<li><a href="#"><span class=" oi oi-chevron-right icones-sidebar-tamanho align-middle"></span>Cadastrar</a></li>
-					<li><a href="#"><span class=" oi oi-chevron-right icones-sidebar-tamanho align-middle"></span>Listar</a></li>
-				</ul>
-			</li>
 			
-			<li><a href="#" class="fb-btn"><span class=" oi oi-chevron-bottom z157 icones-sidebar-tamanho align-middle"></span>Menu 1 </a>
-				<ul class="fb-show">
-					<li><a href="#"><span class=" oi oi-chevron-right icones-sidebar-tamanho align-middle"></span>Cadastrar</a></li>
-					<li><a href="#"><span class=" oi oi-chevron-right icones-sidebar-tamanho align-middle"></span>Listar</a></li>
-				</ul>
-			</li>
 			
-			<li><a href="#" class="fc-btn"><span class=" oi oi-chevron-bottom z158 icones-sidebar-tamanho align-middle"></span>Menu 1 </a>
-				<ul class="fc-show">
-					<li><a href="#"><span class=" oi oi-chevron-right icones-sidebar-tamanho align-middle"></span>Cadastrar</a></li>
-					<li><a href="#"><span class=" oi oi-chevron-right icones-sidebar-tamanho align-middle"></span>Listar</a></li>
-				</ul>
-			</li>
+			
+			
+			
 			
 			<li><a href="#" class="fd-btn"><span class=" oi oi-chevron-bottom z159 icones-sidebar-tamanho align-middle"></span>Menu 1 </a>
 				<ul class="fd-show">

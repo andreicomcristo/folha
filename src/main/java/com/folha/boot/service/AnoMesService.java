@@ -40,6 +40,11 @@ public class AnoMesService {
 		return reposytory.findAllByOrderByNomeAnoMesDesc();
 	}
 	
+	public AnoMes buscarPorEscalaLiberadaAtual() {
+		return reposytory.findFirstByIdEscalaBloqueadaFkSiglaOrderByNomeAnoMesAsc("N");
+	}
+	
+	
 	public List<AnoMes> buscarPorNome(String nomeAnoMes) {
 		return reposytory.findByNomeAnoMesOrderByNomeAnoMesDesc(nomeAnoMes);
 	}

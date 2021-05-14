@@ -89,6 +89,8 @@ public class Unidades extends AbstractEntity<Long> {
     private List<HistFuncionariosUnidadeAtuacao> histFuncionariosUnidadeAtuacaoList;
     @OneToMany(mappedBy = "idUnidadeFk")
     private List<CodigoDiferenciado> codigoDiferenciadoList;
+    @OneToMany(mappedBy = "idUnidadeFk")
+    private List<RubricaVencimento> rubricaVencimentoList;
 
     @OneToMany(mappedBy = "idUnidadeFk")
     private List<Perfil> perfilList;
@@ -105,6 +107,9 @@ public class Unidades extends AbstractEntity<Long> {
     private List<PessoaIncrementoDeRisco> pessoaIncrementoDeRiscoList;
     
     @OneToMany(mappedBy = "idUnidadeFk")
+    private List<FaixasValoresGpf> faixasValoresGpfList;
+    
+    @OneToMany(mappedBy = "idUnidadeFk")
     private List<PessoaLimiteHoras> pessoaLimiteHorasList;
     
 	public List<CodigoDiferenciado> getCodigoDiferenciadoList() {
@@ -117,6 +122,9 @@ public class Unidades extends AbstractEntity<Long> {
     private List<UnidadeAdmiteIncrementoDeRisco> unidadeAdmiteIncrementoDeRiscoList;
 	@OneToMany(mappedBy = "idUnidadeFk")
     private List<UnidadeAdmiteComplementoPlantao> unidadeAdmiteComplementoPlantaoList;
+	
+	 @OneToMany(mappedBy = "idUnidadeFk")
+	 private List<HorasFaltasFolhasVariaveis> horasFaltasFolhasVariaveisList;
 	
 	@OneToMany(mappedBy = "idUnidadeFk")
     private List<FatorChDif> fatorChDifList;
@@ -477,6 +485,31 @@ public class Unidades extends AbstractEntity<Long> {
 			List<UnidadeAdmiteComplementoPlantao> unidadeAdmiteComplementoPlantaoList) {
 		this.unidadeAdmiteComplementoPlantaoList = unidadeAdmiteComplementoPlantaoList;
 	}
+
+	public List<RubricaVencimento> getRubricaVencimentoList() {
+		return rubricaVencimentoList;
+	}
+
+	public void setRubricaVencimentoList(List<RubricaVencimento> rubricaVencimentoList) {
+		this.rubricaVencimentoList = rubricaVencimentoList;
+	}
+
+	public List<FaixasValoresGpf> getFaixasValoresGpfList() {
+		return faixasValoresGpfList;
+	}
+
+	public void setFaixasValoresGpfList(List<FaixasValoresGpf> faixasValoresGpfList) {
+		this.faixasValoresGpfList = faixasValoresGpfList;
+	}
+
+	public List<HorasFaltasFolhasVariaveis> getHorasFaltasFolhasVariaveisList() {
+		return horasFaltasFolhasVariaveisList;
+	}
+
+	public void setHorasFaltasFolhasVariaveisList(List<HorasFaltasFolhasVariaveis> horasFaltasFolhasVariaveisList) {
+		this.horasFaltasFolhasVariaveisList = horasFaltasFolhasVariaveisList;
+	}
+	
 	
 	
 	

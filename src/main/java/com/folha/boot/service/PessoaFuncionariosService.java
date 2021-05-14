@@ -61,6 +61,10 @@ public class PessoaFuncionariosService {
 		return reposytory.findByMatriculaContainingOrderByMatriculaAsc(matricula);
 	}
 
+	public List<PessoaFuncionarios> buscarPorUnidade( Unidades unidades, String ativo) {
+		return this.reposytory.findByIdUnidadeAtuacaoAtualFkAndDtCancelamentoIsNullAndIdPessoaFkDtCancelamentoIsNullAndIdSituacaoAtualFkNomeSituacaoOrderByIdPessoaFkNomeAscIdPessoaFkCpfAscMatriculaAsc( unidades, ativo);
+	}
+	
 	public List<PessoaFuncionarios> buscarPorPessoa(Pessoa pessoa) {
 		// TODO Auto-generated method stub
 		return reposytory.findByIdPessoaFk(pessoa);
