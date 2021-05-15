@@ -156,8 +156,10 @@ public class ContrachequeService {
 			// Tipos de Fonte
 			Font tituloFont = FontFactory.getFont(FontFactory.HELVETICA_BOLD,14);
 			Font cabecalhoFont = FontFactory.getFont(FontFactory.HELVETICA_BOLD,8);
-			Font corpoFont = FontFactory.getFont(FontFactory.TIMES_ROMAN, 8);
+			Font cabecalhoFont2 = FontFactory.getFont(FontFactory.HELVETICA_BOLD,6);
+			Font corpoFont = FontFactory.getFont(FontFactory.TIMES_ROMAN, 7);
 			Font corpoFont2 = FontFactory.getFont(FontFactory.TIMES_ROMAN, 6);
+			Font corpoFont3 = FontFactory.getFont(FontFactory.TIMES_ROMAN, 5);
 			Font nomeSistemaFont = FontFactory.getFont(FontFactory.TIMES_BOLDITALIC, 6);
 			Font rodapeFont = FontFactory.getFont(FontFactory.HELVETICA_BOLD, 4);
 			
@@ -258,7 +260,7 @@ public class ContrachequeService {
 			tableTitulo4.setWidths(new int[] { 4 });
 			PdfPCell cellTitulo4;
 			
-			cellTitulo4 = new PdfPCell(new Phrase("Vantagens", cabecalhoFont) );
+			cellTitulo4 = new PdfPCell(new Phrase("Vencimentos", cabecalhoFont) );
 			cellTitulo4.setHorizontalAlignment(Element.ALIGN_CENTER);
 			cellTitulo4.setVerticalAlignment(Element.ALIGN_MIDDLE);
 			tableTitulo4.addCell(cellTitulo4);
@@ -268,13 +270,13 @@ public class ContrachequeService {
 			
 			
 			//Cabeçalho
-			PdfPTable table = new PdfPTable(6);
+			PdfPTable table = new PdfPTable(7);
 			table.setWidthPercentage(90);
-			table.setWidths(new int[] { 2, 2, 6, 6, 3, 3 });
+			table.setWidths(new int[] { 1, 3, 6, 6, 3, 3, 3 });
 			
 			
 			PdfPCell hcell;
-			hcell = new PdfPCell(new Phrase("Ordem", cabecalhoFont));
+			hcell = new PdfPCell(new Phrase("Ord", cabecalhoFont));
 			hcell.setHorizontalAlignment(Element.ALIGN_CENTER);
 			table.addCell(hcell);
 
@@ -290,11 +292,15 @@ public class ContrachequeService {
 			hcell.setHorizontalAlignment(Element.ALIGN_CENTER);
 			table.addCell(hcell);
 			
-			hcell = new PdfPCell(new Phrase("Proporção", cabecalhoFont));
+			hcell = new PdfPCell(new Phrase("Proporção(%)", cabecalhoFont));
 			hcell.setHorizontalAlignment(Element.ALIGN_CENTER);
 			table.addCell(hcell);
 			
-			hcell = new PdfPCell(new Phrase("Valor", cabecalhoFont));
+			hcell = new PdfPCell(new Phrase("Vantagem", cabecalhoFont));
+			hcell.setHorizontalAlignment(Element.ALIGN_CENTER);
+			table.addCell(hcell);
+			
+			hcell = new PdfPCell(new Phrase("Deconto", cabecalhoFont));
 			hcell.setHorizontalAlignment(Element.ALIGN_CENTER);
 			table.addCell(hcell);
 			
@@ -306,7 +312,7 @@ public class ContrachequeService {
 			
 			
 			// Corpo
-			for (int i=0; i<listaVantagens.size();i++) {
+			for (int i=0; i<listaVencimentos.size();i++) {
 
 				PdfPCell cell;
 
@@ -315,151 +321,182 @@ public class ContrachequeService {
 				cell.setHorizontalAlignment(Element.ALIGN_CENTER);
 				table.addCell(cell);
 
-				cell = new PdfPCell(new Phrase( String.valueOf( listaVantagens.get(i).getCodigo() +"-"+listaVantagens.get(i).getVariacao()  ) ,corpoFont2) );
+				cell = new PdfPCell(new Phrase( String.valueOf( listaVencimentos.get(i).getCodigo() +"-"+listaVencimentos.get(i).getVariacao()  ) ,corpoFont2) );
 				cell.setPaddingLeft(5);
 				cell.setVerticalAlignment(Element.ALIGN_MIDDLE);
 				cell.setHorizontalAlignment(Element.ALIGN_CENTER);
 				table.addCell(cell);
 
-				cell = new PdfPCell(new Phrase(listaVantagens.get(i).getDescricao() ,corpoFont2) );
+				cell = new PdfPCell(new Phrase(listaVencimentos.get(i).getDescricao() ,corpoFont2) );
 				cell.setVerticalAlignment(Element.ALIGN_MIDDLE);
 				cell.setHorizontalAlignment(Element.ALIGN_CENTER);
 				table.addCell(cell);
 				
-				cell = new PdfPCell(new Phrase(listaVantagens.get(i).getIdUnidadeFk().getNomeFantasia() ,corpoFont2) );
+				cell = new PdfPCell(new Phrase(listaVencimentos.get(i).getIdUnidadeFk().getNomeFantasia() ,corpoFont2) );
 				cell.setVerticalAlignment(Element.ALIGN_MIDDLE);
 				cell.setHorizontalAlignment(Element.ALIGN_CENTER);
 				table.addCell(cell);
 				
-				cell = new PdfPCell(new Phrase(  String.valueOf(listaVantagens.get(i).getPercentagem())  ,corpoFont2) );
+				Double proporcao = listaVencimentos.get(i).getPercentagem();
+				String proporcaoString = String.valueOf(proporcao);
+				if(listaVencimentos.get(i).getIdNaturezaFk().getSigla().equalsIgnoreCase("D")) {proporcaoString="";}
+				
+				cell = new PdfPCell(new Phrase(  String.valueOf( proporcaoString )  ,corpoFont2) );
 				cell.setVerticalAlignment(Element.ALIGN_MIDDLE);
 				cell.setHorizontalAlignment(Element.ALIGN_CENTER);
 				table.addCell(cell);
 			
-				cell = new PdfPCell(new Phrase( String.valueOf(listaVantagens.get(i).getValorBruto()) ,corpoFont2) );
+				Double valorVantagem = 0.0;
+				Double valorDesconto = 0.0;
+				if(listaVencimentos.get(i).getIdNaturezaFk().getSigla().equalsIgnoreCase("V")) {valorVantagem = valorVantagem+listaVencimentos.get(i).getValorBruto();}
+				if(listaVencimentos.get(i).getIdNaturezaFk().getSigla().equalsIgnoreCase("D")) {valorVantagem = valorDesconto+listaVencimentos.get(i).getValorBruto();}
+				valorVantagem = UtilidadesMatematicas.ajustaValorDecimal(valorVantagem, 2);
+				valorDesconto = UtilidadesMatematicas.ajustaValorDecimal(valorDesconto, 2);
+				String valorVantagemString = "";
+				String valorDescontoString = "";
+				if(valorVantagem!=0) {valorVantagemString = String.valueOf(valorVantagem);}
+				if(valorDesconto!=0) {valorDescontoString = String.valueOf(valorDesconto);}
+				
+				cell = new PdfPCell(new Phrase( String.valueOf( valorVantagemString ) ,corpoFont2) );
 				cell.setVerticalAlignment(Element.ALIGN_MIDDLE);
 				cell.setHorizontalAlignment(Element.ALIGN_CENTER);
-				table.addCell(cell);		
+				table.addCell(cell);	
+				
+				cell = new PdfPCell(new Phrase( String.valueOf( valorDescontoString ) ,corpoFont2) );
+				cell.setVerticalAlignment(Element.ALIGN_MIDDLE);
+				cell.setHorizontalAlignment(Element.ALIGN_CENTER);
+				table.addCell(cell);	
+			}
+			
+			
+			
+			PdfPCell cell;
+			//Colocando inss
+			if(previdencia>0) {
+			cell = new PdfPCell(new Phrase( String.valueOf(listaVencimentos.size()+1) ,corpoFont2));
+			cell.setVerticalAlignment(Element.ALIGN_MIDDLE);
+			cell.setHorizontalAlignment(Element.ALIGN_CENTER);
+			table.addCell(cell);
+
+			cell = new PdfPCell(new Phrase( String.valueOf( "PREVIDENCIA"  ) ,corpoFont2) );
+			cell.setPaddingLeft(5);
+			cell.setVerticalAlignment(Element.ALIGN_MIDDLE);
+			cell.setHorizontalAlignment(Element.ALIGN_CENTER);
+			table.addCell(cell);
+
+			cell = new PdfPCell(new Phrase("DESCONTOS PREVIDENCIARIOS" ,corpoFont2) );
+			cell.setVerticalAlignment(Element.ALIGN_MIDDLE);
+			cell.setHorizontalAlignment(Element.ALIGN_CENTER);
+			table.addCell(cell);
+			
+			cell = new PdfPCell(new Phrase( "" ,corpoFont2) );
+			cell.setVerticalAlignment(Element.ALIGN_MIDDLE);
+			cell.setHorizontalAlignment(Element.ALIGN_CENTER);
+			table.addCell(cell);
+			
+			cell = new PdfPCell(new Phrase(  String.valueOf("")  ,corpoFont2) );
+			cell.setVerticalAlignment(Element.ALIGN_MIDDLE);
+			cell.setHorizontalAlignment(Element.ALIGN_CENTER);
+			table.addCell(cell);
+			
+			cell = new PdfPCell(new Phrase( String.valueOf( "" ) ,corpoFont2) );
+			cell.setVerticalAlignment(Element.ALIGN_MIDDLE);
+			cell.setHorizontalAlignment(Element.ALIGN_CENTER);
+			table.addCell(cell);	
+			
+			cell = new PdfPCell(new Phrase( String.valueOf( previdencia ) ,corpoFont2) );
+			cell.setVerticalAlignment(Element.ALIGN_MIDDLE);
+			cell.setHorizontalAlignment(Element.ALIGN_CENTER);
+			table.addCell(cell);	
+		}
+			
+			
+			
+		//Colocando IR
+		if(ir>0) {
+			cell = new PdfPCell(new Phrase( String.valueOf(listaVencimentos.size()+2) ,corpoFont2));
+			cell.setVerticalAlignment(Element.ALIGN_MIDDLE);
+			cell.setHorizontalAlignment(Element.ALIGN_CENTER);
+			table.addCell(cell);
+
+			cell = new PdfPCell(new Phrase( String.valueOf( "IR"  ) ,corpoFont2) );
+			cell.setPaddingLeft(5);
+			cell.setVerticalAlignment(Element.ALIGN_MIDDLE);
+			cell.setHorizontalAlignment(Element.ALIGN_CENTER);
+			table.addCell(cell);
+
+			cell = new PdfPCell(new Phrase("IMPOSTO DE RENDA NA FONTE" ,corpoFont2) );
+			cell.setVerticalAlignment(Element.ALIGN_MIDDLE);
+			cell.setHorizontalAlignment(Element.ALIGN_CENTER);
+			table.addCell(cell);
+			
+			cell = new PdfPCell(new Phrase( "" ,corpoFont2) );
+			cell.setVerticalAlignment(Element.ALIGN_MIDDLE);
+			cell.setHorizontalAlignment(Element.ALIGN_CENTER);
+			table.addCell(cell);
+			
+			cell = new PdfPCell(new Phrase(  String.valueOf("")  ,corpoFont2) );
+			cell.setVerticalAlignment(Element.ALIGN_MIDDLE);
+			cell.setHorizontalAlignment(Element.ALIGN_CENTER);
+			table.addCell(cell);
+			
+			cell = new PdfPCell(new Phrase( String.valueOf( "" ) ,corpoFont2) );
+			cell.setVerticalAlignment(Element.ALIGN_MIDDLE);
+			cell.setHorizontalAlignment(Element.ALIGN_CENTER);
+			table.addCell(cell);	
+			
+			cell = new PdfPCell(new Phrase( String.valueOf( ir ) ,corpoFont2) );
+			cell.setVerticalAlignment(Element.ALIGN_MIDDLE);
+			cell.setHorizontalAlignment(Element.ALIGN_CENTER);
+			table.addCell(cell);	
+		}
+			
+			
+			//Colocando Pensao
+			if(pensao>0) {
+				cell = new PdfPCell(new Phrase( String.valueOf(listaVencimentos.size()+2) ,corpoFont2));
+				cell.setVerticalAlignment(Element.ALIGN_MIDDLE);
+				cell.setHorizontalAlignment(Element.ALIGN_CENTER);
+				table.addCell(cell);
+	
+				cell = new PdfPCell(new Phrase( String.valueOf( "IR"  ) ,corpoFont2) );
+				cell.setPaddingLeft(5);
+				cell.setVerticalAlignment(Element.ALIGN_MIDDLE);
+				cell.setHorizontalAlignment(Element.ALIGN_CENTER);
+				table.addCell(cell);
+	
+				cell = new PdfPCell(new Phrase("IMPOSTO DE RENDA NA FONTE" ,corpoFont2) );
+				cell.setVerticalAlignment(Element.ALIGN_MIDDLE);
+				cell.setHorizontalAlignment(Element.ALIGN_CENTER);
+				table.addCell(cell);
+				
+				cell = new PdfPCell(new Phrase( "" ,corpoFont2) );
+				cell.setVerticalAlignment(Element.ALIGN_MIDDLE);
+				cell.setHorizontalAlignment(Element.ALIGN_CENTER);
+				table.addCell(cell);
+				
+				cell = new PdfPCell(new Phrase(  String.valueOf("")  ,corpoFont2) );
+				cell.setVerticalAlignment(Element.ALIGN_MIDDLE);
+				cell.setHorizontalAlignment(Element.ALIGN_CENTER);
+				table.addCell(cell);
+				
+				cell = new PdfPCell(new Phrase( String.valueOf( "" ) ,corpoFont2) );
+				cell.setVerticalAlignment(Element.ALIGN_MIDDLE);
+				cell.setHorizontalAlignment(Element.ALIGN_CENTER);
+				table.addCell(cell);	
+				
+				cell = new PdfPCell(new Phrase( String.valueOf( ir ) ,corpoFont2) );
+				cell.setVerticalAlignment(Element.ALIGN_MIDDLE);
+				cell.setHorizontalAlignment(Element.ALIGN_CENTER);
+				table.addCell(cell);	
 			}
 			
 			
 			
 			
-			
-			
-			
-			// Titulo 5
-			PdfPTable tableTitulo5 = new PdfPTable(1);
-			tableTitulo5.setWidthPercentage(90);
-			tableTitulo5.setWidths(new int[] { 4 });
-			PdfPCell cellTitulo5;
-			
-			cellTitulo5 = new PdfPCell(new Phrase("Descontos", cabecalhoFont) );
-			cellTitulo5.setHorizontalAlignment(Element.ALIGN_CENTER);
-			cellTitulo5.setVerticalAlignment(Element.ALIGN_MIDDLE);
-			tableTitulo5.addCell(cellTitulo5);
-			
-
-			
-			//Cabeçalho
-			PdfPTable table2 = new PdfPTable(6);
-			table2.setWidthPercentage(90);
-			table2.setWidths(new int[] { 2, 2, 6, 6, 3, 3 });
-			
-			
-			PdfPCell hcell2;
-			hcell2 = new PdfPCell(new Phrase("Ordem", cabecalhoFont));
-			hcell2.setHorizontalAlignment(Element.ALIGN_CENTER);
-			table2.addCell(hcell);
-
-			hcell2 = new PdfPCell(new Phrase("Cód", cabecalhoFont));
-			hcell2.setHorizontalAlignment(Element.ALIGN_CENTER);
-			table2.addCell(hcell2);
-
-			hcell2 = new PdfPCell(new Phrase("Descrição", cabecalhoFont));
-			hcell2.setHorizontalAlignment(Element.ALIGN_CENTER);
-			table2.addCell(hcell2);
-			
-			hcell2 = new PdfPCell(new Phrase("Unidade", cabecalhoFont));
-			hcell2.setHorizontalAlignment(Element.ALIGN_CENTER);
-			table2.addCell(hcell2);
-			
-			hcell2 = new PdfPCell(new Phrase("Proporção", cabecalhoFont));
-			hcell2.setHorizontalAlignment(Element.ALIGN_CENTER);
-			table2.addCell(hcell2);
-			
-			hcell2 = new PdfPCell(new Phrase("Valor", cabecalhoFont));
-			hcell2.setHorizontalAlignment(Element.ALIGN_CENTER);
-			table2.addCell(hcell2);			
-			
-			
-			// Corpo
-			for (int i=0; i<listaDescontos.size();i++) {
-
-				PdfPCell cell2;
-
-				cell2 = new PdfPCell(new Phrase( String.valueOf(i+1) ,corpoFont2));
-				cell2.setVerticalAlignment(Element.ALIGN_MIDDLE);
-				cell2.setHorizontalAlignment(Element.ALIGN_CENTER);
-				table2.addCell(cell2);
-
-				cell2 = new PdfPCell(new Phrase( String.valueOf( listaDescontos.get(i).getCodigo() +"-"+listaDescontos.get(i).getVariacao()  ) ,corpoFont2) );
-				cell2.setPaddingLeft(5);
-				cell2.setVerticalAlignment(Element.ALIGN_MIDDLE);
-				cell2.setHorizontalAlignment(Element.ALIGN_CENTER);
-				table.addCell(cell2);
-
-				cell2 = new PdfPCell(new Phrase(listaDescontos.get(i).getDescricao() ,corpoFont2) );
-				cell2.setVerticalAlignment(Element.ALIGN_MIDDLE);
-				cell2.setHorizontalAlignment(Element.ALIGN_CENTER);
-				table.addCell(cell2);
-				
-				cell2 = new PdfPCell(new Phrase(listaDescontos.get(i).getIdUnidadeFk().getNomeFantasia() ,corpoFont2) );
-				cell2.setVerticalAlignment(Element.ALIGN_MIDDLE);
-				cell2.setHorizontalAlignment(Element.ALIGN_CENTER);
-				table2.addCell(cell2);
-				
-				cell2 = new PdfPCell(new Phrase(  String.valueOf(listaDescontos.get(i).getPercentagem())  ,corpoFont2) );
-				cell2.setVerticalAlignment(Element.ALIGN_MIDDLE);
-				cell2.setHorizontalAlignment(Element.ALIGN_CENTER);
-				table2.addCell(cell2);
-			
-				cell2 = new PdfPCell(new Phrase( String.valueOf(listaDescontos.get(i).getValorBruto()) ,corpoFont2) );
-				cell2.setVerticalAlignment(Element.ALIGN_MIDDLE);
-				cell2.setHorizontalAlignment(Element.ALIGN_CENTER);
-				table2.addCell(cell2);		
-			}
 						
 			
 			
-			
-			// Titulo 6
-			PdfPTable tableTitulo6 = new PdfPTable(2);
-			tableTitulo6.setWidthPercentage(90);
-			tableTitulo6.setWidths(new int[] { 3, 3 });
-			PdfPCell cellTitulo6;
-			
-			cellTitulo6 = new PdfPCell(new Phrase("Previdência", cabecalhoFont) );
-			cellTitulo6.setHorizontalAlignment(Element.ALIGN_CENTER);
-			cellTitulo6.setVerticalAlignment(Element.ALIGN_MIDDLE);
-			tableTitulo6.addCell(cellTitulo6);
-			
-			cellTitulo6 = new PdfPCell(new Phrase("Imposto de Renda", cabecalhoFont) );
-			cellTitulo6.setHorizontalAlignment(Element.ALIGN_CENTER);
-			cellTitulo6.setVerticalAlignment(Element.ALIGN_MIDDLE);
-			tableTitulo6.addCell(cellTitulo6);
-			
-			cellTitulo6 = new PdfPCell(new Phrase( String.valueOf( previdencia ) ,corpoFont) );
-			cellTitulo6.setPaddingLeft(5);
-			cellTitulo6.setHorizontalAlignment(Element.ALIGN_CENTER);
-			cellTitulo6.setVerticalAlignment(Element.ALIGN_MIDDLE);
-			tableTitulo6.addCell(cellTitulo6);
-			
-			cellTitulo6 = new PdfPCell(new Phrase( String.valueOf( ir ) ,corpoFont) );
-			cellTitulo6.setPaddingLeft(5);
-			cellTitulo6.setHorizontalAlignment(Element.ALIGN_CENTER);
-			cellTitulo6.setVerticalAlignment(Element.ALIGN_MIDDLE);
-			tableTitulo6.addCell(cellTitulo6);			
 			
 			
 			
@@ -470,7 +507,7 @@ public class ContrachequeService {
 			tableTitulo7.setWidths(new int[] { 4 });
 			PdfPCell cellTitulo7;
 			
-			cellTitulo7 = new PdfPCell(new Phrase("Todos os valores correspondem apenas ao pagamento de gratificações, extras e prestadores.", cabecalhoFont) );
+			cellTitulo7 = new PdfPCell(new Phrase("Todos os valores correspondem apenas ao pagamento de gratificações, extras e prestadores.", cabecalhoFont2) );
 			cellTitulo7.setHorizontalAlignment(Element.ALIGN_CENTER);
 			cellTitulo7.setVerticalAlignment(Element.ALIGN_MIDDLE);
 			tableTitulo7.addCell(cellTitulo7);			
@@ -483,12 +520,11 @@ public class ContrachequeService {
 			tableTitulo8.setWidths(new int[] { 4 });
 			PdfPCell cellTitulo8;
 			
-			cellTitulo8 = new PdfPCell(new Phrase("Observações", cabecalhoFont) );
-			cellTitulo8.setHorizontalAlignment(Element.ALIGN_CENTER);
+			cellTitulo8 = new PdfPCell(new Phrase("Observações", cabecalhoFont2) );
 			cellTitulo8.setVerticalAlignment(Element.ALIGN_MIDDLE);
 			tableTitulo8.addCell(cellTitulo8);
 			
-			cellTitulo8 = new PdfPCell(new Phrase( String.valueOf( observacao ) ,corpoFont2) );
+			cellTitulo8 = new PdfPCell(new Phrase( String.valueOf( observacao ) ,corpoFont3) );
 			cellTitulo8.setPaddingLeft(5);
 			cellTitulo8.setVerticalAlignment(Element.ALIGN_MIDDLE);
 			tableTitulo8.addCell(cellTitulo8);			
@@ -553,12 +589,13 @@ public class ContrachequeService {
 			document.add(tableTitulo3);
 			document.add(tableTitulo4);
 			document.add(table);
-			document.add(tableTitulo5);
-			document.add(table2);
-			document.add(tableTitulo6);
+			//document.add(tableTitulo5);
+			//document.add(table2);
+			//document.add(tableTitulo6);
+			document.add(tableTitulo9);
 			document.add(tableTitulo7);
 			document.add(tableTitulo8);
-			document.add(tableTitulo9);
+			
 			
 			
 			document.add(tableRodape);
