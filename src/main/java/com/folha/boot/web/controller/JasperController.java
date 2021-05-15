@@ -25,17 +25,20 @@ public class JasperController {
 	}
 	
 	@GetMapping("/relatorio/pdf/jr1")
-	public void exibirRelatorio(@RequestParam("code") String code, 
+/*	public void exibirRelatorio(@RequestParam("code") String code, 
 								@RequestParam("acao") String acao,
-								HttpServletResponse response) throws IOException {
-		byte[] bytes = service.exportarPDF(code);
+								HttpServletResponse response) throws IOException {*/
+	public void exibirRelatorio(HttpServletResponse response) throws IOException {
+		
+		byte[] bytes = service.exportarPDF();
+		
 		response.setContentType(org.springframework.http.MediaType.APPLICATION_PDF_VALUE);
 		
-		if(acao.equals("v")){
+		/*if(acao.equals("v")){
 			response.setHeader("Content-disposition", "inline; filename=relatorio-"+code+".pdf");		
 		}else {
 			response.setHeader("Content-disposition", "attachment; filename=relatorio-"+code+".pdf");
-		}
+		}*/
 		response.getOutputStream().write(bytes);
 	}
 		
