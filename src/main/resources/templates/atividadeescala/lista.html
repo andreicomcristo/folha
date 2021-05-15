@@ -54,7 +54,7 @@
 	                <tbody>
 		            	<tr th:each="d : ${atividadeEscala}">
 		                	<td style="font-size:10px;"  th:text="${d.id}"></td>
-		                    <td style="font-size:10px;"  th:text="${d.nomeAtividade} ? ${d.nomeAtividade} : ''  "></td>
+		                    <td style="font-size:10px;"  th:text="${d.nomeAtividade != null} ? ${d.nomeAtividade} : ''  "></td>
 		                    <td style="font-size:10px;"  th:text="${d.descricaoAtividade != null} ? ${d.descricaoAtividade} : ''  "></td>
 		                    <td style="font-size:10px;"  th:text="${d.idUnidadeFk != null} ? ${d.idUnidadeFk.nomeFantasia} : ''  "></td>
 		                    <td colspan="2">
