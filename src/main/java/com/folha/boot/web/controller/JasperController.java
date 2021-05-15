@@ -28,6 +28,9 @@ public class JasperController {
 	public void exibirRelatorio(@RequestParam("code") String code, 
 								@RequestParam("acao") String acao,
 								HttpServletResponse response) throws IOException {
+		
+		
+		
 		byte[] bytes = service.exportarPDF(code);
 		response.setContentType(org.springframework.http.MediaType.APPLICATION_PDF_VALUE);
 		
