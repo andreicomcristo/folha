@@ -4,6 +4,7 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.sql.Connection;
 import java.util.HashMap;
+import java.util.Locale;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,9 +19,9 @@ import net.sf.jasperreports.engine.JasperPrint;
 @Service
 public class JasperService {
 	
-	private static final String JASPER_DIRETORIO = "classpath:jasper/";
+	/*private static final String JASPER_DIRETORIO = "classpath:jasper/";
 	private static final String JASPER_PREFIXO = "funcionarios-";
-	private static final String JASPER_SUFIXO = ".jasper";
+	private static final String JASPER_SUFIXO = ".jasper";*/
 	
 	@Autowired
 	private Connection connection;
@@ -31,15 +32,21 @@ public class JasperService {
 		this.params.put(key, value);
 	}
 	
-	public byte[] exportarPDF(String code) {
+	public byte[] exportarPDF() {
 		byte[] bytes = null;
 		try {
-			File file = ResourceUtils.getFile(JASPER_DIRETORIO.concat(JASPER_PREFIXO).concat(code).concat(JASPER_SUFIXO));
+			var inputStream = this.getClass().getResourceAsStream("/jasper/funcionarios-01.jasper");
+			var parametros = new HashMap<String, Object>();
 			
-			JasperPrint print = JasperFillManager.fillReport(file.getAbsolutePath(), params, connection);
+			parametros.put("REPORT_LOCALE", new Locale("pt", "BR"));
+			//File file = ResourceUtils.getFile(JASPER_DIRETORIO.concat(JASPER_PREFIXO).concat(code).concat(JASPER_SUFIXO));
+			
+			//JasperPrint print = JasperFillManager.fillReport(file.getAbsolutePath(), params, connection);
+			JasperPrint print = JasperFillManager.fillReport(inputStream, parametros, connection);
 			
 			bytes = JasperExportManager.exportReportToPdf(print);
-		} catch (FileNotFoundException | JRException e) {
+			
+		} catch (JRException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
