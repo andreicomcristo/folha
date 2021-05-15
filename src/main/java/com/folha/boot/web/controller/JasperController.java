@@ -30,7 +30,7 @@ public class JasperController {
 								HttpServletResponse response) throws IOException {*/
 	public void exibirRelatorio(HttpServletResponse response) throws IOException {
 		
-		byte[] bytes = service.exportarPDF();
+		byte[] bytes = service.exportarPDF(); 
 		
 
 		response.setContentType(org.springframework.http.MediaType.APPLICATION_PDF_VALUE);
