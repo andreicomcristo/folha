@@ -19,26 +19,24 @@ import net.sf.jasperreports.engine.JasperPrint;
 @Service
 public class JasperService {
 	
-	/*private static final String JASPER_DIRETORIO = "classpath:jasper/";
-	private static final String JASPER_PREFIXO = "funcionarios-";
-	private static final String JASPER_SUFIXO = ".jasper";*/
-	
 	@Autowired
 	private Connection connection;
 	
 	private Map<String, Object> params = new HashMap<>();
 	
-	public void addParams(String key, Object value) {
+	/*public void addParams(String key, Object value) {
 		this.params.put(key, value);
-	}
+	}**/
 	
 	public byte[] exportarPDF() {
 		byte[] bytes = null;
 		try {
 			var inputStream = this.getClass().getResourceAsStream("/jasper/funcionarios-01.jasper");
+			
 			var parametros = new HashMap<String, Object>();
 			
 			parametros.put("REPORT_LOCALE", new Locale("pt", "BR"));
+			
 			//File file = ResourceUtils.getFile(JASPER_DIRETORIO.concat(JASPER_PREFIXO).concat(code).concat(JASPER_SUFIXO));
 			
 			//JasperPrint print = JasperFillManager.fillReport(file.getAbsolutePath(), params, connection);
