@@ -44,9 +44,12 @@ public class AnoMes extends AbstractEntity<Long> {
     private List<UnidadeAdmiteComplementoPlantao> unidadeAdmiteComplementoPlantaoList;
     
     @OneToMany(mappedBy = "idAnoMesFk")
-    private List<FatorChDif> fatorChDifList;
+    private List<FatorPatronal> fatorChDifList;
     @OneToMany(mappedBy = "idAnoMesFk")
     private List<TiposDeFolhaNivelCargo> tiposDeFolhaNivelCargoList;
+    
+    @OneToMany(mappedBy = "idAnoMesFk")
+    private List<RubricaPensaoObs> rubricaPensaoObsList;
     
     @OneToMany(mappedBy = "idAnoMesFk")
     private List<PessoaIncrementoDeRisco> pessoaIncrementoDeRiscoList;
@@ -143,10 +146,10 @@ public class AnoMes extends AbstractEntity<Long> {
 			List<UnidadeAdmiteIncrementoDeRisco> unidadeAdmiteIncrementoDeRiscoList) {
 		this.unidadeAdmiteIncrementoDeRiscoList = unidadeAdmiteIncrementoDeRiscoList;
 	}
-	public List<FatorChDif> getFatorChDifList() {
+	public List<FatorPatronal> getFatorChDifList() {
 		return fatorChDifList;
 	}
-	public void setFatorChDifList(List<FatorChDif> fatorChDifList) {
+	public void setFatorChDifList(List<FatorPatronal> fatorChDifList) {
 		this.fatorChDifList = fatorChDifList;
 	}
 	public List<TiposDeFolhaNivelCargo> getTiposDeFolhaNivelCargoList() {
@@ -244,6 +247,12 @@ public class AnoMes extends AbstractEntity<Long> {
 	}
 	public void setRubricaPensaoList(List<RubricaPensao> rubricaPensaoList) {
 		this.rubricaPensaoList = rubricaPensaoList;
+	}
+	public List<RubricaPensaoObs> getRubricaPensaoObsList() {
+		return rubricaPensaoObsList;
+	}
+	public void setRubricaPensaoObsList(List<RubricaPensaoObs> rubricaPensaoObsList) {
+		this.rubricaPensaoObsList = rubricaPensaoObsList;
 	}
 		
 	

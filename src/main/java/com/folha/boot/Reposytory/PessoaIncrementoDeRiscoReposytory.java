@@ -9,7 +9,7 @@ import org.springframework.stereotype.Repository;
 
 import com.folha.boot.domain.AnoMes;
 import com.folha.boot.domain.FaixasValoresParametrosCalculoFolhasExtras;
-import com.folha.boot.domain.FatorChDif;
+import com.folha.boot.domain.FatorPatronal;
 import com.folha.boot.domain.Pessoa;
 import com.folha.boot.domain.PessoaChDif;
 import com.folha.boot.domain.PessoaIncrementoDeRisco;

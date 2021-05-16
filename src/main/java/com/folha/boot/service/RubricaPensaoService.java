@@ -22,6 +22,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import com.folha.boot.Reposytory.RubricaPensaoReposytory;
 import com.folha.boot.domain.AnoMes;
+import com.folha.boot.domain.Pessoa;
 import com.folha.boot.domain.RubricaPensao;
 import com.itextpdf.text.Document;
 import com.itextpdf.text.DocumentException;
@@ -74,6 +75,11 @@ public class RubricaPensaoService {
 	@Transactional(readOnly = true)
 	public List<RubricaPensao> buscarPorMesExato(AnoMes anoMes) {
 		return reposytory.findByIdAnoMesFkOrderByIdAnoMesFkNomeAnoMesDescIdPessoaFkNomeAsc(anoMes);
+	}
+	
+	@Transactional(readOnly = true)
+	public List<RubricaPensao> buscarPorMesEPEssoa(AnoMes anoMes, Pessoa pessoa) {
+		return reposytory.findByIdAnoMesFkAndIdPessoaFkOrderByIdAnoMesFkNomeAnoMesDescIdPessoaFkNomeAsc(anoMes, pessoa);
 	}
 	
 	@Transactional(readOnly = true)

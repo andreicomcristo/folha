@@ -8,6 +8,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 import com.folha.boot.domain.AnoMes;
 import com.folha.boot.domain.FaixasValoresGpf;
+import com.folha.boot.domain.Pessoa;
 import com.folha.boot.domain.RubricaPensao;
 
 
@@ -22,6 +23,7 @@ public interface RubricaPensaoReposytory extends JpaRepository<RubricaPensao, Lo
 	
 	public List<RubricaPensao> findByIdPessoaFkNomeContainingOrderByIdAnoMesFkNomeAnoMesDescIdPessoaFkNomeAsc(String nome);
 	
+	public List<RubricaPensao> findByIdAnoMesFkAndIdPessoaFkOrderByIdAnoMesFkNomeAnoMesDescIdPessoaFkNomeAsc(AnoMes anoMes, Pessoa pessoa);
 	
 	
 	

@@ -35,6 +35,7 @@ import com.folha.boot.domain.EscalaPosTransparencia;
 import com.folha.boot.domain.Pessoa;
 import com.folha.boot.domain.PessoaDocumentos;
 import com.folha.boot.domain.PessoaDocumentosConselho;
+import com.folha.boot.domain.RubricaPensaoObs;
 import com.folha.boot.domain.RubricaVencimento;
 import com.folha.boot.domain.RubricaVencimentoObs;
 import com.folha.boot.domain.TiposDeFolha;
@@ -68,6 +69,8 @@ public class ContrachequeService {
 	
 	@Autowired
 	private RubricaVencimentoObsService rubricaVencimentoObsService;
+	@Autowired
+	private RubricaPensaoObsService rubricaPensaoObsService;
 
 	
 	public ByteArrayInputStream exportarPdfContracheque(AnoMes anoMes, Pessoa pessoa) {
@@ -90,6 +93,8 @@ public class ContrachequeService {
 		
 		List <RubricaVencimentoObs> listaObservacoes = rubricaVencimentoObsService.buscarPorMesEPessoa(anoMes, pessoa);
 		List<RubricaVencimento> listaVencimentos = rubricaVencimentoService.buscarPorMesEPessoa(anoMes, pessoa);
+		List<RubricaPensaoObs> listaPensao = rubricaPensaoObsService.buscarPorMesEPessoa(anoMes, pessoa);
+		
 		
 		if(!unidadeGestoraService.buscarTodos().isEmpty()) {
 			if(unidadeGestoraService.buscarTodos().get(0).getNomeFantasia()!=null) {pagador = pagador + unidadeGestoraService.buscarTodos().get(0).getNomeFantasia();}
@@ -118,8 +123,7 @@ public class ContrachequeService {
 				}
 			}
 		}
-		observacao = observacao.replace(";", "; ");
-		observacao = UtilidadesDeTexto.retiraEspacosDuplosAcentosEConverteEmMaiusculo(observacao);
+		
 		
 		
 		
@@ -140,12 +144,6 @@ public class ContrachequeService {
 				descontos = descontos+listaDescontos.get(i).getValorBruto();
 			}
 		}
-		//Calculando bruto e líquido
-		bruto = vantagens;
-		bruto = UtilidadesMatematicas.ajustaValorDecimal(bruto, 2);
-		liquido = bruto-(descontos+ir+previdencia+pensao);
-		liquido = UtilidadesMatematicas.ajustaValorDecimal(liquido, 2);
-		
 		
 		
 		Document document = new Document();
@@ -415,6 +413,54 @@ public class ContrachequeService {
 			
 			
 			
+			//Colocando pensao
+			
+			if(!listaPensao.isEmpty()) {
+				for(int i=0;i<listaPensao.size();i++){
+					linha = linha+1;
+				
+					cell = new PdfPCell(new Phrase( String.valueOf(linha) ,corpoFont2));
+					cell.setVerticalAlignment(Element.ALIGN_MIDDLE);
+					cell.setHorizontalAlignment(Element.ALIGN_CENTER);
+					table.addCell(cell);
+		
+					cell = new PdfPCell(new Phrase( String.valueOf( "PENSAO"  ) ,corpoFont2) );
+					cell.setPaddingLeft(5);
+					cell.setVerticalAlignment(Element.ALIGN_MIDDLE);
+					cell.setHorizontalAlignment(Element.ALIGN_CENTER);
+					table.addCell(cell);
+		
+					cell = new PdfPCell(new Phrase("BENEFICIARIO :"+listaPensao.get(i).getIdRubricaPensaoFk().getNomeBeneficiario() ,corpoFont2) );
+					cell.setVerticalAlignment(Element.ALIGN_MIDDLE);
+					cell.setHorizontalAlignment(Element.ALIGN_CENTER);
+					table.addCell(cell);
+					
+					cell = new PdfPCell(new Phrase( "" ,corpoFont2) );
+					cell.setVerticalAlignment(Element.ALIGN_MIDDLE);
+					cell.setHorizontalAlignment(Element.ALIGN_CENTER);
+					table.addCell(cell);
+					
+					cell = new PdfPCell(new Phrase(  String.valueOf("")  ,corpoFont2) );
+					cell.setVerticalAlignment(Element.ALIGN_MIDDLE);
+					cell.setHorizontalAlignment(Element.ALIGN_CENTER);
+					table.addCell(cell);
+					
+					cell = new PdfPCell(new Phrase( String.valueOf( "" ) ,corpoFont2) );
+					cell.setVerticalAlignment(Element.ALIGN_MIDDLE);
+					cell.setHorizontalAlignment(Element.ALIGN_CENTER);
+					table.addCell(cell);	
+					
+					cell = new PdfPCell(new Phrase( String.valueOf( listaPensao.get(i).getValorDescontado() ) ,corpoFont2) );
+					cell.setVerticalAlignment(Element.ALIGN_MIDDLE);
+					cell.setHorizontalAlignment(Element.ALIGN_CENTER);
+					table.addCell(cell);	
+					
+					pensao = pensao + listaPensao.get(i).getValorDescontado();
+				}
+			}	
+			
+			
+			
 		//Colocando IR
 		if(ir>0) {
 			linha = linha+1;
@@ -499,7 +545,11 @@ public class ContrachequeService {
 			}
 			
 			
-			
+			//Calculando bruto e líquido
+			bruto = vantagens;
+			bruto = UtilidadesMatematicas.ajustaValorDecimal(bruto, 2);
+			liquido = bruto-(descontos+ir+previdencia+pensao);
+			liquido = UtilidadesMatematicas.ajustaValorDecimal(liquido, 2);
 			
 						
 			
@@ -520,6 +570,18 @@ public class ContrachequeService {
 			tableTitulo7.addCell(cellTitulo7);			
 			
 			
+			//Colocando observacoes de pensao nas observações
+			for(int i=0;i<listaPensao.size();i++) {
+				if(listaPensao.get(i).getObservacao()!=null) {
+					if(!listaPensao.get(i).getObservacao().equalsIgnoreCase("")) {
+						observacao = observacao+listaPensao.get(i).getObservacao()+";";
+					}
+				}
+			}
+			
+			
+			observacao = observacao.replace(";", "; ");
+			observacao = UtilidadesDeTexto.retiraEspacosDuplosAcentosEConverteEmMaiusculo(observacao);
 			
 			// Titulo 8
 			PdfPTable tableTitulo8 = new PdfPTable(1);

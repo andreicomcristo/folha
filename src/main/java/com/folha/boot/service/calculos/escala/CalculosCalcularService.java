@@ -16,6 +16,7 @@ import com.folha.boot.domain.models.calculos.EscalasNoMes;
 import com.folha.boot.domain.models.calculos.FeriasNoMes;
 import com.folha.boot.domain.models.calculos.LicencasNoMes;
 import com.folha.boot.domain.models.calculos.RubricasVencimento;
+import com.folha.boot.service.RubricaPensaoObsService;
 import com.folha.boot.service.RubricaVencimentoObsService;
 import com.folha.boot.service.RubricaVencimentoService;
 import com.folha.boot.service.calculos.folha.CalcularBrutoService;
@@ -40,6 +41,8 @@ public class CalculosCalcularService {
 	private CalcularCalculadoraService calcularCalculadoraService;
 	@Autowired
 	private RubricaVencimentoObsService rubricaVencimentoObsService;
+	@Autowired
+	private RubricaPensaoObsService rubricaPensaoObsService;
 	
 
 	
@@ -78,6 +81,7 @@ public class CalculosCalcularService {
 		//Limpando o banco
 		rubricaVencimentoService.excluirPorMes(anoMes);
 		rubricaVencimentoObsService.excluirPorMes(anoMes);
+		rubricaPensaoObsService.excluirPorMes(anoMes);
 		//Persistindo
 		rubricaVencimentoService.salvarLista(listaVencimentos);
 		rubricaVencimentoObsService.salvarLista(listaEscalas);

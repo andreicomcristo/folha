@@ -2,6 +2,8 @@ package com.folha.boot.domain;
 
 
 
+import java.util.List;
+
 import javax.persistence.*;
 
 import com.folha.boot.service.util.UtilidadesDeTexto;
@@ -40,6 +42,8 @@ public class RubricaPensao extends AbstractEntity<Long> {
     @JoinColumn(name = "id_pessoa_fk", referencedColumnName = "id")
     @ManyToOne
     private Pessoa idPessoaFk;
+    @OneToMany(mappedBy = "idRubricaPensaoFk")
+    private List<RubricaPensaoObs> rubricaPensaoObsList;
 
     public RubricaPensao() {
     }
@@ -147,6 +151,14 @@ public class RubricaPensao extends AbstractEntity<Long> {
 
 	public void setIdPessoaFk(Pessoa idPessoaFk) {
 		this.idPessoaFk = idPessoaFk;
+	}
+
+	public List<RubricaPensaoObs> getRubricaPensaoObsList() {
+		return rubricaPensaoObsList;
+	}
+
+	public void setRubricaPensaoObsList(List<RubricaPensaoObs> rubricaPensaoObsList) {
+		this.rubricaPensaoObsList = rubricaPensaoObsList;
 	}
 
     
