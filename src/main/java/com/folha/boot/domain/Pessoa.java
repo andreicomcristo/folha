@@ -138,6 +138,9 @@ public class Pessoa extends AbstractEntity<Long> {
     private List<PessoaChDif> pessoaChDifList;
     
     @OneToMany(mappedBy = "idPessoaFk")
+    private List<RubricaPensao> rubricaPensaoList;
+    
+    @OneToMany(mappedBy = "idPessoaFk")
     private List<PessoaLimiteHoras> pessoaLimiteHorasList;
 	
 	public String getCpf() {
@@ -454,6 +457,14 @@ public class Pessoa extends AbstractEntity<Long> {
 		this.pessoaLimiteHorasList = pessoaLimiteHorasList;
 	}
 
+	public List<RubricaPensao> getRubricaPensaoList() {
+		return rubricaPensaoList;
+	}
+
+	public void setRubricaPensaoList(List<RubricaPensao> rubricaPensaoList) {
+		this.rubricaPensaoList = rubricaPensaoList;
+	}
+	
 	
 	
 }

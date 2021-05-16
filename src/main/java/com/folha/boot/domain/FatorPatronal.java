@@ -7,19 +7,16 @@ import com.folha.boot.service.util.UtilidadesDeTexto;
 
 @SuppressWarnings("serial")
 @Entity
-@Table(name = "fator_ch_dif")
-public class FatorChDif extends AbstractEntity<Long> {
+@Table(name = "fator_patronal")
+public class FatorPatronal extends AbstractEntity<Long> {
 
 	@Column(name = "fator")
     private Double fator;
     @JoinColumn(name = "id_ano_mes_fk", referencedColumnName = "id")
     @ManyToOne
     private AnoMes idAnoMesFk;
-    @JoinColumn(name = "id_unidade_fk", referencedColumnName = "id")
-    @ManyToOne
-    private Unidades idUnidadeFk;
-
-    public FatorChDif() {
+    
+    public FatorPatronal() {
     }
 
 	public Double getFator() {
@@ -38,13 +35,6 @@ public class FatorChDif extends AbstractEntity<Long> {
 		this.idAnoMesFk = idAnoMesFk;
 	}
 
-	public Unidades getIdUnidadeFk() {
-		return idUnidadeFk;
-	}
-
-	public void setIdUnidadeFk(Unidades idUnidadeFk) {
-		this.idUnidadeFk = idUnidadeFk;
-	}
-    
+	    
     
 }

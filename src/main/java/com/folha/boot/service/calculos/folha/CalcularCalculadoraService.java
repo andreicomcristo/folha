@@ -8,10 +8,18 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import com.folha.boot.domain.AnoMes;
 import com.folha.boot.domain.PessoaFuncionarios;
+import com.folha.boot.domain.RubricaNatureza;
+import com.folha.boot.domain.RubricaPensao;
+import com.folha.boot.domain.RubricaPensaoObs;
 import com.folha.boot.domain.RubricaVencimento;
 import com.folha.boot.domain.models.calculos.RubricasVencimento;
+import com.folha.boot.service.FatorPatronalService;
 import com.folha.boot.service.NaoDescontaInssService;
+import com.folha.boot.service.RubricaNaturezaService;
+import com.folha.boot.service.RubricaPensaoObsService;
+import com.folha.boot.service.RubricaPensaoService;
 import com.folha.boot.service.RubricaVencimentoService;
+import com.folha.boot.service.TipoBrutoLiquidoService;
 import com.folha.boot.service.util.UtilidadesMatematicas;
 
 @Service
@@ -26,6 +34,15 @@ public class CalcularCalculadoraService {
 	private  CalcularIrService calcularIrService;
 	@Autowired
 	private  CalcularBrutoService calcularBrutoService;
+	@Autowired
+	private RubricaPensaoService rubricaPensaoService;
+	@Autowired
+	private RubricaPensaoObsService rubricaPensaoObsService;
+	@Autowired
+	private TipoBrutoLiquidoService tipoBrutoLiquidoService;
+	@Autowired
+	private FatorPatronalService fatorPatronalService;
+	
 	
 	
 	public void calcularTudo(AnoMes anoMes) {
@@ -33,6 +50,7 @@ public class CalcularCalculadoraService {
 		
 		for(int i=0;i<listaFuncionarios.size();i++) {
 			List<RubricaVencimento> listaVencimentos = buscarRubricasPorPessoa(anoMes, listaFuncionarios.get(i));
+			
 				boolean contemRemuneracaoLiquida = false;
 				for(int j=0;j<listaVencimentos.size();j++) {
 					if(listaVencimentos.get(j).getIdTipoBrutoLiquidoFk().getNome().equalsIgnoreCase("L")) {contemRemuneracaoLiquida = true;}
@@ -66,11 +84,34 @@ public class CalcularCalculadoraService {
 				
 					//Calculando Inss
 					inss = calcularInssService.calcularValorInss(vantagens-descontos, anoMes, listaFuncionarios.get(i));
-					//Faltando colocar a pensao alimenticia
+					
+					//Calculando pensao alimenticia
+					List<RubricaPensao> listaPensao = rubricaPensaoService.buscarPorMesEPEssoa(anoMes, listaFuncionarios.get(i).getIdPessoaFk());
+					for(int k=0;k<listaPensao.size();k++) {
+						RubricaPensaoObs r = new RubricaPensaoObs();
+						r.setId(null);
+						r.setIdAnoMesFk(anoMes);
+						r.setIdRubricaPensaoFk(listaPensao.get(k));
+						Double valorPensao = listaPensao.get(k).getValor();
+						if(valorPensao<=0) {valorPensao = (listaPensao.get(k).getPercentagem()/100)*(vantagens-(descontos+inss)); }
+						if( (vantagens-(descontos+inss+pensao))-valorPensao <0 ) { r.setObservacao("O VALOR DESCONTADO POR PENSAO EM FAVOR DE "+listaPensao.get(k).getNomeBeneficiario()+", CPF: "+listaPensao.get(k).getCpfBeneficiario()+ " DEVERIA SER "+valorPensao+" ENTRETANTO, O(A) COLABORADOR(A) NAO POSSUI VENCIMENTOS SUFICIENTES PARA TAL DESCONTO. O SISTEMA CALCULOU O VALOR MAXIMO PARA QUE O PAGAMENTO NAO TENHA VALOR NEGATIVO.");  valorPensao = (vantagens-(descontos+inss+pensao));  }
+						
+						valorPensao = UtilidadesMatematicas.ajustaValorDecimal(valorPensao, 2);
+						r.setValorDescontado(valorPensao);
+						pensao = pensao + valorPensao;
+						rubricaPensaoObsService.salvar(r);
+					}
+					
 					//Calculando Ir
 					ir = calcularIrService.valorIr(vantagens-descontos-pensao-inss, anoMes);
 					//Calculando patronal
-					if(!listaFuncionarios.get(i).getIdVinculoAtualFk().getNomeVinculo().equalsIgnoreCase("EFETIVO")) {patronal = (vantagens-descontos)*0.22; }
+					Double fatorPatronal = 0.0;
+					if(!fatorPatronalService.buscarPorMesExato(anoMes).isEmpty()) {
+						if(fatorPatronalService.buscarPorMesExato(anoMes).get(0).getFator()!=null) {
+							fatorPatronal = fatorPatronalService.buscarPorMesExato(anoMes).get(0).getFator()/100;
+						}
+					}
+					if(!listaFuncionarios.get(i).getIdVinculoAtualFk().getNomeVinculo().equalsIgnoreCase("EFETIVO")) {patronal = (vantagens-descontos)*fatorPatronal; }
 					if(inss==0) {patronal = 0.0;}
 					
 					//Calculando as proporções dos impostos
@@ -111,11 +152,34 @@ public class CalcularCalculadoraService {
 					
 					//Calculando Inss
 					inss = calcularInssService.calcularValorInss(vantagens-descontos, anoMes, listaFuncionarios.get(i));
-					//Faltando colocar a pensao alimenticia
+					
+					//Calculando pensao alimenticia
+					List<RubricaPensao> listaPensao = rubricaPensaoService.buscarPorMesEPEssoa(anoMes, listaFuncionarios.get(i).getIdPessoaFk());
+					for(int k=0;k<listaPensao.size();k++) {
+						RubricaPensaoObs r = new RubricaPensaoObs();
+						r.setId(null);
+						r.setIdAnoMesFk(anoMes);
+						r.setIdRubricaPensaoFk(listaPensao.get(k));
+						Double valorPensao = listaPensao.get(k).getValor();
+						if(valorPensao<=0) {valorPensao = (listaPensao.get(k).getPercentagem()/100)*(vantagens-(descontos+inss)); }
+						if( (vantagens-(descontos+inss+pensao))-valorPensao <0 ) { r.setObservacao("O VALOR DESCONTADO POR PENSAO EM FAVOR DE "+listaPensao.get(k).getNomeBeneficiario()+", CPF: "+listaPensao.get(k).getCpfBeneficiario()+ " DEVERIA SER "+valorPensao+" ENTRETANTO, O(A) COLABORADOR(A) NAO POSSUI VENCIMENTOS SUFICIENTES PARA TAL DESCONTO. O SISTEMA CALCULOU O VALOR MAXIMO PARA QUE O PAGAMENTO NAO TENHA VALOR NEGATIVO.");  valorPensao = (vantagens-(descontos+inss+pensao)); }
+						
+						valorPensao = UtilidadesMatematicas.ajustaValorDecimal(valorPensao, 2);
+						r.setValorDescontado(valorPensao);
+						pensao = pensao + valorPensao;
+						rubricaPensaoObsService.salvar(r);
+					}
+					
 					//Calculando Ir
 					ir = calcularIrService.valorIr(vantagens-descontos-pensao-inss, anoMes);
 					//Calculando patronal
-					if(!listaFuncionarios.get(i).getIdVinculoAtualFk().getNomeVinculo().equalsIgnoreCase("EFETIVO")) {patronal = (vantagens-descontos)*0.22; }
+					Double fatorPatronal = 0.0;
+					if(!fatorPatronalService.buscarPorMesExato(anoMes).isEmpty()) {
+						if(fatorPatronalService.buscarPorMesExato(anoMes).get(0).getFator()!=null) {
+							fatorPatronal = fatorPatronalService.buscarPorMesExato(anoMes).get(0).getFator()/100;
+						}
+					}
+					if(!listaFuncionarios.get(i).getIdVinculoAtualFk().getNomeVinculo().equalsIgnoreCase("EFETIVO")) {patronal = (vantagens-descontos)*fatorPatronal; }
 					if(inss==0) {patronal = 0.0;}
 					
 					//Calculando as proporções dos impostos
@@ -139,6 +203,8 @@ public class CalcularCalculadoraService {
 				
 		}
 	
+		
+		
 		arredondarValoresVencimentos(anoMes);
 	
 	}

@@ -126,8 +126,6 @@ public class Unidades extends AbstractEntity<Long> {
 	 @OneToMany(mappedBy = "idUnidadeFk")
 	 private List<HorasFaltasFolhasVariaveis> horasFaltasFolhasVariaveisList;
 	
-	@OneToMany(mappedBy = "idUnidadeFk")
-    private List<FatorChDif> fatorChDifList;
 	
 	@OneToMany(mappedBy = "idUnidadeFk")
     private List<LimiteHorasAcrescimoPorUnidadeEEspecialidade> limiteHorasAcrescimoPorUnidadeEEspecialidadeList;
@@ -434,14 +432,6 @@ public class Unidades extends AbstractEntity<Long> {
 	public void setUnidadeAdmiteIncrementoDeRiscoList(
 			List<UnidadeAdmiteIncrementoDeRisco> unidadeAdmiteIncrementoDeRiscoList) {
 		this.unidadeAdmiteIncrementoDeRiscoList = unidadeAdmiteIncrementoDeRiscoList;
-	}
-
-	public List<FatorChDif> getFatorChDifList() {
-		return fatorChDifList;
-	}
-
-	public void setFatorChDifList(List<FatorChDif> fatorChDifList) {
-		this.fatorChDifList = fatorChDifList;
 	}
 
 	public List<PessoaChDif> getPessoaChDifList() {

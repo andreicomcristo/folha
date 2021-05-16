@@ -21,6 +21,9 @@ public class Bancos extends AbstractEntity<Long> {
 
 	@OneToMany(cascade = CascadeType.ALL, mappedBy = "idBancoFk") 
 	private List<PessoaBancos> pessoaBancosList;
+	
+	@OneToMany(mappedBy = "idBancoFk")
+    private List<RubricaPensao> rubricaPensaoList;
 
 	public String getCodigoBanco() {
 		return codigoBanco;
@@ -53,5 +56,14 @@ public class Bancos extends AbstractEntity<Long> {
 	public void setPessoaBancosList(List<PessoaBancos> pessoaBancosList) {
 		this.pessoaBancosList = pessoaBancosList; 
 	}
+
+	public List<RubricaPensao> getRubricaPensaoList() {
+		return rubricaPensaoList;
+	}
+
+	public void setRubricaPensaoList(List<RubricaPensao> rubricaPensaoList) {
+		this.rubricaPensaoList = rubricaPensaoList;
+	}
       
+	
 }

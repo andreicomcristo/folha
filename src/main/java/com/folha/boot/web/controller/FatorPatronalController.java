@@ -29,7 +29,7 @@ import com.folha.boot.domain.Cidades;
 import com.folha.boot.domain.CodigoDiferenciado;
 import com.folha.boot.domain.FaixasPrevidencia;
 import com.folha.boot.domain.FaixasValoresParametrosCalculoFolhasExtras;
-import com.folha.boot.domain.FatorChDif;
+import com.folha.boot.domain.FatorPatronal;
 import com.folha.boot.domain.NiveisCargo;
 import com.folha.boot.domain.RegimesDeTrabalho;
 import com.folha.boot.domain.TiposDeFolha;
@@ -37,7 +37,7 @@ import com.folha.boot.domain.Unidades;
 import com.folha.boot.service.AnoMesService;
 import com.folha.boot.service.CodigoDiferenciadoService;
 import com.folha.boot.service.FaixasValoresParametrosCalculoFolhasExtrasService;
-import com.folha.boot.service.FatorChDifService;
+import com.folha.boot.service.FatorPatronalService;
 import com.folha.boot.service.NiveisCargoService;
 import com.folha.boot.service.RegimesDeTrabalhoService;
 import com.folha.boot.service.TiposDeFolhaService;
@@ -45,22 +45,21 @@ import com.folha.boot.service.UnidadesService;
 
 
 @Controller
-@RequestMapping("/fatorChDif")
-public class FatorChDifController {
+@RequestMapping("/fatorPatronal")
+public class FatorPatronalController {
 
 	String ultimoAnoMes = "";
 	
 	@Autowired
-	private FatorChDifService service;
-	@Autowired
-	private UnidadesService unidadesService;
+	private FatorPatronalService service;
+	
 	@Autowired
 	private AnoMesService anoMesService;
 	
 	@GetMapping("/cadastrar")
-	public String cadastrar(FatorChDif fatorChDif) {
+	public String cadastrar(FatorPatronal fatorPatronal) {
 		
-		return "/fatorChDif/cadastro";
+		return "/fatorPatronal/cadastro";
 	}
 	
 	@GetMapping("/listar")
@@ -73,30 +72,30 @@ public class FatorChDifController {
 	public String findPaginated(@PathVariable (value = "pageNo") int pageNo, ModelMap model) {
 		int pageSeze = 10;
 		if(pageNo<1) {pageNo=1;}
-		Page<FatorChDif> page = service.findPaginated(pageNo, pageSeze);
-		List<FatorChDif> lista = page.getContent();
+		Page<FatorPatronal> page = service.findPaginated(pageNo, pageSeze);
+		List<FatorPatronal> lista = page.getContent();
 		return paginar(pageNo, page, lista, model);
 	}
 	
 	public String findPaginated(@PathVariable (value = "pageNo") int pageNo, String cnes, ModelMap model) {
 		int pageSeze = 10;
-		Page<FatorChDif> page = service.findPaginatedAnoMes(pageNo, pageSeze, cnes);
-		List<FatorChDif> lista = page.getContent();
+		Page<FatorPatronal> page = service.findPaginatedAnoMes(pageNo, pageSeze, cnes);
+		List<FatorPatronal> lista = page.getContent();
 		return paginar(pageNo, page, lista, model);
 	}
 	
-	public String paginar(int pageNo, Page<FatorChDif> page, List<FatorChDif> lista, ModelMap model) {	
+	public String paginar(int pageNo, Page<FatorPatronal> page, List<FatorPatronal> lista, ModelMap model) {	
 		model.addAttribute("currentePage", pageNo);
 		model.addAttribute("totalPages", page.getTotalPages());
 		model.addAttribute("totalItems", page.getTotalElements()); 
-		model.addAttribute("fatorChDif", lista);
-		return "/fatorChDif/lista";	
+		model.addAttribute("fatorPatronal", lista);
+		return "/fatorPatronal/lista";	
 	}
 	
 	@GetMapping("/paginar/{pageNo}")
 	public String getPorCnesPaginado(@PathVariable (value = "pageNo") int pageNo, ModelMap model) {
 		if( (ultimoAnoMes.equals("")) ){
-			return "redirect:/fatorChDif/listar/{pageNo}" ;}
+			return "redirect:/fatorPatronal/listar/{pageNo}" ;}
 		else {return this.findPaginated(pageNo, ultimoAnoMes, model);}
 	}
 	
@@ -107,35 +106,35 @@ public class FatorChDifController {
 	}
 	
 	@PostMapping("/salvar")
-	public String salvar(FatorChDif fatorChDif, RedirectAttributes attr) {
+	public String salvar(FatorPatronal fatorPatronal, RedirectAttributes attr) {
 		
-		if(fatorChDif.getFator()==null) {
-			fatorChDif.setFator(0.0);
+		if(fatorPatronal.getFator()==null) {
+			fatorPatronal.setFator(0.0);
 		}
 		
 		
-		service.salvar(fatorChDif);
+		service.salvar(fatorPatronal);
 		attr.addFlashAttribute("success", "Inserido com sucesso.");
-		return "redirect:/fatorChDif/cadastrar";
+		return "redirect:/fatorPatronal/cadastrar";
 	}
 	
 	@GetMapping("/editar/{id}")
 	public String preEditar(@PathVariable("id") Long id, ModelMap model) {
-		model.addAttribute("fatorChDif", service.buscarPorId(id));
-		return "/fatorChDif/cadastro";
+		model.addAttribute("fatorPatronal", service.buscarPorId(id));
+		return "/fatorPatronal/cadastro";
 	}
 	
 	@PostMapping("/editar")
-	public String editar(FatorChDif fatorChDif, RedirectAttributes attr) {	
+	public String editar(FatorPatronal fatorPatronal, RedirectAttributes attr) {	
 		
-		if(fatorChDif.getFator()==null) {
-			fatorChDif.setFator(0.0);
+		if(fatorPatronal.getFator()==null) {
+			fatorPatronal.setFator(0.0);
 		}
 		
 		
-		service.editar(fatorChDif);
+		service.editar(fatorPatronal);
 		attr.addFlashAttribute("success", "Editado com sucesso.");
-		return "redirect:/fatorChDif/listar";
+		return "redirect:/fatorPatronal/listar";
 	}
 	
 	@GetMapping("/excluir/{id}")
@@ -149,15 +148,7 @@ public class FatorChDifController {
 	@GetMapping("/herdar/de/mes") 
 	public String herdarDeMes( Long anoMesInicial,  Long anoMesFinal,  ModelMap model) {		
 		service.herdarDeUmMesParaOOutro(anoMesInicial, anoMesFinal);
-		return "redirect:/fatorChDif/listar" ;
-	}
-	
-	
-	
-	@GetMapping("/buscar/nome")
-	public String getPorNome(@RequestParam("nome") String nome, ModelMap model) {		
-		model.addAttribute("fatorChDif", service.buscarPorNome(nome.toUpperCase().trim()));
-		return "/fatorChDif/lista";
+		return "redirect:/fatorPatronal/listar" ;
 	}
 	
 	
@@ -166,11 +157,7 @@ public class FatorChDifController {
 	
 	
 	
-	@ModelAttribute("idUnidadeFk")
-	public List<Unidades> getIdUnidadeFk() {
-		
-		return unidadesService.buscarTodos();	
-	}
+	
 	
 	@ModelAttribute("idAnoMesFk")
 	public List<AnoMes> getIdAnoMesFk() {

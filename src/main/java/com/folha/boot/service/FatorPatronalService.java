@@ -21,11 +21,11 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import com.folha.boot.Reposytory.FaixasValoresParametrosCalculoFolhasExtrasReposytory;
-import com.folha.boot.Reposytory.FatorChDifReposytory;
+import com.folha.boot.Reposytory.FatorPatronalReposytory;
 import com.folha.boot.domain.AnoMes;
 import com.folha.boot.domain.Cidades;
 import com.folha.boot.domain.FaixasValoresParametrosCalculoFolhasExtras;
-import com.folha.boot.domain.FatorChDif;
+import com.folha.boot.domain.FatorPatronal;
 import com.folha.boot.domain.Unidades;
 import com.itextpdf.text.Document;
 import com.itextpdf.text.DocumentException;
@@ -39,23 +39,23 @@ import com.itextpdf.text.pdf.PdfWriter;
 
 @Service
 @Transactional(readOnly = false)
-public class FatorChDifService {
+public class FatorPatronalService {
 
 	@Autowired
-	private FatorChDifReposytory reposytory;
+	private FatorPatronalReposytory reposytory;
 	
 	@Autowired
 	private AnoMesService anoMesService;
 	
 
-	public void salvar(FatorChDif fatorChDif) {
+	public void salvar(FatorPatronal fatorPatronal) {
 		// TODO Auto-generated method stub
-		reposytory.save(fatorChDif);
+		reposytory.save(fatorPatronal);
 	}
 
-	public void editar(FatorChDif fatorChDif) {
+	public void editar(FatorPatronal fatorPatronal) {
 		// TODO Auto-generated method stub
-		reposytory.save(fatorChDif);
+		reposytory.save(fatorPatronal);
 	}
 
 	public void excluir(Long id) {
@@ -64,51 +64,46 @@ public class FatorChDifService {
 	}
 
 	@Transactional(readOnly = true)
-	public FatorChDif buscarPorId(Long id) {
+	public FatorPatronal buscarPorId(Long id) {
 		// TODO Auto-generated method stub
 		return reposytory.findById(id).get();
 	}
 
 	@Transactional(readOnly = true)
-	public List<FatorChDif> buscarTodos() {
+	public List<FatorPatronal> buscarTodos() {
 		// TODO Auto-generated method stub
-		return reposytory.findAllByOrderByIdAnoMesFkNomeAnoMesDescIdUnidadeFkNomeFantasiaAsc();
-	}
-	@Transactional(readOnly = true)
-	public List<FatorChDif> buscarPorNome(String nome) {
-		return reposytory.findByIdUnidadeFkNomeFantasiaContainingOrderByIdAnoMesFkNomeAnoMesDescIdUnidadeFkNomeFantasiaAsc(nome);
+		return reposytory.findAllByOrderByIdAnoMesFkNomeAnoMesDesc();
 	}
 	
 	
 	@Transactional(readOnly = true)
-	public List<FatorChDif> buscarPorMesExato(AnoMes anoMes) {
-		return reposytory.findByIdAnoMesFkOrderByIdAnoMesFkNomeAnoMesDescIdUnidadeFkNomeFantasiaAsc(anoMes);
+	public List<FatorPatronal> buscarPorMesExato(AnoMes anoMes) {
+		return reposytory.findByIdAnoMesFkOrderByIdAnoMesFkNomeAnoMesDesc(anoMes);
 	}
 	
 	
-	public Page<FatorChDif> findPaginated(int pageNo, int pageSize) {
+	public Page<FatorPatronal> findPaginated(int pageNo, int pageSize) {
 		Pageable pageable = PageRequest.of(pageNo -1, pageSize);
-		return this.reposytory.findAllByOrderByIdAnoMesFkNomeAnoMesDescIdUnidadeFkNomeFantasiaAsc(pageable);
+		return this.reposytory.findAllByOrderByIdAnoMesFkNomeAnoMesDesc(pageable);
 	}
 
-	public Page<FatorChDif> findPaginatedAnoMes(int pageNo, int pageSize, String nome) {
+	public Page<FatorPatronal> findPaginatedAnoMes(int pageNo, int pageSize, String nome) {
 		Pageable pageable = PageRequest.of(pageNo -1, pageSize);
-		return this.reposytory.findByIdAnoMesFkNomeAnoMesContainingOrderByIdAnoMesFkNomeAnoMesDescIdUnidadeFkNomeFantasiaAsc(nome.toUpperCase().trim(), pageable);
+		return this.reposytory.findByIdAnoMesFkNomeAnoMesContainingOrderByIdAnoMesFkNomeAnoMesDesc(nome.toUpperCase().trim(), pageable);
 	}
 	
 	//Herdar de um mes para o outro
 	public void herdarDeUmMesParaOOutro(Long anoMesInicial, Long anoMesFinal) {
 		
-		List<FatorChDif> listaInicial = buscarPorMesExato(anoMesService.buscarPorId(anoMesInicial)); 
-		List<FatorChDif> listaFinal = buscarPorMesExato(anoMesService.buscarPorId(anoMesFinal));
+		List<FatorPatronal> listaInicial = buscarPorMesExato(anoMesService.buscarPorId(anoMesInicial)); 
+		List<FatorPatronal> listaFinal = buscarPorMesExato(anoMesService.buscarPorId(anoMesFinal));
 		
 		if( (!listaInicial.isEmpty())  &&  (listaFinal.isEmpty()) ) {
 			for(int i=0;i<listaInicial.size();i++) {
-				FatorChDif f = new FatorChDif();
+				FatorPatronal f = new FatorPatronal();
 				f.setId(null);
 				f.setFator(listaInicial.get(i).getFator());
 				f.setIdAnoMesFk(anoMesService.buscarPorId(anoMesFinal));
-				f.setIdUnidadeFk(listaInicial.get(i).getIdUnidadeFk());
 				
 				salvar(f);
 			}
