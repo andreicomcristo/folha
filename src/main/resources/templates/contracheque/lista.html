@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html layout:decorate = "~{layout}">
+<head><meta charset="UTF-8"/></head>
+<body>	
+	<section class="layout-content" layout:fragment="corpo">		
+		<nav class="navbar navbar-expand-md bg-light">    
+	    	<a class="btn btn-outline-light oi oi-action-undo" type="button" href="javascript:history.back()"></a>
+			<a class="btn btn-outline-light oi oi-action-redo" type="button" href="javascript:history.forward()"></a>    
+	    	
+	    	
+	        <a class="btn btn-outline-dark btn-md" th:href="@{/contracheque/listar}" role="button">
+	        	<span class="oi oi-loop-square" title="Atualizar" aria-hidden="true"></span>
+	            <span>Atualizar</span>
+	        </a>
+	            <label for="nome" class= "fonte-tutulos-tamanho">Lista de Pessoas para Gerar Demonstrativo</label>
+	    </nav>
+	  	
+	  	<div class="container">
+	    	<p>                
+	        	<button class=" oi oi-magnifying-glass btn btn-outline-success my-2 my-sm-0" type="button" data-toggle="collapse" data-target="#collapseCidade"
+	            		aria-controls="collapseCidade">Filtrar Nome
+	            </button> 
+	            
+	            <button class=" oi oi-magnifying-glass btn btn-outline-success my-2 my-sm-0" type="button" data-toggle="collapse" data-target="#collapseCpf"
+	            		aria-controls="collapseCpf">Filtrar Cpf
+	            </button> 
+	            
+	                        
+	            <p></p>
+	      
+	      <div class="row">
+	      	<div class="col">
+	        	<div class="collapse" id="collapseCidade">
+		            <nav class="navbar navbar-light bg-light">
+	    	           <form class="form-inline" method="GET" th:action="@{/contracheque/buscar/nome/paginado}">	        	           
+	        	           <input class="form-control mr-sm-2" type="search" placeholder="Nome" aria-label="Search"
+	                              th:name="nome"/> 
+	                       <button class="btn btn-outline-success my-2 my-sm-0">Buscar</button> 
+	                   </form>  
+	                </nav>
+	            </div>
+	        </div>
+	    </div>
+	        
+	    
+	      <div class="row">
+	      	<div class="col">
+	        	<div class="collapse" id="collapseCpf">
+		            <nav class="navbar navbar-light bg-light">
+	    	           <form class="form-inline" method="GET" th:action="@{/contracheque/buscar/cpf/paginado}">	        	           
+	        	           <input class="form-control mr-sm-2" type="search" placeholder="Cpf" aria-label="Search"
+	                              th:name="cpf"/> 
+	                       <button class="btn btn-outline-success my-2 my-sm-0">Buscar</button> 
+	                   </form>  
+	                </nav>
+	            </div>
+	        </div>
+	    </div>    
+	    
+	    
+	    
+		    <div class="container" id="listagem">	        
+		    	<div th:replace="fragments/alert"></div>
+		        <div class="table-responsive">
+		        	<table class="table table-striped table-hover table-sm">
+		            	<thead>
+		          			<tr>
+			                	<th>#</th>
+			                    <th>Cpf</th>
+			                    <th>Nome</th>
+			                    
+		                    </tr>
+		                </thead>                  
+		                <tbody>
+			            	<tr th:each="d : ${pessoa}">
+			                	<td th:text="${d.id}"></td>
+			                	<td style="font-size:10px;"  th:text="${d.cpf != null} ? ${d.cpf} : ''  "></td>
+			                	<td style="font-size:11px;"> <a th:href="@{/contracheque/escolherMesFolha/{id} (id=${d.id}) }" title="Contracheque" ><span th:text= "${d.nome != null} ? ${d.nome} : '' "  ></span></a></td>
+			                    <td th:text="${d.cpf}"></td>
+			                       
+							</tr>
+						</tbody>                    
+		            </table>
+		         </div>
+			</div>	        
+			 
+		 <nav aria-label="Page navigation example">
+		 <div> Quantidade de registros: [[${totalItems}]]<br>  Página: [[${currentePage}]] de [[${totalPages}]] </div> 
+		 <div>
+		 	<span >
+		 		<a></a>
+		 		<samp >[[${i}]]</samp> &nbsp; &nbsp;
+		 	</span>
+		 </div>
+		 	<ul class="pagination justify-content-center" >
+		 		<li class="page-item disabled" ></li>		 		
+	
+			 	<li ><a class="btn btn-light btn-paginacao oi oi-media-step-backward" th:if="${currentePage != i}"  th:href="@{'/contracheque/paginar/'+ 1 }" ></a></li>
+			 	
+			 	<li ><a class="btn btn-light    btn-paginacao    oi oi-media-skip-backward" th:if="${currentePage > 1}"  th:href="@{'/contracheque/paginar/'+ ${currentePage -1}}" ></a></li> 
+			 	
+			 	<li ><a class="btn btn-light    btn-paginacao oi" th:if="${currentePage > 1000}"  th:href="@{'/contracheque/paginar/'+ ${currentePage-1000} }" >-1000</a></li>
+			 	
+			 	<li ><a class="btn btn-light    btn-paginacao" th:if="${currentePage > 100}"  th:href="@{'/contracheque/paginar/'+ ${currentePage-100} }" >-100</a></li>
+			 	
+			 	<li ><a class="btn btn-light    btn-paginacao" th:if="${currentePage > 10}"  th:href="@{'/contracheque/paginar/'+ ${currentePage-10} }" >-10</a></li>
+
+			 	<li ><a class="btn btn-light    btn-paginacao"  th:if="${currentePage < totalPages - 10}"  th:href="@{'/contracheque/paginar/'+ ${currentePage+10} }" >+10</a></li>
+			 	
+			 	<li ><a class="btn btn-light    btn-paginacao"  th:if="${currentePage < totalPages - 100}"  th:href="@{'/contracheque/paginar/'+ ${currentePage+100} }" >+100</a></li>
+			 	
+			 	<li ><a class="btn btn-light    btn-paginacao"  th:if="${currentePage < totalPages - 1000}"  th:href="@{'/contracheque/paginar/'+ ${currentePage+1000} }" >+1000</a></li>
+			 	
+			 	<li ><a class="btn btn-light    btn-paginacao    oi oi-media-skip-forward" th:if="${currentePage < totalPages}"  th:href="@{'/contracheque/paginar/' + ${currentePage +1}}"></a> </li>
+		 		
+		 		<li ><a class="btn btn-light    btn-paginacao    oi oi-media-step-forward"  th:if="${currentePage != i}"  th:href="@{'/contracheque/paginar/'+ ${totalPages} }" ></a></li> 
+		 	</ul>
+		</nav>     	        
+	    <div th:replace="fragments/modal :: modal"></div>   
+	</section>	
+</body>
+</html>		

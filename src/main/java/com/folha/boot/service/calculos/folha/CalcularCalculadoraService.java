@@ -71,7 +71,8 @@ public class CalcularCalculadoraService {
 					ir = calcularIrService.valorIr(vantagens-descontos-pensao-inss, anoMes);
 					//Calculando patronal
 					if(!listaFuncionarios.get(i).getIdVinculoAtualFk().getNomeVinculo().equalsIgnoreCase("EFETIVO")) {patronal = (vantagens-descontos)*0.22; }
-				
+					if(inss==0) {patronal = 0.0;}
+					
 					//Calculando as proporções dos impostos
 					for(int j=0;j<listaVencimentos.size();j++) {
 						if(listaVencimentos.get(j).getIdNaturezaFk().getSigla().equalsIgnoreCase("V")) {
@@ -115,7 +116,8 @@ public class CalcularCalculadoraService {
 					ir = calcularIrService.valorIr(vantagens-descontos-pensao-inss, anoMes);
 					//Calculando patronal
 					if(!listaFuncionarios.get(i).getIdVinculoAtualFk().getNomeVinculo().equalsIgnoreCase("EFETIVO")) {patronal = (vantagens-descontos)*0.22; }
-				
+					if(inss==0) {patronal = 0.0;}
+					
 					//Calculando as proporções dos impostos
 					for(int j=0;j<listaVencimentos.size();j++) {
 						if(listaVencimentos.get(j).getIdNaturezaFk().getSigla().equalsIgnoreCase("V")) {

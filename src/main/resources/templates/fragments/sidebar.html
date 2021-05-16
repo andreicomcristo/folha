@@ -373,7 +373,6 @@
 						</ul>
 					</li>
 					
-					
 					<li><a href="#" class="bh-btn"><span class=" oi oi-chevron-bottom z59 icones-sidebar-tamanho align-middle"></span>Configurações </a>
 						<ul class="bh-show">
 							
@@ -568,7 +567,14 @@
 							</li>
 															
 						</ul>
-					</li>				
+					</li>	
+					
+					<li><a href="#" class="ff-btn"><span class=" oi oi-chevron-bottom z161 icones-sidebar-tamanho align-middle"></span>Demonstrativo </a>
+						<ul class="ff-show">
+							<li><a sec:authorize-url="/contracheque/listar" th:href="@{/contracheque/listar}"><span class=" oi oi-chevron-right icones-sidebar-tamanho align-middle"></span>Listar</a></li>
+						</ul>
+					</li>	
+								
 				</ul>
 			</li>
 
@@ -836,6 +842,12 @@
 						</ul>
 					</li>
 					
+					<li><a href="#" class="fe-btn"><span class=" oi oi-chevron-bottom z160 icones-sidebar-tamanho align-middle"></span>Demonstrativo </a>
+						<ul class="fe-show">
+							<li><a sec:authorize-url="/contracheque/escolher/mes" th:href="@{/contracheque/escolher/mes}"><span class=" oi oi-chevron-right icones-sidebar-tamanho align-middle"></span>Listar</a></li>
+						</ul>
+					</li>
+					
 				</ul>
 			</li>	
 		
@@ -878,19 +890,9 @@
 			
 		
 			
-			<li><a href="#" class="fe-btn"><span class=" oi oi-chevron-bottom z160 icones-sidebar-tamanho align-middle"></span>Menu 1 </a>
-				<ul class="fe-show">
-					<li><a href="#"><span class=" oi oi-chevron-right icones-sidebar-tamanho align-middle"></span>Cadastrar</a></li>
-					<li><a href="#"><span class=" oi oi-chevron-right icones-sidebar-tamanho align-middle"></span>Listar</a></li>
-				</ul>
-			</li>
 			
-			<li><a href="#" class="ff-btn"><span class=" oi oi-chevron-bottom z161 icones-sidebar-tamanho align-middle"></span>Menu 1 </a>
-				<ul class="ff-show">
-					<li><a href="#"><span class=" oi oi-chevron-right icones-sidebar-tamanho align-middle"></span>Cadastrar</a></li>
-					<li><a href="#"><span class=" oi oi-chevron-right icones-sidebar-tamanho align-middle"></span>Listar</a></li>
-				</ul>
-			</li>
+			
+			
 			
 			<li><a href="#" class="fg-btn"><span class=" oi oi-chevron-bottom z162 icones-sidebar-tamanho align-middle"></span>Menu 1 </a>
 				<ul class="fg-show">

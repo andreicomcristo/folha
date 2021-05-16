@@ -61,6 +61,7 @@ public class PessoaFuncionarios extends AbstractEntity<Long> {
     @ManyToOne
     private Carreiras idCarreiraAtualFk;
     
+    
     @JoinColumn(name = "id_classe_carreira_atual_fk", referencedColumnName = "id")
     @ManyToOne
     private ClassesCarreira idClasseCarreiraAtualFk;
@@ -122,6 +123,9 @@ public class PessoaFuncionarios extends AbstractEntity<Long> {
     
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "idFuncionarioFk")
     private List<HistFuncionariosClasse> histFuncionariosClasseList;
+    
+    @OneToMany(mappedBy = "idFuncionarioFk")
+    private List<RubricaVencimentoObs> rubricaVencimentoObsList;
     
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "idFuncionarioFk")
     private List<HistFuncionariosCargaHoraria> histFuncionariosCargaHorariaList;
@@ -527,6 +531,14 @@ public class PessoaFuncionarios extends AbstractEntity<Long> {
 
 	public void setHorasFaltasFolhasVariaveisList(List<HorasFaltasFolhasVariaveis> horasFaltasFolhasVariaveisList) {
 		this.horasFaltasFolhasVariaveisList = horasFaltasFolhasVariaveisList;
+	}
+
+	public List<RubricaVencimentoObs> getRubricaVencimentoObsList() {
+		return rubricaVencimentoObsList;
+	}
+
+	public void setRubricaVencimentoObsList(List<RubricaVencimentoObs> rubricaVencimentoObsList) {
+		this.rubricaVencimentoObsList = rubricaVencimentoObsList;
 	}
 	
 	
