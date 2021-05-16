@@ -252,7 +252,7 @@ public class ContrachequeService {
 			tableTitulo3.addCell(cellTitulo3);
 			
 			
-			
+			int linha = 0;
 			
 			// Titulo 4
 			PdfPTable tableTitulo4 = new PdfPTable(1);
@@ -315,8 +315,9 @@ public class ContrachequeService {
 			for (int i=0; i<listaVencimentos.size();i++) {
 
 				PdfPCell cell;
-
-				cell = new PdfPCell(new Phrase( String.valueOf(i+1) ,corpoFont2));
+				
+				linha = linha+1;
+				cell = new PdfPCell(new Phrase( String.valueOf(linha) ,corpoFont2));
 				cell.setVerticalAlignment(Element.ALIGN_MIDDLE);
 				cell.setHorizontalAlignment(Element.ALIGN_CENTER);
 				table.addCell(cell);
@@ -373,7 +374,9 @@ public class ContrachequeService {
 			PdfPCell cell;
 			//Colocando inss
 			if(previdencia>0) {
-			cell = new PdfPCell(new Phrase( String.valueOf(listaVencimentos.size()+1) ,corpoFont2));
+			linha = linha+1;
+			
+			cell = new PdfPCell(new Phrase( String.valueOf(linha) ,corpoFont2));
 			cell.setVerticalAlignment(Element.ALIGN_MIDDLE);
 			cell.setHorizontalAlignment(Element.ALIGN_CENTER);
 			table.addCell(cell);
@@ -414,7 +417,9 @@ public class ContrachequeService {
 			
 		//Colocando IR
 		if(ir>0) {
-			cell = new PdfPCell(new Phrase( String.valueOf(listaVencimentos.size()+2) ,corpoFont2));
+			linha = linha+1;
+			
+			cell = new PdfPCell(new Phrase( String.valueOf(linha) ,corpoFont2));
 			cell.setVerticalAlignment(Element.ALIGN_MIDDLE);
 			cell.setHorizontalAlignment(Element.ALIGN_CENTER);
 			table.addCell(cell);
@@ -454,7 +459,9 @@ public class ContrachequeService {
 			
 			//Colocando Pensao
 			if(pensao>0) {
-				cell = new PdfPCell(new Phrase( String.valueOf(listaVencimentos.size()+2) ,corpoFont2));
+				linha = linha+1;
+				
+				cell = new PdfPCell(new Phrase( String.valueOf(linha) ,corpoFont2));
 				cell.setVerticalAlignment(Element.ALIGN_MIDDLE);
 				cell.setHorizontalAlignment(Element.ALIGN_CENTER);
 				table.addCell(cell);
