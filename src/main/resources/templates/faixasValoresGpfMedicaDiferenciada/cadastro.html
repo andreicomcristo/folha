@@ -5,12 +5,12 @@
 	<section class="layout-content" layout:fragment="corpo">
 
 		<nav class="navbar navbar-expand-md bg-light">
-			<form th:action="@{/faixasValoresGpf/listar}">
+			<form th:action="@{/faixasValoresGpfMedicaDiferenciada/listar}">
 				<div class=" layout-content">
 					<a class="btn btn-outline-light oi oi-action-undo" type="button" href="javascript:history.back()"></a>
 					<a class="btn btn-outline-light oi oi-action-redo" type="button" href="javascript:history.forward()"></a>
 					<button class="btn btn-outline-dark" >Listar</button>
-					<a class="btn btn-outline-dark btn-md" th:href="@{/faixasValoresGpf/cadastrar}"
+					<a class="btn btn-outline-dark btn-md" th:href="@{/faixasValoresGpfMedicaDiferenciada/cadastrar}"
 						role="button"> <span class="oi oi-plus" title="Cadastro"
 						aria-hidden="true"></span> <span>Novo</span>
 					</a>
@@ -22,12 +22,12 @@
 
 			<div th:replace="fragments/alert"></div>
 			<form
-				th:action="${faixasValoresGpf.id == null} ? @{/faixasValoresGpf/salvar} : @{/faixasValoresGpf/salvar}"
-				th:object="${faixasValoresGpf}" method="POST">
+				th:action="${faixasValoresGpfMedicaDiferenciada.id == null} ? @{/faixasValoresGpfMedicaDiferenciada/salvar} : @{/faixasValoresGpfMedicaDiferenciada/salvar}"
+				th:object="${faixasValoresGpfMedicaDiferenciada}" method="POST">
 				<div class="form-row">
 
 					<div class="form-group col-md-6">
-						<label for="nome" class="fonte-tutulos-tamanho">Faixas Valores Complemento de Plantao Comum</label>
+						<label for="nome" class="fonte-tutulos-tamanho">Faixas Valores Complemento de Plantao Medica Diferenciada</label>
 							<p></p>	
 							
 							<label for="nome" class="">Mês </label>
@@ -79,7 +79,7 @@
 							</select>
 							<p></p>
 							
-							<label for="nome" class="">Valor </label>							
+							<label for="nome" class="">Valor Total </label>							
 							<input type="text"
 								class="dinheiro form-control form-control-md"  
 								id="valorHoraDia" placeholder="Valor " th:field="*{valor}" /> 

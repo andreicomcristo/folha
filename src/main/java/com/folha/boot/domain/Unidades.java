@@ -75,8 +75,12 @@ public class Unidades extends AbstractEntity<Long> {
     private List<AcessoOperadoresUnidades> acessoOperadoresUnidadesList;
     @OneToMany(mappedBy = "idUnidadeLancamentoFk")
     private List<FuncionariosFerias> funcionariosFeriasList;
+    @OneToMany(mappedBy = "idUnidadeFk")
+    private List<FaixasValoresGpfDiferenciada> faixasValoresGpfDiferenciadaList;
     @OneToMany(mappedBy = "idUnidadeDeSaudeFk")
     private List<Autorizacoes> autorizacoesList;
+    @OneToMany(mappedBy = "idUnidadeFk")
+    private List<FaixasValoresGpfMedicaDiferenciada> faixasValoresGpfMedicaDiferenciadaList;
     @OneToMany(mappedBy = "idUnidadeDeSaudeFk")
     private List<HistUnidadesDiretor> histUnidadesDiretorList;
     @OneToMany(mappedBy = "idUnidadeAtuacaoAtualFk")
@@ -91,7 +95,8 @@ public class Unidades extends AbstractEntity<Long> {
     private List<CodigoDiferenciado> codigoDiferenciadoList;
     @OneToMany(mappedBy = "idUnidadeFk")
     private List<RubricaVencimento> rubricaVencimentoList;
-
+    @OneToMany(mappedBy = "idUnidadeFk")
+    private List<FaixasValoresGpfMedica> faixasValoresGpfMedicaList;
     @OneToMany(mappedBy = "idUnidadeFk")
     private List<Perfil> perfilList;
     
@@ -498,6 +503,31 @@ public class Unidades extends AbstractEntity<Long> {
 
 	public void setHorasFaltasFolhasVariaveisList(List<HorasFaltasFolhasVariaveis> horasFaltasFolhasVariaveisList) {
 		this.horasFaltasFolhasVariaveisList = horasFaltasFolhasVariaveisList;
+	}
+
+	public List<FaixasValoresGpfMedica> getFaixasValoresGpfMedicaList() {
+		return faixasValoresGpfMedicaList;
+	}
+
+	public void setFaixasValoresGpfMedicaList(List<FaixasValoresGpfMedica> faixasValoresGpfMedicaList) {
+		this.faixasValoresGpfMedicaList = faixasValoresGpfMedicaList;
+	}
+
+	public List<FaixasValoresGpfMedicaDiferenciada> getFaixasValoresGpfMedicaDiferenciadaList() {
+		return faixasValoresGpfMedicaDiferenciadaList;
+	}
+
+	public void setFaixasValoresGpfMedicaDiferenciadaList(
+			List<FaixasValoresGpfMedicaDiferenciada> faixasValoresGpfMedicaDiferenciadaList) {
+		this.faixasValoresGpfMedicaDiferenciadaList = faixasValoresGpfMedicaDiferenciadaList;
+	}
+
+	public List<FaixasValoresGpfDiferenciada> getFaixasValoresGpfDiferenciadaList() {
+		return faixasValoresGpfDiferenciadaList;
+	}
+
+	public void setFaixasValoresGpfDiferenciadaList(List<FaixasValoresGpfDiferenciada> faixasValoresGpfDiferenciadaList) {
+		this.faixasValoresGpfDiferenciadaList = faixasValoresGpfDiferenciadaList;
 	}
 	
 	

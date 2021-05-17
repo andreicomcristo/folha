@@ -16,6 +16,9 @@ import com.folha.boot.domain.AnoMes;
 import com.folha.boot.domain.Escala;
 import com.folha.boot.domain.EscalaCodDiferenciado;
 import com.folha.boot.domain.FaixasValoresGpf;
+import com.folha.boot.domain.FaixasValoresGpfDiferenciada;
+import com.folha.boot.domain.FaixasValoresGpfMedica;
+import com.folha.boot.domain.FaixasValoresGpfMedicaDiferenciada;
 import com.folha.boot.domain.FaixasValoresIncentivoDeRisco;
 import com.folha.boot.domain.FaixasValoresParametrosCalculoFolhasExtras;
 import com.folha.boot.domain.FuncionariosFerias;
@@ -31,6 +34,9 @@ import com.folha.boot.domain.models.calculos.ReferenciasDeEscala;
 import com.folha.boot.domain.models.calculos.RubricasVencimento;
 import com.folha.boot.service.EscalaCalculosService;
 import com.folha.boot.service.EscalaCodDiferenciadoService;
+import com.folha.boot.service.FaixasValoresGpfDiferenciadaService;
+import com.folha.boot.service.FaixasValoresGpfMedicaDiferenciadaService;
+import com.folha.boot.service.FaixasValoresGpfMedicaService;
 import com.folha.boot.service.FaixasValoresGpfService;
 import com.folha.boot.service.FaixasValoresIncentivoDeRiscoService;
 import com.folha.boot.service.FaixasValoresParametrosCalculoFolhasExtrasService;
@@ -67,6 +73,12 @@ public class CalculosAlternativosService {
 	private FaixasValoresIncentivoDeRiscoService faixasValoresIncentivoDeRiscoService;
 	@Autowired
 	private FaixasValoresGpfService faixasValoresGpfService;
+	@Autowired
+	private FaixasValoresGpfMedicaService faixasValoresGpfMedicaService;
+	@Autowired
+	private FaixasValoresGpfMedicaDiferenciadaService faixasValoresGpfMedicaDiferenciadaService;
+	@Autowired
+	private FaixasValoresGpfDiferenciadaService faixasValoresGpfDiferenciadaService;
 	@Autowired
 	private VencimentosFuncionarioService vencimentosFuncionarioService;
 	@Autowired
@@ -2200,74 +2212,75 @@ public class CalculosAlternativosService {
 				
 				
 				
-				//Para Gpf Normal
+				//Para Gpf Comum Técnica
 				List<FaixasValoresGpf> listaGpf = faixasValoresGpfService.buscarPorMesExato(anoMes);
 				for(int i=0;i<listaEscalas.size();i++) {
-					if(escalaCodDiferenciadoService.buscarPorEscala(listaEscalas.get(i).getEscala()).isEmpty()) {
-						boolean temIrf = false;
-						if(!vencimentosFuncionarioService.buscarPorMesExatoEFuncionarioETipo(anoMes, listaEscalas.get(i).getEscala().getIdFuncionarioFk(), "IRF"  ).isEmpty()) {temIrf = true;}
-						
-						
-						
-						for(int j=0;j<listaGpf.size();j++) {
-							RubricasVencimento r = new RubricasVencimento();
-							if(
-								listaEscalas.get(i).getEscala().getIdAnoMesFk() == listaGpf.get(j).getIdAnoMesFk() &&  	
-								listaEscalas.get(i).getEscala().getIdCoordenacaoFk().getIdLocalidadeFk().getIdUnidadeFk() == listaGpf.get(j).getIdUnidadeFk() && 
-								listaEscalas.get(i).getEscala().getIdFuncionarioFk().getIdCargaHorariaAtualFk() == listaGpf.get(j).getIdCargaHorariaSemanalFk() &&
-								listaEscalas.get(i).getEscala().getIdFuncionarioFk().getIdEspecialidadeAtualFk().getIdCargoFk().getIdNivelCargoFk() == listaGpf.get(j).getIdNivelCargoFk() &&
-								listaEscalas.get(i).getEscala().getIdFuncionarioFk().getIdClasseCarreiraAtualFk() == listaGpf.get(j).getIdClasseCarreiraFk() &&
-								listaEscalas.get(i).getEscala().getIdTipoFolhaFk().getIdFolhaEfetivaSimNaoFk().getSigla().equalsIgnoreCase("S") &&
-								listaEscalas.get(i).getEscala().getIdComplementoPlantaoSimNaoFk().getSigla().equalsIgnoreCase("N") &&
-								temIrf==false
-								 
-							) {
-								
-								//Calculando Valores
-								Double valorBruto = 0.0;
-								Double valorLiquido = 0.0;
-								int horasTotais = listaEscalas.get(i).getEscala().getHorasTotais();
-								Double valorBrutoFixoTotal = listaGpf.get(j).getValor();
-								Double valorPorHora = (valorBrutoFixoTotal/(listaEscalas.get(i).getEscala().getIdFuncionarioFk().getIdCargaHorariaAtualFk().getCargaHoraria()*4) );
-								
-								Double valorDaLinha = (valorPorHora*horasTotais) ;
-								
-								//Avaliando se já tem alguma linha já cadastrada
-								Double valorCadastrado = 0.0;
-								for(int k=0;k<lista.size();k++) {
-									if(lista.get(k).getAnoMes()==anoMes &&
-										lista.get(k).getCodigo().equalsIgnoreCase("COMPL PLANT COMUM") &&
-										lista.get(k).getPessoaFuncionarios()==listaEscalas.get(i).getEscala().getIdFuncionarioFk()
-									) {
-										valorCadastrado = valorCadastrado+lista.get(k).getValorBruto();
+					if(!listaEscalas.get(i).getEscala().getIdFuncionarioFk().getIdEspecialidadeAtualFk().getIdCargoFk().getIdNivelCargoFk().getSiglaNivelCargo().equalsIgnoreCase("T")) {
+						if(escalaCodDiferenciadoService.buscarPorEscala(listaEscalas.get(i).getEscala()).isEmpty()) {
+							boolean temIrf = false;
+							if(!vencimentosFuncionarioService.buscarPorMesExatoEFuncionarioETipo(anoMes, listaEscalas.get(i).getEscala().getIdFuncionarioFk(), "IRF"  ).isEmpty()) {temIrf = true;}
+							
+							for(int j=0;j<listaGpf.size();j++) {
+								RubricasVencimento r = new RubricasVencimento();
+								if(
+									listaEscalas.get(i).getEscala().getIdAnoMesFk() == listaGpf.get(j).getIdAnoMesFk() &&  	
+									listaEscalas.get(i).getEscala().getIdCoordenacaoFk().getIdLocalidadeFk().getIdUnidadeFk() == listaGpf.get(j).getIdUnidadeFk() && 
+									listaEscalas.get(i).getEscala().getIdFuncionarioFk().getIdCargaHorariaAtualFk() == listaGpf.get(j).getIdCargaHorariaSemanalFk() &&
+									listaEscalas.get(i).getEscala().getIdFuncionarioFk().getIdEspecialidadeAtualFk().getIdCargoFk().getIdNivelCargoFk() == listaGpf.get(j).getIdNivelCargoFk() &&
+									listaEscalas.get(i).getEscala().getIdFuncionarioFk().getIdClasseCarreiraAtualFk() == listaGpf.get(j).getIdClasseCarreiraFk() &&
+									listaEscalas.get(i).getEscala().getIdTipoFolhaFk().getIdFolhaEfetivaSimNaoFk().getSigla().equalsIgnoreCase("S") &&
+									listaEscalas.get(i).getEscala().getIdComplementoPlantaoSimNaoFk().getSigla().equalsIgnoreCase("N") &&
+									listaEscalas.get(i).getEscala().getIdTipoFolhaFk().getIdFolhaEfetivaSimNaoFk().getSigla().equalsIgnoreCase("S") &&
+									temIrf==false
+									 
+								) {
+									
+									//Calculando Valores
+									Double valorBruto = 0.0;
+									Double valorLiquido = 0.0;
+									int horasTotais = listaEscalas.get(i).getEscala().getHorasTotais();
+									Double valorBrutoFixoTotal = listaGpf.get(j).getValor();
+									Double valorPorHora = (valorBrutoFixoTotal/(listaEscalas.get(i).getEscala().getIdFuncionarioFk().getIdCargaHorariaAtualFk().getCargaHoraria()*4) );
+									
+									Double valorDaLinha = (valorPorHora*horasTotais) ;
+									
+									//Avaliando se já tem alguma linha já cadastrada
+									Double valorCadastrado = 0.0;
+									for(int k=0;k<lista.size();k++) {
+										if(lista.get(k).getAnoMes()==anoMes &&
+											lista.get(k).getCodigo().equalsIgnoreCase("COMPL PLANT COMUM") &&
+											lista.get(k).getPessoaFuncionarios()==listaEscalas.get(i).getEscala().getIdFuncionarioFk()
+										) {
+											valorCadastrado = valorCadastrado+lista.get(k).getValorBruto();
+										}
 									}
-								}
-								
-								// Ajustando casas decimais
-								if(valorCadastrado+valorDaLinha>valorBrutoFixoTotal) {valorDaLinha=valorBrutoFixoTotal-valorCadastrado;}
-								if(valorDaLinha<0) {valorDaLinha=0.0;}
-								valorDaLinha = UtilidadesMatematicas.ajustaValorDecimal(valorDaLinha, 2);
-								valorBruto=valorDaLinha;
-								
-								r.setAnoMes(anoMes);
-								r.setSequencia(1);
-								r.setCodigo("COMPL PLANT COMUM");
-								r.setDescricao("COMPLEMENTO DE PLANTAO COMUM");
-								r.setFonte(listaGpf.get(j).getIdFonteFk());
-								r.setNatureza(rubricaNaturezaService.buscarPorSigla("V").get(0));
-								r.setPercentagem(0.0);
-								r.setPessoaFuncionarios(listaEscalas.get(i).getEscala().getIdFuncionarioFk());
-								r.setTipoBrutoLiquido(listaGpf.get(j).getIdTipoBrutoLiquidoFk());
-								r.setUnidade(listaEscalas.get(i).getEscala().getIdCoordenacaoFk().getIdLocalidadeFk().getIdUnidadeFk());
-								r.setVariacao("00");
-								r.setValorBruto(valorBruto);
-								r.setValorLiquido(valorLiquido);
-								r.setValorIr(0.0);
-								r.setValorPatronal(0.0);
-								r.setValorPrevidencia(0.0);
-								
-								if(valorBruto+valorLiquido>0) {
-									if(!lista.contains(r)) {lista.add(r);
+									
+									// Ajustando casas decimais
+									if(valorCadastrado+valorDaLinha>valorBrutoFixoTotal) {valorDaLinha=valorBrutoFixoTotal-valorCadastrado;}
+									if(valorDaLinha<0) {valorDaLinha=0.0;}
+									valorDaLinha = UtilidadesMatematicas.ajustaValorDecimal(valorDaLinha, 2);
+									valorBruto=valorDaLinha;
+									
+									r.setAnoMes(anoMes);
+									r.setSequencia(1);
+									r.setCodigo("COMPL PLANT COMUM");
+									r.setDescricao("COMPLEMENTO DE PLANTAO COMUM TECNICA");
+									r.setFonte(listaGpf.get(j).getIdFonteFk());
+									r.setNatureza(rubricaNaturezaService.buscarPorSigla("V").get(0));
+									r.setPercentagem(0.0);
+									r.setPessoaFuncionarios(listaEscalas.get(i).getEscala().getIdFuncionarioFk());
+									r.setTipoBrutoLiquido(listaGpf.get(j).getIdTipoBrutoLiquidoFk());
+									r.setUnidade(listaEscalas.get(i).getEscala().getIdCoordenacaoFk().getIdLocalidadeFk().getIdUnidadeFk());
+									r.setVariacao("00");
+									r.setValorBruto(valorBruto);
+									r.setValorLiquido(valorLiquido);
+									r.setValorIr(0.0);
+									r.setValorPatronal(0.0);
+									r.setValorPrevidencia(0.0);
+									
+									if(valorBruto+valorLiquido>0) {
+										if(!lista.contains(r)) {lista.add(r);
+										}
 									}
 								}
 							}
@@ -2275,6 +2288,263 @@ public class CalculosAlternativosService {
 					}
 				}
 			
+
+				
+				
+				//Para Gpf Tecnica Diferenciada
+				List<FaixasValoresGpfDiferenciada> listaGpfTecnicaDiferenciada = faixasValoresGpfDiferenciadaService.buscarPorMesExato(anoMes);
+				for(int i=0;i<listaEscalas.size();i++) {
+					if(!listaEscalas.get(i).getEscala().getIdFuncionarioFk().getIdEspecialidadeAtualFk().getIdCargoFk().getIdNivelCargoFk().getSiglaNivelCargo().equalsIgnoreCase("T")) {
+						if(escalaCodDiferenciadoService.buscarPorEscala(listaEscalas.get(i).getEscala()).isEmpty()) {
+							boolean temIrf = false;
+							if(!vencimentosFuncionarioService.buscarPorMesExatoEFuncionarioETipo(anoMes, listaEscalas.get(i).getEscala().getIdFuncionarioFk(), "IRF"  ).isEmpty()) {temIrf = true;}
+							
+							for(int j=0;j<listaGpfTecnicaDiferenciada.size();j++) {
+								RubricasVencimento r = new RubricasVencimento();
+								if(
+									listaEscalas.get(i).getEscala().getIdAnoMesFk() == listaGpfTecnicaDiferenciada.get(j).getIdAnoMesFk() &&  	
+									listaEscalas.get(i).getEscala().getIdCoordenacaoFk().getIdLocalidadeFk().getIdUnidadeFk() == listaGpfTecnicaDiferenciada.get(j).getIdUnidadeFk() &&
+									listaEscalas.get(i).getEscala().getIdFuncionarioFk().getIdEspecialidadeAtualFk() == listaGpfTecnicaDiferenciada.get(j).getIdEspecialidadeFk() &&
+									listaEscalas.get(i).getEscala().getIdFuncionarioFk().getIdCargaHorariaAtualFk() == listaGpfTecnicaDiferenciada.get(j).getIdCargaHorariaSemanalFk() &&
+									listaEscalas.get(i).getEscala().getIdFuncionarioFk().getIdEspecialidadeAtualFk().getIdCargoFk().getIdNivelCargoFk() == listaGpfTecnicaDiferenciada.get(j).getIdNivelCargoFk() &&
+									listaEscalas.get(i).getEscala().getIdFuncionarioFk().getIdClasseCarreiraAtualFk() == listaGpfTecnicaDiferenciada.get(j).getIdClasseCarreiraFk() &&
+									listaEscalas.get(i).getEscala().getIdTipoFolhaFk().getIdFolhaEfetivaSimNaoFk().getSigla().equalsIgnoreCase("S") &&
+									listaEscalas.get(i).getEscala().getIdComplementoPlantaoSimNaoFk().getSigla().equalsIgnoreCase("S") &&
+									listaEscalas.get(i).getEscala().getIdTipoFolhaFk().getIdFolhaEfetivaSimNaoFk().getSigla().equalsIgnoreCase("S") &&
+									temIrf==false
+									 
+								) {
+									
+									//Calculando Valores
+									Double valorBruto = 0.0;
+									Double valorLiquido = 0.0;
+									int horasTotais = listaEscalas.get(i).getEscala().getHorasTotais();
+									Double valorGlobal = listaGpfTecnicaDiferenciada.get(j).getValor();
+									Double valorPorHora = (listaGpfTecnicaDiferenciada.get(j).getValor() / listaGpfTecnicaDiferenciada.get(j).getIdCargaHorariaSemanalFk().getCargaHoraria()) ;
+									
+									Double valorDaLinha = (horasTotais*valorPorHora) ;
+									
+									//Avaliando se já tem alguma linha já cadastrada
+									Double valorCadastrado = 0.0;
+									for(int k=0;k<lista.size();k++) {
+										if(lista.get(k).getAnoMes()==anoMes &&
+											lista.get(k).getCodigo().equalsIgnoreCase("COMPL PLANT DIFERENCIADO") &&
+											lista.get(k).getPessoaFuncionarios()==listaEscalas.get(i).getEscala().getIdFuncionarioFk()
+										) {
+											valorCadastrado = valorCadastrado+lista.get(k).getValorBruto();
+										}
+									}
+									
+									// Ajustando casas decimais
+									if(valorDaLinha<0) {valorDaLinha=0.0;}
+									if(valorCadastrado+valorDaLinha>valorGlobal) {valorDaLinha=valorGlobal-valorCadastrado;}
+									valorDaLinha = UtilidadesMatematicas.ajustaValorDecimal(valorDaLinha, 2);
+									if(listaGpfTecnicaDiferenciada.get(j).getIdTipoBrutoLiquidoFk().getNome().equalsIgnoreCase("B")) {valorBruto=valorDaLinha;}
+									if(listaGpfTecnicaDiferenciada.get(j).getIdTipoBrutoLiquidoFk().getNome().equalsIgnoreCase("L")) {valorLiquido=valorDaLinha;}
+									
+									
+									r.setAnoMes(anoMes);
+									r.setSequencia(1);
+									r.setCodigo("COMPL PLANT DIFERENCIADO");
+									r.setDescricao("COMPLEMENTO DE PLANTAO DIFERENCIADO TECNICA");
+									r.setFonte(listaGpfTecnicaDiferenciada.get(j).getIdFonteFk());
+									r.setNatureza(rubricaNaturezaService.buscarPorSigla("V").get(0));
+									r.setPercentagem(0.0);
+									r.setPessoaFuncionarios(listaEscalas.get(i).getEscala().getIdFuncionarioFk());
+									r.setTipoBrutoLiquido(listaGpfTecnicaDiferenciada.get(j).getIdTipoBrutoLiquidoFk());
+									r.setUnidade(listaEscalas.get(i).getEscala().getIdCoordenacaoFk().getIdLocalidadeFk().getIdUnidadeFk());
+									r.setVariacao("00");
+									r.setValorBruto(valorBruto);
+									r.setValorLiquido(valorLiquido);
+									r.setValorIr(0.0);
+									r.setValorPatronal(0.0);
+									r.setValorPrevidencia(0.0);
+									
+									if(valorBruto+valorLiquido>0) {
+										if(!lista.contains(r)) {lista.add(r);
+										}
+									}
+								}
+							}
+						}
+					}
+				}
+				
+	
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				//Para Gpf Comum Medica
+				List<FaixasValoresGpfMedica> listaGpfMedica = faixasValoresGpfMedicaService.buscarPorMesExato(anoMes);
+				for(int i=0;i<listaEscalas.size();i++) {
+					if(listaEscalas.get(i).getEscala().getIdFuncionarioFk().getIdEspecialidadeAtualFk().getIdCargoFk().getIdNivelCargoFk().getSiglaNivelCargo().equalsIgnoreCase("T")) {
+						if(escalaCodDiferenciadoService.buscarPorEscala(listaEscalas.get(i).getEscala()).isEmpty()) {
+							boolean temIrf = false;
+							if(!vencimentosFuncionarioService.buscarPorMesExatoEFuncionarioETipo(anoMes, listaEscalas.get(i).getEscala().getIdFuncionarioFk(), "IRF"  ).isEmpty()) {temIrf = true;}
+							
+							for(int j=0;j<listaGpfMedica.size();j++) {
+								RubricasVencimento r = new RubricasVencimento();
+								if(
+									listaEscalas.get(i).getEscala().getIdAnoMesFk() == listaGpfMedica.get(j).getIdAnoMesFk() &&  	
+									listaEscalas.get(i).getEscala().getIdCoordenacaoFk().getIdLocalidadeFk().getIdUnidadeFk() == listaGpfMedica.get(j).getIdUnidadeFk() && 
+									listaEscalas.get(i).getEscala().getIdFuncionarioFk().getIdCargaHorariaAtualFk() == listaGpfMedica.get(j).getIdCargaHorariaSemanalFk() &&
+									listaEscalas.get(i).getEscala().getIdFuncionarioFk().getIdEspecialidadeAtualFk().getIdCargoFk().getIdNivelCargoFk() == listaGpfMedica.get(j).getIdNivelCargoFk() &&
+									listaEscalas.get(i).getEscala().getIdFuncionarioFk().getIdClasseCarreiraAtualFk() == listaGpfMedica.get(j).getIdClasseCarreiraFk() &&
+									listaEscalas.get(i).getEscala().getIdTipoFolhaFk().getIdFolhaEfetivaSimNaoFk().getSigla().equalsIgnoreCase("S") &&
+									listaEscalas.get(i).getEscala().getIdComplementoPlantaoSimNaoFk().getSigla().equalsIgnoreCase("N") &&
+									listaEscalas.get(i).getEscala().getIdTipoFolhaFk().getIdFolhaEfetivaSimNaoFk().getSigla().equalsIgnoreCase("S") &&
+									temIrf==false
+									 
+								) {
+									
+									//Calculando Valores
+									Double valorBruto = 0.0;
+									Double valorLiquido = 0.0;
+									int horasSemana = listaEscalas.get(i).getEscala().getHorasSemana();
+									int horasFimSemana = listaEscalas.get(i).getEscala().getHorasFimSemana();
+									Double valorPorHoraSemana = listaGpfMedica.get(j).getValorSemana();
+									Double valorPorHoraFimSemana = listaGpfMedica.get(j).getValorFimSemana();
+									
+									Double valorDaLinha = ((horasSemana*valorPorHoraSemana)+horasFimSemana*(valorPorHoraFimSemana)) ;
+									
+									//Avaliando se já tem alguma linha já cadastrada
+									Double valorCadastrado = 0.0;
+									for(int k=0;k<lista.size();k++) {
+										if(lista.get(k).getAnoMes()==anoMes &&
+											lista.get(k).getCodigo().equalsIgnoreCase("COMPL PLANT COMUM") &&
+											lista.get(k).getPessoaFuncionarios()==listaEscalas.get(i).getEscala().getIdFuncionarioFk()
+										) {
+											valorCadastrado = valorCadastrado+lista.get(k).getValorBruto();
+										}
+									}
+									
+									// Ajustando casas decimais
+									if(valorDaLinha<0) {valorDaLinha=0.0;}
+									valorDaLinha = UtilidadesMatematicas.ajustaValorDecimal(valorDaLinha, 2);
+									valorBruto=valorDaLinha;
+									
+									r.setAnoMes(anoMes);
+									r.setSequencia(1);
+									r.setCodigo("COMPL PLANT COMUM");
+									r.setDescricao("COMPLEMENTO DE PLANTAO COMUM MEDICA");
+									r.setFonte(listaGpfMedica.get(j).getIdFonteFk());
+									r.setNatureza(rubricaNaturezaService.buscarPorSigla("V").get(0));
+									r.setPercentagem(0.0);
+									r.setPessoaFuncionarios(listaEscalas.get(i).getEscala().getIdFuncionarioFk());
+									r.setTipoBrutoLiquido(listaGpfMedica.get(j).getIdTipoBrutoLiquidoFk());
+									r.setUnidade(listaEscalas.get(i).getEscala().getIdCoordenacaoFk().getIdLocalidadeFk().getIdUnidadeFk());
+									r.setVariacao("01");
+									r.setValorBruto(valorBruto);
+									r.setValorLiquido(valorLiquido);
+									r.setValorIr(0.0);
+									r.setValorPatronal(0.0);
+									r.setValorPrevidencia(0.0);
+									
+									if(valorBruto+valorLiquido>0) {
+										if(!lista.contains(r)) {lista.add(r);
+										}
+									}
+								}
+							}
+						}
+					}
+				}
+				
+				
+				
+				
+				
+				
+				
+				//Para Gpf Medica Diferenciada
+				List<FaixasValoresGpfMedicaDiferenciada> listaGpfMedicaDiferenciada = faixasValoresGpfMedicaDiferenciadaService.buscarPorMesExato(anoMes);
+				for(int i=0;i<listaEscalas.size();i++) {
+					if(listaEscalas.get(i).getEscala().getIdFuncionarioFk().getIdEspecialidadeAtualFk().getIdCargoFk().getIdNivelCargoFk().getSiglaNivelCargo().equalsIgnoreCase("T")) {
+						if(escalaCodDiferenciadoService.buscarPorEscala(listaEscalas.get(i).getEscala()).isEmpty()) {
+							boolean temIrf = false;
+							if(!vencimentosFuncionarioService.buscarPorMesExatoEFuncionarioETipo(anoMes, listaEscalas.get(i).getEscala().getIdFuncionarioFk(), "IRF"  ).isEmpty()) {temIrf = true;}
+							
+							for(int j=0;j<listaGpfMedicaDiferenciada.size();j++) {
+								RubricasVencimento r = new RubricasVencimento();
+								if(
+									listaEscalas.get(i).getEscala().getIdAnoMesFk() == listaGpfMedicaDiferenciada.get(j).getIdAnoMesFk() &&  	
+									listaEscalas.get(i).getEscala().getIdCoordenacaoFk().getIdLocalidadeFk().getIdUnidadeFk() == listaGpfMedicaDiferenciada.get(j).getIdUnidadeFk() && 
+									listaEscalas.get(i).getEscala().getIdFuncionarioFk().getIdCargaHorariaAtualFk() == listaGpfMedicaDiferenciada.get(j).getIdCargaHorariaSemanalFk() &&
+									listaEscalas.get(i).getEscala().getIdFuncionarioFk().getIdEspecialidadeAtualFk().getIdCargoFk().getIdNivelCargoFk() == listaGpfMedicaDiferenciada.get(j).getIdNivelCargoFk() &&
+									listaEscalas.get(i).getEscala().getIdFuncionarioFk().getIdClasseCarreiraAtualFk() == listaGpfMedicaDiferenciada.get(j).getIdClasseCarreiraFk() &&
+									listaEscalas.get(i).getEscala().getIdTipoFolhaFk().getIdFolhaEfetivaSimNaoFk().getSigla().equalsIgnoreCase("S") &&
+									listaEscalas.get(i).getEscala().getIdComplementoPlantaoSimNaoFk().getSigla().equalsIgnoreCase("S") &&
+									listaEscalas.get(i).getEscala().getIdTipoFolhaFk().getIdFolhaEfetivaSimNaoFk().getSigla().equalsIgnoreCase("S") &&
+									temIrf==false
+									 
+								) {
+									
+									//Calculando Valores
+									Double valorBruto = 0.0;
+									Double valorLiquido = 0.0;
+									int horasTotais = listaEscalas.get(i).getEscala().getHorasTotais();
+									Double valorGlobal = listaGpfMedicaDiferenciada.get(j).getValor();
+									Double valorPorHora = (listaGpfMedicaDiferenciada.get(j).getValor() / listaGpfMedicaDiferenciada.get(j).getIdCargaHorariaSemanalFk().getCargaHoraria()) ;
+									
+									Double valorDaLinha = (horasTotais*valorPorHora) ;
+									
+									//Avaliando se já tem alguma linha já cadastrada
+									Double valorCadastrado = 0.0;
+									for(int k=0;k<lista.size();k++) {
+										if(lista.get(k).getAnoMes()==anoMes &&
+											lista.get(k).getCodigo().equalsIgnoreCase("COMPL PLANT DIFERENCIADO") &&
+											lista.get(k).getPessoaFuncionarios()==listaEscalas.get(i).getEscala().getIdFuncionarioFk()
+										) {
+											valorCadastrado = valorCadastrado+lista.get(k).getValorBruto();
+										}
+									}
+									
+									// Ajustando casas decimais
+									if(valorDaLinha<0) {valorDaLinha=0.0;}
+									if(valorCadastrado+valorDaLinha>valorGlobal) {valorDaLinha=valorGlobal-valorCadastrado;}
+									valorDaLinha = UtilidadesMatematicas.ajustaValorDecimal(valorDaLinha, 2);
+									if(listaGpfMedicaDiferenciada.get(j).getIdTipoBrutoLiquidoFk().getNome().equalsIgnoreCase("B")) {valorBruto=valorDaLinha;}
+									if(listaGpfMedicaDiferenciada.get(j).getIdTipoBrutoLiquidoFk().getNome().equalsIgnoreCase("L")) {valorLiquido=valorDaLinha;}
+									
+									
+									
+									r.setAnoMes(anoMes);
+									r.setSequencia(1);
+									r.setCodigo("COMPL PLANT DIFERENCIADO");
+									r.setDescricao("COMPLEMENTO DE PLANTAO DIFERENCIADO MEDICA");
+									r.setFonte(listaGpfMedicaDiferenciada.get(j).getIdFonteFk());
+									r.setNatureza(rubricaNaturezaService.buscarPorSigla("V").get(0));
+									r.setPercentagem(0.0);
+									r.setPessoaFuncionarios(listaEscalas.get(i).getEscala().getIdFuncionarioFk());
+									r.setTipoBrutoLiquido(listaGpfMedicaDiferenciada.get(j).getIdTipoBrutoLiquidoFk());
+									r.setUnidade(listaEscalas.get(i).getEscala().getIdCoordenacaoFk().getIdLocalidadeFk().getIdUnidadeFk());
+									r.setVariacao("01");
+									r.setValorBruto(valorBruto);
+									r.setValorLiquido(valorLiquido);
+									r.setValorIr(0.0);
+									r.setValorPatronal(0.0);
+									r.setValorPrevidencia(0.0);
+									
+									if(valorBruto+valorLiquido>0) {
+										if(!lista.contains(r)) {lista.add(r);
+										}
+									}
+								}
+							}
+						}
+					}
+				}
+				
+			
+				
 				
 				
 				

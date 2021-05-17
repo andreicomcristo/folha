@@ -26,6 +26,12 @@ public class Fonte extends AbstractEntity<Long> {
     private List<RubricaVencimento> rubricaVencimentoList;
     @OneToMany(mappedBy = "idFonteFk")
     private List<FaixasValoresGpf> faixasValoresGpfList;
+    @OneToMany(mappedBy = "idFonteFk")
+    private List<FaixasValoresGpfMedica> faixasValoresGpfMedicaList;
+    @OneToMany(mappedBy = "idFonteFk")
+    private List<FaixasValoresGpfMedicaDiferenciada> faixasValoresGpfMedicaDiferenciadaList;
+    @OneToMany(mappedBy = "idFonteFk")
+    private List<FaixasValoresGpfDiferenciada> faixasValoresGpfDiferenciadaList;
 
 
     public Fonte() {
@@ -94,6 +100,31 @@ public class Fonte extends AbstractEntity<Long> {
 
 	public void setFaixasValoresGpfList(List<FaixasValoresGpf> faixasValoresGpfList) {
 		this.faixasValoresGpfList = faixasValoresGpfList;
+	}
+
+	public List<FaixasValoresGpfMedica> getFaixasValoresGpfMedicaList() {
+		return faixasValoresGpfMedicaList;
+	}
+
+	public void setFaixasValoresGpfMedicaList(List<FaixasValoresGpfMedica> faixasValoresGpfMedicaList) {
+		this.faixasValoresGpfMedicaList = faixasValoresGpfMedicaList;
+	}
+
+	public List<FaixasValoresGpfMedicaDiferenciada> getFaixasValoresGpfMedicaDiferenciadaList() {
+		return faixasValoresGpfMedicaDiferenciadaList;
+	}
+
+	public void setFaixasValoresGpfMedicaDiferenciadaList(
+			List<FaixasValoresGpfMedicaDiferenciada> faixasValoresGpfMedicaDiferenciadaList) {
+		this.faixasValoresGpfMedicaDiferenciadaList = faixasValoresGpfMedicaDiferenciadaList;
+	}
+
+	public List<FaixasValoresGpfDiferenciada> getFaixasValoresGpfDiferenciadaList() {
+		return faixasValoresGpfDiferenciadaList;
+	}
+
+	public void setFaixasValoresGpfDiferenciadaList(List<FaixasValoresGpfDiferenciada> faixasValoresGpfDiferenciadaList) {
+		this.faixasValoresGpfDiferenciadaList = faixasValoresGpfDiferenciadaList;
 	}
     
     

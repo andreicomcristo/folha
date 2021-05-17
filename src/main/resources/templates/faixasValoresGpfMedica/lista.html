@@ -7,15 +7,15 @@
 	    	<a class="btn btn-outline-light oi oi-action-undo" type="button" href="javascript:history.back()"></a>
 			<a class="btn btn-outline-light oi oi-action-redo" type="button" href="javascript:history.forward()"></a>
 	    	
-	    	<a class="btn btn-outline-dark btn-md" th:href="@{/faixasValoresGpf/cadastrar}" role="button">
+	    	<a class="btn btn-outline-dark btn-md" th:href="@{/faixasValoresGpfMedica/cadastrar}" role="button">
 	        	<span class="oi oi-plus" title="Cadastro" aria-hidden="true"></span>
 	            <span>Novo</span>
 	        </a>
-	        <a class="btn btn-outline-dark btn-md" th:href="@{/faixasValoresGpf/listar}" role="button">
+	        <a class="btn btn-outline-dark btn-md" th:href="@{/faixasValoresGpfMedica/listar}" role="button">
 	        	<span class="oi oi-loop-square" title="Atualizar" aria-hidden="true"></span>
 	            <span>Atualizar</span>
 	        </a>
-	            <label for="nome" class= "fonte-tutulos-tamanho">Lista de Faixas Valores Complemento de Plantão Comum</label>
+	            <label for="nome" class= "fonte-tutulos-tamanho">Lista de Faixas Valores GpfMedica</label>
 	    </nav>
 	  	
 	  	<div class="container">
@@ -35,7 +35,7 @@
 	      	<div class="col">
 	        	<div class="collapse" id="collapseAnoMes">
 		            <nav class="navbar navbar-light bg-light">
-	    	           <form class="form-inline" method="GET" th:action="@{/faixasValoresGpf/buscar/nome/anomes}">	        	           
+	    	           <form class="form-inline" method="GET" th:action="@{/faixasValoresGpfMedica/buscar/nome/anomes}">	        	           
 	        	           
 	        	           <input class="form-control mr-sm-2" type="search" placeholder="Ano mes" aria-label="Search"
 	                              th:name="anoMes"/> 
@@ -54,7 +54,7 @@
 	      	<div class="col">
 	        	<div class="collapse" id="collapseHerdar">
 		            <nav class="navbar navbar-light bg-light">
-	    	           <form class="form-inline" method="GET" th:action="@{/faixasValoresGpf/herdar/de/mes}">	        	           
+	    	           <form class="form-inline" method="GET" th:action="@{/faixasValoresGpfMedica/herdar/de/mes}">	        	           
 	        	           
 	        	           <select class=" form-select form-control mr-sm-2" 
 	                   				th:name="anoMesInicial" aria-label="Search">
@@ -82,14 +82,14 @@
 	      	<div class="col">
 	        	<div class="collapse" id="collapseDownload">
 		            <nav class="navbar navbar-light bg-light">
-	                	<form class="form-inline" method="GET" th:action="@{/faixasValoresGpf/buscar/id/uf}">
+	                	<form class="form-inline" method="GET" th:action="@{/faixasValoresGpfMedica/buscar/id/uf}">
 	                   		
-	                        <a class="btn btn-outline-success btn-md" th:href="@{/faixasValoresGpf/exporta/excel}" role="button">
+	                        <a class="btn btn-outline-success btn-md" th:href="@{/faixasValoresGpfMedica/exporta/excel}" role="button">
 				        		<span class="oi oi-cloud-download" title="exportaExcel" aria-hidden="true"></span>
 				            	<span>Exporta Excel</span>
 				       	    </a>
 				       	    
-				       	    <a class="btn btn-outline-danger btn-md" th:href="@{/faixasValoresGpf/exporta/pdf}" role="button">
+				       	    <a class="btn btn-outline-danger btn-md" th:href="@{/faixasValoresGpfMedica/exporta/pdf}" role="button">
 				        		<span class="oi oi-cloud-download" title="exportaPdf" aria-hidden="true"></span>
 				            	<span>Exporta Pdf</span>
 				       	    </a>
@@ -115,12 +115,13 @@
 		                    <th style="font-size:10px;" >Nivel</th>
 		                    <th style="font-size:10px;" >Fonte</th>
 		                    <th style="font-size:10px;" >Característica</th>
-		                    <th style="font-size:10px;" >Valor</th>
+		                    <th style="font-size:10px;" >Valor Semana</th>
+		                    <th style="font-size:10px;" >Valor Fim Semana</th>
 		                    <th style="font-size:10px;" >Ações</th>
 	                    </tr>
 	                </thead>                  
 	                <tbody>
-		            	<tr th:each="d : ${faixasValoresGpf}">
+		            	<tr th:each="d : ${faixasValoresGpfMedica}">
 		                	<td style="font-size:10px;"  th:text="${d.id}"></td>
 		                    <td style="font-size:10px;"  th:text="${d.idAnoMesFk != null} ? ${d.idAnoMesFk.nomeAnoMes} : ''  "></td>
 		                    <td style="font-size:10px;"  th:text="${d.idUnidadeFk != null} ? ${d.idUnidadeFk.nomeFantasia} : ''  "></td>
@@ -129,14 +130,15 @@
 		                    <td style="font-size:10px;"  th:text="${d.idNivelCargoFk != null} ? ${d.idNivelCargoFk.nomeNivelCargo} : ''  "></td>
 		                    <td style="font-size:10px;"  th:text="${d.idFonteFk != null} ? ${d.idFonteFk.nome +'-'+ d.idFonteFk.descricao} : ''  "></td>
 		                    <td style="font-size:10px;"  th:text="${d.idTipoBrutoLiquidoFk != null} ? ${d.idTipoBrutoLiquidoFk.nome +'-'+ d.idTipoBrutoLiquidoFk.descricao} : ''  "></td>
-		                    <td style="font-size:10px;"  th:text="${d.valor != null} ? ${d.valor} : ''  "></td>
+		                    <td style="font-size:10px;"  th:text="${d.valorSemana != null} ? ${d.valorSemana} : ''  "></td>
+		                    <td style="font-size:10px;"  th:text="${d.valorFimSemana != null} ? ${d.valorFimSemana} : ''  "></td>
 		                    
 		                    
 		                    <td colspan="2">
-		                    	<a class="btn btn-outline-info btn-sm" th:href="@{/faixasValoresGpf/editar/{id} (id=${d.id}) }" role="button">
+		                    	<a class="btn btn-outline-info btn-sm" th:href="@{/faixasValoresGpfMedica/editar/{id} (id=${d.id}) }" role="button">
 		                        	<span class="oi oi-brush" title="Editar" aria-hidden="true"></span>
 		                        </a>
-		                        <button th:id="${ 'btn_faixasValoresGpf/excluir/' + d.id}" type="button" class="btn btn btn-outline-danger btn-sm" 
+		                        <button th:id="${ 'btn_faixasValoresGpfMedica/excluir/' + d.id}" type="button" class="btn btn btn-outline-danger btn-sm" 
 		                            		data-toggle="modal" data-target="#myModal">
 		                                <span class="oi oi-circle-x" title="Exclusão habilitada" aria-hidden="true"></span>
 		                        </button>
@@ -157,25 +159,25 @@
 		 	<ul class="pagination justify-content-center" >
 		 		<li class="page-item disabled" ></li>		 		
 	
-			 	<li ><a class="btn btn-light btn-paginacao oi oi-media-step-backward" th:if="${currentePage != i}"  th:href="@{'/faixasValoresGpf/paginar/'+ 1 }" ></a></li>
+			 	<li ><a class="btn btn-light btn-paginacao oi oi-media-step-backward" th:if="${currentePage != i}"  th:href="@{'/faixasValoresGpfMedica/paginar/'+ 1 }" ></a></li>
 			 	
-			 	<li ><a class="btn btn-light    btn-paginacao    oi oi-media-skip-backward" th:if="${currentePage > 1}"  th:href="@{'/faixasValoresGpf/paginar/'+ ${currentePage -1}}" ></a></li> 
+			 	<li ><a class="btn btn-light    btn-paginacao    oi oi-media-skip-backward" th:if="${currentePage > 1}"  th:href="@{'/faixasValoresGpfMedica/paginar/'+ ${currentePage -1}}" ></a></li> 
 			 	
-			 	<li ><a class="btn btn-light    btn-paginacao oi" th:if="${currentePage > 1000}"  th:href="@{'/faixasValoresGpf/paginar/'+ ${currentePage-1000} }" >-1000</a></li>
+			 	<li ><a class="btn btn-light    btn-paginacao oi" th:if="${currentePage > 1000}"  th:href="@{'/faixasValoresGpfMedica/paginar/'+ ${currentePage-1000} }" >-1000</a></li>
 			 	
-			 	<li ><a class="btn btn-light    btn-paginacao" th:if="${currentePage > 100}"  th:href="@{'/faixasValoresGpf/paginar/'+ ${currentePage-100} }" >-100</a></li>
+			 	<li ><a class="btn btn-light    btn-paginacao" th:if="${currentePage > 100}"  th:href="@{'/faixasValoresGpfMedica/paginar/'+ ${currentePage-100} }" >-100</a></li>
 			 	
-			 	<li ><a class="btn btn-light    btn-paginacao" th:if="${currentePage > 10}"  th:href="@{'/faixasValoresGpf/paginar/'+ ${currentePage-10} }" >-10</a></li>
+			 	<li ><a class="btn btn-light    btn-paginacao" th:if="${currentePage > 10}"  th:href="@{'/faixasValoresGpfMedica/paginar/'+ ${currentePage-10} }" >-10</a></li>
 
-			 	<li ><a class="btn btn-light    btn-paginacao"  th:if="${currentePage < totalPages - 10}"  th:href="@{'/faixasValoresGpf/paginar/'+ ${currentePage+10} }" >+10</a></li>
+			 	<li ><a class="btn btn-light    btn-paginacao"  th:if="${currentePage < totalPages - 10}"  th:href="@{'/faixasValoresGpfMedica/paginar/'+ ${currentePage+10} }" >+10</a></li>
 			 	
-			 	<li ><a class="btn btn-light    btn-paginacao"  th:if="${currentePage < totalPages - 100}"  th:href="@{'/faixasValoresGpf/paginar/'+ ${currentePage+100} }" >+100</a></li>
+			 	<li ><a class="btn btn-light    btn-paginacao"  th:if="${currentePage < totalPages - 100}"  th:href="@{'/faixasValoresGpfMedica/paginar/'+ ${currentePage+100} }" >+100</a></li>
 			 	
-			 	<li ><a class="btn btn-light    btn-paginacao"  th:if="${currentePage < totalPages - 1000}"  th:href="@{'/faixasValoresGpf/paginar/'+ ${currentePage+1000} }" >+1000</a></li>
+			 	<li ><a class="btn btn-light    btn-paginacao"  th:if="${currentePage < totalPages - 1000}"  th:href="@{'/faixasValoresGpfMedica/paginar/'+ ${currentePage+1000} }" >+1000</a></li>
 			 	
-			 	<li ><a class="btn btn-light    btn-paginacao    oi oi-media-skip-forward" th:if="${currentePage < totalPages}"  th:href="@{'/faixasValoresGpf/paginar/' + ${currentePage +1}}"></a> </li>
+			 	<li ><a class="btn btn-light    btn-paginacao    oi oi-media-skip-forward" th:if="${currentePage < totalPages}"  th:href="@{'/faixasValoresGpfMedica/paginar/' + ${currentePage +1}}"></a> </li>
 		 		
-		 		<li ><a class="btn btn-light    btn-paginacao    oi oi-media-step-forward"  th:if="${currentePage != i}"  th:href="@{'/faixasValoresGpf/paginar/'+ ${totalPages} }" ></a></li> 
+		 		<li ><a class="btn btn-light    btn-paginacao    oi oi-media-step-forward"  th:if="${currentePage != i}"  th:href="@{'/faixasValoresGpfMedica/paginar/'+ ${totalPages} }" ></a></li> 
 		 	</ul>
 		</nav>     	        
 	    <div th:replace="fragments/modal :: modal"></div>   

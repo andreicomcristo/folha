@@ -23,6 +23,8 @@ public class CargosEspecialidade extends AbstractEntity<Long> {
     private List<FuncionariosLicencas> funcionariosLicencasList;
     @OneToMany(mappedBy = "idEspecialidadeAtualFk")
     private List<PessoaFuncionarios> pessoaFuncionariosList;
+    @OneToMany(mappedBy = "idEspecialidadeFk")
+    private List<FaixasValoresGpfDiferenciada> faixasValoresGpfDiferenciadaList;
     
     @JoinColumn(name = "id_area_do_cargo_fk", referencedColumnName = "id")
     @ManyToOne
@@ -88,6 +90,14 @@ public class CargosEspecialidade extends AbstractEntity<Long> {
 	public void setLimiteHorasAcrescimoPorUnidadeEEspecialidadeList(
 			List<LimiteHorasAcrescimoPorUnidadeEEspecialidade> limiteHorasAcrescimoPorUnidadeEEspecialidadeList) {
 		this.limiteHorasAcrescimoPorUnidadeEEspecialidadeList = limiteHorasAcrescimoPorUnidadeEEspecialidadeList;
+	}
+
+	public List<FaixasValoresGpfDiferenciada> getFaixasValoresGpfDiferenciadaList() {
+		return faixasValoresGpfDiferenciadaList;
+	}
+
+	public void setFaixasValoresGpfDiferenciadaList(List<FaixasValoresGpfDiferenciada> faixasValoresGpfDiferenciadaList) {
+		this.faixasValoresGpfDiferenciadaList = faixasValoresGpfDiferenciadaList;
 	}
 	
 	

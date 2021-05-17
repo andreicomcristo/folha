@@ -22,9 +22,16 @@ public class CargaHorariaSemanal extends AbstractEntity<Long> {
     private List<PessoaFuncionarios> pessoaFuncionariosList;
     @OneToMany(mappedBy = "idCargaHorariaSemanalFk")
     private List<FaixasValoresSubsidio> faixasValoresSubsidioList;
+    @OneToMany(mappedBy = "idCargaHorariaSemanalFk")
+    private List<FaixasValoresGpfMedicaDiferenciada> faixasValoresGpfMedicaDiferenciadaList;
+    @OneToMany(mappedBy = "idCargaHorariaSemanalFk")
+    private List<FaixasValoresGpfDiferenciada> faixasValoresGpfDiferenciadaList;
     
     @OneToMany(mappedBy = "idCargaHorariaSemanalFk")
     private List<FaixasValoresGpf> faixasValoresGpfList;
+    
+    @OneToMany(mappedBy = "idCargaHorariaSemanalFk")
+    private List<FaixasValoresGpfMedica> faixasValoresGpfMedicaList;
     
 	public List<HistFuncionariosCargaHoraria> getHistFuncionariosCargaHorariaList() {
 		return histFuncionariosCargaHorariaList;
@@ -72,6 +79,31 @@ public class CargaHorariaSemanal extends AbstractEntity<Long> {
 
 	public void setFaixasValoresGpfList(List<FaixasValoresGpf> faixasValoresGpfList) {
 		this.faixasValoresGpfList = faixasValoresGpfList;
+	}
+
+	public List<FaixasValoresGpfMedica> getFaixasValoresGpfMedicaList() {
+		return faixasValoresGpfMedicaList;
+	}
+
+	public void setFaixasValoresGpfMedicaList(List<FaixasValoresGpfMedica> faixasValoresGpfMedicaList) {
+		this.faixasValoresGpfMedicaList = faixasValoresGpfMedicaList;
+	}
+
+	public List<FaixasValoresGpfMedicaDiferenciada> getFaixasValoresGpfMedicaDiferenciadaList() {
+		return faixasValoresGpfMedicaDiferenciadaList;
+	}
+
+	public void setFaixasValoresGpfMedicaDiferenciadaList(
+			List<FaixasValoresGpfMedicaDiferenciada> faixasValoresGpfMedicaDiferenciadaList) {
+		this.faixasValoresGpfMedicaDiferenciadaList = faixasValoresGpfMedicaDiferenciadaList;
+	}
+
+	public List<FaixasValoresGpfDiferenciada> getFaixasValoresGpfDiferenciadaList() {
+		return faixasValoresGpfDiferenciadaList;
+	}
+
+	public void setFaixasValoresGpfDiferenciadaList(List<FaixasValoresGpfDiferenciada> faixasValoresGpfDiferenciadaList) {
+		this.faixasValoresGpfDiferenciadaList = faixasValoresGpfDiferenciadaList;
 	}
 	
 	
