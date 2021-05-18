@@ -203,6 +203,39 @@ public class ContrachequeService {
 			cellTitulo1.setVerticalAlignment(Element.ALIGN_MIDDLE);
 			tableTitulo1.addCell(cellTitulo1);
 			
+			String cargo = "";
+			String chSemanal = "";
+			for(int i=0;i<pessoa.getPessoaFuncionariosList().size();i++) {
+				if(pessoa.getPessoaFuncionariosList().get(i).getDtCancelamento()==null) {
+					if(pessoa.getDtCancelamento()==null) {
+						cargo = cargo + pessoa.getPessoaFuncionariosList().get(i).getIdEspecialidadeAtualFk().getIdCargoFk().getNomeCargo()+"-"+pessoa.getPessoaFuncionariosList().get(i).getIdEspecialidadeAtualFk().getNomeEspecialidadeCargo()+";";
+						chSemanal = chSemanal + String.valueOf(pessoa.getPessoaFuncionariosList().get(i).getIdCargaHorariaAtualFk().getCargaHoraria())+";";
+					}
+				}
+			}
+			cargo.replace(";", "; ");
+			chSemanal.replace(";", "; ");
+			cargo = UtilidadesDeTexto.retiraEspacosDuplosAcentosEConverteEmMaiusculo(cargo);
+			chSemanal = UtilidadesDeTexto.retiraEspacosDuplosAcentosEConverteEmMaiusculo(chSemanal);
+			
+			cellTitulo1 = new PdfPCell(new Phrase("Cargo", cabecalhoFont) );
+			cellTitulo1.setVerticalAlignment(Element.ALIGN_MIDDLE);
+			tableTitulo1.addCell(cellTitulo1);
+			
+			cellTitulo1 = new PdfPCell(new Phrase("CH Semanal", cabecalhoFont) );
+			cellTitulo1.setVerticalAlignment(Element.ALIGN_MIDDLE);
+			tableTitulo1.addCell(cellTitulo1);
+			
+			cellTitulo1 = new PdfPCell(new Phrase( String.valueOf( cargo ) ,corpoFont) );
+			cellTitulo1.setPaddingLeft(5);
+			cellTitulo1.setVerticalAlignment(Element.ALIGN_MIDDLE);
+			tableTitulo1.addCell(cellTitulo1);
+			
+			cellTitulo1 = new PdfPCell(new Phrase( String.valueOf( chSemanal ) ,corpoFont) );
+			cellTitulo1.setPaddingLeft(5);
+			cellTitulo1.setVerticalAlignment(Element.ALIGN_MIDDLE);
+			tableTitulo1.addCell(cellTitulo1);
+			
 			
 			
 			
@@ -600,9 +633,9 @@ public class ContrachequeService {
 			
 			
 			// Titulo 9
-			PdfPTable tableTitulo9 = new PdfPTable(2);
+			PdfPTable tableTitulo9 = new PdfPTable(3);
 			tableTitulo9.setWidthPercentage(90);
-			tableTitulo9.setWidths(new int[] { 3, 3 });
+			tableTitulo9.setWidths(new int[] { 3, 3, 3});
 			PdfPCell cellTitulo9;
 			
 			cellTitulo9 = new PdfPCell(new Phrase("Bruto", cabecalhoFont) );
@@ -610,12 +643,24 @@ public class ContrachequeService {
 			cellTitulo9.setVerticalAlignment(Element.ALIGN_MIDDLE);
 			tableTitulo9.addCell(cellTitulo9);
 			
+			cellTitulo9 = new PdfPCell(new Phrase("Descontos", cabecalhoFont) );
+			cellTitulo9.setHorizontalAlignment(Element.ALIGN_CENTER);
+			cellTitulo9.setVerticalAlignment(Element.ALIGN_MIDDLE);
+			tableTitulo9.addCell(cellTitulo9);
+			
+			
 			cellTitulo9 = new PdfPCell(new Phrase("Líquido", cabecalhoFont) );
 			cellTitulo9.setHorizontalAlignment(Element.ALIGN_CENTER);
 			cellTitulo9.setVerticalAlignment(Element.ALIGN_MIDDLE);
 			tableTitulo9.addCell(cellTitulo9);
 			
 			cellTitulo9 = new PdfPCell(new Phrase( String.valueOf( bruto ) ,corpoFont) );
+			cellTitulo9.setPaddingLeft(5);
+			cellTitulo9.setHorizontalAlignment(Element.ALIGN_CENTER);
+			cellTitulo9.setVerticalAlignment(Element.ALIGN_MIDDLE);
+			tableTitulo9.addCell(cellTitulo9);
+			
+			cellTitulo9 = new PdfPCell(new Phrase( String.valueOf( bruto-liquido ) ,corpoFont) );
 			cellTitulo9.setPaddingLeft(5);
 			cellTitulo9.setHorizontalAlignment(Element.ALIGN_CENTER);
 			cellTitulo9.setVerticalAlignment(Element.ALIGN_MIDDLE);
