@@ -157,6 +157,9 @@ public class PessoaFuncionarios extends AbstractEntity<Long> {
     @OneToMany(mappedBy = "idFuncionarioFk")
     private List<EscalaAlteracoes> escalaAlteracoesList;
     
+    @OneToMany(mappedBy = "idFuncionarioFk")
+    private List<FaixasValoresFolhExt> faixasValoresFolhExtList;
+    
     @JoinColumn(name = "id_unidade_lotacao_atual_fk", referencedColumnName = "id")
     @ManyToOne
     private Unidades idUnidadeLotacaoAtualFk;
@@ -539,6 +542,14 @@ public class PessoaFuncionarios extends AbstractEntity<Long> {
 
 	public void setRubricaVencimentoObsList(List<RubricaVencimentoObs> rubricaVencimentoObsList) {
 		this.rubricaVencimentoObsList = rubricaVencimentoObsList;
+	}
+
+	public List<FaixasValoresFolhExt> getFaixasValoresFolhExtList() {
+		return faixasValoresFolhExtList;
+	}
+
+	public void setFaixasValoresFolhExtList(List<FaixasValoresFolhExt> faixasValoresFolhExtList) {
+		this.faixasValoresFolhExtList = faixasValoresFolhExtList;
 	}
 	
 	

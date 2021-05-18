@@ -41,6 +41,9 @@ public class ClassesCarreira extends AbstractEntity<Long> {
 	@OneToMany(mappedBy = "idClasseCarreiraFk")
     private List<FaixasValoresGpfDiferenciada> faixasValoresGpfDiferenciadaList;
 	
+	@OneToMany(mappedBy = "idClasseCarreiraFk")
+    private List<FaixasValoresGpfMedicaDiferenciadaDiarista> faixasValoresGpfMedicaDiferenciadaDiaristaList;
+	
 	public String getSiglaClasse() {
 		return siglaClasse;
 	}
@@ -120,6 +123,15 @@ public class ClassesCarreira extends AbstractEntity<Long> {
 
 	public void setFaixasValoresGpfDiferenciadaList(List<FaixasValoresGpfDiferenciada> faixasValoresGpfDiferenciadaList) {
 		this.faixasValoresGpfDiferenciadaList = faixasValoresGpfDiferenciadaList;
+	}
+
+	public List<FaixasValoresGpfMedicaDiferenciadaDiarista> getFaixasValoresGpfMedicaDiferenciadaDiaristaList() {
+		return faixasValoresGpfMedicaDiferenciadaDiaristaList;
+	}
+
+	public void setFaixasValoresGpfMedicaDiferenciadaDiaristaList(
+			List<FaixasValoresGpfMedicaDiferenciadaDiarista> faixasValoresGpfMedicaDiferenciadaDiaristaList) {
+		this.faixasValoresGpfMedicaDiferenciadaDiaristaList = faixasValoresGpfMedicaDiferenciadaDiaristaList;
 	}
 	
 	

@@ -195,21 +195,20 @@
 	                <tbody>
 		            	<tr th:each="d : ${pessoaDocumentosLista10}">
 		                	<td style="font-size:10px;" th:text="${d.id}"></td>
-		                	<td style="font-size:10px;" th:text="${d.matricula}"></td>
-		                    <td style="font-size:10px;" th:text="${d.numeroDeOrdem}"></td>
-		                    <td style="font-size:10px;" th:text="${d.dtNomeacao}"></td>
-		                    <td style="font-size:10px;" th:text="${d.dtPosse}"></td>
-		                    <td style="font-size:10px;" th:text="${d.numeroDePonto}"></td>
-		                    <td style="font-size:10px;" th:text="${d.idCargaHorariaAtualFk.cargaHoraria}"></td>
-		                    <td style="font-size:10px;" th:text="${d.idEspecialidadeAtualFk.idCargoFk.nomeCargo+' - '+ d.idEspecialidadeAtualFk.nomeEspecialidadeCargo }"></td>
-		                    <td style="font-size:10px;" th:text="${d.idVinculoAtualFk.nomeVinculo}"></td>
-		                    <td style="font-size:10px;" th:text="${d.idCarreiraAtualFk.nomeCarreira}"></td>
-		                    <td style="font-size:10px;" th:text="${d.idClasseCarreiraAtualFk.nomeClasse}"></td>
-		                    <td style="font-size:10px;" th:text="${d.idNivelCarreiraAtualFk.nomeNivelCarreira}"></td>
-		                    <td style="font-size:10px;" th:text="${d.idSituacaoAtualFk.nomeSituacao}"></td>
-		                    
-		                    
-		                    <td style="font-size:10px;" th:text="${d.idUnidadeAtuacaoAtualFk.nomeFantasia}"></td>
+		                	<td style="font-size:10px;"  th:text="${d.matricula != null} ? ${d.matricula} : ''  "></td>
+		                	<td style="font-size:10px;"  th:text="${d.numeroDeOrdem != null} ? ${d.numeroDeOrdem} : ''  "></td>
+		                	<td style="font-size:10px;"  th:text="${d.dtNomeacao != null} ? ${d.dtNomeacao} : ''  "></td>
+		                	<td style="font-size:10px;"  th:text="${d.dtPosse != null} ? ${d.dtPosse} : ''  "></td>
+		                	<td style="font-size:10px;"  th:text="${d.numeroDePonto != null} ? ${d.numeroDePonto} : ''  "></td>
+		                	<td style="font-size:10px;"  th:text="${d.idCargaHorariaAtualFk != null} ? ${d.idCargaHorariaAtualFk.cargaHoraria} : ''  "></td>
+		                	<td style="font-size:10px;"  th:text="${d.idEspecialidadeAtualFk != null} ? ${d.idEspecialidadeAtualFk.idCargoFk.nomeCargo+' - '+ d.idEspecialidadeAtualFk.nomeEspecialidadeCargo} : ''  "></td>
+		                	<td style="font-size:10px;"  th:text="${d.idVinculoAtualFk != null} ? ${d.idVinculoAtualFk.nomeVinculo} : ''  "></td>
+		                	<td style="font-size:10px;"  th:text="${d.idCarreiraAtualFk != null} ? ${d.idCarreiraAtualFk.nomeCarreira} : ''  "></td>
+		                	<td style="font-size:10px;"  th:text="${d.idClasseCarreiraAtualFk != null} ? ${d.idClasseCarreiraAtualFk.nomeClasse} : ''  "></td>
+		                	<td style="font-size:10px;"  th:text="${d.idNivelCarreiraAtualFk != null} ? ${d.idNivelCarreiraAtualFk.nomeNivelCarreira} : ''  "></td>
+		                	<td style="font-size:10px;"  th:text="${d.idSituacaoAtualFk != null} ? ${d.idSituacaoAtualFk.nomeSituacao} : ''  "></td>
+		                	<td style="font-size:10px;"  th:text="${d.idUnidadeAtuacaoAtualFk != null} ? ${d.idUnidadeAtuacaoAtualFk.nomeFantasia} : ''  "></td>
+		                	
 		                    
 		                    
 		                    <td> 

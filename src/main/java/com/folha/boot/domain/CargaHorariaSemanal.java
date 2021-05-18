@@ -26,12 +26,20 @@ public class CargaHorariaSemanal extends AbstractEntity<Long> {
     private List<FaixasValoresGpfMedicaDiferenciada> faixasValoresGpfMedicaDiferenciadaList;
     @OneToMany(mappedBy = "idCargaHorariaSemanalFk")
     private List<FaixasValoresGpfDiferenciada> faixasValoresGpfDiferenciadaList;
+    @OneToMany(mappedBy = "idCargaHorariaSemanalFk")
+    private List<FaixasValoresFolhExt> faixasValoresFolhExtList;
     
     @OneToMany(mappedBy = "idCargaHorariaSemanalFk")
     private List<FaixasValoresGpf> faixasValoresGpfList;
     
     @OneToMany(mappedBy = "idCargaHorariaSemanalFk")
+    private List<FaixasValoresPss> faixasValoresPssList;
+    
+    @OneToMany(mappedBy = "idCargaHorariaSemanalFk")
     private List<FaixasValoresGpfMedica> faixasValoresGpfMedicaList;
+    
+    @OneToMany(mappedBy = "idCargaHorariaSemanalFk")
+    private List<FaixasValoresGpfMedicaDiferenciadaDiarista> faixasValoresGpfMedicaDiferenciadaDiaristaList;
     
 	public List<HistFuncionariosCargaHoraria> getHistFuncionariosCargaHorariaList() {
 		return histFuncionariosCargaHorariaList;
@@ -104,6 +112,31 @@ public class CargaHorariaSemanal extends AbstractEntity<Long> {
 
 	public void setFaixasValoresGpfDiferenciadaList(List<FaixasValoresGpfDiferenciada> faixasValoresGpfDiferenciadaList) {
 		this.faixasValoresGpfDiferenciadaList = faixasValoresGpfDiferenciadaList;
+	}
+
+	public List<FaixasValoresPss> getFaixasValoresPssList() {
+		return faixasValoresPssList;
+	}
+
+	public void setFaixasValoresPssList(List<FaixasValoresPss> faixasValoresPssList) {
+		this.faixasValoresPssList = faixasValoresPssList;
+	}
+
+	public List<FaixasValoresGpfMedicaDiferenciadaDiarista> getFaixasValoresGpfMedicaDiferenciadaDiaristaList() {
+		return faixasValoresGpfMedicaDiferenciadaDiaristaList;
+	}
+
+	public void setFaixasValoresGpfMedicaDiferenciadaDiaristaList(
+			List<FaixasValoresGpfMedicaDiferenciadaDiarista> faixasValoresGpfMedicaDiferenciadaDiaristaList) {
+		this.faixasValoresGpfMedicaDiferenciadaDiaristaList = faixasValoresGpfMedicaDiferenciadaDiaristaList;
+	}
+
+	public List<FaixasValoresFolhExt> getFaixasValoresFolhExtList() {
+		return faixasValoresFolhExtList;
+	}
+
+	public void setFaixasValoresFolhExtList(List<FaixasValoresFolhExt> faixasValoresFolhExtList) {
+		this.faixasValoresFolhExtList = faixasValoresFolhExtList;
 	}
 	
 	
