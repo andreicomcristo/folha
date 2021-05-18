@@ -28,6 +28,8 @@ public class CargaHorariaSemanal extends AbstractEntity<Long> {
     private List<FaixasValoresGpfDiferenciada> faixasValoresGpfDiferenciadaList;
     @OneToMany(mappedBy = "idCargaHorariaSemanalFk")
     private List<FaixasValoresFolhExt> faixasValoresFolhExtList;
+    @OneToMany(mappedBy = "idCargaHorariaSemanalFk")
+    private List<FaixasValoresResidente> faixasValoresResidenteList;
     
     @OneToMany(mappedBy = "idCargaHorariaSemanalFk")
     private List<FaixasValoresGpf> faixasValoresGpfList;
@@ -137,6 +139,14 @@ public class CargaHorariaSemanal extends AbstractEntity<Long> {
 
 	public void setFaixasValoresFolhExtList(List<FaixasValoresFolhExt> faixasValoresFolhExtList) {
 		this.faixasValoresFolhExtList = faixasValoresFolhExtList;
+	}
+
+	public List<FaixasValoresResidente> getFaixasValoresResidenteList() {
+		return faixasValoresResidenteList;
+	}
+
+	public void setFaixasValoresResidenteList(List<FaixasValoresResidente> faixasValoresResidenteList) {
+		this.faixasValoresResidenteList = faixasValoresResidenteList;
 	}
 	
 	

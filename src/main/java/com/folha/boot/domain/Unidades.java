@@ -89,6 +89,8 @@ public class Unidades extends AbstractEntity<Long> {
     private List<HistFuncionariosUnidadeLotacao> histFuncionariosUnidadeLotacaoList;
     @OneToMany(mappedBy = "idUnidadeFk")
     private List<LocalidadeEscala> localidadeEscalaList;
+    @OneToMany(mappedBy = "idUnidadeFk")
+    private List<FaixasValoresResidente> faixasValoresResidenteList;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "idUnidadeFk")
     private List<HistFuncionariosUnidadeAtuacao> histFuncionariosUnidadeAtuacaoList;
     @OneToMany(mappedBy = "idUnidadeFk")
@@ -559,6 +561,14 @@ public class Unidades extends AbstractEntity<Long> {
 
 	public void setFaixasValoresFolhExtList(List<FaixasValoresFolhExt> faixasValoresFolhExtList) {
 		this.faixasValoresFolhExtList = faixasValoresFolhExtList;
+	}
+
+	public List<FaixasValoresResidente> getFaixasValoresResidenteList() {
+		return faixasValoresResidenteList;
+	}
+
+	public void setFaixasValoresResidenteList(List<FaixasValoresResidente> faixasValoresResidenteList) {
+		this.faixasValoresResidenteList = faixasValoresResidenteList;
 	}
 	
 	

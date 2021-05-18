@@ -38,6 +38,8 @@ public class Fonte extends AbstractEntity<Long> {
     private List<FaixasValoresGpfMedicaDiferenciadaDiarista> faixasValoresGpfMedicaDiferenciadaDiaristaList;
     @OneToMany(mappedBy = "idFonteFk")
     private List<FaixasValoresFolhExt> faixasValoresFolhExtList;
+    @OneToMany(mappedBy = "idFonteFk")
+    private List<FaixasValoresResidente> faixasValoresResidenteList;
 
 
     public Fonte() {
@@ -156,6 +158,14 @@ public class Fonte extends AbstractEntity<Long> {
 
 	public void setFaixasValoresFolhExtList(List<FaixasValoresFolhExt> faixasValoresFolhExtList) {
 		this.faixasValoresFolhExtList = faixasValoresFolhExtList;
+	}
+
+	public List<FaixasValoresResidente> getFaixasValoresResidenteList() {
+		return faixasValoresResidenteList;
+	}
+
+	public void setFaixasValoresResidenteList(List<FaixasValoresResidente> faixasValoresResidenteList) {
+		this.faixasValoresResidenteList = faixasValoresResidenteList;
 	}
     
     

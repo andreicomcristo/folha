@@ -34,7 +34,8 @@ public class AnoMes extends AbstractEntity<Long> {
     private List<FaixasImpostoDeRenda> faixasImpostoDeRendaList;
     @OneToMany(mappedBy = "idAnoMesFk")
     private List<FaixasPrevidencia> faixasPrevidenciaList;
-    
+    @OneToMany(mappedBy = "idAnoMesFk")
+    private List<FaixasValoresResidente> faixasValoresResidenteList;
     @OneToMany(mappedBy = "idAnoMesFk")
     private List<FaixasValoresParametrosCalculoFolhasExtras> faixasValoresParametrosCalculoFolhasExtrasList;
     @OneToMany(mappedBy = "idAnoMesFk")
@@ -303,6 +304,12 @@ public class AnoMes extends AbstractEntity<Long> {
 	}
 	public void setFaixasValoresFolhExtList(List<FaixasValoresFolhExt> faixasValoresFolhExtList) {
 		this.faixasValoresFolhExtList = faixasValoresFolhExtList;
+	}
+	public List<FaixasValoresResidente> getFaixasValoresResidenteList() {
+		return faixasValoresResidenteList;
+	}
+	public void setFaixasValoresResidenteList(List<FaixasValoresResidente> faixasValoresResidenteList) {
+		this.faixasValoresResidenteList = faixasValoresResidenteList;
 	}
 		
 	
