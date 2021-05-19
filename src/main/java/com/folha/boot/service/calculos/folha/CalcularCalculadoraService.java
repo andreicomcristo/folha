@@ -217,6 +217,9 @@ public class CalcularCalculadoraService {
 	public void arredondarValoresVencimentos(AnoMes anoMes) {
 		List<RubricaVencimento> lista =  buscarRubricasPorAnoMes(anoMes);
 		for(int i=0;i<lista.size();i++) {
+			//Restituindo IR dos residentes
+			if(lista.get(i).getCodigo().equalsIgnoreCase("RESIDENTE")) {lista.get(i).setValorLiquido(lista.get(i).getValorLiquido()+lista.get(i).getValorIr()); lista.get(i).setValorIr(0.0);}
+			//Arredondando Valores
 			lista.get(i).setValorBruto(UtilidadesMatematicas.ajustaValorDecimal(lista.get(i).getValorBruto(), 2));
 			lista.get(i).setValorIr(UtilidadesMatematicas.ajustaValorDecimal(lista.get(i).getValorIr(), 2));
 			lista.get(i).setValorLiquido(UtilidadesMatematicas.ajustaValorDecimal(lista.get(i).getValorLiquido(), 2));
