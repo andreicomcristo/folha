@@ -28,7 +28,10 @@ public class JasperController {
 /*	public void exibirRelatorio(@RequestParam("code") String code,   
 								@RequestParam("acao") String acao,
 								HttpServletResponse response) throws IOException {*/
-	public void exibirRelatorio(HttpServletResponse response) throws IOException {		
+	public void exibirRelatorio(@RequestParam("code") String code, HttpServletResponse response) throws IOException {
+		//System.out.println(code);
+		
+		service.addParametros("NOME_I", code);		
 		service.setCaminho("/jasper/funcionarios-01.jasper");
 		byte[] bytes = service.gerarRelatorio(); 
 		response.setContentType(MediaType.APPLICATION_PDF_VALUE);

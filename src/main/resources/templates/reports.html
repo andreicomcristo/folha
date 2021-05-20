@@ -1,14 +1,56 @@
 <!DOCTYPE html>
-<!-- Created By CodingNepal -->
-<html layout:decorate = "~{layout}">
+<html layout:decorate="~{layout}">
+<head><meta charset="UTF-8"/></head>
 <body>
 	<section class="layout-content" layout:fragment="corpo">
-		<div>
-			<h1>Impressão de Relatórios</h1>
-			<h2>Relatório 01</h2>
-			<a th:href="@{/relatorio/pdf/jr1}"> abrir</a>
-			
+		<div class="container" id="cadastro">
+
+			<div th:replace="fragments/alert"></div>
+			<form th:action="@{/relatorio/pdf/jr1}"	enctype="multipart/form-data"> 
+			<div class="form-row">
+
+					<div class="form-group col-md-12">
+						<h1>Tela de Testes De Funcionalidades</h1>
+						
+						<h2>Impressão de Relatórios</h2>
+						
+						<!-- <a th:href="@{/relatorio/pdf/jr1}"> abrir</a> -->
+						
+						<label for="nome" class=""> Parametro </label>
+							
+							<input type="text"
+								class="form-control form-control-md" autofocus="autofocus"
+								id="nome" placeholder=" teste" th:name="code" />						
+							<p></p>
+							<button class="btn btn-outline-dark">Enviar</button>
+					</div>
+					
+					<div class="form-group col-md-6">
+						<h2>Upload de Arquivos</h2>							
+							<label 	for="file" class="">Foto </label>
+							<input 	type="file"
+									class="form-control form-control-md" 
+									autofocus="autofocus" id="file" name = "file"> 
+							<p></p>						
+					</div>
+				</div>
+			</form>
 		</div>
 	</section>
 </body>
 </html>
+
+	<!-- 	<div>
+			<h1>Impressão de Relatórios</h1>
+			<h2>Relatório 01</h2>
+			<a th:href="@{/relatorio/pdf/jr1}"> abrir</a>
+			
+		</div>  
+		
+		<button class="btn btn-outline-dark">Cadastrar</button>
+		
+		-->
+		
+		
+		
+		
