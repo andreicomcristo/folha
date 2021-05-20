@@ -69,37 +69,37 @@ public class RubricaPensaoService {
 	@Transactional(readOnly = true)
 	public List<RubricaPensao> buscarTodos() {
 		// TODO Auto-generated method stub
-		return reposytory.findAllByOrderByIdAnoMesFkNomeAnoMesDescIdPessoaFkNomeAsc();
+		return reposytory.findAllByDtCancelamentoIsNullOrderByIdAnoMesFkNomeAnoMesDescIdPessoaFkNomeAsc();
 	}
 	
 	@Transactional(readOnly = true)
 	public List<RubricaPensao> buscarPorMesExato(AnoMes anoMes) {
-		return reposytory.findByIdAnoMesFkOrderByIdAnoMesFkNomeAnoMesDescIdPessoaFkNomeAsc(anoMes);
+		return reposytory.findByIdAnoMesFkAndDtCancelamentoIsNullOrderByIdAnoMesFkNomeAnoMesDescIdPessoaFkNomeAsc(anoMes);
 	}
 	
 	@Transactional(readOnly = true)
 	public List<RubricaPensao> buscarPorMesEPEssoa(AnoMes anoMes, Pessoa pessoa) {
-		return reposytory.findByIdAnoMesFkAndIdPessoaFkOrderByIdAnoMesFkNomeAnoMesDescIdPessoaFkNomeAsc(anoMes, pessoa);
+		return reposytory.findByIdAnoMesFkAndIdPessoaFkAndDtCancelamentoIsNullOrderByIdAnoMesFkNomeAnoMesDescIdPessoaFkNomeAsc(anoMes, pessoa);
 	}
 	
 	@Transactional(readOnly = true)
 	public List<RubricaPensao> buscarPorNome(String nome) {
-		return reposytory.findByIdPessoaFkNomeContainingOrderByIdAnoMesFkNomeAnoMesDescIdPessoaFkNomeAsc(nome);
+		return reposytory.findByIdPessoaFkNomeContainingAndDtCancelamentoIsNullOrderByIdAnoMesFkNomeAnoMesDescIdPessoaFkNomeAsc(nome);
 	}
 		
 	public Page<RubricaPensao> findPaginated(int pageNo, int pageSize) {
 		Pageable pageable = PageRequest.of(pageNo -1, pageSize);
-		return this.reposytory.findAllByOrderByIdAnoMesFkNomeAnoMesDescIdPessoaFkNomeAsc(pageable);
+		return this.reposytory.findAllByDtCancelamentoIsNullOrderByIdAnoMesFkNomeAnoMesDescIdPessoaFkNomeAsc(pageable);
 	}
 
 	public Page<RubricaPensao> findPaginatedAnoMes(int pageNo, int pageSize, String nome) {
 		Pageable pageable = PageRequest.of(pageNo -1, pageSize);
-		return this.reposytory.findByIdAnoMesFkNomeAnoMesContainingOrderByIdAnoMesFkNomeAnoMesDescIdPessoaFkNomeAsc(nome.toUpperCase().trim(), pageable);
+		return this.reposytory.findByIdAnoMesFkNomeAnoMesContainingAndDtCancelamentoIsNullOrderByIdAnoMesFkNomeAnoMesDescIdPessoaFkNomeAsc(nome.toUpperCase().trim(), pageable);
 	}
 	
 	public Page<RubricaPensao> findPaginatedNome(int pageNo, int pageSize, String nome) {
 		Pageable pageable = PageRequest.of(pageNo -1, pageSize);
-		return this.reposytory.findByIdPessoaFkNomeContainingOrderByIdAnoMesFkNomeAnoMesDescIdPessoaFkNomeAsc(nome.toUpperCase().trim(), pageable);
+		return this.reposytory.findByIdPessoaFkNomeContainingAndDtCancelamentoIsNullOrderByIdAnoMesFkNomeAnoMesDescIdPessoaFkNomeAsc(nome.toUpperCase().trim(), pageable);
 	}
 	
 	
