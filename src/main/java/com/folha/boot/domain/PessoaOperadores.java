@@ -200,6 +200,9 @@ public class PessoaOperadores extends AbstractEntity<Long> {
     @OneToMany(mappedBy = "idOperadorCancelamentoFk")
     private List<EscalaCodDiferenciado> escalaCodDiferenciadoList1;
     
+    @OneToMany(mappedBy = "idOperadorCancelamentoFk")
+    private List<RubricaPensao> rubricaPensaoList;
+    
     
 	public Date getDtCadastro() {
 		return dtCadastro;
@@ -716,6 +719,12 @@ public class PessoaOperadores extends AbstractEntity<Long> {
 	}
 	public void setHorasFaltasFolhasVariaveisList1(List<HorasFaltasFolhasVariaveis> horasFaltasFolhasVariaveisList1) {
 		this.horasFaltasFolhasVariaveisList1 = horasFaltasFolhasVariaveisList1;
+	}
+	public List<RubricaPensao> getRubricaPensaoList() {
+		return rubricaPensaoList;
+	}
+	public void setRubricaPensaoList(List<RubricaPensao> rubricaPensaoList) {
+		this.rubricaPensaoList = rubricaPensaoList;
 	}
     
 	

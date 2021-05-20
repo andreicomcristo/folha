@@ -2,6 +2,7 @@ package com.folha.boot.domain;
 
 
 
+import java.util.Date;
 import java.util.List;
 
 import javax.persistence.*;
@@ -13,6 +14,9 @@ import com.folha.boot.service.util.UtilidadesDeTexto;
 @Table(name = "rubrica_pensao")
 public class RubricaPensao extends AbstractEntity<Long> {
 
+	@Column(name = "dt_cancelamento")
+    @Temporal(TemporalType.DATE)
+    private Date dtCancelamento;
 	@Column(name = "valor")
     private Double valor;
     @Column(name = "percentagem")
@@ -44,6 +48,9 @@ public class RubricaPensao extends AbstractEntity<Long> {
     private Pessoa idPessoaFk;
     @OneToMany(mappedBy = "idRubricaPensaoFk")
     private List<RubricaPensaoObs> rubricaPensaoObsList;
+    @JoinColumn(name = "id_operador_cancelamento_fk", referencedColumnName = "id")
+    @ManyToOne
+    private PessoaOperadores idOperadorCancelamentoFk;
 
     public RubricaPensao() {
     }
@@ -161,6 +168,22 @@ public class RubricaPensao extends AbstractEntity<Long> {
 		this.rubricaPensaoObsList = rubricaPensaoObsList;
 	}
 
+	public Date getDtCancelamento() {
+		return dtCancelamento;
+	}
+
+	public void setDtCancelamento(Date dtCancelamento) {
+		this.dtCancelamento = dtCancelamento;
+	}
+
+	public PessoaOperadores getIdOperadorCancelamentoFk() {
+		return idOperadorCancelamentoFk;
+	}
+
+	public void setIdOperadorCancelamentoFk(PessoaOperadores idOperadorCancelamentoFk) {
+		this.idOperadorCancelamentoFk = idOperadorCancelamentoFk;
+	}
+	
     
 
 }

@@ -2,6 +2,7 @@ package com.folha.boot.web.controller;
 
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
+import java.util.Date;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
@@ -51,6 +52,7 @@ import com.folha.boot.service.RubricaPensaoService;
 import com.folha.boot.service.TipoBrutoLiquidoService;
 import com.folha.boot.service.UnidadesRegimeService;
 import com.folha.boot.service.UnidadesService;
+import com.folha.boot.service.seguranca.UsuarioService;
 
 
 @Controller
@@ -63,7 +65,7 @@ public class RubricaPensaoController {
 	@Autowired
 	private RubricaPensaoService service;
 	@Autowired
-	private UnidadesService unidadesService;
+	private UsuarioService usuarioService;
 	@Autowired
 	private BancosService bancosService;
 	@Autowired
@@ -185,9 +187,12 @@ public class RubricaPensaoController {
 		return "redirect:/rubricaPensao/listar";
 	}
 	
-	@GetMapping("/excluir/{id}")
-	public String excluir(@PathVariable("id") Long id, ModelMap model) {
-		service.excluir(id);  
+	@GetMapping("/cancelar/{id}")
+	public String cancelar(@PathVariable("id") Long id, ModelMap model) {
+		RubricaPensao r = service.buscarPorId(id);
+		r.setDtCancelamento(new Date() );
+		r.setIdOperadorCancelamentoFk(usuarioService.pegarOperadorLogado());
+		service.salvar(r);  
 		model.addAttribute("success", "Excluído com sucesso.");
 		return listar(model);
 	}
