@@ -17,7 +17,7 @@ public interface RubricaPensaoReposytory extends JpaRepository<RubricaPensao, Lo
 
 	public List<RubricaPensao> findAllByDtCancelamentoIsNullOrderByIdAnoMesFkNomeAnoMesDescIdPessoaFkNomeAsc();
 	
-	public List<RubricaPensao> findByIdAnoMesFkNomeAnoMesAndDtCancelamentoIsNullContainingOrderByIdAnoMesFkNomeAnoMesDescIdPessoaFkNomeAsc(String nome);
+	public List<RubricaPensao> findByIdAnoMesFkNomeAnoMesContainingAndDtCancelamentoIsNullOrderByIdAnoMesFkNomeAnoMesDescIdPessoaFkNomeAsc(String nome);
 	
 	public List<RubricaPensao> findByIdAnoMesFkAndDtCancelamentoIsNullOrderByIdAnoMesFkNomeAnoMesDescIdPessoaFkNomeAsc(AnoMes anoMes);
 	
@@ -25,8 +25,7 @@ public interface RubricaPensaoReposytory extends JpaRepository<RubricaPensao, Lo
 	
 	public List<RubricaPensao> findByIdAnoMesFkAndIdPessoaFkAndDtCancelamentoIsNullOrderByIdAnoMesFkNomeAnoMesDescIdPessoaFkNomeAsc(AnoMes anoMes, Pessoa pessoa);
 	
-	
-	
+		
 	
 	public Page<RubricaPensao> findAllByDtCancelamentoIsNullOrderByIdAnoMesFkNomeAnoMesDescIdPessoaFkNomeAsc(final Pageable page);
 	
