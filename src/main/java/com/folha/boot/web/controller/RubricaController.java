@@ -110,6 +110,12 @@ public class RubricaController {
 		if(rubrica.getValor()==null) {
 			rubrica.setValor(0.0);
 		}
+		if(rubrica.getPercentagem()==null) {
+			rubrica.setPercentagem(0.0);
+		}
+		if(rubrica.getQuantidade()==null) {
+			rubrica.setQuantidade(0);
+		}
 		
 		service.salvar(rubrica);
 		attr.addFlashAttribute("success", "Inserido com sucesso.");
@@ -127,6 +133,12 @@ public class RubricaController {
 		
 		if(rubrica.getValor()==null) {
 			rubrica.setValor(0.0);
+		}
+		if(rubrica.getPercentagem()==null) {
+			rubrica.setPercentagem(0.0);
+		}
+		if(rubrica.getQuantidade()==null) {
+			rubrica.setQuantidade(0);
 		}
 		
 		service.editar(rubrica);

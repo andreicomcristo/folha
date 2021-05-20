@@ -660,7 +660,7 @@ public class ContrachequeService {
 			cellTitulo9.setVerticalAlignment(Element.ALIGN_MIDDLE);
 			tableTitulo9.addCell(cellTitulo9);
 			
-			cellTitulo9 = new PdfPCell(new Phrase( String.valueOf( bruto-liquido ) ,corpoFont) );
+			cellTitulo9 = new PdfPCell(new Phrase( String.valueOf(  UtilidadesMatematicas.ajustaValorDecimal(bruto-liquido, 2)  ) ,corpoFont) );
 			cellTitulo9.setPaddingLeft(5);
 			cellTitulo9.setHorizontalAlignment(Element.ALIGN_CENTER);
 			cellTitulo9.setVerticalAlignment(Element.ALIGN_MIDDLE);

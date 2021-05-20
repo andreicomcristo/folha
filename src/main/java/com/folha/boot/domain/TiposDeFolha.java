@@ -23,6 +23,8 @@ public class TiposDeFolha extends AbstractEntity<Long> {
     private List<EscalaPosTransparencia> escalaPosTransparenciaList;
 	@OneToMany(mappedBy = "idTipoDeFolhaFk")
 	private List<FaixasValoresParametrosCalculoFolhasExtras> faixasValoresParametrosCalculoFolhasExtrasList;
+	@OneToMany(mappedBy = "idFolhaFk")
+    private List<RubricaVencimento> rubricaVencimentoList;
 	
 	@JoinColumn(name = "id_folha_efetiva_sim_nao_fk", referencedColumnName = "id")
     @ManyToOne
@@ -88,6 +90,12 @@ public class TiposDeFolha extends AbstractEntity<Long> {
 	}
 	public void setTiposDeFolhaNivelCargoList(List<TiposDeFolhaNivelCargo> tiposDeFolhaNivelCargoList) {
 		this.tiposDeFolhaNivelCargoList = tiposDeFolhaNivelCargoList;
+	}
+	public List<RubricaVencimento> getRubricaVencimentoList() {
+		return rubricaVencimentoList;
+	}
+	public void setRubricaVencimentoList(List<RubricaVencimento> rubricaVencimentoList) {
+		this.rubricaVencimentoList = rubricaVencimentoList;
 	}
 	
 	

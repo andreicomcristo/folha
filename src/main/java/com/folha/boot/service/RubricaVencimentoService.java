@@ -44,6 +44,10 @@ public class RubricaVencimentoService {
 			r.setValorPatronal(lista.get(i).getValorPatronal());
 			r.setValorPrevidencia(lista.get(i).getValorPrevidencia());
 			r.setVariacao(lista.get(i).getVariacao());
+			r.setIdFolhaFk(lista.get(i).getTiposDeFolha());
+			
+			r.setDescontoProp(0.0);
+			r.setPensaoProp(0.0);
 			
 			salvar(r);
 		}
@@ -79,6 +83,21 @@ public class RubricaVencimentoService {
 	//@Override
 	public List<RubricaVencimento> buscarPorMes(AnoMes anoMes) {
 		return reposytory.findByIdAnoMesFkOrderByIdAnoMesFkAscIdFuncionarioFkIdPessoaFkCpfAscIdFuncionarioFkMatriculaAscSequenciaAscIdUnidadeFkNomeFantasiaAsc(anoMes);
+	}
+	
+	//@Override
+	public List<RubricaVencimento> buscarPorMesDescontoOuVantagem(AnoMes anoMes, String natureza) {
+		return reposytory.findByIdAnoMesFkAndIdNaturezaFkSiglaOrderByIdAnoMesFkAscIdFuncionarioFkIdPessoaFkCpfAscIdFuncionarioFkMatriculaAscSequenciaAscIdUnidadeFkNomeFantasiaAsc(anoMes, natureza);
+	}
+	
+	//@Override
+	public List<RubricaVencimento> buscarPorMesDescontoOuVantagemPorFuncionario(AnoMes anoMes, String natureza, PessoaFuncionarios funcionario) {
+		return reposytory.findByIdAnoMesFkAndIdNaturezaFkSiglaAndIdFuncionarioFkOrderByIdAnoMesFkAscIdFuncionarioFkIdPessoaFkCpfAscIdFuncionarioFkMatriculaAscSequenciaAscIdUnidadeFkNomeFantasiaAsc(anoMes, natureza, funcionario);
+	}
+	
+	//@Override
+	public List<RubricaVencimento> buscarPorMesDescontoOuVantagemPorPessoa(AnoMes anoMes, String natureza, Pessoa pessoa) {
+		return reposytory.findByIdAnoMesFkAndIdNaturezaFkSiglaAndIdFuncionarioFkIdPessoaFkOrderByIdAnoMesFkAscIdFuncionarioFkIdPessoaFkCpfAscIdFuncionarioFkMatriculaAscSequenciaAscIdUnidadeFkNomeFantasiaAsc(anoMes, natureza, pessoa);
 	}
 	
 	//@Override

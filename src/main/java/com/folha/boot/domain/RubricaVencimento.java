@@ -52,6 +52,13 @@ public class RubricaVencimento extends AbstractEntity<Long> {
     @JoinColumn(name = "id_unidade_fk", referencedColumnName = "id")
     @ManyToOne
     private Unidades idUnidadeFk;
+    @JoinColumn(name = "id_folha_fk", referencedColumnName = "id")
+    @ManyToOne
+    private TiposDeFolha idFolhaFk;
+    @Column(name = "desconto_prop")
+    private Double descontoProp;
+    @Column(name = "pensao_prop")
+    private Double pensaoProp;
 
     public RubricaVencimento() {
     }
@@ -182,6 +189,30 @@ public class RubricaVencimento extends AbstractEntity<Long> {
 
 	public void setIdUnidadeFk(Unidades idUnidadeFk) {
 		this.idUnidadeFk = idUnidadeFk;
+	}
+
+	public TiposDeFolha getIdFolhaFk() {
+		return idFolhaFk;
+	}
+
+	public void setIdFolhaFk(TiposDeFolha idFolhaFk) {
+		this.idFolhaFk = idFolhaFk;
+	}
+
+	public Double getDescontoProp() {
+		return descontoProp;
+	}
+
+	public void setDescontoProp(Double descontoProp) {
+		this.descontoProp = descontoProp;
+	}
+
+	public Double getPensaoProp() {
+		return pensaoProp;
+	}
+
+	public void setPensaoProp(Double pensaoProp) {
+		this.pensaoProp = pensaoProp;
 	}
     
     

@@ -7,6 +7,7 @@ import com.folha.boot.domain.Fonte;
 import com.folha.boot.domain.PessoaFuncionarios;
 import com.folha.boot.domain.RubricaNatureza;
 import com.folha.boot.domain.TipoBrutoLiquido;
+import com.folha.boot.domain.TiposDeFolha;
 import com.folha.boot.domain.Unidades;
 import com.folha.boot.service.util.UtilidadesDeTexto;
 
@@ -18,6 +19,7 @@ public class RubricasVencimento {
 	int sequencia;
 	RubricaNatureza natureza;
 	TipoBrutoLiquido tipoBrutoLiquido;
+	TiposDeFolha tiposDeFolha;
 	Fonte fonte;
 	Unidades unidade;
 	PessoaFuncionarios pessoaFuncionarios;
@@ -136,6 +138,14 @@ public class RubricasVencimento {
 
 	public void setValorPatronal(Double valorPatronal) {
 		this.valorPatronal = valorPatronal;
+	}
+
+	public TiposDeFolha getTiposDeFolha() {
+		return tiposDeFolha;
+	}
+
+	public void setTiposDeFolha(TiposDeFolha tiposDeFolha) {
+		this.tiposDeFolha = tiposDeFolha;
 	}
 	
 	

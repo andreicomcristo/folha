@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import com.folha.boot.domain.AnoMes;
+import com.folha.boot.domain.Pessoa;
 import com.folha.boot.domain.PessoaFuncionarios;
 import com.folha.boot.domain.RubricaNatureza;
 import com.folha.boot.domain.RubricaPensao;
@@ -203,12 +204,61 @@ public class CalcularCalculadoraService {
 				
 		}
 	
+		//Recolocando valor bruto nas verbas que sao liquidas
+		reconstruirBrutoDasVerbasOriginalmenteLiquidas(anoMes);
+		//Colocando as proporcoes dos descontos nas rubricas
+		colocarProporcoesDescontosNasRubricas(anoMes);
+		//Colocando as proporcoes das pensoes nas rubricas
+		colocarProporcoesPensoesNasRubricas(anoMes);
+		//Recalculando valor liquido
+		recalcularLiquidoDasRubricasDeVantagens(anoMes);
 		
-		
+		//Arredondando os Valores
 		arredondarValoresVencimentos(anoMes);
 	
 	}
 	
+	
+	
+	public void colocarProporcoesDescontosNasRubricas(AnoMes anoMes) {
+		List<RubricaVencimento> listaDescontos =  buscarRubricasPorAnoMesDescontoOuVantagem(anoMes, "D");
+		for(int i=0;i<listaDescontos.size();i++) {
+			List<RubricaVencimento> listaVantagem =  buscarRubricasPorAnoMesDescontoOuVantagemPorFuncionario(anoMes, "V", listaDescontos.get(i).getIdFuncionarioFk());
+				for(int j=0;j<listaVantagem.size();j++) {
+					listaVantagem.get(j).setDescontoProp(listaVantagem.get(j).getDescontoProp() + (listaDescontos.get(i).getValorLiquido()*(listaVantagem.get(j).getPercentagem()/100) ) );
+				}
+		}
+	}
+	
+	
+	
+	public void colocarProporcoesPensoesNasRubricas(AnoMes anoMes) {
+		List<RubricaPensaoObs> listaPensao =  rubricaPensaoObsService.buscarPorMes(anoMes);
+		for(int i=0;i<listaPensao.size();i++) {
+			List<RubricaVencimento> listaVantagem =  buscarRubricasPorAnoMesDescontoOuVantagemPorPessoa(anoMes, "V", listaPensao.get(i).getIdRubricaPensaoFk().getIdPessoaFk());
+				for(int j=0;j<listaVantagem.size();j++) {
+					listaVantagem.get(j).setPensaoProp(listaVantagem.get(j).getPensaoProp() + (listaPensao.get(i).getValorDescontado()*(listaVantagem.get(j).getPercentagem()/100) ) );
+				}
+		}
+	}
+	
+	public void recalcularLiquidoDasRubricasDeVantagens(AnoMes anoMes) {
+		List<RubricaVencimento> listaVantagem =  buscarRubricasPorAnoMesDescontoOuVantagem(anoMes, "V");
+			for(int j=0;j<listaVantagem.size();j++) {
+				listaVantagem.get(j).setValorLiquido( listaVantagem.get(j).getValorBruto() - ( listaVantagem.get(j).getDescontoProp()+listaVantagem.get(j).getPensaoProp()+listaVantagem.get(j).getValorIr()+listaVantagem.get(j).getValorPrevidencia() ) );
+			}
+		
+	}
+	
+	
+	public void reconstruirBrutoDasVerbasOriginalmenteLiquidas(AnoMes anoMes) {
+		List<RubricaVencimento> lista =  buscarRubricasPorAnoMes(anoMes);
+		for(int i=0;i<lista.size();i++) {
+			if(lista.get(i).getIdTipoBrutoLiquidoFk().getNome().equalsIgnoreCase("L")) {
+				lista.get(i).setValorBruto(lista.get(i).getValorLiquido()+lista.get(i).getValorIr()+lista.get(i).getValorPrevidencia());
+			}
+		}
+	}
 	
 	
 	
@@ -226,6 +276,8 @@ public class CalcularCalculadoraService {
 			lista.get(i).setValorPatronal(UtilidadesMatematicas.ajustaValorDecimal(lista.get(i).getValorPatronal(), 2));
 			lista.get(i).setValorPrevidencia(UtilidadesMatematicas.ajustaValorDecimal(lista.get(i).getValorPrevidencia(), 2));
 			lista.get(i).setPercentagem(UtilidadesMatematicas.ajustaValorDecimal(lista.get(i).getPercentagem(), 2));
+			lista.get(i).setDescontoProp(UtilidadesMatematicas.ajustaValorDecimal(lista.get(i).getDescontoProp(), 2));
+			lista.get(i).setPensaoProp(UtilidadesMatematicas.ajustaValorDecimal(lista.get(i).getPensaoProp(), 2));
 		}
 	}
 	
@@ -251,7 +303,17 @@ public class CalcularCalculadoraService {
 		return rubricaVencimentoService.buscarPorMes(anoMes);
 	}
 	
+	public List<RubricaVencimento> buscarRubricasPorAnoMesDescontoOuVantagem(AnoMes anoMes, String natureza){
+		return rubricaVencimentoService.buscarPorMesDescontoOuVantagem(anoMes, natureza );
+	}
 	
+	public List<RubricaVencimento> buscarRubricasPorAnoMesDescontoOuVantagemPorFuncionario(AnoMes anoMes, String natureza, PessoaFuncionarios funcionario){
+		return rubricaVencimentoService.buscarPorMesDescontoOuVantagemPorFuncionario(anoMes, natureza, funcionario );
+	}
+	
+	public List<RubricaVencimento> buscarRubricasPorAnoMesDescontoOuVantagemPorPessoa(AnoMes anoMes, String natureza, Pessoa pessoa){
+		return rubricaVencimentoService.buscarPorMesDescontoOuVantagemPorPessoa(anoMes, natureza, pessoa );
+	}
 	
 	
 }

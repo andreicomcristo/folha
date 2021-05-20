@@ -50,22 +50,11 @@
 								id="valorHoraDia" placeholder="Valor " th:field="*{valor}" /> 
 							<p></p>
 							
-							<label for="nome" class="">Percentagem </label>							
-							<input type="text"
-								class="dinheiro form-control form-control-md"  
-								id="valorHoraDia" placeholder="Percentagem " th:field="*{percentagem}" /> 
-							<p></p>
-							
-							
-							<label for="nome" class="">Quantidade </label>							
-							<input type="number"
-								class=" form-control form-control-md"  
-								id="valorHoraDia" placeholder="Quantidade " th:field="*{quantidade}" /> 
-							<p></p>
 							
 							
 							
-												
+					<input type="hidden" id="id" th:field="*{percentagem}" />
+					<input type="hidden" id="id" th:field="*{quantidade}" />							
 					<input type="hidden" id="id" th:field="*{id}" />
 								<p></p>					
 						<button class="btn btn-outline-dark">Cadastrar</button>
