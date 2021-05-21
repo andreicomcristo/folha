@@ -369,12 +369,29 @@
 					<li><a href="#" class="fs-btn"><span class=" oi oi-chevron-bottom z174 icones-sidebar-tamanho align-middle"></span>Relatórios </a>
 						<ul class="fs-show">
 							
-							<li><a href="#" class="ft-btn"><span class=" oi oi-chevron-bottom z175 icones-sidebar-tamanho align-middle"></span>Gerenciais </a>
-								<ul class="ft-show">
-									<li><a sec:authorize-url="/jasper/abrirRelatoriosFolha" th:href="@{/jasper/abrirRelatoriosFolha}"><span class=" oi oi-chevron-right icones-sidebar-tamanho align-middle"></span>Listar</a></li>
+							<li><a href="#" class="fv-btn"><span class=" oi oi-chevron-bottom z177 icones-sidebar-tamanho align-middle"></span>Gerenciais </a>
+								<ul class="fv-show">
+									
+									<li><a href="#" class="ft-btn"><span class=" oi oi-chevron-bottom z175 icones-sidebar-tamanho align-middle"></span>Números </a>
+										<ul class="ft-show">
+											<li><a sec:authorize-url="/jasper/abrirRelatoriosFolha/variacaoCustoPorMes" th:href="@{/jasper/abrirRelatoriosFolha/variacaoCustoPorMes}"><span class=" oi oi-chevron-right icones-sidebar-tamanho align-middle"></span>Custo por Mês</a></li>
+											<li><a sec:authorize-url="/jasper/abrirRelatoriosFolha/variacaoCustoPorFonte" th:href="@{/jasper/abrirRelatoriosFolha/variacaoCustoPorFonte}"><span class=" oi oi-chevron-right icones-sidebar-tamanho align-middle"></span>Custo por Fonte</a></li>
+											<li><a sec:authorize-url="/jasper/abrirRelatoriosFolha/variacaoCustoPorUnidade" th:href="@{/jasper/abrirRelatoriosFolha/variacaoCustoPorUnidade}"><span class=" oi oi-chevron-right icones-sidebar-tamanho align-middle"></span>Custo por Unidade</a></li>
+											<li><a sec:authorize-url="/jasper/abrirRelatoriosFolha/variacaoCustoPorUnidadeArea" th:href="@{/jasper/abrirRelatoriosFolha/variacaoCustoPorUnidadeArea}"><span class=" oi oi-chevron-right icones-sidebar-tamanho align-middle"></span>Custo por Unidade Área</a></li>
+											<li><a sec:authorize-url="/jasper/abrirRelatoriosFolha/variacaoCustoPorUnidadeFolha" th:href="@{/jasper/abrirRelatoriosFolha/variacaoCustoPorUnidadeFolha}"><span class=" oi oi-chevron-right icones-sidebar-tamanho align-middle"></span>Custo por Unidade Folha</a></li>
+											<li><a sec:authorize-url="/jasper/abrirRelatoriosFolha/variacaoCustoPorUnidadeNivel" th:href="@{/jasper/abrirRelatoriosFolha/variacaoCustoPorUnidadeNivel}"><span class=" oi oi-chevron-right icones-sidebar-tamanho align-middle"></span>Custo por Unidade Nível</a></li>
+											<li><a sec:authorize-url="/jasper/abrirRelatoriosFolha/variacaoCustoPorUnidadeNivelCargo" th:href="@{/jasper/abrirRelatoriosFolha/variacaoCustoPorUnidadeNivelCargo}"><span class=" oi oi-chevron-right icones-sidebar-tamanho align-middle"></span>Custo por Unidade Cargo</a></li>
+										</ul>
+									</li>
+									
+									<li><a href="#" class="fu-btn"><span class=" oi oi-chevron-bottom z176 icones-sidebar-tamanho align-middle"></span>Gráficos </a>
+										<ul class="fu-show">
+											<li><a sec:authorize-url="/jasper/abrirRelatoriosFolha/variacaoCustoPorMes_grafico" th:href="@{/jasper/abrirRelatoriosFolha/variacaoCustoPorMes_grafico}"><span class=" oi oi-chevron-right icones-sidebar-tamanho align-middle"></span>Custo por Unidade</a></li>
+										</ul>
+									</li>		
+									
 								</ul>
 							</li>
-							
 							
 						</ul>
 					</li>
@@ -1004,19 +1021,9 @@
 			
 			
 			
-			<li><a href="#" class="fu-btn"><span class=" oi oi-chevron-bottom z176 icones-sidebar-tamanho align-middle"></span>Menu 1 </a>
-				<ul class="fu-show">
-					<li><a href="#"><span class=" oi oi-chevron-right icones-sidebar-tamanho align-middle"></span>Cadastrar</a></li>
-					<li><a href="#"><span class=" oi oi-chevron-right icones-sidebar-tamanho align-middle"></span>Listar</a></li>
-				</ul>
-			</li>
 			
-			<li><a href="#" class="fv-btn"><span class=" oi oi-chevron-bottom z177 icones-sidebar-tamanho align-middle"></span>Menu 1 </a>
-				<ul class="fv-show">
-					<li><a href="#"><span class=" oi oi-chevron-right icones-sidebar-tamanho align-middle"></span>Cadastrar</a></li>
-					<li><a href="#"><span class=" oi oi-chevron-right icones-sidebar-tamanho align-middle"></span>Listar</a></li>
-				</ul>
-			</li>
+			
+			
 			
 			<li><a href="#" class="fw-btn"><span class=" oi oi-chevron-bottom z178 icones-sidebar-tamanho align-middle"></span>Menu 1 </a>
 				<ul class="fw-show">
