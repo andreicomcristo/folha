@@ -35,6 +35,10 @@ public class JasperController {
 		service.setCaminho("/jasper/funcionarios-01.jasper");
 		byte[] bytes = service.gerarRelatorio(); 
 		response.setContentType(MediaType.APPLICATION_PDF_VALUE);
+		//Faz o download
+		response.setHeader("Content-disposition", "attachment; filename=funcionarios-01.pdf");
+		// Abre na mesma pagina
+		//response.setHeader("Content-disposition", "inline; filename=funcionarios-01.pdf");
 		response.getOutputStream().write(bytes);
 	}		
 }
