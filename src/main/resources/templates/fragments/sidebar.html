@@ -366,6 +366,20 @@
 			<li><a sec:authorize="hasAnyAuthority( 'MASTER' , 'FOLHA_SEDE' , 'MASTER_RH_SEDE' )" href="#" class="bg-btn"><span class=" oi oi-chevron-bottom z58 icones-sidebar-tamanho align-middle"></span>Folha </a>
 				<ul class="bg-show">
 					
+					<li><a href="#" class="fs-btn"><span class=" oi oi-chevron-bottom z174 icones-sidebar-tamanho align-middle"></span>Relatórios </a>
+						<ul class="fs-show">
+							
+							<li><a href="#" class="ft-btn"><span class=" oi oi-chevron-bottom z175 icones-sidebar-tamanho align-middle"></span>Gerenciais </a>
+								<ul class="ft-show">
+									<li><a sec:authorize-url="/jasper/abrirRelatoriosFolha" th:href="@{/jasper/abrirRelatoriosFolha}"><span class=" oi oi-chevron-right icones-sidebar-tamanho align-middle"></span>Listar</a></li>
+								</ul>
+							</li>
+							
+							
+						</ul>
+					</li>
+					
+					
 					<li><a href="#" class="ct-btn"><span class=" oi oi-chevron-bottom z97 icones-sidebar-tamanho align-middle"></span>Cálculos </a>
 						<ul class="ct-show">
 							<li><a sec:authorize-url="/calculos/escolher/mes" th:href="@{/calculos/escolher/mes}"><span class=" oi oi-chevron-right icones-sidebar-tamanho align-middle"></span>Calcular</a></li>
@@ -987,19 +1001,8 @@
 			
 			
 			
-			<li><a href="#" class="fs-btn"><span class=" oi oi-chevron-bottom z174 icones-sidebar-tamanho align-middle"></span>Menu 1 </a>
-				<ul class="fs-show">
-					<li><a href="#"><span class=" oi oi-chevron-right icones-sidebar-tamanho align-middle"></span>Cadastrar</a></li>
-					<li><a href="#"><span class=" oi oi-chevron-right icones-sidebar-tamanho align-middle"></span>Listar</a></li>
-				</ul>
-			</li>
 			
-			<li><a href="#" class="ft-btn"><span class=" oi oi-chevron-bottom z175 icones-sidebar-tamanho align-middle"></span>Menu 1 </a>
-				<ul class="ft-show">
-					<li><a href="#"><span class=" oi oi-chevron-right icones-sidebar-tamanho align-middle"></span>Cadastrar</a></li>
-					<li><a href="#"><span class=" oi oi-chevron-right icones-sidebar-tamanho align-middle"></span>Listar</a></li>
-				</ul>
-			</li>
+			
 			
 			<li><a href="#" class="fu-btn"><span class=" oi oi-chevron-bottom z176 icones-sidebar-tamanho align-middle"></span>Menu 1 </a>
 				<ul class="fu-show">
