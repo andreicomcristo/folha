@@ -1,6 +1,7 @@
 package com.folha.boot.web.controller;
 
 import java.io.IOException;
+import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -14,11 +15,15 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 
+import com.folha.boot.domain.Unidades;
+import com.folha.boot.service.UnidadesService;
 import com.folha.boot.service.relatorios.JasperService;
 @RequestMapping("/jasper")
 @Controller
 public class JasperController {
 
+	@Autowired
+	private UnidadesService unidadesService;
 	@Autowired
 	private JasperService service;
 	
@@ -221,10 +226,55 @@ public class JasperController {
 	
 	
 	
+	//variacaoCustoPorMes_global_grafico
+	@GetMapping("/abrirRelatoriosFolha/variacaoCustoPorMes_global_grafico")
+	public String abrirRelatoriosFolhavariacaoCustoPorMes_global_grafico() {		
+		return "/reports/variacaoCustoPorMes_global_grafico";
+	}
+
+	@GetMapping("/relatoriosFolha/variacaoCustoPorMes_global_grafico")
+	public void exibirRelatoriosFolhavariacaoCustoPorMes_global_grafico(@RequestParam("ano") String ano, HttpServletResponse response) throws IOException {
+		if(ano.length()==4) {ano = ano+"%";}
+		service.addParametros("ANO_I", ano);		
+		service.setCaminho("/jasper/folha/variacaoCustoPorMes_global_grafico.jasper");
+		byte[] bytes = service.gerarRelatorio(); 
+		response.setContentType(MediaType.APPLICATION_PDF_VALUE);
+		//Faz o download
+		response.setHeader("Content-disposition", "attachment; filename=dados.pdf");
+		response.getOutputStream().write(bytes);
+	}	
+	
+	
+	//VariacaoCustoPorNivel_unidade_grafico
+	@GetMapping("/abrirRelatoriosFolha/VariacaoCustoPorNivel_unidade_grafico")
+	public String abrirRelatoriosFolhaVariacaoCustoPorNivel_unidade_grafico() {	
+		return "/reports/VariacaoCustoPorNivel_unidade_grafico";
+	}
+
+	@GetMapping("/relatoriosFolha/VariacaoCustoPorNivel_unidade_grafico")
+	public void exibirRelatoriosFolhaVariacaoCustoPorNivel_unidade_grafico(@RequestParam("ano") String ano, @RequestParam("unidade") Long unidade, HttpServletResponse response) throws IOException {
+		if(ano.length()==4) {ano = ano+"%";}
+		service.addParametros("ANO_I", ano);		
+		service.addParametros("UNIDADE_I", unidade);
+		service.addParametros("UNIDADE_NOME_I", unidadesService.buscarPorId(unidade).getNomeFantasia());
+		service.setCaminho("/jasper/folha/VariacaoCustoPorNivel_unidade_grafico.jasper");
+		byte[] bytes = service.gerarRelatorio(); 
+		response.setContentType(MediaType.APPLICATION_PDF_VALUE);
+		//Faz o download
+		response.setHeader("Content-disposition", "attachment; filename=dados.pdf");
+		response.getOutputStream().write(bytes);
+	}	
 	
 	
 	
 	
+	
+	
+	
+	@ModelAttribute("idUnidadeFk")
+	public List<Unidades> getIdUnidadeRegimeFk() {
+		return unidadesService.buscarTodos();	
+	}
 	
 	@Autowired
 	HttpServletRequest request;

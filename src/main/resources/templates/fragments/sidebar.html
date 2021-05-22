@@ -386,12 +386,34 @@
 									
 									<li><a href="#" class="fu-btn"><span class=" oi oi-chevron-bottom z176 icones-sidebar-tamanho align-middle"></span>Gráficos </a>
 										<ul class="fu-show">
+											<li><a sec:authorize-url="/jasper/abrirRelatoriosFolha/variacaoCustoPorMes_global_grafico" th:href="@{/jasper/abrirRelatoriosFolha/variacaoCustoPorMes_global_grafico}"><span class=" oi oi-chevron-right icones-sidebar-tamanho align-middle"></span>Custo Global</a></li>
 											<li><a sec:authorize-url="/jasper/abrirRelatoriosFolha/variacaoCustoPorMes_grafico" th:href="@{/jasper/abrirRelatoriosFolha/variacaoCustoPorMes_grafico}"><span class=" oi oi-chevron-right icones-sidebar-tamanho align-middle"></span>Custo por Unidade</a></li>
 										</ul>
 									</li>		
 									
 								</ul>
 							</li>
+							
+							
+							<li><a href="#" class="fw-btn"><span class=" oi oi-chevron-bottom z178 icones-sidebar-tamanho align-middle"></span>Unidade </a>
+								<ul class="fw-show">
+								
+									<li><a href="#" class="fx-btn"><span class=" oi oi-chevron-bottom z179 icones-sidebar-tamanho align-middle"></span>Números </a>
+										<ul class="fx-show">
+											<li><a href="#"><span class=" oi oi-chevron-right icones-sidebar-tamanho align-middle"></span>Listar</a></li>
+										</ul>
+									</li>
+									
+									<li><a href="#" class="fy-btn"><span class=" oi oi-chevron-bottom z180 icones-sidebar-tamanho align-middle"></span>Gráficos </a>
+										<ul class="fy-show">
+											<li><a sec:authorize-url="/jasper/abrirRelatoriosFolha/VariacaoCustoPorNivel_unidade_grafico" th:href="@{/jasper/abrirRelatoriosFolha/VariacaoCustoPorNivel_unidade_grafico}"><span class=" oi oi-chevron-right icones-sidebar-tamanho align-middle"></span>Custo Nível</a></li>
+										</ul>
+									</li>
+								
+								</ul>
+							</li>
+							
+							
 							
 						</ul>
 					</li>
@@ -1025,26 +1047,9 @@
 			
 			
 			
-			<li><a href="#" class="fw-btn"><span class=" oi oi-chevron-bottom z178 icones-sidebar-tamanho align-middle"></span>Menu 1 </a>
-				<ul class="fw-show">
-					<li><a href="#"><span class=" oi oi-chevron-right icones-sidebar-tamanho align-middle"></span>Cadastrar</a></li>
-					<li><a href="#"><span class=" oi oi-chevron-right icones-sidebar-tamanho align-middle"></span>Listar</a></li>
-				</ul>
-			</li>
 			
-			<li><a href="#" class="fx-btn"><span class=" oi oi-chevron-bottom z179 icones-sidebar-tamanho align-middle"></span>Menu 1 </a>
-				<ul class="fx-show">
-					<li><a href="#"><span class=" oi oi-chevron-right icones-sidebar-tamanho align-middle"></span>Cadastrar</a></li>
-					<li><a href="#"><span class=" oi oi-chevron-right icones-sidebar-tamanho align-middle"></span>Listar</a></li>
-				</ul>
-			</li>
 			
-			<li><a href="#" class="fy-btn"><span class=" oi oi-chevron-bottom z180 icones-sidebar-tamanho align-middle"></span>Menu 1 </a>
-				<ul class="fy-show">
-					<li><a href="#"><span class=" oi oi-chevron-right icones-sidebar-tamanho align-middle"></span>Cadastrar</a></li>
-					<li><a href="#"><span class=" oi oi-chevron-right icones-sidebar-tamanho align-middle"></span>Listar</a></li>
-				</ul>
-			</li>
+			
 			
 			<li><a href="#" class="fz-btn"><span class=" oi oi-chevron-bottom z181 icones-sidebar-tamanho align-middle"></span>Menu 1 </a>
 				<ul class="fz-show">
