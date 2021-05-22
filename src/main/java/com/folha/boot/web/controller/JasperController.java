@@ -14,8 +14,13 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
-
+import com.folha.boot.domain.AnoMes;
+import com.folha.boot.domain.CargosEspecialidade;
+import com.folha.boot.domain.NiveisCargo;
 import com.folha.boot.domain.Unidades;
+import com.folha.boot.service.AnoMesService;
+import com.folha.boot.service.CargosEspecialidadeService;
+import com.folha.boot.service.NiveisCargoService;
 import com.folha.boot.service.UnidadesService;
 import com.folha.boot.service.relatorios.JasperService;
 @RequestMapping("/jasper")
@@ -23,7 +28,13 @@ import com.folha.boot.service.relatorios.JasperService;
 public class JasperController {
 
 	@Autowired
+	private AnoMesService anoMesService;
+	@Autowired
 	private UnidadesService unidadesService;
+	@Autowired
+	private NiveisCargoService niveisCargoService;
+	@Autowired
+	private CargosEspecialidadeService cargosEspecialidadeService;
 	@Autowired
 	private JasperService service;
 	
@@ -266,7 +277,112 @@ public class JasperController {
 	}	
 	
 	
+	//VariacaoCustoPorCargo_unidade_grafico
+	@GetMapping("/abrirRelatoriosFolha/VariacaoCustoPorCargo_unidade_grafico")
+	public String abrirRelatoriosFolhaVariacaoCustoPorCargo_unidade_grafico() {	
+		return "/reports/VariacaoCustoPorCargo_unidade_grafico";
+	}
+
+	@GetMapping("/relatoriosFolha/VariacaoCustoPorCargo_unidade_grafico")
+	public void exibirRelatoriosFolhaVariacaoCustoPorCargo_unidade_grafico(@RequestParam("ano") String ano, @RequestParam("unidade") Long unidade, @RequestParam("nivel") Long nivel ,  HttpServletResponse response) throws IOException {
+		if(ano.length()==4) {ano = ano+"%";}
+		service.addParametros("ANO_I", ano);		
+		service.addParametros("UNIDADE_I", unidade);
+		service.addParametros("UNIDADE_NOME_I", unidadesService.buscarPorId(unidade).getNomeFantasia());
+		service.addParametros("NIVEL_I", nivel);
+		service.addParametros("NIVEL_NOME_I", niveisCargoService.buscarPorId(nivel).getNomeNivelCargo());
+		service.setCaminho("/jasper/folha/VariacaoCustoPorCargo_unidade_grafico.jasper");
+		byte[] bytes = service.gerarRelatorio(); 
+		response.setContentType(MediaType.APPLICATION_PDF_VALUE);
+		//Faz o download
+		response.setHeader("Content-disposition", "attachment; filename=dados.pdf");
+		response.getOutputStream().write(bytes);
+	}	
 	
+	
+	
+	//VariacaoCustoPorEspecialidade_unidade_grafico
+	@GetMapping("/abrirRelatoriosFolha/VariacaoCustoPorEspecialidade_unidade_grafico")
+	public String abrirRelatoriosFolhaVariacaoCustoPorEspecialidade_unidade_grafico() {	
+		return "/reports/VariacaoCustoPorEspecialidade_unidade_grafico";
+	}
+
+	@GetMapping("/relatoriosFolha/VariacaoCustoPorEspecialidade_unidade_grafico")
+	public void exibirRelatoriosFolhaVariacaoCustoPorEspecialidade_unidade_grafico(@RequestParam("ano") String ano, @RequestParam("unidade") Long unidade, @RequestParam("nivel") Long nivel ,  HttpServletResponse response) throws IOException {
+		if(ano.length()==4) {ano = ano+"%";}
+		service.addParametros("ANO_I", ano);		
+		service.addParametros("UNIDADE_I", unidade);
+		service.addParametros("UNIDADE_NOME_I", unidadesService.buscarPorId(unidade).getNomeFantasia());
+		service.addParametros("NIVEL_I", nivel);
+		service.addParametros("NIVEL_NOME_I", niveisCargoService.buscarPorId(nivel).getNomeNivelCargo());
+		service.setCaminho("/jasper/folha/VariacaoCustoPorEspecialidade_unidade_grafico.jasper");
+		byte[] bytes = service.gerarRelatorio(); 
+		response.setContentType(MediaType.APPLICATION_PDF_VALUE);
+		//Faz o download
+		response.setHeader("Content-disposition", "attachment; filename=dados.pdf");
+		response.getOutputStream().write(bytes);
+	}	
+	
+	
+	//VariacaoCustoPorEspecialidade_na_unidade_grafico
+	@GetMapping("/abrirRelatoriosFolha/VariacaoCustoPorEspecialidade_na_unidade_grafico")
+	public String abrirRelatoriosFolhaVariacaoCustoPorEspecialidade_na_unidade_grafico() {	
+		return "/reports/VariacaoCustoPorEspecialidade_na_unidade_grafico";
+	}
+
+	@GetMapping("/relatoriosFolha/VariacaoCustoPorEspecialidade_na_unidade_grafico")
+	public void exibirRelatoriosFolhaVariacaoCustoPorEspecialidade_na_unidade_grafico(@RequestParam("ano") String ano, @RequestParam("unidade") Long unidade, @RequestParam("especialidade") Long especialidade ,  HttpServletResponse response) throws IOException {
+		if(ano.length()==4) {ano = ano+"%";}
+		service.addParametros("ANO_I", ano);		
+		service.addParametros("UNIDADE_I", unidade);
+		service.addParametros("UNIDADE_NOME_I", unidadesService.buscarPorId(unidade).getNomeFantasia());
+		service.addParametros("ESPECIALIDADE_I", especialidade);
+		service.addParametros("ESPECIALIDADE_NOME_I", cargosEspecialidadeService.buscarPorId(especialidade).getIdCargoFk().getNomeCargo()+" - "+cargosEspecialidadeService.buscarPorId(especialidade).getNomeEspecialidadeCargo());
+		service.setCaminho("/jasper/folha/VariacaoCustoPorEspecialidade_na_unidade_grafico.jasper");
+		byte[] bytes = service.gerarRelatorio(); 
+		response.setContentType(MediaType.APPLICATION_PDF_VALUE);
+		//Faz o download
+		response.setHeader("Content-disposition", "attachment; filename=dados.pdf");
+		response.getOutputStream().write(bytes);
+	}	
+	
+	
+	//VariacaoCustoPorNivel_unidade_pizza_grafico
+	@GetMapping("/abrirRelatoriosFolha/VariacaoCustoPorNivel_unidade_pizza_grafico")
+	public String abrirRelatoriosFolhaVariacaoCustoPorNivel_unidade_pizza_grafico() {	
+		return "/reports/VariacaoCustoPorNivel_unidade_pizza_grafico";
+	}
+
+	@GetMapping("/relatoriosFolha/VariacaoCustoPorNivel_unidade_pizza_grafico")
+	public void exibirRelatoriosFolhaVariacaoCustoPorNivel_unidade_pizza_grafico(@RequestParam("mes") Long mes, @RequestParam("unidade") Long unidade, @RequestParam("nivel") Long nivel ,  HttpServletResponse response) throws IOException {
+		service.addParametros("MES_I", anoMesService.buscarPorId(mes).getNomeAnoMes());		
+		service.addParametros("UNIDADE_I", unidade);
+		service.addParametros("UNIDADE_NOME_I", unidadesService.buscarPorId(unidade).getNomeFantasia());
+		service.setCaminho("/jasper/folha/VariacaoCustoPorNivel_unidade_pizza_grafico.jasper");
+		byte[] bytes = service.gerarRelatorio(); 
+		response.setContentType(MediaType.APPLICATION_PDF_VALUE);
+		//Faz o download
+		response.setHeader("Content-disposition", "attachment; filename=dados.pdf");
+		response.getOutputStream().write(bytes);
+	}	
+	
+	
+	//VariacaoCustoPorUnidade_pizza_grafico
+	@GetMapping("/abrirRelatoriosFolha/VariacaoCustoPorUnidade_pizza_grafico")
+	public String abrirRelatoriosFolhaVariacaoCustoPorUnidade_pizza_grafico() {	
+		return "/reports/VariacaoCustoPorUnidade_pizza_grafico";
+	}
+
+	@GetMapping("/relatoriosFolha/VariacaoCustoPorUnidade_pizza_grafico")
+	public void exibirRelatoriosFolhaVariacaoCustoPorUnidade_pizza_grafico(@RequestParam("mes") Long mes,  HttpServletResponse response) throws IOException {
+		service.addParametros("MES_I", anoMesService.buscarPorId(mes).getNomeAnoMes());		
+		service.setCaminho("/jasper/folha/VariacaoCustoPorUnidade_pizza_grafico.jasper");
+		byte[] bytes = service.gerarRelatorio(); 
+		response.setContentType(MediaType.APPLICATION_PDF_VALUE);
+		//Faz o download
+		response.setHeader("Content-disposition", "attachment; filename=dados.pdf");
+		response.getOutputStream().write(bytes);
+	}	
 	
 	
 	
@@ -275,6 +391,22 @@ public class JasperController {
 	public List<Unidades> getIdUnidadeRegimeFk() {
 		return unidadesService.buscarTodos();	
 	}
+	
+	@ModelAttribute("idNivelFk")
+	public List<NiveisCargo> getIdNivelFk() {
+		return niveisCargoService.buscarTodos();	
+	}
+	
+	@ModelAttribute("idAnoMesFk")
+	public List<AnoMes> getIdAnoMesFk() {
+		return anoMesService.buscarTodos();	
+	}
+	
+	@ModelAttribute("idEspecialidadeFk")
+	public List<CargosEspecialidade> getIdEspecialidadeFk() {
+		return cargosEspecialidadeService.buscarTodos();	
+	}
+	
 	
 	@Autowired
 	HttpServletRequest request;

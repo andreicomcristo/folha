@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html layout:decorate="~{layout}">
+<head><meta charset="UTF-8"/></head>
+<body>
+	<section class="layout-content" layout:fragment="corpo">
+
+		<nav class="navbar navbar-expand-md bg-light">
+			<form th:action="@{/regimesdetrabalhos/listar}">
+				<div class=" layout-content">
+					<a class="btn btn-outline-light oi oi-action-undo" type="button" href="javascript:history.back()"></a>
+					<a class="btn btn-outline-light oi oi-action-redo" type="button" href="javascript:history.forward()"></a>
+					
+				</div>
+			</form>
+		</nav>
+
+		<div class="container" id="cadastro">
+
+			<div th:replace="fragments/alert"></div>
+			<form th:action="@{/jasper/relatoriosFolha/VariacaoCustoPorEspecialidade_na_unidade_grafico}"	enctype="multipart/form-data"> 
+			<div class="form-row">
+				
+
+					<div class="form-group col-md-6">
+						<label for="nome" class="fonte-tutulos-tamanho">Relatório Variação Custo por Especialidade na Unidade Gráfico</label>
+							
+						
+							<p></p>
+						<label for="nome" class=""> Ano </label>
+							
+							<input type="text"
+								class="form-control form-control-md" autofocus="autofocus"
+								id="nome" placeholder="ano" th:name="ano" />						
+							<p></p>
+							
+							<label for="nome" class="">Unidade </label>
+							<select id="idFonteFk" class="form-select" th:name="unidade">
+								<option value="">Selecione a Unidade</option>
+								<option class="form-select" th:each="d : ${idUnidadeFk}" th:value="${d.id}"th:text="${d.nomeFantasia}" selected >ADM</option>
+							</select>
+							<p></p>
+							
+							<label for="nivel" class="">Especialidade </label>
+							<select id="idFonteFk" class="form-select" th:name="especialidade">
+								<option value="">Selecione a Especialidade</option>
+								<option class="form-select" th:each="d : ${idEspecialidadeFk}" th:value="${d.id}"th:text="${d.idCargoFk.nomeCargo} +' - '+ ${d.nomeEspecialidadeCargo}" selected >ADM</option>
+							</select>
+							<p></p>
+							
+							<button class="btn btn-outline-dark">Enviar</button>
+					</div>
+				</div>
+			</form>
+		</div>
+	</section>
+</body>
+</html>
