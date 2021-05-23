@@ -39,15 +39,8 @@
 							
 							<label for="nome" class="">Nível do Cargo </label>
 							<select id="idNivelCarreiraFk" class="form-select" th:field="*{idNivelCargoFk}">
-								<option value="">Selecione Nível da Carreira</option>
+								<option value="">Selecione Nível do Cargo</option>
 								<option class="form-select" th:each="d : ${idNivelCargoFk}" th:value="${d.id}"th:text="${d.nomeNivelCargo}" selected >ADM</option>
-							</select>	
-							<p></p>	
-							
-							<label for="nome" class="">Classe da Carreira </label>
-							<select id="idClasseCarreiraFk" class="form-select" th:field="*{idClasseCarreiraFk}">
-								<option value="">Selecione a Classe</option>
-								<option class="form-select" th:each="d : ${idClasseCarreiraFk}" th:value="${d.id}"th:text="${d.nomeClasse}" selected >ADM</option>
 							</select>	
 							<p></p>	
 							
@@ -81,7 +74,7 @@
 							
 							<label for="nome" class="">Valor </label>							
 							<input type="text"
-								class="dinheiro form-control form-control-md"  
+								class=" form-control form-control-md"  
 								id="valorHoraDia" placeholder="Valor " th:field="*{valor}" /> 
 							<p></p>
 												

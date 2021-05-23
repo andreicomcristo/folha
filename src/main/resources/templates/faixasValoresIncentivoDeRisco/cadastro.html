@@ -46,7 +46,7 @@
 							
 							<label for="nome" class="">Valor </label>							
 							<input type="text"
-								class="dinheiro form-control form-control-md"  
+								class=" form-control form-control-md"  
 								id="valorHoraDia" placeholder="Valor " th:field="*{valor}" /> 
 							<p></p>
 							
@@ -60,7 +60,7 @@
 							<label for="nome" class="">Fonte </label>
 							<select id="idFonteFk" class="form-select" th:field="*{idFonteFk}">
 								<option value="">Selecione a Fonte</option>
-								<option class="form-select" th:each="d : ${idFonteFk}" th:value="${d.id}"th:text="${d.descricao}" selected >ADM</option>
+								<option class="form-select" th:each="d : ${idFonteFk}" th:value="${d.id}"th:text="${d.nome}" selected >ADM</option>
 							</select>
 							<p></p>
 							

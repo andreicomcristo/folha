@@ -108,6 +108,8 @@ public class FaixasValoresIncentivoDeRiscoService {
 				f.setIdAnoMesFk(anoMesService.buscarPorId(anoMesFinal));
 				f.setIdUnidadeFk( listaInicial.get(i).getIdUnidadeFk() );
 				f.setValor(listaInicial.get(i).getValor());
+				f.setIdFonteFk(listaInicial.get(i).getIdFonteFk());
+				f.setIdTipoBrutoLiquidoFk(listaInicial.get(i).getIdTipoBrutoLiquidoFk());
 				
 				salvar(f);
 			}

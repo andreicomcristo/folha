@@ -36,6 +36,12 @@ public class TiposDeFolhaService {
 	}
 
 	@Transactional(readOnly = true)
+	public List<TiposDeFolha> buscarNaoEfetivasEVariaveis() {
+		// TODO Auto-generated method stub
+		return reposytory.findByIdFolhaEfetivaSimNaoFkSiglaAndIdTipoRemuneracaoFkNomeTipoRemuneracaoOrderByNomeTipoFolhaAsc("N", "VARIAVEL");
+	}
+	
+	@Transactional(readOnly = true)
 	public List<TiposDeFolha> buscarNaoEfetivas() {
 		// TODO Auto-generated method stub
 		return reposytory.findByIdFolhaEfetivaSimNaoFkSiglaOrderByNomeTipoFolhaAsc("N");

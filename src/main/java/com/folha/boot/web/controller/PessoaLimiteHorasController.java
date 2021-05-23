@@ -85,7 +85,7 @@ public class PessoaLimiteHorasController {
 	
 	@GetMapping("/listar/funcionarios/{pageNo}")
 	public String findPaginatedFuncionario(@PathVariable (value = "pageNo") int pageNo, ModelMap model) {
-		int pageSeze = 10;
+		int pageSeze = 50;
 		Page<PessoaFuncionarios> page = pessoaFuncionariosService.findPaginated(pageNo, pageSeze, usuarioService.pegarUnidadeLogada(), "ATIVO");
 		List<PessoaFuncionarios> listaFuncionarios = page.getContent();
 		return paginarFuncionario(pageNo, page, listaFuncionarios, model);
@@ -109,7 +109,7 @@ public class PessoaLimiteHorasController {
 	}
 	
 	public String findPaginatedFuncionario(@PathVariable (value = "pageNo") int pageNo, String nome, ModelMap model) {
-		int pageSeze = 10;
+		int pageSeze = 50;
 		Page<PessoaFuncionarios> page = pessoaFuncionariosService.findPaginatedNome(pageNo, pageSeze, usuarioService.pegarUnidadeLogada(), "ATIVO", nome);
 		List<PessoaFuncionarios> lista = page.getContent();
 		//ultimaBuscaNome = "";
@@ -289,21 +289,21 @@ public class PessoaLimiteHorasController {
 	
 	@GetMapping("/listar/{pageNo}")
 	public String findPaginated(@PathVariable (value = "pageNo") int pageNo, ModelMap model) {
-		int pageSeze = 10;
+		int pageSeze = 50;
 		Page<PessoaLimiteHoras> page = service.findPaginated( pageNo, pageSeze);
 		List<PessoaLimiteHoras> lista = page.getContent();
 		return paginar(pageNo, page, lista, model);
 	}
 
 	public String findPaginatedNome(@PathVariable (value = "pageNo") int pageNo, String nome, ModelMap model) {
-		int pageSeze = 10;
+		int pageSeze = 50;
 		Page<PessoaLimiteHoras> page = service.findPaginatedNome(  nome, pageNo, pageSeze);
 		List<PessoaLimiteHoras> lista = page.getContent();
 		return paginar(pageNo, page, lista, model);
 	}
 	
 	public String findPaginatedUnidade(@PathVariable (value = "pageNo") int pageNo, String unidade, ModelMap model) {
-		int pageSeze = 10;
+		int pageSeze = 50;
 		Page<PessoaLimiteHoras> page = service.findPaginatedUnidade(  unidade, pageNo, pageSeze);
 		List<PessoaLimiteHoras> lista = page.getContent();
 		return paginar(pageNo, page, lista, model);
@@ -354,14 +354,14 @@ public class PessoaLimiteHorasController {
 	
 	@GetMapping("/listar/unidade/{pageNo}")
 	public String findPaginatedUnidade(@PathVariable (value = "pageNo") int pageNo, ModelMap model) {
-		int pageSeze = 10;
+		int pageSeze = 50;
 		Page<PessoaLimiteHoras> page = service.findPaginatedUnidade(usuarioService.pegarUnidadeLogada(), pageNo, pageSeze);
 		List<PessoaLimiteHoras> lista = page.getContent();
 		return paginarUnidade(pageNo, page, lista, model);
 	}
 
 	public String findPaginatedNomeUnidade(@PathVariable (value = "pageNo") int pageNo, String nome, ModelMap model) {
-		int pageSeze = 10;
+		int pageSeze = 50;
 		Page<PessoaLimiteHoras> page = service.findPaginatedNomeUnidade(usuarioService.pegarUnidadeLogada(),  nome, pageNo, pageSeze);
 		List<PessoaLimiteHoras> lista = page.getContent();
 		return paginarUnidade(pageNo, page, lista, model);

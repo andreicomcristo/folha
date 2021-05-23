@@ -97,14 +97,14 @@ public class FaixasValoresSubsidioController {
 	
 	@GetMapping("/listar/{pageNo}")
 	public String findPaginated(@PathVariable (value = "pageNo") int pageNo, ModelMap model) {
-		int pageSeze = 10;
+		int pageSeze = 50;
 		Page<FaixasValoresSubsidio> page = service.findPaginated(pageNo, pageSeze);
 		List<FaixasValoresSubsidio> listaCidades = page.getContent();
 		return paginar(pageNo, page, listaCidades, model);
 	}
 	
 	public String findPaginated(@PathVariable (value = "pageNo") int pageNo, String cnes, ModelMap model) {
-		int pageSeze = 10;
+		int pageSeze = 50;
 		Page<FaixasValoresSubsidio> page = service.findPaginatedAnoMes(pageNo, pageSeze, cnes);
 		List<FaixasValoresSubsidio> lista = page.getContent();
 		return paginar(pageNo, page, lista, model);

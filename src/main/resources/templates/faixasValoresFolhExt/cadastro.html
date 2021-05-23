@@ -51,13 +51,6 @@
 							</select>	
 							<p></p>	
 							
-							<label for="nome" class="">Classe da Carreira </label>
-							<select id="idClasseCarreiraFk" class="form-select" th:field="*{idClasseCarreiraFk}">
-								<option value="">Selecione a Classe</option>
-								<option class="form-select" th:each="d : ${idClasseCarreiraFk}" th:value="${d.id}"th:text="${d.nomeClasse}" selected >ADM</option>
-							</select>	
-							<p></p>	
-							
 							<label for="nome" class="">Carga Horária Semanal </label>
 							<select id="idCargaHorariaSemanalFk" class="form-select" th:field="*{idCargaHorariaSemanalFk}">
 								<option value="">Selecione Carga Horária Semanal</option>
@@ -88,7 +81,7 @@
 							
 							<label for="nome" class="">Valor </label>							
 							<input type="text"
-								class="dinheiro form-control form-control-md"  
+								class=" form-control form-control-md"  
 								id="valorHoraDia" placeholder="Valor " th:field="*{valor}" /> 
 							<p></p>
 											

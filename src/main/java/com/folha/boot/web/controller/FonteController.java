@@ -111,14 +111,14 @@ public class FonteController {
 	
 	@GetMapping("/listar/{pageNo}")
 	public String findPaginated(@PathVariable (value = "pageNo") int pageNo, ModelMap model) {
-		int pageSeze = 10;
+		int pageSeze = 50;
 		Page<Fonte> page = service.findPaginated( pageNo, pageSeze);
 		List<Fonte> lista = page.getContent();
 		return paginar(pageNo, page, lista, model);
 	}
 
 	public String findPaginated(@PathVariable (value = "pageNo") int pageNo, String nome, ModelMap model) {
-		int pageSeze = 10;
+		int pageSeze = 50;
 		Page<Fonte> page = service.findPaginatedNome(  nome, pageNo, pageSeze);
 		List<Fonte> lista = page.getContent();
 		return paginar(pageNo, page, lista, model);

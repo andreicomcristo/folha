@@ -70,7 +70,7 @@ public class FatorPatronalController {
 	
 	@GetMapping("/listar/{pageNo}")
 	public String findPaginated(@PathVariable (value = "pageNo") int pageNo, ModelMap model) {
-		int pageSeze = 10;
+		int pageSeze = 50;
 		if(pageNo<1) {pageNo=1;}
 		Page<FatorPatronal> page = service.findPaginated(pageNo, pageSeze);
 		List<FatorPatronal> lista = page.getContent();
@@ -78,7 +78,7 @@ public class FatorPatronalController {
 	}
 	
 	public String findPaginated(@PathVariable (value = "pageNo") int pageNo, String cnes, ModelMap model) {
-		int pageSeze = 10;
+		int pageSeze = 50;
 		Page<FatorPatronal> page = service.findPaginatedAnoMes(pageNo, pageSeze, cnes);
 		List<FatorPatronal> lista = page.getContent();
 		return paginar(pageNo, page, lista, model);

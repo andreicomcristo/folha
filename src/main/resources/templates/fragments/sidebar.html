@@ -36,6 +36,26 @@
 								</ul>
 							</li>
 							
+							<li><a href="#" class="fz-btn"><span class=" oi oi-chevron-bottom z181 icones-sidebar-tamanho align-middle"></span>Parâmetros Rubricas </a>
+								<ul class="fz-show">
+									
+									<li><a href="#" class="et-btn"><span class=" oi oi-chevron-bottom z149 icones-sidebar-tamanho align-middle"></span>Característica </a>
+										<ul class="et-show">
+											<li><a sec:authorize-url="/tipoBrutoLiquido/cadastrar" th:href="@{/tipoBrutoLiquido/cadastrar}"><span class=" oi oi-chevron-right icones-sidebar-tamanho align-middle"></span>Cadastrar</a></li>
+											<li><a sec:authorize-url="/tipoBrutoLiquido/listar" th:href="@{/tipoBrutoLiquido/listar}"><span class=" oi oi-chevron-right icones-sidebar-tamanho align-middle"></span>Listar</a></li>
+										</ul>
+									</li>
+											
+									<li><a href="#" class="er-btn"><span class=" oi oi-chevron-bottom z147 icones-sidebar-tamanho align-middle"></span>Tipos </a>
+										<ul class="er-show">
+											<li><a sec:authorize-url="/rubricaTipo/cadastrar" th:href="@{/rubricaTipo/cadastrar}"><span class=" oi oi-chevron-right icones-sidebar-tamanho align-middle"></span>Cadastrar</a></li>
+											<li><a sec:authorize-url="/rubricaTipo/listar" th:href="@{/rubricaTipo/listar}"><span class=" oi oi-chevron-right icones-sidebar-tamanho align-middle"></span>Listar</a></li>
+										</ul>
+									</li>
+									
+								</ul>
+							</li>
+							
 						</ul>
 					</li>
 									
@@ -486,19 +506,21 @@
 										</ul>
 									</li>
 									
-									<li><a href="#" class="dd-btn"><span class=" oi oi-chevron-bottom z107 icones-sidebar-tamanho align-middle"></span>Unidade Incr Risco </a>
+									<li><a href="#" class="dd-btn"><span class=" oi oi-chevron-bottom z107 icones-sidebar-tamanho align-middle"></span>Unidade x Inc Risco </a>
 										<ul class="dd-show">
 											<li><a sec:authorize-url="/unidadeAdmiteIncrementoDeRisco/cadastrar" th:href="@{/unidadeAdmiteIncrementoDeRisco/cadastrar}"><span class=" oi oi-chevron-right icones-sidebar-tamanho align-middle"></span>Cadastrar</a></li>
 											<li><a sec:authorize-url="/unidadeAdmiteIncrementoDeRisco/listar" th:href="@{/unidadeAdmiteIncrementoDeRisco/listar}"><span class=" oi oi-chevron-right icones-sidebar-tamanho align-middle"></span>Listar</a></li>
 										</ul>
 									</li>
 									
+									<!-- 
 									<li><a href="#" class="de-btn"><span class=" oi oi-chevron-bottom z108 icones-sidebar-tamanho align-middle"></span>Unidade x Ch Dif </a>
 										<ul class="de-show">
 											<li><a sec:authorize-url="/unidadeAdmiteChDif/cadastrar" th:href="@{/unidadeAdmiteChDif/cadastrar}"><span class=" oi oi-chevron-right icones-sidebar-tamanho align-middle"></span>Cadastrar</a></li>
 											<li><a sec:authorize-url="/unidadeAdmiteChDif/listar" th:href="@{/unidadeAdmiteChDif/listar}"><span class=" oi oi-chevron-right icones-sidebar-tamanho align-middle"></span>Listar</a></li>
 										</ul>
 									</li>
+									-->
 											
 								</ul>
 							</li>
@@ -602,7 +624,7 @@
 										</ul>
 									</li>
 									
-									<li><a href="#" class="av-btn"><span class=" oi oi-chevron-bottom fourtyeighth icones-sidebar-tamanho align-middle"></span>Folhas Extras</a>
+									<li><a href="#" class="av-btn"><span class=" oi oi-chevron-bottom fourtyeighth icones-sidebar-tamanho align-middle"></span>Folhas Extras Variáveis</a>
 										<ul class="av-show">
 											<li><a sec:authorize-url="/faixasparametrosextras/cadastrar" th:href="@{/faixasparametrosextras/cadastrar}"><span class=" oi oi-chevron-right icones-sidebar-tamanho align-middle"></span>Cadastrar</a></li>
 											<li><a sec:authorize-url="/faixasparametrosextras/listar" th:href="@{/faixasparametrosextras/listar}"><span class=" oi oi-chevron-right icones-sidebar-tamanho align-middle"></span>Listar</a></li>
@@ -638,20 +660,6 @@
 									
 									<li><a href="#" class="eu-btn"><span class=" oi oi-chevron-bottom z150 icones-sidebar-tamanho align-middle"></span>Parâmetros </a>
 										<ul class="eu-show">
-											
-											<li><a href="#" class="et-btn"><span class=" oi oi-chevron-bottom z149 icones-sidebar-tamanho align-middle"></span>Característica </a>
-												<ul class="et-show">
-													<li><a sec:authorize-url="/tipoBrutoLiquido/cadastrar" th:href="@{/tipoBrutoLiquido/cadastrar}"><span class=" oi oi-chevron-right icones-sidebar-tamanho align-middle"></span>Cadastrar</a></li>
-													<li><a sec:authorize-url="/tipoBrutoLiquido/listar" th:href="@{/tipoBrutoLiquido/listar}"><span class=" oi oi-chevron-right icones-sidebar-tamanho align-middle"></span>Listar</a></li>
-												</ul>
-											</li>
-											
-											<li><a href="#" class="er-btn"><span class=" oi oi-chevron-bottom z147 icones-sidebar-tamanho align-middle"></span>Tipos </a>
-												<ul class="er-show">
-													<li><a sec:authorize-url="/rubricaTipo/cadastrar" th:href="@{/rubricaTipo/cadastrar}"><span class=" oi oi-chevron-right icones-sidebar-tamanho align-middle"></span>Cadastrar</a></li>
-													<li><a sec:authorize-url="/rubricaTipo/listar" th:href="@{/rubricaTipo/listar}"><span class=" oi oi-chevron-right icones-sidebar-tamanho align-middle"></span>Listar</a></li>
-												</ul>
-											</li>
 											
 											<li><a href="#" class="es-btn"><span class=" oi oi-chevron-bottom z148 icones-sidebar-tamanho align-middle"></span>Fontes </a>
 												<ul class="es-show">
@@ -1023,12 +1031,7 @@
 			
 			
 			
-			<li><a href="#" class="fz-btn"><span class=" oi oi-chevron-bottom z181 icones-sidebar-tamanho align-middle"></span>Menu 1 </a>
-				<ul class="fz-show">
-					<li><a href="#"><span class=" oi oi-chevron-right icones-sidebar-tamanho align-middle"></span>Cadastrar</a></li>
-					<li><a href="#"><span class=" oi oi-chevron-right icones-sidebar-tamanho align-middle"></span>Listar</a></li>
-				</ul>
-			</li>
+			
 			
 			
 			<li><a href="#" class="ga-btn"><span class=" oi oi-chevron-bottom z182 icones-sidebar-tamanho align-middle"></span>Menu 1 </a>

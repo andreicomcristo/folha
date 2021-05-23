@@ -93,14 +93,14 @@ public class FaixasValoresGpfDiferenciadaController {
 	
 	@GetMapping("/listar/{pageNo}")
 	public String findPaginated(@PathVariable (value = "pageNo") int pageNo, ModelMap model) {
-		int pageSeze = 10;
+		int pageSeze = 50;
 		Page<FaixasValoresGpfDiferenciada> page = service.findPaginated(pageNo, pageSeze);
 		List<FaixasValoresGpfDiferenciada> listaCidades = page.getContent();
 		return paginar(pageNo, page, listaCidades, model);
 	}
 	
 	public String findPaginated(@PathVariable (value = "pageNo") int pageNo, String cnes, ModelMap model) {
-		int pageSeze = 10;
+		int pageSeze = 50;
 		Page<FaixasValoresGpfDiferenciada> page = service.findPaginatedAnoMes(pageNo, pageSeze, cnes);
 		List<FaixasValoresGpfDiferenciada> lista = page.getContent();
 		return paginar(pageNo, page, lista, model);

@@ -142,14 +142,14 @@ public class FuncionariosCapacitacoesController {
 	
 	@GetMapping("/listar/{pageNo}")
 	public String findPaginated(@PathVariable (value = "pageNo") int pageNo, ModelMap model) {
-		int pageSeze = 10;
+		int pageSeze = 50;
 		Page<FuncionariosCapacitacoes> page = service.findPaginated( usuarioService.pegarUnidadeLogada(),pageNo, pageSeze);
 		List<FuncionariosCapacitacoes> lista = page.getContent();
 		return paginar(pageNo, page, lista, model);
 	}
 
 	public String findPaginated(@PathVariable (value = "pageNo") int pageNo, String nome, ModelMap model) {
-		int pageSeze = 10;
+		int pageSeze = 50;
 		Page<FuncionariosCapacitacoes> page = service.findPaginatedNome( usuarioService.pegarUnidadeLogada(), nome, pageNo, pageSeze);
 		List<FuncionariosCapacitacoes> lista = page.getContent();
 		return paginar(pageNo, page, lista, model);

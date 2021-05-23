@@ -77,14 +77,14 @@ public class FaixasValoresParametrosCalculoFolhasExtrasController {
 	
 	@GetMapping("/listar/{pageNo}")
 	public String findPaginated(@PathVariable (value = "pageNo") int pageNo, ModelMap model) {
-		int pageSeze = 10;
+		int pageSeze = 50;
 		Page<FaixasValoresParametrosCalculoFolhasExtras> page = service.findPaginated(pageNo, pageSeze);
 		List<FaixasValoresParametrosCalculoFolhasExtras> listaCidades = page.getContent();
 		return paginar(pageNo, page, listaCidades, model);
 	}
 	
 	public String findPaginated(@PathVariable (value = "pageNo") int pageNo, String cnes, ModelMap model) {
-		int pageSeze = 10;
+		int pageSeze = 50;
 		Page<FaixasValoresParametrosCalculoFolhasExtras> page = service.findPaginatedAnoMes(pageNo, pageSeze, cnes);
 		List<FaixasValoresParametrosCalculoFolhasExtras> lista = page.getContent();
 		return paginar(pageNo, page, lista, model);
@@ -238,7 +238,7 @@ public class FaixasValoresParametrosCalculoFolhasExtrasController {
 	
 	@ModelAttribute("idTipoDeFolhaFk")
 	public List<TiposDeFolha> getIdTipoDeFolhaFk() {
-		return tiposDeFolhaService.buscarNaoEfetivas();	
+		return tiposDeFolhaService.buscarNaoEfetivasEVariaveis();	
 	}
 	
 	@ModelAttribute("idUnidadeFk")

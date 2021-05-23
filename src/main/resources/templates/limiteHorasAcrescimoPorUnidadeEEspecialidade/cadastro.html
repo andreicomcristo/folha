@@ -38,7 +38,7 @@
 
 							<label for="nome" class="">Especialidade </label>
 							<select id="idCodDiferenciadoFk" class="form-select" th:field="*{idEspecialidadeFk}">
-								<option value="">Selecione a Unidade</option>
+								<option value="">Selecione a Especialidade</option>
 								<option class="form-select" th:each="d : ${idEspecialidadeFk}" th:value="${d.id}"th:text="${d.idCargoFk.nomeCargo +' - '+d.nomeEspecialidadeCargo}" selected >ADM</option>
 							</select>	
 							<p></p>	

@@ -109,6 +109,7 @@ public class FaixasValoresFolhExtService {
 				f.setIdUnidadeFk(listaInicial.get(i).getIdUnidadeFk());
 				f.setIdFuncionarioFk(listaInicial.get(i).getIdFuncionarioFk());
 				f.setValor(listaInicial.get(i).getValor());
+				f.setObservacao(listaInicial.get(i).getObservacao());
 				
 				salvar(f);
 			}
