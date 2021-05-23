@@ -202,6 +202,7 @@
 				                        	<a th:text="'Matrícula: '+${d.idFuncionarioFk.matricula}" style="width:155px; height:25px; text-align:left; font-size:09px;  " role="button"></a><br>
 				                        	<a th:text="'Ch Semanal: '+${d.idFuncionarioFk.idCargaHorariaAtualFk.cargaHoraria} " style="width:155px; height:25px; text-align:left; font-size:09px;  " role="button"></a><br>
 				                        	<a th:text="${d.idFuncionarioFk.idEspecialidadeAtualFk.idCargoFk.idNivelCargoFk.nomeNivelCargo} " style="width:155px; height:25px; text-align:left; font-size:09px;  " role="button"></a><br>
+				                        	<a th:text="${d.idFuncionarioFk.idVinculoAtualFk.nomeVinculo} " style="width:155px; height:25px; text-align:left; font-size:09px;  " role="button"></a><br>
 				                        	<a th:text="'Folha: '+${d.idTipoFolhaFk.nomeTipoFolha}" style="width:155px; height:25px; text-align:left; font-size:09px;  " role="button"></a><br>
 				                        	<a th:text="'Regime: '+${d.idRegimeFk.nomeRegimeDeTrabalho}" style="width:155px; height:25px; text-align:left; font-size:09px;  " role="button"></a><br>
 				                        	<a th:text="'Complemento Plantão: '+${d.idComplementoPlantaoSimNaoFk.descricao}" style="width:155px; height:25px; text-align:left; font-size:09px;  " role="button"></a><br>
