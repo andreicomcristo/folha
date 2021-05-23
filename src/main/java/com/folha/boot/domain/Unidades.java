@@ -44,6 +44,10 @@ public class Unidades extends AbstractEntity<Long> {
     private String motivoCancelamento;
     @Column(name = "cnpj")
     private String cnpj;
+    @Column(name = "leitos_cadastrados")
+    private Integer leitosCadastrados;
+    @Column(name = "leitos_ativos")
+    private Integer leitosAtivos;
     @JoinColumn(name = "id_unidade_gestora_fk", referencedColumnName = "id")
     @ManyToOne
     private UnidadeGestora idUnidadeGestoraFk;
@@ -569,6 +573,22 @@ public class Unidades extends AbstractEntity<Long> {
 
 	public void setFaixasValoresResidenteList(List<FaixasValoresResidente> faixasValoresResidenteList) {
 		this.faixasValoresResidenteList = faixasValoresResidenteList;
+	}
+
+	public Integer getLeitosCadastrados() {
+		return leitosCadastrados;
+	}
+
+	public void setLeitosCadastrados(Integer leitosCadastrados) {
+		this.leitosCadastrados = leitosCadastrados;
+	}
+
+	public Integer getLeitosAtivos() {
+		return leitosAtivos;
+	}
+
+	public void setLeitosAtivos(Integer leitosAtivos) {
+		this.leitosAtivos = leitosAtivos;
 	}
 	
 	

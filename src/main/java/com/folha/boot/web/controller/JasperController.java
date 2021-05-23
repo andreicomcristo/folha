@@ -83,6 +83,47 @@ public class JasperController {
 		response.getOutputStream().write(bytes);
 	}	
 	
+	
+	
+	//variacaoCustoPorUnidadeMediaLeito
+	@GetMapping("/abrirRelatoriosFolha/variacaoCustoPorUnidadeMediaLeito")
+	public String abrirRelatoriosFolhaVariacaoCustoPorUnidadeMediaLeito() {		
+		return "/reports/variacaoCustoPorUnidadeMediaLeito";
+	}
+
+	@GetMapping("/relatoriosFolha/variacaoCustoPorUnidadeMediaLeito")
+	public void exibirRelatoriosFolhaVariacaoCustoPorUnidadeMediaLeito(@RequestParam("ano") String ano, HttpServletResponse response) throws IOException {
+		if(ano.length()==4) {ano = ano+"%";}
+		service.addParametros("ANO_I", ano);		
+		service.setCaminho("/jasper/folha/variacaoCustoPorUnidadeMediaLeito.jasper");
+		byte[] bytes = service.gerarRelatorio(); 
+		response.setContentType(MediaType.APPLICATION_PDF_VALUE);
+		//Faz o download
+		response.setHeader("Content-disposition", "attachment; filename=dados.pdf");
+		response.getOutputStream().write(bytes);
+	}	
+	
+	
+	//variacaoCustoPorUnidadeMediaLeitoCadastrado
+	@GetMapping("/abrirRelatoriosFolha/variacaoCustoPorUnidadeMediaLeitoCadastrado")
+	public String abrirRelatoriosFolhaVariacaoCustoPorUnidadeMediaLeitoCadastrado() {		
+		return "/reports/variacaoCustoPorUnidadeMediaLeitoCadastrado";
+	}
+
+	@GetMapping("/relatoriosFolha/variacaoCustoPorUnidadeMediaLeitoCadastrado")
+	public void exibirRelatoriosFolhaVariacaoCustoPorUnidadeMediaLeitoCadastrado(@RequestParam("ano") String ano, HttpServletResponse response) throws IOException {
+		if(ano.length()==4) {ano = ano+"%";}
+		service.addParametros("ANO_I", ano);		
+		service.setCaminho("/jasper/folha/variacaoCustoPorUnidadeMediaLeitoCadastrado.jasper");
+		byte[] bytes = service.gerarRelatorio(); 
+		response.setContentType(MediaType.APPLICATION_PDF_VALUE);
+		//Faz o download
+		response.setHeader("Content-disposition", "attachment; filename=dados.pdf");
+		response.getOutputStream().write(bytes);
+	}	
+	
+	
+	
 
 	
 	//variacaoCustoPorFonte
