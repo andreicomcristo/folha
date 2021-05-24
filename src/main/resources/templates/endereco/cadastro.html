@@ -21,16 +21,43 @@
 			
 			
 			<!-- endereco -->
-		<div class="form-group container  col-md-6 col-6 " id="cadastro">
+		<div class="form-group col-md-12" id="cadastro">
 		<form
 				th:action=" @{/enderecos/listar/endereco/viacep}"
 				th:object="${enderecos}" method="GET">
 				<div class="form-row">
-
-					<div class="form-group col-md-6">
+					<div class="form-group col-md-12">
 						<label for="nome" class="fonte-tutulos-tamanho">Endereço</label>
+						
+						<ul class="nav nav-tabs">
+  <li class="nav-item">
+    <a class="nav-link disabled" href="#">Busca</a>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link disabled" href="#">Dados pessoais</a>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link disabled" href="#">Documentos básicos</a>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link disabled" href="#">Documentos específicos</a>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link active" href="#">Endereço</a>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link disabled" href="#">Dependentes</a>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link disabled" href="#">Conta bancária</a>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link disabled" href="#">Funcionários</a>
+  </li>
+</ul>
+<br/>
 							
-							
+							<div class="tab-content col-md-6" id="nav-tabContent">
 							<input type="text"
 								class="form-control form-control-sm uppercase" autofocus="autofocus" 
 								id="codigo" placeholder="Cep para consulta" th:field="*{enderecoCep}" />
@@ -49,12 +76,13 @@
 										
 		</div>
 		</div>
+		</div>
 		</form>
 		</div>
 		
 		
 		
-		<div class="form-group container  col-md-6 col-6 " id="cadastro">
+		<div class="form-group col-md-6" id="cadastro">
 
 			<div th:replace="fragments/alert"></div>
 			<form
@@ -62,7 +90,7 @@
 				th:object="${enderecos}" method="POST">
 				<div class="form-row">
 
-					<div class="form-group col-md-6">
+					<div class="form-group col-md-12">
 							
 							<label for="nome" class="">Cep </label>
 							<input type="text"

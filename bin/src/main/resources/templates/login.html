@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html>
+<head>
+
+<link href="//netdna.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+<script src="//netdna.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
+<script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
+<!------ Include the above in your HEAD tag ---------->
+
+<!--Pulling Awesome Font -->
+<link href="//maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet">
+
+
+<meta charset="UTF-8">
+<title>GENTE-WEB</title>
+</head>
+<body>
+	
+	
+	
+	<div class="container-login centralizar-vertical-login">
+    <div class="row">
+        <div class="col-md-offset-4 col-md-4 col-sm-6  col-lg-3">
+            
+            
+            
+            <form th:action="@{/login}" method="post">
+	            
+	            <div class="form-login ">
+	            <h2>Sistema Gente-Web</h2>
+		            
+		            <div style= "color:red;" class="aw-simple-panel__message is-error" th:if="${#bools.isTrue(param.error)}">
+						<h3>Acesso não autorizado.</h3>
+					</div>
+	            
+	            <h4>Login</h4>
+	            <p></p>
+	            <input type="text" id="username" th:name="username" class="form-control input-sm chat-input" placeholder="Usuário" autofocus="autofocus" />
+	            </br>
+	            <input type="password" id="password" th:name="password" class="form-control input-sm chat-input" placeholder="Senha" />
+	            
+	            </br>
+	            
+	            <select  id="unidades" class="form-control form-select chat-input" th:field="${unidades}">
+					<option value="">Selecione a Unidade</option>
+					<option th:each="d : ${unidades}" th:value="${d.id}"th:text="${d.nomeFantasia}"> </option>
+				</select>	
+				
+				</br>		
+	            <div class="wrapper-login">
+	            <span class="group-btn">     
+	                <button type="submit" class="btn btn-outline-dark  fa fa-sign-in">. Acessar</button>
+	            </span>
+	            </div>
+	            </div>
+        	</form>
+        </div>
+    </div>
+</div>
+	
+	
+
+</body>
+</html>
+
+
+
+

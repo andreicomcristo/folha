@@ -1,0 +1,129 @@
+
+<!DOCTYPE html>
+<html layout:decorate = "~{layout}">
+<head><meta charset="UTF-8"/></head>
+<body>	
+	<section class="layout-content" layout:fragment="corpo">		
+		<nav class="navbar navbar-expand-md bg-light">
+	        <a class="btn btn-outline-light oi oi-action-undo" type="button" href="javascript:history.back()"></a>
+			<a class="btn btn-outline-light oi oi-action-redo" type="button" href="javascript:history.forward()"></a>    
+	    	<a class="btn btn-outline-dark btn-md" th:href="@{/unidades/cadastrar}" role="button">
+	        	<span class="oi oi-plus" title="Cadastro" aria-hidden="true"></span>
+	            <span>Novo</span>
+	        </a>
+	        <a class="btn btn-outline-dark btn-md" th:href="@{/unidades/listar}" role="button">
+	        	<span class="oi oi-loop-square" title="Atualizar" aria-hidden="true"></span>
+	            <span>Atualizar</span>
+	        </a>
+	            <label for="nome" class= "fonte-tutulos-tamanho">Lista de Unidades </label>
+	    </nav>
+	  	<div class="container">
+	    	<p>                
+	        	<button class=" oi oi-magnifying-glass btn btn-outline-success my-2 my-sm-0" type="button" data-toggle="collapse" data-target="#collapseNome"
+	            		aria-controls="collapseNome">Filtrar
+	            </button>
+	      </p>
+	      <div class="row">
+	      	<div class="col">
+	        	<div class="collapse" id="collapseNome">
+		            <nav class="navbar navbar-light bg-light">
+	    	           <form class="form-inline" method="GET" th:action="@{/unidades/buscar/nome/unidade}">
+	        	           <input class="form-control mr-sm-2" type="search" placeholder="Nome da Unidade" aria-label="Search"
+	                              th:name="nomeFantasia" />
+	                       <button class="btn btn-outline-success my-2 my-sm-0">Buscar</button>
+	                   </form>
+	                </nav>
+	            </div>
+	    	</div>
+	    </div>
+	    	    
+	    <div class="container" id="listagem">	        
+	    	<div th:replace="fragments/alert"></div>
+	    	
+	        <div style=" height:450px; overflow-y: auto;" class="table-responsive">
+	        	<table style="width: 1270px;  " class="table table-striped table-hover table-sm myTable">
+	            	<thead>
+	          			<tr>
+		                	<th style="font-size:10px;" >#</th>
+		                    <th style="font-size:10px;" >Nome Fantasia</th>
+		                    <th style="font-size:10px;" >Nome Empresarial</th>
+		                    <th style="font-size:10px;" >CNES</th>
+		                    <th style="font-size:10px;" >CNPJ</th>
+		                    <th style="font-size:10px;" >Telefone</th>
+		                    <th style="font-size:10px;" >Cidade</th>
+		                    <th style="font-size:10px;" >Tipo</th>
+		                    <th style="font-size:10px;" >Logradouro</th>
+		                    <th style="font-size:10px;" >Número</th>
+		                    <th style="font-size:10px;" >Complemanto</th>
+		                    <th style="font-size:10px;" >Barrio</th>
+		                    <th style="font-size:10px;" >CEP</th>
+		                    <th style="font-size:10px;" >Regime da Unidade</th>
+		                    <th style="font-size:10px;" >Natureza Juridica</th>
+		                    <th style="font-size:10px;" >Gestora</th>
+		                    
+		                    <th style="font-size:10px;" >Atualização</th>
+		                    <th style="font-size:10px;" >Operador</th>
+		                    <th style="font-size:10px;" >Obs</th>
+		                          
+		                    <th style="font-size:10px;" >Ações</th>
+	                    </tr>
+	                </thead>                  
+	                <tbody>
+		            	<tr th:each="d : ${unidades}">
+		                	<td style="font-size:10px;"  th:text="${d.id}"></td>
+		                	<td style="font-size:10px;"  th:text="${d.nomeFantasia != null} ? ${d.nomeFantasia } : '' "></td>
+		                	<td style="font-size:10px;"  th:text="${d.nomeEmpresarial != null} ? ${d.nomeEmpresarial } : '' "></td>
+		                	
+		                	<td style="font-size:10px;"  th:text="${d.cnes != null} ? ${d.cnes } : '' "></td>
+		                	<td style="font-size:10px;"  th:text="${d.cnpj != null} ? ${d.cnpj } : '' "></td>
+		                	<td style="font-size:10px;"  th:text="${d.fone1 != null} ? ${d.fone1 } : '' "></td>
+		                	<td style="font-size:10px;"  th:text="${d.idEnderecoCidadeFk != null} ? ${d.idEnderecoCidadeFk.nomeCidade } : '' "></td>
+		                	<td style="font-size:10px;"  th:text="${d.idTipoLogradouroFk != null} ? ${d.idTipoLogradouroFk.nomeTipoLogradouro } : '' "></td>
+		                	<td style="font-size:10px;"  th:text="${d.enderecoLogradouro != null} ? ${d.enderecoLogradouro } : '' "></td>
+		                	<td style="font-size:10px;"  th:text="${d.enderecoNumero != null} ? ${d.enderecoNumero } : '' "></td>
+		                	<td style="font-size:10px;"  th:text="${d.enderecoComplemento != null} ? ${d.enderecoComplemento } : '' "></td>
+		                	<td style="font-size:10px;"  th:text="${d.enderecoBairro != null} ? ${d.enderecoBairro } : '' "></td>
+		                	<td style="font-size:10px;"  th:text="${d.enderecoCep != null} ? ${d.enderecoCep } : '' "></td>
+		                	<td style="font-size:10px;"  th:text="${d.idUnidadesRegimeFk != null} ? ${d.idUnidadesRegimeFk.nomeRegimeUnidLotacao } : '' "></td>
+		                	<td style="font-size:10px;"  th:text="${d.idNaturezaJuridicaFk != null} ? ${d.idNaturezaJuridicaFk.nomeNaturezaJuridica } : '' "></td>
+		                	<td style="font-size:10px;"  th:text="${d.idUnidadeGestoraFk != null} ? ${d.idUnidadeGestoraFk.nomeFantasia } : '' "></td>
+		                	<td style="font-size:10px;"  th:text="${d.dtCadastro != null} ? ${d.#dates.format(d.dtCadastro, 'dd/MM/yyyy') } : '' "></td>
+		                	<td style="font-size:10px;"  th:text="${d.idOperadorCadastroFk != null} ? ${d.idOperadorCadastroFk.idPessoaFk.nome } : '' "></td>
+		                	<td style="font-size:10px;"  th:text="${d.motivoCadastro != null} ? ${d.motivoCadastro } : '' "></td>
+		                			                 
+		                    
+		                    <!-- -->
+		                    <td colspan="2">
+		                        <a class="btn btn-outline-info btn-sm" th:href="@{/unidades/editar/{id} (id=${d.id}) }" role="button">
+		                        	<span class="oi oi-brush" title="Editar" aria-hidden="true"></span>
+		                        </a>
+		                        <button th:id="${ 'btn_unidades/cancelar/' + d.id}" type="button" class="btn btn btn-outline-danger btn-sm" 
+		                            		data-toggle="modal" data-target="#myModal">
+		                                <span class="oi oi-circle-x" title="Exclusão habilitada" aria-hidden="true"></span>
+		                        </button>
+		                   	</td>
+						</tr>
+					</tbody>                    
+	            </table>
+	         </div>
+		</div>	        
+	        <div th:replace="fragments/modal :: modal"></div>   
+	</section>	
+</body>
+</html>		
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

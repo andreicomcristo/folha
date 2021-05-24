@@ -21,12 +21,40 @@
 			
 			
 			<!-- endereco -->
-		<div class="form-group container  col-md-6 col-6 " id="cadastro">
+		<div class="form-group" id="cadastro">
 		<form>
 				<div class="form-row">
 
-					<div class="form-group col-md-6">
+					<div class="form-group col-md-12">
 						<label for="nome" class="fonte-tutulos-tamanho">Filhos / Dependentes</label>
+						
+						<ul class="nav nav-tabs">
+  <li class="nav-item">
+    <a class="nav-link disabled" href="#">Busca</a>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link disabled" href="#">Dados pessoais</a>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link disabled" href="#">Documentos básicos</a>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link disabled" href="#">Documentos específicos</a>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link disabled" href="#">Endereço</a>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link active" href="#">Dependentes</a>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link disabled" href="#">Conta bancária</a>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link disabled" href="#">Funcionários</a>
+  </li>
+</ul>
+<br/>
 							
 							<p></p>
 							<a class="btn btn-outline-danger btn-sm" th:href="@{/filhos/retroceder}"
@@ -46,7 +74,7 @@
 		
 		
 		
-		<div class="form-group container  col-md-6 col-6 " id="cadastro">
+		<div class="form-group container col-md-12" id="cadastro">
 
 			<div th:replace="fragments/alert"></div>
 			<form

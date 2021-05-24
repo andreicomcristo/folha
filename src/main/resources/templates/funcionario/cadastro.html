@@ -27,9 +27,35 @@
 		
 		<div th:replace="fragments/alert"></div>
 		
-		<div class="form-group container  col-md-6 col-6 " id="cadastro">
+		<div class="form-group col-md-12" id="cadastro">
 
 			<label for="nome" class="fonte-tutulos-tamanho">Dados de Funcionários </label>
+			<ul class="nav nav-tabs">
+  <li class="nav-item">
+    <a class="nav-link disabled" href="#">Busca</a>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link disabled" href="#">Dados pessoais</a>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link disabled" href="#">Documentos básicos</a>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link disabled" href="#">Documentos específicos</a>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link disabled" href="#">Endereço</a>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link disabled" href="#">Dependentes</a>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link disabled" href="#">Conta bancária</a>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link active" href="#">Funcionários</a>
+  </li>
+</ul>
 			
 							<p></p>
 							<a class="btn btn-outline-danger btn-sm" th:href="@{/funcionarios/retroceder}"

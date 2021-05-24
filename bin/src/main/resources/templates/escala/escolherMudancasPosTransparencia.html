@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html layout:decorate="~{layout}">
+<head><meta charset="UTF-8"/></head>
+<body>
+	<section class="layout-content" layout:fragment="corpo">
+
+		<nav class="navbar navbar-expand-md bg-light">
+			<form th:action="@{/documentos/listar}">
+				<div class=" layout-content">
+					<a class="btn btn-outline-light oi oi-action-undo" type="button" href="javascript:history.back()"></a>
+					<a class="btn btn-outline-light oi oi-action-redo" type="button" href="javascript:history.forward()"></a>    
+				</div>
+			</form>
+		</nav>
+
+		<div class="container" id="cadastro">
+			<div th:replace="fragments/alert"></div>
+			<form
+				th:action= "@{/escalas/ir/para/escala/pos/transparencia}"
+				th:object= "${escolhaAcessoEscala}" method="POST">
+				<div class="form-row">
+					<div class="form-group col-md-6">
+						<label for="nome" class="fonte-tutulos-tamanho">Mudanças depois do envio ao Portal da Transparência</label>
+							
+							<select  id="anoMes" class="form-control form-select chat-input" th:field="*{anoMes}">
+								<option value="">Selecione o Mês</option>
+								<option th:each="d : ${anoMes}" th:value="${d.id}"th:text="${d.nomeAnoMes}"> </option>
+							</select>	
+							<p></p>	
+							<p></p>		
+										
+						<button class="btn btn-outline-dark">Abrir</button>
+						<p></p>													
+					</div>
+				</div>
+			</form>
+		</div>
+		
+		<div th:replace="fragments/modal :: modal"></div>
+	</section>
+</body>
+</html>
