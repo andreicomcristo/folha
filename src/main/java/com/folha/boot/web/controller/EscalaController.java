@@ -245,6 +245,9 @@ public class EscalaController {
 	        HttpSession session = httpSessionFactory.getObject();
 	        session.setAttribute("idCoordenacaoAtual", coordenacaoEscala  );
 	        session.setAttribute("idAnoMesAtual", anoMes  );
+	        session.setAttribute("choque", ""  );
+	        session.setAttribute("choqueDescansoDepoisNoturno", ""  );
+	        
 			
 			return "redirect:/escalas/listar";
 		}else {
@@ -766,7 +769,7 @@ public class EscalaController {
 		//this.choque = choque;
 		//comando para armazenar choque na sessão
         session.setAttribute("choque", choque  );
-        if(choque().length()>0) {chocou = true; podeSalvar = false;}
+        if(choque.length()>0) {chocou = true; podeSalvar = false;}
 		if(chocou==true) {
 			return "redirect:/escalas/mensagem/de/choque";
 		}
