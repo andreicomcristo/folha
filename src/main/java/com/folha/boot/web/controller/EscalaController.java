@@ -90,8 +90,8 @@ public class EscalaController {
 	  
 	
 	Long ultimoIdEscala =0l ;
-	Long idAnoMesAtual =1l ;
-	Long idCoordenacaoAtual = 1l;
+	//Long idAnoMesAtual =1l ;
+	//Long idCoordenacaoAtual = 1l;
 	
 	Escala escalaAtual;
 	String choque = "";
@@ -3498,7 +3498,7 @@ public class EscalaController {
 	
 	@GetMapping(value = "/exporta/pdf/setorial/servico", produces = MediaType.APPLICATION_PDF_VALUE)
 	public ResponseEntity<InputStreamResource> employeeReportsSetorialServico(HttpServletResponse response) throws IOException {
-		ByteArrayInputStream bis = escalaExportacaoService.exportarPdfSetorial(service.buscarExportacaoSetorialServico(coordenacaoEscalaService.buscarPorId(idCoordenacaoAtual), anoMesService.buscarPorId(mesAtual())));
+		ByteArrayInputStream bis = escalaExportacaoService.exportarPdfSetorial(service.buscarExportacaoSetorialServico(coordenacaoEscalaService.buscarPorId(coordenacaoAtual()), anoMesService.buscarPorId(mesAtual())));
 		HttpHeaders headers = new HttpHeaders();
 		headers.add("Content-Disposition", "attachment;filename=dados.pdf");
 		return ResponseEntity.ok().headers(headers).contentType(MediaType.APPLICATION_PDF)
