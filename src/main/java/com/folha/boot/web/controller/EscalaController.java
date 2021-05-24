@@ -740,6 +740,10 @@ public class EscalaController {
 
 	@PostMapping("/salvar")
 	public String salvar(Escala escala, String recalcular, String lancarTurma) {
+		//comando para armazenar choque na sessão
+        HttpSession session = httpSessionFactory.getObject();
+        session.setAttribute("choque", "" );
+		
 		//Tratando escala Bloqueada
 		if(anoMesService.buscarPorId(mesAtual()).getIdEscalaBloqueadaFk().getSigla().equalsIgnoreCase("S")) {
 		return "redirect:/escalas/mensagem/de/escala/bloqueada";
@@ -761,10 +765,8 @@ public class EscalaController {
 		String choque = service.choquesEmEscalaOnipresenca(escala);
 		//this.choque = choque;
 		//comando para armazenar choque na sessão
-        HttpSession session = httpSessionFactory.getObject();
         session.setAttribute("choque", choque  );
-        
-		if(choque().length()>0) {chocou = true; podeSalvar = false;}
+        if(choque().length()>0) {chocou = true; podeSalvar = false;}
 		if(chocou==true) {
 			return "redirect:/escalas/mensagem/de/choque";
 		}
