@@ -874,10 +874,10 @@
 							<li><a href="#" class="bl-btn"><span class=" oi oi-chevron-bottom z63 icones-sidebar-tamanho align-middle"></span>Escalas Configurações </a>
 								<ul class="bl-show">
 									
-									<li><a href="#" class="bb-btn"><span class=" oi oi-chevron-bottom z53 icones-sidebar-tamanho align-middle"></span>Coordenação Escala</a>
-										<ul class="bb-show">
-											<li><a sec:authorize-url="/coordenacaoescalas/cadastrar" th:href="@{/coordenacaoescalas/cadastrar}"><span class=" oi oi-chevron-right icones-sidebar-tamanho align-middle"></span>Cadastrar</a></li>
-											<li><a sec:authorize-url="/coordenacaoescalas/listar" th:href="@{/coordenacaoescalas/listar}"><span class=" oi oi-chevron-right icones-sidebar-tamanho align-middle"></span>Listar</a></li>
+									<li><a href="#" class="az-btn"><span class=" oi oi-chevron-bottom fiftysecond icones-sidebar-tamanho align-middle"></span>Atividade de Escala</a>
+										<ul class="az-show">
+											<li><a sec:authorize-url="/atividadesescalas/cadastrar" th:href="@{/atividadesescalas/cadastrar}"><span class=" oi oi-chevron-right icones-sidebar-tamanho align-middle"></span>Cadastrar</a></li>
+											<li><a sec:authorize-url="/atividadesescalas/listar" th:href="@{/atividadesescalas/listar}"><span class=" oi oi-chevron-right icones-sidebar-tamanho align-middle"></span>Listar</a></li>
 										</ul>
 									</li>
 									
@@ -888,13 +888,12 @@
 										</ul>
 									</li>
 									
-									<li><a href="#" class="az-btn"><span class=" oi oi-chevron-bottom fiftysecond icones-sidebar-tamanho align-middle"></span>Atividade de Escala</a>
-										<ul class="az-show">
-											<li><a sec:authorize-url="/atividadesescalas/cadastrar" th:href="@{/atividadesescalas/cadastrar}"><span class=" oi oi-chevron-right icones-sidebar-tamanho align-middle"></span>Cadastrar</a></li>
-											<li><a sec:authorize-url="/atividadesescalas/listar" th:href="@{/atividadesescalas/listar}"><span class=" oi oi-chevron-right icones-sidebar-tamanho align-middle"></span>Listar</a></li>
+									<li><a href="#" class="bb-btn"><span class=" oi oi-chevron-bottom z53 icones-sidebar-tamanho align-middle"></span>Coordenação Escala</a>
+										<ul class="bb-show">
+											<li><a sec:authorize-url="/coordenacaoescalas/cadastrar" th:href="@{/coordenacaoescalas/cadastrar}"><span class=" oi oi-chevron-right icones-sidebar-tamanho align-middle"></span>Cadastrar</a></li>
+											<li><a sec:authorize-url="/coordenacaoescalas/listar" th:href="@{/coordenacaoescalas/listar}"><span class=" oi oi-chevron-right icones-sidebar-tamanho align-middle"></span>Listar</a></li>
 										</ul>
 									</li>
-									
 									
 									<li><a href="#" class="ba-btn"><span class=" oi oi-chevron-bottom z52 icones-sidebar-tamanho align-middle"></span>Acesso Operadores </a>
 										<ul class="ba-show">
@@ -926,13 +925,15 @@
 								</ul>
 							</li>	
 								
+							<!-- 
 							<li><a href="#" class="da-btn"><span class=" oi oi-chevron-bottom z104 icones-sidebar-tamanho align-middle"></span>Ch Dif </a>
 								<ul class="da-show">
 									<li><a sec:authorize-url="/pessoaChDif/listar/funcionarios" th:href="@{/pessoaChDif/listar/funcionarios}"><span class=" oi oi-chevron-right icones-sidebar-tamanho align-middle"></span> Cadastrar </a></li>
 									<li><a sec:authorize-url="/pessoaChDif/listar" th:href="@{/pessoaChDif/listar}"><span class=" oi oi-chevron-right icones-sidebar-tamanho align-middle"></span>Listar</a></li>
 								</ul>
 							</li>
-							
+							 -->
+							 
 							<li><a href="#" class="db-btn"><span class=" oi oi-chevron-bottom z105 icones-sidebar-tamanho align-middle"></span>Incr Risco </a>
 								<ul class="db-show">
 									<li><a sec:authorize-url="/pessoaIncrementoDeRisco/listar/funcionarios" th:href="@{/pessoaIncrementoDeRisco/listar/funcionarios}"><span class=" oi oi-chevron-right icones-sidebar-tamanho align-middle"></span> Cadastrar </a></li>
