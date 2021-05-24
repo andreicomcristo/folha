@@ -109,6 +109,8 @@ public class EscalaController {
 	
 	@Autowired
 	UsuarioService usuarioService;
+	@Autowired
+    ObjectFactory<HttpSession> httpSessionFactory;
 	
 	@Autowired
 	private EscalaService service;
@@ -236,8 +238,13 @@ public class EscalaController {
 	public String irParaEscala(ModelMap model, Long coordenacaoEscala, Long anoMes) {
 		
 		if(coordenacaoEscala!=null && anoMes!=null) {
-			this.idCoordenacaoAtual = coordenacaoEscala;
-			this.idAnoMesAtual = anoMes;
+			//this.idCoordenacaoAtual = coordenacaoEscala;
+			//this.idAnoMesAtual = anoMes;
+			
+			//comando para armazenar a escala na sessão
+	        HttpSession session = httpSessionFactory.getObject();
+	        session.setAttribute("idCoordenacaoAtual", coordenacaoEscala  );
+	        session.setAttribute("idAnoMesAtual", anoMes  );
 			
 			return "redirect:/escalas/listar";
 		}else {
@@ -250,7 +257,11 @@ public class EscalaController {
 	public String irParaEscalaTodos(ModelMap model, Long anoMes) {
 		
 		if( anoMes!=null) {
-			this.idAnoMesAtual = anoMes;
+			//this.idAnoMesAtual = anoMes;
+			
+			//comando para armazenar a escala na sessão
+	        HttpSession session = httpSessionFactory.getObject();
+	        session.setAttribute("idAnoMesAtual", anoMes  );
 			
 			return "redirect:/escalas/listar/todos";
 		}else {
@@ -264,7 +275,11 @@ public class EscalaController {
 	public String irParaEscalaPosTransparencia(ModelMap model, Long anoMes) {
 		
 		if( anoMes!=null) {
-			this.idAnoMesAtual = anoMes;
+			//this.idAnoMesAtual = anoMes;
+			
+			//comando para armazenar a escala na sessão
+	        HttpSession session = httpSessionFactory.getObject();
+	        session.setAttribute("idAnoMesAtual", anoMes  );
 			
 			return "redirect:/escalas/listar/pos/transparencia";
 		}else {
@@ -277,7 +292,11 @@ public class EscalaController {
 	public String irParaEscalaPosTransparenciaGlobal(ModelMap model, Long anoMes) {
 		
 		if( anoMes!=null) {
-			this.idAnoMesAtual = anoMes;
+			//this.idAnoMesAtual = anoMes;
+			
+			//comando para armazenar a escala na sessão
+	        HttpSession session = httpSessionFactory.getObject();
+	        session.setAttribute("idAnoMesAtual", anoMes  );
 			
 			return "redirect:/escalas/listar/pos/transparencia/global";
 		}else {
@@ -292,7 +311,11 @@ public class EscalaController {
 	public String irParaEscalaAlteracao(ModelMap model, Long anoMes) {
 		
 		if( anoMes!=null) {
-			this.idAnoMesAtual = anoMes;
+			//this.idAnoMesAtual = anoMes;
+			
+			//comando para armazenar a escala na sessão
+	        HttpSession session = httpSessionFactory.getObject();
+	        session.setAttribute("idAnoMesAtual", anoMes  );
 			
 			return "redirect:/escalas/listar/escala/alteracao";
 		}else {
@@ -305,7 +328,11 @@ public class EscalaController {
 	public String irParaEscalaAlteracaoGlobal(ModelMap model, Long anoMes) {
 		
 		if( anoMes!=null) {
-			this.idAnoMesAtual = anoMes;
+			//this.idAnoMesAtual = anoMes;
+			
+			//comando para armazenar a escala na sessão
+	        HttpSession session = httpSessionFactory.getObject();
+	        session.setAttribute("idAnoMesAtual", anoMes  );
 			
 			return "redirect:/escalas/listar/escala/alteracao/global";
 		}else {
@@ -319,7 +346,11 @@ public class EscalaController {
 	public String irParaEscalaColaborador(ModelMap model, Long anoMes) {
 		
 		if( anoMes!=null) {
-			this.idAnoMesAtual = anoMes;
+			//this.idAnoMesAtual = anoMes;
+			
+			//comando para armazenar a escala na sessão
+	        HttpSession session = httpSessionFactory.getObject();
+	        session.setAttribute("idAnoMesAtual", anoMes  );
 			
 			return "redirect:/escalas/listar/escala/colaborador";
 		}else {
@@ -396,7 +427,7 @@ public class EscalaController {
 	@GetMapping("/listar/{pageNo}")
 	public String findPaginated(@PathVariable (value = "pageNo") int pageNo, ModelMap model) {
 		int pageSeze = 5;
-		Page<Escala> page = service.findPaginated(pageNo, pageSeze, coordenacaoEscalaService.buscarPorId(idCoordenacaoAtual), anoMesService.buscarPorId(idAnoMesAtual));
+		Page<Escala> page = service.findPaginated(pageNo, pageSeze, coordenacaoEscalaService.buscarPorId(coordenacaoAtual()), anoMesService.buscarPorId(mesAtual()));
 		List<Escala> lista = page.getContent();
 		return paginar(pageNo, page, lista, model);
 	}
@@ -404,7 +435,7 @@ public class EscalaController {
 	@GetMapping("/listar/todos/{pageNo}")
 	public String findPaginatedTodos(@PathVariable (value = "pageNo") int pageNo, ModelMap model) {
 		int pageSeze = 5;
-		Page<Escala> page = service.findPaginatedTodos(pageNo, pageSeze, usuarioService.pegarUnidadeLogada(), anoMesService.buscarPorId(idAnoMesAtual));
+		Page<Escala> page = service.findPaginatedTodos(pageNo, pageSeze, usuarioService.pegarUnidadeLogada(), anoMesService.buscarPorId(mesAtual()));
 		List<Escala> lista = page.getContent();
 		return paginarTodos(pageNo, page, lista, model);
 	}
@@ -412,7 +443,7 @@ public class EscalaController {
 	@GetMapping("/listar/pos/transparencia/{pageNo}")
 	public String findPaginatedPosTransparencia(@PathVariable (value = "pageNo") int pageNo, ModelMap model) {
 		int pageSeze = 5;
-		Page<EscalaPosTransparencia> page = escalaPosTransparenciaService.findPaginatedPosTransparencia(pageNo, pageSeze, usuarioService.pegarUnidadeLogada(), anoMesService.buscarPorId(idAnoMesAtual));
+		Page<EscalaPosTransparencia> page = escalaPosTransparenciaService.findPaginatedPosTransparencia(pageNo, pageSeze, usuarioService.pegarUnidadeLogada(), anoMesService.buscarPorId(mesAtual()));
 		List<EscalaPosTransparencia> lista = page.getContent();
 		return paginarPosTransparencia(pageNo, page, lista, model);
 	}
@@ -420,7 +451,7 @@ public class EscalaController {
 	@GetMapping("/listar/pos/transparencia/global/{pageNo}")
 	public String findPaginatedPosTransparenciaGlobal(@PathVariable (value = "pageNo") int pageNo, ModelMap model) {
 		int pageSeze = 5;
-		Page<EscalaPosTransparencia> page = escalaPosTransparenciaService.findPaginatedPosTransparenciaGlobal(pageNo, pageSeze,  anoMesService.buscarPorId(idAnoMesAtual));
+		Page<EscalaPosTransparencia> page = escalaPosTransparenciaService.findPaginatedPosTransparenciaGlobal(pageNo, pageSeze,  anoMesService.buscarPorId(mesAtual()));
 		List<EscalaPosTransparencia> lista = page.getContent();
 		return paginarPosTransparenciaGlobal(pageNo, page, lista, model);
 	}
@@ -429,7 +460,7 @@ public class EscalaController {
 	@GetMapping("/listar/escala/alteracao/{pageNo}")
 	public String findPaginatedEscalaAlteracao(@PathVariable (value = "pageNo") int pageNo, ModelMap model) {
 		int pageSeze = 5;
-		Page<EscalaAlteracoes> page = escalaAlteracoesService.findPaginatedEscalaAlteracao(pageNo, pageSeze, usuarioService.pegarUnidadeLogada(), anoMesService.buscarPorId(idAnoMesAtual));
+		Page<EscalaAlteracoes> page = escalaAlteracoesService.findPaginatedEscalaAlteracao(pageNo, pageSeze, usuarioService.pegarUnidadeLogada(), anoMesService.buscarPorId(mesAtual()));
 		List<EscalaAlteracoes> lista = page.getContent();
 		return paginarEscalaAlteracao(pageNo, page, lista, model);
 	}
@@ -437,7 +468,7 @@ public class EscalaController {
 	@GetMapping("/listar/escala/alteracao/global/{pageNo}")
 	public String findPaginatedEscalaAlteracaoGlobal(@PathVariable (value = "pageNo") int pageNo, ModelMap model) {
 		int pageSeze = 5;
-		Page<EscalaAlteracoes> page = escalaAlteracoesService.findPaginatedEscalaAlteracaoGlobal(pageNo, pageSeze,  anoMesService.buscarPorId(idAnoMesAtual));
+		Page<EscalaAlteracoes> page = escalaAlteracoesService.findPaginatedEscalaAlteracaoGlobal(pageNo, pageSeze,  anoMesService.buscarPorId(mesAtual()));
 		List<EscalaAlteracoes> lista = page.getContent();
 		return paginarEscalaAlteracaoGlobal(pageNo, page, lista, model);
 	}
@@ -446,17 +477,17 @@ public class EscalaController {
 	@GetMapping("/listar/escala/colaborador/{pageNo}")
 	public String findPaginatedEscalaColaborador(@PathVariable (value = "pageNo") int pageNo, ModelMap model) {
 		int pageSeze = 5;
-		Page<Escala> page = service.findPaginatedColaborador(pageNo, pageSeze, usuarioService.pegarOperadorLogado().getIdPessoaFk() , anoMesService.buscarPorId(idAnoMesAtual));
+		Page<Escala> page = service.findPaginatedColaborador(pageNo, pageSeze, usuarioService.pegarOperadorLogado().getIdPessoaFk() , anoMesService.buscarPorId(mesAtual()));
 		List<Escala> lista = page.getContent();
 		return paginarEscalaColaborador(pageNo, page, lista, model);
 	}
 	
 	public String paginar(int pageNo, Page<Escala> page, List<Escala> lista, ModelMap model) {	
 		
-		model.addAttribute("escala", coordenacaoEscalaService.buscarPorId(idCoordenacaoAtual));
-		model.addAttribute("mes", anoMesService.buscarPorId(idAnoMesAtual));
+		model.addAttribute("escala", coordenacaoEscalaService.buscarPorId(coordenacaoAtual()));
+		model.addAttribute("mes", anoMesService.buscarPorId(mesAtual()));
 		//Tratando Envio transparencia
-		if(anoMesService.buscarPorId(idAnoMesAtual).getIdTransparenciaEnviadaFk().getSigla().equalsIgnoreCase("S")) {model.addAttribute("transparencia", "Dados já enviados para o portal da transparência (Lei Federal de Acesso à Informação 12 527/2011). Ficará registrada sua mudança para possíveis comprovações.");}else {model.addAttribute("transparencia", "");}
+		if(anoMesService.buscarPorId(mesAtual()).getIdTransparenciaEnviadaFk().getSigla().equalsIgnoreCase("S")) {model.addAttribute("transparencia", "Dados já enviados para o portal da transparência (Lei Federal de Acesso à Informação 12 527/2011). Ficará registrada sua mudança para possíveis comprovações.");}else {model.addAttribute("transparencia", "");}
 		model.addAttribute("currentePage", pageNo);
 		model.addAttribute("totalPages", page.getTotalPages());
 		model.addAttribute("totalItems", page.getTotalElements()); 
@@ -467,9 +498,9 @@ public class EscalaController {
 	public String paginarTodos(int pageNo, Page<Escala> page, List<Escala> lista, ModelMap model) {	
 		
 		model.addAttribute("escala", "Todos");
-		model.addAttribute("mes", anoMesService.buscarPorId(idAnoMesAtual));
+		model.addAttribute("mes", anoMesService.buscarPorId(mesAtual()));
 		//Tratando Envio transparencia
-		if(anoMesService.buscarPorId(idAnoMesAtual).getIdTransparenciaEnviadaFk().getSigla().equalsIgnoreCase("S")) {model.addAttribute("transparencia", "Dados já enviados para o portal da transparência (Lei Federal de Acesso à Informação 12 527/2011). Ficará registrada sua mudança para possíveis comprovações.");}else {model.addAttribute("transparencia", "");}
+		if(anoMesService.buscarPorId(mesAtual()).getIdTransparenciaEnviadaFk().getSigla().equalsIgnoreCase("S")) {model.addAttribute("transparencia", "Dados já enviados para o portal da transparência (Lei Federal de Acesso à Informação 12 527/2011). Ficará registrada sua mudança para possíveis comprovações.");}else {model.addAttribute("transparencia", "");}
 		model.addAttribute("currentePage", pageNo);
 		model.addAttribute("totalPages", page.getTotalPages());
 		model.addAttribute("totalItems", page.getTotalElements()); 
@@ -480,9 +511,9 @@ public class EscalaController {
 	public String paginarPosTransparencia(int pageNo, Page<EscalaPosTransparencia> page, List<EscalaPosTransparencia> lista, ModelMap model) {	
 		
 		model.addAttribute("escala", "Mudanças depois do envio ao Portal da Transparência");
-		model.addAttribute("mes", anoMesService.buscarPorId(idAnoMesAtual));
+		model.addAttribute("mes", anoMesService.buscarPorId(mesAtual()));
 		//Tratando Envio transparencia
-		if(anoMesService.buscarPorId(idAnoMesAtual).getIdTransparenciaEnviadaFk().getSigla().equalsIgnoreCase("S")) {model.addAttribute("transparencia", "Dados já enviados para o portal da transparência (Lei Federal de Acesso à Informação 12 527/2011). Ficará registrada sua mudança para possíveis comprovações.");}else {model.addAttribute("transparencia", "");}
+		if(anoMesService.buscarPorId(mesAtual()).getIdTransparenciaEnviadaFk().getSigla().equalsIgnoreCase("S")) {model.addAttribute("transparencia", "Dados já enviados para o portal da transparência (Lei Federal de Acesso à Informação 12 527/2011). Ficará registrada sua mudança para possíveis comprovações.");}else {model.addAttribute("transparencia", "");}
 		model.addAttribute("currentePage", pageNo);
 		model.addAttribute("totalPages", page.getTotalPages());
 		model.addAttribute("totalItems", page.getTotalElements()); 
@@ -493,9 +524,9 @@ public class EscalaController {
 	public String paginarPosTransparenciaGlobal(int pageNo, Page<EscalaPosTransparencia> page, List<EscalaPosTransparencia> lista, ModelMap model) {	
 		
 		model.addAttribute("escala", "Mudanças depois do envio ao Portal da Transparência");
-		model.addAttribute("mes", anoMesService.buscarPorId(idAnoMesAtual));
+		model.addAttribute("mes", anoMesService.buscarPorId(mesAtual()));
 		//Tratando Envio transparencia
-		if(anoMesService.buscarPorId(idAnoMesAtual).getIdTransparenciaEnviadaFk().getSigla().equalsIgnoreCase("S")) {model.addAttribute("transparencia", "Dados já enviados para o portal da transparência (Lei Federal de Acesso à Informação 12 527/2011). Ficará registrada sua mudança para possíveis comprovações.");}else {model.addAttribute("transparencia", "");}
+		if(anoMesService.buscarPorId(mesAtual()).getIdTransparenciaEnviadaFk().getSigla().equalsIgnoreCase("S")) {model.addAttribute("transparencia", "Dados já enviados para o portal da transparência (Lei Federal de Acesso à Informação 12 527/2011). Ficará registrada sua mudança para possíveis comprovações.");}else {model.addAttribute("transparencia", "");}
 		model.addAttribute("currentePage", pageNo);
 		model.addAttribute("totalPages", page.getTotalPages());
 		model.addAttribute("totalItems", page.getTotalElements()); 
@@ -507,7 +538,7 @@ public class EscalaController {
 	public String paginarEscalaAlteracao(int pageNo, Page<EscalaAlteracoes> page, List<EscalaAlteracoes> lista, ModelMap model) {	
 		
 		model.addAttribute("escala", "Todas as Alterações nas escalas.");
-		model.addAttribute("mes", anoMesService.buscarPorId(idAnoMesAtual));
+		model.addAttribute("mes", anoMesService.buscarPorId(mesAtual()));
 		model.addAttribute("currentePage", pageNo);
 		model.addAttribute("totalPages", page.getTotalPages());
 		model.addAttribute("totalItems", page.getTotalElements()); 
@@ -518,7 +549,7 @@ public class EscalaController {
 	public String paginarEscalaAlteracaoGlobal(int pageNo, Page<EscalaAlteracoes> page, List<EscalaAlteracoes> lista, ModelMap model) {	
 		
 		model.addAttribute("escala", "Todas as Alterações nas escalas.");
-		model.addAttribute("mes", anoMesService.buscarPorId(idAnoMesAtual));
+		model.addAttribute("mes", anoMesService.buscarPorId(mesAtual()));
 		model.addAttribute("currentePage", pageNo);
 		model.addAttribute("totalPages", page.getTotalPages());
 		model.addAttribute("totalItems", page.getTotalElements()); 
@@ -530,7 +561,7 @@ public class EscalaController {
 	public String paginarEscalaColaborador(int pageNo, Page<Escala> page, List<Escala> lista, ModelMap model) {	
 		
 		model.addAttribute("escala", "Escalas para "+usuarioService.pegarOperadorLogado().getIdPessoaFk().getNome()+":");
-		model.addAttribute("mes", anoMesService.buscarPorId(idAnoMesAtual));
+		model.addAttribute("mes", anoMesService.buscarPorId(mesAtual()));
 		model.addAttribute("currentePage", pageNo);
 		model.addAttribute("totalPages", page.getTotalPages());
 		model.addAttribute("totalItems", page.getTotalElements()); 
@@ -687,7 +718,7 @@ public class EscalaController {
 	@PostMapping("/salvar")
 	public String salvar(Escala escala, String recalcular, String lancarTurma) {
 		//Tratando escala Bloqueada
-		if(anoMesService.buscarPorId(idAnoMesAtual).getIdEscalaBloqueadaFk().getSigla().equalsIgnoreCase("S")) {
+		if(anoMesService.buscarPorId(mesAtual()).getIdEscalaBloqueadaFk().getSigla().equalsIgnoreCase("S")) {
 		return "redirect:/escalas/mensagem/de/escala/bloqueada";
 		}
 		
@@ -743,7 +774,7 @@ public class EscalaController {
 			//Tratando Salvar Alteracoes X9
 			escalaAlteracoesService.salvar(escalaAlteracoesService.converteDeEscalaParaEscalaAlteracoes(escala));
 			//Tratando Envio transparencia
-			if(anoMesService.buscarPorId(idAnoMesAtual).getIdTransparenciaEnviadaFk().getSigla().equalsIgnoreCase("S")) {			
+			if(anoMesService.buscarPorId(mesAtual()).getIdTransparenciaEnviadaFk().getSigla().equalsIgnoreCase("S")) {			
 				escalaPosTransparenciaService.salvar(escalaPosTransparenciaService.converteDeEscalaParaEscalaPosTransparencia(escala));
 			}
 
@@ -767,7 +798,7 @@ public class EscalaController {
 	@PostMapping("/salvar/diferenciado")
 	public String salvarDiferenciado(Escala escala, EscalaCodDiferenciado escalaCodDiferenciado, String lancarTurma) {
 		//Tratando escala Bloqueada
-		if(anoMesService.buscarPorId(idAnoMesAtual).getIdEscalaBloqueadaFk().getSigla().equalsIgnoreCase("S")) {
+		if(anoMesService.buscarPorId(mesAtual()).getIdEscalaBloqueadaFk().getSigla().equalsIgnoreCase("S")) {
 		return "redirect:/escalas/mensagem/de/escala/bloqueada";
 		}
 		
@@ -789,7 +820,7 @@ public class EscalaController {
 			//Tratando Salvar Alteracoes X9
 			escalaAlteracoesService.salvar(escalaAlteracoesService.converteDeEscalaParaEscalaAlteracoes(escala));
 			//Tratando Envio transparencia
-			if(anoMesService.buscarPorId(idAnoMesAtual).getIdTransparenciaEnviadaFk().getSigla().equalsIgnoreCase("S")) {			
+			if(anoMesService.buscarPorId(mesAtual()).getIdTransparenciaEnviadaFk().getSigla().equalsIgnoreCase("S")) {			
 				escalaPosTransparenciaService.salvar(escalaPosTransparenciaService.converteDeEscalaParaEscalaPosTransparencia(escala));
 			}
 
@@ -809,7 +840,7 @@ public class EscalaController {
 	public String cancelar(@PathVariable("id") Long id, ModelMap model) {
 		
 		//Tratando escala Bloqueada
-		if(anoMesService.buscarPorId(idAnoMesAtual).getIdEscalaBloqueadaFk().getSigla().equalsIgnoreCase("S")) {
+		if(anoMesService.buscarPorId(mesAtual()).getIdEscalaBloqueadaFk().getSigla().equalsIgnoreCase("S")) {
 		return "redirect:/escalas/mensagem/de/escala/bloqueada";
 		}		
 		
@@ -824,7 +855,7 @@ public class EscalaController {
 		//Tratando Salvar Alteracoes X9
 		escalaAlteracoesService.salvar(escalaAlteracoesService.converteDeEscalaParaEscalaAlteracoes(escala));
 		//Tratando Envio transparencia
-		if(anoMesService.buscarPorId(idAnoMesAtual).getIdTransparenciaEnviadaFk().getSigla().equalsIgnoreCase("S")) {			
+		if(anoMesService.buscarPorId(mesAtual()).getIdTransparenciaEnviadaFk().getSigla().equalsIgnoreCase("S")) {			
 			escalaPosTransparenciaService.salvar(escalaPosTransparenciaService.converteDeEscalaParaEscalaPosTransparencia(escala));
 		}
 		
@@ -837,7 +868,7 @@ public class EscalaController {
 	public String cancelarDiferenciado(@PathVariable("id") Long id, ModelMap model) {
 		
 		//Tratando escala Bloqueada
-		if(anoMesService.buscarPorId(idAnoMesAtual).getIdEscalaBloqueadaFk().getSigla().equalsIgnoreCase("S")) {
+		if(anoMesService.buscarPorId(mesAtual()).getIdEscalaBloqueadaFk().getSigla().equalsIgnoreCase("S")) {
 		return "redirect:/escalas/mensagem/de/escala/bloqueada";
 		}		
 		
@@ -851,7 +882,7 @@ public class EscalaController {
 		//Tratando Salvar Alteracoes X9
 		//escalaAlteracoesService.salvar(escalaAlteracoesService.converteDeEscalaParaEscalaAlteracoes(escala));
 		//Tratando Envio transparencia
-		//if(anoMesService.buscarPorId(idAnoMesAtual).getIdTransparenciaEnviadaFk().getSigla().equalsIgnoreCase("S")) {			
+		//if(anoMesService.buscarPorId(mesAtual()).getIdTransparenciaEnviadaFk().getSigla().equalsIgnoreCase("S")) {			
 		//	escalaPosTransparenciaService.salvar(escalaPosTransparenciaService.converteDeEscalaParaEscalaPosTransparencia(escala));
 		//}
 		
@@ -897,7 +928,7 @@ public class EscalaController {
 	
 	public String findPaginated(@PathVariable (value = "pageNo") int pageNo, String nome, ModelMap model) {
 		int pageSeze = 5;
-		Page<Escala> page = service.findPaginatedNome(pageNo, pageSeze, coordenacaoEscalaService.buscarPorId(idCoordenacaoAtual), anoMesService.buscarPorId(idAnoMesAtual), nome );
+		Page<Escala> page = service.findPaginatedNome(pageNo, pageSeze, coordenacaoEscalaService.buscarPorId(coordenacaoAtual()), anoMesService.buscarPorId(mesAtual()), nome );
 		List<Escala> lista = page.getContent();
 		return paginar(pageNo, page, lista, model);
 	}
@@ -918,7 +949,7 @@ public class EscalaController {
 	
 	public String findPaginated(@PathVariable (value = "pageNo") int pageNo, Turmas turmas, ModelMap model) {
 		int pageSeze = 5;
-		Page<Escala> page = service.findPaginatedTurma(pageNo, pageSeze, coordenacaoEscalaService.buscarPorId(idCoordenacaoAtual), anoMesService.buscarPorId(idAnoMesAtual), turmas );
+		Page<Escala> page = service.findPaginatedTurma(pageNo, pageSeze, coordenacaoEscalaService.buscarPorId(coordenacaoAtual()), anoMesService.buscarPorId(mesAtual()), turmas );
 		List<Escala> lista = page.getContent();
 		return paginar(pageNo, page, lista, model);
 	}
@@ -939,7 +970,7 @@ public class EscalaController {
 	
 	public String findPaginated(@PathVariable (value = "pageNo") int pageNo, CargosEspecialidade cargosEspecialidade, ModelMap model) {
 		int pageSeze = 5;
-		Page<Escala> page = service.findPaginatedCargo(pageNo, pageSeze, coordenacaoEscalaService.buscarPorId(idCoordenacaoAtual), anoMesService.buscarPorId(idAnoMesAtual), cargosEspecialidade );
+		Page<Escala> page = service.findPaginatedCargo(pageNo, pageSeze, coordenacaoEscalaService.buscarPorId(coordenacaoAtual()), anoMesService.buscarPorId(mesAtual()), cargosEspecialidade );
 		List<Escala> lista = page.getContent();
 		return paginar(pageNo, page, lista, model);
 	}
@@ -960,7 +991,7 @@ public class EscalaController {
 	
 	public String findPaginated(@PathVariable (value = "pageNo") int pageNo, TiposDeFolha tiposDeFolha, ModelMap model) {
 		int pageSeze = 5;
-		Page<Escala> page = service.findPaginatedFolha(pageNo, pageSeze, coordenacaoEscalaService.buscarPorId(idCoordenacaoAtual), anoMesService.buscarPorId(idAnoMesAtual), tiposDeFolha );
+		Page<Escala> page = service.findPaginatedFolha(pageNo, pageSeze, coordenacaoEscalaService.buscarPorId(coordenacaoAtual()), anoMesService.buscarPorId(mesAtual()), tiposDeFolha );
 		List<Escala> lista = page.getContent();
 		return paginar(pageNo, page, lista, model);
 	}
@@ -998,7 +1029,7 @@ public class EscalaController {
 	
 	public String findPaginatedTodos(@PathVariable (value = "pageNo") int pageNo, String nome, ModelMap model) {
 		int pageSeze = 5;
-		Page<Escala> page = service.findPaginatedNomeTodos(pageNo, pageSeze, usuarioService.pegarUnidadeLogada(), anoMesService.buscarPorId(idAnoMesAtual), nome );
+		Page<Escala> page = service.findPaginatedNomeTodos(pageNo, pageSeze, usuarioService.pegarUnidadeLogada(), anoMesService.buscarPorId(mesAtual()), nome );
 		List<Escala> lista = page.getContent();
 		return paginarTodos(pageNo, page, lista, model);
 	}
@@ -1019,7 +1050,7 @@ public class EscalaController {
 	
 	public String findPaginatedTodos(@PathVariable (value = "pageNo") int pageNo, Turmas turmas, ModelMap model) {
 		int pageSeze = 5;
-		Page<Escala> page = service.findPaginatedTurmaTodos(pageNo, pageSeze, usuarioService.pegarUnidadeLogada(), anoMesService.buscarPorId(idAnoMesAtual), turmas );
+		Page<Escala> page = service.findPaginatedTurmaTodos(pageNo, pageSeze, usuarioService.pegarUnidadeLogada(), anoMesService.buscarPorId(mesAtual()), turmas );
 		List<Escala> lista = page.getContent();
 		return paginarTodos(pageNo, page, lista, model);
 	}
@@ -1040,7 +1071,7 @@ public class EscalaController {
 	
 	public String findPaginatedTodos(@PathVariable (value = "pageNo") int pageNo, CargosEspecialidade cargosEspecialidade, ModelMap model) {
 		int pageSeze = 5;
-		Page<Escala> page = service.findPaginatedCargoTodos(pageNo, pageSeze, usuarioService.pegarUnidadeLogada(), anoMesService.buscarPorId(idAnoMesAtual), cargosEspecialidade );
+		Page<Escala> page = service.findPaginatedCargoTodos(pageNo, pageSeze, usuarioService.pegarUnidadeLogada(), anoMesService.buscarPorId(mesAtual()), cargosEspecialidade );
 		List<Escala> lista = page.getContent();
 		return paginarTodos(pageNo, page, lista, model);
 	}
@@ -1061,7 +1092,7 @@ public class EscalaController {
 	
 	public String findPaginatedTodos(@PathVariable (value = "pageNo") int pageNo, TiposDeFolha tiposDeFolha, ModelMap model) {
 		int pageSeze = 5;
-		Page<Escala> page = service.findPaginatedFolhaTodos(pageNo, pageSeze, usuarioService.pegarUnidadeLogada(), anoMesService.buscarPorId(idAnoMesAtual), tiposDeFolha );
+		Page<Escala> page = service.findPaginatedFolhaTodos(pageNo, pageSeze, usuarioService.pegarUnidadeLogada(), anoMesService.buscarPorId(mesAtual()), tiposDeFolha );
 		List<Escala> lista = page.getContent();
 		return paginarTodos(pageNo, page, lista, model);
 	}
@@ -1092,7 +1123,7 @@ public class EscalaController {
 	
 	public String findPaginatedPosTransparencia(@PathVariable (value = "pageNo") int pageNo, String nome, ModelMap model) {
 		int pageSeze = 5;
-		Page<EscalaPosTransparencia> page = escalaPosTransparenciaService.findPaginatedNomePosTransparencia(pageNo, pageSeze, usuarioService.pegarUnidadeLogada(), anoMesService.buscarPorId(idAnoMesAtual), nome );
+		Page<EscalaPosTransparencia> page = escalaPosTransparenciaService.findPaginatedNomePosTransparencia(pageNo, pageSeze, usuarioService.pegarUnidadeLogada(), anoMesService.buscarPorId(mesAtual()), nome );
 		List<EscalaPosTransparencia> lista = page.getContent();
 		return paginarPosTransparencia(pageNo, page, lista, model);
 	}
@@ -1127,7 +1158,7 @@ public class EscalaController {
 			
 		public String findPaginatedPosTransparenciaGlobal(@PathVariable (value = "pageNo") int pageNo, String nome, ModelMap model) {
 			int pageSeze = 5;
-			Page<EscalaPosTransparencia> page = escalaPosTransparenciaService.findPaginatedNomePosTransparenciaGlobal(pageNo, pageSeze, nome.toUpperCase().trim(), anoMesService.buscarPorId(idAnoMesAtual) );
+			Page<EscalaPosTransparencia> page = escalaPosTransparenciaService.findPaginatedNomePosTransparenciaGlobal(pageNo, pageSeze, nome.toUpperCase().trim(), anoMesService.buscarPorId(mesAtual()) );
 			List<EscalaPosTransparencia> lista = page.getContent();
 			return paginarPosTransparenciaGlobal(pageNo, page, lista, model);
 		}
@@ -1158,7 +1189,7 @@ public class EscalaController {
 	
 	public String findPaginatedEscalaAlteracao(@PathVariable (value = "pageNo") int pageNo, String nome, ModelMap model) {
 		int pageSeze = 5;
-		Page<EscalaAlteracoes> page = escalaAlteracoesService.findPaginatedNomeEscalaAlteracao(pageNo, pageSeze, usuarioService.pegarUnidadeLogada(), anoMesService.buscarPorId(idAnoMesAtual), nome );
+		Page<EscalaAlteracoes> page = escalaAlteracoesService.findPaginatedNomeEscalaAlteracao(pageNo, pageSeze, usuarioService.pegarUnidadeLogada(), anoMesService.buscarPorId(mesAtual()), nome );
 		List<EscalaAlteracoes> lista = page.getContent();
 		return paginarEscalaAlteracao(pageNo, page, lista, model);
 	}
@@ -1192,7 +1223,7 @@ public class EscalaController {
 	
 	public String findPaginatedEscalaAlteracaoGlobal(@PathVariable (value = "pageNo") int pageNo, String nome, ModelMap model) {
 		int pageSeze = 5;
-		Page<EscalaAlteracoes> page = escalaAlteracoesService.findPaginatedNomeEscalaAlteracaoGlobal(pageNo, pageSeze,  anoMesService.buscarPorId(idAnoMesAtual), nome.toUpperCase().trim() );
+		Page<EscalaAlteracoes> page = escalaAlteracoesService.findPaginatedNomeEscalaAlteracaoGlobal(pageNo, pageSeze,  anoMesService.buscarPorId(mesAtual()), nome.toUpperCase().trim() );
 		List<EscalaAlteracoes> lista = page.getContent();
 		return paginarEscalaAlteracaoGlobal(pageNo, page, lista, model);
 	}
@@ -1209,7 +1240,7 @@ public class EscalaController {
 			
 	public String findPaginatedEscalaColaborador(@PathVariable (value = "pageNo") int pageNo, String nome, ModelMap model) {
 		int pageSeze = 5;
-		Page<Escala> page = service.findPaginatedColaborador(pageNo, pageSeze, pessoaOperadoresService.buscarPorId(idAnoMesAtual).getIdPessoaFk() ,anoMesService.buscarPorId(idAnoMesAtual) );
+		Page<Escala> page = service.findPaginatedColaborador(pageNo, pageSeze, pessoaOperadoresService.buscarPorId(mesAtual()).getIdPessoaFk() ,anoMesService.buscarPorId(mesAtual()) );
 		List<Escala> lista = page.getContent();
 		return paginarEscalaColaborador(pageNo, page, lista, model);
 	}
@@ -1221,7 +1252,7 @@ public class EscalaController {
 	@GetMapping("/alterar/avaliacao/{id}")
 	public String cadastrarAvaliacao(@PathVariable("id") Long id, Escala escala, ModelMap model) {	
 		//Tratando escala Bloqueada
-		if(anoMesService.buscarPorId(idAnoMesAtual).getIdEscalaBloqueadaFk().getSigla().equalsIgnoreCase("S")) {
+		if(anoMesService.buscarPorId(mesAtual()).getIdEscalaBloqueadaFk().getSigla().equalsIgnoreCase("S")) {
 		return "redirect:/escalas/mensagem/de/escala/bloqueada";
 		}		
 		
@@ -1244,7 +1275,7 @@ public class EscalaController {
 		@GetMapping("/alterar/diferenciado/{id}")
 		public String cadastrarDiferenciado(@PathVariable("id") Long id, Escala escala, EscalaCodDiferenciado escalaCodDiferenciado, ModelMap model) {	
 			//Tratando escala Bloqueada
-			if(anoMesService.buscarPorId(idAnoMesAtual).getIdEscalaBloqueadaFk().getSigla().equalsIgnoreCase("S")) {
+			if(anoMesService.buscarPorId(mesAtual()).getIdEscalaBloqueadaFk().getSigla().equalsIgnoreCase("S")) {
 			return "redirect:/escalas/mensagem/de/escala/bloqueada";
 			}		
 			
@@ -1274,7 +1305,7 @@ public class EscalaController {
 	@GetMapping("/atalho/limpar_escala/choque")
 	public String atalhoLimparEscalaChoque( RedirectAttributes attr, String critica) {	
 		//Tratando escala Bloqueada
-		if(anoMesService.buscarPorId(idAnoMesAtual).getIdEscalaBloqueadaFk().getSigla().equalsIgnoreCase("S")) {
+		if(anoMesService.buscarPorId(mesAtual()).getIdEscalaBloqueadaFk().getSigla().equalsIgnoreCase("S")) {
 		return "redirect:/escalas/mensagem/de/escala/bloqueada";
 		}		
 		
@@ -1291,7 +1322,7 @@ public class EscalaController {
 	@GetMapping("/atalho/limpar_escala")
 	public String atalhoLimparEscala( RedirectAttributes attr) {
 		//Tratando escala Bloqueada
-		if(anoMesService.buscarPorId(idAnoMesAtual).getIdEscalaBloqueadaFk().getSigla().equalsIgnoreCase("S")) {
+		if(anoMesService.buscarPorId(mesAtual()).getIdEscalaBloqueadaFk().getSigla().equalsIgnoreCase("S")) {
 		return "redirect:/escalas/mensagem/de/escala/bloqueada";
 		}		
 
@@ -1309,7 +1340,7 @@ public class EscalaController {
 	@GetMapping("/atalho/diarista_manha")
 	public String atalhoDiaristaManha( RedirectAttributes attr) {
 		//Tratando escala Bloqueada
-		if(anoMesService.buscarPorId(idAnoMesAtual).getIdEscalaBloqueadaFk().getSigla().equalsIgnoreCase("S")) {
+		if(anoMesService.buscarPorId(mesAtual()).getIdEscalaBloqueadaFk().getSigla().equalsIgnoreCase("S")) {
 		return "redirect:/escalas/mensagem/de/escala/bloqueada";
 		}		
 
@@ -1335,7 +1366,7 @@ public class EscalaController {
 	@GetMapping("/atalho/diarista_tarde")
 	public String atalhoDiaristaTarde( RedirectAttributes attr) {	
 		//Tratando escala Bloqueada
-		if(anoMesService.buscarPorId(idAnoMesAtual).getIdEscalaBloqueadaFk().getSigla().equalsIgnoreCase("S")) {
+		if(anoMesService.buscarPorId(mesAtual()).getIdEscalaBloqueadaFk().getSigla().equalsIgnoreCase("S")) {
 		return "redirect:/escalas/mensagem/de/escala/bloqueada";
 		}		
 		
@@ -1360,7 +1391,7 @@ public class EscalaController {
 	@GetMapping("/atalho/diarista_dia")
 	public String atalhoDiaristaDia( RedirectAttributes attr) {	
 		//Tratando escala Bloqueada
-		if(anoMesService.buscarPorId(idAnoMesAtual).getIdEscalaBloqueadaFk().getSigla().equalsIgnoreCase("S")) {
+		if(anoMesService.buscarPorId(mesAtual()).getIdEscalaBloqueadaFk().getSigla().equalsIgnoreCase("S")) {
 		return "redirect:/escalas/mensagem/de/escala/bloqueada";
 		}		
 
@@ -1385,7 +1416,7 @@ public class EscalaController {
 	@GetMapping("/atalho/mt_dias_impares")
 	public String atalhoMTDiasImpares( RedirectAttributes attr) {	
 		//Tratando escala Bloqueada
-		if(anoMesService.buscarPorId(idAnoMesAtual).getIdEscalaBloqueadaFk().getSigla().equalsIgnoreCase("S")) {
+		if(anoMesService.buscarPorId(mesAtual()).getIdEscalaBloqueadaFk().getSigla().equalsIgnoreCase("S")) {
 		return "redirect:/escalas/mensagem/de/escala/bloqueada";
 		}		
 
@@ -1410,7 +1441,7 @@ public class EscalaController {
 	@GetMapping("/atalho/mt_dias_pares")
 	public String atalhoMTDiasPares( RedirectAttributes attr) {	
 		//Tratando escala Bloqueada
-		if(anoMesService.buscarPorId(idAnoMesAtual).getIdEscalaBloqueadaFk().getSigla().equalsIgnoreCase("S")) {
+		if(anoMesService.buscarPorId(mesAtual()).getIdEscalaBloqueadaFk().getSigla().equalsIgnoreCase("S")) {
 		return "redirect:/escalas/mensagem/de/escala/bloqueada";
 		}		
 
@@ -1436,7 +1467,7 @@ public class EscalaController {
 	@GetMapping("/atalho/ciclo1_a")
 	public String atalhoCiclo1A( RedirectAttributes attr) {	
 		//Tratando escala Bloqueada
-		if(anoMesService.buscarPorId(idAnoMesAtual).getIdEscalaBloqueadaFk().getSigla().equalsIgnoreCase("S")) {
+		if(anoMesService.buscarPorId(mesAtual()).getIdEscalaBloqueadaFk().getSigla().equalsIgnoreCase("S")) {
 		return "redirect:/escalas/mensagem/de/escala/bloqueada";
 		}		
 
@@ -1461,7 +1492,7 @@ public class EscalaController {
 	@GetMapping("/atalho/ciclo1_b")
 	public String atalhoCiclo1B( RedirectAttributes attr) {	
 		//Tratando escala Bloqueada
-		if(anoMesService.buscarPorId(idAnoMesAtual).getIdEscalaBloqueadaFk().getSigla().equalsIgnoreCase("S")) {
+		if(anoMesService.buscarPorId(mesAtual()).getIdEscalaBloqueadaFk().getSigla().equalsIgnoreCase("S")) {
 		return "redirect:/escalas/mensagem/de/escala/bloqueada";
 		}		
 
@@ -1486,7 +1517,7 @@ public class EscalaController {
 	@GetMapping("/atalho/ciclo1_c")
 	public String atalhoCiclo1C( RedirectAttributes attr) {	
 		//Tratando escala Bloqueada
-		if(anoMesService.buscarPorId(idAnoMesAtual).getIdEscalaBloqueadaFk().getSigla().equalsIgnoreCase("S")) {
+		if(anoMesService.buscarPorId(mesAtual()).getIdEscalaBloqueadaFk().getSigla().equalsIgnoreCase("S")) {
 		return "redirect:/escalas/mensagem/de/escala/bloqueada";
 		}		
 
@@ -1511,7 +1542,7 @@ public class EscalaController {
 	@GetMapping("/atalho/ciclo1_d")
 	public String atalhoCiclo1D( RedirectAttributes attr) {	
 		//Tratando escala Bloqueada
-		if(anoMesService.buscarPorId(idAnoMesAtual).getIdEscalaBloqueadaFk().getSigla().equalsIgnoreCase("S")) {
+		if(anoMesService.buscarPorId(mesAtual()).getIdEscalaBloqueadaFk().getSigla().equalsIgnoreCase("S")) {
 		return "redirect:/escalas/mensagem/de/escala/bloqueada";
 		}		
 
@@ -1536,7 +1567,7 @@ public class EscalaController {
 	@GetMapping("/atalho/ciclo1_e")
 	public String atalhoCiclo1E( RedirectAttributes attr) {	
 		//Tratando escala Bloqueada
-		if(anoMesService.buscarPorId(idAnoMesAtual).getIdEscalaBloqueadaFk().getSigla().equalsIgnoreCase("S")) {
+		if(anoMesService.buscarPorId(mesAtual()).getIdEscalaBloqueadaFk().getSigla().equalsIgnoreCase("S")) {
 		return "redirect:/escalas/mensagem/de/escala/bloqueada";
 		}		
 
@@ -1561,7 +1592,7 @@ public class EscalaController {
 	@GetMapping("/atalho/ciclo1_f")
 	public String atalhoCiclo1F( RedirectAttributes attr) {	
 		//Tratando escala Bloqueada
-		if(anoMesService.buscarPorId(idAnoMesAtual).getIdEscalaBloqueadaFk().getSigla().equalsIgnoreCase("S")) {
+		if(anoMesService.buscarPorId(mesAtual()).getIdEscalaBloqueadaFk().getSigla().equalsIgnoreCase("S")) {
 		return "redirect:/escalas/mensagem/de/escala/bloqueada";
 		}		
 
@@ -1587,7 +1618,7 @@ public class EscalaController {
 	@GetMapping("/atalho/ciclo2_a")
 	public String atalhoCiclo2A( RedirectAttributes attr) {	
 		//Tratando escala Bloqueada
-		if(anoMesService.buscarPorId(idAnoMesAtual).getIdEscalaBloqueadaFk().getSigla().equalsIgnoreCase("S")) {
+		if(anoMesService.buscarPorId(mesAtual()).getIdEscalaBloqueadaFk().getSigla().equalsIgnoreCase("S")) {
 		return "redirect:/escalas/mensagem/de/escala/bloqueada";
 		}		
 
@@ -1612,7 +1643,7 @@ public class EscalaController {
 	@GetMapping("/atalho/ciclo2_b")
 	public String atalhoCiclo2B( RedirectAttributes attr) {	
 		//Tratando escala Bloqueada
-		if(anoMesService.buscarPorId(idAnoMesAtual).getIdEscalaBloqueadaFk().getSigla().equalsIgnoreCase("S")) {
+		if(anoMesService.buscarPorId(mesAtual()).getIdEscalaBloqueadaFk().getSigla().equalsIgnoreCase("S")) {
 		return "redirect:/escalas/mensagem/de/escala/bloqueada";
 		}		
 
@@ -1637,7 +1668,7 @@ public class EscalaController {
 	@GetMapping("/atalho/ciclo2_c")
 	public String atalhoCiclo2C( RedirectAttributes attr) {	
 		//Tratando escala Bloqueada
-		if(anoMesService.buscarPorId(idAnoMesAtual).getIdEscalaBloqueadaFk().getSigla().equalsIgnoreCase("S")) {
+		if(anoMesService.buscarPorId(mesAtual()).getIdEscalaBloqueadaFk().getSigla().equalsIgnoreCase("S")) {
 		return "redirect:/escalas/mensagem/de/escala/bloqueada";
 		}		
 
@@ -1662,7 +1693,7 @@ public class EscalaController {
 	@GetMapping("/atalho/ciclo2_d")
 	public String atalhoCiclo2D( RedirectAttributes attr) {	
 		//Tratando escala Bloqueada
-		if(anoMesService.buscarPorId(idAnoMesAtual).getIdEscalaBloqueadaFk().getSigla().equalsIgnoreCase("S")) {
+		if(anoMesService.buscarPorId(mesAtual()).getIdEscalaBloqueadaFk().getSigla().equalsIgnoreCase("S")) {
 		return "redirect:/escalas/mensagem/de/escala/bloqueada";
 		}		
 
@@ -1687,7 +1718,7 @@ public class EscalaController {
 	@GetMapping("/atalho/ciclo2_e")
 	public String atalhoCiclo2E( RedirectAttributes attr) {	
 		//Tratando escala Bloqueada
-		if(anoMesService.buscarPorId(idAnoMesAtual).getIdEscalaBloqueadaFk().getSigla().equalsIgnoreCase("S")) {
+		if(anoMesService.buscarPorId(mesAtual()).getIdEscalaBloqueadaFk().getSigla().equalsIgnoreCase("S")) {
 		return "redirect:/escalas/mensagem/de/escala/bloqueada";
 		}		
 
@@ -1712,7 +1743,7 @@ public class EscalaController {
 	@GetMapping("/atalho/ciclo2_f")
 	public String atalhoCiclo2F( RedirectAttributes attr) {	
 		//Tratando escala Bloqueada
-		if(anoMesService.buscarPorId(idAnoMesAtual).getIdEscalaBloqueadaFk().getSigla().equalsIgnoreCase("S")) {
+		if(anoMesService.buscarPorId(mesAtual()).getIdEscalaBloqueadaFk().getSigla().equalsIgnoreCase("S")) {
 		return "redirect:/escalas/mensagem/de/escala/bloqueada";
 		}		
 
@@ -1738,7 +1769,7 @@ public class EscalaController {
 	@GetMapping("/atalho/ciclo4_a")
 	public String atalhoCiclo4A( RedirectAttributes attr) {	
 		//Tratando escala Bloqueada
-		if(anoMesService.buscarPorId(idAnoMesAtual).getIdEscalaBloqueadaFk().getSigla().equalsIgnoreCase("S")) {
+		if(anoMesService.buscarPorId(mesAtual()).getIdEscalaBloqueadaFk().getSigla().equalsIgnoreCase("S")) {
 		return "redirect:/escalas/mensagem/de/escala/bloqueada";
 		}		
 
@@ -1763,7 +1794,7 @@ public class EscalaController {
 	@GetMapping("/atalho/ciclo4_b")
 	public String atalhoCiclo4B( RedirectAttributes attr) {	
 		//Tratando escala Bloqueada
-		if(anoMesService.buscarPorId(idAnoMesAtual).getIdEscalaBloqueadaFk().getSigla().equalsIgnoreCase("S")) {
+		if(anoMesService.buscarPorId(mesAtual()).getIdEscalaBloqueadaFk().getSigla().equalsIgnoreCase("S")) {
 		return "redirect:/escalas/mensagem/de/escala/bloqueada";
 		}		
 
@@ -1788,7 +1819,7 @@ public class EscalaController {
 	@GetMapping("/atalho/ciclo4_c")
 	public String atalhoCiclo4C( RedirectAttributes attr) {	
 		//Tratando escala Bloqueada
-		if(anoMesService.buscarPorId(idAnoMesAtual).getIdEscalaBloqueadaFk().getSigla().equalsIgnoreCase("S")) {
+		if(anoMesService.buscarPorId(mesAtual()).getIdEscalaBloqueadaFk().getSigla().equalsIgnoreCase("S")) {
 		return "redirect:/escalas/mensagem/de/escala/bloqueada";
 		}		
 
@@ -1813,7 +1844,7 @@ public class EscalaController {
 	@GetMapping("/atalho/ciclo4_d")
 	public String atalhoCiclo4D( RedirectAttributes attr) {	
 		//Tratando escala Bloqueada
-		if(anoMesService.buscarPorId(idAnoMesAtual).getIdEscalaBloqueadaFk().getSigla().equalsIgnoreCase("S")) {
+		if(anoMesService.buscarPorId(mesAtual()).getIdEscalaBloqueadaFk().getSigla().equalsIgnoreCase("S")) {
 		return "redirect:/escalas/mensagem/de/escala/bloqueada";
 		}		
 
@@ -1838,7 +1869,7 @@ public class EscalaController {
 	@GetMapping("/atalho/ciclo4_e")
 	public String atalhoCiclo4E( RedirectAttributes attr) {	
 		//Tratando escala Bloqueada
-		if(anoMesService.buscarPorId(idAnoMesAtual).getIdEscalaBloqueadaFk().getSigla().equalsIgnoreCase("S")) {
+		if(anoMesService.buscarPorId(mesAtual()).getIdEscalaBloqueadaFk().getSigla().equalsIgnoreCase("S")) {
 		return "redirect:/escalas/mensagem/de/escala/bloqueada";
 		}		
 
@@ -1863,7 +1894,7 @@ public class EscalaController {
 	@GetMapping("/atalho/ciclo4_f")
 	public String atalhoCiclo4F( RedirectAttributes attr) {	
 		//Tratando escala Bloqueada
-		if(anoMesService.buscarPorId(idAnoMesAtual).getIdEscalaBloqueadaFk().getSigla().equalsIgnoreCase("S")) {
+		if(anoMesService.buscarPorId(mesAtual()).getIdEscalaBloqueadaFk().getSigla().equalsIgnoreCase("S")) {
 		return "redirect:/escalas/mensagem/de/escala/bloqueada";
 		}		
 
@@ -1889,7 +1920,7 @@ public class EscalaController {
 	@GetMapping("/atalho/ciclo5_a")
 	public String atalhoCiclo5A( RedirectAttributes attr) {	
 		//Tratando escala Bloqueada
-		if(anoMesService.buscarPorId(idAnoMesAtual).getIdEscalaBloqueadaFk().getSigla().equalsIgnoreCase("S")) {
+		if(anoMesService.buscarPorId(mesAtual()).getIdEscalaBloqueadaFk().getSigla().equalsIgnoreCase("S")) {
 		return "redirect:/escalas/mensagem/de/escala/bloqueada";
 		}		
 
@@ -1914,7 +1945,7 @@ public class EscalaController {
 	@GetMapping("/atalho/ciclo5_b")
 	public String atalhoCiclo5B( RedirectAttributes attr) {	
 		//Tratando escala Bloqueada
-		if(anoMesService.buscarPorId(idAnoMesAtual).getIdEscalaBloqueadaFk().getSigla().equalsIgnoreCase("S")) {
+		if(anoMesService.buscarPorId(mesAtual()).getIdEscalaBloqueadaFk().getSigla().equalsIgnoreCase("S")) {
 		return "redirect:/escalas/mensagem/de/escala/bloqueada";
 		}		
 
@@ -1939,7 +1970,7 @@ public class EscalaController {
 	@GetMapping("/atalho/ciclo5_c")
 	public String atalhoCiclo5C( RedirectAttributes attr) {	
 		//Tratando escala Bloqueada
-		if(anoMesService.buscarPorId(idAnoMesAtual).getIdEscalaBloqueadaFk().getSigla().equalsIgnoreCase("S")) {
+		if(anoMesService.buscarPorId(mesAtual()).getIdEscalaBloqueadaFk().getSigla().equalsIgnoreCase("S")) {
 		return "redirect:/escalas/mensagem/de/escala/bloqueada";
 		}		
 
@@ -1964,7 +1995,7 @@ public class EscalaController {
 	@GetMapping("/atalho/ciclo5_d")
 	public String atalhoCiclo5D( RedirectAttributes attr) {	
 		//Tratando escala Bloqueada
-		if(anoMesService.buscarPorId(idAnoMesAtual).getIdEscalaBloqueadaFk().getSigla().equalsIgnoreCase("S")) {
+		if(anoMesService.buscarPorId(mesAtual()).getIdEscalaBloqueadaFk().getSigla().equalsIgnoreCase("S")) {
 		return "redirect:/escalas/mensagem/de/escala/bloqueada";
 		}		
 
@@ -1989,7 +2020,7 @@ public class EscalaController {
 	@GetMapping("/atalho/ciclo5_e")
 	public String atalhoCiclo5E( RedirectAttributes attr) {	
 		//Tratando escala Bloqueada
-		if(anoMesService.buscarPorId(idAnoMesAtual).getIdEscalaBloqueadaFk().getSigla().equalsIgnoreCase("S")) {
+		if(anoMesService.buscarPorId(mesAtual()).getIdEscalaBloqueadaFk().getSigla().equalsIgnoreCase("S")) {
 		return "redirect:/escalas/mensagem/de/escala/bloqueada";
 		}		
 
@@ -2014,7 +2045,7 @@ public class EscalaController {
 	@GetMapping("/atalho/ciclo5_f")
 	public String atalhoCiclo5F( RedirectAttributes attr) {	
 		//Tratando escala Bloqueada
-		if(anoMesService.buscarPorId(idAnoMesAtual).getIdEscalaBloqueadaFk().getSigla().equalsIgnoreCase("S")) {
+		if(anoMesService.buscarPorId(mesAtual()).getIdEscalaBloqueadaFk().getSigla().equalsIgnoreCase("S")) {
 		return "redirect:/escalas/mensagem/de/escala/bloqueada";
 		}		
 
@@ -2040,7 +2071,7 @@ public class EscalaController {
 	@GetMapping("/atalho/ciclo6_a")
 	public String atalhoCiclo6A( RedirectAttributes attr) {	
 		//Tratando escala Bloqueada
-		if(anoMesService.buscarPorId(idAnoMesAtual).getIdEscalaBloqueadaFk().getSigla().equalsIgnoreCase("S")) {
+		if(anoMesService.buscarPorId(mesAtual()).getIdEscalaBloqueadaFk().getSigla().equalsIgnoreCase("S")) {
 		return "redirect:/escalas/mensagem/de/escala/bloqueada";
 		}		
 
@@ -2065,7 +2096,7 @@ public class EscalaController {
 	@GetMapping("/atalho/ciclo6_b")
 	public String atalhoCiclo6B( RedirectAttributes attr) {	
 		//Tratando escala Bloqueada
-		if(anoMesService.buscarPorId(idAnoMesAtual).getIdEscalaBloqueadaFk().getSigla().equalsIgnoreCase("S")) {
+		if(anoMesService.buscarPorId(mesAtual()).getIdEscalaBloqueadaFk().getSigla().equalsIgnoreCase("S")) {
 		return "redirect:/escalas/mensagem/de/escala/bloqueada";
 		}		
 
@@ -2090,7 +2121,7 @@ public class EscalaController {
 	@GetMapping("/atalho/ciclo6_c")
 	public String atalhoCiclo6C( RedirectAttributes attr) {	
 		//Tratando escala Bloqueada
-		if(anoMesService.buscarPorId(idAnoMesAtual).getIdEscalaBloqueadaFk().getSigla().equalsIgnoreCase("S")) {
+		if(anoMesService.buscarPorId(mesAtual()).getIdEscalaBloqueadaFk().getSigla().equalsIgnoreCase("S")) {
 		return "redirect:/escalas/mensagem/de/escala/bloqueada";
 		}		
 
@@ -2115,7 +2146,7 @@ public class EscalaController {
 	@GetMapping("/atalho/ciclo6_d")
 	public String atalhoCiclo6D( RedirectAttributes attr) {	
 		//Tratando escala Bloqueada
-		if(anoMesService.buscarPorId(idAnoMesAtual).getIdEscalaBloqueadaFk().getSigla().equalsIgnoreCase("S")) {
+		if(anoMesService.buscarPorId(mesAtual()).getIdEscalaBloqueadaFk().getSigla().equalsIgnoreCase("S")) {
 		return "redirect:/escalas/mensagem/de/escala/bloqueada";
 		}		
 
@@ -2140,7 +2171,7 @@ public class EscalaController {
 	@GetMapping("/atalho/ciclo6_e")
 	public String atalhoCiclo6E( RedirectAttributes attr) {	
 		//Tratando escala Bloqueada
-		if(anoMesService.buscarPorId(idAnoMesAtual).getIdEscalaBloqueadaFk().getSigla().equalsIgnoreCase("S")) {
+		if(anoMesService.buscarPorId(mesAtual()).getIdEscalaBloqueadaFk().getSigla().equalsIgnoreCase("S")) {
 		return "redirect:/escalas/mensagem/de/escala/bloqueada";
 		}		
 
@@ -2165,7 +2196,7 @@ public class EscalaController {
 	@GetMapping("/atalho/ciclo6_f")
 	public String atalhoCiclo6F( RedirectAttributes attr) {	
 		//Tratando escala Bloqueada
-		if(anoMesService.buscarPorId(idAnoMesAtual).getIdEscalaBloqueadaFk().getSigla().equalsIgnoreCase("S")) {
+		if(anoMesService.buscarPorId(mesAtual()).getIdEscalaBloqueadaFk().getSigla().equalsIgnoreCase("S")) {
 		return "redirect:/escalas/mensagem/de/escala/bloqueada";
 		}		
 
@@ -2191,7 +2222,7 @@ public class EscalaController {
 	@GetMapping("/atalho/ciclo7_a")
 	public String atalhoCiclo7A( RedirectAttributes attr) {	
 		//Tratando escala Bloqueada
-		if(anoMesService.buscarPorId(idAnoMesAtual).getIdEscalaBloqueadaFk().getSigla().equalsIgnoreCase("S")) {
+		if(anoMesService.buscarPorId(mesAtual()).getIdEscalaBloqueadaFk().getSigla().equalsIgnoreCase("S")) {
 		return "redirect:/escalas/mensagem/de/escala/bloqueada";
 		}		
 
@@ -2216,7 +2247,7 @@ public class EscalaController {
 	@GetMapping("/atalho/ciclo7_b")
 	public String atalhoCiclo7B( RedirectAttributes attr) {	
 		//Tratando escala Bloqueada
-		if(anoMesService.buscarPorId(idAnoMesAtual).getIdEscalaBloqueadaFk().getSigla().equalsIgnoreCase("S")) {
+		if(anoMesService.buscarPorId(mesAtual()).getIdEscalaBloqueadaFk().getSigla().equalsIgnoreCase("S")) {
 		return "redirect:/escalas/mensagem/de/escala/bloqueada";
 		}		
 
@@ -2241,7 +2272,7 @@ public class EscalaController {
 	@GetMapping("/atalho/ciclo7_c")
 	public String atalhoCiclo7C( RedirectAttributes attr) {	
 		//Tratando escala Bloqueada
-		if(anoMesService.buscarPorId(idAnoMesAtual).getIdEscalaBloqueadaFk().getSigla().equalsIgnoreCase("S")) {
+		if(anoMesService.buscarPorId(mesAtual()).getIdEscalaBloqueadaFk().getSigla().equalsIgnoreCase("S")) {
 		return "redirect:/escalas/mensagem/de/escala/bloqueada";
 		}		
 
@@ -2266,7 +2297,7 @@ public class EscalaController {
 	@GetMapping("/atalho/ciclo7_d")
 	public String atalhoCiclo7D( RedirectAttributes attr) {	
 		//Tratando escala Bloqueada
-		if(anoMesService.buscarPorId(idAnoMesAtual).getIdEscalaBloqueadaFk().getSigla().equalsIgnoreCase("S")) {
+		if(anoMesService.buscarPorId(mesAtual()).getIdEscalaBloqueadaFk().getSigla().equalsIgnoreCase("S")) {
 		return "redirect:/escalas/mensagem/de/escala/bloqueada";
 		}		
 
@@ -2291,7 +2322,7 @@ public class EscalaController {
 	@GetMapping("/atalho/ciclo7_e")
 	public String atalhoCiclo7E( RedirectAttributes attr) {	
 		//Tratando escala Bloqueada
-		if(anoMesService.buscarPorId(idAnoMesAtual).getIdEscalaBloqueadaFk().getSigla().equalsIgnoreCase("S")) {
+		if(anoMesService.buscarPorId(mesAtual()).getIdEscalaBloqueadaFk().getSigla().equalsIgnoreCase("S")) {
 		return "redirect:/escalas/mensagem/de/escala/bloqueada";
 		}		
 
@@ -2316,7 +2347,7 @@ public class EscalaController {
 	@GetMapping("/atalho/ciclo7_f")
 	public String atalhoCiclo7F( RedirectAttributes attr) {	
 		//Tratando escala Bloqueada
-		if(anoMesService.buscarPorId(idAnoMesAtual).getIdEscalaBloqueadaFk().getSigla().equalsIgnoreCase("S")) {
+		if(anoMesService.buscarPorId(mesAtual()).getIdEscalaBloqueadaFk().getSigla().equalsIgnoreCase("S")) {
 		return "redirect:/escalas/mensagem/de/escala/bloqueada";
 		}		
 
@@ -2343,7 +2374,7 @@ public class EscalaController {
 	@GetMapping("/atalho/ciclo8_a")
 	public String atalhoCiclo8A( RedirectAttributes attr) {	
 		//Tratando escala Bloqueada
-		if(anoMesService.buscarPorId(idAnoMesAtual).getIdEscalaBloqueadaFk().getSigla().equalsIgnoreCase("S")) {
+		if(anoMesService.buscarPorId(mesAtual()).getIdEscalaBloqueadaFk().getSigla().equalsIgnoreCase("S")) {
 		return "redirect:/escalas/mensagem/de/escala/bloqueada";
 		}		
 
@@ -2368,7 +2399,7 @@ public class EscalaController {
 	@GetMapping("/atalho/ciclo8_b")
 	public String atalhoCiclo8B( RedirectAttributes attr) {	
 		//Tratando escala Bloqueada
-		if(anoMesService.buscarPorId(idAnoMesAtual).getIdEscalaBloqueadaFk().getSigla().equalsIgnoreCase("S")) {
+		if(anoMesService.buscarPorId(mesAtual()).getIdEscalaBloqueadaFk().getSigla().equalsIgnoreCase("S")) {
 		return "redirect:/escalas/mensagem/de/escala/bloqueada";
 		}		
 
@@ -2393,7 +2424,7 @@ public class EscalaController {
 	@GetMapping("/atalho/ciclo8_c")
 	public String atalhoCiclo8C( RedirectAttributes attr) {	
 		//Tratando escala Bloqueada
-		if(anoMesService.buscarPorId(idAnoMesAtual).getIdEscalaBloqueadaFk().getSigla().equalsIgnoreCase("S")) {
+		if(anoMesService.buscarPorId(mesAtual()).getIdEscalaBloqueadaFk().getSigla().equalsIgnoreCase("S")) {
 		return "redirect:/escalas/mensagem/de/escala/bloqueada";
 		}		
 
@@ -2418,7 +2449,7 @@ public class EscalaController {
 	@GetMapping("/atalho/ciclo8_d")
 	public String atalhoCiclo8D( RedirectAttributes attr) {	
 		//Tratando escala Bloqueada
-		if(anoMesService.buscarPorId(idAnoMesAtual).getIdEscalaBloqueadaFk().getSigla().equalsIgnoreCase("S")) {
+		if(anoMesService.buscarPorId(mesAtual()).getIdEscalaBloqueadaFk().getSigla().equalsIgnoreCase("S")) {
 		return "redirect:/escalas/mensagem/de/escala/bloqueada";
 		}		
 
@@ -2443,7 +2474,7 @@ public class EscalaController {
 	@GetMapping("/atalho/ciclo8_e")
 	public String atalhoCiclo8E( RedirectAttributes attr) {	
 		//Tratando escala Bloqueada
-		if(anoMesService.buscarPorId(idAnoMesAtual).getIdEscalaBloqueadaFk().getSigla().equalsIgnoreCase("S")) {
+		if(anoMesService.buscarPorId(mesAtual()).getIdEscalaBloqueadaFk().getSigla().equalsIgnoreCase("S")) {
 		return "redirect:/escalas/mensagem/de/escala/bloqueada";
 		}		
 
@@ -2468,7 +2499,7 @@ public class EscalaController {
 	@GetMapping("/atalho/ciclo8_f")
 	public String atalhoCiclo8F( RedirectAttributes attr) {	
 		//Tratando escala Bloqueada
-		if(anoMesService.buscarPorId(idAnoMesAtual).getIdEscalaBloqueadaFk().getSigla().equalsIgnoreCase("S")) {
+		if(anoMesService.buscarPorId(mesAtual()).getIdEscalaBloqueadaFk().getSigla().equalsIgnoreCase("S")) {
 		return "redirect:/escalas/mensagem/de/escala/bloqueada";
 		}		
 
@@ -2493,7 +2524,7 @@ public class EscalaController {
 	@GetMapping("/atalho/ciclo8_g")
 	public String atalhoCiclo8G( RedirectAttributes attr) {	
 		//Tratando escala Bloqueada
-		if(anoMesService.buscarPorId(idAnoMesAtual).getIdEscalaBloqueadaFk().getSigla().equalsIgnoreCase("S")) {
+		if(anoMesService.buscarPorId(mesAtual()).getIdEscalaBloqueadaFk().getSigla().equalsIgnoreCase("S")) {
 		return "redirect:/escalas/mensagem/de/escala/bloqueada";
 		}		
 
@@ -2520,7 +2551,7 @@ public class EscalaController {
 	@GetMapping("/atalho/ciclo9_a")
 	public String atalhoCiclo9A( RedirectAttributes attr) {	
 		//Tratando escala Bloqueada
-		if(anoMesService.buscarPorId(idAnoMesAtual).getIdEscalaBloqueadaFk().getSigla().equalsIgnoreCase("S")) {
+		if(anoMesService.buscarPorId(mesAtual()).getIdEscalaBloqueadaFk().getSigla().equalsIgnoreCase("S")) {
 		return "redirect:/escalas/mensagem/de/escala/bloqueada";
 		}		
 
@@ -2545,7 +2576,7 @@ public class EscalaController {
 	@GetMapping("/atalho/ciclo9_b")
 	public String atalhoCiclo9B( RedirectAttributes attr) {	
 		//Tratando escala Bloqueada
-		if(anoMesService.buscarPorId(idAnoMesAtual).getIdEscalaBloqueadaFk().getSigla().equalsIgnoreCase("S")) {
+		if(anoMesService.buscarPorId(mesAtual()).getIdEscalaBloqueadaFk().getSigla().equalsIgnoreCase("S")) {
 		return "redirect:/escalas/mensagem/de/escala/bloqueada";
 		}		
 
@@ -2570,7 +2601,7 @@ public class EscalaController {
 	@GetMapping("/atalho/ciclo9_c")
 	public String atalhoCiclo9C( RedirectAttributes attr) {	
 		//Tratando escala Bloqueada
-		if(anoMesService.buscarPorId(idAnoMesAtual).getIdEscalaBloqueadaFk().getSigla().equalsIgnoreCase("S")) {
+		if(anoMesService.buscarPorId(mesAtual()).getIdEscalaBloqueadaFk().getSigla().equalsIgnoreCase("S")) {
 		return "redirect:/escalas/mensagem/de/escala/bloqueada";
 		}		
 
@@ -2595,7 +2626,7 @@ public class EscalaController {
 	@GetMapping("/atalho/ciclo9_d")
 	public String atalhoCiclo9D( RedirectAttributes attr) {	
 		//Tratando escala Bloqueada
-		if(anoMesService.buscarPorId(idAnoMesAtual).getIdEscalaBloqueadaFk().getSigla().equalsIgnoreCase("S")) {
+		if(anoMesService.buscarPorId(mesAtual()).getIdEscalaBloqueadaFk().getSigla().equalsIgnoreCase("S")) {
 		return "redirect:/escalas/mensagem/de/escala/bloqueada";
 		}		
 
@@ -2620,7 +2651,7 @@ public class EscalaController {
 	@GetMapping("/atalho/ciclo9_e")
 	public String atalhoCiclo9E( RedirectAttributes attr) {	
 		//Tratando escala Bloqueada
-		if(anoMesService.buscarPorId(idAnoMesAtual).getIdEscalaBloqueadaFk().getSigla().equalsIgnoreCase("S")) {
+		if(anoMesService.buscarPorId(mesAtual()).getIdEscalaBloqueadaFk().getSigla().equalsIgnoreCase("S")) {
 		return "redirect:/escalas/mensagem/de/escala/bloqueada";
 		}		
 
@@ -2645,7 +2676,7 @@ public class EscalaController {
 	@GetMapping("/atalho/ciclo9_f")
 	public String atalhoCiclo9F( RedirectAttributes attr) {	
 		//Tratando escala Bloqueada
-		if(anoMesService.buscarPorId(idAnoMesAtual).getIdEscalaBloqueadaFk().getSigla().equalsIgnoreCase("S")) {
+		if(anoMesService.buscarPorId(mesAtual()).getIdEscalaBloqueadaFk().getSigla().equalsIgnoreCase("S")) {
 		return "redirect:/escalas/mensagem/de/escala/bloqueada";
 		}		
 
@@ -2670,7 +2701,7 @@ public class EscalaController {
 	@GetMapping("/atalho/ciclo9_g")
 	public String atalhoCiclo9G( RedirectAttributes attr) {	
 		//Tratando escala Bloqueada
-		if(anoMesService.buscarPorId(idAnoMesAtual).getIdEscalaBloqueadaFk().getSigla().equalsIgnoreCase("S")) {
+		if(anoMesService.buscarPorId(mesAtual()).getIdEscalaBloqueadaFk().getSigla().equalsIgnoreCase("S")) {
 		return "redirect:/escalas/mensagem/de/escala/bloqueada";
 		}		
 
@@ -2697,7 +2728,7 @@ public class EscalaController {
 	@GetMapping("/atalho/ciclo10_a")
 	public String atalhoCiclo10A( RedirectAttributes attr) {	
 		//Tratando escala Bloqueada
-		if(anoMesService.buscarPorId(idAnoMesAtual).getIdEscalaBloqueadaFk().getSigla().equalsIgnoreCase("S")) {
+		if(anoMesService.buscarPorId(mesAtual()).getIdEscalaBloqueadaFk().getSigla().equalsIgnoreCase("S")) {
 		return "redirect:/escalas/mensagem/de/escala/bloqueada";
 		}		
 
@@ -2722,7 +2753,7 @@ public class EscalaController {
 	@GetMapping("/atalho/ciclo10_b")
 	public String atalhoCiclo10B( RedirectAttributes attr) {	
 		//Tratando escala Bloqueada
-		if(anoMesService.buscarPorId(idAnoMesAtual).getIdEscalaBloqueadaFk().getSigla().equalsIgnoreCase("S")) {
+		if(anoMesService.buscarPorId(mesAtual()).getIdEscalaBloqueadaFk().getSigla().equalsIgnoreCase("S")) {
 		return "redirect:/escalas/mensagem/de/escala/bloqueada";
 		}		
 
@@ -2747,7 +2778,7 @@ public class EscalaController {
 	@GetMapping("/atalho/ciclo10_c")
 	public String atalhoCiclo10C( RedirectAttributes attr) {	
 		//Tratando escala Bloqueada
-		if(anoMesService.buscarPorId(idAnoMesAtual).getIdEscalaBloqueadaFk().getSigla().equalsIgnoreCase("S")) {
+		if(anoMesService.buscarPorId(mesAtual()).getIdEscalaBloqueadaFk().getSigla().equalsIgnoreCase("S")) {
 		return "redirect:/escalas/mensagem/de/escala/bloqueada";
 		}		
 
@@ -2772,7 +2803,7 @@ public class EscalaController {
 	@GetMapping("/atalho/ciclo10_d")
 	public String atalhoCiclo10D( RedirectAttributes attr) {	
 		//Tratando escala Bloqueada
-		if(anoMesService.buscarPorId(idAnoMesAtual).getIdEscalaBloqueadaFk().getSigla().equalsIgnoreCase("S")) {
+		if(anoMesService.buscarPorId(mesAtual()).getIdEscalaBloqueadaFk().getSigla().equalsIgnoreCase("S")) {
 		return "redirect:/escalas/mensagem/de/escala/bloqueada";
 		}		
 
@@ -2797,7 +2828,7 @@ public class EscalaController {
 	@GetMapping("/atalho/ciclo10_e")
 	public String atalhoCiclo10E( RedirectAttributes attr) {	
 		//Tratando escala Bloqueada
-		if(anoMesService.buscarPorId(idAnoMesAtual).getIdEscalaBloqueadaFk().getSigla().equalsIgnoreCase("S")) {
+		if(anoMesService.buscarPorId(mesAtual()).getIdEscalaBloqueadaFk().getSigla().equalsIgnoreCase("S")) {
 		return "redirect:/escalas/mensagem/de/escala/bloqueada";
 		}		
 
@@ -2822,7 +2853,7 @@ public class EscalaController {
 	@GetMapping("/atalho/ciclo10_f")
 	public String atalhoCiclo10F( RedirectAttributes attr) {	
 		//Tratando escala Bloqueada
-		if(anoMesService.buscarPorId(idAnoMesAtual).getIdEscalaBloqueadaFk().getSigla().equalsIgnoreCase("S")) {
+		if(anoMesService.buscarPorId(mesAtual()).getIdEscalaBloqueadaFk().getSigla().equalsIgnoreCase("S")) {
 		return "redirect:/escalas/mensagem/de/escala/bloqueada";
 		}		
 
@@ -2847,7 +2878,7 @@ public class EscalaController {
 	@GetMapping("/atalho/ciclo10_g")
 	public String atalhoCiclo10G( RedirectAttributes attr) {	
 		//Tratando escala Bloqueada
-		if(anoMesService.buscarPorId(idAnoMesAtual).getIdEscalaBloqueadaFk().getSigla().equalsIgnoreCase("S")) {
+		if(anoMesService.buscarPorId(mesAtual()).getIdEscalaBloqueadaFk().getSigla().equalsIgnoreCase("S")) {
 		return "redirect:/escalas/mensagem/de/escala/bloqueada";
 		}		
 
@@ -2876,7 +2907,7 @@ public class EscalaController {
 	@GetMapping("/atalho/ciclo11_a")
 	public String atalhoCiclo11A( RedirectAttributes attr) {	
 		//Tratando escala Bloqueada
-		if(anoMesService.buscarPorId(idAnoMesAtual).getIdEscalaBloqueadaFk().getSigla().equalsIgnoreCase("S")) {
+		if(anoMesService.buscarPorId(mesAtual()).getIdEscalaBloqueadaFk().getSigla().equalsIgnoreCase("S")) {
 		return "redirect:/escalas/mensagem/de/escala/bloqueada";
 		}		
 
@@ -2901,7 +2932,7 @@ public class EscalaController {
 	@GetMapping("/atalho/ciclo11_b")
 	public String atalhoCiclo11B( RedirectAttributes attr) {	
 		//Tratando escala Bloqueada
-		if(anoMesService.buscarPorId(idAnoMesAtual).getIdEscalaBloqueadaFk().getSigla().equalsIgnoreCase("S")) {
+		if(anoMesService.buscarPorId(mesAtual()).getIdEscalaBloqueadaFk().getSigla().equalsIgnoreCase("S")) {
 		return "redirect:/escalas/mensagem/de/escala/bloqueada";
 		}		
 
@@ -2926,7 +2957,7 @@ public class EscalaController {
 	@GetMapping("/atalho/ciclo11_c")
 	public String atalhoCiclo11C( RedirectAttributes attr) {	
 		//Tratando escala Bloqueada
-		if(anoMesService.buscarPorId(idAnoMesAtual).getIdEscalaBloqueadaFk().getSigla().equalsIgnoreCase("S")) {
+		if(anoMesService.buscarPorId(mesAtual()).getIdEscalaBloqueadaFk().getSigla().equalsIgnoreCase("S")) {
 		return "redirect:/escalas/mensagem/de/escala/bloqueada";
 		}		
 
@@ -2951,7 +2982,7 @@ public class EscalaController {
 	@GetMapping("/atalho/ciclo11_d")
 	public String atalhoCiclo11D( RedirectAttributes attr) {	
 		//Tratando escala Bloqueada
-		if(anoMesService.buscarPorId(idAnoMesAtual).getIdEscalaBloqueadaFk().getSigla().equalsIgnoreCase("S")) {
+		if(anoMesService.buscarPorId(mesAtual()).getIdEscalaBloqueadaFk().getSigla().equalsIgnoreCase("S")) {
 		return "redirect:/escalas/mensagem/de/escala/bloqueada";
 		}		
 
@@ -2976,7 +3007,7 @@ public class EscalaController {
 	@GetMapping("/atalho/ciclo11_e")
 	public String atalhoCiclo11E( RedirectAttributes attr) {	
 		//Tratando escala Bloqueada
-		if(anoMesService.buscarPorId(idAnoMesAtual).getIdEscalaBloqueadaFk().getSigla().equalsIgnoreCase("S")) {
+		if(anoMesService.buscarPorId(mesAtual()).getIdEscalaBloqueadaFk().getSigla().equalsIgnoreCase("S")) {
 		return "redirect:/escalas/mensagem/de/escala/bloqueada";
 		}		
 
@@ -3001,7 +3032,7 @@ public class EscalaController {
 	@GetMapping("/atalho/ciclo11_f")
 	public String atalhoCiclo11F( RedirectAttributes attr) {	
 		
-		if(anoMesService.buscarPorId(idAnoMesAtual).getIdEscalaBloqueadaFk().getSigla().equalsIgnoreCase("S")) {
+		if(anoMesService.buscarPorId(mesAtual()).getIdEscalaBloqueadaFk().getSigla().equalsIgnoreCase("S")) {
 		return "redirect:/escalas/mensagem/de/escala/bloqueada";
 		}		
 
@@ -3026,7 +3057,7 @@ public class EscalaController {
 	@GetMapping("/atalho/ciclo11_g")
 	public String atalhoCiclo11G( RedirectAttributes attr) {	
 		
-		if(anoMesService.buscarPorId(idAnoMesAtual).getIdEscalaBloqueadaFk().getSigla().equalsIgnoreCase("S")) {
+		if(anoMesService.buscarPorId(mesAtual()).getIdEscalaBloqueadaFk().getSigla().equalsIgnoreCase("S")) {
 		return "redirect:/escalas/mensagem/de/escala/bloqueada";
 		}		
 
@@ -3054,7 +3085,7 @@ public class EscalaController {
 	@GetMapping("/atalho/ciclo12_a")
 	public String atalhoCiclo12A( RedirectAttributes attr) {	
 		//Tratando escala Bloqueada
-		if(anoMesService.buscarPorId(idAnoMesAtual).getIdEscalaBloqueadaFk().getSigla().equalsIgnoreCase("S")) {
+		if(anoMesService.buscarPorId(mesAtual()).getIdEscalaBloqueadaFk().getSigla().equalsIgnoreCase("S")) {
 		return "redirect:/escalas/mensagem/de/escala/bloqueada";
 		}		
 
@@ -3079,7 +3110,7 @@ public class EscalaController {
 	@GetMapping("/atalho/ciclo12_b")
 	public String atalhoCiclo12B( RedirectAttributes attr) {	
 		//Tratando escala Bloqueada
-		if(anoMesService.buscarPorId(idAnoMesAtual).getIdEscalaBloqueadaFk().getSigla().equalsIgnoreCase("S")) {
+		if(anoMesService.buscarPorId(mesAtual()).getIdEscalaBloqueadaFk().getSigla().equalsIgnoreCase("S")) {
 		return "redirect:/escalas/mensagem/de/escala/bloqueada";
 		}		
 
@@ -3104,7 +3135,7 @@ public class EscalaController {
 	@GetMapping("/atalho/ciclo12_c")
 	public String atalhoCiclo12C( RedirectAttributes attr) {	
 		//Tratando escala Bloqueada
-		if(anoMesService.buscarPorId(idAnoMesAtual).getIdEscalaBloqueadaFk().getSigla().equalsIgnoreCase("S")) {
+		if(anoMesService.buscarPorId(mesAtual()).getIdEscalaBloqueadaFk().getSigla().equalsIgnoreCase("S")) {
 		return "redirect:/escalas/mensagem/de/escala/bloqueada";
 		}		
 
@@ -3129,7 +3160,7 @@ public class EscalaController {
 	@GetMapping("/atalho/ciclo12_d")
 	public String atalhoCiclo12D( RedirectAttributes attr) {	
 		//Tratando escala Bloqueada
-		if(anoMesService.buscarPorId(idAnoMesAtual).getIdEscalaBloqueadaFk().getSigla().equalsIgnoreCase("S")) {
+		if(anoMesService.buscarPorId(mesAtual()).getIdEscalaBloqueadaFk().getSigla().equalsIgnoreCase("S")) {
 		return "redirect:/escalas/mensagem/de/escala/bloqueada";
 		}		
 
@@ -3154,7 +3185,7 @@ public class EscalaController {
 	@GetMapping("/atalho/ciclo12_e")
 	public String atalhoCiclo12E( RedirectAttributes attr) {	
 		//Tratando escala Bloqueada
-		if(anoMesService.buscarPorId(idAnoMesAtual).getIdEscalaBloqueadaFk().getSigla().equalsIgnoreCase("S")) {
+		if(anoMesService.buscarPorId(mesAtual()).getIdEscalaBloqueadaFk().getSigla().equalsIgnoreCase("S")) {
 		return "redirect:/escalas/mensagem/de/escala/bloqueada";
 		}		
 
@@ -3179,7 +3210,7 @@ public class EscalaController {
 	@GetMapping("/atalho/ciclo12_f")
 	public String atalhoCiclo12F( RedirectAttributes attr) {	
 		//Tratando escala Bloqueada
-		if(anoMesService.buscarPorId(idAnoMesAtual).getIdEscalaBloqueadaFk().getSigla().equalsIgnoreCase("S")) {
+		if(anoMesService.buscarPorId(mesAtual()).getIdEscalaBloqueadaFk().getSigla().equalsIgnoreCase("S")) {
 		return "redirect:/escalas/mensagem/de/escala/bloqueada";
 		}		
 
@@ -3204,7 +3235,7 @@ public class EscalaController {
 	@GetMapping("/atalho/ciclo12_g")
 	public String atalhoCiclo12G( RedirectAttributes attr) {	
 		//Tratando escala Bloqueada
-		if(anoMesService.buscarPorId(idAnoMesAtual).getIdEscalaBloqueadaFk().getSigla().equalsIgnoreCase("S")) {
+		if(anoMesService.buscarPorId(mesAtual()).getIdEscalaBloqueadaFk().getSigla().equalsIgnoreCase("S")) {
 		return "redirect:/escalas/mensagem/de/escala/bloqueada";
 		}		
 
@@ -3308,8 +3339,8 @@ public class EscalaController {
 	
 	public String paginarInclusao(int pageNo, Page<PessoaFuncionarios> page, List<PessoaFuncionarios> lista, ModelMap model) {	
 		
-		model.addAttribute("escala", coordenacaoEscalaService.buscarPorId(idCoordenacaoAtual));
-		model.addAttribute("mes", anoMesService.buscarPorId(idAnoMesAtual));
+		model.addAttribute("escala", coordenacaoEscalaService.buscarPorId(coordenacaoAtual()));
+		model.addAttribute("mes", anoMesService.buscarPorId(mesAtual()));
 		
 		model.addAttribute("currentePage", pageNo);
 		model.addAttribute("totalPages", page.getTotalPages());
@@ -3355,7 +3386,7 @@ public class EscalaController {
 	public String incluindo(ModelMap model, InclusaoEscala inclusaoEscala ) {
 
 		
-		if(anoMesService.buscarPorId(idAnoMesAtual).getIdEscalaBloqueadaFk().getSigla().equalsIgnoreCase("S")) {
+		if(anoMesService.buscarPorId(mesAtual()).getIdEscalaBloqueadaFk().getSigla().equalsIgnoreCase("S")) {
 		return "redirect:/escalas/mensagem/de/escala/bloqueada";
 		}		
 
@@ -3366,8 +3397,8 @@ public class EscalaController {
 			RegimesDeTrabalho regimesDeTrabalho = inclusaoEscala.getRegiDeTrabalho();
 			TiposDeFolha tiposDeFolha = inclusaoEscala.getTiposDeFolha();
 			PessoaFuncionarios pessoaFuncionarios = pessoaFuncionariosService.buscarPorId(inclusaoEscala.getId());
-			AnoMes anoMes = anoMesService.buscarPorId(idAnoMesAtual);
-			CoordenacaoEscala coordenacaoEscala = coordenacaoEscalaService.buscarPorId(idCoordenacaoAtual);
+			AnoMes anoMes = anoMesService.buscarPorId(mesAtual());
+			CoordenacaoEscala coordenacaoEscala = coordenacaoEscalaService.buscarPorId(coordenacaoAtual());
 			CodigoDiferenciado codigoDiferenciado = codigoDiferenciadoService.buscarPorNome(usuarioService.pegarUnidadeLogada() ,"N" ).get(0);
 			Date dtMudanca = new Date();
 			PessoaOperadores idOperadorMudanca = usuarioService.pegarOperadorLogado();
@@ -3452,13 +3483,13 @@ public class EscalaController {
     public void downloadExcel(HttpServletResponse response, ModelMap model) throws IOException {
         response.setContentType("application/octet-stream");
         response.setHeader("Content-Disposition", "attachment; filename=dados.xlsx");
-        ByteArrayInputStream stream = escalaExportacaoService.exportarExcel(service.buscarExportacao(coordenacaoEscalaService.buscarPorId(idCoordenacaoAtual), anoMesService.buscarPorId(idAnoMesAtual)));
+        ByteArrayInputStream stream = escalaExportacaoService.exportarExcel(service.buscarExportacao(coordenacaoEscalaService.buscarPorId(coordenacaoAtual()), anoMesService.buscarPorId(mesAtual())));
         IOUtils.copy(stream, response.getOutputStream());
     }
 	
 	@GetMapping(value = "/exporta/pdf", produces = MediaType.APPLICATION_PDF_VALUE)
 	public ResponseEntity<InputStreamResource> employeeReports(HttpServletResponse response) throws IOException {
-		ByteArrayInputStream bis = escalaExportacaoService.exportarPdf(service.buscarExportacao(coordenacaoEscalaService.buscarPorId(idCoordenacaoAtual), anoMesService.buscarPorId(idAnoMesAtual)));
+		ByteArrayInputStream bis = escalaExportacaoService.exportarPdf(service.buscarExportacao(coordenacaoEscalaService.buscarPorId(coordenacaoAtual()), anoMesService.buscarPorId(mesAtual())));
 		HttpHeaders headers = new HttpHeaders();
 		headers.add("Content-Disposition", "attachment;filename=dados.pdf");
 		return ResponseEntity.ok().headers(headers).contentType(MediaType.APPLICATION_PDF)
@@ -3467,7 +3498,7 @@ public class EscalaController {
 	
 	@GetMapping(value = "/exporta/pdf/setorial/servico", produces = MediaType.APPLICATION_PDF_VALUE)
 	public ResponseEntity<InputStreamResource> employeeReportsSetorialServico(HttpServletResponse response) throws IOException {
-		ByteArrayInputStream bis = escalaExportacaoService.exportarPdfSetorial(service.buscarExportacaoSetorialServico(coordenacaoEscalaService.buscarPorId(idCoordenacaoAtual), anoMesService.buscarPorId(idAnoMesAtual)));
+		ByteArrayInputStream bis = escalaExportacaoService.exportarPdfSetorial(service.buscarExportacaoSetorialServico(coordenacaoEscalaService.buscarPorId(idCoordenacaoAtual), anoMesService.buscarPorId(mesAtual())));
 		HttpHeaders headers = new HttpHeaders();
 		headers.add("Content-Disposition", "attachment;filename=dados.pdf");
 		return ResponseEntity.ok().headers(headers).contentType(MediaType.APPLICATION_PDF)
@@ -3479,13 +3510,13 @@ public class EscalaController {
 	    public void downloadExcelTodos(HttpServletResponse response, ModelMap model) throws IOException {
 	        response.setContentType("application/octet-stream");
 	        response.setHeader("Content-Disposition", "attachment; filename=dados.xlsx");
-	        ByteArrayInputStream stream = escalaExportacaoService.exportarExcel(service.buscarExportacaoTodos(usuarioService.pegarUnidadeLogada(), anoMesService.buscarPorId(idAnoMesAtual)));
+	        ByteArrayInputStream stream = escalaExportacaoService.exportarExcel(service.buscarExportacaoTodos(usuarioService.pegarUnidadeLogada(), anoMesService.buscarPorId(mesAtual())));
 	        IOUtils.copy(stream, response.getOutputStream());
 	    }
 		
 		@GetMapping(value = "/exporta/pdf/todos", produces = MediaType.APPLICATION_PDF_VALUE)
 		public ResponseEntity<InputStreamResource> employeeReportsTodos(HttpServletResponse response) throws IOException {
-			ByteArrayInputStream bis = escalaExportacaoService.exportarPdf(service.buscarExportacaoTodos(usuarioService.pegarUnidadeLogada(), anoMesService.buscarPorId(idAnoMesAtual)));
+			ByteArrayInputStream bis = escalaExportacaoService.exportarPdf(service.buscarExportacaoTodos(usuarioService.pegarUnidadeLogada(), anoMesService.buscarPorId(mesAtual())));
 			HttpHeaders headers = new HttpHeaders();
 			headers.add("Content-Disposition", "attachment;filename=dados.pdf");
 			return ResponseEntity.ok().headers(headers).contentType(MediaType.APPLICATION_PDF)
@@ -3497,13 +3528,13 @@ public class EscalaController {
 	    public void downloadExcelPosTransparencia(HttpServletResponse response, ModelMap model) throws IOException {
 	        response.setContentType("application/octet-stream");
 	        response.setHeader("Content-Disposition", "attachment; filename=dados.xlsx");
-	        ByteArrayInputStream stream = escalaExportacaoService.exportarExcelPosTransparencia(escalaPosTransparenciaService.buscarNaUnidade(usuarioService.pegarUnidadeLogada(), anoMesService.buscarPorId(idAnoMesAtual)));
+	        ByteArrayInputStream stream = escalaExportacaoService.exportarExcelPosTransparencia(escalaPosTransparenciaService.buscarNaUnidade(usuarioService.pegarUnidadeLogada(), anoMesService.buscarPorId(mesAtual())));
 	        IOUtils.copy(stream, response.getOutputStream());
 	    }
 		
 		@GetMapping(value = "/exporta/pdf/pos/transparencia", produces = MediaType.APPLICATION_PDF_VALUE)
 		public ResponseEntity<InputStreamResource> employeeReportsPosTransparencia(HttpServletResponse response) throws IOException {
-			ByteArrayInputStream bis = escalaExportacaoService.exportarPdfPosTransparencia(escalaPosTransparenciaService.buscarNaUnidade(usuarioService.pegarUnidadeLogada(), anoMesService.buscarPorId(idAnoMesAtual)));
+			ByteArrayInputStream bis = escalaExportacaoService.exportarPdfPosTransparencia(escalaPosTransparenciaService.buscarNaUnidade(usuarioService.pegarUnidadeLogada(), anoMesService.buscarPorId(mesAtual())));
 			HttpHeaders headers = new HttpHeaders();
 			headers.add("Content-Disposition", "attachment;filename=dados.pdf");
 			return ResponseEntity.ok().headers(headers).contentType(MediaType.APPLICATION_PDF)
@@ -3515,13 +3546,13 @@ public class EscalaController {
 	    public void downloadExcelPosTransparenciaGlobal(HttpServletResponse response, ModelMap model) throws IOException {
 	        response.setContentType("application/octet-stream");
 	        response.setHeader("Content-Disposition", "attachment; filename=dados.xlsx");
-	        ByteArrayInputStream stream = escalaExportacaoService.exportarExcelPosTransparencia(escalaPosTransparenciaService.buscarEmTodasAsUnidades( anoMesService.buscarPorId(idAnoMesAtual)));
+	        ByteArrayInputStream stream = escalaExportacaoService.exportarExcelPosTransparencia(escalaPosTransparenciaService.buscarEmTodasAsUnidades( anoMesService.buscarPorId(mesAtual())));
 	        IOUtils.copy(stream, response.getOutputStream());
 	    }
 		
 		@GetMapping(value = "/exporta/pdf/pos/transparencia/global", produces = MediaType.APPLICATION_PDF_VALUE)
 		public ResponseEntity<InputStreamResource> employeeReportsPosTransparenciaGlobal(HttpServletResponse response) throws IOException {
-			ByteArrayInputStream bis = escalaExportacaoService.exportarPdfPosTransparencia(escalaPosTransparenciaService.buscarEmTodasAsUnidades( anoMesService.buscarPorId(idAnoMesAtual)));
+			ByteArrayInputStream bis = escalaExportacaoService.exportarPdfPosTransparencia(escalaPosTransparenciaService.buscarEmTodasAsUnidades( anoMesService.buscarPorId(mesAtual())));
 			HttpHeaders headers = new HttpHeaders();
 			headers.add("Content-Disposition", "attachment;filename=dados.pdf");
 			return ResponseEntity.ok().headers(headers).contentType(MediaType.APPLICATION_PDF)
@@ -3534,13 +3565,13 @@ public class EscalaController {
 	    public void downloadExcelEscalaAlteracao(HttpServletResponse response, ModelMap model) throws IOException {
 	        response.setContentType("application/octet-stream");
 	        response.setHeader("Content-Disposition", "attachment; filename=dados.xlsx");
-	        ByteArrayInputStream stream = escalaExportacaoService.exportarExcelEscalaAlteracao(escalaAlteracoesService.buscarNaUnidade(usuarioService.pegarUnidadeLogada(), anoMesService.buscarPorId(idAnoMesAtual)));
+	        ByteArrayInputStream stream = escalaExportacaoService.exportarExcelEscalaAlteracao(escalaAlteracoesService.buscarNaUnidade(usuarioService.pegarUnidadeLogada(), anoMesService.buscarPorId(mesAtual())));
 	        IOUtils.copy(stream, response.getOutputStream());
 	    }
 		
 		@GetMapping(value = "/exporta/pdf/escala/alteracao", produces = MediaType.APPLICATION_PDF_VALUE)
 		public ResponseEntity<InputStreamResource> employeeReportsEscalaAlteracao(HttpServletResponse response) throws IOException {
-			ByteArrayInputStream bis = escalaExportacaoService.exportarPdfEscalaAlteracao(escalaAlteracoesService.buscarNaUnidade(usuarioService.pegarUnidadeLogada(), anoMesService.buscarPorId(idAnoMesAtual)));
+			ByteArrayInputStream bis = escalaExportacaoService.exportarPdfEscalaAlteracao(escalaAlteracoesService.buscarNaUnidade(usuarioService.pegarUnidadeLogada(), anoMesService.buscarPorId(mesAtual())));
 			HttpHeaders headers = new HttpHeaders();
 			headers.add("Content-Disposition", "attachment;filename=dados.pdf");
 			return ResponseEntity.ok().headers(headers).contentType(MediaType.APPLICATION_PDF)
@@ -3552,13 +3583,13 @@ public class EscalaController {
 	    public void downloadExcelEscalaAlteracaoGlobal(HttpServletResponse response, ModelMap model) throws IOException {
 	        response.setContentType("application/octet-stream");
 	        response.setHeader("Content-Disposition", "attachment; filename=dados.xlsx");
-	        ByteArrayInputStream stream = escalaExportacaoService.exportarExcelEscalaAlteracao(escalaAlteracoesService.buscarEmTodasAsUnidades( anoMesService.buscarPorId(idAnoMesAtual)));
+	        ByteArrayInputStream stream = escalaExportacaoService.exportarExcelEscalaAlteracao(escalaAlteracoesService.buscarEmTodasAsUnidades( anoMesService.buscarPorId(mesAtual())));
 	        IOUtils.copy(stream, response.getOutputStream());
 	    }
 		
 		@GetMapping(value = "/exporta/pdf/escala/alteracao/global", produces = MediaType.APPLICATION_PDF_VALUE)
 		public ResponseEntity<InputStreamResource> employeeReportsEscalaAlteracaoGlobal(HttpServletResponse response) throws IOException {
-			ByteArrayInputStream bis = escalaExportacaoService.exportarPdfEscalaAlteracao(escalaAlteracoesService.buscarEmTodasAsUnidades( anoMesService.buscarPorId(idAnoMesAtual)));
+			ByteArrayInputStream bis = escalaExportacaoService.exportarPdfEscalaAlteracao(escalaAlteracoesService.buscarEmTodasAsUnidades( anoMesService.buscarPorId(mesAtual())));
 			HttpHeaders headers = new HttpHeaders();
 			headers.add("Content-Disposition", "attachment;filename=dados.pdf");
 			return ResponseEntity.ok().headers(headers).contentType(MediaType.APPLICATION_PDF)
@@ -3796,7 +3827,12 @@ public class EscalaController {
 	public String unidadeLogada() {
 		return request.getSession().getAttribute("unidade").toString();
 	}
-	
+	public Long coordenacaoAtual() {
+		return Long.valueOf(request.getSession().getAttribute("idCoordenacaoAtual").toString()) ;
+	}
+	public Long mesAtual() {
+		return Long.valueOf(request.getSession().getAttribute("idAnoMesAtual").toString()) ;
+	}
 	
 }
 
