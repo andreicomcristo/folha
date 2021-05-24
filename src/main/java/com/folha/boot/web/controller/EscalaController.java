@@ -89,13 +89,13 @@ public class EscalaController {
 
 	  
 	
-	Long ultimoIdEscala =0l ;
+	//Long ultimoIdEscala =0l ;
 	//Long idAnoMesAtual =1l ;
 	//Long idCoordenacaoAtual = 1l;
 	
-	Escala escalaAtual;
-	String choque = "";
-	String choqueDescansoDepoisNoturno = "";
+	//Escala escalaAtual;
+	//String choque = "";
+	//String choqueDescansoDepoisNoturno = "";
 	
 	//Dados para Busca
 	String ultimaBuscaNome = "";
@@ -104,7 +104,7 @@ public class EscalaController {
 	TiposDeFolha ultimaBuscaTiposDeFolha = null;
 	
 	//Dados para listar o codigo diferenciado na inclusao
-	TiposDeFolha tiposDeFolha;
+	//TiposDeFolha tiposDeFolha;
 	
 	
 	@Autowired
@@ -571,10 +571,19 @@ public class EscalaController {
 		
 	@GetMapping("/alterar/escala/{id}")
 	public String cadastrarEscala(@PathVariable("id") Long id, Escala escala, ModelMap model) {	
-		ultimoIdEscala = id;
+		//ultimoIdEscala = id;
+		
+		//comando para armazenar a ultimo id escala
+        HttpSession session = httpSessionFactory.getObject();
+        session.setAttribute("ultimoIdEscala", id  );
+		
 		escala = service.buscarPorId(id);
 		
-		this.escalaAtual = escala;
+		//this.escalaAtual = escala;
+		
+		//comando para armazenar a escala na sessão
+        session.setAttribute("escalaAtual", escala  );
+		
 		escala = escalaCalculosService.converteTurnoNuloEmFolga(escala);
 		escala = escalaCalculosService.calcularDadosEscala(escala);
 		
@@ -606,7 +615,10 @@ public class EscalaController {
 		model.addAttribute("nomeColuna6", nomeColuna6 );
 		model.addAttribute("nomeColuna7", nomeColuna7 );
 		
-		this.escalaAtual = escala;
+		//this.escalaAtual = escala;
+		
+		//comando para armazenar a escala na sessão
+        session.setAttribute("escalaAtual", escala  );
 		
 		return "/escala/editar";
 	}
@@ -614,7 +626,11 @@ public class EscalaController {
 	//Ver Escala Pos Transparência
 	@GetMapping("/ver/escala/pos/transparencia/{id}")
 	public String verEscalaPosTransparencia(@PathVariable("id") Long id, EscalaPosTransparencia escala, ModelMap model) {	
-		ultimoIdEscala = id;
+		//ultimoIdEscala = id;
+		//comando para armazenar a ultimo id escala
+        HttpSession session = httpSessionFactory.getObject();
+        session.setAttribute("ultimoIdEscala", id  );
+		
 		escala = escalaPosTransparenciaService.buscarPorId(id);
 		
 		String anoMesDaEscala = "202105";
@@ -647,7 +663,10 @@ public class EscalaController {
 	//Ver Escala Alteracao X9
 	@GetMapping("/ver/escala/alteracao/{id}")
 	public String verEscalaAlteracao(@PathVariable("id") Long id, EscalaAlteracoes escala, ModelMap model) {	
-		ultimoIdEscala = id;
+		//ultimoIdEscala = id;
+		//comando para armazenar a ultimo id escala
+        HttpSession session = httpSessionFactory.getObject();
+        session.setAttribute("ultimoIdEscala", id  );
 		escala = escalaAlteracoesService.buscarPorId(id);
 		
 		String anoMesDaEscala = "202105";
@@ -682,7 +701,11 @@ public class EscalaController {
 	//Ver Colaborador
 	@GetMapping("/ver/escala/colaborador/{id}")
 	public String verEscalaAlteracao(@PathVariable("id") Long id, Escala escala, ModelMap model) {	
-		ultimoIdEscala = id;
+		//ultimoIdEscala = id;
+		//comando para armazenar a ultimo id escala
+        HttpSession session = httpSessionFactory.getObject();
+        session.setAttribute("ultimoIdEscala", id  );
+        
 		escala = service.buscarPorId(id);
 		
 		String anoMesDaEscala = "202105";
@@ -736,18 +759,25 @@ public class EscalaController {
 		
 		//Avaliando Choques
 		String choque = service.choquesEmEscalaOnipresenca(escala);
-		this.choque = choque;
-		if(choque.length()>0) {chocou = true; podeSalvar = false;}
+		//this.choque = choque;
+		//comando para armazenar choque na sessão
+        HttpSession session = httpSessionFactory.getObject();
+        session.setAttribute("choque", choque  );
+        
+		if(choque().length()>0) {chocou = true; podeSalvar = false;}
 		if(chocou==true) {
 			return "redirect:/escalas/mensagem/de/choque";
 		}
 		
 		//Avaliando Choques Depois Noturno
 		String choqueDescansoDepoisNoturno = service.choquesEmEscalaDepoisDoNoturno(escala);
-		this.choqueDescansoDepoisNoturno = "";
+		//this.choqueDescansoDepoisNoturno = "";
+		//comando para armazenar choque na sessão
+        session.setAttribute("choqueDescansoDepoisNoturno", ""  );
 			if(escala.getIdLiberacaoDobraInvertidaSimNaoFk().getSigla().equalsIgnoreCase("N")) {
-				this.choqueDescansoDepoisNoturno = choqueDescansoDepoisNoturno;
-				if(choqueDescansoDepoisNoturno.length()>0) {chocou = true; podeSalvar = false;}
+				//this.choqueDescansoDepoisNoturno = choqueDescansoDepoisNoturno;
+				session.setAttribute("choqueDescansoDepoisNoturno", choqueDescansoDepoisNoturno  );
+				if(choqueDescansoDepoisNoturno().length()>0) {chocou = true; podeSalvar = false;}
 				if(chocou==true) {
 				return "redirect:/escalas/mensagem/de/choque/depois/noturno";
 			}
@@ -1256,17 +1286,26 @@ public class EscalaController {
 		return "redirect:/escalas/mensagem/de/escala/bloqueada";
 		}		
 		
-		ultimoIdEscala = id;
+		//ultimoIdEscala = id;
+		//comando para armazenar a ultimo id escala
+        HttpSession session = httpSessionFactory.getObject();
+        session.setAttribute("ultimoIdEscala", id  );
+        
 		escala = service.buscarPorId(id);
 		
-		this.escalaAtual = escala;
+		//this.escalaAtual = escala;
+		//comando para armazenar a escala na sessão
+        session.setAttribute("escalaAtual", escala  );
+        
 		escala = escalaCalculosService.converteTurnoNuloEmFolga(escala);
 		escala = escalaCalculosService.calcularDadosEscala(escala);
 		
 		model.addAttribute("escala", escala );
 		model.addAttribute("idLinha", id );
 		
-		this.escalaAtual = escala;
+		//this.escalaAtual = escala;
+		//comando para armazenar a escala na sessão
+        session.setAttribute("escalaAtual", escala  );
 		
 		return "/escala/editarAvaliacao";
 	}
@@ -1279,10 +1318,15 @@ public class EscalaController {
 			return "redirect:/escalas/mensagem/de/escala/bloqueada";
 			}		
 			
-			ultimoIdEscala = id;
+			//ultimoIdEscala = id;
+	        HttpSession session = httpSessionFactory.getObject();
 			escala = service.buscarPorId(id);
 			
-			this.escalaAtual = escala;
+			//this.escalaAtual = escala;
+			
+			//comando para armazenar a escala na sessão
+	        session.setAttribute("escalaAtual", escala  );
+			
 			escala = escalaCalculosService.converteTurnoNuloEmFolga(escala);
 			escala = escalaCalculosService.calcularDadosEscala(escala);
 			
@@ -1293,7 +1337,9 @@ public class EscalaController {
 			
 			model.addAttribute("idLinha", id );
 			
-			this.escalaAtual = escala;
+			//this.escalaAtual = escala;
+			//comando para armazenar a escala na sessão
+	        session.setAttribute("escalaAtual", escala  );
 			
 			return "/escala/editarDiferenciado";
 		}
@@ -1309,12 +1355,13 @@ public class EscalaController {
 		return "redirect:/escalas/mensagem/de/escala/bloqueada";
 		}		
 		
-		Escala escala = service.buscarPorId(ultimoIdEscala);
+		Escala escala = service.buscarPorId(ultimoIdEscala());
 		escala = escalaAtalhosService.atalhoLimaprEscala(escala);
 		escala = escalaCalculosService.converteTurnoNuloEmFolga(escala);
 		escala = escalaCalculosService.calcularDadosEscala(escala);
 		salvar(escala, null, null);
-		ultimoIdEscala = escala.getId();
+		HttpSession session = httpSessionFactory.getObject(); session.setAttribute("ultimoIdEscala", escala.getId()  );
+		
 		attr.addFlashAttribute("fail", critica+" ESCALA VAI FICAR ZERADA ATÉ QUE O(S) CONFLITOS SEJA(M) RESOLVIDO(S).");
 		return "redirect:/escalas/alterar/escala/"+escala.getId();
 	}
@@ -1326,13 +1373,13 @@ public class EscalaController {
 		return "redirect:/escalas/mensagem/de/escala/bloqueada";
 		}		
 
-		Escala escala = service.buscarPorId(ultimoIdEscala);
+		Escala escala = service.buscarPorId(ultimoIdEscala());
 		escala = escalaCalculosService.converteTurnoNuloEmFolga(escala);
 		escala = escalaAtalhosService.atalhoLimaprEscala(escala);
 		escala = escalaCalculosService.converteTurnoNuloEmFolga(escala);
 		escala = escalaCalculosService.calcularDadosEscala(escala);
 		salvar(escala, null, null);
-		ultimoIdEscala = escala.getId();
+		HttpSession session = httpSessionFactory.getObject(); session.setAttribute("ultimoIdEscala", escala.getId()  );
 		attr.addFlashAttribute("fail", "Confirme CH Dif, Incremento de Risco, Diferenciado, Regime e Turma antes de Lançar.");
 		return "redirect:/escalas/alterar/escala/"+escala.getId();
 	}
@@ -1344,19 +1391,24 @@ public class EscalaController {
 		return "redirect:/escalas/mensagem/de/escala/bloqueada";
 		}		
 
-		Escala escala = service.buscarPorId(ultimoIdEscala);
+		Escala escala = service.buscarPorId(ultimoIdEscala());
 		escala = escalaCalculosService.converteTurnoNuloEmFolga(escala);
 		escala = escalaAtalhosService.atalhoDiaristasManha(escala);
 		escala = escalaCalculosService.converteTurnoNuloEmFolga(escala);
 		escala = escalaCalculosService.calcularDadosEscala(escala);
 		//AVALIAÇÃO PARA SABER SE TEM CHOQUES
-		this.choque = service.choquesEmEscalaOnipresenca(escala);
-		this.choqueDescansoDepoisNoturno = service.choquesEmEscalaDepoisDoNoturno(escala);
-		if(choqueDescansoDepoisNoturno.length()>0) {attr.addFlashAttribute("fail", choqueDescansoDepoisNoturno); return atalhoLimparEscalaChoque(attr, choqueDescansoDepoisNoturno); }
-		if(choque.length()>0) {attr.addFlashAttribute("fail", choque); return atalhoLimparEscalaChoque(attr, choque);  }
-		if((choqueDescansoDepoisNoturno.length()==0) && (choque.length()==0)) {
+		//comando para armazenar choque na sessão
+        HttpSession session = httpSessionFactory.getObject();
+        session.setAttribute("choque", service.choquesEmEscalaOnipresenca(escala)  );
+		//this.choque = service.choquesEmEscalaOnipresenca(escala);
+		//this.choqueDescansoDepoisNoturno = service.choquesEmEscalaDepoisDoNoturno(escala);
+		//comando para armazenar choque na sessão
+        session.setAttribute("choqueDescansoDepoisNoturno", service.choquesEmEscalaDepoisDoNoturno(escala)  );
+		if(choqueDescansoDepoisNoturno().length()>0) {attr.addFlashAttribute("fail", choqueDescansoDepoisNoturno()); return atalhoLimparEscalaChoque(attr, choqueDescansoDepoisNoturno()); }
+		if(choque().length()>0) {attr.addFlashAttribute("fail", choque()); return atalhoLimparEscalaChoque(attr, choque());  }
+		if((choqueDescansoDepoisNoturno().length()==0) && (choque().length()==0)) {
 			salvar(escala, null, null);
-			ultimoIdEscala = escala.getId();
+			session = httpSessionFactory.getObject(); session.setAttribute("ultimoIdEscala", escala.getId()  );
 			attr.addFlashAttribute("success", "Confirme CH Dif, Incremento de Risco, Diferenciado, Regime e Turma antes de Lançar.");
 		}
 		
@@ -1370,19 +1422,24 @@ public class EscalaController {
 		return "redirect:/escalas/mensagem/de/escala/bloqueada";
 		}		
 		
-		Escala escala = service.buscarPorId(ultimoIdEscala);
+		Escala escala = service.buscarPorId(ultimoIdEscala());
 		escala = escalaCalculosService.converteTurnoNuloEmFolga(escala);
 		escala = escalaAtalhosService.atalhoDiaristasTarde(escala);
 		escala = escalaCalculosService.converteTurnoNuloEmFolga(escala);
 		escala = escalaCalculosService.calcularDadosEscala(escala);
 		//AVALIAÇÃO PARA SABER SE TEM CHOQUES
-		this.choque = service.choquesEmEscalaOnipresenca(escala);
-		this.choqueDescansoDepoisNoturno = service.choquesEmEscalaDepoisDoNoturno(escala);
-		if(choqueDescansoDepoisNoturno.length()>0) {attr.addFlashAttribute("fail", choqueDescansoDepoisNoturno); return atalhoLimparEscalaChoque(attr, choqueDescansoDepoisNoturno); }
-		if(choque.length()>0) {attr.addFlashAttribute("fail", choque); return atalhoLimparEscalaChoque(attr, choque);  }
-		if((choqueDescansoDepoisNoturno.length()==0) && (choque.length()==0)) {
+		//this.choque = service.choquesEmEscalaOnipresenca(escala);
+		//comando para armazenar choque na sessão
+        HttpSession session = httpSessionFactory.getObject();
+        session.setAttribute("choque", service.choquesEmEscalaOnipresenca(escala)  );
+		//this.choqueDescansoDepoisNoturno = service.choquesEmEscalaDepoisDoNoturno(escala);
+        //comando para armazenar choque na sessão
+        session.setAttribute("choqueDescansoDepoisNoturno", service.choquesEmEscalaDepoisDoNoturno(escala)  );
+		if(choqueDescansoDepoisNoturno().length()>0) {attr.addFlashAttribute("fail", choqueDescansoDepoisNoturno()); return atalhoLimparEscalaChoque(attr, choqueDescansoDepoisNoturno()); }
+		if(choque().length()>0) {attr.addFlashAttribute("fail", choque()); return atalhoLimparEscalaChoque(attr, choque());  }
+		if((choqueDescansoDepoisNoturno().length()==0) && (choque().length()==0)) {
 			salvar(escala, null, null);
-			ultimoIdEscala = escala.getId();
+			session = httpSessionFactory.getObject(); session.setAttribute("ultimoIdEscala", escala.getId()  );
 			attr.addFlashAttribute("success", "Confirme CH Dif, Incremento de Risco, Diferenciado, Regime e Turma antes de Lançar.");
 		}
 		return "redirect:/escalas/alterar/escala/"+escala.getId();
@@ -1395,19 +1452,24 @@ public class EscalaController {
 		return "redirect:/escalas/mensagem/de/escala/bloqueada";
 		}		
 
-		Escala escala = service.buscarPorId(ultimoIdEscala);
+		Escala escala = service.buscarPorId(ultimoIdEscala());
 		escala = escalaCalculosService.converteTurnoNuloEmFolga(escala);
 		escala = escalaAtalhosService.atalhoDiaristasDia(escala);
 		escala = escalaCalculosService.converteTurnoNuloEmFolga(escala);
 		escala = escalaCalculosService.calcularDadosEscala(escala);
 		//AVALIAÇÃO PARA SABER SE TEM CHOQUES
-		this.choque = service.choquesEmEscalaOnipresenca(escala);
-		this.choqueDescansoDepoisNoturno = service.choquesEmEscalaDepoisDoNoturno(escala);
-		if(choqueDescansoDepoisNoturno.length()>0) {attr.addFlashAttribute("fail", choqueDescansoDepoisNoturno); return atalhoLimparEscalaChoque(attr, choqueDescansoDepoisNoturno); }
-		if(choque.length()>0) {attr.addFlashAttribute("fail", choque); return atalhoLimparEscalaChoque(attr, choque);  }
-		if((choqueDescansoDepoisNoturno.length()==0) && (choque.length()==0)) {
+		//this.choque = service.choquesEmEscalaOnipresenca(escala);
+		//comando para armazenar choque na sessão
+        HttpSession session = httpSessionFactory.getObject();
+        session.setAttribute("choque", service.choquesEmEscalaOnipresenca(escala)  );
+		//this.choqueDescansoDepoisNoturno = service.choquesEmEscalaDepoisDoNoturno(escala);
+        //comando para armazenar choque na sessão
+        session.setAttribute("choqueDescansoDepoisNoturno", service.choquesEmEscalaDepoisDoNoturno(escala)  );
+		if(choqueDescansoDepoisNoturno().length()>0) {attr.addFlashAttribute("fail", choqueDescansoDepoisNoturno()); return atalhoLimparEscalaChoque(attr, choqueDescansoDepoisNoturno()); }
+		if(choque().length()>0) {attr.addFlashAttribute("fail", choque()); return atalhoLimparEscalaChoque(attr, choque());  }
+		if((choqueDescansoDepoisNoturno().length()==0) && (choque().length()==0)) {
 			salvar(escala, null, null);
-			ultimoIdEscala = escala.getId();
+			session = httpSessionFactory.getObject(); session.setAttribute("ultimoIdEscala", escala.getId()  );
 			attr.addFlashAttribute("success", "Confirme CH Dif, Incremento de Risco, Diferenciado, Regime e Turma antes de Lançar.");
 		}
 		return "redirect:/escalas/alterar/escala/"+escala.getId();
@@ -1420,19 +1482,24 @@ public class EscalaController {
 		return "redirect:/escalas/mensagem/de/escala/bloqueada";
 		}		
 
-		Escala escala = service.buscarPorId(ultimoIdEscala);
+		Escala escala = service.buscarPorId(ultimoIdEscala());
 		escala = escalaCalculosService.converteTurnoNuloEmFolga(escala);
 		escala = escalaAtalhosService.atalhoMTDiasImpares(escala);
 		escala = escalaCalculosService.converteTurnoNuloEmFolga(escala);
 		escala = escalaCalculosService.calcularDadosEscala(escala);
 		//AVALIAÇÃO PARA SABER SE TEM CHOQUES
-		this.choque = service.choquesEmEscalaOnipresenca(escala);
-		this.choqueDescansoDepoisNoturno = service.choquesEmEscalaDepoisDoNoturno(escala);
-		if(choqueDescansoDepoisNoturno.length()>0) {attr.addFlashAttribute("fail", choqueDescansoDepoisNoturno); return atalhoLimparEscalaChoque(attr, choqueDescansoDepoisNoturno); }
-		if(choque.length()>0) {attr.addFlashAttribute("fail", choque); return atalhoLimparEscalaChoque(attr, choque);  }
-		if((choqueDescansoDepoisNoturno.length()==0) && (choque.length()==0)) {
+		//this.choque = service.choquesEmEscalaOnipresenca(escala);
+		//comando para armazenar choque na sessão
+        HttpSession session = httpSessionFactory.getObject();
+        session.setAttribute("choque", service.choquesEmEscalaOnipresenca(escala)  );
+		//this.choqueDescansoDepoisNoturno = service.choquesEmEscalaDepoisDoNoturno(escala);
+        //comando para armazenar choque na sessão
+        session.setAttribute("choqueDescansoDepoisNoturno", service.choquesEmEscalaDepoisDoNoturno(escala)  );
+		if(choqueDescansoDepoisNoturno().length()>0) {attr.addFlashAttribute("fail", choqueDescansoDepoisNoturno()); return atalhoLimparEscalaChoque(attr, choqueDescansoDepoisNoturno()); }
+		if(choque().length()>0) {attr.addFlashAttribute("fail", choque()); return atalhoLimparEscalaChoque(attr, choque());  }
+		if((choqueDescansoDepoisNoturno().length()==0) && (choque().length()==0)) {
 			salvar(escala, null, null);
-			ultimoIdEscala = escala.getId();
+			session = httpSessionFactory.getObject(); session.setAttribute("ultimoIdEscala", escala.getId()  );
 			attr.addFlashAttribute("success", "Confirme CH Dif, Incremento de Risco, Diferenciado, Regime e Turma antes de Lançar.");
 		}
 		return "redirect:/escalas/alterar/escala/"+escala.getId();
@@ -1445,19 +1512,24 @@ public class EscalaController {
 		return "redirect:/escalas/mensagem/de/escala/bloqueada";
 		}		
 
-		Escala escala = service.buscarPorId(ultimoIdEscala);
+		Escala escala = service.buscarPorId(ultimoIdEscala());
 		escala = escalaCalculosService.converteTurnoNuloEmFolga(escala);
 		escala = escalaAtalhosService.atalhoMTDiasPares(escala);
 		escala = escalaCalculosService.converteTurnoNuloEmFolga(escala);
 		escala = escalaCalculosService.calcularDadosEscala(escala);
 		//AVALIAÇÃO PARA SABER SE TEM CHOQUES
-		this.choque = service.choquesEmEscalaOnipresenca(escala);
-		this.choqueDescansoDepoisNoturno = service.choquesEmEscalaDepoisDoNoturno(escala);
-		if(choqueDescansoDepoisNoturno.length()>0) {attr.addFlashAttribute("fail", choqueDescansoDepoisNoturno); return atalhoLimparEscalaChoque(attr, choqueDescansoDepoisNoturno); }
-		if(choque.length()>0) {attr.addFlashAttribute("fail", choque); return atalhoLimparEscalaChoque(attr, choque);  }
-		if((choqueDescansoDepoisNoturno.length()==0) && (choque.length()==0)) {
+		//this.choque = service.choquesEmEscalaOnipresenca(escala);
+		//comando para armazenar choque na sessão
+        HttpSession session = httpSessionFactory.getObject();
+        session.setAttribute("choque", service.choquesEmEscalaOnipresenca(escala)  );
+		//this.choqueDescansoDepoisNoturno = service.choquesEmEscalaDepoisDoNoturno(escala);
+        //comando para armazenar choque na sessão
+        session.setAttribute("choqueDescansoDepoisNoturno", service.choquesEmEscalaDepoisDoNoturno(escala)  );
+		if(choqueDescansoDepoisNoturno().length()>0) {attr.addFlashAttribute("fail", choqueDescansoDepoisNoturno()); return atalhoLimparEscalaChoque(attr, choqueDescansoDepoisNoturno()); }
+		if(choque().length()>0) {attr.addFlashAttribute("fail", choque()); return atalhoLimparEscalaChoque(attr, choque());  }
+		if((choqueDescansoDepoisNoturno().length()==0) && (choque().length()==0)) {
 			salvar(escala, null, null);
-			ultimoIdEscala = escala.getId();
+			session = httpSessionFactory.getObject(); session.setAttribute("ultimoIdEscala", escala.getId()  );
 			attr.addFlashAttribute("success", "Confirme CH Dif, Incremento de Risco, Diferenciado, Regime e Turma antes de Lançar.");
 		}
 		return "redirect:/escalas/alterar/escala/"+escala.getId();
@@ -1471,19 +1543,24 @@ public class EscalaController {
 		return "redirect:/escalas/mensagem/de/escala/bloqueada";
 		}		
 
-		Escala escala = service.buscarPorId(ultimoIdEscala);
+		Escala escala = service.buscarPorId(ultimoIdEscala());
 		escala = escalaCalculosService.converteTurnoNuloEmFolga(escala);
 		escala = escalaAtalhosService.atalhoCiclo1A(escala);
 		escala = escalaCalculosService.converteTurnoNuloEmFolga(escala);
 		escala = escalaCalculosService.calcularDadosEscala(escala);
 		//AVALIAÇÃO PARA SABER SE TEM CHOQUES
-		this.choque = service.choquesEmEscalaOnipresenca(escala);
-		this.choqueDescansoDepoisNoturno = service.choquesEmEscalaDepoisDoNoturno(escala);
-		if(choqueDescansoDepoisNoturno.length()>0) {attr.addFlashAttribute("fail", choqueDescansoDepoisNoturno); return atalhoLimparEscalaChoque(attr, choqueDescansoDepoisNoturno); }
-		if(choque.length()>0) {attr.addFlashAttribute("fail", choque); return atalhoLimparEscalaChoque(attr, choque);  }
-		if((choqueDescansoDepoisNoturno.length()==0) && (choque.length()==0)) {
+		//this.choque = service.choquesEmEscalaOnipresenca(escala);
+		//comando para armazenar choque na sessão
+        HttpSession session = httpSessionFactory.getObject();
+        session.setAttribute("choque", service.choquesEmEscalaOnipresenca(escala)  );
+		//this.choqueDescansoDepoisNoturno = service.choquesEmEscalaDepoisDoNoturno(escala);
+        //comando para armazenar choque na sessão
+        session.setAttribute("choqueDescansoDepoisNoturno", service.choquesEmEscalaDepoisDoNoturno(escala)  );
+		if(choqueDescansoDepoisNoturno().length()>0) {attr.addFlashAttribute("fail", choqueDescansoDepoisNoturno()); return atalhoLimparEscalaChoque(attr, choqueDescansoDepoisNoturno()); }
+		if(choque().length()>0) {attr.addFlashAttribute("fail", choque()); return atalhoLimparEscalaChoque(attr, choque());  }
+		if((choqueDescansoDepoisNoturno().length()==0) && (choque().length()==0)) {
 			salvar(escala, null, null);
-			ultimoIdEscala = escala.getId();
+			session = httpSessionFactory.getObject(); session.setAttribute("ultimoIdEscala", escala.getId()  );
 			attr.addFlashAttribute("success", "Confirme CH Dif, Incremento de Risco, Diferenciado, Regime e Turma antes de Lançar.");
 		}
 		return "redirect:/escalas/alterar/escala/"+escala.getId();
@@ -1496,19 +1573,24 @@ public class EscalaController {
 		return "redirect:/escalas/mensagem/de/escala/bloqueada";
 		}		
 
-		Escala escala = service.buscarPorId(ultimoIdEscala);
+		Escala escala = service.buscarPorId(ultimoIdEscala());
 		escala = escalaCalculosService.converteTurnoNuloEmFolga(escala);
 		escala = escalaAtalhosService.atalhoCiclo1B(escala);
 		escala = escalaCalculosService.converteTurnoNuloEmFolga(escala);
 		escala = escalaCalculosService.calcularDadosEscala(escala);
 		//AVALIAÇÃO PARA SABER SE TEM CHOQUES
-		this.choque = service.choquesEmEscalaOnipresenca(escala);
-		this.choqueDescansoDepoisNoturno = service.choquesEmEscalaDepoisDoNoturno(escala);
-		if(choqueDescansoDepoisNoturno.length()>0) {attr.addFlashAttribute("fail", choqueDescansoDepoisNoturno); return atalhoLimparEscalaChoque(attr, choqueDescansoDepoisNoturno); }
-		if(choque.length()>0) {attr.addFlashAttribute("fail", choque); return atalhoLimparEscalaChoque(attr, choque);  }
-		if((choqueDescansoDepoisNoturno.length()==0) && (choque.length()==0)) {
+		//this.choque = service.choquesEmEscalaOnipresenca(escala);
+		//comando para armazenar choque na sessão
+        HttpSession session = httpSessionFactory.getObject();
+        session.setAttribute("choque", service.choquesEmEscalaOnipresenca(escala)  );
+		//this.choqueDescansoDepoisNoturno = service.choquesEmEscalaDepoisDoNoturno(escala);
+        //comando para armazenar choque na sessão
+        session.setAttribute("choqueDescansoDepoisNoturno", service.choquesEmEscalaDepoisDoNoturno(escala)  );
+		if(choqueDescansoDepoisNoturno().length()>0) {attr.addFlashAttribute("fail", choqueDescansoDepoisNoturno()); return atalhoLimparEscalaChoque(attr, choqueDescansoDepoisNoturno()); }
+		if(choque().length()>0) {attr.addFlashAttribute("fail", choque()); return atalhoLimparEscalaChoque(attr, choque());  }
+		if((choqueDescansoDepoisNoturno().length()==0) && (choque().length()==0)) {
 			salvar(escala, null, null);
-			ultimoIdEscala = escala.getId();
+			session = httpSessionFactory.getObject(); session.setAttribute("ultimoIdEscala", escala.getId()  );
 			attr.addFlashAttribute("success", "Confirme CH Dif, Incremento de Risco, Diferenciado, Regime e Turma antes de Lançar.");
 		}
 		return "redirect:/escalas/alterar/escala/"+escala.getId();
@@ -1521,19 +1603,24 @@ public class EscalaController {
 		return "redirect:/escalas/mensagem/de/escala/bloqueada";
 		}		
 
-		Escala escala = service.buscarPorId(ultimoIdEscala);
+		Escala escala = service.buscarPorId(ultimoIdEscala());
 		escala = escalaCalculosService.converteTurnoNuloEmFolga(escala);
 		escala = escalaAtalhosService.atalhoCiclo1C(escala);
 		escala = escalaCalculosService.converteTurnoNuloEmFolga(escala);
 		escala = escalaCalculosService.calcularDadosEscala(escala);
 		//AVALIAÇÃO PARA SABER SE TEM CHOQUES
-		this.choque = service.choquesEmEscalaOnipresenca(escala);
-		this.choqueDescansoDepoisNoturno = service.choquesEmEscalaDepoisDoNoturno(escala);
-		if(choqueDescansoDepoisNoturno.length()>0) {attr.addFlashAttribute("fail", choqueDescansoDepoisNoturno); return atalhoLimparEscalaChoque(attr, choqueDescansoDepoisNoturno); }
-		if(choque.length()>0) {attr.addFlashAttribute("fail", choque); return atalhoLimparEscalaChoque(attr, choque);  }
-		if((choqueDescansoDepoisNoturno.length()==0) && (choque.length()==0)) {
+		//this.choque = service.choquesEmEscalaOnipresenca(escala);
+		//comando para armazenar choque na sessão
+        HttpSession session = httpSessionFactory.getObject();
+        session.setAttribute("choque", service.choquesEmEscalaOnipresenca(escala)  );
+		//this.choqueDescansoDepoisNoturno = service.choquesEmEscalaDepoisDoNoturno(escala);
+        //comando para armazenar choque na sessão
+        session.setAttribute("choqueDescansoDepoisNoturno", service.choquesEmEscalaDepoisDoNoturno(escala)  );
+		if(choqueDescansoDepoisNoturno().length()>0) {attr.addFlashAttribute("fail", choqueDescansoDepoisNoturno()); return atalhoLimparEscalaChoque(attr, choqueDescansoDepoisNoturno()); }
+		if(choque().length()>0) {attr.addFlashAttribute("fail", choque()); return atalhoLimparEscalaChoque(attr, choque());  }
+		if((choqueDescansoDepoisNoturno().length()==0) && (choque().length()==0)) {
 			salvar(escala, null, null);
-			ultimoIdEscala = escala.getId();
+			session = httpSessionFactory.getObject(); session.setAttribute("ultimoIdEscala", escala.getId()  );
 			attr.addFlashAttribute("success", "Confirme CH Dif, Incremento de Risco, Diferenciado, Regime e Turma antes de Lançar.");
 		}
 		return "redirect:/escalas/alterar/escala/"+escala.getId();
@@ -1546,19 +1633,23 @@ public class EscalaController {
 		return "redirect:/escalas/mensagem/de/escala/bloqueada";
 		}		
 
-		Escala escala = service.buscarPorId(ultimoIdEscala);
+		Escala escala = service.buscarPorId(ultimoIdEscala());
 		escala = escalaCalculosService.converteTurnoNuloEmFolga(escala);
 		escala = escalaAtalhosService.atalhoCiclo1D(escala);
 		escala = escalaCalculosService.converteTurnoNuloEmFolga(escala);
 		escala = escalaCalculosService.calcularDadosEscala(escala);
 		//AVALIAÇÃO PARA SABER SE TEM CHOQUES
-		this.choque = service.choquesEmEscalaOnipresenca(escala);
-		this.choqueDescansoDepoisNoturno = service.choquesEmEscalaDepoisDoNoturno(escala);
-		if(choqueDescansoDepoisNoturno.length()>0) {attr.addFlashAttribute("fail", choqueDescansoDepoisNoturno); return atalhoLimparEscalaChoque(attr, choqueDescansoDepoisNoturno); }
-		if(choque.length()>0) {attr.addFlashAttribute("fail", choque); return atalhoLimparEscalaChoque(attr, choque);  }
-		if((choqueDescansoDepoisNoturno.length()==0) && (choque.length()==0)) {
+		//comando para armazenar choque na sessão
+        HttpSession session = httpSessionFactory.getObject();
+        session.setAttribute("choque", service.choquesEmEscalaOnipresenca(escala)  );
+		//this.choqueDescansoDepoisNoturno = service.choquesEmEscalaDepoisDoNoturno(escala);
+        //comando para armazenar choque na sessão
+        session.setAttribute("choqueDescansoDepoisNoturno", service.choquesEmEscalaDepoisDoNoturno(escala)  );
+		if(choqueDescansoDepoisNoturno().length()>0) {attr.addFlashAttribute("fail", choqueDescansoDepoisNoturno()); return atalhoLimparEscalaChoque(attr, choqueDescansoDepoisNoturno()); }
+		if(choque().length()>0) {attr.addFlashAttribute("fail", choque()); return atalhoLimparEscalaChoque(attr, choque());  }
+		if((choqueDescansoDepoisNoturno().length()==0) && (choque().length()==0)) {
 			salvar(escala, null, null);
-			ultimoIdEscala = escala.getId();
+			session = httpSessionFactory.getObject(); session.setAttribute("ultimoIdEscala", escala.getId()  );
 			attr.addFlashAttribute("success", "Confirme CH Dif, Incremento de Risco, Diferenciado, Regime e Turma antes de Lançar.");
 		}
 		return "redirect:/escalas/alterar/escala/"+escala.getId();
@@ -1571,19 +1662,24 @@ public class EscalaController {
 		return "redirect:/escalas/mensagem/de/escala/bloqueada";
 		}		
 
-		Escala escala = service.buscarPorId(ultimoIdEscala);
+		Escala escala = service.buscarPorId(ultimoIdEscala());
 		escala = escalaCalculosService.converteTurnoNuloEmFolga(escala);
 		escala = escalaAtalhosService.atalhoCiclo1E(escala);
 		escala = escalaCalculosService.converteTurnoNuloEmFolga(escala);
 		escala = escalaCalculosService.calcularDadosEscala(escala);
 		//AVALIAÇÃO PARA SABER SE TEM CHOQUES
-		this.choque = service.choquesEmEscalaOnipresenca(escala);
-		this.choqueDescansoDepoisNoturno = service.choquesEmEscalaDepoisDoNoturno(escala);
-		if(choqueDescansoDepoisNoturno.length()>0) {attr.addFlashAttribute("fail", choqueDescansoDepoisNoturno); return atalhoLimparEscalaChoque(attr, choqueDescansoDepoisNoturno); }
-		if(choque.length()>0) {attr.addFlashAttribute("fail", choque); return atalhoLimparEscalaChoque(attr, choque);  }
-		if((choqueDescansoDepoisNoturno.length()==0) && (choque.length()==0)) {
+		//this.choque = service.choquesEmEscalaOnipresenca(escala);
+		//comando para armazenar choque na sessão
+        HttpSession session = httpSessionFactory.getObject();
+        session.setAttribute("choque", service.choquesEmEscalaOnipresenca(escala)  );
+		//this.choqueDescansoDepoisNoturno = service.choquesEmEscalaDepoisDoNoturno(escala);
+        //comando para armazenar choque na sessão
+        session.setAttribute("choqueDescansoDepoisNoturno", service.choquesEmEscalaDepoisDoNoturno(escala)  );
+		if(choqueDescansoDepoisNoturno().length()>0) {attr.addFlashAttribute("fail", choqueDescansoDepoisNoturno()); return atalhoLimparEscalaChoque(attr, choqueDescansoDepoisNoturno()); }
+		if(choque().length()>0) {attr.addFlashAttribute("fail", choque()); return atalhoLimparEscalaChoque(attr, choque());  }
+		if((choqueDescansoDepoisNoturno().length()==0) && (choque().length()==0)) {
 			salvar(escala, null, null);
-			ultimoIdEscala = escala.getId();
+			session = httpSessionFactory.getObject(); session.setAttribute("ultimoIdEscala", escala.getId()  );
 			attr.addFlashAttribute("success", "Confirme CH Dif, Incremento de Risco, Diferenciado, Regime e Turma antes de Lançar.");
 		}
 		return "redirect:/escalas/alterar/escala/"+escala.getId();
@@ -1596,19 +1692,24 @@ public class EscalaController {
 		return "redirect:/escalas/mensagem/de/escala/bloqueada";
 		}		
 
-		Escala escala = service.buscarPorId(ultimoIdEscala);
+		Escala escala = service.buscarPorId(ultimoIdEscala());
 		escala = escalaCalculosService.converteTurnoNuloEmFolga(escala);
 		escala = escalaAtalhosService.atalhoCiclo1F(escala);
 		escala = escalaCalculosService.converteTurnoNuloEmFolga(escala);
 		escala = escalaCalculosService.calcularDadosEscala(escala);
 		//AVALIAÇÃO PARA SABER SE TEM CHOQUES
-		this.choque = service.choquesEmEscalaOnipresenca(escala);
-		this.choqueDescansoDepoisNoturno = service.choquesEmEscalaDepoisDoNoturno(escala);
-		if(choqueDescansoDepoisNoturno.length()>0) {attr.addFlashAttribute("fail", choqueDescansoDepoisNoturno); return atalhoLimparEscalaChoque(attr, choqueDescansoDepoisNoturno); }
-		if(choque.length()>0) {attr.addFlashAttribute("fail", choque); return atalhoLimparEscalaChoque(attr, choque);  }
-		if((choqueDescansoDepoisNoturno.length()==0) && (choque.length()==0)) {
+		//this.choque = service.choquesEmEscalaOnipresenca(escala);
+		//comando para armazenar choque na sessão
+        HttpSession session = httpSessionFactory.getObject();
+        session.setAttribute("choque", service.choquesEmEscalaOnipresenca(escala)  );
+		//this.choqueDescansoDepoisNoturno = service.choquesEmEscalaDepoisDoNoturno(escala);
+        //comando para armazenar choque na sessão
+        session.setAttribute("choqueDescansoDepoisNoturno", service.choquesEmEscalaDepoisDoNoturno(escala)  );
+		if(choqueDescansoDepoisNoturno().length()>0) {attr.addFlashAttribute("fail", choqueDescansoDepoisNoturno()); return atalhoLimparEscalaChoque(attr, choqueDescansoDepoisNoturno()); }
+		if(choque().length()>0) {attr.addFlashAttribute("fail", choque()); return atalhoLimparEscalaChoque(attr, choque());  }
+		if((choqueDescansoDepoisNoturno().length()==0) && (choque().length()==0)) {
 			salvar(escala, null, null);
-			ultimoIdEscala = escala.getId();
+			session = httpSessionFactory.getObject(); session.setAttribute("ultimoIdEscala", escala.getId()  );
 			attr.addFlashAttribute("success", "Confirme CH Dif, Incremento de Risco, Diferenciado, Regime e Turma antes de Lançar.");
 		}
 		return "redirect:/escalas/alterar/escala/"+escala.getId();
@@ -1622,19 +1723,24 @@ public class EscalaController {
 		return "redirect:/escalas/mensagem/de/escala/bloqueada";
 		}		
 
-		Escala escala = service.buscarPorId(ultimoIdEscala);
+		Escala escala = service.buscarPorId(ultimoIdEscala());
 		escala = escalaCalculosService.converteTurnoNuloEmFolga(escala);
 		escala = escalaAtalhosService.atalhoCiclo2A(escala);
 		escala = escalaCalculosService.converteTurnoNuloEmFolga(escala);
 		escala = escalaCalculosService.calcularDadosEscala(escala);
 		//AVALIAÇÃO PARA SABER SE TEM CHOQUES
-		this.choque = service.choquesEmEscalaOnipresenca(escala);
-		this.choqueDescansoDepoisNoturno = service.choquesEmEscalaDepoisDoNoturno(escala);
-		if(choqueDescansoDepoisNoturno.length()>0) {attr.addFlashAttribute("fail", choqueDescansoDepoisNoturno); return atalhoLimparEscalaChoque(attr, choqueDescansoDepoisNoturno); }
-		if(choque.length()>0) {attr.addFlashAttribute("fail", choque); return atalhoLimparEscalaChoque(attr, choque);  }
-		if((choqueDescansoDepoisNoturno.length()==0) && (choque.length()==0)) {
+		//this.choque = service.choquesEmEscalaOnipresenca(escala);
+		//comando para armazenar choque na sessão
+        HttpSession session = httpSessionFactory.getObject();
+        session.setAttribute("choque", service.choquesEmEscalaOnipresenca(escala)  );
+		//this.choqueDescansoDepoisNoturno = service.choquesEmEscalaDepoisDoNoturno(escala);
+        //comando para armazenar choque na sessão
+        session.setAttribute("choqueDescansoDepoisNoturno", service.choquesEmEscalaDepoisDoNoturno(escala)  );
+		if(choqueDescansoDepoisNoturno().length()>0) {attr.addFlashAttribute("fail", choqueDescansoDepoisNoturno()); return atalhoLimparEscalaChoque(attr, choqueDescansoDepoisNoturno()); }
+		if(choque().length()>0) {attr.addFlashAttribute("fail", choque()); return atalhoLimparEscalaChoque(attr, choque());  }
+		if((choqueDescansoDepoisNoturno().length()==0) && (choque().length()==0)) {
 			salvar(escala, null, null);
-			ultimoIdEscala = escala.getId();
+			session = httpSessionFactory.getObject(); session.setAttribute("ultimoIdEscala", escala.getId()  );
 			attr.addFlashAttribute("success", "Confirme CH Dif, Incremento de Risco, Diferenciado, Regime e Turma antes de Lançar.");
 		}
 		return "redirect:/escalas/alterar/escala/"+escala.getId();
@@ -1647,19 +1753,24 @@ public class EscalaController {
 		return "redirect:/escalas/mensagem/de/escala/bloqueada";
 		}		
 
-		Escala escala = service.buscarPorId(ultimoIdEscala);
+		Escala escala = service.buscarPorId(ultimoIdEscala());
 		escala = escalaCalculosService.converteTurnoNuloEmFolga(escala);
 		escala = escalaAtalhosService.atalhoCiclo2B(escala);
 		escala = escalaCalculosService.converteTurnoNuloEmFolga(escala);
 		escala = escalaCalculosService.calcularDadosEscala(escala);
 		//AVALIAÇÃO PARA SABER SE TEM CHOQUES
-		this.choque = service.choquesEmEscalaOnipresenca(escala);
-		this.choqueDescansoDepoisNoturno = service.choquesEmEscalaDepoisDoNoturno(escala);
-		if(choqueDescansoDepoisNoturno.length()>0) {attr.addFlashAttribute("fail", choqueDescansoDepoisNoturno); return atalhoLimparEscalaChoque(attr, choqueDescansoDepoisNoturno); }
-		if(choque.length()>0) {attr.addFlashAttribute("fail", choque); return atalhoLimparEscalaChoque(attr, choque);  }
-		if((choqueDescansoDepoisNoturno.length()==0) && (choque.length()==0)) {
+		//this.choque = service.choquesEmEscalaOnipresenca(escala);
+		//comando para armazenar choque na sessão
+        HttpSession session = httpSessionFactory.getObject();
+        session.setAttribute("choque", service.choquesEmEscalaOnipresenca(escala)  );
+		//this.choqueDescansoDepoisNoturno = service.choquesEmEscalaDepoisDoNoturno(escala);
+        //comando para armazenar choque na sessão
+        session.setAttribute("choqueDescansoDepoisNoturno", service.choquesEmEscalaDepoisDoNoturno(escala)  );
+		if(choqueDescansoDepoisNoturno().length()>0) {attr.addFlashAttribute("fail", choqueDescansoDepoisNoturno()); return atalhoLimparEscalaChoque(attr, choqueDescansoDepoisNoturno()); }
+		if(choque().length()>0) {attr.addFlashAttribute("fail", choque()); return atalhoLimparEscalaChoque(attr, choque());  }
+		if((choqueDescansoDepoisNoturno().length()==0) && (choque().length()==0)) {
 			salvar(escala, null, null);
-			ultimoIdEscala = escala.getId();
+			session = httpSessionFactory.getObject(); session.setAttribute("ultimoIdEscala", escala.getId()  );
 			attr.addFlashAttribute("success", "Confirme CH Dif, Incremento de Risco, Diferenciado, Regime e Turma antes de Lançar.");
 		}
 		return "redirect:/escalas/alterar/escala/"+escala.getId();
@@ -1672,19 +1783,24 @@ public class EscalaController {
 		return "redirect:/escalas/mensagem/de/escala/bloqueada";
 		}		
 
-		Escala escala = service.buscarPorId(ultimoIdEscala);
+		Escala escala = service.buscarPorId(ultimoIdEscala());
 		escala = escalaCalculosService.converteTurnoNuloEmFolga(escala);
 		escala = escalaAtalhosService.atalhoCiclo2C(escala);
 		escala = escalaCalculosService.converteTurnoNuloEmFolga(escala);
 		escala = escalaCalculosService.calcularDadosEscala(escala);
 		//AVALIAÇÃO PARA SABER SE TEM CHOQUES
-		this.choque = service.choquesEmEscalaOnipresenca(escala);
-		this.choqueDescansoDepoisNoturno = service.choquesEmEscalaDepoisDoNoturno(escala);
-		if(choqueDescansoDepoisNoturno.length()>0) {attr.addFlashAttribute("fail", choqueDescansoDepoisNoturno); return atalhoLimparEscalaChoque(attr, choqueDescansoDepoisNoturno); }
-		if(choque.length()>0) {attr.addFlashAttribute("fail", choque); return atalhoLimparEscalaChoque(attr, choque);  }
-		if((choqueDescansoDepoisNoturno.length()==0) && (choque.length()==0)) {
+		//this.choque = service.choquesEmEscalaOnipresenca(escala);
+		//comando para armazenar choque na sessão
+        HttpSession session = httpSessionFactory.getObject();
+        session.setAttribute("choque", service.choquesEmEscalaOnipresenca(escala)  );
+		//this.choqueDescansoDepoisNoturno = service.choquesEmEscalaDepoisDoNoturno(escala);
+        //comando para armazenar choque na sessão
+        session.setAttribute("choqueDescansoDepoisNoturno", service.choquesEmEscalaDepoisDoNoturno(escala)  );
+		if(choqueDescansoDepoisNoturno().length()>0) {attr.addFlashAttribute("fail", choqueDescansoDepoisNoturno()); return atalhoLimparEscalaChoque(attr, choqueDescansoDepoisNoturno()); }
+		if(choque().length()>0) {attr.addFlashAttribute("fail", choque()); return atalhoLimparEscalaChoque(attr, choque());  }
+		if((choqueDescansoDepoisNoturno().length()==0) && (choque().length()==0)) {
 			salvar(escala, null, null);
-			ultimoIdEscala = escala.getId();
+			session = httpSessionFactory.getObject(); session.setAttribute("ultimoIdEscala", escala.getId()  );
 			attr.addFlashAttribute("success", "Confirme CH Dif, Incremento de Risco, Diferenciado, Regime e Turma antes de Lançar.");
 		}
 		return "redirect:/escalas/alterar/escala/"+escala.getId();
@@ -1697,19 +1813,24 @@ public class EscalaController {
 		return "redirect:/escalas/mensagem/de/escala/bloqueada";
 		}		
 
-		Escala escala = service.buscarPorId(ultimoIdEscala);
+		Escala escala = service.buscarPorId(ultimoIdEscala());
 		escala = escalaCalculosService.converteTurnoNuloEmFolga(escala);
 		escala = escalaAtalhosService.atalhoCiclo2D(escala);
 		escala = escalaCalculosService.converteTurnoNuloEmFolga(escala);
 		escala = escalaCalculosService.calcularDadosEscala(escala);
 		//AVALIAÇÃO PARA SABER SE TEM CHOQUES
-		this.choque = service.choquesEmEscalaOnipresenca(escala);
-		this.choqueDescansoDepoisNoturno = service.choquesEmEscalaDepoisDoNoturno(escala);
-		if(choqueDescansoDepoisNoturno.length()>0) {attr.addFlashAttribute("fail", choqueDescansoDepoisNoturno); return atalhoLimparEscalaChoque(attr, choqueDescansoDepoisNoturno); }
-		if(choque.length()>0) {attr.addFlashAttribute("fail", choque); return atalhoLimparEscalaChoque(attr, choque);  }
-		if((choqueDescansoDepoisNoturno.length()==0) && (choque.length()==0)) {
+		//this.choque = service.choquesEmEscalaOnipresenca(escala);
+		//comando para armazenar choque na sessão
+        HttpSession session = httpSessionFactory.getObject();
+        session.setAttribute("choque", service.choquesEmEscalaOnipresenca(escala)  );
+		//this.choqueDescansoDepoisNoturno = service.choquesEmEscalaDepoisDoNoturno(escala);
+        //comando para armazenar choque na sessão
+        session.setAttribute("choqueDescansoDepoisNoturno", service.choquesEmEscalaDepoisDoNoturno(escala)  );
+		if(choqueDescansoDepoisNoturno().length()>0) {attr.addFlashAttribute("fail", choqueDescansoDepoisNoturno()); return atalhoLimparEscalaChoque(attr, choqueDescansoDepoisNoturno()); }
+		if(choque().length()>0) {attr.addFlashAttribute("fail", choque()); return atalhoLimparEscalaChoque(attr, choque());  }
+		if((choqueDescansoDepoisNoturno().length()==0) && (choque().length()==0)) {
 			salvar(escala, null, null);
-			ultimoIdEscala = escala.getId();
+			session = httpSessionFactory.getObject(); session.setAttribute("ultimoIdEscala", escala.getId()  );
 			attr.addFlashAttribute("success", "Confirme CH Dif, Incremento de Risco, Diferenciado, Regime e Turma antes de Lançar.");
 		}
 		return "redirect:/escalas/alterar/escala/"+escala.getId();
@@ -1722,19 +1843,24 @@ public class EscalaController {
 		return "redirect:/escalas/mensagem/de/escala/bloqueada";
 		}		
 
-		Escala escala = service.buscarPorId(ultimoIdEscala);
+		Escala escala = service.buscarPorId(ultimoIdEscala());
 		escala = escalaCalculosService.converteTurnoNuloEmFolga(escala);
 		escala = escalaAtalhosService.atalhoCiclo2E(escala);
 		escala = escalaCalculosService.converteTurnoNuloEmFolga(escala);
 		escala = escalaCalculosService.calcularDadosEscala(escala);
 		//AVALIAÇÃO PARA SABER SE TEM CHOQUES
-		this.choque = service.choquesEmEscalaOnipresenca(escala);
-		this.choqueDescansoDepoisNoturno = service.choquesEmEscalaDepoisDoNoturno(escala);
-		if(choqueDescansoDepoisNoturno.length()>0) {attr.addFlashAttribute("fail", choqueDescansoDepoisNoturno); return atalhoLimparEscalaChoque(attr, choqueDescansoDepoisNoturno); }
-		if(choque.length()>0) {attr.addFlashAttribute("fail", choque); return atalhoLimparEscalaChoque(attr, choque);  }
-		if((choqueDescansoDepoisNoturno.length()==0) && (choque.length()==0)) {
+		//this.choque = service.choquesEmEscalaOnipresenca(escala);
+		//comando para armazenar choque na sessão
+        HttpSession session = httpSessionFactory.getObject();
+        session.setAttribute("choque", service.choquesEmEscalaOnipresenca(escala)  );
+		//this.choqueDescansoDepoisNoturno = service.choquesEmEscalaDepoisDoNoturno(escala);
+        //comando para armazenar choque na sessão
+        session.setAttribute("choqueDescansoDepoisNoturno", service.choquesEmEscalaDepoisDoNoturno(escala)  );
+		if(choqueDescansoDepoisNoturno().length()>0) {attr.addFlashAttribute("fail", choqueDescansoDepoisNoturno()); return atalhoLimparEscalaChoque(attr, choqueDescansoDepoisNoturno()); }
+		if(choque().length()>0) {attr.addFlashAttribute("fail", choque()); return atalhoLimparEscalaChoque(attr, choque());  }
+		if((choqueDescansoDepoisNoturno().length()==0) && (choque().length()==0)) {
 			salvar(escala, null, null);
-			ultimoIdEscala = escala.getId();
+			session = httpSessionFactory.getObject(); session.setAttribute("ultimoIdEscala", escala.getId()  );
 			attr.addFlashAttribute("success", "Confirme CH Dif, Incremento de Risco, Diferenciado, Regime e Turma antes de Lançar.");
 		}
 		return "redirect:/escalas/alterar/escala/"+escala.getId();
@@ -1747,19 +1873,24 @@ public class EscalaController {
 		return "redirect:/escalas/mensagem/de/escala/bloqueada";
 		}		
 
-		Escala escala = service.buscarPorId(ultimoIdEscala);
+		Escala escala = service.buscarPorId(ultimoIdEscala());
 		escala = escalaCalculosService.converteTurnoNuloEmFolga(escala);
 		escala = escalaAtalhosService.atalhoCiclo2F(escala);
 		escala = escalaCalculosService.converteTurnoNuloEmFolga(escala);
 		escala = escalaCalculosService.calcularDadosEscala(escala);
 		//AVALIAÇÃO PARA SABER SE TEM CHOQUES
-		this.choque = service.choquesEmEscalaOnipresenca(escala);
-		this.choqueDescansoDepoisNoturno = service.choquesEmEscalaDepoisDoNoturno(escala);
-		if(choqueDescansoDepoisNoturno.length()>0) {attr.addFlashAttribute("fail", choqueDescansoDepoisNoturno); return atalhoLimparEscalaChoque(attr, choqueDescansoDepoisNoturno); }
-		if(choque.length()>0) {attr.addFlashAttribute("fail", choque); return atalhoLimparEscalaChoque(attr, choque);  }
-		if((choqueDescansoDepoisNoturno.length()==0) && (choque.length()==0)) {
+		//this.choque = service.choquesEmEscalaOnipresenca(escala);
+		//comando para armazenar choque na sessão
+        HttpSession session = httpSessionFactory.getObject();
+        session.setAttribute("choque", service.choquesEmEscalaOnipresenca(escala)  );
+		//this.choqueDescansoDepoisNoturno = service.choquesEmEscalaDepoisDoNoturno(escala);
+        //comando para armazenar choque na sessão
+        session.setAttribute("choqueDescansoDepoisNoturno", service.choquesEmEscalaDepoisDoNoturno(escala)  );
+		if(choqueDescansoDepoisNoturno().length()>0) {attr.addFlashAttribute("fail", choqueDescansoDepoisNoturno()); return atalhoLimparEscalaChoque(attr, choqueDescansoDepoisNoturno()); }
+		if(choque().length()>0) {attr.addFlashAttribute("fail", choque()); return atalhoLimparEscalaChoque(attr, choque());  }
+		if((choqueDescansoDepoisNoturno().length()==0) && (choque().length()==0)) {
 			salvar(escala, null, null);
-			ultimoIdEscala = escala.getId();
+			session = httpSessionFactory.getObject(); session.setAttribute("ultimoIdEscala", escala.getId()  );
 			attr.addFlashAttribute("success", "Confirme CH Dif, Incremento de Risco, Diferenciado, Regime e Turma antes de Lançar.");
 		}
 		return "redirect:/escalas/alterar/escala/"+escala.getId();
@@ -1773,19 +1904,24 @@ public class EscalaController {
 		return "redirect:/escalas/mensagem/de/escala/bloqueada";
 		}		
 
-		Escala escala = service.buscarPorId(ultimoIdEscala);
+		Escala escala = service.buscarPorId(ultimoIdEscala());
 		escala = escalaCalculosService.converteTurnoNuloEmFolga(escala);
 		escala = escalaAtalhosService.atalhoCiclo4A(escala);
 		escala = escalaCalculosService.converteTurnoNuloEmFolga(escala);
 		escala = escalaCalculosService.calcularDadosEscala(escala);
 		//AVALIAÇÃO PARA SABER SE TEM CHOQUES
-		this.choque = service.choquesEmEscalaOnipresenca(escala);
-		this.choqueDescansoDepoisNoturno = service.choquesEmEscalaDepoisDoNoturno(escala);
-		if(choqueDescansoDepoisNoturno.length()>0) {attr.addFlashAttribute("fail", choqueDescansoDepoisNoturno); return atalhoLimparEscalaChoque(attr, choqueDescansoDepoisNoturno); }
-		if(choque.length()>0) {attr.addFlashAttribute("fail", choque); return atalhoLimparEscalaChoque(attr, choque);  }
-		if((choqueDescansoDepoisNoturno.length()==0) && (choque.length()==0)) {
+		//this.choque = service.choquesEmEscalaOnipresenca(escala);
+		//comando para armazenar choque na sessão
+        HttpSession session = httpSessionFactory.getObject();
+        session.setAttribute("choque", service.choquesEmEscalaOnipresenca(escala)  );
+		//this.choqueDescansoDepoisNoturno = service.choquesEmEscalaDepoisDoNoturno(escala);
+        //comando para armazenar choque na sessão
+        session.setAttribute("choqueDescansoDepoisNoturno", service.choquesEmEscalaDepoisDoNoturno(escala)  );
+		if(choqueDescansoDepoisNoturno().length()>0) {attr.addFlashAttribute("fail", choqueDescansoDepoisNoturno()); return atalhoLimparEscalaChoque(attr, choqueDescansoDepoisNoturno()); }
+		if(choque().length()>0) {attr.addFlashAttribute("fail", choque()); return atalhoLimparEscalaChoque(attr, choque());  }
+		if((choqueDescansoDepoisNoturno().length()==0) && (choque().length()==0)) {
 			salvar(escala, null, null);
-			ultimoIdEscala = escala.getId();
+			session = httpSessionFactory.getObject(); session.setAttribute("ultimoIdEscala", escala.getId()  );
 			attr.addFlashAttribute("success", "Confirme CH Dif, Incremento de Risco, Diferenciado, Regime e Turma antes de Lançar.");
 		}
 		return "redirect:/escalas/alterar/escala/"+escala.getId();
@@ -1798,19 +1934,24 @@ public class EscalaController {
 		return "redirect:/escalas/mensagem/de/escala/bloqueada";
 		}		
 
-		Escala escala = service.buscarPorId(ultimoIdEscala);
+		Escala escala = service.buscarPorId(ultimoIdEscala());
 		escala = escalaCalculosService.converteTurnoNuloEmFolga(escala);
 		escala = escalaAtalhosService.atalhoCiclo4B(escala);
 		escala = escalaCalculosService.converteTurnoNuloEmFolga(escala);
 		escala = escalaCalculosService.calcularDadosEscala(escala);
 		//AVALIAÇÃO PARA SABER SE TEM CHOQUES
-		this.choque = service.choquesEmEscalaOnipresenca(escala);
-		this.choqueDescansoDepoisNoturno = service.choquesEmEscalaDepoisDoNoturno(escala);
-		if(choqueDescansoDepoisNoturno.length()>0) {attr.addFlashAttribute("fail", choqueDescansoDepoisNoturno); return atalhoLimparEscalaChoque(attr, choqueDescansoDepoisNoturno); }
-		if(choque.length()>0) {attr.addFlashAttribute("fail", choque); return atalhoLimparEscalaChoque(attr, choque);  }
-		if((choqueDescansoDepoisNoturno.length()==0) && (choque.length()==0)) {
+		//this.choque = service.choquesEmEscalaOnipresenca(escala);
+		//comando para armazenar choque na sessão
+        HttpSession session = httpSessionFactory.getObject();
+        session.setAttribute("choque", service.choquesEmEscalaOnipresenca(escala)  );
+		//this.choqueDescansoDepoisNoturno = service.choquesEmEscalaDepoisDoNoturno(escala);
+        //comando para armazenar choque na sessão
+        session.setAttribute("choqueDescansoDepoisNoturno", service.choquesEmEscalaDepoisDoNoturno(escala)  );
+		if(choqueDescansoDepoisNoturno().length()>0) {attr.addFlashAttribute("fail", choqueDescansoDepoisNoturno()); return atalhoLimparEscalaChoque(attr, choqueDescansoDepoisNoturno()); }
+		if(choque().length()>0) {attr.addFlashAttribute("fail", choque()); return atalhoLimparEscalaChoque(attr, choque());  }
+		if((choqueDescansoDepoisNoturno().length()==0) && (choque().length()==0)) {
 			salvar(escala, null, null);
-			ultimoIdEscala = escala.getId();
+			session = httpSessionFactory.getObject(); session.setAttribute("ultimoIdEscala", escala.getId()  );
 			attr.addFlashAttribute("success", "Confirme CH Dif, Incremento de Risco, Diferenciado, Regime e Turma antes de Lançar.");
 		}
 		return "redirect:/escalas/alterar/escala/"+escala.getId();
@@ -1823,19 +1964,24 @@ public class EscalaController {
 		return "redirect:/escalas/mensagem/de/escala/bloqueada";
 		}		
 
-		Escala escala = service.buscarPorId(ultimoIdEscala);
+		Escala escala = service.buscarPorId(ultimoIdEscala());
 		escala = escalaCalculosService.converteTurnoNuloEmFolga(escala);
 		escala = escalaAtalhosService.atalhoCiclo4C(escala);
 		escala = escalaCalculosService.converteTurnoNuloEmFolga(escala);
 		escala = escalaCalculosService.calcularDadosEscala(escala);
 		//AVALIAÇÃO PARA SABER SE TEM CHOQUES
-		this.choque = service.choquesEmEscalaOnipresenca(escala);
-		this.choqueDescansoDepoisNoturno = service.choquesEmEscalaDepoisDoNoturno(escala);
-		if(choqueDescansoDepoisNoturno.length()>0) {attr.addFlashAttribute("fail", choqueDescansoDepoisNoturno); return atalhoLimparEscalaChoque(attr, choqueDescansoDepoisNoturno); }
-		if(choque.length()>0) {attr.addFlashAttribute("fail", choque); return atalhoLimparEscalaChoque(attr, choque);  }
-		if((choqueDescansoDepoisNoturno.length()==0) && (choque.length()==0)) {
+		//this.choque = service.choquesEmEscalaOnipresenca(escala);
+		//comando para armazenar choque na sessão
+        HttpSession session = httpSessionFactory.getObject();
+        session.setAttribute("choque", service.choquesEmEscalaOnipresenca(escala)  );
+		//this.choqueDescansoDepoisNoturno = service.choquesEmEscalaDepoisDoNoturno(escala);
+        //comando para armazenar choque na sessão
+        session.setAttribute("choqueDescansoDepoisNoturno", service.choquesEmEscalaDepoisDoNoturno(escala)  );
+		if(choqueDescansoDepoisNoturno().length()>0) {attr.addFlashAttribute("fail", choqueDescansoDepoisNoturno()); return atalhoLimparEscalaChoque(attr, choqueDescansoDepoisNoturno()); }
+		if(choque().length()>0) {attr.addFlashAttribute("fail", choque()); return atalhoLimparEscalaChoque(attr, choque());  }
+		if((choqueDescansoDepoisNoturno().length()==0) && (choque().length()==0)) {
 			salvar(escala, null, null);
-			ultimoIdEscala = escala.getId();
+			session = httpSessionFactory.getObject(); session.setAttribute("ultimoIdEscala", escala.getId()  );
 			attr.addFlashAttribute("success", "Confirme CH Dif, Incremento de Risco, Diferenciado, Regime e Turma antes de Lançar.");
 		}
 		return "redirect:/escalas/alterar/escala/"+escala.getId();
@@ -1848,19 +1994,24 @@ public class EscalaController {
 		return "redirect:/escalas/mensagem/de/escala/bloqueada";
 		}		
 
-		Escala escala = service.buscarPorId(ultimoIdEscala);
+		Escala escala = service.buscarPorId(ultimoIdEscala());
 		escala = escalaCalculosService.converteTurnoNuloEmFolga(escala);
 		escala = escalaAtalhosService.atalhoCiclo4D(escala);
 		escala = escalaCalculosService.converteTurnoNuloEmFolga(escala);
 		escala = escalaCalculosService.calcularDadosEscala(escala);
 		//AVALIAÇÃO PARA SABER SE TEM CHOQUES
-		this.choque = service.choquesEmEscalaOnipresenca(escala);
-		this.choqueDescansoDepoisNoturno = service.choquesEmEscalaDepoisDoNoturno(escala);
-		if(choqueDescansoDepoisNoturno.length()>0) {attr.addFlashAttribute("fail", choqueDescansoDepoisNoturno); return atalhoLimparEscalaChoque(attr, choqueDescansoDepoisNoturno); }
-		if(choque.length()>0) {attr.addFlashAttribute("fail", choque); return atalhoLimparEscalaChoque(attr, choque);  }
-		if((choqueDescansoDepoisNoturno.length()==0) && (choque.length()==0)) {
+		//this.choque = service.choquesEmEscalaOnipresenca(escala);
+		//comando para armazenar choque na sessão
+        HttpSession session = httpSessionFactory.getObject();
+        session.setAttribute("choque", service.choquesEmEscalaOnipresenca(escala)  );
+		//this.choqueDescansoDepoisNoturno = service.choquesEmEscalaDepoisDoNoturno(escala);
+        //comando para armazenar choque na sessão
+        session.setAttribute("choqueDescansoDepoisNoturno", service.choquesEmEscalaDepoisDoNoturno(escala)  );
+		if(choqueDescansoDepoisNoturno().length()>0) {attr.addFlashAttribute("fail", choqueDescansoDepoisNoturno()); return atalhoLimparEscalaChoque(attr, choqueDescansoDepoisNoturno()); }
+		if(choque().length()>0) {attr.addFlashAttribute("fail", choque()); return atalhoLimparEscalaChoque(attr, choque());  }
+		if((choqueDescansoDepoisNoturno().length()==0) && (choque().length()==0)) {
 			salvar(escala, null, null);
-			ultimoIdEscala = escala.getId();
+			session = httpSessionFactory.getObject(); session.setAttribute("ultimoIdEscala", escala.getId()  );
 			attr.addFlashAttribute("success", "Confirme CH Dif, Incremento de Risco, Diferenciado, Regime e Turma antes de Lançar.");
 		}
 		return "redirect:/escalas/alterar/escala/"+escala.getId();
@@ -1873,19 +2024,24 @@ public class EscalaController {
 		return "redirect:/escalas/mensagem/de/escala/bloqueada";
 		}		
 
-		Escala escala = service.buscarPorId(ultimoIdEscala);
+		Escala escala = service.buscarPorId(ultimoIdEscala());
 		escala = escalaCalculosService.converteTurnoNuloEmFolga(escala);
 		escala = escalaAtalhosService.atalhoCiclo4E(escala);
 		escala = escalaCalculosService.converteTurnoNuloEmFolga(escala);
 		escala = escalaCalculosService.calcularDadosEscala(escala);
 		//AVALIAÇÃO PARA SABER SE TEM CHOQUES
-		this.choque = service.choquesEmEscalaOnipresenca(escala);
-		this.choqueDescansoDepoisNoturno = service.choquesEmEscalaDepoisDoNoturno(escala);
-		if(choqueDescansoDepoisNoturno.length()>0) {attr.addFlashAttribute("fail", choqueDescansoDepoisNoturno); return atalhoLimparEscalaChoque(attr, choqueDescansoDepoisNoturno); }
-		if(choque.length()>0) {attr.addFlashAttribute("fail", choque); return atalhoLimparEscalaChoque(attr, choque);  }
-		if((choqueDescansoDepoisNoturno.length()==0) && (choque.length()==0)) {
+		//this.choque = service.choquesEmEscalaOnipresenca(escala);
+		//comando para armazenar choque na sessão
+        HttpSession session = httpSessionFactory.getObject();
+        session.setAttribute("choque", service.choquesEmEscalaOnipresenca(escala)  );
+		//this.choqueDescansoDepoisNoturno = service.choquesEmEscalaDepoisDoNoturno(escala);
+        //comando para armazenar choque na sessão
+        session.setAttribute("choqueDescansoDepoisNoturno", service.choquesEmEscalaDepoisDoNoturno(escala)  );
+		if(choqueDescansoDepoisNoturno().length()>0) {attr.addFlashAttribute("fail", choqueDescansoDepoisNoturno()); return atalhoLimparEscalaChoque(attr, choqueDescansoDepoisNoturno()); }
+		if(choque().length()>0) {attr.addFlashAttribute("fail", choque()); return atalhoLimparEscalaChoque(attr, choque());  }
+		if((choqueDescansoDepoisNoturno().length()==0) && (choque().length()==0)) {
 			salvar(escala, null, null);
-			ultimoIdEscala = escala.getId();
+			session = httpSessionFactory.getObject(); session.setAttribute("ultimoIdEscala", escala.getId()  );
 			attr.addFlashAttribute("success", "Confirme CH Dif, Incremento de Risco, Diferenciado, Regime e Turma antes de Lançar.");
 		}
 		return "redirect:/escalas/alterar/escala/"+escala.getId();
@@ -1898,19 +2054,24 @@ public class EscalaController {
 		return "redirect:/escalas/mensagem/de/escala/bloqueada";
 		}		
 
-		Escala escala = service.buscarPorId(ultimoIdEscala);
+		Escala escala = service.buscarPorId(ultimoIdEscala());
 		escala = escalaCalculosService.converteTurnoNuloEmFolga(escala);
 		escala = escalaAtalhosService.atalhoCiclo4F(escala);
 		escala = escalaCalculosService.converteTurnoNuloEmFolga(escala);
 		escala = escalaCalculosService.calcularDadosEscala(escala);
 		//AVALIAÇÃO PARA SABER SE TEM CHOQUES
-		this.choque = service.choquesEmEscalaOnipresenca(escala);
-		this.choqueDescansoDepoisNoturno = service.choquesEmEscalaDepoisDoNoturno(escala);
-		if(choqueDescansoDepoisNoturno.length()>0) {attr.addFlashAttribute("fail", choqueDescansoDepoisNoturno); return atalhoLimparEscalaChoque(attr, choqueDescansoDepoisNoturno); }
-		if(choque.length()>0) {attr.addFlashAttribute("fail", choque); return atalhoLimparEscalaChoque(attr, choque);  }
-		if((choqueDescansoDepoisNoturno.length()==0) && (choque.length()==0)) {
+		//this.choque = service.choquesEmEscalaOnipresenca(escala);
+		//comando para armazenar choque na sessão
+        HttpSession session = httpSessionFactory.getObject();
+        session.setAttribute("choque", service.choquesEmEscalaOnipresenca(escala)  );
+		//this.choqueDescansoDepoisNoturno = service.choquesEmEscalaDepoisDoNoturno(escala);
+        //comando para armazenar choque na sessão
+        session.setAttribute("choqueDescansoDepoisNoturno", service.choquesEmEscalaDepoisDoNoturno(escala)  );
+		if(choqueDescansoDepoisNoturno().length()>0) {attr.addFlashAttribute("fail", choqueDescansoDepoisNoturno()); return atalhoLimparEscalaChoque(attr, choqueDescansoDepoisNoturno()); }
+		if(choque().length()>0) {attr.addFlashAttribute("fail", choque()); return atalhoLimparEscalaChoque(attr, choque());  }
+		if((choqueDescansoDepoisNoturno().length()==0) && (choque().length()==0)) {
 			salvar(escala, null, null);
-			ultimoIdEscala = escala.getId();
+			session = httpSessionFactory.getObject(); session.setAttribute("ultimoIdEscala", escala.getId()  );
 			attr.addFlashAttribute("success", "Confirme CH Dif, Incremento de Risco, Diferenciado, Regime e Turma antes de Lançar.");
 		}
 		return "redirect:/escalas/alterar/escala/"+escala.getId();
@@ -1924,19 +2085,24 @@ public class EscalaController {
 		return "redirect:/escalas/mensagem/de/escala/bloqueada";
 		}		
 
-		Escala escala = service.buscarPorId(ultimoIdEscala);
+		Escala escala = service.buscarPorId(ultimoIdEscala());
 		escala = escalaCalculosService.converteTurnoNuloEmFolga(escala);
 		escala = escalaAtalhosService.atalhoCiclo5A(escala);
 		escala = escalaCalculosService.converteTurnoNuloEmFolga(escala);
 		escala = escalaCalculosService.calcularDadosEscala(escala);
 		//AVALIAÇÃO PARA SABER SE TEM CHOQUES
-		this.choque = service.choquesEmEscalaOnipresenca(escala);
-		this.choqueDescansoDepoisNoturno = service.choquesEmEscalaDepoisDoNoturno(escala);
-		if(choqueDescansoDepoisNoturno.length()>0) {attr.addFlashAttribute("fail", choqueDescansoDepoisNoturno); return atalhoLimparEscalaChoque(attr, choqueDescansoDepoisNoturno); }
-		if(choque.length()>0) {attr.addFlashAttribute("fail", choque); return atalhoLimparEscalaChoque(attr, choque);  }
-		if((choqueDescansoDepoisNoturno.length()==0) && (choque.length()==0)) {
+		//this.choque = service.choquesEmEscalaOnipresenca(escala);
+		//comando para armazenar choque na sessão
+        HttpSession session = httpSessionFactory.getObject();
+        session.setAttribute("choque", service.choquesEmEscalaOnipresenca(escala)  );
+		//this.choqueDescansoDepoisNoturno = service.choquesEmEscalaDepoisDoNoturno(escala);
+        //comando para armazenar choque na sessão
+        session.setAttribute("choqueDescansoDepoisNoturno", service.choquesEmEscalaDepoisDoNoturno(escala)  );
+		if(choqueDescansoDepoisNoturno().length()>0) {attr.addFlashAttribute("fail", choqueDescansoDepoisNoturno()); return atalhoLimparEscalaChoque(attr, choqueDescansoDepoisNoturno()); }
+		if(choque().length()>0) {attr.addFlashAttribute("fail", choque()); return atalhoLimparEscalaChoque(attr, choque());  }
+		if((choqueDescansoDepoisNoturno().length()==0) && (choque().length()==0)) {
 			salvar(escala, null, null);
-			ultimoIdEscala = escala.getId();
+			session = httpSessionFactory.getObject(); session.setAttribute("ultimoIdEscala", escala.getId()  );
 			attr.addFlashAttribute("success", "Confirme CH Dif, Incremento de Risco, Diferenciado, Regime e Turma antes de Lançar.");
 		}
 		return "redirect:/escalas/alterar/escala/"+escala.getId();
@@ -1949,19 +2115,24 @@ public class EscalaController {
 		return "redirect:/escalas/mensagem/de/escala/bloqueada";
 		}		
 
-		Escala escala = service.buscarPorId(ultimoIdEscala);
+		Escala escala = service.buscarPorId(ultimoIdEscala());
 		escala = escalaCalculosService.converteTurnoNuloEmFolga(escala);
 		escala = escalaAtalhosService.atalhoCiclo5B(escala);
 		escala = escalaCalculosService.converteTurnoNuloEmFolga(escala);
 		escala = escalaCalculosService.calcularDadosEscala(escala);
 		//AVALIAÇÃO PARA SABER SE TEM CHOQUES
-		this.choque = service.choquesEmEscalaOnipresenca(escala);
-		this.choqueDescansoDepoisNoturno = service.choquesEmEscalaDepoisDoNoturno(escala);
-		if(choqueDescansoDepoisNoturno.length()>0) {attr.addFlashAttribute("fail", choqueDescansoDepoisNoturno); return atalhoLimparEscalaChoque(attr, choqueDescansoDepoisNoturno); }
-		if(choque.length()>0) {attr.addFlashAttribute("fail", choque); return atalhoLimparEscalaChoque(attr, choque);  }
-		if((choqueDescansoDepoisNoturno.length()==0) && (choque.length()==0)) {
+		//this.choque = service.choquesEmEscalaOnipresenca(escala);
+		//comando para armazenar choque na sessão
+        HttpSession session = httpSessionFactory.getObject();
+        session.setAttribute("choque", service.choquesEmEscalaOnipresenca(escala)  );
+		//this.choqueDescansoDepoisNoturno = service.choquesEmEscalaDepoisDoNoturno(escala);
+        //comando para armazenar choque na sessão
+        session.setAttribute("choqueDescansoDepoisNoturno", service.choquesEmEscalaDepoisDoNoturno(escala)  );
+		if(choqueDescansoDepoisNoturno().length()>0) {attr.addFlashAttribute("fail", choqueDescansoDepoisNoturno()); return atalhoLimparEscalaChoque(attr, choqueDescansoDepoisNoturno()); }
+		if(choque().length()>0) {attr.addFlashAttribute("fail", choque()); return atalhoLimparEscalaChoque(attr, choque());  }
+		if((choqueDescansoDepoisNoturno().length()==0) && (choque().length()==0)) {
 			salvar(escala, null, null);
-			ultimoIdEscala = escala.getId();
+			session = httpSessionFactory.getObject(); session.setAttribute("ultimoIdEscala", escala.getId()  );
 			attr.addFlashAttribute("success", "Confirme CH Dif, Incremento de Risco, Diferenciado, Regime e Turma antes de Lançar.");
 		}
 		return "redirect:/escalas/alterar/escala/"+escala.getId();
@@ -1974,19 +2145,24 @@ public class EscalaController {
 		return "redirect:/escalas/mensagem/de/escala/bloqueada";
 		}		
 
-		Escala escala = service.buscarPorId(ultimoIdEscala);
+		Escala escala = service.buscarPorId(ultimoIdEscala());
 		escala = escalaCalculosService.converteTurnoNuloEmFolga(escala);
 		escala = escalaAtalhosService.atalhoCiclo5C(escala);
 		escala = escalaCalculosService.converteTurnoNuloEmFolga(escala);
 		escala = escalaCalculosService.calcularDadosEscala(escala);
 		//AVALIAÇÃO PARA SABER SE TEM CHOQUES
-		this.choque = service.choquesEmEscalaOnipresenca(escala);
-		this.choqueDescansoDepoisNoturno = service.choquesEmEscalaDepoisDoNoturno(escala);
-		if(choqueDescansoDepoisNoturno.length()>0) {attr.addFlashAttribute("fail", choqueDescansoDepoisNoturno); return atalhoLimparEscalaChoque(attr, choqueDescansoDepoisNoturno); }
-		if(choque.length()>0) {attr.addFlashAttribute("fail", choque); return atalhoLimparEscalaChoque(attr, choque);  }
-		if((choqueDescansoDepoisNoturno.length()==0) && (choque.length()==0)) {
+		//this.choque = service.choquesEmEscalaOnipresenca(escala);
+		//comando para armazenar choque na sessão
+        HttpSession session = httpSessionFactory.getObject();
+        session.setAttribute("choque", service.choquesEmEscalaOnipresenca(escala)  );
+		//this.choqueDescansoDepoisNoturno = service.choquesEmEscalaDepoisDoNoturno(escala);
+        //comando para armazenar choque na sessão
+        session.setAttribute("choqueDescansoDepoisNoturno", service.choquesEmEscalaDepoisDoNoturno(escala)  );
+		if(choqueDescansoDepoisNoturno().length()>0) {attr.addFlashAttribute("fail", choqueDescansoDepoisNoturno()); return atalhoLimparEscalaChoque(attr, choqueDescansoDepoisNoturno()); }
+		if(choque().length()>0) {attr.addFlashAttribute("fail", choque()); return atalhoLimparEscalaChoque(attr, choque());  }
+		if((choqueDescansoDepoisNoturno().length()==0) && (choque().length()==0)) {
 			salvar(escala, null, null);
-			ultimoIdEscala = escala.getId();
+			session = httpSessionFactory.getObject(); session.setAttribute("ultimoIdEscala", escala.getId()  );
 			attr.addFlashAttribute("success", "Confirme CH Dif, Incremento de Risco, Diferenciado, Regime e Turma antes de Lançar.");
 		}
 		return "redirect:/escalas/alterar/escala/"+escala.getId();
@@ -1999,19 +2175,24 @@ public class EscalaController {
 		return "redirect:/escalas/mensagem/de/escala/bloqueada";
 		}		
 
-		Escala escala = service.buscarPorId(ultimoIdEscala);
+		Escala escala = service.buscarPorId(ultimoIdEscala());
 		escala = escalaCalculosService.converteTurnoNuloEmFolga(escala);
 		escala = escalaAtalhosService.atalhoCiclo5D(escala);
 		escala = escalaCalculosService.converteTurnoNuloEmFolga(escala);
 		escala = escalaCalculosService.calcularDadosEscala(escala);
 		//AVALIAÇÃO PARA SABER SE TEM CHOQUES
-		this.choque = service.choquesEmEscalaOnipresenca(escala);
-		this.choqueDescansoDepoisNoturno = service.choquesEmEscalaDepoisDoNoturno(escala);
-		if(choqueDescansoDepoisNoturno.length()>0) {attr.addFlashAttribute("fail", choqueDescansoDepoisNoturno); return atalhoLimparEscalaChoque(attr, choqueDescansoDepoisNoturno); }
-		if(choque.length()>0) {attr.addFlashAttribute("fail", choque); return atalhoLimparEscalaChoque(attr, choque);  }
-		if((choqueDescansoDepoisNoturno.length()==0) && (choque.length()==0)) {
+		//this.choque = service.choquesEmEscalaOnipresenca(escala);
+		//comando para armazenar choque na sessão
+        HttpSession session = httpSessionFactory.getObject();
+        session.setAttribute("choque", service.choquesEmEscalaOnipresenca(escala)  );
+		//this.choqueDescansoDepoisNoturno = service.choquesEmEscalaDepoisDoNoturno(escala);
+        //comando para armazenar choque na sessão
+        session.setAttribute("choqueDescansoDepoisNoturno", service.choquesEmEscalaDepoisDoNoturno(escala)  );
+		if(choqueDescansoDepoisNoturno().length()>0) {attr.addFlashAttribute("fail", choqueDescansoDepoisNoturno()); return atalhoLimparEscalaChoque(attr, choqueDescansoDepoisNoturno()); }
+		if(choque().length()>0) {attr.addFlashAttribute("fail", choque()); return atalhoLimparEscalaChoque(attr, choque());  }
+		if((choqueDescansoDepoisNoturno().length()==0) && (choque().length()==0)) {
 			salvar(escala, null, null);
-			ultimoIdEscala = escala.getId();
+			session = httpSessionFactory.getObject(); session.setAttribute("ultimoIdEscala", escala.getId()  );
 			attr.addFlashAttribute("success", "Confirme CH Dif, Incremento de Risco, Diferenciado, Regime e Turma antes de Lançar.");
 		}
 		return "redirect:/escalas/alterar/escala/"+escala.getId();
@@ -2024,19 +2205,24 @@ public class EscalaController {
 		return "redirect:/escalas/mensagem/de/escala/bloqueada";
 		}		
 
-		Escala escala = service.buscarPorId(ultimoIdEscala);
+		Escala escala = service.buscarPorId(ultimoIdEscala());
 		escala = escalaCalculosService.converteTurnoNuloEmFolga(escala);
 		escala = escalaAtalhosService.atalhoCiclo5E(escala);
 		escala = escalaCalculosService.converteTurnoNuloEmFolga(escala);
 		escala = escalaCalculosService.calcularDadosEscala(escala);
 		//AVALIAÇÃO PARA SABER SE TEM CHOQUES
-		this.choque = service.choquesEmEscalaOnipresenca(escala);
-		this.choqueDescansoDepoisNoturno = service.choquesEmEscalaDepoisDoNoturno(escala);
-		if(choqueDescansoDepoisNoturno.length()>0) {attr.addFlashAttribute("fail", choqueDescansoDepoisNoturno); return atalhoLimparEscalaChoque(attr, choqueDescansoDepoisNoturno); }
-		if(choque.length()>0) {attr.addFlashAttribute("fail", choque); return atalhoLimparEscalaChoque(attr, choque);  }
-		if((choqueDescansoDepoisNoturno.length()==0) && (choque.length()==0)) {
+		//this.choque = service.choquesEmEscalaOnipresenca(escala);
+		//comando para armazenar choque na sessão
+        HttpSession session = httpSessionFactory.getObject();
+        session.setAttribute("choque", service.choquesEmEscalaOnipresenca(escala)  );
+		//this.choqueDescansoDepoisNoturno = service.choquesEmEscalaDepoisDoNoturno(escala);
+        //comando para armazenar choque na sessão
+        session.setAttribute("choqueDescansoDepoisNoturno", service.choquesEmEscalaDepoisDoNoturno(escala)  );
+		if(choqueDescansoDepoisNoturno().length()>0) {attr.addFlashAttribute("fail", choqueDescansoDepoisNoturno()); return atalhoLimparEscalaChoque(attr, choqueDescansoDepoisNoturno()); }
+		if(choque().length()>0) {attr.addFlashAttribute("fail", choque()); return atalhoLimparEscalaChoque(attr, choque());  }
+		if((choqueDescansoDepoisNoturno().length()==0) && (choque().length()==0)) {
 			salvar(escala, null, null);
-			ultimoIdEscala = escala.getId();
+			session = httpSessionFactory.getObject(); session.setAttribute("ultimoIdEscala", escala.getId()  );
 			attr.addFlashAttribute("success", "Confirme CH Dif, Incremento de Risco, Diferenciado, Regime e Turma antes de Lançar.");
 		}
 		return "redirect:/escalas/alterar/escala/"+escala.getId();
@@ -2049,19 +2235,24 @@ public class EscalaController {
 		return "redirect:/escalas/mensagem/de/escala/bloqueada";
 		}		
 
-		Escala escala = service.buscarPorId(ultimoIdEscala);
+		Escala escala = service.buscarPorId(ultimoIdEscala());
 		escala = escalaCalculosService.converteTurnoNuloEmFolga(escala);
 		escala = escalaAtalhosService.atalhoCiclo5F(escala);
 		escala = escalaCalculosService.converteTurnoNuloEmFolga(escala);
 		escala = escalaCalculosService.calcularDadosEscala(escala);
 		//AVALIAÇÃO PARA SABER SE TEM CHOQUES
-		this.choque = service.choquesEmEscalaOnipresenca(escala);
-		this.choqueDescansoDepoisNoturno = service.choquesEmEscalaDepoisDoNoturno(escala);
-		if(choqueDescansoDepoisNoturno.length()>0) {attr.addFlashAttribute("fail", choqueDescansoDepoisNoturno); return atalhoLimparEscalaChoque(attr, choqueDescansoDepoisNoturno); }
-		if(choque.length()>0) {attr.addFlashAttribute("fail", choque); return atalhoLimparEscalaChoque(attr, choque);  }
-		if((choqueDescansoDepoisNoturno.length()==0) && (choque.length()==0)) {
+		//this.choque = service.choquesEmEscalaOnipresenca(escala);
+		//comando para armazenar choque na sessão
+        HttpSession session = httpSessionFactory.getObject();
+        session.setAttribute("choque", service.choquesEmEscalaOnipresenca(escala)  );
+		//this.choqueDescansoDepoisNoturno = service.choquesEmEscalaDepoisDoNoturno(escala);
+        //comando para armazenar choque na sessão
+        session.setAttribute("choqueDescansoDepoisNoturno", service.choquesEmEscalaDepoisDoNoturno(escala)  );
+		if(choqueDescansoDepoisNoturno().length()>0) {attr.addFlashAttribute("fail", choqueDescansoDepoisNoturno()); return atalhoLimparEscalaChoque(attr, choqueDescansoDepoisNoturno()); }
+		if(choque().length()>0) {attr.addFlashAttribute("fail", choque()); return atalhoLimparEscalaChoque(attr, choque());  }
+		if((choqueDescansoDepoisNoturno().length()==0) && (choque().length()==0)) {
 			salvar(escala, null, null);
-			ultimoIdEscala = escala.getId();
+			session = httpSessionFactory.getObject(); session.setAttribute("ultimoIdEscala", escala.getId()  );
 			attr.addFlashAttribute("success", "Confirme CH Dif, Incremento de Risco, Diferenciado, Regime e Turma antes de Lançar.");
 		}
 		return "redirect:/escalas/alterar/escala/"+escala.getId();
@@ -2075,19 +2266,24 @@ public class EscalaController {
 		return "redirect:/escalas/mensagem/de/escala/bloqueada";
 		}		
 
-		Escala escala = service.buscarPorId(ultimoIdEscala);
+		Escala escala = service.buscarPorId(ultimoIdEscala());
 		escala = escalaCalculosService.converteTurnoNuloEmFolga(escala);
 		escala = escalaAtalhosService.atalhoCiclo6A(escala);
 		escala = escalaCalculosService.converteTurnoNuloEmFolga(escala);
 		escala = escalaCalculosService.calcularDadosEscala(escala);
 		//AVALIAÇÃO PARA SABER SE TEM CHOQUES
-		this.choque = service.choquesEmEscalaOnipresenca(escala);
-		this.choqueDescansoDepoisNoturno = service.choquesEmEscalaDepoisDoNoturno(escala);
-		if(choqueDescansoDepoisNoturno.length()>0) {attr.addFlashAttribute("fail", choqueDescansoDepoisNoturno); return atalhoLimparEscalaChoque(attr, choqueDescansoDepoisNoturno); }
-		if(choque.length()>0) {attr.addFlashAttribute("fail", choque); return atalhoLimparEscalaChoque(attr, choque);  }
-		if((choqueDescansoDepoisNoturno.length()==0) && (choque.length()==0)) {
+		//this.choque = service.choquesEmEscalaOnipresenca(escala);
+		//comando para armazenar choque na sessão
+        HttpSession session = httpSessionFactory.getObject();
+        session.setAttribute("choque", service.choquesEmEscalaOnipresenca(escala)  );
+		//this.choqueDescansoDepoisNoturno = service.choquesEmEscalaDepoisDoNoturno(escala);
+        //comando para armazenar choque na sessão
+        session.setAttribute("choqueDescansoDepoisNoturno", service.choquesEmEscalaDepoisDoNoturno(escala)  );
+		if(choqueDescansoDepoisNoturno().length()>0) {attr.addFlashAttribute("fail", choqueDescansoDepoisNoturno()); return atalhoLimparEscalaChoque(attr, choqueDescansoDepoisNoturno()); }
+		if(choque().length()>0) {attr.addFlashAttribute("fail", choque()); return atalhoLimparEscalaChoque(attr, choque());  }
+		if((choqueDescansoDepoisNoturno().length()==0) && (choque().length()==0)) {
 			salvar(escala, null, null);
-			ultimoIdEscala = escala.getId();
+			session = httpSessionFactory.getObject(); session.setAttribute("ultimoIdEscala", escala.getId()  );
 			attr.addFlashAttribute("success", "Confirme CH Dif, Incremento de Risco, Diferenciado, Regime e Turma antes de Lançar.");
 		}
 		return "redirect:/escalas/alterar/escala/"+escala.getId();
@@ -2100,19 +2296,24 @@ public class EscalaController {
 		return "redirect:/escalas/mensagem/de/escala/bloqueada";
 		}		
 
-		Escala escala = service.buscarPorId(ultimoIdEscala);
+		Escala escala = service.buscarPorId(ultimoIdEscala());
 		escala = escalaCalculosService.converteTurnoNuloEmFolga(escala);
 		escala = escalaAtalhosService.atalhoCiclo6B(escala);
 		escala = escalaCalculosService.converteTurnoNuloEmFolga(escala);
 		escala = escalaCalculosService.calcularDadosEscala(escala);
 		//AVALIAÇÃO PARA SABER SE TEM CHOQUES
-		this.choque = service.choquesEmEscalaOnipresenca(escala);
-		this.choqueDescansoDepoisNoturno = service.choquesEmEscalaDepoisDoNoturno(escala);
-		if(choqueDescansoDepoisNoturno.length()>0) {attr.addFlashAttribute("fail", choqueDescansoDepoisNoturno); return atalhoLimparEscalaChoque(attr, choqueDescansoDepoisNoturno); }
-		if(choque.length()>0) {attr.addFlashAttribute("fail", choque); return atalhoLimparEscalaChoque(attr, choque);  }
-		if((choqueDescansoDepoisNoturno.length()==0) && (choque.length()==0)) {
+		//this.choque = service.choquesEmEscalaOnipresenca(escala);
+		//comando para armazenar choque na sessão
+        HttpSession session = httpSessionFactory.getObject();
+        session.setAttribute("choque", service.choquesEmEscalaOnipresenca(escala)  );
+		//this.choqueDescansoDepoisNoturno = service.choquesEmEscalaDepoisDoNoturno(escala);
+        //comando para armazenar choque na sessão
+        session.setAttribute("choqueDescansoDepoisNoturno", service.choquesEmEscalaDepoisDoNoturno(escala)  );
+		if(choqueDescansoDepoisNoturno().length()>0) {attr.addFlashAttribute("fail", choqueDescansoDepoisNoturno()); return atalhoLimparEscalaChoque(attr, choqueDescansoDepoisNoturno()); }
+		if(choque().length()>0) {attr.addFlashAttribute("fail", choque()); return atalhoLimparEscalaChoque(attr, choque());  }
+		if((choqueDescansoDepoisNoturno().length()==0) && (choque().length()==0)) {
 			salvar(escala, null, null);
-			ultimoIdEscala = escala.getId();
+			session = httpSessionFactory.getObject(); session.setAttribute("ultimoIdEscala", escala.getId()  );
 			attr.addFlashAttribute("success", "Confirme CH Dif, Incremento de Risco, Diferenciado, Regime e Turma antes de Lançar.");
 		}
 		return "redirect:/escalas/alterar/escala/"+escala.getId();
@@ -2125,19 +2326,24 @@ public class EscalaController {
 		return "redirect:/escalas/mensagem/de/escala/bloqueada";
 		}		
 
-		Escala escala = service.buscarPorId(ultimoIdEscala);
+		Escala escala = service.buscarPorId(ultimoIdEscala());
 		escala = escalaCalculosService.converteTurnoNuloEmFolga(escala);
 		escala = escalaAtalhosService.atalhoCiclo6C(escala);
 		escala = escalaCalculosService.converteTurnoNuloEmFolga(escala);
 		escala = escalaCalculosService.calcularDadosEscala(escala);
 		//AVALIAÇÃO PARA SABER SE TEM CHOQUES
-		this.choque = service.choquesEmEscalaOnipresenca(escala);
-		this.choqueDescansoDepoisNoturno = service.choquesEmEscalaDepoisDoNoturno(escala);
-		if(choqueDescansoDepoisNoturno.length()>0) {attr.addFlashAttribute("fail", choqueDescansoDepoisNoturno); return atalhoLimparEscalaChoque(attr, choqueDescansoDepoisNoturno); }
-		if(choque.length()>0) {attr.addFlashAttribute("fail", choque); return atalhoLimparEscalaChoque(attr, choque);  }
-		if((choqueDescansoDepoisNoturno.length()==0) && (choque.length()==0)) {
+		//this.choque = service.choquesEmEscalaOnipresenca(escala);
+		//comando para armazenar choque na sessão
+        HttpSession session = httpSessionFactory.getObject();
+        session.setAttribute("choque", service.choquesEmEscalaOnipresenca(escala)  );
+		//this.choqueDescansoDepoisNoturno = service.choquesEmEscalaDepoisDoNoturno(escala);
+        //comando para armazenar choque na sessão
+        session.setAttribute("choqueDescansoDepoisNoturno", service.choquesEmEscalaDepoisDoNoturno(escala)  );
+		if(choqueDescansoDepoisNoturno().length()>0) {attr.addFlashAttribute("fail", choqueDescansoDepoisNoturno()); return atalhoLimparEscalaChoque(attr, choqueDescansoDepoisNoturno()); }
+		if(choque().length()>0) {attr.addFlashAttribute("fail", choque()); return atalhoLimparEscalaChoque(attr, choque());  }
+		if((choqueDescansoDepoisNoturno().length()==0) && (choque().length()==0)) {
 			salvar(escala, null, null);
-			ultimoIdEscala = escala.getId();
+			session = httpSessionFactory.getObject(); session.setAttribute("ultimoIdEscala", escala.getId()  );
 			attr.addFlashAttribute("success", "Confirme CH Dif, Incremento de Risco, Diferenciado, Regime e Turma antes de Lançar.");
 		}
 		return "redirect:/escalas/alterar/escala/"+escala.getId();
@@ -2150,19 +2356,24 @@ public class EscalaController {
 		return "redirect:/escalas/mensagem/de/escala/bloqueada";
 		}		
 
-		Escala escala = service.buscarPorId(ultimoIdEscala);
+		Escala escala = service.buscarPorId(ultimoIdEscala());
 		escala = escalaCalculosService.converteTurnoNuloEmFolga(escala);
 		escala = escalaAtalhosService.atalhoCiclo6D(escala);
 		escala = escalaCalculosService.converteTurnoNuloEmFolga(escala);
 		escala = escalaCalculosService.calcularDadosEscala(escala);
 		//AVALIAÇÃO PARA SABER SE TEM CHOQUES
-		this.choque = service.choquesEmEscalaOnipresenca(escala);
-		this.choqueDescansoDepoisNoturno = service.choquesEmEscalaDepoisDoNoturno(escala);
-		if(choqueDescansoDepoisNoturno.length()>0) {attr.addFlashAttribute("fail", choqueDescansoDepoisNoturno); return atalhoLimparEscalaChoque(attr, choqueDescansoDepoisNoturno); }
-		if(choque.length()>0) {attr.addFlashAttribute("fail", choque); return atalhoLimparEscalaChoque(attr, choque);  }
-		if((choqueDescansoDepoisNoturno.length()==0) && (choque.length()==0)) {
+		//this.choque = service.choquesEmEscalaOnipresenca(escala);
+		//comando para armazenar choque na sessão
+        HttpSession session = httpSessionFactory.getObject();
+        session.setAttribute("choque", service.choquesEmEscalaOnipresenca(escala)  );
+		//this.choqueDescansoDepoisNoturno = service.choquesEmEscalaDepoisDoNoturno(escala);
+        //comando para armazenar choque na sessão
+        session.setAttribute("choqueDescansoDepoisNoturno", service.choquesEmEscalaDepoisDoNoturno(escala)  );
+		if(choqueDescansoDepoisNoturno().length()>0) {attr.addFlashAttribute("fail", choqueDescansoDepoisNoturno()); return atalhoLimparEscalaChoque(attr, choqueDescansoDepoisNoturno()); }
+		if(choque().length()>0) {attr.addFlashAttribute("fail", choque()); return atalhoLimparEscalaChoque(attr, choque());  }
+		if((choqueDescansoDepoisNoturno().length()==0) && (choque().length()==0)) {
 			salvar(escala, null, null);
-			ultimoIdEscala = escala.getId();
+			session = httpSessionFactory.getObject(); session.setAttribute("ultimoIdEscala", escala.getId()  );
 			attr.addFlashAttribute("success", "Confirme CH Dif, Incremento de Risco, Diferenciado, Regime e Turma antes de Lançar.");
 		}
 		return "redirect:/escalas/alterar/escala/"+escala.getId();
@@ -2175,19 +2386,24 @@ public class EscalaController {
 		return "redirect:/escalas/mensagem/de/escala/bloqueada";
 		}		
 
-		Escala escala = service.buscarPorId(ultimoIdEscala);
+		Escala escala = service.buscarPorId(ultimoIdEscala());
 		escala = escalaCalculosService.converteTurnoNuloEmFolga(escala);
 		escala = escalaAtalhosService.atalhoCiclo6E(escala);
 		escala = escalaCalculosService.converteTurnoNuloEmFolga(escala);
 		escala = escalaCalculosService.calcularDadosEscala(escala);
 		//AVALIAÇÃO PARA SABER SE TEM CHOQUES
-		this.choque = service.choquesEmEscalaOnipresenca(escala);
-		this.choqueDescansoDepoisNoturno = service.choquesEmEscalaDepoisDoNoturno(escala);
-		if(choqueDescansoDepoisNoturno.length()>0) {attr.addFlashAttribute("fail", choqueDescansoDepoisNoturno); return atalhoLimparEscalaChoque(attr, choqueDescansoDepoisNoturno); }
-		if(choque.length()>0) {attr.addFlashAttribute("fail", choque); return atalhoLimparEscalaChoque(attr, choque);  }
-		if((choqueDescansoDepoisNoturno.length()==0) && (choque.length()==0)) {
+		//this.choque = service.choquesEmEscalaOnipresenca(escala);
+		//comando para armazenar choque na sessão
+        HttpSession session = httpSessionFactory.getObject();
+        session.setAttribute("choque", service.choquesEmEscalaOnipresenca(escala)  );
+		//this.choqueDescansoDepoisNoturno = service.choquesEmEscalaDepoisDoNoturno(escala);
+        //comando para armazenar choque na sessão
+        session.setAttribute("choqueDescansoDepoisNoturno", service.choquesEmEscalaDepoisDoNoturno(escala)  );
+		if(choqueDescansoDepoisNoturno().length()>0) {attr.addFlashAttribute("fail", choqueDescansoDepoisNoturno()); return atalhoLimparEscalaChoque(attr, choqueDescansoDepoisNoturno()); }
+		if(choque().length()>0) {attr.addFlashAttribute("fail", choque()); return atalhoLimparEscalaChoque(attr, choque());  }
+		if((choqueDescansoDepoisNoturno().length()==0) && (choque().length()==0)) {
 			salvar(escala, null, null);
-			ultimoIdEscala = escala.getId();
+			session = httpSessionFactory.getObject(); session.setAttribute("ultimoIdEscala", escala.getId()  );
 			attr.addFlashAttribute("success", "Confirme CH Dif, Incremento de Risco, Diferenciado, Regime e Turma antes de Lançar.");
 		}
 		return "redirect:/escalas/alterar/escala/"+escala.getId();
@@ -2200,19 +2416,24 @@ public class EscalaController {
 		return "redirect:/escalas/mensagem/de/escala/bloqueada";
 		}		
 
-		Escala escala = service.buscarPorId(ultimoIdEscala);
+		Escala escala = service.buscarPorId(ultimoIdEscala());
 		escala = escalaCalculosService.converteTurnoNuloEmFolga(escala);
 		escala = escalaAtalhosService.atalhoCiclo6F(escala);
 		escala = escalaCalculosService.converteTurnoNuloEmFolga(escala);
 		escala = escalaCalculosService.calcularDadosEscala(escala);
 		//AVALIAÇÃO PARA SABER SE TEM CHOQUES
-		this.choque = service.choquesEmEscalaOnipresenca(escala);
-		this.choqueDescansoDepoisNoturno = service.choquesEmEscalaDepoisDoNoturno(escala);
-		if(choqueDescansoDepoisNoturno.length()>0) {attr.addFlashAttribute("fail", choqueDescansoDepoisNoturno); return atalhoLimparEscalaChoque(attr, choqueDescansoDepoisNoturno); }
-		if(choque.length()>0) {attr.addFlashAttribute("fail", choque); return atalhoLimparEscalaChoque(attr, choque);  }
-		if((choqueDescansoDepoisNoturno.length()==0) && (choque.length()==0)) {
+		//this.choque = service.choquesEmEscalaOnipresenca(escala);
+		//comando para armazenar choque na sessão
+        HttpSession session = httpSessionFactory.getObject();
+        session.setAttribute("choque", service.choquesEmEscalaOnipresenca(escala)  );
+		//this.choqueDescansoDepoisNoturno = service.choquesEmEscalaDepoisDoNoturno(escala);
+        //comando para armazenar choque na sessão
+        session.setAttribute("choqueDescansoDepoisNoturno", service.choquesEmEscalaDepoisDoNoturno(escala)  );
+		if(choqueDescansoDepoisNoturno().length()>0) {attr.addFlashAttribute("fail", choqueDescansoDepoisNoturno()); return atalhoLimparEscalaChoque(attr, choqueDescansoDepoisNoturno()); }
+		if(choque().length()>0) {attr.addFlashAttribute("fail", choque()); return atalhoLimparEscalaChoque(attr, choque());  }
+		if((choqueDescansoDepoisNoturno().length()==0) && (choque().length()==0)) {
 			salvar(escala, null, null);
-			ultimoIdEscala = escala.getId();
+			session = httpSessionFactory.getObject(); session.setAttribute("ultimoIdEscala", escala.getId()  );
 			attr.addFlashAttribute("success", "Confirme CH Dif, Incremento de Risco, Diferenciado, Regime e Turma antes de Lançar.");
 		}
 		return "redirect:/escalas/alterar/escala/"+escala.getId();
@@ -2226,19 +2447,24 @@ public class EscalaController {
 		return "redirect:/escalas/mensagem/de/escala/bloqueada";
 		}		
 
-		Escala escala = service.buscarPorId(ultimoIdEscala);
+		Escala escala = service.buscarPorId(ultimoIdEscala());
 		escala = escalaCalculosService.converteTurnoNuloEmFolga(escala);
 		escala = escalaAtalhosService.atalhoCiclo7A(escala);
 		escala = escalaCalculosService.converteTurnoNuloEmFolga(escala);
 		escala = escalaCalculosService.calcularDadosEscala(escala);
 		//AVALIAÇÃO PARA SABER SE TEM CHOQUES
-		this.choque = service.choquesEmEscalaOnipresenca(escala);
-		this.choqueDescansoDepoisNoturno = service.choquesEmEscalaDepoisDoNoturno(escala);
-		if(choqueDescansoDepoisNoturno.length()>0) {attr.addFlashAttribute("fail", choqueDescansoDepoisNoturno); return atalhoLimparEscalaChoque(attr, choqueDescansoDepoisNoturno); }
-		if(choque.length()>0) {attr.addFlashAttribute("fail", choque); return atalhoLimparEscalaChoque(attr, choque);  }
-		if((choqueDescansoDepoisNoturno.length()==0) && (choque.length()==0)) {
+		//this.choque = service.choquesEmEscalaOnipresenca(escala);
+		//comando para armazenar choque na sessão
+        HttpSession session = httpSessionFactory.getObject();
+        session.setAttribute("choque", service.choquesEmEscalaOnipresenca(escala)  );
+		//this.choqueDescansoDepoisNoturno = service.choquesEmEscalaDepoisDoNoturno(escala);
+        //comando para armazenar choque na sessão
+        session.setAttribute("choqueDescansoDepoisNoturno", service.choquesEmEscalaDepoisDoNoturno(escala)  );
+		if(choqueDescansoDepoisNoturno().length()>0) {attr.addFlashAttribute("fail", choqueDescansoDepoisNoturno()); return atalhoLimparEscalaChoque(attr, choqueDescansoDepoisNoturno()); }
+		if(choque().length()>0) {attr.addFlashAttribute("fail", choque()); return atalhoLimparEscalaChoque(attr, choque());  }
+		if((choqueDescansoDepoisNoturno().length()==0) && (choque().length()==0)) {
 			salvar(escala, null, null);
-			ultimoIdEscala = escala.getId();
+			session = httpSessionFactory.getObject(); session.setAttribute("ultimoIdEscala", escala.getId()  );
 			attr.addFlashAttribute("success", "Confirme CH Dif, Incremento de Risco, Diferenciado, Regime e Turma antes de Lançar.");
 		}
 		return "redirect:/escalas/alterar/escala/"+escala.getId();
@@ -2251,19 +2477,24 @@ public class EscalaController {
 		return "redirect:/escalas/mensagem/de/escala/bloqueada";
 		}		
 
-		Escala escala = service.buscarPorId(ultimoIdEscala);
+		Escala escala = service.buscarPorId(ultimoIdEscala());
 		escala = escalaCalculosService.converteTurnoNuloEmFolga(escala);
 		escala = escalaAtalhosService.atalhoCiclo7B(escala);
 		escala = escalaCalculosService.converteTurnoNuloEmFolga(escala);
 		escala = escalaCalculosService.calcularDadosEscala(escala);
 		//AVALIAÇÃO PARA SABER SE TEM CHOQUES
-		this.choque = service.choquesEmEscalaOnipresenca(escala);
-		this.choqueDescansoDepoisNoturno = service.choquesEmEscalaDepoisDoNoturno(escala);
-		if(choqueDescansoDepoisNoturno.length()>0) {attr.addFlashAttribute("fail", choqueDescansoDepoisNoturno); return atalhoLimparEscalaChoque(attr, choqueDescansoDepoisNoturno); }
-		if(choque.length()>0) {attr.addFlashAttribute("fail", choque); return atalhoLimparEscalaChoque(attr, choque);  }
-		if((choqueDescansoDepoisNoturno.length()==0) && (choque.length()==0)) {
+		//this.choque = service.choquesEmEscalaOnipresenca(escala);
+		//comando para armazenar choque na sessão
+        HttpSession session = httpSessionFactory.getObject();
+        session.setAttribute("choque", service.choquesEmEscalaOnipresenca(escala)  );
+		//this.choqueDescansoDepoisNoturno = service.choquesEmEscalaDepoisDoNoturno(escala);
+        //comando para armazenar choque na sessão
+        session.setAttribute("choqueDescansoDepoisNoturno", service.choquesEmEscalaDepoisDoNoturno(escala)  );
+		if(choqueDescansoDepoisNoturno().length()>0) {attr.addFlashAttribute("fail", choqueDescansoDepoisNoturno()); return atalhoLimparEscalaChoque(attr, choqueDescansoDepoisNoturno()); }
+		if(choque().length()>0) {attr.addFlashAttribute("fail", choque()); return atalhoLimparEscalaChoque(attr, choque());  }
+		if((choqueDescansoDepoisNoturno().length()==0) && (choque().length()==0)) {
 			salvar(escala, null, null);
-			ultimoIdEscala = escala.getId();
+			session = httpSessionFactory.getObject(); session.setAttribute("ultimoIdEscala", escala.getId()  );
 			attr.addFlashAttribute("success", "Confirme CH Dif, Incremento de Risco, Diferenciado, Regime e Turma antes de Lançar.");
 		}
 		return "redirect:/escalas/alterar/escala/"+escala.getId();
@@ -2276,19 +2507,24 @@ public class EscalaController {
 		return "redirect:/escalas/mensagem/de/escala/bloqueada";
 		}		
 
-		Escala escala = service.buscarPorId(ultimoIdEscala);
+		Escala escala = service.buscarPorId(ultimoIdEscala());
 		escala = escalaCalculosService.converteTurnoNuloEmFolga(escala);
 		escala = escalaAtalhosService.atalhoCiclo7C(escala);
 		escala = escalaCalculosService.converteTurnoNuloEmFolga(escala);
 		escala = escalaCalculosService.calcularDadosEscala(escala);
 		//AVALIAÇÃO PARA SABER SE TEM CHOQUES
-		this.choque = service.choquesEmEscalaOnipresenca(escala);
-		this.choqueDescansoDepoisNoturno = service.choquesEmEscalaDepoisDoNoturno(escala);
-		if(choqueDescansoDepoisNoturno.length()>0) {attr.addFlashAttribute("fail", choqueDescansoDepoisNoturno); return atalhoLimparEscalaChoque(attr, choqueDescansoDepoisNoturno); }
-		if(choque.length()>0) {attr.addFlashAttribute("fail", choque); return atalhoLimparEscalaChoque(attr, choque);  }
-		if((choqueDescansoDepoisNoturno.length()==0) && (choque.length()==0)) {
+		//this.choque = service.choquesEmEscalaOnipresenca(escala);
+		//comando para armazenar choque na sessão
+        HttpSession session = httpSessionFactory.getObject();
+        session.setAttribute("choque", service.choquesEmEscalaOnipresenca(escala)  );
+		//this.choqueDescansoDepoisNoturno = service.choquesEmEscalaDepoisDoNoturno(escala);
+        //comando para armazenar choque na sessão
+        session.setAttribute("choqueDescansoDepoisNoturno", service.choquesEmEscalaDepoisDoNoturno(escala)  );
+		if(choqueDescansoDepoisNoturno().length()>0) {attr.addFlashAttribute("fail", choqueDescansoDepoisNoturno()); return atalhoLimparEscalaChoque(attr, choqueDescansoDepoisNoturno()); }
+		if(choque().length()>0) {attr.addFlashAttribute("fail", choque()); return atalhoLimparEscalaChoque(attr, choque());  }
+		if((choqueDescansoDepoisNoturno().length()==0) && (choque().length()==0)) {
 			salvar(escala, null, null);
-			ultimoIdEscala = escala.getId();
+			session = httpSessionFactory.getObject(); session.setAttribute("ultimoIdEscala", escala.getId()  );
 			attr.addFlashAttribute("success", "Confirme CH Dif, Incremento de Risco, Diferenciado, Regime e Turma antes de Lançar.");
 		}
 		return "redirect:/escalas/alterar/escala/"+escala.getId();
@@ -2301,19 +2537,24 @@ public class EscalaController {
 		return "redirect:/escalas/mensagem/de/escala/bloqueada";
 		}		
 
-		Escala escala = service.buscarPorId(ultimoIdEscala);
+		Escala escala = service.buscarPorId(ultimoIdEscala());
 		escala = escalaCalculosService.converteTurnoNuloEmFolga(escala);
 		escala = escalaAtalhosService.atalhoCiclo7D(escala);
 		escala = escalaCalculosService.converteTurnoNuloEmFolga(escala);
 		escala = escalaCalculosService.calcularDadosEscala(escala);
 		//AVALIAÇÃO PARA SABER SE TEM CHOQUES
-		this.choque = service.choquesEmEscalaOnipresenca(escala);
-		this.choqueDescansoDepoisNoturno = service.choquesEmEscalaDepoisDoNoturno(escala);
-		if(choqueDescansoDepoisNoturno.length()>0) {attr.addFlashAttribute("fail", choqueDescansoDepoisNoturno); return atalhoLimparEscalaChoque(attr, choqueDescansoDepoisNoturno); }
-		if(choque.length()>0) {attr.addFlashAttribute("fail", choque); return atalhoLimparEscalaChoque(attr, choque);  }
-		if((choqueDescansoDepoisNoturno.length()==0) && (choque.length()==0)) {
+		//this.choque = service.choquesEmEscalaOnipresenca(escala);
+		//comando para armazenar choque na sessão
+        HttpSession session = httpSessionFactory.getObject();
+        session.setAttribute("choque", service.choquesEmEscalaOnipresenca(escala)  );
+		//this.choqueDescansoDepoisNoturno = service.choquesEmEscalaDepoisDoNoturno(escala);
+        //comando para armazenar choque na sessão
+        session.setAttribute("choqueDescansoDepoisNoturno", service.choquesEmEscalaDepoisDoNoturno(escala)  );
+		if(choqueDescansoDepoisNoturno().length()>0) {attr.addFlashAttribute("fail", choqueDescansoDepoisNoturno()); return atalhoLimparEscalaChoque(attr, choqueDescansoDepoisNoturno()); }
+		if(choque().length()>0) {attr.addFlashAttribute("fail", choque()); return atalhoLimparEscalaChoque(attr, choque());  }
+		if((choqueDescansoDepoisNoturno().length()==0) && (choque().length()==0)) {
 			salvar(escala, null, null);
-			ultimoIdEscala = escala.getId();
+			session = httpSessionFactory.getObject(); session.setAttribute("ultimoIdEscala", escala.getId()  );
 			attr.addFlashAttribute("success", "Confirme CH Dif, Incremento de Risco, Diferenciado, Regime e Turma antes de Lançar.");
 		}
 		return "redirect:/escalas/alterar/escala/"+escala.getId();
@@ -2326,19 +2567,24 @@ public class EscalaController {
 		return "redirect:/escalas/mensagem/de/escala/bloqueada";
 		}		
 
-		Escala escala = service.buscarPorId(ultimoIdEscala);
+		Escala escala = service.buscarPorId(ultimoIdEscala());
 		escala = escalaCalculosService.converteTurnoNuloEmFolga(escala);
 		escala = escalaAtalhosService.atalhoCiclo7E(escala);
 		escala = escalaCalculosService.converteTurnoNuloEmFolga(escala);
 		escala = escalaCalculosService.calcularDadosEscala(escala);
 		//AVALIAÇÃO PARA SABER SE TEM CHOQUES
-		this.choque = service.choquesEmEscalaOnipresenca(escala);
-		this.choqueDescansoDepoisNoturno = service.choquesEmEscalaDepoisDoNoturno(escala);
-		if(choqueDescansoDepoisNoturno.length()>0) {attr.addFlashAttribute("fail", choqueDescansoDepoisNoturno); return atalhoLimparEscalaChoque(attr, choqueDescansoDepoisNoturno); }
-		if(choque.length()>0) {attr.addFlashAttribute("fail", choque); return atalhoLimparEscalaChoque(attr, choque);  }
-		if((choqueDescansoDepoisNoturno.length()==0) && (choque.length()==0)) {
+		//this.choque = service.choquesEmEscalaOnipresenca(escala);
+		//comando para armazenar choque na sessão
+        HttpSession session = httpSessionFactory.getObject();
+        session.setAttribute("choque", service.choquesEmEscalaOnipresenca(escala)  );
+		//this.choqueDescansoDepoisNoturno = service.choquesEmEscalaDepoisDoNoturno(escala);
+        //comando para armazenar choque na sessão
+        session.setAttribute("choqueDescansoDepoisNoturno", service.choquesEmEscalaDepoisDoNoturno(escala)  );
+		if(choqueDescansoDepoisNoturno().length()>0) {attr.addFlashAttribute("fail", choqueDescansoDepoisNoturno()); return atalhoLimparEscalaChoque(attr, choqueDescansoDepoisNoturno()); }
+		if(choque().length()>0) {attr.addFlashAttribute("fail", choque()); return atalhoLimparEscalaChoque(attr, choque());  }
+		if((choqueDescansoDepoisNoturno().length()==0) && (choque().length()==0)) {
 			salvar(escala, null, null);
-			ultimoIdEscala = escala.getId();
+			session = httpSessionFactory.getObject(); session.setAttribute("ultimoIdEscala", escala.getId()  );
 			attr.addFlashAttribute("success", "Confirme CH Dif, Incremento de Risco, Diferenciado, Regime e Turma antes de Lançar.");
 		}
 		return "redirect:/escalas/alterar/escala/"+escala.getId();
@@ -2351,19 +2597,24 @@ public class EscalaController {
 		return "redirect:/escalas/mensagem/de/escala/bloqueada";
 		}		
 
-		Escala escala = service.buscarPorId(ultimoIdEscala);
+		Escala escala = service.buscarPorId(ultimoIdEscala());
 		escala = escalaCalculosService.converteTurnoNuloEmFolga(escala);
 		escala = escalaAtalhosService.atalhoCiclo7F(escala);
 		escala = escalaCalculosService.converteTurnoNuloEmFolga(escala);
 		escala = escalaCalculosService.calcularDadosEscala(escala);
 		//AVALIAÇÃO PARA SABER SE TEM CHOQUES
-		this.choque = service.choquesEmEscalaOnipresenca(escala);
-		this.choqueDescansoDepoisNoturno = service.choquesEmEscalaDepoisDoNoturno(escala);
-		if(choqueDescansoDepoisNoturno.length()>0) {attr.addFlashAttribute("fail", choqueDescansoDepoisNoturno); return atalhoLimparEscalaChoque(attr, choqueDescansoDepoisNoturno); }
-		if(choque.length()>0) {attr.addFlashAttribute("fail", choque); return atalhoLimparEscalaChoque(attr, choque);  }
-		if((choqueDescansoDepoisNoturno.length()==0) && (choque.length()==0)) {
+		//this.choque = service.choquesEmEscalaOnipresenca(escala);
+		//comando para armazenar choque na sessão
+        HttpSession session = httpSessionFactory.getObject();
+        session.setAttribute("choque", service.choquesEmEscalaOnipresenca(escala)  );
+		//this.choqueDescansoDepoisNoturno = service.choquesEmEscalaDepoisDoNoturno(escala);
+        //comando para armazenar choque na sessão
+        session.setAttribute("choqueDescansoDepoisNoturno", service.choquesEmEscalaDepoisDoNoturno(escala)  );
+		if(choqueDescansoDepoisNoturno().length()>0) {attr.addFlashAttribute("fail", choqueDescansoDepoisNoturno()); return atalhoLimparEscalaChoque(attr, choqueDescansoDepoisNoturno()); }
+		if(choque().length()>0) {attr.addFlashAttribute("fail", choque()); return atalhoLimparEscalaChoque(attr, choque());  }
+		if((choqueDescansoDepoisNoturno().length()==0) && (choque().length()==0)) {
 			salvar(escala, null, null);
-			ultimoIdEscala = escala.getId();
+			session = httpSessionFactory.getObject(); session.setAttribute("ultimoIdEscala", escala.getId()  );
 			attr.addFlashAttribute("success", "Confirme CH Dif, Incremento de Risco, Diferenciado, Regime e Turma antes de Lançar.");
 		}
 		return "redirect:/escalas/alterar/escala/"+escala.getId();
@@ -2378,19 +2629,24 @@ public class EscalaController {
 		return "redirect:/escalas/mensagem/de/escala/bloqueada";
 		}		
 
-		Escala escala = service.buscarPorId(ultimoIdEscala);
+		Escala escala = service.buscarPorId(ultimoIdEscala());
 		escala = escalaCalculosService.converteTurnoNuloEmFolga(escala);
 		escala = escalaAtalhosService.atalhoCiclo8A(escala);
 		escala = escalaCalculosService.converteTurnoNuloEmFolga(escala);
 		escala = escalaCalculosService.calcularDadosEscala(escala);
 		//AVALIAÇÃO PARA SABER SE TEM CHOQUES
-		this.choque = service.choquesEmEscalaOnipresenca(escala);
-		this.choqueDescansoDepoisNoturno = service.choquesEmEscalaDepoisDoNoturno(escala);
-		if(choqueDescansoDepoisNoturno.length()>0) {attr.addFlashAttribute("fail", choqueDescansoDepoisNoturno); return atalhoLimparEscalaChoque(attr, choqueDescansoDepoisNoturno); }
-		if(choque.length()>0) {attr.addFlashAttribute("fail", choque); return atalhoLimparEscalaChoque(attr, choque);  }
-		if((choqueDescansoDepoisNoturno.length()==0) && (choque.length()==0)) {
+		//this.choque = service.choquesEmEscalaOnipresenca(escala);
+		//comando para armazenar choque na sessão
+        HttpSession session = httpSessionFactory.getObject();
+        session.setAttribute("choque", service.choquesEmEscalaOnipresenca(escala)  );
+		//this.choqueDescansoDepoisNoturno = service.choquesEmEscalaDepoisDoNoturno(escala);
+        //comando para armazenar choque na sessão
+        session.setAttribute("choqueDescansoDepoisNoturno", service.choquesEmEscalaDepoisDoNoturno(escala)  );
+		if(choqueDescansoDepoisNoturno().length()>0) {attr.addFlashAttribute("fail", choqueDescansoDepoisNoturno()); return atalhoLimparEscalaChoque(attr, choqueDescansoDepoisNoturno()); }
+		if(choque().length()>0) {attr.addFlashAttribute("fail", choque()); return atalhoLimparEscalaChoque(attr, choque());  }
+		if((choqueDescansoDepoisNoturno().length()==0) && (choque().length()==0)) {
 			salvar(escala, null, null);
-			ultimoIdEscala = escala.getId();
+			session = httpSessionFactory.getObject(); session.setAttribute("ultimoIdEscala", escala.getId()  );
 			attr.addFlashAttribute("success", "Confirme CH Dif, Incremento de Risco, Diferenciado, Regime e Turma antes de Lançar.");
 		}
 		return "redirect:/escalas/alterar/escala/"+escala.getId();
@@ -2403,19 +2659,24 @@ public class EscalaController {
 		return "redirect:/escalas/mensagem/de/escala/bloqueada";
 		}		
 
-		Escala escala = service.buscarPorId(ultimoIdEscala);
+		Escala escala = service.buscarPorId(ultimoIdEscala());
 		escala = escalaCalculosService.converteTurnoNuloEmFolga(escala);
 		escala = escalaAtalhosService.atalhoCiclo8B(escala);
 		escala = escalaCalculosService.converteTurnoNuloEmFolga(escala);
 		escala = escalaCalculosService.calcularDadosEscala(escala);
 		//AVALIAÇÃO PARA SABER SE TEM CHOQUES
-		this.choque = service.choquesEmEscalaOnipresenca(escala);
-		this.choqueDescansoDepoisNoturno = service.choquesEmEscalaDepoisDoNoturno(escala);
-		if(choqueDescansoDepoisNoturno.length()>0) {attr.addFlashAttribute("fail", choqueDescansoDepoisNoturno); return atalhoLimparEscalaChoque(attr, choqueDescansoDepoisNoturno); }
-		if(choque.length()>0) {attr.addFlashAttribute("fail", choque); return atalhoLimparEscalaChoque(attr, choque);  }
-		if((choqueDescansoDepoisNoturno.length()==0) && (choque.length()==0)) {
+		//this.choque = service.choquesEmEscalaOnipresenca(escala);
+		//comando para armazenar choque na sessão
+        HttpSession session = httpSessionFactory.getObject();
+        session.setAttribute("choque", service.choquesEmEscalaOnipresenca(escala)  );
+		//this.choqueDescansoDepoisNoturno = service.choquesEmEscalaDepoisDoNoturno(escala);
+        //comando para armazenar choque na sessão
+        session.setAttribute("choqueDescansoDepoisNoturno", service.choquesEmEscalaDepoisDoNoturno(escala)  );
+		if(choqueDescansoDepoisNoturno().length()>0) {attr.addFlashAttribute("fail", choqueDescansoDepoisNoturno()); return atalhoLimparEscalaChoque(attr, choqueDescansoDepoisNoturno()); }
+		if(choque().length()>0) {attr.addFlashAttribute("fail", choque()); return atalhoLimparEscalaChoque(attr, choque());  }
+		if((choqueDescansoDepoisNoturno().length()==0) && (choque().length()==0)) {
 			salvar(escala, null, null);
-			ultimoIdEscala = escala.getId();
+			session = httpSessionFactory.getObject(); session.setAttribute("ultimoIdEscala", escala.getId()  );
 			attr.addFlashAttribute("success", "Confirme CH Dif, Incremento de Risco, Diferenciado, Regime e Turma antes de Lançar.");
 		}
 		return "redirect:/escalas/alterar/escala/"+escala.getId();
@@ -2428,19 +2689,24 @@ public class EscalaController {
 		return "redirect:/escalas/mensagem/de/escala/bloqueada";
 		}		
 
-		Escala escala = service.buscarPorId(ultimoIdEscala);
+		Escala escala = service.buscarPorId(ultimoIdEscala());
 		escala = escalaCalculosService.converteTurnoNuloEmFolga(escala);
 		escala = escalaAtalhosService.atalhoCiclo8C(escala);
 		escala = escalaCalculosService.converteTurnoNuloEmFolga(escala);
 		escala = escalaCalculosService.calcularDadosEscala(escala);
 		//AVALIAÇÃO PARA SABER SE TEM CHOQUES
-		this.choque = service.choquesEmEscalaOnipresenca(escala);
-		this.choqueDescansoDepoisNoturno = service.choquesEmEscalaDepoisDoNoturno(escala);
-		if(choqueDescansoDepoisNoturno.length()>0) {attr.addFlashAttribute("fail", choqueDescansoDepoisNoturno); return atalhoLimparEscalaChoque(attr, choqueDescansoDepoisNoturno); }
-		if(choque.length()>0) {attr.addFlashAttribute("fail", choque); return atalhoLimparEscalaChoque(attr, choque);  }
-		if((choqueDescansoDepoisNoturno.length()==0) && (choque.length()==0)) {
+		//this.choque = service.choquesEmEscalaOnipresenca(escala);
+		//comando para armazenar choque na sessão
+        HttpSession session = httpSessionFactory.getObject();
+        session.setAttribute("choque", service.choquesEmEscalaOnipresenca(escala)  );
+		//this.choqueDescansoDepoisNoturno = service.choquesEmEscalaDepoisDoNoturno(escala);
+        //comando para armazenar choque na sessão
+        session.setAttribute("choqueDescansoDepoisNoturno", service.choquesEmEscalaDepoisDoNoturno(escala)  );
+		if(choqueDescansoDepoisNoturno().length()>0) {attr.addFlashAttribute("fail", choqueDescansoDepoisNoturno()); return atalhoLimparEscalaChoque(attr, choqueDescansoDepoisNoturno()); }
+		if(choque().length()>0) {attr.addFlashAttribute("fail", choque()); return atalhoLimparEscalaChoque(attr, choque());  }
+		if((choqueDescansoDepoisNoturno().length()==0) && (choque().length()==0)) {
 			salvar(escala, null, null);
-			ultimoIdEscala = escala.getId();
+			session = httpSessionFactory.getObject(); session.setAttribute("ultimoIdEscala", escala.getId()  );
 			attr.addFlashAttribute("success", "Confirme CH Dif, Incremento de Risco, Diferenciado, Regime e Turma antes de Lançar.");
 		}
 		return "redirect:/escalas/alterar/escala/"+escala.getId();
@@ -2453,19 +2719,24 @@ public class EscalaController {
 		return "redirect:/escalas/mensagem/de/escala/bloqueada";
 		}		
 
-		Escala escala = service.buscarPorId(ultimoIdEscala);
+		Escala escala = service.buscarPorId(ultimoIdEscala());
 		escala = escalaCalculosService.converteTurnoNuloEmFolga(escala);
 		escala = escalaAtalhosService.atalhoCiclo8D(escala);
 		escala = escalaCalculosService.converteTurnoNuloEmFolga(escala);
 		escala = escalaCalculosService.calcularDadosEscala(escala);
 		//AVALIAÇÃO PARA SABER SE TEM CHOQUES
-		this.choque = service.choquesEmEscalaOnipresenca(escala);
-		this.choqueDescansoDepoisNoturno = service.choquesEmEscalaDepoisDoNoturno(escala);
-		if(choqueDescansoDepoisNoturno.length()>0) {attr.addFlashAttribute("fail", choqueDescansoDepoisNoturno); return atalhoLimparEscalaChoque(attr, choqueDescansoDepoisNoturno); }
-		if(choque.length()>0) {attr.addFlashAttribute("fail", choque); return atalhoLimparEscalaChoque(attr, choque);  }
-		if((choqueDescansoDepoisNoturno.length()==0) && (choque.length()==0)) {
+		//this.choque = service.choquesEmEscalaOnipresenca(escala);
+		//comando para armazenar choque na sessão
+        HttpSession session = httpSessionFactory.getObject();
+        session.setAttribute("choque", service.choquesEmEscalaOnipresenca(escala)  );
+		//this.choqueDescansoDepoisNoturno = service.choquesEmEscalaDepoisDoNoturno(escala);
+        //comando para armazenar choque na sessão
+        session.setAttribute("choqueDescansoDepoisNoturno", service.choquesEmEscalaDepoisDoNoturno(escala)  );
+		if(choqueDescansoDepoisNoturno().length()>0) {attr.addFlashAttribute("fail", choqueDescansoDepoisNoturno()); return atalhoLimparEscalaChoque(attr, choqueDescansoDepoisNoturno()); }
+		if(choque().length()>0) {attr.addFlashAttribute("fail", choque()); return atalhoLimparEscalaChoque(attr, choque());  }
+		if((choqueDescansoDepoisNoturno().length()==0) && (choque().length()==0)) {
 			salvar(escala, null, null);
-			ultimoIdEscala = escala.getId();
+			session = httpSessionFactory.getObject(); session.setAttribute("ultimoIdEscala", escala.getId()  );
 			attr.addFlashAttribute("success", "Confirme CH Dif, Incremento de Risco, Diferenciado, Regime e Turma antes de Lançar.");
 		}
 		return "redirect:/escalas/alterar/escala/"+escala.getId();
@@ -2478,19 +2749,24 @@ public class EscalaController {
 		return "redirect:/escalas/mensagem/de/escala/bloqueada";
 		}		
 
-		Escala escala = service.buscarPorId(ultimoIdEscala);
+		Escala escala = service.buscarPorId(ultimoIdEscala());
 		escala = escalaCalculosService.converteTurnoNuloEmFolga(escala);
 		escala = escalaAtalhosService.atalhoCiclo8E(escala);
 		escala = escalaCalculosService.converteTurnoNuloEmFolga(escala);
 		escala = escalaCalculosService.calcularDadosEscala(escala);
 		//AVALIAÇÃO PARA SABER SE TEM CHOQUES
-		this.choque = service.choquesEmEscalaOnipresenca(escala);
-		this.choqueDescansoDepoisNoturno = service.choquesEmEscalaDepoisDoNoturno(escala);
-		if(choqueDescansoDepoisNoturno.length()>0) {attr.addFlashAttribute("fail", choqueDescansoDepoisNoturno); return atalhoLimparEscalaChoque(attr, choqueDescansoDepoisNoturno); }
-		if(choque.length()>0) {attr.addFlashAttribute("fail", choque); return atalhoLimparEscalaChoque(attr, choque);  }
-		if((choqueDescansoDepoisNoturno.length()==0) && (choque.length()==0)) {
+		//this.choque = service.choquesEmEscalaOnipresenca(escala);
+		//comando para armazenar choque na sessão
+        HttpSession session = httpSessionFactory.getObject();
+        session.setAttribute("choque", service.choquesEmEscalaOnipresenca(escala)  );
+		//this.choqueDescansoDepoisNoturno = service.choquesEmEscalaDepoisDoNoturno(escala);
+        //comando para armazenar choque na sessão
+        session.setAttribute("choqueDescansoDepoisNoturno", service.choquesEmEscalaDepoisDoNoturno(escala)  );
+		if(choqueDescansoDepoisNoturno().length()>0) {attr.addFlashAttribute("fail", choqueDescansoDepoisNoturno()); return atalhoLimparEscalaChoque(attr, choqueDescansoDepoisNoturno()); }
+		if(choque().length()>0) {attr.addFlashAttribute("fail", choque()); return atalhoLimparEscalaChoque(attr, choque());  }
+		if((choqueDescansoDepoisNoturno().length()==0) && (choque().length()==0)) {
 			salvar(escala, null, null);
-			ultimoIdEscala = escala.getId();
+			session = httpSessionFactory.getObject(); session.setAttribute("ultimoIdEscala", escala.getId()  );
 			attr.addFlashAttribute("success", "Confirme CH Dif, Incremento de Risco, Diferenciado, Regime e Turma antes de Lançar.");
 		}
 		return "redirect:/escalas/alterar/escala/"+escala.getId();
@@ -2503,19 +2779,24 @@ public class EscalaController {
 		return "redirect:/escalas/mensagem/de/escala/bloqueada";
 		}		
 
-		Escala escala = service.buscarPorId(ultimoIdEscala);
+		Escala escala = service.buscarPorId(ultimoIdEscala());
 		escala = escalaCalculosService.converteTurnoNuloEmFolga(escala);
 		escala = escalaAtalhosService.atalhoCiclo8F(escala);
 		escala = escalaCalculosService.converteTurnoNuloEmFolga(escala);
 		escala = escalaCalculosService.calcularDadosEscala(escala);
 		//AVALIAÇÃO PARA SABER SE TEM CHOQUES
-		this.choque = service.choquesEmEscalaOnipresenca(escala);
-		this.choqueDescansoDepoisNoturno = service.choquesEmEscalaDepoisDoNoturno(escala);
-		if(choqueDescansoDepoisNoturno.length()>0) {attr.addFlashAttribute("fail", choqueDescansoDepoisNoturno); return atalhoLimparEscalaChoque(attr, choqueDescansoDepoisNoturno); }
-		if(choque.length()>0) {attr.addFlashAttribute("fail", choque); return atalhoLimparEscalaChoque(attr, choque);  }
-		if((choqueDescansoDepoisNoturno.length()==0) && (choque.length()==0)) {
+		//this.choque = service.choquesEmEscalaOnipresenca(escala);
+		//comando para armazenar choque na sessão
+        HttpSession session = httpSessionFactory.getObject();
+        session.setAttribute("choque", service.choquesEmEscalaOnipresenca(escala)  );
+		//this.choqueDescansoDepoisNoturno = service.choquesEmEscalaDepoisDoNoturno(escala);
+        //comando para armazenar choque na sessão
+        session.setAttribute("choqueDescansoDepoisNoturno", service.choquesEmEscalaDepoisDoNoturno(escala)  );
+		if(choqueDescansoDepoisNoturno().length()>0) {attr.addFlashAttribute("fail", choqueDescansoDepoisNoturno()); return atalhoLimparEscalaChoque(attr, choqueDescansoDepoisNoturno()); }
+		if(choque().length()>0) {attr.addFlashAttribute("fail", choque()); return atalhoLimparEscalaChoque(attr, choque());  }
+		if((choqueDescansoDepoisNoturno().length()==0) && (choque().length()==0)) {
 			salvar(escala, null, null);
-			ultimoIdEscala = escala.getId();
+			session = httpSessionFactory.getObject(); session.setAttribute("ultimoIdEscala", escala.getId()  );
 			attr.addFlashAttribute("success", "Confirme CH Dif, Incremento de Risco, Diferenciado, Regime e Turma antes de Lançar.");
 		}
 		return "redirect:/escalas/alterar/escala/"+escala.getId();
@@ -2528,19 +2809,24 @@ public class EscalaController {
 		return "redirect:/escalas/mensagem/de/escala/bloqueada";
 		}		
 
-		Escala escala = service.buscarPorId(ultimoIdEscala);
+		Escala escala = service.buscarPorId(ultimoIdEscala());
 		escala = escalaCalculosService.converteTurnoNuloEmFolga(escala);
 		escala = escalaAtalhosService.atalhoCiclo8G(escala);
 		escala = escalaCalculosService.converteTurnoNuloEmFolga(escala);
 		escala = escalaCalculosService.calcularDadosEscala(escala);
 		//AVALIAÇÃO PARA SABER SE TEM CHOQUES
-		this.choque = service.choquesEmEscalaOnipresenca(escala);
-		this.choqueDescansoDepoisNoturno = service.choquesEmEscalaDepoisDoNoturno(escala);
-		if(choqueDescansoDepoisNoturno.length()>0) {attr.addFlashAttribute("fail", choqueDescansoDepoisNoturno); return atalhoLimparEscalaChoque(attr, choqueDescansoDepoisNoturno); }
-		if(choque.length()>0) {attr.addFlashAttribute("fail", choque); return atalhoLimparEscalaChoque(attr, choque);  }
-		if((choqueDescansoDepoisNoturno.length()==0) && (choque.length()==0)) {
+		//this.choque = service.choquesEmEscalaOnipresenca(escala);
+		//comando para armazenar choque na sessão
+        HttpSession session = httpSessionFactory.getObject();
+        session.setAttribute("choque", service.choquesEmEscalaOnipresenca(escala)  );
+		//this.choqueDescansoDepoisNoturno = service.choquesEmEscalaDepoisDoNoturno(escala);
+        //comando para armazenar choque na sessão
+        session.setAttribute("choqueDescansoDepoisNoturno", service.choquesEmEscalaDepoisDoNoturno(escala)  );
+		if(choqueDescansoDepoisNoturno().length()>0) {attr.addFlashAttribute("fail", choqueDescansoDepoisNoturno()); return atalhoLimparEscalaChoque(attr, choqueDescansoDepoisNoturno()); }
+		if(choque().length()>0) {attr.addFlashAttribute("fail", choque()); return atalhoLimparEscalaChoque(attr, choque());  }
+		if((choqueDescansoDepoisNoturno().length()==0) && (choque().length()==0)) {
 			salvar(escala, null, null);
-			ultimoIdEscala = escala.getId();
+			session = httpSessionFactory.getObject(); session.setAttribute("ultimoIdEscala", escala.getId()  );
 			attr.addFlashAttribute("success", "Confirme CH Dif, Incremento de Risco, Diferenciado, Regime e Turma antes de Lançar.");
 		}
 		return "redirect:/escalas/alterar/escala/"+escala.getId();
@@ -2555,19 +2841,24 @@ public class EscalaController {
 		return "redirect:/escalas/mensagem/de/escala/bloqueada";
 		}		
 
-		Escala escala = service.buscarPorId(ultimoIdEscala);
+		Escala escala = service.buscarPorId(ultimoIdEscala());
 		escala = escalaCalculosService.converteTurnoNuloEmFolga(escala);
 		escala = escalaAtalhosService.atalhoCiclo9A(escala);
 		escala = escalaCalculosService.converteTurnoNuloEmFolga(escala);
 		escala = escalaCalculosService.calcularDadosEscala(escala);
 		//AVALIAÇÃO PARA SABER SE TEM CHOQUES
-		this.choque = service.choquesEmEscalaOnipresenca(escala);
-		this.choqueDescansoDepoisNoturno = service.choquesEmEscalaDepoisDoNoturno(escala);
-		if(choqueDescansoDepoisNoturno.length()>0) {attr.addFlashAttribute("fail", choqueDescansoDepoisNoturno); return atalhoLimparEscalaChoque(attr, choqueDescansoDepoisNoturno); }
-		if(choque.length()>0) {attr.addFlashAttribute("fail", choque); return atalhoLimparEscalaChoque(attr, choque);  }
-		if((choqueDescansoDepoisNoturno.length()==0) && (choque.length()==0)) {
+		//this.choque = service.choquesEmEscalaOnipresenca(escala);
+		//comando para armazenar choque na sessão
+        HttpSession session = httpSessionFactory.getObject();
+        session.setAttribute("choque", service.choquesEmEscalaOnipresenca(escala)  );
+		//this.choqueDescansoDepoisNoturno = service.choquesEmEscalaDepoisDoNoturno(escala);
+        //comando para armazenar choque na sessão
+        session.setAttribute("choqueDescansoDepoisNoturno", service.choquesEmEscalaDepoisDoNoturno(escala)  );
+		if(choqueDescansoDepoisNoturno().length()>0) {attr.addFlashAttribute("fail", choqueDescansoDepoisNoturno()); return atalhoLimparEscalaChoque(attr, choqueDescansoDepoisNoturno()); }
+		if(choque().length()>0) {attr.addFlashAttribute("fail", choque()); return atalhoLimparEscalaChoque(attr, choque());  }
+		if((choqueDescansoDepoisNoturno().length()==0) && (choque().length()==0)) {
 			salvar(escala, null, null);
-			ultimoIdEscala = escala.getId();
+			session = httpSessionFactory.getObject(); session.setAttribute("ultimoIdEscala", escala.getId()  );
 			attr.addFlashAttribute("success", "Confirme CH Dif, Incremento de Risco, Diferenciado, Regime e Turma antes de Lançar.");
 		}
 		return "redirect:/escalas/alterar/escala/"+escala.getId();
@@ -2580,19 +2871,24 @@ public class EscalaController {
 		return "redirect:/escalas/mensagem/de/escala/bloqueada";
 		}		
 
-		Escala escala = service.buscarPorId(ultimoIdEscala);
+		Escala escala = service.buscarPorId(ultimoIdEscala());
 		escala = escalaCalculosService.converteTurnoNuloEmFolga(escala);
 		escala = escalaAtalhosService.atalhoCiclo9B(escala);
 		escala = escalaCalculosService.converteTurnoNuloEmFolga(escala);
 		escala = escalaCalculosService.calcularDadosEscala(escala);
 		//AVALIAÇÃO PARA SABER SE TEM CHOQUES
-		this.choque = service.choquesEmEscalaOnipresenca(escala);
-		this.choqueDescansoDepoisNoturno = service.choquesEmEscalaDepoisDoNoturno(escala);
-		if(choqueDescansoDepoisNoturno.length()>0) {attr.addFlashAttribute("fail", choqueDescansoDepoisNoturno); return atalhoLimparEscalaChoque(attr, choqueDescansoDepoisNoturno); }
-		if(choque.length()>0) {attr.addFlashAttribute("fail", choque); return atalhoLimparEscalaChoque(attr, choque);  }
-		if((choqueDescansoDepoisNoturno.length()==0) && (choque.length()==0)) {
+		//this.choque = service.choquesEmEscalaOnipresenca(escala);
+		//comando para armazenar choque na sessão
+        HttpSession session = httpSessionFactory.getObject();
+        session.setAttribute("choque", service.choquesEmEscalaOnipresenca(escala)  );
+		//this.choqueDescansoDepoisNoturno = service.choquesEmEscalaDepoisDoNoturno(escala);
+        //comando para armazenar choque na sessão
+        session.setAttribute("choqueDescansoDepoisNoturno", service.choquesEmEscalaDepoisDoNoturno(escala)  );
+		if(choqueDescansoDepoisNoturno().length()>0) {attr.addFlashAttribute("fail", choqueDescansoDepoisNoturno()); return atalhoLimparEscalaChoque(attr, choqueDescansoDepoisNoturno()); }
+		if(choque().length()>0) {attr.addFlashAttribute("fail", choque()); return atalhoLimparEscalaChoque(attr, choque());  }
+		if((choqueDescansoDepoisNoturno().length()==0) && (choque().length()==0)) {
 			salvar(escala, null, null);
-			ultimoIdEscala = escala.getId();
+			session = httpSessionFactory.getObject(); session.setAttribute("ultimoIdEscala", escala.getId()  );
 			attr.addFlashAttribute("success", "Confirme CH Dif, Incremento de Risco, Diferenciado, Regime e Turma antes de Lançar.");
 		}
 		return "redirect:/escalas/alterar/escala/"+escala.getId();
@@ -2605,19 +2901,24 @@ public class EscalaController {
 		return "redirect:/escalas/mensagem/de/escala/bloqueada";
 		}		
 
-		Escala escala = service.buscarPorId(ultimoIdEscala);
+		Escala escala = service.buscarPorId(ultimoIdEscala());
 		escala = escalaCalculosService.converteTurnoNuloEmFolga(escala);
 		escala = escalaAtalhosService.atalhoCiclo9C(escala);
 		escala = escalaCalculosService.converteTurnoNuloEmFolga(escala);
 		escala = escalaCalculosService.calcularDadosEscala(escala);
 		//AVALIAÇÃO PARA SABER SE TEM CHOQUES
-		this.choque = service.choquesEmEscalaOnipresenca(escala);
-		this.choqueDescansoDepoisNoturno = service.choquesEmEscalaDepoisDoNoturno(escala);
-		if(choqueDescansoDepoisNoturno.length()>0) {attr.addFlashAttribute("fail", choqueDescansoDepoisNoturno); return atalhoLimparEscalaChoque(attr, choqueDescansoDepoisNoturno); }
-		if(choque.length()>0) {attr.addFlashAttribute("fail", choque); return atalhoLimparEscalaChoque(attr, choque);  }
-		if((choqueDescansoDepoisNoturno.length()==0) && (choque.length()==0)) {
+		//this.choque = service.choquesEmEscalaOnipresenca(escala);
+		//comando para armazenar choque na sessão
+        HttpSession session = httpSessionFactory.getObject();
+        session.setAttribute("choque", service.choquesEmEscalaOnipresenca(escala)  );
+		//this.choqueDescansoDepoisNoturno = service.choquesEmEscalaDepoisDoNoturno(escala);
+        //comando para armazenar choque na sessão
+        session.setAttribute("choqueDescansoDepoisNoturno", service.choquesEmEscalaDepoisDoNoturno(escala)  );
+		if(choqueDescansoDepoisNoturno().length()>0) {attr.addFlashAttribute("fail", choqueDescansoDepoisNoturno()); return atalhoLimparEscalaChoque(attr, choqueDescansoDepoisNoturno()); }
+		if(choque().length()>0) {attr.addFlashAttribute("fail", choque()); return atalhoLimparEscalaChoque(attr, choque());  }
+		if((choqueDescansoDepoisNoturno().length()==0) && (choque().length()==0)) {
 			salvar(escala, null, null);
-			ultimoIdEscala = escala.getId();
+			session = httpSessionFactory.getObject(); session.setAttribute("ultimoIdEscala", escala.getId()  );
 			attr.addFlashAttribute("success", "Confirme CH Dif, Incremento de Risco, Diferenciado, Regime e Turma antes de Lançar.");
 		}
 		return "redirect:/escalas/alterar/escala/"+escala.getId();
@@ -2630,19 +2931,24 @@ public class EscalaController {
 		return "redirect:/escalas/mensagem/de/escala/bloqueada";
 		}		
 
-		Escala escala = service.buscarPorId(ultimoIdEscala);
+		Escala escala = service.buscarPorId(ultimoIdEscala());
 		escala = escalaCalculosService.converteTurnoNuloEmFolga(escala);
 		escala = escalaAtalhosService.atalhoCiclo9D(escala);
 		escala = escalaCalculosService.converteTurnoNuloEmFolga(escala);
 		escala = escalaCalculosService.calcularDadosEscala(escala);
 		//AVALIAÇÃO PARA SABER SE TEM CHOQUES
-		this.choque = service.choquesEmEscalaOnipresenca(escala);
-		this.choqueDescansoDepoisNoturno = service.choquesEmEscalaDepoisDoNoturno(escala);
-		if(choqueDescansoDepoisNoturno.length()>0) {attr.addFlashAttribute("fail", choqueDescansoDepoisNoturno); return atalhoLimparEscalaChoque(attr, choqueDescansoDepoisNoturno); }
-		if(choque.length()>0) {attr.addFlashAttribute("fail", choque); return atalhoLimparEscalaChoque(attr, choque);  }
-		if((choqueDescansoDepoisNoturno.length()==0) && (choque.length()==0)) {
+		//this.choque = service.choquesEmEscalaOnipresenca(escala);
+		//comando para armazenar choque na sessão
+        HttpSession session = httpSessionFactory.getObject();
+        session.setAttribute("choque", service.choquesEmEscalaOnipresenca(escala)  );
+		//this.choqueDescansoDepoisNoturno = service.choquesEmEscalaDepoisDoNoturno(escala);
+        //comando para armazenar choque na sessão
+        session.setAttribute("choqueDescansoDepoisNoturno", service.choquesEmEscalaDepoisDoNoturno(escala)  );
+		if(choqueDescansoDepoisNoturno().length()>0) {attr.addFlashAttribute("fail", choqueDescansoDepoisNoturno()); return atalhoLimparEscalaChoque(attr, choqueDescansoDepoisNoturno()); }
+		if(choque().length()>0) {attr.addFlashAttribute("fail", choque()); return atalhoLimparEscalaChoque(attr, choque());  }
+		if((choqueDescansoDepoisNoturno().length()==0) && (choque().length()==0)) {
 			salvar(escala, null, null);
-			ultimoIdEscala = escala.getId();
+			session = httpSessionFactory.getObject(); session.setAttribute("ultimoIdEscala", escala.getId()  );
 			attr.addFlashAttribute("success", "Confirme CH Dif, Incremento de Risco, Diferenciado, Regime e Turma antes de Lançar.");
 		}
 		return "redirect:/escalas/alterar/escala/"+escala.getId();
@@ -2655,19 +2961,24 @@ public class EscalaController {
 		return "redirect:/escalas/mensagem/de/escala/bloqueada";
 		}		
 
-		Escala escala = service.buscarPorId(ultimoIdEscala);
+		Escala escala = service.buscarPorId(ultimoIdEscala());
 		escala = escalaCalculosService.converteTurnoNuloEmFolga(escala);
 		escala = escalaAtalhosService.atalhoCiclo9E(escala);
 		escala = escalaCalculosService.converteTurnoNuloEmFolga(escala);
 		escala = escalaCalculosService.calcularDadosEscala(escala);
 		//AVALIAÇÃO PARA SABER SE TEM CHOQUES
-		this.choque = service.choquesEmEscalaOnipresenca(escala);
-		this.choqueDescansoDepoisNoturno = service.choquesEmEscalaDepoisDoNoturno(escala);
-		if(choqueDescansoDepoisNoturno.length()>0) {attr.addFlashAttribute("fail", choqueDescansoDepoisNoturno); return atalhoLimparEscalaChoque(attr, choqueDescansoDepoisNoturno); }
-		if(choque.length()>0) {attr.addFlashAttribute("fail", choque); return atalhoLimparEscalaChoque(attr, choque);  }
-		if((choqueDescansoDepoisNoturno.length()==0) && (choque.length()==0)) {
+		//this.choque = service.choquesEmEscalaOnipresenca(escala);
+		//comando para armazenar choque na sessão
+        HttpSession session = httpSessionFactory.getObject();
+        session.setAttribute("choque", service.choquesEmEscalaOnipresenca(escala)  );
+		//this.choqueDescansoDepoisNoturno = service.choquesEmEscalaDepoisDoNoturno(escala);
+        //comando para armazenar choque na sessão
+        session.setAttribute("choqueDescansoDepoisNoturno", service.choquesEmEscalaDepoisDoNoturno(escala)  );
+		if(choqueDescansoDepoisNoturno().length()>0) {attr.addFlashAttribute("fail", choqueDescansoDepoisNoturno()); return atalhoLimparEscalaChoque(attr, choqueDescansoDepoisNoturno()); }
+		if(choque().length()>0) {attr.addFlashAttribute("fail", choque()); return atalhoLimparEscalaChoque(attr, choque());  }
+		if((choqueDescansoDepoisNoturno().length()==0) && (choque().length()==0)) {
 			salvar(escala, null, null);
-			ultimoIdEscala = escala.getId();
+			session = httpSessionFactory.getObject(); session.setAttribute("ultimoIdEscala", escala.getId()  );
 			attr.addFlashAttribute("success", "Confirme CH Dif, Incremento de Risco, Diferenciado, Regime e Turma antes de Lançar.");
 		}
 		return "redirect:/escalas/alterar/escala/"+escala.getId();
@@ -2680,19 +2991,24 @@ public class EscalaController {
 		return "redirect:/escalas/mensagem/de/escala/bloqueada";
 		}		
 
-		Escala escala = service.buscarPorId(ultimoIdEscala);
+		Escala escala = service.buscarPorId(ultimoIdEscala());
 		escala = escalaCalculosService.converteTurnoNuloEmFolga(escala);
 		escala = escalaAtalhosService.atalhoCiclo9F(escala);
 		escala = escalaCalculosService.converteTurnoNuloEmFolga(escala);
 		escala = escalaCalculosService.calcularDadosEscala(escala);
 		//AVALIAÇÃO PARA SABER SE TEM CHOQUES
-		this.choque = service.choquesEmEscalaOnipresenca(escala);
-		this.choqueDescansoDepoisNoturno = service.choquesEmEscalaDepoisDoNoturno(escala);
-		if(choqueDescansoDepoisNoturno.length()>0) {attr.addFlashAttribute("fail", choqueDescansoDepoisNoturno); return atalhoLimparEscalaChoque(attr, choqueDescansoDepoisNoturno); }
-		if(choque.length()>0) {attr.addFlashAttribute("fail", choque); return atalhoLimparEscalaChoque(attr, choque);  }
-		if((choqueDescansoDepoisNoturno.length()==0) && (choque.length()==0)) {
+		//this.choque = service.choquesEmEscalaOnipresenca(escala);
+		//comando para armazenar choque na sessão
+        HttpSession session = httpSessionFactory.getObject();
+        session.setAttribute("choque", service.choquesEmEscalaOnipresenca(escala)  );
+		//this.choqueDescansoDepoisNoturno = service.choquesEmEscalaDepoisDoNoturno(escala);
+        //comando para armazenar choque na sessão
+        session.setAttribute("choqueDescansoDepoisNoturno", service.choquesEmEscalaDepoisDoNoturno(escala)  );
+		if(choqueDescansoDepoisNoturno().length()>0) {attr.addFlashAttribute("fail", choqueDescansoDepoisNoturno()); return atalhoLimparEscalaChoque(attr, choqueDescansoDepoisNoturno()); }
+		if(choque().length()>0) {attr.addFlashAttribute("fail", choque()); return atalhoLimparEscalaChoque(attr, choque());  }
+		if((choqueDescansoDepoisNoturno().length()==0) && (choque().length()==0)) {
 			salvar(escala, null, null);
-			ultimoIdEscala = escala.getId();
+			session = httpSessionFactory.getObject(); session.setAttribute("ultimoIdEscala", escala.getId()  );
 			attr.addFlashAttribute("success", "Confirme CH Dif, Incremento de Risco, Diferenciado, Regime e Turma antes de Lançar.");
 		}
 		return "redirect:/escalas/alterar/escala/"+escala.getId();
@@ -2705,19 +3021,24 @@ public class EscalaController {
 		return "redirect:/escalas/mensagem/de/escala/bloqueada";
 		}		
 
-		Escala escala = service.buscarPorId(ultimoIdEscala);
+		Escala escala = service.buscarPorId(ultimoIdEscala());
 		escala = escalaCalculosService.converteTurnoNuloEmFolga(escala);
 		escala = escalaAtalhosService.atalhoCiclo9G(escala);
 		escala = escalaCalculosService.converteTurnoNuloEmFolga(escala);
 		escala = escalaCalculosService.calcularDadosEscala(escala);
 		//AVALIAÇÃO PARA SABER SE TEM CHOQUES
-		this.choque = service.choquesEmEscalaOnipresenca(escala);
-		this.choqueDescansoDepoisNoturno = service.choquesEmEscalaDepoisDoNoturno(escala);
-		if(choqueDescansoDepoisNoturno.length()>0) {attr.addFlashAttribute("fail", choqueDescansoDepoisNoturno); return atalhoLimparEscalaChoque(attr, choqueDescansoDepoisNoturno); }
-		if(choque.length()>0) {attr.addFlashAttribute("fail", choque); return atalhoLimparEscalaChoque(attr, choque);  }
-		if((choqueDescansoDepoisNoturno.length()==0) && (choque.length()==0)) {
+		//this.choque = service.choquesEmEscalaOnipresenca(escala);
+		//comando para armazenar choque na sessão
+        HttpSession session = httpSessionFactory.getObject();
+        session.setAttribute("choque", service.choquesEmEscalaOnipresenca(escala)  );
+		//this.choqueDescansoDepoisNoturno = service.choquesEmEscalaDepoisDoNoturno(escala);
+        //comando para armazenar choque na sessão
+        session.setAttribute("choqueDescansoDepoisNoturno", service.choquesEmEscalaDepoisDoNoturno(escala)  );
+		if(choqueDescansoDepoisNoturno().length()>0) {attr.addFlashAttribute("fail", choqueDescansoDepoisNoturno()); return atalhoLimparEscalaChoque(attr, choqueDescansoDepoisNoturno()); }
+		if(choque().length()>0) {attr.addFlashAttribute("fail", choque()); return atalhoLimparEscalaChoque(attr, choque());  }
+		if((choqueDescansoDepoisNoturno().length()==0) && (choque().length()==0)) {
 			salvar(escala, null, null);
-			ultimoIdEscala = escala.getId();
+			session = httpSessionFactory.getObject(); session.setAttribute("ultimoIdEscala", escala.getId()  );
 			attr.addFlashAttribute("success", "Confirme CH Dif, Incremento de Risco, Diferenciado, Regime e Turma antes de Lançar.");
 		}
 		return "redirect:/escalas/alterar/escala/"+escala.getId();
@@ -2732,19 +3053,24 @@ public class EscalaController {
 		return "redirect:/escalas/mensagem/de/escala/bloqueada";
 		}		
 
-		Escala escala = service.buscarPorId(ultimoIdEscala);
+		Escala escala = service.buscarPorId(ultimoIdEscala());
 		escala = escalaCalculosService.converteTurnoNuloEmFolga(escala);
 		escala = escalaAtalhosService.atalhoCiclo10A(escala);
 		escala = escalaCalculosService.converteTurnoNuloEmFolga(escala);
 		escala = escalaCalculosService.calcularDadosEscala(escala);
 		//AVALIAÇÃO PARA SABER SE TEM CHOQUES
-		this.choque = service.choquesEmEscalaOnipresenca(escala);
-		this.choqueDescansoDepoisNoturno = service.choquesEmEscalaDepoisDoNoturno(escala);
-		if(choqueDescansoDepoisNoturno.length()>0) {attr.addFlashAttribute("fail", choqueDescansoDepoisNoturno); return atalhoLimparEscalaChoque(attr, choqueDescansoDepoisNoturno); }
-		if(choque.length()>0) {attr.addFlashAttribute("fail", choque); return atalhoLimparEscalaChoque(attr, choque);  }
-		if((choqueDescansoDepoisNoturno.length()==0) && (choque.length()==0)) {
+		//this.choque = service.choquesEmEscalaOnipresenca(escala);
+		//comando para armazenar choque na sessão
+        HttpSession session = httpSessionFactory.getObject();
+        session.setAttribute("choque", service.choquesEmEscalaOnipresenca(escala)  );
+		//this.choqueDescansoDepoisNoturno = service.choquesEmEscalaDepoisDoNoturno(escala);
+        //comando para armazenar choque na sessão
+        session.setAttribute("choqueDescansoDepoisNoturno", service.choquesEmEscalaDepoisDoNoturno(escala)  );
+		if(choqueDescansoDepoisNoturno().length()>0) {attr.addFlashAttribute("fail", choqueDescansoDepoisNoturno()); return atalhoLimparEscalaChoque(attr, choqueDescansoDepoisNoturno()); }
+		if(choque().length()>0) {attr.addFlashAttribute("fail", choque()); return atalhoLimparEscalaChoque(attr, choque());  }
+		if((choqueDescansoDepoisNoturno().length()==0) && (choque().length()==0)) {
 			salvar(escala, null, null);
-			ultimoIdEscala = escala.getId();
+			session = httpSessionFactory.getObject(); session.setAttribute("ultimoIdEscala", escala.getId()  );
 			attr.addFlashAttribute("success", "Confirme CH Dif, Incremento de Risco, Diferenciado, Regime e Turma antes de Lançar.");
 		}
 		return "redirect:/escalas/alterar/escala/"+escala.getId();
@@ -2757,19 +3083,24 @@ public class EscalaController {
 		return "redirect:/escalas/mensagem/de/escala/bloqueada";
 		}		
 
-		Escala escala = service.buscarPorId(ultimoIdEscala);
+		Escala escala = service.buscarPorId(ultimoIdEscala());
 		escala = escalaCalculosService.converteTurnoNuloEmFolga(escala);
 		escala = escalaAtalhosService.atalhoCiclo10B(escala);
 		escala = escalaCalculosService.converteTurnoNuloEmFolga(escala);
 		escala = escalaCalculosService.calcularDadosEscala(escala);
 		//AVALIAÇÃO PARA SABER SE TEM CHOQUES
-		this.choque = service.choquesEmEscalaOnipresenca(escala);
-		this.choqueDescansoDepoisNoturno = service.choquesEmEscalaDepoisDoNoturno(escala);
-		if(choqueDescansoDepoisNoturno.length()>0) {attr.addFlashAttribute("fail", choqueDescansoDepoisNoturno); return atalhoLimparEscalaChoque(attr, choqueDescansoDepoisNoturno); }
-		if(choque.length()>0) {attr.addFlashAttribute("fail", choque); return atalhoLimparEscalaChoque(attr, choque);  }
-		if((choqueDescansoDepoisNoturno.length()==0) && (choque.length()==0)) {
+		//this.choque = service.choquesEmEscalaOnipresenca(escala);
+		//comando para armazenar choque na sessão
+        HttpSession session = httpSessionFactory.getObject();
+        session.setAttribute("choque", service.choquesEmEscalaOnipresenca(escala)  );
+		//this.choqueDescansoDepoisNoturno = service.choquesEmEscalaDepoisDoNoturno(escala);
+        //comando para armazenar choque na sessão
+        session.setAttribute("choqueDescansoDepoisNoturno", service.choquesEmEscalaDepoisDoNoturno(escala)  );
+		if(choqueDescansoDepoisNoturno().length()>0) {attr.addFlashAttribute("fail", choqueDescansoDepoisNoturno()); return atalhoLimparEscalaChoque(attr, choqueDescansoDepoisNoturno()); }
+		if(choque().length()>0) {attr.addFlashAttribute("fail", choque()); return atalhoLimparEscalaChoque(attr, choque());  }
+		if((choqueDescansoDepoisNoturno().length()==0) && (choque().length()==0)) {
 			salvar(escala, null, null);
-			ultimoIdEscala = escala.getId();
+			session = httpSessionFactory.getObject(); session.setAttribute("ultimoIdEscala", escala.getId()  );
 			attr.addFlashAttribute("success", "Confirme CH Dif, Incremento de Risco, Diferenciado, Regime e Turma antes de Lançar.");
 		}
 		return "redirect:/escalas/alterar/escala/"+escala.getId();
@@ -2782,19 +3113,24 @@ public class EscalaController {
 		return "redirect:/escalas/mensagem/de/escala/bloqueada";
 		}		
 
-		Escala escala = service.buscarPorId(ultimoIdEscala);
+		Escala escala = service.buscarPorId(ultimoIdEscala());
 		escala = escalaCalculosService.converteTurnoNuloEmFolga(escala);
 		escala = escalaAtalhosService.atalhoCiclo10C(escala);
 		escala = escalaCalculosService.converteTurnoNuloEmFolga(escala);
 		escala = escalaCalculosService.calcularDadosEscala(escala);
 		//AVALIAÇÃO PARA SABER SE TEM CHOQUES
-		this.choque = service.choquesEmEscalaOnipresenca(escala);
-		this.choqueDescansoDepoisNoturno = service.choquesEmEscalaDepoisDoNoturno(escala);
-		if(choqueDescansoDepoisNoturno.length()>0) {attr.addFlashAttribute("fail", choqueDescansoDepoisNoturno); return atalhoLimparEscalaChoque(attr, choqueDescansoDepoisNoturno); }
-		if(choque.length()>0) {attr.addFlashAttribute("fail", choque); return atalhoLimparEscalaChoque(attr, choque);  }
-		if((choqueDescansoDepoisNoturno.length()==0) && (choque.length()==0)) {
+		//this.choque = service.choquesEmEscalaOnipresenca(escala);
+		//comando para armazenar choque na sessão
+        HttpSession session = httpSessionFactory.getObject();
+        session.setAttribute("choque", service.choquesEmEscalaOnipresenca(escala)  );
+		//this.choqueDescansoDepoisNoturno = service.choquesEmEscalaDepoisDoNoturno(escala);
+        //comando para armazenar choque na sessão
+        session.setAttribute("choqueDescansoDepoisNoturno", service.choquesEmEscalaDepoisDoNoturno(escala)  );
+		if(choqueDescansoDepoisNoturno().length()>0) {attr.addFlashAttribute("fail", choqueDescansoDepoisNoturno()); return atalhoLimparEscalaChoque(attr, choqueDescansoDepoisNoturno()); }
+		if(choque().length()>0) {attr.addFlashAttribute("fail", choque()); return atalhoLimparEscalaChoque(attr, choque());  }
+		if((choqueDescansoDepoisNoturno().length()==0) && (choque().length()==0)) {
 			salvar(escala, null, null);
-			ultimoIdEscala = escala.getId();
+			session = httpSessionFactory.getObject(); session.setAttribute("ultimoIdEscala", escala.getId()  );
 			attr.addFlashAttribute("success", "Confirme CH Dif, Incremento de Risco, Diferenciado, Regime e Turma antes de Lançar.");
 		}
 		return "redirect:/escalas/alterar/escala/"+escala.getId();
@@ -2807,19 +3143,24 @@ public class EscalaController {
 		return "redirect:/escalas/mensagem/de/escala/bloqueada";
 		}		
 
-		Escala escala = service.buscarPorId(ultimoIdEscala);
+		Escala escala = service.buscarPorId(ultimoIdEscala());
 		escala = escalaCalculosService.converteTurnoNuloEmFolga(escala);
 		escala = escalaAtalhosService.atalhoCiclo10D(escala);
 		escala = escalaCalculosService.converteTurnoNuloEmFolga(escala);
 		escala = escalaCalculosService.calcularDadosEscala(escala);
 		//AVALIAÇÃO PARA SABER SE TEM CHOQUES
-		this.choque = service.choquesEmEscalaOnipresenca(escala);
-		this.choqueDescansoDepoisNoturno = service.choquesEmEscalaDepoisDoNoturno(escala);
-		if(choqueDescansoDepoisNoturno.length()>0) {attr.addFlashAttribute("fail", choqueDescansoDepoisNoturno); return atalhoLimparEscalaChoque(attr, choqueDescansoDepoisNoturno); }
-		if(choque.length()>0) {attr.addFlashAttribute("fail", choque); return atalhoLimparEscalaChoque(attr, choque);  }
-		if((choqueDescansoDepoisNoturno.length()==0) && (choque.length()==0)) {
+		//this.choque = service.choquesEmEscalaOnipresenca(escala);
+		//comando para armazenar choque na sessão
+        HttpSession session = httpSessionFactory.getObject();
+        session.setAttribute("choque", service.choquesEmEscalaOnipresenca(escala)  );
+		//this.choqueDescansoDepoisNoturno = service.choquesEmEscalaDepoisDoNoturno(escala);
+        //comando para armazenar choque na sessão
+        session.setAttribute("choqueDescansoDepoisNoturno", service.choquesEmEscalaDepoisDoNoturno(escala)  );
+		if(choqueDescansoDepoisNoturno().length()>0) {attr.addFlashAttribute("fail", choqueDescansoDepoisNoturno()); return atalhoLimparEscalaChoque(attr, choqueDescansoDepoisNoturno()); }
+		if(choque().length()>0) {attr.addFlashAttribute("fail", choque()); return atalhoLimparEscalaChoque(attr, choque());  }
+		if((choqueDescansoDepoisNoturno().length()==0) && (choque().length()==0)) {
 			salvar(escala, null, null);
-			ultimoIdEscala = escala.getId();
+			session = httpSessionFactory.getObject(); session.setAttribute("ultimoIdEscala", escala.getId()  );
 			attr.addFlashAttribute("success", "Confirme CH Dif, Incremento de Risco, Diferenciado, Regime e Turma antes de Lançar.");
 		}
 		return "redirect:/escalas/alterar/escala/"+escala.getId();
@@ -2832,19 +3173,24 @@ public class EscalaController {
 		return "redirect:/escalas/mensagem/de/escala/bloqueada";
 		}		
 
-		Escala escala = service.buscarPorId(ultimoIdEscala);
+		Escala escala = service.buscarPorId(ultimoIdEscala());
 		escala = escalaCalculosService.converteTurnoNuloEmFolga(escala);
 		escala = escalaAtalhosService.atalhoCiclo10E(escala);
 		escala = escalaCalculosService.converteTurnoNuloEmFolga(escala);
 		escala = escalaCalculosService.calcularDadosEscala(escala);
 		//AVALIAÇÃO PARA SABER SE TEM CHOQUES
-		this.choque = service.choquesEmEscalaOnipresenca(escala);
-		this.choqueDescansoDepoisNoturno = service.choquesEmEscalaDepoisDoNoturno(escala);
-		if(choqueDescansoDepoisNoturno.length()>0) {attr.addFlashAttribute("fail", choqueDescansoDepoisNoturno); return atalhoLimparEscalaChoque(attr, choqueDescansoDepoisNoturno); }
-		if(choque.length()>0) {attr.addFlashAttribute("fail", choque); return atalhoLimparEscalaChoque(attr, choque);  }
-		if((choqueDescansoDepoisNoturno.length()==0) && (choque.length()==0)) {
+		//this.choque = service.choquesEmEscalaOnipresenca(escala);
+		//comando para armazenar choque na sessão
+        HttpSession session = httpSessionFactory.getObject();
+        session.setAttribute("choque", service.choquesEmEscalaOnipresenca(escala)  );
+		//this.choqueDescansoDepoisNoturno = service.choquesEmEscalaDepoisDoNoturno(escala);
+        //comando para armazenar choque na sessão
+        session.setAttribute("choqueDescansoDepoisNoturno", service.choquesEmEscalaDepoisDoNoturno(escala)  );
+		if(choqueDescansoDepoisNoturno().length()>0) {attr.addFlashAttribute("fail", choqueDescansoDepoisNoturno()); return atalhoLimparEscalaChoque(attr, choqueDescansoDepoisNoturno()); }
+		if(choque().length()>0) {attr.addFlashAttribute("fail", choque()); return atalhoLimparEscalaChoque(attr, choque());  }
+		if((choqueDescansoDepoisNoturno().length()==0) && (choque().length()==0)) {
 			salvar(escala, null, null);
-			ultimoIdEscala = escala.getId();
+			session = httpSessionFactory.getObject(); session.setAttribute("ultimoIdEscala", escala.getId()  );
 			attr.addFlashAttribute("success", "Confirme CH Dif, Incremento de Risco, Diferenciado, Regime e Turma antes de Lançar.");
 		}
 		return "redirect:/escalas/alterar/escala/"+escala.getId();
@@ -2857,19 +3203,24 @@ public class EscalaController {
 		return "redirect:/escalas/mensagem/de/escala/bloqueada";
 		}		
 
-		Escala escala = service.buscarPorId(ultimoIdEscala);
+		Escala escala = service.buscarPorId(ultimoIdEscala());
 		escala = escalaCalculosService.converteTurnoNuloEmFolga(escala);
 		escala = escalaAtalhosService.atalhoCiclo10F(escala);
 		escala = escalaCalculosService.converteTurnoNuloEmFolga(escala);
 		escala = escalaCalculosService.calcularDadosEscala(escala);
 		//AVALIAÇÃO PARA SABER SE TEM CHOQUES
-		this.choque = service.choquesEmEscalaOnipresenca(escala);
-		this.choqueDescansoDepoisNoturno = service.choquesEmEscalaDepoisDoNoturno(escala);
-		if(choqueDescansoDepoisNoturno.length()>0) {attr.addFlashAttribute("fail", choqueDescansoDepoisNoturno); return atalhoLimparEscalaChoque(attr, choqueDescansoDepoisNoturno); }
-		if(choque.length()>0) {attr.addFlashAttribute("fail", choque); return atalhoLimparEscalaChoque(attr, choque);  }
-		if((choqueDescansoDepoisNoturno.length()==0) && (choque.length()==0)) {
+		//this.choque = service.choquesEmEscalaOnipresenca(escala);
+		//comando para armazenar choque na sessão
+        HttpSession session = httpSessionFactory.getObject();
+        session.setAttribute("choque", service.choquesEmEscalaOnipresenca(escala)  );
+		//this.choqueDescansoDepoisNoturno = service.choquesEmEscalaDepoisDoNoturno(escala);
+        //comando para armazenar choque na sessão
+        session.setAttribute("choqueDescansoDepoisNoturno", service.choquesEmEscalaDepoisDoNoturno(escala)  );
+		if(choqueDescansoDepoisNoturno().length()>0) {attr.addFlashAttribute("fail", choqueDescansoDepoisNoturno()); return atalhoLimparEscalaChoque(attr, choqueDescansoDepoisNoturno()); }
+		if(choque().length()>0) {attr.addFlashAttribute("fail", choque()); return atalhoLimparEscalaChoque(attr, choque());  }
+		if((choqueDescansoDepoisNoturno().length()==0) && (choque().length()==0)) {
 			salvar(escala, null, null);
-			ultimoIdEscala = escala.getId();
+			session = httpSessionFactory.getObject(); session.setAttribute("ultimoIdEscala", escala.getId()  );
 			attr.addFlashAttribute("success", "Confirme CH Dif, Incremento de Risco, Diferenciado, Regime e Turma antes de Lançar.");
 		}
 		return "redirect:/escalas/alterar/escala/"+escala.getId();
@@ -2882,19 +3233,24 @@ public class EscalaController {
 		return "redirect:/escalas/mensagem/de/escala/bloqueada";
 		}		
 
-		Escala escala = service.buscarPorId(ultimoIdEscala);
+		Escala escala = service.buscarPorId(ultimoIdEscala());
 		escala = escalaCalculosService.converteTurnoNuloEmFolga(escala);
 		escala = escalaAtalhosService.atalhoCiclo10G(escala);
 		escala = escalaCalculosService.converteTurnoNuloEmFolga(escala);
 		escala = escalaCalculosService.calcularDadosEscala(escala);
 		//AVALIAÇÃO PARA SABER SE TEM CHOQUES
-		this.choque = service.choquesEmEscalaOnipresenca(escala);
-		this.choqueDescansoDepoisNoturno = service.choquesEmEscalaDepoisDoNoturno(escala);
-		if(choqueDescansoDepoisNoturno.length()>0) {attr.addFlashAttribute("fail", choqueDescansoDepoisNoturno); return atalhoLimparEscalaChoque(attr, choqueDescansoDepoisNoturno); }
-		if(choque.length()>0) {attr.addFlashAttribute("fail", choque); return atalhoLimparEscalaChoque(attr, choque);  }
-		if((choqueDescansoDepoisNoturno.length()==0) && (choque.length()==0)) {
+		//this.choque = service.choquesEmEscalaOnipresenca(escala);
+		//comando para armazenar choque na sessão
+        HttpSession session = httpSessionFactory.getObject();
+        session.setAttribute("choque", service.choquesEmEscalaOnipresenca(escala)  );
+		//this.choqueDescansoDepoisNoturno = service.choquesEmEscalaDepoisDoNoturno(escala);
+        //comando para armazenar choque na sessão
+        session.setAttribute("choqueDescansoDepoisNoturno", service.choquesEmEscalaDepoisDoNoturno(escala)  );
+		if(choqueDescansoDepoisNoturno().length()>0) {attr.addFlashAttribute("fail", choqueDescansoDepoisNoturno()); return atalhoLimparEscalaChoque(attr, choqueDescansoDepoisNoturno()); }
+		if(choque().length()>0) {attr.addFlashAttribute("fail", choque()); return atalhoLimparEscalaChoque(attr, choque());  }
+		if((choqueDescansoDepoisNoturno().length()==0) && (choque().length()==0)) {
 			salvar(escala, null, null);
-			ultimoIdEscala = escala.getId();
+			session = httpSessionFactory.getObject(); session.setAttribute("ultimoIdEscala", escala.getId()  );
 			attr.addFlashAttribute("success", "Confirme CH Dif, Incremento de Risco, Diferenciado, Regime e Turma antes de Lançar.");
 		}
 		return "redirect:/escalas/alterar/escala/"+escala.getId();
@@ -2911,19 +3267,24 @@ public class EscalaController {
 		return "redirect:/escalas/mensagem/de/escala/bloqueada";
 		}		
 
-		Escala escala = service.buscarPorId(ultimoIdEscala);
+		Escala escala = service.buscarPorId(ultimoIdEscala());
 		escala = escalaCalculosService.converteTurnoNuloEmFolga(escala);
 		escala = escalaAtalhosService.atalhoCiclo11A(escala);
 		escala = escalaCalculosService.converteTurnoNuloEmFolga(escala);
 		escala = escalaCalculosService.calcularDadosEscala(escala);
 		//AVALIAÇÃO PARA SABER SE TEM CHOQUES
-		this.choque = service.choquesEmEscalaOnipresenca(escala);
-		this.choqueDescansoDepoisNoturno = service.choquesEmEscalaDepoisDoNoturno(escala);
-		if(choqueDescansoDepoisNoturno.length()>0) {attr.addFlashAttribute("fail", choqueDescansoDepoisNoturno); return atalhoLimparEscalaChoque(attr, choqueDescansoDepoisNoturno); }
-		if(choque.length()>0) {attr.addFlashAttribute("fail", choque); return atalhoLimparEscalaChoque(attr, choque);  }
-		if((choqueDescansoDepoisNoturno.length()==0) && (choque.length()==0)) {
+		//this.choque = service.choquesEmEscalaOnipresenca(escala);
+		//comando para armazenar choque na sessão
+        HttpSession session = httpSessionFactory.getObject();
+        session.setAttribute("choque", service.choquesEmEscalaOnipresenca(escala)  );
+		//this.choqueDescansoDepoisNoturno = service.choquesEmEscalaDepoisDoNoturno(escala);
+        //comando para armazenar choque na sessão
+        session.setAttribute("choqueDescansoDepoisNoturno", service.choquesEmEscalaDepoisDoNoturno(escala)  );
+		if(choqueDescansoDepoisNoturno().length()>0) {attr.addFlashAttribute("fail", choqueDescansoDepoisNoturno()); return atalhoLimparEscalaChoque(attr, choqueDescansoDepoisNoturno()); }
+		if(choque().length()>0) {attr.addFlashAttribute("fail", choque()); return atalhoLimparEscalaChoque(attr, choque());  }
+		if((choqueDescansoDepoisNoturno().length()==0) && (choque().length()==0)) {
 			salvar(escala, null, null);
-			ultimoIdEscala = escala.getId();
+			session = httpSessionFactory.getObject(); session.setAttribute("ultimoIdEscala", escala.getId()  );
 			attr.addFlashAttribute("success", "Confirme CH Dif, Incremento de Risco, Diferenciado, Regime e Turma antes de Lançar.");
 		}
 		return "redirect:/escalas/alterar/escala/"+escala.getId();
@@ -2936,19 +3297,24 @@ public class EscalaController {
 		return "redirect:/escalas/mensagem/de/escala/bloqueada";
 		}		
 
-		Escala escala = service.buscarPorId(ultimoIdEscala);
+		Escala escala = service.buscarPorId(ultimoIdEscala());
 		escala = escalaCalculosService.converteTurnoNuloEmFolga(escala);
 		escala = escalaAtalhosService.atalhoCiclo11B(escala);
 		escala = escalaCalculosService.converteTurnoNuloEmFolga(escala);
 		escala = escalaCalculosService.calcularDadosEscala(escala);
 		//AVALIAÇÃO PARA SABER SE TEM CHOQUES
-		this.choque = service.choquesEmEscalaOnipresenca(escala);
-		this.choqueDescansoDepoisNoturno = service.choquesEmEscalaDepoisDoNoturno(escala);
-		if(choqueDescansoDepoisNoturno.length()>0) {attr.addFlashAttribute("fail", choqueDescansoDepoisNoturno); return atalhoLimparEscalaChoque(attr, choqueDescansoDepoisNoturno); }
-		if(choque.length()>0) {attr.addFlashAttribute("fail", choque); return atalhoLimparEscalaChoque(attr, choque);  }
-		if((choqueDescansoDepoisNoturno.length()==0) && (choque.length()==0)) {
+		//this.choque = service.choquesEmEscalaOnipresenca(escala);
+		//comando para armazenar choque na sessão
+        HttpSession session = httpSessionFactory.getObject();
+        session.setAttribute("choque", service.choquesEmEscalaOnipresenca(escala)  );
+		//this.choqueDescansoDepoisNoturno = service.choquesEmEscalaDepoisDoNoturno(escala);
+        //comando para armazenar choque na sessão
+        session.setAttribute("choqueDescansoDepoisNoturno", service.choquesEmEscalaDepoisDoNoturno(escala)  );
+		if(choqueDescansoDepoisNoturno().length()>0) {attr.addFlashAttribute("fail", choqueDescansoDepoisNoturno()); return atalhoLimparEscalaChoque(attr, choqueDescansoDepoisNoturno()); }
+		if(choque().length()>0) {attr.addFlashAttribute("fail", choque()); return atalhoLimparEscalaChoque(attr, choque());  }
+		if((choqueDescansoDepoisNoturno().length()==0) && (choque().length()==0)) {
 			salvar(escala, null, null);
-			ultimoIdEscala = escala.getId();
+			session = httpSessionFactory.getObject(); session.setAttribute("ultimoIdEscala", escala.getId()  );
 			attr.addFlashAttribute("success", "Confirme CH Dif, Incremento de Risco, Diferenciado, Regime e Turma antes de Lançar.");
 		}
 		return "redirect:/escalas/alterar/escala/"+escala.getId();
@@ -2961,19 +3327,24 @@ public class EscalaController {
 		return "redirect:/escalas/mensagem/de/escala/bloqueada";
 		}		
 
-		Escala escala = service.buscarPorId(ultimoIdEscala);
+		Escala escala = service.buscarPorId(ultimoIdEscala());
 		escala = escalaCalculosService.converteTurnoNuloEmFolga(escala);
 		escala = escalaAtalhosService.atalhoCiclo11C(escala);
 		escala = escalaCalculosService.converteTurnoNuloEmFolga(escala);
 		escala = escalaCalculosService.calcularDadosEscala(escala);
 		//AVALIAÇÃO PARA SABER SE TEM CHOQUES
-		this.choque = service.choquesEmEscalaOnipresenca(escala);
-		this.choqueDescansoDepoisNoturno = service.choquesEmEscalaDepoisDoNoturno(escala);
-		if(choqueDescansoDepoisNoturno.length()>0) {attr.addFlashAttribute("fail", choqueDescansoDepoisNoturno); return atalhoLimparEscalaChoque(attr, choqueDescansoDepoisNoturno); }
-		if(choque.length()>0) {attr.addFlashAttribute("fail", choque); return atalhoLimparEscalaChoque(attr, choque);  }
-		if((choqueDescansoDepoisNoturno.length()==0) && (choque.length()==0)) {
+		//this.choque = service.choquesEmEscalaOnipresenca(escala);
+		//comando para armazenar choque na sessão
+        HttpSession session = httpSessionFactory.getObject();
+        session.setAttribute("choque", service.choquesEmEscalaOnipresenca(escala)  );
+		//this.choqueDescansoDepoisNoturno = service.choquesEmEscalaDepoisDoNoturno(escala);
+        //comando para armazenar choque na sessão
+        session.setAttribute("choqueDescansoDepoisNoturno", service.choquesEmEscalaDepoisDoNoturno(escala)  );
+		if(choqueDescansoDepoisNoturno().length()>0) {attr.addFlashAttribute("fail", choqueDescansoDepoisNoturno()); return atalhoLimparEscalaChoque(attr, choqueDescansoDepoisNoturno()); }
+		if(choque().length()>0) {attr.addFlashAttribute("fail", choque()); return atalhoLimparEscalaChoque(attr, choque());  }
+		if((choqueDescansoDepoisNoturno().length()==0) && (choque().length()==0)) {
 			salvar(escala, null, null);
-			ultimoIdEscala = escala.getId();
+			session = httpSessionFactory.getObject(); session.setAttribute("ultimoIdEscala", escala.getId()  );
 			attr.addFlashAttribute("success", "Confirme CH Dif, Incremento de Risco, Diferenciado, Regime e Turma antes de Lançar.");
 		}
 		return "redirect:/escalas/alterar/escala/"+escala.getId();
@@ -2986,19 +3357,24 @@ public class EscalaController {
 		return "redirect:/escalas/mensagem/de/escala/bloqueada";
 		}		
 
-		Escala escala = service.buscarPorId(ultimoIdEscala);
+		Escala escala = service.buscarPorId(ultimoIdEscala());
 		escala = escalaCalculosService.converteTurnoNuloEmFolga(escala);
 		escala = escalaAtalhosService.atalhoCiclo11D(escala);
 		escala = escalaCalculosService.converteTurnoNuloEmFolga(escala);
 		escala = escalaCalculosService.calcularDadosEscala(escala);
 		//AVALIAÇÃO PARA SABER SE TEM CHOQUES
-		this.choque = service.choquesEmEscalaOnipresenca(escala);
-		this.choqueDescansoDepoisNoturno = service.choquesEmEscalaDepoisDoNoturno(escala);
-		if(choqueDescansoDepoisNoturno.length()>0) {attr.addFlashAttribute("fail", choqueDescansoDepoisNoturno); return atalhoLimparEscalaChoque(attr, choqueDescansoDepoisNoturno); }
-		if(choque.length()>0) {attr.addFlashAttribute("fail", choque); return atalhoLimparEscalaChoque(attr, choque);  }
-		if((choqueDescansoDepoisNoturno.length()==0) && (choque.length()==0)) {
+		//this.choque = service.choquesEmEscalaOnipresenca(escala);
+		//comando para armazenar choque na sessão
+        HttpSession session = httpSessionFactory.getObject();
+        session.setAttribute("choque", service.choquesEmEscalaOnipresenca(escala)  );
+		//this.choqueDescansoDepoisNoturno = service.choquesEmEscalaDepoisDoNoturno(escala);
+        //comando para armazenar choque na sessão
+        session.setAttribute("choqueDescansoDepoisNoturno", service.choquesEmEscalaDepoisDoNoturno(escala)  );
+		if(choqueDescansoDepoisNoturno().length()>0) {attr.addFlashAttribute("fail", choqueDescansoDepoisNoturno()); return atalhoLimparEscalaChoque(attr, choqueDescansoDepoisNoturno()); }
+		if(choque().length()>0) {attr.addFlashAttribute("fail", choque()); return atalhoLimparEscalaChoque(attr, choque());  }
+		if((choqueDescansoDepoisNoturno().length()==0) && (choque().length()==0)) {
 			salvar(escala, null, null);
-			ultimoIdEscala = escala.getId();
+			session = httpSessionFactory.getObject(); session.setAttribute("ultimoIdEscala", escala.getId()  );
 			attr.addFlashAttribute("success", "Confirme CH Dif, Incremento de Risco, Diferenciado, Regime e Turma antes de Lançar.");
 		}
 		return "redirect:/escalas/alterar/escala/"+escala.getId();
@@ -3011,19 +3387,24 @@ public class EscalaController {
 		return "redirect:/escalas/mensagem/de/escala/bloqueada";
 		}		
 
-		Escala escala = service.buscarPorId(ultimoIdEscala);
+		Escala escala = service.buscarPorId(ultimoIdEscala());
 		escala = escalaCalculosService.converteTurnoNuloEmFolga(escala);
 		escala = escalaAtalhosService.atalhoCiclo11E(escala);
 		escala = escalaCalculosService.converteTurnoNuloEmFolga(escala);
 		escala = escalaCalculosService.calcularDadosEscala(escala);
 		//AVALIAÇÃO PARA SABER SE TEM CHOQUES
-		this.choque = service.choquesEmEscalaOnipresenca(escala);
-		this.choqueDescansoDepoisNoturno = service.choquesEmEscalaDepoisDoNoturno(escala);
-		if(choqueDescansoDepoisNoturno.length()>0) {attr.addFlashAttribute("fail", choqueDescansoDepoisNoturno); return atalhoLimparEscalaChoque(attr, choqueDescansoDepoisNoturno); }
-		if(choque.length()>0) {attr.addFlashAttribute("fail", choque); return atalhoLimparEscalaChoque(attr, choque);  }
-		if((choqueDescansoDepoisNoturno.length()==0) && (choque.length()==0)) {
+		//this.choque = service.choquesEmEscalaOnipresenca(escala);
+		//comando para armazenar choque na sessão
+        HttpSession session = httpSessionFactory.getObject();
+        session.setAttribute("choque", service.choquesEmEscalaOnipresenca(escala)  );
+		//this.choqueDescansoDepoisNoturno = service.choquesEmEscalaDepoisDoNoturno(escala);
+        //comando para armazenar choque na sessão
+        session.setAttribute("choqueDescansoDepoisNoturno", service.choquesEmEscalaDepoisDoNoturno(escala)  );
+		if(choqueDescansoDepoisNoturno().length()>0) {attr.addFlashAttribute("fail", choqueDescansoDepoisNoturno()); return atalhoLimparEscalaChoque(attr, choqueDescansoDepoisNoturno()); }
+		if(choque().length()>0) {attr.addFlashAttribute("fail", choque()); return atalhoLimparEscalaChoque(attr, choque());  }
+		if((choqueDescansoDepoisNoturno().length()==0) && (choque().length()==0)) {
 			salvar(escala, null, null);
-			ultimoIdEscala = escala.getId();
+			session = httpSessionFactory.getObject(); session.setAttribute("ultimoIdEscala", escala.getId()  );
 			attr.addFlashAttribute("success", "Confirme CH Dif, Incremento de Risco, Diferenciado, Regime e Turma antes de Lançar.");
 		}
 		return "redirect:/escalas/alterar/escala/"+escala.getId();
@@ -3036,19 +3417,24 @@ public class EscalaController {
 		return "redirect:/escalas/mensagem/de/escala/bloqueada";
 		}		
 
-		Escala escala = service.buscarPorId(ultimoIdEscala);
+		Escala escala = service.buscarPorId(ultimoIdEscala());
 		escala = escalaCalculosService.converteTurnoNuloEmFolga(escala);
 		escala = escalaAtalhosService.atalhoCiclo11F(escala);
 		escala = escalaCalculosService.converteTurnoNuloEmFolga(escala);
 		escala = escalaCalculosService.calcularDadosEscala(escala);
 		//AVALIAÇÃO PARA SABER SE TEM CHOQUES
-		this.choque = service.choquesEmEscalaOnipresenca(escala);
-		this.choqueDescansoDepoisNoturno = service.choquesEmEscalaDepoisDoNoturno(escala);
-		if(choqueDescansoDepoisNoturno.length()>0) {attr.addFlashAttribute("fail", choqueDescansoDepoisNoturno); return atalhoLimparEscalaChoque(attr, choqueDescansoDepoisNoturno); }
-		if(choque.length()>0) {attr.addFlashAttribute("fail", choque); return atalhoLimparEscalaChoque(attr, choque);  }
-		if((choqueDescansoDepoisNoturno.length()==0) && (choque.length()==0)) {
+		//this.choque = service.choquesEmEscalaOnipresenca(escala);
+		//comando para armazenar choque na sessão
+        HttpSession session = httpSessionFactory.getObject();
+        session.setAttribute("choque", service.choquesEmEscalaOnipresenca(escala)  );
+		//this.choqueDescansoDepoisNoturno = service.choquesEmEscalaDepoisDoNoturno(escala);
+        //comando para armazenar choque na sessão
+        session.setAttribute("choqueDescansoDepoisNoturno", service.choquesEmEscalaDepoisDoNoturno(escala)  );
+		if(choqueDescansoDepoisNoturno().length()>0) {attr.addFlashAttribute("fail", choqueDescansoDepoisNoturno()); return atalhoLimparEscalaChoque(attr, choqueDescansoDepoisNoturno()); }
+		if(choque().length()>0) {attr.addFlashAttribute("fail", choque()); return atalhoLimparEscalaChoque(attr, choque());  }
+		if((choqueDescansoDepoisNoturno().length()==0) && (choque().length()==0)) {
 			salvar(escala, null, null);
-			ultimoIdEscala = escala.getId();
+			session = httpSessionFactory.getObject(); session.setAttribute("ultimoIdEscala", escala.getId()  );
 			attr.addFlashAttribute("success", "Confirme CH Dif, Incremento de Risco, Diferenciado, Regime e Turma antes de Lançar.");
 		}
 		return "redirect:/escalas/alterar/escala/"+escala.getId();
@@ -3061,19 +3447,24 @@ public class EscalaController {
 		return "redirect:/escalas/mensagem/de/escala/bloqueada";
 		}		
 
-		Escala escala = service.buscarPorId(ultimoIdEscala);
+		Escala escala = service.buscarPorId(ultimoIdEscala());
 		escala = escalaCalculosService.converteTurnoNuloEmFolga(escala);
 		escala = escalaAtalhosService.atalhoCiclo11G(escala);
 		escala = escalaCalculosService.converteTurnoNuloEmFolga(escala);
 		escala = escalaCalculosService.calcularDadosEscala(escala);
 		//AVALIAÇÃO PARA SABER SE TEM CHOQUES
-		this.choque = service.choquesEmEscalaOnipresenca(escala);
-		this.choqueDescansoDepoisNoturno = service.choquesEmEscalaDepoisDoNoturno(escala);
-		if(choqueDescansoDepoisNoturno.length()>0) {attr.addFlashAttribute("fail", choqueDescansoDepoisNoturno); return atalhoLimparEscalaChoque(attr, choqueDescansoDepoisNoturno); }
-		if(choque.length()>0) {attr.addFlashAttribute("fail", choque); return atalhoLimparEscalaChoque(attr, choque);  }
-		if((choqueDescansoDepoisNoturno.length()==0) && (choque.length()==0)) {
+		//this.choque = service.choquesEmEscalaOnipresenca(escala);
+		//comando para armazenar choque na sessão
+        HttpSession session = httpSessionFactory.getObject();
+        session.setAttribute("choque", service.choquesEmEscalaOnipresenca(escala)  );
+		//this.choqueDescansoDepoisNoturno = service.choquesEmEscalaDepoisDoNoturno(escala);
+        //comando para armazenar choque na sessão
+        session.setAttribute("choqueDescansoDepoisNoturno", service.choquesEmEscalaDepoisDoNoturno(escala)  );
+		if(choqueDescansoDepoisNoturno().length()>0) {attr.addFlashAttribute("fail", choqueDescansoDepoisNoturno()); return atalhoLimparEscalaChoque(attr, choqueDescansoDepoisNoturno()); }
+		if(choque().length()>0) {attr.addFlashAttribute("fail", choque()); return atalhoLimparEscalaChoque(attr, choque());  }
+		if((choqueDescansoDepoisNoturno().length()==0) && (choque().length()==0)) {
 			salvar(escala, null, null);
-			ultimoIdEscala = escala.getId();
+			session = httpSessionFactory.getObject(); session.setAttribute("ultimoIdEscala", escala.getId()  );
 			attr.addFlashAttribute("success", "Confirme CH Dif, Incremento de Risco, Diferenciado, Regime e Turma antes de Lançar.");
 		}
 		return "redirect:/escalas/alterar/escala/"+escala.getId();
@@ -3089,19 +3480,24 @@ public class EscalaController {
 		return "redirect:/escalas/mensagem/de/escala/bloqueada";
 		}		
 
-		Escala escala = service.buscarPorId(ultimoIdEscala);
+		Escala escala = service.buscarPorId(ultimoIdEscala());
 		escala = escalaCalculosService.converteTurnoNuloEmFolga(escala);
 		escala = escalaAtalhosService.atalhoCiclo12A(escala);
 		escala = escalaCalculosService.converteTurnoNuloEmFolga(escala);
 		escala = escalaCalculosService.calcularDadosEscala(escala);
 		//AVALIAÇÃO PARA SABER SE TEM CHOQUES
-		this.choque = service.choquesEmEscalaOnipresenca(escala);
-		this.choqueDescansoDepoisNoturno = service.choquesEmEscalaDepoisDoNoturno(escala);
-		if(choqueDescansoDepoisNoturno.length()>0) {attr.addFlashAttribute("fail", choqueDescansoDepoisNoturno); return atalhoLimparEscalaChoque(attr, choqueDescansoDepoisNoturno); }
-		if(choque.length()>0) {attr.addFlashAttribute("fail", choque); return atalhoLimparEscalaChoque(attr, choque);  }
-		if((choqueDescansoDepoisNoturno.length()==0) && (choque.length()==0)) {
+		//this.choque = service.choquesEmEscalaOnipresenca(escala);
+		//comando para armazenar choque na sessão
+        HttpSession session = httpSessionFactory.getObject();
+        session.setAttribute("choque", service.choquesEmEscalaOnipresenca(escala)  );
+		//this.choqueDescansoDepoisNoturno = service.choquesEmEscalaDepoisDoNoturno(escala);
+        //comando para armazenar choque na sessão
+        session.setAttribute("choqueDescansoDepoisNoturno", service.choquesEmEscalaDepoisDoNoturno(escala)  );
+		if(choqueDescansoDepoisNoturno().length()>0) {attr.addFlashAttribute("fail", choqueDescansoDepoisNoturno()); return atalhoLimparEscalaChoque(attr, choqueDescansoDepoisNoturno()); }
+		if(choque().length()>0) {attr.addFlashAttribute("fail", choque()); return atalhoLimparEscalaChoque(attr, choque());  }
+		if((choqueDescansoDepoisNoturno().length()==0) && (choque().length()==0)) {
 			salvar(escala, null, null);
-			ultimoIdEscala = escala.getId();
+			session = httpSessionFactory.getObject(); session.setAttribute("ultimoIdEscala", escala.getId()  );
 			attr.addFlashAttribute("success", "Confirme CH Dif, Incremento de Risco, Diferenciado, Regime e Turma antes de Lançar.");
 		}
 		return "redirect:/escalas/alterar/escala/"+escala.getId();
@@ -3114,19 +3510,24 @@ public class EscalaController {
 		return "redirect:/escalas/mensagem/de/escala/bloqueada";
 		}		
 
-		Escala escala = service.buscarPorId(ultimoIdEscala);
+		Escala escala = service.buscarPorId(ultimoIdEscala());
 		escala = escalaCalculosService.converteTurnoNuloEmFolga(escala);
 		escala = escalaAtalhosService.atalhoCiclo12B(escala);
 		escala = escalaCalculosService.converteTurnoNuloEmFolga(escala);
 		escala = escalaCalculosService.calcularDadosEscala(escala);
 		//AVALIAÇÃO PARA SABER SE TEM CHOQUES
-		this.choque = service.choquesEmEscalaOnipresenca(escala);
-		this.choqueDescansoDepoisNoturno = service.choquesEmEscalaDepoisDoNoturno(escala);
-		if(choqueDescansoDepoisNoturno.length()>0) {attr.addFlashAttribute("fail", choqueDescansoDepoisNoturno); return atalhoLimparEscalaChoque(attr, choqueDescansoDepoisNoturno); }
-		if(choque.length()>0) {attr.addFlashAttribute("fail", choque); return atalhoLimparEscalaChoque(attr, choque);  }
-		if((choqueDescansoDepoisNoturno.length()==0) && (choque.length()==0)) {
+		//this.choque = service.choquesEmEscalaOnipresenca(escala);
+		//comando para armazenar choque na sessão
+        HttpSession session = httpSessionFactory.getObject();
+        session.setAttribute("choque", service.choquesEmEscalaOnipresenca(escala)  );
+		//this.choqueDescansoDepoisNoturno = service.choquesEmEscalaDepoisDoNoturno(escala);
+        //comando para armazenar choque na sessão
+        session.setAttribute("choqueDescansoDepoisNoturno", service.choquesEmEscalaDepoisDoNoturno(escala)  );
+		if(choqueDescansoDepoisNoturno().length()>0) {attr.addFlashAttribute("fail", choqueDescansoDepoisNoturno()); return atalhoLimparEscalaChoque(attr, choqueDescansoDepoisNoturno()); }
+		if(choque().length()>0) {attr.addFlashAttribute("fail", choque()); return atalhoLimparEscalaChoque(attr, choque());  }
+		if((choqueDescansoDepoisNoturno().length()==0) && (choque().length()==0)) {
 			salvar(escala, null, null);
-			ultimoIdEscala = escala.getId();
+			session = httpSessionFactory.getObject(); session.setAttribute("ultimoIdEscala", escala.getId()  );
 			attr.addFlashAttribute("success", "Confirme CH Dif, Incremento de Risco, Diferenciado, Regime e Turma antes de Lançar.");
 		}
 		return "redirect:/escalas/alterar/escala/"+escala.getId();
@@ -3139,19 +3540,24 @@ public class EscalaController {
 		return "redirect:/escalas/mensagem/de/escala/bloqueada";
 		}		
 
-		Escala escala = service.buscarPorId(ultimoIdEscala);
+		Escala escala = service.buscarPorId(ultimoIdEscala());
 		escala = escalaCalculosService.converteTurnoNuloEmFolga(escala);
 		escala = escalaAtalhosService.atalhoCiclo12C(escala);
 		escala = escalaCalculosService.converteTurnoNuloEmFolga(escala);
 		escala = escalaCalculosService.calcularDadosEscala(escala);
 		//AVALIAÇÃO PARA SABER SE TEM CHOQUES
-		this.choque = service.choquesEmEscalaOnipresenca(escala);
-		this.choqueDescansoDepoisNoturno = service.choquesEmEscalaDepoisDoNoturno(escala);
-		if(choqueDescansoDepoisNoturno.length()>0) {attr.addFlashAttribute("fail", choqueDescansoDepoisNoturno); return atalhoLimparEscalaChoque(attr, choqueDescansoDepoisNoturno); }
-		if(choque.length()>0) {attr.addFlashAttribute("fail", choque); return atalhoLimparEscalaChoque(attr, choque);  }
-		if((choqueDescansoDepoisNoturno.length()==0) && (choque.length()==0)) {
+		//this.choque = service.choquesEmEscalaOnipresenca(escala);
+		//comando para armazenar choque na sessão
+        HttpSession session = httpSessionFactory.getObject();
+        session.setAttribute("choque", service.choquesEmEscalaOnipresenca(escala)  );
+		//this.choqueDescansoDepoisNoturno = service.choquesEmEscalaDepoisDoNoturno(escala);
+        //comando para armazenar choque na sessão
+        session.setAttribute("choqueDescansoDepoisNoturno", service.choquesEmEscalaDepoisDoNoturno(escala)  );
+		if(choqueDescansoDepoisNoturno().length()>0) {attr.addFlashAttribute("fail", choqueDescansoDepoisNoturno()); return atalhoLimparEscalaChoque(attr, choqueDescansoDepoisNoturno()); }
+		if(choque().length()>0) {attr.addFlashAttribute("fail", choque()); return atalhoLimparEscalaChoque(attr, choque());  }
+		if((choqueDescansoDepoisNoturno().length()==0) && (choque().length()==0)) {
 			salvar(escala, null, null);
-			ultimoIdEscala = escala.getId();
+			session = httpSessionFactory.getObject(); session.setAttribute("ultimoIdEscala", escala.getId()  );
 			attr.addFlashAttribute("success", "Confirme CH Dif, Incremento de Risco, Diferenciado, Regime e Turma antes de Lançar.");
 		}
 		return "redirect:/escalas/alterar/escala/"+escala.getId();
@@ -3164,19 +3570,24 @@ public class EscalaController {
 		return "redirect:/escalas/mensagem/de/escala/bloqueada";
 		}		
 
-		Escala escala = service.buscarPorId(ultimoIdEscala);
+		Escala escala = service.buscarPorId(ultimoIdEscala());
 		escala = escalaCalculosService.converteTurnoNuloEmFolga(escala);
 		escala = escalaAtalhosService.atalhoCiclo12D(escala);
 		escala = escalaCalculosService.converteTurnoNuloEmFolga(escala);
 		escala = escalaCalculosService.calcularDadosEscala(escala);
 		//AVALIAÇÃO PARA SABER SE TEM CHOQUES
-		this.choque = service.choquesEmEscalaOnipresenca(escala);
-		this.choqueDescansoDepoisNoturno = service.choquesEmEscalaDepoisDoNoturno(escala);
-		if(choqueDescansoDepoisNoturno.length()>0) {attr.addFlashAttribute("fail", choqueDescansoDepoisNoturno); return atalhoLimparEscalaChoque(attr, choqueDescansoDepoisNoturno); }
-		if(choque.length()>0) {attr.addFlashAttribute("fail", choque); return atalhoLimparEscalaChoque(attr, choque);  }
-		if((choqueDescansoDepoisNoturno.length()==0) && (choque.length()==0)) {
+		//this.choque = service.choquesEmEscalaOnipresenca(escala);
+		//comando para armazenar choque na sessão
+        HttpSession session = httpSessionFactory.getObject();
+        session.setAttribute("choque", service.choquesEmEscalaOnipresenca(escala)  );
+		//this.choqueDescansoDepoisNoturno = service.choquesEmEscalaDepoisDoNoturno(escala);
+        //comando para armazenar choque na sessão
+        session.setAttribute("choqueDescansoDepoisNoturno", service.choquesEmEscalaDepoisDoNoturno(escala)  );
+		if(choqueDescansoDepoisNoturno().length()>0) {attr.addFlashAttribute("fail", choqueDescansoDepoisNoturno()); return atalhoLimparEscalaChoque(attr, choqueDescansoDepoisNoturno()); }
+		if(choque().length()>0) {attr.addFlashAttribute("fail", choque()); return atalhoLimparEscalaChoque(attr, choque());  }
+		if((choqueDescansoDepoisNoturno().length()==0) && (choque().length()==0)) {
 			salvar(escala, null, null);
-			ultimoIdEscala = escala.getId();
+			session = httpSessionFactory.getObject(); session.setAttribute("ultimoIdEscala", escala.getId()  );
 			attr.addFlashAttribute("success", "Confirme CH Dif, Incremento de Risco, Diferenciado, Regime e Turma antes de Lançar.");
 		}
 		return "redirect:/escalas/alterar/escala/"+escala.getId();
@@ -3189,19 +3600,24 @@ public class EscalaController {
 		return "redirect:/escalas/mensagem/de/escala/bloqueada";
 		}		
 
-		Escala escala = service.buscarPorId(ultimoIdEscala);
+		Escala escala = service.buscarPorId(ultimoIdEscala());
 		escala = escalaCalculosService.converteTurnoNuloEmFolga(escala);
 		escala = escalaAtalhosService.atalhoCiclo12E(escala);
 		escala = escalaCalculosService.converteTurnoNuloEmFolga(escala);
 		escala = escalaCalculosService.calcularDadosEscala(escala);
 		//AVALIAÇÃO PARA SABER SE TEM CHOQUES
-		this.choque = service.choquesEmEscalaOnipresenca(escala);
-		this.choqueDescansoDepoisNoturno = service.choquesEmEscalaDepoisDoNoturno(escala);
-		if(choqueDescansoDepoisNoturno.length()>0) {attr.addFlashAttribute("fail", choqueDescansoDepoisNoturno); return atalhoLimparEscalaChoque(attr, choqueDescansoDepoisNoturno); }
-		if(choque.length()>0) {attr.addFlashAttribute("fail", choque); return atalhoLimparEscalaChoque(attr, choque);  }
-		if((choqueDescansoDepoisNoturno.length()==0) && (choque.length()==0)) {
+		//this.choque = service.choquesEmEscalaOnipresenca(escala);
+		//comando para armazenar choque na sessão
+        HttpSession session = httpSessionFactory.getObject();
+        session.setAttribute("choque", service.choquesEmEscalaOnipresenca(escala)  );
+		//this.choqueDescansoDepoisNoturno = service.choquesEmEscalaDepoisDoNoturno(escala);
+        //comando para armazenar choque na sessão
+        session.setAttribute("choqueDescansoDepoisNoturno", service.choquesEmEscalaDepoisDoNoturno(escala)  );
+		if(choqueDescansoDepoisNoturno().length()>0) {attr.addFlashAttribute("fail", choqueDescansoDepoisNoturno()); return atalhoLimparEscalaChoque(attr, choqueDescansoDepoisNoturno()); }
+		if(choque().length()>0) {attr.addFlashAttribute("fail", choque()); return atalhoLimparEscalaChoque(attr, choque());  }
+		if((choqueDescansoDepoisNoturno().length()==0) && (choque().length()==0)) {
 			salvar(escala, null, null);
-			ultimoIdEscala = escala.getId();
+			session = httpSessionFactory.getObject(); session.setAttribute("ultimoIdEscala", escala.getId()  );
 			attr.addFlashAttribute("success", "Confirme CH Dif, Incremento de Risco, Diferenciado, Regime e Turma antes de Lançar.");
 		}
 		return "redirect:/escalas/alterar/escala/"+escala.getId();
@@ -3214,19 +3630,24 @@ public class EscalaController {
 		return "redirect:/escalas/mensagem/de/escala/bloqueada";
 		}		
 
-		Escala escala = service.buscarPorId(ultimoIdEscala);
+		Escala escala = service.buscarPorId(ultimoIdEscala());
 		escala = escalaCalculosService.converteTurnoNuloEmFolga(escala);
 		escala = escalaAtalhosService.atalhoCiclo12F(escala);
 		escala = escalaCalculosService.converteTurnoNuloEmFolga(escala);
 		escala = escalaCalculosService.calcularDadosEscala(escala);
 		//AVALIAÇÃO PARA SABER SE TEM CHOQUES
-		this.choque = service.choquesEmEscalaOnipresenca(escala);
-		this.choqueDescansoDepoisNoturno = service.choquesEmEscalaDepoisDoNoturno(escala);
-		if(choqueDescansoDepoisNoturno.length()>0) {attr.addFlashAttribute("fail", choqueDescansoDepoisNoturno); return atalhoLimparEscalaChoque(attr, choqueDescansoDepoisNoturno); }
-		if(choque.length()>0) {attr.addFlashAttribute("fail", choque); return atalhoLimparEscalaChoque(attr, choque);  }
-		if((choqueDescansoDepoisNoturno.length()==0) && (choque.length()==0)) {
+		//this.choque = service.choquesEmEscalaOnipresenca(escala);
+		//comando para armazenar choque na sessão
+        HttpSession session = httpSessionFactory.getObject();
+        session.setAttribute("choque", service.choquesEmEscalaOnipresenca(escala)  );
+		//this.choqueDescansoDepoisNoturno = service.choquesEmEscalaDepoisDoNoturno(escala);
+        //comando para armazenar choque na sessão
+        session.setAttribute("choqueDescansoDepoisNoturno", service.choquesEmEscalaDepoisDoNoturno(escala)  );
+		if(choqueDescansoDepoisNoturno().length()>0) {attr.addFlashAttribute("fail", choqueDescansoDepoisNoturno()); return atalhoLimparEscalaChoque(attr, choqueDescansoDepoisNoturno()); }
+		if(choque().length()>0) {attr.addFlashAttribute("fail", choque()); return atalhoLimparEscalaChoque(attr, choque());  }
+		if((choqueDescansoDepoisNoturno().length()==0) && (choque().length()==0)) {
 			salvar(escala, null, null);
-			ultimoIdEscala = escala.getId();
+			session = httpSessionFactory.getObject(); session.setAttribute("ultimoIdEscala", escala.getId()  );
 			attr.addFlashAttribute("success", "Confirme CH Dif, Incremento de Risco, Diferenciado, Regime e Turma antes de Lançar.");
 		}
 		return "redirect:/escalas/alterar/escala/"+escala.getId();
@@ -3239,19 +3660,24 @@ public class EscalaController {
 		return "redirect:/escalas/mensagem/de/escala/bloqueada";
 		}		
 
-		Escala escala = service.buscarPorId(ultimoIdEscala);
+		Escala escala = service.buscarPorId(ultimoIdEscala());
 		escala = escalaCalculosService.converteTurnoNuloEmFolga(escala);
 		escala = escalaAtalhosService.atalhoCiclo12G(escala);
 		escala = escalaCalculosService.converteTurnoNuloEmFolga(escala);
 		escala = escalaCalculosService.calcularDadosEscala(escala);
 		//AVALIAÇÃO PARA SABER SE TEM CHOQUES
-		this.choque = service.choquesEmEscalaOnipresenca(escala);
-		this.choqueDescansoDepoisNoturno = service.choquesEmEscalaDepoisDoNoturno(escala);
-		if(choqueDescansoDepoisNoturno.length()>0) {attr.addFlashAttribute("fail", choqueDescansoDepoisNoturno); return atalhoLimparEscalaChoque(attr, choqueDescansoDepoisNoturno); }
-		if(choque.length()>0) {attr.addFlashAttribute("fail", choque); return atalhoLimparEscalaChoque(attr, choque);  }
-		if((choqueDescansoDepoisNoturno.length()==0) && (choque.length()==0)) {
+		//this.choque = service.choquesEmEscalaOnipresenca(escala);
+		//comando para armazenar choque na sessão
+        HttpSession session = httpSessionFactory.getObject();
+        session.setAttribute("choque", service.choquesEmEscalaOnipresenca(escala)  );
+		//this.choqueDescansoDepoisNoturno = service.choquesEmEscalaDepoisDoNoturno(escala);
+        //comando para armazenar choque na sessão
+        session.setAttribute("choqueDescansoDepoisNoturno", service.choquesEmEscalaDepoisDoNoturno(escala)  );
+		if(choqueDescansoDepoisNoturno().length()>0) {attr.addFlashAttribute("fail", choqueDescansoDepoisNoturno()); return atalhoLimparEscalaChoque(attr, choqueDescansoDepoisNoturno()); }
+		if(choque().length()>0) {attr.addFlashAttribute("fail", choque()); return atalhoLimparEscalaChoque(attr, choque());  }
+		if((choqueDescansoDepoisNoturno().length()==0) && (choque().length()==0)) {
 			salvar(escala, null, null);
-			ultimoIdEscala = escala.getId();
+			session = httpSessionFactory.getObject(); session.setAttribute("ultimoIdEscala", escala.getId()  );
 			attr.addFlashAttribute("success", "Confirme CH Dif, Incremento de Risco, Diferenciado, Regime e Turma antes de Lançar.");
 		}
 		return "redirect:/escalas/alterar/escala/"+escala.getId();
@@ -3273,7 +3699,7 @@ public class EscalaController {
 		
 		model.addAttribute("atencao", "ATENÇÃO");
 		model.addAttribute("choque", "CHOQUE EM ESCALA");
-		model.addAttribute("mensagem", choque);
+		model.addAttribute("mensagem", choque());
 		
 		return "/choqueescala/choque";
 	}
@@ -3283,7 +3709,7 @@ public class EscalaController {
 		
 		model.addAttribute("atencao", "ATENÇÃO");
 		model.addAttribute("choque", "NÃO DESCANSO DEPOIS DO NOTURNO");
-		model.addAttribute("mensagem", choqueDescansoDepoisNoturno);
+		model.addAttribute("mensagem", choqueDescansoDepoisNoturno());
 		
 		return "/choqueescala/choqueDepoisNoturno";
 	}
@@ -3833,6 +4259,18 @@ public class EscalaController {
 	public Long mesAtual() {
 		return Long.valueOf(request.getSession().getAttribute("idAnoMesAtual").toString()) ;
 	}
+	public String choque() {
+		return (request.getSession().getAttribute("choque").toString()) ;
+	}
+	public String choqueDescansoDepoisNoturno() {
+		return (request.getSession().getAttribute("choqueDescansoDepoisNoturno").toString()) ;
+	}
+	
+	public Long ultimoIdEscala() {
+		return Long.valueOf(request.getSession().getAttribute("ultimoIdEscala").toString()) ;
+	}
+	
+	
 	
 }
 
