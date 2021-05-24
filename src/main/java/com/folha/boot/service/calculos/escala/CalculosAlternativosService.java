@@ -37,6 +37,7 @@ import com.folha.boot.domain.models.calculos.FeriasNoMes;
 import com.folha.boot.domain.models.calculos.LicencasNoMes;
 import com.folha.boot.domain.models.calculos.ReferenciasDeEscala;
 import com.folha.boot.domain.models.calculos.RubricasVencimento;
+import com.folha.boot.service.AnoMesService;
 import com.folha.boot.service.EscalaCalculosService;
 import com.folha.boot.service.EscalaCodDiferenciadoService;
 import com.folha.boot.service.FaixasValoresFolhExtService;
@@ -106,6 +107,8 @@ public class CalculosAlternativosService {
 	private NaoDescontaInssService naoDescontaInssService;
 	@Autowired
 	private HorasFaltasFolhasVariaveisService horasFaltasFolhasVariaveisService;
+	@Autowired
+	private AnoMesService anoMesService;
 	
 	
 	
@@ -1944,6 +1947,9 @@ public class CalculosAlternativosService {
 		List<FaixasValoresParametrosCalculoFolhasExtras> listaValoresExtra = faixasValoresParametrosCalculoFolhasExtrasService.buscarPorMesExato(anoMes); 
 		List<RubricasVencimento> lista = new ArrayList<>();
 		
+		
+		
+		
 		//Para pessoas que nao tem diferenciacao atribuída e sao de folhas variaveis 
 		for(int i=0;i<listaEscalas.size();i++) {
 			if(escalaCodDiferenciadoService.buscarPorEscala(listaEscalas.get(i).getEscala()).isEmpty()) {
@@ -2167,6 +2173,7 @@ public class CalculosAlternativosService {
 										(!listaEscalas.get(i).getEscala().getIdFuncionarioFk().getIdVinculoAtualFk().getNomeVinculo().equalsIgnoreCase("RESIDENTE")) &&
 										listaDiferenciados.get(k).getIdEscalaFk().getIdTipoFolhaFk() == listaValoresExtra.get(j).getIdTipoDeFolhaFk() &&
 										listaDiferenciados.get(k).getIdEscalaFk().getIdRegimeFk() == listaValoresExtra.get(j).getIdRegimeDeTrabalhoFk() &&
+										listaDiferenciados.get(k).getIdCodigoDiferenciadoFk() == listaValoresExtra.get(j).getIdCodDiferenciadoFk() &&
 										listaDiferenciados.get(k).getIdEscalaFk().getIdFuncionarioFk().getIdEspecialidadeAtualFk().getIdCargoFk().getIdNivelCargoFk() == listaValoresExtra.get(j).getIdNivelFk() &&
 										listaDiferenciados.get(k).getIdEscalaFk().getIdCoordenacaoFk().getIdLocalidadeFk().getIdUnidadeFk() == listaValoresExtra.get(j).getIdCodDiferenciadoFk().getIdUnidadeFk() &&   
 										listaDiferenciados.get(k).getIdEscalaFk().getIdTipoFolhaFk().getIdTipoRemuneracaoFk().getNomeTipoRemuneracao().equalsIgnoreCase("VARIAVEL") 

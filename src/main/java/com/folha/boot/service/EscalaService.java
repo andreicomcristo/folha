@@ -1007,6 +1007,9 @@ public class EscalaService {
 			}
 		}
 		if(resposta.length()>0) {resposta = " "+resposta;}
+		
+		//LIBERANDO TODOS OS LIMITES
+		resposta = "";
 		return resposta;
 	}
 	
