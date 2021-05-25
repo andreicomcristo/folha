@@ -61,7 +61,7 @@
 		                    <th style="font-size:11px;" >CH</th>
 		                    <th style="font-size:11px;" >Nome</th>
 		                    <th style="font-size:11px;" >Cargo</th>
-		                    
+		                    <th style="font-size:11px;" >Vínculo</th>
 		                    
 		                    <th style="font-size:11px;" >Ações</th>
 	                    </tr>
@@ -75,6 +75,7 @@
 		                    <td style="font-size:11px;"  th:text="${d.idCargaHorariaAtualFk.cargaHoraria}"></td>  
 		                    <td style="font-size:11px;"  th:text="${d.idPessoaFk.nome}"></td>
 		                    <td style="font-size:11px;"  th:text="${d.idEspecialidadeAtualFk.idCargoFk.nomeCargo+'-'+d.idEspecialidadeAtualFk.nomeEspecialidadeCargo}"></td>
+		                    <td style="font-size:11px;"  th:text="${d.idPessoaFk.idVinculoFk.nomeVinculo}"></td>
 		                    
 		                    
 		                    <td colspan="2">
