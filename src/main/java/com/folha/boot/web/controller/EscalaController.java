@@ -429,7 +429,7 @@ public class EscalaController {
 	
 	@GetMapping("/listar/{pageNo}")
 	public String findPaginated(@PathVariable (value = "pageNo") int pageNo, ModelMap model) {
-		int pageSeze = 5;
+		int pageSeze = 50;
 		Page<Escala> page = service.findPaginated(pageNo, pageSeze, coordenacaoEscalaService.buscarPorId(coordenacaoAtual()), anoMesService.buscarPorId(mesAtual()));
 		List<Escala> lista = page.getContent();
 		return paginar(pageNo, page, lista, model);
@@ -437,7 +437,7 @@ public class EscalaController {
 	
 	@GetMapping("/listar/todos/{pageNo}")
 	public String findPaginatedTodos(@PathVariable (value = "pageNo") int pageNo, ModelMap model) {
-		int pageSeze = 5;
+		int pageSeze = 50;
 		Page<Escala> page = service.findPaginatedTodos(pageNo, pageSeze, usuarioService.pegarUnidadeLogada(), anoMesService.buscarPorId(mesAtual()));
 		List<Escala> lista = page.getContent();
 		return paginarTodos(pageNo, page, lista, model);
@@ -445,7 +445,7 @@ public class EscalaController {
 	
 	@GetMapping("/listar/pos/transparencia/{pageNo}")
 	public String findPaginatedPosTransparencia(@PathVariable (value = "pageNo") int pageNo, ModelMap model) {
-		int pageSeze = 5;
+		int pageSeze = 50;
 		Page<EscalaPosTransparencia> page = escalaPosTransparenciaService.findPaginatedPosTransparencia(pageNo, pageSeze, usuarioService.pegarUnidadeLogada(), anoMesService.buscarPorId(mesAtual()));
 		List<EscalaPosTransparencia> lista = page.getContent();
 		return paginarPosTransparencia(pageNo, page, lista, model);
@@ -453,7 +453,7 @@ public class EscalaController {
 	
 	@GetMapping("/listar/pos/transparencia/global/{pageNo}")
 	public String findPaginatedPosTransparenciaGlobal(@PathVariable (value = "pageNo") int pageNo, ModelMap model) {
-		int pageSeze = 5;
+		int pageSeze = 50;
 		Page<EscalaPosTransparencia> page = escalaPosTransparenciaService.findPaginatedPosTransparenciaGlobal(pageNo, pageSeze,  anoMesService.buscarPorId(mesAtual()));
 		List<EscalaPosTransparencia> lista = page.getContent();
 		return paginarPosTransparenciaGlobal(pageNo, page, lista, model);
@@ -462,7 +462,7 @@ public class EscalaController {
 	//Escala Alteracao
 	@GetMapping("/listar/escala/alteracao/{pageNo}")
 	public String findPaginatedEscalaAlteracao(@PathVariable (value = "pageNo") int pageNo, ModelMap model) {
-		int pageSeze = 5;
+		int pageSeze = 50;
 		Page<EscalaAlteracoes> page = escalaAlteracoesService.findPaginatedEscalaAlteracao(pageNo, pageSeze, usuarioService.pegarUnidadeLogada(), anoMesService.buscarPorId(mesAtual()));
 		List<EscalaAlteracoes> lista = page.getContent();
 		return paginarEscalaAlteracao(pageNo, page, lista, model);
@@ -470,7 +470,7 @@ public class EscalaController {
 	
 	@GetMapping("/listar/escala/alteracao/global/{pageNo}")
 	public String findPaginatedEscalaAlteracaoGlobal(@PathVariable (value = "pageNo") int pageNo, ModelMap model) {
-		int pageSeze = 5;
+		int pageSeze = 50;
 		Page<EscalaAlteracoes> page = escalaAlteracoesService.findPaginatedEscalaAlteracaoGlobal(pageNo, pageSeze,  anoMesService.buscarPorId(mesAtual()));
 		List<EscalaAlteracoes> lista = page.getContent();
 		return paginarEscalaAlteracaoGlobal(pageNo, page, lista, model);
@@ -479,7 +479,7 @@ public class EscalaController {
 	//Escala Colaborador
 	@GetMapping("/listar/escala/colaborador/{pageNo}")
 	public String findPaginatedEscalaColaborador(@PathVariable (value = "pageNo") int pageNo, ModelMap model) {
-		int pageSeze = 5;
+		int pageSeze = 50;
 		Page<Escala> page = service.findPaginatedColaborador(pageNo, pageSeze, usuarioService.pegarOperadorLogado().getIdPessoaFk() , anoMesService.buscarPorId(mesAtual()));
 		List<Escala> lista = page.getContent();
 		return paginarEscalaColaborador(pageNo, page, lista, model);
@@ -962,7 +962,7 @@ public class EscalaController {
 	}
 	
 	public String findPaginated(@PathVariable (value = "pageNo") int pageNo, String nome, ModelMap model) {
-		int pageSeze = 5;
+		int pageSeze = 50;
 		Page<Escala> page = service.findPaginatedNome(pageNo, pageSeze, coordenacaoEscalaService.buscarPorId(coordenacaoAtual()), anoMesService.buscarPorId(mesAtual()), nome );
 		List<Escala> lista = page.getContent();
 		return paginar(pageNo, page, lista, model);
@@ -983,7 +983,7 @@ public class EscalaController {
 	}
 	
 	public String findPaginated(@PathVariable (value = "pageNo") int pageNo, Turmas turmas, ModelMap model) {
-		int pageSeze = 5;
+		int pageSeze = 50;
 		Page<Escala> page = service.findPaginatedTurma(pageNo, pageSeze, coordenacaoEscalaService.buscarPorId(coordenacaoAtual()), anoMesService.buscarPorId(mesAtual()), turmas );
 		List<Escala> lista = page.getContent();
 		return paginar(pageNo, page, lista, model);
@@ -1004,7 +1004,7 @@ public class EscalaController {
 	}
 	
 	public String findPaginated(@PathVariable (value = "pageNo") int pageNo, CargosEspecialidade cargosEspecialidade, ModelMap model) {
-		int pageSeze = 5;
+		int pageSeze = 50;
 		Page<Escala> page = service.findPaginatedCargo(pageNo, pageSeze, coordenacaoEscalaService.buscarPorId(coordenacaoAtual()), anoMesService.buscarPorId(mesAtual()), cargosEspecialidade );
 		List<Escala> lista = page.getContent();
 		return paginar(pageNo, page, lista, model);
@@ -1025,7 +1025,7 @@ public class EscalaController {
 	}
 	
 	public String findPaginated(@PathVariable (value = "pageNo") int pageNo, TiposDeFolha tiposDeFolha, ModelMap model) {
-		int pageSeze = 5;
+		int pageSeze = 50;
 		Page<Escala> page = service.findPaginatedFolha(pageNo, pageSeze, coordenacaoEscalaService.buscarPorId(coordenacaoAtual()), anoMesService.buscarPorId(mesAtual()), tiposDeFolha );
 		List<Escala> lista = page.getContent();
 		return paginar(pageNo, page, lista, model);
@@ -1063,7 +1063,7 @@ public class EscalaController {
 	}
 	
 	public String findPaginatedTodos(@PathVariable (value = "pageNo") int pageNo, String nome, ModelMap model) {
-		int pageSeze = 5;
+		int pageSeze = 50;
 		Page<Escala> page = service.findPaginatedNomeTodos(pageNo, pageSeze, usuarioService.pegarUnidadeLogada(), anoMesService.buscarPorId(mesAtual()), nome );
 		List<Escala> lista = page.getContent();
 		return paginarTodos(pageNo, page, lista, model);
@@ -1084,7 +1084,7 @@ public class EscalaController {
 	}
 	
 	public String findPaginatedTodos(@PathVariable (value = "pageNo") int pageNo, Turmas turmas, ModelMap model) {
-		int pageSeze = 5;
+		int pageSeze = 50;
 		Page<Escala> page = service.findPaginatedTurmaTodos(pageNo, pageSeze, usuarioService.pegarUnidadeLogada(), anoMesService.buscarPorId(mesAtual()), turmas );
 		List<Escala> lista = page.getContent();
 		return paginarTodos(pageNo, page, lista, model);
@@ -1105,7 +1105,7 @@ public class EscalaController {
 	}
 	
 	public String findPaginatedTodos(@PathVariable (value = "pageNo") int pageNo, CargosEspecialidade cargosEspecialidade, ModelMap model) {
-		int pageSeze = 5;
+		int pageSeze = 50;
 		Page<Escala> page = service.findPaginatedCargoTodos(pageNo, pageSeze, usuarioService.pegarUnidadeLogada(), anoMesService.buscarPorId(mesAtual()), cargosEspecialidade );
 		List<Escala> lista = page.getContent();
 		return paginarTodos(pageNo, page, lista, model);
@@ -1126,7 +1126,7 @@ public class EscalaController {
 	}
 	
 	public String findPaginatedTodos(@PathVariable (value = "pageNo") int pageNo, TiposDeFolha tiposDeFolha, ModelMap model) {
-		int pageSeze = 5;
+		int pageSeze = 50;
 		Page<Escala> page = service.findPaginatedFolhaTodos(pageNo, pageSeze, usuarioService.pegarUnidadeLogada(), anoMesService.buscarPorId(mesAtual()), tiposDeFolha );
 		List<Escala> lista = page.getContent();
 		return paginarTodos(pageNo, page, lista, model);
@@ -1157,7 +1157,7 @@ public class EscalaController {
 	}
 	
 	public String findPaginatedPosTransparencia(@PathVariable (value = "pageNo") int pageNo, String nome, ModelMap model) {
-		int pageSeze = 5;
+		int pageSeze = 50;
 		Page<EscalaPosTransparencia> page = escalaPosTransparenciaService.findPaginatedNomePosTransparencia(pageNo, pageSeze, usuarioService.pegarUnidadeLogada(), anoMesService.buscarPorId(mesAtual()), nome );
 		List<EscalaPosTransparencia> lista = page.getContent();
 		return paginarPosTransparencia(pageNo, page, lista, model);
@@ -1192,7 +1192,7 @@ public class EscalaController {
 		}
 			
 		public String findPaginatedPosTransparenciaGlobal(@PathVariable (value = "pageNo") int pageNo, String nome, ModelMap model) {
-			int pageSeze = 5;
+			int pageSeze = 50;
 			Page<EscalaPosTransparencia> page = escalaPosTransparenciaService.findPaginatedNomePosTransparenciaGlobal(pageNo, pageSeze, nome.toUpperCase().trim(), anoMesService.buscarPorId(mesAtual()) );
 			List<EscalaPosTransparencia> lista = page.getContent();
 			return paginarPosTransparenciaGlobal(pageNo, page, lista, model);
@@ -1223,7 +1223,7 @@ public class EscalaController {
 	}
 	
 	public String findPaginatedEscalaAlteracao(@PathVariable (value = "pageNo") int pageNo, String nome, ModelMap model) {
-		int pageSeze = 5;
+		int pageSeze = 50;
 		Page<EscalaAlteracoes> page = escalaAlteracoesService.findPaginatedNomeEscalaAlteracao(pageNo, pageSeze, usuarioService.pegarUnidadeLogada(), anoMesService.buscarPorId(mesAtual()), nome );
 		List<EscalaAlteracoes> lista = page.getContent();
 		return paginarEscalaAlteracao(pageNo, page, lista, model);
@@ -1257,7 +1257,7 @@ public class EscalaController {
 	}
 	
 	public String findPaginatedEscalaAlteracaoGlobal(@PathVariable (value = "pageNo") int pageNo, String nome, ModelMap model) {
-		int pageSeze = 5;
+		int pageSeze = 50;
 		Page<EscalaAlteracoes> page = escalaAlteracoesService.findPaginatedNomeEscalaAlteracaoGlobal(pageNo, pageSeze,  anoMesService.buscarPorId(mesAtual()), nome.toUpperCase().trim() );
 		List<EscalaAlteracoes> lista = page.getContent();
 		return paginarEscalaAlteracaoGlobal(pageNo, page, lista, model);
@@ -1274,7 +1274,7 @@ public class EscalaController {
 	
 			
 	public String findPaginatedEscalaColaborador(@PathVariable (value = "pageNo") int pageNo, String nome, ModelMap model) {
-		int pageSeze = 5;
+		int pageSeze = 50;
 		Page<Escala> page = service.findPaginatedColaborador(pageNo, pageSeze, pessoaOperadoresService.buscarPorId(mesAtual()).getIdPessoaFk() ,anoMesService.buscarPorId(mesAtual()) );
 		List<Escala> lista = page.getContent();
 		return paginarEscalaColaborador(pageNo, page, lista, model);
@@ -3762,7 +3762,7 @@ public class EscalaController {
 	
 	@GetMapping("/listar/inclusao/{pageNo}")
 	public String findPaginatedInclusao(@PathVariable (value = "pageNo") int pageNo, ModelMap model) {
-		int pageSeze = 5;
+		int pageSeze = 50;
 		Page<PessoaFuncionarios> page = pessoaFuncionariosService.findPaginated(pageNo, pageSeze, usuarioService.pegarUnidadeLogada(), "ATIVO");
 		List<PessoaFuncionarios> lista = page.getContent();
 		return paginarInclusao(pageNo, page, lista, model);
@@ -3788,7 +3788,7 @@ public class EscalaController {
 	}
 	
 	public String findPaginatedInclusao(@PathVariable (value = "pageNo") int pageNo, String nome, ModelMap model) {
-		int pageSeze = 5;
+		int pageSeze = 50;
 		Page<PessoaFuncionarios> page = pessoaFuncionariosService.findPaginatedNome(pageNo, pageSeze, usuarioService.pegarUnidadeLogada(), "ATIVO", nome);
 		List<PessoaFuncionarios> lista = page.getContent();
 		//ultimaBuscaNome = "";
