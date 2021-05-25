@@ -51,7 +51,7 @@
 	    	<div th:replace="fragments/alert"></div>
 	    	
 	        <div style="height: 450px; overflow-y: auto;" class="table-responsive">
-	        	<table class="table table-striped table-hover table-sm myTable" style= "width:1310px;">
+	        	<table class="table table-striped table-hover table-sm myTable" style= "width:1210px;">
 	            	<thead>
 	          			<tr>
 		                	<th style="font-size:11px;" >#</th>
@@ -67,7 +67,7 @@
 	                    </tr>
 	                </thead>                  
 	                <tbody>
-		            	<tr th:each="d : ${listaFuncionarios}"> nini
+		            	<tr th:each="d : ${listaFuncionarios}"> 
 		                	<td style="font-size:11px;"  th:text="${d.id}"></td>
 		                    <td style="font-size:11px;"  th:text="${d.idEspecialidadeAtualFk.idCargoFk.idNivelCargoFk.siglaNivelCargo}"></td>
 		                    <td style="font-size:11px;"  th:text="${d.idPessoaFk.cpf}"></td>
