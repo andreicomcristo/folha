@@ -62,7 +62,7 @@
 							
 							<label for="nome" class="">Data Final </label>
 							<input type="text"
-								class="form-control form-control-md calendario2" disabled
+								class="form-control form-control-md calendario2"
 								id="instituicao" placeholder="Data Final" th:field="*{dtFinal}" />						
 							<p></p>							
 
@@ -164,14 +164,15 @@
 			    	month = month - 1
 			    	const initialDate = new Date(dt[2], month.toString(), dt[0])
 			    	const finalDate = addDays(initialDate, parseInt(e.currentTarget.attributes.dias.value))
-				    $( ".calendario2" ).attr('disabled', 'disabled').val(dataAtualFormatada(finalDate))
+				    $( ".calendario2" ).val(dataAtualFormatada(finalDate))
 			    })
 			    $( ".calendario1" ).change(function(e){
-			    	if ($( ".calendario2" ).attr('disabled')) {
-					    $( ".calendario2" ).removeAttr('disabled')
-				    	$('.botao-ferias').removeClass('selected')
-					    $( ".calendario2" ).removeAttr('disabled').val('')
-			    	}
+				    $( ".calendario2" ).removeAttr('disabled')
+			    	$('.botao-ferias').removeClass('selected')
+				    $( ".calendario2" ).removeAttr('disabled').val('')
+			    })
+			    $( ".calendario2" ).change(function(e){
+			    	$('.botao-ferias').removeClass('selected')
 			    })
 			})();
 		</script>
