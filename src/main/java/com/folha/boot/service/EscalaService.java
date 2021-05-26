@@ -224,6 +224,8 @@ public class EscalaService {
     	String resposta = "";
     	List<Escala> lista = buscarPorPessoaEAnoMes(escala.getIdFuncionarioFk().getIdPessoaFk(), escala.getIdAnoMesFk());
     	
+    	String a = "";
+    	
     	for(int i=0;i<lista.size();i++) {
     		if(lista.get(i).getId()==escala.getId()) {lista.remove(i); i=i-1;}
     	}
@@ -236,7 +238,7 @@ public class EscalaService {
     			
     			//Dia 01
     			if((escala.getDia01Fk().getHorasManha()>0)  && (lista.get(i).getDia01Fk().getHorasManha()>0) ) {
-    				respostaInterna = respostaInterna+"1 manha;";
+    				respostaInterna = respostaInterna+"1 manha;"; a = a+lista.get(i).getId();
 	    		}
     			if(escala.getDia01Fk().getHorasTarde()>0  && lista.get(i).getDia01Fk().getHorasTarde()>0 ) {
     				respostaInterna = respostaInterna+"1 tarde;";
@@ -582,6 +584,8 @@ public class EscalaService {
     	}
     	
     	if(resposta.length()>0) {resposta = "Choque: "+resposta;}
+    	
+    	resposta = a+resposta;
     	
     	resposta = resposta + excedeLimiteDeHoras(escala);
     	
