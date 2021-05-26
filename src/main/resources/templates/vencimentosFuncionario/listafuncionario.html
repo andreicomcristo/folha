@@ -54,18 +54,22 @@
 		                    <th style="font-size:11px;" >CH</th>
 		                    <th style="font-size:11px;" >Nome</th>
 		                    <th style="font-size:11px;" >Cargo</th>		                    		                    
+		                    <th style="font-size:11px;" >Vínculo</th>
 		                    
 	                    </tr>
 	                </thead>                  
 	                <tbody>
 		            	<tr th:each="d : ${listaFuncionarios}">
-		                	<td style="font-size:11px;"  th:text="${d.id}"></td>
-		                    <td style="font-size:11px;"  th:text="${d.idEspecialidadeAtualFk.idCargoFk.idNivelCargoFk.siglaNivelCargo}"></td>
-		                    <td style="font-size:11px;"  th:text="${d.idPessoaFk.cpf}"></td>
-		                    <td style="font-size:11px;"  th:text="${d.matricula}"></td>
-		                    <td style="font-size:11px;"  th:text="${d.idCargaHorariaAtualFk.cargaHoraria}"></td>  
-		                    <td style="font-size:11px;"> <a th:href="@{/vencimentosFuncionario/cadastrar/{id} (id=${d.id}) }" title="Atribuir" ><span th:text="${d.idPessoaFk.nome}"></span></a></td>
-		                    <td style="font-size:11px;"  th:text="${d.idEspecialidadeAtualFk.idCargoFk.nomeCargo+'-'+d.idEspecialidadeAtualFk.nomeEspecialidadeCargo}"></td> 
+		            	
+		            		<td style="font-size:11px;"  th:text="${d.id}"></td>
+		                    <td style="font-size:10px;"  th:text="${d.idEspecialidadeAtualFk != null} ? ${d.idEspecialidadeAtualFk.idCargoFk.idNivelCargoFk.siglaNivelCargo} : ''  "></td>
+		                    <td style="font-size:10px;"  th:text="${d.idPessoaFk != null} ? ${d.idPessoaFk.cpf} : ''  "></td>
+		                    <td style="font-size:10px;"  th:text="${d.matricula != null} ? ${d.matricula} : ''  "></td>
+		                    <td style="font-size:10px;"  th:text="${d.idCargaHorariaAtualFk != null} ? ${d.idCargaHorariaAtualFk.cargaHoraria} : ''  "></td>
+		                    <td style="font-size:11px;"> <a th:href="@{/vencimentosFuncionario/cadastrar/{id} (id=${d.id}) }" title="Atribuir" ><span th:text="${d.idPessoaFk != null} ? ${d.idPessoaFk.nome} : ''  "></span></a></td>
+		                    <td style="font-size:10px;"  th:text="${d.idEspecialidadeAtualFk != null} ? ${d.idEspecialidadeAtualFk.idCargoFk.nomeCargo+'-'+d.idEspecialidadeAtualFk.nomeEspecialidadeCargo} : ''  "></td>
+		                    <td style="font-size:10px;"  th:text="${d.idVinculoAtualFk != null} ? ${d.idVinculoAtualFk.nomeVinculo} : ''  "></td>
+		                    	 
 		                    <td colspan="2">
 		                    	
 		                    	<!--

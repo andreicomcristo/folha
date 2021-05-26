@@ -72,22 +72,22 @@ public class PessoaFuncionariosService {
 	
 	public Page<PessoaFuncionarios> findPaginated(int pageNo, int pageSize, Unidades unidades, String ativo) {
 		Pageable pageable = PageRequest.of(pageNo -1, pageSize);
-		return this.reposytory.findByIdUnidadeAtuacaoAtualFkAndDtCancelamentoIsNullAndIdPessoaFkDtCancelamentoIsNullAndIdSituacaoAtualFkNomeSituacao(unidades, ativo, pageable);
+		return this.reposytory.findByIdUnidadeAtuacaoAtualFkAndDtCancelamentoIsNullAndIdPessoaFkDtCancelamentoIsNullAndIdSituacaoAtualFkNomeSituacaoOrderByIdPessoaFkNomeAsc(unidades, ativo, pageable);
 	}
 	
 	public Page<PessoaFuncionarios> findPaginatedDeTodasAsUnidades(int pageNo, int pageSize, String ativo) {
 		Pageable pageable = PageRequest.of(pageNo -1, pageSize);
-		return this.reposytory.findByDtCancelamentoIsNullAndIdPessoaFkDtCancelamentoIsNullAndIdSituacaoAtualFkNomeSituacao( ativo, pageable);
+		return this.reposytory.findByDtCancelamentoIsNullAndIdPessoaFkDtCancelamentoIsNullAndIdSituacaoAtualFkNomeSituacaoOrderByIdPessoaFkNomeAsc( ativo, pageable);
 	}
 	
 	public Page<PessoaFuncionarios> findPaginatedNome(int pageNo, int pageSize, Unidades unidades, String ativo, String nome) {
 		Pageable pageable = PageRequest.of(pageNo -1, pageSize);
-		return this.reposytory.findByIdUnidadeAtuacaoAtualFkAndDtCancelamentoIsNullAndIdPessoaFkDtCancelamentoIsNullAndIdSituacaoAtualFkNomeSituacaoAndIdPessoaFkNomeContaining(unidades, ativo, nome.toUpperCase().trim(), pageable);
+		return this.reposytory.findByIdUnidadeAtuacaoAtualFkAndDtCancelamentoIsNullAndIdPessoaFkDtCancelamentoIsNullAndIdSituacaoAtualFkNomeSituacaoAndIdPessoaFkNomeContainingOrderByIdPessoaFkNomeAsc(unidades, ativo, nome.toUpperCase().trim(), pageable);
 	}
 
 	public Page<PessoaFuncionarios> findPaginatedNomeDeTodasAsUnidades(int pageNo, int pageSize, String ativo, String nome) {
 		Pageable pageable = PageRequest.of(pageNo -1, pageSize);
-		return this.reposytory.findByDtCancelamentoIsNullAndIdPessoaFkDtCancelamentoIsNullAndIdSituacaoAtualFkNomeSituacaoAndIdPessoaFkNomeContaining( ativo, nome.toUpperCase().trim(), pageable);
+		return this.reposytory.findByDtCancelamentoIsNullAndIdPessoaFkDtCancelamentoIsNullAndIdSituacaoAtualFkNomeSituacaoAndIdPessoaFkNomeContainingOrderByIdPessoaFkNomeAsc( ativo, nome.toUpperCase().trim(), pageable);
 	}
 
 	
