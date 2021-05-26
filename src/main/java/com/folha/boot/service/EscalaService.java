@@ -224,10 +224,8 @@ public class EscalaService {
     	String resposta = "";
     	List<Escala> lista = buscarPorPessoaEAnoMes(escala.getIdFuncionarioFk().getIdPessoaFk(), escala.getIdAnoMesFk());
     	
-    	String a = "";
-    	
     	for(int i=0;i<lista.size();i++) {
-    		if(lista.get(i).getId() ==escala.getId()) {lista.remove(i); i=i-1;}
+    		if(String.valueOf(lista.get(i).getId()).equalsIgnoreCase( String.valueOf(escala.getId())) ) {lista.remove(i); i=i-1;}
     	}
     	
     	for(int i=0;i<lista.size();i++) {
@@ -238,7 +236,7 @@ public class EscalaService {
     			
     			//Dia 01
     			if((escala.getDia01Fk().getHorasManha()>0)  && (lista.get(i).getDia01Fk().getHorasManha()>0) ) {
-    				respostaInterna = respostaInterna+"1 manha;"; a = a+lista.get(i).getId()+"idEscala:"+escala.getId(); if(String.valueOf(lista.get(i).getId()).equalsIgnoreCase( String.valueOf( escala.getId())) ) {a = a+"igual";}else {a=a+"diferente";}
+    				respostaInterna = respostaInterna+"1 manha;"; 
 	    		}
     			if(escala.getDia01Fk().getHorasTarde()>0  && lista.get(i).getDia01Fk().getHorasTarde()>0 ) {
     				respostaInterna = respostaInterna+"1 tarde;";
@@ -585,8 +583,6 @@ public class EscalaService {
     	
     	if(resposta.length()>0) {resposta = "Choque: "+resposta;}
     	
-    	resposta = a+resposta;
-    	
     	resposta = resposta + excedeLimiteDeHoras(escala);
     	
     	return resposta;
@@ -597,7 +593,7 @@ public class EscalaService {
     	List<Escala> lista = buscarPorPessoaEAnoMes(escala.getIdFuncionarioFk().getIdPessoaFk(), escala.getIdAnoMesFk());
     	
     	for(int i=0;i<lista.size();i++) {
-    		if(lista.get(i).getId()==escala.getId()) {lista.remove(i); i=i-1;}
+    		if(String.valueOf(lista.get(i).getId()).equalsIgnoreCase( String.valueOf(escala.getId())) ) {lista.remove(i); i=i-1;}
     	}
     	
     	lista.add(escala);
