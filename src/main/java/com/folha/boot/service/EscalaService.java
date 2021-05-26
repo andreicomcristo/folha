@@ -220,8 +220,13 @@ public class EscalaService {
 	
 	
 	public String choquesEmEscalaOnipresenca(Escala escala) {
+		
     	String resposta = "";
     	List<Escala> lista = buscarPorPessoaEAnoMes(escala.getIdFuncionarioFk().getIdPessoaFk(), escala.getIdAnoMesFk());
+    	
+    	for(int i=0;i<lista.size();i++) {
+    		if(lista.get(i).getId()==escala.getId()) {lista.remove(i); i=i-1;}
+    	}
     	
     	for(int i=0;i<lista.size();i++) {
     		
@@ -586,6 +591,11 @@ public class EscalaService {
 	public String choquesEmEscalaDepoisDoNoturno(Escala escala) {
     	String resposta = "";
     	List<Escala> lista = buscarPorPessoaEAnoMes(escala.getIdFuncionarioFk().getIdPessoaFk(), escala.getIdAnoMesFk());
+    	
+    	for(int i=0;i<lista.size();i++) {
+    		if(lista.get(i).getId()==escala.getId()) {lista.remove(i); i=i-1;}
+    	}
+    	
     	lista.add(escala);
     	
     	int horasNoite01 = 0;
