@@ -238,7 +238,7 @@ public class EscalaService {
     			
     			//Dia 01
     			if((escala.getDia01Fk().getHorasManha()>0)  && (lista.get(i).getDia01Fk().getHorasManha()>0) ) {
-    				respostaInterna = respostaInterna+"1 manha;"; a = a+lista.get(i).getId();
+    				respostaInterna = respostaInterna+"1 manha;"; a = a+lista.get(i).getId()+"idEscala:"+escala.getId();
 	    		}
     			if(escala.getDia01Fk().getHorasTarde()>0  && lista.get(i).getDia01Fk().getHorasTarde()>0 ) {
     				respostaInterna = respostaInterna+"1 tarde;";
