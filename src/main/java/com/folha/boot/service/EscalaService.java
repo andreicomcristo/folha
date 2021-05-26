@@ -227,7 +227,7 @@ public class EscalaService {
     	String a = "";
     	
     	for(int i=0;i<lista.size();i++) {
-    		if(lista.get(i).getId()==escala.getId()) {lista.remove(i); i=i-1;}
+    		if(lista.get(i).getId() ==escala.getId()) {lista.remove(i); i=i-1;}
     	}
     	
     	for(int i=0;i<lista.size();i++) {
@@ -238,7 +238,7 @@ public class EscalaService {
     			
     			//Dia 01
     			if((escala.getDia01Fk().getHorasManha()>0)  && (lista.get(i).getDia01Fk().getHorasManha()>0) ) {
-    				respostaInterna = respostaInterna+"1 manha;"; a = a+lista.get(i).getId()+"idEscala:"+escala.getId();
+    				respostaInterna = respostaInterna+"1 manha;"; a = a+lista.get(i).getId()+"idEscala:"+escala.getId(); if(lista.get(i).getId()==escala.getId()) {a = a+"igual";}else {a=a+"diferente";}
 	    		}
     			if(escala.getDia01Fk().getHorasTarde()>0  && lista.get(i).getDia01Fk().getHorasTarde()>0 ) {
     				respostaInterna = respostaInterna+"1 tarde;";
