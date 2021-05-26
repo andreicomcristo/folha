@@ -238,7 +238,7 @@ public class EscalaService {
     			
     			//Dia 01
     			if((escala.getDia01Fk().getHorasManha()>0)  && (lista.get(i).getDia01Fk().getHorasManha()>0) ) {
-    				respostaInterna = respostaInterna+"1 manha;"; a = a+lista.get(i).getId()+"idEscala:"+escala.getId(); if(lista.get(i).getId()==escala.getId()) {a = a+"igual";}else {a=a+"diferente";}
+    				respostaInterna = respostaInterna+"1 manha;"; a = a+lista.get(i).getId()+"idEscala:"+escala.getId(); if(String.valueOf(lista.get(i).getId()).equalsIgnoreCase( String.valueOf( escala.getId())) ) {a = a+"igual";}else {a=a+"diferente";}
 	    		}
     			if(escala.getDia01Fk().getHorasTarde()>0  && lista.get(i).getDia01Fk().getHorasTarde()>0 ) {
     				respostaInterna = respostaInterna+"1 tarde;";
