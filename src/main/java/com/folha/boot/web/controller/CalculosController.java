@@ -135,7 +135,8 @@ public class CalculosController {
 	
 	
 	public void exibirRelatoriosVencimentosTodosPorMes( AnoMes anoMes,  HttpServletResponse response ) throws IOException {
-		service.addParametros("MES_I", anoMes);		
+		service.addParametros("MES_I", anoMes.getId());		
+		service.addParametros("NOME_MES_I", anoMes.getNomeAnoMes());
 		service.setCaminho("/jasper/folha/VencimentosTodosPorMes.jasper");
 		byte[] bytes = service.gerarRelatorio(); 
 		response.setContentType(MediaType.APPLICATION_PDF_VALUE);
