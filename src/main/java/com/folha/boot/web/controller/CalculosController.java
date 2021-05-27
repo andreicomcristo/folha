@@ -76,6 +76,7 @@ import com.folha.boot.service.TurmasService;
 import com.folha.boot.service.TurnosService;
 import com.folha.boot.service.UnidadesService;
 import com.folha.boot.service.calculos.escala.CalculosCalcularService;
+import com.folha.boot.service.relatorios.JasperService;
 import com.folha.boot.service.seguranca.UsuarioService;
 import com.folha.boot.service.util.UtilidadesDeCalendarioEEscala;
 
@@ -105,6 +106,9 @@ public class CalculosController {
 	PessoaCodDiferenciadoService pessoaCodDiferenciadoService;
 	@Autowired
 	CalculosCalcularService calculosCalcularService;
+	@Autowired
+	private JasperService service;
+	
 	
 	
 	
@@ -118,13 +122,27 @@ public class CalculosController {
 	}
 	
 	@PostMapping("/calcular")
-	public String irParaEscala(ModelMap model, MesDoCalculo mesDoCalculo) {
+	public void irParaEscala(ModelMap model, MesDoCalculo mesDoCalculo, HttpServletResponse response) throws IOException {
 		
 		calculosCalcularService.calcular(mesDoCalculo.getAnoMes());
+		exibirRelatoriosVencimentosTodosPorMes(mesDoCalculo.getAnoMes(), response);
 		
-		
-		return "redirect:/calculos/escolher/mes"; 
+		//return "redirect:/calculos/escolher/mes"; 
 	}
+	
+	
+	
+	
+	
+	public void exibirRelatoriosVencimentosTodosPorMes( AnoMes anoMes,  HttpServletResponse response ) throws IOException {
+		service.addParametros("MES_I", anoMes);		
+		service.setCaminho("/jasper/folha/VencimentosTodosPorMes.jasper");
+		byte[] bytes = service.gerarRelatorio(); 
+		response.setContentType(MediaType.APPLICATION_PDF_VALUE);
+		//Faz o download
+		response.setHeader("Content-disposition", "inline; filename=dados.pdf");
+		response.getOutputStream().write(bytes);
+	}	
 	
 	
 	
