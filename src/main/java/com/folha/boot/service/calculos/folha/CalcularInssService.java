@@ -29,15 +29,10 @@ public class CalcularInssService {
 		Double resposta = 0.0;
 		//Avaliando se Tem INSS ou NÃO
 		if(funcionario.getIdVinculoAtualFk().getNomeVinculo().equalsIgnoreCase("EFETIVO")) {temInss=false;}
-		System.out.println("AAAAAAA");
-		System.out.println(temInss);
-		System.out.println(valor);
-		System.out.println(funcionario.getIdPessoaFk().getNome());
 		if(! naoDescontaInssService.buscarPorMesExatoEFuncionario(anoMes, funcionario).isEmpty() ) {temInss=false;}
 		if(temInss==true) {resposta = valorInss(valor, anoMes);}
 		if(resposta<0) {resposta=0.0;}
-		
-		
+				
 		
 		return resposta;
 	}
@@ -49,7 +44,7 @@ public class CalcularInssService {
 		List<FaixasPrevidencia> listaFaixas = faixasPrevidenciaSevice.buscarPorAnoMesExato(anoMes);
 			for(int i=0;i<listaFaixas.size();i++) {
 				if(valor>=listaFaixas.get(i).getBaseCalculoValorInicial() && valor<=listaFaixas.get(i).getBaseCalculoValorFinal()) {
-					resposta = (valor*(listaFaixas.get(i).getAliquota()/100)) - (listaFaixas.get(i).getParcelaADevolver()) + (listaFaixas.get(i).getParcelaASubtrair()) ;
+					resposta = ((valor-listaFaixas.get(i).getBaseCalculoValorInicial())*(listaFaixas.get(i).getAliquota()/100)) - (listaFaixas.get(i).getParcelaADevolver()) + (listaFaixas.get(i).getParcelaASubtrair()) ;
 					if(resposta<0) {resposta=0.0;}
 					break;
 				}
