@@ -356,8 +356,7 @@ public class CalculosAlternativosService {
 		
 			return listaResposta;
 	}
-	
-	
+		
 	
 	public List<EscalasNoMes> aplicarFeriasNaEscala(List<EscalasNoMes> listaEscalas, List<FeriasNoMes> listaFerias){
 		List<EscalasNoMes> listaResposta = new ArrayList<>();
