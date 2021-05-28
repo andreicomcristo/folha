@@ -602,7 +602,7 @@ public class EscalaController {
 		String nomeColuna5 = escalaCalculosService.obtemNomeDiaColuna(anoMesDaEscala, 5);
 		String nomeColuna6 = escalaCalculosService.obtemNomeDiaColuna(anoMesDaEscala, 6);
 		String nomeColuna7 = escalaCalculosService.obtemNomeDiaColuna(anoMesDaEscala, 7);
-		
+		// falta complemento de planantao compativel
 		model.addAttribute("idCodigoDiferenciadoFkCompativel", getCodigosDiferenciadoCompativel(escala.getIdFuncionarioFk().getIdPessoaFk()) );
 		model.addAttribute("idChDifFkCompativel", pessoaChDifService.listaSimNaoCompativelComPessoa(usuarioService.pegarUnidadeLogada(), escala.getIdFuncionarioFk().getIdPessoaFk(), escala.getIdAnoMesFk()) );
 		model.addAttribute("idIncrementoDeRiscoCompativel", pessoaIncrementoDeRiscoService.listaSimNaoCompativelComPessoa(usuarioService.pegarUnidadeLogada(), escala.getIdFuncionarioFk().getIdPessoaFk(), escala.getIdAnoMesFk()) );
