@@ -39,6 +39,7 @@ public class CalcularInssService {
 	
 	
 	
+	
 	public Double valorInss(Double valor, AnoMes anoMes) {
 		Double resposta = 0.0;
 		List<FaixasPrevidencia> listaFaixas = faixasPrevidenciaSevice.buscarPorAnoMesExato(anoMes);
