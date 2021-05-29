@@ -1950,6 +1950,7 @@ public class CalculosAlternativosService {
 		
 		//Para pessoas que nao tem diferenciacao atribuída e sao de folhas variaveis 
 		for(int i=0;i<listaEscalas.size();i++) {
+			System.out.println("PPPP:"+"INICIOU A");
 			if(escalaCodDiferenciadoService.buscarPorEscala(listaEscalas.get(i).getEscala()).isEmpty()) {
 				for(int j=0;j<listaValoresExtra.size();j++) {
 					RubricasVencimento r = new RubricasVencimento();
@@ -2011,6 +2012,7 @@ public class CalculosAlternativosService {
 					}
 				}
 			}
+			System.out.println("PPPP:"+"TERMINOU A");
 		}
 		
 		
@@ -2276,6 +2278,7 @@ public class CalculosAlternativosService {
 									//Avaliando se já tem alguma linha já cadastrada
 									Double valorCadastrado = 0.0;
 									for(int k=0;k<lista.size();k++) {
+										if( Long.parseLong(listaEscalas.get(i).getEscala().getIdFuncionarioFk().getIdPessoaFk().getCpf())  <  Long.parseLong(lista.get(k).getPessoaFuncionarios().getIdPessoaFk().getCpf()) ) {break;}
 										if(lista.get(k).getAnoMes()==anoMes &&
 											lista.get(k).getCodigo().equalsIgnoreCase("COMPL PLANT COMUM") &&
 											lista.get(k).getPessoaFuncionarios()==listaEscalas.get(i).getEscala().getIdFuncionarioFk()
@@ -2358,6 +2361,7 @@ public class CalculosAlternativosService {
 									//Avaliando se já tem alguma linha já cadastrada
 									Double valorCadastrado = 0.0;
 									for(int k=0;k<lista.size();k++) {
+										if( Long.parseLong(listaEscalas.get(i).getEscala().getIdFuncionarioFk().getIdPessoaFk().getCpf())  <  Long.parseLong(lista.get(k).getPessoaFuncionarios().getIdPessoaFk().getCpf()) ) {break;}
 										if(lista.get(k).getAnoMes()==anoMes &&
 											lista.get(k).getCodigo().equalsIgnoreCase("COMPL PLANT DIFERENCIADO") &&
 											lista.get(k).getPessoaFuncionarios()==listaEscalas.get(i).getEscala().getIdFuncionarioFk()
@@ -2451,6 +2455,7 @@ public class CalculosAlternativosService {
 									//Avaliando se já tem alguma linha já cadastrada
 									Double valorCadastrado = 0.0;
 									for(int k=0;k<lista.size();k++) {
+										if( Long.parseLong(listaEscalas.get(i).getEscala().getIdFuncionarioFk().getIdPessoaFk().getCpf())  <  Long.parseLong(lista.get(k).getPessoaFuncionarios().getIdPessoaFk().getCpf()) ) {break;}
 										if(lista.get(k).getAnoMes()==anoMes &&
 											lista.get(k).getCodigo().equalsIgnoreCase("COMPL PLANT COMUM") &&
 											lista.get(k).getPessoaFuncionarios()==listaEscalas.get(i).getEscala().getIdFuncionarioFk()
@@ -2535,6 +2540,7 @@ public class CalculosAlternativosService {
 									//Avaliando se já tem alguma linha já cadastrada
 									Double valorCadastrado = 0.0;
 									for(int k=0;k<lista.size();k++) {
+										if( Long.parseLong(listaEscalas.get(i).getEscala().getIdFuncionarioFk().getIdPessoaFk().getCpf())  <  Long.parseLong(lista.get(k).getPessoaFuncionarios().getIdPessoaFk().getCpf()) ) {break;}
 										if(lista.get(k).getAnoMes()==anoMes &&
 											lista.get(k).getCodigo().equalsIgnoreCase("COMPL PLANT DIFERENCIADO") &&
 											lista.get(k).getPessoaFuncionarios()==listaEscalas.get(i).getEscala().getIdFuncionarioFk()
@@ -2626,6 +2632,7 @@ public class CalculosAlternativosService {
 									//Avaliando se já tem alguma linha já cadastrada
 									Double valorCadastrado = 0.0;
 									for(int k=0;k<lista.size();k++) {
+										if( Long.parseLong(listaEscalas.get(i).getEscala().getIdFuncionarioFk().getIdPessoaFk().getCpf())  <  Long.parseLong(lista.get(k).getPessoaFuncionarios().getIdPessoaFk().getCpf()) ) {break;}
 										if(lista.get(k).getAnoMes()==anoMes &&
 											lista.get(k).getCodigo().equalsIgnoreCase("COMPL PLANT DIFERENCIADO DIARISTA") &&
 											lista.get(k).getPessoaFuncionarios()==listaEscalas.get(i).getEscala().getIdFuncionarioFk()
@@ -2803,6 +2810,7 @@ public class CalculosAlternativosService {
 									//Avaliando se já tem alguma linha já cadastrada
 									Double valorCadastrado = 0.0;
 									for(int k=0;k<lista.size();k++) {
+										if( Long.parseLong(listaEscalas.get(i).getEscala().getIdFuncionarioFk().getIdPessoaFk().getCpf())  <  Long.parseLong(lista.get(k).getPessoaFuncionarios().getIdPessoaFk().getCpf()) ) {break;}
 										if(lista.get(k).getAnoMes()==anoMes &&
 											lista.get(k).getCodigo().equalsIgnoreCase("PSS") &&
 											lista.get(k).getPessoaFuncionarios()==listaEscalas.get(i).getEscala().getIdFuncionarioFk()
@@ -2885,6 +2893,7 @@ public class CalculosAlternativosService {
 									//Avaliando se já tem alguma linha já cadastrada
 									Double valorCadastrado = 0.0;
 									for(int k=0;k<lista.size();k++) {
+										if( Long.parseLong(listaEscalas.get(i).getEscala().getIdFuncionarioFk().getIdPessoaFk().getCpf())  <  Long.parseLong(lista.get(k).getPessoaFuncionarios().getIdPessoaFk().getCpf()) ) {break;}
 										if(lista.get(k).getAnoMes()==anoMes &&
 											lista.get(k).getCodigo().equalsIgnoreCase("FOLH EXT") &&
 											lista.get(k).getPessoaFuncionarios()==listaEscalas.get(i).getEscala().getIdFuncionarioFk()

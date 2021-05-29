@@ -68,6 +68,6 @@ public interface EscalaReposytoty extends JpaRepository<Escala, Long> {
 	
 		public List<Escala> findByIdFuncionarioFkIdPessoaFkAndIdAnoMesFkAndDtCancelamentoIsNullOrderByIdCoordenacaoFkIdLocalidadeFkIdUnidadeFkAscIdTipoFolhaFkAscIdFuncionarioFkIdPessoaFkNomeAsc (Pessoa pessoa, AnoMes anoMes);
 		
-		public List<Escala> findByIdAnoMesFkAndDtCancelamentoIsNullOrderByIdCoordenacaoFkIdLocalidadeFkIdUnidadeFkAscIdTipoFolhaFkAscIdFuncionarioFkIdPessoaFkNomeAsc (AnoMes anoMes);
+		public List<Escala> findByIdAnoMesFkAndDtCancelamentoIsNullOrderByIdFuncionarioFkIdPessoaFkCpfAscIdCoordenacaoFkIdLocalidadeFkIdUnidadeFkAscIdTipoFolhaFkAscIdFuncionarioFkIdPessoaFkNomeAsc (AnoMes anoMes);
 		
 }
