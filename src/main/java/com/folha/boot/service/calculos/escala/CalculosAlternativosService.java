@@ -1958,7 +1958,7 @@ public class CalculosAlternativosService {
 		
 		for(int i=0;i<listaEscalas.size();i++) {
 		
-		
+			System.out.println("INICIOU : "+i+" :"+new Date().getHours()+"-"+new Date().getMinutes()+"-"+new Date().getSeconds());
 		//Para pessoas que nao tem diferenciacao atribuída e sao de folhas variaveis 
 		
 			if(escalaCodDiferenciadoService.buscarPorEscala(listaEscalas.get(i).getEscala()).isEmpty()) {
@@ -2925,7 +2925,7 @@ public class CalculosAlternativosService {
 					
 					
 					
-					
+				System.out.println("TERMINOU"+new Date().getHours()+"-"+new Date().getMinutes()+"-"+new Date().getSeconds());	
 					
 					
 					
