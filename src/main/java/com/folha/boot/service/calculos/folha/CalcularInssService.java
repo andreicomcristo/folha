@@ -45,7 +45,13 @@ public class CalcularInssService {
 		List<FaixasPrevidencia> listaFaixas = faixasPrevidenciaSevice.buscarPorAnoMesExato(anoMes);
 			for(int i=0;i<listaFaixas.size();i++) {
 				if(valor>=listaFaixas.get(i).getBaseCalculoValorInicial() && valor<=listaFaixas.get(i).getBaseCalculoValorFinal()) {
-					resposta = ((valor-listaFaixas.get(i).getBaseCalculoValorInicial())*(listaFaixas.get(i).getAliquota()/100)) - (listaFaixas.get(i).getParcelaADevolver()) + (listaFaixas.get(i).getParcelaASubtrair()) ;
+					Double acumulado = 0.0;
+					if(i>0) {
+						for(int j=0;j<i;j++) {
+							acumulado = acumulado + listaFaixas.get(j).getParcelaASubtrair();
+						}
+					}
+					resposta = ((valor-listaFaixas.get(i).getBaseCalculoValorInicial())*(listaFaixas.get(i).getAliquota()/100)) - (listaFaixas.get(i).getParcelaADevolver()) + (acumulado) ;
 					if(resposta<0) {resposta=0.0;}
 					break;
 				}
