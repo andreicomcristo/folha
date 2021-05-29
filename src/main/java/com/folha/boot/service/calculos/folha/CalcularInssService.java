@@ -48,6 +48,7 @@ public class CalcularInssService {
 					Double acumulado = 0.0;
 					if(i>0) {
 						for(int j=0;j<i;j++) {
+							if(j==i) {break;}
 							acumulado = acumulado + listaFaixas.get(j).getParcelaASubtrair();
 						}
 					}
