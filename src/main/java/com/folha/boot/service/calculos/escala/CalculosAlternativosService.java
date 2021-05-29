@@ -1950,7 +1950,7 @@ public class CalculosAlternativosService {
 		
 		//Para pessoas que nao tem diferenciacao atribuída e sao de folhas variaveis 
 		for(int i=0;i<listaEscalas.size();i++) {
-			System.out.println("PPPP:"+"INICIOU A");
+			System.out.println("PPPP:"+"INICIOU A:"+i);
 			if(escalaCodDiferenciadoService.buscarPorEscala(listaEscalas.get(i).getEscala()).isEmpty()) {
 				for(int j=0;j<listaValoresExtra.size();j++) {
 					RubricasVencimento r = new RubricasVencimento();
