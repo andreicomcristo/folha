@@ -72,25 +72,6 @@ public class CalculosCalcularService {
 		List<RubricasVencimento> listaVencimentos = calculosAlternativosService.obterVencimentosDiferenciadoPorEscala(listaEscalas,listaFerias , anoMes); 
 		
 		
-		for(int i=0;i<listaVencimentos.size();i++) {
-			
-			System.out.println("Mes        :"+listaVencimentos.get(i).getAnoMes().getNomeAnoMes());
-			System.out.println("Nome       :"+listaVencimentos.get(i).getPessoaFuncionarios().getIdPessoaFk().getNome());
-			System.out.println("Rubrica    :"+listaVencimentos.get(i).getCodigo());
-			System.out.println("Variacao   :"+listaVencimentos.get(i).getVariacao());
-			System.out.println("Descricao  :"+listaVencimentos.get(i).getDescricao());
-			System.out.println("sequencia  :"+listaVencimentos.get(i).getSequencia());
-			System.out.println("Unidade    :"+listaVencimentos.get(i).getUnidade().getNomeFantasia());
-			System.out.println("Fonte      :"+listaVencimentos.get(i).getFonte().getNome());
-			System.out.println("Natureza   :"+listaVencimentos.get(i).getNatureza().getDescricao());
-			System.out.println("Tipo       :"+listaVencimentos.get(i).getTipoBrutoLiquido().getDescricao());
-			System.out.println("Bruto      :"+listaVencimentos.get(i).getValorBruto());
-			System.out.println("Liquido    :"+listaVencimentos.get(i).getValorLiquido());
-			
-			System.out.println();
-		}
-		
-		
 		
 		//Colocando valores líquidos onde nao tiver
 		listaVencimentos = calculosAlternativosService.colocandoLiquidoNasRubricas(listaVencimentos);
