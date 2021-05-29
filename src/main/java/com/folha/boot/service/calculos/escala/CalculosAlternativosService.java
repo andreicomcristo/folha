@@ -1950,7 +1950,7 @@ public class CalculosAlternativosService {
 		
 		//Para pessoas que nao tem diferenciacao atribuída e sao de folhas variaveis 
 		for(int i=0;i<listaEscalas.size();i++) {
-			System.out.println("PPPP:"+"INICIOU A:"+i);
+			System.out.println("PPPP:"+"INICIOU A:"+i+":"+new Date().getHours()+"-"+new Date().getMinutes()+"-"+new Date().getSeconds());
 			if(escalaCodDiferenciadoService.buscarPorEscala(listaEscalas.get(i).getEscala()).isEmpty()) {
 				for(int j=0;j<listaValoresExtra.size();j++) {
 					RubricasVencimento r = new RubricasVencimento();
@@ -2012,7 +2012,7 @@ public class CalculosAlternativosService {
 					}
 				}
 			}
-			System.out.println("PPPP:"+"TERMINOU A");
+			System.out.println("PPPP:"+"TERMINOU A:"+new Date().getHours()+"-"+new Date().getMinutes()+"-"+new Date().getSeconds());
 		}
 		
 		
@@ -2023,6 +2023,7 @@ public class CalculosAlternativosService {
 		
 			//Para pessoas que nao tem diferenciacao atribuída e sao de folhas fixas 
 				for(int i=0;i<listaEscalas.size();i++) {
+					System.out.println("PPPP:"+"INICIOU B:"+i+":"+new Date().getHours()+"-"+new Date().getMinutes()+"-"+new Date().getSeconds());
 					if(escalaCodDiferenciadoService.buscarPorEscala(listaEscalas.get(i).getEscala()).isEmpty()) {
 						for(int j=0;j<listaValoresExtra.size();j++) {
 							RubricasVencimento r = new RubricasVencimento();
@@ -2073,6 +2074,7 @@ public class CalculosAlternativosService {
 							}
 						}
 					}
+					System.out.println("PPPP:"+"TERMINOU B:"+new Date().getHours()+"-"+new Date().getMinutes()+"-"+new Date().getSeconds());
 				}
 		
 				
@@ -2085,6 +2087,7 @@ public class CalculosAlternativosService {
 			//Para Incentivo de Risco
 				List<FaixasValoresIncentivoDeRisco> listaIncentivoDeRisco = faixasValoresIncentivoDeRiscoService.buscarPorMesExato(anoMes);
 				for(int i=0;i<listaEscalas.size();i++) {
+					System.out.println("PPPP:"+"INICIOU C:"+i+":"+new Date().getHours()+"-"+new Date().getMinutes()+"-"+new Date().getSeconds());
 					if(escalaCodDiferenciadoService.buscarPorEscala(listaEscalas.get(i).getEscala()).isEmpty()) {
 						for(int j=0;j<listaIncentivoDeRisco.size();j++) {
 							RubricasVencimento r = new RubricasVencimento();
@@ -2147,6 +2150,7 @@ public class CalculosAlternativosService {
 							}
 						}
 					}
+					System.out.println("PPPP:"+"TERMINOU C:"+new Date().getHours()+"-"+new Date().getMinutes()+"-"+new Date().getSeconds());
 				}
 			
 			
@@ -2161,6 +2165,7 @@ public class CalculosAlternativosService {
 				
 				//Para pessoas que SIM têm diferenciacao atribuído e sao de folhas variaveis 
 				for(int i=0;i<listaEscalas.size();i++) {
+					System.out.println("PPPP:"+"INICIOU D:"+i+":"+new Date().getHours()+"-"+new Date().getMinutes()+"-"+new Date().getSeconds());
 					if(!escalaCodDiferenciadoService.buscarPorEscala(listaEscalas.get(i).getEscala()).isEmpty()) {
 						List<EscalaCodDiferenciado> listaDiferenciados = escalaCodDiferenciadoService.buscarPorEscala(listaEscalas.get(i).getEscala());
 						for(int k=0;k<listaDiferenciados.size();k++) {
@@ -2231,6 +2236,7 @@ public class CalculosAlternativosService {
 							}
 						}
 					}
+					System.out.println("PPPP:"+"TERMINOU D:"+new Date().getHours()+"-"+new Date().getMinutes()+"-"+new Date().getSeconds());
 				}
 				
 				
@@ -2245,6 +2251,7 @@ public class CalculosAlternativosService {
 				//Para Gpf Comum Técnica
 				List<FaixasValoresGpf> listaGpf = faixasValoresGpfService.buscarPorMesExato(anoMes);
 				for(int i=0;i<listaEscalas.size();i++) {
+					System.out.println("PPPP:"+"INICIOU E:"+i+":"+new Date().getHours()+"-"+new Date().getMinutes()+"-"+new Date().getSeconds());
 					if(!listaEscalas.get(i).getEscala().getIdFuncionarioFk().getIdEspecialidadeAtualFk().getIdCargoFk().getIdNivelCargoFk().getSiglaNivelCargo().equalsIgnoreCase("T")) {
 						if(escalaCodDiferenciadoService.buscarPorEscala(listaEscalas.get(i).getEscala()).isEmpty()) {
 							boolean temIrf = false;
@@ -2319,6 +2326,7 @@ public class CalculosAlternativosService {
 							}
 						}
 					}
+					System.out.println("PPPP:"+"TERMINOU E:"+new Date().getHours()+"-"+new Date().getMinutes()+"-"+new Date().getSeconds());
 				}
 			
 
@@ -2327,6 +2335,7 @@ public class CalculosAlternativosService {
 				//Para Gpf Tecnica Diferenciada
 				List<FaixasValoresGpfDiferenciada> listaGpfTecnicaDiferenciada = faixasValoresGpfDiferenciadaService.buscarPorMesExato(anoMes);
 				for(int i=0;i<listaEscalas.size();i++) {
+					System.out.println("PPPP:"+"INICIOU F:"+i+":"+new Date().getHours()+"-"+new Date().getMinutes()+"-"+new Date().getSeconds());
 					if(!listaEscalas.get(i).getEscala().getIdFuncionarioFk().getIdEspecialidadeAtualFk().getIdCargoFk().getIdNivelCargoFk().getSiglaNivelCargo().equalsIgnoreCase("T")) {
 						if(escalaCodDiferenciadoService.buscarPorEscala(listaEscalas.get(i).getEscala()).isEmpty()) {
 							boolean temIrf = false;
@@ -2404,6 +2413,7 @@ public class CalculosAlternativosService {
 							}
 						}
 					}
+					System.out.println("PPPP:"+"TERMINOU F:"+new Date().getHours()+"-"+new Date().getMinutes()+"-"+new Date().getSeconds());
 				}
 				
 	
@@ -2421,6 +2431,7 @@ public class CalculosAlternativosService {
 				//Para Gpf Comum Medica
 				List<FaixasValoresGpfMedica> listaGpfMedica = faixasValoresGpfMedicaService.buscarPorMesExato(anoMes);
 				for(int i=0;i<listaEscalas.size();i++) {
+					System.out.println("PPPP:"+"INICIOU G:"+i+":"+new Date().getHours()+"-"+new Date().getMinutes()+"-"+new Date().getSeconds());
 					if(listaEscalas.get(i).getEscala().getIdFuncionarioFk().getIdEspecialidadeAtualFk().getIdCargoFk().getIdNivelCargoFk().getSiglaNivelCargo().equalsIgnoreCase("T")) {
 						if(escalaCodDiferenciadoService.buscarPorEscala(listaEscalas.get(i).getEscala()).isEmpty()) {
 							boolean temIrf = false;
@@ -2495,6 +2506,7 @@ public class CalculosAlternativosService {
 							}
 						}
 					}
+					System.out.println("PPPP:"+"TERMINOU G:"+new Date().getHours()+"-"+new Date().getMinutes()+"-"+new Date().getSeconds());
 				}
 				
 				
@@ -2506,6 +2518,7 @@ public class CalculosAlternativosService {
 				//Para Gpf Medica Diferenciada
 				List<FaixasValoresGpfMedicaDiferenciada> listaGpfMedicaDiferenciada = faixasValoresGpfMedicaDiferenciadaService.buscarPorMesExato(anoMes);
 				for(int i=0;i<listaEscalas.size();i++) {
+					System.out.println("PPPP:"+"INICIOU H:"+i+":"+new Date().getHours()+"-"+new Date().getMinutes()+"-"+new Date().getSeconds());
 					if(listaEscalas.get(i).getEscala().getIdFuncionarioFk().getIdEspecialidadeAtualFk().getIdCargoFk().getIdNivelCargoFk().getSiglaNivelCargo().equalsIgnoreCase("T")) {
 						if(escalaCodDiferenciadoService.buscarPorEscala(listaEscalas.get(i).getEscala()).isEmpty()) {
 							boolean temIrf = false;
@@ -2584,6 +2597,7 @@ public class CalculosAlternativosService {
 							}
 						}
 					}
+					System.out.println("PPPP:"+"TERMINOU H:"+new Date().getHours()+"-"+new Date().getMinutes()+"-"+new Date().getSeconds());
 				}
 				
 				
@@ -2598,6 +2612,7 @@ public class CalculosAlternativosService {
 				//Para Gpf Medica Diferenciada
 				List<FaixasValoresGpfMedicaDiferenciadaDiarista> listaGpfMedicaDiferenciadaDiarista = faixasValoresGpfMedicaDiferenciadaDiaristaService.buscarPorMesExato(anoMes);
 				for(int i=0;i<listaEscalas.size();i++) {
+					System.out.println("PPPP:"+"INICIOU I:"+i+":"+new Date().getHours()+"-"+new Date().getMinutes()+"-"+new Date().getSeconds());
 					if(listaEscalas.get(i).getEscala().getIdFuncionarioFk().getIdEspecialidadeAtualFk().getIdCargoFk().getIdNivelCargoFk().getSiglaNivelCargo().equalsIgnoreCase("T")) {
 						if(escalaCodDiferenciadoService.buscarPorEscala(listaEscalas.get(i).getEscala()).isEmpty()) {
 							boolean temIrf = false;
@@ -2677,6 +2692,7 @@ public class CalculosAlternativosService {
 							}
 						}
 					}
+					System.out.println("PPPP:"+"TERMINOU I:"+new Date().getHours()+"-"+new Date().getMinutes()+"-"+new Date().getSeconds());
 				}
 			
 				
@@ -2689,6 +2705,7 @@ public class CalculosAlternativosService {
 				//Para Residentes
 				List<FaixasValoresResidente> listaValoresResidente = faixasValoresResidenteService.buscarPorMesExato(anoMes);
 				for(int i=0;i<listaEscalas.size();i++) {
+					System.out.println("PPPP:"+"INICIOU J:"+i+":"+new Date().getHours()+"-"+new Date().getMinutes()+"-"+new Date().getSeconds());
 					if(!listaEscalas.get(i).getEscala().getIdFuncionarioFk().getIdEspecialidadeAtualFk().getIdCargoFk().getIdNivelCargoFk().getSiglaNivelCargo().equalsIgnoreCase("T")) {
 						if(escalaCodDiferenciadoService.buscarPorEscala(listaEscalas.get(i).getEscala()).isEmpty()) {
 							boolean temIrf = false;
@@ -2771,6 +2788,7 @@ public class CalculosAlternativosService {
 							}
 						}
 					}
+					System.out.println("PPPP:"+"TERMINOU J:"+new Date().getHours()+"-"+new Date().getMinutes()+"-"+new Date().getSeconds());
 				}
 
 				
@@ -2784,6 +2802,7 @@ public class CalculosAlternativosService {
 				//Para Pss
 				List<FaixasValoresPss> listaPss = faixasValoresPssService.buscarPorMesExato(anoMes);
 				for(int i=0;i<listaEscalas.size();i++) {
+					System.out.println("PPPP:"+"INICIOU K:"+i+":"+new Date().getHours()+"-"+new Date().getMinutes()+"-"+new Date().getSeconds());
 					if(!listaEscalas.get(i).getEscala().getIdFuncionarioFk().getIdEspecialidadeAtualFk().getIdCargoFk().getIdNivelCargoFk().getSiglaNivelCargo().equalsIgnoreCase("T")) {
 						if(escalaCodDiferenciadoService.buscarPorEscala(listaEscalas.get(i).getEscala()).isEmpty()) {
 							
@@ -2853,6 +2872,7 @@ public class CalculosAlternativosService {
 							}
 						}
 					}
+					System.out.println("PPPP:"+"TERMINOU K:"+new Date().getHours()+"-"+new Date().getMinutes()+"-"+new Date().getSeconds());
 				}
 			
 			
@@ -2866,6 +2886,7 @@ public class CalculosAlternativosService {
 				//Para Folh Ext
 				List<FaixasValoresFolhExt> listaFolhExt = faixasValoresFolhExtService.buscarPorMesExato(anoMes);
 				for(int i=0;i<listaEscalas.size();i++) {
+					System.out.println("PPPP:"+"INICIOU L:"+i+":"+new Date().getHours()+"-"+new Date().getMinutes()+"-"+new Date().getSeconds());
 					if(!listaEscalas.get(i).getEscala().getIdFuncionarioFk().getIdEspecialidadeAtualFk().getIdCargoFk().getIdNivelCargoFk().getSiglaNivelCargo().equalsIgnoreCase("T")) {
 						if(escalaCodDiferenciadoService.buscarPorEscala(listaEscalas.get(i).getEscala()).isEmpty()) {
 							
@@ -2935,6 +2956,7 @@ public class CalculosAlternativosService {
 							}
 						}
 					}
+					System.out.println("PPPP:"+"TERMINOU L:"+new Date().getHours()+"-"+new Date().getMinutes()+"-"+new Date().getSeconds());
 				}
 			
 				
