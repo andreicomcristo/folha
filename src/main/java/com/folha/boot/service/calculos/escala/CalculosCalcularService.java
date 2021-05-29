@@ -48,33 +48,56 @@ public class CalculosCalcularService {
 	
 	public void calcular(AnoMes anoMes){
 		
+		
+		System.out.println("AAAA:"+"INICIANDO:"+new Date().getHours()+"-"+new Date().getMinutes()+new Date().getSeconds());
 		//Coletando Escalas
 		List<EscalasNoMes> listaEscalas = new ArrayList<>();
 		listaEscalas = calculosColetaDeDadosService.buscarEscalasPorMes(anoMes);
+		
+		System.out.println("AAAA:"+"PEGOU ESCALAS:"+new Date().getHours()+"-"+new Date().getMinutes()+new Date().getSeconds());
+		
 		//Coletando Ferias
 		List<FeriasNoMes> listaFerias = new ArrayList<>();
 		listaFerias = calculosColetaDeDadosService.buscarFeriasPorMes(anoMes);
+		
+		System.out.println("AAAA:"+"PEGOU FERIAS:"+new Date().getHours()+"-"+new Date().getMinutes()+new Date().getSeconds());
+		
 		//Coletando Licenças
 		List<LicencasNoMes> listaLicencas = new ArrayList<>();  
 		listaLicencas = calculosColetaDeDadosService.buscarLicencasPorMes(anoMes);
+		
+		System.out.println("AAAA:"+"PEGOU LICENCAS:"+new Date().getHours()+"-"+new Date().getMinutes()+new Date().getSeconds());
+		
 		//Aplicando férias
 		listaEscalas = calculosAlternativosService.aplicarFeriasNaEscala(listaEscalas, listaFerias);
+		
+		System.out.println("AAAA:"+"APLICOU FERIAS:"+new Date().getHours()+"-"+new Date().getMinutes()+new Date().getSeconds());
+		
 		//Aplicando licenças
 		listaEscalas = calculosAlternativosService.aplicarLicencasNaEscala(listaEscalas, listaLicencas, anoMes);
 		
+		System.out.println("AAAA:"+"APLICOU LICENCAS:"+new Date().getHours()+"-"+new Date().getMinutes()+new Date().getSeconds());
+		
 		//Aplicando Faltas Semana Fim Semana
 		listaEscalas = calculosAlternativosService.aplicarFaltasVariaveisNaEscalaSemanaFimSemana(listaEscalas );
-		//Aplicando Faltas Semana Fim Semana
+		
+		System.out.println("AAAA:"+"APLICOU FALTAS SEMANA:"+new Date().getHours()+"-"+new Date().getMinutes()+new Date().getSeconds());
+		
+		//Aplicando Faltas Dia Noite
 		listaEscalas = calculosAlternativosService.aplicarFaltasVariaveisNaEscalaDiaNoite(listaEscalas );
 		
+		System.out.println("AAAA:"+"APLICOU FALTAS DIA:"+new Date().getHours()+"-"+new Date().getMinutes()+new Date().getSeconds());
 		
 		//Obtendo valores
 		List<RubricasVencimento> listaVencimentos = calculosAlternativosService.obterVencimentosDiferenciadoPorEscala(listaEscalas,listaFerias , anoMes); 
 		
+		System.out.println("AAAA:"+"OBTEVE OS VENCIMENTOS:"+new Date().getHours()+"-"+new Date().getMinutes()+new Date().getSeconds());
 		
 		
 		//Colocando valores líquidos onde nao tiver
 		listaVencimentos = calculosAlternativosService.colocandoLiquidoNasRubricas(listaVencimentos);
+		
+		System.out.println("AAAA:"+"OBTENDO LIQUIDOS:"+new Date().getHours()+"-"+new Date().getMinutes()+new Date().getSeconds());
 		
 		//Limpando o banco
 		rubricaVencimentoService.excluirPorMes(anoMes);
@@ -89,7 +112,7 @@ public class CalculosCalcularService {
 		//Chamando Calculadora
 		calcularCalculadoraService.calcularTudo(anoMes);
 		
-		
+		System.out.println("AAAA:"+"CALCULADORA:"+new Date().getHours()+"-"+new Date().getMinutes()+new Date().getSeconds());
 		
 		/*
 		for(int i=0;i<listaEscalas.size();i++) {
