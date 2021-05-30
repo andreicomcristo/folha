@@ -1,0 +1,544 @@
+<!DOCTYPE html>
+<html layout:decorate="~{layout}">
+<head><meta charset="UTF-8"/></head>
+<body>
+	<section class="layout-content" layout:fragment="corpo">
+
+		
+		<div class="container" id="cadastro">
+			    
+		<input type=hidden id="" th:field="${idLinha}" />
+
+			
+			<form
+				
+				th:object="${escala}" method="POST">
+				<div class="form-row">
+
+					<div class="form-group col-md-12 col-lg-12 col-sm-12">
+						<H5>
+						<a class="btn btn-outline-light oi oi-action-undo" type="button" href="javascript:history.back()"></a>
+						<a class="btn btn-outline-light oi oi-action-redo" type="button" href="javascript:history.forward()"></a>    
+						<!-- 
+						<a class="btn btn-outline-dark btn-md" href="javascript:history.back()" role="button">
+				        	<span class="oi oi-list" title="Voltar" aria-hidden="true"></span>
+				            <span>Voltar</span>
+				        </a>
+				         -->
+						<label for="nome" class="">Ver Escala Colaborador</label></H5>
+				
+					
+					<div>
+						
+						<table class="table table-striped table-hover table-sm myTable">
+			            	<thead>
+			          			<tr>
+				                	<th>
+				                	<input type=hidden id="" th:field="*{id}" />
+				                	<input type=hidden id="" th:field="*{idAnoMesFk}" />
+				                	<input type=hidden id="" th:field="*{idCoordenacaoFk}" />
+				                	<input type=hidden id="" th:field="*{idFuncionarioFk}" />
+				                	<input type=hidden id="" th:field="*{idTipoFolhaFk}" />
+				                	
+				                	<input type=hidden id="" th:field="*{idAvaliacaoAssiduidadeFk}" />
+				                	<input type=hidden id="" th:field="*{idAvaliacaoPermanenciaFk}" />
+				                	<input type=hidden id="" th:field="*{idAvaliacaoFormalizacaoPontoFk}" />
+				                	<input type=hidden id="" th:field="*{idAvaliacaoAtividadesBurocraticasFk}" />
+				                	
+				                	
+				                	
+				                	
+				                	
+				        				<label style="text-align: center; color:#008080;" th:text="*{idCoordenacaoFk.nomeCoordenacao+'-'+idCoordenacaoFk.idLocalidadeFk.nomeLocalidade+'-'+idCoordenacaoFk.idAtividadeFk.nomeAtividade+'-'+idCoordenacaoFk.idLocalidadeFk.idUnidadeFk.nomeFantasia}" class="text" >Escala </label>
+									</th>
+									<th>
+				        				<label style="text-align: center; color:#008080;" th:text="*{idAnoMesFk.nomeAnoMes}" class="text" >Mes </label>
+									</th>
+									
+									<th>	
+										<a class="btn btn-outline-danger btn-md" th:href="@{/escalas/exporta/pdf/escala/colaborador/{id} (id=${escala.id}) }" role="button">
+											<span class="oi oi-cloud-download" title="exportaPdf" aria-hidden="true"></span>
+											<span>Exporta Pdf</span>
+										</a>
+											            	
+										
+									</th>
+									
+								</tr>
+							</thead>
+						</table>
+			            	
+			            	
+		
+		
+			            	
+			            	
+								 
+						<table class="table table-striped table-hover table-sm myTable">
+			            	<thead>
+							
+								<tr>
+								
+				                    <th>
+				        				<label class="text" >Nome : </label>
+				        				<div style="color:green;" th:text="*{idFuncionarioFk.idPessoaFk.nome}" class="text" >Nome Completo do Indivíduo em Questão </div>
+									</th>
+				                    <th>
+				                    	<label class="text" >CPF : </label>
+				                    	<label style="color:grey;" th:text="*{idFuncionarioFk.idPessoaFk.cpf}" class="text" >000 000 000 00 </label>
+									</th>
+									<th>
+										<label class="text" >Matrícula : </label>
+				                    	<label style="color:grey;" th:text="*{idFuncionarioFk.matricula}" class="text" >9 000 000 0 </label>
+									</th>
+									<th>
+										<label class="text" >Cargo : </label>
+				                    	<label style="color:grey;" th:text="*{idFuncionarioFk.idEspecialidadeAtualFk.idCargoFk.nomeCargo+'-'+idFuncionarioFk.idEspecialidadeAtualFk.nomeEspecialidadeCargo}" class="text" >Cargo </label>
+									</th>
+									
+								 </tr>
+							 </thead>
+						</table>
+			            	
+								 
+						<table class="table table-striped table-hover table-sm myTable">
+			            	<thead>
+								 <div th:replace="fragments/alert"></div>
+								 <tr>
+								 	<th>
+								 		<label class="text" style="font-size:12px;">Presencial </label>
+								 		<select disabled="disabled" aria-disabled="true" style="width:180px; height:25px; font-size:10px" id="turma" class="form-select"  th:field="*{idPresencialSimNaoFk}" >
+											<option value=""></option>
+											<option th:each="d : ${idPresencialSimNaoFk}" th:value="${d.id}"th:text="${d.descricao}">Presencial</option>
+										</select>
+									</th>
+								 	<th>
+								 		<label class="text" style="font-size:12px;">CH Dif</label>
+								 		<select disabled="disabled" style="width:180px; height:25px; font-size:10px" id="turma" class="form-select"  th:field="*{idChDifSimNaoFk}" >
+											<option value=""></option>
+											<option th:each="d : ${idChDifSimNaoFk}" th:value="${d.id}"th:text="${d.descricao}">CH Dif</option>
+										</select>
+								 	</th>
+								 	<th>
+								 		<label class="text" style="font-size:12px;">Incremento de Risco </label>
+								 		<select disabled="disabled" style="width:180px; height:25px; font-size:10px" id="turma" class="form-select"   th:field="*{idIncrementoDeRiscoSimNaoFk}" >
+											<option value=""></option>
+											<option th:each="d : ${idIncrementoDeRiscoSimNaoFk}" th:value="${d.id}"th:text="${d.descricao}">Incremento de Risco</option>
+										</select>
+								 	</th>
+								 	<th>
+								 		<label class="text" style="font-size:12px;">Diferenciado </label>
+								 		<select disabled="disabled" style="width:180px; height:25px; font-size:10px" id="turma" class="form-select" th:field="*{idCodigoDiferenciadoFk}" >
+											<option value=""></option>
+											<option th:each="d : ${idCodigoDiferenciadoFk}" th:value="${d.id}"th:text="${d.nomeCodigoDiferenciado}">DIFERENCIADO</option>
+										</select>
+									</th>
+								 	<th>
+								 		<label class="text" style="font-size:12px;">Regime </label>
+					                	<select disabled="disabled" style="width:180px; height:25px; font-size:10px" id="turma" class="form-select" th:field="*{idRegimeFk}" >
+											<option value=""></option>
+											<option th:each="d : ${idRegimeFk}" th:value="${d.id}"th:text="${d.nomeRegimeDeTrabalho}">ADM</option>
+										</select>	
+									</th>
+								 	<th>
+								 		<label class="text" style="font-size:12px;">Turma </label>
+					                	<select disabled="disabled" style="width:300px; height:25px; font-size:10px" id="turma" class="form-select"  th:field="*{idTurmaFk}" >
+											<option value=""></option>
+											<option th:each="d : ${idTurmaFk}" th:value="${d.id}"th:text="${d.descricaoTurma}">TURMA</option>
+										</select>
+									</th>
+								 	
+								 </tr>
+							 </thead>
+						</table>
+			            	
+								 
+						<table class="table table-striped table-hover table-sm myTable">
+			            	<thead>
+								 
+								 <tr>
+				                 	
+									
+									<th>
+				                    	<label class="text" >CH Sem: </label>
+				                    	<label style="color:brown;" th:text="*{idFuncionarioFk.idCargaHorariaAtualFk.cargaHoraria}" class="text" >30 </label>
+									</th>
+				                 	<th>
+				                    	<label style="color:brown;" th:text="*{idTipoFolhaFk.nomeTipoFolha}" class="text" >HEMOD EXT MED </label>
+									</th>
+									<th>
+										<label class="text" >Plantão: </label>
+										<label style="color:blue;" th:text="*{plantoes}" class="text" >0 </label>
+									</th>
+				                    <th>
+										<label class="text" >H Dia: </label>
+										<label style="color:blue;" th:text="*{horasDia}" class="text" >0 </label>
+									</th>
+									<th>
+										<label class="text" >H Noite: </label>
+										<label style="color:blue;" th:text="*{horasNoite}" class="text" >0 </label>
+									</th>
+									<th>
+										<label class="text" >H Sem: </label>
+										<label style="color:blue;" th:text="*{horasSemana}" class="text" >0 </label>
+									</th>
+									<th>
+										<label class="text" >H F Sem: </label>
+										<label style="color:blue;" th:text="*{horasFimSemana}" class="text" >0 </label>
+									</th>
+									<th>
+										<label class="text" >H Tot: </label>
+										<label style="color:blue;" th:text="*{horasTotais}" class="text" >0 </label>
+									</th>
+								 </tr>
+			            	</thead>
+						</table>
+			            	
+								 
+						<table class="table table-striped table-hover table-sm myTable">
+			            	<thead>
+					
+			          			<tr>
+				                	<th>
+				        				<label class="text"  style="font-size:12px;" th:text="${nomeColuna1}" >SEG </label>
+									</th>
+				                    <th>
+				        				<label class="text"  style="font-size:12px;" th:text="${nomeColuna2}">TER </label>
+									</th>
+				                    <th>
+				                    	<label class="text"  style="font-size:12px;" th:text="${nomeColuna3}">QUA </label>
+									</th>
+				                    <th>
+				                    	<label class="text"  style="font-size:12px;" th:text="${nomeColuna4}">QUI </label>
+									</th>
+				                    <th>
+					                	<label class="text"  style="font-size:12px;" th:text="${nomeColuna5}">SEX </label>
+									</th>
+				                    <th>
+										<label class="text"  style="font-size:12px;" th:text="${nomeColuna6}">SAB </label>
+									</th>
+				                    <th>
+				                    	<label class="text"  style="font-size:12px;" th:text="${nomeColuna7}">DOM </label>
+									</th>
+				                    
+			                    </tr>
+								
+								
+				          			<tr>
+					                	<th>
+					        				<label class="text"  style="font-size:12px;">01 </label>
+											<select disabled="disabled" style="width:140px; height:25px; font-size:10px; color:red" id="escaladia01" class="form-select"   th:field="*{dia01Fk}" >
+												<option th:each="d : ${dia01Fk}" th:value="${d.id}"th:text="${d.nomeTurno}">M</option>
+											</select>        	
+					                	</th>
+					                    <th>
+					        				<label class="text"  style="font-size:12px;">02 </label>
+											<select disabled="disabled" style="width:140px; height:25px; font-size:10px; color:red" id="escaladia02" class="form-select"   th:field="*{dia02Fk}" >
+												<option th:each="d : ${dia02Fk}" th:value="${d.id}"th:text="${d.nomeTurno}">M</option>
+											</select>            
+					                    </th>
+					                    <th>
+					                    	<label class="text"  style="font-size:12px;">03 </label>
+											<select disabled="disabled" style="width:140px; height:25px; font-size:10px; color:red" id="escaladia03" class="form-select"   th:field="*{dia03Fk}" >
+												<option th:each="d : ${dia03Fk}" th:value="${d.id}"th:text="${d.nomeTurno}">M</option>
+											</select>
+					                    </th>
+					                    <th>
+					                    	<label class="text"  style="font-size:12px;">04 </label>
+											<select disabled="disabled" style="width:140px; height:25px; font-size:10px; color:red" id="escaladia04" class="form-select"   th:field="*{dia04Fk}" >
+												<option th:each="d : ${dia04Fk}" th:value="${d.id}"th:text="${d.nomeTurno}">M</option>
+											</select>
+										</th>
+					                    <th>
+						                    <label class="text"  style="font-size:12px;">05 </label>
+											<select disabled="disabled" style="width:140px; height:25px; font-size:10px; color:red" id="escaladia05" class="form-select"   th:field="*{dia05Fk}" >
+												<option th:each="d : ${dia05Fk}" th:value="${d.id}"th:text="${d.nomeTurno}">M</option>
+											</select>
+					                    </th>
+					                    <th>
+											<label class="text"  style="font-size:12px;">06 </label>
+											<select disabled="disabled" style="width:140px; height:25px; font-size:10px; color:red" id="escaladia06" class="form-select"   th:field="*{dia06Fk}" >
+												<option th:each="d : ${dia06Fk}" th:value="${d.id}"th:text="${d.nomeTurno}">M</option>
+											</select>
+										</th>
+					                    <th>
+					                    	<label class="text"  style="font-size:12px;">07 </label>
+											<select disabled="disabled" style="width:140px; height:25px; font-size:10px; color:red"  id="escaladia07" class="form-select"   th:field="*{dia07Fk}" >
+												<option th:each="d : ${dia07Fk}" th:value="${d.id}"th:text="${d.nomeTurno}">M</option>
+											</select>
+					                    </th>
+					                </tr>
+							
+				          			<tr>
+					                	<th>
+					        				<label class="text"  style="font-size:12px;">08 </label>
+											<select disabled="disabled" style="width:140px; height:25px; font-size:10px; color:red" id="escaladia08" class="form-select"   th:field="*{dia08Fk}" >
+												<option th:each="d : ${dia08Fk}" th:value="${d.id}"th:text="${d.nomeTurno}">M</option>
+											</select>        	
+					                	</th>
+					                    <th>
+					        				<label class="text"  style="font-size:12px;">09 </label>
+											<select disabled="disabled" style="width:140px; height:25px; font-size:10px; color:red" id="escaladia09" class="form-select"   th:field="*{dia09Fk}" >
+												<option th:each="d : ${dia09Fk}" th:value="${d.id}"th:text="${d.nomeTurno}">M</option>
+											</select>            
+					                    </th>
+					                    <th>
+					                    	<label class="text"  style="font-size:12px;">10 </label>
+											<select disabled="disabled" style="width:140px; height:25px; font-size:10px; color:red" id="escaladia10" class="form-select"   th:field="*{dia10Fk}" >
+												<option th:each="d : ${dia10Fk}" th:value="${d.id}"th:text="${d.nomeTurno}">M</option>
+											</select>
+					                    </th>
+					                    <th>
+					                    	<label class="text"  style="font-size:12px;">11 </label>
+											<select disabled="disabled" style="width:140px; height:25px; font-size:10px; color:red" id="escaladia11" class="form-select"   th:field="*{dia11Fk}" >
+												<option th:each="d : ${dia11Fk}" th:value="${d.id}"th:text="${d.nomeTurno}">M</option>
+											</select>
+										</th>
+					                    <th>
+						                    <label class="text"  style="font-size:12px;">12 </label>
+											<select disabled="disabled" style="width:140px; height:25px; font-size:10px; color:red" id="escaladia12" class="form-select"   th:field="*{dia12Fk}" >
+												<option th:each="d : ${dia12Fk}" th:value="${d.id}"th:text="${d.nomeTurno}">M</option>
+											</select>
+					                    </th>
+					                    <th>
+											<label class="text"  style="font-size:12px;">13 </label>
+											<select disabled="disabled" style="width:140px; height:25px; font-size:10px; color:red" id="escaladia13" class="form-select"   th:field="*{dia13Fk}" >
+												<option th:each="d : ${dia13Fk}" th:value="${d.id}"th:text="${d.nomeTurno}">M</option>
+											</select>
+										</th>
+					                    <th>
+					                    	<label class="text"  style="font-size:12px;">14 </label>
+											<select disabled="disabled" style="width:140px; height:25px; font-size:10px; color:red"  id="escaladia14" class="form-select"   th:field="*{dia14Fk}" >
+												<option th:each="d : ${dia14Fk}" th:value="${d.id}"th:text="${d.nomeTurno}">M</option>
+											</select>
+					                    </th>
+					                </tr>
+								
+				          			<tr>
+					                	<th>
+					        				<label class="text"  style="font-size:12px;">15 </label>
+											<select disabled="disabled" style="width:140px; height:25px; font-size:10px; color:red" id="escaladia15" class="form-select"   th:field="*{dia15Fk}" >
+												<option th:each="d : ${dia15Fk}" th:value="${d.id}"th:text="${d.nomeTurno}">M</option>
+											</select>        	
+					                	</th>
+					                    <th>
+					        				<label class="text"  style="font-size:12px;">16 </label>
+											<select disabled="disabled" style="width:140px; height:25px; font-size:10px; color:red" id="escaladia16" class="form-select"   th:field="*{dia16Fk}" >
+												<option th:each="d : ${dia16Fk}" th:value="${d.id}"th:text="${d.nomeTurno}">M</option>
+											</select>            
+					                    </th>
+					                    <th>
+					                    	<label class="text"  style="font-size:12px;">17 </label>
+											<select disabled="disabled" style="width:140px; height:25px; font-size:10px; color:red" id="escaladia17" class="form-select"   th:field="*{dia17Fk}" >
+												<option th:each="d : ${dia17Fk}" th:value="${d.id}"th:text="${d.nomeTurno}">M</option>
+											</select>
+					                    </th>
+					                    <th>
+					                    	<label class="text"  style="font-size:12px;">18 </label>
+											<select disabled="disabled" style="width:140px; height:25px; font-size:10px; color:red" id="escaladia18" class="form-select"   th:field="*{dia18Fk}" >
+												<option th:each="d : ${dia18Fk}" th:value="${d.id}"th:text="${d.nomeTurno}">M</option>
+											</select>
+										</th>
+					                    <th>
+						                    <label class="text"  style="font-size:12px;">19 </label>
+											<select disabled="disabled" style="width:140px; height:25px; font-size:10px; color:red" id="escaladia19" class="form-select"   th:field="*{dia19Fk}" >
+												<option th:each="d : ${dia19Fk}" th:value="${d.id}"th:text="${d.nomeTurno}">M</option>
+											</select>
+					                    </th>
+					                    <th>
+											<label class="text"  style="font-size:12px;">20 </label>
+											<select disabled="disabled" style="width:140px; height:25px; font-size:10px; color:red" id="escaladia20" class="form-select"   th:field="*{dia20Fk}" >
+												<option th:each="d : ${dia20Fk}" th:value="${d.id}"th:text="${d.nomeTurno}">M</option>
+											</select>
+										</th>
+					                    <th>
+					                    	<label class="text"  style="font-size:12px;">21 </label>
+											<select disabled="disabled" style="width:140px; height:25px; font-size:10px; color:red"  id="escaladia21" class="form-select"   th:field="*{dia21Fk}" >
+												<option th:each="d : ${dia21Fk}" th:value="${d.id}"th:text="${d.nomeTurno}">M</option>
+											</select>
+					                    </th>
+					                </tr>
+								
+				          			<tr>
+					                	<th>
+					        				<label class="text"  style="font-size:12px;">22 </label>
+											<select disabled="disabled" style="width:140px; height:25px; font-size:10px; color:red" id="escaladia22" class="form-select"   th:field="*{dia22Fk}" >
+												<option th:each="d : ${dia22Fk}" th:value="${d.id}"th:text="${d.nomeTurno}">M</option>
+											</select>        	
+					                	</th>
+					                    <th>
+					        				<label class="text"  style="font-size:12px;">23 </label>
+											<select disabled="disabled" style="width:140px; height:25px; font-size:10px; color:red" id="escaladia23" class="form-select"   th:field="*{dia23Fk}" >
+												<option th:each="d : ${dia23Fk}" th:value="${d.id}"th:text="${d.nomeTurno}">M</option>
+											</select>            
+					                    </th>
+					                    <th>
+					                    	<label class="text"  style="font-size:12px;">24 </label>
+											<select disabled="disabled" style="width:140px; height:25px; font-size:10px; color:red" id="escaladia24" class="form-select"   th:field="*{dia24Fk}" >
+												<option th:each="d : ${dia24Fk}" th:value="${d.id}"th:text="${d.nomeTurno}">M</option>
+											</select>
+					                    </th>
+					                    <th>
+					                    	<label class="text"  style="font-size:12px;">25 </label>
+											<select disabled="disabled" style="width:140px; height:25px; font-size:10px; color:red" id="escaladia25" class="form-select"   th:field="*{dia25Fk}" >
+												<option th:each="d : ${dia25Fk}" th:value="${d.id}"th:text="${d.nomeTurno}">M</option>
+											</select>
+										</th>
+					                    <th>
+						                    <label class="text"  style="font-size:12px;">26 </label>
+											<select disabled="disabled" style="width:140px; height:25px; font-size:10px; color:red" id="escaladia26" class="form-select"   th:field="*{dia26Fk}" >
+												<option th:each="d : ${dia26Fk}" th:value="${d.id}"th:text="${d.nomeTurno}">M</option>
+											</select>
+					                    </th>
+					                    <th>
+											<label class="text"  style="font-size:12px;">27 </label>
+											<select disabled="disabled" style="width:140px; height:25px; font-size:10px; color:red" id="escaladia27" class="form-select"   th:field="*{dia27Fk}" >
+												<option th:each="d : ${dia27Fk}" th:value="${d.id}"th:text="${d.nomeTurno}">M</option>
+											</select>
+										</th>
+					                    <th>
+					                    	<label class="text"  style="font-size:12px;">28 </label>
+											<select disabled="disabled" style="width:140px; height:25px; font-size:10px; color:red"  id="escaladia28" class="form-select"   th:field="*{dia28Fk}" >
+												<option th:each="d : ${dia28Fk}" th:value="${d.id}"th:text="${d.nomeTurno}">M</option>
+											</select>
+					                    </th>
+					                </tr>
+								
+				          			<tr>
+					                	<th>
+					        				<label class="text"  style="font-size:12px;" th:if="${qtdDiasNoMes > 28}" >29 </label>
+											<select disabled="disabled" style="width:140px; height:25px; font-size:10px; color:red" th:if="${qtdDiasNoMes > 28}" id="escaladia29" class="form-select"   th:field="*{dia29Fk}" >												
+												<option th:each="d : ${dia29Fk}" th:value="${d.id}"th:text="${d.nomeTurno}">M</option>
+											</select>        	
+					                	</th>
+					                    <th>
+					        				<label class="text"  style="font-size:12px;" th:if="${qtdDiasNoMes > 29}" >30 </label>
+											<select disabled="disabled" style="width:140px; height:25px; font-size:10px; color:red" th:if="${qtdDiasNoMes > 29}" id="escaladia30" class="form-select"   th:field="*{dia30Fk}" >
+												<option th:each="d : ${dia30Fk}" th:value="${d.id}"th:text="${d.nomeTurno}">M</option>
+											</select>            
+					                    </th>
+					                    <th>
+					                    	<label class="text"  style="font-size:12px;" th:if="${qtdDiasNoMes > 30}">31 </label>
+											<select disabled="disabled" style="width:140px; height:25px; font-size:10px; color:red" th:if="${qtdDiasNoMes > 30}" id="escaladia31" class="form-select"   th:field="*{dia31Fk}" >
+												<option th:each="d : ${dia31Fk}" th:value="${d.id}"th:text="${d.nomeTurno}">M</option>
+											</select>
+					                    </th>
+					                </tr>
+								</thead>
+								
+								
+						
+						</table>
+						
+						
+						
+						<button class=" btn btn-outline-secondary my-2 my-sm-0" type="button" data-toggle="collapse" data-target="#collapseBlocoLegenda"
+	            					aria-controls="collapseBlocoLegenda">Legenda
+	            		</button>
+						
+						<div class="collapse" id="collapseBlocoLegenda">	
+							<div class="span12" >
+						        <p></p>
+						        <img src="/image/LEGENDA.jpg" heigh = "500px" width="300px"/>
+						        <p></p>
+						    </div>
+						</div>					
+						
+						
+						
+						
+						<div style=" left:0px; height: 600px;  overflow-y: auto;" >	
+							<div>
+							<input disabled="disabled" type="checkbox" id="recalcular" name="recalcular"    value="S">Recalcular</input>
+							<input disabled="disabled" type="checkbox" id="lancarTurma" name="lancarTurma"  value="S">Lançar Turma</input>
+							<p></p>
+							<th>
+								<h6><label style="width:500px;">Estou ciente de que não prover o descanso depois de atividade noturna é proibido. Todavia, posso comprovar legalmente que esta situação é excepcionalmente de força maior.</label></h6>
+								<select disabled="disabled" style="width:500px; height:28px; font-size:10px" id="turma" class="form-select"  th:field="*{idLiberacaoDobraInvertidaSimNaoFk}" >
+									<option value=""></option>
+									<option th:each="d : ${idLiberacaoDobraInvertidaSimNaoFk}" th:value="${d.id}"th:text="${d.descricao}">CH Dif</option>
+								</select>
+							</th>
+							<p></p>
+							
+							<label for="nome" class="">Observações</label>
+							<input disabled="disabled" type="text"
+								class="form-control form-control-md uppercase" autofocus="autofocus"
+								id="observacoes" placeholder="" th:field="*{observacoes}" />						
+							<p></p>
+							
+							<table class="table table-striped table-hover table-sm myTable">
+			            	<thead>
+								 <div th:replace="fragments/alert"></div>
+								 <tr>
+								 	<th>
+								 		<label class="text" style="font-size:12px;">Satisfaz em assiduidade? </label>
+					                	<select disabled="disabled" style="width:180px; height:25px; font-size:10px" id="turma" class="form-select"  th:field="*{idAvaliacaoAssiduidadeFk}" >
+											<option value=""></option>
+											<option th:each="d : ${idAvaliacaoAssiduidadeFk}" th:value="${d.id}"th:text="${d.descricao}">Presencial</option>
+										</select>
+										<p></p>									
+									
+										<label class="text" style="font-size:12px;">Permanece no posto de trabalho durante todo o periodo esperado?</label>
+								 		<select disabled="disabled" style="width:180px; height:25px; font-size:10px" id="turma" class="form-select"  th:field="*{idAvaliacaoPermanenciaFk}" >
+											<option value=""></option>
+											<option th:each="d : ${idAvaliacaoPermanenciaFk}" th:value="${d.id}"th:text="${d.descricao}">CH Dif</option>
+										</select>
+										<p></p>
+								 								 	
+								 		<label class="text" style="font-size:12px;">Cumpre as formalizações relativas ao ponto? </label>
+								 		<select disabled="disabled" style="width:180px; height:25px; font-size:10px" id="turma" class="form-select"   th:field="*{idAvaliacaoFormalizacaoPontoFk}" >
+											<option value=""></option>
+											<option th:each="d : ${idAvaliacaoFormalizacaoPontoFk}" th:value="${d.id}"th:text="${d.descricao}">Incremento de Risco</option>
+										</select>
+										<p></p>								 	
+								 	
+								 		<label class="text" style="font-size:12px;">Efetua adequadamente as atividades inerentes? </label>
+								 		<select disabled="disabled" style="width:180px; height:25px; font-size:10px" id="turma" class="form-select" th:field="*{idAvaliacaoAtividadesBurocraticasFk}" >
+											<option value=""></option>
+											<option th:each="d : ${idAvaliacaoAtividadesBurocraticasFk}" th:value="${d.id}"th:text="${d.descricao}">DIFERENCIADO</option>
+										</select>
+										<p></p>
+										
+										<label style="font-size:10px;"  th:text="*{dtCancelamento != null} ? *{'CANCELAMENTO em '+#dates.format(dtCancelamento, 'dd/MM/yyyy') +' '} : *{'EDICAO em '+#dates.format(dtMudanca, 'dd/MM/yyyy') +' '}   "></label>
+		                    
+		                    			<label class="text" style="font-size:12px; ">executado(a) por</label>
+		                    			<label style="font-size:10px; color:red;"  th:text="' '+*{idOperadorMudancaFk.idPessoaFk.nome}"></label>
+										
+									</th>
+								 	
+								 </tr>
+							 </thead>
+						</table>
+							
+							
+							</div>
+						</div>					
+						
+									
+						
+													
+							
+						</div>	
+					
+							
+							
+							<input type="hidden" id="id" th:field="*{id}" />
+							
+						
+						<p></p>	
+						
+						
+						
+					</div>
+				</div>
+			</form>
+		</div>
+		
+			
+		
+		<div th:replace="fragments/modal :: modal"></div>
+	</section>
+</body>
+</html>
+

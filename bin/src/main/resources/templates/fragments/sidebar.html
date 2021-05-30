@@ -1,0 +1,752 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8"></head>
+<body>
+	<nav class="sidebar" th:fragment="nav-sidebar">
+		
+		<div class="text" th:text="${usuario}" >GENTE-WEB </div>
+		
+		<ul>
+			<li class="active">
+				<a href="/"><span class=" oi oi-chevron-right icones-sidebar-tamanho align-middle"></span>Início</a>
+			</li>
+			<!--submenu configuracoes-->
+			<li>
+				<a class="k-btn"><span class=" oi oi-chevron-bottom eleventh icones-sidebar-tamanho align-middle"></span> Configurações </a>				
+				<ul class="k-show">
+					
+					<li><a href="#" class="bi-btn"><span class=" oi oi-chevron-bottom z60 icones-sidebar-tamanho align-middle"></span>Configurações Pontuais </a>
+						<ul class="bi-show">
+							
+							<li><a href="#" class="ax-btn"><span class=" oi oi-chevron-bottom fiftyth icones-sidebar-tamanho align-middle"></span>Ano Mês </a>
+								<ul class="ax-show">
+									<li><a th:href="@{/anomes/cadastrar}"><span class=" oi oi-chevron-right icones-sidebar-tamanho align-middle"></span>Cadastrar</a></li>
+									<li><a href="/anomes/listar"><span class=" oi oi-chevron-right icones-sidebar-tamanho align-middle"></span>Listar</a></li>
+								</ul>
+							</li>
+							
+							<li><a href="#" class="aw-btn"><span class=" oi oi-chevron-bottom fourtynineth icones-sidebar-tamanho align-middle"></span>Cadastros de CIDS </a>
+								<ul class="aw-show">
+									<li><a th:href="@{/cids/cadastrar}"><span class=" oi oi-chevron-right icones-sidebar-tamanho align-middle"></span>Cadastrar</a></li>
+									<li><a th:href="@{/cids/listar}"><span class=" oi oi-chevron-right icones-sidebar-tamanho align-middle"></span>Listar</a></li>
+								</ul>
+							</li>
+							
+							<li><a href="#" class="ay-btn"><span class=" oi oi-chevron-bottom fiftyfirst icones-sidebar-tamanho align-middle"></span>Cadastro de Áreas De Capacitacão</a>
+								<ul class="ay-show">
+									<li><a th:href="@{/areasdecapacitacoes/cadastrar}"><span class=" oi oi-chevron-right icones-sidebar-tamanho align-middle"></span>Cadastrar</a></li>
+									<li><a th:href="@{/areasdecapacitacoes/listar}"><span class=" oi oi-chevron-right icones-sidebar-tamanho align-middle"></span>Listar</a></li>
+								</ul>
+							</li>
+							
+						</ul>
+					</li>
+									
+					<li>
+						<a class="l-btn"><span class=" oi oi-chevron-bottom twelfth icones-sidebar-tamanho align-middle"></span> Operadores </a>
+						<ul class="l-show">
+						
+							<li><a href="#" class="cl-btn"><span class=" oi oi-chevron-bottom z89 icones-sidebar-tamanho align-middle"></span>Tipo Grupo Usuário </a>
+								<ul class="cl-show">
+									<li><a th:href="@{/tiposDeGrupoUsuario/cadastrar}"><span class=" oi oi-chevron-right icones-sidebar-tamanho align-middle"></span>Cadastrar</a></li>
+									<li><a th:href="@{/tiposDeGrupoUsuario/listar}"><span class=" oi oi-chevron-right icones-sidebar-tamanho align-middle"></span>Listar</a></li>
+								</ul>
+							</li>
+						
+							<li><a href="#" class="cd-btn"><span class=" oi oi-chevron-bottom z81 icones-sidebar-tamanho align-middle"></span>Grupo Usuario </a>
+								<ul class="cd-show">
+									<li><a th:href="@{/grupousuario/cadastrar}"><span class=" oi oi-chevron-right icones-sidebar-tamanho align-middle"></span>Cadastrar</a></li>
+									<li><a th:href="@{/grupousuario/listar}"><span class=" oi oi-chevron-right icones-sidebar-tamanho align-middle"></span>Listar</a></li>
+								</ul>
+							</li>
+						
+							<li><a href="#" class="ad-btn"><span class=" oi oi-chevron-bottom thirtyth icones-sidebar-tamanho align-middle"></span>Cadastro</a>
+								<ul class="ad-show">
+									<li><a th:href="@{/pessoas/operador/listar}"><span class=" oi oi-chevron-right icones-sidebar-tamanho align-middle"></span>Cadastrar</a></li>
+									<li><a href="#"><span class=" oi oi-chevron-right icones-sidebar-tamanho align-middle"></span>Listar (por fazer)</a></li>
+								</ul>
+							</li>
+						
+							<li><a href="#" class="ci-btn"><span class=" oi oi-chevron-bottom z86 icones-sidebar-tamanho align-middle"></span>Níveis de Acesso (por fazer)</a>
+								<ul class="ci-show">
+									<li><a href="#"><span class=" oi oi-chevron-right icones-sidebar-tamanho align-middle"></span>Cadastrar</a></li>
+									<li><a href="#"><span class=" oi oi-chevron-right icones-sidebar-tamanho align-middle"></span>Listar</a></li>
+								</ul>
+							</li>	
+							
+						</ul>
+					</li>
+
+					<li>
+						<li><a href="#" class="j-btn"><span class=" oi oi-chevron-bottom tenth icones-sidebar-tamanho align-middle"></span>Unidades  </a>
+						<ul class="j-show">
+							
+							
+							<li><a href="#" class="af-btn"><span class=" oi oi-chevron-bottom thirtysecond icones-sidebar-tamanho align-middle"></span>Regime (por fazer)</a>
+								<ul class="af-show">
+									<li><a href="#"><span class=" oi oi-chevron-right icones-sidebar-tamanho align-middle"></span>Cadastrar</a></li>
+									<li><a href="#"><span class=" oi oi-chevron-right icones-sidebar-tamanho align-middle"></span>Listar</a></li>
+								</ul>
+							</li>
+							
+							<li><a href="#" class="cb-btn"><span class=" oi oi-chevron-bottom z79 icones-sidebar-tamanho align-middle"></span>Natureza Juridica (por fazer)</a>
+								<ul class="cb-show">
+									<li><a href="#"><span class=" oi oi-chevron-right icones-sidebar-tamanho align-middle"></span>Cadastrar</a></li>
+									<li><a href="#"><span class=" oi oi-chevron-right icones-sidebar-tamanho align-middle"></span>Listar</a></li>
+								</ul>
+							</li>
+							
+							<li><a href="#" class="cm-btn"><span class=" oi oi-chevron-bottom z90 icones-sidebar-tamanho align-middle"></span>Unidade Gestora </a>
+								<ul class="cm-show">
+									<li><a th:href="@{/unidadeGestora/cadastrar}"><span class=" oi oi-chevron-right icones-sidebar-tamanho align-middle"></span>Cadastrar</a></li>
+									<li><a th:href="@{/unidadeGestora/cadastrar}"><span class=" oi oi-chevron-right icones-sidebar-tamanho align-middle"></span>Listar</a></li>
+								</ul>
+							</li>
+							
+							<li><a href="#" class="am-btn"><span class=" oi oi-chevron-bottom thirtynineth icones-sidebar-tamanho align-middle"></span>Unidade Gerida</a>
+								<ul class="am-show">
+									<li><a th:href="@{/unidades/cadastrar}"><span class=" oi oi-chevron-right icones-sidebar-tamanho align-middle"></span>Cadastrar</a></li>
+									<li><a th:href="@{/unidades/listar}"><span class=" oi oi-chevron-right icones-sidebar-tamanho align-middle"></span>Listar</a></li>
+								</ul>
+							</li>	
+													
+						</ul>
+					</li>
+
+					<li><a class="a-btn"><span class=" oi oi-chevron-bottom first icones-sidebar-tamanho align-middle"></span> RH - Carreiras </a>
+						<ul class="a-show">
+						
+							<li><a href="#" class="ag-btn"><span class=" oi oi-chevron-bottom thirtythird icones-sidebar-tamanho align-middle"></span>Carreiras </a>
+								<ul class="ag-show">
+									<li><a th:href="@{/carreiras/cadastrar}"><span class=" oi oi-chevron-right icones-sidebar-tamanho align-middle"></span>Cadastrar</a></li>
+									<li><a th:href="@{/carreiras/listar}"><span class=" oi oi-chevron-right icones-sidebar-tamanho align-middle"></span>Listar</a></li>
+								</ul>
+							</li>
+						
+							<li><a href="#" class="ah-btn"><span class=" oi oi-chevron-bottom thirtyfourth icones-sidebar-tamanho align-middle"></span>Níveis de Carreira </a>
+								<ul class="ah-show">
+									<li><a th:href="@{/niveis/carreira/cadastrar}"><span class=" oi oi-chevron-right icones-sidebar-tamanho align-middle"></span>Cadastrar</a></li>
+									<li><a th:href="@{/niveis/carreira/listar}"><span class=" oi oi-chevron-right icones-sidebar-tamanho align-middle"></span>Listar</a></li>
+								</ul>
+							</li>
+							
+							<li><a href="#" class="ai-btn"><span class=" oi oi-chevron-bottom thirtyfifth icones-sidebar-tamanho align-middle"></span>Classes Carreira</a>
+								<ul class="ai-show">
+									<li><a th:href="@{/classes/carreira/cadastrar}"><span class=" oi oi-chevron-right icones-sidebar-tamanho align-middle"></span>Cadastrar</a></li>
+									<li><a th:href="@{/classes/carreira/listar}"><span class=" oi oi-chevron-right icones-sidebar-tamanho align-middle"></span>Listar</a></li>
+								</ul>
+							</li>
+							
+						</ul>
+					</li>
+
+					<li><a class="b-btn"><span class=" oi oi-chevron-bottom second icones-sidebar-tamanho align-middle"></span> RH - Cargos </a>
+						<ul class="b-show">
+						
+							<li><a href="#" class="aj-btn"><span class=" oi oi-chevron-bottom thirtysixth icones-sidebar-tamanho align-middle"></span>Cargos </a>
+								<ul class="aj-show">
+									<li><a th:href="@{/cargos/cadastrar}"><span class=" oi oi-chevron-right icones-sidebar-tamanho align-middle"></span>Cadastrar</a></li>
+									<li><a th:href="@{/cargos/listar}"><span class=" oi oi-chevron-right icones-sidebar-tamanho align-middle"></span>Listar</a></li>
+								</ul>
+							</li>
+						
+							<li><a href="#" class="ak-btn"><span class=" oi oi-chevron-bottom thirtyseventh icones-sidebar-tamanho align-middle"></span>Especialidades - Cargo</a>
+								<ul class="ak-show">
+									<li><a th:href="@{/especialidades/cadastrar}"><span class=" oi oi-chevron-right icones-sidebar-tamanho align-middle"></span>Cadastrar</a></li>
+									<li><a th:href="@{/especialidades/listar}"><span class=" oi oi-chevron-right icones-sidebar-tamanho align-middle"></span>Listar</a></li>
+								</ul>
+							</li>			
+							
+							<li><a href="#" class="al-btn"><span class=" oi oi-chevron-bottom thirtyeighth icones-sidebar-tamanho align-middle"></span>Nível do Cargo </a>
+								<ul class="al-show">
+									<li><a th:href="@{/niveis/cadastrar}"><span class=" oi oi-chevron-right icones-sidebar-tamanho align-middle"></span>Cadastrar</a></li>
+									<li><a th:href="@{/niveis/listar}"><span class=" oi oi-chevron-right icones-sidebar-tamanho align-middle"></span>Listar</a></li>
+								</ul>
+							</li>						
+						</ul>
+					</li>
+
+					<li><a class="c-btn"><span class=" oi oi-chevron-bottom third icones-sidebar-tamanho align-middle"></span> RH - Pessoais </a>
+						<ul class="c-show">
+						
+							<li><a href="#" class="o-btn"><span class=" oi oi-chevron-bottom fifteenth icones-sidebar-tamanho align-middle"></span>Escolaridade </a>
+								<ul class="o-show">
+									<li><a th:href="@{/escolaridades/cadastrar}"><span class=" oi oi-chevron-right icones-sidebar-tamanho align-middle"></span>Cadastrar</a></li>
+									<li><a th:href="@{/escolaridades/listar}"><span class=" oi oi-chevron-right icones-sidebar-tamanho align-middle"></span>Listar</a></li>
+								</ul>
+							</li>
+							
+							<li><a href="#" class="p-btn"><span class=" oi oi-chevron-bottom sixteenth icones-sidebar-tamanho align-middle"></span>Estados Civis </a>
+								<ul class="p-show">
+									<li><a th:href="@{/estadoscivis/cadastrar}"><span class=" oi oi-chevron-right icones-sidebar-tamanho align-middle"></span>Cadastrar</a></li>
+									<li><a th:href="@{/estadoscivis/listar}"><span class=" oi oi-chevron-right icones-sidebar-tamanho align-middle"></span>Listar</a></li>
+								</ul>
+							</li>
+							
+							<li><a href="#" class="q-btn"><span class=" oi oi-chevron-bottom seventeenth icones-sidebar-tamanho align-middle"></span>Sexos </a>
+								<ul class="q-show">
+									<li><a th:href="@{/sexos/cadastrar}"><span class=" oi oi-chevron-right icones-sidebar-tamanho align-middle"></span>Cadastrar</a></li>
+									<li><a th:href="@{/sexos/listar}"><span class=" oi oi-chevron-right icones-sidebar-tamanho align-middle"></span>Listar</a></li>
+								</ul>
+							</li>
+							
+							<li><a href="#" class="r-btn"><span class=" oi oi-chevron-bottom eighteenth icones-sidebar-tamanho align-middle"></span>Tipos de Filiação </a>
+								<ul class="r-show">
+									<li><a th:href="@{/tipostefiliacoes/cadastrar}"><span class=" oi oi-chevron-right icones-sidebar-tamanho align-middle"></span>Cadastrar</a></li>
+									<li><a th:href="@{/tipostefiliacoes/listar}"><span class=" oi oi-chevron-right icones-sidebar-tamanho align-middle"></span>Listar</a></li>
+								</ul>
+							</li>
+							
+						</ul>
+					</li>
+
+					<li><a class="d-btn"><span class=" oi oi-chevron-bottom fourth icones-sidebar-tamanho align-middle"></span>RH - Profissionais </a>
+						<ul class="d-show">
+						
+							<li><a href="#" class="m-btn"><span class=" oi oi-chevron-bottom thirteenth icones-sidebar-tamanho align-middle"></span>Carga Horaria Semanal </a>
+								<ul class="m-show">
+									<li><a th:href="@{/cargahorariasemanais/cadastrar}"><span class=" oi oi-chevron-right icones-sidebar-tamanho align-middle"></span>Cadastrar</a></li>
+									<li><a th:href="@{/cargahorariasemanais/listar}"><span class=" oi oi-chevron-right icones-sidebar-tamanho align-middle"></span>Listar</a></li>
+								</ul>
+							</li>
+							
+							<li><a href="#" class="bw-btn"><span class=" oi oi-chevron-bottom z74 icones-sidebar-tamanho align-middle"></span>Tipos de Remuneração </a>
+								<ul class="bw-show">
+									<li><a th:href="@{/tipoRemuneracao/cadastrar}"><span class=" oi oi-chevron-right icones-sidebar-tamanho align-middle"></span>Cadastrar</a></li>
+									<li><a th:href="@{/tipoRemuneracao/listar}"><span class=" oi oi-chevron-right icones-sidebar-tamanho align-middle"></span>Listar</a></li>
+								</ul>
+							</li>
+							
+							<li><a href="#" class="s-btn"><span class=" oi oi-chevron-bottom nineteenth icones-sidebar-tamanho align-middle"></span>Tipos de Folha </a>
+								<ul class="s-show">
+									<li><a th:href="@{/tiposdefolhas/cadastrar}"><span class=" oi oi-chevron-right icones-sidebar-tamanho align-middle"></span>Cadastrar</a></li>
+									<li><a th:href="@{/tiposdefolhas/listar}"><span class=" oi oi-chevron-right icones-sidebar-tamanho align-middle"></span>Listar</a></li>
+								</ul>
+							</li>
+							
+							<li><a href="#" class="ap-btn"><span class=" oi oi-chevron-bottom fourtysecond icones-sidebar-tamanho align-middle"></span>Regimes de Trabalho </a>
+								<ul class="ap-show">
+									<li><a th:href="@{/regimesdetrabalhos/cadastrar}"><span class=" oi oi-chevron-right icones-sidebar-tamanho align-middle"></span>Cadastrar</a></li>
+									<li><a th:href="@{/regimesdetrabalhos/listar}"><span class=" oi oi-chevron-right icones-sidebar-tamanho align-middle"></span>Listar</a></li>
+								</ul>
+							</li>
+							
+							<li><a href="#" class="aq-btn"><span class=" oi oi-chevron-bottom fourtythird icones-sidebar-tamanho align-middle"></span>Códigos Diferenciados </a>
+								<ul class="aq-show">
+									<li><a th:href="@{/codigodiferenciados/cadastrar}"><span class=" oi oi-chevron-right icones-sidebar-tamanho align-middle"></span>Cadastrar</a></li>
+									<li><a th:href="@{/codigodiferenciados/listar}"><span class=" oi oi-chevron-right icones-sidebar-tamanho align-middle"></span>Listar</a></li>
+								</ul>
+							</li>		
+							
+							<li><a href="#" class="u-btn"><span class=" oi oi-chevron-bottom twentyfirst icones-sidebar-tamanho align-middle"></span>Situações </a>
+								<ul class="u-show">
+									<li><a th:href="@{/situacoes/cadastrar}"><span class=" oi oi-chevron-right icones-sidebar-tamanho align-middle"></span>Cadastrar</a></li>
+									<li><a th:href="@{/situacoes/listar}"><span class=" oi oi-chevron-right icones-sidebar-tamanho align-middle"></span>Listar</a></li>
+								</ul>
+							</li>
+							
+							<li><a href="#" class="v-btn"><span class=" oi oi-chevron-bottom twentysecond icones-sidebar-tamanho align-middle"></span>Vínculos </a>
+								<ul class="v-show">
+									<li><a th:href="@{/vinculos/cadastrar}"><span class=" oi oi-chevron-right icones-sidebar-tamanho align-middle"></span>Cadastrar</a></li>
+									<li><a th:href="@{/vinculos/listar}"><span class=" oi oi-chevron-right icones-sidebar-tamanho align-middle"></span>Listar</a></li>
+								</ul>
+							</li>
+							
+							<li><a href="#" class="n-btn"><span class=" oi oi-chevron-bottom fourteenth icones-sidebar-tamanho align-middle"></span>Bancos </a>
+								<ul class="n-show">
+									<li><a th:href="@{/bancos/cadastrar}"><span class=" oi oi-chevron-right icones-sidebar-tamanho align-middle"></span>Cadastrar</a></li>
+									<li><a th:href="@{/bancos/listar}"><span class=" oi oi-chevron-right icones-sidebar-tamanho align-middle"></span>Listar</a></li>
+								</ul>
+							</li>
+							
+						</ul>
+					</li>
+
+					<li><a class="e-btn"><span class=" oi oi-chevron-bottom fifth icones-sidebar-tamanho align-middle"></span>RH - Regionais </a>
+						<ul class="e-show">
+							
+							<li><a href="#" class="w-btn"><span class=" oi oi-chevron-bottom twentythird icones-sidebar-tamanho align-middle"></span>Paises </a>
+								<ul class="w-show">
+									<li><a th:href="@{/paises/cadastrar}"><span class=" oi oi-chevron-right icones-sidebar-tamanho align-middle"></span>Cadastrar</a></li>
+									<li><a th:href="@{/paises/listar/}"><span class=" oi oi-chevron-right icones-sidebar-tamanho align-middle"></span>Listar</a></li>
+								</ul>
+							</li>
+							
+							<li><a href="#" class="x-btn"><span class=" oi oi-chevron-bottom twentyfourth icones-sidebar-tamanho align-middle"></span>UF </a>
+								<ul class="x-show">
+									<li><a th:href="@{/ufs/cadastrar}"><span class=" oi oi-chevron-right icones-sidebar-tamanho align-middle"></span>Cadastrar</a></li>
+									<li><a th:href="@{/ufs/listar}"><span class=" oi oi-chevron-right icones-sidebar-tamanho align-middle"></span>Listar</a></li>
+								</ul>
+							</li>
+							
+							<li><a href="#" class="y-btn"><span class=" oi oi-chevron-bottom twentyfifth icones-sidebar-tamanho align-middle"></span>Cidades </a>
+								<ul class="y-show">
+									<li><a th:href="@{/cidades/cadastrar}"><span class=" oi oi-chevron-right icones-sidebar-tamanho align-middle"></span>Cadastrar</a></li>
+									<li><a th:href="@{/cidades/listar/}"><span class=" oi oi-chevron-right icones-sidebar-tamanho align-middle"></span>Listar</a></li>
+								</ul>
+							</li>
+							
+							<li><a href="#" class="z-btn"><span class=" oi oi-chevron-bottom twentysixth icones-sidebar-tamanho align-middle"></span>Tipos de Logradouro </a>
+								<ul class="z-show">
+									<li><a th:href="@{/tiposlogradouros/cadastrar}"><span class=" oi oi-chevron-right icones-sidebar-tamanho align-middle"></span>Cadastrar</a></li>
+									<li><a th:href="@{/tiposlogradouros/listar}"><span class=" oi oi-chevron-right icones-sidebar-tamanho align-middle"></span>Listar</a></li>
+								</ul>
+							</li>
+							
+						</ul>
+					</li>
+
+					<li><a class="f-btn"><span class=" oi oi-chevron-bottom sixth icones-sidebar-tamanho align-middle"></span> RH - Tipos de Documento </a>
+						<ul class="f-show">
+						
+							<li><a href="#" class="an-btn"><span class=" oi oi-chevron-bottom fourtyth icones-sidebar-tamanho align-middle"></span>Tipos de Licença</a>
+								<ul class="an-show">
+									<li><a th:href="@{/tiposdelicencas/cadastrar}"><span class=" oi oi-chevron-right icones-sidebar-tamanho align-middle"></span>Cadastrar</a></li>
+									<li><a th:href="@{/tiposdelicencas/listar}"><span class=" oi oi-chevron-right icones-sidebar-tamanho align-middle"></span>Listar</a></li>
+								</ul>
+							</li>
+									
+							<li><a href="#" class="aa-btn"><span class=" oi oi-chevron-bottom twentyseventh icones-sidebar-tamanho align-middle"></span>Categorias Habilitação de Trânsito </a>
+								<ul class="aa-show">
+									<li><a th:href="@{/habilitacaocategorias/cadastrar}"><span class=" oi oi-chevron-right icones-sidebar-tamanho align-middle"></span>Cadastrar</a></li>
+									<li><a th:href="@{/habilitacaocategorias/listar}"><span class=" oi oi-chevron-right icones-sidebar-tamanho align-middle"></span>Listar</a></li>
+								</ul>
+							</li>
+						
+							<li><a href="#" class="ab-btn"><span class=" oi oi-chevron-bottom twentyeighth icones-sidebar-tamanho align-middle"></span>Tipos de Documento </a>
+								<ul class="ab-show">
+									<li><a th:href="@{/tiposdedocumentos/cadastrar}"><span class=" oi oi-chevron-right icones-sidebar-tamanho align-middle"></span>Cadastrar</a></li>
+									<li><a th:href="@{/tiposdedocumentos/listar}"><span class=" oi oi-chevron-right icones-sidebar-tamanho align-middle"></span>Listar</a></li>
+								</ul>
+							</li>
+							
+							<li><a href="#" class="ac-btn"><span class=" oi oi-chevron-bottom twentynineth icones-sidebar-tamanho align-middle"></span>Conselhos </a>
+								<ul class="ac-show">
+									<li><a th:href="@{/conselhos/cadastrar}"><span class=" oi oi-chevron-right icones-sidebar-tamanho align-middle"></span>Cadastrar</a></li>
+									<li><a th:href="@{/conselhos/listar}"><span class=" oi oi-chevron-right icones-sidebar-tamanho align-middle"></span>Listar</a></li>
+								</ul>
+							</li>							
+						</ul>
+					</li>	
+				</ul>			
+			</li>
+
+			<li><a href="#" class="bg-btn"><span class=" oi oi-chevron-bottom z58 icones-sidebar-tamanho align-middle"></span>Folha </a>
+				<ul class="bg-show">
+					
+					<li><a href="#" class="bh-btn"><span class=" oi oi-chevron-bottom z59 icones-sidebar-tamanho align-middle"></span>Configurações </a>
+						<ul class="bh-show">
+							
+							<li><a href="#" class="ar-btn"><span class=" oi oi-chevron-bottom fourtyfourth icones-sidebar-tamanho align-middle"></span>Faixas Imposto de Renda (paginar e mover de mes)</a>
+								<ul class="ar-show">
+									<li><a th:href="@{/faixasir/cadastrar}"><span class=" oi oi-chevron-right icones-sidebar-tamanho align-middle"></span>Cadastrar</a></li>
+									<li><a th:href="@{/faixasir/listar}"><span class=" oi oi-chevron-right icones-sidebar-tamanho align-middle"></span>Listar</a></li>
+								</ul>
+							</li>	
+							
+							<li><a href="#" class="as-btn"><span class=" oi oi-chevron-bottom fourtyfifth icones-sidebar-tamanho align-middle"></span>Letras Faixas IR </a>
+								<ul class="as-show">
+									<li><a th:href="@{/faixasnomesir/cadastrar}"><span class=" oi oi-chevron-right icones-sidebar-tamanho align-middle"></span>Cadastrar</a></li>
+									<li><a th:href="@{/faixasnomesir/listar}"><span class=" oi oi-chevron-right icones-sidebar-tamanho align-middle"></span>Listar</a></li>
+								</ul>
+							</li>
+									
+							<li><a href="#" class="at-btn"><span class=" oi oi-chevron-bottom fourtysixth icones-sidebar-tamanho align-middle"></span>Faixas Previdencia  (paginar e mover de mes)</a>
+								<ul class="at-show">
+									<li><a th:href="@{/faixasprevidencia/cadastrar}"><span class=" oi oi-chevron-right icones-sidebar-tamanho align-middle"></span>Cadastar</a></li>
+									<li><a th:href="@{/faixasprevidencia/listar}"><span class=" oi oi-chevron-right icones-sidebar-tamanho align-middle"></span>Listar</a></li>
+								</ul>
+							</li>
+								
+							<li><a href="#" class="au-btn"><span class=" oi oi-chevron-bottom fourtyseventh icones-sidebar-tamanho align-middle"></span>Letras Faixas Previdência</a>
+								<ul class="au-show">
+									<li><a th:href="@{/faixasnomesprev/cadastrar}"><span class=" oi oi-chevron-right icones-sidebar-tamanho align-middle"></span>Cadastrar</a></li>
+									<li><a th:href="@{/faixasnomesprev/listar}"><span class=" oi oi-chevron-right icones-sidebar-tamanho align-middle"></span>Listar</a></li>
+								</ul>
+							</li>
+							
+							<li><a href="#" class="av-btn"><span class=" oi oi-chevron-bottom fourtyeighth icones-sidebar-tamanho align-middle"></span>Parametros Calculo Folha Extra  ( mover de mes e coluna de valor fixo)</a>
+								<ul class="av-show">
+									<li><a th:href="@{/faixasparametrosextras/cadastrar}"><span class=" oi oi-chevron-right icones-sidebar-tamanho align-middle"></span>Cadastrar</a></li>
+									<li><a th:href="@{/faixasparametrosextras/listar}"><span class=" oi oi-chevron-right icones-sidebar-tamanho align-middle"></span>Listar</a></li>
+								</ul>
+							</li>								
+						</ul>
+					</li>				
+				</ul>
+			</li>
+
+			<li><a href="#" class="h-btn"><span class=" oi oi-chevron-bottom eigth icones-sidebar-tamanho align-middle"></span> Recursos Humanos - Sede </a>
+				<ul class="h-show">	
+				
+				
+					<li><a href="#" class="cf-btn"><span class=" oi oi-chevron-bottom z83 icones-sidebar-tamanho align-middle"></span>Operadores </a>
+						<ul class="cf-show">
+						
+							<li><a href="#" class="cg-btn"><span class=" oi oi-chevron-bottom z84 icones-sidebar-tamanho align-middle"></span>Cadastro </a>
+								<ul class="cg-show">
+									<li><a th:href="@{/pessoas/operador/listar}"><span class=" oi oi-chevron-right icones-sidebar-tamanho align-middle"></span>Cadastrar</a></li>
+									<li><a href="#"><span class=" oi oi-chevron-right icones-sidebar-tamanho align-middle"></span>Listar (por fazer)</a></li>
+								</ul>
+							</li>
+											
+							<li><a href="#" class="ch-btn"><span class=" oi oi-chevron-bottom z85 icones-sidebar-tamanho align-middle"></span>Niveis de Acesso (por fazer) </a>
+								<ul class="ch-show">
+									<li><a href="#"><span class=" oi oi-chevron-right icones-sidebar-tamanho align-middle"></span>Cadastrar</a></li>
+									<li><a href="#"><span class=" oi oi-chevron-right icones-sidebar-tamanho align-middle"></span>Listar</a></li>
+								</ul>
+							</li>
+							
+						</ul>
+					</li>
+							
+					<li><a href="#" class="i-btn"><span class=" oi oi-chevron-bottom nineth icones-sidebar-tamanho align-middle"></span>Cadastro de Pessoas </a>
+						<ul class="i-show">
+							<li><a th:href="@{/pessoas/cadastrar/inicio/unidade}"><span class=" oi oi-chevron-right icones-sidebar-tamanho align-middle"></span>Cadastrar</a></li>
+							<li><a th:href="@{/pessoas/listar}"><span class=" oi oi-chevron-right icones-sidebar-tamanho align-middle"></span>Listar - Editar</a></li>
+						</ul>
+					</li>
+					
+					<li><a href="#" class="bs-btn"><span class=" oi oi-chevron-bottom z70 icones-sidebar-tamanho align-middle"></span>Autorizações (por fazer) </a>
+						<ul class="bs-show">
+							<li><a th:href="@{/autorizacoes/cadastrar}"><span class=" oi oi-chevron-right icones-sidebar-tamanho align-middle"></span>Cadastrar</a></li>
+						</ul>
+					</li>
+					
+					<li><a href="#" class="bq-btn"><span class=" oi oi-chevron-bottom z68 icones-sidebar-tamanho align-middle"></span>Escalas Lançadas/Excluídas</a>
+						<ul class="bq-show">
+							<li><a th:href="@{/escalas/escolher/escala/alteracao/global}"><span class=" oi oi-chevron-right icones-sidebar-tamanho align-middle"></span>Listar</a></li>
+						</ul>
+					</li>
+
+					<li><a href="#" class="bo-btn"><span class=" oi oi-chevron-bottom z66 icones-sidebar-tamanho align-middle"></span>Portal da Transparência</a>
+						<ul class="bo-show">
+						
+							<li><a href="#" class="br-btn"><span class=" oi oi-chevron-bottom z69 icones-sidebar-tamanho align-middle"></span>Alterações </a>
+								<ul class="br-show">
+									<li><a th:href="@{/escalas/escolher/escala/pos/transparencia/global}"><span class=" oi oi-chevron-right icones-sidebar-tamanho align-middle"></span>Listar</a></li>
+								</ul>
+							</li>
+							
+						</ul>
+					</li>
+				</ul>
+			</li>		
+						
+			<li><a href="#" class="by-btn"><span class=" oi oi-chevron-bottom z76 icones-sidebar-tamanho align-middle"></span>Recursos Humanos - Unidade </a>
+				<ul class="by-show">
+					
+					<li><a href="#" class="ce-btn"><span class=" oi oi-chevron-bottom z82 icones-sidebar-tamanho align-middle"></span>Operadores </a>
+						<ul class="ce-show">
+							
+							<li><a href="#" class="cj-btn"><span class=" oi oi-chevron-bottom z87 icones-sidebar-tamanho align-middle"></span>Cadastro </a>
+								<ul class="cj-show">
+									<li><a th:href="@{/pessoas/operador/listar/unidade}"><span class=" oi oi-chevron-right icones-sidebar-tamanho align-middle"></span>Cadastrar</a></li>
+									<li><a href="#"><span class=" oi oi-chevron-right icones-sidebar-tamanho align-middle"></span>Listar (Por fazer)</a></li>
+								</ul>
+							</li>
+							
+							<li><a href="#" class="ck-btn"><span class=" oi oi-chevron-bottom z88 icones-sidebar-tamanho align-middle"></span>Niveis de Acesso (por fazer) </a>
+								<ul class="ck-show">
+									<li><a href="#"><span class=" oi oi-chevron-right icones-sidebar-tamanho align-middle"></span>Cadastrar</a></li>
+									<li><a href="#"><span class=" oi oi-chevron-right icones-sidebar-tamanho align-middle"></span>Listar</a></li>
+								</ul>
+							</li>
+							
+						</ul>
+					</li>
+					
+					<li><a href="#" class="ca-btn"><span class=" oi oi-chevron-bottom z78 icones-sidebar-tamanho align-middle"></span>Cadastro de Pessoas </a>
+						<ul class="ca-show">
+							<li><a th:href="@{/pessoas/cadastrar/inicio}"><span class=" oi oi-chevron-right icones-sidebar-tamanho align-middle"></span>Cadastrar</a></li>
+							<li><a th:href="@{/pessoas/listar/unidade}"><span class=" oi oi-chevron-right icones-sidebar-tamanho align-middle"></span>Listar - Editar</a></li>
+						</ul>
+					</li>
+					
+					
+					
+					<li><a href="#" class="bk-btn"><span class=" oi oi-chevron-bottom z62 icones-sidebar-tamanho align-middle"></span>Escalas </a>
+						<ul class="bk-show">
+						
+							<li><a href="#" class="bp-btn"><span class=" oi oi-chevron-bottom z67 icones-sidebar-tamanho align-middle"></span>Lançadas/Excluídas</a>
+								<ul class="bp-show">
+									<li><a th:href="@{/escalas/escolher/escala/alteracao}"><span class=" oi oi-chevron-right icones-sidebar-tamanho align-middle"></span>Listar</a></li>
+								</ul>
+							</li>
+						
+							<li><a href="#" class="bx-btn"><span class=" oi oi-chevron-bottom z75 icones-sidebar-tamanho align-middle"></span>Escalas Acessar </a>
+								<ul class="bx-show">
+									
+									<li><a href="#" class="bm-btn"><span class=" oi oi-chevron-bottom z64 icones-sidebar-tamanho align-middle"></span>Escala Todas Juntas </a>
+										<ul class="bm-show">
+											<li><a th:href="@{/escalas/escolher/escala/todos}"><span class=" oi oi-chevron-right icones-sidebar-tamanho align-middle"></span>Listar</a></li>
+										</ul>
+									</li>
+																	
+									<li><a href="#" class="bf-btn"><span class=" oi oi-chevron-bottom z57 icones-sidebar-tamanho align-middle"></span>Escala Setorial </a>
+										<ul class="bf-show">
+											<li><a th:href="@{/escalas/escolher/escala}"><span class=" oi oi-chevron-right icones-sidebar-tamanho align-middle"></span>Escala</a></li>
+										</ul>
+									</li>							
+								</ul>
+							</li>	
+						
+						<li><a href="#" class="bn-btn"><span class=" oi oi-chevron-bottom z65 icones-sidebar-tamanho align-middle"></span>Portal da Transparência </a>
+							<ul class="bn-show">
+								<li><a href="#" class="bt-btn"><span class=" oi oi-chevron-bottom z71 icones-sidebar-tamanho align-middle"></span>Alterações </a>
+									<ul class="bt-show">
+										<li><a th:href="@{/escalas/escolher/escala/pos/transparencia}"><span class=" oi oi-chevron-right icones-sidebar-tamanho align-middle"></span>Listar</a></li>
+									</ul>
+								</li>
+								
+							</ul>
+						</li>
+						
+							<li><a href="#" class="bl-btn"><span class=" oi oi-chevron-bottom z63 icones-sidebar-tamanho align-middle"></span>Escalas Configurações </a>
+								<ul class="bl-show">
+									
+									<li><a href="#" class="bb-btn"><span class=" oi oi-chevron-bottom z53 icones-sidebar-tamanho align-middle"></span>Coordenação Escala</a>
+										<ul class="bb-show">
+											<li><a th:href="@{/coordenacaoescalas/cadastrar}"><span class=" oi oi-chevron-right icones-sidebar-tamanho align-middle"></span>Cadastrar</a></li>
+											<li><a th:href="@{/coordenacaoescalas/listar}"><span class=" oi oi-chevron-right icones-sidebar-tamanho align-middle"></span>Listar</a></li>
+										</ul>
+									</li>
+									
+									<li><a href="#" class="cc-btn"><span class=" oi oi-chevron-bottom z80 icones-sidebar-tamanho align-middle"></span>Localidade de Escala</a>
+										<ul class="cc-show">
+											<li><a th:href="@{/localidadeescala/cadastrar}"><span class=" oi oi-chevron-right icones-sidebar-tamanho align-middle"></span>Cadastrar </a></li>
+											<li><a th:href="@{/localidadeescala/listar}"><span class=" oi oi-chevron-right icones-sidebar-tamanho align-middle"></span>Listar</a></li>
+										</ul>
+									</li>
+									
+									<li><a href="#" class="az-btn"><span class=" oi oi-chevron-bottom fiftysecond icones-sidebar-tamanho align-middle"></span>Atividade de Escala</a>
+										<ul class="az-show">
+											<li><a th:href="@{/atividadesescalas/cadastrar}"><span class=" oi oi-chevron-right icones-sidebar-tamanho align-middle"></span>Cadastrar</a></li>
+											<li><a th:href="@{/atividadesescalas/listar}"><span class=" oi oi-chevron-right icones-sidebar-tamanho align-middle"></span>Listar</a></li>
+										</ul>
+									</li>
+									
+									
+									<li><a href="#" class="ba-btn"><span class=" oi oi-chevron-bottom z52 icones-sidebar-tamanho align-middle"></span>Acesso Operadores </a>
+										<ul class="ba-show">
+											<li><a th:href="@{/acessooperadorescoordenacao/listar/unidade}"><span class=" oi oi-chevron-right icones-sidebar-tamanho align-middle"></span>Listar</a></li>
+										</ul>
+									</li>								
+								
+								</ul>
+							</li>					
+						</ul>
+					</li>
+										
+					<li><a href="#" class="bj-btn"><span class=" oi oi-chevron-bottom z61 icones-sidebar-tamanho align-middle"></span>Capacitações </a>
+						<ul class="bj-show">
+							
+							<li><a href="#" class="bc-btn"><span class=" oi oi-chevron-bottom z54 icones-sidebar-tamanho align-middle"></span>Cadastro de Capacitações </a>
+								<ul class="bc-show">
+									<li><a th:href="@{/funcionarioscapacitacoes/cadastrar}"><span class=" oi oi-chevron-right icones-sidebar-tamanho align-middle"></span>Cadastrar</a></li>
+									<li><a th:href="@{/funcionarioscapacitacoes/listar}"><span class=" oi oi-chevron-right icones-sidebar-tamanho align-middle"></span>Listar</a></li>
+								</ul>
+							</li>	
+						</ul>
+					</li>				
+				</ul>
+			</li>
+	
+			<li><a href="#" class="bz-btn"><span class=" oi oi-chevron-bottom z77 icones-sidebar-tamanho align-middle"></span>Setores - Unidade </a>
+				<ul class="bz-show">
+					
+					<li><a href="#" class="bf-btn"><span class=" oi oi-chevron-bottom z57 icones-sidebar-tamanho align-middle"></span>Escala </a>
+						<ul class="bf-show">
+							<li><a th:href="@{/escalas/escolher/escala}"><span class=" oi oi-chevron-right icones-sidebar-tamanho align-middle"></span>Escala</a></li>
+						</ul>
+					</li>				
+				</ul>
+			</li>
+		
+			<li><a href="#" class="bu-btn"><span class=" oi oi-chevron-bottom z72 icones-sidebar-tamanho align-middle"></span>Acesso Colaboradores</a>
+				<ul class="bu-show">
+					
+					<li><a href="#" class="bv-btn"><span class=" oi oi-chevron-bottom z73 icones-sidebar-tamanho align-middle"></span>Escalas </a>
+						<ul class="bv-show">
+							<li><a th:href="@{/escalas/escolher/escala/colaborador}"><span class=" oi oi-chevron-right icones-sidebar-tamanho align-middle"></span>Listar</a></li>
+						</ul>
+					</li>
+					
+				</ul>
+			</li>
+		
+		
+			<li><a href="#" class="ao-btn"><span class=" oi oi-chevron-bottom fourtyfirst icones-sidebar-tamanho align-middle"></span>Menu de Testes </a>
+				<ul class="ao-show">					
+				
+					<li><a href="#" class="bd-btn"><span class=" oi oi-chevron-bottom z55 icones-sidebar-tamanho align-middle"></span>Cadastro de Férias</a>
+						<ul class="bd-show">
+							<li><a th:href="@{/funcionariosferias/cadastrar}"><span class=" oi oi-chevron-right icones-sidebar-tamanho align-middle"></span>Cadastrar</a></li>
+							<li><a th:href="@{/funcionariosferias/listar}"><span class=" oi oi-chevron-right icones-sidebar-tamanho align-middle"></span>Listar</a></li>
+							<li><a th:href="@{/funcionariosferias/listar/funcionarios}"><span class=" oi oi-chevron-right icones-sidebar-tamanho align-middle"></span>Testar Cadastro</a></li>
+						</ul>
+					</li>
+					
+					<li><a href="#" class="be-btn"><span class=" oi oi-chevron-bottom z56 icones-sidebar-tamanho align-middle"></span>Cadastro de Períodos de Férias </a>
+						<ul class="be-show">
+							<li><a th:href="@{/funcionariosferiasperiodos/cadastrar}"><span class=" oi oi-chevron-right icones-sidebar-tamanho align-middle"></span>Cadastrar</a></li>
+							<li><a th:href="@{/funcionariosferiasperiodos/listar}"><span class=" oi oi-chevron-right icones-sidebar-tamanho align-middle"></span>Listar</a></li>
+						</ul>
+					</li>
+				</ul>	
+			</li>
+
+
+
+			
+	
+			
+	
+			
+	
+			
+	
+			
+	
+			
+			
+			
+
+			
+
+			
+
+			
+
+			
+
+			
+
+			
+			
+
+			
+
+			
+
+			
+
+			
+
+			
+
+			<li><a href="#" class="cn-btn"><span class=" oi oi-chevron-bottom z91 icones-sidebar-tamanho align-middle"></span>Menu 1 </a>
+				<ul class="cn-show">
+					<li><a href="#"><span class=" oi oi-chevron-right icones-sidebar-tamanho align-middle"></span>Cadastrar</a></li>
+					<li><a href="#"><span class=" oi oi-chevron-right icones-sidebar-tamanho align-middle"></span>Listar</a></li>
+				</ul>
+			</li>
+
+			<li><a href="#" class="co-btn"><span class=" oi oi-chevron-bottom z92 icones-sidebar-tamanho align-middle"></span>Menu 1 </a>
+				<ul class="co-show">
+					<li><a href="#"><span class=" oi oi-chevron-right icones-sidebar-tamanho align-middle"></span>Cadastrar</a></li>
+					<li><a href="#"><span class=" oi oi-chevron-right icones-sidebar-tamanho align-middle"></span>Listar</a></li>
+				</ul>
+			</li>
+
+			<li><a href="#" class="cp-btn"><span class=" oi oi-chevron-bottom z93 icones-sidebar-tamanho align-middle"></span>Menu 1 </a>
+				<ul class="cp-show">
+					<li><a href="#"><span class=" oi oi-chevron-right icones-sidebar-tamanho align-middle"></span>Cadastrar</a></li>
+					<li><a href="#"><span class=" oi oi-chevron-right icones-sidebar-tamanho align-middle"></span>Listar</a></li>
+				</ul>
+			</li>
+
+			<li><a href="#" class="cq-btn"><span class=" oi oi-chevron-bottom z94 icones-sidebar-tamanho align-middle"></span>Menu 1 </a>
+				<ul class="cq-show">
+					<li><a href="#"><span class=" oi oi-chevron-right icones-sidebar-tamanho align-middle"></span>Cadastrar</a></li>
+					<li><a href="#"><span class=" oi oi-chevron-right icones-sidebar-tamanho align-middle"></span>Listar</a></li>
+				</ul>
+			</li>
+
+			<li><a href="#" class="cr-btn"><span class=" oi oi-chevron-bottom z95 icones-sidebar-tamanho align-middle"></span>Menu 1 </a>
+				<ul class="cr-show">
+					<li><a href="#"><span class=" oi oi-chevron-right icones-sidebar-tamanho align-middle"></span>Cadastrar</a></li>
+					<li><a href="#"><span class=" oi oi-chevron-right icones-sidebar-tamanho align-middle"></span>Listar</a></li>
+				</ul>
+			</li>
+
+			<li><a href="#" class="cs-btn"><span class=" oi oi-chevron-bottom z96 icones-sidebar-tamanho align-middle"></span>Menu 1 </a>
+				<ul class="cs-show">
+					<li><a href="#"><span class=" oi oi-chevron-right icones-sidebar-tamanho align-middle"></span>Cadastrar</a></li>
+					<li><a href="#"><span class=" oi oi-chevron-right icones-sidebar-tamanho align-middle"></span>Listar</a></li>
+				</ul>
+			</li>
+
+			<li><a href="#" class="ct-btn"><span class=" oi oi-chevron-bottom z97 icones-sidebar-tamanho align-middle"></span>Menu 1 </a>
+				<ul class="ct-show">
+					<li><a href="#"><span class=" oi oi-chevron-right icones-sidebar-tamanho align-middle"></span>Cadastrar</a></li>
+					<li><a href="#"><span class=" oi oi-chevron-right icones-sidebar-tamanho align-middle"></span>Listar</a></li>
+				</ul>
+			</li>
+
+			<li><a href="#" class="cu-btn"><span class=" oi oi-chevron-bottom z98 icones-sidebar-tamanho align-middle"></span>Menu 1 </a>
+				<ul class="cu-show">
+					<li><a href="#"><span class=" oi oi-chevron-right icones-sidebar-tamanho align-middle"></span>Cadastrar</a></li>
+					<li><a href="#"><span class=" oi oi-chevron-right icones-sidebar-tamanho align-middle"></span>Listar</a></li>
+				</ul>
+			</li>
+
+			<li><a href="#" class="cv-btn"><span class=" oi oi-chevron-bottom z99 icones-sidebar-tamanho align-middle"></span>Menu 1 </a>
+				<ul class="cv-show">
+					<li><a href="#"><span class=" oi oi-chevron-right icones-sidebar-tamanho align-middle"></span>Cadastrar</a></li>
+					<li><a href="#"><span class=" oi oi-chevron-right icones-sidebar-tamanho align-middle"></span>Listar</a></li>
+				</ul>
+			</li>
+
+			<li><a href="#" class="cw-btn"><span class=" oi oi-chevron-bottom z100 icones-sidebar-tamanho align-middle"></span>Menu 1 </a>
+				<ul class="cw-show">
+					<li><a href="#"><span class=" oi oi-chevron-right icones-sidebar-tamanho align-middle"></span>Cadastrar</a></li>
+					<li><a href="#"><span class=" oi oi-chevron-right icones-sidebar-tamanho align-middle"></span>Listar</a></li>
+				</ul>
+			</li>
+
+			<li><a href="#" class="cx-btn"><span class=" oi oi-chevron-bottom z101 icones-sidebar-tamanho align-middle"></span>Menu 1 </a>
+				<ul class="cx-show">
+					<li><a href="#"><span class=" oi oi-chevron-right icones-sidebar-tamanho align-middle"></span>Cadastrar</a></li>
+					<li><a href="#"><span class=" oi oi-chevron-right icones-sidebar-tamanho align-middle"></span>Listar</a></li>
+				</ul>
+			</li>
+
+			<li><a href="#" class="cy-btn"><span class=" oi oi-chevron-bottom z102 icones-sidebar-tamanho align-middle"></span>Menu 1 </a>
+				<ul class="cy-show">
+					<li><a href="#"><span class=" oi oi-chevron-right icones-sidebar-tamanho align-middle"></span>Cadastrar</a></li>
+					<li><a href="#"><span class=" oi oi-chevron-right icones-sidebar-tamanho align-middle"></span>Listar</a></li>
+				</ul>
+			</li>
+
+			<li><a href="#" class="cz-btn"><span class=" oi oi-chevron-bottom z103 icones-sidebar-tamanho align-middle"></span>Menu 1 </a>
+				<ul class="cz-show">
+					<li><a href="#"><span class=" oi oi-chevron-right icones-sidebar-tamanho align-middle"></span>Cadastrar</a></li>
+					<li><a href="#"><span class=" oi oi-chevron-right icones-sidebar-tamanho align-middle"></span>Listar</a></li>
+				</ul>
+			</li>
+
+
+
+
+			<li><a href="#" class="t-btn"><span class=" oi oi-chevron-bottom twentyth icones-sidebar-tamanho align-middle"></span>Sites Úteis </a>
+				<ul class="t-show">
+					<li><a href="https://sei.al.gov.br/sip/login.php?sigla_orgao_sistema=AL&sigla_sistema=SEI&infra_url=L3NlaS8=" target="_blank"><span class=" oi oi-chevron-right icones-sidebar-tamanho align-middle"></span>Portal SEI - AL</a></li>
+					<li><a href="https://www.gov.br/saude/pt-br" target="_blank"><span class=" oi oi-chevron-right icones-sidebar-tamanho align-middle"></span>Ministério	da Saúde</a></li>
+					<li><a href="https://www.saude.al.gov.br/" target="_blank"><span class=" oi oi-chevron-right icones-sidebar-tamanho align-middle"></span>Saúde AL - SESAU</a></li>
+					<li><a href="https://webmail.saude.al.gov.br/zimbra/" target="_blank"><span class=" oi oi-chevron-right icones-sidebar-tamanho align-middle"></span>Webmail - SESAU</a></li>
+					<li><a href="https://anadia.saude.al.gov.br:8181/cas/login?service=https%3A%2F%2Fanadia.saude.al.gov.br%3A8181%2Fportal-web%2Fj_spring_cas_security_check" target="_blank"><span class=" oi oi-chevron-right icones-sidebar-tamanho align-middle"></span>Avaliação de Desempenho - SESAU</a></li>
+					<li><a href="http://www.agenciaalagoas.al.gov.br/" target="_blank"><span class=" oi oi-chevron-right icones-sidebar-tamanho align-middle"></span>Agência Alagoas</a></li>
+					<li><a href="http://www2.datasus.gov.br/DATASUS/index.php" target="_blank"><span class=" oi oi-chevron-right icones-sidebar-tamanho align-middle"></span>DATASUS</a></li>
+					<li><a href="https://www.gov.br/inss/pt-br" target="_blank"><span class=" oi oi-chevron-right icones-sidebar-tamanho align-middle"></span>INSS</a></li>
+					<li><a href="http://www.alagoasprevidencia.al.gov.br/" target="_blank"><span class=" oi oi-chevron-right icones-sidebar-tamanho align-middle"></span>AL Previdência</a></li>
+					<li><a href="https://portaldoservidor.seplag.al.gov.br/login/"target="_blank"><span class=" oi oi-chevron-right icones-sidebar-tamanho align-middle"></span>Contracheque Seplag</a></li>
+					<li><a href="http://sishge.saude.al.gov.br:8080/index.php?class=LoginForm" target="_blank"><span class=" oi oi-chevron-right icones-sidebar-tamanho align-middle"></span>Sistema Web HGE</a></li>
+				</ul>
+			</li>		
+			<li><a th:href="@{/logout}"><span class=" oi oi-chevron-right icones-sidebar-tamanho align-middle"></span>Sair</a></li>
+		</ul>
+	</nav>
+</body>
+</html>

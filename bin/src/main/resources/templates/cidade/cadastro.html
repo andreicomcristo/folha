@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html layout:decorate="~{layout}">
+<head><meta charset="UTF-8" /></head>
+<body>
+	<section class="layout-content" layout:fragment="corpo">
+
+		<nav class="navbar navbar-expand-md bg-light">
+			<form th:action="@{/cidades/listar}">
+				<div class=" layout-content">
+					<a class="btn btn-outline-light oi oi-action-undo" type="button" href="javascript:history.back()"></a>
+					<a class="btn btn-outline-light oi oi-action-redo" type="button" href="javascript:history.forward()"></a>    
+					<button class="btn btn-outline-dark ">Listar</button>
+					<a class="btn btn-outline-dark btn-md" th:href="@{/cidades/cadastrar}"
+						role="button"> <span class="oi oi-plus" title="Cadastro"
+						aria-hidden="true"></span> <span>Novo</span>
+					</a>
+				</div>
+			</form>
+		</nav>
+
+		<div class="container" id="cadastro">
+
+			<div th:replace="fragments/alert"></div>
+			<form
+				th:action="${cidades.id == null} ? @{/cidades/salvar} : @{/cidades/editar}"
+				th:object="${cidades}" method="POST">
+				<div class="form-row">
+					<div class="form-group col-md-6">
+						<label for="nome" class="fonte-tutulos-tamanho">Cadastro de Cidades </label>
+						
+						<input type="text"	class="form-control form-control-md" autofocus="autofocus"
+						       id="codigo" placeholder="Nome da Cidade" th:field="*{nomeCidade}" />
+						
+						<p></p>
+						
+						<select id="cargos" class="form-select" th:field="*{idUfFk}">
+								<option value="">Selecione o Estado</option>
+								<option th:each="d : ${idUfFk}" th:value="${d.id}"th:text="${d.nomeUf}">ADM</option>
+						</select>	
+						
+						<p></p>
+						
+						<select id="cargos" class="form-select" th:field="*{idPaisFk}">
+								<option value="">Selecione o País</option>
+								<option class="form-select" th:each="d : ${idPaisFk}" th:value="${d.id}"th:text="${d.nomePais}" selected >ADM</option>
+						</select>	
+						
+						<p></p>	
+												
+						<input type="hidden" id="id" th:field="*{id}" />
+						<button class="btn btn-outline-dark">Cadastrar</button>
+					</div>
+				</div>
+			</form>
+		</div>
+	</section>
+</body>
+</html>

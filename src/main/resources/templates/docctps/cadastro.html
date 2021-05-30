@@ -17,28 +17,54 @@
 
 		<div class="container" id="comando">
 			<label for="nome" class="fonte-tutulos-tamanho">Cadastro de Documentos Específicos</label>
+			<ul class="nav nav-tabs">
+  <li class="nav-item">
+    <a class="nav-link disabled" href="#">Busca</a>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link disabled" href="#">Dados pessoais</a>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link disabled" href="#">Documentos básicos</a>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link active" href="#">Documentos específicos</a>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link disabled" href="#">Endereço</a>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link disabled" href="#">Dependentes</a>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link disabled" href="#">Conta bancária</a>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link disabled" href="#">Funcionários</a>
+  </li>
+</ul>
 			<p></p>
-				<button class=" oi oi-document btn btn-outline-secondary my-2 my-sm-0" type="button" data-toggle="collapse" data-target="#collapseCtps"
+				<button class="collapse-button oi oi-document btn btn-outline-secondary my-2 my-sm-0" type="button" data-toggle="collapse" data-target="#collapseCtps"
 	            		aria-controls="collapseCtps">CTPS 
 	            </button> 
 	            
-	            <button class=" oi oi-document btn btn-outline-secondary my-2 my-sm-0" type="button" data-toggle="collapse" data-target="#collapseHabilitacao"
+	            <button class="collapse-button oi oi-document btn btn-outline-secondary my-2 my-sm-0" type="button" data-toggle="collapse" data-target="#collapseHabilitacao"
 	            		aria-controls="collapseHabilitacao">Habilitaçao
 	            </button>
 	            
-	            <button class=" oi oi-document btn btn-outline-secondary my-2 my-sm-0" type="button" data-toggle="collapse" data-target="#collapseConselho"
+	            <button class="collapse-button oi oi-document btn btn-outline-secondary my-2 my-sm-0" type="button" data-toggle="collapse" data-target="#collapseConselho"
 	            		aria-controls="collapseConselho">Conselho
 	            </button>
 	            
-	            <button class=" oi oi-document btn btn-outline-secondary my-2 my-sm-0" type="button" data-toggle="collapse" data-target="#collapseReservista"
+	            <button class="collapse-button oi oi-document btn btn-outline-secondary my-2 my-sm-0" type="button" data-toggle="collapse" data-target="#collapseReservista"
 	            		aria-controls="collapseReservista">Reservista
 	            </button>
 	            
-	            <button class=" oi oi-document btn btn-outline-secondary my-2 my-sm-0" type="button" data-toggle="collapse" data-target="#collapseRg"
+	            <button class="collapse-button oi oi-document btn btn-outline-secondary my-2 my-sm-0" type="button" data-toggle="collapse" data-target="#collapseRg"
 	            		aria-controls="collapseRg">RG
 	            </button>
 	            
-	            <button class=" oi oi-document btn btn-outline-secondary my-2 my-sm-0" type="button" data-toggle="collapse" data-target="#collapseTitulo"
+	            <button class="collapse-button oi oi-document btn btn-outline-secondary my-2 my-sm-0" type="button" data-toggle="collapse" data-target="#collapseTitulo"
 	            		aria-controls="collapseTitulo">Título
 	            </button>
 	            
@@ -58,7 +84,7 @@
 	    	           
 	    	           
 	    	          
-	    	          <div class="form-group container  col-md-6 col-6 " id="cadastro">
+	    	          <div class="form-group  col-md-12 col-12 " id="cadastro">
 
 			<div th:replace="fragments/alert"></div>
 			<form
@@ -168,7 +194,7 @@
 	    
 
 
-<div class="form-group container col-md-6 col-6 " id="cadastro">
+<div class="form-group  col-md-12 col-12 " id="cadastro">
 
 			<div th:replace="fragments/alert"></div>
 			<form
@@ -298,7 +324,7 @@
 	    
 
 
-	<div class="form-group container  col-md-6 col-6 " id="cadastro">
+	<div class="form-group   col-md-12 col-12 " id="cadastro">
 
 			<div th:replace="fragments/alert"></div>
 			<form
@@ -404,7 +430,7 @@
 	    
 
 
-	<div class="form-group container  col-md-6 col-6 " id="cadastro">
+	<div class="form-group   col-md-12 col-12 " id="cadastro">
 
 			<div th:replace="fragments/alert"></div>
 			<form
@@ -537,7 +563,7 @@
 	    
 
 
-	<div class="form-group container  col-md-6 col-6 " id="cadastro">
+	<div class="form-group   col-md-12 col-12 " id="cadastro">
 
 			<div th:replace="fragments/alert"></div>
 			<form
@@ -657,7 +683,7 @@
 	    
 
 
-	<div class="form-group container  col-md-6 col-6 " id="cadastro">
+	<div class="form-group   col-md-12 col-12 " id="cadastro">
 
 			<div th:replace="fragments/alert"></div>
 			<form
@@ -777,7 +803,18 @@
 		
 		
 					
-		
+		<script>
+			(function(){
+				const viewList = $('.collapse')
+				console.log(viewList)
+				$('.collapse-button').on('click', function(e){
+					console.log($(e.target).attr('data-target'))
+					for (let i = 0, ilen = viewList.length; i < ilen; i++) {
+						$(viewList[i]).removeClass('show')
+					}
+				})
+			})()
+		</script>
 		
 		
 		<div th:replace="fragments/modal :: modal"></div>

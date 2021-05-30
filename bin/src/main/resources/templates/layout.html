@@ -1,0 +1,650 @@
+<!DOCTYPE html>
+<html lang="pt" dir="ltr" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.tymeleaf.org" xmlns:layout= "http://www.ultraq.net.nz/">
+<head>
+    <!-- Somehow I got an error, so I comment the title, just uncomment to show -->
+    <!-- <title>Sidebar Menu with sub-menu | CodingNepal</title> -->
+      
+    <title>GENTE-WEB</title>
+	<meta charset="UTF-8" />
+	<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+	<meta name="description" content="" />
+	<meta name="author" content="" />
+	<link rel="shortcut icon" href="/image/logo.ico" type="image/x-icon" />
+
+	<!-- Bootstrap core CSS -->
+	<link href="/webjars/bootstrap/css/bootstrap.min.css" rel="stylesheet" />
+	<link href="/webjars/open-iconic/font/css/open-iconic-bootstrap.min.css" rel="stylesheet" />
+	
+		
+	<!-- Custom styles for this template -->
+	<link href="/css/style.css" rel="stylesheet" />
+    
+    <link rel="stylesheet" href="/css/style.css">
+    <script src="https://code.jquery.com/jquery-3.4.1.js"></script>
+    <script src="https://kit.fontawesome.com/a076d05399.js"></script>
+    
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-giJF6kkoqNQ00vy+HMDP7azOuL0xtbfIcaT9wjKHr8RbDVddVHyTfAAsrekwKmP1" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/js/bootstrap.bundle.min.js" integrity="sha384-ygbV9kiqUc6oa4msXn9868pTtWMgiQaeYH7/t7LECLbyPA2x65Kgf80OJFdroafW" crossorigin="anonymous"></script>
+	<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js" integrity="sha384-q2kxQ16AaE6UbzuKqyBE9/u/KzioAlnx2maXQHiDX9d4/zp8Ok3f+M7DPm+Ib6IU" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/js/bootstrap.min.js" integrity="sha384-pQQkAEnwaBkjpqZ8RU1fF1AKtTcHJwFl3pblpTlHXybJjHpMYo79HY3hIi4NKxyj" crossorigin="anonymous"></script>
+    
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    
+    
+    
+    
+
+    
+  </head>
+
+<body>
+
+	<header th:replace="fragments/header :: cabecalho">
+		<div>header</div>
+	</header>
+
+	<div class= "layout-main">
+		<aside>
+			<nav th:replace="fragments/sidebar :: nav-sidebar">
+				<span>menu</span>
+			</nav>
+		</aside>
+		
+		<section layout:fragment = "corpo">
+			<div>Conteudo principal das paginas</div>
+		</section>
+	</div>
+
+	<footer th:replace="fragments/footer :: rodape">
+		<div>footer</div>
+	</footer>
+
+<!-- Bootstrap core JavaScript
+    ================================================== -->
+	<!-- Placed at the end of the document so the pages load faster -->
+	<script src="/webjars/jquery/jquery.min.js"></script>
+	<script src="/webjars/jquery-mask-plugin/dist/jquery.mask.min.js"></script>
+	<script	src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
+	<script src="/webjars/bootstrap/js/bootstrap.min.js"></script>
+	<script type="text/javascript">
+	    
+	    var url = '';
+		
+		$('button[id*="btn_"]').click(function() {
+			url = "http://localhost:8080/" + $(this).attr('id').split("_")[1];
+		});
+		
+		$('#ok_confirm').click(function() {
+			document.location.href = url;
+		});
+	    
+	    
+		$(function() {
+			$('[data-toggle="popover"]').popover();
+		});
+		
+		$(document).ready(function(){
+		    $(".navbar-toggle").click(function(){
+		        $(".sidebar").toggleClass("sidebar-open");
+		    })
+		});
+
+	    
+	      $('.btn-sidebar').click(function(){
+	      $(this).toggleClass("click");
+	      $('.sidebar').toggleClass("show");
+	    });
+	      
+	      
+	      $('.a-btn').click(function(){
+	        $('nav ul .a-show').toggleClass("show0");
+	        $('nav ul .first').toggleClass("rotate");
+	      });
+	      
+	      $('.b-btn').click(function(){
+	        $('nav ul .b-show').toggleClass("show1");
+	        $('nav ul .second').toggleClass("rotate");
+	      });
+	      
+	      $('.c-btn').click(function(){
+	        $('nav ul .c-show').toggleClass("show2");
+	        $('nav ul .third').toggleClass("rotate");
+	      });
+	      
+	      $('.d-btn').click(function(){
+	        $('nav ul .d-show').toggleClass("show3");
+	        $('nav ul .fourth').toggleClass("rotate");
+	      });
+	      
+	      $('.e-btn').click(function(){
+	        $('nav ul .e-show').toggleClass("show4");
+	        $('nav ul .fifth').toggleClass("rotate");
+	      });
+	      
+	      $('.f-btn').click(function(){
+	        $('nav ul .f-show').toggleClass("show5");
+	        $('nav ul .sixth').toggleClass("rotate");
+	      });
+	      
+	      $('.g-btn').click(function(){
+	        $('nav ul .g-show').toggleClass("show6");
+	        $('nav ul .seventh').toggleClass("rotate");
+	      });
+	      
+	      $('.h-btn').click(function(){
+	        $('nav ul .h-show').toggleClass("show7");
+	        $('nav ul .eigth').toggleClass("rotate");
+	      });
+	      
+	      $('.i-btn').click(function(){
+	        $('nav ul .i-show').toggleClass("show8");
+	        $('nav ul .nineth').toggleClass("rotate");
+	      });
+	      
+	      $('.j-btn').click(function(){
+	        $('nav ul .j-show').toggleClass("show9");
+	        $('nav ul .tenth').toggleClass("rotate");
+	      });
+	      
+	       $('.k-btn').click(function(){
+	        $('nav ul .k-show').toggleClass("show10");
+	        $('nav ul .eleventh').toggleClass("rotate");
+	      });
+	     
+	      $('.l-btn').click(function(){
+	        $('nav ul .l-show').toggleClass("show11");
+	        $('nav ul .twelfth').toggleClass("rotate");
+	      });
+	     
+	     $('.m-btn').click(function(){
+	        $('nav ul .m-show').toggleClass("show12");
+	        $('nav ul .thirteenth').toggleClass("rotate");
+	      });
+	     
+	     $('.n-btn').click(function(){
+	        $('nav ul .n-show').toggleClass("show13");
+	        $('nav ul .fourteenth').toggleClass("rotate");
+	      });
+	     
+	     $('.o-btn').click(function(){
+	        $('nav ul .o-show').toggleClass("show14");
+	        $('nav ul .fifteenth').toggleClass("rotate");
+	      });
+	     
+	     $('.p-btn').click(function(){
+	        $('nav ul .p-show').toggleClass("show15");
+	        $('nav ul .sixteenth').toggleClass("rotate");
+	      });
+	     
+	     $('.q-btn').click(function(){
+	        $('nav ul .q-show').toggleClass("show16");
+	        $('nav ul .seventeenth').toggleClass("rotate");
+	      });
+	     
+	     $('.r-btn').click(function(){
+	        $('nav ul .r-show').toggleClass("show17");
+	        $('nav ul .eighteenth').toggleClass("rotate");
+	      });
+	     
+	     $('.s-btn').click(function(){
+	        $('nav ul .s-show').toggleClass("show18");
+	        $('nav ul .nineteenth').toggleClass("rotate");
+	      });
+	     
+	     $('.t-btn').click(function(){
+	        $('nav ul .t-show').toggleClass("show19");
+	        $('nav ul .twentyth').toggleClass("rotate");
+	      });
+	      
+	      $('.u-btn').click(function(){
+	        $('nav ul .u-show').toggleClass("show20");
+	        $('nav ul .twentyfirst').toggleClass("rotate");
+	      });
+	      
+	      $('.v-btn').click(function(){
+	        $('nav ul .v-show').toggleClass("show21");
+	        $('nav ul .twentysecond').toggleClass("rotate");
+	      });
+	      
+	      $('.w-btn').click(function(){
+	        $('nav ul .w-show').toggleClass("show22");
+	        $('nav ul .twentythird').toggleClass("rotate");
+	      });
+	      
+	      $('.x-btn').click(function(){
+	        $('nav ul .x-show').toggleClass("show23");
+	        $('nav ul .twentyfourth').toggleClass("rotate");
+	      });
+	      
+	      $('.y-btn').click(function(){
+	        $('nav ul .y-show').toggleClass("show24");
+	        $('nav ul .twentyfifth').toggleClass("rotate");
+	      });
+	      
+	      $('.z-btn').click(function(){
+	        $('nav ul .z-show').toggleClass("show25");
+	        $('nav ul .twentysixth').toggleClass("rotate");
+	      });
+	     	 
+	     	 
+	     	 
+	      $('.aa-btn').click(function(){
+	        $('nav ul .aa-show').toggleClass("show26");
+	        $('nav ul .twentyseventh').toggleClass("rotate");
+	      }); 
+
+	      $('.ab-btn').click(function(){
+	        $('nav ul .ab-show').toggleClass("show27");
+	        $('nav ul .twentyeighth').toggleClass("rotate");
+	      }); 
+
+	      $('.ac-btn').click(function(){
+	        $('nav ul .ac-show').toggleClass("show28");
+	        $('nav ul .twentynineth').toggleClass("rotate");
+	      }); 
+
+	      $('.ad-btn').click(function(){
+	        $('nav ul .ad-show').toggleClass("show29");
+	        $('nav ul .thirtyth').toggleClass("rotate");
+	      }); 
+
+	      $('.ae-btn').click(function(){
+	        $('nav ul .ae-show').toggleClass("show30");
+	        $('nav ul .thirtyfirst').toggleClass("rotate");
+	      }); 
+
+	      $('.af-btn').click(function(){
+	        $('nav ul .af-show').toggleClass("show31");
+	        $('nav ul .thirtysecond').toggleClass("rotate");
+	      }); 
+
+	      $('.ag-btn').click(function(){
+	        $('nav ul .ag-show').toggleClass("show32");
+	        $('nav ul .thirtythird').toggleClass("rotate");
+	      }); 
+
+	      $('.ah-btn').click(function(){
+	        $('nav ul .ah-show').toggleClass("show33");
+	        $('nav ul .thirtyfourth').toggleClass("rotate");
+	      }); 
+
+	      $('.ai-btn').click(function(){
+	        $('nav ul .ai-show').toggleClass("show34");
+	        $('nav ul .thirtyfifth').toggleClass("rotate");
+	      }); 
+
+	      $('.aj-btn').click(function(){
+	        $('nav ul .aj-show').toggleClass("show35");
+	        $('nav ul .thirtyssixth').toggleClass("rotate");
+	      }); 
+
+	      $('.ak-btn').click(function(){
+	        $('nav ul .ak-show').toggleClass("show36");
+	        $('nav ul .thirtyseventh').toggleClass("rotate");
+	      }); 
+
+	      $('.al-btn').click(function(){
+	        $('nav ul .al-show').toggleClass("show37");
+	        $('nav ul .thirtyeighth').toggleClass("rotate");
+	      }); 
+
+	      $('.am-btn').click(function(){
+	        $('nav ul .am-show').toggleClass("show38");
+	        $('nav ul .thirtynineth').toggleClass("rotate");
+	      }); 
+
+	      $('.an-btn').click(function(){
+	        $('nav ul .an-show').toggleClass("show39");
+	        $('nav ul .fourtyth').toggleClass("rotate");
+	      }); 
+
+	      $('.ao-btn').click(function(){
+	        $('nav ul .ao-show').toggleClass("show40");
+	        $('nav ul .fourtyfirst').toggleClass("rotate");
+	      }); 
+
+	      $('.ap-btn').click(function(){
+	        $('nav ul .ap-show').toggleClass("show41");
+	        $('nav ul .fourtysecond').toggleClass("rotate");
+	      }); 
+
+	      $('.aq-btn').click(function(){
+	        $('nav ul .aq-show').toggleClass("show42");
+	        $('nav ul .fourtythird').toggleClass("rotate");
+	      }); 
+
+	      $('.ar-btn').click(function(){
+	        $('nav ul .ar-show').toggleClass("show43");
+	        $('nav ul .fourtyfourth').toggleClass("rotate");
+	      }); 
+
+	      $('.as-btn').click(function(){
+	        $('nav ul .as-show').toggleClass("show44");
+	        $('nav ul .fourtyfifth').toggleClass("rotate");
+	      }); 
+
+	      $('.at-btn').click(function(){
+	        $('nav ul .at-show').toggleClass("show45");
+	        $('nav ul .fourtysixth').toggleClass("rotate");
+	      }); 
+
+	      $('.au-btn').click(function(){
+	        $('nav ul .au-show').toggleClass("show46");
+	        $('nav ul .fourtyseventh').toggleClass("rotate");
+	      }); 
+
+	      $('.av-btn').click(function(){
+	        $('nav ul .av-show').toggleClass("show47");
+	        $('nav ul .fiftyeighth').toggleClass("rotate");
+	      }); 
+
+	      $('.aw-btn').click(function(){
+	        $('nav ul .aw-show').toggleClass("show48");
+	        $('nav ul .fiftynineth').toggleClass("rotate");
+	      }); 
+
+	      $('.ax-btn').click(function(){
+	        $('nav ul .ax-show').toggleClass("show49");
+	        $('nav ul .fiftyth').toggleClass("rotate");
+	      }); 
+
+	      $('.ay-btn').click(function(){
+	        $('nav ul .ay-show').toggleClass("show50");
+	        $('nav ul .fiftyfirst').toggleClass("rotate");
+	      }); 
+
+	      $('.az-btn').click(function(){
+	        $('nav ul .az-show').toggleClass("show51");
+	        $('nav ul .fiftysecond').toggleClass("rotate");
+	      }); 
+	     	 
+	     
+	     $('.ba-btn').click(function(){
+	        $('nav ul .ba-show').toggleClass("show52");
+	        $('nav ul .z52').toggleClass("rotate");
+	      }); 
+	     	 
+	     $('.bb-btn').click(function(){
+	        $('nav ul .bb-show').toggleClass("show53");
+	        $('nav ul .z53').toggleClass("rotate");
+	      }); 
+	     	 
+	     $('.bc-btn').click(function(){
+	        $('nav ul .bc-show').toggleClass("show54");
+	        $('nav ul .z54').toggleClass("rotate");
+	      }); 
+	     
+	     $('.bd-btn').click(function(){
+	        $('nav ul .bd-show').toggleClass("show55");
+	        $('nav ul .z55').toggleClass("rotate");
+	      }); 
+	     
+	     $('.be-btn').click(function(){
+	        $('nav ul .be-show').toggleClass("show56");
+	        $('nav ul .z56').toggleClass("rotate");
+	      }); 
+	     
+	     $('.bf-btn').click(function(){
+	        $('nav ul .bf-show').toggleClass("show57");
+	        $('nav ul .z57').toggleClass("rotate");
+	      }); 
+	     
+	     $('.bg-btn').click(function(){
+	        $('nav ul .bg-show').toggleClass("show58");
+	        $('nav ul .z58').toggleClass("rotate");
+	      }); 
+	     
+	     $('.bh-btn').click(function(){
+	        $('nav ul .bh-show').toggleClass("show59");
+	        $('nav ul .z59').toggleClass("rotate");
+	      }); 
+	     
+	     $('.bi-btn').click(function(){
+	        $('nav ul .bi-show').toggleClass("show60");
+	        $('nav ul .z60').toggleClass("rotate");
+	      }); 
+	     
+	     $('.bj-btn').click(function(){
+	        $('nav ul .bj-show').toggleClass("show61");
+	        $('nav ul .z61').toggleClass("rotate");
+	      }); 
+	     
+	     $('.bk-btn').click(function(){
+	        $('nav ul .bk-show').toggleClass("show62");
+	        $('nav ul .z62').toggleClass("rotate");
+	      }); 
+	     
+	     $('.bl-btn').click(function(){
+	        $('nav ul .bl-show').toggleClass("show63");
+	        $('nav ul .z63').toggleClass("rotate");
+	      }); 
+	     
+	     $('.bm-btn').click(function(){
+	        $('nav ul .bm-show').toggleClass("show64");
+	        $('nav ul .z64').toggleClass("rotate");
+	      }); 
+	     
+	     $('.bn-btn').click(function(){
+	        $('nav ul .bn-show').toggleClass("show65");
+	        $('nav ul .z65').toggleClass("rotate");
+	      }); 
+	     
+	     $('.bo-btn').click(function(){
+	        $('nav ul .bo-show').toggleClass("show66");
+	        $('nav ul .z66').toggleClass("rotate");
+	      }); 
+	     
+	     $('.bp-btn').click(function(){
+	        $('nav ul .bp-show').toggleClass("show67");
+	        $('nav ul .z67').toggleClass("rotate");
+	      }); 
+	     
+	     $('.bq-btn').click(function(){
+	        $('nav ul .bq-show').toggleClass("show68");
+	        $('nav ul .z68').toggleClass("rotate");
+	      }); 
+	     
+	     $('.br-btn').click(function(){
+	        $('nav ul .br-show').toggleClass("show69");
+	        $('nav ul .z69').toggleClass("rotate");
+	      }); 
+	     
+	     $('.bs-btn').click(function(){
+	        $('nav ul .bs-show').toggleClass("show70");
+	        $('nav ul .z70').toggleClass("rotate");
+	      }); 
+	     
+	     $('.bt-btn').click(function(){
+	        $('nav ul .bt-show').toggleClass("show71");
+	        $('nav ul .z71').toggleClass("rotate");
+	      }); 
+	     
+	     $('.bu-btn').click(function(){
+	        $('nav ul .bu-show').toggleClass("show72");
+	        $('nav ul .z72').toggleClass("rotate");
+	      }); 
+	     
+	     $('.bv-btn').click(function(){
+	        $('nav ul .bv-show').toggleClass("show73");
+	        $('nav ul .z73').toggleClass("rotate");
+	      }); 
+	     
+	     $('.bw-btn').click(function(){
+	        $('nav ul .bw-show').toggleClass("show74");
+	        $('nav ul .z74').toggleClass("rotate");
+	      }); 
+	     
+	     $('.bx-btn').click(function(){
+	        $('nav ul .bx-show').toggleClass("show75");
+	        $('nav ul .z75').toggleClass("rotate");
+	      }); 
+	     
+	     $('.by-btn').click(function(){
+	        $('nav ul .by-show').toggleClass("show76");
+	        $('nav ul .z76').toggleClass("rotate");
+	      }); 
+	     
+	     $('.bz-btn').click(function(){
+	        $('nav ul .bz-show').toggleClass("show77");
+	        $('nav ul .z77').toggleClass("rotate");
+	      }); 
+	      
+	      $('.ca-btn').click(function(){
+	        $('nav ul .ca-show').toggleClass("show78");
+	        $('nav ul .z78').toggleClass("rotate");
+	      }); 
+	     	 
+	     $('.cb-btn').click(function(){
+	        $('nav ul .cb-show').toggleClass("show79");
+	        $('nav ul .z79').toggleClass("rotate");
+	      }); 
+	     	 
+	     $('.cc-btn').click(function(){
+	        $('nav ul .cc-show').toggleClass("show80");
+	        $('nav ul .z80').toggleClass("rotate");
+	      }); 
+	     	 
+	     $('.cd-btn').click(function(){
+	        $('nav ul .cd-show').toggleClass("show81");
+	        $('nav ul .z81').toggleClass("rotate");
+	      }); 
+	     	 
+	     $('.ce-btn').click(function(){
+	        $('nav ul .ce-show').toggleClass("show82");
+	        $('nav ul .z82').toggleClass("rotate");
+	      }); 
+	     	 
+	     $('.cf-btn').click(function(){
+	        $('nav ul .cf-show').toggleClass("show83");
+	        $('nav ul .z83').toggleClass("rotate");
+	      }); 
+	     	 
+	     $('.cg-btn').click(function(){
+	        $('nav ul .cg-show').toggleClass("show84");
+	        $('nav ul .z84').toggleClass("rotate");
+	      }); 
+	     	 
+	     $('.ch-btn').click(function(){
+	        $('nav ul .ch-show').toggleClass("show85");
+	        $('nav ul .z85').toggleClass("rotate");
+	      }); 
+	     	 
+	     $('.ci-btn').click(function(){
+	        $('nav ul .ci-show').toggleClass("show86");
+	        $('nav ul .z86').toggleClass("rotate");
+	      }); 
+	     	 
+	     $('.cj-btn').click(function(){
+	        $('nav ul .cj-show').toggleClass("show87");
+	        $('nav ul .z87').toggleClass("rotate");
+	      }); 
+	     	 
+	     $('.ck-btn').click(function(){
+	        $('nav ul .ck-show').toggleClass("show88");
+	        $('nav ul .z88').toggleClass("rotate");
+	      }); 
+	     	 
+	     $('.cl-btn').click(function(){
+	        $('nav ul .cl-show').toggleClass("show89");
+	        $('nav ul .z89').toggleClass("rotate");
+	      }); 
+	     	 
+	     $('.cm-btn').click(function(){
+	        $('nav ul .cm-show').toggleClass("show90");
+	        $('nav ul .z90').toggleClass("rotate");
+	      }); 
+	     	 
+	     $('.cn-btn').click(function(){
+	        $('nav ul .cn-show').toggleClass("show91");
+	        $('nav ul .z91').toggleClass("rotate");
+	      }); 
+	     	 
+	     $('.co-btn').click(function(){
+	        $('nav ul .co-show').toggleClass("show92");
+	        $('nav ul .z92').toggleClass("rotate");
+	      }); 
+	     	 
+	     $('.cp-btn').click(function(){
+	        $('nav ul .cp-show').toggleClass("show93");
+	        $('nav ul .z93').toggleClass("rotate");
+	      }); 
+	     	 
+	     $('.cq-btn').click(function(){
+	        $('nav ul .cq-show').toggleClass("show94");
+	        $('nav ul .z94').toggleClass("rotate");
+	      }); 
+	     	 
+	     $('.cr-btn').click(function(){
+	        $('nav ul .cr-show').toggleClass("show95");
+	        $('nav ul .z95').toggleClass("rotate");
+	      }); 
+	     	 
+	     $('.cs-btn').click(function(){
+	        $('nav ul .cs-show').toggleClass("show96");
+	        $('nav ul .z96').toggleClass("rotate");
+	      }); 
+	     	 
+	     $('.ct-btn').click(function(){
+	        $('nav ul .ct-show').toggleClass("show97");
+	        $('nav ul .z97').toggleClass("rotate");
+	      }); 
+	     	 
+	     $('.cu-btn').click(function(){
+	        $('nav ul .cu-show').toggleClass("show98");
+	        $('nav ul .z98').toggleClass("rotate");
+	      }); 
+	     	 
+	     $('.cv-btn').click(function(){
+	        $('nav ul .cv-show').toggleClass("show99");
+	        $('nav ul .z99').toggleClass("rotate");
+	      }); 
+	     	 
+	     $('.cw-btn').click(function(){
+	        $('nav ul .cw-show').toggleClass("show100");
+	        $('nav ul .z100').toggleClass("rotate");
+	      }); 
+	     	 
+	     $('.cx-btn').click(function(){
+	        $('nav ul .cx-show').toggleClass("show101");
+	        $('nav ul .z101').toggleClass("rotate");
+	      }); 
+	     	 
+	     $('.cy-btn').click(function(){
+	        $('nav ul .cy-show').toggleClass("show102");
+	        $('nav ul .z102').toggleClass("rotate");
+	      }); 
+	     	 
+	     $('.cz-btn').click(function(){
+	        $('nav ul .cz-show').toggleClass("show103");
+	        $('nav ul .z103').toggleClass("rotate");
+	      }); 
+	     	 
+	     	 
+	     	 
+	     	 
+	     	 
+	     	 
+	     	 
+	     	 
+	     	 
+	     	      
+	      $('nav ul li').click(function(){
+	        $(this).addClass("active").siblings().removeClass("active");
+	      });
+	      
+	      
+	      
+	      
+	      
+	      
+	  
+			$('.dinheiro').mask('###0.00', {reverse: true});
+			
+			
+			
+ 
+	            
+	</script>
+</body>
+</html>

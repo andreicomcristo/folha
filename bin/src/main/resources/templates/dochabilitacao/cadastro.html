@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html layout:decorate="~{layout}">
+<head><meta charset="UTF-8"/></head>
+<body>
+	<section class="layout-content" layout:fragment="corpo">
+
+		<nav class="navbar navbar-expand-md bg-light">
+			<form th:action="@{/documentos/listar}">
+				<div class=" layout-content">
+					<a class="btn btn-outline-light oi oi-action-undo" type="button" href="javascript:history.back()"></a>
+					<a class="btn btn-outline-light oi oi-action-redo" type="button" href="javascript:history.forward()"></a>    
+					<button class="btn btn-outline-dark" >Listar</button>
+					<a class="btn btn-outline-dark btn-md" th:href="@{/documentos/cadastrar}"
+						role="button"> <span class="oi oi-plus" title="Cadastro"
+						aria-hidden="true"></span> <span>Novo</span>
+					</a>
+				</div>
+			</form>
+		</nav>
+
+		<div class="container" id="cadastro">
+
+			<div th:replace="fragments/alert"></div>
+			<form
+				th:action="${pessoaDocumentosHabilitacao.id == null} ? @{/habilitacaodocs/salvar} : @{/habilitacaodocs/salvar}"
+				th:object="${pessoaDocumentosHabilitacao}" method="POST">
+				<div class="form-row">
+
+					<div class="form-group col-md-6">
+						<label for="nome" class="fonte-tutulos-tamanho">Cadastro de Documentos Habilitação</label>
+							
+							<input type="number"
+								class="form-control form-control-md uppercase" autofocus="autofocus" 
+								id="codigo" placeholder="Registro" th:field="*{numeroRegistro}" /> 
+							<p></p>
+							
+							<input type="text"
+								class="form-control form-control-md" autofocus="autofocus" data-mask="00/00/0000"
+								id="codigo" placeholder="Data emissao" th:field="*{dtEmissao}" />
+							<p></p>
+							
+							<input type="text"
+								class="form-control form-control-md" autofocus="autofocus" data-mask="00/00/0000"
+								id="codigo" placeholder="Data validade" th:field="*{dtValidade}" />
+							<p></p>
+							
+							<input type="text"
+								class="form-control form-control-md" autofocus="autofocus" data-mask="00/00/0000"
+								id="codigo" placeholder="data Primeira Habilitacao" th:field="*{dtPrimeiraHabilitacao}" />
+							<p></p>
+							
+							<select id="cargos" class="form-select" th:field="*{idHabilitacaoCategoriasFk}">
+								<option value="">Selecione a Categoria</option>
+								<option th:each="d : ${idHabilitacaoCategoriasFk}" th:value="${d.id}"th:text="${d.nomeHabilitacaoCategoria}">ADM</option>
+							</select>	
+							<p></p>	
+							
+							<input type="hidden" id="id" th:field="*{id}" />
+							<input type="hidden" id="pessoa" th:field="${pessoa}" />
+								<p></p>					
+						
+						<button class="btn btn-outline-dark">Enviar</button>
+						
+						<a class="btn btn-outline-danger btn-md" th:href="@{/habilitacaodocs/retroceder}"
+							role="button"> <span class="oi oi-arrow-thick-left" title="Cadastro"
+							aria-hidden="true"></span> <span>Retroceder</span>
+						</a>
+						
+						<a class="btn btn-outline-success btn-md" th:href="@{/habilitacaodocs/avancar}"
+							role="button"> <span class="oi oi-arrow-thick-right" title="Cadastro"
+							aria-hidden="true"></span> <span>Avançar</span>
+						</a>
+						
+					</div>
+				</div>
+			</form>
+		</div>
+		
+		
+		
+		<div class="container" id="listagem">	        
+	    	<div th:replace="fragments/alert"></div>
+	    	
+	        <div style="height: 500px; overflow-y: auto;" class="table-responsive">
+	        	<table class="table table-striped table-hover table-sm myTable">
+	            	<thead>
+	          			<tr>
+		                	<th>#</th>
+		                    <th>Registro</th>
+		                    <th>Emissao</th>
+		                    <th>Validade</th>
+		                    <th>Dt Primeira</th>
+		                    <th>Categoria</th>
+		                    <th>Nome</th>
+		                    <th>CPF</th>
+		                    <th>Ações</th>
+	                    </tr>
+	                </thead>                  
+	                <tbody>
+		            	<tr th:each="d : ${pessoaDocumentosLista2}">
+		                	<td th:text="${d.id}"></td>
+		                    <td th:text="${d.numeroRegistro}"></td>
+		                    <td th:text="${d.dtEmissao}"></td>
+		                    <td th:text="${d.dtValidade}"></td>
+		                    <td th:text="${d.dtPrimeiraHabilitacao}"></td>
+		                    <td th:text="${d.idHabilitacaoCategoriasFk.nomeHabilitacaoCategoria}"></td>
+		                    <td th:text="${d.idPessoaFk.nome}"></td>
+		                    <td th:text="${d.idPessoaFk.cpf}"></td>
+		                    <td colspan="2">
+		                    	<a class="btn btn-outline-info btn-sm" th:href="@{/ctpsdocs/editar/{id} (id=${d.id}) }" role="button">
+		                        	<span class="oi oi-brush" title="Editar" aria-hidden="true"></span>
+		                        </a>
+		                        <button th:id="${ 'btn_habilitacaodocs/excluir/' + d.id}" type="button" class="btn btn btn-outline-danger btn-sm" 
+		                            		data-toggle="modal" data-target="#myModal">
+		                                <span class="oi oi-circle-x" title="Exclusão habilitada" aria-hidden="true"></span>
+		                        </button>
+		                   	</td>
+						</tr>
+					</tbody>                    
+	            </table>
+	         </div>
+		</div>	        
+		
+		
+		
+		
+		
+		
+		<div th:replace="fragments/modal :: modal"></div>
+	</section>
+</body>
+</html>

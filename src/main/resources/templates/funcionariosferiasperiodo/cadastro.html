@@ -3,6 +3,15 @@
 <head><meta charset="UTF-8"/></head>
 <body>
 	<section class="layout-content" layout:fragment="corpo">
+	<link rel="stylesheet" href="http://code.jquery.com/ui/1.9.0/themes/base/jquery-ui.css" />
+	<style>
+		.hge-button-group {
+			margin-top: 30px;
+		}
+		.botao-ferias.selected {
+		    background-color: #2172d0;
+		}
+	</style>
 
 		<nav class="navbar navbar-expand-md bg-light">
 			<form th:action="@{/funcionariosferias/ferias/listar/{id}  (id=${ferias.idFuncionarioFk.id}) }"><!-- corrigir rota  --> 
@@ -41,19 +50,25 @@
 							
 							<label for="nome" class="">Data Inicial </label>
 							<input type="text"
-								class="form-control form-control-md" autofocus="autofocus"
-								id="descricao" placeholder="Data Inicial" th:field="*{dtInicial}" />						
+								class="form-control form-control-md calendario1"
+								id="descricao" placeholder="Data Inicial" th:field="*{dtInicial}" />	
+								<div class="btn-group hge-button-group" role="group" aria-label="Basic example">
+								  <button type="button" class="btn btn-secondary botao-ferias botao-ferias-5" dias="5">5 dias</button>
+								  <button type="button" class="btn btn-secondary botao-ferias botao-ferias-10" dias="10">10 dias</button>
+								  <button type="button" class="btn btn-secondary botao-ferias botao-ferias-15" dias="15">15 dias</button>
+								  <button type="button" class="btn btn-secondary botao-ferias botao-ferias-20" dias="20">20 dias</button>
+								</div>					
 							<p></p>
 							
 							<label for="nome" class="">Data Final </label>
 							<input type="text"
-								class="form-control form-control-md" autofocus="autofocus"
+								class="form-control form-control-md calendario2"
 								id="instituicao" placeholder="Data Final" th:field="*{dtFinal}" />						
 							<p></p>							
 
 							<label for="nome" class="">Data Assinatura </label>
 							<input type="text"
-								class="form-control form-control-md" autofocus="autofocus"
+								class="form-control form-control-md"
 								id="instituicao" placeholder="Data de Assinatura" th:field="*{dtAssinatura}" />						
 							<p></p>
 												
@@ -103,6 +118,64 @@
 	         </div>
 		</div>
 		<div th:replace="fragments/modal :: modal"></div>
+		<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.min.js" integrity="sha256-VazP97ZCwtekAsvgPBSUwPFKdrwD3unUfSGVYrahUqU=" crossorigin="anonymous"></script>
+		<script>
+			(function(){
+				function dataAtualFormatada(data){
+				    var dia  = data.getDate().toString(),
+				        diaF = (dia.length == 1) ? '0'+dia : dia,
+				        mes  = (data.getMonth()+1).toString(), //+1 pois no getMonth Janeiro começa com zero.
+				        mesF = (mes.length == 1) ? '0'+mes : mes,
+				        anoF = data.getFullYear();
+				    return diaF+"/"+mesF+"/"+anoF;
+				}
+				function addDays(date, days) {
+				  var result = new Date(date);
+				  result.setDate(result.getDate() + days);
+				  return result;
+				}
+				$( ".calendario1" ).datepicker({
+			        dateFormat: 'dd/mm/yy',
+			        dayNames: ['Domingo','Segunda','Terça','Quarta','Quinta','Sexta','Sábado','Domingo'],
+			        dayNamesMin: ['D','S','T','Q','Q','S','S','D'],
+			        dayNamesShort: ['Dom','Seg','Ter','Qua','Qui','Sex','Sáb','Dom'],
+			        monthNames: ['Janeiro','Fevereiro','Março','Abril','Maio','Junho','Julho','Agosto','Setembro','Outubro','Novembro','Dezembro'],
+			        monthNamesShort: ['Jan','Fev','Mar','Abr','Mai','Jun','Jul','Ago','Set','Out','Nov','Dez']
+			    });
+				$( ".calendario2" ).datepicker({
+			        dateFormat: 'dd/mm/yy',
+			        dayNames: ['Domingo','Segunda','Terça','Quarta','Quinta','Sexta','Sábado','Domingo'],
+			        dayNamesMin: ['D','S','T','Q','Q','S','S','D'],
+			        dayNamesShort: ['Dom','Seg','Ter','Qua','Qui','Sex','Sáb','Dom'],
+			        monthNames: ['Janeiro','Fevereiro','Março','Abril','Maio','Junho','Julho','Agosto','Setembro','Outubro','Novembro','Dezembro'],
+			        monthNamesShort: ['Jan','Fev','Mar','Abr','Mai','Jun','Jul','Ago','Set','Out','Nov','Dez']
+			    });
+			    $('.botao-ferias').click(function(e){
+			    	if ($(e.currentTarget).hasClass('selected')) {
+				    	$('.botao-ferias').removeClass('selected')
+					    $( ".calendario2" ).removeAttr('disabled').val('')
+					    return;
+			    	}
+			    	$('.botao-ferias').removeClass('selected')
+			    	$(e.currentTarget).addClass('selected')
+			    	let dt = $( ".calendario1" ).val()
+			    	dt = dt.split('/')
+			    	let month = parseInt(dt[1])
+			    	month = month - 1
+			    	const initialDate = new Date(dt[2], month.toString(), dt[0])
+			    	const finalDate = addDays(initialDate, parseInt(e.currentTarget.attributes.dias.value))
+				    $( ".calendario2" ).val(dataAtualFormatada(finalDate))
+			    })
+			    $( ".calendario1" ).change(function(e){
+				    $( ".calendario2" ).removeAttr('disabled')
+			    	$('.botao-ferias').removeClass('selected')
+				    $( ".calendario2" ).removeAttr('disabled').val('')
+			    })
+			    $( ".calendario2" ).change(function(e){
+			    	$('.botao-ferias').removeClass('selected')
+			    })
+			})();
+		</script>
 	</section>
 </body>
 </html>

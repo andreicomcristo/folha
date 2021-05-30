@@ -1,0 +1,648 @@
+<!DOCTYPE html>
+<html layout:decorate = "~{layout}">
+<head><meta charset="UTF-8"/></head>
+<body>	
+	<section class="layout-content" layout:fragment="corpo">		
+		<nav class="navbar navbar-expand-md bg-light">
+	        <a class="btn btn-outline-light oi oi-action-undo" type="button" href="javascript:history.back()"></a>
+			<a class="btn btn-outline-light oi oi-action-redo" type="button" href="javascript:history.forward()"></a>    
+	    	<!-- 
+	    	<a class="btn btn-outline-dark btn-md" href="/bancos/cadastrar" role="button">
+	        	<span class="oi oi-plus" title="Cadastro" aria-hidden="true"></span>
+	            <span>Novo</span>
+	        </a>
+	         -->
+	            <label for="nome" class= "fonte-tutulos-tamanho">Histórico Funcionários </label>
+	    </nav>
+	  	<div class="container">
+	    	<p>                
+	        	<button class=" oi oi-magnifying-glass btn btn-outline-success my-2 my-sm-0" type="button" data-toggle="collapse" data-target="#collapse1"
+	            		aria-controls="collapse1">CH
+	            </button>
+	            
+	            <button class=" oi oi-magnifying-glass btn btn-outline-success my-2 my-sm-0" type="button" data-toggle="collapse" data-target="#collapse2"
+	            		aria-controls="collapse2">Cargo
+	            </button>
+	            
+	            <button class=" oi oi-magnifying-glass btn btn-outline-success my-2 my-sm-0" type="button" data-toggle="collapse" data-target="#collapse3"
+	            		aria-controls="collapse3">Carreira
+	            </button>
+	            
+	            <button class=" oi oi-magnifying-glass btn btn-outline-success my-2 my-sm-0" type="button" data-toggle="collapse" data-target="#collapse4"
+	            		aria-controls="collapse4">Classe
+	            </button>
+	            
+	            <button class=" oi oi-magnifying-glass btn btn-outline-success my-2 my-sm-0" type="button" data-toggle="collapse" data-target="#collapse5"
+	            		aria-controls="collapse5">Nível
+	            </button>
+	            
+	            <button class=" oi oi-magnifying-glass btn btn-outline-success my-2 my-sm-0" type="button" data-toggle="collapse" data-target="#collapse6"
+	            		aria-controls="collapse6">Situação
+	            </button>
+	            
+	            <button class=" oi oi-magnifying-glass btn btn-outline-success my-2 my-sm-0" type="button" data-toggle="collapse" data-target="#collapse7"
+	            		aria-controls="collapse7">Unidade Atuação
+	            </button>
+	            
+	            <button class=" oi oi-magnifying-glass btn btn-outline-success my-2 my-sm-0" type="button" data-toggle="collapse" data-target="#collapse8"
+	            		aria-controls="collapse8">Unidade Lotação
+	            </button>
+	            
+	            <button class=" oi oi-magnifying-glass btn btn-outline-success my-2 my-sm-0" type="button" data-toggle="collapse" data-target="#collapse9"
+	            		aria-controls="collapse9">Vínculo
+	            </button>
+	            
+	      </p>
+	      
+	      
+	      <div class="row">
+	      	<div class="col">
+	        	<div class="collapse" id="collapse1">
+		            <nav class="navbar navbar-light bg-light">
+	    	               
+	        	           <div class="container" id="listagem">	        
+						    	<div th:replace="fragments/alert"></div>
+						    	
+						    	<label for="nome" style="font-size:18px;">Histórico Carga Horária Semanal </label>
+						    	
+						        <div style=" overflow-y: auto;" class="table-responsive">
+						        	<table style="width: 1210px;" class="table table-striped table-hover table-sm myTable">
+						            	<thead>
+						          			<tr>
+							                	<th>#</th>
+							                    <th>Nome</th>
+							                    <th>Cpf</th>
+							                    <th>CH</th>
+							                    <th>Dt Muança</th>
+							                    <th>Quem mudou</th>
+							                    <th>Motivo</th>
+							                    
+							                    
+						                    </tr>
+						                </thead>                  
+						                <tbody>
+							            	<tr th:each="d : ${lista1}">
+							                	<td style="font-size:10px;"  th:text="${d.id}"></td>
+							                    <td style="font-size:10px;"  th:text="${d.idFuncionarioFk.idPessoaFk.nome}"></td>
+							                    <td style="font-size:10px;"  th:text="${d.idFuncionarioFk.idPessoaFk.cpf}"></td>
+							                    <td style="font-size:10px;"  th:text="${d.idCargaHorariaSemanalFk.cargaHoraria}"></td>
+							                    <td style="font-size:10px;"  th:text="${d.dtCancelamento != null} ? ${'CANCELAMENTO em '+#dates.format(d.dtCancelamento, 'dd/MM/yyyy') } : ${'MUDANCA em '+#dates.format(d.dtCadastro, 'dd/MM/yyyy') }   "></td>
+							                    <td style="font-size:10px;"  th:text="${d.idOperadorCancelamentoFk != null} ? ${ d.idOperadorCancelamentoFk.idPessoaFk.nome } : ${ d.idOperadorCadastroFk.idPessoaFk.nome }   "></td>
+							                    <td style="font-size:10px;"  th:text="${d.motivoCadastro != null} ? ${ d.motivoCadastro } : ''   "></td>
+							                    
+							                    
+							                    <!-- 
+							                    <td colspan="2">
+							                    	<a class="btn btn-outline-info btn-sm" th:href="@{/bancos/editar/{id} (id=${d.id}) }" role="button">
+							                        	<span class="oi oi-brush" title="Editar" aria-hidden="true"></span>
+							                        </a>
+							                        <button th:id="${ 'btn_bancos/excluir/' + d.id}" type="button" class="btn btn btn-outline-danger btn-sm" 
+							                            		data-toggle="modal" data-target="#myModal">
+							                                <span class="oi oi-circle-x" title="Exclusão habilitada" aria-hidden="true"></span>
+							                        </button>
+							                   	</td>
+							                   	 -->
+							                   	
+											</tr>
+										</tbody>                    
+						            </table>
+						         </div>
+							</div>
+	        	           
+	        	           
+	                   
+	                </nav>
+	            </div>
+	    	</div>
+	    </div>
+	    
+
+
+
+	      
+	      <div class="row">
+	      	<div class="col">
+	        	<div class="collapse" id="collapse2">
+		            <nav class="navbar navbar-light bg-light">
+	    	               
+	        	           <div class="container" id="listagem">	        
+						    	<div th:replace="fragments/alert"></div>
+						    	
+						    	<label for="nome" style="font-size:18px;">Histórico Cargo </label>
+						    	
+						        <div style=" overflow-y: auto;" class="table-responsive">
+						        	<table style="width: 1210px;" class="table table-striped table-hover table-sm myTable">
+						            	<thead>
+						          			<tr>
+							                	<th>#</th>
+							                    <th>Nome</th>
+							                    <th>Cpf</th>
+							                    <th>Cargo</th>
+							                    <th>Dt Muança</th>
+							                    <th>Quem mudou</th>
+							                    <th>Motivo</th>
+							                    
+							                    
+						                    </tr>
+						                </thead>                  
+						                <tbody>
+							            	<tr th:each="d : ${lista2}">
+							                	<td style="font-size:10px;"  th:text="${d.id}"></td>
+							                    <td style="font-size:10px;"  th:text="${d.idFuncionarioFk.idPessoaFk.nome}"></td>
+							                    <td style="font-size:10px;"  th:text="${d.idFuncionarioFk.idPessoaFk.cpf}"></td>
+							                    <td style="font-size:10px;"  th:text="${d.idCargoFk.nomeCargo}"></td>
+							                    <td style="font-size:10px;"  th:text="${d.dtCancelamento != null} ? ${'CANCELAMENTO em '+#dates.format(d.dtCancelamento, 'dd/MM/yyyy') } : ${'MUDANCA em '+#dates.format(d.dtCadastro, 'dd/MM/yyyy') }   "></td>
+							                    <td style="font-size:10px;"  th:text="${d.idOperadorCancelamentoFk != null} ? ${ d.idOperadorCancelamentoFk.idPessoaFk.nome } : ${ d.idOperadorCadastroFk.idPessoaFk.nome }   "></td>
+							                    <td style="font-size:10px;"  th:text="${d.motivoCadastro != null} ? ${ d.motivoCadastro } : ''   "></td>
+							                    
+							                    
+							                    <!-- 
+							                    <td colspan="2">
+							                    	<a class="btn btn-outline-info btn-sm" th:href="@{/bancos/editar/{id} (id=${d.id}) }" role="button">
+							                        	<span class="oi oi-brush" title="Editar" aria-hidden="true"></span>
+							                        </a>
+							                        <button th:id="${ 'btn_bancos/excluir/' + d.id}" type="button" class="btn btn btn-outline-danger btn-sm" 
+							                            		data-toggle="modal" data-target="#myModal">
+							                                <span class="oi oi-circle-x" title="Exclusão habilitada" aria-hidden="true"></span>
+							                        </button>
+							                   	</td>
+							                   	 -->
+							                   	
+											</tr>
+										</tbody>                    
+						            </table>
+						         </div>
+							</div>
+	        	           
+	        	           
+	                   
+	                </nav>
+	            </div>
+	    	</div>
+	    </div>
+	    
+
+
+
+
+	      
+	      <div class="row">
+	      	<div class="col">
+	        	<div class="collapse" id="collapse3">
+		            <nav class="navbar navbar-light bg-light">
+	    	               
+	        	           <div class="container" id="listagem">	        
+						    	<div th:replace="fragments/alert"></div>
+						    	
+						    	<label for="nome" style="font-size:18px;">Histórico Carreira </label>
+						    	
+						        <div style=" overflow-y: auto;" class="table-responsive">
+						        	<table style="width: 1210px;" class="table table-striped table-hover table-sm myTable">
+						            	<thead>
+						          			<tr>
+							                	<th>#</th>
+							                    <th>Nome</th>
+							                    <th>Cpf</th>
+							                    <th>Carreira</th>
+							                    <th>Dt Muança</th>
+							                    <th>Quem mudou</th>
+							                    <th>Motivo</th>
+							                    
+							                    
+						                    </tr>
+						                </thead>                  
+						                <tbody>
+							            	<tr th:each="d : ${lista3}">
+							                	<td style="font-size:10px;"  th:text="${d.id}"></td>
+							                    <td style="font-size:10px;"  th:text="${d.idFuncionarioFk.idPessoaFk.nome}"></td>
+							                    <td style="font-size:10px;"  th:text="${d.idFuncionarioFk.idPessoaFk.cpf}"></td>
+							                    <td style="font-size:10px;"  th:text="${d.idCarreiraFk.nomeCarreira}"></td>
+							                    <td style="font-size:10px;"  th:text="${d.dtCancelamento != null} ? ${'CANCELAMENTO em '+#dates.format(d.dtCancelamento, 'dd/MM/yyyy') } : ${'MUDANCA em '+#dates.format(d.dtCadastro, 'dd/MM/yyyy') }   "></td>
+							                    <td style="font-size:10px;"  th:text="${d.idOperadorCancelamentoFk != null} ? ${ d.idOperadorCancelamentoFk.idPessoaFk.nome } : ${ d.idOperadorCadastroFk.idPessoaFk.nome }   "></td>
+							                    <td style="font-size:10px;"  th:text="${d.motivoCadastro != null} ? ${ d.motivoCadastro } : ''   "></td>
+							                    
+							                    
+							                    <!-- 
+							                    <td colspan="2">
+							                    	<a class="btn btn-outline-info btn-sm" th:href="@{/bancos/editar/{id} (id=${d.id}) }" role="button">
+							                        	<span class="oi oi-brush" title="Editar" aria-hidden="true"></span>
+							                        </a>
+							                        <button th:id="${ 'btn_bancos/excluir/' + d.id}" type="button" class="btn btn btn-outline-danger btn-sm" 
+							                            		data-toggle="modal" data-target="#myModal">
+							                                <span class="oi oi-circle-x" title="Exclusão habilitada" aria-hidden="true"></span>
+							                        </button>
+							                   	</td>
+							                   	 -->
+							                   	
+											</tr>
+										</tbody>                    
+						            </table>
+						         </div>
+							</div>
+	        	           
+	        	           
+	                   
+	                </nav>
+	            </div>
+	    	</div>
+	    </div>
+	    
+
+
+
+	      
+	      <div class="row">
+	      	<div class="col">
+	        	<div class="collapse" id="collapse4">
+		            <nav class="navbar navbar-light bg-light">
+	    	               
+	        	           <div class="container" id="listagem">	        
+						    	<div th:replace="fragments/alert"></div>
+						    	
+						    	<label for="nome" style="font-size:18px;">Histórico Classe </label>
+						    	
+						        <div style=" overflow-y: auto;" class="table-responsive">
+						        	<table style="width: 1210px;" class="table table-striped table-hover table-sm myTable">
+						            	<thead>
+						          			<tr>
+							                	<th>#</th>
+							                    <th>Nome</th>
+							                    <th>Cpf</th>
+							                    <th>Classe</th>
+							                    <th>Dt Muança</th>
+							                    <th>Quem mudou</th>
+							                    <th>Motivo</th>
+							                    
+							                    
+						                    </tr>
+						                </thead>                  
+						                <tbody>
+							            	<tr th:each="d : ${lista4}">
+							                	<td style="font-size:10px;"  th:text="${d.id}"></td>
+							                    <td style="font-size:10px;"  th:text="${d.idFuncionarioFk.idPessoaFk.nome}"></td>
+							                    <td style="font-size:10px;"  th:text="${d.idFuncionarioFk.idPessoaFk.cpf}"></td>
+							                    <td style="font-size:10px;"  th:text="${d.idClasseFk.nomeClasse}"></td>
+							                    <td style="font-size:10px;"  th:text="${d.dtCancelamento != null} ? ${'CANCELAMENTO em '+#dates.format(d.dtCancelamento, 'dd/MM/yyyy') } : ${'MUDANCA em '+#dates.format(d.dtCadastro, 'dd/MM/yyyy') }   "></td>
+							                    <td style="font-size:10px;"  th:text="${d.idOperadorCancelamentoFk != null} ? ${ d.idOperadorCancelamentoFk.idPessoaFk.nome } : ${ d.idOperadorCadastroFk.idPessoaFk.nome }   "></td>
+							                    <td style="font-size:10px;"  th:text="${d.motivoCadastro != null} ? ${ d.motivoCadastro } : ''   "></td>
+							                    
+							                    
+							                    <!-- 
+							                    <td colspan="2">
+							                    	<a class="btn btn-outline-info btn-sm" th:href="@{/bancos/editar/{id} (id=${d.id}) }" role="button">
+							                        	<span class="oi oi-brush" title="Editar" aria-hidden="true"></span>
+							                        </a>
+							                        <button th:id="${ 'btn_bancos/excluir/' + d.id}" type="button" class="btn btn btn-outline-danger btn-sm" 
+							                            		data-toggle="modal" data-target="#myModal">
+							                                <span class="oi oi-circle-x" title="Exclusão habilitada" aria-hidden="true"></span>
+							                        </button>
+							                   	</td>
+							                   	 -->
+							                   	
+											</tr>
+										</tbody>                    
+						            </table>
+						         </div>
+							</div>
+	        	           
+	        	           
+	                   
+	                </nav>
+	            </div>
+	    	</div>
+	    </div>
+	    
+
+
+
+	      
+	      <div class="row">
+	      	<div class="col">
+	        	<div class="collapse" id="collapse5">
+		            <nav class="navbar navbar-light bg-light">
+	    	               
+	        	           <div class="container" id="listagem">	        
+						    	<div th:replace="fragments/alert"></div>
+						    	
+						    	<label for="nome" style="font-size:18px;">Histórico Nível Carreira </label>
+						    	
+						        <div style=" overflow-y: auto;" class="table-responsive">
+						        	<table style="width: 1210px;" class="table table-striped table-hover table-sm myTable">
+						            	<thead>
+						          			<tr>
+							                	<th>#</th>
+							                    <th>Nome</th>
+							                    <th>Cpf</th>
+							                    <th>Nivel</th>
+							                    <th>Dt Muança</th>
+							                    <th>Quem mudou</th>
+							                    <th>Motivo</th>
+							                    
+							                    
+						                    </tr>
+						                </thead>                  
+						                <tbody>
+							            	<tr th:each="d : ${lista5}">
+							                	<td style="font-size:10px;"  th:text="${d.id}"></td>
+							                    <td style="font-size:10px;"  th:text="${d.idFuncionarioFk.idPessoaFk.nome}"></td>
+							                    <td style="font-size:10px;"  th:text="${d.idFuncionarioFk.idPessoaFk.cpf}"></td>
+							                    <td style="font-size:10px;"  th:text="${d.idNivelCarreiraFk.nomeNivelCarreira}"></td>
+							                    <td style="font-size:10px;"  th:text="${d.dtCancelamento != null} ? ${'CANCELAMENTO em '+#dates.format(d.dtCancelamento, 'dd/MM/yyyy') } : ${'MUDANCA em '+#dates.format(d.dtCadastro, 'dd/MM/yyyy') }   "></td>
+							                    <td style="font-size:10px;"  th:text="${d.idOperadorCancelamentoFk != null} ? ${ d.idOperadorCancelamentoFk.idPessoaFk.nome } : ${ d.idOperadorCadastroFk.idPessoaFk.nome }   "></td>
+							                    <td style="font-size:10px;"  th:text="${d.motivoCadastro != null} ? ${ d.motivoCadastro } : ''   "></td>
+							                    
+							                    
+							                    <!-- 
+							                    <td colspan="2">
+							                    	<a class="btn btn-outline-info btn-sm" th:href="@{/bancos/editar/{id} (id=${d.id}) }" role="button">
+							                        	<span class="oi oi-brush" title="Editar" aria-hidden="true"></span>
+							                        </a>
+							                        <button th:id="${ 'btn_bancos/excluir/' + d.id}" type="button" class="btn btn btn-outline-danger btn-sm" 
+							                            		data-toggle="modal" data-target="#myModal">
+							                                <span class="oi oi-circle-x" title="Exclusão habilitada" aria-hidden="true"></span>
+							                        </button>
+							                   	</td>
+							                   	 -->
+							                   	
+											</tr>
+										</tbody>                    
+						            </table>
+						         </div>
+							</div>
+	        	           
+	        	           
+	                   
+	                </nav>
+	            </div>
+	    	</div>
+	    </div>
+	    
+
+
+
+	      
+	      <div class="row">
+	      	<div class="col">
+	        	<div class="collapse" id="collapse6">
+		            <nav class="navbar navbar-light bg-light">
+	    	               
+	        	           <div class="container" id="listagem">	        
+						    	<div th:replace="fragments/alert"></div>
+						    	
+						    	<label for="nome" style="font-size:18px;">Histórico Situação </label>
+						    	
+						        <div style=" overflow-y: auto;" class="table-responsive">
+						        	<table style="width: 1210px;" class="table table-striped table-hover table-sm myTable">
+						            	<thead>
+						          			<tr>
+							                	<th>#</th>
+							                    <th>Nome</th>
+							                    <th>Cpf</th>
+							                    <th>Situação</th>
+							                    <th>Dt Muança</th>
+							                    <th>Quem mudou</th>
+							                    <th>Motivo</th>
+							                    
+							                    
+						                    </tr>
+						                </thead>                  
+						                <tbody>
+							            	<tr th:each="d : ${lista6}">
+							                	<td style="font-size:10px;"  th:text="${d.id}"></td>
+							                    <td style="font-size:10px;"  th:text="${d.idFuncionarioFk.idPessoaFk.nome}"></td>
+							                    <td style="font-size:10px;"  th:text="${d.idFuncionarioFk.idPessoaFk.cpf}"></td>
+							                    <td style="font-size:10px;"  th:text="${d.idSituacaoFk.nomeSituacao}"></td>
+							                    <td style="font-size:10px;"  th:text="${d.dtCancelamento != null} ? ${'CANCELAMENTO em '+#dates.format(d.dtCancelamento, 'dd/MM/yyyy') } : ${'MUDANCA em '+#dates.format(d.dtCadastro, 'dd/MM/yyyy') }   "></td>
+							                    <td style="font-size:10px;"  th:text="${d.idOperadorCancelamentoFk != null} ? ${ d.idOperadorCancelamentoFk.idPessoaFk.nome } : ${ d.idOperadorCadastroFk.idPessoaFk.nome }   "></td>
+							                    <td style="font-size:10px;"  th:text="${d.motivoCadastro != null} ? ${ d.motivoCadastro } : ''   "></td>
+							                    
+							                    
+							                    <!-- 
+							                    <td colspan="2">
+							                    	<a class="btn btn-outline-info btn-sm" th:href="@{/bancos/editar/{id} (id=${d.id}) }" role="button">
+							                        	<span class="oi oi-brush" title="Editar" aria-hidden="true"></span>
+							                        </a>
+							                        <button th:id="${ 'btn_bancos/excluir/' + d.id}" type="button" class="btn btn btn-outline-danger btn-sm" 
+							                            		data-toggle="modal" data-target="#myModal">
+							                                <span class="oi oi-circle-x" title="Exclusão habilitada" aria-hidden="true"></span>
+							                        </button>
+							                   	</td>
+							                   	 -->
+							                   	
+											</tr>
+										</tbody>                    
+						            </table>
+						         </div>
+							</div>
+	        	           
+	        	           
+	                   
+	                </nav>
+	            </div>
+	    	</div>
+	    </div>
+	    
+
+
+
+	      
+	      <div class="row">
+	      	<div class="col">
+	        	<div class="collapse" id="collapse7">
+		            <nav class="navbar navbar-light bg-light">
+	    	               
+	        	           <div class="container" id="listagem">	        
+						    	<div th:replace="fragments/alert"></div>
+						    	
+						    	<label for="nome" style="font-size:18px;">Histórico Unidade Atuação </label>
+						    	
+						        <div style=" overflow-y: auto;" class="table-responsive">
+						        	<table style="width: 1210px;" class="table table-striped table-hover table-sm myTable">
+						            	<thead>
+						          			<tr>
+							                	<th>#</th>
+							                    <th>Nome</th>
+							                    <th>Cpf</th>
+							                    <th>Unidade</th>
+							                    <th>Dt Muança</th>
+							                    <th>Quem mudou</th>
+							                    <th>Motivo</th>
+							                    
+							                    
+						                    </tr>
+						                </thead>                  
+						                <tbody>
+							            	<tr th:each="d : ${lista7}">
+							                	<td style="font-size:10px;"  th:text="${d.id}"></td>
+							                    <td style="font-size:10px;"  th:text="${d.idFuncionarioFk.idPessoaFk.nome}"></td>
+							                    <td style="font-size:10px;"  th:text="${d.idFuncionarioFk.idPessoaFk.cpf}"></td>
+							                    <td style="font-size:10px;"  th:text="${d.idUnidadeFk.nomeFantasia}"></td>
+							                    <td style="font-size:10px;"  th:text="${d.dtCancelamento != null} ? ${'CANCELAMENTO em '+#dates.format(d.dtCancelamento, 'dd/MM/yyyy') } : ${'MUDANCA em '+#dates.format(d.dtCadastro, 'dd/MM/yyyy') }   "></td>
+							                    <td style="font-size:10px;"  th:text="${d.idOperadorCancelamentoFk != null} ? ${ d.idOperadorCancelamentoFk.idPessoaFk.nome } : ${ d.idOperadorCadastroFk.idPessoaFk.nome }   "></td>
+							                    <td style="font-size:10px;"  th:text="${d.motivoCadastro != null} ? ${ d.motivoCadastro } : ''   "></td>
+							                    
+							                    
+							                    <!-- 
+							                    <td colspan="2">
+							                    	<a class="btn btn-outline-info btn-sm" th:href="@{/bancos/editar/{id} (id=${d.id}) }" role="button">
+							                        	<span class="oi oi-brush" title="Editar" aria-hidden="true"></span>
+							                        </a>
+							                        <button th:id="${ 'btn_bancos/excluir/' + d.id}" type="button" class="btn btn btn-outline-danger btn-sm" 
+							                            		data-toggle="modal" data-target="#myModal">
+							                                <span class="oi oi-circle-x" title="Exclusão habilitada" aria-hidden="true"></span>
+							                        </button>
+							                   	</td>
+							                   	 -->
+							                   	
+											</tr>
+										</tbody>                    
+						            </table>
+						         </div>
+							</div>
+	        	           
+	        	           
+	                   
+	                </nav>
+	            </div>
+	    	</div>
+	    </div>
+	    
+
+
+
+	      
+	      <div class="row">
+	      	<div class="col">
+	        	<div class="collapse" id="collapse8">
+		            <nav class="navbar navbar-light bg-light">
+	    	               
+	        	           <div class="container" id="listagem">	        
+						    	<div th:replace="fragments/alert"></div>
+						    	
+						    	<label for="nome" style="font-size:18px;">Histórico Unidade Lotação </label>
+						    	
+						        <div style=" overflow-y: auto;" class="table-responsive">
+						        	<table style="width: 1210px;" class="table table-striped table-hover table-sm myTable">
+						            	<thead>
+						          			<tr>
+							                	<th>#</th>
+							                    <th>Nome</th>
+							                    <th>Cpf</th>
+							                    <th>Unidade</th>
+							                    <th>Dt Muança</th>
+							                    <th>Quem mudou</th>
+							                    <th>Motivo</th>
+							                    
+							                    
+						                    </tr>
+						                </thead>                  
+						                <tbody>
+							            	<tr th:each="d : ${lista8}">
+							                	<td style="font-size:10px;"  th:text="${d.id}"></td>
+							                    <td style="font-size:10px;"  th:text="${d.idFuncionarioFk.idPessoaFk.nome}"></td>
+							                    <td style="font-size:10px;"  th:text="${d.idFuncionarioFk.idPessoaFk.cpf}"></td>
+							                    <td style="font-size:10px;"  th:text="${d.idUnidadeFk.nomeFantasia}"></td>
+							                    <td style="font-size:10px;"  th:text="${d.dtCancelamento != null} ? ${'CANCELAMENTO em '+#dates.format(d.dtCancelamento, 'dd/MM/yyyy') } : ${'MUDANCA em '+#dates.format(d.dtCadastro, 'dd/MM/yyyy') }   "></td>
+							                    <td style="font-size:10px;"  th:text="${d.idOperadorCancelamentoFk != null} ? ${ d.idOperadorCancelamentoFk.idPessoaFk.nome } : ${ d.idOperadorCadastroFk.idPessoaFk.nome }   "></td>
+							                    <td style="font-size:10px;"  th:text="${d.motivoCadastro != null} ? ${ d.motivoCadastro } : ''   "></td>
+							                    
+							                    
+							                    <!-- 
+							                    <td colspan="2">
+							                    	<a class="btn btn-outline-info btn-sm" th:href="@{/bancos/editar/{id} (id=${d.id}) }" role="button">
+							                        	<span class="oi oi-brush" title="Editar" aria-hidden="true"></span>
+							                        </a>
+							                        <button th:id="${ 'btn_bancos/excluir/' + d.id}" type="button" class="btn btn btn-outline-danger btn-sm" 
+							                            		data-toggle="modal" data-target="#myModal">
+							                                <span class="oi oi-circle-x" title="Exclusão habilitada" aria-hidden="true"></span>
+							                        </button>
+							                   	</td>
+							                   	 -->
+							                   	
+											</tr>
+										</tbody>                    
+						            </table>
+						         </div>
+							</div>
+	        	           
+	        	           
+	                   
+	                </nav>
+	            </div>
+	    	</div>
+	    </div>
+	    
+
+
+
+	      
+	      <div class="row">
+	      	<div class="col">
+	        	<div class="collapse" id="collapse9">
+		            <nav class="navbar navbar-light bg-light">
+	    	               
+	        	           <div class="container" id="listagem">	        
+						    	<div th:replace="fragments/alert"></div>
+						    	
+						    	<label for="nome" style="font-size:18px;">Histórico Vínculo </label>
+						    	
+						        <div style=" overflow-y: auto;" class="table-responsive">
+						        	<table style="width: 1210px;" class="table table-striped table-hover table-sm myTable">
+						            	<thead>
+						          			<tr>
+							                	<th>#</th>
+							                    <th>Nome</th>
+							                    <th>Cpf</th>
+							                    <th>Vínculo</th>
+							                    <th>Dt Muança</th>
+							                    <th>Quem mudou</th>
+							                    <th>Motivo</th>
+							                    
+							                    
+						                    </tr>
+						                </thead>                  
+						                <tbody>
+							            	<tr th:each="d : ${lista9}">
+							                	<td style="font-size:10px;"  th:text="${d.id}"></td>
+							                    <td style="font-size:10px;"  th:text="${d.idFuncionarioFk.idPessoaFk.nome}"></td>
+							                    <td style="font-size:10px;"  th:text="${d.idFuncionarioFk.idPessoaFk.cpf}"></td>
+							                    <td style="font-size:10px;"  th:text="${d.idVinculoFk.nomeVinculo}"></td>
+							                    <td style="font-size:10px;"  th:text="${d.dtCancelamento != null} ? ${'CANCELAMENTO em '+#dates.format(d.dtCancelamento, 'dd/MM/yyyy') } : ${'MUDANCA em '+#dates.format(d.dtCadastro, 'dd/MM/yyyy') }   "></td>
+							                    <td style="font-size:10px;"  th:text="${d.idOperadorCancelamentoFk != null} ? ${ d.idOperadorCancelamentoFk.idPessoaFk.nome } : ${ d.idOperadorCadastroFk.idPessoaFk.nome }   "></td>
+							                    <td style="font-size:10px;"  th:text="${d.motivoCadastro != null} ? ${ d.motivoCadastro } : ''   "></td>
+							                    
+							                    
+							                    <!-- 
+							                    <td colspan="2">
+							                    	<a class="btn btn-outline-info btn-sm" th:href="@{/bancos/editar/{id} (id=${d.id}) }" role="button">
+							                        	<span class="oi oi-brush" title="Editar" aria-hidden="true"></span>
+							                        </a>
+							                        <button th:id="${ 'btn_bancos/excluir/' + d.id}" type="button" class="btn btn btn-outline-danger btn-sm" 
+							                            		data-toggle="modal" data-target="#myModal">
+							                                <span class="oi oi-circle-x" title="Exclusão habilitada" aria-hidden="true"></span>
+							                        </button>
+							                   	</td>
+							                   	 -->
+							                   	
+											</tr>
+										</tbody>                    
+						            </table>
+						         </div>
+							</div>
+	        	           
+	        	           
+	                   
+	                </nav>
+	            </div>
+	    	</div>
+	    </div>
+	    
+
+
+
+	    	    
+	    	        
+	        <div th:replace="fragments/modal :: modal"></div>   
+	</section>	
+</body>
+</html>		
