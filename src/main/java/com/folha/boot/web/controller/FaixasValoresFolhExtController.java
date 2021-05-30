@@ -3,10 +3,8 @@ package com.folha.boot.web.controller;
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.util.List;
-
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-
 import org.apache.commons.compress.utils.IOUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.InputStreamResource;
@@ -23,31 +21,23 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
-
 import com.folha.boot.domain.AnoMes;
 import com.folha.boot.domain.CargaHorariaSemanal;
-import com.folha.boot.domain.Carreiras;
 import com.folha.boot.domain.ClassesCarreira;
 import com.folha.boot.domain.FaixasValoresFolhExt;
 import com.folha.boot.domain.Fonte;
-import com.folha.boot.domain.NaoDescontaInss;
 import com.folha.boot.domain.NiveisCargo;
-import com.folha.boot.domain.NiveisCarreira;
 import com.folha.boot.domain.PessoaFuncionarios;
 import com.folha.boot.domain.TipoBrutoLiquido;
 import com.folha.boot.domain.Unidades;
-import com.folha.boot.domain.UnidadesRegime;
 import com.folha.boot.service.AnoMesService;
 import com.folha.boot.service.CargaHorariaSemanalService;
-import com.folha.boot.service.CarreirasService;
 import com.folha.boot.service.ClassesCarreiraService;
 import com.folha.boot.service.FaixasValoresFolhExtService;
 import com.folha.boot.service.FonteService;
 import com.folha.boot.service.NiveisCargoService;
-import com.folha.boot.service.NiveisCarreiraService;
 import com.folha.boot.service.PessoaFuncionariosService;
 import com.folha.boot.service.TipoBrutoLiquidoService;
-import com.folha.boot.service.UnidadesRegimeService;
 import com.folha.boot.service.UnidadesService;
 import com.folha.boot.service.seguranca.UsuarioService;
 
@@ -79,16 +69,6 @@ public class FaixasValoresFolhExtController {
 	private NiveisCargoService niveisCargoService;
 	@Autowired
 	private PessoaFuncionariosService pessoaFuncionariosService;
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
 	
 	//Lista de funcionarios
 	//Funcionarios Todos os Possíveis
@@ -204,6 +184,10 @@ public class FaixasValoresFolhExtController {
 			return "redirect:/faixasValoresFolhExt/listar/{pageNo}" ;}
 		else {return this.findPaginated(pageNo, ultimoAnoMes, model);}
 	}
+	
+	
+	
+	
 	
 	@GetMapping("/buscar/nome/anomes")
 	public String getPorAnoMes(@RequestParam("anoMes") String anoMes, ModelMap model) {

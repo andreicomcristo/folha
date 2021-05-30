@@ -1,7 +1,5 @@
 package com.folha.boot.domain;
 
-
-
 import java.util.Date;
 import java.util.List;
 
@@ -13,7 +11,7 @@ import com.folha.boot.service.util.UtilidadesDeTexto;
 @Entity
 @Table(name = "rubrica_pensao")
 public class RubricaPensao extends AbstractEntity<Long> {
-
+	
 	@Column(name = "dt_cancelamento")
     @Temporal(TemporalType.DATE)
     private Date dtCancelamento;
@@ -48,10 +46,12 @@ public class RubricaPensao extends AbstractEntity<Long> {
     private Pessoa idPessoaFk;
     @OneToMany(mappedBy = "idRubricaPensaoFk")
     private List<RubricaPensaoObs> rubricaPensaoObsList;
+    @OneToMany(mappedBy = "idRubricaPensaoFk")
+    private List<RubricaPensaoDependente> rubricaPensaoDependenteList;
     @JoinColumn(name = "id_operador_cancelamento_fk", referencedColumnName = "id")
     @ManyToOne
     private PessoaOperadores idOperadorCancelamentoFk;
-
+    
     public RubricaPensao() {
     }
 
@@ -168,6 +168,15 @@ public class RubricaPensao extends AbstractEntity<Long> {
 		this.rubricaPensaoObsList = rubricaPensaoObsList;
 	}
 
+	
+	public List<RubricaPensaoDependente> getRubricaPensaoDependenteList() {
+		return rubricaPensaoDependenteList;
+	}
+
+	public void setRubricaPensaoDependenteList(List<RubricaPensaoDependente> rubricaPensaoDependenteList) {
+		this.rubricaPensaoDependenteList = rubricaPensaoDependenteList;
+	}
+
 	public Date getDtCancelamento() {
 		return dtCancelamento;
 	}
@@ -184,6 +193,4 @@ public class RubricaPensao extends AbstractEntity<Long> {
 		this.idOperadorCancelamentoFk = idOperadorCancelamentoFk;
 	}
 	
-    
-
 }
