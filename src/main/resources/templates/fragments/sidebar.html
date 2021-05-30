@@ -1254,7 +1254,7 @@
 					}
 				}
 				for (let i = 0, ilen = menuItemList.length; i < ilen; i++) {
-					if($(menuItemList[i]).attr('urlmatch') === route){
+					if($(menuItemList[i]).attr('urlmatch').includes(route)){
 						activeMenu(menuItemList[i])
 						break
 					}
