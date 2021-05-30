@@ -17,7 +17,7 @@
 			<!--submenu configuracoes-->
 			<li class="main-menu-item">
 				<a sec:authorize="hasAnyAuthority( 'MASTER' )" class="k-btn"><span  class=" oi oi-chevron-bottom eleventh icones-sidebar-tamanho align-middle"></span> Configurações </a>				
-				<ul class="k-show" urlmatch='cids/cadastrar'>
+				<ul class="k-show">
 					
 					<li><a href="#" class="bi-btn"><span class=" oi oi-chevron-bottom z60 icones-sidebar-tamanho align-middle"></span>Configurações Pontuais </a>
 						<ul class="bi-show">
@@ -427,8 +427,8 @@
 									<!-- 
 									<li><a href="#" class="de-btn"><span class=" oi oi-chevron-bottom z108 icones-sidebar-tamanho align-middle"></span>Unidade x Ch Dif </a>
 										<ul class="de-show">
-											<li><a sec:authorize-url="/unidadeAdmiteChDif/cadastrar" th:href="@{/unidadeAdmiteChDif/cadastrar}"><span class=" oi oi-chevron-right icones-sidebar-tamanho align-middle"></span>Cadastrar</a></li>
-											<li><a sec:authorize-url="/unidadeAdmiteChDif/listar" th:href="@{/unidadeAdmiteChDif/listar}"><span class=" oi oi-chevron-right icones-sidebar-tamanho align-middle"></span>Listar</a></li>
+											<li class="menu-item" urlmatch='/unidadeAdmiteChDif/cadastrar'><a sec:authorize-url="/unidadeAdmiteChDif/cadastrar" th:href="@{/unidadeAdmiteChDif/cadastrar}"><span class=" oi oi-chevron-right icones-sidebar-tamanho align-middle"></span>Cadastrar</a></li>
+											<li class="menu-item" urlmatch='/unidadeAdmiteChDif/cadastrar'><a sec:authorize-url="/unidadeAdmiteChDif/listar" th:href="@{/unidadeAdmiteChDif/listar}"><span class=" oi oi-chevron-right icones-sidebar-tamanho align-middle"></span>Listar</a></li>
 										</ul>
 									</li>
 									-->
@@ -556,15 +556,15 @@
 												
 									<li><a href="#" class="aq-btn"><span class=" oi oi-chevron-bottom fourtythird icones-sidebar-tamanho align-middle"></span>Códigos </a>
 										<ul class="aq-show">
-											<li><a sec:authorize-url="/codigodiferenciados/cadastrar" th:href="@{/codigodiferenciados/cadastrar}"><span class=" oi oi-chevron-right icones-sidebar-tamanho align-middle"></span>Cadastrar</a></li>
-											<li><a sec:authorize-url="/codigodiferenciados/listar" th:href="@{/codigodiferenciados/listar}"><span class=" oi oi-chevron-right icones-sidebar-tamanho align-middle"></span>Listar</a></li>
+											<li class="menu-item" urlmatch='/codigodiferenciados/cadastrar'><a sec:authorize-url="/codigodiferenciados/cadastrar" th:href="@{/codigodiferenciados/cadastrar}"><span class=" oi oi-chevron-right icones-sidebar-tamanho align-middle"></span>Cadastrar</a></li>
+											<li class="menu-item" urlmatch='/codigodiferenciados/listar'><a sec:authorize-url="/codigodiferenciados/listar" th:href="@{/codigodiferenciados/listar}"><span class=" oi oi-chevron-right icones-sidebar-tamanho align-middle"></span>Listar</a></li>
 										</ul>
 									</li>
 												
 									<li><a href="#" class="av-btn"><span class=" oi oi-chevron-bottom fourtyeighth icones-sidebar-tamanho align-middle"></span>Valores</a>
 										<ul class="av-show">
-											<li><a sec:authorize-url="/faixasparametrosextras/cadastrar" th:href="@{/faixasparametrosextras/cadastrar}"><span class=" oi oi-chevron-right icones-sidebar-tamanho align-middle"></span>Cadastrar</a></li>
-											<li><a sec:authorize-url="/faixasparametrosextras/listar" th:href="@{/faixasparametrosextras/listar}"><span class=" oi oi-chevron-right icones-sidebar-tamanho align-middle"></span>Listar</a></li>
+											<li class="menu-item" urlmatch='/faixasparametrosextras/cadastrar'><a sec:authorize-url="/faixasparametrosextras/cadastrar" th:href="@{/faixasparametrosextras/cadastrar}"><span class=" oi oi-chevron-right icones-sidebar-tamanho align-middle"></span>Cadastrar</a></li>
+											<li class="menu-item" urlmatch='/faixasparametrosextras/listar'><a sec:authorize-url="/faixasparametrosextras/listar" th:href="@{/faixasparametrosextras/listar}"><span class=" oi oi-chevron-right icones-sidebar-tamanho align-middle"></span>Listar</a></li>
 										</ul>
 									</li>		
 									
@@ -626,22 +626,22 @@
 							
 							<li><a href="#" class="fa-btn"><span class=" oi oi-chevron-bottom z156 icones-sidebar-tamanho align-middle"></span>Cancelar desconto do INSS </a>
 								<ul class="fa-show">
-									<li><a sec:authorize-url="/naoDescontaInss/funcionarios/listar" th:href="@{/naoDescontaInss/funcionarios/listar}"><span class=" oi oi-chevron-right icones-sidebar-tamanho align-middle"></span>Cancelar</a></li>
-									<li><a sec:authorize-url="/naoDescontaInss/listar" th:href="@{/naoDescontaInss/listar}"><span class=" oi oi-chevron-right icones-sidebar-tamanho align-middle"></span>Listar</a></li>
+									<li class="menu-item" urlmatch='/naoDescontaInss/funcionarios/listar'><a sec:authorize-url="/naoDescontaInss/funcionarios/listar" th:href="@{/naoDescontaInss/funcionarios/listar}"><span class=" oi oi-chevron-right icones-sidebar-tamanho align-middle"></span>Cancelar</a></li>
+									<li class="menu-item" urlmatch='/naoDescontaInss/listar'><a sec:authorize-url="/naoDescontaInss/listar" th:href="@{/naoDescontaInss/listar}"><span class=" oi oi-chevron-right icones-sidebar-tamanho align-middle"></span>Listar</a></li>
 								</ul>
 							</li>
 							
 							<li><a href="#" class="fq-btn"><span class=" oi oi-chevron-bottom z172 icones-sidebar-tamanho align-middle"></span>Folha Extra - Valor Informado </a>
 								<ul class="fq-show">
-									<li><a sec:authorize-url="/faixasValoresFolhExt/funcionarios/listar" th:href="@{/faixasValoresFolhExt/funcionarios/listar}"><span class=" oi oi-chevron-right icones-sidebar-tamanho align-middle"></span>Atribuir</a></li>
-									<li><a sec:authorize-url="/faixasValoresFolhExt/listar" th:href="@{/faixasValoresFolhExt/listar}"><span class=" oi oi-chevron-right icones-sidebar-tamanho align-middle"></span>Listar</a></li>
+									<li class="menu-item" urlmatch='/faixasValoresFolhExt/funcionarios/listar'><a sec:authorize-url="/faixasValoresFolhExt/funcionarios/listar" th:href="@{/faixasValoresFolhExt/funcionarios/listar}"><span class=" oi oi-chevron-right icones-sidebar-tamanho align-middle"></span>Atribuir</a></li>
+									<li class="menu-item" urlmatch='/faixasValoresFolhExt/listar'><a sec:authorize-url="/faixasValoresFolhExt/listar" th:href="@{/faixasValoresFolhExt/listar}"><span class=" oi oi-chevron-right icones-sidebar-tamanho align-middle"></span>Listar</a></li>
 								</ul>
 							</li>
 							
 							<li><a href="#" class="dv-btn"><span class=" oi oi-chevron-bottom z125 icones-sidebar-tamanho align-middle"></span>Rubricas</a>
 								<ul class="dv-show">
-									<li><a sec:authorize-url="/vencimentosFuncionario/funcionarios/listar" th:href="@{/vencimentosFuncionario/funcionarios/listar}"><span class=" oi oi-chevron-right icones-sidebar-tamanho align-middle"></span>Atribuir</a></li>
-									<li><a sec:authorize-url="/vencimentosFuncionario/listar" th:href="@{/vencimentosFuncionario/listar}"><span class=" oi oi-chevron-right icones-sidebar-tamanho align-middle"></span>Listar</a></li>
+									<li class="menu-item" urlmatch='/vencimentosFuncionario/funcionarios/listar'><a sec:authorize-url="/vencimentosFuncionario/funcionarios/listar" th:href="@{/vencimentosFuncionario/funcionarios/listar}"><span class=" oi oi-chevron-right icones-sidebar-tamanho align-middle"></span>Atribuir</a></li>
+									<li class="menu-item" urlmatch='/vencimentosFuncionario/listar'><a sec:authorize-url="/vencimentosFuncionario/listar" th:href="@{/vencimentosFuncionario/listar}"><span class=" oi oi-chevron-right icones-sidebar-tamanho align-middle"></span>Listar</a></li>
 								</ul>
 							</li>
 												
@@ -650,7 +650,7 @@
 					
 					<li><a href="#" class="ct-btn"><span class=" oi oi-chevron-bottom z97 icones-sidebar-tamanho align-middle"></span>Cálculos </a>
 						<ul class="ct-show">
-							<li><a sec:authorize-url="/calculos/escolher/mes" th:href="@{/calculos/escolher/mes}"><span class=" oi oi-chevron-right icones-sidebar-tamanho align-middle"></span>Calcular</a></li>
+							<li class="menu-item" urlmatch='/calculos/escolher/mes'><a sec:authorize-url="/calculos/escolher/mes" th:href="@{/calculos/escolher/mes}"><span class=" oi oi-chevron-right icones-sidebar-tamanho align-middle"></span>Calcular</a></li>
 							
 						</ul>
 					</li>
@@ -669,24 +669,24 @@
 									
 									<li><a href="#" class="ft-btn"><span class=" oi oi-chevron-bottom z175 icones-sidebar-tamanho align-middle"></span>Números </a>
 										<ul class="ft-show">
-											<li><a sec:authorize-url="/jasper/abrirRelatoriosFolha/variacaoCustoPorMes" th:href="@{/jasper/abrirRelatoriosFolha/variacaoCustoPorMes}"><span class=" oi oi-chevron-right icones-sidebar-tamanho align-middle"></span>Custo por Mês</a></li>
-											<li><a sec:authorize-url="/jasper/abrirRelatoriosFolha/variacaoCustoPorFonte" th:href="@{/jasper/abrirRelatoriosFolha/variacaoCustoPorFonte}"><span class=" oi oi-chevron-right icones-sidebar-tamanho align-middle"></span>Custo por Fonte</a></li>
-											<li><a sec:authorize-url="/jasper/abrirRelatoriosFolha/variacaoCustoPorUnidade" th:href="@{/jasper/abrirRelatoriosFolha/variacaoCustoPorUnidade}"><span class=" oi oi-chevron-right icones-sidebar-tamanho align-middle"></span>Custo por Unidade</a></li>
-											<li><a sec:authorize-url="/jasper/abrirRelatoriosFolha/variacaoCustoPorUnidadeMediaLeito" th:href="@{/jasper/abrirRelatoriosFolha/variacaoCustoPorUnidadeMediaLeito}"><span class=" oi oi-chevron-right icones-sidebar-tamanho align-middle"></span>Custo Leito Ativo</a></li>
-											<li><a sec:authorize-url="/jasper/abrirRelatoriosFolha/variacaoCustoPorUnidadeMediaLeitoCadastrado" th:href="@{/jasper/abrirRelatoriosFolha/variacaoCustoPorUnidadeMediaLeitoCadastrado}"><span class=" oi oi-chevron-right icones-sidebar-tamanho align-middle"></span>Custo Leito Cadastrado</a></li>
-											<li><a sec:authorize-url="/jasper/abrirRelatoriosFolha/variacaoCustoPorUnidadeArea" th:href="@{/jasper/abrirRelatoriosFolha/variacaoCustoPorUnidadeArea}"><span class=" oi oi-chevron-right icones-sidebar-tamanho align-middle"></span>Custo por Unidade Área</a></li>
-											<li><a sec:authorize-url="/jasper/abrirRelatoriosFolha/variacaoCustoPorUnidadeFolha" th:href="@{/jasper/abrirRelatoriosFolha/variacaoCustoPorUnidadeFolha}"><span class=" oi oi-chevron-right icones-sidebar-tamanho align-middle"></span>Custo por Unidade Folha</a></li>
-											<li><a sec:authorize-url="/jasper/abrirRelatoriosFolha/variacaoCustoPorUnidadeNivel" th:href="@{/jasper/abrirRelatoriosFolha/variacaoCustoPorUnidadeNivel}"><span class=" oi oi-chevron-right icones-sidebar-tamanho align-middle"></span>Custo por Unidade Nível</a></li>
-											<li><a sec:authorize-url="/jasper/abrirRelatoriosFolha/variacaoCustoPorUnidadeNivelCargo" th:href="@{/jasper/abrirRelatoriosFolha/variacaoCustoPorUnidadeNivelCargo}"><span class=" oi oi-chevron-right icones-sidebar-tamanho align-middle"></span>Custo por Unidade Cargo</a></li>
-											<li><a sec:authorize-url="/jasper/abrirRelatoriosFolha/VencimentosTodosPorMes" th:href="@{/jasper/abrirRelatoriosFolha/VencimentosTodosPorMes}"><span class=" oi oi-chevron-right icones-sidebar-tamanho align-middle"></span>Todos os Vencimentos</a></li>
+											<li class="menu-item" urlmatch='/jasper/abrirRelatoriosFolha/variacaoCustoPorMes'><a sec:authorize-url="/jasper/abrirRelatoriosFolha/variacaoCustoPorMes" th:href="@{/jasper/abrirRelatoriosFolha/variacaoCustoPorMes}"><span class=" oi oi-chevron-right icones-sidebar-tamanho align-middle"></span>Custo por Mês</a></li>
+											<li class="menu-item" urlmatch='/jasper/abrirRelatoriosFolha/variacaoCustoPorFonte'><a sec:authorize-url="/jasper/abrirRelatoriosFolha/variacaoCustoPorFonte" th:href="@{/jasper/abrirRelatoriosFolha/variacaoCustoPorFonte}"><span class=" oi oi-chevron-right icones-sidebar-tamanho align-middle"></span>Custo por Fonte</a></li>
+											<li class="menu-item" urlmatch='/jasper/abrirRelatoriosFolha/variacaoCustoPorUnidade'><a sec:authorize-url="/jasper/abrirRelatoriosFolha/variacaoCustoPorUnidade" th:href="@{/jasper/abrirRelatoriosFolha/variacaoCustoPorUnidade}"><span class=" oi oi-chevron-right icones-sidebar-tamanho align-middle"></span>Custo por Unidade</a></li>
+											<li class="menu-item" urlmatch='/jasper/abrirRelatoriosFolha/variacaoCustoPorUnidadeMediaLeito'><a sec:authorize-url="/jasper/abrirRelatoriosFolha/variacaoCustoPorUnidadeMediaLeito" th:href="@{/jasper/abrirRelatoriosFolha/variacaoCustoPorUnidadeMediaLeito}"><span class=" oi oi-chevron-right icones-sidebar-tamanho align-middle"></span>Custo Leito Ativo</a></li>
+											<li class="menu-item" urlmatch='/jasper/abrirRelatoriosFolha/variacaoCustoPorUnidadeMediaLeitoCadastrado'><a sec:authorize-url="/jasper/abrirRelatoriosFolha/variacaoCustoPorUnidadeMediaLeitoCadastrado" th:href="@{/jasper/abrirRelatoriosFolha/variacaoCustoPorUnidadeMediaLeitoCadastrado}"><span class=" oi oi-chevron-right icones-sidebar-tamanho align-middle"></span>Custo Leito Cadastrado</a></li>
+											<li class="menu-item" urlmatch='/jasper/abrirRelatoriosFolha/variacaoCustoPorUnidadeArea'><a sec:authorize-url="/jasper/abrirRelatoriosFolha/variacaoCustoPorUnidadeArea" th:href="@{/jasper/abrirRelatoriosFolha/variacaoCustoPorUnidadeArea}"><span class=" oi oi-chevron-right icones-sidebar-tamanho align-middle"></span>Custo por Unidade Área</a></li>
+											<li class="menu-item" urlmatch='/jasper/abrirRelatoriosFolha/variacaoCustoPorUnidadeFolha'><a sec:authorize-url="/jasper/abrirRelatoriosFolha/variacaoCustoPorUnidadeFolha" th:href="@{/jasper/abrirRelatoriosFolha/variacaoCustoPorUnidadeFolha}"><span class=" oi oi-chevron-right icones-sidebar-tamanho align-middle"></span>Custo por Unidade Folha</a></li>
+											<li class="menu-item" urlmatch='/jasper/abrirRelatoriosFolha/variacaoCustoPorUnidadeNivel'><a sec:authorize-url="/jasper/abrirRelatoriosFolha/variacaoCustoPorUnidadeNivel" th:href="@{/jasper/abrirRelatoriosFolha/variacaoCustoPorUnidadeNivel}"><span class=" oi oi-chevron-right icones-sidebar-tamanho align-middle"></span>Custo por Unidade Nível</a></li>
+											<li class="menu-item" urlmatch='/jasper/abrirRelatoriosFolha/variacaoCustoPorUnidadeNivelCargo'><a sec:authorize-url="/jasper/abrirRelatoriosFolha/variacaoCustoPorUnidadeNivelCargo" th:href="@{/jasper/abrirRelatoriosFolha/variacaoCustoPorUnidadeNivelCargo}"><span class=" oi oi-chevron-right icones-sidebar-tamanho align-middle"></span>Custo por Unidade Cargo</a></li>
+											<li class="menu-item" urlmatch='/jasper/abrirRelatoriosFolha/VencimentosTodosPorMes'><a sec:authorize-url="/jasper/abrirRelatoriosFolha/VencimentosTodosPorMes" th:href="@{/jasper/abrirRelatoriosFolha/VencimentosTodosPorMes}"><span class=" oi oi-chevron-right icones-sidebar-tamanho align-middle"></span>Todos os Vencimentos</a></li>
 										</ul>
 									</li>
 									
 									<li><a href="#" class="fu-btn"><span class=" oi oi-chevron-bottom z176 icones-sidebar-tamanho align-middle"></span>Gráficos </a>
 										<ul class="fu-show">
-											<li><a sec:authorize-url="/jasper/abrirRelatoriosFolha/variacaoCustoPorMes_global_grafico" th:href="@{/jasper/abrirRelatoriosFolha/variacaoCustoPorMes_global_grafico}"><span class=" oi oi-chevron-right icones-sidebar-tamanho align-middle"></span>Custo Global</a></li>
-											<li><a sec:authorize-url="/jasper/abrirRelatoriosFolha/variacaoCustoPorMes_grafico" th:href="@{/jasper/abrirRelatoriosFolha/variacaoCustoPorMes_grafico}"><span class=" oi oi-chevron-right icones-sidebar-tamanho align-middle"></span>Custo por Unidade</a></li>
-											<li><a sec:authorize-url="/jasper/abrirRelatoriosFolha/VariacaoCustoPorUnidade_pizza_grafico" th:href="@{/jasper/abrirRelatoriosFolha/VariacaoCustoPorUnidade_pizza_grafico}"><span class=" oi oi-chevron-right icones-sidebar-tamanho align-middle"></span>Custo Unidade (Mês)</a></li>
+											<li class="menu-item" urlmatch='/jasper/abrirRelatoriosFolha/variacaoCustoPorMes_global_grafico'><a sec:authorize-url="/jasper/abrirRelatoriosFolha/variacaoCustoPorMes_global_grafico" th:href="@{/jasper/abrirRelatoriosFolha/variacaoCustoPorMes_global_grafico}"><span class=" oi oi-chevron-right icones-sidebar-tamanho align-middle"></span>Custo Global</a></li>
+											<li class="menu-item" urlmatch='/jasper/abrirRelatoriosFolha/variacaoCustoPorMes_grafico'><a sec:authorize-url="/jasper/abrirRelatoriosFolha/variacaoCustoPorMes_grafico" th:href="@{/jasper/abrirRelatoriosFolha/variacaoCustoPorMes_grafico}"><span class=" oi oi-chevron-right icones-sidebar-tamanho align-middle"></span>Custo por Unidade</a></li>
+											<li class="menu-item" urlmatch='/jasper/abrirRelatoriosFolha/VariacaoCustoPorUnidade_pizza_grafico'><a sec:authorize-url="/jasper/abrirRelatoriosFolha/VariacaoCustoPorUnidade_pizza_grafico" th:href="@{/jasper/abrirRelatoriosFolha/VariacaoCustoPorUnidade_pizza_grafico}"><span class=" oi oi-chevron-right icones-sidebar-tamanho align-middle"></span>Custo Unidade (Mês)</a></li>
 										</ul>
 									</li>		
 									
@@ -705,11 +705,11 @@
 									
 									<li><a href="#" class="fy-btn"><span class=" oi oi-chevron-bottom z180 icones-sidebar-tamanho align-middle"></span>Gráficos </a>
 										<ul class="fy-show">
-											<li><a sec:authorize-url="/jasper/abrirRelatoriosFolha/VariacaoCustoPorNivel_unidade_grafico" th:href="@{/jasper/abrirRelatoriosFolha/VariacaoCustoPorNivel_unidade_grafico}"><span class=" oi oi-chevron-right icones-sidebar-tamanho align-middle"></span>Custo Nível</a></li>
-											<li><a sec:authorize-url="/jasper/abrirRelatoriosFolha/VariacaoCustoPorNivel_unidade_pizza_grafico" th:href="@{/jasper/abrirRelatoriosFolha/VariacaoCustoPorNivel_unidade_pizza_grafico}"><span class=" oi oi-chevron-right icones-sidebar-tamanho align-middle"></span>Custo Nível (Mês)</a></li>
-											<li><a sec:authorize-url="/jasper/abrirRelatoriosFolha/VariacaoCustoPorCago_unidade_grafico" th:href="@{/jasper/abrirRelatoriosFolha/VariacaoCustoPorCargo_unidade_grafico}"><span class=" oi oi-chevron-right icones-sidebar-tamanho align-middle"></span>Custo Cargo</a></li>
-											<li><a sec:authorize-url="/jasper/abrirRelatoriosFolha/VariacaoCustoPorEspecialidade_unidade_grafico" th:href="@{/jasper/abrirRelatoriosFolha/VariacaoCustoPorEspecialidade_unidade_grafico}"><span class=" oi oi-chevron-right icones-sidebar-tamanho align-middle"></span>Custo Especialidade</a></li>
-											<li><a sec:authorize-url="/jasper/abrirRelatoriosFolha/VariacaoCustoPorEspecialidade_na_unidade_grafico" th:href="@{/jasper/abrirRelatoriosFolha/VariacaoCustoPorEspecialidade_na_unidade_grafico}"><span class=" oi oi-chevron-right icones-sidebar-tamanho align-middle"></span>Custo Especialidade Escolha</a></li>
+											<li class="menu-item" urlmatch='/jasper/abrirRelatoriosFolha/VariacaoCustoPorNivel_unidade_grafico'><a sec:authorize-url="/jasper/abrirRelatoriosFolha/VariacaoCustoPorNivel_unidade_grafico" th:href="@{/jasper/abrirRelatoriosFolha/VariacaoCustoPorNivel_unidade_grafico}"><span class=" oi oi-chevron-right icones-sidebar-tamanho align-middle"></span>Custo Nível</a></li>
+											<li class="menu-item" urlmatch='/jasper/abrirRelatoriosFolha/VariacaoCustoPorNivel_unidade_pizza_grafico'><a sec:authorize-url="/jasper/abrirRelatoriosFolha/VariacaoCustoPorNivel_unidade_pizza_grafico" th:href="@{/jasper/abrirRelatoriosFolha/VariacaoCustoPorNivel_unidade_pizza_grafico}"><span class=" oi oi-chevron-right icones-sidebar-tamanho align-middle"></span>Custo Nível (Mês)</a></li>
+											<li class="menu-item" urlmatch='/jasper/abrirRelatoriosFolha/VariacaoCustoPorCago_unidade_grafico'><a sec:authorize-url="/jasper/abrirRelatoriosFolha/VariacaoCustoPorCago_unidade_grafico" th:href="@{/jasper/abrirRelatoriosFolha/VariacaoCustoPorCargo_unidade_grafico}"><span class=" oi oi-chevron-right icones-sidebar-tamanho align-middle"></span>Custo Cargo</a></li>
+											<li class="menu-item" urlmatch='/jasper/abrirRelatoriosFolha/VariacaoCustoPorEspecialidade_unidade_grafico'><a sec:authorize-url="/jasper/abrirRelatoriosFolha/VariacaoCustoPorEspecialidade_unidade_grafico" th:href="@{/jasper/abrirRelatoriosFolha/VariacaoCustoPorEspecialidade_unidade_grafico}"><span class=" oi oi-chevron-right icones-sidebar-tamanho align-middle"></span>Custo Especialidade</a></li>
+											<li class="menu-item" urlmatch='/jasper/abrirRelatoriosFolha/VariacaoCustoPorEspecialidade_na_unidade_grafico'><a sec:authorize-url="/jasper/abrirRelatoriosFolha/VariacaoCustoPorEspecialidade_na_unidade_grafico" th:href="@{/jasper/abrirRelatoriosFolha/VariacaoCustoPorEspecialidade_na_unidade_grafico}"><span class=" oi oi-chevron-right icones-sidebar-tamanho align-middle"></span>Custo Especialidade Escolha</a></li>
 										</ul>
 									</li>
 								
@@ -730,13 +730,13 @@
 							
 								<li><a href="#" class="gd-btn"><span class=" oi oi-chevron-bottom z185 icones-sidebar-tamanho align-middle"></span>Definir Ano Mês </a>
 									<ul class="gd-show">
-										<li><a sec:authorize-url="/anomes/cadastrar" th:href="@{/anomes/cadastrar}"><span class=" oi oi-chevron-right icones-sidebar-tamanho align-middle"></span>Criar</a></li>
+										<li class="menu-item" urlmatch='/anomes/cadastrar'><a sec:authorize-url="/anomes/cadastrar" th:href="@{/anomes/cadastrar}"><span class=" oi oi-chevron-right icones-sidebar-tamanho align-middle"></span>Criar</a></li>
 									</ul>
 								</li>		
 										
 								<li><a href="#" class="ax-btn"><span class=" oi oi-chevron-bottom fiftyth icones-sidebar-tamanho align-middle"></span>Bloquear </a>
 									<ul class="ax-show">
-										<li><a sec:authorize-url="/anomes/listar" th:href="@{/anomes/listar}"><span class=" oi oi-chevron-right icones-sidebar-tamanho align-middle"></span>Bloquear / Desbloquear</a></li>
+										<li class="menu-item" urlmatch='/anomes/listar'><a sec:authorize-url="/anomes/listar" th:href="@{/anomes/listar}"><span class=" oi oi-chevron-right icones-sidebar-tamanho align-middle"></span>Bloquear / Desbloquear</a></li>
 									</ul>
 								</li>
 										
@@ -744,7 +744,7 @@
 							
 								<li><a href="#" class="bq-btn"><span class=" oi oi-chevron-bottom z68 icones-sidebar-tamanho align-middle"></span>Lançadas/Excluídas</a>
 									<ul class="bq-show">
-										<li><a sec:authorize-url="/escalas/escolher/escala/alteracao/global" th:href="@{/escalas/escolher/escala/alteracao/global}"><span class=" oi oi-chevron-right icones-sidebar-tamanho align-middle"></span>Listar</a></li>
+										<li class="menu-item" urlmatch='/escalas/escolher/escala/alteracao/global'><a sec:authorize-url="/escalas/escolher/escala/alteracao/global" th:href="@{/escalas/escolher/escala/alteracao/global}"><span class=" oi oi-chevron-right icones-sidebar-tamanho align-middle"></span>Listar</a></li>
 									</ul>
 								</li>
 			
@@ -753,7 +753,7 @@
 									
 										<li><a href="#" class="br-btn"><span class=" oi oi-chevron-bottom z69 icones-sidebar-tamanho align-middle"></span>Alterações </a>
 											<ul class="br-show">
-												<li><a sec:authorize-url="/escalas/escolher/escala/pos/transparencia/global" th:href="@{/escalas/escolher/escala/pos/transparencia/global}"><span class=" oi oi-chevron-right icones-sidebar-tamanho align-middle"></span>Listar</a></li>
+												<li class="menu-item" urlmatch='/escalas/escolher/escala/pos/transparencia/global'><a sec:authorize-url="/escalas/escolher/escala/pos/transparencia/global" th:href="@{/escalas/escolher/escala/pos/transparencia/global}"><span class=" oi oi-chevron-right icones-sidebar-tamanho align-middle"></span>Listar</a></li>
 											</ul>
 										</li>							
 									</ul>
@@ -1254,7 +1254,7 @@
 					}
 				}
 				for (let i = 0, ilen = menuItemList.length; i < ilen; i++) {
-					if($(menuItemList[i]).attr('urlmatch') === route){
+					if($(menuItemList[i]).attr('urlmatch').includes(route)){
 						activeMenu(menuItemList[i])
 						break
 					}
