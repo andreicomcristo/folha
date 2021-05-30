@@ -12,6 +12,7 @@ import com.folha.boot.domain.FuncionariosFerias;
 import com.folha.boot.domain.FuncionariosFeriasPeriodos;
 import com.folha.boot.domain.PessoaFuncionarios;
 import com.folha.boot.domain.RubricaVencimento;
+import com.folha.boot.domain.TempoCalculo;
 import com.folha.boot.domain.models.calculos.EscalasNoMes;
 import com.folha.boot.domain.models.calculos.FeriasNoMes;
 import com.folha.boot.domain.models.calculos.LicencasNoMes;
@@ -19,6 +20,7 @@ import com.folha.boot.domain.models.calculos.RubricasVencimento;
 import com.folha.boot.service.RubricaPensaoObsService;
 import com.folha.boot.service.RubricaVencimentoObsService;
 import com.folha.boot.service.RubricaVencimentoService;
+import com.folha.boot.service.TempoCalculoService;
 import com.folha.boot.service.calculos.folha.CalcularBrutoService;
 import com.folha.boot.service.calculos.folha.CalcularCalculadoraService;
 import com.folha.boot.service.calculos.folha.CalcularInssService;
@@ -43,11 +45,13 @@ public class CalculosCalcularService {
 	private RubricaVencimentoObsService rubricaVencimentoObsService;
 	@Autowired
 	private RubricaPensaoObsService rubricaPensaoObsService;
-	
+	@Autowired
+	private TempoCalculoService tempoCalculoService;
 
 	
 	public void calcular(AnoMes anoMes){
 		
+		Date momentoInicio = new Date();
 		
 		System.out.println("AAAA:"+"INICIANDO:"+new Date().getHours()+"-"+new Date().getMinutes()+new Date().getSeconds());
 		//Coletando Escalas
@@ -113,6 +117,16 @@ public class CalculosCalcularService {
 		calcularCalculadoraService.calcularTudo(anoMes);
 		
 		System.out.println("AAAA:"+"CALCULADORA:"+new Date().getHours()+"-"+new Date().getMinutes()+new Date().getSeconds());
+		
+		//Colocando a média de tempo de cálculo por escala
+		Date momentoFim = new Date();
+		if(listaEscalas.size()>300) {
+			Double segundos = (((momentoFim.getTime() - momentoInicio.getTime())+0.0)/1000) / listaEscalas.size();
+			TempoCalculo t = new TempoCalculo();
+			t.setSegundos(segundos);
+			tempoCalculoService.salvar(t);
+		}
+		
 		
 		/*
 		for(int i=0;i<listaEscalas.size();i++) {
