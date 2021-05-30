@@ -9,7 +9,7 @@ import org.springframework.stereotype.Component;
 public class UtilidadesMatematicas {
 
     // UTILIDADES MATEMATICAS
-    public double arredondar(double valor, int casas, int ceilOrFloor) {
+    public static double arredondar(double valor, int casas, int ceilOrFloor) {
       double arredondado = valor;
       arredondado *= (Math.pow(10, casas));
       if (ceilOrFloor == 0) {
@@ -32,7 +32,7 @@ public class UtilidadesMatematicas {
         return resposta;
 }
     
-    public double parteInteiraDeDouble (double valor) {  
+    public static double parteInteiraDeDouble (double valor) {  
     if (valor >= 0.0) {  
         return Math.floor (valor);  
     } else {  
@@ -40,7 +40,7 @@ public class UtilidadesMatematicas {
     }  
 }  
     
-    public double parteFracionariaDeDouble (double valor) {  
+    public static double parteFracionariaDeDouble (double valor) {  
     if (valor >= 0.0) {  
         return valor - Math.floor (valor);  
     } else {  

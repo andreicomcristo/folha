@@ -83,6 +83,7 @@ public class CalcularCalculadoraService {
 						}
 					}
 				
+					
 					//Calculando Inss
 					inss = calcularInssService.calcularValorInss(vantagens-descontos, anoMes, listaFuncionarios.get(i));
 					

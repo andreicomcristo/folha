@@ -28,19 +28,15 @@
 
 					<div class="form-group col-md-6">
 						<label for="nome" class="fonte-tutulos-tamanho">Faixas Valores Folh Ext</label>
-							<p></p>	
+							<p></p>
 							
+							<label for="nome" class="" th:text = "*{idFuncionarioFk.idPessoaFk.nome} +'-'+ *{'Cpf : '+idFuncionarioFk.idPessoaFk.cpf} +'-'+ *{'Mat : '+idFuncionarioFk.matricula }">Mês </label>
+								
+							<p></p>
 							<label for="nome" class="">Mês </label>
 							<select id="idCodDiferenciadoFk" class="form-select" th:field="*{idAnoMesFk}">
 								<option value="">Selecione o Mes</option>
 								<option class="form-select" th:each="d : ${idAnoMesFk}" th:value="${d.id}"th:text="${d.nomeAnoMes}" selected >ADM</option>
-							</select>	
-							<p></p>	
-							
-							<label for="nome" class="">Funcionário </label>
-							<select id="idNivelCarreiraFk" class="form-select" th:field="*{idFuncionarioFk}">
-								<option value="">Selecione Funcionário</option>
-								<option class="form-select" th:each="d : ${idFuncionarioFk}" th:value="${d.id}"th:text="${d.idPessoaFk.nome} +'-'+${d.idPessoaFk.cpf}" selected >ADM</option>
 							</select>	
 							<p></p>	
 							
@@ -91,6 +87,7 @@
 								id="descricaoEstadoCivil" placeholder="Observação" th:field="*{observacao}" />						
 							<p></p>				
 												
+					<input type="hidden" id="id" th:field="*{idFuncionarioFk}" />							
 					<input type="hidden" id="id" th:field="*{id}" />
 								<p></p>					
 						<button class="btn btn-outline-dark">Cadastrar</button>

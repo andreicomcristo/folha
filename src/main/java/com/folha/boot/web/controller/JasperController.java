@@ -427,6 +427,26 @@ public class JasperController {
 	
 	
 	
+	//VencimentosTodosPorMes
+	@GetMapping("/abrirRelatoriosFolha/VencimentosTodosPorMes")
+	public String abrirRelatoriosVencimentosTodosPorMes() {		
+		return "/reports/VencimentosTodosPorMes";
+	}
+
+	@GetMapping("/relatoriosFolha/VencimentosTodosPorMes")
+	public void exibirRelatoriosVencimentosTodosPorMes(@RequestParam("mes") Long mes, HttpServletResponse response) throws IOException {
+		service.addParametros("MES_I", mes);		
+		service.setCaminho("/jasper/folha/VencimentosTodosPorMes.jasper");
+		byte[] bytes = service.gerarRelatorio(); 
+		response.setContentType(MediaType.APPLICATION_PDF_VALUE);
+		//Faz o download
+		response.setHeader("Content-disposition", "attachment; filename=dados.pdf");
+		response.getOutputStream().write(bytes);
+	}	
+	
+	
+	
+	
 	
 	@ModelAttribute("idUnidadeFk")
 	public List<Unidades> getIdUnidadeRegimeFk() {

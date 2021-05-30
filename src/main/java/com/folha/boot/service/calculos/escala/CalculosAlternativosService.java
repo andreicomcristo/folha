@@ -34,9 +34,11 @@ import com.folha.boot.domain.TiposDeFolha;
 import com.folha.boot.domain.VencimentosFuncionario;
 import com.folha.boot.domain.models.calculos.EscalasNoMes;
 import com.folha.boot.domain.models.calculos.FeriasNoMes;
+import com.folha.boot.domain.models.calculos.FuncionarioHoras;
 import com.folha.boot.domain.models.calculos.LicencasNoMes;
 import com.folha.boot.domain.models.calculos.ReferenciasDeEscala;
 import com.folha.boot.domain.models.calculos.RubricasVencimento;
+import com.folha.boot.service.AnoMesService;
 import com.folha.boot.service.EscalaCalculosService;
 import com.folha.boot.service.EscalaCodDiferenciadoService;
 import com.folha.boot.service.FaixasValoresFolhExtService;
@@ -106,6 +108,8 @@ public class CalculosAlternativosService {
 	private NaoDescontaInssService naoDescontaInssService;
 	@Autowired
 	private HorasFaltasFolhasVariaveisService horasFaltasFolhasVariaveisService;
+	@Autowired
+	private AnoMesService anoMesService;
 	
 	
 	
@@ -353,8 +357,7 @@ public class CalculosAlternativosService {
 		
 			return listaResposta;
 	}
-	
-	
+		
 	
 	public List<EscalasNoMes> aplicarFeriasNaEscala(List<EscalasNoMes> listaEscalas, List<FeriasNoMes> listaFerias){
 		List<EscalasNoMes> listaResposta = new ArrayList<>();
@@ -700,7 +703,6 @@ public class CalculosAlternativosService {
 		
 			return listaResposta;
 	}
-	
 	
 	
 	
@@ -1944,8 +1946,23 @@ public class CalculosAlternativosService {
 		List<FaixasValoresParametrosCalculoFolhasExtras> listaValoresExtra = faixasValoresParametrosCalculoFolhasExtrasService.buscarPorMesExato(anoMes); 
 		List<RubricasVencimento> lista = new ArrayList<>();
 		
-		//Para pessoas que nao tem diferenciacao atribuída e sao de folhas variaveis 
+		List<FaixasValoresIncentivoDeRisco> listaIncentivoDeRisco = faixasValoresIncentivoDeRiscoService.buscarPorMesExato(anoMes);
+		List<FaixasValoresGpf> listaGpf = faixasValoresGpfService.buscarPorMesExato(anoMes);
+		List<FaixasValoresGpfDiferenciada> listaGpfTecnicaDiferenciada = faixasValoresGpfDiferenciadaService.buscarPorMesExato(anoMes);
+		List<FaixasValoresGpfMedica> listaGpfMedica = faixasValoresGpfMedicaService.buscarPorMesExato(anoMes);
+		List<FaixasValoresGpfMedicaDiferenciada> listaGpfMedicaDiferenciada = faixasValoresGpfMedicaDiferenciadaService.buscarPorMesExato(anoMes);
+		List<FaixasValoresGpfMedicaDiferenciadaDiarista> listaGpfMedicaDiferenciadaDiarista = faixasValoresGpfMedicaDiferenciadaDiaristaService.buscarPorMesExato(anoMes);
+		List<FaixasValoresResidente> listaValoresResidente = faixasValoresResidenteService.buscarPorMesExato(anoMes);
+		List<FaixasValoresPss> listaPss = faixasValoresPssService.buscarPorMesExato(anoMes);
+		List<FaixasValoresFolhExt> listaFolhExt = faixasValoresFolhExtService.buscarPorMesExato(anoMes);
+		
+		//Para ir acumulando as horas ja calculadas para a gpf medica
+		List<FuncionarioHoras> listaFuncionarioHoras = new ArrayList<>();
+		
 		for(int i=0;i<listaEscalas.size();i++) {
+		
+			
+		//Para pessoas que nao tem diferenciacao atribuída e sao de folhas variaveis 
 			if(escalaCodDiferenciadoService.buscarPorEscala(listaEscalas.get(i).getEscala()).isEmpty()) {
 				for(int j=0;j<listaValoresExtra.size();j++) {
 					RubricasVencimento r = new RubricasVencimento();
@@ -2007,8 +2024,7 @@ public class CalculosAlternativosService {
 					}
 				}
 			}
-		}
-		
+			
 		
 		
 		
@@ -2016,7 +2032,6 @@ public class CalculosAlternativosService {
 		
 		
 			//Para pessoas que nao tem diferenciacao atribuída e sao de folhas fixas 
-				for(int i=0;i<listaEscalas.size();i++) {
 					if(escalaCodDiferenciadoService.buscarPorEscala(listaEscalas.get(i).getEscala()).isEmpty()) {
 						for(int j=0;j<listaValoresExtra.size();j++) {
 							RubricasVencimento r = new RubricasVencimento();
@@ -2067,8 +2082,7 @@ public class CalculosAlternativosService {
 							}
 						}
 					}
-				}
-		
+				
 				
 				
 				
@@ -2077,8 +2091,6 @@ public class CalculosAlternativosService {
 				
 				
 			//Para Incentivo de Risco
-				List<FaixasValoresIncentivoDeRisco> listaIncentivoDeRisco = faixasValoresIncentivoDeRiscoService.buscarPorMesExato(anoMes);
-				for(int i=0;i<listaEscalas.size();i++) {
 					if(escalaCodDiferenciadoService.buscarPorEscala(listaEscalas.get(i).getEscala()).isEmpty()) {
 						for(int j=0;j<listaIncentivoDeRisco.size();j++) {
 							RubricasVencimento r = new RubricasVencimento();
@@ -2141,8 +2153,7 @@ public class CalculosAlternativosService {
 							}
 						}
 					}
-				}
-			
+				
 			
 			
 				
@@ -2154,7 +2165,6 @@ public class CalculosAlternativosService {
 				
 				
 				//Para pessoas que SIM têm diferenciacao atribuído e sao de folhas variaveis 
-				for(int i=0;i<listaEscalas.size();i++) {
 					if(!escalaCodDiferenciadoService.buscarPorEscala(listaEscalas.get(i).getEscala()).isEmpty()) {
 						List<EscalaCodDiferenciado> listaDiferenciados = escalaCodDiferenciadoService.buscarPorEscala(listaEscalas.get(i).getEscala());
 						for(int k=0;k<listaDiferenciados.size();k++) {
@@ -2167,6 +2177,7 @@ public class CalculosAlternativosService {
 										(!listaEscalas.get(i).getEscala().getIdFuncionarioFk().getIdVinculoAtualFk().getNomeVinculo().equalsIgnoreCase("RESIDENTE")) &&
 										listaDiferenciados.get(k).getIdEscalaFk().getIdTipoFolhaFk() == listaValoresExtra.get(j).getIdTipoDeFolhaFk() &&
 										listaDiferenciados.get(k).getIdEscalaFk().getIdRegimeFk() == listaValoresExtra.get(j).getIdRegimeDeTrabalhoFk() &&
+										listaDiferenciados.get(k).getIdCodigoDiferenciadoFk() == listaValoresExtra.get(j).getIdCodDiferenciadoFk() &&
 										listaDiferenciados.get(k).getIdEscalaFk().getIdFuncionarioFk().getIdEspecialidadeAtualFk().getIdCargoFk().getIdNivelCargoFk() == listaValoresExtra.get(j).getIdNivelFk() &&
 										listaDiferenciados.get(k).getIdEscalaFk().getIdCoordenacaoFk().getIdLocalidadeFk().getIdUnidadeFk() == listaValoresExtra.get(j).getIdCodDiferenciadoFk().getIdUnidadeFk() &&   
 										listaDiferenciados.get(k).getIdEscalaFk().getIdTipoFolhaFk().getIdTipoRemuneracaoFk().getNomeTipoRemuneracao().equalsIgnoreCase("VARIAVEL") 
@@ -2224,7 +2235,6 @@ public class CalculosAlternativosService {
 							}
 						}
 					}
-				}
 				
 				
 	
@@ -2236,8 +2246,6 @@ public class CalculosAlternativosService {
 				
 				
 				//Para Gpf Comum Técnica
-				List<FaixasValoresGpf> listaGpf = faixasValoresGpfService.buscarPorMesExato(anoMes);
-				for(int i=0;i<listaEscalas.size();i++) {
 					if(!listaEscalas.get(i).getEscala().getIdFuncionarioFk().getIdEspecialidadeAtualFk().getIdCargoFk().getIdNivelCargoFk().getSiglaNivelCargo().equalsIgnoreCase("T")) {
 						if(escalaCodDiferenciadoService.buscarPorEscala(listaEscalas.get(i).getEscala()).isEmpty()) {
 							boolean temIrf = false;
@@ -2271,6 +2279,7 @@ public class CalculosAlternativosService {
 									//Avaliando se já tem alguma linha já cadastrada
 									Double valorCadastrado = 0.0;
 									for(int k=0;k<lista.size();k++) {
+										if( Long.parseLong(listaEscalas.get(i).getEscala().getIdFuncionarioFk().getIdPessoaFk().getCpf())  <  Long.parseLong(lista.get(k).getPessoaFuncionarios().getIdPessoaFk().getCpf()) ) {break;}
 										if(lista.get(k).getAnoMes()==anoMes &&
 											lista.get(k).getCodigo().equalsIgnoreCase("COMPL PLANT COMUM") &&
 											lista.get(k).getPessoaFuncionarios()==listaEscalas.get(i).getEscala().getIdFuncionarioFk()
@@ -2311,14 +2320,11 @@ public class CalculosAlternativosService {
 							}
 						}
 					}
-				}
-			
+				
 
 				
 				
 				//Para Gpf Tecnica Diferenciada
-				List<FaixasValoresGpfDiferenciada> listaGpfTecnicaDiferenciada = faixasValoresGpfDiferenciadaService.buscarPorMesExato(anoMes);
-				for(int i=0;i<listaEscalas.size();i++) {
 					if(!listaEscalas.get(i).getEscala().getIdFuncionarioFk().getIdEspecialidadeAtualFk().getIdCargoFk().getIdNivelCargoFk().getSiglaNivelCargo().equalsIgnoreCase("T")) {
 						if(escalaCodDiferenciadoService.buscarPorEscala(listaEscalas.get(i).getEscala()).isEmpty()) {
 							boolean temIrf = false;
@@ -2353,6 +2359,7 @@ public class CalculosAlternativosService {
 									//Avaliando se já tem alguma linha já cadastrada
 									Double valorCadastrado = 0.0;
 									for(int k=0;k<lista.size();k++) {
+										if( Long.parseLong(listaEscalas.get(i).getEscala().getIdFuncionarioFk().getIdPessoaFk().getCpf())  <  Long.parseLong(lista.get(k).getPessoaFuncionarios().getIdPessoaFk().getCpf()) ) {break;}
 										if(lista.get(k).getAnoMes()==anoMes &&
 											lista.get(k).getCodigo().equalsIgnoreCase("COMPL PLANT DIFERENCIADO") &&
 											lista.get(k).getPessoaFuncionarios()==listaEscalas.get(i).getEscala().getIdFuncionarioFk()
@@ -2395,7 +2402,6 @@ public class CalculosAlternativosService {
 							}
 						}
 					}
-				}
 				
 	
 				
@@ -2410,8 +2416,6 @@ public class CalculosAlternativosService {
 				
 				
 				//Para Gpf Comum Medica
-				List<FaixasValoresGpfMedica> listaGpfMedica = faixasValoresGpfMedicaService.buscarPorMesExato(anoMes);
-				for(int i=0;i<listaEscalas.size();i++) {
 					if(listaEscalas.get(i).getEscala().getIdFuncionarioFk().getIdEspecialidadeAtualFk().getIdCargoFk().getIdNivelCargoFk().getSiglaNivelCargo().equalsIgnoreCase("T")) {
 						if(escalaCodDiferenciadoService.buscarPorEscala(listaEscalas.get(i).getEscala()).isEmpty()) {
 							boolean temIrf = false;
@@ -2441,11 +2445,30 @@ public class CalculosAlternativosService {
 									Double valorPorHoraSemana = listaGpfMedica.get(j).getValorSemana();
 									Double valorPorHoraFimSemana = listaGpfMedica.get(j).getValorFimSemana();
 									
+									// Avaliando as horas já calculadas
+									int horasJaCalculadas = 0;
+									for(int m=0;m<listaFuncionarioHoras.size();m++) {
+										if(  Long.parseLong(listaFuncionarioHoras.get(m).getFuncionario().getIdPessoaFk().getCpf()) > Long.parseLong(listaEscalas.get(i).getEscala().getIdFuncionarioFk().getIdPessoaFk().getCpf())  ) {
+											break;
+										}
+										if(listaFuncionarioHoras.get(m).getFuncionario()==listaEscalas.get(i).getEscala().getIdFuncionarioFk()) {
+											horasJaCalculadas = horasJaCalculadas+listaFuncionarioHoras.get(m).getHoras();
+										}
+									}
+									//Limitando as horas a quatro vezes a ch da pessoa
+									int limiteDeHoras = listaEscalas.get(i).getEscala().getIdFuncionarioFk().getIdCargaHorariaAtualFk().getCargaHoraria()*4;									if(horasFimSemana+horasJaCalculadas > limiteDeHoras) {horasFimSemana = limiteDeHoras- horasJaCalculadas;}
+									if(horasFimSemana<0) {horasFimSemana = 0;}
+									
+									if(horasSemana+horasFimSemana+horasJaCalculadas>limiteDeHoras) { horasSemana = limiteDeHoras -(horasJaCalculadas+horasFimSemana); }
+									if(horasSemana<0) {horasSemana = 0;}
+									
+									//Calculando
 									Double valorDaLinha = ((horasSemana*valorPorHoraSemana)+horasFimSemana*(valorPorHoraFimSemana)) ;
 									
 									//Avaliando se já tem alguma linha já cadastrada
 									Double valorCadastrado = 0.0;
 									for(int k=0;k<lista.size();k++) {
+										if( Long.parseLong(listaEscalas.get(i).getEscala().getIdFuncionarioFk().getIdPessoaFk().getCpf())  <  Long.parseLong(lista.get(k).getPessoaFuncionarios().getIdPessoaFk().getCpf()) ) {break;}
 										if(lista.get(k).getAnoMes()==anoMes &&
 											lista.get(k).getCodigo().equalsIgnoreCase("COMPL PLANT COMUM") &&
 											lista.get(k).getPessoaFuncionarios()==listaEscalas.get(i).getEscala().getIdFuncionarioFk()
@@ -2458,6 +2481,9 @@ public class CalculosAlternativosService {
 									if(valorDaLinha<0) {valorDaLinha=0.0;}
 									valorDaLinha = UtilidadesMatematicas.ajustaValorDecimal(valorDaLinha, 2);
 									valorBruto=valorDaLinha;
+									
+									//Enviando horas para a lista de horas já calculadas
+									listaFuncionarioHoras.add(new FuncionarioHoras(listaEscalas.get(i).getEscala().getIdFuncionarioFk(), horasSemana+horasFimSemana));
 									
 									r.setAnoMes(anoMes);
 									r.setSequencia(1);
@@ -2485,7 +2511,6 @@ public class CalculosAlternativosService {
 							}
 						}
 					}
-				}
 				
 				
 				
@@ -2494,8 +2519,6 @@ public class CalculosAlternativosService {
 				
 				
 				//Para Gpf Medica Diferenciada
-				List<FaixasValoresGpfMedicaDiferenciada> listaGpfMedicaDiferenciada = faixasValoresGpfMedicaDiferenciadaService.buscarPorMesExato(anoMes);
-				for(int i=0;i<listaEscalas.size();i++) {
 					if(listaEscalas.get(i).getEscala().getIdFuncionarioFk().getIdEspecialidadeAtualFk().getIdCargoFk().getIdNivelCargoFk().getSiglaNivelCargo().equalsIgnoreCase("T")) {
 						if(escalaCodDiferenciadoService.buscarPorEscala(listaEscalas.get(i).getEscala()).isEmpty()) {
 							boolean temIrf = false;
@@ -2530,6 +2553,7 @@ public class CalculosAlternativosService {
 									//Avaliando se já tem alguma linha já cadastrada
 									Double valorCadastrado = 0.0;
 									for(int k=0;k<lista.size();k++) {
+										if( Long.parseLong(listaEscalas.get(i).getEscala().getIdFuncionarioFk().getIdPessoaFk().getCpf())  <  Long.parseLong(lista.get(k).getPessoaFuncionarios().getIdPessoaFk().getCpf()) ) {break;}
 										if(lista.get(k).getAnoMes()==anoMes &&
 											lista.get(k).getCodigo().equalsIgnoreCase("COMPL PLANT DIFERENCIADO") &&
 											lista.get(k).getPessoaFuncionarios()==listaEscalas.get(i).getEscala().getIdFuncionarioFk()
@@ -2573,7 +2597,6 @@ public class CalculosAlternativosService {
 							}
 						}
 					}
-				}
 				
 				
 				
@@ -2585,8 +2608,6 @@ public class CalculosAlternativosService {
 				
 				
 				//Para Gpf Medica Diferenciada
-				List<FaixasValoresGpfMedicaDiferenciadaDiarista> listaGpfMedicaDiferenciadaDiarista = faixasValoresGpfMedicaDiferenciadaDiaristaService.buscarPorMesExato(anoMes);
-				for(int i=0;i<listaEscalas.size();i++) {
 					if(listaEscalas.get(i).getEscala().getIdFuncionarioFk().getIdEspecialidadeAtualFk().getIdCargoFk().getIdNivelCargoFk().getSiglaNivelCargo().equalsIgnoreCase("T")) {
 						if(escalaCodDiferenciadoService.buscarPorEscala(listaEscalas.get(i).getEscala()).isEmpty()) {
 							boolean temIrf = false;
@@ -2621,6 +2642,7 @@ public class CalculosAlternativosService {
 									//Avaliando se já tem alguma linha já cadastrada
 									Double valorCadastrado = 0.0;
 									for(int k=0;k<lista.size();k++) {
+										if( Long.parseLong(listaEscalas.get(i).getEscala().getIdFuncionarioFk().getIdPessoaFk().getCpf())  <  Long.parseLong(lista.get(k).getPessoaFuncionarios().getIdPessoaFk().getCpf()) ) {break;}
 										if(lista.get(k).getAnoMes()==anoMes &&
 											lista.get(k).getCodigo().equalsIgnoreCase("COMPL PLANT DIFERENCIADO DIARISTA") &&
 											lista.get(k).getPessoaFuncionarios()==listaEscalas.get(i).getEscala().getIdFuncionarioFk()
@@ -2665,8 +2687,7 @@ public class CalculosAlternativosService {
 							}
 						}
 					}
-				}
-			
+				
 				
 				
 				
@@ -2675,8 +2696,6 @@ public class CalculosAlternativosService {
 				
 				
 				//Para Residentes
-				List<FaixasValoresResidente> listaValoresResidente = faixasValoresResidenteService.buscarPorMesExato(anoMes);
-				for(int i=0;i<listaEscalas.size();i++) {
 					if(!listaEscalas.get(i).getEscala().getIdFuncionarioFk().getIdEspecialidadeAtualFk().getIdCargoFk().getIdNivelCargoFk().getSiglaNivelCargo().equalsIgnoreCase("T")) {
 						if(escalaCodDiferenciadoService.buscarPorEscala(listaEscalas.get(i).getEscala()).isEmpty()) {
 							boolean temIrf = false;
@@ -2759,8 +2778,7 @@ public class CalculosAlternativosService {
 							}
 						}
 					}
-				}
-
+					
 				
 				
 				
@@ -2770,8 +2788,6 @@ public class CalculosAlternativosService {
 				
 				
 				//Para Pss
-				List<FaixasValoresPss> listaPss = faixasValoresPssService.buscarPorMesExato(anoMes);
-				for(int i=0;i<listaEscalas.size();i++) {
 					if(!listaEscalas.get(i).getEscala().getIdFuncionarioFk().getIdEspecialidadeAtualFk().getIdCargoFk().getIdNivelCargoFk().getSiglaNivelCargo().equalsIgnoreCase("T")) {
 						if(escalaCodDiferenciadoService.buscarPorEscala(listaEscalas.get(i).getEscala()).isEmpty()) {
 							
@@ -2798,6 +2814,7 @@ public class CalculosAlternativosService {
 									//Avaliando se já tem alguma linha já cadastrada
 									Double valorCadastrado = 0.0;
 									for(int k=0;k<lista.size();k++) {
+										if( Long.parseLong(listaEscalas.get(i).getEscala().getIdFuncionarioFk().getIdPessoaFk().getCpf())  <  Long.parseLong(lista.get(k).getPessoaFuncionarios().getIdPessoaFk().getCpf()) ) {break;}
 										if(lista.get(k).getAnoMes()==anoMes &&
 											lista.get(k).getCodigo().equalsIgnoreCase("PSS") &&
 											lista.get(k).getPessoaFuncionarios()==listaEscalas.get(i).getEscala().getIdFuncionarioFk()
@@ -2840,7 +2857,8 @@ public class CalculosAlternativosService {
 							}
 						}
 					}
-				}
+					
+				
 			
 			
 				
@@ -2851,8 +2869,6 @@ public class CalculosAlternativosService {
 				
 				
 				//Para Folh Ext
-				List<FaixasValoresFolhExt> listaFolhExt = faixasValoresFolhExtService.buscarPorMesExato(anoMes);
-				for(int i=0;i<listaEscalas.size();i++) {
 					if(!listaEscalas.get(i).getEscala().getIdFuncionarioFk().getIdEspecialidadeAtualFk().getIdCargoFk().getIdNivelCargoFk().getSiglaNivelCargo().equalsIgnoreCase("T")) {
 						if(escalaCodDiferenciadoService.buscarPorEscala(listaEscalas.get(i).getEscala()).isEmpty()) {
 							
@@ -2880,6 +2896,7 @@ public class CalculosAlternativosService {
 									//Avaliando se já tem alguma linha já cadastrada
 									Double valorCadastrado = 0.0;
 									for(int k=0;k<lista.size();k++) {
+										if( Long.parseLong(listaEscalas.get(i).getEscala().getIdFuncionarioFk().getIdPessoaFk().getCpf())  <  Long.parseLong(lista.get(k).getPessoaFuncionarios().getIdPessoaFk().getCpf()) ) {break;}
 										if(lista.get(k).getAnoMes()==anoMes &&
 											lista.get(k).getCodigo().equalsIgnoreCase("FOLH EXT") &&
 											lista.get(k).getPessoaFuncionarios()==listaEscalas.get(i).getEscala().getIdFuncionarioFk()
@@ -2921,7 +2938,23 @@ public class CalculosAlternativosService {
 							}
 						}
 					}
-				}
+				
+					
+					
+					
+					
+					
+					
+					
+					
+					
+					
+					
+					
+					
+					
+					
+				}//Aqui termina o for principal de escalas
 			
 				
 				
@@ -2943,16 +2976,103 @@ public class CalculosAlternativosService {
 					lista.add(listaB.get(m));
 				}
 				
-				//Buscando rubricas atribuidas aos colaboradores pela folha VANTAGENS E DESCONTOS
-				List<RubricasVencimento> listaC= obterVencimentosRubricasAtribuidasPelaFolhaVantagensEDescontos(listaEscalas, listaFerias, anoMes);
+				//Buscando rubricas atribuidas aos colaboradores pela folha SOS EMERGENCIA
+				List<RubricasVencimento> listaC= obterVencimentosRubricasAtribuidasPelaFolhaSOSEmergencia(listaEscalas, listaFerias, anoMes);
 				for(int m=0;m<listaC.size();m++) {
 					lista.add(listaC.get(m));
+				}
+				
+				//Buscando rubricas atribuidas aos colaboradores pela folha VANTAGENS E DESCONTOS
+				List<RubricasVencimento> listaD= obterVencimentosRubricasAtribuidasPelaFolhaVantagensEDescontos(listaEscalas, listaFerias, anoMes);
+				for(int m=0;m<listaD.size();m++) {
+					lista.add(listaD.get(m));
 				}
 				
 				
 				
 				
 		
+		return lista;
+	}
+	
+	
+	
+	
+	
+	
+	
+	//Obter Vencimentos Rubricas Atribuidas Pela Folha (SOS EMERGENCIA)
+	public List<RubricasVencimento> obterVencimentosRubricasAtribuidasPelaFolhaSOSEmergencia(List<EscalasNoMes> listaEscalas, List<FeriasNoMes> listaFerias, AnoMes anoMes) {
+		List<RubricasVencimento> lista = new ArrayList<>();
+		List<VencimentosFuncionario> listaVencimentosFuncionarios = vencimentosFuncionarioService.buscarPorMesExato(anoMes); 
+		
+		for(int i=0;i<listaVencimentosFuncionarios.size();i++) {
+			if(listaVencimentosFuncionarios.get(i).getIdCodigoFk().getIdTipoFk().getNome().equalsIgnoreCase("SOS EMERGENCIA")) {
+				RubricasVencimento r = new RubricasVencimento();
+				VencimentosFuncionario vencimentosFuncionario = listaVencimentosFuncionarios.get(i);
+				int horasEsperadas = vencimentosFuncionario.getIdFuncionarioFk().getIdCargaHorariaAtualFk().getCargaHoraria()*4;
+				Double valor = 0.0; 
+				if(!rubricaService.buscarPorMesECodigo(anoMes, vencimentosFuncionario.getIdCodigoFk()).isEmpty()) { valor= rubricaService.buscarPorMesECodigo(anoMes, vencimentosFuncionario.getIdCodigoFk()).get(0).getValor(); }
+				Double valorPorHora = valor/horasEsperadas;
+				
+				TiposDeFolha folhaAtual = null;
+				
+				int horasEscala = 0;
+					for(int j=0;j<listaEscalas.size();j++) {
+						if(
+								listaEscalas.get(j).getEscala().getIdFuncionarioFk()==vencimentosFuncionario.getIdFuncionarioFk() &&
+								listaEscalas.get(j).getEscala().getIdAnoMesFk()==anoMes
+								
+								) 
+						{
+							horasEscala = horasEscala+ listaEscalas.get(j).getEscala().getHorasTotais();
+							folhaAtual = listaEscalas.get(j).getEscala().getIdTipoFolhaFk();
+						}					
+					}
+					
+					
+				Double valorDaPessoa = valorPorHora*horasEscala;
+				if(valorDaPessoa>valor) {valorDaPessoa=valor;}
+				
+				// Excessao férias
+				for(int k=0;k<listaFerias.size();k++) {
+					if(listaFerias.get(k).getFuncionariosFeriasPeriodos().getIdFeriasFk().getIdFuncionarioFk()==vencimentosFuncionario.getIdFuncionarioFk()) {
+						valorDaPessoa = valor; break;
+					}
+				}
+				
+				if(valorDaPessoa<0) {valorDaPessoa=0.0;}
+				valorDaPessoa = UtilidadesMatematicas.ajustaValorDecimal(valorDaPessoa, 2);
+				
+				r.setAnoMes(anoMes);
+				r.setSequencia(1);
+				r.setCodigo(listaVencimentosFuncionarios.get(i).getIdCodigoFk().getCodigo());
+				r.setDescricao(listaVencimentosFuncionarios.get(i).getIdCodigoFk().getDescricao());
+				r.setFonte(listaVencimentosFuncionarios.get(i).getIdCodigoFk().getIdFonteFk());
+				r.setNatureza(listaVencimentosFuncionarios.get(i).getIdCodigoFk().getIdNaturezaFk());
+				r.setPercentagem(0.0);
+				r.setPessoaFuncionarios(listaVencimentosFuncionarios.get(i).getIdFuncionarioFk());
+				r.setTipoBrutoLiquido(listaVencimentosFuncionarios.get(i).getIdCodigoFk().getIdTipoBrutoLiquidoFk());
+				r.setUnidade(listaVencimentosFuncionarios.get(i).getIdFuncionarioFk().getIdUnidadeAtuacaoAtualFk());
+				r.setVariacao(listaVencimentosFuncionarios.get(i).getIdCodigoFk().getVariacao());
+				
+				if(listaVencimentosFuncionarios.get(i).getIdCodigoFk().getIdTipoBrutoLiquidoFk().getNome().equalsIgnoreCase("B")) {r.setValorBruto(valorDaPessoa);} else {r.setValorBruto(0.0);}
+				if(listaVencimentosFuncionarios.get(i).getIdCodigoFk().getIdTipoBrutoLiquidoFk().getNome().equalsIgnoreCase("L")) {r.setValorLiquido(valorDaPessoa);} else {r.setValorLiquido(0.0);}
+				
+				r.setValorIr(0.0);
+				r.setValorPatronal(0.0);
+				r.setValorPrevidencia(0.0);
+								
+				r.setTiposDeFolha(folhaAtual);
+				
+				if(valorDaPessoa>0) {
+					lista.add(r);
+				}
+				
+					
+					
+			}
+		}
 		return lista;
 	}
 	
@@ -3128,6 +3248,11 @@ public class CalculosAlternativosService {
 	
 	
 	
+
+	
+	
+	
+	
 	
 	//Obter Vencimentos Rubricas Atribuidas Pela Folha (VANTAGENS E DESCONTOS)
 		public List<RubricasVencimento> obterVencimentosRubricasAtribuidasPelaFolhaVantagensEDescontos(List<EscalasNoMes> listaEscalas, List<FeriasNoMes> listaFerias, AnoMes anoMes) {
@@ -3135,7 +3260,7 @@ public class CalculosAlternativosService {
 			List<VencimentosFuncionario> listaVencimentosFuncionarios = vencimentosFuncionarioService.buscarPorMesExato(anoMes); 
 			
 			for(int i=0;i<listaVencimentosFuncionarios.size();i++) {
-				if( (!listaVencimentosFuncionarios.get(i).getIdCodigoFk().getIdTipoFk().getNome().equalsIgnoreCase("GRATIFICACAO PREST")) && (!listaVencimentosFuncionarios.get(i).getIdCodigoFk().getIdTipoFk().getNome().equalsIgnoreCase("IRF"))  ) {
+				if( (!listaVencimentosFuncionarios.get(i).getIdCodigoFk().getIdTipoFk().getNome().equalsIgnoreCase("GRATIFICACAO PREST")) && (!listaVencimentosFuncionarios.get(i).getIdCodigoFk().getIdTipoFk().getNome().equalsIgnoreCase("IRF"))  && (!listaVencimentosFuncionarios.get(i).getIdCodigoFk().getIdTipoFk().getNome().equalsIgnoreCase("SOS EMERGENCIA"))     ) {
 					RubricasVencimento r = new RubricasVencimento();
 					VencimentosFuncionario vencimentosFuncionario = listaVencimentosFuncionarios.get(i);
 					int horasEsperadas = vencimentosFuncionario.getIdFuncionarioFk().getIdCargaHorariaAtualFk().getCargaHoraria()*4;

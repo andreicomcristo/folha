@@ -44,7 +44,7 @@ public class CalculosColetaDeDadosService {
 	@Transactional(readOnly = true)
 	public List<EscalasNoMes> buscarEscalasPorMes(AnoMes anoMes){
 		
-		List<Escala> lista = escalaReposytoty.findByIdAnoMesFkAndDtCancelamentoIsNullOrderByIdCoordenacaoFkIdLocalidadeFkIdUnidadeFkAscIdTipoFolhaFkAscIdFuncionarioFkIdPessoaFkNomeAsc(anoMes); 
+		List<Escala> lista = escalaReposytoty.findByIdAnoMesFkAndDtCancelamentoIsNullOrderByIdFuncionarioFkIdPessoaFkCpfAscIdCoordenacaoFkIdLocalidadeFkIdUnidadeFkAscIdTipoFolhaFkAscIdFuncionarioFkIdPessoaFkNomeAsc(anoMes); 
 		List<EscalasNoMes> listaResposta = new ArrayList<>();
 		for(int i=0;i<lista.size();i++) {
 			EscalasNoMes f= new EscalasNoMes();

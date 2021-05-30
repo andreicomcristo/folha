@@ -91,7 +91,16 @@ public class ContrachequeService {
 		Double bruto = 0.0;
 		Double liquido = 0.0;
 		
-		List <RubricaVencimentoObs> listaObservacoes = rubricaVencimentoObsService.buscarPorMesEPessoa(anoMes, pessoa);
+		List <RubricaVencimentoObs> listaObservacoes1 = rubricaVencimentoObsService.buscarPorMesEPessoa(anoMes, pessoa);
+		List <RubricaVencimentoObs> listaObservacoes = new ArrayList();
+		for(int i=0;i<listaObservacoes1.size();i++) {
+			boolean jaTem = false;
+			for(int j=0;j<listaObservacoes.size();j++) {
+				if(listaObservacoes1.get(i).getObsercavao().toString().equalsIgnoreCase(listaObservacoes.get(j).getObsercavao().toString())) {jaTem = true;}
+			}
+			if(jaTem==false) {listaObservacoes.add(listaObservacoes1.get(i));}
+		}
+		
 		List<RubricaVencimento> listaVencimentos = rubricaVencimentoService.buscarPorMesEPessoa(anoMes, pessoa);
 		List<RubricaPensaoObs> listaPensao = rubricaPensaoObsService.buscarPorMesEPessoa(anoMes, pessoa);
 		
@@ -205,11 +214,14 @@ public class ContrachequeService {
 			
 			String cargo = "";
 			String chSemanal = "";
+			String vinculo = "";
 			for(int i=0;i<pessoa.getPessoaFuncionariosList().size();i++) {
 				if(pessoa.getPessoaFuncionariosList().get(i).getDtCancelamento()==null) {
 					if(pessoa.getDtCancelamento()==null) {
-						cargo = cargo + pessoa.getPessoaFuncionariosList().get(i).getIdEspecialidadeAtualFk().getIdCargoFk().getNomeCargo()+"-"+pessoa.getPessoaFuncionariosList().get(i).getIdEspecialidadeAtualFk().getNomeEspecialidadeCargo()+";";
-						chSemanal = chSemanal + String.valueOf(pessoa.getPessoaFuncionariosList().get(i).getIdCargaHorariaAtualFk().getCargaHoraria())+";";
+						if(!cargo.contains( pessoa.getPessoaFuncionariosList().get(i).getIdEspecialidadeAtualFk().getIdCargoFk().getNomeCargo()+"-"+pessoa.getPessoaFuncionariosList().get(i).getIdEspecialidadeAtualFk().getNomeEspecialidadeCargo()+";"  )) {
+							cargo = cargo + pessoa.getPessoaFuncionariosList().get(i).getIdEspecialidadeAtualFk().getIdCargoFk().getNomeCargo()+"-"+pessoa.getPessoaFuncionariosList().get(i).getIdEspecialidadeAtualFk().getNomeEspecialidadeCargo()+";";
+							chSemanal = chSemanal + String.valueOf(pessoa.getPessoaFuncionariosList().get(i).getIdCargaHorariaAtualFk().getCargaHoraria())+";";
+							vinculo = vinculo + String.valueOf(pessoa.getPessoaFuncionariosList().get(i).getIdVinculoAtualFk().getNomeVinculo())+";";}
 					}
 				}
 			}
@@ -218,24 +230,38 @@ public class ContrachequeService {
 			cargo = UtilidadesDeTexto.retiraEspacosDuplosAcentosEConverteEmMaiusculo(cargo);
 			chSemanal = UtilidadesDeTexto.retiraEspacosDuplosAcentosEConverteEmMaiusculo(chSemanal);
 			
-			cellTitulo1 = new PdfPCell(new Phrase("Cargo", cabecalhoFont) );
-			cellTitulo1.setVerticalAlignment(Element.ALIGN_MIDDLE);
-			tableTitulo1.addCell(cellTitulo1);
+			// Titulo 1a
+			PdfPTable tableTitulo1a = new PdfPTable(3);
+			tableTitulo1a.setWidthPercentage(90);
+			tableTitulo1a.setWidths(new int[] { 4, 2, 3 });
+			PdfPCell cellTitulo1a;
 			
-			cellTitulo1 = new PdfPCell(new Phrase("CH Semanal", cabecalhoFont) );
-			cellTitulo1.setVerticalAlignment(Element.ALIGN_MIDDLE);
-			tableTitulo1.addCell(cellTitulo1);
+			cellTitulo1a = new PdfPCell(new Phrase("Cargo", cabecalhoFont) );
+			cellTitulo1a.setVerticalAlignment(Element.ALIGN_MIDDLE);
+			tableTitulo1a.addCell(cellTitulo1a);
 			
-			cellTitulo1 = new PdfPCell(new Phrase( String.valueOf( cargo ) ,corpoFont) );
-			cellTitulo1.setPaddingLeft(5);
-			cellTitulo1.setVerticalAlignment(Element.ALIGN_MIDDLE);
-			tableTitulo1.addCell(cellTitulo1);
+			cellTitulo1a = new PdfPCell(new Phrase("CH Semanal", cabecalhoFont) );
+			cellTitulo1a.setVerticalAlignment(Element.ALIGN_MIDDLE);
+			tableTitulo1a.addCell(cellTitulo1a);
 			
-			cellTitulo1 = new PdfPCell(new Phrase( String.valueOf( chSemanal ) ,corpoFont) );
-			cellTitulo1.setPaddingLeft(5);
-			cellTitulo1.setVerticalAlignment(Element.ALIGN_MIDDLE);
-			tableTitulo1.addCell(cellTitulo1);
+			cellTitulo1a = new PdfPCell(new Phrase("Vínculo", cabecalhoFont) );
+			cellTitulo1a.setVerticalAlignment(Element.ALIGN_MIDDLE);
+			tableTitulo1a.addCell(cellTitulo1a);
 			
+			cellTitulo1a = new PdfPCell(new Phrase( String.valueOf( cargo ) ,corpoFont) );
+			cellTitulo1a.setPaddingLeft(5);
+			cellTitulo1a.setVerticalAlignment(Element.ALIGN_MIDDLE);
+			tableTitulo1a.addCell(cellTitulo1a);
+			
+			cellTitulo1a = new PdfPCell(new Phrase( String.valueOf( chSemanal ) ,corpoFont) );
+			cellTitulo1a.setPaddingLeft(5);
+			cellTitulo1a.setVerticalAlignment(Element.ALIGN_MIDDLE);
+			tableTitulo1a.addCell(cellTitulo1a);
+			
+			cellTitulo1a = new PdfPCell(new Phrase( String.valueOf( vinculo ) ,corpoFont) );
+			cellTitulo1a.setPaddingLeft(5);
+			cellTitulo1a.setVerticalAlignment(Element.ALIGN_MIDDLE);
+			tableTitulo1a.addCell(cellTitulo1a);
 			
 			
 			
@@ -536,47 +562,7 @@ public class ContrachequeService {
 		}
 			
 			
-			//Colocando Pensao
-			if(pensao>0) {
-				linha = linha+1;
-				
-				cell = new PdfPCell(new Phrase( String.valueOf(linha) ,corpoFont2));
-				cell.setVerticalAlignment(Element.ALIGN_MIDDLE);
-				cell.setHorizontalAlignment(Element.ALIGN_CENTER);
-				table.addCell(cell);
-	
-				cell = new PdfPCell(new Phrase( String.valueOf( "IR"  ) ,corpoFont2) );
-				cell.setPaddingLeft(5);
-				cell.setVerticalAlignment(Element.ALIGN_MIDDLE);
-				cell.setHorizontalAlignment(Element.ALIGN_CENTER);
-				table.addCell(cell);
-	
-				cell = new PdfPCell(new Phrase("IMPOSTO DE RENDA NA FONTE" ,corpoFont2) );
-				cell.setVerticalAlignment(Element.ALIGN_MIDDLE);
-				cell.setHorizontalAlignment(Element.ALIGN_CENTER);
-				table.addCell(cell);
-				
-				cell = new PdfPCell(new Phrase( "" ,corpoFont2) );
-				cell.setVerticalAlignment(Element.ALIGN_MIDDLE);
-				cell.setHorizontalAlignment(Element.ALIGN_CENTER);
-				table.addCell(cell);
-				
-				cell = new PdfPCell(new Phrase(  String.valueOf("")  ,corpoFont2) );
-				cell.setVerticalAlignment(Element.ALIGN_MIDDLE);
-				cell.setHorizontalAlignment(Element.ALIGN_CENTER);
-				table.addCell(cell);
-				
-				cell = new PdfPCell(new Phrase( String.valueOf( "" ) ,corpoFont2) );
-				cell.setVerticalAlignment(Element.ALIGN_MIDDLE);
-				cell.setHorizontalAlignment(Element.ALIGN_CENTER);
-				table.addCell(cell);	
-				
-				cell = new PdfPCell(new Phrase( String.valueOf( ir ) ,corpoFont2) );
-				cell.setVerticalAlignment(Element.ALIGN_MIDDLE);
-				cell.setHorizontalAlignment(Element.ALIGN_CENTER);
-				table.addCell(cell);	
-			}
-			
+
 			
 			//Calculando bruto e líquido
 			bruto = vantagens;
@@ -699,13 +685,11 @@ public class ContrachequeService {
 			document.open();
 			document.add(tableTitulo0);
 			document.add(tableTitulo1);
+			document.add(tableTitulo1a);
 			document.add(tableTitulo2);
 			document.add(tableTitulo3);
 			document.add(tableTitulo4);
 			document.add(table);
-			//document.add(tableTitulo5);
-			//document.add(table2);
-			//document.add(tableTitulo6);
 			document.add(tableTitulo9);
 			document.add(tableTitulo7);
 			document.add(tableTitulo8);

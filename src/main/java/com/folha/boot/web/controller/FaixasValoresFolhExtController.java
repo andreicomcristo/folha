@@ -30,6 +30,7 @@ import com.folha.boot.domain.Carreiras;
 import com.folha.boot.domain.ClassesCarreira;
 import com.folha.boot.domain.FaixasValoresFolhExt;
 import com.folha.boot.domain.Fonte;
+import com.folha.boot.domain.NaoDescontaInss;
 import com.folha.boot.domain.NiveisCargo;
 import com.folha.boot.domain.NiveisCarreira;
 import com.folha.boot.domain.PessoaFuncionarios;
@@ -56,6 +57,7 @@ import com.folha.boot.service.seguranca.UsuarioService;
 public class FaixasValoresFolhExtController {
 
 	String ultimoAnoMes = "";
+	String ultimaBuscaNome = "";
 	
 	@Autowired
 	private UsuarioService usuarioService;
@@ -78,11 +80,93 @@ public class FaixasValoresFolhExtController {
 	@Autowired
 	private PessoaFuncionariosService pessoaFuncionariosService;
 	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	//Lista de funcionarios
+	//Funcionarios Todos os Possíveis
+		@GetMapping("/paginar/funcionarios/{pageNo}")
+		public String getPorNomePaginadoInclusao(@PathVariable (value = "pageNo") int pageNo, ModelMap model) {
+			
+			if( (ultimaBuscaNome.equals("")) ){
+				return "redirect:/faixasValoresFolhExt/funcionarios/listar/{pageNo}" ;}
+			else {		
+				if(!ultimaBuscaNome.equals("")) {
+					return this.findPaginatedFuncionario(pageNo, ultimaBuscaNome, model);}
+				else {
+					return "redirect:/faixasValoresFolhExt/funcionarios/listar/{pageNo}" ;}
+				}
+		}
+		
+		@GetMapping("/funcionarios/listar")
+		public String listarFuncionarios(ModelMap model) {
+			ultimaBuscaNome = "";
+			return this.findPaginatedFuncionario(1, model);
+		}	
+		
+		@GetMapping("/funcionarios/listar/{pageNo}")
+		public String findPaginatedFuncionario(@PathVariable (value = "pageNo") int pageNo, ModelMap model) {
+			int pageSeze = 50;
+			Page<PessoaFuncionarios> page = pessoaFuncionariosService.findPaginatedDeTodasAsUnidades(pageNo, pageSeze, "ATIVO");
+			List<PessoaFuncionarios> listaFuncionarios = page.getContent();
+			return paginarFuncionario(pageNo, page, listaFuncionarios, model);
+		}
+		
+		public String paginarFuncionario(int pageNo, Page<PessoaFuncionarios> page, List<PessoaFuncionarios> lista, ModelMap model) {	
+
+			
+			model.addAttribute("currentePage", pageNo);
+			model.addAttribute("totalPages", page.getTotalPages());
+			model.addAttribute("totalItems", page.getTotalElements()); 
+			model.addAttribute("listaFuncionarios", lista);
+			return "/faixasValoresFolhExt/listafuncionario";	
+		}	
+		
+		@GetMapping("/buscar/funcionarios/nome")
+		public String getPorNomeFuncionario(@RequestParam("nome") String nome, ModelMap model) {
+			this.ultimaBuscaNome = nome;
+			//this.ultimaBuscaTurma = null;	
+			return this.findPaginatedFuncionario(1, nome, model);
+		}
+		
+		public String findPaginatedFuncionario(@PathVariable (value = "pageNo") int pageNo, String nome, ModelMap model) {
+			int pageSeze = 50;
+			Page<PessoaFuncionarios> page = pessoaFuncionariosService.findPaginatedNomeDeTodasAsUnidades(pageNo, pageSeze, "ATIVO", nome);
+			List<PessoaFuncionarios> lista = page.getContent();
+			//ultimaBuscaNome = "";
+			//ultimaBuscaTurma = null;
+			return paginarFuncionario(pageNo, page, lista, model);
+		}
+
+	
+	
+	
+	
+	
+	
+	
+	
+	
 	@GetMapping("/cadastrar")
 	public String cadastrar(FaixasValoresFolhExt faixasValoresFolhExt) {
-		
 		return "/faixasValoresFolhExt/cadastro";
 	}
+	
+	// Dados para Atribuição
+	@GetMapping("/cadastrar/{id}")
+	public String cadastrar(@PathVariable("id") Long id, FaixasValoresFolhExt faixasValoresFolhExt) {
+		faixasValoresFolhExt.setIdFuncionarioFk(pessoaFuncionariosService.buscarPorId(id));
+		return "/faixasValoresFolhExt/cadastro";
+	}
+	
+	
 	
 	@GetMapping("/listar")
 	public String listar(ModelMap model) {

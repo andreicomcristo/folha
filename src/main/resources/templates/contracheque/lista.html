@@ -76,7 +76,6 @@
 			                	<td th:text="${d.id}"></td>
 			                	<td style="font-size:10px;"  th:text="${d.cpf != null} ? ${d.cpf} : ''  "></td>
 			                	<td style="font-size:11px;"> <a th:href="@{/contracheque/escolherMesFolha/{id} (id=${d.id}) }" title="Contracheque" ><span th:text= "${d.nome != null} ? ${d.nome} : '' "  ></span></a></td>
-			                    <td th:text="${d.cpf}"></td>
 			                       
 							</tr>
 						</tbody>                    

@@ -206,7 +206,6 @@
 				                        	<a th:text="'Folha: '+${d.idTipoFolhaFk.nomeTipoFolha}" style="width:155px; height:25px; text-align:left; font-size:09px;  " role="button"></a><br>
 				                        	<a th:text="'Regime: '+${d.idRegimeFk.nomeRegimeDeTrabalho}" style="width:155px; height:25px; text-align:left; font-size:09px;  " role="button"></a><br>
 				                        	<a th:text="'Complemento Plantão: '+${d.idComplementoPlantaoSimNaoFk.descricao}" style="width:155px; height:25px; text-align:left; font-size:09px;  " role="button"></a><br>
-				                        	<a th:text="'Ch Dif: '+${d.idChDifSimNaoFk.descricao}" style="width:155px; height:25px; text-align:left; font-size:09px;  " role="button"></a><br>
 				                        	<a th:text="'Incremento Risco: '+${d.idIncrementoDeRiscoSimNaoFk.descricao}" style="width:155px; height:25px; text-align:left; font-size:09px;  " role="button"></a><br>
 				                        	<a th:text="'Presencial: '+${d.idPresencialSimNaoFk.descricao}" style="width:155px; height:25px; text-align:left; font-size:09px;  " role="button"></a><br>
 				                        	<a th:text="'Obs: '+${d.observacoes}" style="width:155px; height:25px; text-align:left; font-size:09px;  " role="button"></a>
@@ -282,11 +281,16 @@
 				                        </li>
 				                        
 				                        <li>
+				                        
+				                        <a style="width:155px; height:25px; text-align:center; font-size:09px; " class="btn btn-outline-danger btn-sm" th:href="@{/escalas/cancelar/{id} (id=${d.id}) }" role="button">
+					                    	<span class="" title="Cancelar" aria-hidden="true">Cancelar</span>
+					                    </a>
+				                        <!-- 
 				                        	<button style="width:155px; height:25px; text-align:center; font-size:09px; " th:id="${ 'btn_escalas/cancelar/' + d.id}" type="button" class="btn btn btn-outline-danger btn-sm" 
 					                            		data-toggle="modal" data-target="#myModal">
 					                                <span  class="" title="Exclusão habilitada" aria-hidden="true">Cancelar</span>
 					                        </button>
-				                        
+				                         -->
 				                        </li>
 				                    </ul>
 				                </div>

@@ -47,8 +47,8 @@ public class CalcularLiquidoService {
 	
 	public Double calcularLiquidoComInss(Double valor, AnoMes anoMes) {
 		Double resposta = 0.0;
-		resposta = valor - calcularInssService.valorInss(valor, anoMes);
-		resposta = resposta - calcularIrService.valorIr(valor, anoMes);
+		Double resposta1 = valor - calcularInssService.valorInss(valor, anoMes);
+		resposta = resposta1 - calcularIrService.valorIr(resposta1, anoMes);
 		if(resposta<0) {resposta=0.0;}
 		return resposta;
 	}

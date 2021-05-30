@@ -178,7 +178,7 @@ public class ContrachequeController {
 	public String getPorBusacaPaginado(@PathVariable (value = "pageNo") int pageNo, ModelMap model) {
 		
 		if( (ultimaBuscaNome.equals("")) && (ultimaBuscaCpf.equals("")) ){
-			return "redirect:/pessoas/listar/{pageNo}" ;}
+			return "redirect:/contracheque/listar/{pageNo}" ;}
 		else {		
 			if(!ultimaBuscaNome.equals("")) {
 				return this.findPaginatedNome(pageNo, ultimaBuscaNome, model);}

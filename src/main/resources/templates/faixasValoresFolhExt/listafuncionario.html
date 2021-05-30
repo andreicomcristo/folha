@@ -8,7 +8,7 @@
 	        	<span class="oi oi-list" title="Cadastro" aria-hidden="true"></span>
 	            <span>Voltar para Escalas</span>
 	        </a>-->
-	        <a class="btn btn-outline-dark btn-md" th:href="@{/vencimentosFuncionario/funcionarios/listar}" role="button">
+	        <a class="btn btn-outline-dark btn-md" th:href="@{/faixasValoresFolhExt/funcionarios/listar}" role="button">
 	        	<span class="oi oi-loop-square" title="Atualizar" aria-hidden="true"></span>
 	            <span>Atualizar</span>
 	        </a>
@@ -30,7 +30,7 @@
 	      	<div class="col">
 	        	<div class="collapse" id="collapseCidade">
 		            <nav class="navbar navbar-light bg-light">
-	    	           <form class="form-inline" method="GET" th:action="@{/vencimentosFuncionario/buscar/funcionarios/nome}">	        	           
+	    	           <form class="form-inline" method="GET" th:action="@{/faixasValoresFolhExt/buscar/funcionarios/nome}">	        	           
 	        	           <input class="form-control mr-sm-2" type="search" placeholder="Nome" aria-label="Search"
 	                              th:name="nome"/> 
 	                       <button class="btn btn-outline-success my-2 my-sm-0">Buscar</button> 
@@ -60,16 +60,15 @@
 	                </thead>                  
 	                <tbody>
 		            	<tr th:each="d : ${listaFuncionarios}">
-		            	
-		            		<td style="font-size:11px;"  th:text="${d.id}"></td>
+		                	<td style="font-size:11px;"  th:text="${d.id}"></td>
 		                    <td style="font-size:10px;"  th:text="${d.idEspecialidadeAtualFk != null} ? ${d.idEspecialidadeAtualFk.idCargoFk.idNivelCargoFk.siglaNivelCargo} : ''  "></td>
 		                    <td style="font-size:10px;"  th:text="${d.idPessoaFk != null} ? ${d.idPessoaFk.cpf} : ''  "></td>
 		                    <td style="font-size:10px;"  th:text="${d.matricula != null} ? ${d.matricula} : ''  "></td>
 		                    <td style="font-size:10px;"  th:text="${d.idCargaHorariaAtualFk != null} ? ${d.idCargaHorariaAtualFk.cargaHoraria} : ''  "></td>
-		                    <td style="font-size:11px;"> <a th:href="@{/vencimentosFuncionario/cadastrar/{id} (id=${d.id}) }" title="Atribuir" ><span th:text="${d.idPessoaFk != null} ? ${d.idPessoaFk.nome} : ''  "></span></a></td>
+		                    <td style="font-size:11px;"> <a th:href="@{/faixasValoresFolhExt/cadastrar/{id} (id=${d.id}) }" title="Atribuir" ><span th:text="${d.idPessoaFk != null} ? ${d.idPessoaFk.nome} : ''  "></span></a></td>
 		                    <td style="font-size:10px;"  th:text="${d.idEspecialidadeAtualFk != null} ? ${d.idEspecialidadeAtualFk.idCargoFk.nomeCargo+'-'+d.idEspecialidadeAtualFk.nomeEspecialidadeCargo} : ''  "></td>
 		                    <td style="font-size:10px;"  th:text="${d.idVinculoAtualFk != null} ? ${d.idVinculoAtualFk.nomeVinculo} : ''  "></td>
-		                    	 
+		                    
 		                    <td colspan="2">
 		                    	
 		                    	<!--
@@ -101,25 +100,25 @@
 		 	<ul class="pagination justify-content-center" >
 		 		<li class="page-item disabled" ></li>		 		
 	
-			 	<li ><a class="btn btn-light btn-paginacao oi oi-media-step-backward" th:if="${currentePage != i}"  th:href="@{'/vencimentosFuncionario/paginar/funcionarios/'+ 1 }" ></a></li>
+			 	<li ><a class="btn btn-light btn-paginacao oi oi-media-step-backward" th:if="${currentePage != i}"  th:href="@{'/faixasValoresFolhExt/paginar/funcionarios/'+ 1 }" ></a></li>
 			 	
-			 	<li ><a class="btn btn-light    btn-paginacao    oi oi-media-skip-backward" th:if="${currentePage > 1}"  th:href="@{'/vencimentosFuncionario/paginar/funcionarios/'+ ${currentePage -1}}" ></a></li> 
+			 	<li ><a class="btn btn-light    btn-paginacao    oi oi-media-skip-backward" th:if="${currentePage > 1}"  th:href="@{'/faixasValoresFolhExt/paginar/funcionarios/'+ ${currentePage -1}}" ></a></li> 
 			 	
-			 	<li ><a class="btn btn-light    btn-paginacao oi" th:if="${currentePage > 1000}"  th:href="@{'/vencimentosFuncionario/paginar/funcionarios/'+ ${currentePage-1000} }" >-1000</a></li>
+			 	<li ><a class="btn btn-light    btn-paginacao oi" th:if="${currentePage > 1000}"  th:href="@{'/faixasValoresFolhExt/paginar/funcionarios/'+ ${currentePage-1000} }" >-1000</a></li>
 			 	
-			 	<li ><a class="btn btn-light    btn-paginacao" th:if="${currentePage > 100}"  th:href="@{'/vencimentosFuncionario/paginar/funcionarios/'+ ${currentePage-100} }" >-100</a></li>
+			 	<li ><a class="btn btn-light    btn-paginacao" th:if="${currentePage > 100}"  th:href="@{'/faixasValoresFolhExt/paginar/funcionarios/'+ ${currentePage-100} }" >-100</a></li>
 			 	
-			 	<li ><a class="btn btn-light    btn-paginacao" th:if="${currentePage > 10}"  th:href="@{'/vencimentosFuncionario/paginar/funcionarios/'+ ${currentePage-10} }" >-10</a></li>
+			 	<li ><a class="btn btn-light    btn-paginacao" th:if="${currentePage > 10}"  th:href="@{'/faixasValoresFolhExt/paginar/funcionarios/'+ ${currentePage-10} }" >-10</a></li>
 
-			 	<li ><a class="btn btn-light    btn-paginacao"  th:if="${currentePage < totalPages - 10}"  th:href="@{'/vencimentosFuncionario/paginar/funcionarios/'+ ${currentePage+10} }" >+10</a></li>
+			 	<li ><a class="btn btn-light    btn-paginacao"  th:if="${currentePage < totalPages - 10}"  th:href="@{'/faixasValoresFolhExt/paginar/funcionarios/'+ ${currentePage+10} }" >+10</a></li>
 			 	
-			 	<li ><a class="btn btn-light    btn-paginacao"  th:if="${currentePage < totalPages - 100}"  th:href="@{'/vencimentosFuncionario/paginar/funcionarios/'+ ${currentePage+100} }" >+100</a></li>
+			 	<li ><a class="btn btn-light    btn-paginacao"  th:if="${currentePage < totalPages - 100}"  th:href="@{'/faixasValoresFolhExt/paginar/funcionarios/'+ ${currentePage+100} }" >+100</a></li>
 			 	
-			 	<li ><a class="btn btn-light    btn-paginacao"  th:if="${currentePage < totalPages - 1000}"  th:href="@{'/vencimentosFuncionario/paginar/funcionarios/'+ ${currentePage+1000} }" >+1000</a></li>
+			 	<li ><a class="btn btn-light    btn-paginacao"  th:if="${currentePage < totalPages - 1000}"  th:href="@{'/faixasValoresFolhExt/paginar/funcionarios/'+ ${currentePage+1000} }" >+1000</a></li>
 			 	
-			 	<li ><a class="btn btn-light    btn-paginacao    oi oi-media-skip-forward" th:if="${currentePage < totalPages}"  th:href="@{'/vencimentosFuncionario/paginar/funcionarios/' + ${currentePage +1}}"></a> </li>
+			 	<li ><a class="btn btn-light    btn-paginacao    oi oi-media-skip-forward" th:if="${currentePage < totalPages}"  th:href="@{'/faixasValoresFolhExt/paginar/funcionarios/' + ${currentePage +1}}"></a> </li>
 		 		
-		 		<li ><a class="btn btn-light    btn-paginacao    oi oi-media-step-forward"  th:if="${currentePage != i}"  th:href="@{'/vencimentosFuncionario/paginar/funcionarios/'+ ${totalPages} }" ></a></li> 
+		 		<li ><a class="btn btn-light    btn-paginacao    oi oi-media-step-forward"  th:if="${currentePage != i}"  th:href="@{'/faixasValoresFolhExt/paginar/funcionarios/'+ ${totalPages} }" ></a></li> 
 		 	</ul>
 		</nav>     	        
 	    <div th:replace="fragments/modal :: modal"></div>   

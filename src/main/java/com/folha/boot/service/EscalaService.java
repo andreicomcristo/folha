@@ -21,6 +21,7 @@ import com.folha.boot.domain.Pessoa;
 import com.folha.boot.domain.PessoaDocumentos;
 import com.folha.boot.domain.TiposDeFolha;
 import com.folha.boot.domain.Turmas;
+import com.folha.boot.domain.Turnos;
 import com.folha.boot.domain.Uf;
 import com.folha.boot.domain.Unidades;
 import com.folha.boot.service.util.UtilidadesDeCalendarioEEscala;
@@ -220,8 +221,13 @@ public class EscalaService {
 	
 	
 	public String choquesEmEscalaOnipresenca(Escala escala) {
+		
     	String resposta = "";
     	List<Escala> lista = buscarPorPessoaEAnoMes(escala.getIdFuncionarioFk().getIdPessoaFk(), escala.getIdAnoMesFk());
+    	
+    	for(int i=0;i<lista.size();i++) {
+    		if(String.valueOf(lista.get(i).getId()).equalsIgnoreCase( String.valueOf(escala.getId())) ) {lista.remove(i); i=i-1;}
+    	}
     	
     	for(int i=0;i<lista.size();i++) {
     		
@@ -231,7 +237,7 @@ public class EscalaService {
     			
     			//Dia 01
     			if((escala.getDia01Fk().getHorasManha()>0)  && (lista.get(i).getDia01Fk().getHorasManha()>0) ) {
-    				respostaInterna = respostaInterna+"1 manha;";
+    				respostaInterna = respostaInterna+"1 manha;"; 
 	    		}
     			if(escala.getDia01Fk().getHorasTarde()>0  && lista.get(i).getDia01Fk().getHorasTarde()>0 ) {
     				respostaInterna = respostaInterna+"1 tarde;";
@@ -586,6 +592,11 @@ public class EscalaService {
 	public String choquesEmEscalaDepoisDoNoturno(Escala escala) {
     	String resposta = "";
     	List<Escala> lista = buscarPorPessoaEAnoMes(escala.getIdFuncionarioFk().getIdPessoaFk(), escala.getIdAnoMesFk());
+    	
+    	for(int i=0;i<lista.size();i++) {
+    		if(String.valueOf(lista.get(i).getId()).equalsIgnoreCase( String.valueOf(escala.getId())) ) {lista.remove(i); i=i-1;}
+    	}
+    	
     	lista.add(escala);
     	
     	int horasNoite01 = 0;
@@ -865,37 +876,317 @@ public class EscalaService {
 	public Escala converteDeEscalaParaEscala(Escala escala) {
 		Escala escalaNova = new Escala();
 	
-		escalaNova.setDia01Fk(escala.getDia01Fk());
-		escalaNova.setDia02Fk(escala.getDia02Fk());
-		escalaNova.setDia03Fk(escala.getDia03Fk());
-		escalaNova.setDia04Fk(escala.getDia04Fk());
-		escalaNova.setDia05Fk(escala.getDia05Fk());
-		escalaNova.setDia06Fk(escala.getDia06Fk());
-		escalaNova.setDia07Fk(escala.getDia07Fk());
-		escalaNova.setDia08Fk(escala.getDia08Fk());
-		escalaNova.setDia09Fk(escala.getDia09Fk());
-		escalaNova.setDia10Fk(escala.getDia10Fk());
-		escalaNova.setDia11Fk(escala.getDia11Fk());
-		escalaNova.setDia12Fk(escala.getDia12Fk());
-		escalaNova.setDia13Fk(escala.getDia13Fk());
-		escalaNova.setDia14Fk(escala.getDia14Fk());
-		escalaNova.setDia15Fk(escala.getDia15Fk());
-		escalaNova.setDia16Fk(escala.getDia16Fk());
-		escalaNova.setDia17Fk(escala.getDia17Fk());
-		escalaNova.setDia18Fk(escala.getDia18Fk());
-		escalaNova.setDia19Fk(escala.getDia19Fk());
-		escalaNova.setDia20Fk(escala.getDia20Fk());
-		escalaNova.setDia21Fk(escala.getDia21Fk());
-		escalaNova.setDia22Fk(escala.getDia22Fk());
-		escalaNova.setDia23Fk(escala.getDia23Fk());
-		escalaNova.setDia24Fk(escala.getDia24Fk());
-		escalaNova.setDia25Fk(escala.getDia25Fk());
-		escalaNova.setDia26Fk(escala.getDia26Fk());
-		escalaNova.setDia27Fk(escala.getDia27Fk());
-		escalaNova.setDia28Fk(escala.getDia28Fk());
-		escalaNova.setDia29Fk(escala.getDia29Fk());
-		escalaNova.setDia30Fk(escala.getDia30Fk());
-		escalaNova.setDia31Fk(escala.getDia31Fk());
+		Turnos t01 = new Turnos();
+		t01.setDescricaoTurno(escala.getDia01Fk().getDescricaoTurno());
+		t01.setHorasManha(escala.getDia01Fk().getHorasManha());
+		t01.setHorasNoite(escala.getDia01Fk().getHorasNoite());
+		t01.setHorasTarde(escala.getDia01Fk().getHorasTarde());
+		t01.setId(escala.getDia01Fk().getId());
+		t01.setNomeTurno(escala.getDia01Fk().getNomeTurno());
+		t01.setPlantoes(escala.getDia01Fk().getPlantoes());
+		escalaNova.setDia01Fk(t01);
+		
+		Turnos t02 = new Turnos();
+		t02.setDescricaoTurno(escala.getDia02Fk().getDescricaoTurno());
+		t02.setHorasManha(escala.getDia02Fk().getHorasManha());
+		t02.setHorasNoite(escala.getDia02Fk().getHorasNoite());
+		t02.setHorasTarde(escala.getDia02Fk().getHorasTarde());
+		t02.setId(escala.getDia02Fk().getId());
+		t02.setNomeTurno(escala.getDia02Fk().getNomeTurno());
+		t02.setPlantoes(escala.getDia02Fk().getPlantoes());
+		escalaNova.setDia02Fk(t02);
+		
+		Turnos t03 = new Turnos();
+		t03.setDescricaoTurno(escala.getDia03Fk().getDescricaoTurno());
+		t03.setHorasManha(escala.getDia03Fk().getHorasManha());
+		t03.setHorasNoite(escala.getDia03Fk().getHorasNoite());
+		t03.setHorasTarde(escala.getDia03Fk().getHorasTarde());
+		t03.setId(escala.getDia03Fk().getId());
+		t03.setNomeTurno(escala.getDia03Fk().getNomeTurno());
+		t03.setPlantoes(escala.getDia03Fk().getPlantoes());
+		escalaNova.setDia03Fk(t03);
+		
+		Turnos t04 = new Turnos();
+		t04.setDescricaoTurno(escala.getDia04Fk().getDescricaoTurno());
+		t04.setHorasManha(escala.getDia04Fk().getHorasManha());
+		t04.setHorasNoite(escala.getDia04Fk().getHorasNoite());
+		t04.setHorasTarde(escala.getDia04Fk().getHorasTarde());
+		t04.setId(escala.getDia04Fk().getId());
+		t04.setNomeTurno(escala.getDia04Fk().getNomeTurno());
+		t04.setPlantoes(escala.getDia04Fk().getPlantoes());
+		escalaNova.setDia04Fk(t04);
+		
+		Turnos t05 = new Turnos();
+		t05.setDescricaoTurno(escala.getDia05Fk().getDescricaoTurno());
+		t05.setHorasManha(escala.getDia05Fk().getHorasManha());
+		t05.setHorasNoite(escala.getDia05Fk().getHorasNoite());
+		t05.setHorasTarde(escala.getDia05Fk().getHorasTarde());
+		t05.setId(escala.getDia05Fk().getId());
+		t05.setNomeTurno(escala.getDia05Fk().getNomeTurno());
+		t05.setPlantoes(escala.getDia05Fk().getPlantoes());
+		escalaNova.setDia05Fk(t05);
+		
+		Turnos t06 = new Turnos();
+		t06.setDescricaoTurno(escala.getDia06Fk().getDescricaoTurno());
+		t06.setHorasManha(escala.getDia06Fk().getHorasManha());
+		t06.setHorasNoite(escala.getDia06Fk().getHorasNoite());
+		t06.setHorasTarde(escala.getDia06Fk().getHorasTarde());
+		t06.setId(escala.getDia06Fk().getId());
+		t06.setNomeTurno(escala.getDia06Fk().getNomeTurno());
+		t06.setPlantoes(escala.getDia06Fk().getPlantoes());
+		escalaNova.setDia06Fk(t06);
+		
+		Turnos t07 = new Turnos();
+		t07.setDescricaoTurno(escala.getDia07Fk().getDescricaoTurno());
+		t07.setHorasManha(escala.getDia07Fk().getHorasManha());
+		t07.setHorasNoite(escala.getDia07Fk().getHorasNoite());
+		t07.setHorasTarde(escala.getDia07Fk().getHorasTarde());
+		t07.setId(escala.getDia07Fk().getId());
+		t07.setNomeTurno(escala.getDia07Fk().getNomeTurno());
+		t07.setPlantoes(escala.getDia07Fk().getPlantoes());
+		escalaNova.setDia07Fk(t07);
+		
+		Turnos t08 = new Turnos();
+		t08.setDescricaoTurno(escala.getDia08Fk().getDescricaoTurno());
+		t08.setHorasManha(escala.getDia08Fk().getHorasManha());
+		t08.setHorasNoite(escala.getDia08Fk().getHorasNoite());
+		t08.setHorasTarde(escala.getDia08Fk().getHorasTarde());
+		t08.setId(escala.getDia08Fk().getId());
+		t08.setNomeTurno(escala.getDia08Fk().getNomeTurno());
+		t08.setPlantoes(escala.getDia08Fk().getPlantoes());
+		escalaNova.setDia08Fk(t08);
+		
+		Turnos t09 = new Turnos();
+		t09.setDescricaoTurno(escala.getDia09Fk().getDescricaoTurno());
+		t09.setHorasManha(escala.getDia09Fk().getHorasManha());
+		t09.setHorasNoite(escala.getDia09Fk().getHorasNoite());
+		t09.setHorasTarde(escala.getDia09Fk().getHorasTarde());
+		t09.setId(escala.getDia09Fk().getId());
+		t09.setNomeTurno(escala.getDia09Fk().getNomeTurno());
+		t09.setPlantoes(escala.getDia09Fk().getPlantoes());
+		escalaNova.setDia09Fk(t09);
+		
+		Turnos t10 = new Turnos();
+		t10.setDescricaoTurno(escala.getDia10Fk().getDescricaoTurno());
+		t10.setHorasManha(escala.getDia10Fk().getHorasManha());
+		t10.setHorasNoite(escala.getDia10Fk().getHorasNoite());
+		t10.setHorasTarde(escala.getDia10Fk().getHorasTarde());
+		t10.setId(escala.getDia10Fk().getId());
+		t10.setNomeTurno(escala.getDia10Fk().getNomeTurno());
+		t10.setPlantoes(escala.getDia10Fk().getPlantoes());
+		escalaNova.setDia10Fk(t10);
+		
+		Turnos t11 = new Turnos();
+		t11.setDescricaoTurno(escala.getDia11Fk().getDescricaoTurno());
+		t11.setHorasManha(escala.getDia11Fk().getHorasManha());
+		t11.setHorasNoite(escala.getDia11Fk().getHorasNoite());
+		t11.setHorasTarde(escala.getDia11Fk().getHorasTarde());
+		t11.setId(escala.getDia11Fk().getId());
+		t11.setNomeTurno(escala.getDia11Fk().getNomeTurno());
+		t11.setPlantoes(escala.getDia11Fk().getPlantoes());
+		escalaNova.setDia11Fk(t11);
+		
+		Turnos t12 = new Turnos();
+		t12.setDescricaoTurno(escala.getDia12Fk().getDescricaoTurno());
+		t12.setHorasManha(escala.getDia12Fk().getHorasManha());
+		t12.setHorasNoite(escala.getDia12Fk().getHorasNoite());
+		t12.setHorasTarde(escala.getDia12Fk().getHorasTarde());
+		t12.setId(escala.getDia12Fk().getId());
+		t12.setNomeTurno(escala.getDia12Fk().getNomeTurno());
+		t12.setPlantoes(escala.getDia12Fk().getPlantoes());
+		escalaNova.setDia12Fk(t12);
+		
+		Turnos t13 = new Turnos();
+		t13.setDescricaoTurno(escala.getDia13Fk().getDescricaoTurno());
+		t13.setHorasManha(escala.getDia13Fk().getHorasManha());
+		t13.setHorasNoite(escala.getDia13Fk().getHorasNoite());
+		t13.setHorasTarde(escala.getDia13Fk().getHorasTarde());
+		t13.setId(escala.getDia13Fk().getId());
+		t13.setNomeTurno(escala.getDia13Fk().getNomeTurno());
+		t13.setPlantoes(escala.getDia13Fk().getPlantoes());
+		escalaNova.setDia13Fk(t13);
+		
+		Turnos t14 = new Turnos();
+		t14.setDescricaoTurno(escala.getDia14Fk().getDescricaoTurno());
+		t14.setHorasManha(escala.getDia14Fk().getHorasManha());
+		t14.setHorasNoite(escala.getDia14Fk().getHorasNoite());
+		t14.setHorasTarde(escala.getDia14Fk().getHorasTarde());
+		t14.setId(escala.getDia14Fk().getId());
+		t14.setNomeTurno(escala.getDia14Fk().getNomeTurno());
+		t14.setPlantoes(escala.getDia14Fk().getPlantoes());
+		escalaNova.setDia14Fk(t14);
+		
+		Turnos t15 = new Turnos();
+		t15.setDescricaoTurno(escala.getDia15Fk().getDescricaoTurno());
+		t15.setHorasManha(escala.getDia15Fk().getHorasManha());
+		t15.setHorasNoite(escala.getDia15Fk().getHorasNoite());
+		t15.setHorasTarde(escala.getDia15Fk().getHorasTarde());
+		t15.setId(escala.getDia15Fk().getId());
+		t15.setNomeTurno(escala.getDia15Fk().getNomeTurno());
+		t15.setPlantoes(escala.getDia15Fk().getPlantoes());
+		escalaNova.setDia15Fk(t15);
+		
+		Turnos t16 = new Turnos();
+		t16.setDescricaoTurno(escala.getDia16Fk().getDescricaoTurno());
+		t16.setHorasManha(escala.getDia16Fk().getHorasManha());
+		t16.setHorasNoite(escala.getDia16Fk().getHorasNoite());
+		t16.setHorasTarde(escala.getDia16Fk().getHorasTarde());
+		t16.setId(escala.getDia16Fk().getId());
+		t16.setNomeTurno(escala.getDia16Fk().getNomeTurno());
+		t16.setPlantoes(escala.getDia16Fk().getPlantoes());
+		escalaNova.setDia16Fk(t16);
+		
+		Turnos t17 = new Turnos();
+		t17.setDescricaoTurno(escala.getDia17Fk().getDescricaoTurno());
+		t17.setHorasManha(escala.getDia17Fk().getHorasManha());
+		t17.setHorasNoite(escala.getDia17Fk().getHorasNoite());
+		t17.setHorasTarde(escala.getDia17Fk().getHorasTarde());
+		t17.setId(escala.getDia17Fk().getId());
+		t17.setNomeTurno(escala.getDia17Fk().getNomeTurno());
+		t17.setPlantoes(escala.getDia17Fk().getPlantoes());
+		escalaNova.setDia17Fk(t17);
+		
+		Turnos t18 = new Turnos();
+		t18.setDescricaoTurno(escala.getDia18Fk().getDescricaoTurno());
+		t18.setHorasManha(escala.getDia18Fk().getHorasManha());
+		t18.setHorasNoite(escala.getDia18Fk().getHorasNoite());
+		t18.setHorasTarde(escala.getDia18Fk().getHorasTarde());
+		t18.setId(escala.getDia18Fk().getId());
+		t18.setNomeTurno(escala.getDia18Fk().getNomeTurno());
+		t18.setPlantoes(escala.getDia18Fk().getPlantoes());
+		escalaNova.setDia18Fk(t18);
+		
+		Turnos t19 = new Turnos();
+		t19.setDescricaoTurno(escala.getDia19Fk().getDescricaoTurno());
+		t19.setHorasManha(escala.getDia19Fk().getHorasManha());
+		t19.setHorasNoite(escala.getDia19Fk().getHorasNoite());
+		t19.setHorasTarde(escala.getDia19Fk().getHorasTarde());
+		t19.setId(escala.getDia19Fk().getId());
+		t19.setNomeTurno(escala.getDia19Fk().getNomeTurno());
+		t19.setPlantoes(escala.getDia19Fk().getPlantoes());
+		escalaNova.setDia19Fk(t19);
+		
+		Turnos t20 = new Turnos();
+		t20.setDescricaoTurno(escala.getDia20Fk().getDescricaoTurno());
+		t20.setHorasManha(escala.getDia20Fk().getHorasManha());
+		t20.setHorasNoite(escala.getDia20Fk().getHorasNoite());
+		t20.setHorasTarde(escala.getDia20Fk().getHorasTarde());
+		t20.setId(escala.getDia20Fk().getId());
+		t20.setNomeTurno(escala.getDia20Fk().getNomeTurno());
+		t20.setPlantoes(escala.getDia20Fk().getPlantoes());
+		escalaNova.setDia20Fk(t20);
+
+		Turnos t21 = new Turnos();
+		t21.setDescricaoTurno(escala.getDia21Fk().getDescricaoTurno());
+		t21.setHorasManha(escala.getDia21Fk().getHorasManha());
+		t21.setHorasNoite(escala.getDia21Fk().getHorasNoite());
+		t21.setHorasTarde(escala.getDia21Fk().getHorasTarde());
+		t21.setId(escala.getDia21Fk().getId());
+		t21.setNomeTurno(escala.getDia21Fk().getNomeTurno());
+		t21.setPlantoes(escala.getDia21Fk().getPlantoes());
+		escalaNova.setDia21Fk(t21);
+		
+		Turnos t22 = new Turnos();
+		t22.setDescricaoTurno(escala.getDia22Fk().getDescricaoTurno());
+		t22.setHorasManha(escala.getDia22Fk().getHorasManha());
+		t22.setHorasNoite(escala.getDia22Fk().getHorasNoite());
+		t22.setHorasTarde(escala.getDia22Fk().getHorasTarde());
+		t22.setId(escala.getDia22Fk().getId());
+		t22.setNomeTurno(escala.getDia22Fk().getNomeTurno());
+		t22.setPlantoes(escala.getDia22Fk().getPlantoes());
+		escalaNova.setDia22Fk(t22);
+		
+		Turnos t23 = new Turnos();
+		t23.setDescricaoTurno(escala.getDia23Fk().getDescricaoTurno());
+		t23.setHorasManha(escala.getDia23Fk().getHorasManha());
+		t23.setHorasNoite(escala.getDia23Fk().getHorasNoite());
+		t23.setHorasTarde(escala.getDia23Fk().getHorasTarde());
+		t23.setId(escala.getDia23Fk().getId());
+		t23.setNomeTurno(escala.getDia23Fk().getNomeTurno());
+		t23.setPlantoes(escala.getDia23Fk().getPlantoes());
+		escalaNova.setDia23Fk(t23);
+		
+		Turnos t24 = new Turnos();
+		t24.setDescricaoTurno(escala.getDia24Fk().getDescricaoTurno());
+		t24.setHorasManha(escala.getDia24Fk().getHorasManha());
+		t24.setHorasNoite(escala.getDia24Fk().getHorasNoite());
+		t24.setHorasTarde(escala.getDia24Fk().getHorasTarde());
+		t24.setId(escala.getDia24Fk().getId());
+		t24.setNomeTurno(escala.getDia24Fk().getNomeTurno());
+		t24.setPlantoes(escala.getDia24Fk().getPlantoes());
+		escalaNova.setDia24Fk(t24);
+		
+		Turnos t25 = new Turnos();
+		t25.setDescricaoTurno(escala.getDia25Fk().getDescricaoTurno());
+		t25.setHorasManha(escala.getDia25Fk().getHorasManha());
+		t25.setHorasNoite(escala.getDia25Fk().getHorasNoite());
+		t25.setHorasTarde(escala.getDia25Fk().getHorasTarde());
+		t25.setId(escala.getDia25Fk().getId());
+		t25.setNomeTurno(escala.getDia25Fk().getNomeTurno());
+		t25.setPlantoes(escala.getDia25Fk().getPlantoes());
+		escalaNova.setDia25Fk(t25);
+		
+		Turnos t26 = new Turnos();
+		t26.setDescricaoTurno(escala.getDia26Fk().getDescricaoTurno());
+		t26.setHorasManha(escala.getDia26Fk().getHorasManha());
+		t26.setHorasNoite(escala.getDia26Fk().getHorasNoite());
+		t26.setHorasTarde(escala.getDia26Fk().getHorasTarde());
+		t26.setId(escala.getDia26Fk().getId());
+		t26.setNomeTurno(escala.getDia26Fk().getNomeTurno());
+		t26.setPlantoes(escala.getDia26Fk().getPlantoes());
+		escalaNova.setDia26Fk(t26);
+		
+		Turnos t27 = new Turnos();
+		t27.setDescricaoTurno(escala.getDia27Fk().getDescricaoTurno());
+		t27.setHorasManha(escala.getDia27Fk().getHorasManha());
+		t27.setHorasNoite(escala.getDia27Fk().getHorasNoite());
+		t27.setHorasTarde(escala.getDia27Fk().getHorasTarde());
+		t27.setId(escala.getDia27Fk().getId());
+		t27.setNomeTurno(escala.getDia27Fk().getNomeTurno());
+		t27.setPlantoes(escala.getDia27Fk().getPlantoes());
+		escalaNova.setDia27Fk(t27);
+		
+		Turnos t28 = new Turnos();
+		t28.setDescricaoTurno(escala.getDia28Fk().getDescricaoTurno());
+		t28.setHorasManha(escala.getDia28Fk().getHorasManha());
+		t28.setHorasNoite(escala.getDia28Fk().getHorasNoite());
+		t28.setHorasTarde(escala.getDia28Fk().getHorasTarde());
+		t28.setId(escala.getDia28Fk().getId());
+		t28.setNomeTurno(escala.getDia28Fk().getNomeTurno());
+		t28.setPlantoes(escala.getDia28Fk().getPlantoes());
+		escalaNova.setDia28Fk(t28);
+		
+		Turnos t29 = new Turnos();
+		t29.setDescricaoTurno(escala.getDia29Fk().getDescricaoTurno());
+		t29.setHorasManha(escala.getDia29Fk().getHorasManha());
+		t29.setHorasNoite(escala.getDia29Fk().getHorasNoite());
+		t29.setHorasTarde(escala.getDia29Fk().getHorasTarde());
+		t29.setId(escala.getDia29Fk().getId());
+		t29.setNomeTurno(escala.getDia29Fk().getNomeTurno());
+		t29.setPlantoes(escala.getDia29Fk().getPlantoes());
+		escalaNova.setDia29Fk(t29);
+		
+		Turnos t30 = new Turnos();
+		t30.setDescricaoTurno(escala.getDia30Fk().getDescricaoTurno());
+		t30.setHorasManha(escala.getDia30Fk().getHorasManha());
+		t30.setHorasNoite(escala.getDia30Fk().getHorasNoite());
+		t30.setHorasTarde(escala.getDia30Fk().getHorasTarde());
+		t30.setId(escala.getDia30Fk().getId());
+		t30.setNomeTurno(escala.getDia30Fk().getNomeTurno());
+		t30.setPlantoes(escala.getDia30Fk().getPlantoes());
+		escalaNova.setDia30Fk(t30);
+		
+		Turnos t31 = new Turnos();
+		t31.setDescricaoTurno(escala.getDia31Fk().getDescricaoTurno());
+		t31.setHorasManha(escala.getDia31Fk().getHorasManha());
+		t31.setHorasNoite(escala.getDia31Fk().getHorasNoite());
+		t31.setHorasTarde(escala.getDia31Fk().getHorasTarde());
+		t31.setId(escala.getDia31Fk().getId());
+		t31.setNomeTurno(escala.getDia31Fk().getNomeTurno());
+		t31.setPlantoes(escala.getDia31Fk().getPlantoes());
+		escalaNova.setDia31Fk(t31);
+
+		
 		
 		escalaNova.setDtCancelamento(escala.getDtCancelamento());
 		escalaNova.setDtMudanca(escala.getDtMudanca());
@@ -934,37 +1225,321 @@ public class EscalaService {
 	public Escala converteDeEscalaParaEscalaComId(Escala escala) {
 		Escala escalaNova = new Escala();
 	
-		escalaNova.setDia01Fk(escala.getDia01Fk());
-		escalaNova.setDia02Fk(escala.getDia02Fk());
-		escalaNova.setDia03Fk(escala.getDia03Fk());
-		escalaNova.setDia04Fk(escala.getDia04Fk());
-		escalaNova.setDia05Fk(escala.getDia05Fk());
-		escalaNova.setDia06Fk(escala.getDia06Fk());
-		escalaNova.setDia07Fk(escala.getDia07Fk());
-		escalaNova.setDia08Fk(escala.getDia08Fk());
-		escalaNova.setDia09Fk(escala.getDia09Fk());
-		escalaNova.setDia10Fk(escala.getDia10Fk());
-		escalaNova.setDia11Fk(escala.getDia11Fk());
-		escalaNova.setDia12Fk(escala.getDia12Fk());
-		escalaNova.setDia13Fk(escala.getDia13Fk());
-		escalaNova.setDia14Fk(escala.getDia14Fk());
-		escalaNova.setDia15Fk(escala.getDia15Fk());
-		escalaNova.setDia16Fk(escala.getDia16Fk());
-		escalaNova.setDia17Fk(escala.getDia17Fk());
-		escalaNova.setDia18Fk(escala.getDia18Fk());
-		escalaNova.setDia19Fk(escala.getDia19Fk());
-		escalaNova.setDia20Fk(escala.getDia20Fk());
-		escalaNova.setDia21Fk(escala.getDia21Fk());
-		escalaNova.setDia22Fk(escala.getDia22Fk());
-		escalaNova.setDia23Fk(escala.getDia23Fk());
-		escalaNova.setDia24Fk(escala.getDia24Fk());
-		escalaNova.setDia25Fk(escala.getDia25Fk());
-		escalaNova.setDia26Fk(escala.getDia26Fk());
-		escalaNova.setDia27Fk(escala.getDia27Fk());
-		escalaNova.setDia28Fk(escala.getDia28Fk());
-		escalaNova.setDia29Fk(escala.getDia29Fk());
-		escalaNova.setDia30Fk(escala.getDia30Fk());
-		escalaNova.setDia31Fk(escala.getDia31Fk());
+		
+		Turnos t01 = new Turnos();
+		t01.setDescricaoTurno(escala.getDia01Fk().getDescricaoTurno());
+		t01.setHorasManha(escala.getDia01Fk().getHorasManha());
+		t01.setHorasNoite(escala.getDia01Fk().getHorasNoite());
+		t01.setHorasTarde(escala.getDia01Fk().getHorasTarde());
+		t01.setId(escala.getDia01Fk().getId());
+		t01.setNomeTurno(escala.getDia01Fk().getNomeTurno());
+		t01.setPlantoes(escala.getDia01Fk().getPlantoes());
+		escalaNova.setDia01Fk(t01);
+		
+		Turnos t02 = new Turnos();
+		t02.setDescricaoTurno(escala.getDia02Fk().getDescricaoTurno());
+		t02.setHorasManha(escala.getDia02Fk().getHorasManha());
+		t02.setHorasNoite(escala.getDia02Fk().getHorasNoite());
+		t02.setHorasTarde(escala.getDia02Fk().getHorasTarde());
+		t02.setId(escala.getDia02Fk().getId());
+		t02.setNomeTurno(escala.getDia02Fk().getNomeTurno());
+		t02.setPlantoes(escala.getDia02Fk().getPlantoes());
+		escalaNova.setDia02Fk(t02);
+		
+		Turnos t03 = new Turnos();
+		t03.setDescricaoTurno(escala.getDia03Fk().getDescricaoTurno());
+		t03.setHorasManha(escala.getDia03Fk().getHorasManha());
+		t03.setHorasNoite(escala.getDia03Fk().getHorasNoite());
+		t03.setHorasTarde(escala.getDia03Fk().getHorasTarde());
+		t03.setId(escala.getDia03Fk().getId());
+		t03.setNomeTurno(escala.getDia03Fk().getNomeTurno());
+		t03.setPlantoes(escala.getDia03Fk().getPlantoes());
+		escalaNova.setDia03Fk(t03);
+		
+		Turnos t04 = new Turnos();
+		t04.setDescricaoTurno(escala.getDia04Fk().getDescricaoTurno());
+		t04.setHorasManha(escala.getDia04Fk().getHorasManha());
+		t04.setHorasNoite(escala.getDia04Fk().getHorasNoite());
+		t04.setHorasTarde(escala.getDia04Fk().getHorasTarde());
+		t04.setId(escala.getDia04Fk().getId());
+		t04.setNomeTurno(escala.getDia04Fk().getNomeTurno());
+		t04.setPlantoes(escala.getDia04Fk().getPlantoes());
+		escalaNova.setDia04Fk(t04);
+		
+		Turnos t05 = new Turnos();
+		t05.setDescricaoTurno(escala.getDia05Fk().getDescricaoTurno());
+		t05.setHorasManha(escala.getDia05Fk().getHorasManha());
+		t05.setHorasNoite(escala.getDia05Fk().getHorasNoite());
+		t05.setHorasTarde(escala.getDia05Fk().getHorasTarde());
+		t05.setId(escala.getDia05Fk().getId());
+		t05.setNomeTurno(escala.getDia05Fk().getNomeTurno());
+		t05.setPlantoes(escala.getDia05Fk().getPlantoes());
+		escalaNova.setDia05Fk(t05);
+		
+		Turnos t06 = new Turnos();
+		t06.setDescricaoTurno(escala.getDia06Fk().getDescricaoTurno());
+		t06.setHorasManha(escala.getDia06Fk().getHorasManha());
+		t06.setHorasNoite(escala.getDia06Fk().getHorasNoite());
+		t06.setHorasTarde(escala.getDia06Fk().getHorasTarde());
+		t06.setId(escala.getDia06Fk().getId());
+		t06.setNomeTurno(escala.getDia06Fk().getNomeTurno());
+		t06.setPlantoes(escala.getDia06Fk().getPlantoes());
+		escalaNova.setDia06Fk(t06);
+		
+		Turnos t07 = new Turnos();
+		t07.setDescricaoTurno(escala.getDia07Fk().getDescricaoTurno());
+		t07.setHorasManha(escala.getDia07Fk().getHorasManha());
+		t07.setHorasNoite(escala.getDia07Fk().getHorasNoite());
+		t07.setHorasTarde(escala.getDia07Fk().getHorasTarde());
+		t07.setId(escala.getDia07Fk().getId());
+		t07.setNomeTurno(escala.getDia07Fk().getNomeTurno());
+		t07.setPlantoes(escala.getDia07Fk().getPlantoes());
+		escalaNova.setDia07Fk(t07);
+		
+		Turnos t08 = new Turnos();
+		t08.setDescricaoTurno(escala.getDia08Fk().getDescricaoTurno());
+		t08.setHorasManha(escala.getDia08Fk().getHorasManha());
+		t08.setHorasNoite(escala.getDia08Fk().getHorasNoite());
+		t08.setHorasTarde(escala.getDia08Fk().getHorasTarde());
+		t08.setId(escala.getDia08Fk().getId());
+		t08.setNomeTurno(escala.getDia08Fk().getNomeTurno());
+		t08.setPlantoes(escala.getDia08Fk().getPlantoes());
+		escalaNova.setDia08Fk(t08);
+		
+		Turnos t09 = new Turnos();
+		t09.setDescricaoTurno(escala.getDia09Fk().getDescricaoTurno());
+		t09.setHorasManha(escala.getDia09Fk().getHorasManha());
+		t09.setHorasNoite(escala.getDia09Fk().getHorasNoite());
+		t09.setHorasTarde(escala.getDia09Fk().getHorasTarde());
+		t09.setId(escala.getDia09Fk().getId());
+		t09.setNomeTurno(escala.getDia09Fk().getNomeTurno());
+		t09.setPlantoes(escala.getDia09Fk().getPlantoes());
+		escalaNova.setDia09Fk(t09);
+		
+		Turnos t10 = new Turnos();
+		t10.setDescricaoTurno(escala.getDia10Fk().getDescricaoTurno());
+		t10.setHorasManha(escala.getDia10Fk().getHorasManha());
+		t10.setHorasNoite(escala.getDia10Fk().getHorasNoite());
+		t10.setHorasTarde(escala.getDia10Fk().getHorasTarde());
+		t10.setId(escala.getDia10Fk().getId());
+		t10.setNomeTurno(escala.getDia10Fk().getNomeTurno());
+		t10.setPlantoes(escala.getDia10Fk().getPlantoes());
+		escalaNova.setDia10Fk(t10);
+		
+		Turnos t11 = new Turnos();
+		t11.setDescricaoTurno(escala.getDia11Fk().getDescricaoTurno());
+		t11.setHorasManha(escala.getDia11Fk().getHorasManha());
+		t11.setHorasNoite(escala.getDia11Fk().getHorasNoite());
+		t11.setHorasTarde(escala.getDia11Fk().getHorasTarde());
+		t11.setId(escala.getDia11Fk().getId());
+		t11.setNomeTurno(escala.getDia11Fk().getNomeTurno());
+		t11.setPlantoes(escala.getDia11Fk().getPlantoes());
+		escalaNova.setDia11Fk(t11);
+		
+		Turnos t12 = new Turnos();
+		t12.setDescricaoTurno(escala.getDia12Fk().getDescricaoTurno());
+		t12.setHorasManha(escala.getDia12Fk().getHorasManha());
+		t12.setHorasNoite(escala.getDia12Fk().getHorasNoite());
+		t12.setHorasTarde(escala.getDia12Fk().getHorasTarde());
+		t12.setId(escala.getDia12Fk().getId());
+		t12.setNomeTurno(escala.getDia12Fk().getNomeTurno());
+		t12.setPlantoes(escala.getDia12Fk().getPlantoes());
+		escalaNova.setDia12Fk(t12);
+		
+		Turnos t13 = new Turnos();
+		t13.setDescricaoTurno(escala.getDia13Fk().getDescricaoTurno());
+		t13.setHorasManha(escala.getDia13Fk().getHorasManha());
+		t13.setHorasNoite(escala.getDia13Fk().getHorasNoite());
+		t13.setHorasTarde(escala.getDia13Fk().getHorasTarde());
+		t13.setId(escala.getDia13Fk().getId());
+		t13.setNomeTurno(escala.getDia13Fk().getNomeTurno());
+		t13.setPlantoes(escala.getDia13Fk().getPlantoes());
+		escalaNova.setDia13Fk(t13);
+		
+		Turnos t14 = new Turnos();
+		t14.setDescricaoTurno(escala.getDia14Fk().getDescricaoTurno());
+		t14.setHorasManha(escala.getDia14Fk().getHorasManha());
+		t14.setHorasNoite(escala.getDia14Fk().getHorasNoite());
+		t14.setHorasTarde(escala.getDia14Fk().getHorasTarde());
+		t14.setId(escala.getDia14Fk().getId());
+		t14.setNomeTurno(escala.getDia14Fk().getNomeTurno());
+		t14.setPlantoes(escala.getDia14Fk().getPlantoes());
+		escalaNova.setDia14Fk(t14);
+		
+		Turnos t15 = new Turnos();
+		t15.setDescricaoTurno(escala.getDia15Fk().getDescricaoTurno());
+		t15.setHorasManha(escala.getDia15Fk().getHorasManha());
+		t15.setHorasNoite(escala.getDia15Fk().getHorasNoite());
+		t15.setHorasTarde(escala.getDia15Fk().getHorasTarde());
+		t15.setId(escala.getDia15Fk().getId());
+		t15.setNomeTurno(escala.getDia15Fk().getNomeTurno());
+		t15.setPlantoes(escala.getDia15Fk().getPlantoes());
+		escalaNova.setDia15Fk(t15);
+		
+		Turnos t16 = new Turnos();
+		t16.setDescricaoTurno(escala.getDia16Fk().getDescricaoTurno());
+		t16.setHorasManha(escala.getDia16Fk().getHorasManha());
+		t16.setHorasNoite(escala.getDia16Fk().getHorasNoite());
+		t16.setHorasTarde(escala.getDia16Fk().getHorasTarde());
+		t16.setId(escala.getDia16Fk().getId());
+		t16.setNomeTurno(escala.getDia16Fk().getNomeTurno());
+		t16.setPlantoes(escala.getDia16Fk().getPlantoes());
+		escalaNova.setDia16Fk(t16);
+		
+		Turnos t17 = new Turnos();
+		t17.setDescricaoTurno(escala.getDia17Fk().getDescricaoTurno());
+		t17.setHorasManha(escala.getDia17Fk().getHorasManha());
+		t17.setHorasNoite(escala.getDia17Fk().getHorasNoite());
+		t17.setHorasTarde(escala.getDia17Fk().getHorasTarde());
+		t17.setId(escala.getDia17Fk().getId());
+		t17.setNomeTurno(escala.getDia17Fk().getNomeTurno());
+		t17.setPlantoes(escala.getDia17Fk().getPlantoes());
+		escalaNova.setDia17Fk(t17);
+		
+		Turnos t18 = new Turnos();
+		t18.setDescricaoTurno(escala.getDia18Fk().getDescricaoTurno());
+		t18.setHorasManha(escala.getDia18Fk().getHorasManha());
+		t18.setHorasNoite(escala.getDia18Fk().getHorasNoite());
+		t18.setHorasTarde(escala.getDia18Fk().getHorasTarde());
+		t18.setId(escala.getDia18Fk().getId());
+		t18.setNomeTurno(escala.getDia18Fk().getNomeTurno());
+		t18.setPlantoes(escala.getDia18Fk().getPlantoes());
+		escalaNova.setDia18Fk(t18);
+		
+		Turnos t19 = new Turnos();
+		t19.setDescricaoTurno(escala.getDia19Fk().getDescricaoTurno());
+		t19.setHorasManha(escala.getDia19Fk().getHorasManha());
+		t19.setHorasNoite(escala.getDia19Fk().getHorasNoite());
+		t19.setHorasTarde(escala.getDia19Fk().getHorasTarde());
+		t19.setId(escala.getDia19Fk().getId());
+		t19.setNomeTurno(escala.getDia19Fk().getNomeTurno());
+		t19.setPlantoes(escala.getDia19Fk().getPlantoes());
+		escalaNova.setDia19Fk(t19);
+		
+		Turnos t20 = new Turnos();
+		t20.setDescricaoTurno(escala.getDia20Fk().getDescricaoTurno());
+		t20.setHorasManha(escala.getDia20Fk().getHorasManha());
+		t20.setHorasNoite(escala.getDia20Fk().getHorasNoite());
+		t20.setHorasTarde(escala.getDia20Fk().getHorasTarde());
+		t20.setId(escala.getDia20Fk().getId());
+		t20.setNomeTurno(escala.getDia20Fk().getNomeTurno());
+		t20.setPlantoes(escala.getDia20Fk().getPlantoes());
+		escalaNova.setDia20Fk(t20);
+
+		Turnos t21 = new Turnos();
+		t21.setDescricaoTurno(escala.getDia21Fk().getDescricaoTurno());
+		t21.setHorasManha(escala.getDia21Fk().getHorasManha());
+		t21.setHorasNoite(escala.getDia21Fk().getHorasNoite());
+		t21.setHorasTarde(escala.getDia21Fk().getHorasTarde());
+		t21.setId(escala.getDia21Fk().getId());
+		t21.setNomeTurno(escala.getDia21Fk().getNomeTurno());
+		t21.setPlantoes(escala.getDia21Fk().getPlantoes());
+		escalaNova.setDia21Fk(t21);
+		
+		Turnos t22 = new Turnos();
+		t22.setDescricaoTurno(escala.getDia22Fk().getDescricaoTurno());
+		t22.setHorasManha(escala.getDia22Fk().getHorasManha());
+		t22.setHorasNoite(escala.getDia22Fk().getHorasNoite());
+		t22.setHorasTarde(escala.getDia22Fk().getHorasTarde());
+		t22.setId(escala.getDia22Fk().getId());
+		t22.setNomeTurno(escala.getDia22Fk().getNomeTurno());
+		t22.setPlantoes(escala.getDia22Fk().getPlantoes());
+		escalaNova.setDia22Fk(t22);
+		
+		Turnos t23 = new Turnos();
+		t23.setDescricaoTurno(escala.getDia23Fk().getDescricaoTurno());
+		t23.setHorasManha(escala.getDia23Fk().getHorasManha());
+		t23.setHorasNoite(escala.getDia23Fk().getHorasNoite());
+		t23.setHorasTarde(escala.getDia23Fk().getHorasTarde());
+		t23.setId(escala.getDia23Fk().getId());
+		t23.setNomeTurno(escala.getDia23Fk().getNomeTurno());
+		t23.setPlantoes(escala.getDia23Fk().getPlantoes());
+		escalaNova.setDia23Fk(t23);
+		
+		Turnos t24 = new Turnos();
+		t24.setDescricaoTurno(escala.getDia24Fk().getDescricaoTurno());
+		t24.setHorasManha(escala.getDia24Fk().getHorasManha());
+		t24.setHorasNoite(escala.getDia24Fk().getHorasNoite());
+		t24.setHorasTarde(escala.getDia24Fk().getHorasTarde());
+		t24.setId(escala.getDia24Fk().getId());
+		t24.setNomeTurno(escala.getDia24Fk().getNomeTurno());
+		t24.setPlantoes(escala.getDia24Fk().getPlantoes());
+		escalaNova.setDia24Fk(t24);
+		
+		Turnos t25 = new Turnos();
+		t25.setDescricaoTurno(escala.getDia25Fk().getDescricaoTurno());
+		t25.setHorasManha(escala.getDia25Fk().getHorasManha());
+		t25.setHorasNoite(escala.getDia25Fk().getHorasNoite());
+		t25.setHorasTarde(escala.getDia25Fk().getHorasTarde());
+		t25.setId(escala.getDia25Fk().getId());
+		t25.setNomeTurno(escala.getDia25Fk().getNomeTurno());
+		t25.setPlantoes(escala.getDia25Fk().getPlantoes());
+		escalaNova.setDia25Fk(t25);
+		
+		Turnos t26 = new Turnos();
+		t26.setDescricaoTurno(escala.getDia26Fk().getDescricaoTurno());
+		t26.setHorasManha(escala.getDia26Fk().getHorasManha());
+		t26.setHorasNoite(escala.getDia26Fk().getHorasNoite());
+		t26.setHorasTarde(escala.getDia26Fk().getHorasTarde());
+		t26.setId(escala.getDia26Fk().getId());
+		t26.setNomeTurno(escala.getDia26Fk().getNomeTurno());
+		t26.setPlantoes(escala.getDia26Fk().getPlantoes());
+		escalaNova.setDia26Fk(t26);
+		
+		Turnos t27 = new Turnos();
+		t27.setDescricaoTurno(escala.getDia27Fk().getDescricaoTurno());
+		t27.setHorasManha(escala.getDia27Fk().getHorasManha());
+		t27.setHorasNoite(escala.getDia27Fk().getHorasNoite());
+		t27.setHorasTarde(escala.getDia27Fk().getHorasTarde());
+		t27.setId(escala.getDia27Fk().getId());
+		t27.setNomeTurno(escala.getDia27Fk().getNomeTurno());
+		t27.setPlantoes(escala.getDia27Fk().getPlantoes());
+		escalaNova.setDia27Fk(t27);
+		
+		Turnos t28 = new Turnos();
+		t28.setDescricaoTurno(escala.getDia28Fk().getDescricaoTurno());
+		t28.setHorasManha(escala.getDia28Fk().getHorasManha());
+		t28.setHorasNoite(escala.getDia28Fk().getHorasNoite());
+		t28.setHorasTarde(escala.getDia28Fk().getHorasTarde());
+		t28.setId(escala.getDia28Fk().getId());
+		t28.setNomeTurno(escala.getDia28Fk().getNomeTurno());
+		t28.setPlantoes(escala.getDia28Fk().getPlantoes());
+		escalaNova.setDia28Fk(t28);
+		
+		Turnos t29 = new Turnos();
+		t29.setDescricaoTurno(escala.getDia29Fk().getDescricaoTurno());
+		t29.setHorasManha(escala.getDia29Fk().getHorasManha());
+		t29.setHorasNoite(escala.getDia29Fk().getHorasNoite());
+		t29.setHorasTarde(escala.getDia29Fk().getHorasTarde());
+		t29.setId(escala.getDia29Fk().getId());
+		t29.setNomeTurno(escala.getDia29Fk().getNomeTurno());
+		t29.setPlantoes(escala.getDia29Fk().getPlantoes());
+		escalaNova.setDia29Fk(t29);
+		
+		Turnos t30 = new Turnos();
+		t30.setDescricaoTurno(escala.getDia30Fk().getDescricaoTurno());
+		t30.setHorasManha(escala.getDia30Fk().getHorasManha());
+		t30.setHorasNoite(escala.getDia30Fk().getHorasNoite());
+		t30.setHorasTarde(escala.getDia30Fk().getHorasTarde());
+		t30.setId(escala.getDia30Fk().getId());
+		t30.setNomeTurno(escala.getDia30Fk().getNomeTurno());
+		t30.setPlantoes(escala.getDia30Fk().getPlantoes());
+		escalaNova.setDia30Fk(t30);
+		
+		Turnos t31 = new Turnos();
+		t31.setDescricaoTurno(escala.getDia31Fk().getDescricaoTurno());
+		t31.setHorasManha(escala.getDia31Fk().getHorasManha());
+		t31.setHorasNoite(escala.getDia31Fk().getHorasNoite());
+		t31.setHorasTarde(escala.getDia31Fk().getHorasTarde());
+		t31.setId(escala.getDia31Fk().getId());
+		t31.setNomeTurno(escala.getDia31Fk().getNomeTurno());
+		t31.setPlantoes(escala.getDia31Fk().getPlantoes());
+		escalaNova.setDia31Fk(t31);
+
+		
+		
+		
+		
 		
 		escalaNova.setDtCancelamento(escala.getDtCancelamento());
 		escalaNova.setDtMudanca(escala.getDtMudanca());
@@ -1007,6 +1582,9 @@ public class EscalaService {
 			}
 		}
 		if(resposta.length()>0) {resposta = " "+resposta;}
+		
+		//LIBERANDO TODOS OS LIMITES
+		resposta = "";
 		return resposta;
 	}
 	
@@ -1049,6 +1627,15 @@ public class EscalaService {
 		Pessoa pessoa = escala.getIdFuncionarioFk().getIdPessoaFk();
 		AnoMes anoMes = escala.getIdAnoMesFk();
 		return this.reposytory.findByIdFuncionarioFkIdPessoaFkAndIdAnoMesFkAndDtCancelamentoIsNullOrderByIdCoordenacaoFkIdLocalidadeFkIdUnidadeFkAscIdTipoFolhaFkAscIdFuncionarioFkIdPessoaFkNomeAsc(pessoa, anoMes);
+	}
+	
+	public int buscarQuantidadeDeEscalasPorMes(AnoMes anoMes){
+		int resposta = buscarPorMes(anoMes).size();
+		return resposta;
+	}
+	
+	public List<Escala> buscarPorMes( AnoMes anoMes) {
+		return this.reposytory.findByIdAnoMesFkAndDtCancelamentoIsNullOrderByIdCoordenacaoFkIdLocalidadeFkIdUnidadeFkAscIdTipoFolhaFkAscIdFuncionarioFkIdPessoaFkNomeAsc( anoMes);
 	}
 	
 }

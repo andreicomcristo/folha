@@ -16,21 +16,24 @@
 		<div class="container" id="cadastro">
 			<div th:replace="fragments/alert"></div>
 			<form
-				th:action= "@{/calculos/previsao/tempo/calculo}"
-				th:object= "${mesDoCalculo}" method="GET">
+				th:action= "@{/calculos/calcular}"
+				th:object= "${mesDoCalculo}" method="POST">
 				<div class="form-row">
 					<div class="form-group col-md-6">
-						<label for="nome" class="fonte-tutulos-tamanho">Escolher o Mês</label>
+						<label for="nome" class="fonte-tutulos-tamanho">Iniciar Cálculos</label>
+							<p></p>
+							
+							<label for="nome" class="" th:text = "${mensagem} "> </label>
+							
 							<p></p>
 							<label for="nome" class="">Mês </label>
-							<select  id="anoMes" class="form-control form-select chat-input" th:field="*{anoMes}">
-								<option value="">Selecione o Mês</option>
+							<select   id="anoMes" class="form-control form-select chat-input" th:field="*{anoMes}">
 								<option th:each="d : ${idAnoMesFk}" th:value="${d.id}"th:text="${d.nomeAnoMes}"> </option>
 							</select>	
 							<p></p>	
 							<p></p>		
 										
-						<button class="btn btn-outline-dark">Abrir</button>
+						<button class="btn btn-outline-dark">Calcular</button>
 						<p></p>													
 					</div>
 				</div>
@@ -41,3 +44,7 @@
 	</section>
 </body>
 </html>
+
+
+
+

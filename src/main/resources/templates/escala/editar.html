@@ -44,6 +44,7 @@
 				                	<input type=hidden id="" th:field="*{idAvaliacaoPermanenciaFk}" />
 				                	<input type=hidden id="" th:field="*{idAvaliacaoFormalizacaoPontoFk}" />
 				                	<input type=hidden id="" th:field="*{idAvaliacaoAtividadesBurocraticasFk}" />
+				                	<input type=hidden id="" th:field="*{idChDifSimNaoFk}" />
 				                	
 				                	
 				                	
@@ -104,17 +105,10 @@
 										</select>
 									</th>
 								 	<th>
-								 		<label class="text" style="font-size:12px;">CH Dif</label>
-								 		<select style="width:180px; height:25px; font-size:10px" id="turma" class="form-select"  th:field="*{idChDifSimNaoFk}" >
-											<option value=""></option>
-											<option th:each="d : ${idChDifFkCompativel}" th:value="${d.id}"th:text="${d.descricao}">CH Dif</option>
-										</select>
-								 	</th>
-								 	<th>
 								 		<label class="text" style="font-size:12px;">Complemento de Plantão</label>
 								 		<select style="width:180px; height:25px; font-size:10px" id="turma" class="form-select"  th:field="*{idComplementoPlantaoSimNaoFk}" >
 											<option value=""></option>
-											<option th:each="d : ${idChDifFkCompativel}" th:value="${d.id}"th:text="${d.descricao}">CH Dif</option>
+											<option th:each="d : ${idComplementoPlantaoSimNaoFk}" th:value="${d.id}"th:text="${d.descricao}">CH Dif</option>
 										</select>
 								 	</th>
 								 	<th>

@@ -21,6 +21,7 @@ public class CalcularBrutoService {
 	
 	
 	
+	
 	public Double calcularBruto(Double valor, PessoaFuncionarios funcionario, AnoMes anoMes) {
 		boolean temInss = true;
 		Double resposta = 0.0;
