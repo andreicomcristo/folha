@@ -208,6 +208,8 @@ public class FuncionariosFeriasController {
 		model.addAttribute("success", "Excluído com sucesso.");
 		return "redirect:/funcionariosferias/ferias/"+ idFuncionario;
 	}
+	
+	
 	///////////////////////////////////////////////////////////////////////////////////////////
 	@GetMapping("/buscar/ano/referencia/{id}")
 	public String getPorNome(@PathVariable("id") Long id, @RequestParam("anoReferencia") String anoReferencia, ModelMap model) {	
@@ -219,6 +221,8 @@ public class FuncionariosFeriasController {
 		return "/funcionarioferias/lista";
 	}
 	//////////////////////////////////////////////////////////////////////////////////////////////
+	
+	
 	@ModelAttribute("idFuncionarioFk")
 	public List<PessoaFuncionarios> getPessoaFuncionarios() {
 		return pessoaFuncionariosService.buscarTodos();
