@@ -11,7 +11,7 @@
 		
 		
 		<ul>
-			<li class="active main-menu-item">
+			<li class="menu-item" urlmatch='/'>
 				<a href="/"><span class=" oi oi-chevron-right icones-sidebar-tamanho align-middle"></span>Início</a>
 			</li>
 			<!--submenu configuracoes-->
@@ -1229,7 +1229,6 @@
 		</ul>
 		<script type="text/javascript">
 			(function() {
-				$('.sidebar').addClass('show')
 				const route = (window.location.pathname)
 				const menuItemList = $('li.menu-item')
 				const activeMenu = (menuItem) => {
@@ -1249,7 +1248,7 @@
 					}
 					for (let i = 0; i < elPath.length; i++) {
 						if ($(elPath[i])[0].localName === 'ul') {
-							$(elPath[i]).addClass('show10')
+							$(elPath[i]).addClass('show10').siblings().children().addClass( "rotate" );
 						} else if ($(elPath[i])[0].localName === 'li') {
 							$(elPath[i]).addClass('active')
 						}
