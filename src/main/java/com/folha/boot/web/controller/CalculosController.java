@@ -70,6 +70,7 @@ import com.folha.boot.service.PessoaOperadoresService;
 import com.folha.boot.service.PessoaService;
 import com.folha.boot.service.RegimesDeTrabalhoService;
 import com.folha.boot.service.SimNaoService;
+import com.folha.boot.service.TempoCalculoService;
 import com.folha.boot.service.TiposDeDocumentoService;
 import com.folha.boot.service.TiposDeFolhaService;
 import com.folha.boot.service.TurmasService;
@@ -111,6 +112,8 @@ public class CalculosController {
 	private JasperService service;
 	@Autowired
 	private EscalaService escalaService;
+	@Autowired
+	private TempoCalculoService tempoCalculoService;
 	
 	
 	
@@ -134,8 +137,10 @@ public class CalculosController {
 		String mensagem = "";
 		
 		//Colocar o tempo esperado por linha
-		Double tempoPorLinha = 1.0;
-		Double tempo = escalaService.buscarQuantidadeDeEscalasPorMes(anoMes) * tempoPorLinha; 
+		Double tempoPorLinha = tempoCalculoService.buscarPrimeiro().getSegundos();
+		int linhas = escalaService.buscarQuantidadeDeEscalasPorMes(anoMes);
+		Double tempoInicial = linhas * tempoPorLinha;
+		Double tempo = tempoInicial;
 		tempo = tempo/60;
 		tempo = tempo +1;
 		Double horas = 0.0;
@@ -151,7 +156,11 @@ public class CalculosController {
 		String minutosString = String.valueOf(minutos);
 		minutosString = minutosString.substring(0, minutosString.length()-2);
 		
-		mensagem = "Tempo previsto para conclusão: "+horasString+" hora(s) e "+minutosString+" minuto(s).";
+		Long agora = new Date().getTime();
+		Long depois = agora + (  (Long.parseLong(String.valueOf(horasString))*60*60*1000) + (Long.parseLong(String.valueOf(minutosString))*60*1000) );
+		Date termino = new Date(depois);
+		
+		mensagem = "Tempo previsto para conclusão de "+linhas+" escalas é de "+horasString+" hora(s) e "+minutosString+" minuto(s) ["+termino.getHours()+":"+termino.getMinutes()+":"+termino.getSeconds()+"].";
 		
 		model.addAttribute("mensagem", mensagem);
 		
