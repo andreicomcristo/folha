@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html layout:decorate="~{layout}">
+<head><meta charset="UTF-8" /></head>
+<body>
+	<section class="layout-content" layout:fragment="corpo">
+
+		<nav class="navbar navbar-expand-md bg-light">
+			<form th:action="@{/pessoas/listar}">
+				<div class=" layout-content">
+					<a class="btn btn-outline-light oi oi-action-undo" type="button" href="javascript:history.back()"></a>
+					<a class="btn btn-outline-light oi oi-action-redo" type="button" href="javascript:history.forward()"></a>
+					
+					<!-- Esse botão não está sendo seguro para voltar para nova pessoa
+					<a class="btn btn-outline-dark btn-md" href="/pessoas/cadastrar/inicio"
+						role="button"> <span class="oi oi-plus" title="Cadastro"
+						aria-hidden="true"></span> <span>Novo</span>
+					</a>
+					 -->
+				</div>
+			</form>
+		</nav>
+
+		<div class="container" id="cadastro">
+
+			<div th:replace="fragments/alert"></div>
+			<form
+				th:action="${pessoa.id == null} ? @{/pessoas/salvar} : @{/pessoas/salvar}"
+				th:object="${pessoa}" method="POST">
+				<div class="form-row">
+					<div class="form-group col-md-6">
+						<label for="nome" class="fonte-tutulos-tamanho">Cadastro de Pessoas </label>
+						
+						
+						
+			<!-- 			
+			<nav>
+			  <div class="nav nav-tabs" id="nav-tab" role="tablist">
+			    <a class="nav-item nav-link active" id="nav-identificacao-tab" data-toggle="tab" href="#nav-identificacao" role="tab" aria-controls="nav-identificacao" aria-selected="true">Identificação</a>
+			    <a class="nav-item nav-link" id="nav-contatos-tab" data-toggle="tab" href="#nav-contatos" role="tab" aria-controls="nav-contatos" aria-selected="false">Contatos</a>
+			    <a class="nav-item nav-link" id="nav-caracteristicas-tab" data-toggle="tab" href="#nav-caracteristicas" role="tab" aria-controls="nav-caracteristicas" aria-selected="false">Caracteristicas</a>
+			    <a class="nav-item nav-link" id="nav-filiacao-tab" data-toggle="tab" href="#nav-filiacao" role="tab" aria-controls="nav-filiacao" aria-selected="false">Filiação</a>
+			  </div>
+			</nav>
+			 -->
+			
+			
+			<div class="tab-content" id="nav-tabContent">
+			  
+			  <!--
+			  
+				<div class="tab-pane fade show active" id="nav-identificacao" role="tabpanel" aria-labelledby="nav-identificacao-tab">
+			  	 -->	
+			  		<p></p>
+			  		
+			  		<label for="nome" class="">CPF </label>
+			  		<input type="text"	class="form-control form-control-md" autofocus="autofocus" data-mask="000.000.000-00"
+					id="codigo" placeholder="Cpf" th:field="*{cpf}" />
+					<p></p>
+			  		
+			  		<label for="nome" class="">Nome </label>
+			  		<input type="text"	class="form-control form-control-md uppercase" autofocus="autofocus" 
+					id="codigo" placeholder="Nome" th:field="*{nome}" />
+					<p></p>
+					
+					<label for="nome" class="">Nome Social </label>
+					<input type="text"	class="form-control form-control-md uppercase" autofocus="autofocus"
+					id="codigo" placeholder="Nome Social" th:field="*{nomeSocial}" />
+					<p></p>
+					
+					
+			  		
+			  <!--
+			  
+				</div>
+			  
+			  
+			   	<div class="tab-pane fade" id="nav-contatos" role="tabpanel" aria-labelledby="nav-contatos-tab">
+					
+					<p></p>
+			  		-->
+			  		
+			  		<label for="nome" class="">Fone Principal </label>
+			  		<input type="text"	class="form-control form-control-md" autofocus="autofocus" data-mask="(00) 00000-0000"
+					id="codigo" placeholder="Fone Principal" th:field="*{fone1}" />
+					<p></p>
+					
+					<label for="nome" class="">Fone Secundário </label>
+					<input type="text"	class="form-control form-control-md" autofocus="autofocus" data-mask="(00) 00000-0000"
+					id="codigo" placeholder="Fone Secundário" th:field="*{fone2}" />
+					<p></p>
+					
+					<label for="nome" class="">Fone Alternativo </label>
+					<input type="text"	class="form-control form-control-md" autofocus="autofocus" data-mask="(00) 00000-0000"
+					id="codigo" placeholder="Fone Alternativo" th:field="*{fone3}" />
+					<p></p>
+					
+					<label for="nome" class="">Email </label>
+			  		<input type="text"	class="form-control form-control-md" autofocus="autofocus"
+					id="codigo" placeholder="email" th:field="*{email}" />
+					<p></p>
+					
+					<label for="nome" class="">Email Saúde </label>
+					<input type="text"	class="form-control form-control-md" autofocus="autofocus"
+					id="codigo" placeholder="email saúde" th:field="*{emailSaude}" />
+					<p></p>
+					
+				<!--
+				</div>
+				
+				
+			 	<div class="tab-pane fade" id="nav-caracteristicas" role="tabpanel" aria-labelledby="nav-caracteristicas-tab">
+			 	-->
+			 		<p></p>
+					
+					<label for="nome" class="">Data Nascimento </label>
+					<input type="text"	class="form-control form-control-md" autofocus="autofocus" data-mask="00/00/0000"
+					id="codigo" placeholder="Data de Nascimento" th:field="*{dtNascimento}" />
+					<p></p>
+					
+					<label for="nome" class="">Sexo Biológico </label>
+					<select id="sexos" class="form-select" th:field="*{idSexoFk}">
+						<option value="">Selecione Sexo Biológico</option>
+						<option th:each="d : ${idSexoFk}" th:value="${d.id}"th:text="${d.descricaoSexo}">ADM</option>
+					</select>
+					<p></p>
+					
+					<label for="nome" class="">Identidade de Gênero </label>
+					<select id="sexos" class="form-select" th:field="*{idSexoDeclaradoFk}">
+						<option value="">Selecione Identidade de Gênero</option>
+						<option th:each="d : ${idSexoDeclaradoFk}" th:value="${d.id}"th:text="${d.descricaoSexo}">ADM</option>
+					</select>
+					<p></p>
+					
+					<label for="nome" class="">Cidade Natal </label>
+					<select id="sexos" class="form-select" th:field="*{idCidadeNatalFk}">
+						<option value="">Selecione Cidade Natal</option>
+						<option th:each="d : ${idCidadeNatalFk}" th:value="${d.id}"th:text="${d.nomeCidade+' - '+d.idUfFk.nomeUf+' - '+d.idPaisFk.nomePais}">ADM</option>
+					</select>
+					<p></p>	
+					
+					<label for="nome" class="">Escolaridade </label>
+					<select id="sexos" class="form-select" th:field="*{idEscolaridadeFk}">
+						<option value="">Selecione Escolaridade</option>
+						<option th:each="d : ${idEscolaridadeFk}" th:value="${d.id}"th:text="${d.nomeEscolaridade}">ADM</option>
+					</select>
+					<p></p>
+					
+					<label for="nome" class="">Estado Civil </label>
+					<select id="sexos" class="form-select" th:field="*{idEstadoCivilFk}">
+						<option value="">Selecione Estado Civil</option>
+						<option th:each="d : ${idEstadoCivilFk}" th:value="${d.id}"th:text="${d.nomeEstadoCivil}">ADM</option>
+					</select>
+					<p></p>
+			 	
+			 	<!--
+			 	</div>
+			  
+			  	<div class="tab-pane fade" id="nav-filiacao" role="tabpanel" aria-labelledby="nav-filiacao-tab">
+			  		<p></p>
+			  	-->	
+			  		<label for="nome" class="">Nome do Pai </label>
+			  		<input type="text"	class="form-control form-control-md uppercase" autofocus="autofocus" 
+					id="codigo" placeholder="Nome do pai" th:field="*{nomePai}" />
+					<p></p>
+			  		
+			  		<label for="nome" class="">Nome da Mãe </label>
+			  		<input type="text"	class="form-control form-control-md uppercase" autofocus="autofocus"
+					id="codigo" placeholder="Nome da Mãe" th:field="*{nomeMae}" />
+					<p></p>
+			  		
+			  		<button class="btn btn-outline-dark">Avancar</button>
+			  	<!--
+			  	</div>
+			  	-->
+			  	
+			</div>
+						
+						
+						<p></p>	
+												
+						<input type="hidden" id="id" th:field="*{id}" />
+						
+					</div>
+				</div>
+			</form>
+		</div>
+	</section>
+	
+</body>
+</html>

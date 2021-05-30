@@ -21,8 +21,41 @@
 				th:object="${pessoaBancos}" method="POST">
 				<div class="form-row">
 
-					<div class="form-group col-md-6">
+					<div class="form-group col-md-12">
 						<label for="nome" class="fonte-tutulos-tamanho">Cadastro de Conta Bancária</label>
+						<ul class="nav nav-tabs">
+  <li class="nav-item">
+    <a class="nav-link disabled" href="#">Busca</a>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link disabled" href="#">Dados pessoais</a>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link disabled" href="#">Documentos básicos</a>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link disabled" href="#">Documentos específicos</a>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link disabled" href="#">Endereço</a>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link disabled" href="#">Dependentes</a>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link active" href="#">Conta bancária</a>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link disabled" href="#">Funcionários</a>
+  </li>
+</ul>
+<br/>
+<div class="tab-content col-md-6" id="nav-tabContent">
+						
+						<a class="btn btn-outline-danger btn-sm" th:href="@{/pessoabancos/retroceder}"
+							role="button"> <span class="oi oi-arrow-thick-left" title="Cadastro"
+							aria-hidden="true"></span> <span>Retroceder</span>
+						</a>
 							<p></p>	
 							
 							<label for="nome" class="">Banco </label>
@@ -84,16 +117,12 @@
 						<button class="btn btn-outline-dark">Enviar</button>
 						<p></p>	
 						
-						<a class="btn btn-outline-danger btn-sm" th:href="@{/pessoabancos/retroceder}"
-							role="button"> <span class="oi oi-arrow-thick-left" title="Cadastro"
-							aria-hidden="true"></span> <span>Retroceder</span>
-						</a>
-						
 						<a class="btn btn-outline-success btn-sm" th:href="@{/pessoabancos/avancar}"
 							role="button"> <span>Avançar</span><span class="oi oi-arrow-thick-right" 
 							title="Cadastro" aria-hidden="true"></span>
 						</a>
 						
+					</div>
 					</div>
 				</div>
 			</form>

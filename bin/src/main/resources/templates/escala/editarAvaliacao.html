@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html layout:decorate="~{layout}">
+<head><meta charset="UTF-8"/></head>
+<body>
+	<section class="layout-content" layout:fragment="corpo">	
+		<div class="container" id="cadastro">
+		<input type=hidden id="" th:field="${idLinha}" />			
+			<form
+				th:action="${escala.id == null} ? @{/escalas/salvar} : @{/escalas/salvar}"
+				th:object="${escala}" method="POST">
+				<div class="form-row">
+					<div class="form-group col-md-12 col-lg-12 col-sm-12">
+						<H5>
+						<a class="btn btn-outline-light oi oi-action-undo" type="button" href="javascript:history.back()"></a>
+						<a class="btn btn-outline-light oi oi-action-redo" type="button" href="javascript:history.forward()"></a>    
+						<a class="btn btn-outline-dark btn-md" href="/escalas/listar" role="button">
+				        	<span class="oi oi-list" title="Atualizar" aria-hidden="true"></span>
+				            <span>Listar Escala</span>
+				        </a>
+				        
+						<label for="nome" class="">Avaliação (NOTAS)</label></H5>
+									
+					<div>
+						
+						<table class="table table-striped table-hover table-sm myTable">
+			            	<thead>
+			          			<tr>
+				                	<th>
+				                	<input type=hidden id="" th:field="*{id}" />
+				                	<input type=hidden id="" th:field="*{idAnoMesFk}" />
+				                	<input type=hidden id="" th:field="*{idCoordenacaoFk}" />
+				                	<input type=hidden id="" th:field="*{idFuncionarioFk}" />
+				                	<input type=hidden id="" th:field="*{idTipoFolhaFk}" />				                	
+				                	<input type=hidden id="" th:field="*{idIncrementoDeRiscoSimNaoFk}" />
+				                	<input type=hidden id="" th:field="*{idChDifSimNaoFk}" />
+				                	<input type=hidden id="" th:field="*{horasTotais}" />
+				                	<input type=hidden id="" th:field="*{horasDia}" />				                	
+				                	<input type=hidden id="" th:field="*{horasNoite}" />
+				                	<input type=hidden id="" th:field="*{horasSemana}" />
+				                	<input type=hidden id="" th:field="*{horasFimSemana}" />
+				                	<input type=hidden id="" th:field="*{plantoes}" />
+				                	<input type=hidden id="" th:field="*{idCodigoDiferenciadoFk}" />
+				                	<input type=hidden id="" th:field="*{idRegimeFk}" />
+				                	<input type=hidden id="" th:field="*{idTurmaFk}" />				                	
+				                	<input type=hidden id="" th:field="*{idPresencialSimNaoFk}" />
+				                	<input type=hidden id="" th:field="*{idLiberacaoDobraInvertidaSimNaoFk}" />				            	
+				                	<input type=hidden id="" th:field="*{dia01Fk}" />
+				                	<input type=hidden id="" th:field="*{dia02Fk}" />
+				                	<input type=hidden id="" th:field="*{dia03Fk}" />
+				                	<input type=hidden id="" th:field="*{dia04Fk}" />
+				                	<input type=hidden id="" th:field="*{dia05Fk}" />
+				                	<input type=hidden id="" th:field="*{dia06Fk}" />
+				                	<input type=hidden id="" th:field="*{dia07Fk}" />
+				                	<input type=hidden id="" th:field="*{dia08Fk}" />
+				                	<input type=hidden id="" th:field="*{dia09Fk}" />
+				                	<input type=hidden id="" th:field="*{dia10Fk}" />
+				                	<input type=hidden id="" th:field="*{dia11Fk}" />
+				                	<input type=hidden id="" th:field="*{dia12Fk}" />
+				                	<input type=hidden id="" th:field="*{dia13Fk}" />
+				                	<input type=hidden id="" th:field="*{dia14Fk}" />
+				                	<input type=hidden id="" th:field="*{dia15Fk}" />
+				                	<input type=hidden id="" th:field="*{dia16Fk}" />
+				                	<input type=hidden id="" th:field="*{dia17Fk}" />
+				                	<input type=hidden id="" th:field="*{dia18Fk}" />
+				                	<input type=hidden id="" th:field="*{dia19Fk}" />
+				                	<input type=hidden id="" th:field="*{dia20Fk}" />
+				                	<input type=hidden id="" th:field="*{dia21Fk}" />
+				                	<input type=hidden id="" th:field="*{dia22Fk}" />
+				                	<input type=hidden id="" th:field="*{dia23Fk}" />
+				                	<input type=hidden id="" th:field="*{dia24Fk}" />
+				                	<input type=hidden id="" th:field="*{dia25Fk}" />
+				                	<input type=hidden id="" th:field="*{dia26Fk}" />
+				                	<input type=hidden id="" th:field="*{dia27Fk}" />
+				                	<input type=hidden id="" th:field="*{dia28Fk}" />
+				                	<input type=hidden id="" th:field="*{dia29Fk}" />
+				                	<input type=hidden id="" th:field="*{dia30Fk}" />
+				                	<input type=hidden id="" th:field="*{dia31Fk}" />
+				                	<input type=hidden id="" th:field="*{observacoes}" />
+				                	
+				        				<label style="text-align: center; color:#008080;" th:text="*{idCoordenacaoFk.nomeCoordenacao+'-'+idCoordenacaoFk.idLocalidadeFk.nomeLocalidade+'-'+idCoordenacaoFk.idAtividadeFk.nomeAtividade+'-'+idCoordenacaoFk.idLocalidadeFk.idUnidadeFk.nomeFantasia}" class="text" >Escala </label>
+									</th>
+									<th>
+				        				<label style="text-align: center; color:#008080;" th:text="*{idAnoMesFk.nomeAnoMes}" class="text" >Mes </label>
+									</th>
+								</tr>
+							</thead>
+						</table>
+			            	
+								 
+						<table class="table table-striped table-hover table-sm myTable">
+			            	<thead>			
+								<tr>							
+				                    <th>
+				        				<label class="text" >Nome : </label>
+				        				<div style="color:green;" th:text="*{idFuncionarioFk.idPessoaFk.nome}" class="text" >Nome Completo do Indivíduo em Questão </div>
+									</th>
+				                    <th>
+				                    	<label class="text" >CPF : </label>
+				                    	<label style="color:grey;" th:text="*{idFuncionarioFk.idPessoaFk.cpf}" class="text" >000 000 000 00 </label>
+									</th>
+									<th>
+										<label class="text" >Matrícula : </label>
+				                    	<label style="color:grey;" th:text="*{idFuncionarioFk.matricula}" class="text" >9 000 000 0 </label>
+									</th>
+									<th>
+										<label class="text" >Cargo : </label>
+				                    	<label style="color:grey;" th:text="*{idFuncionarioFk.idEspecialidadeAtualFk.idCargoFk.nomeCargo+'-'+idFuncionarioFk.idEspecialidadeAtualFk.nomeEspecialidadeCargo}" class="text" >Cargo </label>
+									</th>									
+								 </tr>
+							 </thead>
+						</table>
+			            									 
+						<table class="table table-striped table-hover table-sm myTable">
+			            	<thead>
+								 <div th:replace="fragments/alert"></div>
+								 <tr>
+								 	<th>
+								 		<label class="text" style="font-size:12px;">Satisfaz em assiduidade? </label>
+					                	<select style="width:180px; height:25px; font-size:10px" id="turma" class="form-select"  th:field="*{idAvaliacaoAssiduidadeFk}" >
+											<option value=""></option>
+											<option th:each="d : ${idAvaliacaoAssiduidadeFk}" th:value="${d.id}"th:text="${d.descricao}">Presencial</option>
+										</select>
+										<p></p>									
+									
+										<label class="text" style="font-size:12px;">Permanece no posto de trabalho durante todo o periodo esperado?</label>
+								 		<select style="width:180px; height:25px; font-size:10px" id="turma" class="form-select"  th:field="*{idAvaliacaoPermanenciaFk}" >
+											<option value=""></option>
+											<option th:each="d : ${idAvaliacaoPermanenciaFk}" th:value="${d.id}"th:text="${d.descricao}">CH Dif</option>
+										</select>
+										<p></p>
+								 								 	
+								 		<label class="text" style="font-size:12px;">Cumpre as formalizações relativas ao ponto? </label>
+								 		<select style="width:180px; height:25px; font-size:10px" id="turma" class="form-select"   th:field="*{idAvaliacaoFormalizacaoPontoFk}" >
+											<option value=""></option>
+											<option th:each="d : ${idAvaliacaoFormalizacaoPontoFk}" th:value="${d.id}"th:text="${d.descricao}">Incremento de Risco</option>
+										</select>
+										<p></p>								 	
+								 	
+								 		<label class="text" style="font-size:12px;">Efetua adequadamente as atividades inerentes? </label>
+								 		<select style="width:180px; height:25px; font-size:10px" id="turma" class="form-select" th:field="*{idAvaliacaoAtividadesBurocraticasFk}" >
+											<option value=""></option>
+											<option th:each="d : ${idAvaliacaoAtividadesBurocraticasFk}" th:value="${d.id}"th:text="${d.descricao}">DIFERENCIADO</option>
+										</select>
+										<p></p>
+									</th>
+								 	
+								 </tr>
+							 </thead>
+						</table>
+								
+							<button class="btn btn-outline-success">Lançar</button>	
+							
+						</div>	
+							
+							<input type="hidden" id="id" th:field="*{id}" />													
+						<p></p>					
+					</div>
+				</div>
+			</form>
+		</div>	
+		<div th:replace="fragments/modal :: modal"></div>
+	</section>
+</body>
+</html>
+
