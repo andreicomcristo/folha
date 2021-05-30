@@ -70,8 +70,12 @@ public class FaixasValoresFolhExtController {
 	@Autowired
 	private PessoaFuncionariosService pessoaFuncionariosService;
 	
-	//Lista de funcionarios
-	//Funcionarios Todos os Possíveis
+	////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+	/*Lista de funcionarios
+	  Funcionarios Todos os Possíveis
+	  Inicio da paginação*/
+	
+	
 	@GetMapping("/paginar/funcionarios/{pageNo}")
 	public String getPorNomePaginadoInclusao(@PathVariable (value = "pageNo") int pageNo, ModelMap model) {
 		
@@ -165,10 +169,8 @@ public class FaixasValoresFolhExtController {
 		this.ultimoAnoMes = anoMes;
 		return this.findPaginated(1, anoMes, model);
 	}
-	
+	//Fim da paginação
 	////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////	
-	///Fim da paginação
-	
 	
 	
 	@GetMapping("/cadastrar")
