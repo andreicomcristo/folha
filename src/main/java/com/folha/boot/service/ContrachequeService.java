@@ -562,47 +562,7 @@ public class ContrachequeService {
 		}
 			
 			
-			//Colocando Pensao
-			if(pensao>0) {
-				linha = linha+1;
-				
-				cell = new PdfPCell(new Phrase( String.valueOf(linha) ,corpoFont2));
-				cell.setVerticalAlignment(Element.ALIGN_MIDDLE);
-				cell.setHorizontalAlignment(Element.ALIGN_CENTER);
-				table.addCell(cell);
-	
-				cell = new PdfPCell(new Phrase( String.valueOf( "IR"  ) ,corpoFont2) );
-				cell.setPaddingLeft(5);
-				cell.setVerticalAlignment(Element.ALIGN_MIDDLE);
-				cell.setHorizontalAlignment(Element.ALIGN_CENTER);
-				table.addCell(cell);
-	
-				cell = new PdfPCell(new Phrase("IMPOSTO DE RENDA NA FONTE" ,corpoFont2) );
-				cell.setVerticalAlignment(Element.ALIGN_MIDDLE);
-				cell.setHorizontalAlignment(Element.ALIGN_CENTER);
-				table.addCell(cell);
-				
-				cell = new PdfPCell(new Phrase( "" ,corpoFont2) );
-				cell.setVerticalAlignment(Element.ALIGN_MIDDLE);
-				cell.setHorizontalAlignment(Element.ALIGN_CENTER);
-				table.addCell(cell);
-				
-				cell = new PdfPCell(new Phrase(  String.valueOf("")  ,corpoFont2) );
-				cell.setVerticalAlignment(Element.ALIGN_MIDDLE);
-				cell.setHorizontalAlignment(Element.ALIGN_CENTER);
-				table.addCell(cell);
-				
-				cell = new PdfPCell(new Phrase( String.valueOf( "" ) ,corpoFont2) );
-				cell.setVerticalAlignment(Element.ALIGN_MIDDLE);
-				cell.setHorizontalAlignment(Element.ALIGN_CENTER);
-				table.addCell(cell);	
-				
-				cell = new PdfPCell(new Phrase( String.valueOf( ir ) ,corpoFont2) );
-				cell.setVerticalAlignment(Element.ALIGN_MIDDLE);
-				cell.setHorizontalAlignment(Element.ALIGN_CENTER);
-				table.addCell(cell);	
-			}
-			
+
 			
 			//Calculando bruto e líquido
 			bruto = vantagens;
@@ -730,9 +690,6 @@ public class ContrachequeService {
 			document.add(tableTitulo3);
 			document.add(tableTitulo4);
 			document.add(table);
-			//document.add(tableTitulo5);
-			//document.add(table2);
-			//document.add(tableTitulo6);
 			document.add(tableTitulo9);
 			document.add(tableTitulo7);
 			document.add(tableTitulo8);

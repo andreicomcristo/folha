@@ -79,6 +79,7 @@ import com.folha.boot.service.calculos.escala.CalculosCalcularService;
 import com.folha.boot.service.relatorios.JasperService;
 import com.folha.boot.service.seguranca.UsuarioService;
 import com.folha.boot.service.util.UtilidadesDeCalendarioEEscala;
+import com.folha.boot.service.util.UtilidadesMatematicas;
 
 @Controller
 @RequestMapping("/calculos")
@@ -108,6 +109,8 @@ public class CalculosController {
 	CalculosCalcularService calculosCalcularService;
 	@Autowired
 	private JasperService service;
+	@Autowired
+	private EscalaService escalaService;
 	
 	
 	
@@ -121,11 +124,51 @@ public class CalculosController {
 		return "/calculos/escolherMes"; 
 	}
 	
-	@PostMapping("/calcular")
-	public void irParaEscala(ModelMap model, MesDoCalculo mesDoCalculo, HttpServletResponse response) throws IOException {
+	@GetMapping("/previsao/tempo/calculo")
+	public String previsaoTempoCalculo(@RequestParam("anoMes") AnoMes anoMes, ModelMap model) throws IOException {
 		
-		calculosCalcularService.calcular(mesDoCalculo.getAnoMes());
-		exibirRelatoriosVencimentosTodosPorMes(mesDoCalculo.getAnoMes(), response);
+		anoMes = anoMesService.buscarPorId(anoMes.getId());
+		MesDoCalculo mesDoCalculo = new MesDoCalculo();
+		mesDoCalculo.setAnoMes(anoMesService.buscarPorId(anoMes.getId()));
+		
+		String mensagem = "";
+		
+		//Colocar o tempo esperado por linha
+		Double tempoPorLinha = 1.0;
+		Double tempo = escalaService.buscarQuantidadeDeEscalasPorMes(anoMes) * tempoPorLinha; 
+		tempo = tempo/60;
+		tempo = tempo +1;
+		Double horas = 0.0;
+		Double minutos = 0.0;
+		minutos=tempo%60;
+		horas = (tempo-minutos)/60;
+		horas = UtilidadesMatematicas.ajustaValorDecimal(horas, 0);
+		minutos = UtilidadesMatematicas.ajustaValorDecimal(minutos, 0);
+		
+		String horasString = String.valueOf(horas);
+		horasString = horasString.substring(0, horasString.length()-2);
+		
+		String minutosString = String.valueOf(minutos);
+		minutosString = minutosString.substring(0, minutosString.length()-2);
+		
+		mensagem = "Tempo previsto para conclusão: "+horasString+" hora(s) e "+minutosString+" minuto(s).";
+		
+		model.addAttribute("mensagem", mensagem);
+		
+		model.addAttribute("anoMes", anoMes);
+		model.addAttribute("mesDoCalculo", mesDoCalculo);
+		model.addAttribute("idAnoMesFk",mesDoCalculo.getAnoMes() );
+		return "/calculos/calcular";
+	}	
+	
+	
+	
+	
+	@PostMapping("/calcular")
+	public void irParaEscala(MesDoCalculo mesDoCalculo, ModelMap model,  HttpServletResponse response) throws IOException {
+		AnoMes anoMes = anoMesService.buscarPorId(mesDoCalculo.getAnoMes().getId());
+		calculosCalcularService.calcular(anoMes);
+		exibirRelatoriosVencimentosTodosPorMes(anoMes, response);
 		
 		//return "redirect:/calculos/escolher/mes"; 
 	}

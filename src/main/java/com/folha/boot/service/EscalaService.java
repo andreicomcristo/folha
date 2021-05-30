@@ -1629,4 +1629,13 @@ public class EscalaService {
 		return this.reposytory.findByIdFuncionarioFkIdPessoaFkAndIdAnoMesFkAndDtCancelamentoIsNullOrderByIdCoordenacaoFkIdLocalidadeFkIdUnidadeFkAscIdTipoFolhaFkAscIdFuncionarioFkIdPessoaFkNomeAsc(pessoa, anoMes);
 	}
 	
+	public int buscarQuantidadeDeEscalasPorMes(AnoMes anoMes){
+		int resposta = buscarPorMes(anoMes).size();
+		return resposta;
+	}
+	
+	public List<Escala> buscarPorMes( AnoMes anoMes) {
+		return this.reposytory.findByIdAnoMesFkAndDtCancelamentoIsNullOrderByIdCoordenacaoFkIdLocalidadeFkIdUnidadeFkAscIdTipoFolhaFkAscIdFuncionarioFkIdPessoaFkNomeAsc( anoMes);
+	}
+	
 }
