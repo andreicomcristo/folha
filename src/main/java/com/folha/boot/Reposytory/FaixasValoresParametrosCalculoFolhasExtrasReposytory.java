@@ -9,6 +9,9 @@ import org.springframework.stereotype.Repository;
 
 import com.folha.boot.domain.AnoMes;
 import com.folha.boot.domain.FaixasValoresParametrosCalculoFolhasExtras;
+import com.folha.boot.domain.NiveisCargo;
+import com.folha.boot.domain.RegimesDeTrabalho;
+import com.folha.boot.domain.TiposDeFolha;
 import com.folha.boot.domain.Unidades;
 
 @Repository
@@ -19,6 +22,8 @@ public interface FaixasValoresParametrosCalculoFolhasExtrasReposytory extends Jp
 	public List<FaixasValoresParametrosCalculoFolhasExtras> findByIdCodDiferenciadoFkIdUnidadeFkNomeFantasiaContainingOrderByIdAnoMesFkNomeAnoMesDescIdCodDiferenciadoFkIdUnidadeFkNomeFantasiaAsc(String nome);
 	
 	public List<FaixasValoresParametrosCalculoFolhasExtras> findByIdAnoMesFkOrderByIdAnoMesFkNomeAnoMesDescIdCodDiferenciadoFkIdUnidadeFkNomeFantasiaAsc(AnoMes anoMes);
+	
+	public List<FaixasValoresParametrosCalculoFolhasExtras> findByIdAnoMesFkAndIdNivelFkAndIdRegimeDeTrabalhoFkAndIdTipoDeFolhaFkAndIdCodDiferenciadoFkIdUnidadeFkOrderByIdAnoMesFkNomeAnoMesDescIdCodDiferenciadoFkIdUnidadeFkNomeFantasiaAsc(AnoMes anoMes, NiveisCargo nivel, RegimesDeTrabalho regime, TiposDeFolha folha, Unidades unidade);
 	
 	public Page<FaixasValoresParametrosCalculoFolhasExtras> findAllByOrderByIdAnoMesFkNomeAnoMesDescIdCodDiferenciadoFkIdUnidadeFkNomeFantasiaAsc(final Pageable page);
 	

@@ -25,11 +25,23 @@ public class TiposDeFolha extends AbstractEntity<Long> {
 	private List<FaixasValoresParametrosCalculoFolhasExtras> faixasValoresParametrosCalculoFolhasExtrasList;
 	@OneToMany(mappedBy = "idFolhaFk")
     private List<RubricaVencimento> rubricaVencimentoList;
+	@OneToMany(mappedBy = "idTipoDeFolhaFk")
+    private List<TiposDeFolhaVinculo> tiposDeFolhaVinculoList;
 	
 	@JoinColumn(name = "id_folha_efetiva_sim_nao_fk", referencedColumnName = "id")
     @ManyToOne
     private SimNao idFolhaEfetivaSimNaoFk;
 	
+	@JoinColumn(name = "id_admite_complemento_de_plantao_sim_nao_fk", referencedColumnName = "id")
+    @ManyToOne
+    private SimNao idAdmiteComplementoDePlantaoSimNaoFk;
+    @JoinColumn(name = "id_admite_incremento_de_risco_sim_nao_fk", referencedColumnName = "id")
+    @ManyToOne
+    private SimNao idAdmiteIncrementoDeRiscoSimNaoFk;
+    
+	
+    
+    
 	@OneToMany(mappedBy = "idTipoFolhaFk")
     private List<EscalaAlteracoes> escalaAlteracoesList;
 	
@@ -96,6 +108,24 @@ public class TiposDeFolha extends AbstractEntity<Long> {
 	}
 	public void setRubricaVencimentoList(List<RubricaVencimento> rubricaVencimentoList) {
 		this.rubricaVencimentoList = rubricaVencimentoList;
+	}
+	public List<TiposDeFolhaVinculo> getTiposDeFolhaVinculoList() {
+		return tiposDeFolhaVinculoList;
+	}
+	public void setTiposDeFolhaVinculoList(List<TiposDeFolhaVinculo> tiposDeFolhaVinculoList) {
+		this.tiposDeFolhaVinculoList = tiposDeFolhaVinculoList;
+	}
+	public SimNao getIdAdmiteComplementoDePlantaoSimNaoFk() {
+		return idAdmiteComplementoDePlantaoSimNaoFk;
+	}
+	public void setIdAdmiteComplementoDePlantaoSimNaoFk(SimNao idAdmiteComplementoDePlantaoSimNaoFk) {
+		this.idAdmiteComplementoDePlantaoSimNaoFk = idAdmiteComplementoDePlantaoSimNaoFk;
+	}
+	public SimNao getIdAdmiteIncrementoDeRiscoSimNaoFk() {
+		return idAdmiteIncrementoDeRiscoSimNaoFk;
+	}
+	public void setIdAdmiteIncrementoDeRiscoSimNaoFk(SimNao idAdmiteIncrementoDeRiscoSimNaoFk) {
+		this.idAdmiteIncrementoDeRiscoSimNaoFk = idAdmiteIncrementoDeRiscoSimNaoFk;
 	}
 	
 	

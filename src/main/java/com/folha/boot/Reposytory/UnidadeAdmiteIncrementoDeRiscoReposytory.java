@@ -24,6 +24,8 @@ public interface UnidadeAdmiteIncrementoDeRiscoReposytory extends JpaRepository<
 	
 	public List<UnidadeAdmiteIncrementoDeRisco> findByIdAnoMesFkOrderByIdAnoMesFkNomeAnoMesDescIdUnidadeFkNomeFantasiaAsc(AnoMes anoMes);
 	
+	public List<UnidadeAdmiteIncrementoDeRisco> findByIdAnoMesFkAndIdUnidadeFkOrderByIdAnoMesFkNomeAnoMesDescIdUnidadeFkNomeFantasiaAsc(AnoMes anoMes, Unidades unidade);
+	
 	public Page<UnidadeAdmiteIncrementoDeRisco> findAllByOrderByIdAnoMesFkNomeAnoMesDescIdUnidadeFkNomeFantasiaAsc(final Pageable page);
 	
 	public Page<UnidadeAdmiteIncrementoDeRisco> findByIdAnoMesFkNomeAnoMesContainingOrderByIdAnoMesFkNomeAnoMesDescIdUnidadeFkNomeFantasiaAsc(String nome, final Pageable page);

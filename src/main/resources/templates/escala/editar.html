@@ -105,16 +105,14 @@
 										</select>
 									</th>
 								 	<th>
-								 		<label class="text" style="font-size:12px;">Complemento de Plantão</label>
-								 		<select style="width:180px; height:25px; font-size:10px" id="turma" class="form-select"  th:field="*{idComplementoPlantaoSimNaoFk}" >
-											<option value=""></option>
-											<option th:each="d : ${idComplementoPlantaoSimNaoFk}" th:value="${d.id}"th:text="${d.descricao}">CH Dif</option>
+								 		<label class="text" style="font-size:12px;">Complemento de Plantão Diferenciado Folha Efetiva</label>
+								 		<select style="width:320px; height:25px; font-size:10px" id="turma" class="form-select"  th:field="*{idComplementoPlantaoSimNaoFk}" >
+											<option th:each="d : ${idComplementoDePlantaoCompativel}" th:value="${d.id}"th:text="${d.descricao}">CH Dif</option>
 										</select>
 								 	</th>
 								 	<th>
-								 		<label class="text" style="font-size:12px;">Incremento de Risco </label>
+								 		<label class="text" style="font-size:12px;">Incentivo de Risco </label>
 								 		<select style="width:180px; height:25px; font-size:10px" id="turma" class="form-select"   th:field="*{idIncrementoDeRiscoSimNaoFk}" >
-											<option value=""></option>
 											<option th:each="d : ${idIncrementoDeRiscoCompativel}" th:value="${d.id}"th:text="${d.descricao}">Incremento de Risco</option>
 										</select>
 								 	</th>

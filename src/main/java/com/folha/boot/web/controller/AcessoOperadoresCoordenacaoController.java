@@ -60,7 +60,7 @@ public class AcessoOperadoresCoordenacaoController {
 		
 		model.addAttribute("unidade", usuarioService.pegarUnidadeLogada());
 		model.addAttribute("operador", pessoaOperadoresService.buscarPorId(idOperadorAlterado));
-		model.addAttribute("acessoOperadoresCoordenacaoLista", service.buscarPorOperador(pessoaOperadoresService.buscarPorId(idOperadorAlterado)));
+		model.addAttribute("acessoOperadoresCoordenacaoLista", service.buscarPorOperadorEUnidade(pessoaOperadoresService.buscarPorId(idOperadorAlterado), usuarioService.pegarUnidadeLogada()));
 		return "/acessoOperadoresCoordenacaoEscala/cadastro";
 	}
 	

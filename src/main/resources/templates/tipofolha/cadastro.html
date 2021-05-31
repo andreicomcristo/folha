@@ -53,6 +53,24 @@
 									<option value="">Folha Efetiva</option>
 									<option class="form-select" th:each="d : ${idFolhaEfetivaSimNaoFk}" th:value="${d.id}"th:text="${d.descricao}" selected >ADM</option>
 							</select>		
+							<p></p>
+							
+							<label for="nome" class="">Admite Incentivo de Risco </label>
+							<select id="cargos" class="form-select" th:field="*{idAdmiteIncrementoDeRiscoSimNaoFk}">
+									<option value="">Admite Incentivo de Risco</option>
+									<option class="form-select" th:each="d : ${idAdmiteIncrementoDeRiscoSimNaoFk}" th:value="${d.id}"th:text="${d.descricao}" selected >ADM</option>
+							</select>		
+							<p></p>
+							
+							
+							<label for="nome" class="">Admite Complemento de Plantao Diferenciado (Folha Efetiva) </label>
+							<select id="cargos" class="form-select" th:field="*{idAdmiteComplementoDePlantaoSimNaoFk}">
+									<option value="">Admite Complemento de Plantao Diferenciado</option>
+									<option class="form-select" th:each="d : ${idAdmiteComplementoDePlantaoSimNaoFk}" th:value="${d.id}"th:text="${d.descricao}" selected >ADM</option>
+							</select>		
+							<p></p>
+							
+							
 							
 							<p></p>
 							
