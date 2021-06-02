@@ -109,6 +109,8 @@ public class Unidades extends AbstractEntity<Long> {
     private List<FaixasValoresPss> faixasValoresPssList;
     @OneToMany(mappedBy = "idUnidadeFk")
     private List<FaixasValoresFolhExt> faixasValoresFolhExtList;
+    @OneToMany(mappedBy = "idUnidadeFk")
+    private List<PessoaComplementoDePlantao> pessoaComplementoDePlantaoList;
     
     @OneToMany(mappedBy = "idUnidadeFk")
     private List<AtividadeEscala> atividadeEscalaList;
@@ -589,6 +591,14 @@ public class Unidades extends AbstractEntity<Long> {
 
 	public void setLeitosAtivos(Integer leitosAtivos) {
 		this.leitosAtivos = leitosAtivos;
+	}
+
+	public List<PessoaComplementoDePlantao> getPessoaComplementoDePlantaoList() {
+		return pessoaComplementoDePlantaoList;
+	}
+
+	public void setPessoaComplementoDePlantaoList(List<PessoaComplementoDePlantao> pessoaComplementoDePlantaoList) {
+		this.pessoaComplementoDePlantaoList = pessoaComplementoDePlantaoList;
 	}
 	
 	

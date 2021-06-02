@@ -39,19 +39,28 @@ import com.folha.boot.domain.Escala;
 import com.folha.boot.domain.EscalaAlteracoes;
 import com.folha.boot.domain.EscalaCodDiferenciado;
 import com.folha.boot.domain.EscalaPosTransparencia;
+import com.folha.boot.domain.FaixasValoresParametrosCalculoFolhasExtras;
+import com.folha.boot.domain.NiveisCargo;
 import com.folha.boot.domain.Pessoa;
 import com.folha.boot.domain.PessoaCodDiferenciado;
+import com.folha.boot.domain.PessoaComplementoDePlantao;
 import com.folha.boot.domain.PessoaDocumentos;
 import com.folha.boot.domain.PessoaFuncionarios;
+import com.folha.boot.domain.PessoaIncrementoDeRisco;
 import com.folha.boot.domain.PessoaOperadores;
 import com.folha.boot.domain.RegimesDeTrabalho;
 import com.folha.boot.domain.SimNao;
 import com.folha.boot.domain.TiposDeDocumento;
 import com.folha.boot.domain.TiposDeFolha;
+import com.folha.boot.domain.TiposDeFolhaNivelCargo;
+import com.folha.boot.domain.TiposDeFolhaVinculo;
 import com.folha.boot.domain.Turmas;
 import com.folha.boot.domain.Turnos;
 import com.folha.boot.domain.Uf;
+import com.folha.boot.domain.UnidadeAdmiteComplementoPlantao;
+import com.folha.boot.domain.UnidadeAdmiteIncrementoDeRisco;
 import com.folha.boot.domain.Unidades;
+import com.folha.boot.domain.Vinculos;
 import com.folha.boot.domain.models.escala.EscolhaAcessoEscala;
 import com.folha.boot.domain.models.escala.InclusaoEscala;
 import com.folha.boot.service.AcessoOperadoresCoordenacaoService;
@@ -66,8 +75,10 @@ import com.folha.boot.service.EscalaCodDiferenciadoService;
 import com.folha.boot.service.EscalaExportacaoService;
 import com.folha.boot.service.EscalaPosTransparenciaService;
 import com.folha.boot.service.EscalaService;
+import com.folha.boot.service.FaixasValoresParametrosCalculoFolhasExtrasService;
 import com.folha.boot.service.PessoaChDifService;
 import com.folha.boot.service.PessoaCodDiferenciadoService;
+import com.folha.boot.service.PessoaComplementoDePlantaoService;
 import com.folha.boot.service.PessoaDocumentosService;
 import com.folha.boot.service.PessoaFuncionariosService;
 import com.folha.boot.service.PessoaIncrementoDeRiscoService;
@@ -76,9 +87,13 @@ import com.folha.boot.service.PessoaService;
 import com.folha.boot.service.RegimesDeTrabalhoService;
 import com.folha.boot.service.SimNaoService;
 import com.folha.boot.service.TiposDeDocumentoService;
+import com.folha.boot.service.TiposDeFolhaNivelCargoService;
 import com.folha.boot.service.TiposDeFolhaService;
+import com.folha.boot.service.TiposDeFolhaVinculoService;
 import com.folha.boot.service.TurmasService;
 import com.folha.boot.service.TurnosService;
+import com.folha.boot.service.UnidadeAdmiteComplementoPlantaoService;
+import com.folha.boot.service.UnidadeAdmiteIncrementoDeRiscoService;
 import com.folha.boot.service.UnidadesService;
 import com.folha.boot.service.seguranca.UsuarioService;
 import com.folha.boot.service.util.UtilidadesDeCalendarioEEscala;
@@ -158,6 +173,18 @@ public class EscalaController {
 	PessoaIncrementoDeRiscoService pessoaIncrementoDeRiscoService;
 	@Autowired
 	EscalaCodDiferenciadoService escalaCodDiferenciadoService;
+	@Autowired
+	FaixasValoresParametrosCalculoFolhasExtrasService faixasValoresParametrosCalculoFolhasExtrasService;
+	@Autowired
+	TiposDeFolhaVinculoService tiposDeFolhaVinculoService;
+	@Autowired
+	TiposDeFolhaNivelCargoService tiposDeFolhaNivelCargoService;
+	@Autowired
+	UnidadeAdmiteIncrementoDeRiscoService unidadeAdmiteIncrementoDeRiscoService;
+	@Autowired
+	UnidadeAdmiteComplementoPlantaoService unidadeAdmiteComplementoPlantaoService;
+	@Autowired
+	PessoaComplementoDePlantaoService pessoaComplementoDePlantaoService;
 	
 	
 	
@@ -603,9 +630,12 @@ public class EscalaController {
 		String nomeColuna6 = escalaCalculosService.obtemNomeDiaColuna(anoMesDaEscala, 6);
 		String nomeColuna7 = escalaCalculosService.obtemNomeDiaColuna(anoMesDaEscala, 7);
 		// falta complemento de planantao compativel
-		model.addAttribute("idCodigoDiferenciadoFkCompativel", getCodigosDiferenciadoCompativel(escala.getIdFuncionarioFk().getIdPessoaFk()) );
+		
+		model.addAttribute("idCodigoDiferenciadoFkCompativel", getCodigosDiferenciadoCompativel( escala) );
 		model.addAttribute("idChDifFkCompativel", pessoaChDifService.listaSimNaoCompativelComPessoa(usuarioService.pegarUnidadeLogada(), escala.getIdFuncionarioFk().getIdPessoaFk(), escala.getIdAnoMesFk()) );
-		model.addAttribute("idIncrementoDeRiscoCompativel", pessoaIncrementoDeRiscoService.listaSimNaoCompativelComPessoa(usuarioService.pegarUnidadeLogada(), escala.getIdFuncionarioFk().getIdPessoaFk(), escala.getIdAnoMesFk()) );
+		model.addAttribute("idIncrementoDeRiscoCompativel", getIncrementoDeRiscoCompativel(escala) );
+		model.addAttribute("idComplementoDePlantaoCompativel", getComplementoDePlantaoCompativel(escala) );
+		
 	
 		model.addAttribute("escala", escala );
 		model.addAttribute("idLinha", id );
@@ -1335,7 +1365,7 @@ public class EscalaController {
 			escala = escalaCalculosService.converteTurnoNuloEmFolga(escala);
 			escala = escalaCalculosService.calcularDadosEscala(escala);
 			
-			model.addAttribute("idCodigoDiferenciadoFkCompativel", getCodigosDiferenciadoCompativel(escala.getIdFuncionarioFk().getIdPessoaFk()) );
+			model.addAttribute("idCodigoDiferenciadoFkCompativel", getCodigosDiferenciadoCompativel( escala) );
 			model.addAttribute("escala", escala );
 			model.addAttribute("escalaCodDiferenciado", escalaCodDiferenciado );
 			model.addAttribute("lista1", escalaCodDiferenciadoService.buscarPorEscala(escala) );
@@ -3801,9 +3831,17 @@ public class EscalaController {
 		
 		String nome = pessoaFuncionariosService.buscarPorId(id).getIdPessoaFk().getNome();
 		
+		PessoaFuncionarios funcionario = pessoaFuncionariosService.buscarPorId(id);
+		Vinculos vinculo = funcionario.getIdVinculoAtualFk();
+		NiveisCargo nivel = funcionario.getIdEspecialidadeAtualFk().getIdCargoFk().getIdNivelCargoFk();
+		AnoMes anoMes = anoMesService.buscarPorId(mesAtual()) ;
+		
+		
 		InclusaoEscala inclusaoEscala = new InclusaoEscala();
 		inclusaoEscala.setId(id);		
 		List<AcessoOperadoresCoordenacao> listaDeCoordenacoes = acessoOperadoresCoordenacaoService.buscarPorOperador(usuarioService.pegarOperadorLogado());
+		
+		model.addAttribute("idTipoFolhaFkCompativel", getTiposDeFolhaCompativel(anoMes, nivel, vinculo ) );
 		model.addAttribute("escolhaAcessoEscala", new EscolhaAcessoEscala()); 
 		model.addAttribute("coordenacaoEscala", coordenacaoEscalaService.buscarAcessoIndividual(usuarioService.pegarUnidadeLogada() , usuarioService.pegarOperadorLogado() , listaDeCoordenacoes ) );
 		model.addAttribute("anoMes", anoMesService.buscarTodos());
@@ -4069,11 +4107,120 @@ public class EscalaController {
 	}
 	
 	
+	public List<SimNao> getIncrementoDeRiscoCompativel(Escala escala) {
+		
+		AnoMes anoMes = escala.getIdAnoMesFk();
+		Unidades unidade = escala.getIdCoordenacaoFk().getIdLocalidadeFk().getIdUnidadeFk();
+		Pessoa pessoa = escala.getIdFuncionarioFk().getIdPessoaFk();
+		TiposDeFolha folha = escala.getIdTipoFolhaFk();
+		
+		List<SimNao> lista = simNaoService.buscarTodos();
+		List<UnidadeAdmiteIncrementoDeRisco> lista1 = unidadeAdmiteIncrementoDeRiscoService.buscarPorMesExatoUnidade(anoMes, unidade);
+		List<PessoaIncrementoDeRisco> lista2 = pessoaIncrementoDeRiscoService.buscarPorMesExatoUnidadePessoa(anoMes, unidade, pessoa);
+		List<TiposDeFolha> lista3 = tiposDeFolhaService.buscarTodos();
+		
+		//Retirando quando nao tem Unidade ou pessoa atribuida
+		for(int i=0;i<lista.size();i++) {
+			if(lista.get(i).getSigla().equalsIgnoreCase("S")) {
+				if(lista1.isEmpty()  ||  lista2.isEmpty()) {lista.remove(i); i=i-1;}
+			}
+		}
+		
+		//Retirando quando nao tem Folha Compativel
+		for(int i=0;i<lista.size();i++) {
+			if(lista.get(i).getSigla().equalsIgnoreCase("S")) {
+				boolean achou = false;
+				for(int j=0;j<lista3.size();j++) {
+					if(lista3.get(j) == folha) {
+						if(lista3.get(j).getIdAdmiteIncrementoDeRiscoSimNaoFk().getSigla().equalsIgnoreCase("S")) {achou = true;}
+					}
+				}
+				if(achou==false) {lista.remove(i); i=i-1;}
+			}
+		}
+		
+		
+		return lista;
+	}
 	
-	public List<CodigoDiferenciado> getCodigosDiferenciadoCompativel(Pessoa pessoa) {
+	
+
+	
+	
+	public List<SimNao> getComplementoDePlantaoCompativel(Escala escala) {
+		
+		AnoMes anoMes = escala.getIdAnoMesFk();
+		Unidades unidade = escala.getIdCoordenacaoFk().getIdLocalidadeFk().getIdUnidadeFk();
+		Pessoa pessoa = escala.getIdFuncionarioFk().getIdPessoaFk();
+		TiposDeFolha folha = escala.getIdTipoFolhaFk();
+		
+		List<SimNao> lista = simNaoService.buscarTodos();
+		List<UnidadeAdmiteComplementoPlantao> lista1 = unidadeAdmiteComplementoPlantaoService.buscarPorMesExatoUnidade(anoMes, unidade);
+		List<PessoaComplementoDePlantao> lista2 = pessoaComplementoDePlantaoService.buscarPorMesExatoUnidadePessoa(anoMes, unidade, pessoa);
+		List<TiposDeFolha> lista3 = tiposDeFolhaService.buscarTodos();
+		
+		//Retirando quando nao tem Unidade ou pessoa atribuida
+		for(int i=0;i<lista.size();i++) {
+			if(lista.get(i).getSigla().equalsIgnoreCase("S")) {
+				if(lista1.isEmpty()  ||  lista2.isEmpty()) {lista.remove(i); i=i-1;}
+			}
+		}
+		
+		//Retirando quando nao tem Folha Compativel
+		for(int i=0;i<lista.size();i++) {
+			if(lista.get(i).getSigla().equalsIgnoreCase("S")) {
+				boolean achou = false;
+				for(int j=0;j<lista3.size();j++) {
+					if(lista3.get(j) == folha) {
+						if(lista3.get(j).getIdAdmiteComplementoDePlantaoSimNaoFk().getSigla().equalsIgnoreCase("S")) {achou = true;}
+					}
+				}
+				if(achou==false) {lista.remove(i); i=i-1;}
+			}
+		}
+		
+		
+		return lista;
+	}
+	
+	
+	
+	
+	public List<TiposDeFolha> getTiposDeFolhaCompativel(AnoMes anoMes, NiveisCargo nivel, Vinculos vinculo) {
+		
+		List<TiposDeFolha> lista = tiposDeFolhaService.buscarTodos();
+		List<TiposDeFolhaVinculo> lista1 = tiposDeFolhaVinculoService.buscarPorMesVinculo(anoMes, vinculo);
+		List<TiposDeFolhaNivelCargo> lista2 = tiposDeFolhaNivelCargoService.buscarPorMesNivel(anoMes, nivel);
+		
+		//Retirando quando nao tem Vinculo Compativel
+		for(int i=0;i<lista.size();i++) {
+			boolean achou = false;
+			for(int j=0;j<lista1.size();j++) {
+				if(lista.get(i) == lista1.get(j).getIdTipoDeFolhaFk() ) {achou = true; break;}
+			}
+			if(achou == false) {lista.remove(i); i=i-1;}
+		}
+		
+		//Retirando quando nao tem Nivel Compativel
+		for(int i=0;i<lista.size();i++) {
+			boolean achou = false;
+			for(int j=0;j<lista2.size();j++) {
+				if(lista.get(i) == lista2.get(j).getIdTipoDeFolhaFk() ) {achou = true; break;}
+			}
+			if(achou == false) {lista.remove(i); i=i-1;}
+		}
+		
+		
+		return lista;
+	}
+	
+	public List<CodigoDiferenciado> getCodigosDiferenciadoCompativel(Escala escala) {
+		Pessoa pessoa = escala.getIdFuncionarioFk().getIdPessoaFk() ;
+		
 		List<CodigoDiferenciado> lista = codigoDiferenciadoService.buscarTodosQueNaoPrecisaDeAtribuicaoRh(usuarioService.pegarUnidadeLogada());
 		List<PessoaCodDiferenciado> lista1 = pessoaCodDiferenciadoService.buscarPorUnidadeEPessoaQuePrecisaAtribuicaoRhENaoPrecisaAprovacaoDaSede(usuarioService.pegarUnidadeLogada(), pessoa);
 		List<PessoaCodDiferenciado> lista2 = pessoaCodDiferenciadoService.buscarPorUnidadeEPessoaAprovadoSede(usuarioService.pegarUnidadeLogada(), pessoa);
+		List<FaixasValoresParametrosCalculoFolhasExtras> lista3 = faixasValoresParametrosCalculoFolhasExtrasService.buscarPorMesExatoNivelRegimeFolhaUnidade( escala );
 		
 		for(int i=0;i<lista1.size();i++) {
 			lista.add(lista1.get(i).getIdCodDiferenciadoFk());
@@ -4087,6 +4234,16 @@ public class EscalaController {
 		for(int i=0; i<lista.size(); i++) {
 			if(lista.get(i).getNomeCodigoDiferenciado().equalsIgnoreCase("N")) {lista.remove(i); i=i-1;}
 		}
+		
+		//Retirando quando nao tem valores atribuidos
+		for(int i=0;i<lista.size();i++) {
+			boolean achou = false;
+			for(int j=0;j<lista3.size();j++) {
+				if(lista.get(i) == lista3.get(j).getIdCodDiferenciadoFk() ) {achou = true; break;}
+			}
+			if(achou == false) {lista.remove(i); i=i-1;}
+		}
+		
 		
 		return lista;
 	}

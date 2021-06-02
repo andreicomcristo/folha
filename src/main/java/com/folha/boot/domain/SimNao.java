@@ -34,6 +34,11 @@ public class SimNao extends AbstractEntity<Long> {
     @OneToMany(mappedBy = "idLiberacaoDobraInvertidaSimNaoFk")
     private List<Escala> escalaList7;
     
+    @OneToMany(mappedBy = "idAdmiteComplementoDePlantaoSimNaoFk")
+    private List<TiposDeFolha> tiposDeFolhaList1;
+    @OneToMany(mappedBy = "idAdmiteIncrementoDeRiscoSimNaoFk")
+    private List<TiposDeFolha> tiposDeFolhaList2;
+    
     @OneToMany(mappedBy = "idAvaliacaoAssiduidadeFk")
     private List<EscalaPosTransparencia> escalaPosTransparenciaList;
     @OneToMany(mappedBy = "idChDifSimNaoFk")
@@ -519,6 +524,26 @@ public class SimNao extends AbstractEntity<Long> {
 		this.escalaPosTransparenciaList8 = escalaPosTransparenciaList8;
 	}
 
+
+	public List<TiposDeFolha> getTiposDeFolhaList1() {
+		return tiposDeFolhaList1;
+	}
+
+
+	public void setTiposDeFolhaList1(List<TiposDeFolha> tiposDeFolhaList1) {
+		this.tiposDeFolhaList1 = tiposDeFolhaList1;
+	}
+
+
+	public List<TiposDeFolha> getTiposDeFolhaList2() {
+		return tiposDeFolhaList2;
+	}
+
+
+	public void setTiposDeFolhaList2(List<TiposDeFolha> tiposDeFolhaList2) {
+		this.tiposDeFolhaList2 = tiposDeFolhaList2;
+	}
+	
 	
 
 	

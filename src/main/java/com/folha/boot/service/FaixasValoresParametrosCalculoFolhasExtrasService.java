@@ -23,6 +23,7 @@ import org.springframework.transaction.annotation.Transactional;
 import com.folha.boot.Reposytory.FaixasValoresParametrosCalculoFolhasExtrasReposytory;
 import com.folha.boot.domain.AnoMes;
 import com.folha.boot.domain.Cidades;
+import com.folha.boot.domain.Escala;
 import com.folha.boot.domain.FaixasValoresParametrosCalculoFolhasExtras;
 import com.folha.boot.domain.Unidades;
 import com.itextpdf.text.Document;
@@ -82,6 +83,13 @@ public class FaixasValoresParametrosCalculoFolhasExtrasService {
 	public List<FaixasValoresParametrosCalculoFolhasExtras> buscarPorMesExato(AnoMes anoMes) {
 		return reposytory.findByIdAnoMesFkOrderByIdAnoMesFkNomeAnoMesDescIdCodDiferenciadoFkIdUnidadeFkNomeFantasiaAsc(anoMes);
 	}
+	
+	
+	@Transactional(readOnly = true)
+	public List<FaixasValoresParametrosCalculoFolhasExtras> buscarPorMesExatoNivelRegimeFolhaUnidade(Escala escala) {
+		return reposytory.findByIdAnoMesFkAndIdNivelFkAndIdRegimeDeTrabalhoFkAndIdTipoDeFolhaFkAndIdCodDiferenciadoFkIdUnidadeFkOrderByIdAnoMesFkNomeAnoMesDescIdCodDiferenciadoFkIdUnidadeFkNomeFantasiaAsc(escala.getIdAnoMesFk(), escala.getIdFuncionarioFk().getIdEspecialidadeAtualFk().getIdCargoFk().getIdNivelCargoFk(), escala.getIdRegimeFk(), escala.getIdTipoFolhaFk(), escala.getIdCoordenacaoFk().getIdLocalidadeFk().getIdUnidadeFk());
+	}
+	
 	
 	
 	public Page<FaixasValoresParametrosCalculoFolhasExtras> findPaginated(int pageNo, int pageSize) {

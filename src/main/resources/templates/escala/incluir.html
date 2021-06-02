@@ -37,7 +37,7 @@
 							<label for="nome" class="">Tipo de Folha </label>
 							<select id="cargos" class="form-select" th:field="*{tiposDeFolha}">
 								<option value="">Selecione o Tipo de Folha</option>
-								<option th:each="d : ${idTipoFolhaFk}" th:value="${d.id}"th:text="${d.nomeTipoFolha}">ADM</option>
+								<option th:each="d : ${idTipoFolhaFkCompativel}" th:value="${d.id}"th:text="${d.nomeTipoFolha}">ADM</option>
 							</select>	
 							<p></p>
 							<label for="nome" class="">Turma </label>

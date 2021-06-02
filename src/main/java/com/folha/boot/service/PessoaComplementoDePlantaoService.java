@@ -22,7 +22,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import com.folha.boot.Reposytory.FaixasValoresParametrosCalculoFolhasExtrasReposytory;
-import com.folha.boot.Reposytory.PessoaIncrementoDeRiscoReposytory;
+import com.folha.boot.Reposytory.PessoaComplementoDePlantaoReposytory;
 import com.folha.boot.Reposytory.UnidadeAdmiteChDifReposytory;
 import com.folha.boot.domain.AnoMes;
 import com.folha.boot.domain.Cidades;
@@ -30,11 +30,11 @@ import com.folha.boot.domain.FaixasValoresParametrosCalculoFolhasExtras;
 import com.folha.boot.domain.Pessoa;
 import com.folha.boot.domain.PessoaChDif;
 import com.folha.boot.domain.PessoaCodDiferenciado;
-import com.folha.boot.domain.PessoaIncrementoDeRisco;
+import com.folha.boot.domain.PessoaComplementoDePlantao;
 import com.folha.boot.domain.PessoaOperadores;
 import com.folha.boot.domain.SimNao;
 import com.folha.boot.domain.UnidadeAdmiteChDif;
-import com.folha.boot.domain.UnidadeAdmiteIncrementoDeRisco;
+import com.folha.boot.domain.UnidadeAdmiteComplementoPlantao;
 import com.folha.boot.domain.Unidades;
 import com.itextpdf.text.Document;
 import com.itextpdf.text.DocumentException;
@@ -48,29 +48,29 @@ import com.itextpdf.text.pdf.PdfWriter;
 
 @Service
 @Transactional(readOnly = false)
-public class PessoaIncrementoDeRiscoService {
+public class PessoaComplementoDePlantaoService {
 
 	@Autowired
-	private PessoaIncrementoDeRiscoReposytory reposytory;
+	private PessoaComplementoDePlantaoReposytory reposytory;
 	
 	@Autowired
 	private AnoMesService anoMesService;
 	@Autowired
 	private PessoaOperadoresService pessoaOperadoresService;
 	@Autowired
-	private UnidadeAdmiteIncrementoDeRiscoService unidadeAdmiteIncrementoDeRiscoService;
+	private UnidadeAdmiteComplementoPlantaoService unidadeAdmiteComplementoDePlantaoService;
 	@Autowired
 	private SimNaoService simNaoService;
 	
 
-	public void salvar(PessoaIncrementoDeRisco pessoaIncrementoDeRisco) {
+	public void salvar(PessoaComplementoDePlantao pessoaComplementoDePlantao) {
 		// TODO Auto-generated method stub
-		reposytory.save(pessoaIncrementoDeRisco);
+		reposytory.save(pessoaComplementoDePlantao);
 	}
 
-	public void editar(PessoaIncrementoDeRisco pessoaIncrementoDeRisco) {
+	public void editar(PessoaComplementoDePlantao pessoaComplementoDePlantao) {
 		// TODO Auto-generated method stub
-		reposytory.save(pessoaIncrementoDeRisco);
+		reposytory.save(pessoaComplementoDePlantao);
 	}
 
 	public void excluir(Long id) {
@@ -79,43 +79,43 @@ public class PessoaIncrementoDeRiscoService {
 	}
 
 	@Transactional(readOnly = true)
-	public PessoaIncrementoDeRisco buscarPorId(Long id) {
+	public PessoaComplementoDePlantao buscarPorId(Long id) {
 		// TODO Auto-generated method stub
 		return reposytory.findById(id).get();
 	}
 
-	public List<PessoaIncrementoDeRisco> buscarPorUnidadeEPessoa(Unidades unidades, Pessoa pessoa) {
+	public List<PessoaComplementoDePlantao> buscarPorUnidadeEPessoa(Unidades unidades, Pessoa pessoa) {
 		return reposytory.findByIdUnidadeFkAndIdPessoaFkAndDtCancelamentoIsNullOrderByIdAnoMesFkNomeAnoMesDescIdUnidadeFkNomeFantasiaAscIdPessoaFkNomeAsc(unidades, pessoa);
 	}
 	
 	@Transactional(readOnly = true)
-	public List<PessoaIncrementoDeRisco> buscarTodos(Unidades unidades) {
+	public List<PessoaComplementoDePlantao> buscarTodos(Unidades unidades) {
 		// TODO Auto-generated method stub
 		return reposytory.findByIdUnidadeFkAndDtCancelamentoIsNullOrderByIdAnoMesFkNomeAnoMesDescIdUnidadeFkNomeFantasiaAscIdPessoaFkNomeAsc(unidades);
 	}
 	@Transactional(readOnly = true)
-	public List<PessoaIncrementoDeRisco> buscarPorNome(String nome, Unidades unidades) {
+	public List<PessoaComplementoDePlantao> buscarPorNome(String nome, Unidades unidades) {
 		return reposytory.findByIdUnidadeFkAndIdPessoaFkNomeContainingAndDtCancelamentoIsNullOrderByIdAnoMesFkNomeAnoMesDescIdUnidadeFkNomeFantasiaAscIdPessoaFkNomeAsc(unidades, nome);
 	}
 	
 	
 	@Transactional(readOnly = true)
-	public List<PessoaIncrementoDeRisco> buscarPorMesExato(AnoMes anoMes, Unidades unidades) {
+	public List<PessoaComplementoDePlantao> buscarPorMesExato(AnoMes anoMes, Unidades unidades) {
 		return reposytory.findByIdUnidadeFkAndIdAnoMesFkAndDtCancelamentoIsNullOrderByIdAnoMesFkNomeAnoMesDescIdUnidadeFkNomeFantasiaAscIdPessoaFkNomeAsc(unidades, anoMes);
 	}
 	
 	@Transactional(readOnly = true)
-	public List<PessoaIncrementoDeRisco> buscarPorMesExatoUnidadePessoa(AnoMes anoMes, Unidades unidades, Pessoa pessoa) {
+	public List<PessoaComplementoDePlantao> buscarPorMesExatoUnidadePessoa(AnoMes anoMes, Unidades unidades, Pessoa pessoa) {
 		return reposytory.findByIdUnidadeFkAndIdAnoMesFkAndIdPessoaFkAndDtCancelamentoIsNullOrderByIdAnoMesFkNomeAnoMesDescIdUnidadeFkNomeFantasiaAscIdPessoaFkNomeAsc(unidades, anoMes, pessoa);
 	}
 	
 	
-	public Page<PessoaIncrementoDeRisco> findPaginated(int pageNo, int pageSize, Unidades unidades) {
+	public Page<PessoaComplementoDePlantao> findPaginated(int pageNo, int pageSize, Unidades unidades) {
 		Pageable pageable = PageRequest.of(pageNo -1, pageSize);
 		return this.reposytory.findByIdUnidadeFkAndDtCancelamentoIsNullOrderByIdAnoMesFkNomeAnoMesDescIdUnidadeFkNomeFantasiaAscIdPessoaFkNomeAsc(unidades, pageable);
 	}
 
-	public Page<PessoaIncrementoDeRisco> findPaginatedAnoMes(int pageNo, int pageSize, String nome, Unidades unidades) {
+	public Page<PessoaComplementoDePlantao> findPaginatedAnoMes(int pageNo, int pageSize, String nome, Unidades unidades) {
 		Pageable pageable = PageRequest.of(pageNo -1, pageSize);
 		return this.reposytory.findByIdUnidadeFkAndIdAnoMesFkNomeAnoMesContainingAndDtCancelamentoIsNullOrderByIdAnoMesFkNomeAnoMesDescIdUnidadeFkNomeFantasiaAscIdPessoaFkNomeAsc(unidades, nome.toUpperCase().trim(), pageable);
 	}
@@ -125,12 +125,12 @@ public class PessoaIncrementoDeRiscoService {
 	//Herdar de um mes para o outro
 	public void herdarDeUmMesParaOOutro(Unidades unidade, PessoaOperadores pessoaOperadores, Long anoMesInicial, Long anoMesFinal) {
 		
-		List<PessoaIncrementoDeRisco> listaInicial = buscarPorMesExato(anoMesService.buscarPorId(anoMesInicial), unidade); 
-		List<PessoaIncrementoDeRisco> listaFinal = buscarPorMesExato(anoMesService.buscarPorId(anoMesFinal), unidade);
+		List<PessoaComplementoDePlantao> listaInicial = buscarPorMesExato(anoMesService.buscarPorId(anoMesInicial), unidade); 
+		List<PessoaComplementoDePlantao> listaFinal = buscarPorMesExato(anoMesService.buscarPorId(anoMesFinal), unidade);
 		
 		if( (!listaInicial.isEmpty())  &&  (listaFinal.isEmpty()) ) {
 			for(int i=0;i<listaInicial.size();i++) {
-				PessoaIncrementoDeRisco f = new PessoaIncrementoDeRisco();
+				PessoaComplementoDePlantao f = new PessoaComplementoDePlantao();
 				f.setId(null);
 				f.setIdUnidadeFk(listaInicial.get(i).getIdUnidadeFk());
 				f.setIdAnoMesFk(anoMesService.buscarPorId(anoMesFinal));
@@ -146,7 +146,7 @@ public class PessoaIncrementoDeRiscoService {
 	}
 	
 	public List<AnoMes> buscarMesesCompativeis(Unidades unidades){
-		List<UnidadeAdmiteIncrementoDeRisco> lista = unidadeAdmiteIncrementoDeRiscoService.buscarPorUnidade(unidades);
+		List<UnidadeAdmiteComplementoPlantao> lista = unidadeAdmiteComplementoDePlantaoService.buscarPorUnidade(unidades);
 		List <AnoMes> listaMeses= new ArrayList<>();
 		
 		for(int i=0;i<lista.size();i++) {

@@ -151,6 +151,10 @@ public class PessoaOperadores extends AbstractEntity<Long> {
     private List<HistFuncionariosUnidadeAtuacao> histFuncionariosUnidadeAtuacaoList;
     @OneToMany(mappedBy = "idOperadorCancelamentoFk")
     private List<HistFuncionariosUnidadeAtuacao> histFuncionariosUnidadeAtuacaoList1;
+    @OneToMany(mappedBy = "idOperadorCadastroFk")
+    private List<PessoaComplementoDePlantao> pessoaComplementoDePlantaoList;
+    @OneToMany(mappedBy = "idOperadorCancelamentoFk")
+    private List<PessoaComplementoDePlantao> pessoaComplementoDePlantaoList1;
     
     @OneToMany(mappedBy = "idOperadorCancelamentoFk")
     private List<EscalaAlteracoes> escalaAlteracoesList;
@@ -725,6 +729,18 @@ public class PessoaOperadores extends AbstractEntity<Long> {
 	}
 	public void setRubricaPensaoList(List<RubricaPensao> rubricaPensaoList) {
 		this.rubricaPensaoList = rubricaPensaoList;
+	}
+	public List<PessoaComplementoDePlantao> getPessoaComplementoDePlantaoList() {
+		return pessoaComplementoDePlantaoList;
+	}
+	public void setPessoaComplementoDePlantaoList(List<PessoaComplementoDePlantao> pessoaComplementoDePlantaoList) {
+		this.pessoaComplementoDePlantaoList = pessoaComplementoDePlantaoList;
+	}
+	public List<PessoaComplementoDePlantao> getPessoaComplementoDePlantaoList1() {
+		return pessoaComplementoDePlantaoList1;
+	}
+	public void setPessoaComplementoDePlantaoList1(List<PessoaComplementoDePlantao> pessoaComplementoDePlantaoList1) {
+		this.pessoaComplementoDePlantaoList1 = pessoaComplementoDePlantaoList1;
 	}
     
 	

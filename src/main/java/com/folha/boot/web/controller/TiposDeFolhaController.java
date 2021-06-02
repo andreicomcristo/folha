@@ -89,6 +89,17 @@ public class TiposDeFolhaController {
 		return simNaoService.buscarTodos();
 	}
 	
+	@ModelAttribute("idAdmiteIncrementoDeRiscoSimNaoFk")
+	public List<SimNao> getidAdmiteIncrementoDeRiscoSimNaoFk() {
+		return simNaoService.buscarTodos();
+	}
+	
+	@ModelAttribute("idAdmiteComplementoDePlantaoSimNaoFk")
+	public List<SimNao> getidAdmiteComplementoDePlantaoSimNaoFk() {
+		return simNaoService.buscarTodos();
+	}
+	
+	
 	@Autowired
 	HttpServletRequest request;
 	@ModelAttribute("nomeOperadorLogado")

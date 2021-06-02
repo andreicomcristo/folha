@@ -9,6 +9,7 @@ import org.springframework.stereotype.Repository;
 
 import com.folha.boot.domain.AnoMes;
 import com.folha.boot.domain.FaixasValoresParametrosCalculoFolhasExtras;
+import com.folha.boot.domain.NiveisCargo;
 import com.folha.boot.domain.TiposDeFolhaNivelCargo;
 import com.folha.boot.domain.Unidades;
 
@@ -20,6 +21,8 @@ public interface TiposDeFolhaNivelCargoReposytory extends JpaRepository<TiposDeF
 	public List<TiposDeFolhaNivelCargo> findByIdTipoDeFolhaFkNomeTipoFolhaContainingOrderByIdAnoMesFkNomeAnoMesDescIdTipoDeFolhaFkNomeTipoFolhaAsc(String nome);
 	
 	public List<TiposDeFolhaNivelCargo> findByIdAnoMesFkOrderByIdAnoMesFkNomeAnoMesDescIdTipoDeFolhaFkNomeTipoFolhaAsc(AnoMes anoMes);
+	
+	public List<TiposDeFolhaNivelCargo> findByIdAnoMesFkAndIdNivelCargoFkOrderByIdAnoMesFkNomeAnoMesDescIdTipoDeFolhaFkNomeTipoFolhaAsc(AnoMes anoMes, NiveisCargo nivel);
 	
 	public Page<TiposDeFolhaNivelCargo> findAllByOrderByIdAnoMesFkNomeAnoMesDescIdTipoDeFolhaFkNomeTipoFolhaAsc(final Pageable page);
 	

@@ -40,6 +40,8 @@ public class AnoMes extends AbstractEntity<Long> {
     private List<FaixasValoresParametrosCalculoFolhasExtras> faixasValoresParametrosCalculoFolhasExtrasList;
     @OneToMany(mappedBy = "idAnoMesFk")
     private List<FaixasValoresFolhExt> faixasValoresFolhExtList;
+    @OneToMany(mappedBy = "idAnoMesFk")
+    private List<PessoaComplementoDePlantao> pessoaComplementoDePlantaoList;
     
     @OneToMany(mappedBy = "idAnoMesFk")
     private List<UnidadeAdmiteChDif> unidadeAdmiteChDifList;
@@ -48,6 +50,9 @@ public class AnoMes extends AbstractEntity<Long> {
     
     @OneToMany(mappedBy = "idAnoMesFk")
     private List<UnidadeAdmiteComplementoPlantao> unidadeAdmiteComplementoPlantaoList;
+    
+    @OneToMany(mappedBy = "idAnoMesFk")
+    private List<TiposDeFolhaVinculo> tiposDeFolhaVinculoList;
     
     @OneToMany(mappedBy = "idAnoMesFk")
     private List<FatorPatronal> fatorChDifList;
@@ -310,6 +315,18 @@ public class AnoMes extends AbstractEntity<Long> {
 	}
 	public void setFaixasValoresResidenteList(List<FaixasValoresResidente> faixasValoresResidenteList) {
 		this.faixasValoresResidenteList = faixasValoresResidenteList;
+	}
+	public List<TiposDeFolhaVinculo> getTiposDeFolhaVinculoList() {
+		return tiposDeFolhaVinculoList;
+	}
+	public void setTiposDeFolhaVinculoList(List<TiposDeFolhaVinculo> tiposDeFolhaVinculoList) {
+		this.tiposDeFolhaVinculoList = tiposDeFolhaVinculoList;
+	}
+	public List<PessoaComplementoDePlantao> getPessoaComplementoDePlantaoList() {
+		return pessoaComplementoDePlantaoList;
+	}
+	public void setPessoaComplementoDePlantaoList(List<PessoaComplementoDePlantao> pessoaComplementoDePlantaoList) {
+		this.pessoaComplementoDePlantaoList = pessoaComplementoDePlantaoList;
 	}
 		
 	

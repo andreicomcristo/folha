@@ -89,6 +89,10 @@ public class UnidadeAdmiteIncrementoDeRiscoService {
 		return reposytory.findByIdAnoMesFkOrderByIdAnoMesFkNomeAnoMesDescIdUnidadeFkNomeFantasiaAsc(anoMes);
 	}
 	
+	@Transactional(readOnly = true)
+	public List<UnidadeAdmiteIncrementoDeRisco> buscarPorMesExatoUnidade(AnoMes anoMes, Unidades unidade) {
+		return reposytory.findByIdAnoMesFkAndIdUnidadeFkOrderByIdAnoMesFkNomeAnoMesDescIdUnidadeFkNomeFantasiaAsc(anoMes, unidade);
+	}
 	
 	public Page<UnidadeAdmiteIncrementoDeRisco> findPaginated(int pageNo, int pageSize) {
 		Pageable pageable = PageRequest.of(pageNo -1, pageSize);

@@ -21,13 +21,13 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import com.folha.boot.Reposytory.FaixasValoresParametrosCalculoFolhasExtrasReposytory;
-import com.folha.boot.Reposytory.TiposDeFolhaNivelCargoReposytory;
+import com.folha.boot.Reposytory.TiposDeFolhaVinculoReposytory;
 import com.folha.boot.domain.AnoMes;
 import com.folha.boot.domain.Cidades;
 import com.folha.boot.domain.FaixasValoresParametrosCalculoFolhasExtras;
-import com.folha.boot.domain.NiveisCargo;
-import com.folha.boot.domain.TiposDeFolhaNivelCargo;
+import com.folha.boot.domain.TiposDeFolhaVinculo;
 import com.folha.boot.domain.Unidades;
+import com.folha.boot.domain.Vinculos;
 import com.itextpdf.text.Document;
 import com.itextpdf.text.DocumentException;
 import com.itextpdf.text.Element;
@@ -40,23 +40,23 @@ import com.itextpdf.text.pdf.PdfWriter;
 
 @Service
 @Transactional(readOnly = false)
-public class TiposDeFolhaNivelCargoService {
+public class TiposDeFolhaVinculoService {
 
 	@Autowired
-	private TiposDeFolhaNivelCargoReposytory reposytory;
+	private TiposDeFolhaVinculoReposytory reposytory;
 	
 	@Autowired
 	private AnoMesService anoMesService;
 	
 
-	public void salvar(TiposDeFolhaNivelCargo tiposDeFolhaNivelCargo) {
+	public void salvar(TiposDeFolhaVinculo tiposDeFolhaVinculo) {
 		// TODO Auto-generated method stub
-		reposytory.save(tiposDeFolhaNivelCargo);
+		reposytory.save(tiposDeFolhaVinculo);
 	}
 
-	public void editar(TiposDeFolhaNivelCargo tiposDeFolhaNivelCargo) {
+	public void editar(TiposDeFolhaVinculo tiposDeFolhaVinculo) {
 		// TODO Auto-generated method stub
-		reposytory.save(tiposDeFolhaNivelCargo);
+		reposytory.save(tiposDeFolhaVinculo);
 	}
 
 	public void excluir(Long id) {
@@ -65,39 +65,38 @@ public class TiposDeFolhaNivelCargoService {
 	}
 
 	@Transactional(readOnly = true)
-	public TiposDeFolhaNivelCargo buscarPorId(Long id) {
+	public TiposDeFolhaVinculo buscarPorId(Long id) {
 		// TODO Auto-generated method stub
 		return reposytory.findById(id).get();
 	}
 
 	@Transactional(readOnly = true)
-	public List<TiposDeFolhaNivelCargo> buscarTodos() {
+	public List<TiposDeFolhaVinculo> buscarTodos() {
 		// TODO Auto-generated method stub
 		return reposytory.findAllByOrderByIdAnoMesFkNomeAnoMesDescIdTipoDeFolhaFkNomeTipoFolhaAsc();
 	}
 	@Transactional(readOnly = true)
-	public List<TiposDeFolhaNivelCargo> buscarPorNome(String nome) {
+	public List<TiposDeFolhaVinculo> buscarPorNome(String nome) {
 		return reposytory.findByIdTipoDeFolhaFkNomeTipoFolhaContainingOrderByIdAnoMesFkNomeAnoMesDescIdTipoDeFolhaFkNomeTipoFolhaAsc(nome);
 	}
 	
-	
 	@Transactional(readOnly = true)
-	public List<TiposDeFolhaNivelCargo> buscarPorMesExato(AnoMes anoMes) {
+	public List<TiposDeFolhaVinculo> buscarPorMesExato(AnoMes anoMes) {
 		return reposytory.findByIdAnoMesFkOrderByIdAnoMesFkNomeAnoMesDescIdTipoDeFolhaFkNomeTipoFolhaAsc(anoMes);
 	}
 	
 	@Transactional(readOnly = true)
-	public List<TiposDeFolhaNivelCargo> buscarPorMesNivel(AnoMes anoMes, NiveisCargo nivel) {
-		return reposytory.findByIdAnoMesFkAndIdNivelCargoFkOrderByIdAnoMesFkNomeAnoMesDescIdTipoDeFolhaFkNomeTipoFolhaAsc(anoMes, nivel);
+	public List<TiposDeFolhaVinculo> buscarPorMesVinculo(AnoMes anoMes, Vinculos vinculo) {
+		return reposytory.findByIdAnoMesFkAndIdVinculoFkOrderByIdAnoMesFkNomeAnoMesDescIdTipoDeFolhaFkNomeTipoFolhaAsc(anoMes, vinculo);
 	}
 	
 	
-	public Page<TiposDeFolhaNivelCargo> findPaginated(int pageNo, int pageSize) {
+	public Page<TiposDeFolhaVinculo> findPaginated(int pageNo, int pageSize) {
 		Pageable pageable = PageRequest.of(pageNo -1, pageSize);
 		return this.reposytory.findAllByOrderByIdAnoMesFkNomeAnoMesDescIdTipoDeFolhaFkNomeTipoFolhaAsc(pageable);
 	}
 
-	public Page<TiposDeFolhaNivelCargo> findPaginatedAnoMes(int pageNo, int pageSize, String nome) {
+	public Page<TiposDeFolhaVinculo> findPaginatedAnoMes(int pageNo, int pageSize, String nome) {
 		Pageable pageable = PageRequest.of(pageNo -1, pageSize);
 		return this.reposytory.findByIdAnoMesFkNomeAnoMesContainingOrderByIdAnoMesFkNomeAnoMesDescIdTipoDeFolhaFkNomeTipoFolhaAsc(nome.toUpperCase().trim(), pageable);
 	}
@@ -105,14 +104,14 @@ public class TiposDeFolhaNivelCargoService {
 	//Herdar de um mes para o outro
 	public void herdarDeUmMesParaOOutro(Long anoMesInicial, Long anoMesFinal) {
 		
-		List<TiposDeFolhaNivelCargo> listaInicial = buscarPorMesExato(anoMesService.buscarPorId(anoMesInicial)); 
-		List<TiposDeFolhaNivelCargo> listaFinal = buscarPorMesExato(anoMesService.buscarPorId(anoMesFinal));
+		List<TiposDeFolhaVinculo> listaInicial = buscarPorMesExato(anoMesService.buscarPorId(anoMesInicial)); 
+		List<TiposDeFolhaVinculo> listaFinal = buscarPorMesExato(anoMesService.buscarPorId(anoMesFinal));
 		
 		if( (!listaInicial.isEmpty())  &&  (listaFinal.isEmpty()) ) {
 			for(int i=0;i<listaInicial.size();i++) {
-				TiposDeFolhaNivelCargo f = new TiposDeFolhaNivelCargo();
+				TiposDeFolhaVinculo f = new TiposDeFolhaVinculo();
 				f.setId(null);
-				f.setIdNivelCargoFk(listaInicial.get(i).getIdNivelCargoFk());
+				f.setIdVinculoFk(listaInicial.get(i).getIdVinculoFk());
 				f.setIdAnoMesFk(anoMesService.buscarPorId(anoMesFinal));
 				f.setIdTipoDeFolhaFk(listaInicial.get(i).getIdTipoDeFolhaFk());
 				
