@@ -7,11 +7,10 @@ import org.springframework.transaction.annotation.Transactional;
 import com.folha.boot.Reposytory.FuncionariosFeriasPeriodosReposytory;
 import com.folha.boot.domain.FuncionariosFerias;
 import com.folha.boot.domain.FuncionariosFeriasPeriodos;
-import com.folha.boot.domain.PessoaFuncionarios;
 
 @Service
 @Transactional(readOnly = false)
-public class FuncionariosFeriasPeriodosService {
+public class FuncionariosFeriasPeriodosService { 
 
 	@Autowired
 	private  FuncionariosFeriasPeriodosReposytory reposytory;

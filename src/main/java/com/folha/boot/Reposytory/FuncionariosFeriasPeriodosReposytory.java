@@ -8,7 +8,7 @@ import com.folha.boot.domain.FuncionariosFerias;
 import com.folha.boot.domain.FuncionariosFeriasPeriodos;
 
 @Repository
-public interface FuncionariosFeriasPeriodosReposytory extends JpaRepository<FuncionariosFeriasPeriodos, Long>{
+public interface FuncionariosFeriasPeriodosReposytory extends JpaRepository<FuncionariosFeriasPeriodos, Long>{ 
 	
 	public List<FuncionariosFeriasPeriodos> findByIdFeriasFk(FuncionariosFerias ferias); 
 

@@ -5,7 +5,7 @@
 	<section class="layout-content" layout:fragment="corpo">
 
 		<nav class="navbar navbar-expand-md bg-light">
-			<form th:action="@{/rubricaPensao/listar}">
+			<form th:each="p : ${pessoa}"  th:action="@{/rubricaPensao/listar}">
 				<div class=" layout-content">
 					<a class="btn btn-outline-light oi oi-action-undo" type="button" href="javascript:history.back()"></a>
 					<a class="btn btn-outline-light oi oi-action-redo" type="button" href="javascript:history.forward()"></a>
@@ -14,6 +14,10 @@
 						role="button"> <span class="oi oi-plus" title="Cadastro"
 						aria-hidden="true"></span> <span>Novo</span>
 					</a>
+					
+					<td style="font-size:11px;"  th:text="${p.nome}"></td>
+					 
+					<td colspan="2">
 				</div>
 			</form>
 		</nav>
@@ -21,96 +25,163 @@
 		<div class="container" id="cadastro">
 
 			<div th:replace="fragments/alert"></div>
-			<form
-				th:action="${rubricaPensao.id == null} ? @{/rubricaPensao/salvar} : @{/rubricaPensao/salvar}"
-				th:object="${rubricaPensao}" method="POST">
+			<form th:each="f : ${funcionario}"
+				  th:action="@{/rubricaPensao/salvar/{id} (id=${f.id})}"
+				  th:object="${rubricaPensao}" method="POST">
 				<div class="form-row">
-
-					<div class="form-group col-md-6">
+					<div class="form-group col-md-12">					
 						<label for="nome" class="fonte-tutulos-tamanho">Cadastro de Pensão</label>
-							<p></p>	
-							
+						<p></p>
+					</div>
+				</div>
+					<div class="form-row">			
+						<div class="form-group col-md-3">
 							<label for="nome" class="">Mês </label>
 							<select id="idCodDiferenciadoFk" class="form-select" th:field="*{idAnoMesFk}">
 								<option value="">Selecione o Mes</option>
 								<option class="form-select" th:each="d : ${idAnoMesFk}" th:value="${d.id}"th:text="${d.nomeAnoMes}" selected >ADM</option>
 							</select>	
 							<p></p>	
-							
-							<label for="nome" class="">Pessoa </label>
-							<select id="idNivelCarreiraFk" class="form-select" th:field="*{idPessoaFk}">
-								<option value="">Selecione a Pessoa</option>
-								<option class="form-select" th:each="d : ${idPessoaFk}" th:value="${d.id}"th:text="${d.nome} +' | '+ ${d.cpf}" selected >ADM</option>
-							</select>	
-							<p></p>	
-							
+						</div>												
+						<div class="form-group col-md-3">		
 							<label for="nome" class="">Nome Beneficiário</label>
 					  		<input type="text"	class="form-control form-control-md uppercase"  
 							id="codigo" placeholder="Nome" th:field="*{nomeBeneficiario}" />
 							<p></p>
-							
-							<label for="nome" class="">Cpf Beneficiário </label>
+						</div>
+						<div class="form-group col-md-3">		
+							<label for="nome">Cpf Beneficiário </label>
 					  		<input type="text"	class="form-control form-control-md uppercase"  
 							id="codigo" placeholder="Cpf" th:field="*{cpfBeneficiario}" />
 							<p></p>
-							
+						</div>
+						<div class="form-group col-md-3">		
 							<label for="nome" class="">Banco </label>
 							<select id="idClasseCarreiraFk" class="form-select" th:field="*{idBancoFk}">
 								<option value="">Selecione o Banco</option>
 								<option class="form-select" th:each="d : ${idBancoFk}" th:value="${d.id}"th:text="${d.nomeBanco}" selected >ADM</option>
 							</select>	
 							<p></p>	
-							
+						</div>
+					</div>					
+					<div class="form-row">					
+						<div class="form-group col-md-3">	
 							<label for="nome" class="">Operação/Variação </label>
 					  		<input type="text"	class="form-control form-control-md uppercase"  
 							id="codigo" placeholder="Operação/Variação" th:field="*{operacaoVariacao}" />
 							<p></p>
-							
-							<label for="nome" class="">Agência </label>
+						</div>
+						<div class="form-group col-md-3">
+						<label for="nome" class="">Agência </label>
 					  		<input type="text"	class="form-control form-control-md uppercase"  
 							id="codigo" placeholder="Agência" th:field="*{agencia}" />
 							<p></p>
-							
-							<label for="nome" class="">Dv Agência </label>
+						</div>
+						<div class="form-group col-md-3">
+						<label for="nome" class="">Dv Agência </label>
 					  		<input type="text"	class="form-control form-control-md uppercase"  
 							id="codigo" placeholder="Dv" th:field="*{dvAgencia}" />
 							<p></p>
-
-							<label for="nome" class="">Conta </label>
-					  		<input type="text"	class="form-control form-control-md uppercase"  
-							id="codigo" placeholder="Conta" th:field="*{conta}" />
-							<p></p>
-							
+						</div>	
+						<div class="form-group col-md-3">
 							<label for="nome" class="">Dv Conta </label>
 					  		<input type="text"	class="form-control form-control-md uppercase"  
 							id="codigo" placeholder="Dv" th:field="*{dvConta}" />
 							<p></p>
-							
+						</div>
+					</div>					
+					<div class="form-row">												
+						<div class="form-group col-md-3">
+							<label for="nome" class="">Conta </label>
+					  		<input type="text"	class="form-control form-control-md uppercase"  
+							id="codigo" placeholder="Conta" th:field="*{conta}" />
+							<p></p>
+						</div>	
+						<div class="form-group col-md-3">
 							<label for="nome" class="">Percentagem </label>							
 							<input type="text"
 								class=" form-control form-control-md"  
 								id="valorHoraDia" placeholder="Percentagem" th:field="*{percentagem}" /> 
 							<p></p>
-							
+						</div>	
+						<div class="form-group col-md-3">
 							<label for="nome" class="">Valor </label>							
 							<input type="text"
 								class=" form-control form-control-md"  
 								id="valorHoraDia" placeholder="Valor " th:field="*{valor}" /> 
 							<p></p>
-
+						</div>								
+					</div>	
 							<label for="nome" class="">Observação </label>
 					  		<input type="text"	class="form-control form-control-md uppercase"  
 							id="codigo" placeholder="Observação" th:field="*{observacao}" />
 							<p></p>
-
 												
-					<input type="hidden" id="id" th:field="*{id}" />
-								<p></p>					
-						<button class="btn btn-outline-dark">Cadastrar</button>
-					</div>
-				</div>
+							<input type="hidden" id="id" th:field="*{id}" />					
+							<input type="hidden" id="id" th:field="*{idPessoaFk}" />
+							<p></p>	
+											
+						<button class="btn btn-outline-dark">Cadastrar</button>			
 			</form>
-		</div>
+			
+			<div class="container" id="listagem">	        
+	    	<div th:replace="fragments/alert"></div>
+	    	
+	        <div style="height: 450px; overflow-y: auto;" class="table-responsive">
+	        	<table style="width: 1270px;" class="table table-striped table-hover table-sm myTable">
+	            	<thead>
+	          			<tr>
+		                	<th style="font-size:10px;" >#</th>
+		                    <th style="font-size:10px;" >Ano Mes</th>
+		                    <th style="font-size:10px;" >Nome</th>
+		                    <th style="font-size:10px;" >Cpf</th>
+		                    <th style="font-size:10px;" >Beneficiario</th>
+		                    <th style="font-size:10px;" >Cpf</th>
+		                    <th style="font-size:10px;" >Banco</th>
+		                    <th style="font-size:10px;" >Op</th>
+		                    <th style="font-size:10px;" >Agencia</th>
+		                    <th style="font-size:10px;" >Dv</th>
+		                    <th style="font-size:10px;" >Conta</th>
+		                    <th style="font-size:10px;" >Dv</th>
+		                    <th style="font-size:10px;" >Valor</th>
+		                    <th style="font-size:10px;" >Percentagem</th>
+		                    <th style="font-size:10px;" >Obs</th>
+		                    
+		                    <th style="font-size:10px;" >Ações</th>
+	                    </tr>
+	                </thead>                  
+	                <tbody>
+		            	<tr th:each="d : ${pensao}">
+		                	<td style="font-size:10px;"  th:text="${d.id}"></td>
+		                    <td style="font-size:10px;"  th:text="${d.idAnoMesFk != null} ? ${d.idAnoMesFk.nomeAnoMes} : ''  "></td>
+		                    <td style="font-size:10px;"  th:text="${d.idPessoaFk != null} ? ${d.idPessoaFk.nome} : ''  "></td>
+		                    <td style="font-size:10px;"  th:text="${d.idPessoaFk != null} ? ${d.idPessoaFk.cpf} : ''  "></td>
+		                    <td style="font-size:10px;"  th:text="${d.nomeBeneficiario != null} ? ${d.nomeBeneficiario} : ''  "></td>
+		                    <td style="font-size:10px;"  th:text="${d.cpfBeneficiario != null} ? ${d.cpfBeneficiario} : ''  "></td>
+		                    <td style="font-size:10px;"  th:text="${d.idBancoFk != null} ? ${d.idBancoFk.nomeBanco} : ''  "></td>
+		                    <td style="font-size:10px;"  th:text="${d.operacaoVariacao != null} ? ${d.operacaoVariacao} : ''  "></td>
+		                    <td style="font-size:10px;"  th:text="${d.agencia != null} ? ${d.agencia} : ''  "></td>
+		                    <td style="font-size:10px;"  th:text="${d.dvAgencia != null} ? ${d.dvAgencia} : ''  "></td>
+		                    <td style="font-size:10px;"  th:text="${d.conta != null} ? ${d.conta} : ''  "></td>
+		                    <td style="font-size:10px;"  th:text="${d.dvConta != null} ? ${d.dvConta} : ''  "></td>
+		                    <td style="font-size:10px;"  th:text="${d.valor != null} ? ${d.valor} : ''  "></td>
+		                    <td style="font-size:10px;"  th:text="${d.percentagem != null} ? ${d.percentagem} : ''  "></td>
+		                    <td style="font-size:10px;"  th:text="${d.observacao != null} ? ${d.observacao} : ''  "></td>
+		                    
+		                    <td colspan="2">
+		                    	<a class="btn btn-outline-info btn-sm" th:href="@{/rubricaPensao/editar/{id} (id=${d.id}) }" role="button">
+		                        	<span class="oi oi-brush" title="Editar" aria-hidden="true"></span>
+		                        </a>
+		                        <button th:id="${ 'btn_rubricaPensao/cancelar/' + d.id}" type="button" class="btn btn btn-outline-danger btn-sm" 
+		                            		data-toggle="modal" data-target="#myModal">
+		                                <span class="oi oi-circle-x" title="Exclusão habilitada" aria-hidden="true"></span>
+		                        </button>
+		                   	</td>
+						</tr>
+					</tbody>                    
+	            </table>                 
+	         </div>
+		</div>	 
 	</section>
 </body>
 </html>

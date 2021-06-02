@@ -5,7 +5,6 @@ import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.util.Date;
 import java.util.List;
-
 import org.apache.poi.ss.usermodel.Cell;
 import org.apache.poi.ss.usermodel.CellStyle;
 import org.apache.poi.ss.usermodel.FillPatternType;
@@ -43,7 +42,6 @@ public class RubricaPensaoService {
 	
 	@Autowired
 	private AnoMesService anoMesService;
-	
 
 	public void salvar(RubricaPensao rubricaPensao) {
 		// TODO Auto-generated method stub
@@ -72,6 +70,10 @@ public class RubricaPensaoService {
 		return reposytory.findAllByDtCancelamentoIsNullOrderByIdAnoMesFkNomeAnoMesDescIdPessoaFkNomeAsc();
 	}
 	
+	public List<RubricaPensao> buscarPorPessoa(Pessoa pessoa) {
+		// TODO Auto-generated method stub
+		return reposytory.findByIdPessoaFk(pessoa);
+	}
 	@Transactional(readOnly = true)
 	public List<RubricaPensao> buscarPorMesExato(AnoMes anoMes) {
 		return reposytory.findByIdAnoMesFkAndDtCancelamentoIsNullOrderByIdAnoMesFkNomeAnoMesDescIdPessoaFkNomeAsc(anoMes);

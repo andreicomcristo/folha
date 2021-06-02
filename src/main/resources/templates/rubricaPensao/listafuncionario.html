@@ -8,7 +8,7 @@
 	        	<span class="oi oi-list" title="Cadastro" aria-hidden="true"></span>
 	            <span>Voltar para Escalas</span>
 	        </a>-->
-	        <a class="btn btn-outline-dark btn-md" th:href="@{/faixasValoresFolhExt/funcionarios/listar}" role="button">
+	        <a class="btn btn-outline-dark btn-md" th:href="@{/rubricaPensao/funcionarios/listar}" role="button">
 	        	<span class="oi oi-loop-square" title="Atualizar" aria-hidden="true"></span>
 	            <span>Atualizar</span>
 	        </a>
@@ -30,7 +30,7 @@
 	      	<div class="col">
 	        	<div class="collapse" id="collapseCidade">
 		            <nav class="navbar navbar-light bg-light">
-	    	           <form class="form-inline" method="GET" th:action="@{/faixasValoresFolhExt/buscar/funcionarios/nome}">	        	           
+	    	           <form class="form-inline" method="GET" th:action="@{/rubricaPensao/buscar/funcionarios/nome}">	        	           
 	        	           <input class="form-control mr-sm-2" type="search" placeholder="Nome" aria-label="Search"
 	                              th:name="nome"/> 
 	                       <button class="btn btn-outline-success my-2 my-sm-0">Buscar</button> 
@@ -54,7 +54,8 @@
 		                    <th style="font-size:11px;" >CH</th>
 		                    <th style="font-size:11px;" >Nome</th>
 		                    <th style="font-size:11px;" >Cargo</th>		                    		                    
-		                    <th style="font-size:11px;" >Vínculo</th>		                    
+		                    <th style="font-size:11px;" >Vínculo</th>
+		                    
 	                    </tr>
 	                </thead>                  
 	                <tbody>
@@ -64,9 +65,10 @@
 		                    <td style="font-size:10px;"  th:text="${d.idPessoaFk != null} ? ${d.idPessoaFk.cpf} : ''  "></td>
 		                    <td style="font-size:10px;"  th:text="${d.matricula != null} ? ${d.matricula} : ''  "></td>
 		                    <td style="font-size:10px;"  th:text="${d.idCargaHorariaAtualFk != null} ? ${d.idCargaHorariaAtualFk.cargaHoraria} : ''  "></td>
-		                    <td style="font-size:11px;"> <a th:href="@{/faixasValoresFolhExt/cadastrar/{id} (id=${d.id}) }" title="Atribuir" ><span th:text="${d.idPessoaFk != null} ? ${d.idPessoaFk.nome} : ''  "></span></a></td>
+		                    <td style="font-size:11px;"> <a th:href="@{/rubricaPensao/cadastrar/{id} (id=${d.id}) }" title="Atribuir" ><span th:text="${d.idPessoaFk != null} ? ${d.idPessoaFk.nome} : ''  "></span></a></td>
 		                    <td style="font-size:10px;"  th:text="${d.idEspecialidadeAtualFk != null} ? ${d.idEspecialidadeAtualFk.idCargoFk.nomeCargo+'-'+d.idEspecialidadeAtualFk.nomeEspecialidadeCargo} : ''  "></td>
-		                    <td style="font-size:10px;"  th:text="${d.idVinculoAtualFk != null} ? ${d.idVinculoAtualFk.nomeVinculo} : ''  "></td>		                    
+		                    <td style="font-size:10px;"  th:text="${d.idVinculoAtualFk != null} ? ${d.idVinculoAtualFk.nomeVinculo} : ''  "></td>
+		                    
 		                    <td colspan="2">
 		                    	
 		                    	<!--

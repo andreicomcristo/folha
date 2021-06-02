@@ -85,11 +85,12 @@
 							<input type="text"
 								class="form-control form-control-md uppercase" autofocus="autofocus"
 								id="descricaoEstadoCivil" placeholder="Observação" th:field="*{observacao}" />						
-							<p></p>				
+							<p></p>
+											
+							<input type="hidden" id="id" th:field="*{id}" />					
+							<input type="hidden" id="id" th:field="*{idFuncionarioFk}" />													
+							<p></p>
 												
-					<input type="hidden" id="id" th:field="*{idFuncionarioFk}" />							
-					<input type="hidden" id="id" th:field="*{id}" />
-								<p></p>					
 						<button class="btn btn-outline-dark">Cadastrar</button>
 					</div>
 				</div>

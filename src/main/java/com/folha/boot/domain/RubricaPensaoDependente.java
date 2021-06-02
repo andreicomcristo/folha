@@ -11,7 +11,7 @@ import javax.persistence.TemporalType;
 
 @SuppressWarnings("serial")
 @Entity
-@Table(name = "rubrica_pensao_dependente")
+@Table(name = "rubrica_pensao_dependente") 
 public class RubricaPensaoDependente extends AbstractEntity<Long> {
 
 	@Column(name = "nome")

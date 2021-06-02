@@ -112,11 +112,14 @@ public class FuncionariosFeriasController {
 		//ultimaBuscaTurma = null;
 		return paginarFuncionario(pageNo, page, lista, model);
 	}
-	
-	@GetMapping("/ferias/{id}")//Recebe o id do funcionário da tela de lista de funcionários
+	///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+	//Recebe o id do funcionário da tela de lista de funcionários
+	@GetMapping("/ferias/{id}")
 	public String cadastrarFerias(@PathVariable("id") Long id, FuncionariosFerias funcionariosFerias, ModelMap model) {
+		//relaciona as férias apero funcionário
 		PessoaFuncionarios funcionario = pessoaFuncionariosService.buscarPorId(id);
-		funcionariosFerias.setIdFuncionarioFk(funcionario);//relaciona as férias apero funcionário
+		funcionariosFerias.setIdFuncionarioFk(funcionario);
+		///////////////////////////////////////
 		model.addAttribute("funcionario", funcionario);
 		model.addAttribute("feriasLista", feriasService.buscarFuncionario(funcionario));
 		return "/funcionarioferias/cadastro"; 
@@ -130,8 +133,8 @@ public class FuncionariosFeriasController {
 		
 		return "redirect:/funcionariosferias/ferias/"+funcionariosFerias.getIdFuncionarioFk().getId();
 	}
-	
-	@GetMapping("/periodos/{id}")//Recebe o id de férias da tela de lista de férias
+	//Recebe o id de férias da tela de lista de férias
+	@GetMapping("/periodos/{id}")
 	public String cadastrarPeriodos(@PathVariable("id") Long id, FuncionariosFeriasPeriodos peridoFerias, ModelMap model) {
 		FuncionariosFerias ferias = feriasService.buscarPorId(id);
 		peridoFerias.setIdFeriasFk(ferias);//relaciona os periodos as férias
@@ -142,6 +145,7 @@ public class FuncionariosFeriasController {
 		return "/funcionariosferiasperiodo/cadastro"; 
 	}
 ////////////////////////////////////////////////////////////////////////////////////////////	
+	
 	@GetMapping("/ferias/listar/{id}")
 	public String listarFerias(@PathVariable("id") Long id, ModelMap model) {
 		

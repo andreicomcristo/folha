@@ -8,7 +8,9 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 import com.folha.boot.domain.AnoMes;
 import com.folha.boot.domain.FaixasValoresGpf;
+import com.folha.boot.domain.FuncionariosFerias;
 import com.folha.boot.domain.Pessoa;
+import com.folha.boot.domain.PessoaFuncionarios;
 import com.folha.boot.domain.RubricaPensao;
 
 
@@ -24,8 +26,8 @@ public interface RubricaPensaoReposytory extends JpaRepository<RubricaPensao, Lo
 	public List<RubricaPensao> findByIdPessoaFkNomeContainingAndDtCancelamentoIsNullOrderByIdAnoMesFkNomeAnoMesDescIdPessoaFkNomeAsc(String nome);
 	
 	public List<RubricaPensao> findByIdAnoMesFkAndIdPessoaFkAndDtCancelamentoIsNullOrderByIdAnoMesFkNomeAnoMesDescIdPessoaFkNomeAsc(AnoMes anoMes, Pessoa pessoa);
-	
 		
+	public List<RubricaPensao> findByIdPessoaFk(Pessoa pessoa);
 	
 	public Page<RubricaPensao> findAllByDtCancelamentoIsNullOrderByIdAnoMesFkNomeAnoMesDescIdPessoaFkNomeAsc(final Pageable page);
 	
@@ -34,4 +36,6 @@ public interface RubricaPensaoReposytory extends JpaRepository<RubricaPensao, Lo
 	public Page<RubricaPensao> findByIdAnoMesFkAndDtCancelamentoIsNullOrderByIdAnoMesFkNomeAnoMesDescIdPessoaFkNomeAsc(AnoMes anoMes, final Pageable page);
 	
 	public Page<RubricaPensao> findByIdPessoaFkNomeContainingAndDtCancelamentoIsNullOrderByIdAnoMesFkNomeAnoMesDescIdPessoaFkNomeAsc(String nome, final Pageable page);
+	
+	
 }
