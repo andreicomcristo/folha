@@ -73,8 +73,8 @@ public class FuncionariosFeriasController {
 			}
 	}
 	
-	@GetMapping("/funcionarios/listar")
-	public String listarFuncionarios(ModelMap model) {
+	@GetMapping("/funcionarios/listar") 
+	public String listarFuncionarios(ModelMap model) { 
 		ultimaBuscaNome = "";
 		return this.findPaginatedFuncionario(1, model);
 	}	

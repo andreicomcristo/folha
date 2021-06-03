@@ -228,7 +228,7 @@ public class RubricaPensaoController {
 	@PostMapping("/salvar/{id}")
 	public String salvar(@PathVariable("id") Long id, RubricaPensao rubricaPensao, RedirectAttributes attr) {
 
-		if (rubricaPensao.getValor() == null) {
+		if (rubricaPensao.getValor() == null) { 
 			rubricaPensao.setValor(0.0);
 		}
 		if (rubricaPensao.getPercentagem() == null) {
@@ -239,7 +239,7 @@ public class RubricaPensaoController {
 		attr.addFlashAttribute("success", "Inserido com sucesso.");
 		return "redirect:/rubricaPensao/cadastrar/" + id;
 	}
-
+  
 	@GetMapping("/editar/{id}")
 	public String preEditar(@PathVariable("id") Long id, ModelMap model) {
 		Pessoa pessoa = service.buscarPorId(id).getIdPessoaFk();

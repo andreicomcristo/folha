@@ -139,7 +139,7 @@
 		                    <th style="font-size:10px;" >Cpf</th>
 		                    <th style="font-size:10px;" >Banco</th>
 		                    <th style="font-size:10px;" >Op</th>
-		                    <th style="font-size:10px;" >Agencia</th>
+		                    <th style="font-size:10px;" >Agencia</th>  
 		                    <th style="font-size:10px;" >Dv</th>
 		                    <th style="font-size:10px;" >Conta</th>
 		                    <th style="font-size:10px;" >Dv</th>
@@ -150,7 +150,7 @@
 		                    <th style="font-size:10px;" >Ações</th>
 	                    </tr>
 	                </thead>                  
-	                <tbody>
+	                <tbody> 
 		            	<tr th:each="d : ${pensao}">
 		                	<td style="font-size:10px;"  th:text="${d.id}"></td>
 		                    <td style="font-size:10px;"  th:text="${d.idAnoMesFk != null} ? ${d.idAnoMesFk.nomeAnoMes} : ''  "></td>

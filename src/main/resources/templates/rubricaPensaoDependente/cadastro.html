@@ -3,7 +3,7 @@
 <head><meta charset="UTF-8"/></head>
 <body>
 	<section class="layout-content" layout:fragment="corpo">
-		<nav class="navbar navbar-expand-md bg-light">		 				
+		<nav class="navbar navbar-expand-md bg-light">		 				 
 			<form th:each="d : ${funcionario}" th:action="@{/funcionariosferias/funcionarios/listar}"> 
 				<div class=" layout-content">
 					<a class="btn btn-outline-light oi oi-action-undo" type="button" href="javascript:history.back()"></a>
@@ -19,7 +19,7 @@
 				</div>
 			</form>
 		</nav>
-		<div class="container" id="cadastro">					    		   
+		<div class="container" id="cadastro">	 				    		   
 			<div th:replace="fragments/alert"></div>
 			<form
 				th:action="@{/funcionariosferias/salvar}"
