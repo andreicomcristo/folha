@@ -222,10 +222,10 @@ public class RubricaPensaoController {
 		///////////////////////////////////////
 		//model.addAttribute("funcionario", funcionario);
 		model.addAttribute("pessoa", pessoa); 
-		model.addAttribute("pensao", service.buscarPorPessoa(pessoa));
+		model.addAttribute("pensao", service.buscarListaParaPensaoNotemplateCadastro(pessoa));
 		
 		// MUDANCA NO NOME DA LISTA QUE TAVA DANDO CONFLITO NO HTML DOIS OBJETOS COM O MESMO NOME
-		model.addAttribute("rubricaPensaoLista", service.buscarPorPessoa(pessoa));
+		model.addAttribute("rubricaPensaoLista", service.buscarListaParaPensaoNotemplateCadastro(pessoa));
 		return "/rubricaPensao/cadastro";
 	}
 	
@@ -242,10 +242,10 @@ public class RubricaPensaoController {
 		///////////////////////////////////////
 		
 		model.addAttribute("pessoa", pessoa); 
-		model.addAttribute("pensao", service.buscarPorPessoa(pessoa));
+		model.addAttribute("pensao", service.buscarListaParaPensaoNotemplateCadastro(pessoa));
 		
 		// MUDANCA NO NOME DA LISTA QUE TAVA DANDO CONFLITO NO HTML DOIS OBJETOS COM O MESMO NOME
-		model.addAttribute("rubricaPensaoLista", service.buscarPorPessoa(pessoa));
+		model.addAttribute("rubricaPensaoLista", service.buscarListaParaPensaoNotemplateCadastro(pessoa));
 		return "/rubricaPensao/cadastro";
 	}
 	
