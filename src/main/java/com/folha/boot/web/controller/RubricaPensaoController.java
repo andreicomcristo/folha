@@ -149,21 +149,21 @@ public class RubricaPensaoController {
 
 	@GetMapping("/listar/{pageNo}")
 	public String findPaginated(@PathVariable(value = "pageNo") int pageNo, ModelMap model) {
-		int pageSeze = 50;
+		int pageSeze = 10;
 		Page<RubricaPensao> page = service.findPaginated(pageNo, pageSeze);
 		List<RubricaPensao> listaCidades = page.getContent();
 		return paginar(pageNo, page, listaCidades, model);
 	}
 
 	public String findPaginated(@PathVariable(value = "pageNo") int pageNo, String nome, ModelMap model) {
-		int pageSeze = 50;
+		int pageSeze = 10;
 		Page<RubricaPensao> page = service.findPaginatedAnoMes(pageNo, pageSeze, nome);
 		List<RubricaPensao> lista = page.getContent();
 		return paginar(pageNo, page, lista, model);
 	}
 
 	public String findPaginatedNome(@PathVariable(value = "pageNo") int pageNo, String nome, ModelMap model) {
-		int pageSeze = 50;
+		int pageSeze = 10;
 		Page<RubricaPensao> page = service.findPaginatedNome(pageNo, pageSeze, nome);
 		List<RubricaPensao> lista = page.getContent();
 		return paginar(pageNo, page, lista, model);
@@ -173,7 +173,7 @@ public class RubricaPensaoController {
 		model.addAttribute("currentePage", pageNo);
 		model.addAttribute("totalPages", page.getTotalPages());
 		model.addAttribute("totalItems", page.getTotalElements());
-		model.addAttribute("rubricaPensaoLista", lista);
+		model.addAttribute("rubricaPensao", lista);
 		return "/rubricaPensao/lista";
 	}
 
@@ -217,51 +217,15 @@ public class RubricaPensaoController {
 		//relaciona as penssões a pessoa
 		Pessoa pessoa = pessoaService.buscarPorId(funcionario.getIdPessoaFk().getId());
 		rubricaPensao.setIdPessoaFk(pessoa);
-		rubricaPensao.setId(null);
 		//funcionariosFerias.setIdFuncionarioFk(funcionario);
 		///////////////////////////////////////
-		//model.addAttribute("funcionario", funcionario);
+		model.addAttribute("funcionario", funcionario);
 		model.addAttribute("pessoa", pessoa); 
 		model.addAttribute("pensao", service.buscarPorPessoa(pessoa));
 		
 		// MUDANCA NO NOME DA LISTA QUE TAVA DANDO CONFLITO NO HTML DOIS OBJETOS COM O MESMO NOME
 		model.addAttribute("rubricaPensaoLista", service.buscarPorPessoa(pessoa));
 		return "/rubricaPensao/cadastro";
-	}
-	
-	//Método novo
-	//Recebe o id do funcionário da tela de lista de funcionários
-	@GetMapping("/cadastrar/pessoa/{id}")
-	public String cadastrarPessoaPensao(@PathVariable("id") Long id, RubricaPensao rubricaPensao, ModelMap model) {
-
-		Pessoa pessoa = pessoaService.buscarPorId(id);
-		//relaciona as penssões a pessoa
-		rubricaPensao.setIdPessoaFk(pessoa);
-		rubricaPensao.setId(null);
-		//funcionariosFerias.setIdFuncionarioFk(funcionario);
-		///////////////////////////////////////
-		
-		model.addAttribute("pessoa", pessoa); 
-		model.addAttribute("pensao", service.buscarPorPessoa(pessoa));
-		
-		// MUDANCA NO NOME DA LISTA QUE TAVA DANDO CONFLITO NO HTML DOIS OBJETOS COM O MESMO NOME
-		model.addAttribute("rubricaPensaoLista", service.buscarPorPessoa(pessoa));
-		return "/rubricaPensao/cadastro";
-	}
-	
-	@PostMapping("/salvar")
-	public String salvar( RubricaPensao rubricaPensao, RedirectAttributes attr) {
-
-		if (rubricaPensao.getValor() == null) {
-			rubricaPensao.setValor(0.0);
-		}
-		if (rubricaPensao.getPercentagem() == null) {
-			rubricaPensao.setPercentagem(0.0);
-		}
-
-		service.salvar(rubricaPensao);
-		attr.addFlashAttribute("success", "Inserido com sucesso.");
-		return "redirect:/rubricaPensao/cadastrar/pessoa/" + rubricaPensao.getIdPessoaFk().getId();
 	}
 
 	@PostMapping("/salvar/{id}")
@@ -276,7 +240,7 @@ public class RubricaPensaoController {
 
 		service.salvar(rubricaPensao);
 		attr.addFlashAttribute("success", "Inserido com sucesso.");
-		return "redirect:/rubricaPensao/cadastrar/pessoa/" + rubricaPensao.getIdPessoaFk().getId();
+		return "redirect:/rubricaPensao/cadastrar/" + id;
 	}
   
 	@GetMapping("/editar/{id}")
@@ -299,7 +263,7 @@ public class RubricaPensaoController {
 
 	@PostMapping("/editar")
 	public String editar(RubricaPensao rubricaPensao, RedirectAttributes attr) {
-		
+
 		if (rubricaPensao.getValor() == null) {
 			rubricaPensao.setValor(0.0);
 		}
