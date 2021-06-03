@@ -25,16 +25,20 @@
 		<div class="container" id="cadastro">
 
 			<div th:replace="fragments/alert"></div>
-			<form th:each="f : ${funcionario}"
-				  th:action="@{/rubricaPensao/salvar/{id} (id=${f.id})}"
+			<form  
+				  
+				  th:action="${rubricaPensao.id == null} ? @{/rubricaPensao/salvar} : @{/rubricaPensao/editar}"
+				  
 				  th:object="${rubricaPensao}" method="POST">
 				<div class="form-row">
 					<div class="form-group col-md-12">					
 						<label for="nome" class="fonte-tutulos-tamanho">Cadastro de Pensão</label>
 						<p></p>
 					</div>
+			
 				</div>
 					<div class="form-row">			
+					
 						<div class="form-group col-md-3">
 							<label for="nome" class="">Mês </label>
 							<select id="idCodDiferenciadoFk" class="form-select" th:field="*{idAnoMesFk}">
@@ -43,18 +47,21 @@
 							</select>	
 							<p></p>	
 						</div>												
+					
 						<div class="form-group col-md-3">		
 							<label for="nome" class="">Nome Beneficiário</label>
 					  		<input type="text"	class="form-control form-control-md uppercase"  
 							id="codigo" placeholder="Nome" th:field="*{nomeBeneficiario}" />
 							<p></p>
 						</div>
+					
 						<div class="form-group col-md-3">		
 							<label for="nome">Cpf Beneficiário </label>
 					  		<input type="text"	class="form-control form-control-md uppercase"  
 							id="codigo" placeholder="Cpf" th:field="*{cpfBeneficiario}" />
 							<p></p>
 						</div>
+					
 						<div class="form-group col-md-3">		
 							<label for="nome" class="">Banco </label>
 							<select id="idClasseCarreiraFk" class="form-select" th:field="*{idBancoFk}">
@@ -63,40 +70,48 @@
 							</select>	
 							<p></p>	
 						</div>
+					
 					</div>					
 					<div class="form-row">					
+						
 						<div class="form-group col-md-3">	
 							<label for="nome" class="">Operação/Variação </label>
 					  		<input type="text"	class="form-control form-control-md uppercase"  
 							id="codigo" placeholder="Operação/Variação" th:field="*{operacaoVariacao}" />
 							<p></p>
 						</div>
+						
 						<div class="form-group col-md-3">
 						<label for="nome" class="">Agência </label>
 					  		<input type="text"	class="form-control form-control-md uppercase"  
 							id="codigo" placeholder="Agência" th:field="*{agencia}" />
 							<p></p>
 						</div>
+						
 						<div class="form-group col-md-3">
 						<label for="nome" class="">Dv Agência </label>
 					  		<input type="text"	class="form-control form-control-md uppercase"  
 							id="codigo" placeholder="Dv" th:field="*{dvAgencia}" />
 							<p></p>
 						</div>	
-						<div class="form-group col-md-3">
-							<label for="nome" class="">Dv Conta </label>
-					  		<input type="text"	class="form-control form-control-md uppercase"  
-							id="codigo" placeholder="Dv" th:field="*{dvConta}" />
-							<p></p>
-						</div>
-					</div>					
-					<div class="form-row">												
+						
 						<div class="form-group col-md-3">
 							<label for="nome" class="">Conta </label>
 					  		<input type="text"	class="form-control form-control-md uppercase"  
 							id="codigo" placeholder="Conta" th:field="*{conta}" />
 							<p></p>
 						</div>	
+					
+					</div>					
+					<div class="form-row">												
+						
+						<div class="form-group col-md-3">
+							<label for="nome" class="">Dv Conta </label>
+					  		<input type="text"	class="form-control form-control-md uppercase"  
+							id="codigo" placeholder="Dv" th:field="*{dvConta}" />
+							<p></p>
+						</div>
+						
 						<div class="form-group col-md-3">
 							<label for="nome" class="">Percentagem </label>							
 							<input type="text"
@@ -104,6 +119,7 @@
 								id="valorHoraDia" placeholder="Percentagem" th:field="*{percentagem}" /> 
 							<p></p>
 						</div>	
+					
 						<div class="form-group col-md-3">
 							<label for="nome" class="">Valor </label>							
 							<input type="text"
@@ -111,6 +127,7 @@
 								id="valorHoraDia" placeholder="Valor " th:field="*{valor}" /> 
 							<p></p>
 						</div>								
+					
 					</div>	
 							<label for="nome" class="">Observação </label>
 					  		<input type="text"	class="form-control form-control-md uppercase"  

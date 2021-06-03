@@ -72,7 +72,7 @@ public class RubricaPensaoService {
 	
 	public List<RubricaPensao> buscarPorPessoa(Pessoa pessoa) {
 		// TODO Auto-generated method stub
-		return reposytory.findByIdPessoaFk(pessoa);
+		return reposytory.findByIdPessoaFkOrderByIdAnoMesFkNomeAnoMesDesc(pessoa);
 	}
 	@Transactional(readOnly = true)
 	public List<RubricaPensao> buscarPorMesExato(AnoMes anoMes) {

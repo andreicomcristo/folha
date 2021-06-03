@@ -222,6 +222,7 @@ public class RubricaPensaoController {
 		model.addAttribute("funcionario", funcionario);
 		model.addAttribute("pessoa", pessoa); 
 		model.addAttribute("pensao", service.buscarPorPessoa(pessoa));
+		model.addAttribute("rubricaPensaoLista", service.buscarPorPessoa(pessoa));
 		return "/rubricaPensao/cadastro";
 	}
 
@@ -244,9 +245,14 @@ public class RubricaPensaoController {
 	public String preEditar(@PathVariable("id") Long id, ModelMap model) {
 		Pessoa pessoa = service.buscarPorId(id).getIdPessoaFk();
 		
+		RubricaPensao r = service.buscarPorId(id);
+		model.addAttribute("rubricaPensao", r);
+		
 		//model.addAttribute("funcionario", funcionario);
 		model.addAttribute("pessoa", pessoa);
 		model.addAttribute("pensao", service.buscarPorId(id));
+		model.addAttribute("rubricaPensaoLista", service.buscarPorPessoa(r.getIdPessoaFk()));
+		
 		return "/rubricaPensao/cadastro";
 	}
 

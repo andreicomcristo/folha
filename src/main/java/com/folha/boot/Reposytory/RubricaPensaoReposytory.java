@@ -27,7 +27,7 @@ public interface RubricaPensaoReposytory extends JpaRepository<RubricaPensao, Lo
 	
 	public List<RubricaPensao> findByIdAnoMesFkAndIdPessoaFkAndDtCancelamentoIsNullOrderByIdAnoMesFkNomeAnoMesDescIdPessoaFkNomeAsc(AnoMes anoMes, Pessoa pessoa);
 		
-	public List<RubricaPensao> findByIdPessoaFk(Pessoa pessoa);
+	public List<RubricaPensao> findByIdPessoaFkOrderByIdAnoMesFkNomeAnoMesDesc(Pessoa pessoa);
 	
 	public Page<RubricaPensao> findAllByDtCancelamentoIsNullOrderByIdAnoMesFkNomeAnoMesDescIdPessoaFkNomeAsc(final Pageable page);
 	

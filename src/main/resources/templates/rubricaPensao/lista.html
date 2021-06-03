@@ -7,7 +7,7 @@
 	    	<a class="btn btn-outline-light oi oi-action-undo" type="button" href="javascript:history.back()"></a>
 			<a class="btn btn-outline-light oi oi-action-redo" type="button" href="javascript:history.forward()"></a>
 	    	
-	    	<a class="btn btn-outline-dark btn-md" th:href="@{/rubricaPensao/cadastrar}" role="button">
+	    	<a class="btn btn-outline-dark btn-md" th:href="@{/rubricaPensao/funcionarios/listar}" role="button">
 	        	<span class="oi oi-plus" title="Cadastro" aria-hidden="true"></span>
 	            <span>Novo</span>
 	        </a>
@@ -142,7 +142,7 @@
 	                    </tr>
 	                </thead>                  
 	                <tbody>
-		            	<tr th:each="d : ${rubricaPensao}">
+		            	<tr th:each="d : ${rubricaPensaoLista}">
 		                	<td style="font-size:10px;"  th:text="${d.id}"></td>
 		                    <td style="font-size:10px;"  th:text="${d.idAnoMesFk != null} ? ${d.idAnoMesFk.nomeAnoMes} : ''  "></td>
 		                    <td style="font-size:10px;"  th:text="${d.idPessoaFk != null} ? ${d.idPessoaFk.nome} : ''  "></td>
