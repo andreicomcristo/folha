@@ -3,6 +3,7 @@ package com.folha.boot.service;
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import org.apache.poi.ss.usermodel.Cell;
@@ -69,6 +70,28 @@ public class RubricaPensaoService {
 		// TODO Auto-generated method stub
 		return reposytory.findAllByDtCancelamentoIsNullOrderByIdAnoMesFkNomeAnoMesDescIdPessoaFkNomeAsc();
 	}
+	
+	@Transactional(readOnly = true)
+	public List<RubricaPensao> buscarListaParaPensaoNotemplateCadastro(Pessoa pessoa) {
+		// TODO Auto-generated method stub
+		List<RubricaPensao> lista = new ArrayList<>();
+		RubricaPensao rubricaPensao = buscarPrimeiroPorPessoa(pessoa);
+		
+		if(rubricaPensao!= null) {
+			AnoMes anoMes = rubricaPensao.getIdAnoMesFk();
+			lista = reposytory.findByIdAnoMesFkAndIdPessoaFkAndDtCancelamentoIsNullOrderByIdAnoMesFkNomeAnoMesDescIdPessoaFkNomeAsc(anoMes, pessoa);
+		}
+		
+		return lista;
+	}
+	
+	@Transactional(readOnly = true)
+	public RubricaPensao buscarPrimeiroPorPessoa(Pessoa pessoa) {
+		// TODO Auto-generated method stub
+		return reposytory.findFirstByIdPessoaFkAndDtCancelamentoIsNullOrderByIdAnoMesFkNomeAnoMesDescIdPessoaFkNomeAsc(pessoa);
+	}
+	
+	
 	
 	public List<RubricaPensao> buscarPorPessoa(Pessoa pessoa) {
 		// TODO Auto-generated method stub

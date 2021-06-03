@@ -221,12 +221,49 @@ public class RubricaPensaoController {
 		///////////////////////////////////////
 		model.addAttribute("funcionario", funcionario);
 		model.addAttribute("pessoa", pessoa); 
-		model.addAttribute("pensao", service.buscarPorPessoa(pessoa));
+		model.addAttribute("pensao", service.buscarListaParaPensaoNotemplateCadastro(pessoa));
 		
 		// MUDANCA NO NOME DA LISTA QUE TAVA DANDO CONFLITO NO HTML DOIS OBJETOS COM O MESMO NOME
-		model.addAttribute("rubricaPensaoLista", service.buscarPorPessoa(pessoa));
+		model.addAttribute("rubricaPensaoLista", service.buscarListaParaPensaoNotemplateCadastro(pessoa));
 		return "/rubricaPensao/cadastro";
 	}
+
+	
+	//Método novo
+	//Recebe o id do funcionário da tela de lista de funcionários
+	@GetMapping("/cadastrar/pessoa/{id}")
+	public String cadastrarPessoaPensao(@PathVariable("id") Long id, RubricaPensao rubricaPensao, ModelMap model) {
+
+		Pessoa pessoa = pessoaService.buscarPorId(id);
+		//relaciona as penssões a pessoa
+		rubricaPensao.setIdPessoaFk(pessoa);
+		rubricaPensao.setId(null);
+		//funcionariosFerias.setIdFuncionarioFk(funcionario);
+		///////////////////////////////////////
+		
+		model.addAttribute("pessoa", pessoa); 
+		model.addAttribute("pensao", service.buscarListaParaPensaoNotemplateCadastro(pessoa));
+		
+		// MUDANCA NO NOME DA LISTA QUE TAVA DANDO CONFLITO NO HTML DOIS OBJETOS COM O MESMO NOME
+		model.addAttribute("rubricaPensaoLista", service.buscarListaParaPensaoNotemplateCadastro(pessoa));
+		return "/rubricaPensao/cadastro";
+	}
+	
+	@PostMapping("/salvar")
+	public String salvar( RubricaPensao rubricaPensao, RedirectAttributes attr) {
+
+		if (rubricaPensao.getValor() == null) {
+			rubricaPensao.setValor(0.0);
+		}
+		if (rubricaPensao.getPercentagem() == null) {
+			rubricaPensao.setPercentagem(0.0);
+		}
+
+		service.salvar(rubricaPensao);
+		attr.addFlashAttribute("success", "Inserido com sucesso.");
+		return "redirect:/rubricaPensao/cadastrar/pessoa/" + rubricaPensao.getIdPessoaFk().getId();
+	}
+
 
 	@PostMapping("/salvar/{id}")
 	public String salvar(@PathVariable("id") Long id, RubricaPensao rubricaPensao, RedirectAttributes attr) {
