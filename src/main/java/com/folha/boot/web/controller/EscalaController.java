@@ -31,6 +31,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import com.folha.boot.domain.AcessoOperadoresCoordenacao;
 import com.folha.boot.domain.AnoMes;
 import com.folha.boot.domain.Bancos;
+import com.folha.boot.domain.Cargos;
 import com.folha.boot.domain.CargosEspecialidade;
 import com.folha.boot.domain.Cidades;
 import com.folha.boot.domain.CodigoDiferenciado;
@@ -40,13 +41,16 @@ import com.folha.boot.domain.EscalaAlteracoes;
 import com.folha.boot.domain.EscalaCodDiferenciado;
 import com.folha.boot.domain.EscalaPosTransparencia;
 import com.folha.boot.domain.FaixasValoresParametrosCalculoFolhasExtras;
+import com.folha.boot.domain.IncrementoDeRiscoUnidadeCargo;
 import com.folha.boot.domain.NiveisCargo;
 import com.folha.boot.domain.Pessoa;
 import com.folha.boot.domain.PessoaCodDiferenciado;
 import com.folha.boot.domain.PessoaComplementoDePlantao;
+import com.folha.boot.domain.PessoaComplementoDePlantaoSede;
 import com.folha.boot.domain.PessoaDocumentos;
 import com.folha.boot.domain.PessoaFuncionarios;
 import com.folha.boot.domain.PessoaIncrementoDeRisco;
+import com.folha.boot.domain.PessoaIncrementoDeRiscoSede;
 import com.folha.boot.domain.PessoaOperadores;
 import com.folha.boot.domain.RegimesDeTrabalho;
 import com.folha.boot.domain.SimNao;
@@ -72,15 +76,19 @@ import com.folha.boot.service.EscalaAlteracoesService;
 import com.folha.boot.service.EscalaAtalhosService;
 import com.folha.boot.service.EscalaCalculosService;
 import com.folha.boot.service.EscalaCodDiferenciadoService;
+import com.folha.boot.service.EscalaCompatibilidadeService;
 import com.folha.boot.service.EscalaExportacaoService;
 import com.folha.boot.service.EscalaPosTransparenciaService;
 import com.folha.boot.service.EscalaService;
 import com.folha.boot.service.FaixasValoresParametrosCalculoFolhasExtrasService;
+import com.folha.boot.service.IncrementoDeRiscoUnidadeCargoService;
 import com.folha.boot.service.PessoaChDifService;
 import com.folha.boot.service.PessoaCodDiferenciadoService;
+import com.folha.boot.service.PessoaComplementoDePlantaoSedeService;
 import com.folha.boot.service.PessoaComplementoDePlantaoService;
 import com.folha.boot.service.PessoaDocumentosService;
 import com.folha.boot.service.PessoaFuncionariosService;
+import com.folha.boot.service.PessoaIncrementoDeRiscoSedeService;
 import com.folha.boot.service.PessoaIncrementoDeRiscoService;
 import com.folha.boot.service.PessoaOperadoresService;
 import com.folha.boot.service.PessoaService;
@@ -172,6 +180,8 @@ public class EscalaController {
 	@Autowired
 	PessoaIncrementoDeRiscoService pessoaIncrementoDeRiscoService;
 	@Autowired
+	PessoaIncrementoDeRiscoSedeService pessoaIncrementoDeRiscoSedeService;
+	@Autowired
 	EscalaCodDiferenciadoService escalaCodDiferenciadoService;
 	@Autowired
 	FaixasValoresParametrosCalculoFolhasExtrasService faixasValoresParametrosCalculoFolhasExtrasService;
@@ -182,9 +192,15 @@ public class EscalaController {
 	@Autowired
 	UnidadeAdmiteIncrementoDeRiscoService unidadeAdmiteIncrementoDeRiscoService;
 	@Autowired
+	IncrementoDeRiscoUnidadeCargoService incrementoDeRiscoUnidadeCargoService;
+	@Autowired
 	UnidadeAdmiteComplementoPlantaoService unidadeAdmiteComplementoPlantaoService;
 	@Autowired
 	PessoaComplementoDePlantaoService pessoaComplementoDePlantaoService;
+	@Autowired
+	PessoaComplementoDePlantaoSedeService pessoaComplementoDePlantaoSedeService;
+	@Autowired
+	EscalaCompatibilidadeService escalaCompatibilidadeService;
 	
 	
 	
@@ -631,10 +647,10 @@ public class EscalaController {
 		String nomeColuna7 = escalaCalculosService.obtemNomeDiaColuna(anoMesDaEscala, 7);
 		// falta complemento de planantao compativel
 		
-		model.addAttribute("idCodigoDiferenciadoFkCompativel", getCodigosDiferenciadoCompativel( escala) );
+		model.addAttribute("idCodigoDiferenciadoFkCompativel", escalaCompatibilidadeService.getCodigosDiferenciadoCompativel( escala) );
 		model.addAttribute("idChDifFkCompativel", pessoaChDifService.listaSimNaoCompativelComPessoa(usuarioService.pegarUnidadeLogada(), escala.getIdFuncionarioFk().getIdPessoaFk(), escala.getIdAnoMesFk()) );
-		model.addAttribute("idIncrementoDeRiscoCompativel", getIncrementoDeRiscoCompativel(escala) );
-		model.addAttribute("idComplementoDePlantaoCompativel", getComplementoDePlantaoCompativel(escala) );
+		model.addAttribute("idIncrementoDeRiscoCompativel", escalaCompatibilidadeService.getIncrementoDeRiscoCompativel(escala) );
+		model.addAttribute("idComplementoDePlantaoCompativel", escalaCompatibilidadeService.getComplementoDePlantaoCompativel(escala) );
 		
 	
 		model.addAttribute("escala", escala );
@@ -793,6 +809,15 @@ public class EscalaController {
 		}
 		escala.setIdOperadorMudancaFk(usuarioService.pegarOperadorLogado());
 		escala.setDtMudanca(new Date());
+		
+
+		//Avaliando Efetivo dando Extra sem cumprir a CH Efetiva
+		boolean extraSemCumprirEfetivo = escalaCompatibilidadeService.horasExtrasSemEfetivas(escala);
+		if(extraSemCumprirEfetivo==true) {
+			return "redirect:/escalas/mensagem/de/efetivo/com/extra/sem/ch/efetiva/informada";
+		}
+		
+		
 		
 		//Avaliando Choques
 		String choque = service.choquesEmEscalaOnipresenca(escala);
@@ -1365,7 +1390,7 @@ public class EscalaController {
 			escala = escalaCalculosService.converteTurnoNuloEmFolga(escala);
 			escala = escalaCalculosService.calcularDadosEscala(escala);
 			
-			model.addAttribute("idCodigoDiferenciadoFkCompativel", getCodigosDiferenciadoCompativel( escala) );
+			model.addAttribute("idCodigoDiferenciadoFkCompativel", escalaCompatibilidadeService.getCodigosDiferenciadoCompativel( escala) );
 			model.addAttribute("escala", escala );
 			model.addAttribute("escalaCodDiferenciado", escalaCodDiferenciado );
 			model.addAttribute("lista1", escalaCodDiferenciadoService.buscarPorEscala(escala) );
@@ -1394,6 +1419,13 @@ public class EscalaController {
 		escala = escalaAtalhosService.atalhoLimaprEscala(escala);
 		escala = escalaCalculosService.converteTurnoNuloEmFolga(escala);
 		escala = escalaCalculosService.calcularDadosEscala(escala);
+		//Avaliando Efetivo dando Extra sem cumprir a CH Efetiva
+		boolean extraSemCumprirEfetivo = escalaCompatibilidadeService.horasExtrasSemEfetivas(escala);
+		if(extraSemCumprirEfetivo==true) {
+			return "redirect:/escalas/mensagem/de/efetivo/com/extra/sem/ch/efetiva/informada";
+		}
+		
+		
 		salvar(escala, null, null);
 		HttpSession session = httpSessionFactory.getObject(); session.setAttribute("ultimoIdEscala", escala.getId()  );
 		
@@ -1426,11 +1458,20 @@ public class EscalaController {
 		return "redirect:/escalas/mensagem/de/escala/bloqueada";
 		}		
 
-		Escala escala = service.buscarPorId(ultimoIdEscala());
+		Escala escalaA = service.buscarPorId(ultimoIdEscala());
+		Escala escala = service.converteDeEscalaParaEscalaComId(escalaA);
+		
 		escala = escalaCalculosService.converteTurnoNuloEmFolga(escala);
 		escala = escalaAtalhosService.atalhoDiaristasManha(escala);
 		escala = escalaCalculosService.converteTurnoNuloEmFolga(escala);
 		escala = escalaCalculosService.calcularDadosEscala(escala);
+		
+		//Avaliando Efetivo dando Extra sem cumprir a CH Efetiva
+		boolean extraSemCumprirEfetivo = escalaCompatibilidadeService.horasExtrasSemEfetivas(escala);
+		if(extraSemCumprirEfetivo==true) {
+			return "redirect:/escalas/mensagem/de/efetivo/com/extra/sem/ch/efetiva/informada";
+		}
+				
 		//AVALIAÇÃO PARA SABER SE TEM CHOQUES
 		//comando para armazenar choque na sessão
         HttpSession session = httpSessionFactory.getObject();
@@ -1457,11 +1498,20 @@ public class EscalaController {
 		return "redirect:/escalas/mensagem/de/escala/bloqueada";
 		}		
 		
-		Escala escala = service.buscarPorId(ultimoIdEscala());
+		Escala escalaA = service.buscarPorId(ultimoIdEscala());
+		Escala escala = service.converteDeEscalaParaEscalaComId(escalaA);
+
 		escala = escalaCalculosService.converteTurnoNuloEmFolga(escala);
 		escala = escalaAtalhosService.atalhoDiaristasTarde(escala);
 		escala = escalaCalculosService.converteTurnoNuloEmFolga(escala);
 		escala = escalaCalculosService.calcularDadosEscala(escala);
+		
+		//Avaliando Efetivo dando Extra sem cumprir a CH Efetiva
+		boolean extraSemCumprirEfetivo = escalaCompatibilidadeService.horasExtrasSemEfetivas(escala);
+		if(extraSemCumprirEfetivo==true) {
+			return "redirect:/escalas/mensagem/de/efetivo/com/extra/sem/ch/efetiva/informada";
+		}
+		
 		//AVALIAÇÃO PARA SABER SE TEM CHOQUES
 		//this.choque = service.choquesEmEscalaOnipresenca(escala);
 		//comando para armazenar choque na sessão
@@ -1487,11 +1537,20 @@ public class EscalaController {
 		return "redirect:/escalas/mensagem/de/escala/bloqueada";
 		}		
 
-		Escala escala = service.buscarPorId(ultimoIdEscala());
+		Escala escalaA = service.buscarPorId(ultimoIdEscala());
+		Escala escala = service.converteDeEscalaParaEscalaComId(escalaA);
+
 		escala = escalaCalculosService.converteTurnoNuloEmFolga(escala);
 		escala = escalaAtalhosService.atalhoDiaristasDia(escala);
 		escala = escalaCalculosService.converteTurnoNuloEmFolga(escala);
 		escala = escalaCalculosService.calcularDadosEscala(escala);
+		
+		//Avaliando Efetivo dando Extra sem cumprir a CH Efetiva
+		boolean extraSemCumprirEfetivo = escalaCompatibilidadeService.horasExtrasSemEfetivas(escala);
+		if(extraSemCumprirEfetivo==true) {
+			return "redirect:/escalas/mensagem/de/efetivo/com/extra/sem/ch/efetiva/informada";
+		}
+		
 		//AVALIAÇÃO PARA SABER SE TEM CHOQUES
 		//this.choque = service.choquesEmEscalaOnipresenca(escala);
 		//comando para armazenar choque na sessão
@@ -1517,11 +1576,20 @@ public class EscalaController {
 		return "redirect:/escalas/mensagem/de/escala/bloqueada";
 		}		
 
-		Escala escala = service.buscarPorId(ultimoIdEscala());
+		Escala escalaA = service.buscarPorId(ultimoIdEscala());
+		Escala escala = service.converteDeEscalaParaEscalaComId(escalaA);
+
 		escala = escalaCalculosService.converteTurnoNuloEmFolga(escala);
 		escala = escalaAtalhosService.atalhoMTDiasImpares(escala);
 		escala = escalaCalculosService.converteTurnoNuloEmFolga(escala);
 		escala = escalaCalculosService.calcularDadosEscala(escala);
+		
+		//Avaliando Efetivo dando Extra sem cumprir a CH Efetiva
+		boolean extraSemCumprirEfetivo = escalaCompatibilidadeService.horasExtrasSemEfetivas(escala);
+		if(extraSemCumprirEfetivo==true) {
+			return "redirect:/escalas/mensagem/de/efetivo/com/extra/sem/ch/efetiva/informada";
+		}
+		
 		//AVALIAÇÃO PARA SABER SE TEM CHOQUES
 		//this.choque = service.choquesEmEscalaOnipresenca(escala);
 		//comando para armazenar choque na sessão
@@ -1547,11 +1615,20 @@ public class EscalaController {
 		return "redirect:/escalas/mensagem/de/escala/bloqueada";
 		}		
 
-		Escala escala = service.buscarPorId(ultimoIdEscala());
+		Escala escalaA = service.buscarPorId(ultimoIdEscala());
+		Escala escala = service.converteDeEscalaParaEscalaComId(escalaA);
+
 		escala = escalaCalculosService.converteTurnoNuloEmFolga(escala);
 		escala = escalaAtalhosService.atalhoMTDiasPares(escala);
 		escala = escalaCalculosService.converteTurnoNuloEmFolga(escala);
 		escala = escalaCalculosService.calcularDadosEscala(escala);
+		
+		//Avaliando Efetivo dando Extra sem cumprir a CH Efetiva
+		boolean extraSemCumprirEfetivo = escalaCompatibilidadeService.horasExtrasSemEfetivas(escala);
+		if(extraSemCumprirEfetivo==true) {
+			return "redirect:/escalas/mensagem/de/efetivo/com/extra/sem/ch/efetiva/informada";
+		}
+		
 		//AVALIAÇÃO PARA SABER SE TEM CHOQUES
 		//this.choque = service.choquesEmEscalaOnipresenca(escala);
 		//comando para armazenar choque na sessão
@@ -1577,12 +1654,21 @@ public class EscalaController {
 		if(anoMesService.buscarPorId(mesAtual()).getIdEscalaBloqueadaFk().getSigla().equalsIgnoreCase("S")) {
 		return "redirect:/escalas/mensagem/de/escala/bloqueada";
 		}		
+		
+		Escala escalaA = service.buscarPorId(ultimoIdEscala());
+		Escala escala = service.converteDeEscalaParaEscalaComId(escalaA);
 
-		Escala escala = service.buscarPorId(ultimoIdEscala());
 		escala = escalaCalculosService.converteTurnoNuloEmFolga(escala);
 		escala = escalaAtalhosService.atalhoCiclo1A(escala);
 		escala = escalaCalculosService.converteTurnoNuloEmFolga(escala);
 		escala = escalaCalculosService.calcularDadosEscala(escala);
+		
+		//Avaliando Efetivo dando Extra sem cumprir a CH Efetiva
+		boolean extraSemCumprirEfetivo = escalaCompatibilidadeService.horasExtrasSemEfetivas(escala);
+		if(extraSemCumprirEfetivo==true) {
+			return "redirect:/escalas/mensagem/de/efetivo/com/extra/sem/ch/efetiva/informada";
+		}
+		
 		//AVALIAÇÃO PARA SABER SE TEM CHOQUES
 		//this.choque = service.choquesEmEscalaOnipresenca(escala);
 		//comando para armazenar choque na sessão
@@ -1608,11 +1694,20 @@ public class EscalaController {
 		return "redirect:/escalas/mensagem/de/escala/bloqueada";
 		}		
 
-		Escala escala = service.buscarPorId(ultimoIdEscala());
+		Escala escalaA = service.buscarPorId(ultimoIdEscala());
+		Escala escala = service.converteDeEscalaParaEscalaComId(escalaA);
+
 		escala = escalaCalculosService.converteTurnoNuloEmFolga(escala);
 		escala = escalaAtalhosService.atalhoCiclo1B(escala);
 		escala = escalaCalculosService.converteTurnoNuloEmFolga(escala);
 		escala = escalaCalculosService.calcularDadosEscala(escala);
+		
+		//Avaliando Efetivo dando Extra sem cumprir a CH Efetiva
+		boolean extraSemCumprirEfetivo = escalaCompatibilidadeService.horasExtrasSemEfetivas(escala);
+		if(extraSemCumprirEfetivo==true) {
+			return "redirect:/escalas/mensagem/de/efetivo/com/extra/sem/ch/efetiva/informada";
+		}
+		
 		//AVALIAÇÃO PARA SABER SE TEM CHOQUES
 		//this.choque = service.choquesEmEscalaOnipresenca(escala);
 		//comando para armazenar choque na sessão
@@ -1638,11 +1733,20 @@ public class EscalaController {
 		return "redirect:/escalas/mensagem/de/escala/bloqueada";
 		}		
 
-		Escala escala = service.buscarPorId(ultimoIdEscala());
+		Escala escalaA = service.buscarPorId(ultimoIdEscala());
+		Escala escala = service.converteDeEscalaParaEscalaComId(escalaA);
+
 		escala = escalaCalculosService.converteTurnoNuloEmFolga(escala);
 		escala = escalaAtalhosService.atalhoCiclo1C(escala);
 		escala = escalaCalculosService.converteTurnoNuloEmFolga(escala);
 		escala = escalaCalculosService.calcularDadosEscala(escala);
+		
+		//Avaliando Efetivo dando Extra sem cumprir a CH Efetiva
+		boolean extraSemCumprirEfetivo = escalaCompatibilidadeService.horasExtrasSemEfetivas(escala);
+		if(extraSemCumprirEfetivo==true) {
+			return "redirect:/escalas/mensagem/de/efetivo/com/extra/sem/ch/efetiva/informada";
+		}
+		
 		//AVALIAÇÃO PARA SABER SE TEM CHOQUES
 		//this.choque = service.choquesEmEscalaOnipresenca(escala);
 		//comando para armazenar choque na sessão
@@ -1668,11 +1772,20 @@ public class EscalaController {
 		return "redirect:/escalas/mensagem/de/escala/bloqueada";
 		}		
 
-		Escala escala = service.buscarPorId(ultimoIdEscala());
+		Escala escalaA = service.buscarPorId(ultimoIdEscala());
+		Escala escala = service.converteDeEscalaParaEscalaComId(escalaA);
+
 		escala = escalaCalculosService.converteTurnoNuloEmFolga(escala);
 		escala = escalaAtalhosService.atalhoCiclo1D(escala);
 		escala = escalaCalculosService.converteTurnoNuloEmFolga(escala);
 		escala = escalaCalculosService.calcularDadosEscala(escala);
+		
+		//Avaliando Efetivo dando Extra sem cumprir a CH Efetiva
+		boolean extraSemCumprirEfetivo = escalaCompatibilidadeService.horasExtrasSemEfetivas(escala);
+		if(extraSemCumprirEfetivo==true) {
+			return "redirect:/escalas/mensagem/de/efetivo/com/extra/sem/ch/efetiva/informada";
+		}
+		
 		//AVALIAÇÃO PARA SABER SE TEM CHOQUES
 		//comando para armazenar choque na sessão
         HttpSession session = httpSessionFactory.getObject();
@@ -1697,11 +1810,20 @@ public class EscalaController {
 		return "redirect:/escalas/mensagem/de/escala/bloqueada";
 		}		
 
-		Escala escala = service.buscarPorId(ultimoIdEscala());
+		Escala escalaA = service.buscarPorId(ultimoIdEscala());
+		Escala escala = service.converteDeEscalaParaEscalaComId(escalaA);
+
 		escala = escalaCalculosService.converteTurnoNuloEmFolga(escala);
 		escala = escalaAtalhosService.atalhoCiclo1E(escala);
 		escala = escalaCalculosService.converteTurnoNuloEmFolga(escala);
 		escala = escalaCalculosService.calcularDadosEscala(escala);
+		
+		//Avaliando Efetivo dando Extra sem cumprir a CH Efetiva
+		boolean extraSemCumprirEfetivo = escalaCompatibilidadeService.horasExtrasSemEfetivas(escala);
+		if(extraSemCumprirEfetivo==true) {
+			return "redirect:/escalas/mensagem/de/efetivo/com/extra/sem/ch/efetiva/informada";
+		}
+		
 		//AVALIAÇÃO PARA SABER SE TEM CHOQUES
 		//this.choque = service.choquesEmEscalaOnipresenca(escala);
 		//comando para armazenar choque na sessão
@@ -1727,11 +1849,20 @@ public class EscalaController {
 		return "redirect:/escalas/mensagem/de/escala/bloqueada";
 		}		
 
-		Escala escala = service.buscarPorId(ultimoIdEscala());
+		Escala escalaA = service.buscarPorId(ultimoIdEscala());
+		Escala escala = service.converteDeEscalaParaEscalaComId(escalaA);
+
 		escala = escalaCalculosService.converteTurnoNuloEmFolga(escala);
 		escala = escalaAtalhosService.atalhoCiclo1F(escala);
 		escala = escalaCalculosService.converteTurnoNuloEmFolga(escala);
 		escala = escalaCalculosService.calcularDadosEscala(escala);
+		
+		//Avaliando Efetivo dando Extra sem cumprir a CH Efetiva
+		boolean extraSemCumprirEfetivo = escalaCompatibilidadeService.horasExtrasSemEfetivas(escala);
+		if(extraSemCumprirEfetivo==true) {
+			return "redirect:/escalas/mensagem/de/efetivo/com/extra/sem/ch/efetiva/informada";
+		}
+		
 		//AVALIAÇÃO PARA SABER SE TEM CHOQUES
 		//this.choque = service.choquesEmEscalaOnipresenca(escala);
 		//comando para armazenar choque na sessão
@@ -1758,11 +1889,20 @@ public class EscalaController {
 		return "redirect:/escalas/mensagem/de/escala/bloqueada";
 		}		
 
-		Escala escala = service.buscarPorId(ultimoIdEscala());
+		Escala escalaA = service.buscarPorId(ultimoIdEscala());
+		Escala escala = service.converteDeEscalaParaEscalaComId(escalaA);
+
 		escala = escalaCalculosService.converteTurnoNuloEmFolga(escala);
 		escala = escalaAtalhosService.atalhoCiclo2A(escala);
 		escala = escalaCalculosService.converteTurnoNuloEmFolga(escala);
 		escala = escalaCalculosService.calcularDadosEscala(escala);
+		
+		//Avaliando Efetivo dando Extra sem cumprir a CH Efetiva
+		boolean extraSemCumprirEfetivo = escalaCompatibilidadeService.horasExtrasSemEfetivas(escala);
+		if(extraSemCumprirEfetivo==true) {
+			return "redirect:/escalas/mensagem/de/efetivo/com/extra/sem/ch/efetiva/informada";
+		}
+		
 		//AVALIAÇÃO PARA SABER SE TEM CHOQUES
 		//this.choque = service.choquesEmEscalaOnipresenca(escala);
 		//comando para armazenar choque na sessão
@@ -1788,11 +1928,20 @@ public class EscalaController {
 		return "redirect:/escalas/mensagem/de/escala/bloqueada";
 		}		
 
-		Escala escala = service.buscarPorId(ultimoIdEscala());
+		Escala escalaA = service.buscarPorId(ultimoIdEscala());
+		Escala escala = service.converteDeEscalaParaEscalaComId(escalaA);
+
 		escala = escalaCalculosService.converteTurnoNuloEmFolga(escala);
 		escala = escalaAtalhosService.atalhoCiclo2B(escala);
 		escala = escalaCalculosService.converteTurnoNuloEmFolga(escala);
 		escala = escalaCalculosService.calcularDadosEscala(escala);
+		
+		//Avaliando Efetivo dando Extra sem cumprir a CH Efetiva
+		boolean extraSemCumprirEfetivo = escalaCompatibilidadeService.horasExtrasSemEfetivas(escala);
+		if(extraSemCumprirEfetivo==true) {
+			return "redirect:/escalas/mensagem/de/efetivo/com/extra/sem/ch/efetiva/informada";
+		}
+		
 		//AVALIAÇÃO PARA SABER SE TEM CHOQUES
 		//this.choque = service.choquesEmEscalaOnipresenca(escala);
 		//comando para armazenar choque na sessão
@@ -1818,11 +1967,20 @@ public class EscalaController {
 		return "redirect:/escalas/mensagem/de/escala/bloqueada";
 		}		
 
-		Escala escala = service.buscarPorId(ultimoIdEscala());
+		Escala escalaA = service.buscarPorId(ultimoIdEscala());
+		Escala escala = service.converteDeEscalaParaEscalaComId(escalaA);
+
 		escala = escalaCalculosService.converteTurnoNuloEmFolga(escala);
 		escala = escalaAtalhosService.atalhoCiclo2C(escala);
 		escala = escalaCalculosService.converteTurnoNuloEmFolga(escala);
 		escala = escalaCalculosService.calcularDadosEscala(escala);
+		
+		//Avaliando Efetivo dando Extra sem cumprir a CH Efetiva
+		boolean extraSemCumprirEfetivo = escalaCompatibilidadeService.horasExtrasSemEfetivas(escala);
+		if(extraSemCumprirEfetivo==true) {
+			return "redirect:/escalas/mensagem/de/efetivo/com/extra/sem/ch/efetiva/informada";
+		}
+		
 		//AVALIAÇÃO PARA SABER SE TEM CHOQUES
 		//this.choque = service.choquesEmEscalaOnipresenca(escala);
 		//comando para armazenar choque na sessão
@@ -1848,11 +2006,20 @@ public class EscalaController {
 		return "redirect:/escalas/mensagem/de/escala/bloqueada";
 		}		
 
-		Escala escala = service.buscarPorId(ultimoIdEscala());
+		Escala escalaA = service.buscarPorId(ultimoIdEscala());
+		Escala escala = service.converteDeEscalaParaEscalaComId(escalaA);
+
 		escala = escalaCalculosService.converteTurnoNuloEmFolga(escala);
 		escala = escalaAtalhosService.atalhoCiclo2D(escala);
 		escala = escalaCalculosService.converteTurnoNuloEmFolga(escala);
 		escala = escalaCalculosService.calcularDadosEscala(escala);
+		
+		//Avaliando Efetivo dando Extra sem cumprir a CH Efetiva
+		boolean extraSemCumprirEfetivo = escalaCompatibilidadeService.horasExtrasSemEfetivas(escala);
+		if(extraSemCumprirEfetivo==true) {
+			return "redirect:/escalas/mensagem/de/efetivo/com/extra/sem/ch/efetiva/informada";
+		}
+		
 		//AVALIAÇÃO PARA SABER SE TEM CHOQUES
 		//this.choque = service.choquesEmEscalaOnipresenca(escala);
 		//comando para armazenar choque na sessão
@@ -1878,11 +2045,20 @@ public class EscalaController {
 		return "redirect:/escalas/mensagem/de/escala/bloqueada";
 		}		
 
-		Escala escala = service.buscarPorId(ultimoIdEscala());
+		Escala escalaA = service.buscarPorId(ultimoIdEscala());
+		Escala escala = service.converteDeEscalaParaEscalaComId(escalaA);
+
 		escala = escalaCalculosService.converteTurnoNuloEmFolga(escala);
 		escala = escalaAtalhosService.atalhoCiclo2E(escala);
 		escala = escalaCalculosService.converteTurnoNuloEmFolga(escala);
 		escala = escalaCalculosService.calcularDadosEscala(escala);
+		
+		//Avaliando Efetivo dando Extra sem cumprir a CH Efetiva
+		boolean extraSemCumprirEfetivo = escalaCompatibilidadeService.horasExtrasSemEfetivas(escala);
+		if(extraSemCumprirEfetivo==true) {
+			return "redirect:/escalas/mensagem/de/efetivo/com/extra/sem/ch/efetiva/informada";
+		}
+		
 		//AVALIAÇÃO PARA SABER SE TEM CHOQUES
 		//this.choque = service.choquesEmEscalaOnipresenca(escala);
 		//comando para armazenar choque na sessão
@@ -1908,11 +2084,20 @@ public class EscalaController {
 		return "redirect:/escalas/mensagem/de/escala/bloqueada";
 		}		
 
-		Escala escala = service.buscarPorId(ultimoIdEscala());
+		Escala escalaA = service.buscarPorId(ultimoIdEscala());
+		Escala escala = service.converteDeEscalaParaEscalaComId(escalaA);
+
 		escala = escalaCalculosService.converteTurnoNuloEmFolga(escala);
 		escala = escalaAtalhosService.atalhoCiclo2F(escala);
 		escala = escalaCalculosService.converteTurnoNuloEmFolga(escala);
 		escala = escalaCalculosService.calcularDadosEscala(escala);
+		
+		//Avaliando Efetivo dando Extra sem cumprir a CH Efetiva
+		boolean extraSemCumprirEfetivo = escalaCompatibilidadeService.horasExtrasSemEfetivas(escala);
+		if(extraSemCumprirEfetivo==true) {
+			return "redirect:/escalas/mensagem/de/efetivo/com/extra/sem/ch/efetiva/informada";
+		}
+		
 		//AVALIAÇÃO PARA SABER SE TEM CHOQUES
 		//this.choque = service.choquesEmEscalaOnipresenca(escala);
 		//comando para armazenar choque na sessão
@@ -1939,11 +2124,20 @@ public class EscalaController {
 		return "redirect:/escalas/mensagem/de/escala/bloqueada";
 		}		
 
-		Escala escala = service.buscarPorId(ultimoIdEscala());
+		Escala escalaA = service.buscarPorId(ultimoIdEscala());
+		Escala escala = service.converteDeEscalaParaEscalaComId(escalaA);
+
 		escala = escalaCalculosService.converteTurnoNuloEmFolga(escala);
 		escala = escalaAtalhosService.atalhoCiclo4A(escala);
 		escala = escalaCalculosService.converteTurnoNuloEmFolga(escala);
 		escala = escalaCalculosService.calcularDadosEscala(escala);
+		
+		//Avaliando Efetivo dando Extra sem cumprir a CH Efetiva
+		boolean extraSemCumprirEfetivo = escalaCompatibilidadeService.horasExtrasSemEfetivas(escala);
+		if(extraSemCumprirEfetivo==true) {
+			return "redirect:/escalas/mensagem/de/efetivo/com/extra/sem/ch/efetiva/informada";
+		}
+		
 		//AVALIAÇÃO PARA SABER SE TEM CHOQUES
 		//this.choque = service.choquesEmEscalaOnipresenca(escala);
 		//comando para armazenar choque na sessão
@@ -1969,11 +2163,20 @@ public class EscalaController {
 		return "redirect:/escalas/mensagem/de/escala/bloqueada";
 		}		
 
-		Escala escala = service.buscarPorId(ultimoIdEscala());
+		Escala escalaA = service.buscarPorId(ultimoIdEscala());
+		Escala escala = service.converteDeEscalaParaEscalaComId(escalaA);
+
 		escala = escalaCalculosService.converteTurnoNuloEmFolga(escala);
 		escala = escalaAtalhosService.atalhoCiclo4B(escala);
 		escala = escalaCalculosService.converteTurnoNuloEmFolga(escala);
 		escala = escalaCalculosService.calcularDadosEscala(escala);
+		
+		//Avaliando Efetivo dando Extra sem cumprir a CH Efetiva
+		boolean extraSemCumprirEfetivo = escalaCompatibilidadeService.horasExtrasSemEfetivas(escala);
+		if(extraSemCumprirEfetivo==true) {
+			return "redirect:/escalas/mensagem/de/efetivo/com/extra/sem/ch/efetiva/informada";
+		}
+		
 		//AVALIAÇÃO PARA SABER SE TEM CHOQUES
 		//this.choque = service.choquesEmEscalaOnipresenca(escala);
 		//comando para armazenar choque na sessão
@@ -1999,11 +2202,20 @@ public class EscalaController {
 		return "redirect:/escalas/mensagem/de/escala/bloqueada";
 		}		
 
-		Escala escala = service.buscarPorId(ultimoIdEscala());
+		Escala escalaA = service.buscarPorId(ultimoIdEscala());
+		Escala escala = service.converteDeEscalaParaEscalaComId(escalaA);
+
 		escala = escalaCalculosService.converteTurnoNuloEmFolga(escala);
 		escala = escalaAtalhosService.atalhoCiclo4C(escala);
 		escala = escalaCalculosService.converteTurnoNuloEmFolga(escala);
 		escala = escalaCalculosService.calcularDadosEscala(escala);
+		
+		//Avaliando Efetivo dando Extra sem cumprir a CH Efetiva
+		boolean extraSemCumprirEfetivo = escalaCompatibilidadeService.horasExtrasSemEfetivas(escala);
+		if(extraSemCumprirEfetivo==true) {
+			return "redirect:/escalas/mensagem/de/efetivo/com/extra/sem/ch/efetiva/informada";
+		}
+		
 		//AVALIAÇÃO PARA SABER SE TEM CHOQUES
 		//this.choque = service.choquesEmEscalaOnipresenca(escala);
 		//comando para armazenar choque na sessão
@@ -2029,11 +2241,20 @@ public class EscalaController {
 		return "redirect:/escalas/mensagem/de/escala/bloqueada";
 		}		
 
-		Escala escala = service.buscarPorId(ultimoIdEscala());
+		Escala escalaA = service.buscarPorId(ultimoIdEscala());
+		Escala escala = service.converteDeEscalaParaEscalaComId(escalaA);
+
 		escala = escalaCalculosService.converteTurnoNuloEmFolga(escala);
 		escala = escalaAtalhosService.atalhoCiclo4D(escala);
 		escala = escalaCalculosService.converteTurnoNuloEmFolga(escala);
 		escala = escalaCalculosService.calcularDadosEscala(escala);
+		
+		//Avaliando Efetivo dando Extra sem cumprir a CH Efetiva
+		boolean extraSemCumprirEfetivo = escalaCompatibilidadeService.horasExtrasSemEfetivas(escala);
+		if(extraSemCumprirEfetivo==true) {
+			return "redirect:/escalas/mensagem/de/efetivo/com/extra/sem/ch/efetiva/informada";
+		}
+		
 		//AVALIAÇÃO PARA SABER SE TEM CHOQUES
 		//this.choque = service.choquesEmEscalaOnipresenca(escala);
 		//comando para armazenar choque na sessão
@@ -2059,11 +2280,20 @@ public class EscalaController {
 		return "redirect:/escalas/mensagem/de/escala/bloqueada";
 		}		
 
-		Escala escala = service.buscarPorId(ultimoIdEscala());
+		Escala escalaA = service.buscarPorId(ultimoIdEscala());
+		Escala escala = service.converteDeEscalaParaEscalaComId(escalaA);
+
 		escala = escalaCalculosService.converteTurnoNuloEmFolga(escala);
 		escala = escalaAtalhosService.atalhoCiclo4E(escala);
 		escala = escalaCalculosService.converteTurnoNuloEmFolga(escala);
 		escala = escalaCalculosService.calcularDadosEscala(escala);
+		
+		//Avaliando Efetivo dando Extra sem cumprir a CH Efetiva
+		boolean extraSemCumprirEfetivo = escalaCompatibilidadeService.horasExtrasSemEfetivas(escala);
+		if(extraSemCumprirEfetivo==true) {
+			return "redirect:/escalas/mensagem/de/efetivo/com/extra/sem/ch/efetiva/informada";
+		}
+		
 		//AVALIAÇÃO PARA SABER SE TEM CHOQUES
 		//this.choque = service.choquesEmEscalaOnipresenca(escala);
 		//comando para armazenar choque na sessão
@@ -2089,11 +2319,20 @@ public class EscalaController {
 		return "redirect:/escalas/mensagem/de/escala/bloqueada";
 		}		
 
-		Escala escala = service.buscarPorId(ultimoIdEscala());
+		Escala escalaA = service.buscarPorId(ultimoIdEscala());
+		Escala escala = service.converteDeEscalaParaEscalaComId(escalaA);
+
 		escala = escalaCalculosService.converteTurnoNuloEmFolga(escala);
 		escala = escalaAtalhosService.atalhoCiclo4F(escala);
 		escala = escalaCalculosService.converteTurnoNuloEmFolga(escala);
 		escala = escalaCalculosService.calcularDadosEscala(escala);
+		
+		//Avaliando Efetivo dando Extra sem cumprir a CH Efetiva
+		boolean extraSemCumprirEfetivo = escalaCompatibilidadeService.horasExtrasSemEfetivas(escala);
+		if(extraSemCumprirEfetivo==true) {
+			return "redirect:/escalas/mensagem/de/efetivo/com/extra/sem/ch/efetiva/informada";
+		}
+		
 		//AVALIAÇÃO PARA SABER SE TEM CHOQUES
 		//this.choque = service.choquesEmEscalaOnipresenca(escala);
 		//comando para armazenar choque na sessão
@@ -2120,11 +2359,20 @@ public class EscalaController {
 		return "redirect:/escalas/mensagem/de/escala/bloqueada";
 		}		
 
-		Escala escala = service.buscarPorId(ultimoIdEscala());
+		Escala escalaA = service.buscarPorId(ultimoIdEscala());
+		Escala escala = service.converteDeEscalaParaEscalaComId(escalaA);
+
 		escala = escalaCalculosService.converteTurnoNuloEmFolga(escala);
 		escala = escalaAtalhosService.atalhoCiclo5A(escala);
 		escala = escalaCalculosService.converteTurnoNuloEmFolga(escala);
 		escala = escalaCalculosService.calcularDadosEscala(escala);
+		
+		//Avaliando Efetivo dando Extra sem cumprir a CH Efetiva
+		boolean extraSemCumprirEfetivo = escalaCompatibilidadeService.horasExtrasSemEfetivas(escala);
+		if(extraSemCumprirEfetivo==true) {
+			return "redirect:/escalas/mensagem/de/efetivo/com/extra/sem/ch/efetiva/informada";
+		}
+		
 		//AVALIAÇÃO PARA SABER SE TEM CHOQUES
 		//this.choque = service.choquesEmEscalaOnipresenca(escala);
 		//comando para armazenar choque na sessão
@@ -2150,11 +2398,20 @@ public class EscalaController {
 		return "redirect:/escalas/mensagem/de/escala/bloqueada";
 		}		
 
-		Escala escala = service.buscarPorId(ultimoIdEscala());
+		Escala escalaA = service.buscarPorId(ultimoIdEscala());
+		Escala escala = service.converteDeEscalaParaEscalaComId(escalaA);
+
 		escala = escalaCalculosService.converteTurnoNuloEmFolga(escala);
 		escala = escalaAtalhosService.atalhoCiclo5B(escala);
 		escala = escalaCalculosService.converteTurnoNuloEmFolga(escala);
 		escala = escalaCalculosService.calcularDadosEscala(escala);
+		
+		//Avaliando Efetivo dando Extra sem cumprir a CH Efetiva
+		boolean extraSemCumprirEfetivo = escalaCompatibilidadeService.horasExtrasSemEfetivas(escala);
+		if(extraSemCumprirEfetivo==true) {
+			return "redirect:/escalas/mensagem/de/efetivo/com/extra/sem/ch/efetiva/informada";
+		}
+		
 		//AVALIAÇÃO PARA SABER SE TEM CHOQUES
 		//this.choque = service.choquesEmEscalaOnipresenca(escala);
 		//comando para armazenar choque na sessão
@@ -2180,11 +2437,20 @@ public class EscalaController {
 		return "redirect:/escalas/mensagem/de/escala/bloqueada";
 		}		
 
-		Escala escala = service.buscarPorId(ultimoIdEscala());
+		Escala escalaA = service.buscarPorId(ultimoIdEscala());
+		Escala escala = service.converteDeEscalaParaEscalaComId(escalaA);
+		
 		escala = escalaCalculosService.converteTurnoNuloEmFolga(escala);
 		escala = escalaAtalhosService.atalhoCiclo5C(escala);
 		escala = escalaCalculosService.converteTurnoNuloEmFolga(escala);
 		escala = escalaCalculosService.calcularDadosEscala(escala);
+		
+		//Avaliando Efetivo dando Extra sem cumprir a CH Efetiva
+		boolean extraSemCumprirEfetivo = escalaCompatibilidadeService.horasExtrasSemEfetivas(escala);
+		if(extraSemCumprirEfetivo==true) {
+			return "redirect:/escalas/mensagem/de/efetivo/com/extra/sem/ch/efetiva/informada";
+		}
+		
 		//AVALIAÇÃO PARA SABER SE TEM CHOQUES
 		//this.choque = service.choquesEmEscalaOnipresenca(escala);
 		//comando para armazenar choque na sessão
@@ -2210,11 +2476,20 @@ public class EscalaController {
 		return "redirect:/escalas/mensagem/de/escala/bloqueada";
 		}		
 
-		Escala escala = service.buscarPorId(ultimoIdEscala());
+		Escala escalaA = service.buscarPorId(ultimoIdEscala());
+		Escala escala = service.converteDeEscalaParaEscalaComId(escalaA);
+		
 		escala = escalaCalculosService.converteTurnoNuloEmFolga(escala);
 		escala = escalaAtalhosService.atalhoCiclo5D(escala);
 		escala = escalaCalculosService.converteTurnoNuloEmFolga(escala);
 		escala = escalaCalculosService.calcularDadosEscala(escala);
+		
+		//Avaliando Efetivo dando Extra sem cumprir a CH Efetiva
+		boolean extraSemCumprirEfetivo = escalaCompatibilidadeService.horasExtrasSemEfetivas(escala);
+		if(extraSemCumprirEfetivo==true) {
+			return "redirect:/escalas/mensagem/de/efetivo/com/extra/sem/ch/efetiva/informada";
+		}
+		
 		//AVALIAÇÃO PARA SABER SE TEM CHOQUES
 		//this.choque = service.choquesEmEscalaOnipresenca(escala);
 		//comando para armazenar choque na sessão
@@ -2240,11 +2515,20 @@ public class EscalaController {
 		return "redirect:/escalas/mensagem/de/escala/bloqueada";
 		}		
 
-		Escala escala = service.buscarPorId(ultimoIdEscala());
+		Escala escalaA = service.buscarPorId(ultimoIdEscala());
+		Escala escala = service.converteDeEscalaParaEscalaComId(escalaA);
+		
 		escala = escalaCalculosService.converteTurnoNuloEmFolga(escala);
 		escala = escalaAtalhosService.atalhoCiclo5E(escala);
 		escala = escalaCalculosService.converteTurnoNuloEmFolga(escala);
 		escala = escalaCalculosService.calcularDadosEscala(escala);
+		
+		//Avaliando Efetivo dando Extra sem cumprir a CH Efetiva
+		boolean extraSemCumprirEfetivo = escalaCompatibilidadeService.horasExtrasSemEfetivas(escala);
+		if(extraSemCumprirEfetivo==true) {
+			return "redirect:/escalas/mensagem/de/efetivo/com/extra/sem/ch/efetiva/informada";
+		}
+		
 		//AVALIAÇÃO PARA SABER SE TEM CHOQUES
 		//this.choque = service.choquesEmEscalaOnipresenca(escala);
 		//comando para armazenar choque na sessão
@@ -2270,11 +2554,20 @@ public class EscalaController {
 		return "redirect:/escalas/mensagem/de/escala/bloqueada";
 		}		
 
-		Escala escala = service.buscarPorId(ultimoIdEscala());
+		Escala escalaA = service.buscarPorId(ultimoIdEscala());
+		Escala escala = service.converteDeEscalaParaEscalaComId(escalaA);
+		
 		escala = escalaCalculosService.converteTurnoNuloEmFolga(escala);
 		escala = escalaAtalhosService.atalhoCiclo5F(escala);
 		escala = escalaCalculosService.converteTurnoNuloEmFolga(escala);
 		escala = escalaCalculosService.calcularDadosEscala(escala);
+		
+		//Avaliando Efetivo dando Extra sem cumprir a CH Efetiva
+		boolean extraSemCumprirEfetivo = escalaCompatibilidadeService.horasExtrasSemEfetivas(escala);
+		if(extraSemCumprirEfetivo==true) {
+			return "redirect:/escalas/mensagem/de/efetivo/com/extra/sem/ch/efetiva/informada";
+		}
+		
 		//AVALIAÇÃO PARA SABER SE TEM CHOQUES
 		//this.choque = service.choquesEmEscalaOnipresenca(escala);
 		//comando para armazenar choque na sessão
@@ -2301,11 +2594,20 @@ public class EscalaController {
 		return "redirect:/escalas/mensagem/de/escala/bloqueada";
 		}		
 
-		Escala escala = service.buscarPorId(ultimoIdEscala());
+		Escala escalaA = service.buscarPorId(ultimoIdEscala());
+		Escala escala = service.converteDeEscalaParaEscalaComId(escalaA);
+		
 		escala = escalaCalculosService.converteTurnoNuloEmFolga(escala);
 		escala = escalaAtalhosService.atalhoCiclo6A(escala);
 		escala = escalaCalculosService.converteTurnoNuloEmFolga(escala);
 		escala = escalaCalculosService.calcularDadosEscala(escala);
+		
+		//Avaliando Efetivo dando Extra sem cumprir a CH Efetiva
+		boolean extraSemCumprirEfetivo = escalaCompatibilidadeService.horasExtrasSemEfetivas(escala);
+		if(extraSemCumprirEfetivo==true) {
+			return "redirect:/escalas/mensagem/de/efetivo/com/extra/sem/ch/efetiva/informada";
+		}
+		
 		//AVALIAÇÃO PARA SABER SE TEM CHOQUES
 		//this.choque = service.choquesEmEscalaOnipresenca(escala);
 		//comando para armazenar choque na sessão
@@ -2331,11 +2633,20 @@ public class EscalaController {
 		return "redirect:/escalas/mensagem/de/escala/bloqueada";
 		}		
 
-		Escala escala = service.buscarPorId(ultimoIdEscala());
+		Escala escalaA = service.buscarPorId(ultimoIdEscala());
+		Escala escala = service.converteDeEscalaParaEscalaComId(escalaA);
+		
 		escala = escalaCalculosService.converteTurnoNuloEmFolga(escala);
 		escala = escalaAtalhosService.atalhoCiclo6B(escala);
 		escala = escalaCalculosService.converteTurnoNuloEmFolga(escala);
 		escala = escalaCalculosService.calcularDadosEscala(escala);
+		
+		//Avaliando Efetivo dando Extra sem cumprir a CH Efetiva
+		boolean extraSemCumprirEfetivo = escalaCompatibilidadeService.horasExtrasSemEfetivas(escala);
+		if(extraSemCumprirEfetivo==true) {
+			return "redirect:/escalas/mensagem/de/efetivo/com/extra/sem/ch/efetiva/informada";
+		}
+		
 		//AVALIAÇÃO PARA SABER SE TEM CHOQUES
 		//this.choque = service.choquesEmEscalaOnipresenca(escala);
 		//comando para armazenar choque na sessão
@@ -2361,11 +2672,20 @@ public class EscalaController {
 		return "redirect:/escalas/mensagem/de/escala/bloqueada";
 		}		
 
-		Escala escala = service.buscarPorId(ultimoIdEscala());
+		Escala escalaA = service.buscarPorId(ultimoIdEscala());
+		Escala escala = service.converteDeEscalaParaEscalaComId(escalaA);
+		
 		escala = escalaCalculosService.converteTurnoNuloEmFolga(escala);
 		escala = escalaAtalhosService.atalhoCiclo6C(escala);
 		escala = escalaCalculosService.converteTurnoNuloEmFolga(escala);
 		escala = escalaCalculosService.calcularDadosEscala(escala);
+		
+		//Avaliando Efetivo dando Extra sem cumprir a CH Efetiva
+		boolean extraSemCumprirEfetivo = escalaCompatibilidadeService.horasExtrasSemEfetivas(escala);
+		if(extraSemCumprirEfetivo==true) {
+			return "redirect:/escalas/mensagem/de/efetivo/com/extra/sem/ch/efetiva/informada";
+		}
+		
 		//AVALIAÇÃO PARA SABER SE TEM CHOQUES
 		//this.choque = service.choquesEmEscalaOnipresenca(escala);
 		//comando para armazenar choque na sessão
@@ -2391,11 +2711,20 @@ public class EscalaController {
 		return "redirect:/escalas/mensagem/de/escala/bloqueada";
 		}		
 
-		Escala escala = service.buscarPorId(ultimoIdEscala());
+		Escala escalaA = service.buscarPorId(ultimoIdEscala());
+		Escala escala = service.converteDeEscalaParaEscalaComId(escalaA);
+		
 		escala = escalaCalculosService.converteTurnoNuloEmFolga(escala);
 		escala = escalaAtalhosService.atalhoCiclo6D(escala);
 		escala = escalaCalculosService.converteTurnoNuloEmFolga(escala);
 		escala = escalaCalculosService.calcularDadosEscala(escala);
+		
+		//Avaliando Efetivo dando Extra sem cumprir a CH Efetiva
+		boolean extraSemCumprirEfetivo = escalaCompatibilidadeService.horasExtrasSemEfetivas(escala);
+		if(extraSemCumprirEfetivo==true) {
+			return "redirect:/escalas/mensagem/de/efetivo/com/extra/sem/ch/efetiva/informada";
+		}
+		
 		//AVALIAÇÃO PARA SABER SE TEM CHOQUES
 		//this.choque = service.choquesEmEscalaOnipresenca(escala);
 		//comando para armazenar choque na sessão
@@ -2421,11 +2750,20 @@ public class EscalaController {
 		return "redirect:/escalas/mensagem/de/escala/bloqueada";
 		}		
 
-		Escala escala = service.buscarPorId(ultimoIdEscala());
+		Escala escalaA = service.buscarPorId(ultimoIdEscala());
+		Escala escala = service.converteDeEscalaParaEscalaComId(escalaA);
+		
 		escala = escalaCalculosService.converteTurnoNuloEmFolga(escala);
 		escala = escalaAtalhosService.atalhoCiclo6E(escala);
 		escala = escalaCalculosService.converteTurnoNuloEmFolga(escala);
 		escala = escalaCalculosService.calcularDadosEscala(escala);
+		
+		//Avaliando Efetivo dando Extra sem cumprir a CH Efetiva
+		boolean extraSemCumprirEfetivo = escalaCompatibilidadeService.horasExtrasSemEfetivas(escala);
+		if(extraSemCumprirEfetivo==true) {
+			return "redirect:/escalas/mensagem/de/efetivo/com/extra/sem/ch/efetiva/informada";
+		}
+		
 		//AVALIAÇÃO PARA SABER SE TEM CHOQUES
 		//this.choque = service.choquesEmEscalaOnipresenca(escala);
 		//comando para armazenar choque na sessão
@@ -2451,11 +2789,20 @@ public class EscalaController {
 		return "redirect:/escalas/mensagem/de/escala/bloqueada";
 		}		
 
-		Escala escala = service.buscarPorId(ultimoIdEscala());
+		Escala escalaA = service.buscarPorId(ultimoIdEscala());
+		Escala escala = service.converteDeEscalaParaEscalaComId(escalaA);
+		
 		escala = escalaCalculosService.converteTurnoNuloEmFolga(escala);
 		escala = escalaAtalhosService.atalhoCiclo6F(escala);
 		escala = escalaCalculosService.converteTurnoNuloEmFolga(escala);
 		escala = escalaCalculosService.calcularDadosEscala(escala);
+		
+		//Avaliando Efetivo dando Extra sem cumprir a CH Efetiva
+		boolean extraSemCumprirEfetivo = escalaCompatibilidadeService.horasExtrasSemEfetivas(escala);
+		if(extraSemCumprirEfetivo==true) {
+			return "redirect:/escalas/mensagem/de/efetivo/com/extra/sem/ch/efetiva/informada";
+		}
+		
 		//AVALIAÇÃO PARA SABER SE TEM CHOQUES
 		//this.choque = service.choquesEmEscalaOnipresenca(escala);
 		//comando para armazenar choque na sessão
@@ -2482,11 +2829,20 @@ public class EscalaController {
 		return "redirect:/escalas/mensagem/de/escala/bloqueada";
 		}		
 
-		Escala escala = service.buscarPorId(ultimoIdEscala());
+		Escala escalaA = service.buscarPorId(ultimoIdEscala());
+		Escala escala = service.converteDeEscalaParaEscalaComId(escalaA);
+		
 		escala = escalaCalculosService.converteTurnoNuloEmFolga(escala);
 		escala = escalaAtalhosService.atalhoCiclo7A(escala);
 		escala = escalaCalculosService.converteTurnoNuloEmFolga(escala);
 		escala = escalaCalculosService.calcularDadosEscala(escala);
+		
+		//Avaliando Efetivo dando Extra sem cumprir a CH Efetiva
+		boolean extraSemCumprirEfetivo = escalaCompatibilidadeService.horasExtrasSemEfetivas(escala);
+		if(extraSemCumprirEfetivo==true) {
+			return "redirect:/escalas/mensagem/de/efetivo/com/extra/sem/ch/efetiva/informada";
+		}
+		
 		//AVALIAÇÃO PARA SABER SE TEM CHOQUES
 		//this.choque = service.choquesEmEscalaOnipresenca(escala);
 		//comando para armazenar choque na sessão
@@ -2512,11 +2868,20 @@ public class EscalaController {
 		return "redirect:/escalas/mensagem/de/escala/bloqueada";
 		}		
 
-		Escala escala = service.buscarPorId(ultimoIdEscala());
+		Escala escalaA = service.buscarPorId(ultimoIdEscala());
+		Escala escala = service.converteDeEscalaParaEscalaComId(escalaA);
+		
 		escala = escalaCalculosService.converteTurnoNuloEmFolga(escala);
 		escala = escalaAtalhosService.atalhoCiclo7B(escala);
 		escala = escalaCalculosService.converteTurnoNuloEmFolga(escala);
 		escala = escalaCalculosService.calcularDadosEscala(escala);
+		
+		//Avaliando Efetivo dando Extra sem cumprir a CH Efetiva
+		boolean extraSemCumprirEfetivo = escalaCompatibilidadeService.horasExtrasSemEfetivas(escala);
+		if(extraSemCumprirEfetivo==true) {
+			return "redirect:/escalas/mensagem/de/efetivo/com/extra/sem/ch/efetiva/informada";
+		}
+		
 		//AVALIAÇÃO PARA SABER SE TEM CHOQUES
 		//this.choque = service.choquesEmEscalaOnipresenca(escala);
 		//comando para armazenar choque na sessão
@@ -2542,11 +2907,20 @@ public class EscalaController {
 		return "redirect:/escalas/mensagem/de/escala/bloqueada";
 		}		
 
-		Escala escala = service.buscarPorId(ultimoIdEscala());
+		Escala escalaA = service.buscarPorId(ultimoIdEscala());
+		Escala escala = service.converteDeEscalaParaEscalaComId(escalaA);
+		
 		escala = escalaCalculosService.converteTurnoNuloEmFolga(escala);
 		escala = escalaAtalhosService.atalhoCiclo7C(escala);
 		escala = escalaCalculosService.converteTurnoNuloEmFolga(escala);
 		escala = escalaCalculosService.calcularDadosEscala(escala);
+		
+		//Avaliando Efetivo dando Extra sem cumprir a CH Efetiva
+		boolean extraSemCumprirEfetivo = escalaCompatibilidadeService.horasExtrasSemEfetivas(escala);
+		if(extraSemCumprirEfetivo==true) {
+			return "redirect:/escalas/mensagem/de/efetivo/com/extra/sem/ch/efetiva/informada";
+		}
+		
 		//AVALIAÇÃO PARA SABER SE TEM CHOQUES
 		//this.choque = service.choquesEmEscalaOnipresenca(escala);
 		//comando para armazenar choque na sessão
@@ -2572,11 +2946,20 @@ public class EscalaController {
 		return "redirect:/escalas/mensagem/de/escala/bloqueada";
 		}		
 
-		Escala escala = service.buscarPorId(ultimoIdEscala());
+		Escala escalaA = service.buscarPorId(ultimoIdEscala());
+		Escala escala = service.converteDeEscalaParaEscalaComId(escalaA);
+		
 		escala = escalaCalculosService.converteTurnoNuloEmFolga(escala);
 		escala = escalaAtalhosService.atalhoCiclo7D(escala);
 		escala = escalaCalculosService.converteTurnoNuloEmFolga(escala);
 		escala = escalaCalculosService.calcularDadosEscala(escala);
+		
+		//Avaliando Efetivo dando Extra sem cumprir a CH Efetiva
+		boolean extraSemCumprirEfetivo = escalaCompatibilidadeService.horasExtrasSemEfetivas(escala);
+		if(extraSemCumprirEfetivo==true) {
+			return "redirect:/escalas/mensagem/de/efetivo/com/extra/sem/ch/efetiva/informada";
+		}
+		
 		//AVALIAÇÃO PARA SABER SE TEM CHOQUES
 		//this.choque = service.choquesEmEscalaOnipresenca(escala);
 		//comando para armazenar choque na sessão
@@ -2602,11 +2985,20 @@ public class EscalaController {
 		return "redirect:/escalas/mensagem/de/escala/bloqueada";
 		}		
 
-		Escala escala = service.buscarPorId(ultimoIdEscala());
+		Escala escalaA = service.buscarPorId(ultimoIdEscala());
+		Escala escala = service.converteDeEscalaParaEscalaComId(escalaA);
+		
 		escala = escalaCalculosService.converteTurnoNuloEmFolga(escala);
 		escala = escalaAtalhosService.atalhoCiclo7E(escala);
 		escala = escalaCalculosService.converteTurnoNuloEmFolga(escala);
 		escala = escalaCalculosService.calcularDadosEscala(escala);
+		
+		//Avaliando Efetivo dando Extra sem cumprir a CH Efetiva
+		boolean extraSemCumprirEfetivo = escalaCompatibilidadeService.horasExtrasSemEfetivas(escala);
+		if(extraSemCumprirEfetivo==true) {
+			return "redirect:/escalas/mensagem/de/efetivo/com/extra/sem/ch/efetiva/informada";
+		}
+		
 		//AVALIAÇÃO PARA SABER SE TEM CHOQUES
 		//this.choque = service.choquesEmEscalaOnipresenca(escala);
 		//comando para armazenar choque na sessão
@@ -2632,11 +3024,20 @@ public class EscalaController {
 		return "redirect:/escalas/mensagem/de/escala/bloqueada";
 		}		
 
-		Escala escala = service.buscarPorId(ultimoIdEscala());
+		Escala escalaA = service.buscarPorId(ultimoIdEscala());
+		Escala escala = service.converteDeEscalaParaEscalaComId(escalaA);
+		
 		escala = escalaCalculosService.converteTurnoNuloEmFolga(escala);
 		escala = escalaAtalhosService.atalhoCiclo7F(escala);
 		escala = escalaCalculosService.converteTurnoNuloEmFolga(escala);
 		escala = escalaCalculosService.calcularDadosEscala(escala);
+		
+		//Avaliando Efetivo dando Extra sem cumprir a CH Efetiva
+		boolean extraSemCumprirEfetivo = escalaCompatibilidadeService.horasExtrasSemEfetivas(escala);
+		if(extraSemCumprirEfetivo==true) {
+			return "redirect:/escalas/mensagem/de/efetivo/com/extra/sem/ch/efetiva/informada";
+		}
+		
 		//AVALIAÇÃO PARA SABER SE TEM CHOQUES
 		//this.choque = service.choquesEmEscalaOnipresenca(escala);
 		//comando para armazenar choque na sessão
@@ -2664,11 +3065,20 @@ public class EscalaController {
 		return "redirect:/escalas/mensagem/de/escala/bloqueada";
 		}		
 
-		Escala escala = service.buscarPorId(ultimoIdEscala());
+		Escala escalaA = service.buscarPorId(ultimoIdEscala());
+		Escala escala = service.converteDeEscalaParaEscalaComId(escalaA);
+		
 		escala = escalaCalculosService.converteTurnoNuloEmFolga(escala);
 		escala = escalaAtalhosService.atalhoCiclo8A(escala);
 		escala = escalaCalculosService.converteTurnoNuloEmFolga(escala);
 		escala = escalaCalculosService.calcularDadosEscala(escala);
+		
+		//Avaliando Efetivo dando Extra sem cumprir a CH Efetiva
+		boolean extraSemCumprirEfetivo = escalaCompatibilidadeService.horasExtrasSemEfetivas(escala);
+		if(extraSemCumprirEfetivo==true) {
+			return "redirect:/escalas/mensagem/de/efetivo/com/extra/sem/ch/efetiva/informada";
+		}
+		
 		//AVALIAÇÃO PARA SABER SE TEM CHOQUES
 		//this.choque = service.choquesEmEscalaOnipresenca(escala);
 		//comando para armazenar choque na sessão
@@ -2694,11 +3104,20 @@ public class EscalaController {
 		return "redirect:/escalas/mensagem/de/escala/bloqueada";
 		}		
 
-		Escala escala = service.buscarPorId(ultimoIdEscala());
+		Escala escalaA = service.buscarPorId(ultimoIdEscala());
+		Escala escala = service.converteDeEscalaParaEscalaComId(escalaA);
+		
 		escala = escalaCalculosService.converteTurnoNuloEmFolga(escala);
 		escala = escalaAtalhosService.atalhoCiclo8B(escala);
 		escala = escalaCalculosService.converteTurnoNuloEmFolga(escala);
 		escala = escalaCalculosService.calcularDadosEscala(escala);
+		
+		//Avaliando Efetivo dando Extra sem cumprir a CH Efetiva
+		boolean extraSemCumprirEfetivo = escalaCompatibilidadeService.horasExtrasSemEfetivas(escala);
+		if(extraSemCumprirEfetivo==true) {
+			return "redirect:/escalas/mensagem/de/efetivo/com/extra/sem/ch/efetiva/informada";
+		}
+		
 		//AVALIAÇÃO PARA SABER SE TEM CHOQUES
 		//this.choque = service.choquesEmEscalaOnipresenca(escala);
 		//comando para armazenar choque na sessão
@@ -2724,11 +3143,20 @@ public class EscalaController {
 		return "redirect:/escalas/mensagem/de/escala/bloqueada";
 		}		
 
-		Escala escala = service.buscarPorId(ultimoIdEscala());
+		Escala escalaA = service.buscarPorId(ultimoIdEscala());
+		Escala escala = service.converteDeEscalaParaEscalaComId(escalaA);
+		
 		escala = escalaCalculosService.converteTurnoNuloEmFolga(escala);
 		escala = escalaAtalhosService.atalhoCiclo8C(escala);
 		escala = escalaCalculosService.converteTurnoNuloEmFolga(escala);
 		escala = escalaCalculosService.calcularDadosEscala(escala);
+		
+		//Avaliando Efetivo dando Extra sem cumprir a CH Efetiva
+		boolean extraSemCumprirEfetivo = escalaCompatibilidadeService.horasExtrasSemEfetivas(escala);
+		if(extraSemCumprirEfetivo==true) {
+			return "redirect:/escalas/mensagem/de/efetivo/com/extra/sem/ch/efetiva/informada";
+		}
+		
 		//AVALIAÇÃO PARA SABER SE TEM CHOQUES
 		//this.choque = service.choquesEmEscalaOnipresenca(escala);
 		//comando para armazenar choque na sessão
@@ -2754,11 +3182,20 @@ public class EscalaController {
 		return "redirect:/escalas/mensagem/de/escala/bloqueada";
 		}		
 
-		Escala escala = service.buscarPorId(ultimoIdEscala());
+		Escala escalaA = service.buscarPorId(ultimoIdEscala());
+		Escala escala = service.converteDeEscalaParaEscalaComId(escalaA);
+		
 		escala = escalaCalculosService.converteTurnoNuloEmFolga(escala);
 		escala = escalaAtalhosService.atalhoCiclo8D(escala);
 		escala = escalaCalculosService.converteTurnoNuloEmFolga(escala);
 		escala = escalaCalculosService.calcularDadosEscala(escala);
+		
+		//Avaliando Efetivo dando Extra sem cumprir a CH Efetiva
+		boolean extraSemCumprirEfetivo = escalaCompatibilidadeService.horasExtrasSemEfetivas(escala);
+		if(extraSemCumprirEfetivo==true) {
+			return "redirect:/escalas/mensagem/de/efetivo/com/extra/sem/ch/efetiva/informada";
+		}
+		
 		//AVALIAÇÃO PARA SABER SE TEM CHOQUES
 		//this.choque = service.choquesEmEscalaOnipresenca(escala);
 		//comando para armazenar choque na sessão
@@ -2784,11 +3221,20 @@ public class EscalaController {
 		return "redirect:/escalas/mensagem/de/escala/bloqueada";
 		}		
 
-		Escala escala = service.buscarPorId(ultimoIdEscala());
+		Escala escalaA = service.buscarPorId(ultimoIdEscala());
+		Escala escala = service.converteDeEscalaParaEscalaComId(escalaA);
+		
 		escala = escalaCalculosService.converteTurnoNuloEmFolga(escala);
 		escala = escalaAtalhosService.atalhoCiclo8E(escala);
 		escala = escalaCalculosService.converteTurnoNuloEmFolga(escala);
 		escala = escalaCalculosService.calcularDadosEscala(escala);
+		
+		//Avaliando Efetivo dando Extra sem cumprir a CH Efetiva
+		boolean extraSemCumprirEfetivo = escalaCompatibilidadeService.horasExtrasSemEfetivas(escala);
+		if(extraSemCumprirEfetivo==true) {
+			return "redirect:/escalas/mensagem/de/efetivo/com/extra/sem/ch/efetiva/informada";
+		}
+		
 		//AVALIAÇÃO PARA SABER SE TEM CHOQUES
 		//this.choque = service.choquesEmEscalaOnipresenca(escala);
 		//comando para armazenar choque na sessão
@@ -2814,11 +3260,20 @@ public class EscalaController {
 		return "redirect:/escalas/mensagem/de/escala/bloqueada";
 		}		
 
-		Escala escala = service.buscarPorId(ultimoIdEscala());
+		Escala escalaA = service.buscarPorId(ultimoIdEscala());
+		Escala escala = service.converteDeEscalaParaEscalaComId(escalaA);
+		
 		escala = escalaCalculosService.converteTurnoNuloEmFolga(escala);
 		escala = escalaAtalhosService.atalhoCiclo8F(escala);
 		escala = escalaCalculosService.converteTurnoNuloEmFolga(escala);
 		escala = escalaCalculosService.calcularDadosEscala(escala);
+		
+		//Avaliando Efetivo dando Extra sem cumprir a CH Efetiva
+		boolean extraSemCumprirEfetivo = escalaCompatibilidadeService.horasExtrasSemEfetivas(escala);
+		if(extraSemCumprirEfetivo==true) {
+			return "redirect:/escalas/mensagem/de/efetivo/com/extra/sem/ch/efetiva/informada";
+		}
+		
 		//AVALIAÇÃO PARA SABER SE TEM CHOQUES
 		//this.choque = service.choquesEmEscalaOnipresenca(escala);
 		//comando para armazenar choque na sessão
@@ -2844,11 +3299,20 @@ public class EscalaController {
 		return "redirect:/escalas/mensagem/de/escala/bloqueada";
 		}		
 
-		Escala escala = service.buscarPorId(ultimoIdEscala());
+		Escala escalaA = service.buscarPorId(ultimoIdEscala());
+		Escala escala = service.converteDeEscalaParaEscalaComId(escalaA);
+		
 		escala = escalaCalculosService.converteTurnoNuloEmFolga(escala);
 		escala = escalaAtalhosService.atalhoCiclo8G(escala);
 		escala = escalaCalculosService.converteTurnoNuloEmFolga(escala);
 		escala = escalaCalculosService.calcularDadosEscala(escala);
+		
+		//Avaliando Efetivo dando Extra sem cumprir a CH Efetiva
+		boolean extraSemCumprirEfetivo = escalaCompatibilidadeService.horasExtrasSemEfetivas(escala);
+		if(extraSemCumprirEfetivo==true) {
+			return "redirect:/escalas/mensagem/de/efetivo/com/extra/sem/ch/efetiva/informada";
+		}
+		
 		//AVALIAÇÃO PARA SABER SE TEM CHOQUES
 		//this.choque = service.choquesEmEscalaOnipresenca(escala);
 		//comando para armazenar choque na sessão
@@ -2876,11 +3340,20 @@ public class EscalaController {
 		return "redirect:/escalas/mensagem/de/escala/bloqueada";
 		}		
 
-		Escala escala = service.buscarPorId(ultimoIdEscala());
+		Escala escalaA = service.buscarPorId(ultimoIdEscala());
+		Escala escala = service.converteDeEscalaParaEscalaComId(escalaA);
+		
 		escala = escalaCalculosService.converteTurnoNuloEmFolga(escala);
 		escala = escalaAtalhosService.atalhoCiclo9A(escala);
 		escala = escalaCalculosService.converteTurnoNuloEmFolga(escala);
 		escala = escalaCalculosService.calcularDadosEscala(escala);
+		
+		//Avaliando Efetivo dando Extra sem cumprir a CH Efetiva
+		boolean extraSemCumprirEfetivo = escalaCompatibilidadeService.horasExtrasSemEfetivas(escala);
+		if(extraSemCumprirEfetivo==true) {
+			return "redirect:/escalas/mensagem/de/efetivo/com/extra/sem/ch/efetiva/informada";
+		}
+		
 		//AVALIAÇÃO PARA SABER SE TEM CHOQUES
 		//this.choque = service.choquesEmEscalaOnipresenca(escala);
 		//comando para armazenar choque na sessão
@@ -2906,11 +3379,20 @@ public class EscalaController {
 		return "redirect:/escalas/mensagem/de/escala/bloqueada";
 		}		
 
-		Escala escala = service.buscarPorId(ultimoIdEscala());
+		Escala escalaA = service.buscarPorId(ultimoIdEscala());
+		Escala escala = service.converteDeEscalaParaEscalaComId(escalaA);
+		
 		escala = escalaCalculosService.converteTurnoNuloEmFolga(escala);
 		escala = escalaAtalhosService.atalhoCiclo9B(escala);
 		escala = escalaCalculosService.converteTurnoNuloEmFolga(escala);
 		escala = escalaCalculosService.calcularDadosEscala(escala);
+		
+		//Avaliando Efetivo dando Extra sem cumprir a CH Efetiva
+		boolean extraSemCumprirEfetivo = escalaCompatibilidadeService.horasExtrasSemEfetivas(escala);
+		if(extraSemCumprirEfetivo==true) {
+			return "redirect:/escalas/mensagem/de/efetivo/com/extra/sem/ch/efetiva/informada";
+		}
+		
 		//AVALIAÇÃO PARA SABER SE TEM CHOQUES
 		//this.choque = service.choquesEmEscalaOnipresenca(escala);
 		//comando para armazenar choque na sessão
@@ -2936,11 +3418,20 @@ public class EscalaController {
 		return "redirect:/escalas/mensagem/de/escala/bloqueada";
 		}		
 
-		Escala escala = service.buscarPorId(ultimoIdEscala());
+		Escala escalaA = service.buscarPorId(ultimoIdEscala());
+		Escala escala = service.converteDeEscalaParaEscalaComId(escalaA);
+		
 		escala = escalaCalculosService.converteTurnoNuloEmFolga(escala);
 		escala = escalaAtalhosService.atalhoCiclo9C(escala);
 		escala = escalaCalculosService.converteTurnoNuloEmFolga(escala);
 		escala = escalaCalculosService.calcularDadosEscala(escala);
+		
+		//Avaliando Efetivo dando Extra sem cumprir a CH Efetiva
+		boolean extraSemCumprirEfetivo = escalaCompatibilidadeService.horasExtrasSemEfetivas(escala);
+		if(extraSemCumprirEfetivo==true) {
+			return "redirect:/escalas/mensagem/de/efetivo/com/extra/sem/ch/efetiva/informada";
+		}
+		
 		//AVALIAÇÃO PARA SABER SE TEM CHOQUES
 		//this.choque = service.choquesEmEscalaOnipresenca(escala);
 		//comando para armazenar choque na sessão
@@ -2966,11 +3457,20 @@ public class EscalaController {
 		return "redirect:/escalas/mensagem/de/escala/bloqueada";
 		}		
 
-		Escala escala = service.buscarPorId(ultimoIdEscala());
+		Escala escalaA = service.buscarPorId(ultimoIdEscala());
+		Escala escala = service.converteDeEscalaParaEscalaComId(escalaA);
+		
 		escala = escalaCalculosService.converteTurnoNuloEmFolga(escala);
 		escala = escalaAtalhosService.atalhoCiclo9D(escala);
 		escala = escalaCalculosService.converteTurnoNuloEmFolga(escala);
 		escala = escalaCalculosService.calcularDadosEscala(escala);
+		
+		//Avaliando Efetivo dando Extra sem cumprir a CH Efetiva
+		boolean extraSemCumprirEfetivo = escalaCompatibilidadeService.horasExtrasSemEfetivas(escala);
+		if(extraSemCumprirEfetivo==true) {
+			return "redirect:/escalas/mensagem/de/efetivo/com/extra/sem/ch/efetiva/informada";
+		}
+		
 		//AVALIAÇÃO PARA SABER SE TEM CHOQUES
 		//this.choque = service.choquesEmEscalaOnipresenca(escala);
 		//comando para armazenar choque na sessão
@@ -2996,11 +3496,20 @@ public class EscalaController {
 		return "redirect:/escalas/mensagem/de/escala/bloqueada";
 		}		
 
-		Escala escala = service.buscarPorId(ultimoIdEscala());
+		Escala escalaA = service.buscarPorId(ultimoIdEscala());
+		Escala escala = service.converteDeEscalaParaEscalaComId(escalaA);
+		
 		escala = escalaCalculosService.converteTurnoNuloEmFolga(escala);
 		escala = escalaAtalhosService.atalhoCiclo9E(escala);
 		escala = escalaCalculosService.converteTurnoNuloEmFolga(escala);
 		escala = escalaCalculosService.calcularDadosEscala(escala);
+		
+		//Avaliando Efetivo dando Extra sem cumprir a CH Efetiva
+		boolean extraSemCumprirEfetivo = escalaCompatibilidadeService.horasExtrasSemEfetivas(escala);
+		if(extraSemCumprirEfetivo==true) {
+			return "redirect:/escalas/mensagem/de/efetivo/com/extra/sem/ch/efetiva/informada";
+		}
+		
 		//AVALIAÇÃO PARA SABER SE TEM CHOQUES
 		//this.choque = service.choquesEmEscalaOnipresenca(escala);
 		//comando para armazenar choque na sessão
@@ -3026,11 +3535,20 @@ public class EscalaController {
 		return "redirect:/escalas/mensagem/de/escala/bloqueada";
 		}		
 
-		Escala escala = service.buscarPorId(ultimoIdEscala());
+		Escala escalaA = service.buscarPorId(ultimoIdEscala());
+		Escala escala = service.converteDeEscalaParaEscalaComId(escalaA);
+		
 		escala = escalaCalculosService.converteTurnoNuloEmFolga(escala);
 		escala = escalaAtalhosService.atalhoCiclo9F(escala);
 		escala = escalaCalculosService.converteTurnoNuloEmFolga(escala);
 		escala = escalaCalculosService.calcularDadosEscala(escala);
+		
+		//Avaliando Efetivo dando Extra sem cumprir a CH Efetiva
+		boolean extraSemCumprirEfetivo = escalaCompatibilidadeService.horasExtrasSemEfetivas(escala);
+		if(extraSemCumprirEfetivo==true) {
+			return "redirect:/escalas/mensagem/de/efetivo/com/extra/sem/ch/efetiva/informada";
+		}
+		
 		//AVALIAÇÃO PARA SABER SE TEM CHOQUES
 		//this.choque = service.choquesEmEscalaOnipresenca(escala);
 		//comando para armazenar choque na sessão
@@ -3056,11 +3574,20 @@ public class EscalaController {
 		return "redirect:/escalas/mensagem/de/escala/bloqueada";
 		}		
 
-		Escala escala = service.buscarPorId(ultimoIdEscala());
+		Escala escalaA = service.buscarPorId(ultimoIdEscala());
+		Escala escala = service.converteDeEscalaParaEscalaComId(escalaA);
+		
 		escala = escalaCalculosService.converteTurnoNuloEmFolga(escala);
 		escala = escalaAtalhosService.atalhoCiclo9G(escala);
 		escala = escalaCalculosService.converteTurnoNuloEmFolga(escala);
 		escala = escalaCalculosService.calcularDadosEscala(escala);
+		
+		//Avaliando Efetivo dando Extra sem cumprir a CH Efetiva
+		boolean extraSemCumprirEfetivo = escalaCompatibilidadeService.horasExtrasSemEfetivas(escala);
+		if(extraSemCumprirEfetivo==true) {
+			return "redirect:/escalas/mensagem/de/efetivo/com/extra/sem/ch/efetiva/informada";
+		}
+		
 		//AVALIAÇÃO PARA SABER SE TEM CHOQUES
 		//this.choque = service.choquesEmEscalaOnipresenca(escala);
 		//comando para armazenar choque na sessão
@@ -3088,11 +3615,20 @@ public class EscalaController {
 		return "redirect:/escalas/mensagem/de/escala/bloqueada";
 		}		
 
-		Escala escala = service.buscarPorId(ultimoIdEscala());
+		Escala escalaA = service.buscarPorId(ultimoIdEscala());
+		Escala escala = service.converteDeEscalaParaEscalaComId(escalaA);
+		
 		escala = escalaCalculosService.converteTurnoNuloEmFolga(escala);
 		escala = escalaAtalhosService.atalhoCiclo10A(escala);
 		escala = escalaCalculosService.converteTurnoNuloEmFolga(escala);
 		escala = escalaCalculosService.calcularDadosEscala(escala);
+		
+		//Avaliando Efetivo dando Extra sem cumprir a CH Efetiva
+		boolean extraSemCumprirEfetivo = escalaCompatibilidadeService.horasExtrasSemEfetivas(escala);
+		if(extraSemCumprirEfetivo==true) {
+			return "redirect:/escalas/mensagem/de/efetivo/com/extra/sem/ch/efetiva/informada";
+		}
+		
 		//AVALIAÇÃO PARA SABER SE TEM CHOQUES
 		//this.choque = service.choquesEmEscalaOnipresenca(escala);
 		//comando para armazenar choque na sessão
@@ -3118,11 +3654,20 @@ public class EscalaController {
 		return "redirect:/escalas/mensagem/de/escala/bloqueada";
 		}		
 
-		Escala escala = service.buscarPorId(ultimoIdEscala());
+		Escala escalaA = service.buscarPorId(ultimoIdEscala());
+		Escala escala = service.converteDeEscalaParaEscalaComId(escalaA);
+		
 		escala = escalaCalculosService.converteTurnoNuloEmFolga(escala);
 		escala = escalaAtalhosService.atalhoCiclo10B(escala);
 		escala = escalaCalculosService.converteTurnoNuloEmFolga(escala);
 		escala = escalaCalculosService.calcularDadosEscala(escala);
+		
+		//Avaliando Efetivo dando Extra sem cumprir a CH Efetiva
+		boolean extraSemCumprirEfetivo = escalaCompatibilidadeService.horasExtrasSemEfetivas(escala);
+		if(extraSemCumprirEfetivo==true) {
+			return "redirect:/escalas/mensagem/de/efetivo/com/extra/sem/ch/efetiva/informada";
+		}
+		
 		//AVALIAÇÃO PARA SABER SE TEM CHOQUES
 		//this.choque = service.choquesEmEscalaOnipresenca(escala);
 		//comando para armazenar choque na sessão
@@ -3148,11 +3693,20 @@ public class EscalaController {
 		return "redirect:/escalas/mensagem/de/escala/bloqueada";
 		}		
 
-		Escala escala = service.buscarPorId(ultimoIdEscala());
+		Escala escalaA = service.buscarPorId(ultimoIdEscala());
+		Escala escala = service.converteDeEscalaParaEscalaComId(escalaA);
+		
 		escala = escalaCalculosService.converteTurnoNuloEmFolga(escala);
 		escala = escalaAtalhosService.atalhoCiclo10C(escala);
 		escala = escalaCalculosService.converteTurnoNuloEmFolga(escala);
 		escala = escalaCalculosService.calcularDadosEscala(escala);
+		
+		//Avaliando Efetivo dando Extra sem cumprir a CH Efetiva
+		boolean extraSemCumprirEfetivo = escalaCompatibilidadeService.horasExtrasSemEfetivas(escala);
+		if(extraSemCumprirEfetivo==true) {
+			return "redirect:/escalas/mensagem/de/efetivo/com/extra/sem/ch/efetiva/informada";
+		}
+		
 		//AVALIAÇÃO PARA SABER SE TEM CHOQUES
 		//this.choque = service.choquesEmEscalaOnipresenca(escala);
 		//comando para armazenar choque na sessão
@@ -3178,11 +3732,20 @@ public class EscalaController {
 		return "redirect:/escalas/mensagem/de/escala/bloqueada";
 		}		
 
-		Escala escala = service.buscarPorId(ultimoIdEscala());
+		Escala escalaA = service.buscarPorId(ultimoIdEscala());
+		Escala escala = service.converteDeEscalaParaEscalaComId(escalaA);
+		
 		escala = escalaCalculosService.converteTurnoNuloEmFolga(escala);
 		escala = escalaAtalhosService.atalhoCiclo10D(escala);
 		escala = escalaCalculosService.converteTurnoNuloEmFolga(escala);
 		escala = escalaCalculosService.calcularDadosEscala(escala);
+		
+		//Avaliando Efetivo dando Extra sem cumprir a CH Efetiva
+		boolean extraSemCumprirEfetivo = escalaCompatibilidadeService.horasExtrasSemEfetivas(escala);
+		if(extraSemCumprirEfetivo==true) {
+			return "redirect:/escalas/mensagem/de/efetivo/com/extra/sem/ch/efetiva/informada";
+		}
+		
 		//AVALIAÇÃO PARA SABER SE TEM CHOQUES
 		//this.choque = service.choquesEmEscalaOnipresenca(escala);
 		//comando para armazenar choque na sessão
@@ -3208,11 +3771,20 @@ public class EscalaController {
 		return "redirect:/escalas/mensagem/de/escala/bloqueada";
 		}		
 
-		Escala escala = service.buscarPorId(ultimoIdEscala());
+		Escala escalaA = service.buscarPorId(ultimoIdEscala());
+		Escala escala = service.converteDeEscalaParaEscalaComId(escalaA);
+		
 		escala = escalaCalculosService.converteTurnoNuloEmFolga(escala);
 		escala = escalaAtalhosService.atalhoCiclo10E(escala);
 		escala = escalaCalculosService.converteTurnoNuloEmFolga(escala);
 		escala = escalaCalculosService.calcularDadosEscala(escala);
+		
+		//Avaliando Efetivo dando Extra sem cumprir a CH Efetiva
+		boolean extraSemCumprirEfetivo = escalaCompatibilidadeService.horasExtrasSemEfetivas(escala);
+		if(extraSemCumprirEfetivo==true) {
+			return "redirect:/escalas/mensagem/de/efetivo/com/extra/sem/ch/efetiva/informada";
+		}
+		
 		//AVALIAÇÃO PARA SABER SE TEM CHOQUES
 		//this.choque = service.choquesEmEscalaOnipresenca(escala);
 		//comando para armazenar choque na sessão
@@ -3238,11 +3810,20 @@ public class EscalaController {
 		return "redirect:/escalas/mensagem/de/escala/bloqueada";
 		}		
 
-		Escala escala = service.buscarPorId(ultimoIdEscala());
+		Escala escalaA = service.buscarPorId(ultimoIdEscala());
+		Escala escala = service.converteDeEscalaParaEscalaComId(escalaA);
+		
 		escala = escalaCalculosService.converteTurnoNuloEmFolga(escala);
 		escala = escalaAtalhosService.atalhoCiclo10F(escala);
 		escala = escalaCalculosService.converteTurnoNuloEmFolga(escala);
 		escala = escalaCalculosService.calcularDadosEscala(escala);
+		
+		//Avaliando Efetivo dando Extra sem cumprir a CH Efetiva
+		boolean extraSemCumprirEfetivo = escalaCompatibilidadeService.horasExtrasSemEfetivas(escala);
+		if(extraSemCumprirEfetivo==true) {
+			return "redirect:/escalas/mensagem/de/efetivo/com/extra/sem/ch/efetiva/informada";
+		}
+		
 		//AVALIAÇÃO PARA SABER SE TEM CHOQUES
 		//this.choque = service.choquesEmEscalaOnipresenca(escala);
 		//comando para armazenar choque na sessão
@@ -3268,11 +3849,20 @@ public class EscalaController {
 		return "redirect:/escalas/mensagem/de/escala/bloqueada";
 		}		
 
-		Escala escala = service.buscarPorId(ultimoIdEscala());
+		Escala escalaA = service.buscarPorId(ultimoIdEscala());
+		Escala escala = service.converteDeEscalaParaEscalaComId(escalaA);
+		
 		escala = escalaCalculosService.converteTurnoNuloEmFolga(escala);
 		escala = escalaAtalhosService.atalhoCiclo10G(escala);
 		escala = escalaCalculosService.converteTurnoNuloEmFolga(escala);
 		escala = escalaCalculosService.calcularDadosEscala(escala);
+		
+		//Avaliando Efetivo dando Extra sem cumprir a CH Efetiva
+		boolean extraSemCumprirEfetivo = escalaCompatibilidadeService.horasExtrasSemEfetivas(escala);
+		if(extraSemCumprirEfetivo==true) {
+			return "redirect:/escalas/mensagem/de/efetivo/com/extra/sem/ch/efetiva/informada";
+		}
+		
 		//AVALIAÇÃO PARA SABER SE TEM CHOQUES
 		//this.choque = service.choquesEmEscalaOnipresenca(escala);
 		//comando para armazenar choque na sessão
@@ -3302,11 +3892,20 @@ public class EscalaController {
 		return "redirect:/escalas/mensagem/de/escala/bloqueada";
 		}		
 
-		Escala escala = service.buscarPorId(ultimoIdEscala());
+		Escala escalaA = service.buscarPorId(ultimoIdEscala());
+		Escala escala = service.converteDeEscalaParaEscalaComId(escalaA);
+		
 		escala = escalaCalculosService.converteTurnoNuloEmFolga(escala);
 		escala = escalaAtalhosService.atalhoCiclo11A(escala);
 		escala = escalaCalculosService.converteTurnoNuloEmFolga(escala);
 		escala = escalaCalculosService.calcularDadosEscala(escala);
+		
+		//Avaliando Efetivo dando Extra sem cumprir a CH Efetiva
+		boolean extraSemCumprirEfetivo = escalaCompatibilidadeService.horasExtrasSemEfetivas(escala);
+		if(extraSemCumprirEfetivo==true) {
+			return "redirect:/escalas/mensagem/de/efetivo/com/extra/sem/ch/efetiva/informada";
+		}
+		
 		//AVALIAÇÃO PARA SABER SE TEM CHOQUES
 		//this.choque = service.choquesEmEscalaOnipresenca(escala);
 		//comando para armazenar choque na sessão
@@ -3332,11 +3931,20 @@ public class EscalaController {
 		return "redirect:/escalas/mensagem/de/escala/bloqueada";
 		}		
 
-		Escala escala = service.buscarPorId(ultimoIdEscala());
+		Escala escalaA = service.buscarPorId(ultimoIdEscala());
+		Escala escala = service.converteDeEscalaParaEscalaComId(escalaA);
+		
 		escala = escalaCalculosService.converteTurnoNuloEmFolga(escala);
 		escala = escalaAtalhosService.atalhoCiclo11B(escala);
 		escala = escalaCalculosService.converteTurnoNuloEmFolga(escala);
 		escala = escalaCalculosService.calcularDadosEscala(escala);
+		
+		//Avaliando Efetivo dando Extra sem cumprir a CH Efetiva
+		boolean extraSemCumprirEfetivo = escalaCompatibilidadeService.horasExtrasSemEfetivas(escala);
+		if(extraSemCumprirEfetivo==true) {
+			return "redirect:/escalas/mensagem/de/efetivo/com/extra/sem/ch/efetiva/informada";
+		}
+		
 		//AVALIAÇÃO PARA SABER SE TEM CHOQUES
 		//this.choque = service.choquesEmEscalaOnipresenca(escala);
 		//comando para armazenar choque na sessão
@@ -3362,11 +3970,20 @@ public class EscalaController {
 		return "redirect:/escalas/mensagem/de/escala/bloqueada";
 		}		
 
-		Escala escala = service.buscarPorId(ultimoIdEscala());
+		Escala escalaA = service.buscarPorId(ultimoIdEscala());
+		Escala escala = service.converteDeEscalaParaEscalaComId(escalaA);
+		
 		escala = escalaCalculosService.converteTurnoNuloEmFolga(escala);
 		escala = escalaAtalhosService.atalhoCiclo11C(escala);
 		escala = escalaCalculosService.converteTurnoNuloEmFolga(escala);
 		escala = escalaCalculosService.calcularDadosEscala(escala);
+		
+		//Avaliando Efetivo dando Extra sem cumprir a CH Efetiva
+		boolean extraSemCumprirEfetivo = escalaCompatibilidadeService.horasExtrasSemEfetivas(escala);
+		if(extraSemCumprirEfetivo==true) {
+			return "redirect:/escalas/mensagem/de/efetivo/com/extra/sem/ch/efetiva/informada";
+		}
+		
 		//AVALIAÇÃO PARA SABER SE TEM CHOQUES
 		//this.choque = service.choquesEmEscalaOnipresenca(escala);
 		//comando para armazenar choque na sessão
@@ -3392,11 +4009,20 @@ public class EscalaController {
 		return "redirect:/escalas/mensagem/de/escala/bloqueada";
 		}		
 
-		Escala escala = service.buscarPorId(ultimoIdEscala());
+		Escala escalaA = service.buscarPorId(ultimoIdEscala());
+		Escala escala = service.converteDeEscalaParaEscalaComId(escalaA);
+		
 		escala = escalaCalculosService.converteTurnoNuloEmFolga(escala);
 		escala = escalaAtalhosService.atalhoCiclo11D(escala);
 		escala = escalaCalculosService.converteTurnoNuloEmFolga(escala);
 		escala = escalaCalculosService.calcularDadosEscala(escala);
+		
+		//Avaliando Efetivo dando Extra sem cumprir a CH Efetiva
+		boolean extraSemCumprirEfetivo = escalaCompatibilidadeService.horasExtrasSemEfetivas(escala);
+		if(extraSemCumprirEfetivo==true) {
+			return "redirect:/escalas/mensagem/de/efetivo/com/extra/sem/ch/efetiva/informada";
+		}
+		
 		//AVALIAÇÃO PARA SABER SE TEM CHOQUES
 		//this.choque = service.choquesEmEscalaOnipresenca(escala);
 		//comando para armazenar choque na sessão
@@ -3422,11 +4048,20 @@ public class EscalaController {
 		return "redirect:/escalas/mensagem/de/escala/bloqueada";
 		}		
 
-		Escala escala = service.buscarPorId(ultimoIdEscala());
+		Escala escalaA = service.buscarPorId(ultimoIdEscala());
+		Escala escala = service.converteDeEscalaParaEscalaComId(escalaA);
+		
 		escala = escalaCalculosService.converteTurnoNuloEmFolga(escala);
 		escala = escalaAtalhosService.atalhoCiclo11E(escala);
 		escala = escalaCalculosService.converteTurnoNuloEmFolga(escala);
 		escala = escalaCalculosService.calcularDadosEscala(escala);
+		
+		//Avaliando Efetivo dando Extra sem cumprir a CH Efetiva
+		boolean extraSemCumprirEfetivo = escalaCompatibilidadeService.horasExtrasSemEfetivas(escala);
+		if(extraSemCumprirEfetivo==true) {
+			return "redirect:/escalas/mensagem/de/efetivo/com/extra/sem/ch/efetiva/informada";
+		}
+		
 		//AVALIAÇÃO PARA SABER SE TEM CHOQUES
 		//this.choque = service.choquesEmEscalaOnipresenca(escala);
 		//comando para armazenar choque na sessão
@@ -3452,11 +4087,20 @@ public class EscalaController {
 		return "redirect:/escalas/mensagem/de/escala/bloqueada";
 		}		
 
-		Escala escala = service.buscarPorId(ultimoIdEscala());
+		Escala escalaA = service.buscarPorId(ultimoIdEscala());
+		Escala escala = service.converteDeEscalaParaEscalaComId(escalaA);
+		
 		escala = escalaCalculosService.converteTurnoNuloEmFolga(escala);
 		escala = escalaAtalhosService.atalhoCiclo11F(escala);
 		escala = escalaCalculosService.converteTurnoNuloEmFolga(escala);
 		escala = escalaCalculosService.calcularDadosEscala(escala);
+		
+		//Avaliando Efetivo dando Extra sem cumprir a CH Efetiva
+		boolean extraSemCumprirEfetivo = escalaCompatibilidadeService.horasExtrasSemEfetivas(escala);
+		if(extraSemCumprirEfetivo==true) {
+			return "redirect:/escalas/mensagem/de/efetivo/com/extra/sem/ch/efetiva/informada";
+		}
+		
 		//AVALIAÇÃO PARA SABER SE TEM CHOQUES
 		//this.choque = service.choquesEmEscalaOnipresenca(escala);
 		//comando para armazenar choque na sessão
@@ -3482,11 +4126,20 @@ public class EscalaController {
 		return "redirect:/escalas/mensagem/de/escala/bloqueada";
 		}		
 
-		Escala escala = service.buscarPorId(ultimoIdEscala());
+		Escala escalaA = service.buscarPorId(ultimoIdEscala());
+		Escala escala = service.converteDeEscalaParaEscalaComId(escalaA);
+		
 		escala = escalaCalculosService.converteTurnoNuloEmFolga(escala);
 		escala = escalaAtalhosService.atalhoCiclo11G(escala);
 		escala = escalaCalculosService.converteTurnoNuloEmFolga(escala);
 		escala = escalaCalculosService.calcularDadosEscala(escala);
+		
+		//Avaliando Efetivo dando Extra sem cumprir a CH Efetiva
+		boolean extraSemCumprirEfetivo = escalaCompatibilidadeService.horasExtrasSemEfetivas(escala);
+		if(extraSemCumprirEfetivo==true) {
+			return "redirect:/escalas/mensagem/de/efetivo/com/extra/sem/ch/efetiva/informada";
+		}
+		
 		//AVALIAÇÃO PARA SABER SE TEM CHOQUES
 		//this.choque = service.choquesEmEscalaOnipresenca(escala);
 		//comando para armazenar choque na sessão
@@ -3515,11 +4168,20 @@ public class EscalaController {
 		return "redirect:/escalas/mensagem/de/escala/bloqueada";
 		}		
 
-		Escala escala = service.buscarPorId(ultimoIdEscala());
+		Escala escalaA = service.buscarPorId(ultimoIdEscala());
+		Escala escala = service.converteDeEscalaParaEscalaComId(escalaA);
+		
 		escala = escalaCalculosService.converteTurnoNuloEmFolga(escala);
 		escala = escalaAtalhosService.atalhoCiclo12A(escala);
 		escala = escalaCalculosService.converteTurnoNuloEmFolga(escala);
 		escala = escalaCalculosService.calcularDadosEscala(escala);
+		
+		//Avaliando Efetivo dando Extra sem cumprir a CH Efetiva
+		boolean extraSemCumprirEfetivo = escalaCompatibilidadeService.horasExtrasSemEfetivas(escala);
+		if(extraSemCumprirEfetivo==true) {
+			return "redirect:/escalas/mensagem/de/efetivo/com/extra/sem/ch/efetiva/informada";
+		}
+		
 		//AVALIAÇÃO PARA SABER SE TEM CHOQUES
 		//this.choque = service.choquesEmEscalaOnipresenca(escala);
 		//comando para armazenar choque na sessão
@@ -3545,11 +4207,20 @@ public class EscalaController {
 		return "redirect:/escalas/mensagem/de/escala/bloqueada";
 		}		
 
-		Escala escala = service.buscarPorId(ultimoIdEscala());
+		Escala escalaA = service.buscarPorId(ultimoIdEscala());
+		Escala escala = service.converteDeEscalaParaEscalaComId(escalaA);
+		
 		escala = escalaCalculosService.converteTurnoNuloEmFolga(escala);
 		escala = escalaAtalhosService.atalhoCiclo12B(escala);
 		escala = escalaCalculosService.converteTurnoNuloEmFolga(escala);
 		escala = escalaCalculosService.calcularDadosEscala(escala);
+		
+		//Avaliando Efetivo dando Extra sem cumprir a CH Efetiva
+		boolean extraSemCumprirEfetivo = escalaCompatibilidadeService.horasExtrasSemEfetivas(escala);
+		if(extraSemCumprirEfetivo==true) {
+			return "redirect:/escalas/mensagem/de/efetivo/com/extra/sem/ch/efetiva/informada";
+		}
+		
 		//AVALIAÇÃO PARA SABER SE TEM CHOQUES
 		//this.choque = service.choquesEmEscalaOnipresenca(escala);
 		//comando para armazenar choque na sessão
@@ -3575,11 +4246,20 @@ public class EscalaController {
 		return "redirect:/escalas/mensagem/de/escala/bloqueada";
 		}		
 
-		Escala escala = service.buscarPorId(ultimoIdEscala());
+		Escala escalaA = service.buscarPorId(ultimoIdEscala());
+		Escala escala = service.converteDeEscalaParaEscalaComId(escalaA);
+		
 		escala = escalaCalculosService.converteTurnoNuloEmFolga(escala);
 		escala = escalaAtalhosService.atalhoCiclo12C(escala);
 		escala = escalaCalculosService.converteTurnoNuloEmFolga(escala);
 		escala = escalaCalculosService.calcularDadosEscala(escala);
+		
+		//Avaliando Efetivo dando Extra sem cumprir a CH Efetiva
+		boolean extraSemCumprirEfetivo = escalaCompatibilidadeService.horasExtrasSemEfetivas(escala);
+		if(extraSemCumprirEfetivo==true) {
+			return "redirect:/escalas/mensagem/de/efetivo/com/extra/sem/ch/efetiva/informada";
+		}
+		
 		//AVALIAÇÃO PARA SABER SE TEM CHOQUES
 		//this.choque = service.choquesEmEscalaOnipresenca(escala);
 		//comando para armazenar choque na sessão
@@ -3605,11 +4285,20 @@ public class EscalaController {
 		return "redirect:/escalas/mensagem/de/escala/bloqueada";
 		}		
 
-		Escala escala = service.buscarPorId(ultimoIdEscala());
+		Escala escalaA = service.buscarPorId(ultimoIdEscala());
+		Escala escala = service.converteDeEscalaParaEscalaComId(escalaA);
+		
 		escala = escalaCalculosService.converteTurnoNuloEmFolga(escala);
 		escala = escalaAtalhosService.atalhoCiclo12D(escala);
 		escala = escalaCalculosService.converteTurnoNuloEmFolga(escala);
 		escala = escalaCalculosService.calcularDadosEscala(escala);
+		
+		//Avaliando Efetivo dando Extra sem cumprir a CH Efetiva
+		boolean extraSemCumprirEfetivo = escalaCompatibilidadeService.horasExtrasSemEfetivas(escala);
+		if(extraSemCumprirEfetivo==true) {
+			return "redirect:/escalas/mensagem/de/efetivo/com/extra/sem/ch/efetiva/informada";
+		}
+		
 		//AVALIAÇÃO PARA SABER SE TEM CHOQUES
 		//this.choque = service.choquesEmEscalaOnipresenca(escala);
 		//comando para armazenar choque na sessão
@@ -3635,11 +4324,20 @@ public class EscalaController {
 		return "redirect:/escalas/mensagem/de/escala/bloqueada";
 		}		
 
-		Escala escala = service.buscarPorId(ultimoIdEscala());
+		Escala escalaA = service.buscarPorId(ultimoIdEscala());
+		Escala escala = service.converteDeEscalaParaEscalaComId(escalaA);
+		
 		escala = escalaCalculosService.converteTurnoNuloEmFolga(escala);
 		escala = escalaAtalhosService.atalhoCiclo12E(escala);
 		escala = escalaCalculosService.converteTurnoNuloEmFolga(escala);
 		escala = escalaCalculosService.calcularDadosEscala(escala);
+		
+		//Avaliando Efetivo dando Extra sem cumprir a CH Efetiva
+		boolean extraSemCumprirEfetivo = escalaCompatibilidadeService.horasExtrasSemEfetivas(escala);
+		if(extraSemCumprirEfetivo==true) {
+			return "redirect:/escalas/mensagem/de/efetivo/com/extra/sem/ch/efetiva/informada";
+		}
+		
 		//AVALIAÇÃO PARA SABER SE TEM CHOQUES
 		//this.choque = service.choquesEmEscalaOnipresenca(escala);
 		//comando para armazenar choque na sessão
@@ -3665,11 +4363,20 @@ public class EscalaController {
 		return "redirect:/escalas/mensagem/de/escala/bloqueada";
 		}		
 
-		Escala escala = service.buscarPorId(ultimoIdEscala());
+		Escala escalaA = service.buscarPorId(ultimoIdEscala());
+		Escala escala = service.converteDeEscalaParaEscalaComId(escalaA);
+		
 		escala = escalaCalculosService.converteTurnoNuloEmFolga(escala);
 		escala = escalaAtalhosService.atalhoCiclo12F(escala);
 		escala = escalaCalculosService.converteTurnoNuloEmFolga(escala);
 		escala = escalaCalculosService.calcularDadosEscala(escala);
+		
+		//Avaliando Efetivo dando Extra sem cumprir a CH Efetiva
+		boolean extraSemCumprirEfetivo = escalaCompatibilidadeService.horasExtrasSemEfetivas(escala);
+		if(extraSemCumprirEfetivo==true) {
+			return "redirect:/escalas/mensagem/de/efetivo/com/extra/sem/ch/efetiva/informada";
+		}
+		
 		//AVALIAÇÃO PARA SABER SE TEM CHOQUES
 		//this.choque = service.choquesEmEscalaOnipresenca(escala);
 		//comando para armazenar choque na sessão
@@ -3695,11 +4402,20 @@ public class EscalaController {
 		return "redirect:/escalas/mensagem/de/escala/bloqueada";
 		}		
 
-		Escala escala = service.buscarPorId(ultimoIdEscala());
+		Escala escalaA = service.buscarPorId(ultimoIdEscala());
+		Escala escala = service.converteDeEscalaParaEscalaComId(escalaA);
+		
 		escala = escalaCalculosService.converteTurnoNuloEmFolga(escala);
 		escala = escalaAtalhosService.atalhoCiclo12G(escala);
 		escala = escalaCalculosService.converteTurnoNuloEmFolga(escala);
 		escala = escalaCalculosService.calcularDadosEscala(escala);
+		
+		//Avaliando Efetivo dando Extra sem cumprir a CH Efetiva
+		boolean extraSemCumprirEfetivo = escalaCompatibilidadeService.horasExtrasSemEfetivas(escala);
+		if(extraSemCumprirEfetivo==true) {
+			return "redirect:/escalas/mensagem/de/efetivo/com/extra/sem/ch/efetiva/informada";
+		}
+		
 		//AVALIAÇÃO PARA SABER SE TEM CHOQUES
 		//this.choque = service.choquesEmEscalaOnipresenca(escala);
 		//comando para armazenar choque na sessão
@@ -3769,6 +4485,18 @@ public class EscalaController {
 		return "/choqueescala/obrigatorio";
 	}
 
+	
+	@GetMapping("/mensagem/de/efetivo/com/extra/sem/ch/efetiva/informada")
+	public String mensagemDeEfetivoComExtraSemChEfetivaInformada(ModelMap model) {	
+		
+		model.addAttribute("atencao", "ATENÇÃO");
+		model.addAttribute("choque", "EXTRA SEM INFORMAÇÃO DE CH EFETIVA");
+		model.addAttribute("mensagem", "Horas extras só podem ser informadas depois de indicadas todas as horas efetivas na unidade.");
+		
+		return "/choqueescala/extra";
+	}
+	
+	
 
 	// Metodos da Inclusão	
 	@GetMapping("/paginar/inclusao/{pageNo}")
@@ -3841,7 +4569,7 @@ public class EscalaController {
 		inclusaoEscala.setId(id);		
 		List<AcessoOperadoresCoordenacao> listaDeCoordenacoes = acessoOperadoresCoordenacaoService.buscarPorOperador(usuarioService.pegarOperadorLogado());
 		
-		model.addAttribute("idTipoFolhaFkCompativel", getTiposDeFolhaCompativel(anoMes, nivel, vinculo ) );
+		model.addAttribute("idTipoFolhaFkCompativel", escalaCompatibilidadeService.getTiposDeFolhaCompativel(anoMes, nivel, vinculo ) );
 		model.addAttribute("escolhaAcessoEscala", new EscolhaAcessoEscala()); 
 		model.addAttribute("coordenacaoEscala", coordenacaoEscalaService.buscarAcessoIndividual(usuarioService.pegarUnidadeLogada() , usuarioService.pegarOperadorLogado() , listaDeCoordenacoes ) );
 		model.addAttribute("anoMes", anoMesService.buscarTodos());
@@ -4106,147 +4834,6 @@ public class EscalaController {
 		return codigoDiferenciadoService.buscarTodos(usuarioService.pegarUnidadeLogada());
 	}
 	
-	
-	public List<SimNao> getIncrementoDeRiscoCompativel(Escala escala) {
-		
-		AnoMes anoMes = escala.getIdAnoMesFk();
-		Unidades unidade = escala.getIdCoordenacaoFk().getIdLocalidadeFk().getIdUnidadeFk();
-		Pessoa pessoa = escala.getIdFuncionarioFk().getIdPessoaFk();
-		TiposDeFolha folha = escala.getIdTipoFolhaFk();
-		
-		List<SimNao> lista = simNaoService.buscarTodos();
-		List<UnidadeAdmiteIncrementoDeRisco> lista1 = unidadeAdmiteIncrementoDeRiscoService.buscarPorMesExatoUnidade(anoMes, unidade);
-		List<PessoaIncrementoDeRisco> lista2 = pessoaIncrementoDeRiscoService.buscarPorMesExatoUnidadePessoa(anoMes, unidade, pessoa);
-		List<TiposDeFolha> lista3 = tiposDeFolhaService.buscarTodos();
-		
-		//Retirando quando nao tem Unidade ou pessoa atribuida
-		for(int i=0;i<lista.size();i++) {
-			if(lista.get(i).getSigla().equalsIgnoreCase("S")) {
-				if(lista1.isEmpty()  ||  lista2.isEmpty()) {lista.remove(i); i=i-1;}
-			}
-		}
-		
-		//Retirando quando nao tem Folha Compativel
-		for(int i=0;i<lista.size();i++) {
-			if(lista.get(i).getSigla().equalsIgnoreCase("S")) {
-				boolean achou = false;
-				for(int j=0;j<lista3.size();j++) {
-					if(lista3.get(j) == folha) {
-						if(lista3.get(j).getIdAdmiteIncrementoDeRiscoSimNaoFk().getSigla().equalsIgnoreCase("S")) {achou = true;}
-					}
-				}
-				if(achou==false) {lista.remove(i); i=i-1;}
-			}
-		}
-		
-		
-		return lista;
-	}
-	
-	
-
-	
-	
-	public List<SimNao> getComplementoDePlantaoCompativel(Escala escala) {
-		
-		AnoMes anoMes = escala.getIdAnoMesFk();
-		Unidades unidade = escala.getIdCoordenacaoFk().getIdLocalidadeFk().getIdUnidadeFk();
-		Pessoa pessoa = escala.getIdFuncionarioFk().getIdPessoaFk();
-		TiposDeFolha folha = escala.getIdTipoFolhaFk();
-		
-		List<SimNao> lista = simNaoService.buscarTodos();
-		List<UnidadeAdmiteComplementoPlantao> lista1 = unidadeAdmiteComplementoPlantaoService.buscarPorMesExatoUnidade(anoMes, unidade);
-		List<PessoaComplementoDePlantao> lista2 = pessoaComplementoDePlantaoService.buscarPorMesExatoUnidadePessoa(anoMes, unidade, pessoa);
-		List<TiposDeFolha> lista3 = tiposDeFolhaService.buscarTodos();
-		
-		//Retirando quando nao tem Unidade ou pessoa atribuida
-		for(int i=0;i<lista.size();i++) {
-			if(lista.get(i).getSigla().equalsIgnoreCase("S")) {
-				if(lista1.isEmpty()  ||  lista2.isEmpty()) {lista.remove(i); i=i-1;}
-			}
-		}
-		
-		//Retirando quando nao tem Folha Compativel
-		for(int i=0;i<lista.size();i++) {
-			if(lista.get(i).getSigla().equalsIgnoreCase("S")) {
-				boolean achou = false;
-				for(int j=0;j<lista3.size();j++) {
-					if(lista3.get(j) == folha) {
-						if(lista3.get(j).getIdAdmiteComplementoDePlantaoSimNaoFk().getSigla().equalsIgnoreCase("S")) {achou = true;}
-					}
-				}
-				if(achou==false) {lista.remove(i); i=i-1;}
-			}
-		}
-		
-		
-		return lista;
-	}
-	
-	
-	
-	
-	public List<TiposDeFolha> getTiposDeFolhaCompativel(AnoMes anoMes, NiveisCargo nivel, Vinculos vinculo) {
-		
-		List<TiposDeFolha> lista = tiposDeFolhaService.buscarTodos();
-		List<TiposDeFolhaVinculo> lista1 = tiposDeFolhaVinculoService.buscarPorMesVinculo(anoMes, vinculo);
-		List<TiposDeFolhaNivelCargo> lista2 = tiposDeFolhaNivelCargoService.buscarPorMesNivel(anoMes, nivel);
-		
-		//Retirando quando nao tem Vinculo Compativel
-		for(int i=0;i<lista.size();i++) {
-			boolean achou = false;
-			for(int j=0;j<lista1.size();j++) {
-				if(lista.get(i) == lista1.get(j).getIdTipoDeFolhaFk() ) {achou = true; break;}
-			}
-			if(achou == false) {lista.remove(i); i=i-1;}
-		}
-		
-		//Retirando quando nao tem Nivel Compativel
-		for(int i=0;i<lista.size();i++) {
-			boolean achou = false;
-			for(int j=0;j<lista2.size();j++) {
-				if(lista.get(i) == lista2.get(j).getIdTipoDeFolhaFk() ) {achou = true; break;}
-			}
-			if(achou == false) {lista.remove(i); i=i-1;}
-		}
-		
-		
-		return lista;
-	}
-	
-	public List<CodigoDiferenciado> getCodigosDiferenciadoCompativel(Escala escala) {
-		Pessoa pessoa = escala.getIdFuncionarioFk().getIdPessoaFk() ;
-		
-		List<CodigoDiferenciado> lista = codigoDiferenciadoService.buscarTodosQueNaoPrecisaDeAtribuicaoRh(usuarioService.pegarUnidadeLogada());
-		List<PessoaCodDiferenciado> lista1 = pessoaCodDiferenciadoService.buscarPorUnidadeEPessoaQuePrecisaAtribuicaoRhENaoPrecisaAprovacaoDaSede(usuarioService.pegarUnidadeLogada(), pessoa);
-		List<PessoaCodDiferenciado> lista2 = pessoaCodDiferenciadoService.buscarPorUnidadeEPessoaAprovadoSede(usuarioService.pegarUnidadeLogada(), pessoa);
-		List<FaixasValoresParametrosCalculoFolhasExtras> lista3 = faixasValoresParametrosCalculoFolhasExtrasService.buscarPorMesExatoNivelRegimeFolhaUnidade( escala );
-		
-		for(int i=0;i<lista1.size();i++) {
-			lista.add(lista1.get(i).getIdCodDiferenciadoFk());
-		}
-		
-		for(int i=0;i<lista2.size();i++) {
-			lista.add(lista2.get(i).getIdCodDiferenciadoFk());
-		}
-		
-		//Retirando letra N.
-		for(int i=0; i<lista.size(); i++) {
-			if(lista.get(i).getNomeCodigoDiferenciado().equalsIgnoreCase("N")) {lista.remove(i); i=i-1;}
-		}
-		
-		//Retirando quando nao tem valores atribuidos
-		for(int i=0;i<lista.size();i++) {
-			boolean achou = false;
-			for(int j=0;j<lista3.size();j++) {
-				if(lista.get(i) == lista3.get(j).getIdCodDiferenciadoFk() ) {achou = true; break;}
-			}
-			if(achou == false) {lista.remove(i); i=i-1;}
-		}
-		
-		
-		return lista;
-	}
 	
 	
 	@ModelAttribute("idRegimeFk")

@@ -8,18 +8,17 @@
 	        	<span class="oi oi-list" title="Cadastro" aria-hidden="true"></span>
 	            <span>Voltar para Escalas</span>
 	        </a>-->
-	        <a class="btn btn-outline-dark btn-md" th:href="@{/funcionariosferias/funcionarios/listar}" role="button">
+	        <a class="btn btn-outline-dark btn-md" th:href="@{/pessoaComplementoDePlantaoSede/listar/funcionarios}" role="button">
 	        	<span class="oi oi-loop-square" title="Atualizar" aria-hidden="true"></span>
 	            <span>Atualizar</span>
 	        </a>
-	           
+	            <label for="nome" class= "fonte-tutulos-tamanho">Lista de Funcionários</label>
 	    </nav>
 	  		<!-- <div class="container">
 	  			<label style="text-align: center; color:#008080;" th:text="${mes.nomeAnoMes+'-'+escala.nomeCoordenacao+'-'+escala.idLocalidadeFk.nomeLocalidade+'-'+escala.idAtividadeFk.nomeAtividade+'-'+escala.idLocalidadeFk.idUnidadeFk.nomeFantasia}" class="text" >Mes </label>
 			</div> -->
 	  	
 	  	<div class="container">
-	  	 <label for="nome" class= "fonte-tutulos-tamanho"> Lista de Funcionários</label>
 	    	<p>                
 	        	<button class=" oi oi-magnifying-glass btn btn-outline-success my-2 my-sm-0" type="button" data-toggle="collapse" data-target="#collapseCidade"
 	            		aria-controls="collapseCidade">Filtrar Nome
@@ -30,7 +29,7 @@
 	      	<div class="col">
 	        	<div class="collapse" id="collapseCidade">
 		            <nav class="navbar navbar-light bg-light">
-	    	           <form class="form-inline" method="GET" th:action="@{/funcionariosferias/buscar/funcionarios/nome}">	        	           
+	    	           <form class="form-inline" method="GET" th:action="@{/pessoaComplementoDePlantaoSede/buscar/funcionarios/nome}">	        	           
 	        	           <input class="form-control mr-sm-2" type="search" placeholder="Nome" aria-label="Search"
 	                              th:name="nome"/> 
 	                       <button class="btn btn-outline-success my-2 my-sm-0">Buscar</button> 
@@ -65,14 +64,14 @@
 		                    <td style="font-size:11px;"  th:text="${d.idPessoaFk.cpf}"></td>
 		                    <td style="font-size:11px;"  th:text="${d.matricula}"></td>
 		                    <td style="font-size:11px;"  th:text="${d.idCargaHorariaAtualFk.cargaHoraria}"></td>  
-		                    <td style="font-size:11px;"> <a th:href="@{/funcionariosferias/ferias/{id} (id=${d.id}) }" title="Cadastar férias" ><span th:text="${d.idPessoaFk.nome}"></span></a></td>
-		                    <td style="font-size:11px;"  th:text="${d.idEspecialidadeAtualFk.idCargoFk.nomeCargo+'-'+d.idEspecialidadeAtualFk.nomeEspecialidadeCargo}"></td>
-		                    <td style="font-size:11px;"  th:text="${d.idVinculoAtualFk.nomeVinculo}"></td> 
+		                    <td style="font-size:11px;"  th:text="${d.idPessoaFk.nome}"></td>
+		                    <td style="font-size:11px;"  th:text="${d.idEspecialidadeAtualFk.idCargoFk.nomeCargo+'-'+d.idEspecialidadeAtualFk.nomeEspecialidadeCargo}"></td> 
+		                    <td style="font-size:11px;"  th:text="${d.idVinculoAtualFk.nomeVinculo}"></td>
 		                    <td colspan="2">
-		                    	
-		                        <a class="btn btn-outline-success btn-sm" th:href="@{/funcionariosferias/ferias/listar/{id} (id=${d.id}) }" role="button">
-		                        	<span class="oi oi-check" title="Listar férias" aria-hidden="true"></span>
+		                    	<a class="btn btn-outline-success btn-sm" th:href="@{/pessoaComplementoDePlantaoSede/atribuir/{id} (id=${d.id}) }" role="button">
+		                        	<span class="oi oi-check" title="Cadastrar férias" aria-hidden="true"></span>
 		                        </a>
+		                        
 		                        <!-- não é permitido excluir aqui
 		                        <button th:id="${ 'btn_escalas/cancelar/' + d.id}" type="button" class="btn btn btn-outline-danger btn-sm" 
 		                            		data-toggle="modal" data-target="#myModal">
@@ -97,25 +96,25 @@
 		 	<ul class="pagination justify-content-center" >
 		 		<li class="page-item disabled" ></li>		 		
 	
-			 	<li ><a class="btn btn-light btn-paginacao oi oi-media-step-backward" th:if="${currentePage != i}"  th:href="@{'/funcionariosferias/paginar/funcionarios/'+ 1 }" ></a></li>
+			 	<li ><a class="btn btn-light btn-paginacao oi oi-media-step-backward" th:if="${currentePage != i}"  th:href="@{'/pessoaComplementoDePlantaoSede/paginar/funcionarios/'+ 1 }" ></a></li>
 			 	
-			 	<li ><a class="btn btn-light    btn-paginacao    oi oi-media-skip-backward" th:if="${currentePage > 1}"  th:href="@{'/funcionariosferias/paginar/funcionarios/'+ ${currentePage -1}}" ></a></li> 
+			 	<li ><a class="btn btn-light    btn-paginacao    oi oi-media-skip-backward" th:if="${currentePage > 1}"  th:href="@{'/pessoaComplementoDePlantaoSede/paginar/funcionarios/'+ ${currentePage -1}}" ></a></li> 
 			 	
-			 	<li ><a class="btn btn-light    btn-paginacao oi" th:if="${currentePage > 1000}"  th:href="@{'/funcionariosferias/paginar/funcionarios/'+ ${currentePage-1000} }" >-1000</a></li>
+			 	<li ><a class="btn btn-light    btn-paginacao oi" th:if="${currentePage > 1000}"  th:href="@{'/pessoaComplementoDePlantaoSede/paginar/funcionarios/'+ ${currentePage-1000} }" >-1000</a></li>
 			 	
-			 	<li ><a class="btn btn-light    btn-paginacao" th:if="${currentePage > 100}"  th:href="@{'/funcionariosferias/paginar/funcionarios/'+ ${currentePage-100} }" >-100</a></li>
+			 	<li ><a class="btn btn-light    btn-paginacao" th:if="${currentePage > 100}"  th:href="@{'/pessoaComplementoDePlantaoSede/paginar/funcionarios/'+ ${currentePage-100} }" >-100</a></li>
 			 	
-			 	<li ><a class="btn btn-light    btn-paginacao" th:if="${currentePage > 10}"  th:href="@{'/funcionariosferias/paginar/funcionarios/'+ ${currentePage-10} }" >-10</a></li>
+			 	<li ><a class="btn btn-light    btn-paginacao" th:if="${currentePage > 10}"  th:href="@{'/pessoaComplementoDePlantaoSede/paginar/funcionarios/'+ ${currentePage-10} }" >-10</a></li>
 
-			 	<li ><a class="btn btn-light    btn-paginacao"  th:if="${currentePage < totalPages - 10}"  th:href="@{'/funcionariosferias/paginar/funcionarios/'+ ${currentePage+10} }" >+10</a></li>
+			 	<li ><a class="btn btn-light    btn-paginacao"  th:if="${currentePage < totalPages - 10}"  th:href="@{'/pessoaComplementoDePlantaoSede/paginar/funcionarios/'+ ${currentePage+10} }" >+10</a></li>
 			 	
-			 	<li ><a class="btn btn-light    btn-paginacao"  th:if="${currentePage < totalPages - 100}"  th:href="@{'/funcionariosferias/paginar/funcionarios/'+ ${currentePage+100} }" >+100</a></li>
+			 	<li ><a class="btn btn-light    btn-paginacao"  th:if="${currentePage < totalPages - 100}"  th:href="@{'/pessoaComplementoDePlantaoSede/paginar/funcionarios/'+ ${currentePage+100} }" >+100</a></li>
 			 	
-			 	<li ><a class="btn btn-light    btn-paginacao"  th:if="${currentePage < totalPages - 1000}"  th:href="@{'/funcionariosferias/paginar/funcionarios/'+ ${currentePage+1000} }" >+1000</a></li>
+			 	<li ><a class="btn btn-light    btn-paginacao"  th:if="${currentePage < totalPages - 1000}"  th:href="@{'/pessoaComplementoDePlantaoSede/paginar/funcionarios/'+ ${currentePage+1000} }" >+1000</a></li>
 			 	
-			 	<li ><a class="btn btn-light    btn-paginacao    oi oi-media-skip-forward" th:if="${currentePage < totalPages}"  th:href="@{'/funcionariosferias/paginar/funcionarios/' + ${currentePage +1}}"></a> </li>
+			 	<li ><a class="btn btn-light    btn-paginacao    oi oi-media-skip-forward" th:if="${currentePage < totalPages}"  th:href="@{'/pessoaComplementoDePlantaoSede/paginar/funcionarios/' + ${currentePage +1}}"></a> </li>
 		 		
-		 		<li ><a class="btn btn-light    btn-paginacao    oi oi-media-step-forward"  th:if="${currentePage != i}"  th:href="@{'/funcionariosferias/paginar/funcionarios/'+ ${totalPages} }" ></a></li> 
+		 		<li ><a class="btn btn-light    btn-paginacao    oi oi-media-step-forward"  th:if="${currentePage != i}"  th:href="@{'/pessoaComplementoDePlantaoSede/paginar/funcionarios/'+ ${totalPages} }" ></a></li> 
 		 	</ul>
 		</nav>     	        
 	    <div th:replace="fragments/modal :: modal"></div>   

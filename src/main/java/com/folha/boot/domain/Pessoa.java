@@ -120,6 +120,12 @@ public class Pessoa extends AbstractEntity<Long> {
 	@OneToMany(mappedBy = "idPessoaFk")
 	private List<HistUnidadesDiretor> histUnidadesDiretorList;
 	
+	@OneToMany(mappedBy = "idPessoaFk")
+    private List<PessoaIncrementoDeRiscoSede> pessoaIncrementoDeRiscoSedeList;
+    
+    @OneToMany(mappedBy = "idPessoaFk")
+    private List<PessoaComplementoDePlantaoSede> pessoaComplementoDePlantaoSedeList;
+	
 	@OneToMany(cascade = CascadeType.ALL, mappedBy = "idPessoaFk")
 	private List<PessoaDocumentosRg> pessoaDocumentosRgList;
 	
@@ -474,6 +480,23 @@ public class Pessoa extends AbstractEntity<Long> {
 
 	public void setPessoaComplementoDePlantaoList(List<PessoaComplementoDePlantao> pessoaComplementoDePlantaoList) {
 		this.pessoaComplementoDePlantaoList = pessoaComplementoDePlantaoList;
+	}
+
+	public List<PessoaIncrementoDeRiscoSede> getPessoaIncrementoDeRiscoSedeList() {
+		return pessoaIncrementoDeRiscoSedeList;
+	}
+
+	public void setPessoaIncrementoDeRiscoSedeList(List<PessoaIncrementoDeRiscoSede> pessoaIncrementoDeRiscoSedeList) {
+		this.pessoaIncrementoDeRiscoSedeList = pessoaIncrementoDeRiscoSedeList;
+	}
+
+	public List<PessoaComplementoDePlantaoSede> getPessoaComplementoDePlantaoSedeList() {
+		return pessoaComplementoDePlantaoSedeList;
+	}
+
+	public void setPessoaComplementoDePlantaoSedeList(
+			List<PessoaComplementoDePlantaoSede> pessoaComplementoDePlantaoSedeList) {
+		this.pessoaComplementoDePlantaoSedeList = pessoaComplementoDePlantaoSedeList;
 	}
 	
 	

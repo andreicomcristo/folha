@@ -119,6 +119,16 @@ public class PessoaOperadores extends AbstractEntity<Long> {
     /*@OneToMany(cascade = CascadeType.ALL, mappedBy = "idPessoaOperadoresFk")
     private List<UsersOperador> usersOperadorList;*/
     
+    @OneToMany(mappedBy = "idOperadorCadastroFk")
+    private List<PessoaIncrementoDeRiscoSede> pessoaIncrementoDeRiscoSedeList;
+    @OneToMany(mappedBy = "idOperadorCancelamentoFk")
+    private List<PessoaIncrementoDeRiscoSede> pessoaIncrementoDeRiscoSedeList1;
+    
+    @OneToMany(mappedBy = "idOperadorCadastroFk")
+    private List<PessoaComplementoDePlantaoSede> pessoaComplementoDePlantaoSedeList;
+    @OneToMany(mappedBy = "idOperadorCancelamentoFk")
+    private List<PessoaComplementoDePlantaoSede> pessoaComplementoDePlantaoSedeList1;
+    
     @OneToMany(mappedBy = "idOperadorCancelamentoFk")
     private List<Escala> escalaList;
     @OneToMany(mappedBy = "idOperadorMudancaFk")
@@ -741,6 +751,32 @@ public class PessoaOperadores extends AbstractEntity<Long> {
 	}
 	public void setPessoaComplementoDePlantaoList1(List<PessoaComplementoDePlantao> pessoaComplementoDePlantaoList1) {
 		this.pessoaComplementoDePlantaoList1 = pessoaComplementoDePlantaoList1;
+	}
+	public List<PessoaIncrementoDeRiscoSede> getPessoaIncrementoDeRiscoSedeList() {
+		return pessoaIncrementoDeRiscoSedeList;
+	}
+	public void setPessoaIncrementoDeRiscoSedeList(List<PessoaIncrementoDeRiscoSede> pessoaIncrementoDeRiscoSedeList) {
+		this.pessoaIncrementoDeRiscoSedeList = pessoaIncrementoDeRiscoSedeList;
+	}
+	public List<PessoaIncrementoDeRiscoSede> getPessoaIncrementoDeRiscoSedeList1() {
+		return pessoaIncrementoDeRiscoSedeList1;
+	}
+	public void setPessoaIncrementoDeRiscoSedeList1(List<PessoaIncrementoDeRiscoSede> pessoaIncrementoDeRiscoSedeList1) {
+		this.pessoaIncrementoDeRiscoSedeList1 = pessoaIncrementoDeRiscoSedeList1;
+	}
+	public List<PessoaComplementoDePlantaoSede> getPessoaComplementoDePlantaoSedeList() {
+		return pessoaComplementoDePlantaoSedeList;
+	}
+	public void setPessoaComplementoDePlantaoSedeList(
+			List<PessoaComplementoDePlantaoSede> pessoaComplementoDePlantaoSedeList) {
+		this.pessoaComplementoDePlantaoSedeList = pessoaComplementoDePlantaoSedeList;
+	}
+	public List<PessoaComplementoDePlantaoSede> getPessoaComplementoDePlantaoSedeList1() {
+		return pessoaComplementoDePlantaoSedeList1;
+	}
+	public void setPessoaComplementoDePlantaoSedeList1(
+			List<PessoaComplementoDePlantaoSede> pessoaComplementoDePlantaoSedeList1) {
+		this.pessoaComplementoDePlantaoSedeList1 = pessoaComplementoDePlantaoSedeList1;
 	}
     
 	

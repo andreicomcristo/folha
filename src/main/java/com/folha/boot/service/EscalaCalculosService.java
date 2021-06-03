@@ -1,13 +1,17 @@
 package com.folha.boot.service;
 
 import java.util.Date;
+import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.folha.boot.Reposytory.EscalaReposytoty;
+import com.folha.boot.domain.AnoMes;
 import com.folha.boot.domain.Escala;
+import com.folha.boot.domain.PessoaFuncionarios;
+import com.folha.boot.domain.Unidades;
 import com.folha.boot.service.util.UtilidadesDeCalendarioEEscala;
 import com.folha.boot.service.util.UtilidadesMatematicas;
 
@@ -25,6 +29,18 @@ import com.folha.boot.service.util.UtilidadesMatematicas;
 		private	TurnosService turnosService;
 		@Autowired
 		private	SimNaoService simNaoService;
+		
+		
+		public int horasEfetivasDoFuncionarioNoMes(Escala escala) {
+			int resposta = 0;
+			Unidades unidades = escala.getIdCoordenacaoFk().getIdLocalidadeFk().getIdUnidadeFk();
+			AnoMes anoMes = escala.getIdAnoMesFk();
+			PessoaFuncionarios funcionario = escala.getIdFuncionarioFk();
+			List<Escala> lista = reposytory.findByIdCoordenacaoFkIdLocalidadeFkIdUnidadeFkAndIdAnoMesFkAndIdFuncionarioFkAndIdTipoFolhaFkIdFolhaEfetivaSimNaoFkSiglaAndDtCancelamentoIsNullOrderByIdFuncionarioFkIdPessoaFkNomeAsc( unidades,  anoMes,  funcionario , "S");
+			for(int i=0;i<lista.size();i++) {resposta = resposta+lista.get(i).getHorasTotais();}
+			return resposta;
+		}
+		
 		
 		public String obtemNomeDiaColuna(String anoMes, int coluna) {
 			Date dataColuna = new Date( Integer.parseInt(anoMes.substring(0, 4))-1900 , Integer.parseInt(anoMes.substring(4, 6))-1, coluna);

@@ -80,6 +80,11 @@ public class PessoaFuncionariosService {
 		return this.reposytory.findByDtCancelamentoIsNullAndIdPessoaFkDtCancelamentoIsNullAndIdSituacaoAtualFkNomeSituacaoOrderByIdPessoaFkNomeAsc( ativo, pageable);
 	}
 	
+	public Page<PessoaFuncionarios> findPaginatedDeTodasAsUnidadesEfetivos(int pageNo, int pageSize, String ativo) {
+		Pageable pageable = PageRequest.of(pageNo -1, pageSize);
+		return this.reposytory.findByDtCancelamentoIsNullAndIdPessoaFkDtCancelamentoIsNullAndIdSituacaoAtualFkNomeSituacaoAndIdVinculoAtualFkNomeVinculoOrderByIdPessoaFkNomeAsc( ativo, "EFETIVO", pageable);
+	}
+	
 	public Page<PessoaFuncionarios> findPaginatedNome(int pageNo, int pageSize, Unidades unidades, String ativo, String nome) {
 		Pageable pageable = PageRequest.of(pageNo -1, pageSize);
 		return this.reposytory.findByIdUnidadeAtuacaoAtualFkAndDtCancelamentoIsNullAndIdPessoaFkDtCancelamentoIsNullAndIdSituacaoAtualFkNomeSituacaoAndIdPessoaFkNomeContainingOrderByIdPessoaFkNomeAsc(unidades, ativo, nome.toUpperCase().trim(), pageable);
@@ -88,6 +93,11 @@ public class PessoaFuncionariosService {
 	public Page<PessoaFuncionarios> findPaginatedNomeDeTodasAsUnidades(int pageNo, int pageSize, String ativo, String nome) {
 		Pageable pageable = PageRequest.of(pageNo -1, pageSize);
 		return this.reposytory.findByDtCancelamentoIsNullAndIdPessoaFkDtCancelamentoIsNullAndIdSituacaoAtualFkNomeSituacaoAndIdPessoaFkNomeContainingOrderByIdPessoaFkNomeAsc( ativo, nome.toUpperCase().trim(), pageable);
+	}
+	
+	public Page<PessoaFuncionarios> findPaginatedNomeDeTodasAsUnidadesEfetivos(int pageNo, int pageSize, String ativo, String nome) {
+		Pageable pageable = PageRequest.of(pageNo -1, pageSize);
+		return this.reposytory.findByDtCancelamentoIsNullAndIdPessoaFkDtCancelamentoIsNullAndIdSituacaoAtualFkNomeSituacaoAndIdPessoaFkNomeContainingAndIdVinculoAtualFkNomeVinculoOrderByIdPessoaFkNomeAsc( ativo, nome.toUpperCase().trim(),"EFETIVO" , pageable);
 	}
 
 	

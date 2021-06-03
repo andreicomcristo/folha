@@ -29,9 +29,13 @@ public interface PessoaFuncionariosReposytory extends JpaRepository<PessoaFuncio
 	
 	public Page<PessoaFuncionarios> findByDtCancelamentoIsNullAndIdPessoaFkDtCancelamentoIsNullAndIdSituacaoAtualFkNomeSituacaoOrderByIdPessoaFkNomeAsc( String nomeSituacao, final Pageable page);
 	
+	public Page<PessoaFuncionarios> findByDtCancelamentoIsNullAndIdPessoaFkDtCancelamentoIsNullAndIdSituacaoAtualFkNomeSituacaoAndIdVinculoAtualFkNomeVinculoOrderByIdPessoaFkNomeAsc( String nomeSituacao, String vinculo, final Pageable page);
+	
 	public Page<PessoaFuncionarios> findByIdUnidadeAtuacaoAtualFkAndDtCancelamentoIsNullAndIdPessoaFkDtCancelamentoIsNullAndIdSituacaoAtualFkNomeSituacaoAndIdPessoaFkNomeContainingOrderByIdPessoaFkNomeAsc(Unidades idUnidadeAtuacaoAtualFk, String nomeSituacao, String nome, final Pageable page);
 	
 	public Page<PessoaFuncionarios> findByDtCancelamentoIsNullAndIdPessoaFkDtCancelamentoIsNullAndIdSituacaoAtualFkNomeSituacaoAndIdPessoaFkNomeContainingOrderByIdPessoaFkNomeAsc( String nomeSituacao, String nome, final Pageable page);
+	
+	public Page<PessoaFuncionarios> findByDtCancelamentoIsNullAndIdPessoaFkDtCancelamentoIsNullAndIdSituacaoAtualFkNomeSituacaoAndIdPessoaFkNomeContainingAndIdVinculoAtualFkNomeVinculoOrderByIdPessoaFkNomeAsc( String nomeSituacao, String nome, String vinculo,final Pageable page);
 	
 	//public Page<PessoaFuncionarios> findByIdCoordenacaoFkAndIdAnoMesFkAndDtCancelamentoIsNull(CoordenacaoEscala idCoordenacaoFk, AnoMes anoMes,  final Pageable page);
 	

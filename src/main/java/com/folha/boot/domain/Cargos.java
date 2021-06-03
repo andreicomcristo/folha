@@ -26,6 +26,8 @@ public class Cargos extends AbstractEntity<Long> {
     private NiveisCargo idNivelCargoFk;
     @OneToMany(mappedBy = "idCargoAtualFk")
     private List<PessoaFuncionarios> pessoaFuncionariosList;
+    @OneToMany(mappedBy = "idCargoFk")
+    private List<IncrementoDeRiscoUnidadeCargo> incrementoDeRiscoUnidadeCargoList;
     
     
 	public List<FuncionariosLicencas> getFuncionariosLicencasList() {
@@ -84,4 +86,14 @@ public class Cargos extends AbstractEntity<Long> {
 		this.idNivelCargoFk = idNivelCargoFk;
 	}
 
+	public List<IncrementoDeRiscoUnidadeCargo> getIncrementoDeRiscoUnidadeCargoList() {
+		return incrementoDeRiscoUnidadeCargoList;
+	}
+
+	public void setIncrementoDeRiscoUnidadeCargoList(
+			List<IncrementoDeRiscoUnidadeCargo> incrementoDeRiscoUnidadeCargoList) {
+		this.incrementoDeRiscoUnidadeCargoList = incrementoDeRiscoUnidadeCargoList;
+	}
+	
+	
 }
