@@ -31,6 +31,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import com.folha.boot.domain.AcessoOperadoresCoordenacao;
 import com.folha.boot.domain.AnoMes;
 import com.folha.boot.domain.Bancos;
+import com.folha.boot.domain.Cargos;
 import com.folha.boot.domain.CargosEspecialidade;
 import com.folha.boot.domain.Cidades;
 import com.folha.boot.domain.CodigoDiferenciado;
@@ -40,13 +41,16 @@ import com.folha.boot.domain.EscalaAlteracoes;
 import com.folha.boot.domain.EscalaCodDiferenciado;
 import com.folha.boot.domain.EscalaPosTransparencia;
 import com.folha.boot.domain.FaixasValoresParametrosCalculoFolhasExtras;
+import com.folha.boot.domain.IncrementoDeRiscoUnidadeCargo;
 import com.folha.boot.domain.NiveisCargo;
 import com.folha.boot.domain.Pessoa;
 import com.folha.boot.domain.PessoaCodDiferenciado;
 import com.folha.boot.domain.PessoaComplementoDePlantao;
+import com.folha.boot.domain.PessoaComplementoDePlantaoSede;
 import com.folha.boot.domain.PessoaDocumentos;
 import com.folha.boot.domain.PessoaFuncionarios;
 import com.folha.boot.domain.PessoaIncrementoDeRisco;
+import com.folha.boot.domain.PessoaIncrementoDeRiscoSede;
 import com.folha.boot.domain.PessoaOperadores;
 import com.folha.boot.domain.RegimesDeTrabalho;
 import com.folha.boot.domain.SimNao;
@@ -76,11 +80,14 @@ import com.folha.boot.service.EscalaExportacaoService;
 import com.folha.boot.service.EscalaPosTransparenciaService;
 import com.folha.boot.service.EscalaService;
 import com.folha.boot.service.FaixasValoresParametrosCalculoFolhasExtrasService;
+import com.folha.boot.service.IncrementoDeRiscoUnidadeCargoService;
 import com.folha.boot.service.PessoaChDifService;
 import com.folha.boot.service.PessoaCodDiferenciadoService;
+import com.folha.boot.service.PessoaComplementoDePlantaoSedeService;
 import com.folha.boot.service.PessoaComplementoDePlantaoService;
 import com.folha.boot.service.PessoaDocumentosService;
 import com.folha.boot.service.PessoaFuncionariosService;
+import com.folha.boot.service.PessoaIncrementoDeRiscoSedeService;
 import com.folha.boot.service.PessoaIncrementoDeRiscoService;
 import com.folha.boot.service.PessoaOperadoresService;
 import com.folha.boot.service.PessoaService;
@@ -172,6 +179,8 @@ public class EscalaController {
 	@Autowired
 	PessoaIncrementoDeRiscoService pessoaIncrementoDeRiscoService;
 	@Autowired
+	PessoaIncrementoDeRiscoSedeService pessoaIncrementoDeRiscoSedeService;
+	@Autowired
 	EscalaCodDiferenciadoService escalaCodDiferenciadoService;
 	@Autowired
 	FaixasValoresParametrosCalculoFolhasExtrasService faixasValoresParametrosCalculoFolhasExtrasService;
@@ -182,9 +191,13 @@ public class EscalaController {
 	@Autowired
 	UnidadeAdmiteIncrementoDeRiscoService unidadeAdmiteIncrementoDeRiscoService;
 	@Autowired
+	IncrementoDeRiscoUnidadeCargoService incrementoDeRiscoUnidadeCargoService;
+	@Autowired
 	UnidadeAdmiteComplementoPlantaoService unidadeAdmiteComplementoPlantaoService;
 	@Autowired
 	PessoaComplementoDePlantaoService pessoaComplementoDePlantaoService;
+	@Autowired
+	PessoaComplementoDePlantaoSedeService pessoaComplementoDePlantaoSedeService;
 	
 	
 	
@@ -4113,16 +4126,18 @@ public class EscalaController {
 		Unidades unidade = escala.getIdCoordenacaoFk().getIdLocalidadeFk().getIdUnidadeFk();
 		Pessoa pessoa = escala.getIdFuncionarioFk().getIdPessoaFk();
 		TiposDeFolha folha = escala.getIdTipoFolhaFk();
-		
+		Cargos cargo = escala.getIdFuncionarioFk().getIdEspecialidadeAtualFk().getIdCargoFk();		
 		List<SimNao> lista = simNaoService.buscarTodos();
 		List<UnidadeAdmiteIncrementoDeRisco> lista1 = unidadeAdmiteIncrementoDeRiscoService.buscarPorMesExatoUnidade(anoMes, unidade);
+		List<IncrementoDeRiscoUnidadeCargo> lista1a = incrementoDeRiscoUnidadeCargoService.buscarPorMesUnidadeCargoExato(anoMes, unidade, cargo);
 		List<PessoaIncrementoDeRisco> lista2 = pessoaIncrementoDeRiscoService.buscarPorMesExatoUnidadePessoa(anoMes, unidade, pessoa);
+		List<PessoaIncrementoDeRiscoSede> lista2a = pessoaIncrementoDeRiscoSedeService.buscarPorUnidadeEPessoa(unidade, pessoa);
 		List<TiposDeFolha> lista3 = tiposDeFolhaService.buscarTodos();
 		
 		//Retirando quando nao tem Unidade ou pessoa atribuida
 		for(int i=0;i<lista.size();i++) {
 			if(lista.get(i).getSigla().equalsIgnoreCase("S")) {
-				if(lista1.isEmpty()  ||  lista2.isEmpty()) {lista.remove(i); i=i-1;}
+				if(lista1.isEmpty() || lista1a.isEmpty() ||  lista2.isEmpty() || lista2a.isEmpty()) {lista.remove(i); i=i-1;}
 			}
 		}
 		
@@ -4157,12 +4172,13 @@ public class EscalaController {
 		List<SimNao> lista = simNaoService.buscarTodos();
 		List<UnidadeAdmiteComplementoPlantao> lista1 = unidadeAdmiteComplementoPlantaoService.buscarPorMesExatoUnidade(anoMes, unidade);
 		List<PessoaComplementoDePlantao> lista2 = pessoaComplementoDePlantaoService.buscarPorMesExatoUnidadePessoa(anoMes, unidade, pessoa);
+		List<PessoaComplementoDePlantaoSede> lista2a = pessoaComplementoDePlantaoSedeService.buscarPorUnidadeEPessoa(unidade, pessoa);
 		List<TiposDeFolha> lista3 = tiposDeFolhaService.buscarTodos();
 		
 		//Retirando quando nao tem Unidade ou pessoa atribuida
 		for(int i=0;i<lista.size();i++) {
 			if(lista.get(i).getSigla().equalsIgnoreCase("S")) {
-				if(lista1.isEmpty()  ||  lista2.isEmpty()) {lista.remove(i); i=i-1;}
+				if(lista1.isEmpty()  ||  lista2.isEmpty() || lista2a.isEmpty()) {lista.remove(i); i=i-1;}
 			}
 		}
 		

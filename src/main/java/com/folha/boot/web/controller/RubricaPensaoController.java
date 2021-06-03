@@ -222,6 +222,8 @@ public class RubricaPensaoController {
 		model.addAttribute("funcionario", funcionario);
 		model.addAttribute("pessoa", pessoa); 
 		model.addAttribute("pensao", service.buscarPorPessoa(pessoa));
+		
+		// MUDANCA NO NOME DA LISTA QUE TAVA DANDO CONFLITO NO HTML DOIS OBJETOS COM O MESMO NOME
 		model.addAttribute("rubricaPensaoLista", service.buscarPorPessoa(pessoa));
 		return "/rubricaPensao/cadastro";
 	}
@@ -245,12 +247,15 @@ public class RubricaPensaoController {
 	public String preEditar(@PathVariable("id") Long id, ModelMap model) {
 		Pessoa pessoa = service.buscarPorId(id).getIdPessoaFk();
 		
+		// ENVIANDO O OBJETO INTEIRO PARA O HTML EM VEZ DE IR AS PARTES DELE
 		RubricaPensao r = service.buscarPorId(id);
 		model.addAttribute("rubricaPensao", r);
 		
 		//model.addAttribute("funcionario", funcionario);
 		model.addAttribute("pessoa", pessoa);
 		model.addAttribute("pensao", service.buscarPorId(id));
+		
+		// MUDANCA NO NOME DA LISTA QUE TAVA DANDO CONFLITO NO HTML DOIS OBJETOS COM O MESMO NOME
 		model.addAttribute("rubricaPensaoLista", service.buscarPorPessoa(r.getIdPessoaFk()));
 		
 		return "/rubricaPensao/cadastro";

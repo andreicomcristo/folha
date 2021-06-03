@@ -116,9 +116,16 @@ public class Unidades extends AbstractEntity<Long> {
     private List<AtividadeEscala> atividadeEscalaList;
     @OneToMany(mappedBy = "idUnidadeFk")
     private List<FaixasValoresGpfMedicaDiferenciadaDiarista> faixasValoresGpfMedicaDiferenciadaDiaristaList;
+    @OneToMany(mappedBy = "idUnidadeFk")
+    private List<IncrementoDeRiscoUnidadeCargo> incrementoDeRiscoUnidadeCargoList;
     
     @OneToMany(mappedBy = "idUnidadeLotacaoAtualFk")
     private List<PessoaFuncionarios> pessoaFuncionariosList1;
+    
+    @OneToMany(mappedBy = "idUnidadeFk")
+    private List<PessoaIncrementoDeRiscoSede> pessoaIncrementoDeRiscoSedeList;
+    @OneToMany(mappedBy = "idUnidadeFk")
+    private List<PessoaComplementoDePlantaoSede> pessoaComplementoDePlantaoSedeList;
     
     @OneToMany(mappedBy = "idUnidadeFk")
     private List<PessoaChDif> pessoaChDifList;
@@ -599,6 +606,32 @@ public class Unidades extends AbstractEntity<Long> {
 
 	public void setPessoaComplementoDePlantaoList(List<PessoaComplementoDePlantao> pessoaComplementoDePlantaoList) {
 		this.pessoaComplementoDePlantaoList = pessoaComplementoDePlantaoList;
+	}
+
+	public List<PessoaIncrementoDeRiscoSede> getPessoaIncrementoDeRiscoSedeList() {
+		return pessoaIncrementoDeRiscoSedeList;
+	}
+
+	public void setPessoaIncrementoDeRiscoSedeList(List<PessoaIncrementoDeRiscoSede> pessoaIncrementoDeRiscoSedeList) {
+		this.pessoaIncrementoDeRiscoSedeList = pessoaIncrementoDeRiscoSedeList;
+	}
+
+	public List<PessoaComplementoDePlantaoSede> getPessoaComplementoDePlantaoSedeList() {
+		return pessoaComplementoDePlantaoSedeList;
+	}
+
+	public void setPessoaComplementoDePlantaoSedeList(
+			List<PessoaComplementoDePlantaoSede> pessoaComplementoDePlantaoSedeList) {
+		this.pessoaComplementoDePlantaoSedeList = pessoaComplementoDePlantaoSedeList;
+	}
+
+	public List<IncrementoDeRiscoUnidadeCargo> getIncrementoDeRiscoUnidadeCargoList() {
+		return incrementoDeRiscoUnidadeCargoList;
+	}
+
+	public void setIncrementoDeRiscoUnidadeCargoList(
+			List<IncrementoDeRiscoUnidadeCargo> incrementoDeRiscoUnidadeCargoList) {
+		this.incrementoDeRiscoUnidadeCargoList = incrementoDeRiscoUnidadeCargoList;
 	}
 	
 	

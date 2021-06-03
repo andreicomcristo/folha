@@ -78,6 +78,9 @@ public class AnoMes extends AbstractEntity<Long> {
     private List<FaixasValoresGpfMedica> faixasValoresGpfMedicaList;
     
     @OneToMany(mappedBy = "idAnoMesFk")
+    private List<IncrementoDeRiscoUnidadeCargo> incrementoDeRiscoUnidadeCargoList;
+    
+    @OneToMany(mappedBy = "idAnoMesFk")
     private List<RubricaPensao> rubricaPensaoList;
     
     @OneToMany(mappedBy = "idAnoMesFk")
@@ -327,6 +330,13 @@ public class AnoMes extends AbstractEntity<Long> {
 	}
 	public void setPessoaComplementoDePlantaoList(List<PessoaComplementoDePlantao> pessoaComplementoDePlantaoList) {
 		this.pessoaComplementoDePlantaoList = pessoaComplementoDePlantaoList;
+	}
+	public List<IncrementoDeRiscoUnidadeCargo> getIncrementoDeRiscoUnidadeCargoList() {
+		return incrementoDeRiscoUnidadeCargoList;
+	}
+	public void setIncrementoDeRiscoUnidadeCargoList(
+			List<IncrementoDeRiscoUnidadeCargo> incrementoDeRiscoUnidadeCargoList) {
+		this.incrementoDeRiscoUnidadeCargoList = incrementoDeRiscoUnidadeCargoList;
 	}
 		
 	
