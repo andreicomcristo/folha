@@ -64,12 +64,12 @@ public class FuncionariosFeriasController {
 	public String getPorNomePaginadoInclusao(@PathVariable (value = "pageNo") int pageNo, ModelMap model) {
 		
 		if( (ultimaBuscaNome.equals("")) ){
-			return "redirect:/funcionariosferias/listar/funcionarios/{pageNo}" ;}
+			return "redirect:/funcionariosferias/funcionarios/listar/{pageNo}" ;}
 		else {		
 			if(!ultimaBuscaNome.equals("")) {
 				return this.findPaginatedFuncionario(pageNo, ultimaBuscaNome, model);}
 			else {
-				return "redirect:/funcionariosferias/listar/funcionarios/{pageNo}" ;}
+				return "redirect:/funcionariosferias/funcionarios/listar/{pageNo}" ;}
 			}
 	}
 	
@@ -81,7 +81,7 @@ public class FuncionariosFeriasController {
 	
 	@GetMapping("/funcionarios/listar/{pageNo}")
 	public String findPaginatedFuncionario(@PathVariable (value = "pageNo") int pageNo, ModelMap model) {
-		int pageSeze = 5;
+		int pageSeze = 50;
 		Page<PessoaFuncionarios> page = pessoaFuncionariosService.findPaginated(pageNo, pageSeze, usuarioService.pegarUnidadeLogada(), "ATIVO");
 		List<PessoaFuncionarios> listaFuncionarios = page.getContent();
 		return paginarFuncionario(pageNo, page, listaFuncionarios, model);
@@ -105,7 +105,7 @@ public class FuncionariosFeriasController {
 	}
 	
 	public String findPaginatedFuncionario(@PathVariable (value = "pageNo") int pageNo, String nome, ModelMap model) {
-		int pageSeze = 5;
+		int pageSeze = 50;
 		Page<PessoaFuncionarios> page = pessoaFuncionariosService.findPaginatedNome(pageNo, pageSeze, usuarioService.pegarUnidadeLogada(), "ATIVO", nome);
 		List<PessoaFuncionarios> lista = page.getContent();
 		//ultimaBuscaNome = "";

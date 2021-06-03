@@ -16,6 +16,7 @@ import com.folha.boot.domain.CoordenacaoEscala;
 import com.folha.boot.domain.Escala;
 import com.folha.boot.domain.FuncionariosFeriasPeriodos;
 import com.folha.boot.domain.Pessoa;
+import com.folha.boot.domain.PessoaFuncionarios;
 import com.folha.boot.domain.TiposDeFolha;
 import com.folha.boot.domain.Turmas;
 import com.folha.boot.domain.Unidades;
@@ -40,7 +41,11 @@ public interface EscalaReposytoty extends JpaRepository<Escala, Long> {
 	public List<Escala> findByIdCoordenacaoFkAndIdAnoMesFkAndDtCancelamentoIsNullOrderByIdFuncionarioFkIdPessoaFkNomeAsc(CoordenacaoEscala idCoordenacaoFk, AnoMes anoMes);
 	//Buscar geral todos Exportacao
 	public List<Escala> findByIdCoordenacaoFkIdLocalidadeFkIdUnidadeFkAndIdAnoMesFkAndDtCancelamentoIsNullOrderByIdFuncionarioFkIdPessoaFkNomeAsc(Unidades unidades, AnoMes anoMes);
+	
+	//Buscar por funcionario folha Efetiva
+	public List<Escala> findByIdCoordenacaoFkIdLocalidadeFkIdUnidadeFkAndIdAnoMesFkAndIdFuncionarioFkAndIdTipoFolhaFkIdFolhaEfetivaSimNaoFkSiglaAndDtCancelamentoIsNullOrderByIdFuncionarioFkIdPessoaFkNomeAsc(Unidades unidades, AnoMes anoMes, PessoaFuncionarios funcionario , String s);
 		
+	
 	
 	// Buscar geral dentro do setor
 	public Page<Escala> findByIdCoordenacaoFkAndIdAnoMesFkAndDtCancelamentoIsNullOrderByIdFuncionarioFkIdPessoaFkNomeAsc(CoordenacaoEscala idCoordenacaoFk, AnoMes anoMes,  final Pageable page);
