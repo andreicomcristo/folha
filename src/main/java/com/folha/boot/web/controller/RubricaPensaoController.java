@@ -29,6 +29,7 @@ import com.folha.boot.domain.AnoMes;
 import com.folha.boot.domain.Bancos;
 import com.folha.boot.domain.FuncionariosFerias;
 import com.folha.boot.domain.RubricaPensao;
+import com.folha.boot.domain.RubricaPensaoDependente;
 import com.folha.boot.domain.Pessoa;
 import com.folha.boot.domain.PessoaFuncionarios;
 import com.folha.boot.service.AnoMesService;
@@ -219,34 +220,39 @@ public class RubricaPensaoController {
 		rubricaPensao.setIdPessoaFk(pessoa);
 		//funcionariosFerias.setIdFuncionarioFk(funcionario);
 		///////////////////////////////////////
-		model.addAttribute("funcionario", funcionario);
 		model.addAttribute("pessoa", pessoa); 
-		model.addAttribute("pensao", service.buscarListaParaPensaoNotemplateCadastro(pessoa));
-		
-		// MUDANCA NO NOME DA LISTA QUE TAVA DANDO CONFLITO NO HTML DOIS OBJETOS COM O MESMO NOME
-		model.addAttribute("rubricaPensaoLista", service.buscarListaParaPensaoNotemplateCadastro(pessoa));
+		model.addAttribute("pensao", service.buscarPensoesDoMesAtual(pessoa));		
 		return "/rubricaPensao/cadastro";
 	}
 
-	
-	//Método novo
-	//Recebe o id do funcionário da tela de lista de funcionários
 	@GetMapping("/cadastrar/pessoa/{id}")
 	public String cadastrarPessoaPensao(@PathVariable("id") Long id, RubricaPensao rubricaPensao, ModelMap model) {
 
 		Pessoa pessoa = pessoaService.buscarPorId(id);
 		//relaciona as penssões a pessoa
 		rubricaPensao.setIdPessoaFk(pessoa);
-		rubricaPensao.setId(null);
-		//funcionariosFerias.setIdFuncionarioFk(funcionario);
-		///////////////////////////////////////
-		
+		//rubricaPensao.setId(null);			
 		model.addAttribute("pessoa", pessoa); 
-		model.addAttribute("pensao", service.buscarListaParaPensaoNotemplateCadastro(pessoa));
-		
-		// MUDANCA NO NOME DA LISTA QUE TAVA DANDO CONFLITO NO HTML DOIS OBJETOS COM O MESMO NOME
-		model.addAttribute("rubricaPensaoLista", service.buscarListaParaPensaoNotemplateCadastro(pessoa));
+		model.addAttribute("pensao", service.buscarPensoesDoMesAtual(pessoa));
+	
 		return "/rubricaPensao/cadastro";
+	}
+	
+	@GetMapping("/dependente/cadastrar/{id}")
+	public String cadastrarDependente(@PathVariable("id") Long id, RubricaPensaoDependente rubricaPensaoDependente, ModelMap model) {
+		RubricaPensao rubricaPensao = service.buscarPorId(id);
+		//relaciona as penssões a pessoa
+		rubricaPensaoDependente.setIdRubricaPensaoFk(rubricaPensao);		
+		
+		//Pessoa pessoa = pessoaService.buscarPorId(id); 
+		//relaciona as penssões a pessoa
+		//rubricaPensao.setIdPessoaFk(pessoa);
+		//rubricaPensao.setId(null);
+		//model.addAttribute("pessoa",rubricaPensao.getIdPessoaFk()); 
+		model.addAttribute("pensao", rubricaPensao); 
+		model.addAttribute("dependentes",dependenteService.buscarPensao(rubricaPensao));
+	
+		return "/rubricaPensaoDependente/cadastro";
 	}
 	
 	@PostMapping("/salvar")
@@ -264,8 +270,15 @@ public class RubricaPensaoController {
 		return "redirect:/rubricaPensao/cadastrar/pessoa/" + rubricaPensao.getIdPessoaFk().getId();
 	}
 
+	@PostMapping("/dependentes/salvar")
+	public String salvar(RubricaPensaoDependente rubricaPensaoDependente , RedirectAttributes attr) {
 
-	@PostMapping("/salvar/{id}")
+		dependenteService.salvar(rubricaPensaoDependente);
+		attr.addFlashAttribute("success", "Inserido com sucesso.");
+		return "redirect:/rubricaPensao/dependente/cadastrar/" + rubricaPensaoDependente.getIdRubricaPensaoFk().getId();
+	}
+	
+	/*@PostMapping("/salvar/{id}")
 	public String salvar(@PathVariable("id") Long id, RubricaPensao rubricaPensao, RedirectAttributes attr) {
 
 		if (rubricaPensao.getValor() == null) { 
@@ -278,23 +291,17 @@ public class RubricaPensaoController {
 		service.salvar(rubricaPensao);
 		attr.addFlashAttribute("success", "Inserido com sucesso.");
 		return "redirect:/rubricaPensao/cadastrar/" + id;
-	}
+	}*/
   
 	@GetMapping("/editar/{id}")
-	public String preEditar(@PathVariable("id") Long id, ModelMap model) {
-		Pessoa pessoa = service.buscarPorId(id).getIdPessoaFk();
-		
+	public String preEditar(@PathVariable("id") Long id, ModelMap model) {		
+		//Pessoa pessoa = service.buscarPorId(id).getIdPessoaFk();		
 		// ENVIANDO O OBJETO INTEIRO PARA O HTML EM VEZ DE IR AS PARTES DELE
-		RubricaPensao r = service.buscarPorId(id);
-		model.addAttribute("rubricaPensao", r);
-		
-		//model.addAttribute("funcionario", funcionario);
+		RubricaPensao rubricaPensao = service.buscarPorId(id);
+		Pessoa pessoa = rubricaPensao.getIdPessoaFk();
+		model.addAttribute("rubricaPensao", rubricaPensao);
 		model.addAttribute("pessoa", pessoa);
-		model.addAttribute("pensao", service.buscarPorId(id));
-		
-		// MUDANCA NO NOME DA LISTA QUE TAVA DANDO CONFLITO NO HTML DOIS OBJETOS COM O MESMO NOME
-		model.addAttribute("rubricaPensaoLista", service.buscarPorPessoa(r.getIdPessoaFk()));
-		
+		model.addAttribute("pensao", rubricaPensao);
 		return "/rubricaPensao/cadastro";
 	}
 
@@ -315,10 +322,10 @@ public class RubricaPensaoController {
 
 	@GetMapping("/cancelar/{id}")
 	public String cancelar(@PathVariable("id") Long id, ModelMap model) {
-		RubricaPensao r = service.buscarPorId(id);
-		r.setDtCancelamento(new Date());
-		r.setIdOperadorCancelamentoFk(usuarioService.pegarOperadorLogado());
-		service.salvar(r);
+		RubricaPensao rubricaPensao = service.buscarPorId(id);
+		rubricaPensao.setDtCancelamento(new Date());
+		rubricaPensao.setIdOperadorCancelamentoFk(usuarioService.pegarOperadorLogado());
+		service.salvar(rubricaPensao);
 		model.addAttribute("success", "Excluído com sucesso.");
 		return listar(model);
 	}

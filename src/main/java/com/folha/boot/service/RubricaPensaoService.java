@@ -39,8 +39,7 @@ import com.itextpdf.text.pdf.PdfWriter;
 public class RubricaPensaoService {
 
 	@Autowired
-	private RubricaPensaoReposytory reposytory;
-	
+	private RubricaPensaoReposytory reposytory;	
 	@Autowired
 	private AnoMesService anoMesService;
 
@@ -72,10 +71,10 @@ public class RubricaPensaoService {
 	}
 	
 	@Transactional(readOnly = true)
-	public List<RubricaPensao> buscarListaParaPensaoNotemplateCadastro(Pessoa pessoa) {
+	public List<RubricaPensao> buscarPensoesDoMesAtual(Pessoa pessoa) {
 		// TODO Auto-generated method stub
 		List<RubricaPensao> lista = new ArrayList<>();
-		RubricaPensao rubricaPensao = buscarPrimeiroPorPessoa(pessoa);
+		RubricaPensao rubricaPensao = ordenaPorPessoa(pessoa);
 		
 		if(rubricaPensao!= null) {
 			AnoMes anoMes = rubricaPensao.getIdAnoMesFk();
@@ -86,13 +85,12 @@ public class RubricaPensaoService {
 	}
 	
 	@Transactional(readOnly = true)
-	public RubricaPensao buscarPrimeiroPorPessoa(Pessoa pessoa) {
+	public RubricaPensao ordenaPorPessoa(Pessoa pessoa) {
 		// TODO Auto-generated method stub
 		return reposytory.findFirstByIdPessoaFkAndDtCancelamentoIsNullOrderByIdAnoMesFkNomeAnoMesDescIdPessoaFkNomeAsc(pessoa);
 	}
-	
-	
-	
+		
+	@Transactional(readOnly = true)
 	public List<RubricaPensao> buscarPorPessoa(Pessoa pessoa) {
 		// TODO Auto-generated method stub
 		return reposytory.findByIdPessoaFkOrderByIdAnoMesFkNomeAnoMesDesc(pessoa);
@@ -111,23 +109,24 @@ public class RubricaPensaoService {
 	public List<RubricaPensao> buscarPorNome(String nome) {
 		return reposytory.findByIdPessoaFkNomeContainingAndDtCancelamentoIsNullOrderByIdAnoMesFkNomeAnoMesDescIdPessoaFkNomeAsc(nome);
 	}
-		
+	
+	@Transactional(readOnly = true)
 	public Page<RubricaPensao> findPaginated(int pageNo, int pageSize) {
 		Pageable pageable = PageRequest.of(pageNo -1, pageSize);
 		return this.reposytory.findAllByDtCancelamentoIsNullOrderByIdAnoMesFkNomeAnoMesDescIdPessoaFkNomeAsc(pageable);
 	}
 
+	@Transactional(readOnly = true)
 	public Page<RubricaPensao> findPaginatedAnoMes(int pageNo, int pageSize, String nome) {
 		Pageable pageable = PageRequest.of(pageNo -1, pageSize);
 		return this.reposytory.findByIdAnoMesFkNomeAnoMesContainingAndDtCancelamentoIsNullOrderByIdAnoMesFkNomeAnoMesDescIdPessoaFkNomeAsc(nome.toUpperCase().trim(), pageable);
 	}
 	
+	@Transactional(readOnly = true)
 	public Page<RubricaPensao> findPaginatedNome(int pageNo, int pageSize, String nome) {
 		Pageable pageable = PageRequest.of(pageNo -1, pageSize);
 		return this.reposytory.findByIdPessoaFkNomeContainingAndDtCancelamentoIsNullOrderByIdAnoMesFkNomeAnoMesDescIdPessoaFkNomeAsc(nome.toUpperCase().trim(), pageable);
 	}
-	
-	
 	
 	//Herdar de um mes para o outro
 	public void herdarDeUmMesParaOOutro(Long anoMesInicial, Long anoMesFinal) {

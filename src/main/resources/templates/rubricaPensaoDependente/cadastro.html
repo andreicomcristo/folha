@@ -3,80 +3,141 @@
 <head><meta charset="UTF-8"/></head>
 <body>
 	<section class="layout-content" layout:fragment="corpo">
-		<nav class="navbar navbar-expand-md bg-light">		 				 
-			<form th:each="d : ${funcionario}" th:action="@{/funcionariosferias/funcionarios/listar}"> 
+
+		<nav class="navbar navbar-expand-md bg-light">
+			<form th:each="p : ${pensao}"  th:action="@{/rubricaPensao/listar}">
 				<div class=" layout-content">
 					<a class="btn btn-outline-light oi oi-action-undo" type="button" href="javascript:history.back()"></a>
 					<a class="btn btn-outline-light oi oi-action-redo" type="button" href="javascript:history.forward()"></a>
-					<button class="btn btn-outline-dark" >Listar Funcionários</button>
-					<!--  <a class="btn btn-outline-dark btn-md" th:href="@{/funcionariosferias/ferias/{id}}"
+					<button class="btn btn-outline-dark" >Listar</button>
+					<a class="btn btn-outline-dark btn-md" th:href="@{/rubricaPensao/cadastrar}"
 						role="button"> <span class="oi oi-plus" title="Cadastro"
 						aria-hidden="true"></span> <span>Novo</span>
-					</a>-->
-					<td style="font-size:11px;"  th:text="${d.idPessoaFk.nome}"></td>
-					<td style="font-size:11px;"  th:text="${d.idEspecialidadeAtualFk.idCargoFk.nomeCargo+'-'+d.idEspecialidadeAtualFk.nomeEspecialidadeCargo}"></td> 
+					</a>
+					
+					<td style="font-size:11px;"  th:text="${p.idPessoaFk.nome}"></td>
+					 
 					<td colspan="2">
 				</div>
 			</form>
 		</nav>
-		<div class="container" id="cadastro">	 				    		   
-			<div th:replace="fragments/alert"></div>
-			<form
-				th:action="@{/funcionariosferias/salvar}"
-				th:object="${funcionariosFerias}" method="POST">
-				<div class="form-row">
 
-					<div class="form-group col-md-6">
-						<label for="nome" class="fonte-tutulos-tamanho">Cadastar Férias</label>
-						<p></p>	
-						<label for="nome" class="">Ano de Referência</label>
-							<input type="text"
-								class="form-control form-control-md" autofocus="autofocus"
-								id="descricao" placeholder="Ano de Referência" th:field="*{anoReferencia}" />						
-							<p></p>
-														
-							<input type="hidden" id="id" th:field="*{id}" />
-							<input type="hidden" id="id" th:field="*{idFuncionarioFk}" />
-							<input type="hidden" id="id" th:field="*{dtCadastro}" />
-							<input type="hidden" id="id" th:field="*{dtCancelamento}" />
-							<input type="hidden" id="id" th:field="*{motivoCancelamento}" />
-							<input type="hidden" id="id" th:field="*{idUnidadeLancamentoFk}" />
-							<input type="hidden" id="id" th:field="*{idOperadorCadastroFk}" />						
-							<p></p>					
-						<button class="btn btn-outline-dark">Cadastrar</button>
+		<div class="container" id="cadastro">
+
+			<div th:replace="fragments/alert"></div>
+			
+			<!-- RETIRADA A ESTRUTURA DE REPETICAO PORQUE NAO VEM MAIS UMA LISTA PARA AQUI, TÁ VIDO UM OBJETO SEM LISTA -->
+			<form  
+				  
+				  th:action="@{/rubricaPensao/salvar}"
+				  
+				  th:object="${rubricaPensaoDependente}" method="POST">
+				<div class="form-row">
+					<div class="form-group col-md-12">					
+						<label for="nome" class="fonte-tutulos-tamanho">Cadastro de Dependentes Por Pensão</label>
+						<p></p>
 					</div>
+			
 				</div>
+					<div class="form-row">								
+						<div class="form-group col-md-4">
+							<label for="nome" class="">Nome</label>
+							<input type="text"	class="form-control form-control-md uppercase"  
+							id="codigo" placeholder="Nome" th:field="*{nome}" />								
+							<p></p>	
+						</div>												
+					
+						<div class="form-group col-md-4">		
+							<label for="nome" class="">Data de Nascimento</label>
+					  		<input type="text"	class="form-control form-control-md uppercase"  
+							id="codigo" placeholder="Data de Nascimento" th:field="*{dtNascimento}" />
+							<p></p>
+						</div>
+					
+						<div class="form-group col-md-4">		
+							<label for="nome">Cpf</label>
+					  		<input type="text"	class="form-control form-control-md uppercase"  
+							id="codigo" placeholder="Cpf" th:field="*{cpf}" />
+							<p></p>
+						</div>												
+					</div>					
+					<div class="form-row">					
+						<div class="form-group col-md-4">		
+							<label for="nome" class="">Certidão de Nascimento </label>
+					  		<input type="text"	class="form-control form-control-md uppercase"  
+							id="codigo" placeholder="Certidao" th:field="*{certidaoNascimento}" />
+							<p></p>								
+							<p></p>	
+						</div>
+							
+						<div class="form-group col-md-4">	
+							<label for="nome" class="">Data da Certidão </label>
+					  		<input type="text"	class="form-control form-control-md uppercase"  
+							id="codigo" placeholder="Certidao" th:field="*{dtCertidao}" />
+							<p></p>
+						</div>
+						
+						<div class="form-group col-md-4">
+							<label for="nome" class="">Rg </label>
+					  		<input type="text"	class="form-control form-control-md uppercase"  
+							id="codigo" placeholder="Rg" th:field="*{rg}" />
+							<p></p>
+						</div>
+												
+					</div>	
+						<label 	for="nome" class="">Observação </label>
+					  	<input 	type="text"	class="form-control form-control-md uppercase"  
+								id="codigo" placeholder="Observação" th:field="*{observacao}" />
+						<p></p>
+												
+							<input type="hidden" id="id" th:field="*{id}" />												
+							<p></p>												
+						<button class="btn btn-outline-dark">Cadastrar</button>			
 			</form>
-				
-	        <div style="height: 500px; overflow-y: auto;" class="table-responsive">
-	        	<table class="table table-striped table-hover table-sm myTable">
+			
+			<div class="container" id="listagem">	        
+	  	    	
+	        <div style="height: 450px; overflow-y: auto;" class="table-responsive">
+	        	<table style="width: 1270px;" class="table table-striped table-hover table-sm myTable">
 	            	<thead>
 	          			<tr>
-		                	<th>#</th>		                
-		                    <th>Ano Referência </th>
-		                    <th>Ações</th>
+		                	<th style="font-size:10px;" >#</th>
+		                    <th style="font-size:10px;" >Nome</th>
+		                    <th style="font-size:10px;" >Data de Nascimento</th>
+		                    <th style="font-size:10px;" >Cpf</th>
+		                    <th style="font-size:10px;" >Certidão de Nascimento</th>
+		                    <th style="font-size:10px;" >Data da Certidão</th>
+		                    <th style="font-size:10px;" >Rg</th>		                    
+		                    <th style="font-size:10px;" >Obs</th>		                   
+		                    <th style="font-size:10px;" >Ações</th>
 	                    </tr>
 	                </thead>                  
-	                <tbody>
-		            	<tr th:each="f : ${feriasLista}">
-		                	<td th:text="${f.id}"></td>	
-		                	<td > <a th:href="@{/funcionariosferias/periodos/{id} (id=${f.id}) }" ><span th:text="${f.anoReferencia}"></span></a></td>	                    
-		                    <td ></td>		                    		           		                  	                    		                     		         		                    
-		                    <td colspan="2">		                    	
-		                    	<a class="btn btn-outline-info btn-sm" th:href="@{/funcionariosferias/editar/{id} (id=${f.id})}" role="button">
+	                <tbody> 
+		            	<tr th:each="d : ${dependentes}">
+		                	<td style="font-size:10px;"  th:text="${d.id}"></td>
+		                    <td style="font-size:10px;"  th:text="${d.nome}"></td>		                   
+		                    <td style="font-size:10px;"  th:text="${d.dtNascimento}"></td>
+		                    <td style="font-size:10px;"  th:text="${d.cpf}"></td>
+		                    <td style="font-size:10px;"  th:text="${d.certidaoNascimento}"></td>
+		                    <td style="font-size:10px;"  th:text="${d.dtCertidao}"></td>
+		                    <td style="font-size:10px;"  th:text="${d.rg}"></td>
+		                    <td style="font-size:10px;"  th:text="${d.observacao}"></td>
+		                    		                    
+		                    <td colspan="2">
+		                    	<a class="btn btn-outline-info btn-sm" th:href="@{/rubricaPensao/editar/{id} (id=${d.id}) }" role="button">
 		                        	<span class="oi oi-brush" title="Editar" aria-hidden="true"></span>
-		                        </a>		                        
-		                        <button th:id="${ 'btn_funcionariosferias/excluir/' + f.id}" type="button" class="btn btn btn-outline-danger btn-sm" 
+		                        </a>
+		                        <button th:id="${ 'btn_rubricaPensao/cancelar/' + d.id}" type="button" class="btn btn btn-outline-danger btn-sm" 
 		                            		data-toggle="modal" data-target="#myModal">
 		                                <span class="oi oi-circle-x" title="Exclusão habilitada" aria-hidden="true"></span>
-		                        </button>		                    			                       
+		                        </button>
 		                   	</td>
 						</tr>
 					</tbody>                    
-	            </table>
+	            </table>                 
 	         </div>
-		</div>	
-		 <div th:replace="fragments/modal :: modal"></div>         
+		</div>
+		<div th:replace="fragments/modal :: modal"></div>	 
 	</section>
 </body>
 </html>

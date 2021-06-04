@@ -29,7 +29,7 @@
 			<!-- RETIRADA A ESTRUTURA DE REPETICAO PORQUE NAO VEM MAIS UMA LISTA PARA AQUI, TÁ VIDO UM OBJETO SEM LISTA -->
 			<form  
 				  
-				  th:action="${rubricaPensao.id == null} ? @{/rubricaPensao/salvar} : @{/rubricaPensao/editar}"
+				  th:action="@{/rubricaPensao/salvar}"
 				  
 				  th:object="${rubricaPensao}" method="POST">
 				<div class="form-row">
@@ -152,9 +152,9 @@
 	          			<tr>
 		                	<th style="font-size:10px;" >#</th>
 		                    <th style="font-size:10px;" >Ano Mes</th>
-		                    <th style="font-size:10px;" >Nome</th>
-		                    <th style="font-size:10px;" >Cpf</th>
 		                    <th style="font-size:10px;" >Beneficiario</th>
+		                    <th style="font-size:10px;" >Cpf</th>
+		                    
 		                    <th style="font-size:10px;" >Cpf</th>
 		                    <th style="font-size:10px;" >Banco</th>
 		                    <th style="font-size:10px;" >Op</th>
@@ -164,8 +164,7 @@
 		                    <th style="font-size:10px;" >Dv</th>
 		                    <th style="font-size:10px;" >Valor</th>
 		                    <th style="font-size:10px;" >Percentagem</th>
-		                    <th style="font-size:10px;" >Obs</th>
-		                    
+		                    <th style="font-size:10px;" >Obs</th>		                    
 		                    <th style="font-size:10px;" >Ações</th>
 	                    </tr>
 	                </thead>                  
@@ -173,9 +172,12 @@
 		            	<tr th:each="d : ${pensao}">
 		                	<td style="font-size:10px;"  th:text="${d.id}"></td>
 		                    <td style="font-size:10px;"  th:text="${d.idAnoMesFk != null} ? ${d.idAnoMesFk.nomeAnoMes} : ''  "></td>
-		                    <td style="font-size:10px;"  th:text="${d.idPessoaFk != null} ? ${d.idPessoaFk.nome} : ''  "></td>
+		                    <td style="font-size:11px;"> 
+		                    	<a th:href="@{/rubricaPensao/dependente/cadastrar/{id} (id=${d.id}) }" title="Atribuir" >
+		                    		<span th:text="${d.nomeBeneficiario != null} ? ${d.nomeBeneficiario} : ''  "></span>
+		                    	</a>
+		                    </td>		                   
 		                    <td style="font-size:10px;"  th:text="${d.idPessoaFk != null} ? ${d.idPessoaFk.cpf} : ''  "></td>
-		                    <td style="font-size:10px;"  th:text="${d.nomeBeneficiario != null} ? ${d.nomeBeneficiario} : ''  "></td>
 		                    <td style="font-size:10px;"  th:text="${d.cpfBeneficiario != null} ? ${d.cpfBeneficiario} : ''  "></td>
 		                    <td style="font-size:10px;"  th:text="${d.idBancoFk != null} ? ${d.idBancoFk.nomeBanco} : ''  "></td>
 		                    <td style="font-size:10px;"  th:text="${d.operacaoVariacao != null} ? ${d.operacaoVariacao} : ''  "></td>
