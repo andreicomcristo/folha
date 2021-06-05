@@ -255,6 +255,15 @@ public class RubricaPensaoController {
 		return "/rubricaPensaoDependente/cadastro";
 	}
 	
+	@PostMapping("/dependentes/salvar")
+	public String salvar(RubricaPensaoDependente rubricaPensaoDependente , RedirectAttributes attr) {
+
+		dependenteService.salvar(rubricaPensaoDependente);
+		attr.addFlashAttribute("success", "Inserido com sucesso.");
+		return "redirect:/rubricaPensao/dependente/cadastrar/" + rubricaPensaoDependente.getIdRubricaPensaoFk().getId();
+	}
+	
+	
 	@PostMapping("/salvar")
 	public String salvar( RubricaPensao rubricaPensao, RedirectAttributes attr) {
 
@@ -270,14 +279,25 @@ public class RubricaPensaoController {
 		return "redirect:/rubricaPensao/cadastrar/pessoa/" + rubricaPensao.getIdPessoaFk().getId();
 	}
 
-	@PostMapping("/dependentes/salvar")
-	public String salvar(RubricaPensaoDependente rubricaPensaoDependente , RedirectAttributes attr) {
-
-		dependenteService.salvar(rubricaPensaoDependente);
-		attr.addFlashAttribute("success", "Inserido com sucesso.");
-		return "redirect:/rubricaPensao/dependente/cadastrar/" + rubricaPensaoDependente.getIdRubricaPensaoFk().getId();
+	@GetMapping("/dependentes/editar/{id}")
+	public String dependentesPreEditar(@PathVariable("id") Long id, ModelMap model) {		
+		//Pessoa pessoa = service.buscarPorId(id).getIdPessoaFk();		
+		// ENVIANDO O OBJETO INTEIRO PARA O HTML EM VEZ DE IR AS PARTES DELE
+		RubricaPensaoDependente rubricaPensaoDependente = dependenteService.buscarPorId(id);
+		RubricaPensao rubricaPensao = rubricaPensaoDependente.getIdRubricaPensaoFk();
+		
+		model.addAttribute("rubricaPensaoDependente", rubricaPensaoDependente);
+		model.addAttribute("dependentes", rubricaPensaoDependente);
+		model.addAttribute("pensao", rubricaPensao);
+		return "/rubricaPensaoDependente/cadastro";
 	}
 	
+	@PostMapping("/dependentes/editar")
+	public String dependentesEditar(RubricaPensaoDependente rubricaPensaoDependente, RedirectAttributes attr) {
+		dependenteService.editar(rubricaPensaoDependente);
+		attr.addFlashAttribute("success", "Editado com sucesso.");
+		return "redirect:/rubricaPensao/listar";
+	}
 	/*@PostMapping("/salvar/{id}")
 	public String salvar(@PathVariable("id") Long id, RubricaPensao rubricaPensao, RedirectAttributes attr) {
 
@@ -304,7 +324,7 @@ public class RubricaPensaoController {
 		model.addAttribute("pensao", rubricaPensao);
 		return "/rubricaPensao/cadastro";
 	}
-
+	
 	@PostMapping("/editar")
 	public String editar(RubricaPensao rubricaPensao, RedirectAttributes attr) {
 
@@ -319,7 +339,11 @@ public class RubricaPensaoController {
 		attr.addFlashAttribute("success", "Editado com sucesso.");
 		return "redirect:/rubricaPensao/listar";
 	}
-
+	
+	
+///Falta implementar o cancelar
+	
+	
 	@GetMapping("/cancelar/{id}")
 	public String cancelar(@PathVariable("id") Long id, ModelMap model) {
 		RubricaPensao rubricaPensao = service.buscarPorId(id);
