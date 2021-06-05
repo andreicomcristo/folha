@@ -38,7 +38,6 @@ import com.folha.boot.domain.seguranca.GrupoUsuarioPermissao;
 import com.folha.boot.domain.seguranca.Perfil;
 import com.folha.boot.domain.seguranca.Permissao;
 import com.folha.boot.service.GenericService;
-import com.folha.boot.service.PerfilService;
 import com.folha.boot.service.PessoaOperadoresService;
 import com.folha.boot.service.UnidadesService;
 import com.folha.boot.web.controller.LoginController;

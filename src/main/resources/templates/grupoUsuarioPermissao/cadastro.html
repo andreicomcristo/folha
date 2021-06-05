@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html layout:decorate="~{layout}">
+<head><meta charset="UTF-8"/></head>
+<body>
+	<section class="layout-content" layout:fragment="corpo">
+
+		<nav class="navbar navbar-expand-md bg-light">
+			<form th:action="@{/grupoUsuarioPermissao/listar}">
+				<div class=" layout-content">
+			        <a class="btn btn-outline-light oi oi-action-undo" type="button" href="javascript:history.back()"></a>
+					<a class="btn btn-outline-light oi oi-action-redo" type="button" href="javascript:history.forward()"></a>    
+					<button class="btn btn-outline-dark" >Listar</button>
+					<a class="btn btn-outline-dark btn-md" th:href="@{/grupoUsuarioPermissao/cadastrar}"
+						role="button"> <span class="oi oi-plus" title="Cadastro"
+						aria-hidden="true"></span> <span>Novo</span>
+					</a>
+				</div>
+			</form>
+		</nav>
+
+		<div class="container" id="cadastro">
+
+			<div th:replace="fragments/alert"></div>
+			<form
+				th:action="${grupoUsuarioPermissao.id == null} ? @{/grupoUsuarioPermissao/salvar} : @{/grupoUsuarioPermissao/editar}"
+				th:object="${grupoUsuarioPermissao}" method="POST">
+				<div class="form-row">
+
+					<div class="form-group col-md-6">
+						<label for="nome" class="fonte-tutulos-tamanho">Compatibilidade Grupo Usuário com Permissão</label>
+							<p></p>
+							
+							<label for="nome" class="">Grupo Usuário </label>
+							<select id="cargos" class="form-control" th:field="*{idGrupoUsuarioFk}">
+								<option value="">Selecione o Grupo Usuário</option>
+								<option th:each="d : ${idGrupoUsuarioFk}" th:value="${d.id}"th:text="${d.nome}">ADM</option>
+							</select>
+							<p></p>
+							
+							<label for="nome" class="">Permissão </label>
+							<select id="cargos" class="form-control" th:field="*{idPermissaoFk}">
+								<option value="">Selecione a Permissao</option>
+								<option th:each="d : ${idPermissaoFk}" th:value="${d.id}"th:text="${d.nome}">ADM</option>
+							</select>
+							<p></p>
+							
+							
+							<input type="hidden" id="id" th:field="*{id}" />
+								<p></p>					
+						<button class="btn btn-outline-dark">Cadastrar</button>
+					</div>
+				</div>
+			</form>
+		</div>
+	</section>
+</body>
+</html>

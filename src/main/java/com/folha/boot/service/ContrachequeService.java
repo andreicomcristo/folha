@@ -362,12 +362,6 @@ public class ContrachequeService {
 			table.addCell(hcell);
 			
 			
-			
-			
-			
-			
-			
-			
 			// Corpo
 			for (int i=0; i<listaVencimentos.size();i++) {
 

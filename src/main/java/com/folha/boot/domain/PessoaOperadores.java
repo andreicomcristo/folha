@@ -119,6 +119,8 @@ public class PessoaOperadores extends AbstractEntity<Long> {
     /*@OneToMany(cascade = CascadeType.ALL, mappedBy = "idPessoaOperadoresFk")
     private List<UsersOperador> usersOperadorList;*/
     
+    
+    
     @OneToMany(mappedBy = "idOperadorCadastroFk")
     private List<PessoaIncrementoDeRiscoSede> pessoaIncrementoDeRiscoSedeList;
     @OneToMany(mappedBy = "idOperadorCancelamentoFk")

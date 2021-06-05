@@ -21,6 +21,8 @@ import java.util.List;
 import java.util.stream.IntStream;
 
 import com.folha.boot.Reposytory.GrupoUsuarioReposytory;
+import com.folha.boot.domain.AtividadeEscala;
+import com.folha.boot.domain.Unidades;
 import com.folha.boot.domain.seguranca.GrupoUsuario;
 import com.folha.boot.service.GenericService;
 import com.itextpdf.text.Document;
@@ -61,6 +63,12 @@ public class GrupoUsuarioService implements GenericService<GrupoUsuario> {
 		return reposytory.findByNomeContainingOrderByNomeAsc(nome.toUpperCase().trim());
 	}
 	
+	@Transactional(readOnly = true)
+	public Page<GrupoUsuario> findPaginated(int pageNo, int pageSize) {
+		Pageable pageable = PageRequest.of(pageNo -1, pageSize);
+		return this.reposytory.findAllByOrderByNomeAsc(  pageable);
+	}
+	    
     
     
     @Override
@@ -78,6 +86,14 @@ public class GrupoUsuarioService implements GenericService<GrupoUsuario> {
         return reposytory.findById(id).get();
     }
 
+    
+    
+	
+   
+    
+    
+    
+    
     
 
     public Page<GrupoUsuario> listAll(int numeroPagina){

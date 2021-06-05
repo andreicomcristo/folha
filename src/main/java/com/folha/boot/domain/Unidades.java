@@ -112,6 +112,7 @@ public class Unidades extends AbstractEntity<Long> {
     @OneToMany(mappedBy = "idUnidadeFk")
     private List<PessoaComplementoDePlantao> pessoaComplementoDePlantaoList;
     
+    
     @OneToMany(mappedBy = "idUnidadeFk")
     private List<AtividadeEscala> atividadeEscalaList;
     @OneToMany(mappedBy = "idUnidadeFk")

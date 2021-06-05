@@ -1,4 +1,4 @@
-package com.folha.boot.service;
+package com.folha.boot.service.seguranca;
 
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
