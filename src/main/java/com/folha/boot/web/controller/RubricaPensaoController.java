@@ -27,20 +27,19 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.folha.boot.domain.AnoMes;
 import com.folha.boot.domain.Bancos;
-import com.folha.boot.domain.FuncionariosFerias;
-import com.folha.boot.domain.RubricaPensao;
-import com.folha.boot.domain.RubricaPensaoDependente;
 import com.folha.boot.domain.Pessoa;
 import com.folha.boot.domain.PessoaFuncionarios;
+import com.folha.boot.domain.RubricaPensao;
+import com.folha.boot.domain.RubricaPensaoDependente;
 import com.folha.boot.service.AnoMesService;
 import com.folha.boot.service.BancosService;
 import com.folha.boot.service.CargaHorariaSemanalService;
 import com.folha.boot.service.ClassesCarreiraService;
-import com.folha.boot.service.RubricaPensaoService;
 import com.folha.boot.service.FonteService;
 import com.folha.boot.service.PessoaFuncionariosService;
 import com.folha.boot.service.PessoaService;
 import com.folha.boot.service.RubricaPensaoDependenteService;
+import com.folha.boot.service.RubricaPensaoService;
 import com.folha.boot.service.TipoBrutoLiquidoService;
 import com.folha.boot.service.seguranca.UsuarioService;
 
@@ -49,9 +48,10 @@ import com.folha.boot.service.seguranca.UsuarioService;
 public class RubricaPensaoController {
 
 	String ultimoAnoMes = "";
-	String ultimoNome = "";
+	String ultimoNome = ""; 
 	String ultimaBuscaNome = "";
-
+	private Long idPessoa = 0L;
+	
 	@Autowired
 	private RubricaPensaoService service;
 	@Autowired
@@ -75,6 +75,7 @@ public class RubricaPensaoController {
 	@Autowired
 	private PessoaFuncionariosService pessoaFuncionariosService;
 
+	
 	////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 	/* Paginação de funcionários */
 	@GetMapping("/paginar/funcionarios/{pageNo}")
@@ -134,12 +135,6 @@ public class RubricaPensaoController {
 	////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 	/* Fim da Paginação de funcionários */
 
-	/*
-	 * @GetMapping("/cadastrar") public String cadastrar(RubricaPensao
-	 * rubricaPensao) {
-	 * 
-	 * return "/rubricaPensao/cadastro"; }
-	 */
 
 	@GetMapping("/listar")
 	public String listar(ModelMap model) {
@@ -211,32 +206,88 @@ public class RubricaPensaoController {
 
 	///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 	//Recebe o id do funcionário da tela de lista de funcionários
+	
+	
+	
+	
+	 /*@GetMapping("/cadastrar") 
+	 public String cadastrar(RubricaPensao rubricaPensao) {
+	 	 
+	 return "/rubricaPensao/cadastro"; 	 
+	 }*/
+	
+	
 	@GetMapping("/cadastrar/{id}")
-	public String cadastrarPensao(@PathVariable("id") Long id, RubricaPensao rubricaPensao, ModelMap model) {
-
-		PessoaFuncionarios funcionario = pessoaFuncionariosService.buscarPorId(id);
+	public String cadastrarPensao(@PathVariable("id") Long id) {
+		
+		//PessoaFuncionarios funcionario = pessoaFuncionariosService.buscarPorId(id).getIdPessoaFk().getId();
 		//relaciona as penssões a pessoa
-		Pessoa pessoa = pessoaService.buscarPorId(funcionario.getIdPessoaFk().getId());
-		rubricaPensao.setIdPessoaFk(pessoa);
-		//funcionariosFerias.setIdFuncionarioFk(funcionario);
+		//--Pessoa pessoa = pessoaService.buscarPorId(funcionario.getIdPessoaFk().getId());
+		//rubricaPensao.setIdPessoaFk(pessoa);
+		//--funcionariosFerias.setIdFuncionarioFk(funcionario);
 		///////////////////////////////////////
-		model.addAttribute("pessoa", pessoa); 
-		model.addAttribute("pensao", service.buscarPensoesDoMesAtual(pessoa));		
-		return "/rubricaPensao/cadastro";
+		//--model.addAttribute("pessoa", pessoa); 
+		//--model.addAttribute("pensao", service.buscarPensoesDoMesAtual(pessoa));
+		//rubricaPensao.setId(null);
+		//System.out.println(rubricaPensao.getId().toString());
+		idPessoa = pessoaFuncionariosService.buscarPorId(id).getIdPessoaFk().getId();
+		
+		return "redirect:/rubricaPensao/cadastrar/pessoa";
+				
 	}
 
-	@GetMapping("/cadastrar/pessoa/{id}")
-	public String cadastrarPessoaPensao(@PathVariable("id") Long id, RubricaPensao rubricaPensao, ModelMap model) {
-
-		Pessoa pessoa = pessoaService.buscarPorId(id);
-		//relaciona as penssões a pessoa
-		rubricaPensao.setIdPessoaFk(pessoa);
-		//rubricaPensao.setId(null);			
+	@GetMapping("/cadastrar/pessoa")
+	public String cadastrarPessoaPensao(RubricaPensao rubricaPensao,  ModelMap model) {
+ 
+		Pessoa pessoa = pessoaService.buscarPorId(idPessoa);
+		//relaciona as penssões a pessoa		
+		//rubricaPensao.setId(null);	
+		//model.addAttribute("rubricaPensao", rubricaPensao);
 		model.addAttribute("pessoa", pessoa); 
 		model.addAttribute("pensao", service.buscarPensoesDoMesAtual(pessoa));
-	
+		rubricaPensao.setIdPessoaFk(pessoa);
+		//System.out.println(rubricaPensao.getId().toString());
 		return "/rubricaPensao/cadastro";
 	}
+	
+	@PostMapping("/salvar")
+	public String salvar(RubricaPensao rubricaPensao, RedirectAttributes attr) {
+
+		//System.out.println(rubricaPensao.getId().toString());
+		service.salvar(rubricaPensao);
+		attr.addFlashAttribute("success", "Inserido com sucesso.");
+		return "redirect:/rubricaPensao/cadastrar/pessoa" ;
+	}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	/*if (rubricaPensao.getValor() == null) {
+	rubricaPensao.setValor(0.0);
+}
+if (rubricaPensao.getPercentagem() == null) {
+	rubricaPensao.setPercentagem(0.0);
+}*/
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 	
 	@GetMapping("/dependente/cadastrar/{id}")
 	public String cadastrarDependente(@PathVariable("id") Long id, RubricaPensaoDependente rubricaPensaoDependente, ModelMap model) {
@@ -264,20 +315,7 @@ public class RubricaPensaoController {
 	}
 	
 	
-	@PostMapping("/salvar")
-	public String salvar( RubricaPensao rubricaPensao, RedirectAttributes attr) {
-
-		if (rubricaPensao.getValor() == null) {
-			rubricaPensao.setValor(0.0);
-		}
-		if (rubricaPensao.getPercentagem() == null) {
-			rubricaPensao.setPercentagem(0.0);
-		}
-
-		service.salvar(rubricaPensao);
-		attr.addFlashAttribute("success", "Inserido com sucesso.");
-		return "redirect:/rubricaPensao/cadastrar/pessoa/" + rubricaPensao.getIdPessoaFk().getId();
-	}
+	
 
 	@GetMapping("/dependentes/editar/{id}")
 	public String dependentesPreEditar(@PathVariable("id") Long id, ModelMap model) {		

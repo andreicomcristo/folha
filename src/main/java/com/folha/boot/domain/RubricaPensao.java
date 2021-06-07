@@ -5,9 +5,12 @@ import java.util.List;
 
 import javax.persistence.*;
 
+import org.springframework.stereotype.Component;
+
 import com.folha.boot.service.util.UtilidadesDeTexto;
 
 @SuppressWarnings("serial")
+
 @Entity
 @Table(name = "rubrica_pensao")
 public class RubricaPensao extends AbstractEntity<Long> {

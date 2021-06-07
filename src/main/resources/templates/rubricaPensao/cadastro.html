@@ -22,13 +22,12 @@
 			</form>
 		</nav>
 
-		<div class="container " id="cadastro">
+		<div class="container " id="cadastro-rubrica">
 
 			<div th:replace="fragments/alert"></div>
 			
 			<!-- RETIRADA A ESTRUTURA DE REPETICAO PORQUE NAO VEM MAIS UMA LISTA PARA AQUI, TÁ VIDO UM OBJETO SEM LISTA -->
-			<form  
-				  
+			<form 			  
 				  th:action="@{/rubricaPensao/salvar}"
 				  
 				  th:object="${rubricaPensao}" method="POST">
@@ -136,7 +135,7 @@
 							id="codigo" placeholder="Observação" th:field="*{observacao}" />
 							<p></p>
 												
-							<input type="hidden" id="id" th:field="*{id}" />					
+							<input type="hidden" id="id-rubrica" th:field="*{id}" />					
 							<input type="hidden" id="idPessoaFk" th:field="*{idPessoaFk}" />
 							<p></p>	
 											
@@ -153,9 +152,7 @@
 		                	<th style="font-size:10px;" >#</th>
 		                    <th style="font-size:10px;" >Ano Mes</th>
 		                    <th style="font-size:10px;" >Beneficiario</th>
-		                    <th style="font-size:10px;" >Cpf</th>
-		                    
-		                    <th style="font-size:10px;" >Cpf</th>
+		                    <th style="font-size:10px;" >Cpf</th>		                 		                   
 		                    <th style="font-size:10px;" >Banco</th>
 		                    <th style="font-size:10px;" >Op</th>
 		                    <th style="font-size:10px;" >Agencia</th>  
@@ -176,8 +173,7 @@
 		                    	<a th:href="@{/rubricaPensao/dependente/cadastrar/{id} (id=${d.id}) }" title="Atribuir" >
 		                    		<span th:text="${d.nomeBeneficiario != null} ? ${d.nomeBeneficiario} : ''  "></span>
 		                    	</a>
-		                    </td>		                   
-		                    <td style="font-size:10px;"  th:text="${d.idPessoaFk != null} ? ${d.idPessoaFk.cpf} : ''  "></td>
+		                    </td>		                   		                    
 		                    <td style="font-size:10px;"  th:text="${d.cpfBeneficiario != null} ? ${d.cpfBeneficiario} : ''  "></td>
 		                    <td style="font-size:10px;"  th:text="${d.idBancoFk != null} ? ${d.idBancoFk.nomeBanco} : ''  "></td>
 		                    <td style="font-size:10px;"  th:text="${d.operacaoVariacao != null} ? ${d.operacaoVariacao} : ''  "></td>
