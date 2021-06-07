@@ -217,7 +217,7 @@ public class RubricaPensaoController {
 	 }*/
 	
 	
-	@GetMapping("/cadastrar/{id}")
+	@GetMapping("/funcionario/{id}")
 	public String cadastrarPensao(@PathVariable("id") Long id) {
 		
 		//PessoaFuncionarios funcionario = pessoaFuncionariosService.buscarPorId(id).getIdPessoaFk().getId();
@@ -232,11 +232,11 @@ public class RubricaPensaoController {
 		//System.out.println(rubricaPensao.getId().toString());
 		idPessoa = pessoaFuncionariosService.buscarPorId(id).getIdPessoaFk().getId();
 		
-		return "redirect:/rubricaPensao/cadastrar/pessoa";
+		return "redirect:/rubricaPensao/pessoa/cadastrar";
 				
 	}
 
-	@GetMapping("/cadastrar/pessoa")
+	@GetMapping("/pessoa/cadastrar")
 	public String cadastrarPessoaPensao(RubricaPensao rubricaPensao,  ModelMap model) {
  
 		Pessoa pessoa = pessoaService.buscarPorId(idPessoa);
@@ -256,7 +256,7 @@ public class RubricaPensaoController {
 		//System.out.println(rubricaPensao.getId().toString());
 		service.salvar(rubricaPensao);
 		attr.addFlashAttribute("success", "Inserido com sucesso.");
-		return "redirect:/rubricaPensao/cadastrar/pessoa" ;
+		return "redirect:/rubricaPensao/pessoa/cadastrar";
 	}
 	
 	
