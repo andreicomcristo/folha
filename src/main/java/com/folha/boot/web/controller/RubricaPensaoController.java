@@ -216,8 +216,7 @@ public class RubricaPensaoController {
 		idPessoa = pessoaFuncionariosService.buscarPorId(id).getIdPessoaFk().getId();
 		//Guarda o id de Pessoa na Session
 		HttpSession session = httpSessionFactory.getObject();
-        session.setAttribute("idPessoa", idPessoa  );
-        
+        session.setAttribute("idPessoa", idPessoa  );     
 		return "redirect:/rubricaPensao/pessoa/cadastrar";				
 	}
 
