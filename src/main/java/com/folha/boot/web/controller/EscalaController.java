@@ -4998,6 +4998,7 @@ public class EscalaController {
 	public String operadorLogado() {
 		return request.getSession().getAttribute("operador").toString();
 	}
+	
 	@ModelAttribute("nomeUnidadeLogada")
 	public String unidadeLogada() {
 		return request.getSession().getAttribute("unidade").toString();

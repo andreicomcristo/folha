@@ -7,8 +7,10 @@ import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import org.apache.commons.compress.utils.IOUtils;
+import org.springframework.beans.factory.ObjectFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.InputStreamResource;
 import org.springframework.data.domain.Page;
@@ -49,8 +51,7 @@ public class RubricaPensaoController {
 
 	String ultimoAnoMes = "";
 	String ultimoNome = ""; 
-	String ultimaBuscaNome = "";
-	private Long idPessoa = 0L;
+	String ultimaBuscaNome = ""; 
 	
 	@Autowired
 	private RubricaPensaoService service;
@@ -74,7 +75,8 @@ public class RubricaPensaoController {
 	private PessoaService pessoaService;
 	@Autowired
 	private PessoaFuncionariosService pessoaFuncionariosService;
-
+	@Autowired
+    ObjectFactory<HttpSession> httpSessionFactory;
 	
 	/*///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 	Paginação de funcionários */
@@ -210,18 +212,20 @@ public class RubricaPensaoController {
 	
 	//Recebe o id do funcionário da tela de lista de funcionários para encontrar a pessoa correspondente
 	@GetMapping("/funcionario/{id}")
-	public String cadastrarPensao(@PathVariable("id") Long id) {				
+	public String cadastrarPensao(@PathVariable("id") Long id, Long idPessoa) {	
 		idPessoa = pessoaFuncionariosService.buscarPorId(id).getIdPessoaFk().getId();
-		return "redirect:/rubricaPensao/pessoa/cadastrar";
-				
+		//Guarda o id de Pessoa na Session
+		HttpSession session = httpSessionFactory.getObject();
+        session.setAttribute("idPessoa", idPessoa  );
+        
+		return "redirect:/rubricaPensao/pessoa/cadastrar";				
 	}
 
 	@GetMapping("/pessoa/cadastrar")
 	public String cadastrarPessoaPensao(RubricaPensao rubricaPensao,  ModelMap model) {
 		//relaciona as penssões a pessoa
-		Pessoa pessoa = pessoaService.buscarPorId(idPessoa);
-		rubricaPensao.setIdPessoaFk(pessoa);
-						
+		Pessoa pessoa = pessoaService.buscarPorId(getIdPessoaSession());
+		rubricaPensao.setIdPessoaFk(pessoa);						
 		model.addAttribute("pessoa", pessoa); 
 		model.addAttribute("pensao", service.buscarPensoesDoMesAtual(pessoa));		
 		return "/rubricaPensao/cadastro";
@@ -417,4 +421,8 @@ public class RubricaPensaoController {
 		return request.getSession().getAttribute("unidade").toString();
 	}
 
+	//Recupera um valor da Session
+	public Long getIdPessoaSession() {
+		return Long.valueOf(request.getSession().getAttribute("idPessoa").toString()) ;
+	}
 }
