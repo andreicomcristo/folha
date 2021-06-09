@@ -31,7 +31,7 @@ import com.folha.boot.domain.Uf;
 import com.folha.boot.service.CidadesService;
 import com.folha.boot.service.PaisesSevice;
 import com.folha.boot.service.UfService;
-import com.folha.boot.service.testeIlo.RelatorioIloService;
+
 
 @Controller
 @RequestMapping("/cidades")
@@ -47,8 +47,7 @@ public class CidadesController {
 	@Autowired
 	private CidadesService service;
 	
-	@Autowired
-	private RelatorioIloService relatorioIloService;
+	
 
 	@GetMapping("/cadastrar")
 	public String cadastrar(Cidades cidade) {
@@ -158,7 +157,7 @@ public class CidadesController {
         ByteArrayInputStream stream = service.exportarExcel(service.buscarTodos());
         IOUtils.copy(stream, response.getOutputStream());
     }
-	/*
+	
 	@GetMapping(value = "/exporta/pdf", produces = MediaType.APPLICATION_PDF_VALUE)
 	public ResponseEntity<InputStreamResource> employeeReports(HttpServletResponse response) throws IOException {
 		ByteArrayInputStream bis = service.exportarPdf(service.buscarTodos());
@@ -167,16 +166,7 @@ public class CidadesController {
 		return ResponseEntity.ok().headers(headers).contentType(MediaType.APPLICATION_PDF)
 				.body(new InputStreamResource(bis));
 	}
-	*/
 	
-	@GetMapping(value = "/exporta/pdf", produces = MediaType.APPLICATION_PDF_VALUE)
-	public ResponseEntity<InputStreamResource> employeeReports(HttpServletResponse response) throws IOException {
-		ByteArrayInputStream bis = relatorioIloService.exportarPdfDadosIlo();
-		HttpHeaders headers = new HttpHeaders();
-		headers.add("Content-Disposition", "attachment;filename=dados.pdf");
-		return ResponseEntity.ok().headers(headers).contentType(MediaType.APPLICATION_PDF)
-				.body(new InputStreamResource(bis));
-	}
 	
 	@ModelAttribute("idPaisFk")
 	public List<Paises> getPaises() {
