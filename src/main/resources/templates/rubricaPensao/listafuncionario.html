@@ -65,7 +65,11 @@
 		                    <td style="font-size:10px;"  th:text="${d.idPessoaFk != null} ? ${d.idPessoaFk.cpf} : ''  "></td>
 		                    <td style="font-size:10px;"  th:text="${d.matricula != null} ? ${d.matricula} : ''  "></td>
 		                    <td style="font-size:10px;"  th:text="${d.idCargaHorariaAtualFk != null} ? ${d.idCargaHorariaAtualFk.cargaHoraria} : ''  "></td>
-		                    <td style="font-size:11px;"> <a th:href="@{/rubricaPensao/cadastrar/{id} (id=${d.id}) }" title="Atribuir" ><span th:text="${d.idPessoaFk != null} ? ${d.idPessoaFk.nome} : ''  "></span></a></td>
+		                    <td style="font-size:11px;">
+		                    	<a th:href="@{/rubricaPensao/funcionario/{id} (id=${d.id}) }" title="Atribuir" >
+		                    		<span th:text="${d.idPessoaFk != null} ? ${d.idPessoaFk.nome} : ''  "></span>
+		                    	</a>
+		                    </td>
 		                    <td style="font-size:10px;"  th:text="${d.idEspecialidadeAtualFk != null} ? ${d.idEspecialidadeAtualFk.idCargoFk.nomeCargo+'-'+d.idEspecialidadeAtualFk.nomeEspecialidadeCargo} : ''  "></td>
 		                    <td style="font-size:10px;"  th:text="${d.idVinculoAtualFk != null} ? ${d.idVinculoAtualFk.nomeVinculo} : ''  "></td>
 		                    

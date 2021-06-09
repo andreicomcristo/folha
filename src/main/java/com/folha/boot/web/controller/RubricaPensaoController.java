@@ -7,8 +7,10 @@ import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import org.apache.commons.compress.utils.IOUtils;
+import org.springframework.beans.factory.ObjectFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.InputStreamResource;
 import org.springframework.data.domain.Page;
@@ -27,20 +29,19 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.folha.boot.domain.AnoMes;
 import com.folha.boot.domain.Bancos;
-import com.folha.boot.domain.FuncionariosFerias;
-import com.folha.boot.domain.RubricaPensao;
-import com.folha.boot.domain.RubricaPensaoDependente;
 import com.folha.boot.domain.Pessoa;
 import com.folha.boot.domain.PessoaFuncionarios;
+import com.folha.boot.domain.RubricaPensao;
+import com.folha.boot.domain.RubricaPensaoDependente;
 import com.folha.boot.service.AnoMesService;
 import com.folha.boot.service.BancosService;
 import com.folha.boot.service.CargaHorariaSemanalService;
 import com.folha.boot.service.ClassesCarreiraService;
-import com.folha.boot.service.RubricaPensaoService;
 import com.folha.boot.service.FonteService;
 import com.folha.boot.service.PessoaFuncionariosService;
 import com.folha.boot.service.PessoaService;
 import com.folha.boot.service.RubricaPensaoDependenteService;
+import com.folha.boot.service.RubricaPensaoService;
 import com.folha.boot.service.TipoBrutoLiquidoService;
 import com.folha.boot.service.seguranca.UsuarioService;
 
@@ -49,9 +50,9 @@ import com.folha.boot.service.seguranca.UsuarioService;
 public class RubricaPensaoController {
 
 	String ultimoAnoMes = "";
-	String ultimoNome = "";
-	String ultimaBuscaNome = "";
-
+	String ultimoNome = ""; 
+	String ultimaBuscaNome = ""; 
+	
 	@Autowired
 	private RubricaPensaoService service;
 	@Autowired
@@ -74,9 +75,11 @@ public class RubricaPensaoController {
 	private PessoaService pessoaService;
 	@Autowired
 	private PessoaFuncionariosService pessoaFuncionariosService;
-
-	////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-	/* Paginação de funcionários */
+	@Autowired
+    ObjectFactory<HttpSession> httpSessionFactory;
+	
+	/*///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+	Paginação de funcionários */
 	@GetMapping("/paginar/funcionarios/{pageNo}")
 	public String getPorNomePaginadoInclusao(@PathVariable(value = "pageNo") int pageNo, ModelMap model) {
 
@@ -134,13 +137,9 @@ public class RubricaPensaoController {
 	////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 	/* Fim da Paginação de funcionários */
 
-	/*
-	 * @GetMapping("/cadastrar") public String cadastrar(RubricaPensao
-	 * rubricaPensao) {
-	 * 
-	 * return "/rubricaPensao/cadastro"; }
-	 */
-
+	/*///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+	Paginação de RubricasPensão */
+	
 	@GetMapping("/listar")
 	public String listar(ModelMap model) {
 		this.ultimoAnoMes = "";
@@ -208,35 +207,82 @@ public class RubricaPensaoController {
 		}
 
 	}
+	////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+	/* Fim da Paginação de RubricasPensão */
+	
+	//Recebe o id do funcionário da tela de lista de funcionários para encontrar a pessoa correspondente
+	@GetMapping("/funcionario/{id}")
+	public String cadastrarPensao(@PathVariable("id") Long id, Long idPessoa) {	
+		idPessoa = pessoaFuncionariosService.buscarPorId(id).getIdPessoaFk().getId();
+		//Guarda o id de Pessoa na Session
+		HttpSession session = httpSessionFactory.getObject();
+        session.setAttribute("idPessoa", idPessoa  );     
+		return "redirect:/rubricaPensao/pessoa/cadastrar";				
+	}
 
-	///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-	//Recebe o id do funcionário da tela de lista de funcionários
-	@GetMapping("/cadastrar/{id}")
-	public String cadastrarPensao(@PathVariable("id") Long id, RubricaPensao rubricaPensao, ModelMap model) {
-
-		PessoaFuncionarios funcionario = pessoaFuncionariosService.buscarPorId(id);
+	@GetMapping("/pessoa/cadastrar")
+	public String cadastrarPessoaPensao(RubricaPensao rubricaPensao,  ModelMap model) {
 		//relaciona as penssões a pessoa
-		Pessoa pessoa = pessoaService.buscarPorId(funcionario.getIdPessoaFk().getId());
-		rubricaPensao.setIdPessoaFk(pessoa);
-		//funcionariosFerias.setIdFuncionarioFk(funcionario);
-		///////////////////////////////////////
+		Pessoa pessoa = pessoaService.buscarPorId(getIdPessoaSession());
+		rubricaPensao.setIdPessoaFk(pessoa);						
 		model.addAttribute("pessoa", pessoa); 
 		model.addAttribute("pensao", service.buscarPensoesDoMesAtual(pessoa));		
 		return "/rubricaPensao/cadastro";
 	}
-
-	@GetMapping("/cadastrar/pessoa/{id}")
-	public String cadastrarPessoaPensao(@PathVariable("id") Long id, RubricaPensao rubricaPensao, ModelMap model) {
-
-		Pessoa pessoa = pessoaService.buscarPorId(id);
-		//relaciona as penssões a pessoa
-		rubricaPensao.setIdPessoaFk(pessoa);
-		//rubricaPensao.setId(null);			
-		model.addAttribute("pessoa", pessoa); 
-		model.addAttribute("pensao", service.buscarPensoesDoMesAtual(pessoa));
 	
+	@PostMapping("/salvar")
+	public String salvar(RubricaPensao rubricaPensao, RedirectAttributes attr) {
+
+		if (rubricaPensao.getValor() == null) { 
+			rubricaPensao.setValor(0.0);
+		}
+		if (rubricaPensao.getPercentagem() == null) {
+			rubricaPensao.setPercentagem(0.0);
+		}	
+		service.salvar(rubricaPensao);
+		attr.addFlashAttribute("success", "Inserido com sucesso.");
+		return "redirect:/rubricaPensao/pessoa/cadastrar";
+	}
+	
+	@GetMapping("/editar/{id}")
+	public String preEditar(@PathVariable("id") Long id, ModelMap model) {		
+		//Pessoa pessoa = service.buscarPorId(id).getIdPessoaFk();		
+		// ENVIANDO O OBJETO INTEIRO PARA O HTML EM VEZ DE IR AS PARTES DELE
+		RubricaPensao rubricaPensao = service.buscarPorId(id);
+		Pessoa pessoa = rubricaPensao.getIdPessoaFk();
+		model.addAttribute("rubricaPensao", rubricaPensao);
+		model.addAttribute("pessoa", pessoa);
+		model.addAttribute("pensao", rubricaPensao);
 		return "/rubricaPensao/cadastro";
 	}
+	
+	@PostMapping("/editar")
+	public String editar(RubricaPensao rubricaPensao, RedirectAttributes attr) {
+
+		if (rubricaPensao.getValor() == null) {
+			rubricaPensao.setValor(0.0);
+		}
+		if (rubricaPensao.getPercentagem() == null) {
+			rubricaPensao.setPercentagem(0.0);
+		}
+
+		service.editar(rubricaPensao);
+		attr.addFlashAttribute("success", "Editado com sucesso.");
+		return "redirect:/rubricaPensao/listar";
+	}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 	
 	@GetMapping("/dependente/cadastrar/{id}")
 	public String cadastrarDependente(@PathVariable("id") Long id, RubricaPensaoDependente rubricaPensaoDependente, ModelMap model) {
@@ -256,29 +302,12 @@ public class RubricaPensaoController {
 	}
 	
 	@PostMapping("/dependentes/salvar")
-	public String salvar(RubricaPensaoDependente rubricaPensaoDependente , RedirectAttributes attr) {
-
+	public String salvar(RubricaPensaoDependente rubricaPensaoDependente , RedirectAttributes attr) {		
 		dependenteService.salvar(rubricaPensaoDependente);
 		attr.addFlashAttribute("success", "Inserido com sucesso.");
 		return "redirect:/rubricaPensao/dependente/cadastrar/" + rubricaPensaoDependente.getIdRubricaPensaoFk().getId();
 	}
 	
-	
-	@PostMapping("/salvar")
-	public String salvar( RubricaPensao rubricaPensao, RedirectAttributes attr) {
-
-		if (rubricaPensao.getValor() == null) {
-			rubricaPensao.setValor(0.0);
-		}
-		if (rubricaPensao.getPercentagem() == null) {
-			rubricaPensao.setPercentagem(0.0);
-		}
-
-		service.salvar(rubricaPensao);
-		attr.addFlashAttribute("success", "Inserido com sucesso.");
-		return "redirect:/rubricaPensao/cadastrar/pessoa/" + rubricaPensao.getIdPessoaFk().getId();
-	}
-
 	@GetMapping("/dependentes/editar/{id}")
 	public String dependentesPreEditar(@PathVariable("id") Long id, ModelMap model) {		
 		//Pessoa pessoa = service.buscarPorId(id).getIdPessoaFk();		
@@ -313,32 +342,7 @@ public class RubricaPensaoController {
 		return "redirect:/rubricaPensao/cadastrar/" + id;
 	}*/
   
-	@GetMapping("/editar/{id}")
-	public String preEditar(@PathVariable("id") Long id, ModelMap model) {		
-		//Pessoa pessoa = service.buscarPorId(id).getIdPessoaFk();		
-		// ENVIANDO O OBJETO INTEIRO PARA O HTML EM VEZ DE IR AS PARTES DELE
-		RubricaPensao rubricaPensao = service.buscarPorId(id);
-		Pessoa pessoa = rubricaPensao.getIdPessoaFk();
-		model.addAttribute("rubricaPensao", rubricaPensao);
-		model.addAttribute("pessoa", pessoa);
-		model.addAttribute("pensao", rubricaPensao);
-		return "/rubricaPensao/cadastro";
-	}
 	
-	@PostMapping("/editar")
-	public String editar(RubricaPensao rubricaPensao, RedirectAttributes attr) {
-
-		if (rubricaPensao.getValor() == null) {
-			rubricaPensao.setValor(0.0);
-		}
-		if (rubricaPensao.getPercentagem() == null) {
-			rubricaPensao.setPercentagem(0.0);
-		}
-
-		service.editar(rubricaPensao);
-		attr.addFlashAttribute("success", "Editado com sucesso.");
-		return "redirect:/rubricaPensao/listar";
-	}
 	
 	
 ///Falta implementar o cancelar
@@ -416,4 +420,8 @@ public class RubricaPensaoController {
 		return request.getSession().getAttribute("unidade").toString();
 	}
 
+	//Recupera um valor da Session
+	public Long getIdPessoaSession() {
+		return Long.valueOf(request.getSession().getAttribute("idPessoa").toString()) ;
+	}
 }
