@@ -18,6 +18,8 @@ public interface RubricaCodigoReposytory extends JpaRepository<RubricaCodigo, Lo
 	
 	public List<RubricaCodigo> findByCodigoOrderByCodigoAsc(String nome);
 	
+	public List<RubricaCodigo> findByCodigoAndVariacaoOrderByCodigoAsc(String nome, String variacao);
+	
 	public Page<RubricaCodigo> findAllByOrderByCodigoAsc( final Pageable page);
 	
 	public Page<RubricaCodigo> findByCodigoContainingOrderByCodigoAsc(String nome, final Pageable page);

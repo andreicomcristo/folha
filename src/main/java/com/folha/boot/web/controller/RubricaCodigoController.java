@@ -58,7 +58,7 @@ public class RubricaCodigoController {
 		// Evitando salvar quem já está cadastrado
 		if(rubricaCodigo!=null) {
 			if(rubricaCodigo.getId()==null) {
-				if(service.avaliarCadastrado(rubricaCodigo.getCodigo())==true) {
+				if(service.avaliarCadastrado(rubricaCodigo.getCodigo(), rubricaCodigo.getVariacao())==true) {
 					return "redirect:/mensagens/mensagem/de/ja/cadastrado";	
 				}
 			}

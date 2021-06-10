@@ -59,9 +59,9 @@ public class RubricaCodigoService {
 	}
 	
 	
-	public boolean avaliarCadastrado( String nome) {
+	public boolean avaliarCadastrado( String nome, String variacao) {
 		boolean resposta = false;
-		List<RubricaCodigo> lista = reposytory.findByCodigoOrderByCodigoAsc( nome.toUpperCase().trim()); 
+		List<RubricaCodigo> lista = reposytory.findByCodigoAndVariacaoOrderByCodigoAsc( nome.toUpperCase().trim(), variacao.toUpperCase().trim()); 
 		if(!lista.isEmpty()) {resposta = true;}
 		return resposta;
 	}
