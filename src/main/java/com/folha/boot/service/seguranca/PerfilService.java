@@ -66,6 +66,13 @@ public class PerfilService {
 		 
 	}
 	
+	@Transactional(readOnly = true)
+	public List<Perfil> buscarPorUnidade( Unidades unidades) {
+		// TODO Auto-generated method stub
+		return reposytory.findByIdUnidadeFkOrderByIdOperadorFkIdPessoaFkNomeAsc(   unidades);
+		 
+	}
+	
 	public boolean jaTemPerfilNaUnidade (Perfil perfil) {
 		boolean resposta = false;
 		if(!buscarPorOperadorEUnidade(perfil.getIdOperadorFk(), perfil.getIdUnidadeFk()).isEmpty()) {resposta = true;}

@@ -104,7 +104,7 @@ public class UsuarioService implements GenericService<PessoaOperadores>, UserDet
 	
 	public List<PessoaOperadores> buscarTodos() {
 		// TODO Auto-generated method stub
-		return usuarioRepository.findAllByOrderByIdPessoaFkNomeAsc();
+		return usuarioRepository.findAllByDtCancelamentoIsNullOrderByIdPessoaFkNomeAsc();
 	}
 
     
@@ -170,7 +170,7 @@ public class UsuarioService implements GenericService<PessoaOperadores>, UserDet
                 username, String.valueOf(Character.LINE_SEPARATOR));
         
        
-        PessoaOperadores usuario = usuarioRepository.findFirstByUsername(usuarioUnidade[0]);
+        PessoaOperadores usuario = usuarioRepository.findFirstByUsernameAndDtCancelamentoIsNull(usuarioUnidade[0]);
         
         
         

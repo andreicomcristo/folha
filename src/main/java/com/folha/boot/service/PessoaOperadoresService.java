@@ -50,7 +50,7 @@ public class PessoaOperadoresService {
 	
 	public List<PessoaOperadores> buscarTodos() {
 		// TODO Auto-generated method stub
-		return reposytory.findAllByOrderByIdPessoaFkNomeAsc();
+		return reposytory.findAllByDtCancelamentoIsNullOrderByIdPessoaFkNomeAsc();
 	}
 
 	
@@ -69,13 +69,13 @@ public class PessoaOperadoresService {
 	@Transactional(readOnly = true)
 	public Page<PessoaOperadores> findPaginated( int pageNo, int pageSize) {
 		Pageable pageable = PageRequest.of(pageNo -1, pageSize);
-		return this.reposytory.findByEnabledOrderByIdPessoaFkNomeAsc( true,  pageable);
+		return this.reposytory.findByEnabledAndDtCancelamentoIsNullOrderByIdPessoaFkNomeAsc( true,  pageable);
 	}
 	
 	@Transactional(readOnly = true)
 	public Page<PessoaOperadores> findPaginatedNome( String nome, int pageNo, int pageSize) {
 		Pageable pageable = PageRequest.of(pageNo -1, pageSize);
-		return this.reposytory.findByEnabledAndIdPessoaFkNomeContainingOrderByIdPessoaFkNomeAsc( true, nome.toUpperCase().trim(), pageable);
+		return this.reposytory.findByEnabledAndIdPessoaFkNomeContainingAndDtCancelamentoIsNullOrderByIdPessoaFkNomeAsc( true, nome.toUpperCase().trim(), pageable);
 	}
 	
 }

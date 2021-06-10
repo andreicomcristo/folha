@@ -174,7 +174,7 @@ public class PerfilController {
 		model.addAttribute("totalItems", page.getTotalElements()); 
 		
 		//Retirando da lista quando dependendo do grupo usuario
-		String grupoUsuarioLogado = null;
+		String grupoUsuarioLogado = "";
 		List<Perfil> listaPerfis = service.buscarPorOperadorEUnidade(usuarioService.pegarOperadorLogado(), usuarioService.pegarUnidadeLogada());
 		if(!listaPerfis.isEmpty()) {
 			grupoUsuarioLogado = listaPerfis.get(0).getIdGrupoUsuarioFk().getNome();
@@ -182,20 +182,20 @@ public class PerfilController {
 		
 		if(!grupoUsuarioLogado.equalsIgnoreCase("MASTER")) {
 			
-				for(int i=0;i<lista.size();i++) {
+				for( int i=lista.size();i==0;i--) {
 					if(lista.get(i).getIdUnidadeFk()!=usuarioService.pegarUnidadeLogada()) {
-						lista.remove(i); i=i-1;
+						lista.remove(i); 
 					}
 					if(lista.get(i).getIdGrupoUsuarioFk().getNome().equalsIgnoreCase("MASTER")) {
-						lista.remove(i); i=i-1;
+						lista.remove(i); 
 					}
 				}
 				
 				//Retirando o grupo usuario folha da lista
 				if(!grupoUsuarioLogado.contains("FOLHA")) {		
-					for(int i=0;i<lista.size();i++) {
+					for( int i=lista.size();i==0;i--) {
 						if(lista.get(i).getIdGrupoUsuarioFk().getNome().contains("FOLHA")) {
-							lista.remove(i); i=i-1;
+							lista.remove(i);
 						}
 					}
 				}
@@ -342,16 +342,16 @@ public class PerfilController {
 					if(!perfilLogado.getIdGrupoUsuarioFk().getNome().equalsIgnoreCase("MASTER")) {
 						
 						if(perfilLogado.getIdGrupoUsuarioFk().getNome().equalsIgnoreCase("FOLHA_SEDE")) {
-							for(int i=0;i<lista.size();i++) {
-								if(!lista.get(i).getNome().contains("SEDE")) {lista.remove(i); i=i-1;}
+							for(int i = lista.size();i==0;i--) {
+								if(!lista.get(i).getNome().contains("SEDE")) {lista.remove(i);}
 							}
 						}
 						
 						if(!perfilLogado.getIdGrupoUsuarioFk().getNome().equalsIgnoreCase("FOLHA_SEDE")) {
 							if(perfilLogado.getIdGrupoUsuarioFk().getNome().contains("SEDE")) {
-								for(int i=0;i<lista.size();i++) {
-									if(!lista.get(i).getNome().contains("SEDE")) {lista.remove(i); i=i-1;}
-									if(lista.get(i).getNome().contains("FOLHA_SEDE")) {lista.remove(i); i=i-1;}
+								for(int i = lista.size();i==0;i--) {
+									if(!lista.get(i).getNome().contains("SEDE")) {lista.remove(i); }
+									if(lista.get(i).getNome().contains("FOLHA_SEDE")) {lista.remove(i); }
 								}
 							}
 						}
@@ -359,9 +359,9 @@ public class PerfilController {
 			
 						if(!perfilLogado.getIdGrupoUsuarioFk().getNome().equalsIgnoreCase("FOLHA_SEDE")) {
 							if(!perfilLogado.getIdGrupoUsuarioFk().getNome().contains("SEDE")) {
-								for(int i=0;i<lista.size();i++) {
-									if(lista.get(i).getNome().contains("SEDE")) {lista.remove(i); i=i-1;}
-									if(lista.get(i).getNome().contains("MASTER")) {lista.remove(i); i=i-1;}
+								for(int i = lista.size();i==0;i--) {
+									if(lista.get(i).getNome().contains("SEDE")) {lista.remove(i);}
+									if(lista.get(i).getNome().contains("MASTER")) {lista.remove(i); }
 								}
 							}
 						}

@@ -22,17 +22,17 @@ public interface PessoaOperadoresReposytory extends JpaRepository<PessoaOperador
 	//@Query("select u from pessoa_operadores u where u.username = :login")
     //public PessoaOperadores findByLogin(@Param("login")String login);
 	
-	public PessoaOperadores findFirstByUsername(String login);
+	public PessoaOperadores findFirstByUsernameAndDtCancelamentoIsNull(String login);
 	
-	public List<PessoaOperadores> findAllByOrderByIdPessoaFkNomeAsc();
+	public List<PessoaOperadores> findAllByDtCancelamentoIsNullOrderByIdPessoaFkNomeAsc();
 
 	public List<PessoaOperadores> findByIdPessoaFkNomeContainingAndDtCancelamentoIsNullOrderByIdPessoaFkNomeAsc(String nome);
 	
 	public PessoaOperadores findFirstByIdPessoaFkAndDtCancelamentoIsNullOrderByIdPessoaFkNomeAsc(Pessoa pessoa);
 	
-	public Page<PessoaOperadores> findByEnabledOrderByIdPessoaFkNomeAsc(boolean enabled, final Pageable page);
+	public Page<PessoaOperadores> findByEnabledAndDtCancelamentoIsNullOrderByIdPessoaFkNomeAsc(boolean enabled, final Pageable page);
 	
-	public Page<PessoaOperadores> findByEnabledAndIdPessoaFkNomeContainingOrderByIdPessoaFkNomeAsc(boolean enabled, String nome,final Pageable page);
+	public Page<PessoaOperadores> findByEnabledAndIdPessoaFkNomeContainingAndDtCancelamentoIsNullOrderByIdPessoaFkNomeAsc(boolean enabled, String nome,final Pageable page);
 	
 	
 }

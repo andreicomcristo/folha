@@ -20,6 +20,8 @@ public interface PerfilReposytory extends JpaRepository<Perfil, Long> {
 	
 	List<Perfil> findFirstByIdOperadorFkAndIdUnidadeFk(PessoaOperadores pessoaopOperadores, Unidades unidades);
 	
+	List<Perfil> findByIdUnidadeFkOrderByIdOperadorFkIdPessoaFkNomeAsc( Unidades unidades);
+	
 	Page<Perfil> findAllByOrderByIdOperadorFkIdPessoaFkNomeAscIdUnidadeFkNomeFantasiaAsc(Pageable pageable);
 	
 	Page<Perfil> findByIdOperadorFkIdPessoaFkNomeContainingOrderByIdOperadorFkIdPessoaFkNomeAscIdUnidadeFkNomeFantasiaAsc(String nome, Pageable pageable);
