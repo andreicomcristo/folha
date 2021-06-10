@@ -271,33 +271,30 @@ public class RubricaPensaoController {
 		return "redirect:/rubricaPensao/listar";
 	}
 	
+	@GetMapping("/cancelar/{id}")
+	public String cancelar(@PathVariable("id") Long id, ModelMap model) {
+		RubricaPensao rubricaPensao = service.buscarPorId(id);
+		//Pessoa pessoa = rubricaPensao.getIdPessoaFk();
+		rubricaPensao.setDtCancelamento(new Date());
+		rubricaPensao.setIdOperadorCancelamentoFk(usuarioService.pegarOperadorLogado());
+		service.salvar(rubricaPensao);
+		//model.addAttribute("success", "Excluído com sucesso.");
+		//model.addAttribute("rubricaPensao", rubricaPensao);
+		//model.addAttribute("pessoa", pessoa);
+		//model.addAttribute("pensao", rubricaPensao);		
+		return "redirect:/rubricaPensao/pessoa/cadastrar";
+	}	
 	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
+	///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+	//Controle dos dependentes das pensões
 	
 	@GetMapping("/dependente/cadastrar/{id}")
 	public String cadastrarDependente(@PathVariable("id") Long id, RubricaPensaoDependente rubricaPensaoDependente, ModelMap model) {
 		RubricaPensao rubricaPensao = service.buscarPorId(id);
 		//relaciona as penssões a pessoa
 		rubricaPensaoDependente.setIdRubricaPensaoFk(rubricaPensao);		
-		
-		//Pessoa pessoa = pessoaService.buscarPorId(id); 
-		//relaciona as penssões a pessoa
-		//rubricaPensao.setIdPessoaFk(pessoa);
-		//rubricaPensao.setId(null);
-		//model.addAttribute("pessoa",rubricaPensao.getIdPessoaFk()); 
 		model.addAttribute("pensao", rubricaPensao); 
 		model.addAttribute("dependentes",dependenteService.buscarPensao(rubricaPensao));
-	
 		return "/rubricaPensaoDependente/cadastro";
 	}
 	
@@ -309,12 +306,9 @@ public class RubricaPensaoController {
 	}
 	
 	@GetMapping("/dependentes/editar/{id}")
-	public String dependentesPreEditar(@PathVariable("id") Long id, ModelMap model) {		
-		//Pessoa pessoa = service.buscarPorId(id).getIdPessoaFk();		
-		// ENVIANDO O OBJETO INTEIRO PARA O HTML EM VEZ DE IR AS PARTES DELE
+	public String dependentesPreEditar(@PathVariable("id") Long id, ModelMap model) {				
 		RubricaPensaoDependente rubricaPensaoDependente = dependenteService.buscarPorId(id);
-		RubricaPensao rubricaPensao = rubricaPensaoDependente.getIdRubricaPensaoFk();
-		
+		RubricaPensao rubricaPensao = rubricaPensaoDependente.getIdRubricaPensaoFk();		
 		model.addAttribute("rubricaPensaoDependente", rubricaPensaoDependente);
 		model.addAttribute("dependentes", rubricaPensaoDependente);
 		model.addAttribute("pensao", rubricaPensao);
@@ -341,23 +335,7 @@ public class RubricaPensaoController {
 		attr.addFlashAttribute("success", "Inserido com sucesso.");
 		return "redirect:/rubricaPensao/cadastrar/" + id;
 	}*/
-  
-	
-	
-	
-///Falta implementar o cancelar
-	
-	
-	@GetMapping("/cancelar/{id}")
-	public String cancelar(@PathVariable("id") Long id, ModelMap model) {
-		RubricaPensao rubricaPensao = service.buscarPorId(id);
-		rubricaPensao.setDtCancelamento(new Date());
-		rubricaPensao.setIdOperadorCancelamentoFk(usuarioService.pegarOperadorLogado());
-		service.salvar(rubricaPensao);
-		model.addAttribute("success", "Excluído com sucesso.");
-		return listar(model);
-	}
-
+		
 	@GetMapping("/herdar/de/mes")
 	public String herdarDeMes(Long anoMesInicial, Long anoMesFinal, ModelMap model) {
 		service.herdarDeUmMesParaOOutro(anoMesInicial, anoMesFinal);

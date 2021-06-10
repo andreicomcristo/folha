@@ -144,7 +144,7 @@
 	                <tbody>
 	                
 	                <!-- MUDANCA NO NOME DO OBJETO LISTA QUE VEM PARA AQUI -->
-		            	<tr th:each="d : ${rubricaPensaoLista}">
+		            	<tr th:each="d : ${rubricaPensao}">
 		                	<td style="font-size:10px;"  th:text="${d.id}"></td>
 		                    <td style="font-size:10px;"  th:text="${d.idAnoMesFk != null} ? ${d.idAnoMesFk.nomeAnoMes} : ''  "></td>
 		                    <td style="font-size:10px;"  th:text="${d.idPessoaFk != null} ? ${d.idPessoaFk.nome} : ''  "></td>
