@@ -22,6 +22,14 @@ public interface PessoaOperadoresReposytory extends JpaRepository<PessoaOperador
 	//@Query("select u from pessoa_operadores u where u.username = :login")
     //public PessoaOperadores findByLogin(@Param("login")String login);
 	
+	public List<PessoaOperadores> findFirstByUsername(String login);
+	
+	public List<PessoaOperadores> findFirstByIdPessoaFk(Pessoa pessoa);
+	
+	public List<PessoaOperadores> findFirstByUsernameAndIdPessoaFkNot(String login, Pessoa pessoa);
+	
+	
+	
 	public PessoaOperadores findFirstByUsernameAndDtCancelamentoIsNull(String login);
 	
 	public List<PessoaOperadores> findAllByDtCancelamentoIsNullOrderByIdPessoaFkNomeAsc();
@@ -33,6 +41,12 @@ public interface PessoaOperadoresReposytory extends JpaRepository<PessoaOperador
 	public Page<PessoaOperadores> findByEnabledAndDtCancelamentoIsNullOrderByIdPessoaFkNomeAsc(boolean enabled, final Pageable page);
 	
 	public Page<PessoaOperadores> findByEnabledAndIdPessoaFkNomeContainingAndDtCancelamentoIsNullOrderByIdPessoaFkNomeAsc(boolean enabled, String nome,final Pageable page);
+	
+	
+	//Cancelados
+	public Page<PessoaOperadores> findByEnabledAndDtCancelamentoIsNotNullOrderByIdPessoaFkNomeAsc(boolean enabled, final Pageable page);
+	
+	public Page<PessoaOperadores> findByEnabledAndIdPessoaFkNomeContainingAndDtCancelamentoIsNotNullOrderByIdPessoaFkNomeAsc(boolean enabled, String nome,final Pageable page);
 	
 	
 }

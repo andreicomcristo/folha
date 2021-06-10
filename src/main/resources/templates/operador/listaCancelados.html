@@ -10,7 +10,7 @@
 	        	<span class="oi oi-plus" title="Cadastro" aria-hidden="true"></span>
 	            <span>Novo</span>
 	        </a>
-	            <label for="nome" class= "fonte-tutulos-tamanho">Lista de Operadores </label>
+	            <label for="nome" class= "fonte-tutulos-tamanho">Lista de Operadores Cancelados </label>
 	    </nav>
 	  	<div class="container">
 	    	<p>                
@@ -22,7 +22,7 @@
 	      	<div class="col">
 	        	<div class="collapse" id="collapseNome">
 		            <nav class="navbar navbar-light bg-light">
-	    	           <form class="form-inline" method="GET" th:action="@{/operadores/buscar/nome}">
+	    	           <form class="form-inline" method="GET" th:action="@{/operadores/buscar/nome/cancelados}">
 	        	           <input class="form-control mr-sm-2" type="search" placeholder="Nome" aria-label="Search"
 	                              th:name="nome" />
 	                       <button class="btn btn-outline-success my-2 my-sm-0">Buscar</button>
@@ -54,22 +54,14 @@
 		                    <td style="font-size:10px;"  th:text="${d.idPessoaFk != null} ? ${d.idPessoaFk.cpf} : ''  "></td>
 		                    <td style="font-size:10px;"  th:text="${d.username != null} ? ${d.username} : ''  "></td>
 		                    <td colspan="2">
-		                    	<a class="btn btn-outline-info btn-sm" th:href="@{/operadores/editarUsuario/{id} (id=${d.id}) }" role="button">
-		                        	<span class="oi oi-brush" title="Mudar Usuário" aria-hidden="true"></span>
+		                    	<a class="btn btn-outline-success btn-sm" th:href="@{/operadores/restaurar/{id} (id=${d.id}) }" role="button">
+		                        	<span class="oi oi-arrow-top" title="Restaurar" aria-hidden="true">Restaurar</span>
 		                        </a>
 		                        
-		                        <a class="btn btn-outline-warning btn-sm" th:href="@{/operadores/editarSenha/{id} (id=${d.id}) }" role="button">
-		                        	<span class="oi oi-lock-unlocked" title="Mudar Senha" aria-hidden="true"></span>
-		                        </a>
+		                                               
 		                        
-		                        <a class="btn btn-outline-danger btn-sm" th:href="@{/operadores/cancelar/{id} (id=${d.id}) }" role="button">
-		                        	<span class="oi oi-circle-x" title="Cancelar" aria-hidden="true"></span>
-		                        </a>
 		                        
-		                        <button th:id="${ 'btn_operadores/cancelar/' + d.id}" type="button" class="btn btn btn-outline-danger btn-sm" 
-		                            		data-toggle="modal" data-target="#myModal">
-		                                <span class="oi oi-circle-x" title="Exclusão habilitada" aria-hidden="true"></span>
-		                        </button>
+		                        
 		                   	</td>
 						</tr>
 					</tbody>                    
@@ -89,25 +81,25 @@
 			 	<ul class="pagination justify-content-center" >
 			 		<li class="page-item disabled" ></li>		 		
 		
-				 	<li ><a class="btn btn-light btn-paginacao oi oi-media-step-backward" th:if="${currentePage != i}"  th:href="@{'/operadores/paginar/'+ 1 }" ></a></li>
+				 	<li ><a class="btn btn-light btn-paginacao oi oi-media-step-backward" th:if="${currentePage != i}"  th:href="@{'/operadores/paginar/cancelados/'+ 1 }" ></a></li>
 				 	
-				 	<li ><a class="btn btn-light    btn-paginacao    oi oi-media-skip-backward" th:if="${currentePage > 1}"  th:href="@{'/operadores/paginar/'+ ${currentePage -1}}" ></a></li> 
+				 	<li ><a class="btn btn-light    btn-paginacao    oi oi-media-skip-backward" th:if="${currentePage > 1}"  th:href="@{'/operadores/paginar/cancelados/'+ ${currentePage -1}}" ></a></li> 
 				 	
-				 	<li ><a class="btn btn-light    btn-paginacao oi" th:if="${currentePage > 1000}"  th:href="@{'/operadores/paginar/'+ ${currentePage-1000} }" >-1000</a></li>
+				 	<li ><a class="btn btn-light    btn-paginacao oi" th:if="${currentePage > 1000}"  th:href="@{'/operadores/paginar/cancelados/'+ ${currentePage-1000} }" >-1000</a></li>
 				 	
-				 	<li ><a class="btn btn-light    btn-paginacao" th:if="${currentePage > 100}"  th:href="@{'/operadores/paginar/'+ ${currentePage-100} }" >-100</a></li>
+				 	<li ><a class="btn btn-light    btn-paginacao" th:if="${currentePage > 100}"  th:href="@{'/operadores/paginar/cancelados/'+ ${currentePage-100} }" >-100</a></li>
 				 	
-				 	<li ><a class="btn btn-light    btn-paginacao" th:if="${currentePage > 10}"  th:href="@{'/operadores/paginar/'+ ${currentePage-10} }" >-10</a></li>
+				 	<li ><a class="btn btn-light    btn-paginacao" th:if="${currentePage > 10}"  th:href="@{'/operadores/paginar/cancelados/'+ ${currentePage-10} }" >-10</a></li>
 	
-				 	<li ><a class="btn btn-light    btn-paginacao"  th:if="${currentePage < totalPages - 10}"  th:href="@{'/operadores/paginar/'+ ${currentePage+10} }" >+10</a></li>
+				 	<li ><a class="btn btn-light    btn-paginacao"  th:if="${currentePage < totalPages - 10}"  th:href="@{'/operadores/paginar/cancelados/'+ ${currentePage+10} }" >+10</a></li>
 				 	
-				 	<li ><a class="btn btn-light    btn-paginacao"  th:if="${currentePage < totalPages - 100}"  th:href="@{'/operadores/paginar/'+ ${currentePage+100} }" >+100</a></li>
+				 	<li ><a class="btn btn-light    btn-paginacao"  th:if="${currentePage < totalPages - 100}"  th:href="@{'/operadores/paginar/cancelados/'+ ${currentePage+100} }" >+100</a></li>
 				 	
-				 	<li ><a class="btn btn-light    btn-paginacao"  th:if="${currentePage < totalPages - 1000}"  th:href="@{'/operadores/paginar/'+ ${currentePage+1000} }" >+1000</a></li>
+				 	<li ><a class="btn btn-light    btn-paginacao"  th:if="${currentePage < totalPages - 1000}"  th:href="@{'/operadores/paginar/cancelados/'+ ${currentePage+1000} }" >+1000</a></li>
 				 	
-				 	<li ><a class="btn btn-light    btn-paginacao    oi oi-media-skip-forward" th:if="${currentePage < totalPages}"  th:href="@{'/operadores/paginar/' + ${currentePage +1}}"></a> </li>
+				 	<li ><a class="btn btn-light    btn-paginacao    oi oi-media-skip-forward" th:if="${currentePage < totalPages}"  th:href="@{'/operadores/paginar/cancelados/' + ${currentePage +1}}"></a> </li>
 			 		
-			 		<li ><a class="btn btn-light    btn-paginacao    oi oi-media-step-forward"  th:if="${currentePage != i}"  th:href="@{'/operadores/paginar/'+ ${totalPages} }" ></a></li> 
+			 		<li ><a class="btn btn-light    btn-paginacao    oi oi-media-step-forward"  th:if="${currentePage != i}"  th:href="@{'/operadores/paginar/cancelados/'+ ${totalPages} }" ></a></li> 
 			 	</ul>
 			</nav>    
 		

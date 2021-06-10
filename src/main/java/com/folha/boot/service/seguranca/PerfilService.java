@@ -67,6 +67,12 @@ public class PerfilService {
 	}
 	
 	@Transactional(readOnly = true)
+	public void deletarPorPessoa(PessoaOperadores pessoaopOperadores) {
+		// TODO Auto-generated method stub
+		reposytory.deleteByIdOperadorFk( pessoaopOperadores);
+	}
+	
+	@Transactional(readOnly = true)
 	public List<Perfil> buscarPorUnidade( Unidades unidades) {
 		// TODO Auto-generated method stub
 		return reposytory.findByIdUnidadeFkOrderByIdOperadorFkIdPessoaFkNomeAsc(   unidades);

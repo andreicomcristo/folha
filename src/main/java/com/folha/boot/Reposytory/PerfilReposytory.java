@@ -16,6 +16,8 @@ import com.folha.boot.domain.seguranca.Perfil;
 @Repository
 public interface PerfilReposytory extends JpaRepository<Perfil, Long> {
 
+	void deleteByIdOperadorFk(PessoaOperadores pessoaopOperadores);
+	
 	List<Perfil> findFirstByIdOperadorFkAndIdUnidadeFkAndIdGrupoUsuarioFk(PessoaOperadores pessoaopOperadores, Unidades unidades, GrupoUsuario grupoUsuario);
 	
 	List<Perfil> findFirstByIdOperadorFkAndIdUnidadeFk(PessoaOperadores pessoaopOperadores, Unidades unidades);

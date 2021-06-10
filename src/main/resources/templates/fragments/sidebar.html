@@ -814,10 +814,11 @@
 									<ul class="cg-show">
 										<li class="menu-item" sec:authorize= "hasAnyAuthority( 'MASTER' , 'MASTER_RH_UNIDADE' , 'MASTER_RH_SEDE', 'FOLHA_SEDE' )" urlmatch='/pessoas/operador/listar'><a sec:authorize-url="/pessoas/operador/listar" th:href="@{/pessoas/operador/listar}"><span class=" oi oi-chevron-right icones-sidebar-tamanho align-middle"></span>Cadastrar</a></li>
 										<li class="menu-item" sec:authorize= "hasAnyAuthority( 'MASTER' , 'MASTER_RH_UNIDADE' , 'MASTER_RH_SEDE', 'FOLHA_SEDE' )" urlmatch='/operadores/listar'><a sec:authorize-url="/operadores/listar"  th:href="@{/operadores/listar}"><span class=" oi oi-chevron-right icones-sidebar-tamanho align-middle"></span>Listar</a></li>
+										<li class="menu-item" sec:authorize= "hasAnyAuthority( 'MASTER' , 'MASTER_RH_UNIDADE' , 'MASTER_RH_SEDE', 'FOLHA_SEDE' )" urlmatch='/operadores/listar/cancelados'><a sec:authorize-url="/operadores/listar/cancelados"  th:href="@{/operadores/listar/cancelados}"><span class=" oi oi-chevron-right icones-sidebar-tamanho align-middle"></span>Listar Cancelados</a></li>
 									</ul>
 								</li>
 												
-								<li><a  class="ch-btn"><span class=" oi oi-chevron-bottom z85 icones-sidebar-tamanho align-middle"></span>Perfis </a>
+								<li><a  class="ch-btn"><span class=" oi oi-chevron-bottom z85 icones-sidebar-tamanho align-middle"></span>Perfis (Privilégios)</a>
 									<ul class="ch-show">
 										<li class="menu-item" urlmatch='/perfil/operadores/listar'><a sec:authorize-url="/perfil/operadores/listar" th:href="@{/perfil/operadores/listar}"><span class=" oi oi-chevron-right icones-sidebar-tamanho align-middle"></span>Cadastar</a></li>
 										<li class="menu-item" urlmatch='/perfil/listar'><a sec:authorize-url="/perfil/listar" th:href="@{/perfil/listar}"><span class=" oi oi-chevron-right icones-sidebar-tamanho align-middle"></span>Listar</a></li>
@@ -868,10 +869,11 @@
 								<ul class="cj-show">
 									<li class="menu-item" sec:authorize= "hasAnyAuthority( 'MASTER' , 'MASTER_RH_UNIDADE'  )" urlmatch='/pessoas/operador/listar/unidade'><a sec:authorize-url="/pessoas/operador/listar/unidade" th:href="@{/pessoas/operador/listar/unidade}"><span class=" oi oi-chevron-right icones-sidebar-tamanho align-middle"></span>Cadastrar</a></li>
 									<li class="menu-item" sec:authorize= "hasAnyAuthority( 'MASTER' , 'MASTER_RH_UNIDADE'  )" urlmatch='/operadores/listar'><a sec:authorize-url="/operadores/listar" th:href="@{/operadores/listar}"><span class=" oi oi-chevron-right icones-sidebar-tamanho align-middle"></span>Listar</a></li>
+									<li class="menu-item" sec:authorize= "hasAnyAuthority( 'MASTER' , 'MASTER_RH_UNIDADE'  )" urlmatch='/operadores/listar/cancelados'><a sec:authorize-url="/operadores/listar/cancelados"  th:href="@{/operadores/listar/cancelados}"><span class=" oi oi-chevron-right icones-sidebar-tamanho align-middle"></span>Listar Cancelados</a></li>
 								</ul>
 							</li>
 							
-							<li><a  class="ck-btn"><span class=" oi oi-chevron-bottom z88 icones-sidebar-tamanho align-middle"></span>Perfis </a>
+							<li><a  class="ck-btn"><span class=" oi oi-chevron-bottom z88 icones-sidebar-tamanho align-middle"></span>Perfis (Privilégios)</a>
 								<ul class="ck-show">
 									<li class="menu-item" urlmatch='/perfil/operadores/listar'><a sec:authorize-url="/perfil/operadores/listar" th:href="@{/perfil/operadores/listar}"><span class=" oi oi-chevron-right icones-sidebar-tamanho align-middle"></span>Cadastar</a></li>
 									<li class="menu-item" urlmatch='/perfil/listar'><a sec:authorize-url="/perfil/listar" th:href="@{/perfil/listar}"><span class=" oi oi-chevron-right icones-sidebar-tamanho align-middle"></span>Listar</a></li>

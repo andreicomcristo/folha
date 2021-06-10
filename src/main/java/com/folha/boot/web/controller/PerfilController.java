@@ -254,7 +254,7 @@ public class PerfilController {
 		
 		service.salvar(perfil);
 		attr.addFlashAttribute("success", "Inserido com sucesso.");
-		return "redirect:/perfil/cadastrar";
+		return "redirect:/perfil/operadores/listar";
 	}
 	
 	@GetMapping("/editar/{id}")

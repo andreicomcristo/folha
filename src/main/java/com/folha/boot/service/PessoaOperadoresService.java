@@ -22,9 +22,9 @@ public class PessoaOperadoresService {
 	@Autowired
 	private PessoaOperadoresReposytory reposytory;
 	
-	public void salvar(PessoaOperadores pessoaOperadores) {
+	public PessoaOperadores salvar(PessoaOperadores pessoaOperadores) {
 		// TODO Auto-generated method stub
-		reposytory.save(pessoaOperadores);
+		return reposytory.save(pessoaOperadores);
 	}
 
 	
@@ -65,6 +65,42 @@ public class PessoaOperadoresService {
 	}
 
 	
+	
+	public boolean pessoaCadastrada(Pessoa pessoa) {
+		boolean resposta = false;
+		if(!buscarPorPessoa2(pessoa).isEmpty()) {resposta = true;}
+		return resposta;
+	}
+	
+	public List<PessoaOperadores> buscarPorPessoa2(Pessoa pessoa) {
+		// TODO Auto-generated method stub
+		return reposytory.findFirstByIdPessoaFk( pessoa);
+	}
+	
+	
+	public boolean loginCadastrado(String username) {
+		boolean resposta = false;
+		if(!buscarPorUsuario2(username).isEmpty()) {resposta = true;}
+		return resposta;
+	}
+	
+	public boolean loginCadastrado(String username, Pessoa pessoa) {
+		boolean resposta = false;
+		if(!buscarPorUsuario3(username, pessoa).isEmpty()) {resposta = true;}
+		return resposta;
+	}
+	
+	public List<PessoaOperadores> buscarPorUsuario2(String username) {
+		// TODO Auto-generated method stub
+		return reposytory.findFirstByUsername( username);
+	}
+	
+	public List<PessoaOperadores> buscarPorUsuario3(String username, Pessoa pessoa) {
+		// TODO Auto-generated method stub
+		return reposytory.findFirstByUsernameAndIdPessoaFkNot( username, pessoa);
+	}
+	
+	
 	//Dados para listar Pessoas para editar local - unidade
 	@Transactional(readOnly = true)
 	public Page<PessoaOperadores> findPaginated( int pageNo, int pageSize) {
@@ -76,6 +112,21 @@ public class PessoaOperadoresService {
 	public Page<PessoaOperadores> findPaginatedNome( String nome, int pageNo, int pageSize) {
 		Pageable pageable = PageRequest.of(pageNo -1, pageSize);
 		return this.reposytory.findByEnabledAndIdPessoaFkNomeContainingAndDtCancelamentoIsNullOrderByIdPessoaFkNomeAsc( true, nome.toUpperCase().trim(), pageable);
+	}
+	
+	
+	
+	//Listar cancelados
+	@Transactional(readOnly = true)
+	public Page<PessoaOperadores> findPaginatedCancelados( int pageNo, int pageSize) {
+		Pageable pageable = PageRequest.of(pageNo -1, pageSize);
+		return this.reposytory.findByEnabledAndDtCancelamentoIsNotNullOrderByIdPessoaFkNomeAsc( true,  pageable);
+	}
+	
+	@Transactional(readOnly = true)
+	public Page<PessoaOperadores> findPaginatedNomeCancelados( String nome, int pageNo, int pageSize) {
+		Pageable pageable = PageRequest.of(pageNo -1, pageSize);
+		return this.reposytory.findByEnabledAndIdPessoaFkNomeContainingAndDtCancelamentoIsNotNullOrderByIdPessoaFkNomeAsc( true, nome.toUpperCase().trim(), pageable);
 	}
 	
 }

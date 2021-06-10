@@ -181,6 +181,90 @@ public class PessoaOperadoresController {
 	
 	
 	
+	//Inicio da Paginacao para cancelados
+	
+	@GetMapping("/listar/cancelados")
+	public String listarCancelados(ModelMap model) {
+		this.ultimaBuscaNome = "";
+		return this.findPaginatedCancelados(1, model);
+	}
+	
+	@GetMapping("/buscar/nome/cancelados")
+	public String getPorNomeCancelados(@RequestParam("nome") String nome, ModelMap model) {
+		this.ultimaBuscaNome = nome;
+		return this.findPaginatedCancelados(1, nome, model);
+	}
+	
+	@GetMapping("/paginar/cancelados/{pageNo}")
+	public String getPorNomePaginadoCancelados(@PathVariable (value = "pageNo") int pageNo, ModelMap model) {
+		
+		if(pageNo<1) {pageNo=1;}
+		
+		if( (ultimaBuscaNome.equals("")) && (ultimaBuscaNome.equals("")) ){
+			return "redirect:/operadores/listar/cancelados/{pageNo}" ;}
+		else {		
+			if(!ultimaBuscaNome.equals("")) {
+				return this.findPaginatedCancelados(pageNo, ultimaBuscaNome, model);}
+			else {
+				return "redirect:/operadores/listar/cancelados/{pageNo}" ;}
+			}
+	}
+	
+	
+	@GetMapping("/listar/cancelados/{pageNo}")
+	public String findPaginatedCancelados(@PathVariable (value = "pageNo") int pageNo, ModelMap model) {
+		int pageSeze = 50;
+		Page<PessoaOperadores> page = service.findPaginatedCancelados( pageNo, pageSeze);
+		List<PessoaOperadores> lista = page.getContent();
+		return paginarCancelados(pageNo, page, lista, model);
+	}
+
+	public String findPaginatedCancelados(@PathVariable (value = "pageNo") int pageNo, String nome, ModelMap model) {
+		int pageSeze = 50;
+		Page<PessoaOperadores> page = service.findPaginatedNomeCancelados( nome, pageNo, pageSeze);
+		List<PessoaOperadores> lista = page.getContent();
+		return paginarCancelados(pageNo, page, lista, model);
+	}
+	
+	
+	
+	public String paginarCancelados(int pageNo, Page<PessoaOperadores> page, List<PessoaOperadores> lista, ModelMap model) {	
+		model.addAttribute("currentePage", pageNo);
+		model.addAttribute("totalPages", page.getTotalPages());
+		model.addAttribute("totalItems", page.getTotalElements()); 
+		
+		//Retirando os de fora da unidade quando não é Master
+		String grupoUsuarioLogado = "";
+		List<Perfil> listaPerfis = perfilService.buscarPorOperadorEUnidade(usuarioService.pegarOperadorLogado(), usuarioService.pegarUnidadeLogada());
+		if(!listaPerfis.isEmpty()) {
+			grupoUsuarioLogado = listaPerfis.get(0).getIdGrupoUsuarioFk().getNome();
+		}
+		
+		if(!grupoUsuarioLogado.equalsIgnoreCase("MASTER")) {
+			
+			List<PessoaOperadores> listaA = new ArrayList<>();
+			
+			List <Perfil> listaPerfisNaUnidade = perfilService.buscarPorUnidade( usuarioService.pegarUnidadeLogada());
+			for(Perfil p: listaPerfisNaUnidade) {
+				if(!listaA.contains(p.getIdOperadorFk())) {listaA.add(p.getIdOperadorFk());}
+			}
+			
+			model.addAttribute("pessoaOperadores", listaA);
+		}else {
+			model.addAttribute("pessoaOperadores", lista);
+		}
+		
+		
+		return "/operador/listaCancelados";	
+	}
+
+	
+	//Fim da paginação
+	
+	
+	
+	
+	
 	@PostMapping("/salvar")
 	public String salvar(PessoaOperadores operadores, RedirectAttributes attr) {		
 		boolean acaoValida = true;
@@ -195,8 +279,22 @@ public class PessoaOperadoresController {
 		operadores.setDtCadastro(new Date());
 		if(operadores.getEnabled()==null) {operadores.setEnabled(true);}
 		
+		
+		//Olhando se já existe este operador
+		if(operadores.getId()==null) {
+			if(service.pessoaCadastrada(operadores.getIdPessoaFk())==true) {
+				return "redirect:/operadores/mensagem/de/ja/cadastrado/pessoa";
+			}
+			if(service.loginCadastrado(operadores.getUsername())==true) {
+				return "redirect:/operadores/mensagem/de/ja/cadastrado/login";
+			}
+			
+		}
+		
 		if(acaoValida==true) {
-			service.salvar(operadores);
+			PessoaOperadores operadorSalvo = service.salvar(operadores);
+			//Encaminhando para perfil
+			return "redirect:/perfil/cadastrar/"+operadorSalvo.getId();
 		}
 		attr.addFlashAttribute("success", "Inserido com sucesso.");
 		return "redirect:/operadores/cadastrar";
@@ -246,6 +344,10 @@ public class PessoaOperadoresController {
 			return "redirect:/operadores/mensagem/de/dados/incompletos";
 		}
 		
+		if(service.loginCadastrado(operadores.getUsername(), operadores.getIdPessoaFk())) {
+			return "redirect:/operadores/mensagem/de/ja/cadastrado/login";
+		}
+		
 		operadores.setIdOperadorCadastroFk(usuarioService.pegarOperadorLogado());
 		operadores.setDtCadastro(new Date());
 		if(operadores.getEnabled()==null) {operadores.setEnabled(true);}
@@ -277,6 +379,46 @@ public class PessoaOperadoresController {
 		model.addAttribute("success", "Excluído com sucesso.");
 		return listar(model);
 	}
+	
+	
+	@GetMapping("/restaurar/{id}")
+	public String restaurae(@PathVariable("id") Long id, ModelMap model) {
+		
+		PessoaOperadores pessoaOperadores = service.buscarPorId(id);
+		perfilService.deletarPorPessoa(pessoaOperadores);
+		
+		pessoaOperadores.setDtCancelamento(null);
+		pessoaOperadores.setIdOperadorCancelamentoFk(null);
+		pessoaOperadores.setDtCadastro(new Date());
+		pessoaOperadores.setIdOperadorCadastroFk(usuarioService.pegarOperadorLogado());
+		pessoaOperadores.setEnabled(true);
+		
+		service.editar(pessoaOperadores);  
+		model.addAttribute("success", "Excluído com sucesso.");
+		return "redirect:/perfil/cadastrar/"+pessoaOperadores.getId();
+	}
+	
+	
+	@GetMapping("/mensagem/de/ja/cadastrado/pessoa")
+	public String mensagemDePerfilJaCadastradoPessoa(ModelMap model) {	
+		
+		model.addAttribute("atencao", "ATENÇÃO");
+		model.addAttribute("choque", "JÁ Cadastrada");
+		model.addAttribute("mensagem", "Esta Pessoa já existe como operador. Avalie se ela não está na lista dos operadores cancelados.");
+		
+		return "/alertas/jaTemPerfilNaUnidade";
+	}
+	
+	@GetMapping("/mensagem/de/ja/cadastrado/login")
+	public String mensagemDePerfilJaCadastradoLogin(ModelMap model) {	
+		
+		model.addAttribute("atencao", "ATENÇÃO");
+		model.addAttribute("choque", "JÁ Cadastrado");
+		model.addAttribute("mensagem", "Este Login já está sendo usado. Tente outro.");
+		
+		return "/alertas/jaTemPerfilNaUnidade";
+	}
+	
 	
 	@GetMapping("/mensagem/de/ja/cadastrado")
 	public String mensagemDePerfilJaCadastrado(ModelMap model) {	
