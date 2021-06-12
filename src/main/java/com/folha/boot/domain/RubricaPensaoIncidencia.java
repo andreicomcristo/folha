@@ -9,6 +9,8 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
+import com.folha.boot.service.util.UtilidadesDeTexto;
+
 @SuppressWarnings("serial")
 @Entity
 @Table(name = "rubrica_pensao_incidencia")
@@ -16,6 +18,8 @@ public class RubricaPensaoIncidencia extends AbstractEntity<Long> {
 
 	@Column(name = "nome")
     private String nome;
+	@Column(name = "sigla")
+    private String sigla;
     @OneToMany(mappedBy = "idIncidenciaFk")
     private List<RubricaPensao> rubricaPensaoList;
 
@@ -27,7 +31,7 @@ public class RubricaPensaoIncidencia extends AbstractEntity<Long> {
 	}
 
 	public void setNome(String nome) {
-		this.nome = nome;
+		this.nome = UtilidadesDeTexto.retiraEspacosDuplosAcentosEConverteEmMaiusculo(nome);
 	}
 
 	public List<RubricaPensao> getRubricaPensaoList() {
@@ -36,6 +40,14 @@ public class RubricaPensaoIncidencia extends AbstractEntity<Long> {
 
 	public void setRubricaPensaoList(List<RubricaPensao> rubricaPensaoList) {
 		this.rubricaPensaoList = rubricaPensaoList;
+	}
+
+	public String getSigla() {
+		return sigla;
+	}
+
+	public void setSigla(String sigla) {
+		this.sigla = UtilidadesDeTexto.retiraEspacosDuplosAcentosEConverteEmMaiusculo(sigla);
 	}
     
     

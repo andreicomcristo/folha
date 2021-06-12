@@ -33,6 +33,8 @@ import com.folha.boot.domain.Pessoa;
 import com.folha.boot.domain.PessoaFuncionarios;
 import com.folha.boot.domain.RubricaPensao;
 import com.folha.boot.domain.RubricaPensaoDependente;
+import com.folha.boot.domain.RubricaPensaoIncidencia;
+import com.folha.boot.domain.SimNao;
 import com.folha.boot.service.AnoMesService;
 import com.folha.boot.service.BancosService;
 import com.folha.boot.service.CargaHorariaSemanalService;
@@ -41,7 +43,9 @@ import com.folha.boot.service.FonteService;
 import com.folha.boot.service.PessoaFuncionariosService;
 import com.folha.boot.service.PessoaService;
 import com.folha.boot.service.RubricaPensaoDependenteService;
+import com.folha.boot.service.RubricaPensaoIncidenciaService;
 import com.folha.boot.service.RubricaPensaoService;
+import com.folha.boot.service.SimNaoService;
 import com.folha.boot.service.TipoBrutoLiquidoService;
 import com.folha.boot.service.seguranca.UsuarioService;
 
@@ -68,7 +72,9 @@ public class RubricaPensaoController {
 	@Autowired
 	private AnoMesService anoMesService;
 	@Autowired
-	private FonteService fonteService;
+	private RubricaPensaoIncidenciaService rubricaPensaoIncidenciaService;
+	@Autowired
+	private SimNaoService simNaoService;
 	@Autowired
 	private TipoBrutoLiquidoService tipoBrutoLiquidoService;
 	@Autowired
@@ -383,6 +389,16 @@ public class RubricaPensaoController {
 	@ModelAttribute("idFuncionarioFk")
 	public List<PessoaFuncionarios> getPessoaFuncionarios() {
 		return pessoaFuncionariosService.buscarTodos();
+	}
+	
+	@ModelAttribute("idIncidenciaFk")
+	public List<RubricaPensaoIncidencia> getIdIncidenciaFk() {
+		return rubricaPensaoIncidenciaService.buscarTodos();
+	}
+	
+	@ModelAttribute("idEfetuarCalculoSimNaoFk")
+	public List<SimNao> getIdEfetuarCalculoSimNaoFk() {
+		return simNaoService.buscarTodos();
 	}
 
 	@Autowired

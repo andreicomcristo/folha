@@ -24,6 +24,7 @@ import com.folha.boot.Reposytory.RubricaPensaoReposytory;
 import com.folha.boot.domain.AnoMes;
 import com.folha.boot.domain.Pessoa;
 import com.folha.boot.domain.RubricaPensao;
+import com.folha.boot.domain.RubricaPensaoDependente;
 import com.itextpdf.text.Document;
 import com.itextpdf.text.DocumentException;
 import com.itextpdf.text.Element;
@@ -41,11 +42,13 @@ public class RubricaPensaoService {
 	@Autowired
 	private RubricaPensaoReposytory reposytory;	
 	@Autowired
+	private RubricaPensaoDependenteService rubricaPensaoDependenteService;
+	@Autowired
 	private AnoMesService anoMesService;
 
-	public void salvar(RubricaPensao rubricaPensao) {
+	public RubricaPensao salvar(RubricaPensao rubricaPensao) {
 		// TODO Auto-generated method stub
-		reposytory.save(rubricaPensao);
+		return reposytory.save(rubricaPensao);
 	}
 
 	public void editar(RubricaPensao rubricaPensao) {
@@ -134,6 +137,7 @@ public class RubricaPensaoService {
 		List<RubricaPensao> listaInicial = buscarPorMesExato(anoMesService.buscarPorId(anoMesInicial)); 
 		List<RubricaPensao> listaFinal = buscarPorMesExato(anoMesService.buscarPorId(anoMesFinal));
 		
+		//Rubrica Pensao
 		if( (!listaInicial.isEmpty())  &&  (listaFinal.isEmpty()) ) {
 			for(int i=0;i<listaInicial.size();i++) {
 				RubricaPensao f = new RubricaPensao();
@@ -150,9 +154,32 @@ public class RubricaPensaoService {
 				f.setObservacao(listaInicial.get(i).getObservacao());
 				f.setOperacaoVariacao(listaInicial.get(i).getOperacaoVariacao());
 				f.setPercentagem(listaInicial.get(i).getPercentagem());
+				f.setIdIncidenciaFk(listaInicial.get(i).getIdIncidenciaFk());
+				f.setIdEfetuarCalculoSimNaoFk(listaInicial.get(i).getIdEfetuarCalculoSimNaoFk());
+				
 				f.setValor(listaInicial.get(i).getValor());
 				
-				salvar(f);
+				RubricaPensao rubricaPensaoSalva = salvar(f);
+				
+				
+				//Dependentes
+				List<RubricaPensaoDependente> listaDependentes = rubricaPensaoDependenteService.buscarPensao(listaInicial.get(i));
+				
+				for(int j=0;j<listaDependentes.size();j++) {
+					RubricaPensaoDependente d = new RubricaPensaoDependente();
+					d.setId(null);
+					d.setIdRubricaPensaoFk(rubricaPensaoSalva);
+					d.setCertidaoNascimento( listaDependentes.get(j).getCertidaoNascimento() );
+					d.setCpf( listaDependentes.get(j).getCpf() );
+					d.setDtCertidao( listaDependentes.get(j).getDtCertidao() );
+					d.setDtNascimento( listaDependentes.get(i).getDtNascimento() );
+					d.setNome(listaDependentes.get(i).getNome());
+					d.setObservacao(listaDependentes.get(i).getObservacao());
+					d.setRg(listaDependentes.get(i).getRg());
+					
+					rubricaPensaoDependenteService.salvar(d);
+				}	
+				
 			}
 		}
 	}

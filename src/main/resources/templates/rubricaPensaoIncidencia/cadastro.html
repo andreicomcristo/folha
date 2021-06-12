@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html layout:decorate="~{layout}">
+<head><meta charset="UTF-8"/></head>
+<body>
+	<section class="layout-content" layout:fragment="corpo">
+
+		<nav class="navbar navbar-expand-md bg-light">
+			<form th:action="@{/rubricaPensaoIncidencia/listar}">
+				<div class=" layout-content">
+			        <a class="btn btn-outline-light oi oi-action-undo" type="button" href="javascript:history.back()"></a>
+					<a class="btn btn-outline-light oi oi-action-redo" type="button" href="javascript:history.forward()"></a>    
+					<button class="btn btn-outline-dark" >Listar</button>
+					<a class="btn btn-outline-dark btn-md" th:href="@{/rubricaPensaoIncidencia/cadastrar}"
+						role="button"> <span class="oi oi-plus" title="Cadastro"
+						aria-hidden="true"></span> <span>Novo</span>
+					</a>
+				</div>
+			</form>
+		</nav>
+
+		<div class="container" id="cadastro">
+
+			<div th:replace="fragments/alert"></div>
+			<form
+				th:action="${rubricaPensaoIncidencia.id == null} ? @{/rubricaPensaoIncidencia/salvar} : @{/rubricaPensaoIncidencia/editar}"
+				th:object="${rubricaPensaoIncidencia}" method="POST">
+				<div class="form-row">
+
+					<div class="form-group col-md-6">
+						<label for="nome" class="fonte-tutulos-tamanho">Cadastro de Rubrica Pensao Incidencia</label>
+							
+							<label for="nome" class="">Incidência </label>
+							<input type="text"
+								class="form-control form-control-md" autofocus="autofocus"
+								id="nome" placeholder="Incidencia" th:field="*{nome}" /> 
+							<p></p>
+							
+							<label for="nome" class="">Sigla </label>
+							<input type="text"
+								class="form-control form-control-md" autofocus="autofocus"
+								id="sigla" placeholder="Sigla" th:field="*{Sigla}" /> 
+							<p></p>
+							
+							
+							<input type="hidden" id="id" th:field="*{id}" />
+								<p></p>					
+						<button class="btn btn-outline-dark">Cadastrar</button>
+					</div>
+				</div>
+			</form>
+		</div>
+	</section>
+</body>
+</html>
