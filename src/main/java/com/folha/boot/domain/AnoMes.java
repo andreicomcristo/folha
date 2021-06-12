@@ -105,6 +105,9 @@ public class AnoMes extends AbstractEntity<Long> {
     @OneToMany(mappedBy = "idAnoMesFk")
     private List<RubricaVencimento> rubricaVencimentoList;
     
+    @OneToMany(mappedBy = "idAnoMesFk")
+    private List<SalarioMinimo> salarioMinimoList;
+    
 	public String getNomeAnoMes() {
 		return nomeAnoMes;
 	}
@@ -337,6 +340,12 @@ public class AnoMes extends AbstractEntity<Long> {
 	public void setIncrementoDeRiscoUnidadeCargoList(
 			List<IncrementoDeRiscoUnidadeCargo> incrementoDeRiscoUnidadeCargoList) {
 		this.incrementoDeRiscoUnidadeCargoList = incrementoDeRiscoUnidadeCargoList;
+	}
+	public List<SalarioMinimo> getSalarioMinimoList() {
+		return salarioMinimoList;
+	}
+	public void setSalarioMinimoList(List<SalarioMinimo> salarioMinimoList) {
+		this.salarioMinimoList = salarioMinimoList;
 	}
 		
 	

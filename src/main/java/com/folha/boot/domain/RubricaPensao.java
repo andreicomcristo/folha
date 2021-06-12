@@ -55,6 +55,13 @@ public class RubricaPensao extends AbstractEntity<Long> {
     @ManyToOne
     private PessoaOperadores idOperadorCancelamentoFk;
     
+    @JoinColumn(name = "id_incidencia_fk", referencedColumnName = "id")
+    @ManyToOne
+    private RubricaPensaoIncidencia idIncidenciaFk;
+    @JoinColumn(name = "id_efetuar_calculo_sim_nao_fk", referencedColumnName = "id")
+    @ManyToOne
+    private SimNao idEfetuarCalculoSimNaoFk;
+    
     public RubricaPensao() {
     }
 
@@ -195,5 +202,22 @@ public class RubricaPensao extends AbstractEntity<Long> {
 	public void setIdOperadorCancelamentoFk(PessoaOperadores idOperadorCancelamentoFk) {
 		this.idOperadorCancelamentoFk = idOperadorCancelamentoFk;
 	}
+
+	public RubricaPensaoIncidencia getIdIncidenciaFk() {
+		return idIncidenciaFk;
+	}
+
+	public void setIdIncidenciaFk(RubricaPensaoIncidencia idIncidenciaFk) {
+		this.idIncidenciaFk = idIncidenciaFk;
+	}
+
+	public SimNao getIdEfetuarCalculoSimNaoFk() {
+		return idEfetuarCalculoSimNaoFk;
+	}
+
+	public void setIdEfetuarCalculoSimNaoFk(SimNao idEfetuarCalculoSimNaoFk) {
+		this.idEfetuarCalculoSimNaoFk = idEfetuarCalculoSimNaoFk;
+	}
+	
 	
 }
