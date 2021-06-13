@@ -9,10 +9,10 @@ import com.folha.boot.domain.PessoaFuncionarios;
 @Repository
 public interface FuncionariosFeriasReposytory extends JpaRepository<FuncionariosFerias, Long> {
 
-	public List<FuncionariosFerias> findAllByOrderByAnoReferenciaAsc();
+	public List<FuncionariosFerias> findByDtCancelamentoIsNullOrderByAnoReferenciaDesc();
 
-	public List<FuncionariosFerias> findByAnoReferenciaContainingOrderByAnoReferenciaAsc(String anoReferencia);
+	public List<FuncionariosFerias> findByAnoReferenciaContainingAndDtCancelamentoIsNullOrderByAnoReferenciaDesc(String anoReferencia);
 	
-	public List<FuncionariosFerias> findByIdFuncionarioFk(PessoaFuncionarios funcionario);
+	public List<FuncionariosFerias> findByIdFuncionarioFkAndDtCancelamentoIsNullOrderByAnoReferenciaDesc(PessoaFuncionarios funcionario);
 	
 }

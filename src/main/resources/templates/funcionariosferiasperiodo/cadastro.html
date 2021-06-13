@@ -109,10 +109,10 @@
 		            	<tr th:each="p : ${funcionariosFeriasPeriodosLista}">
 		                	<td style="font-size:10px;"  th:text="${p.id}"></td>
 				            <td style="font-size:10px;"  th:text="${p.anoReferencia != null} ? ${p.anoReferencia} : ''  "></td>		                    
-				            <td style="font-size:10px;"  th:text="${p.dtInicial != null} ? ${p.dtInicial} : ''  "></td>
-				            <td style="font-size:10px;"  th:text="${p.dtFinal != null} ? ${p.dtFinal} : ''  "></td>
+				            <td style="font-size:10px;"  th:text="${p.dtInicial != null} ? ${#dates.format( p.dtInicial , 'dd/MM/yyyy' )} : ''  "></td>
+				            <td style="font-size:10px;"  th:text="${p.dtFinal != null} ? ${ #dates.format( p.dtFinal , 'dd/MM/yyyy' ) } : ''  "></td>
 				            <td style="font-size:10px;"  th:text="${p.dias != null} ? ${p.dias} : ''  "></td>
-				            <td style="font-size:10px;"  th:text="${p.dtAssinatura != null} ? ${p.dtAssinatura} : ''  "></td>                    		           		                  	                    		                     		         		                    
+				            <td style="font-size:10px;"  th:text="${p.dtAssinatura != null} ? ${#dates.format( p.dtAssinatura , 'dd/MM/yyyy' )} : ''  "></td>                    		           		                  	                    		                     		         		                    
 		                    <td colspan="2">
 		                    	<a class="btn btn-outline-info btn-sm" th:href="@{/funcionariosferias/periodos/editar/{id} (id=${p.id}) }" role="button">
 		                        	<span class="oi oi-brush" title="Editar" aria-hidden="true"></span>

@@ -54,7 +54,7 @@ public class FuncionariosFeriasPeriodosService {
 	public List<FeriasPeriodosDias> buscarPorFuncionarioComDias(PessoaFuncionarios funcionario){
 		// TODO Auto-generated method stub
 		List<FeriasPeriodosDias> lista = new ArrayList<>();
-		List <FuncionariosFeriasPeriodos> listaInicial = reposytory.findByIdFeriasFkIdFuncionarioFkAndDtCancelamentoIsNullOrderByDtInicialDesc(funcionario);
+		List <FuncionariosFeriasPeriodos> listaInicial = reposytory.findByIdFeriasFkIdFuncionarioFkAndDtCancelamentoIsNullOrderByDtFinalDesc(funcionario);
 		
 		for(FuncionariosFeriasPeriodos p : listaInicial) {
 			FeriasPeriodosDias feriasPeriodosDias = new FeriasPeriodosDias();
@@ -64,9 +64,12 @@ public class FuncionariosFeriasPeriodosService {
 			feriasPeriodosDias.setDtFinal(p.getDtFinal());
 			feriasPeriodosDias.setDtInicial(p.getDtInicial());
 			
-			long momentoInicial = p.getDtInicial().getTime();
-			long momentoFinal = p.getDtFinal().getTime();
-			Long dias = (momentoFinal-momentoInicial) / 1000 / 60 / 60 / 24 ;
+			Long dias = 0l;
+			if(feriasPeriodosDias.getDtInicial()!=null && feriasPeriodosDias.getDtFinal()!=null ) {
+				long momentoInicial = p.getDtInicial().getTime();
+				long momentoFinal = p.getDtFinal().getTime();
+				dias = (momentoFinal-momentoInicial) / 1000 / 60 / 60 / 24 ;
+			}
 			feriasPeriodosDias.setDias(dias);
 			
 			lista.add(feriasPeriodosDias);
@@ -80,7 +83,7 @@ public class FuncionariosFeriasPeriodosService {
 	public List<FeriasPeriodosDias> buscarPorFeriasComDias(FuncionariosFerias funcionariosFerias){
 		// TODO Auto-generated method stub
 		List<FeriasPeriodosDias> lista = new ArrayList<>();
-		List <FuncionariosFeriasPeriodos> listaInicial = reposytory.findByIdFeriasFkAndDtCancelamentoIsNullOrderByDtInicialDesc(funcionariosFerias);
+		List <FuncionariosFeriasPeriodos> listaInicial = reposytory.findByIdFeriasFkAndDtCancelamentoIsNullOrderByDtFinalDesc(funcionariosFerias);
 		
 		for(FuncionariosFeriasPeriodos p : listaInicial) {
 			FeriasPeriodosDias feriasPeriodosDias = new FeriasPeriodosDias();
@@ -90,9 +93,12 @@ public class FuncionariosFeriasPeriodosService {
 			feriasPeriodosDias.setDtFinal(p.getDtFinal());
 			feriasPeriodosDias.setDtInicial(p.getDtInicial());
 			
-			long momentoInicial = p.getDtInicial().getTime();
-			long momentoFinal = p.getDtFinal().getTime();
-			Long dias = (momentoFinal-momentoInicial) / 1000 / 60 / 60 / 24 ;
+			Long dias = 0l;
+			if(feriasPeriodosDias.getDtInicial()!=null && feriasPeriodosDias.getDtFinal()!=null ) {
+				long momentoInicial = p.getDtInicial().getTime();
+				long momentoFinal = p.getDtFinal().getTime();
+				dias = (momentoFinal-momentoInicial) / 1000 / 60 / 60 / 24 ;
+			}
 			feriasPeriodosDias.setDias(dias);
 			
 			lista.add(feriasPeriodosDias);

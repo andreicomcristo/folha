@@ -116,10 +116,10 @@
 				            	<tr th:each="d : ${funcionariosFeriasPeriodos}">
 				                	<td style="font-size:10px;"  th:text="${d.id}"></td>
 				                	<td style="font-size:10px;"  th:text="${d.anoReferencia != null} ? ${d.anoReferencia} : ''  "></td>		                    
-				                	<td style="font-size:10px;"  th:text="${d.dtInicial != null} ? ${d.dtInicial} : ''  "></td>
-				                	<td style="font-size:10px;"  th:text="${d.dtFinal != null} ? ${d.dtFinal} : ''  "></td>
+				                	<td style="font-size:10px;"  th:text="${d.dtInicial != null} ? ${#dates.format( d.dtInicial , 'dd/MM/yyyy' )} : ''  "></td>
+				                	<td style="font-size:10px;"  th:text="${d.dtFinal != null} ? ${#dates.format( d.dtFinal , 'dd/MM/yyyy' )} : ''  "></td>
 				                	<td style="font-size:10px;"  th:text="${d.dias != null} ? ${d.dias} : ''  "></td>
-				                	<td style="font-size:10px;"  th:text="${d.dtAssinatura != null} ? ${d.dtAssinatura} : ''  "></td>
+				                	<td style="font-size:10px;"  th:text="${d.dtAssinatura != null} ? ${#dates.format( d.dtAssinatura , 'dd/MM/yyyy' )} : ''  "></td>
 				                    		                    		           		                  	                    		                     		         		                    
 				                    <td colspan="2">
 				                    	<a class="btn btn-outline-info btn-sm" th:href="@{/funcionariosferias/periodos/editar/{id} (id=${d.id})}" role="button">

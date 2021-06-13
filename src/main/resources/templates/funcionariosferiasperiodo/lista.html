@@ -57,9 +57,10 @@
 		                	<td th:text="${d.id}"></td>
 							<td th:text="${d.idFeriasFk.idFuncionarioFk.idPessoaFk.nome}"></td>		                			                    
 							<td th:text="${d.idFeriasFk.anoReferencia}"></td>
-		                    <td th:text="${d.dtInicial}"></td>
-		                    <td th:text="${d.dtFinal}"></td>
-		                    <td th:text="${d.dtAssinatura}"></td>
+		                    <td th:text="${#dates.format( d.dtInicial , 'dd/MM/yyyy' )}"></td>
+		                    <td th:text="${#dates.format( d.dtFinal , 'dd/MM/yyyy' )}"></td>
+		                    <td th:text="${#dates.format( d.dtAssinatura , 'dd/MM/yyyy' )}"></td>
+		                    
 		                   
 		                    <td th:text="${d.idFeriasFk.anoReferencia}"></td>		           		                  	                    		                     		         		                    
 		                    <td colspan="2">

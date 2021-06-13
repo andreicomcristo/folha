@@ -40,16 +40,16 @@ public class FuncionariosFeriasService {
 	@Transactional(readOnly = true)
 	public List<FuncionariosFerias> buscarTodos() {
 		// TODO Auto-generated method stub
-		return reposytory.findAllByOrderByAnoReferenciaAsc();
+		return reposytory.findByDtCancelamentoIsNullOrderByAnoReferenciaDesc();
 	}
 	
 	public List<FuncionariosFerias> buscarPorAnoReferencia(String anoReferencia) {
-		return reposytory.findByAnoReferenciaContainingOrderByAnoReferenciaAsc(anoReferencia);
+		return reposytory.findByAnoReferenciaContainingAndDtCancelamentoIsNullOrderByAnoReferenciaDesc(anoReferencia);
 	}
 	
 	public List<FuncionariosFerias> buscarFuncionario(PessoaFuncionarios funcionario) {
 		// TODO Auto-generated method stub
-		return reposytory.findByIdFuncionarioFk(funcionario);
+		return reposytory.findByIdFuncionarioFkAndDtCancelamentoIsNullOrderByAnoReferenciaDesc(funcionario);
 	}
 
 }
