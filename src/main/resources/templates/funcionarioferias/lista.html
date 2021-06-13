@@ -23,7 +23,9 @@
 	    </nav>
 	  	<div class="container">
 
-	  		<td style="font-size:11px;"  th:text="${d.idPessoaFk.nome}"></td>
+	  		<td style="font-size:11px;"  th:text="${d.idPessoaFk.nome +' | '}"></td>
+	  		<td style="font-size:11px;"  th:text="${d.idPessoaFk.cpf +' | '}"></td>
+	  		<td style="font-size:11px;"  th:text="${d.matricula +' | '}"></td>
 			<td style="font-size:11px;"  th:text="${d.idEspecialidadeAtualFk.idCargoFk.nomeCargo+'-'+d.idEspecialidadeAtualFk.nomeEspecialidadeCargo}"></td> 
 			<td colspan="2"> 
 	    	
@@ -47,22 +49,24 @@
 	    	</div>
 	    </div> 
 	    
-	    <div class="container" id="listagem">	        
+	    <div class="container" id="listagem">	  
+	    
+	          
 	    	<div th:replace="fragments/alert"></div>
 	    	
 	        <div style="height: 500px; overflow-y: auto;" class="table-responsive">
-	        	<table class="table table-striped table-hover table-sm myTable">
+	        	<table style="width: 1270px;" class="table table-striped table-hover table-sm myTable">
 	            	<thead>
 	          			<tr>
-		                	<th>#</th>
-		                    <th>Ano Referência </th>
-		                    <th>Ações</th>
+		                	<th style="font-size:10px;" >#</th>
+		                    <th style="font-size:10px;" >Ano Referência </th>
+		                    <th style="font-size:10px;" >Ações</th>
 	                    </tr>
 	                </thead>                  
 	                <tbody>
 		            	<tr th:each="d : ${funcionariosFerias}">
-		                	<td th:text="${d.id}"></td>
-		                	<td ><a th:href="@{/funcionariosferias/periodos/{id} (id=${d.id}) }" ><span th:text="${d.anoReferencia}"></span></a></td>		                    
+		                	<td style="font-size:10px;"  th:text="${d.id}"></td>
+		                	<td style="font-size:10px;"  ><a th:href="@{/funcionariosferias/periodos/{id} (id=${d.id}) }" ><span th:text="${d.anoReferencia}"></span></a></td>		                    
 		                    		                    		           		                  	                    		                     		         		                    
 		                    <td colspan="2">
 		                    	<a class="btn btn-outline-info btn-sm" th:href="@{/funcionariosferias/editar/{id} (id=${d.id})}" role="button">
@@ -80,7 +84,81 @@
 					</tbody>                    
 	            </table>
 	         </div>
-		</div>	        
+	         
+	         
+	         
+	         
+	         
+	         
+	         	         	
+		<p>                
+	    	<button class=" oi oi-magnifying-glass btn btn-outline-warning my-2 my-sm-0" type="button" data-toggle="collapse" data-target="#collapsePeriodos"
+	        	aria-controls="collapsePeriodos">Ver Períodos
+	        </button>
+	   	</p>
+			
+			
+			
+			
+		<div class="col">
+	    	<div class="collapse" id="collapsePeriodos">
+		   
+				<div class="container" id="listagem">	        
+			    	<div th:replace="fragments/alert"></div>
+			    	
+			        <div style="height: 500px; overflow-y: auto;" class="table-responsive">
+			        	<table style="width: 1200px;" class="table table-striped table-hover table-sm myTable">
+			            	<thead>
+			          			<tr>
+				                	<th style="font-size:10px;" >#</th>
+				                    <th style="font-size:10px;" >Ano </th>
+				                    <th style="font-size:10px;" >Data Inicial </th>
+				                    <th style="font-size:10px;" >Data Final </th>
+				                    <th style="font-size:10px;" >Dias </th>
+				                    <th style="font-size:10px;" >Data Assinatura </th>
+				                    
+				                    <th style="font-size:10px;" >Ações</th>
+			                    </tr>
+			                </thead>                  
+			                <tbody>
+				            	<tr th:each="d : ${funcionariosFeriasPeriodos}">
+				                	<td style="font-size:10px;"  th:text="${d.id}"></td>
+				                	<td style="font-size:10px;"  th:text="${d.anoReferencia != null} ? ${d.anoReferencia} : ''  "></td>		                    
+				                	<td style="font-size:10px;"  th:text="${d.dtInicial != null} ? ${d.dtInicial} : ''  "></td>
+				                	<td style="font-size:10px;"  th:text="${d.dtFinal != null} ? ${d.dtFinal} : ''  "></td>
+				                	<td style="font-size:10px;"  th:text="${d.dias != null} ? ${d.dias} : ''  "></td>
+				                	<td style="font-size:10px;"  th:text="${d.dtAssinatura != null} ? ${d.dtAssinatura} : ''  "></td>
+				                    		                    		           		                  	                    		                     		         		                    
+				                    <td colspan="2">
+				                    	<a class="btn btn-outline-info btn-sm" th:href="@{/funcionariosferias/periodos/editar/{id} (id=${d.id})}" role="button">
+				                        	<span class="oi oi-brush" title="Editar" aria-hidden="true"></span>
+				                        </a>
+				                        
+				                   	</td>
+								</tr>
+							</tbody>                    
+			            </table>
+			         </div>
+				</div>	
+		
+		   </div>
+	   </div>
+	         
+	         
+	         
+	         
+	         
+	         
+	         
+		</div>	      
+		
+		
+		
+		
+		
+		
+		
+			  
 	        <div th:replace="fragments/modal :: modal"></div>   
 	</section>	
 </body>
