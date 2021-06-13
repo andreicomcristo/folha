@@ -35,7 +35,9 @@
 
 		<div class="container" id="cadastro">
 			<tr th:each="f : ${ferias}"> 
-			    <td style="font-size:11px;"  th:text="${f.idFuncionarioFk.idPessoaFk.nome}"></td>
+			    <td style="font-size:11px;"  th:text="${f.idFuncionarioFk.idPessoaFk.nome +' | '}"></td>
+			    <td style="font-size:11px;"  th:text="${f.idFuncionarioFk.idPessoaFk.cpf +' | '}"></td>
+			    <td style="font-size:11px;"  th:text="${f.idFuncionarioFk.matricula +' | '}"></td>
 			    <td style="font-size:11px;"  th:text="${f.idFuncionarioFk.idEspecialidadeAtualFk.idCargoFk.nomeCargo+'-'+f.idFuncionarioFk.idEspecialidadeAtualFk.nomeEspecialidadeCargo}"></td>
 			   <!--  <td style="font-size:11px;"  th:text="${f.anoReferencia}"></td> --> 
 			    <td colspan="2">
@@ -53,10 +55,10 @@
 								class="form-control form-control-md calendario1"
 								id="descricao" placeholder="Data Inicial" th:field="*{dtInicial}" />	
 								<div class="btn-group hge-button-group" role="group" aria-label="Basic example">
-								  <button type="button" class="btn btn-secondary botao-ferias botao-ferias-5" dias="5">5 dias</button>
 								  <button type="button" class="btn btn-secondary botao-ferias botao-ferias-10" dias="10">10 dias</button>
 								  <button type="button" class="btn btn-secondary botao-ferias botao-ferias-15" dias="15">15 dias</button>
 								  <button type="button" class="btn btn-secondary botao-ferias botao-ferias-20" dias="20">20 dias</button>
+								  <button type="button" class="btn btn-secondary botao-ferias botao-ferias-30" dias="30">30 dias</button>
 								</div>					
 							<p></p>
 							
@@ -68,7 +70,7 @@
 
 							<label for="nome" class="">Data Assinatura </label>
 							<input type="text"
-								class="form-control form-control-md"
+								class="form-control form-control-md" data-mask="00/00/0000"
 								id="instituicao" placeholder="Data de Assinatura" th:field="*{dtAssinatura}" />						
 							<p></p>
 												
@@ -86,22 +88,31 @@
 					</div>
 				</div>
 			</form>
+			
+			
+			
 			<div style="height: 500px; overflow-y: auto;" class="table-responsive">
 	        	<table class="table table-striped table-hover table-sm myTable">
 	            	<thead>
 	          			<tr>
-		                	<th>#</th>
-		                    <th>Data Inicial </th>
-		                    <th>Data Final</th>
-		                    <th>Data Assinatura</th>
+		                	<th style="font-size:10px;" >#</th>
+				            <th style="font-size:10px;" >Ano </th>
+				            <th style="font-size:10px;" >Data Inicial </th>
+				            <th style="font-size:10px;" >Data Final </th>
+				            <th style="font-size:10px;" >Dias </th>
+				            <th style="font-size:10px;" >Data Assinatura </th>
+				                    
+				            <th style="font-size:10px;" >Ações</th>
 	                    </tr>
 	                </thead>                  
 	                <tbody>
-		            	<tr th:each="p : ${periodos}">
-		                	<td th:text="${p.id}"></td>		                    
-		                    <td th:text="${p.dtInicial}"></td>
-		                    <td th:text="${p.dtFinal}"></td>
-		                    <td th:text="${p.dtAssinatura}"></td>		                    		           		                  	                    		                     		         		                    
+		            	<tr th:each="p : ${funcionariosFeriasPeriodosLista}">
+		                	<td style="font-size:10px;"  th:text="${p.id}"></td>
+				            <td style="font-size:10px;"  th:text="${p.anoReferencia != null} ? ${p.anoReferencia} : ''  "></td>		                    
+				            <td style="font-size:10px;"  th:text="${p.dtInicial != null} ? ${p.dtInicial} : ''  "></td>
+				            <td style="font-size:10px;"  th:text="${p.dtFinal != null} ? ${p.dtFinal} : ''  "></td>
+				            <td style="font-size:10px;"  th:text="${p.dias != null} ? ${p.dias} : ''  "></td>
+				            <td style="font-size:10px;"  th:text="${p.dtAssinatura != null} ? ${p.dtAssinatura} : ''  "></td>                    		           		                  	                    		                     		         		                    
 		                    <td colspan="2">
 		                    	<a class="btn btn-outline-info btn-sm" th:href="@{/funcionariosferias/periodos/editar/{id} (id=${p.id}) }" role="button">
 		                        	<span class="oi oi-brush" title="Editar" aria-hidden="true"></span>
@@ -116,6 +127,9 @@
 					</tbody>                    
 	            </table>
 	         </div>
+	         
+	         
+	         
 		</div>
 		<div th:replace="fragments/modal :: modal"></div>
 		<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.min.js" integrity="sha256-VazP97ZCwtekAsvgPBSUwPFKdrwD3unUfSGVYrahUqU=" crossorigin="anonymous"></script>

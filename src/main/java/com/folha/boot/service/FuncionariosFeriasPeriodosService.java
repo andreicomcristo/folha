@@ -1,5 +1,6 @@
 package com.folha.boot.service;
 
+import java.util.ArrayList;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -7,6 +8,8 @@ import org.springframework.transaction.annotation.Transactional;
 import com.folha.boot.Reposytory.FuncionariosFeriasPeriodosReposytory;
 import com.folha.boot.domain.FuncionariosFerias;
 import com.folha.boot.domain.FuncionariosFeriasPeriodos;
+import com.folha.boot.domain.PessoaFuncionarios;
+import com.folha.boot.domain.models.outros.FeriasPeriodosDias;
 
 @Service
 @Transactional(readOnly = false)
@@ -44,6 +47,57 @@ public class FuncionariosFeriasPeriodosService {
 	@Transactional(readOnly = true)
 	public List<FuncionariosFeriasPeriodos> buscarFerias(FuncionariosFerias ferias){
 		// TODO Auto-generated method stub
-		return reposytory.findByIdFeriasFk(ferias);
+		return reposytory.findByIdFeriasFkOrderByDtInicialAsc(ferias);
 	}
+	
+	@Transactional(readOnly = true)
+	public List<FeriasPeriodosDias> buscarPorFuncionarioComDias(PessoaFuncionarios funcionario){
+		// TODO Auto-generated method stub
+		List<FeriasPeriodosDias> lista = new ArrayList<>();
+		List <FuncionariosFeriasPeriodos> listaInicial = reposytory.findByIdFeriasFkIdFuncionarioFkAndDtCancelamentoIsNullOrderByDtInicialDesc(funcionario);
+		
+		for(FuncionariosFeriasPeriodos p : listaInicial) {
+			FeriasPeriodosDias feriasPeriodosDias = new FeriasPeriodosDias();
+			feriasPeriodosDias.setId(p.getId());
+			feriasPeriodosDias.setAnoReferencia(p.getIdFeriasFk().getAnoReferencia());
+			feriasPeriodosDias.setDtAssinatura(p.getDtAssinatura());
+			feriasPeriodosDias.setDtFinal(p.getDtFinal());
+			feriasPeriodosDias.setDtInicial(p.getDtInicial());
+			
+			long momentoInicial = p.getDtInicial().getTime();
+			long momentoFinal = p.getDtFinal().getTime();
+			Long dias = (momentoFinal-momentoInicial) / 1000 / 60 / 60 / 24 ;
+			feriasPeriodosDias.setDias(dias);
+			
+			lista.add(feriasPeriodosDias);
+		}
+		return lista;
+	}
+	
+	
+	
+	@Transactional(readOnly = true)
+	public List<FeriasPeriodosDias> buscarPorFeriasComDias(FuncionariosFerias funcionariosFerias){
+		// TODO Auto-generated method stub
+		List<FeriasPeriodosDias> lista = new ArrayList<>();
+		List <FuncionariosFeriasPeriodos> listaInicial = reposytory.findByIdFeriasFkAndDtCancelamentoIsNullOrderByDtInicialDesc(funcionariosFerias);
+		
+		for(FuncionariosFeriasPeriodos p : listaInicial) {
+			FeriasPeriodosDias feriasPeriodosDias = new FeriasPeriodosDias();
+			feriasPeriodosDias.setId(p.getId());
+			feriasPeriodosDias.setAnoReferencia(p.getIdFeriasFk().getAnoReferencia());
+			feriasPeriodosDias.setDtAssinatura(p.getDtAssinatura());
+			feriasPeriodosDias.setDtFinal(p.getDtFinal());
+			feriasPeriodosDias.setDtInicial(p.getDtInicial());
+			
+			long momentoInicial = p.getDtInicial().getTime();
+			long momentoFinal = p.getDtFinal().getTime();
+			Long dias = (momentoFinal-momentoInicial) / 1000 / 60 / 60 / 24 ;
+			feriasPeriodosDias.setDias(dias);
+			
+			lista.add(feriasPeriodosDias);
+		}
+		return lista;
+	}
+	
 }

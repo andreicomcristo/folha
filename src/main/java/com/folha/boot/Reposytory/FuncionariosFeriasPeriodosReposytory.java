@@ -6,12 +6,16 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 import com.folha.boot.domain.FuncionariosFerias;
 import com.folha.boot.domain.FuncionariosFeriasPeriodos;
+import com.folha.boot.domain.PessoaFuncionarios;
 
 @Repository
 public interface FuncionariosFeriasPeriodosReposytory extends JpaRepository<FuncionariosFeriasPeriodos, Long>{ 
 	
-	public List<FuncionariosFeriasPeriodos> findByIdFeriasFk(FuncionariosFerias ferias); 
+	public List<FuncionariosFeriasPeriodos> findByIdFeriasFkOrderByDtInicialAsc(FuncionariosFerias ferias); 
 
 	public List<FuncionariosFeriasPeriodos> findByDtInicialLessThanEqualAndDtFinalGreaterThanEqualAndDtCancelamentoIsNullOrderByIdFeriasFkIdFuncionarioFkIdPessoaFkCpfAsc (Date dataFinal, Date dataInicial);
 	
+	public List<FuncionariosFeriasPeriodos> findByIdFeriasFkIdFuncionarioFkAndDtCancelamentoIsNullOrderByDtInicialDesc(PessoaFuncionarios funcionario);
+	
+	public List<FuncionariosFeriasPeriodos> findByIdFeriasFkAndDtCancelamentoIsNullOrderByDtInicialDesc(FuncionariosFerias funcionariosFerias);
 }

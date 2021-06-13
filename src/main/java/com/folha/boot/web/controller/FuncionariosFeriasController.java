@@ -20,6 +20,7 @@ import com.folha.boot.domain.FuncionariosFeriasPeriodos;
 import com.folha.boot.domain.PessoaFuncionarios;
 import com.folha.boot.domain.PessoaOperadores;
 import com.folha.boot.domain.Unidades;
+import com.folha.boot.domain.models.outros.FeriasPeriodosDias;
 import com.folha.boot.service.FuncionariosFeriasPeriodosService;
 import com.folha.boot.service.FuncionariosFeriasService;
 import com.folha.boot.service.PessoaFuncionariosService;
@@ -46,6 +47,7 @@ public class FuncionariosFeriasController {
 	private PessoaOperadoresService pessoaOperadoresService;
 	@Autowired
 	private UnidadesService unidadesService;
+	
 
 	/*@GetMapping("/cadastrar")
 	public String cadastrar(FuncionariosFerias funcionariosFerias) {
@@ -122,6 +124,8 @@ public class FuncionariosFeriasController {
 		///////////////////////////////////////
 		model.addAttribute("funcionario", funcionario);
 		model.addAttribute("feriasLista", feriasService.buscarFuncionario(funcionario));
+		model.addAttribute("funcionariosFeriasPeriodos", periodosService.buscarPorFuncionarioComDias(funcionario));
+		
 		return "/funcionarioferias/cadastro"; 
 	}
 	 
@@ -141,6 +145,9 @@ public class FuncionariosFeriasController {
 			
 		model.addAttribute("ferias", ferias);
 		model.addAttribute("periodos", periodosService.buscarFerias(ferias));
+		model.addAttribute("funcionariosFeriasPeriodosLista", periodosService.buscarPorFeriasComDias(ferias));
+		
+		System.out.println("AAA"+periodosService.buscarPorFeriasComDias(ferias).get(0).getId());
 		
 		return "/funcionariosferiasperiodo/cadastro"; 
 	}
@@ -153,6 +160,7 @@ public class FuncionariosFeriasController {
 		
 		model.addAttribute("funcionario", funcionario);
 		model.addAttribute("funcionariosFerias", pessoaFuncionariosService.buscarPorId(id).getFuncionariosFeriasList());
+		model.addAttribute("funcionariosFeriasPeriodos", periodosService.buscarPorFuncionarioComDias(funcionario));
 						
 		return "/funcionarioferias/lista"; 
 	}	
