@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html layout:decorate="~{layout}">
+<head><meta charset="UTF-8"/></head>
+<body>
+	<section class="layout-content" layout:fragment="corpo">
+
+		<nav class="navbar navbar-expand-md bg-light">
+			<form th:action="@{/faixasValoresParametrosCalculoFolhasExtrasIndividual/listar}">
+				<div class=" layout-content">
+					<a class="btn btn-outline-light oi oi-action-undo" type="button" href="javascript:history.back()"></a>
+					<a class="btn btn-outline-light oi oi-action-redo" type="button" href="javascript:history.forward()"></a>
+					<button class="btn btn-outline-dark" >Listar</button>
+					<a class="btn btn-outline-dark btn-md" th:href="@{/faixasValoresParametrosCalculoFolhasExtrasIndividual/funcionarios/listar}"
+						role="button"> <span class="oi oi-plus" title="Cadastro"
+						aria-hidden="true"></span> <span>Novo</span>
+					</a>
+				</div>
+			</form>
+		</nav>
+
+		<div class="container" id="cadastro">
+
+			<div th:replace="fragments/alert"></div>
+			<form
+				th:action="${faixasValoresParametrosCalculoFolhasExtrasIndividual.id == null} ? @{/faixasValoresParametrosCalculoFolhasExtrasIndividual/salvar} : @{/faixasValoresParametrosCalculoFolhasExtrasIndividual/salvar}"
+				th:object="${faixasValoresParametrosCalculoFolhasExtrasIndividual}" method="POST">
+				<div class="form-row">
+
+					<div class="form-group col-md-6">
+						<label for="nome" class="fonte-tutulos-tamanho">Parametros Cálculo Folha Extra (INDIVIDUAL)</label>
+							<p></p>
+							
+							<td style="font-size:11px;"  th:text="*{idFuncionarioFk.idPessoaFk.nome +' | '}"></td>
+							<td style="font-size:11px;"  th:text="*{idFuncionarioFk.idPessoaFk.cpf +' | '}"></td>
+							<td style="font-size:11px;"  th:text="*{idFuncionarioFk.matricula +' | '}"></td>
+							<td style="font-size:11px;"  th:text="*{idFuncionarioFk.idEspecialidadeAtualFk.idCargoFk.nomeCargo+'-'+idFuncionarioFk.idEspecialidadeAtualFk.nomeEspecialidadeCargo}"></td>
+							<p></p>
+							<label for="nome" class="" th:text = "*{idFuncionarioFk.idUnidadeAtuacaoAtualFk.nomeFantasia} ">Mês </label>
+							
+							<p></p>
+							
+							<label for="nome" class="">Mês </label>
+							<select id="idCodDiferenciadoFk" class="form-select" th:field="*{idAnoMesFk}">
+								<option value="">Selecione o Mes</option>
+								<option class="form-select" th:each="d : ${idAnoMesFk}" th:value="${d.id}"th:text="${d.nomeAnoMes}" selected >ADM</option>
+							</select>	
+							<p></p>	
+							
+							<label for="nome" class="">Valor da Hora Dia </label>							
+							<input type="text"
+								class=" form-control form-control-md" autofocus="autofocus" 
+								id="valorHoraDia" placeholder="Valor da Hora Dia" th:field="*{valorHoraDia}" /> 
+							<p></p>
+							
+							<label for="nome" class="">Valor da Hora Noite </label>
+							<input type="text"
+								class=" form-control form-control-md" autofocus="autofocus"
+								id="valorHoraNoite" placeholder="Valor da Hora Noite" th:field="*{valorHoraNoite}" /> 
+							<p></p>
+							
+							<label for="nome" class="">Valor de Hora Semana </label>							
+							<input type="text"
+								class=" form-control form-control-md" autofocus="autofocus"
+								id="valorHoraSemana" placeholder="Valor de Hora Semana" th:field="*{valorHoraSemana}" /> 
+							<p></p>
+							
+							<label for="nome" class="">Valor de Hora Fim De Semana </label>
+							<input type="text"
+								class=" form-control form-control-md" autofocus="autofocus"
+								id="valorHoraFimDeSemana" placeholder="Valor de Hora Fim De Semana" th:field="*{valorHoraFimDeSemana}" /> 
+							<p></p>
+							
+							<label for="nome" class="">Valor Liquido por Hora </label>
+							<input type="text"
+								class=" form-control form-control-md" autofocus="autofocus"
+								id="valorLiquidoPorHora" placeholder="Valor Liquido Por Hora" th:field="*{valorLiquidoPorHora}" /> 
+							<p></p>
+							
+							<label for="nome" class="">Valor Bruto por Hora </label>
+							<input type="text"
+								class=" form-control form-control-md" autofocus="autofocus"
+								id="valorBrutoPorHora" placeholder="Valor Bruto Por Hora" th:field="*{valorBrutoPorHora}" /> 
+							<p></p>
+											
+							<label for="nome" class="">Valor Bruto Fixo Total </label>				
+							<input type="text"
+								class=" form-control form-control-md" autofocus="autofocus" 
+								id="valorHoraDia" placeholder="Valor Bruto Fixo Total" th:field="*{valorBrutoFixoTotal}" /> 
+							<p></p>				
+														
+							<label for="nome" class="">Código Diferenciado </label>														
+							<select id="idCodDiferenciadoFk" class="form-select" th:field="*{idCodDiferenciadoFk}">
+								<option value="">Selecione o Cod Diferenciado</option>
+								<option class="form-select" th:each="d : ${idCodDiferenciadoFk}" th:value="${d.id}"th:text="${d.nomeCodigoDiferenciado+' - '+d.idUnidadeFk.nomeFantasia}" selected >ADM</option>
+							</select>	
+							<p></p>	
+							
+							<label for="nome" class="">Nivel </label>
+							<select id="idNivelFk" class="form-select" th:field="*{idNivelFk}">
+								<option value="">Selecione Nível</option>
+								<option class="form-select" th:each="d : ${idNivelCargoFk}" th:value="${d.id}"th:text="${d.nomeNivelCargo}" selected >ADM</option>
+							</select>	
+							<p></p>	
+							
+							<label for="nome" class="">Regime de Trabalho </label>
+							<select id="idRegimeDeTrabalhoFk" class="form-select" th:field="*{idRegimeDeTrabalhoFk}">
+								<option value="">Selecione o Regime de Trabalho </option>
+								<option class="form-select" th:each="d : ${idRegimeDeTrabalhoFk}" th:value="${d.id}"th:text="${d.nomeRegimeDeTrabalho}" selected >ADM</option>
+							</select>	
+							<p></p>	
+							
+							<label for="nome" class="">Tipo de Folha </label>
+							<select id="idTipoDeFolhaFk" class="form-select" th:field="*{idTipoDeFolhaFk}">
+								<option value="">Selecione o Tipo de Folha</option>
+								<option class="form-select" th:each="d : ${idTipoDeFolhaFk}" th:value="${d.id}"th:text="${d.nomeTipoFolha}" selected >ADM</option>
+							</select>	
+							<p></p>	
+							
+							<label for="nome" class="">Observação </label>							
+							<input type="text"
+								class=" form-control form-control-md" autofocus="autofocus" 
+								id="observacao" placeholder="Observação" th:field="*{observacao}" /> 
+							<p></p>
+							
+					<input type="hidden" id="id" th:field="*{idFuncionarioFk}" />							
+					<input type="hidden" id="id" th:field="*{id}" />
+								<p></p>					
+						<button class="btn btn-outline-dark">Cadastrar</button>
+					</div>
+				</div>
+			</form>
+		</div>
+	</section>
+</body>
+</html>

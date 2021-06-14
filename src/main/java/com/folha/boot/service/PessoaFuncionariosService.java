@@ -65,6 +65,10 @@ public class PessoaFuncionariosService {
 		return this.reposytory.findByIdUnidadeAtuacaoAtualFkAndDtCancelamentoIsNullAndIdPessoaFkDtCancelamentoIsNullAndIdSituacaoAtualFkNomeSituacaoOrderByIdPessoaFkNomeAscIdPessoaFkCpfAscMatriculaAsc( unidades, ativo);
 	}
 	
+	public List<PessoaFuncionarios> buscarPorAtivos(  String ativo) {
+		return this.reposytory.findByDtCancelamentoIsNullAndIdPessoaFkDtCancelamentoIsNullAndIdSituacaoAtualFkNomeSituacaoOrderByIdPessoaFkNomeAscIdPessoaFkCpfAscMatriculaAsc(  ativo);
+	}
+	
 	public List<PessoaFuncionarios> buscarPorPessoa(Pessoa pessoa) {
 		// TODO Auto-generated method stub
 		return reposytory.findByIdPessoaFk(pessoa);

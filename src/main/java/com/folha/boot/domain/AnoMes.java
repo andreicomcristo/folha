@@ -62,6 +62,11 @@ public class AnoMes extends AbstractEntity<Long> {
     private List<FaixasValoresGpfDiferenciada> faixasValoresGpfDiferenciadaList;
     
     @OneToMany(mappedBy = "idAnoMesFk")
+    private List<FaixasValoresParametrosCalculoFolhasExtrasIndividual> faixasValoresParametrosCalculoFolhasExtrasIndividualList;
+    @OneToMany(mappedBy = "idAnoMesFk")
+    private List<FaixasValoresGpfCedido> faixasValoresGpfCedidoList;
+    
+    @OneToMany(mappedBy = "idAnoMesFk")
     private List<RubricaPensaoObs> rubricaPensaoObsList;
     
     @OneToMany(mappedBy = "idAnoMesFk")
@@ -346,6 +351,19 @@ public class AnoMes extends AbstractEntity<Long> {
 	}
 	public void setSalarioMinimoList(List<SalarioMinimo> salarioMinimoList) {
 		this.salarioMinimoList = salarioMinimoList;
+	}
+	public List<FaixasValoresParametrosCalculoFolhasExtrasIndividual> getFaixasValoresParametrosCalculoFolhasExtrasIndividualList() {
+		return faixasValoresParametrosCalculoFolhasExtrasIndividualList;
+	}
+	public void setFaixasValoresParametrosCalculoFolhasExtrasIndividualList(
+			List<FaixasValoresParametrosCalculoFolhasExtrasIndividual> faixasValoresParametrosCalculoFolhasExtrasIndividualList) {
+		this.faixasValoresParametrosCalculoFolhasExtrasIndividualList = faixasValoresParametrosCalculoFolhasExtrasIndividualList;
+	}
+	public List<FaixasValoresGpfCedido> getFaixasValoresGpfCedidoList() {
+		return faixasValoresGpfCedidoList;
+	}
+	public void setFaixasValoresGpfCedidoList(List<FaixasValoresGpfCedido> faixasValoresGpfCedidoList) {
+		this.faixasValoresGpfCedidoList = faixasValoresGpfCedidoList;
 	}
 		
 	

@@ -113,6 +113,9 @@ public class PessoaFuncionarios extends AbstractEntity<Long> {
     private List<NaoDescontaInss> naoDescontaInssList;
     
     @OneToMany(mappedBy = "idFuncionarioFk")
+    private List<FaixasValoresParametrosCalculoFolhasExtrasIndividual> faixasValoresParametrosCalculoFolhasExtrasIndividualList;
+    
+    @OneToMany(mappedBy = "idFuncionarioFk")
     private List<HistFuncionariosNiveisCarreira> histFuncionariosNiveisCarreiraList;
     
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "idFuncionarioFk")
@@ -550,6 +553,15 @@ public class PessoaFuncionarios extends AbstractEntity<Long> {
 
 	public void setFaixasValoresFolhExtList(List<FaixasValoresFolhExt> faixasValoresFolhExtList) {
 		this.faixasValoresFolhExtList = faixasValoresFolhExtList;
+	}
+
+	public List<FaixasValoresParametrosCalculoFolhasExtrasIndividual> getFaixasValoresParametrosCalculoFolhasExtrasIndividualList() {
+		return faixasValoresParametrosCalculoFolhasExtrasIndividualList;
+	}
+
+	public void setFaixasValoresParametrosCalculoFolhasExtrasIndividualList(
+			List<FaixasValoresParametrosCalculoFolhasExtrasIndividual> faixasValoresParametrosCalculoFolhasExtrasIndividualList) {
+		this.faixasValoresParametrosCalculoFolhasExtrasIndividualList = faixasValoresParametrosCalculoFolhasExtrasIndividualList;
 	}
 	
 	

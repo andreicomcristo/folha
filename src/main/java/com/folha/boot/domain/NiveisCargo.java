@@ -50,6 +50,11 @@ public class NiveisCargo extends AbstractEntity<Long> {
     private List<FaixasValoresFolhExt> faixasValoresFolhExtList;
 	@OneToMany(mappedBy = "idNivelCargoFk")
     private List<FaixasValoresResidente> faixasValoresResidenteList;
+	
+	@OneToMany(mappedBy = "idNivelFk")
+    private List<FaixasValoresParametrosCalculoFolhasExtrasIndividual> faixasValoresParametrosCalculoFolhasExtrasIndividualList;
+    @OneToMany(mappedBy = "idNivelCargoFk")
+    private List<FaixasValoresGpfCedido> faixasValoresGpfCedidoList;
 
 	public String getSiglaNivelCargo() {
 		return siglaNivelCargo;
@@ -165,6 +170,23 @@ public class NiveisCargo extends AbstractEntity<Long> {
 
 	public void setFaixasValoresResidenteList(List<FaixasValoresResidente> faixasValoresResidenteList) {
 		this.faixasValoresResidenteList = faixasValoresResidenteList;
+	}
+
+	public List<FaixasValoresParametrosCalculoFolhasExtrasIndividual> getFaixasValoresParametrosCalculoFolhasExtrasIndividualList() {
+		return faixasValoresParametrosCalculoFolhasExtrasIndividualList;
+	}
+
+	public void setFaixasValoresParametrosCalculoFolhasExtrasIndividualList(
+			List<FaixasValoresParametrosCalculoFolhasExtrasIndividual> faixasValoresParametrosCalculoFolhasExtrasIndividualList) {
+		this.faixasValoresParametrosCalculoFolhasExtrasIndividualList = faixasValoresParametrosCalculoFolhasExtrasIndividualList;
+	}
+
+	public List<FaixasValoresGpfCedido> getFaixasValoresGpfCedidoList() {
+		return faixasValoresGpfCedidoList;
+	}
+
+	public void setFaixasValoresGpfCedidoList(List<FaixasValoresGpfCedido> faixasValoresGpfCedidoList) {
+		this.faixasValoresGpfCedidoList = faixasValoresGpfCedidoList;
 	}
 	
 	

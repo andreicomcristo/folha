@@ -47,6 +47,12 @@ public class CodigoDiferenciadoService {
 	}
 	
 	@Transactional(readOnly = true)
+	public List<CodigoDiferenciado> buscarTodosGeralNaUnidade(Unidades unidade) {
+		// TODO Auto-generated method stub
+		return reposytory.findByIdUnidadeFkAndDtCancelamentoIsNullOrderByIdUnidadeFkNomeFantasiaAscNomeCodigoDiferenciadoAsc( unidade);
+	}
+	
+	@Transactional(readOnly = true)
 	public List<CodigoDiferenciado> buscarTodos(Unidades unidade) {
 		// TODO Auto-generated method stub
 		return reposytory.findByIdUnidadeFkAndDtCancelamentoIsNullOrderByNomeCodigoDiferenciadoAsc(unidade);

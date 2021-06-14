@@ -12,6 +12,8 @@ import com.folha.boot.domain.Unidades;
 public interface CodigoDiferenciadoReposytory extends JpaRepository<CodigoDiferenciado, Long>{
 
 	public List<CodigoDiferenciado> findByDtCancelamentoIsNullOrderByIdUnidadeFkNomeFantasiaAscNomeCodigoDiferenciadoAsc();
+	
+	public List<CodigoDiferenciado> findByIdUnidadeFkAndDtCancelamentoIsNullOrderByIdUnidadeFkNomeFantasiaAscNomeCodigoDiferenciadoAsc(Unidades unidade);
 
 	public List<CodigoDiferenciado> findByNomeCodigoDiferenciadoContainingAndIdUnidadeFkAndDtCancelamentoIsNullOrderByNomeCodigoDiferenciadoAsc(String nomeCodigoDiferenciado, Unidades unidade);
 	

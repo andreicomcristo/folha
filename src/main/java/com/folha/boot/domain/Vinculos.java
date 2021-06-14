@@ -29,10 +29,13 @@ public class Vinculos extends AbstractEntity<Long> {
     @OneToMany(mappedBy = "idVinculoFk")
     private List<TiposDeFolhaVinculo> tiposDeFolhaVinculoList;
     
+    @OneToMany(mappedBy = "idVinculoFk")
+    private List<FaixasValoresGpfCedido> faixasValoresGpfCedidoList;
+    
 	public List<FuncionariosLicencas> getFuncionariosLicencasList() {
 		return funcionariosLicencasList;
 	}
-
+	
 	public void setFuncionariosLicencasList(List<FuncionariosLicencas> funcionariosLicencasList) {
 		this.funcionariosLicencasList = funcionariosLicencasList;
 	}
@@ -75,6 +78,14 @@ public class Vinculos extends AbstractEntity<Long> {
 
 	public void setTiposDeFolhaVinculoList(List<TiposDeFolhaVinculo> tiposDeFolhaVinculoList) {
 		this.tiposDeFolhaVinculoList = tiposDeFolhaVinculoList;
+	}
+
+	public List<FaixasValoresGpfCedido> getFaixasValoresGpfCedidoList() {
+		return faixasValoresGpfCedidoList;
+	}
+
+	public void setFaixasValoresGpfCedidoList(List<FaixasValoresGpfCedido> faixasValoresGpfCedidoList) {
+		this.faixasValoresGpfCedidoList = faixasValoresGpfCedidoList;
 	}
 	
 	

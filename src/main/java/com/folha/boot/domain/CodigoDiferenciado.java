@@ -57,6 +57,8 @@ public class CodigoDiferenciado extends AbstractEntity<Long> {
 	@OneToMany(mappedBy = "idCodDiferenciadoFk")
 	private List<FaixasValoresParametrosCalculoFolhasExtras> faixasValoresParametrosCalculoFolhasExtrasList;
 	
+	@OneToMany(mappedBy = "idCodDiferenciadoFk")
+    private List<FaixasValoresParametrosCalculoFolhasExtrasIndividual> faixasValoresParametrosCalculoFolhasExtrasIndividualList;
 	
 	@OneToMany(mappedBy = "idCodDiferenciadoFk")
     private List<PessoaCodDiferenciado> pessoaCodDiferenciadoList;
@@ -188,6 +190,15 @@ public class CodigoDiferenciado extends AbstractEntity<Long> {
 
 	public void setVariacao(String variacao) {
 		this.variacao = UtilidadesDeTexto.retiraEspacosDuplosAcentosEConverteEmMaiusculo(variacao);
+	}
+
+	public List<FaixasValoresParametrosCalculoFolhasExtrasIndividual> getFaixasValoresParametrosCalculoFolhasExtrasIndividualList() {
+		return faixasValoresParametrosCalculoFolhasExtrasIndividualList;
+	}
+
+	public void setFaixasValoresParametrosCalculoFolhasExtrasIndividualList(
+			List<FaixasValoresParametrosCalculoFolhasExtrasIndividual> faixasValoresParametrosCalculoFolhasExtrasIndividualList) {
+		this.faixasValoresParametrosCalculoFolhasExtrasIndividualList = faixasValoresParametrosCalculoFolhasExtrasIndividualList;
 	}
 	
 	

@@ -27,6 +27,8 @@ public class TiposDeFolha extends AbstractEntity<Long> {
     private List<RubricaVencimento> rubricaVencimentoList;
 	@OneToMany(mappedBy = "idTipoDeFolhaFk")
     private List<TiposDeFolhaVinculo> tiposDeFolhaVinculoList;
+	@OneToMany(mappedBy = "idTipoDeFolhaFk")
+    private List<FaixasValoresParametrosCalculoFolhasExtrasIndividual> faixasValoresParametrosCalculoFolhasExtrasIndividualList;
 	
 	@JoinColumn(name = "id_folha_efetiva_sim_nao_fk", referencedColumnName = "id")
     @ManyToOne
@@ -126,6 +128,13 @@ public class TiposDeFolha extends AbstractEntity<Long> {
 	}
 	public void setIdAdmiteIncrementoDeRiscoSimNaoFk(SimNao idAdmiteIncrementoDeRiscoSimNaoFk) {
 		this.idAdmiteIncrementoDeRiscoSimNaoFk = idAdmiteIncrementoDeRiscoSimNaoFk;
+	}
+	public List<FaixasValoresParametrosCalculoFolhasExtrasIndividual> getFaixasValoresParametrosCalculoFolhasExtrasIndividualList() {
+		return faixasValoresParametrosCalculoFolhasExtrasIndividualList;
+	}
+	public void setFaixasValoresParametrosCalculoFolhasExtrasIndividualList(
+			List<FaixasValoresParametrosCalculoFolhasExtrasIndividual> faixasValoresParametrosCalculoFolhasExtrasIndividualList) {
+		this.faixasValoresParametrosCalculoFolhasExtrasIndividualList = faixasValoresParametrosCalculoFolhasExtrasIndividualList;
 	}
 	
 	
