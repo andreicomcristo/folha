@@ -55,10 +55,10 @@
 								class="form-control form-control-md calendario1"
 								id="descricao" placeholder="Data Inicial" th:field="*{dtInicial}" />	
 								<div class="btn-group hge-button-group" role="group" aria-label="Basic example">
-								  <button type="button" class="btn btn-secondary botao-ferias botao-ferias-10" dias="10">10 dias</button>
-								  <button type="button" class="btn btn-secondary botao-ferias botao-ferias-15" dias="15">15 dias</button>
-								  <button type="button" class="btn btn-secondary botao-ferias botao-ferias-20" dias="20">20 dias</button>
-								  <button type="button" class="btn btn-secondary botao-ferias botao-ferias-30" dias="30">30 dias</button>
+								  <button type="button" class="btn btn-secondary botao-ferias botao-ferias-10" dias="9">10 dias</button>
+								  <button type="button" class="btn btn-secondary botao-ferias botao-ferias-15" dias="14">15 dias</button>
+								  <button type="button" class="btn btn-secondary botao-ferias botao-ferias-20" dias="19">20 dias</button>
+								  <button type="button" class="btn btn-secondary botao-ferias botao-ferias-30" dias="29">30 dias</button>
 								</div>					
 							<p></p>
 							
@@ -118,7 +118,7 @@
 		                        	<span class="oi oi-brush" title="Editar" aria-hidden="true"></span>
 		                        </a>
 		                        
-		                        <button th:id="${' btn_funcionariosferias/periodos/excluir/' + p.id}" type="button" class="btn btn btn-outline-danger btn-sm" 
+		                        <button th:id="${' btn_funcionariosferias/periodos/cancelar/' + p.id}" type="button" class="btn btn btn-outline-danger btn-sm" 
 		                            		data-toggle="modal" data-target="#myModal">
 		                        	<span class="oi oi-circle-x" title="Exclusão habilitada" aria-hidden="true"></span>
 		                        </button>		                         	                       

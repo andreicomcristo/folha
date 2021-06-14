@@ -1,6 +1,7 @@
 package com.folha.boot.service;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -10,6 +11,7 @@ import com.folha.boot.domain.FuncionariosFerias;
 import com.folha.boot.domain.FuncionariosFeriasPeriodos;
 import com.folha.boot.domain.PessoaFuncionarios;
 import com.folha.boot.domain.models.outros.FeriasPeriodosDias;
+import com.folha.boot.service.seguranca.UsuarioService;
 
 @Service
 @Transactional(readOnly = false)
@@ -17,6 +19,8 @@ public class FuncionariosFeriasPeriodosService {
 
 	@Autowired
 	private  FuncionariosFeriasPeriodosReposytory reposytory;
+	@Autowired
+	private  UsuarioService usuarioService;
 
 	public FuncionariosFeriasPeriodos salvar(FuncionariosFeriasPeriodos funcionariosFeriasPeriodos) {
 		return reposytory.save(funcionariosFeriasPeriodos);
@@ -30,6 +34,19 @@ public class FuncionariosFeriasPeriodosService {
 	public void excluir(Long id) {
 		reposytory.deleteById(id);
 
+	}
+	
+	public void cancelar(FuncionariosFeriasPeriodos funcionariosFeriasPeriodos) {
+		reposytory.save(funcionariosFeriasPeriodos);
+	}
+	
+	public void cancelarPorAnoReferencia(FuncionariosFerias funcionariosFerias) {
+		List<FuncionariosFeriasPeriodos> lista = buscarFerias(funcionariosFerias);
+		for(FuncionariosFeriasPeriodos p : lista) {
+			p.setDtCancelamento(new Date());
+			p.setIdOperadorCancelamentoFk(usuarioService.pegarOperadorLogado());
+			editar(p);
+		}
 	}
 	
 	@Transactional(readOnly = true)
@@ -69,11 +86,13 @@ public class FuncionariosFeriasPeriodosService {
 				long momentoInicial = p.getDtInicial().getTime();
 				long momentoFinal = p.getDtFinal().getTime();
 				dias = (momentoFinal-momentoInicial) / 1000 / 60 / 60 / 24 ;
+				dias = dias +1;
 			}
 			feriasPeriodosDias.setDias(dias);
 			
 			lista.add(feriasPeriodosDias);
 		}
+		
 		return lista;
 	}
 	
@@ -98,12 +117,23 @@ public class FuncionariosFeriasPeriodosService {
 				long momentoInicial = p.getDtInicial().getTime();
 				long momentoFinal = p.getDtFinal().getTime();
 				dias = (momentoFinal-momentoInicial) / 1000 / 60 / 60 / 24 ;
+				dias = dias +1;
 			}
 			feriasPeriodosDias.setDias(dias);
 			
 			lista.add(feriasPeriodosDias);
 		}
 		return lista;
+	}
+	
+	
+	public Long diasEmFeriasPorAnoReferencia(FuncionariosFerias funcionariosFerias) {
+		Long resposta = 0L;
+		List <FeriasPeriodosDias> listaInicial = buscarPorFeriasComDias(funcionariosFerias);
+		for(FeriasPeriodosDias f: listaInicial) {
+			resposta = resposta+f.getDias();
+		}
+		return resposta;
 	}
 	
 }

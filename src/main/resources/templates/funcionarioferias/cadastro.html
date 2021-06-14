@@ -56,6 +56,7 @@
 	          			<tr>
 		                	<th style="font-size:10px;" >#</th>		                
 		                    <th style="font-size:10px;" >Ano Referência </th>
+		                    <th style="font-size:10px;" >Dias </th>
 		                    <th style="font-size:10px;" >Ações</th>
 	                    </tr>
 	                </thead>                  
@@ -63,12 +64,13 @@
 		            	<tr th:each="f : ${feriasLista}">
 		                	<td  style="font-size:10px;"  th:text="${f.id}"></td>	
 		                	<td  style="font-size:10px;" > <a th:href="@{/funcionariosferias/periodos/{id} (id=${f.id}) }" ><span th:text="${f.anoReferencia}"></span></a></td>	                    
+		                    <td  style="font-size:10px;"  th:text="${f.dias}"></td>		                    		           		                  	                    		                     		         		                    
 		                    		                    		           		                  	                    		                     		         		                    
 		                    <td colspan="2">		                    	
 		                    	<a class="btn btn-outline-info btn-sm" th:href="@{/funcionariosferias/editar/{id} (id=${f.id})}" role="button">
 		                        	<span class="oi oi-brush" title="Editar" aria-hidden="true"></span>
 		                        </a>		                        
-		                        <button th:id="${ 'btn_funcionariosferias/excluir/' + f.id}" type="button" class="btn btn btn-outline-danger btn-sm" 
+		                        <button th:id="${ 'btn_funcionariosferias/cancelar/' + f.id}" type="button" class="btn btn btn-outline-danger btn-sm" 
 		                            		data-toggle="modal" data-target="#myModal">
 		                                <span class="oi oi-circle-x" title="Exclusão habilitada" aria-hidden="true"></span>
 		                        </button>		                    			                       
