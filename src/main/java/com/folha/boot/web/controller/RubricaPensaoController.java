@@ -247,7 +247,7 @@ public class RubricaPensaoController {
 		}	
 		service.salvar(rubricaPensao);
 		attr.addFlashAttribute("success", "Inserido com sucesso.");
-		return "redirect:/rubricaPensao/pessoa/cadastrar";
+		return "redirect:/rubricaPensao/listar";
 	}
 	
 	@GetMapping("/editar/{id}")
@@ -288,7 +288,7 @@ public class RubricaPensaoController {
 		//model.addAttribute("rubricaPensao", rubricaPensao);
 		//model.addAttribute("pessoa", pessoa);
 		//model.addAttribute("pensao", rubricaPensao);		
-		return "redirect:/rubricaPensao/pessoa/cadastrar";
+		return "redirect:/rubricaPensao/listar";
 	}	
 	
 	///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////

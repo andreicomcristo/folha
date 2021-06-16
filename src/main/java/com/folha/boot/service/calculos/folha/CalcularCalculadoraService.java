@@ -20,6 +20,7 @@ import com.folha.boot.service.RubricaNaturezaService;
 import com.folha.boot.service.RubricaPensaoObsService;
 import com.folha.boot.service.RubricaPensaoService;
 import com.folha.boot.service.RubricaVencimentoService;
+import com.folha.boot.service.SalarioMinimoService;
 import com.folha.boot.service.TipoBrutoLiquidoService;
 import com.folha.boot.service.util.UtilidadesMatematicas;
 
@@ -43,13 +44,21 @@ public class CalcularCalculadoraService {
 	private TipoBrutoLiquidoService tipoBrutoLiquidoService;
 	@Autowired
 	private FatorPatronalService fatorPatronalService;
+	@Autowired
+	private SalarioMinimoService salarioMinimoService;
 	
 	
 	
 	public void calcularTudo(AnoMes anoMes) {
 		List<PessoaFuncionarios> listaFuncionarios = listarFuncionariosComRubrica(anoMes);
+		Double salarioMimomo = 0.0;
+		if(salarioMinimoService.buscarPorMesExato(anoMes).get(0).getValor()!= null) {salarioMimomo = salarioMinimoService.buscarPorMesExato(anoMes).get(0).getValor();}
+		 
 		
 		for(int i=0;i<listaFuncionarios.size();i++) {
+			
+			Double valorPensao = 0.0;
+			
 			List<RubricaVencimento> listaVencimentos = buscarRubricasPorPessoa(anoMes, listaFuncionarios.get(i));
 			
 				boolean contemRemuneracaoLiquida = false;
@@ -90,18 +99,41 @@ public class CalcularCalculadoraService {
 					//Calculando pensao alimenticia
 					List<RubricaPensao> listaPensao = rubricaPensaoService.buscarPorMesEPEssoa(anoMes, listaFuncionarios.get(i).getIdPessoaFk());
 					for(int k=0;k<listaPensao.size();k++) {
-						RubricaPensaoObs r = new RubricaPensaoObs();
-						r.setId(null);
-						r.setIdAnoMesFk(anoMes);
-						r.setIdRubricaPensaoFk(listaPensao.get(k));
-						Double valorPensao = listaPensao.get(k).getValor();
-						if(valorPensao<=0) {valorPensao = (listaPensao.get(k).getPercentagem()/100)*(vantagens-(descontos+inss)); }
-						if( (vantagens-(descontos+inss+pensao))-valorPensao <0 ) { r.setObservacao("O VALOR DESCONTADO POR PENSAO EM FAVOR DE "+listaPensao.get(k).getNomeBeneficiario()+", CPF: "+listaPensao.get(k).getCpfBeneficiario()+ " DEVERIA SER "+valorPensao+" ENTRETANTO, O(A) COLABORADOR(A) NAO POSSUI VENCIMENTOS SUFICIENTES PARA TAL DESCONTO. O SISTEMA CALCULOU O VALOR MAXIMO PARA QUE O PAGAMENTO NAO TENHA VALOR NEGATIVO.");  valorPensao = (vantagens-(descontos+inss+pensao));  }
-						
-						valorPensao = UtilidadesMatematicas.ajustaValorDecimal(valorPensao, 2);
-						r.setValorDescontado(valorPensao);
-						pensao = pensao + valorPensao;
-						rubricaPensaoObsService.salvar(r);
+						if(listaPensao.get(k).getIdEfetuarCalculoSimNaoFk().getSigla().equalsIgnoreCase("S")){
+							RubricaPensaoObs r = new RubricaPensaoObs();
+							r.setId(null);
+							r.setIdAnoMesFk(anoMes);
+							r.setIdRubricaPensaoFk(listaPensao.get(k));
+							
+							//Para calculo sobre o proprio valor depois do INSS
+							if(listaPensao.get(k).getIdIncidenciaFk().getSigla().equalsIgnoreCase("A")) {
+								valorPensao = listaPensao.get(k).getValor();
+								if(valorPensao<=0) {valorPensao = (listaPensao.get(k).getPercentagem()/100)*(vantagens-(descontos+inss)); }
+							}
+							
+							//Para calculo sobre o proprio valor Antes do INSS
+							if(listaPensao.get(k).getIdIncidenciaFk().getSigla().equalsIgnoreCase("B")) {
+								valorPensao = listaPensao.get(k).getValor();
+								if(valorPensao<=0) {valorPensao = (listaPensao.get(k).getPercentagem()/100)*(vantagens-(descontos)); }
+							}
+							
+							//Para calculo sobre o SALARIO MINIMO depois do INSS
+							if(listaPensao.get(k).getIdIncidenciaFk().getSigla().equalsIgnoreCase("C")) {
+								valorPensao = listaPensao.get(k).getPercentagem()*salarioMimomo;
+							}
+							
+							//Para calculo sobre o SALARIO MINIMO Antes do INSS
+							if(listaPensao.get(k).getIdIncidenciaFk().getSigla().equalsIgnoreCase("D")) {
+								valorPensao = listaPensao.get(k).getPercentagem()*salarioMimomo;
+							}
+							
+							if( (vantagens-(descontos+inss+pensao))-valorPensao <0 ) { r.setObservacao("O VALOR PENSAO EM FAVOR DE "+listaPensao.get(k).getNomeBeneficiario()+", CPF: "+listaPensao.get(k).getCpfBeneficiario()+ " NAO DESCONTADO.");  valorPensao = 0.0; }
+							
+							valorPensao = UtilidadesMatematicas.ajustaValorDecimal(valorPensao, 2);
+							r.setValorDescontado(valorPensao);
+							pensao = pensao + valorPensao;
+							rubricaPensaoObsService.salvar(r);
+						}
 					}
 					
 					//Calculando Ir
@@ -158,18 +190,41 @@ public class CalcularCalculadoraService {
 					//Calculando pensao alimenticia
 					List<RubricaPensao> listaPensao = rubricaPensaoService.buscarPorMesEPEssoa(anoMes, listaFuncionarios.get(i).getIdPessoaFk());
 					for(int k=0;k<listaPensao.size();k++) {
-						RubricaPensaoObs r = new RubricaPensaoObs();
-						r.setId(null);
-						r.setIdAnoMesFk(anoMes);
-						r.setIdRubricaPensaoFk(listaPensao.get(k));
-						Double valorPensao = listaPensao.get(k).getValor();
-						if(valorPensao<=0) {valorPensao = (listaPensao.get(k).getPercentagem()/100)*(vantagens-(descontos+inss)); }
-						if( (vantagens-(descontos+inss+pensao))-valorPensao <0 ) { r.setObservacao("O VALOR DESCONTADO POR PENSAO EM FAVOR DE "+listaPensao.get(k).getNomeBeneficiario()+", CPF: "+listaPensao.get(k).getCpfBeneficiario()+ " DEVERIA SER "+valorPensao+" ENTRETANTO, O(A) COLABORADOR(A) NAO POSSUI VENCIMENTOS SUFICIENTES PARA TAL DESCONTO. O SISTEMA CALCULOU O VALOR MAXIMO PARA QUE O PAGAMENTO NAO TENHA VALOR NEGATIVO.");  valorPensao = (vantagens-(descontos+inss+pensao)); }
-						
-						valorPensao = UtilidadesMatematicas.ajustaValorDecimal(valorPensao, 2);
-						r.setValorDescontado(valorPensao);
-						pensao = pensao + valorPensao;
-						rubricaPensaoObsService.salvar(r);
+						if(listaPensao.get(k).getIdEfetuarCalculoSimNaoFk().getSigla().equalsIgnoreCase("S")){
+							RubricaPensaoObs r = new RubricaPensaoObs();
+							r.setId(null);
+							r.setIdAnoMesFk(anoMes);
+							r.setIdRubricaPensaoFk(listaPensao.get(k));
+							
+							//Para calculo sobre o proprio valor depois do INSS
+							if(listaPensao.get(k).getIdIncidenciaFk().getSigla().equalsIgnoreCase("A")) {
+								valorPensao = listaPensao.get(k).getValor();
+								if(valorPensao<=0) {valorPensao = (listaPensao.get(k).getPercentagem()/100)*(vantagens-(descontos+inss)); }
+							}
+							
+							//Para calculo sobre o proprio valor Antes do INSS
+							if(listaPensao.get(k).getIdIncidenciaFk().getSigla().equalsIgnoreCase("B")) {
+								valorPensao = listaPensao.get(k).getValor();
+								if(valorPensao<=0) {valorPensao = (listaPensao.get(k).getPercentagem()/100)*(vantagens-(descontos)); }
+							}
+							
+							//Para calculo sobre o SALARIO MINIMO depois do INSS
+							if(listaPensao.get(k).getIdIncidenciaFk().getSigla().equalsIgnoreCase("C")) {
+								valorPensao = listaPensao.get(k).getPercentagem()*salarioMimomo;
+							}
+							
+							//Para calculo sobre o SALARIO MINIMO Antes do INSS
+							if(listaPensao.get(k).getIdIncidenciaFk().getSigla().equalsIgnoreCase("D")) {
+								valorPensao = listaPensao.get(k).getPercentagem()*salarioMimomo;
+							}
+							
+							if( (vantagens-(descontos+inss+pensao))-valorPensao <0 ) { r.setObservacao("O VALOR PENSAO EM FAVOR DE "+listaPensao.get(k).getNomeBeneficiario()+", CPF: "+listaPensao.get(k).getCpfBeneficiario()+ " NAO DESCONTADO.");  valorPensao = 0.0; }
+							
+							valorPensao = UtilidadesMatematicas.ajustaValorDecimal(valorPensao, 2);
+							r.setValorDescontado(valorPensao);
+							pensao = pensao + valorPensao;
+							rubricaPensaoObsService.salvar(r);
+						}
 					}
 					
 					//Calculando Ir

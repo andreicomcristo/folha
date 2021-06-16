@@ -132,7 +132,7 @@ public class EscalaCompatibilidadeService {
 					
 					if(temEvento == false) {
 						int horasEfetivas = escalaCalculosService.horasEfetivasDoFuncionarioNoMes(escala);
-						if((horasEfetivas) / (funcionario.getIdCargaHorariaAtualFk().getCargaHoraria()*4) < 0.7 ) {
+						if((horasEfetivas) <  ((funcionario.getIdCargaHorariaAtualFk().getCargaHoraria()*4)-12)) {
 							resposta = true;
 						}
 						
