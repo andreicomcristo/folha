@@ -24,6 +24,7 @@ import com.folha.boot.Reposytory.NaoDescontaInssReposytory;
 import com.folha.boot.domain.AnoMes;
 import com.folha.boot.domain.PessoaFuncionarios;
 import com.folha.boot.domain.NaoDescontaInss;
+import com.folha.boot.domain.Pessoa;
 import com.itextpdf.text.Document;
 import com.itextpdf.text.DocumentException;
 import com.itextpdf.text.Element;
@@ -82,6 +83,10 @@ public class NaoDescontaInssService {
 		return reposytory.findByIdAnoMesFkAndIdFuncionarioFkOrderByIdAnoMesFkNomeAnoMesDescIdFuncionarioFkIdPessoaFkNomeAsc(anoMes, pessoaFuncionarios );
 	}
 	
+	@Transactional(readOnly = true)
+	public List<NaoDescontaInss> buscarPorMesExatoEPessoa(AnoMes anoMes, Pessoa pessoa) {
+		return reposytory.findByIdAnoMesFkAndIdFuncionarioFkIdPessoaFkOrderByIdAnoMesFkNomeAnoMesDescIdFuncionarioFkIdPessoaFkNomeAsc(anoMes, pessoa );
+	}
 	
 	
 	@Transactional(readOnly = true)
