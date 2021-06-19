@@ -287,10 +287,10 @@ public class CidadesService {
 			tableTitulo.setWidths(new int[] { 2, 6 });
 			PdfPCell cellTitulo;
 			
-			Image image = Image.getInstance("C:/Users/ANDREI/Pictures/capa.jpg");
-			image.scaleAbsolute(50,50);
-			
-			
+			// Colocando imagem
+			Image image = Image.getInstance("./src/main/resources/static/image/logo.png");
+			image.scaleAbsolute(30,30);
+						
 			cellTitulo = new PdfPCell( image );
 			cellTitulo.setVerticalAlignment(Element.ALIGN_MIDDLE);
 			cellTitulo.setHorizontalAlignment(Element.ALIGN_CENTER);
