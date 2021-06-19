@@ -5,6 +5,8 @@ import java.util.Date;
 import java.util.List;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
+import java.net.MalformedURLException;
+
 import org.apache.poi.ss.usermodel.Cell;
 import org.apache.poi.ss.usermodel.CellStyle;
 import org.apache.poi.ss.usermodel.FillPatternType;
@@ -22,11 +24,13 @@ import org.springframework.transaction.annotation.Transactional;
 import com.folha.boot.Reposytory.CidadesReposytory;
 import com.folha.boot.domain.Cidades;
 import com.folha.boot.domain.Uf;
+
 import com.itextpdf.text.Document;
 import com.itextpdf.text.DocumentException;
 import com.itextpdf.text.Element;
 import com.itextpdf.text.Font;
 import com.itextpdf.text.FontFactory;
+import com.itextpdf.text.Image;
 import com.itextpdf.text.Phrase;
 import com.itextpdf.text.pdf.PdfPCell;
 import com.itextpdf.text.pdf.PdfPTable;
@@ -211,6 +215,8 @@ public class CidadesService {
 			Font nomeSistemaFont = FontFactory.getFont(FontFactory.TIMES_BOLDITALIC, 6);
 			Font rodapeFont = FontFactory.getFont(FontFactory.HELVETICA_BOLD, 4);
 			
+			
+			
 			//Cabeçalho
 			PdfPCell hcell;
 			hcell = new PdfPCell(new Phrase("Ordem", cabecalhoFont));
@@ -276,10 +282,20 @@ public class CidadesService {
 			
 			// Titulo
 			
-			PdfPTable tableTitulo = new PdfPTable(1);
+			PdfPTable tableTitulo = new PdfPTable(2);
 			tableTitulo.setWidthPercentage(90);
-			tableTitulo.setWidths(new int[] { 6 });
+			tableTitulo.setWidths(new int[] { 2, 6 });
 			PdfPCell cellTitulo;
+			
+			Image image = Image.getInstance("C:/Users/ANDREI/Pictures/capa.jpg");
+			image.scaleAbsolute(50,50);
+			
+			
+			cellTitulo = new PdfPCell( image );
+			cellTitulo.setVerticalAlignment(Element.ALIGN_MIDDLE);
+			cellTitulo.setHorizontalAlignment(Element.ALIGN_CENTER);
+			tableTitulo.addCell(cellTitulo);
+			
 			cellTitulo = new PdfPCell(new Phrase("Cidades", tituloFont) );
 			cellTitulo.setVerticalAlignment(Element.ALIGN_MIDDLE);
 			cellTitulo.setHorizontalAlignment(Element.ALIGN_CENTER);
@@ -313,6 +329,12 @@ public class CidadesService {
 
 		} catch (DocumentException ex) {
 
+		} catch (MalformedURLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
 		}
 
 		return new ByteArrayInputStream(out.toByteArray());
