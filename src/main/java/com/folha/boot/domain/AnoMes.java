@@ -86,9 +86,6 @@ public class AnoMes extends AbstractEntity<Long> {
     private List<IncrementoDeRiscoUnidadeCargo> incrementoDeRiscoUnidadeCargoList;
     
     @OneToMany(mappedBy = "idAnoMesFk")
-    private List<RubricaPensao> rubricaPensaoList;
-    
-    @OneToMany(mappedBy = "idAnoMesFk")
     private List<NaoDescontaInss> naoDescontaInssList;
     
     @OneToMany(mappedBy = "idAnoMesFk")
@@ -270,12 +267,6 @@ public class AnoMes extends AbstractEntity<Long> {
 	}
 	public void setRubricaVencimentoObsList(List<RubricaVencimentoObs> rubricaVencimentoObsList) {
 		this.rubricaVencimentoObsList = rubricaVencimentoObsList;
-	}
-	public List<RubricaPensao> getRubricaPensaoList() {
-		return rubricaPensaoList;
-	}
-	public void setRubricaPensaoList(List<RubricaPensao> rubricaPensaoList) {
-		this.rubricaPensaoList = rubricaPensaoList;
 	}
 	public List<RubricaPensaoObs> getRubricaPensaoObsList() {
 		return rubricaPensaoObsList;
