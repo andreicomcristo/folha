@@ -152,7 +152,7 @@ public class ContrachequeService {
 			}
 			if(listaVencimentos.get(i).getIdNaturezaFk().getSigla().equalsIgnoreCase("D")) {
 				listaDescontos.add(listaVencimentos.get(i));
-				descontos = descontos+listaDescontos.get(i).getValorBruto();
+				descontos = descontos+listaVencimentos.get(i).getValorBruto();
 			}
 		}
 		
