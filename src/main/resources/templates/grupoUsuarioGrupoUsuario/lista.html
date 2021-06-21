@@ -6,15 +6,15 @@
 		<nav class="navbar navbar-expand-md bg-light">
 	        <a class="btn btn-outline-light oi oi-action-undo" type="button" href="javascript:history.back()"></a>
 			<a class="btn btn-outline-light oi oi-action-redo" type="button" href="javascript:history.forward()"></a>        
-	    	<a class="btn btn-outline-dark btn-md" th:href="@{/grupoUsuarioPermissao/cadastrar}" role="button">
+	    	<a class="btn btn-outline-dark btn-md" th:href="@{/grupoUsuarioGrupoUsuario/cadastrar}" role="button">
 	        	<span class="oi oi-plus" title="Cadastro" aria-hidden="true"></span>
 	            <span>Novo</span>
 	        </a>
-	        <a class="btn btn-outline-dark btn-md" th:href="@{/grupoUsuarioPermissao/listar}" role="button">
+	        <a class="btn btn-outline-dark btn-md" th:href="@{/grupoUsuarioGrupoUsuario/listar}" role="button">
 	        	<span class="oi oi-loop-square" title="Atualizar" aria-hidden="true"></span>
 	            <span>Atualizar</span>
 	        </a>
-	            <label for="nome" class= "fonte-tutulos-tamanho">Lista de Compatibilidade Grupo Usuário com Permissão</label>
+	            <label for="nome" class= "fonte-tutulos-tamanho">Lista de Compatibilidade Grupo Usuário com Grupo Usuário</label>
 	    </nav>
 	  	<div class="container">
 	    	<p>                
@@ -26,7 +26,7 @@
 	      	<div class="col">
 	        	<div class="collapse" id="collapseNome">
 		            <nav class="navbar navbar-light bg-light">
-	    	           <form class="form-inline" method="GET" th:action="@{/grupoUsuarioPermissao/buscar/nome}">
+	    	           <form class="form-inline" method="GET" th:action="@{/grupoUsuarioGrupoUsuario/buscar/nome}">
 	        	           <input class="form-control mr-sm-2" type="search" placeholder="Nome" aria-label="Search"
 	                              th:name="nome" />
 	                       <button class="btn btn-outline-success my-2 my-sm-0">Buscar</button>
@@ -46,24 +46,31 @@
 	          			<tr>
 		                	<th style="font-size:10px;" >#</th>
 		                    <th style="font-size:10px;" >Grupo Usuário</th>
-		                    <th style="font-size:10px;" >Permissão</th>
+		                    <th style="font-size:10px;" >Grupo Usuário Compatível</th>
 		                    <th style="font-size:10px;" >Ações</th>
 	                    </tr>
 	                </thead>                  
 	                <tbody>
-		            	<tr th:each="d : ${grupoUsuarioPermissao}">
+		            	<tr th:each="d : ${grupoUsuarioGrupoUsuario}">
 		                	<td style="font-size:10px;"  th:text="${d.id}"></td>
 		                    <td style="font-size:10px;"  th:text="${d.idGrupoUsuarioFk != null} ? ${d.idGrupoUsuarioFk.nome} : ''  "></td>
-		                    <td style="font-size:10px;"  th:text="${d.idPermissaoFk != null} ? ${d.idPermissaoFk.nome} : ''  "></td>
+		                    <td style="font-size:10px;"  th:text="${d.idGrupoUsuarioCompativelFk != null} ? ${d.idGrupoUsuarioCompativelFk.nome} : ''  "></td>
 		                    
 		                    <td colspan="2">
-		                    	<a class="btn btn-outline-info btn-sm" th:href="@{/grupoUsuarioPermissao/editar/{id} (id=${d.id}) }" role="button">
+		                    	
+		                    	<a class="btn btn-outline-info btn-sm" th:href="@{/grupoUsuarioGrupoUsuario/editar/{id} (id=${d.id}) }" role="button">
 		                        	<span class="oi oi-brush" title="Editar" aria-hidden="true"></span>
 		                        </a>
-		                        <button th:id="${ 'btn_grupoUsuarioPermissao/excluir/' + d.id}" type="button" class="btn btn btn-outline-danger btn-sm" 
+		                        
+		                        <a class="btn btn-outline-danger btn-sm" th:href="@{/grupoUsuarioGrupoUsuario/excluir/{id} (id=${d.id}) }" role="button">
+		                        	<span class="oi oi-circle-x" title="Excluir" aria-hidden="true"></span>
+		                        </a>
+		                        
+		                        <button th:id="${ 'btn_grupoUsuarioGrupoUsuario/excluir/' + d.id}" type="button" class="btn btn btn-outline-danger btn-sm" 
 		                            		data-toggle="modal" data-target="#myModal">
 		                                <span class="oi oi-circle-x" title="Exclusão habilitada" aria-hidden="true"></span>
 		                        </button>
+		                        
 		                   	</td>
 						</tr>
 					</tbody>                    
@@ -84,25 +91,25 @@
 			 	<ul class="pagination justify-content-center" >
 			 		<li class="page-item disabled" ></li>		 		
 		
-				 	<li ><a class="btn btn-light btn-paginacao oi oi-media-step-backward" th:if="${currentePage != i}"  th:href="@{'/grupoUsuarioPermissao/paginar/'+ 1 }" ></a></li>
+				 	<li ><a class="btn btn-light btn-paginacao oi oi-media-step-backward" th:if="${currentePage != i}"  th:href="@{'/grupoUsuarioGrupoUsuario/paginar/'+ 1 }" ></a></li>
 				 	
-				 	<li ><a class="btn btn-light    btn-paginacao    oi oi-media-skip-backward" th:if="${currentePage > 1}"  th:href="@{'/grupoUsuarioPermissao/paginar/'+ ${currentePage -1}}" ></a></li> 
+				 	<li ><a class="btn btn-light    btn-paginacao    oi oi-media-skip-backward" th:if="${currentePage > 1}"  th:href="@{'/grupoUsuarioGrupoUsuario/paginar/'+ ${currentePage -1}}" ></a></li> 
 				 	
-				 	<li ><a class="btn btn-light    btn-paginacao oi" th:if="${currentePage > 1000}"  th:href="@{'/grupoUsuarioPermissao/paginar/'+ ${currentePage-1000} }" >-1000</a></li>
+				 	<li ><a class="btn btn-light    btn-paginacao oi" th:if="${currentePage > 1000}"  th:href="@{'/grupoUsuarioGrupoUsuario/paginar/'+ ${currentePage-1000} }" >-1000</a></li>
 				 	
-				 	<li ><a class="btn btn-light    btn-paginacao" th:if="${currentePage > 100}"  th:href="@{'/grupoUsuarioPermissao/paginar/'+ ${currentePage-100} }" >-100</a></li>
+				 	<li ><a class="btn btn-light    btn-paginacao" th:if="${currentePage > 100}"  th:href="@{'/grupoUsuarioGrupoUsuario/paginar/'+ ${currentePage-100} }" >-100</a></li>
 				 	
-				 	<li ><a class="btn btn-light    btn-paginacao" th:if="${currentePage > 10}"  th:href="@{'/grupoUsuarioPermissao/paginar/'+ ${currentePage-10} }" >-10</a></li>
+				 	<li ><a class="btn btn-light    btn-paginacao" th:if="${currentePage > 10}"  th:href="@{'/grupoUsuarioGrupoUsuario/paginar/'+ ${currentePage-10} }" >-10</a></li>
 	
-				 	<li ><a class="btn btn-light    btn-paginacao"  th:if="${currentePage < totalPages - 10}"  th:href="@{'/grupoUsuarioPermissao/paginar/'+ ${currentePage+10} }" >+10</a></li>
+				 	<li ><a class="btn btn-light    btn-paginacao"  th:if="${currentePage < totalPages - 10}"  th:href="@{'/grupoUsuarioGrupoUsuario/paginar/'+ ${currentePage+10} }" >+10</a></li>
 				 	
-				 	<li ><a class="btn btn-light    btn-paginacao"  th:if="${currentePage < totalPages - 100}"  th:href="@{'/grupoUsuarioPermissao/paginar/'+ ${currentePage+100} }" >+100</a></li>
+				 	<li ><a class="btn btn-light    btn-paginacao"  th:if="${currentePage < totalPages - 100}"  th:href="@{'/grupoUsuarioGrupoUsuario/paginar/'+ ${currentePage+100} }" >+100</a></li>
 				 	
-				 	<li ><a class="btn btn-light    btn-paginacao"  th:if="${currentePage < totalPages - 1000}"  th:href="@{'/grupoUsuarioPermissao/paginar/'+ ${currentePage+1000} }" >+1000</a></li>
+				 	<li ><a class="btn btn-light    btn-paginacao"  th:if="${currentePage < totalPages - 1000}"  th:href="@{'/grupoUsuarioGrupoUsuario/paginar/'+ ${currentePage+1000} }" >+1000</a></li>
 				 	
-				 	<li ><a class="btn btn-light    btn-paginacao    oi oi-media-skip-forward" th:if="${currentePage < totalPages}"  th:href="@{'/grupoUsuarioPermissao/paginar/' + ${currentePage +1}}"></a> </li>
+				 	<li ><a class="btn btn-light    btn-paginacao    oi oi-media-skip-forward" th:if="${currentePage < totalPages}"  th:href="@{'/grupoUsuarioGrupoUsuario/paginar/' + ${currentePage +1}}"></a> </li>
 			 		
-			 		<li ><a class="btn btn-light    btn-paginacao    oi oi-media-step-forward"  th:if="${currentePage != i}"  th:href="@{'/grupoUsuarioPermissao/paginar/'+ ${totalPages} }" ></a></li> 
+			 		<li ><a class="btn btn-light    btn-paginacao    oi oi-media-step-forward"  th:if="${currentePage != i}"  th:href="@{'/grupoUsuarioGrupoUsuario/paginar/'+ ${totalPages} }" ></a></li> 
 			 	</ul>
 			</nav>    
 		
