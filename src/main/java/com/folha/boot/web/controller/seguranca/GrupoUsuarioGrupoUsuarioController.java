@@ -51,6 +51,12 @@ public class GrupoUsuarioGrupoUsuarioController {
 	*/
 	@PostMapping("/salvar")
 	public String salvar(GrupoUsuarioGrupoUsuario grupoUsuarioGrupoUsuario, RedirectAttributes attr) {
+		
+		//Vendo se já está cadastrado
+		if(service.jaCadastradoConsiderandoId(grupoUsuarioGrupoUsuario) ) {
+			return "redirect:/grupoUsuarioGrupoUsuario/mensagem/de/ja/cadastrado";
+		} 
+		
 		service.salvar(grupoUsuarioGrupoUsuario);
 		attr.addFlashAttribute("success", "Inserido com sucesso.");
 		return "redirect:/grupoUsuarioGrupoUsuario/cadastrar";
@@ -64,6 +70,13 @@ public class GrupoUsuarioGrupoUsuarioController {
 	
 	@PostMapping("/editar")
 	public String editar(GrupoUsuarioGrupoUsuario grupoUsuarioGrupoUsuario, RedirectAttributes attr) {
+		
+		//Vendo se já está cadastrado
+		if(service.jaCadastradoConsiderandoId(grupoUsuarioGrupoUsuario) ) {
+			return "redirect:/grupoUsuarioGrupoUsuario/mensagem/de/ja/cadastrado";
+		} 
+				
+		
 		service.editar(grupoUsuarioGrupoUsuario);
 		attr.addFlashAttribute("success", "Editado com sucesso.");
 		return "redirect:/grupoUsuarioGrupoUsuario/listar";
@@ -130,6 +143,20 @@ public class GrupoUsuarioGrupoUsuarioController {
 		return "/grupoUsuarioGrupoUsuario/lista";	
 	}
 
+	
+	
+	
+	
+	@GetMapping("/mensagem/de/ja/cadastrado")
+	public String mensagemDeNaoEscolha(ModelMap model) {	
+		
+		model.addAttribute("atencao", "ATENÇÃO");
+		model.addAttribute("choque", "JÁ CADASTRADA");
+		model.addAttribute("mensagem", "Essca compatibilidade já está cadastrada.");
+		
+		return "/alertas/jaTemPerfilNaUnidade";
+	}
+	
 	
 	
 	

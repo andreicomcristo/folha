@@ -1,4 +1,4 @@
-package com.folha.boot.web.controller;
+package com.folha.boot.web.controller.seguranca;
 
 import java.io.ByteArrayInputStream;
 import java.io.IOException;

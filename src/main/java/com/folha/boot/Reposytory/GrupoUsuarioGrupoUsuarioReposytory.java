@@ -19,6 +19,8 @@ public interface GrupoUsuarioGrupoUsuarioReposytory extends JpaRepository<GrupoU
 	
 	public List<GrupoUsuarioGrupoUsuario> findByIdGrupoUsuarioFkOrderByIdGrupoUsuarioFkNomeAscIdGrupoUsuarioCompativelFkNomeAsc(GrupoUsuario grupoUsuario);
 	
+	public List<GrupoUsuarioGrupoUsuario> findByIdGrupoUsuarioFkAndIdGrupoUsuarioCompativelFkOrderByIdGrupoUsuarioFkNomeAscIdGrupoUsuarioCompativelFkNomeAsc(GrupoUsuario grupoUsuario, GrupoUsuario grupoUsuarioCompativel);
+	
 	
 	public Page<GrupoUsuarioGrupoUsuario> findAllByOrderByIdGrupoUsuarioFkNomeAscIdGrupoUsuarioCompativelFkNomeAsc( final Pageable pageable);
 	

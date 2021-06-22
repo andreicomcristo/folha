@@ -80,6 +80,28 @@ public class GrupoUsuarioGrupoUsuarioService implements GenericService<GrupoUsua
     	return reposytory.findByIdGrupoUsuarioFkOrderByIdGrupoUsuarioFkNomeAscIdGrupoUsuarioCompativelFkNomeAsc(usuarioService.pegarGrupoUsuarioLogado());
     }
     
+    public boolean jaCadastrado(GrupoUsuario grupoUsuario, GrupoUsuario grupoUsuarioCompativel) {
+    	boolean resposta = false;
+    	if( !reposytory.findByIdGrupoUsuarioFkAndIdGrupoUsuarioCompativelFkOrderByIdGrupoUsuarioFkNomeAscIdGrupoUsuarioCompativelFkNomeAsc(grupoUsuario, grupoUsuarioCompativel).isEmpty()  ) {
+    		resposta = true;
+    	}
+    	return resposta;
+    }
 
+    
+    public boolean jaCadastradoConsiderandoId(GrupoUsuarioGrupoUsuario grupoUsuarioGrupoUsuario) {
+    	boolean resposta = false;
+        List <GrupoUsuarioGrupoUsuario> lista = reposytory.findByIdGrupoUsuarioFkAndIdGrupoUsuarioCompativelFkOrderByIdGrupoUsuarioFkNomeAscIdGrupoUsuarioCompativelFkNomeAsc(grupoUsuarioGrupoUsuario.getIdGrupoUsuarioFk(), grupoUsuarioGrupoUsuario.getIdGrupoUsuarioCompativelFk()); 
+        for(GrupoUsuarioGrupoUsuario g: lista) {
+        	if(   !g.getId().equals(grupoUsuarioGrupoUsuario.getId())   ) {
+        		if(  (g.getIdGrupoUsuarioFk().equals(grupoUsuarioGrupoUsuario.getIdGrupoUsuarioFk()))  &&    (g.getIdGrupoUsuarioCompativelFk().equals(grupoUsuarioGrupoUsuario.getIdGrupoUsuarioCompativelFk()))  ) {
+        			resposta = true;
+        		}
+        	}
+        }
+    	return resposta;
+    }
+
+    
    
 }
