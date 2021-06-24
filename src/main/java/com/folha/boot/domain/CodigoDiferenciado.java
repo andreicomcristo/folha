@@ -53,6 +53,10 @@ public class CodigoDiferenciado extends AbstractEntity<Long> {
     @ManyToOne
     private TipoBrutoLiquido idTipoBrutoLiquidoFk;
 	
+    @OneToMany(mappedBy = "idCodigoDiferenciadoCompativelFk")
+    private List<PreRequisitoCodigoDiferenciadoCodigoDiferenciado> preRequisitoCodigoDiferenciadoCodigoDiferenciadoList;
+    @OneToMany(mappedBy = "idCodigoDiferenciadoFk")
+    private List<PreRequisitoCodigoDiferenciadoCodigoDiferenciado> preRequisitoCodigoDiferenciadoCodigoDiferenciadoList1;
 	
 	@OneToMany(mappedBy = "idCodDiferenciadoFk")
 	private List<FaixasValoresParametrosCalculoFolhasExtras> faixasValoresParametrosCalculoFolhasExtrasList;
@@ -199,6 +203,24 @@ public class CodigoDiferenciado extends AbstractEntity<Long> {
 	public void setFaixasValoresParametrosCalculoFolhasExtrasIndividualList(
 			List<FaixasValoresParametrosCalculoFolhasExtrasIndividual> faixasValoresParametrosCalculoFolhasExtrasIndividualList) {
 		this.faixasValoresParametrosCalculoFolhasExtrasIndividualList = faixasValoresParametrosCalculoFolhasExtrasIndividualList;
+	}
+
+	public List<PreRequisitoCodigoDiferenciadoCodigoDiferenciado> getPreRequisitoCodigoDiferenciadoCodigoDiferenciadoList() {
+		return preRequisitoCodigoDiferenciadoCodigoDiferenciadoList;
+	}
+
+	public void setPreRequisitoCodigoDiferenciadoCodigoDiferenciadoList(
+			List<PreRequisitoCodigoDiferenciadoCodigoDiferenciado> preRequisitoCodigoDiferenciadoCodigoDiferenciadoList) {
+		this.preRequisitoCodigoDiferenciadoCodigoDiferenciadoList = preRequisitoCodigoDiferenciadoCodigoDiferenciadoList;
+	}
+
+	public List<PreRequisitoCodigoDiferenciadoCodigoDiferenciado> getPreRequisitoCodigoDiferenciadoCodigoDiferenciadoList1() {
+		return preRequisitoCodigoDiferenciadoCodigoDiferenciadoList1;
+	}
+
+	public void setPreRequisitoCodigoDiferenciadoCodigoDiferenciadoList1(
+			List<PreRequisitoCodigoDiferenciadoCodigoDiferenciado> preRequisitoCodigoDiferenciadoCodigoDiferenciadoList1) {
+		this.preRequisitoCodigoDiferenciadoCodigoDiferenciadoList1 = preRequisitoCodigoDiferenciadoCodigoDiferenciadoList1;
 	}
 	
 	

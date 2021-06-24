@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html layout:decorate="~{layout}">
+<head><meta charset="UTF-8"/></head>
+<body>
+	<section class="layout-content" layout:fragment="corpo">
+
+		<nav class="navbar navbar-expand-md bg-light">
+			<form th:action="@{/preRequisitoCodigoDiferenciadoCodigoDiferenciado/listar}">
+				<div class=" layout-content">
+			        <a class="btn btn-outline-light oi oi-action-undo" type="button" href="javascript:history.back()"></a>
+					<a class="btn btn-outline-light oi oi-action-redo" type="button" href="javascript:history.forward()"></a>    
+					<button class="btn btn-outline-dark" >Listar</button>
+					<a class="btn btn-outline-dark btn-md" th:href="@{/preRequisitoCodigoDiferenciadoCodigoDiferenciado/cadastrar}"
+						role="button"> <span class="oi oi-plus" title="Cadastro"
+						aria-hidden="true"></span> <span>Novo</span>
+					</a>
+				</div>
+			</form>
+		</nav>
+
+		<div class="container" id="cadastro">
+
+			<div th:replace="fragments/alert"></div>
+			<form
+				th:action="${preRequisitoCodigoDiferenciadoCodigoDiferenciado.id == null} ? @{/preRequisitoCodigoDiferenciadoCodigoDiferenciado/salvar} : @{/preRequisitoCodigoDiferenciadoCodigoDiferenciado/editar}"
+				th:object="${preRequisitoCodigoDiferenciadoCodigoDiferenciado}" method="POST">
+				<div class="form-row">
+
+					<div class="form-group col-md-6">
+						<label for="nome" class="fonte-tutulos-tamanho">Pré Requisito Situações</label>
+							<p></p>
+							
+							<label for="nome" class="">Código </label>
+							<select id="cargos" class="form-control" th:field="*{idCodigoDiferenciadoFk}">
+								<option value="">Selecione Código</option>
+								<option th:each="d : ${idCodigoDiferenciadoFk}" th:value="${d.id}"th:text="${d.nomeCodigoDiferenciado +'-'+d.variacao+' | '+d.descricaoCodigoDiferenciado+' | '+d.idUnidadeFk.nomeFantasia}">ADM</option>
+							</select>
+							<p></p>
+							
+							<label for="nome" class="">Código Pré Requisito</label>
+							<select id="cargos" class="form-control" th:field="*{idCodigoDiferenciadoCompativelFk}">
+								<option value="">Selecione Código Pré Requisito</option>
+								<option th:each="d : ${idCodigoDiferenciadoFk}" th:value="${d.id}"th:text="${d.nomeCodigoDiferenciado +'-'+d.variacao+' | '+d.descricaoCodigoDiferenciado+' | '+d.idUnidadeFk.nomeFantasia}">ADM</option>
+							</select>
+							<p></p>
+							
+							
+							<input type="hidden" id="id" th:field="*{id}" />
+								<p></p>					
+						<button class="btn btn-outline-dark">Cadastrar</button>
+					</div>
+				</div>
+			</form>
+		</div>
+	</section>
+</body>
+</html>
