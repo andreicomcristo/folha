@@ -57,6 +57,11 @@ public class CodigoDiferenciado extends AbstractEntity<Long> {
     private List<PreRequisitoCodigoDiferenciadoCodigoDiferenciado> preRequisitoCodigoDiferenciadoCodigoDiferenciadoList;
     @OneToMany(mappedBy = "idCodigoDiferenciadoFk")
     private List<PreRequisitoCodigoDiferenciadoCodigoDiferenciado> preRequisitoCodigoDiferenciadoCodigoDiferenciadoList1;
+    
+    @OneToMany(mappedBy = "idCodigoDiferenciadoIncompativelFk")
+    private List<IncompatibilidadeCodigoDiferenciadoCodigoDiferenciado> incompatibilidadeCodigoDiferenciadoCodigoDiferenciadoList;
+    @OneToMany(mappedBy = "idCodigoDiferenciadoFk")
+    private List<IncompatibilidadeCodigoDiferenciadoCodigoDiferenciado> incompatibilidadeCodigoDiferenciadoCodigoDiferenciadoList1;
 	
 	@OneToMany(mappedBy = "idCodDiferenciadoFk")
 	private List<FaixasValoresParametrosCalculoFolhasExtras> faixasValoresParametrosCalculoFolhasExtrasList;
@@ -221,6 +226,24 @@ public class CodigoDiferenciado extends AbstractEntity<Long> {
 	public void setPreRequisitoCodigoDiferenciadoCodigoDiferenciadoList1(
 			List<PreRequisitoCodigoDiferenciadoCodigoDiferenciado> preRequisitoCodigoDiferenciadoCodigoDiferenciadoList1) {
 		this.preRequisitoCodigoDiferenciadoCodigoDiferenciadoList1 = preRequisitoCodigoDiferenciadoCodigoDiferenciadoList1;
+	}
+
+	public List<IncompatibilidadeCodigoDiferenciadoCodigoDiferenciado> getIncompatibilidadeCodigoDiferenciadoCodigoDiferenciadoList() {
+		return incompatibilidadeCodigoDiferenciadoCodigoDiferenciadoList;
+	}
+
+	public void setIncompatibilidadeCodigoDiferenciadoCodigoDiferenciadoList(
+			List<IncompatibilidadeCodigoDiferenciadoCodigoDiferenciado> incompatibilidadeCodigoDiferenciadoCodigoDiferenciadoList) {
+		this.incompatibilidadeCodigoDiferenciadoCodigoDiferenciadoList = incompatibilidadeCodigoDiferenciadoCodigoDiferenciadoList;
+	}
+
+	public List<IncompatibilidadeCodigoDiferenciadoCodigoDiferenciado> getIncompatibilidadeCodigoDiferenciadoCodigoDiferenciadoList1() {
+		return incompatibilidadeCodigoDiferenciadoCodigoDiferenciadoList1;
+	}
+
+	public void setIncompatibilidadeCodigoDiferenciadoCodigoDiferenciadoList1(
+			List<IncompatibilidadeCodigoDiferenciadoCodigoDiferenciado> incompatibilidadeCodigoDiferenciadoCodigoDiferenciadoList1) {
+		this.incompatibilidadeCodigoDiferenciadoCodigoDiferenciadoList1 = incompatibilidadeCodigoDiferenciadoCodigoDiferenciadoList1;
 	}
 	
 	

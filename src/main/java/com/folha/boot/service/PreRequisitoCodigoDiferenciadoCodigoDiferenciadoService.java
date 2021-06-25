@@ -11,6 +11,8 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.folha.boot.Reposytory.PreRequisitoCodigoDiferenciadoCodigoDiferenciadoReposytory;
 import com.folha.boot.domain.CodigoDiferenciado;
+import com.folha.boot.domain.Escala;
+import com.folha.boot.domain.EscalaCodDiferenciado;
 import com.folha.boot.domain.PreRequisitoCodigoDiferenciadoCodigoDiferenciado;
 import com.folha.boot.service.seguranca.UsuarioService;
 
@@ -21,6 +23,8 @@ public class PreRequisitoCodigoDiferenciadoCodigoDiferenciadoService implements 
     private PreRequisitoCodigoDiferenciadoCodigoDiferenciadoReposytory reposytory;
     @Autowired
     private UsuarioService usuarioService;
+    @Autowired
+    private EscalaCodDiferenciadoService escalaCodDiferenciadoService;
 
 	
 
@@ -98,6 +102,25 @@ public class PreRequisitoCodigoDiferenciadoCodigoDiferenciadoService implements 
     	return resposta;
     }
 
+    public CodigoDiferenciado compatibilidadeEscalaPreRequisito(EscalaCodDiferenciado escalaCodDiferenciado) {
+    	CodigoDiferenciado resposta = null;
+    	
+    	List<EscalaCodDiferenciado> listaCodigosNaEscala = escalaCodDiferenciadoService.buscarPorEscala(escalaCodDiferenciado.getIdEscalaFk());
+    		for(int i=0; i<listaCodigosNaEscala.size();i++) {
+    			boolean prerequisitoCadastrado = jaCadastrado(escalaCodDiferenciado.getIdCodigoDiferenciadoFk(), listaCodigosNaEscala.get(i).getIdCodigoDiferenciadoFk());
+    			boolean prerequisitoCadastradoReverso = jaCadastrado( listaCodigosNaEscala.get(i).getIdCodigoDiferenciadoFk(), escalaCodDiferenciado.getIdCodigoDiferenciadoFk() );
+    			
+    			if(prerequisitoCadastrado==true || prerequisitoCadastradoReverso==true) {
+    				resposta = listaCodigosNaEscala.get(i).getIdCodigoDiferenciadoFk();
+    			}
+    			
+    		}
+    
+    	return resposta;
+    }
+    
+    
+    
     
    
 }
