@@ -39,7 +39,7 @@ public class FuncionariosLicencasService {
 		// TODO Auto-generated method stub
 		return reposytory.findAllByOrderByDtInicialAsc();
 	}
-	
+	@Transactional(readOnly = true)
 	public List<FuncionariosLicencas> buscarPorDtInicial(String dtInicial) {
 		return reposytory.findByDtInicialContainingOrderByDtInicialAsc(dtInicial);
 	}

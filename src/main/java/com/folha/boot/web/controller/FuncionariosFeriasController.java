@@ -115,6 +115,8 @@ public class FuncionariosFeriasController {
 		//ultimaBuscaTurma = null;
 		return paginarFuncionario(pageNo, page, lista, model);
 	}
+	
+	
 	///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 	//Recebe o id do funcionário da tela de lista de funcionários
 	@GetMapping("/ferias/{id}")

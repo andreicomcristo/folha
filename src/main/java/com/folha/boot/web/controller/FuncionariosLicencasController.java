@@ -5,6 +5,7 @@ import java.util.List;
 import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -30,11 +31,13 @@ import com.folha.boot.service.PessoaOperadoresService;
 import com.folha.boot.service.TiposDeLicencaService;
 import com.folha.boot.service.UnidadesService;
 import com.folha.boot.service.VinculosService;
+import com.folha.boot.service.seguranca.UsuarioService;
 
 @Controller
 @RequestMapping("/funcionarioslicencas")
 public class FuncionariosLicencasController {
 
+	private String ultimaBuscaNome = "";
 	@Autowired
 	private FuncionariosLicencasService service;
 	@Autowired
@@ -51,6 +54,65 @@ public class FuncionariosLicencasController {
 	private UnidadesService unidadesService;
 	@Autowired
 	private VinculosService vinculosService;
+	@Autowired
+	private UsuarioService usuarioService;
+	
+	/*///////////////////////////////////////
+	 * Lista de funcionarios para cadastro de licenças
+	*/
+	
+	@GetMapping("/paginar/funcionarios/{pageNo}")
+	public String getPorNomePaginadoInclusao(@PathVariable (value = "pageNo") int pageNo, ModelMap model) {
+		
+		if( (ultimaBuscaNome.equals("")) ){
+			return "redirect:/funcionariosferias/funcionarios/listar/{pageNo}" ;}
+		else {		
+			if(!ultimaBuscaNome.equals("")) {
+				return this.findPaginatedFuncionario(pageNo, ultimaBuscaNome, model);}
+			else {
+				return "redirect:/funcionariosferias/funcionarios/listar/{pageNo}" ;}
+			}
+	}
+	
+	@GetMapping("/funcionarios/listar") 
+	public String listarFuncionarios(ModelMap model) { 
+		ultimaBuscaNome = "";
+		return this.findPaginatedFuncionario(1, model);
+	}	
+	
+	@GetMapping("/funcionarios/listar/{pageNo}")
+	public String findPaginatedFuncionario(@PathVariable (value = "pageNo") int pageNo, ModelMap model) {
+		int pageSeze = 50;
+		Page<PessoaFuncionarios> page = pessoaFuncionariosService.findPaginated(pageNo, pageSeze, usuarioService.pegarUnidadeLogada(), "ATIVO");
+		List<PessoaFuncionarios> listaFuncionarios = page.getContent();
+		return paginarFuncionario(pageNo, page, listaFuncionarios, model);
+	}
+	
+	public String paginarFuncionario(int pageNo, Page<PessoaFuncionarios> page, List<PessoaFuncionarios> lista, ModelMap model) {	
+
+		
+		model.addAttribute("currentePage", pageNo);
+		model.addAttribute("totalPages", page.getTotalPages());
+		model.addAttribute("totalItems", page.getTotalElements()); 
+		model.addAttribute("listaFuncionarios", lista);
+		return "/funcionarioferias/listafuncionario";	
+	}	
+	
+	@GetMapping("/buscar/funcionarios/nome")
+	public String getPorNomeFuncionario(@RequestParam("nome") String nome, ModelMap model) {
+		this.ultimaBuscaNome = nome;
+		return this.findPaginatedFuncionario(1, nome, model);
+	}
+	
+	public String findPaginatedFuncionario(@PathVariable (value = "pageNo") int pageNo, String nome, ModelMap model) {
+		int pageSeze = 50;
+		Page<PessoaFuncionarios> page = pessoaFuncionariosService.findPaginatedNome(pageNo, pageSeze, usuarioService.pegarUnidadeLogada(), "ATIVO", nome);
+		List<PessoaFuncionarios> lista = page.getContent();
+		return paginarFuncionario(pageNo, page, lista, model);
+	}
+	
+	
+	
 	
 	
 	@GetMapping("/cadastrar")

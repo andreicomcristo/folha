@@ -62,9 +62,6 @@ public class JasperController {
 	}	
 	
 
-
-	
-	
 	//variacaoCustoPorUnidade
 	@GetMapping("/abrirRelatoriosFolha/variacaoCustoPorUnidade")
 	public String abrirRelatoriosFolhaVariacaoCustoPorUnidade() {		
