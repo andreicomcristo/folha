@@ -25,6 +25,8 @@ import com.folha.boot.domain.AnoMes;
 import com.folha.boot.domain.Pessoa;
 import com.folha.boot.domain.RubricaPensao;
 import com.folha.boot.domain.RubricaPensaoDependente;
+import com.folha.boot.service.util.UtilidadesDeCalendarioEEscala;
+import com.folha.boot.service.util.UtilidadesMatematicas;
 import com.itextpdf.text.Document;
 import com.itextpdf.text.DocumentException;
 import com.itextpdf.text.Element;
@@ -45,6 +47,8 @@ public class RubricaPensaoService {
 	private RubricaPensaoDependenteService rubricaPensaoDependenteService;
 	@Autowired
 	private AnoMesService anoMesService;
+	@Autowired
+	private UtilidadesDeCalendarioEEscala utilidadesDeCalendarioEEscala;
 
 	public RubricaPensao salvar(RubricaPensao rubricaPensao) {
 		// TODO Auto-generated method stub
@@ -70,119 +74,75 @@ public class RubricaPensaoService {
 	@Transactional(readOnly = true)
 	public List<RubricaPensao> buscarTodos() {
 		// TODO Auto-generated method stub
-		return reposytory.findAllByDtCancelamentoIsNullOrderByIdAnoMesFkNomeAnoMesDescIdPessoaFkNomeAsc();
+		return reposytory.findAllByDtCancelamentoIsNullOrderByIdPessoaFkNomeAsc();
 	}
 	
 	@Transactional(readOnly = true)
-	public List<RubricaPensao> buscarPensoesDoMesAtual(Pessoa pessoa) {
+	public List<RubricaPensao> buscarPensoesDoMesAtual(Pessoa pessoa, AnoMes anoMes) {
 		// TODO Auto-generated method stub
 		List<RubricaPensao> lista = new ArrayList<>();
 		RubricaPensao rubricaPensao = ordenaPorPessoa(pessoa);
 		
 		if(rubricaPensao!= null) {
-			AnoMes anoMes = rubricaPensao.getIdAnoMesFk();
-			lista = reposytory.findByIdAnoMesFkAndIdPessoaFkAndDtCancelamentoIsNullOrderByIdAnoMesFkNomeAnoMesDescIdPessoaFkNomeAsc(anoMes, pessoa);
+			
+			String mes = anoMes.getNomeAnoMes();
+			
+			Date dtInicial = new Date( (Integer.parseInt(mes.substring(0, 4))-1900) ,  (Integer.parseInt(mes.substring(4, 6))-1) , 1 ); 
+			Date dtFinal = new Date( (Integer.parseInt(mes.substring(0, 4))-1900) ,  (Integer.parseInt(mes.substring(4, 6))-1) , utilidadesDeCalendarioEEscala.quantidadeDeDiasNoMes(mes) );
+			
+			System.out.println("CCCCC"+dtInicial);
+			System.out.println("DDDDD"+dtFinal);
+			
+			List<RubricaPensao> lista1 = new ArrayList<>();
+			List<RubricaPensao> lista2 = new ArrayList<>();
+			
+			lista1 = reposytory.findByDtInicialLessThanEqualAndDtFinalGreaterThanEqualAndIdPessoaFkAndDtCancelamentoIsNullOrderByIdPessoaFkNomeAsc(dtFinal, dtInicial, pessoa);
+			lista2 = reposytory.findByDtInicialLessThanEqualAndDtFinalIsNullAndIdPessoaFkAndDtCancelamentoIsNullOrderByIdPessoaFkNomeAsc(dtFinal,  pessoa);
+			
+			lista = lista1;
+			for(int i=0;i<lista2.size();i++) {
+				lista.add(lista2.get(i));
+			}
+			
 		}
 		
 		return lista;
 	}
 	
+	
+	
 	@Transactional(readOnly = true)
 	public RubricaPensao ordenaPorPessoa(Pessoa pessoa) {
 		// TODO Auto-generated method stub
-		return reposytory.findFirstByIdPessoaFkAndDtCancelamentoIsNullOrderByIdAnoMesFkNomeAnoMesDescIdPessoaFkNomeAsc(pessoa);
+		return reposytory.findFirstByIdPessoaFkAndDtCancelamentoIsNullOrderByIdPessoaFkNomeAsc(pessoa);
 	}
 		
 	@Transactional(readOnly = true)
 	public List<RubricaPensao> buscarPorPessoa(Pessoa pessoa) {
 		// TODO Auto-generated method stub
-		return reposytory.findByIdPessoaFkOrderByIdAnoMesFkNomeAnoMesDesc(pessoa);
-	}
-	@Transactional(readOnly = true)
-	public List<RubricaPensao> buscarPorMesExato(AnoMes anoMes) {
-		return reposytory.findByIdAnoMesFkAndDtCancelamentoIsNullOrderByIdAnoMesFkNomeAnoMesDescIdPessoaFkNomeAsc(anoMes);
+		return reposytory.findByIdPessoaFkAndDtCancelamentoIsNullOrderByIdPessoaFkNomeAsc(pessoa);
 	}
 	
-	@Transactional(readOnly = true)
-	public List<RubricaPensao> buscarPorMesEPEssoa(AnoMes anoMes, Pessoa pessoa) {
-		return reposytory.findByIdAnoMesFkAndIdPessoaFkAndDtCancelamentoIsNullOrderByIdAnoMesFkNomeAnoMesDescIdPessoaFkNomeAsc(anoMes, pessoa);
-	}
 	
 	@Transactional(readOnly = true)
 	public List<RubricaPensao> buscarPorNome(String nome) {
-		return reposytory.findByIdPessoaFkNomeContainingAndDtCancelamentoIsNullOrderByIdAnoMesFkNomeAnoMesDescIdPessoaFkNomeAsc(nome);
+		return reposytory.findByIdPessoaFkNomeContainingAndDtCancelamentoIsNullOrderByIdPessoaFkNomeAsc(nome);
 	}
 	
 	@Transactional(readOnly = true)
 	public Page<RubricaPensao> findPaginated(int pageNo, int pageSize) {
 		Pageable pageable = PageRequest.of(pageNo -1, pageSize);
-		return this.reposytory.findAllByDtCancelamentoIsNullOrderByIdAnoMesFkNomeAnoMesDescIdPessoaFkNomeAsc(pageable);
+		return this.reposytory.findAllByDtCancelamentoIsNullOrderByIdPessoaFkNomeAsc(pageable);
 	}
 
-	@Transactional(readOnly = true)
-	public Page<RubricaPensao> findPaginatedAnoMes(int pageNo, int pageSize, String nome) {
-		Pageable pageable = PageRequest.of(pageNo -1, pageSize);
-		return this.reposytory.findByIdAnoMesFkNomeAnoMesContainingAndDtCancelamentoIsNullOrderByIdAnoMesFkNomeAnoMesDescIdPessoaFkNomeAsc(nome.toUpperCase().trim(), pageable);
-	}
 	
 	@Transactional(readOnly = true)
 	public Page<RubricaPensao> findPaginatedNome(int pageNo, int pageSize, String nome) {
 		Pageable pageable = PageRequest.of(pageNo -1, pageSize);
-		return this.reposytory.findByIdPessoaFkNomeContainingAndDtCancelamentoIsNullOrderByIdAnoMesFkNomeAnoMesDescIdPessoaFkNomeAsc(nome.toUpperCase().trim(), pageable);
+		return this.reposytory.findByIdPessoaFkNomeContainingAndDtCancelamentoIsNullOrderByIdPessoaFkNomeAsc(nome.toUpperCase().trim(), pageable);
 	}
 	
-	//Herdar de um mes para o outro
-	public void herdarDeUmMesParaOOutro(Long anoMesInicial, Long anoMesFinal) {
-		
-		List<RubricaPensao> listaInicial = buscarPorMesExato(anoMesService.buscarPorId(anoMesInicial)); 
-		List<RubricaPensao> listaFinal = buscarPorMesExato(anoMesService.buscarPorId(anoMesFinal));
-		
-		//Rubrica Pensao
-		if( (!listaInicial.isEmpty())  &&  (listaFinal.isEmpty()) ) {
-			for(int i=0;i<listaInicial.size();i++) {
-				RubricaPensao f = new RubricaPensao();
-				f.setId(null);
-				f.setIdAnoMesFk(anoMesService.buscarPorId(anoMesFinal));
-				f.setAgencia( listaInicial.get(i).getAgencia() );
-				f.setConta( listaInicial.get(i).getConta() );
-				f.setCpfBeneficiario( listaInicial.get(i).getCpfBeneficiario() );
-				f.setDvAgencia( listaInicial.get(i).getDvAgencia() );
-				f.setDvConta(listaInicial.get(i).getDvConta());
-				f.setIdBancoFk(listaInicial.get(i).getIdBancoFk());
-				f.setIdPessoaFk(listaInicial.get(i).getIdPessoaFk());
-				f.setNomeBeneficiario(listaInicial.get(i).getNomeBeneficiario());
-				f.setObservacao(listaInicial.get(i).getObservacao());
-				f.setOperacaoVariacao(listaInicial.get(i).getOperacaoVariacao());
-				f.setPercentagem(listaInicial.get(i).getPercentagem());
-				f.setIdIncidenciaFk(listaInicial.get(i).getIdIncidenciaFk());
-				f.setIdEfetuarCalculoSimNaoFk(listaInicial.get(i).getIdEfetuarCalculoSimNaoFk());
-				
-				f.setValor(listaInicial.get(i).getValor());
-				
-				RubricaPensao rubricaPensaoSalva = salvar(f);
-				
-				
-				//Dependentes
-				List<RubricaPensaoDependente> listaDependentes = rubricaPensaoDependenteService.buscarPensao(listaInicial.get(i));
-				
-				for(int j=0;j<listaDependentes.size();j++) {
-					RubricaPensaoDependente d = new RubricaPensaoDependente();
-					d.setId(null);
-					d.setIdRubricaPensaoFk(rubricaPensaoSalva);
-					d.setCertidaoNascimento( listaDependentes.get(j).getCertidaoNascimento() );
-					d.setCpf( listaDependentes.get(j).getCpf() );
-					d.setDtCertidao( listaDependentes.get(j).getDtCertidao() );
-					d.setDtNascimento( listaDependentes.get(i).getDtNascimento() );
-					d.setNome(listaDependentes.get(i).getNome());
-					d.setObservacao(listaDependentes.get(i).getObservacao());
-					d.setRg(listaDependentes.get(i).getRg());
-					
-					rubricaPensaoDependenteService.salvar(d);
-				}	
-				
-			}
-		}
-	}
+
 	
 	
 	public ByteArrayInputStream exportarExcel(List<RubricaPensao> lista) {
@@ -204,59 +164,63 @@ public class RubricaPensaoService {
 	        cell.setCellStyle(headerCellStyle);
 	        
 	        cell = row.createCell(2);
-	        cell.setCellValue("Mês");
-	        cell.setCellStyle(headerCellStyle);
-	
-	        cell = row.createCell(3);
 	        cell.setCellValue("Nome");
 	        cell.setCellStyle(headerCellStyle);
 	        
-	        cell = row.createCell(4);
+	        cell = row.createCell(3);
 	        cell.setCellValue("Cpf");
 	        cell.setCellStyle(headerCellStyle);
 	        
-	        cell = row.createCell(5);
+	        cell = row.createCell(4);
 	        cell.setCellValue("Beneficiário");
 	        cell.setCellStyle(headerCellStyle);
 	        
-	        cell = row.createCell(6);
+	        cell = row.createCell(5);
 	        cell.setCellValue("Cpf");
 	        cell.setCellStyle(headerCellStyle);
 	        
-	        cell = row.createCell(7);
+	        cell = row.createCell(6);
 	        cell.setCellValue("Valor");
 	        cell.setCellStyle(headerCellStyle);
 	        
-	        cell = row.createCell(8);
+	        cell = row.createCell(7);
 	        cell.setCellValue("Percentagem");
 	        cell.setCellStyle(headerCellStyle);
 	        
-	        cell = row.createCell(9);
+	        cell = row.createCell(8);
 	        cell.setCellValue("Banco");
 	        cell.setCellStyle(headerCellStyle);
 	        
-	        cell = row.createCell(10);
+	        cell = row.createCell(9);
 	        cell.setCellValue("Op");
 	        cell.setCellStyle(headerCellStyle);
 	        
-	        cell = row.createCell(11);
+	        cell = row.createCell(10);
 	        cell.setCellValue("Ag");
 	        cell.setCellStyle(headerCellStyle);
 	        
-	        cell = row.createCell(12);
+	        cell = row.createCell(11);
 	        cell.setCellValue("Dv");
 	        cell.setCellStyle(headerCellStyle);
 	        
-	        cell = row.createCell(13);
+	        cell = row.createCell(12);
 	        cell.setCellValue("Conta");
 	        cell.setCellStyle(headerCellStyle);
 	        
-	        cell = row.createCell(14);
+	        cell = row.createCell(13);
 	        cell.setCellValue("Dv");
 	        cell.setCellStyle(headerCellStyle);
 	        
-	        cell = row.createCell(15);
+	        cell = row.createCell(14);
 	        cell.setCellValue("Obs");
+	        cell.setCellStyle(headerCellStyle);
+	        
+	        cell = row.createCell(15);
+	        cell.setCellValue("Dt Inicial");
+	        cell.setCellStyle(headerCellStyle);
+	        
+	        cell = row.createCell(16);
+	        cell.setCellValue("Dt Final");
 	        cell.setCellStyle(headerCellStyle);
 	        
 	        
@@ -265,22 +229,24 @@ public class RubricaPensaoService {
 	        	Row dataRow = sheet.createRow(i + 1);
 	        	dataRow.createCell(0).setCellValue((i+1));
 	        	dataRow.createCell(1).setCellValue(lista.get(i).getId());
-	        	dataRow.createCell(2).setCellValue(lista.get(i).getIdAnoMesFk().getNomeAnoMes());
-	        	dataRow.createCell(3).setCellValue(lista.get(i).getIdPessoaFk().getNome());
-	        	dataRow.createCell(4).setCellValue(lista.get(i).getIdPessoaFk().getCpf());
-	        	dataRow.createCell(5).setCellValue(lista.get(i).getNomeBeneficiario());
-	        	dataRow.createCell(6).setCellValue(lista.get(i).getCpfBeneficiario());
-	        	dataRow.createCell(7).setCellValue(lista.get(i).getValor());
-	        	dataRow.createCell(8).setCellValue(lista.get(i).getPercentagem());
+	        	dataRow.createCell(2).setCellValue(lista.get(i).getIdPessoaFk().getNome());
+	        	dataRow.createCell(3).setCellValue(lista.get(i).getIdPessoaFk().getCpf());
+	        	dataRow.createCell(4).setCellValue(lista.get(i).getNomeBeneficiario());
+	        	dataRow.createCell(5).setCellValue(lista.get(i).getCpfBeneficiario());
+	        	dataRow.createCell(6).setCellValue(lista.get(i).getValor());
+	        	dataRow.createCell(7).setCellValue(lista.get(i).getPercentagem());
 	        	
-	        	dataRow.createCell(9).setCellValue(lista.get(i).getIdBancoFk().getCodigoBanco()+"-"+lista.get(i).getIdBancoFk().getNomeBanco());
-	        	dataRow.createCell(10).setCellValue(lista.get(i).getOperacaoVariacao());
-	        	dataRow.createCell(11).setCellValue(lista.get(i).getAgencia());
-	        	dataRow.createCell(12).setCellValue(lista.get(i).getDvAgencia());
-	        	dataRow.createCell(13).setCellValue(lista.get(i).getConta());
-	        	dataRow.createCell(14).setCellValue(lista.get(i).getDvConta());
+	        	dataRow.createCell(8).setCellValue(lista.get(i).getIdBancoFk().getCodigoBanco()+"-"+lista.get(i).getIdBancoFk().getNomeBanco());
+	        	dataRow.createCell(9).setCellValue(lista.get(i).getOperacaoVariacao());
+	        	dataRow.createCell(10).setCellValue(lista.get(i).getAgencia());
+	        	dataRow.createCell(11).setCellValue(lista.get(i).getDvAgencia());
+	        	dataRow.createCell(12).setCellValue(lista.get(i).getConta());
+	        	dataRow.createCell(13).setCellValue(lista.get(i).getDvConta());
 	        	
-	        	dataRow.createCell(15).setCellValue(lista.get(i).getObservacao());
+	        	dataRow.createCell(14).setCellValue(lista.get(i).getObservacao());
+	        	
+	        	dataRow.createCell(15).setCellValue(lista.get(i).getDtInicial());
+	        	dataRow.createCell(16).setCellValue(lista.get(i).getDtFinal());
 	        	
 	        }
 	
@@ -301,6 +267,7 @@ public class RubricaPensaoService {
 	        sheet.autoSizeColumn(13);
 	        sheet.autoSizeColumn(14);
 	        sheet.autoSizeColumn(15);
+	        sheet.autoSizeColumn(16);
 	        
 	        
 	        
@@ -320,9 +287,9 @@ public class RubricaPensaoService {
 
 		try {
 
-			PdfPTable table = new PdfPTable(16);
+			PdfPTable table = new PdfPTable(17);
 			table.setWidthPercentage(90);
-			table.setWidths(new int[] { 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2});
+			table.setWidths(new int[] { 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2});
 
 			// Tipos de Fonte
 			Font tituloFont = FontFactory.getFont(FontFactory.HELVETICA_BOLD,14);
@@ -338,10 +305,6 @@ public class RubricaPensaoService {
 			table.addCell(hcell);
 
 			hcell = new PdfPCell(new Phrase("Id", cabecalhoFont));
-			hcell.setHorizontalAlignment(Element.ALIGN_CENTER);
-			table.addCell(hcell);
-
-			hcell = new PdfPCell(new Phrase("Mês", cabecalhoFont));
 			hcell.setHorizontalAlignment(Element.ALIGN_CENTER);
 			table.addCell(hcell);
 			
@@ -397,6 +360,14 @@ public class RubricaPensaoService {
 			hcell.setHorizontalAlignment(Element.ALIGN_CENTER);
 			table.addCell(hcell);
 			
+			hcell = new PdfPCell(new Phrase("Dt Inicial", cabecalhoFont));
+			hcell.setHorizontalAlignment(Element.ALIGN_CENTER);
+			table.addCell(hcell);
+			
+			hcell = new PdfPCell(new Phrase("Dt Final", cabecalhoFont));
+			hcell.setHorizontalAlignment(Element.ALIGN_CENTER);
+			table.addCell(hcell);
+			
 			
 			
 			
@@ -413,11 +384,6 @@ public class RubricaPensaoService {
 
 				cell = new PdfPCell(new Phrase( String.valueOf( lista.get(i).getId()) ,corpoFont) );
 				cell.setPaddingLeft(5);
-				cell.setVerticalAlignment(Element.ALIGN_MIDDLE);
-				cell.setHorizontalAlignment(Element.ALIGN_CENTER);
-				table.addCell(cell);
-
-				cell = new PdfPCell(new Phrase(lista.get(i).getIdAnoMesFk().getNomeAnoMes() ,corpoFont) );
 				cell.setVerticalAlignment(Element.ALIGN_MIDDLE);
 				cell.setHorizontalAlignment(Element.ALIGN_CENTER);
 				table.addCell(cell);
@@ -487,6 +453,15 @@ public class RubricaPensaoService {
 				cell.setHorizontalAlignment(Element.ALIGN_CENTER);
 				table.addCell(cell);
 				
+				cell = new PdfPCell(new Phrase(String.valueOf(lista.get(i).getDtInicial()) ,corpoFont) );
+				cell.setVerticalAlignment(Element.ALIGN_MIDDLE);
+				cell.setHorizontalAlignment(Element.ALIGN_CENTER);
+				table.addCell(cell);
+				
+				cell = new PdfPCell(new Phrase(String.valueOf(lista.get(i).getDtFinal()) ,corpoFont) );
+				cell.setVerticalAlignment(Element.ALIGN_MIDDLE);
+				cell.setHorizontalAlignment(Element.ALIGN_CENTER);
+				table.addCell(cell);
 				
 				
 				

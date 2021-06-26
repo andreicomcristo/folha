@@ -7,10 +7,12 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import com.folha.boot.domain.AnoMes;
 import com.folha.boot.domain.FaixasPrevidencia;
+import com.folha.boot.domain.Pessoa;
 import com.folha.boot.domain.PessoaFuncionarios;
 import com.folha.boot.service.FaixasPrevidenciaNomeService;
 import com.folha.boot.service.FaixasPrevidenciaSevice;
 import com.folha.boot.service.NaoDescontaInssService;
+import com.folha.boot.service.PessoaFuncionariosService;
 
 @Service
 @Transactional(readOnly = false)
@@ -20,16 +22,25 @@ public class CalcularInssService {
 	private  FaixasPrevidenciaSevice faixasPrevidenciaSevice;
 	@Autowired
 	private  NaoDescontaInssService naoDescontaInssService;
+	@Autowired
+	private PessoaFuncionariosService pessoaFuncionariosService;
 	
 	
 	
-	
-	public Double calcularValorInss(Double valor, AnoMes anoMes, PessoaFuncionarios funcionario) {
+	public Double calcularValorInss(Double valor, AnoMes anoMes, Pessoa pessoa) {
 		boolean temInss = true;
 		Double resposta = 0.0;
+		
+		List<PessoaFuncionarios> listaFuncionarios = pessoaFuncionariosService.buscarPorPessoa(pessoa);
+		boolean vinculoEfetivo = false;
+		for(PessoaFuncionarios f: listaFuncionarios) {
+			if(f.getIdVinculoAtualFk().getNomeVinculo().equalsIgnoreCase("EFETIVO")) {
+				temInss = false;
+			}
+		}
+		
 		//Avaliando se Tem INSS ou NÃO
-		if(funcionario.getIdVinculoAtualFk().getNomeVinculo().equalsIgnoreCase("EFETIVO")) {temInss=false;}
-		if(! naoDescontaInssService.buscarPorMesExatoEFuncionario(anoMes, funcionario).isEmpty() ) {temInss=false;}
+		if(! naoDescontaInssService.buscarPorMesExatoEPessoa(anoMes, pessoa).isEmpty() ) {temInss=false;}
 		if(temInss==true) {resposta = valorInss(valor, anoMes);}
 		if(resposta<0) {resposta=0.0;}
 				

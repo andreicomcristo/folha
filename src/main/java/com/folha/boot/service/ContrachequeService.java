@@ -3,6 +3,7 @@ package com.folha.boot.service;
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
+import java.net.MalformedURLException;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -50,6 +51,7 @@ import com.itextpdf.text.DocumentException;
 import com.itextpdf.text.Element;
 import com.itextpdf.text.Font;
 import com.itextpdf.text.FontFactory;
+import com.itextpdf.text.Image;
 import com.itextpdf.text.PageSize;
 import com.itextpdf.text.Phrase;
 import com.itextpdf.text.Rectangle;
@@ -150,7 +152,7 @@ public class ContrachequeService {
 			}
 			if(listaVencimentos.get(i).getIdNaturezaFk().getSigla().equalsIgnoreCase("D")) {
 				listaDescontos.add(listaVencimentos.get(i));
-				descontos = descontos+listaDescontos.get(i).getValorBruto();
+				descontos = descontos+listaVencimentos.get(i).getValorBruto();
 			}
 		}
 		
@@ -175,10 +177,21 @@ public class ContrachequeService {
 			
 			
 			// Titulo 0
-			PdfPTable tableTitulo0 = new PdfPTable(1);
+			PdfPTable tableTitulo0 = new PdfPTable(2);
 			tableTitulo0.setWidthPercentage(90);
-			tableTitulo0.setWidths(new int[] { 4 });
+			tableTitulo0.setWidths(new int[] { 2, 6 });
 			PdfPCell cellTitulo0;
+			
+			// Colocando imagem
+			Image image = Image.getInstance("./src/main/resources/static/image/logo.png");
+			image.scaleAbsolute(30,30);
+									
+			cellTitulo0 = new PdfPCell( image );
+			cellTitulo0.setVerticalAlignment(Element.ALIGN_MIDDLE);
+			cellTitulo0.setHorizontalAlignment(Element.ALIGN_CENTER);
+			cellTitulo0.setPaddingTop(1);
+			cellTitulo0.setPaddingBottom(1);
+			tableTitulo0.addCell(cellTitulo0);
 			
 			cellTitulo0 = new PdfPCell(new Phrase("DEMONSTRATIVO DE VENCIMENTOS", tituloFont) );
 			cellTitulo0.setHorizontalAlignment(Element.ALIGN_CENTER);
@@ -560,12 +573,13 @@ public class ContrachequeService {
 			
 			//Calculando bruto e líquido
 			bruto = vantagens;
+			for(int i=0;i<listaVantagens.size();i++) {
+				liquido = liquido + listaVantagens.get(i).getValorLiquido();
+			}
+			Double descontosDocontracheque = bruto - liquido;
 			bruto = UtilidadesMatematicas.ajustaValorDecimal(bruto, 2);
-			liquido = bruto-(descontos+ir+previdencia+pensao);
 			liquido = UtilidadesMatematicas.ajustaValorDecimal(liquido, 2);
-			
-						
-			
+			descontosDocontracheque = UtilidadesMatematicas.ajustaValorDecimal(descontosDocontracheque, 2);
 			
 			
 			
@@ -696,6 +710,12 @@ public class ContrachequeService {
 
 		} catch (DocumentException ex) {
 
+		} catch (MalformedURLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
 		}
 
 		return new ByteArrayInputStream(out.toByteArray());

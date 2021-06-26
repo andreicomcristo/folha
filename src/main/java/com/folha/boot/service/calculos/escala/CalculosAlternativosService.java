@@ -32,6 +32,7 @@ import com.folha.boot.domain.FuncionariosFeriasPeriodos;
 import com.folha.boot.domain.FuncionariosLicencas;
 import com.folha.boot.domain.HorasFaltasFolhasVariaveis;
 import com.folha.boot.domain.PessoaFuncionarios;
+import com.folha.boot.domain.PreRequisitoCodigoDiferenciadoCodigoDiferenciado;
 import com.folha.boot.domain.TiposDeFolha;
 import com.folha.boot.domain.VencimentosFuncionario;
 import com.folha.boot.domain.models.calculos.EscalasNoMes;
@@ -57,6 +58,7 @@ import com.folha.boot.service.FaixasValoresPssService;
 import com.folha.boot.service.FaixasValoresResidenteService;
 import com.folha.boot.service.HorasFaltasFolhasVariaveisService;
 import com.folha.boot.service.NaoDescontaInssService;
+import com.folha.boot.service.PreRequisitoCodigoDiferenciadoCodigoDiferenciadoService;
 import com.folha.boot.service.RubricaNaturezaService;
 import com.folha.boot.service.RubricaService;
 import com.folha.boot.service.TurnosService;
@@ -118,6 +120,8 @@ public class CalculosAlternativosService {
 	private HorasFaltasFolhasVariaveisService horasFaltasFolhasVariaveisService;
 	@Autowired
 	private AnoMesService anoMesService;
+	@Autowired
+	private PreRequisitoCodigoDiferenciadoCodigoDiferenciadoService preRequisitoCodigoDiferenciadoCodigoDiferenciadoService;
 	
 	
 	
@@ -2155,6 +2159,27 @@ public class CalculosAlternativosService {
 					//Para pessoas que SIM têm diferenciacao atribuído e sao de folhas variaveis 
 					if(!escalaCodDiferenciadoService.buscarPorEscala(listaEscalas.get(i).getEscala()).isEmpty()) {
 						List<EscalaCodDiferenciado> listaDiferenciados = escalaCodDiferenciadoService.buscarPorEscala(listaEscalas.get(i).getEscala());
+						
+						//Pegando os pré requisitos
+						int qtdSituacoes = listaDiferenciados.size();
+						for(int n=0; n<qtdSituacoes; n++) {
+							//Lista de pré requisitos
+							List<PreRequisitoCodigoDiferenciadoCodigoDiferenciado> listaPreRequisitoCodigoDiferenciadoCodigoDiferenciado = preRequisitoCodigoDiferenciadoCodigoDiferenciadoService.buscarPorCodigoDiferenciado( listaDiferenciados.get(n).getIdCodigoDiferenciadoFk()  );
+								for(int o=0; o<listaPreRequisitoCodigoDiferenciadoCodigoDiferenciado.size();o++) {
+									EscalaCodDiferenciado escalaCodDiferenciado = new EscalaCodDiferenciado();
+									escalaCodDiferenciado.setDtCadastro( listaDiferenciados.get(n).getDtCadastro() );
+									escalaCodDiferenciado.setDtCancelamento( listaDiferenciados.get(n).getDtCancelamento() );
+									escalaCodDiferenciado.setIdEscalaFk( listaDiferenciados.get(n).getIdEscalaFk() );
+									escalaCodDiferenciado.setIdOperadorCadastroFk( listaDiferenciados.get(n).getIdOperadorCadastroFk() );
+									escalaCodDiferenciado.setIdOperadorCancelamentoFk( listaDiferenciados.get(n).getIdOperadorCancelamentoFk() );
+									escalaCodDiferenciado.setIdCodigoDiferenciadoFk( listaPreRequisitoCodigoDiferenciadoCodigoDiferenciado.get(o).getIdCodigoDiferenciadoCompativelFk() );
+									listaDiferenciados.add(escalaCodDiferenciado);
+								}
+							
+							
+							
+						}
+						
 						for(int k=0;k<listaDiferenciados.size();k++) {
 							for(int j=0;j<listaValoresExtra.size();j++) {
 								RubricasVencimento r = new RubricasVencimento();

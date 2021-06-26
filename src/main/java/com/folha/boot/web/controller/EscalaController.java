@@ -81,6 +81,7 @@ import com.folha.boot.service.EscalaExportacaoService;
 import com.folha.boot.service.EscalaPosTransparenciaService;
 import com.folha.boot.service.EscalaService;
 import com.folha.boot.service.FaixasValoresParametrosCalculoFolhasExtrasService;
+import com.folha.boot.service.IncompatibilidadeCodigoDiferenciadoCodigoDiferenciadoService;
 import com.folha.boot.service.IncrementoDeRiscoUnidadeCargoService;
 import com.folha.boot.service.PessoaChDifService;
 import com.folha.boot.service.PessoaCodDiferenciadoService;
@@ -92,6 +93,7 @@ import com.folha.boot.service.PessoaIncrementoDeRiscoSedeService;
 import com.folha.boot.service.PessoaIncrementoDeRiscoService;
 import com.folha.boot.service.PessoaOperadoresService;
 import com.folha.boot.service.PessoaService;
+import com.folha.boot.service.PreRequisitoCodigoDiferenciadoCodigoDiferenciadoService;
 import com.folha.boot.service.RegimesDeTrabalhoService;
 import com.folha.boot.service.SimNaoService;
 import com.folha.boot.service.TiposDeDocumentoService;
@@ -201,6 +203,10 @@ public class EscalaController {
 	PessoaComplementoDePlantaoSedeService pessoaComplementoDePlantaoSedeService;
 	@Autowired
 	EscalaCompatibilidadeService escalaCompatibilidadeService;
+	@Autowired
+	PreRequisitoCodigoDiferenciadoCodigoDiferenciadoService preRequisitoCodigoDiferenciadoCodigoDiferenciadoService;
+	@Autowired
+	IncompatibilidadeCodigoDiferenciadoCodigoDiferenciadoService incompatibilidadeCodigoDiferenciadoCodigoDiferenciadoService;
 	
 	
 	
@@ -902,7 +908,19 @@ public class EscalaController {
 		escalaCodDiferenciado.setIdEscalaFk(escala);		
 		escalaCodDiferenciado.setIdOperadorCadastroFk(usuarioService.pegarOperadorLogado());
 		escalaCodDiferenciado.setDtCadastro(new Date());
-			
+		
+		//Tirando diferenciado quando é pré requisito
+		CodigoDiferenciado codigoDiferenciado =  preRequisitoCodigoDiferenciadoCodigoDiferenciadoService.compatibilidadeEscalaPreRequisito(escalaCodDiferenciado);
+		//Tirando quando é incompativel
+		if(codigoDiferenciado == null) {codigoDiferenciado =  incompatibilidadeCodigoDiferenciadoCodigoDiferenciadoService.compatibilidadeEscalaIncompatibilidade(escalaCodDiferenciado);}
+		
+		if(codigoDiferenciado!=null) {
+			//comando para armazenar a escala na sessão
+	        HttpSession session = httpSessionFactory.getObject();
+	        session.setAttribute("idCodigoDifernciado1", codigoDiferenciado.getId()  );
+	        session.setAttribute("idCodigoDifernciado2", escalaCodDiferenciado.getIdCodigoDiferenciadoFk().getId()  );
+			return	"redirect:/escalas/mensagem/de/diferenciado/pre/requisito" ;
+		}
 		
 		//salvando
 		if(podeSalvar==true ){
@@ -4445,6 +4463,16 @@ public class EscalaController {
 		return "/choqueescala/escalaBloqueada";
 	}
 	
+	@GetMapping("/mensagem/de/diferenciado/pre/requisito")
+	public String mensagemDeDiferenciaodoPreRequisito(ModelMap model ) {
+		
+		model.addAttribute("atencao", "ATENÇÃO");
+		model.addAttribute("choque", "INCOMPATIBILIDADE");
+		model.addAttribute("mensagem", "Você não pode colocar ["+codigoDiferenciadoService.buscarPorId( pegarIdCodigoDifernciado1() ).getDescricaoCodigoDiferenciado()+"] junto com ["+codigoDiferenciadoService.buscarPorId( pegarIdCodigoDifernciado2() ).getDescricaoCodigoDiferenciado()+"] na mesma escala."   );
+		
+		return "/choqueescala/choque";
+	}
+	
 	@GetMapping("/mensagem/de/choque")
 	public String mensagemDeChoque(ModelMap model) {	
 		
@@ -5020,6 +5048,13 @@ public class EscalaController {
 		return Long.valueOf(request.getSession().getAttribute("ultimoIdEscala").toString()) ;
 	}
 	
+	public Long pegarIdCodigoDifernciado1() {
+		return Long.valueOf(request.getSession().getAttribute("idCodigoDifernciado1").toString()) ;
+	}
+	
+	public Long pegarIdCodigoDifernciado2() {
+		return Long.valueOf(request.getSession().getAttribute("idCodigoDifernciado2").toString()) ;
+	}
 	
 	
 }

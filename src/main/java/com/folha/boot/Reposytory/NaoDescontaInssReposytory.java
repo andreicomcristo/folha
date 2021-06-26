@@ -10,6 +10,7 @@ import org.springframework.stereotype.Repository;
 import com.folha.boot.domain.AnoMes;
 import com.folha.boot.domain.AtividadeEscala;
 import com.folha.boot.domain.NaoDescontaInss;
+import com.folha.boot.domain.Pessoa;
 import com.folha.boot.domain.PessoaFuncionarios;
 import com.folha.boot.domain.Unidades;
 
@@ -20,6 +21,8 @@ public interface NaoDescontaInssReposytory extends JpaRepository<NaoDescontaInss
 	public List<NaoDescontaInss> findByIdAnoMesFkOrderByIdAnoMesFkNomeAnoMesDescIdFuncionarioFkIdPessoaFkNomeAsc(AnoMes anoMes);
 	
 	public List<NaoDescontaInss> findByIdAnoMesFkAndIdFuncionarioFkOrderByIdAnoMesFkNomeAnoMesDescIdFuncionarioFkIdPessoaFkNomeAsc(AnoMes anoMes, PessoaFuncionarios pessoaFuncionarios);
+	
+	public List<NaoDescontaInss> findByIdAnoMesFkAndIdFuncionarioFkIdPessoaFkOrderByIdAnoMesFkNomeAnoMesDescIdFuncionarioFkIdPessoaFkNomeAsc(AnoMes anoMes, Pessoa pessoa);
 	
 	public List<NaoDescontaInss> findByIdAnoMesFkNomeAnoMesContainingOrderByIdAnoMesFkNomeAnoMesDescIdFuncionarioFkIdPessoaFkNomeAsc(String nome);
 	

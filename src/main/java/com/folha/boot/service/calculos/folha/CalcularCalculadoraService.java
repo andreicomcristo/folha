@@ -1,6 +1,7 @@
 package com.folha.boot.service.calculos.folha;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,12 +17,14 @@ import com.folha.boot.domain.RubricaVencimento;
 import com.folha.boot.domain.models.calculos.RubricasVencimento;
 import com.folha.boot.service.FatorPatronalService;
 import com.folha.boot.service.NaoDescontaInssService;
+import com.folha.boot.service.PessoaFuncionariosService;
 import com.folha.boot.service.RubricaNaturezaService;
 import com.folha.boot.service.RubricaPensaoObsService;
 import com.folha.boot.service.RubricaPensaoService;
 import com.folha.boot.service.RubricaVencimentoService;
 import com.folha.boot.service.SalarioMinimoService;
 import com.folha.boot.service.TipoBrutoLiquidoService;
+import com.folha.boot.service.util.UtilidadesDeCalendarioEEscala;
 import com.folha.boot.service.util.UtilidadesMatematicas;
 
 @Service
@@ -46,20 +49,40 @@ public class CalcularCalculadoraService {
 	private FatorPatronalService fatorPatronalService;
 	@Autowired
 	private SalarioMinimoService salarioMinimoService;
+	@Autowired
+	private PessoaFuncionariosService pessoaFuncionariosService;
+	@Autowired
+	private UtilidadesDeCalendarioEEscala utilidadesDeCalendarioEEscala;
 	
 	
 	
 	public void calcularTudo(AnoMes anoMes) {
-		List<PessoaFuncionarios> listaFuncionarios = listarFuncionariosComRubrica(anoMes);
+		//List<PessoaFuncionarios> listaFuncionarios = listarFuncionariosComRubrica(anoMes);
+		List<Pessoa> listaPessoasComRubricaVencimento = listarPessoasComRubrica(anoMes);
+		
+		
 		Double salarioMimomo = 0.0;
 		if(salarioMinimoService.buscarPorMesExato(anoMes).get(0).getValor()!= null) {salarioMimomo = salarioMinimoService.buscarPorMesExato(anoMes).get(0).getValor();}
 		 
 		
-		for(int i=0;i<listaFuncionarios.size();i++) {
+		for(int i=0;i<listaPessoasComRubricaVencimento.size();i++) {
+			
+			
+			//Identificando o Vinculo
+			boolean vinculoEfetivo = false;
+			List<PessoaFuncionarios> listaFuncionariosVinculo = pessoaFuncionariosService.buscarPorPessoa(listaPessoasComRubricaVencimento.get(i));
+			for(PessoaFuncionarios f: listaFuncionariosVinculo) {
+				if(f.getIdVinculoAtualFk().getNomeVinculo().equalsIgnoreCase("EFETIVO")  ||  f.getIdVinculoAtualFk().getNomeVinculo().equalsIgnoreCase("CEDIDO") ) {
+					vinculoEfetivo = true; break;
+				}
+			}
+			
+			
+			
 			
 			Double valorPensao = 0.0;
 			
-			List<RubricaVencimento> listaVencimentos = buscarRubricasPorPessoa(anoMes, listaFuncionarios.get(i));
+			List<RubricaVencimento> listaVencimentos = buscarRubricasPorPessoa2(anoMes, listaPessoasComRubricaVencimento.get(i));
 			
 				boolean contemRemuneracaoLiquida = false;
 				for(int j=0;j<listaVencimentos.size();j++) {
@@ -94,10 +117,10 @@ public class CalcularCalculadoraService {
 				
 					
 					//Calculando Inss
-					inss = calcularInssService.calcularValorInss(vantagens-descontos, anoMes, listaFuncionarios.get(i));
+					inss = calcularInssService.calcularValorInss(vantagens-descontos, anoMes, listaPessoasComRubricaVencimento.get(i));
 					
 					//Calculando pensao alimenticia
-					List<RubricaPensao> listaPensao = rubricaPensaoService.buscarPorMesEPEssoa(anoMes, listaFuncionarios.get(i).getIdPessoaFk());
+					List<RubricaPensao> listaPensao = rubricaPensaoService.buscarPensoesDoMesAtual( listaPessoasComRubricaVencimento.get(i), anoMes );
 					for(int k=0;k<listaPensao.size();k++) {
 						if(listaPensao.get(k).getIdEfetuarCalculoSimNaoFk().getSigla().equalsIgnoreCase("S")){
 							RubricaPensaoObs r = new RubricaPensaoObs();
@@ -119,13 +142,18 @@ public class CalcularCalculadoraService {
 							
 							//Para calculo sobre o SALARIO MINIMO depois do INSS
 							if(listaPensao.get(k).getIdIncidenciaFk().getSigla().equalsIgnoreCase("C")) {
-								valorPensao = listaPensao.get(k).getPercentagem()*salarioMimomo;
+								valorPensao = (listaPensao.get(k).getPercentagem() /100) *salarioMimomo;
 							}
 							
-							//Para calculo sobre o SALARIO MINIMO Antes do INSS
-							if(listaPensao.get(k).getIdIncidenciaFk().getSigla().equalsIgnoreCase("D")) {
-								valorPensao = listaPensao.get(k).getPercentagem()*salarioMimomo;
+							//Ajustando Proporçao de dias quando tem data final definida.
+							if(listaPensao.get(k).getDtFinal()!=null) {
+								Date dtFinalPensao = listaPensao.get(k).getDtFinal();
+								if( String.valueOf((dtFinalPensao.getYear()+1900)).equalsIgnoreCase(anoMes.getNomeAnoMes().substring(0, 4))   &&    String.valueOf((dtFinalPensao.getMonth()+1)).equalsIgnoreCase(anoMes.getNomeAnoMes().substring(4, 6))   ) {
+									int dias = dtFinalPensao.getDate();
+									valorPensao = (valorPensao / utilidadesDeCalendarioEEscala.quantidadeDeDiasNoMes(anoMes.getNomeAnoMes())) * dias   ;
+								}
 							}
+							
 							
 							if( (vantagens-(descontos+inss+pensao))-valorPensao <0 ) { r.setObservacao("O VALOR PENSAO EM FAVOR DE "+listaPensao.get(k).getNomeBeneficiario()+", CPF: "+listaPensao.get(k).getCpfBeneficiario()+ " NAO DESCONTADO.");  valorPensao = 0.0; }
 							
@@ -145,7 +173,7 @@ public class CalcularCalculadoraService {
 							fatorPatronal = fatorPatronalService.buscarPorMesExato(anoMes).get(0).getFator()/100;
 						}
 					}
-					if(!listaFuncionarios.get(i).getIdVinculoAtualFk().getNomeVinculo().equalsIgnoreCase("EFETIVO")) {patronal = (vantagens-descontos)*fatorPatronal; }
+					if( vinculoEfetivo == false ) {patronal = (vantagens-descontos)*fatorPatronal; }
 					if(inss==0) {patronal = 0.0;}
 					
 					//Calculando as proporções dos impostos
@@ -182,13 +210,13 @@ public class CalcularCalculadoraService {
 					}
 				
 					//Calcular bruto total
-					vantagens = calcularBrutoService.calcularBruto(liquidoVantagens, listaFuncionarios.get(i), anoMes);
+					vantagens = calcularBrutoService.calcularBruto(liquidoVantagens, listaPessoasComRubricaVencimento.get(i), anoMes);
 					
 					//Calculando Inss
-					inss = calcularInssService.calcularValorInss(vantagens-descontos, anoMes, listaFuncionarios.get(i));
+					inss = calcularInssService.calcularValorInss(vantagens-descontos, anoMes, listaPessoasComRubricaVencimento.get(i));
 					
 					//Calculando pensao alimenticia
-					List<RubricaPensao> listaPensao = rubricaPensaoService.buscarPorMesEPEssoa(anoMes, listaFuncionarios.get(i).getIdPessoaFk());
+					List<RubricaPensao> listaPensao = rubricaPensaoService.buscarPensoesDoMesAtual( listaPessoasComRubricaVencimento.get(i), anoMes );
 					for(int k=0;k<listaPensao.size();k++) {
 						if(listaPensao.get(k).getIdEfetuarCalculoSimNaoFk().getSigla().equalsIgnoreCase("S")){
 							RubricaPensaoObs r = new RubricaPensaoObs();
@@ -210,13 +238,18 @@ public class CalcularCalculadoraService {
 							
 							//Para calculo sobre o SALARIO MINIMO depois do INSS
 							if(listaPensao.get(k).getIdIncidenciaFk().getSigla().equalsIgnoreCase("C")) {
-								valorPensao = listaPensao.get(k).getPercentagem()*salarioMimomo;
+								valorPensao = (listaPensao.get(k).getPercentagem() /100) *salarioMimomo;
 							}
 							
-							//Para calculo sobre o SALARIO MINIMO Antes do INSS
-							if(listaPensao.get(k).getIdIncidenciaFk().getSigla().equalsIgnoreCase("D")) {
-								valorPensao = listaPensao.get(k).getPercentagem()*salarioMimomo;
+							//Ajustando Proporçao de dias quando tem data final definida.
+							if(listaPensao.get(k).getDtFinal()!=null) {
+								Date dtFinalPensao = listaPensao.get(k).getDtFinal();
+								if( String.valueOf((dtFinalPensao.getYear()+1900)).equalsIgnoreCase(anoMes.getNomeAnoMes().substring(0, 4))   &&    String.valueOf((dtFinalPensao.getMonth()+1)).equalsIgnoreCase(anoMes.getNomeAnoMes().substring(4, 6))   ) {
+									int dias = dtFinalPensao.getDate();
+									valorPensao = (valorPensao / utilidadesDeCalendarioEEscala.quantidadeDeDiasNoMes(anoMes.getNomeAnoMes())) * dias   ;
+								}
 							}
+							
 							
 							if( (vantagens-(descontos+inss+pensao))-valorPensao <0 ) { r.setObservacao("O VALOR PENSAO EM FAVOR DE "+listaPensao.get(k).getNomeBeneficiario()+", CPF: "+listaPensao.get(k).getCpfBeneficiario()+ " NAO DESCONTADO.");  valorPensao = 0.0; }
 							
@@ -236,7 +269,7 @@ public class CalcularCalculadoraService {
 							fatorPatronal = fatorPatronalService.buscarPorMesExato(anoMes).get(0).getFator()/100;
 						}
 					}
-					if(!listaFuncionarios.get(i).getIdVinculoAtualFk().getNomeVinculo().equalsIgnoreCase("EFETIVO")) {patronal = (vantagens-descontos)*fatorPatronal; }
+					if(vinculoEfetivo == false) {patronal = (vantagens-descontos)*fatorPatronal; }
 					if(inss==0) {patronal = 0.0;}
 					
 					//Calculando as proporções dos impostos
@@ -351,8 +384,26 @@ public class CalcularCalculadoraService {
 	}
 	
 	
+	public List<Pessoa> listarPessoasComRubrica(AnoMes anoMes){
+		List<Pessoa> lista = new ArrayList<>();
+		
+		List<RubricaVencimento> listaVencimentos = rubricaVencimentoService.buscarPorMes(anoMes);
+		for(int i=0; i<listaVencimentos.size();i++) {
+			if(!lista.contains(listaVencimentos.get(i).getIdFuncionarioFk().getIdPessoaFk())) {
+				lista.add(listaVencimentos.get(i).getIdFuncionarioFk().getIdPessoaFk());
+			}
+		}
+		return lista;
+	}
+	
+	
+	
 	public List<RubricaVencimento> buscarRubricasPorPessoa(AnoMes anoMes, PessoaFuncionarios funcionario){
 		return rubricaVencimentoService.buscarPorMesEFuncionario(anoMes, funcionario);
+	}
+	
+	public List<RubricaVencimento> buscarRubricasPorPessoa2(AnoMes anoMes, Pessoa pessoa){
+		return rubricaVencimentoService.buscarPorMesEPessoa(anoMes, pessoa);
 	}
 	
 	public List<RubricaVencimento> buscarRubricasPorAnoMes(AnoMes anoMes){

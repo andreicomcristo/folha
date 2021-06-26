@@ -20,6 +20,11 @@ public class GrupoUsuario extends AbstractEntity<Long> {
     @OneToMany(mappedBy = "idGrupoUsuarioFk")
     private List<GrupoUsuarioPermissao> grupoUsuarioPermissaoList;
     
+    @OneToMany(mappedBy = "idGrupoUsuarioCompativelFk")
+    private List<GrupoUsuarioGrupoUsuario> grupoUsuarioGrupoUsuarioList;
+    @OneToMany(mappedBy = "idGrupoUsuarioFk")
+    private List<GrupoUsuarioGrupoUsuario> grupoUsuarioGrupoUsuarioList1;
+    
     
 	public String getNome() {
 		return nome;
@@ -38,6 +43,18 @@ public class GrupoUsuario extends AbstractEntity<Long> {
 	}
 	public void setGrupoUsuarioPermissaoList(List<GrupoUsuarioPermissao> grupoUsuarioPermissaoList) {
 		this.grupoUsuarioPermissaoList = grupoUsuarioPermissaoList;
+	}
+	public List<GrupoUsuarioGrupoUsuario> getGrupoUsuarioGrupoUsuarioList() {
+		return grupoUsuarioGrupoUsuarioList;
+	}
+	public void setGrupoUsuarioGrupoUsuarioList(List<GrupoUsuarioGrupoUsuario> grupoUsuarioGrupoUsuarioList) {
+		this.grupoUsuarioGrupoUsuarioList = grupoUsuarioGrupoUsuarioList;
+	}
+	public List<GrupoUsuarioGrupoUsuario> getGrupoUsuarioGrupoUsuarioList1() {
+		return grupoUsuarioGrupoUsuarioList1;
+	}
+	public void setGrupoUsuarioGrupoUsuarioList1(List<GrupoUsuarioGrupoUsuario> grupoUsuarioGrupoUsuarioList1) {
+		this.grupoUsuarioGrupoUsuarioList1 = grupoUsuarioGrupoUsuarioList1;
 	}
 	
 

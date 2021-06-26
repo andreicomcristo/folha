@@ -15,6 +15,14 @@ import com.folha.boot.service.util.UtilidadesDeTexto;
 @Table(name = "rubrica_pensao")
 public class RubricaPensao extends AbstractEntity<Long> {
 	
+	
+	@Column(name = "dt_inicial")
+    @Temporal(TemporalType.DATE)
+    private Date dtInicial;
+	@Column(name = "dt_final")
+    @Temporal(TemporalType.DATE)
+    private Date dtFinal;
+	
 	@Column(name = "dt_cancelamento")
     @Temporal(TemporalType.DATE)
     private Date dtCancelamento;
@@ -38,9 +46,6 @@ public class RubricaPensao extends AbstractEntity<Long> {
     private String operacaoVariacao;
     @Column(name = "observacao")
     private String observacao;
-    @JoinColumn(name = "id_ano_mes_fk", referencedColumnName = "id")
-    @ManyToOne
-    private AnoMes idAnoMesFk;
     @JoinColumn(name = "id_banco_fk", referencedColumnName = "id")
     @ManyToOne
     private Bancos idBancoFk;
@@ -146,14 +151,6 @@ public class RubricaPensao extends AbstractEntity<Long> {
 		this.observacao = UtilidadesDeTexto.retiraEspacosDuplosAcentosEConverteEmMaiusculo(observacao);
 	}
 
-	public AnoMes getIdAnoMesFk() {
-		return idAnoMesFk;
-	}
-
-	public void setIdAnoMesFk(AnoMes idAnoMesFk) {
-		this.idAnoMesFk = idAnoMesFk;
-	}
-
 	public Bancos getIdBancoFk() {
 		return idBancoFk;
 	}
@@ -217,6 +214,22 @@ public class RubricaPensao extends AbstractEntity<Long> {
 
 	public void setIdEfetuarCalculoSimNaoFk(SimNao idEfetuarCalculoSimNaoFk) {
 		this.idEfetuarCalculoSimNaoFk = idEfetuarCalculoSimNaoFk;
+	}
+
+	public Date getDtInicial() {
+		return dtInicial;
+	}
+
+	public void setDtInicial(Date dtInicial) {
+		this.dtInicial = dtInicial;
+	}
+
+	public Date getDtFinal() {
+		return dtFinal;
+	}
+
+	public void setDtFinal(Date dtFinal) {
+		this.dtFinal = dtFinal;
 	}
 	
 	

@@ -194,7 +194,7 @@ public class FaixasValoresFolhExtController {
 		
 		service.salvar(faixasValoresFolhExt);
 		attr.addFlashAttribute("success", "Inserido com sucesso.");
-		return "redirect:/faixasValoresFolhExt/cadastrar";
+		return "redirect:/faixasValoresFolhExt/funcionarios/listar";
 	}
 	
 	@GetMapping("/editar/{id}")

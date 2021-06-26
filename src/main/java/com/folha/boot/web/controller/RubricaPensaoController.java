@@ -53,7 +53,6 @@ import com.folha.boot.service.seguranca.UsuarioService;
 @RequestMapping("/rubricaPensao")
 public class RubricaPensaoController {
 
-	String ultimoAnoMes = "";
 	String ultimoNome = ""; 
 	String ultimaBuscaNome = ""; 
 	
@@ -148,7 +147,6 @@ public class RubricaPensaoController {
 	
 	@GetMapping("/listar")
 	public String listar(ModelMap model) {
-		this.ultimoAnoMes = "";
 		this.ultimoNome = "";
 		return this.findPaginated(1, model);
 	}
@@ -160,14 +158,7 @@ public class RubricaPensaoController {
 		List<RubricaPensao> listaCidades = page.getContent();
 		return paginar(pageNo, page, listaCidades, model);
 	}
-
-	public String findPaginated(@PathVariable(value = "pageNo") int pageNo, String nome, ModelMap model) {
-		int pageSeze = 10;
-		Page<RubricaPensao> page = service.findPaginatedAnoMes(pageNo, pageSeze, nome);
-		List<RubricaPensao> lista = page.getContent();
-		return paginar(pageNo, page, lista, model);
-	}
-
+	
 	public String findPaginatedNome(@PathVariable(value = "pageNo") int pageNo, String nome, ModelMap model) {
 		int pageSeze = 10;
 		Page<RubricaPensao> page = service.findPaginatedNome(pageNo, pageSeze, nome);
@@ -183,17 +174,10 @@ public class RubricaPensaoController {
 		return "/rubricaPensao/lista";
 	}
 
-	@GetMapping("/buscar/nome/anomes")
-	public String getPorAnoMes(@RequestParam("anoMes") String anoMes, ModelMap model) {
-		this.ultimoAnoMes = anoMes;
-		this.ultimoNome = "";
-		return this.findPaginated(1, anoMes, model);
-	}
-
+	
 	@GetMapping("/buscar/nome/nome")
 	public String getPorNomeNome(@RequestParam("nome") String nome, ModelMap model) {
 		this.ultimoNome = nome;
-		this.ultimoAnoMes = "";
 		return this.findPaginatedNome(1, nome, model);
 	}
 
@@ -202,14 +186,10 @@ public class RubricaPensaoController {
 		if (pageNo < 1) {
 			pageNo = 1;
 		}
-		if ((ultimoAnoMes.equals("")) && (ultimoNome.equals(""))) {
+		if ( (ultimoNome.equals(""))) {
 			return "redirect:/rubricaPensao/listar/{pageNo}";
 		} else {
-			if (!ultimoAnoMes.equals("")) {
-				return this.findPaginated(pageNo, ultimoAnoMes, model);
-			} else {
 				return this.findPaginatedNome(pageNo, ultimoNome, model);
-			}
 		}
 
 	}
@@ -232,7 +212,7 @@ public class RubricaPensaoController {
 		Pessoa pessoa = pessoaService.buscarPorId(getIdPessoaSession());
 		rubricaPensao.setIdPessoaFk(pessoa);						
 		model.addAttribute("pessoa", pessoa); 
-		model.addAttribute("pensao", service.buscarPensoesDoMesAtual(pessoa));		
+		model.addAttribute("pensao", service.buscarPorPessoa(pessoa));		
 		return "/rubricaPensao/cadastro";
 	}
 	
@@ -341,12 +321,7 @@ public class RubricaPensaoController {
 		attr.addFlashAttribute("success", "Inserido com sucesso.");
 		return "redirect:/rubricaPensao/cadastrar/" + id;
 	}*/
-		
-	@GetMapping("/herdar/de/mes")
-	public String herdarDeMes(Long anoMesInicial, Long anoMesFinal, ModelMap model) {
-		service.herdarDeUmMesParaOOutro(anoMesInicial, anoMesFinal);
-		return "redirect:/rubricaPensao/listar";
-	}
+	
 
 	@GetMapping("/buscar/nome")
 	public String getPorNome(@RequestParam("cnesUnidade") String nome, ModelMap model) {
@@ -370,11 +345,7 @@ public class RubricaPensaoController {
 		return ResponseEntity.ok().headers(headers).contentType(MediaType.APPLICATION_PDF)
 				.body(new InputStreamResource(bis));
 	}
-
-	@ModelAttribute("idAnoMesFk")
-	public List<AnoMes> getIdAnoMesFk() {
-		return anoMesService.buscarTodos();
-	}
+	
 
 	@ModelAttribute("idBancoFk")
 	public List<Bancos> getIdBancoFk() {

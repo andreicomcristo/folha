@@ -1,7 +1,8 @@
-package com.folha.boot.web.controller;
+package com.folha.boot.web.controller.seguranca;
 
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
@@ -35,6 +36,7 @@ import com.folha.boot.domain.PessoaOperadores;
 import com.folha.boot.domain.TipoBrutoLiquido;
 import com.folha.boot.domain.Unidades;
 import com.folha.boot.domain.seguranca.GrupoUsuario;
+import com.folha.boot.domain.seguranca.GrupoUsuarioGrupoUsuario;
 import com.folha.boot.domain.seguranca.Perfil;
 import com.folha.boot.service.AnoMesService;
 import com.folha.boot.service.CargaHorariaSemanalService;
@@ -46,6 +48,7 @@ import com.folha.boot.service.PessoaFuncionariosService;
 import com.folha.boot.service.PessoaOperadoresService;
 import com.folha.boot.service.TipoBrutoLiquidoService;
 import com.folha.boot.service.UnidadesService;
+import com.folha.boot.service.seguranca.GrupoUsuarioGrupoUsuarioService;
 import com.folha.boot.service.seguranca.GrupoUsuarioService;
 import com.folha.boot.service.seguranca.PerfilService;
 import com.folha.boot.service.seguranca.UsuarioService;
@@ -66,7 +69,7 @@ public class PerfilController {
 	@Autowired
 	private UnidadesService unidadesService;
 	@Autowired
-	private ClassesCarreiraService classesCarreiraService;
+	private GrupoUsuarioGrupoUsuarioService grupoUsuarioGrupoUsuarioService;
 	@Autowired
 	private CargaHorariaSemanalService cargaHorariaSemanalService;
 	@Autowired
@@ -326,52 +329,13 @@ public class PerfilController {
 	
 	@ModelAttribute("idGrupoUsuarioFk")
 	public List<GrupoUsuario> getIdGrupoUsuarioFk() {
+		List<GrupoUsuario> lista = new ArrayList<>(); 
+		List<GrupoUsuarioGrupoUsuario> listaInicial = grupoUsuarioGrupoUsuarioService.buscarPorGrupoUsuarioLogado();
 		
-		List<GrupoUsuario> lista = grupoUsuarioService.buscarTodos(); 
+		for(GrupoUsuarioGrupoUsuario g : listaInicial) {
+			lista.add(g.getIdGrupoUsuarioCompativelFk());
+		}
 		
-		
-		
-			Perfil perfilLogado = null;
-			List<Perfil> listaPerfis = service.buscarPorOperadorEUnidade(usuarioService.pegarOperadorLogado(), usuarioService.pegarUnidadeLogada());
-			if(!listaPerfis.isEmpty()) {
-				perfilLogado = listaPerfis.get(0);
-			}
-			
-				if(perfilLogado!=null) {
-					
-					if(!perfilLogado.getIdGrupoUsuarioFk().getNome().equalsIgnoreCase("MASTER")) {
-						
-						if(perfilLogado.getIdGrupoUsuarioFk().getNome().equalsIgnoreCase("FOLHA_SEDE")) {
-							for(int i = lista.size();i==0;i--) {
-								if(!lista.get(i).getNome().contains("SEDE")) {lista.remove(i);}
-							}
-						}
-						
-						if(!perfilLogado.getIdGrupoUsuarioFk().getNome().equalsIgnoreCase("FOLHA_SEDE")) {
-							if(perfilLogado.getIdGrupoUsuarioFk().getNome().contains("SEDE")) {
-								for(int i = lista.size();i==0;i--) {
-									if(!lista.get(i).getNome().contains("SEDE")) {lista.remove(i); }
-									if(lista.get(i).getNome().contains("FOLHA_SEDE")) {lista.remove(i); }
-								}
-							}
-						}
-						
-			
-						if(!perfilLogado.getIdGrupoUsuarioFk().getNome().equalsIgnoreCase("FOLHA_SEDE")) {
-							if(!perfilLogado.getIdGrupoUsuarioFk().getNome().contains("SEDE")) {
-								for(int i = lista.size();i==0;i--) {
-									if(lista.get(i).getNome().contains("SEDE")) {lista.remove(i);}
-									if(lista.get(i).getNome().contains("MASTER")) {lista.remove(i); }
-								}
-							}
-						}
-		
-					
-					}
-					
-				}
-			
-				
 		return lista;
 		
 		

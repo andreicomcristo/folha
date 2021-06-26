@@ -34,6 +34,7 @@ import javax.servlet.http.HttpSession;
 import com.folha.boot.Reposytory.PessoaOperadoresReposytory;
 import com.folha.boot.domain.PessoaOperadores;
 import com.folha.boot.domain.Unidades;
+import com.folha.boot.domain.seguranca.GrupoUsuario;
 import com.folha.boot.domain.seguranca.GrupoUsuarioPermissao;
 import com.folha.boot.domain.seguranca.Perfil;
 import com.folha.boot.domain.seguranca.Permissao;
@@ -63,6 +64,9 @@ public class UsuarioService implements GenericService<PessoaOperadores>, UserDet
     
     @Autowired
     private UnidadesService unidadesService;
+    
+    @Autowired
+    private GrupoUsuarioService grupoUsuarioService;
     
     @Autowired
     private PerfilService perfilService;
@@ -216,6 +220,7 @@ public class UsuarioService implements GenericService<PessoaOperadores>, UserDet
         if(!listaPerfil.isEmpty()) {
         	for(int i=0;i<listaPerfil.size();i++) {
         		permissao.add(listaPerfil.get(i).getIdGrupoUsuarioFk().getNome());
+        		session.setAttribute("idGrupoUsuarioLogado", listaPerfil.get(i).getIdGrupoUsuarioFk().getId() );
         	}
         }
         
@@ -261,6 +266,13 @@ public class UsuarioService implements GenericService<PessoaOperadores>, UserDet
 		Long idUnidadeLogada =  Long.parseLong(session.getAttribute("idUnidadeLogada").toString());
 		Unidades unidades = unidadesService.buscarPorId(idUnidadeLogada); 
 		return unidades;
+	}
+	
+	public GrupoUsuario pegarGrupoUsuarioLogado() {
+		HttpSession session = httpSessionFactory.getObject();
+		Long idGrupoUsuarioLogado =  Long.parseLong(session.getAttribute("idGrupoUsuarioLogado").toString());
+		GrupoUsuario grupoUsuario = grupoUsuarioService.buscarPorId(idGrupoUsuarioLogado); 
+		return grupoUsuario;
 	}
     
 	
