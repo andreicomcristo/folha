@@ -220,6 +220,11 @@ public class Turnos extends AbstractEntity<Long>{
     @OneToMany(mappedBy = "idTurnoFk")
     private List<RegimeDeTrabalhoTurno> regimeDeTrabalhoTurnoList;
     
+    @OneToMany(mappedBy = "idTurnoFk")
+    private List<UnidadeTurno> unidadeTurnoList;
+    @OneToMany(mappedBy = "idTurnoFk")
+    private List<TipoDeFolhaTurno> tipoDeFolhaTurnoList;
+    
 	public String getNomeTurno() {
 		return nomeTurno;
 	}
@@ -819,6 +824,18 @@ public class Turnos extends AbstractEntity<Long>{
 	}
 	public void setRegimeDeTrabalhoTurnoList(List<RegimeDeTrabalhoTurno> regimeDeTrabalhoTurnoList) {
 		this.regimeDeTrabalhoTurnoList = regimeDeTrabalhoTurnoList;
+	}
+	public List<UnidadeTurno> getUnidadeTurnoList() {
+		return unidadeTurnoList;
+	}
+	public void setUnidadeTurnoList(List<UnidadeTurno> unidadeTurnoList) {
+		this.unidadeTurnoList = unidadeTurnoList;
+	}
+	public List<TipoDeFolhaTurno> getTipoDeFolhaTurnoList() {
+		return tipoDeFolhaTurnoList;
+	}
+	public void setTipoDeFolhaTurnoList(List<TipoDeFolhaTurno> tipoDeFolhaTurnoList) {
+		this.tipoDeFolhaTurnoList = tipoDeFolhaTurnoList;
 	}
     
     

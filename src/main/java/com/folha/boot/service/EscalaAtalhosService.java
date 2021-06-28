@@ -83,12 +83,7 @@ public class EscalaAtalhosService {
 			public Escala atalhoDiaristasManha(Escala escala) {
 				
 				// Pegando os turnos compatíveis
-				List<Turnos> listaTurnos = new ArrayList<>();
-				List<RegimeDeTrabalhoTurno> listaTurnosInicial = regimeDeTrabalhoTurnoService.buscarPorRegime(escala.getIdRegimeFk());
-				listaTurnos.add(turnosService.buscarPorNome(""));
-				for(RegimeDeTrabalhoTurno t: listaTurnosInicial) {
-					listaTurnos.add(t.getIdTurnoFk());
-				}
+				List<Turnos> listaTurnos = regimeDeTrabalhoTurnoService.buscarPorRegimesEUnidadeEFolha(escala);
 				
 				String mes = escala.getIdAnoMesFk().getNomeAnoMes();
 				int qtdDiasNoMes = utilidadesDeCalendarioEEscala.quantidadeDeDiasNoMes(mes);
@@ -132,12 +127,7 @@ public class EscalaAtalhosService {
 			public Escala atalhoDiaristasTarde(Escala escala) {
 				
 				// Pegando os turnos compatíveis
-				List<Turnos> listaTurnos = new ArrayList<>();
-				List<RegimeDeTrabalhoTurno> listaTurnosInicial = regimeDeTrabalhoTurnoService.buscarPorRegime(escala.getIdRegimeFk());
-				listaTurnos.add(turnosService.buscarPorNome(""));
-				for(RegimeDeTrabalhoTurno t: listaTurnosInicial) {
-					listaTurnos.add(t.getIdTurnoFk());
-				}
+				List<Turnos> listaTurnos = regimeDeTrabalhoTurnoService.buscarPorRegimesEUnidadeEFolha(escala);
 				
 				String mes = escala.getIdAnoMesFk().getNomeAnoMes();
 				int qtdDiasNoMes = utilidadesDeCalendarioEEscala.quantidadeDeDiasNoMes(mes);
@@ -182,12 +172,7 @@ public class EscalaAtalhosService {
 			public Escala atalhoDiaristasDia(Escala escala) {
 				
 				// Pegando os turnos compatíveis
-				List<Turnos> listaTurnos = new ArrayList<>();
-				List<RegimeDeTrabalhoTurno> listaTurnosInicial = regimeDeTrabalhoTurnoService.buscarPorRegime(escala.getIdRegimeFk());
-				listaTurnos.add(turnosService.buscarPorNome(""));
-				for(RegimeDeTrabalhoTurno t: listaTurnosInicial) {
-					listaTurnos.add(t.getIdTurnoFk());
-				}
+				List<Turnos> listaTurnos = regimeDeTrabalhoTurnoService.buscarPorRegimesEUnidadeEFolha(escala);
 				
 				String mes = escala.getIdAnoMesFk().getNomeAnoMes();
 				int qtdDiasNoMes = utilidadesDeCalendarioEEscala.quantidadeDeDiasNoMes(mes);
@@ -232,12 +217,7 @@ public class EscalaAtalhosService {
 			public Escala atalhoMTDiasImpares(Escala escala) {
 				
 				// Pegando os turnos compatíveis
-				List<Turnos> listaTurnos = new ArrayList<>();
-				List<RegimeDeTrabalhoTurno> listaTurnosInicial = regimeDeTrabalhoTurnoService.buscarPorRegime(escala.getIdRegimeFk());
-				listaTurnos.add(turnosService.buscarPorNome(""));
-				for(RegimeDeTrabalhoTurno t: listaTurnosInicial) {
-					listaTurnos.add(t.getIdTurnoFk());
-				}
+				List<Turnos> listaTurnos = regimeDeTrabalhoTurnoService.buscarPorRegimesEUnidadeEFolha(escala);
 				
 				String mes = escala.getIdAnoMesFk().getNomeAnoMes();
 				int qtdDiasNoMes = utilidadesDeCalendarioEEscala.quantidadeDeDiasNoMes(mes);
@@ -266,12 +246,7 @@ public class EscalaAtalhosService {
 			public Escala atalhoMTDiasPares(Escala escala) {
 				
 				// Pegando os turnos compatíveis
-				List<Turnos> listaTurnos = new ArrayList<>();
-				List<RegimeDeTrabalhoTurno> listaTurnosInicial = regimeDeTrabalhoTurnoService.buscarPorRegime(escala.getIdRegimeFk());
-				listaTurnos.add(turnosService.buscarPorNome(""));
-				for(RegimeDeTrabalhoTurno t: listaTurnosInicial) {
-					listaTurnos.add(t.getIdTurnoFk());
-				}
+				List<Turnos> listaTurnos = regimeDeTrabalhoTurnoService.buscarPorRegimesEUnidadeEFolha(escala);
 				
 				String mes = escala.getIdAnoMesFk().getNomeAnoMes();
 				int qtdDiasNoMes = utilidadesDeCalendarioEEscala.quantidadeDeDiasNoMes(mes);
@@ -302,12 +277,7 @@ public class EscalaAtalhosService {
 		public Escala atalhoCiclo1A(Escala escala) {
 			
 			// Pegando os turnos compatíveis
-			List<Turnos> listaTurnos = new ArrayList<>();
-			List<RegimeDeTrabalhoTurno> listaTurnosInicial = regimeDeTrabalhoTurnoService.buscarPorRegime(escala.getIdRegimeFk());
-			listaTurnos.add(turnosService.buscarPorNome(""));
-			for(RegimeDeTrabalhoTurno t: listaTurnosInicial) {
-				listaTurnos.add(t.getIdTurnoFk());
-			}
+			List<Turnos> listaTurnos = regimeDeTrabalhoTurnoService.buscarPorRegimesEUnidadeEFolha(escala);
 			
 			String mes = escala.getIdAnoMesFk().getNomeAnoMes();
 			int qtdDiasNoMes = utilidadesDeCalendarioEEscala.quantidadeDeDiasNoMes(mes);
@@ -337,12 +307,7 @@ public class EscalaAtalhosService {
 		public Escala atalhoCiclo1B(Escala escala) {
 			
 			// Pegando os turnos compatíveis
-			List<Turnos> listaTurnos = new ArrayList<>();
-			List<RegimeDeTrabalhoTurno> listaTurnosInicial = regimeDeTrabalhoTurnoService.buscarPorRegime(escala.getIdRegimeFk());
-			listaTurnos.add(turnosService.buscarPorNome(""));
-			for(RegimeDeTrabalhoTurno t: listaTurnosInicial) {
-				listaTurnos.add(t.getIdTurnoFk());
-			}
+			List<Turnos> listaTurnos = regimeDeTrabalhoTurnoService.buscarPorRegimesEUnidadeEFolha(escala);
 			
 			String mes = escala.getIdAnoMesFk().getNomeAnoMes();
 			int qtdDiasNoMes = utilidadesDeCalendarioEEscala.quantidadeDeDiasNoMes(mes);
@@ -370,12 +335,7 @@ public class EscalaAtalhosService {
 		public Escala atalhoCiclo1C(Escala escala) {
 			
 			// Pegando os turnos compatíveis
-			List<Turnos> listaTurnos = new ArrayList<>();
-			List<RegimeDeTrabalhoTurno> listaTurnosInicial = regimeDeTrabalhoTurnoService.buscarPorRegime(escala.getIdRegimeFk());
-			listaTurnos.add(turnosService.buscarPorNome(""));
-			for(RegimeDeTrabalhoTurno t: listaTurnosInicial) {
-				listaTurnos.add(t.getIdTurnoFk());
-			}
+			List<Turnos> listaTurnos = regimeDeTrabalhoTurnoService.buscarPorRegimesEUnidadeEFolha(escala);
 			
 			String mes = escala.getIdAnoMesFk().getNomeAnoMes();
 			int qtdDiasNoMes = utilidadesDeCalendarioEEscala.quantidadeDeDiasNoMes(mes);
@@ -403,12 +363,7 @@ public class EscalaAtalhosService {
 		public Escala atalhoCiclo1D(Escala escala) {
 			
 			// Pegando os turnos compatíveis
-			List<Turnos> listaTurnos = new ArrayList<>();
-			List<RegimeDeTrabalhoTurno> listaTurnosInicial = regimeDeTrabalhoTurnoService.buscarPorRegime(escala.getIdRegimeFk());
-			listaTurnos.add(turnosService.buscarPorNome(""));
-			for(RegimeDeTrabalhoTurno t: listaTurnosInicial) {
-				listaTurnos.add(t.getIdTurnoFk());
-			}
+			List<Turnos> listaTurnos = regimeDeTrabalhoTurnoService.buscarPorRegimesEUnidadeEFolha(escala);
 			
 			String mes = escala.getIdAnoMesFk().getNomeAnoMes();
 			int qtdDiasNoMes = utilidadesDeCalendarioEEscala.quantidadeDeDiasNoMes(mes);
@@ -436,12 +391,7 @@ public class EscalaAtalhosService {
 		public Escala atalhoCiclo1E(Escala escala) {
 			
 			// Pegando os turnos compatíveis
-			List<Turnos> listaTurnos = new ArrayList<>();
-			List<RegimeDeTrabalhoTurno> listaTurnosInicial = regimeDeTrabalhoTurnoService.buscarPorRegime(escala.getIdRegimeFk());
-			listaTurnos.add(turnosService.buscarPorNome(""));
-			for(RegimeDeTrabalhoTurno t: listaTurnosInicial) {
-				listaTurnos.add(t.getIdTurnoFk());
-			}
+			List<Turnos> listaTurnos = regimeDeTrabalhoTurnoService.buscarPorRegimesEUnidadeEFolha(escala);
 			
 			String mes = escala.getIdAnoMesFk().getNomeAnoMes();
 			int qtdDiasNoMes = utilidadesDeCalendarioEEscala.quantidadeDeDiasNoMes(mes);
@@ -469,12 +419,7 @@ public class EscalaAtalhosService {
 		public Escala atalhoCiclo1F(Escala escala) {
 			
 			// Pegando os turnos compatíveis
-			List<Turnos> listaTurnos = new ArrayList<>();
-			List<RegimeDeTrabalhoTurno> listaTurnosInicial = regimeDeTrabalhoTurnoService.buscarPorRegime(escala.getIdRegimeFk());
-			listaTurnos.add(turnosService.buscarPorNome(""));
-			for(RegimeDeTrabalhoTurno t: listaTurnosInicial) {
-				listaTurnos.add(t.getIdTurnoFk());
-			}
+			List<Turnos> listaTurnos = regimeDeTrabalhoTurnoService.buscarPorRegimesEUnidadeEFolha(escala);
 			
 			String mes = escala.getIdAnoMesFk().getNomeAnoMes();
 			int qtdDiasNoMes = utilidadesDeCalendarioEEscala.quantidadeDeDiasNoMes(mes);
@@ -507,12 +452,7 @@ public class EscalaAtalhosService {
 				public Escala atalhoCiclo2A(Escala escala) {
 					
 					// Pegando os turnos compatíveis
-					List<Turnos> listaTurnos = new ArrayList<>();
-					List<RegimeDeTrabalhoTurno> listaTurnosInicial = regimeDeTrabalhoTurnoService.buscarPorRegime(escala.getIdRegimeFk());
-					listaTurnos.add(turnosService.buscarPorNome(""));
-					for(RegimeDeTrabalhoTurno t: listaTurnosInicial) {
-						listaTurnos.add(t.getIdTurnoFk());
-					}
+					List<Turnos> listaTurnos = regimeDeTrabalhoTurnoService.buscarPorRegimesEUnidadeEFolha(escala);
 					
 					String mes = escala.getIdAnoMesFk().getNomeAnoMes();
 					int qtdDiasNoMes = utilidadesDeCalendarioEEscala.quantidadeDeDiasNoMes(mes);
@@ -537,12 +477,7 @@ public class EscalaAtalhosService {
 				public Escala atalhoCiclo2B(Escala escala) {
 					
 					// Pegando os turnos compatíveis
-					List<Turnos> listaTurnos = new ArrayList<>();
-					List<RegimeDeTrabalhoTurno> listaTurnosInicial = regimeDeTrabalhoTurnoService.buscarPorRegime(escala.getIdRegimeFk());
-					listaTurnos.add(turnosService.buscarPorNome(""));
-					for(RegimeDeTrabalhoTurno t: listaTurnosInicial) {
-						listaTurnos.add(t.getIdTurnoFk());
-					}
+					List<Turnos> listaTurnos = regimeDeTrabalhoTurnoService.buscarPorRegimesEUnidadeEFolha(escala);
 					
 					String mes = escala.getIdAnoMesFk().getNomeAnoMes();
 					int qtdDiasNoMes = utilidadesDeCalendarioEEscala.quantidadeDeDiasNoMes(mes);
@@ -565,12 +500,7 @@ public class EscalaAtalhosService {
 				public Escala atalhoCiclo2C(Escala escala) {
 					
 					// Pegando os turnos compatíveis
-					List<Turnos> listaTurnos = new ArrayList<>();
-					List<RegimeDeTrabalhoTurno> listaTurnosInicial = regimeDeTrabalhoTurnoService.buscarPorRegime(escala.getIdRegimeFk());
-					listaTurnos.add(turnosService.buscarPorNome(""));
-					for(RegimeDeTrabalhoTurno t: listaTurnosInicial) {
-						listaTurnos.add(t.getIdTurnoFk());
-					}
+					List<Turnos> listaTurnos = regimeDeTrabalhoTurnoService.buscarPorRegimesEUnidadeEFolha(escala);
 					
 					
 					if( listaTurnos.contains(turnosService.buscarPorNome("MTN"))) {escala.setDia03Fk(turnosService.buscarPorNome("MTN"));}//MTN
@@ -591,12 +521,7 @@ public class EscalaAtalhosService {
 				public Escala atalhoCiclo2D(Escala escala) {
 					
 					// Pegando os turnos compatíveis
-					List<Turnos> listaTurnos = new ArrayList<>();
-					List<RegimeDeTrabalhoTurno> listaTurnosInicial = regimeDeTrabalhoTurnoService.buscarPorRegime(escala.getIdRegimeFk());
-					listaTurnos.add(turnosService.buscarPorNome(""));
-					for(RegimeDeTrabalhoTurno t: listaTurnosInicial) {
-						listaTurnos.add(t.getIdTurnoFk());
-					}
+					List<Turnos> listaTurnos = regimeDeTrabalhoTurnoService.buscarPorRegimesEUnidadeEFolha(escala);
 					
 					
 					if( listaTurnos.contains(turnosService.buscarPorNome("MTN"))) {escala.setDia04Fk(turnosService.buscarPorNome("MTN"));}//MTN
@@ -617,12 +542,7 @@ public class EscalaAtalhosService {
 				public Escala atalhoCiclo2E(Escala escala) {
 					
 					// Pegando os turnos compatíveis
-					List<Turnos> listaTurnos = new ArrayList<>();
-					List<RegimeDeTrabalhoTurno> listaTurnosInicial = regimeDeTrabalhoTurnoService.buscarPorRegime(escala.getIdRegimeFk());
-					listaTurnos.add(turnosService.buscarPorNome(""));
-					for(RegimeDeTrabalhoTurno t: listaTurnosInicial) {
-						listaTurnos.add(t.getIdTurnoFk());
-					}
+					List<Turnos> listaTurnos = regimeDeTrabalhoTurnoService.buscarPorRegimesEUnidadeEFolha(escala);
 					
 					String mes = escala.getIdAnoMesFk().getNomeAnoMes();
 					int qtdDiasNoMes = utilidadesDeCalendarioEEscala.quantidadeDeDiasNoMes(mes);
@@ -645,12 +565,7 @@ public class EscalaAtalhosService {
 				public Escala atalhoCiclo2F(Escala escala) {
 					
 					// Pegando os turnos compatíveis
-					List<Turnos> listaTurnos = new ArrayList<>();
-					List<RegimeDeTrabalhoTurno> listaTurnosInicial = regimeDeTrabalhoTurnoService.buscarPorRegime(escala.getIdRegimeFk());
-					listaTurnos.add(turnosService.buscarPorNome(""));
-					for(RegimeDeTrabalhoTurno t: listaTurnosInicial) {
-						listaTurnos.add(t.getIdTurnoFk());
-					}
+					List<Turnos> listaTurnos = regimeDeTrabalhoTurnoService.buscarPorRegimesEUnidadeEFolha(escala);
 					
 					String mes = escala.getIdAnoMesFk().getNomeAnoMes();
 					int qtdDiasNoMes = utilidadesDeCalendarioEEscala.quantidadeDeDiasNoMes(mes);
@@ -679,12 +594,7 @@ public class EscalaAtalhosService {
 				public Escala atalhoCiclo4A(Escala escala) {
 					
 					// Pegando os turnos compatíveis
-					List<Turnos> listaTurnos = new ArrayList<>();
-					List<RegimeDeTrabalhoTurno> listaTurnosInicial = regimeDeTrabalhoTurnoService.buscarPorRegime(escala.getIdRegimeFk());
-					listaTurnos.add(turnosService.buscarPorNome(""));
-					for(RegimeDeTrabalhoTurno t: listaTurnosInicial) {
-						listaTurnos.add(t.getIdTurnoFk());
-					}
+					List<Turnos> listaTurnos = regimeDeTrabalhoTurnoService.buscarPorRegimesEUnidadeEFolha(escala);
 					
 					String mes = escala.getIdAnoMesFk().getNomeAnoMes();
 					int qtdDiasNoMes = utilidadesDeCalendarioEEscala.quantidadeDeDiasNoMes(mes);
@@ -719,12 +629,7 @@ public class EscalaAtalhosService {
 				public Escala atalhoCiclo4B(Escala escala) {
 					
 					// Pegando os turnos compatíveis
-					List<Turnos> listaTurnos = new ArrayList<>();
-					List<RegimeDeTrabalhoTurno> listaTurnosInicial = regimeDeTrabalhoTurnoService.buscarPorRegime(escala.getIdRegimeFk());
-					listaTurnos.add(turnosService.buscarPorNome(""));
-					for(RegimeDeTrabalhoTurno t: listaTurnosInicial) {
-						listaTurnos.add(t.getIdTurnoFk());
-					}
+					List<Turnos> listaTurnos = regimeDeTrabalhoTurnoService.buscarPorRegimesEUnidadeEFolha(escala);
 					
 					
 					if( listaTurnos.contains(turnosService.buscarPorNome("M"))) {escala.setDia02Fk(turnosService.buscarPorNome("M"));}//M
@@ -755,12 +660,7 @@ public class EscalaAtalhosService {
 				public Escala atalhoCiclo4C(Escala escala) {
 					
 					// Pegando os turnos compatíveis
-					List<Turnos> listaTurnos = new ArrayList<>();
-					List<RegimeDeTrabalhoTurno> listaTurnosInicial = regimeDeTrabalhoTurnoService.buscarPorRegime(escala.getIdRegimeFk());
-					listaTurnos.add(turnosService.buscarPorNome(""));
-					for(RegimeDeTrabalhoTurno t: listaTurnosInicial) {
-						listaTurnos.add(t.getIdTurnoFk());
-					}
+					List<Turnos> listaTurnos = regimeDeTrabalhoTurnoService.buscarPorRegimesEUnidadeEFolha(escala);
 					
 					String mes = escala.getIdAnoMesFk().getNomeAnoMes();
 					int qtdDiasNoMes = utilidadesDeCalendarioEEscala.quantidadeDeDiasNoMes(mes);
@@ -793,12 +693,7 @@ public class EscalaAtalhosService {
 				public Escala atalhoCiclo4D(Escala escala) {
 					
 					// Pegando os turnos compatíveis
-					List<Turnos> listaTurnos = new ArrayList<>();
-					List<RegimeDeTrabalhoTurno> listaTurnosInicial = regimeDeTrabalhoTurnoService.buscarPorRegime(escala.getIdRegimeFk());
-					listaTurnos.add(turnosService.buscarPorNome(""));
-					for(RegimeDeTrabalhoTurno t: listaTurnosInicial) {
-						listaTurnos.add(t.getIdTurnoFk());
-					}
+					List<Turnos> listaTurnos = regimeDeTrabalhoTurnoService.buscarPorRegimesEUnidadeEFolha(escala);
 					
 					String mes = escala.getIdAnoMesFk().getNomeAnoMes();
 					int qtdDiasNoMes = utilidadesDeCalendarioEEscala.quantidadeDeDiasNoMes(mes);
@@ -831,12 +726,7 @@ public class EscalaAtalhosService {
 				public Escala atalhoCiclo4E(Escala escala) {
 					
 					// Pegando os turnos compatíveis
-					List<Turnos> listaTurnos = new ArrayList<>();
-					List<RegimeDeTrabalhoTurno> listaTurnosInicial = regimeDeTrabalhoTurnoService.buscarPorRegime(escala.getIdRegimeFk());
-					listaTurnos.add(turnosService.buscarPorNome(""));
-					for(RegimeDeTrabalhoTurno t: listaTurnosInicial) {
-						listaTurnos.add(t.getIdTurnoFk());
-					}
+					List<Turnos> listaTurnos = regimeDeTrabalhoTurnoService.buscarPorRegimesEUnidadeEFolha(escala);
 					
 					String mes = escala.getIdAnoMesFk().getNomeAnoMes();
 					int qtdDiasNoMes = utilidadesDeCalendarioEEscala.quantidadeDeDiasNoMes(mes);
@@ -871,12 +761,7 @@ public class EscalaAtalhosService {
 				public Escala atalhoCiclo4F(Escala escala) {
 					
 					// Pegando os turnos compatíveis
-					List<Turnos> listaTurnos = new ArrayList<>();
-					List<RegimeDeTrabalhoTurno> listaTurnosInicial = regimeDeTrabalhoTurnoService.buscarPorRegime(escala.getIdRegimeFk());
-					listaTurnos.add(turnosService.buscarPorNome(""));
-					for(RegimeDeTrabalhoTurno t: listaTurnosInicial) {
-						listaTurnos.add(t.getIdTurnoFk());
-					}
+					List<Turnos> listaTurnos = regimeDeTrabalhoTurnoService.buscarPorRegimesEUnidadeEFolha(escala);
 					
 					String mes = escala.getIdAnoMesFk().getNomeAnoMes();
 					int qtdDiasNoMes = utilidadesDeCalendarioEEscala.quantidadeDeDiasNoMes(mes);
@@ -915,12 +800,7 @@ public class EscalaAtalhosService {
 				public Escala atalhoCiclo5A(Escala escala) {
 					
 					// Pegando os turnos compatíveis
-					List<Turnos> listaTurnos = new ArrayList<>();
-					List<RegimeDeTrabalhoTurno> listaTurnosInicial = regimeDeTrabalhoTurnoService.buscarPorRegime(escala.getIdRegimeFk());
-					listaTurnos.add(turnosService.buscarPorNome(""));
-					for(RegimeDeTrabalhoTurno t: listaTurnosInicial) {
-						listaTurnos.add(t.getIdTurnoFk());
-					}
+					List<Turnos> listaTurnos = regimeDeTrabalhoTurnoService.buscarPorRegimesEUnidadeEFolha(escala);
 					
 					String mes = escala.getIdAnoMesFk().getNomeAnoMes();
 					int qtdDiasNoMes = utilidadesDeCalendarioEEscala.quantidadeDeDiasNoMes(mes);
@@ -955,12 +835,7 @@ public class EscalaAtalhosService {
 				public Escala atalhoCiclo5B(Escala escala) {
 					
 					// Pegando os turnos compatíveis
-					List<Turnos> listaTurnos = new ArrayList<>();
-					List<RegimeDeTrabalhoTurno> listaTurnosInicial = regimeDeTrabalhoTurnoService.buscarPorRegime(escala.getIdRegimeFk());
-					listaTurnos.add(turnosService.buscarPorNome(""));
-					for(RegimeDeTrabalhoTurno t: listaTurnosInicial) {
-						listaTurnos.add(t.getIdTurnoFk());
-					}
+					List<Turnos> listaTurnos = regimeDeTrabalhoTurnoService.buscarPorRegimesEUnidadeEFolha(escala);
 					
 					
 					if( listaTurnos.contains(turnosService.buscarPorNome("T"))) {escala.setDia02Fk(turnosService.buscarPorNome("T"));}//T
@@ -991,12 +866,7 @@ public class EscalaAtalhosService {
 				public Escala atalhoCiclo5C(Escala escala) {
 					
 					// Pegando os turnos compatíveis
-					List<Turnos> listaTurnos = new ArrayList<>();
-					List<RegimeDeTrabalhoTurno> listaTurnosInicial = regimeDeTrabalhoTurnoService.buscarPorRegime(escala.getIdRegimeFk());
-					listaTurnos.add(turnosService.buscarPorNome(""));
-					for(RegimeDeTrabalhoTurno t: listaTurnosInicial) {
-						listaTurnos.add(t.getIdTurnoFk());
-					}
+					List<Turnos> listaTurnos = regimeDeTrabalhoTurnoService.buscarPorRegimesEUnidadeEFolha(escala);
 					
 					String mes = escala.getIdAnoMesFk().getNomeAnoMes();
 					int qtdDiasNoMes = utilidadesDeCalendarioEEscala.quantidadeDeDiasNoMes(mes);
@@ -1029,12 +899,7 @@ public class EscalaAtalhosService {
 				public Escala atalhoCiclo5D(Escala escala) {
 					
 					// Pegando os turnos compatíveis
-					List<Turnos> listaTurnos = new ArrayList<>();
-					List<RegimeDeTrabalhoTurno> listaTurnosInicial = regimeDeTrabalhoTurnoService.buscarPorRegime(escala.getIdRegimeFk());
-					listaTurnos.add(turnosService.buscarPorNome(""));
-					for(RegimeDeTrabalhoTurno t: listaTurnosInicial) {
-						listaTurnos.add(t.getIdTurnoFk());
-					}
+					List<Turnos> listaTurnos = regimeDeTrabalhoTurnoService.buscarPorRegimesEUnidadeEFolha(escala);
 					
 					String mes = escala.getIdAnoMesFk().getNomeAnoMes();
 					int qtdDiasNoMes = utilidadesDeCalendarioEEscala.quantidadeDeDiasNoMes(mes);
@@ -1067,12 +932,7 @@ public class EscalaAtalhosService {
 				public Escala atalhoCiclo5E(Escala escala) {
 					
 					// Pegando os turnos compatíveis
-					List<Turnos> listaTurnos = new ArrayList<>();
-					List<RegimeDeTrabalhoTurno> listaTurnosInicial = regimeDeTrabalhoTurnoService.buscarPorRegime(escala.getIdRegimeFk());
-					listaTurnos.add(turnosService.buscarPorNome(""));
-					for(RegimeDeTrabalhoTurno t: listaTurnosInicial) {
-						listaTurnos.add(t.getIdTurnoFk());
-					}
+					List<Turnos> listaTurnos = regimeDeTrabalhoTurnoService.buscarPorRegimesEUnidadeEFolha(escala);
 					
 					String mes = escala.getIdAnoMesFk().getNomeAnoMes();
 					int qtdDiasNoMes = utilidadesDeCalendarioEEscala.quantidadeDeDiasNoMes(mes);
@@ -1107,12 +967,7 @@ public class EscalaAtalhosService {
 				public Escala atalhoCiclo5F(Escala escala) {
 					
 					// Pegando os turnos compatíveis
-					List<Turnos> listaTurnos = new ArrayList<>();
-					List<RegimeDeTrabalhoTurno> listaTurnosInicial = regimeDeTrabalhoTurnoService.buscarPorRegime(escala.getIdRegimeFk());
-					listaTurnos.add(turnosService.buscarPorNome(""));
-					for(RegimeDeTrabalhoTurno t: listaTurnosInicial) {
-						listaTurnos.add(t.getIdTurnoFk());
-					}
+					List<Turnos> listaTurnos = regimeDeTrabalhoTurnoService.buscarPorRegimesEUnidadeEFolha(escala);
 					
 					String mes = escala.getIdAnoMesFk().getNomeAnoMes();
 					int qtdDiasNoMes = utilidadesDeCalendarioEEscala.quantidadeDeDiasNoMes(mes);
@@ -1150,12 +1005,7 @@ public class EscalaAtalhosService {
 				public Escala atalhoCiclo6A(Escala escala) {
 					
 					// Pegando os turnos compatíveis
-					List<Turnos> listaTurnos = new ArrayList<>();
-					List<RegimeDeTrabalhoTurno> listaTurnosInicial = regimeDeTrabalhoTurnoService.buscarPorRegime(escala.getIdRegimeFk());
-					listaTurnos.add(turnosService.buscarPorNome(""));
-					for(RegimeDeTrabalhoTurno t: listaTurnosInicial) {
-						listaTurnos.add(t.getIdTurnoFk());
-					}
+					List<Turnos> listaTurnos = regimeDeTrabalhoTurnoService.buscarPorRegimesEUnidadeEFolha(escala);
 					
 					String mes = escala.getIdAnoMesFk().getNomeAnoMes();
 					int qtdDiasNoMes = utilidadesDeCalendarioEEscala.quantidadeDeDiasNoMes(mes);
@@ -1185,12 +1035,7 @@ public class EscalaAtalhosService {
 				public Escala atalhoCiclo6B(Escala escala) {
 					
 					// Pegando os turnos compatíveis
-					List<Turnos> listaTurnos = new ArrayList<>();
-					List<RegimeDeTrabalhoTurno> listaTurnosInicial = regimeDeTrabalhoTurnoService.buscarPorRegime(escala.getIdRegimeFk());
-					listaTurnos.add(turnosService.buscarPorNome(""));
-					for(RegimeDeTrabalhoTurno t: listaTurnosInicial) {
-						listaTurnos.add(t.getIdTurnoFk());
-					}
+					List<Turnos> listaTurnos = regimeDeTrabalhoTurnoService.buscarPorRegimesEUnidadeEFolha(escala);
 					
 					if( listaTurnos.contains(turnosService.buscarPorNome("MT"))) {escala.setDia02Fk(turnosService.buscarPorNome("MT"));}//MT
 					if( listaTurnos.contains(turnosService.buscarPorNome("MT"))) {escala.setDia03Fk(turnosService.buscarPorNome("MT"));}//MT
@@ -1215,12 +1060,7 @@ public class EscalaAtalhosService {
 				public Escala atalhoCiclo6C(Escala escala) {
 					
 					// Pegando os turnos compatíveis
-					List<Turnos> listaTurnos = new ArrayList<>();
-					List<RegimeDeTrabalhoTurno> listaTurnosInicial = regimeDeTrabalhoTurnoService.buscarPorRegime(escala.getIdRegimeFk());
-					listaTurnos.add(turnosService.buscarPorNome(""));
-					for(RegimeDeTrabalhoTurno t: listaTurnosInicial) {
-						listaTurnos.add(t.getIdTurnoFk());
-					}
+					List<Turnos> listaTurnos = regimeDeTrabalhoTurnoService.buscarPorRegimesEUnidadeEFolha(escala);
 					
 					
 					if( listaTurnos.contains(turnosService.buscarPorNome("MT"))) {escala.setDia03Fk(turnosService.buscarPorNome("MT"));}//MT
@@ -1246,12 +1086,7 @@ public class EscalaAtalhosService {
 				public Escala atalhoCiclo6D(Escala escala) {
 					
 					// Pegando os turnos compatíveis
-					List<Turnos> listaTurnos = new ArrayList<>();
-					List<RegimeDeTrabalhoTurno> listaTurnosInicial = regimeDeTrabalhoTurnoService.buscarPorRegime(escala.getIdRegimeFk());
-					listaTurnos.add(turnosService.buscarPorNome(""));
-					for(RegimeDeTrabalhoTurno t: listaTurnosInicial) {
-						listaTurnos.add(t.getIdTurnoFk());
-					}
+					List<Turnos> listaTurnos = regimeDeTrabalhoTurnoService.buscarPorRegimesEUnidadeEFolha(escala);
 					
 					String mes = escala.getIdAnoMesFk().getNomeAnoMes();
 					int qtdDiasNoMes = utilidadesDeCalendarioEEscala.quantidadeDeDiasNoMes(mes);
@@ -1279,12 +1114,7 @@ public class EscalaAtalhosService {
 				public Escala atalhoCiclo6E(Escala escala) {
 					
 					// Pegando os turnos compatíveis
-					List<Turnos> listaTurnos = new ArrayList<>();
-					List<RegimeDeTrabalhoTurno> listaTurnosInicial = regimeDeTrabalhoTurnoService.buscarPorRegime(escala.getIdRegimeFk());
-					listaTurnos.add(turnosService.buscarPorNome(""));
-					for(RegimeDeTrabalhoTurno t: listaTurnosInicial) {
-						listaTurnos.add(t.getIdTurnoFk());
-					}
+					List<Turnos> listaTurnos = regimeDeTrabalhoTurnoService.buscarPorRegimesEUnidadeEFolha(escala);
 					
 					String mes = escala.getIdAnoMesFk().getNomeAnoMes();
 					int qtdDiasNoMes = utilidadesDeCalendarioEEscala.quantidadeDeDiasNoMes(mes);
@@ -1312,12 +1142,7 @@ public class EscalaAtalhosService {
 				public Escala atalhoCiclo6F(Escala escala) {
 					
 					// Pegando os turnos compatíveis
-					List<Turnos> listaTurnos = new ArrayList<>();
-					List<RegimeDeTrabalhoTurno> listaTurnosInicial = regimeDeTrabalhoTurnoService.buscarPorRegime(escala.getIdRegimeFk());
-					listaTurnos.add(turnosService.buscarPorNome(""));
-					for(RegimeDeTrabalhoTurno t: listaTurnosInicial) {
-						listaTurnos.add(t.getIdTurnoFk());
-					}
+					List<Turnos> listaTurnos = regimeDeTrabalhoTurnoService.buscarPorRegimesEUnidadeEFolha(escala);
 					
 					String mes = escala.getIdAnoMesFk().getNomeAnoMes();
 					int qtdDiasNoMes = utilidadesDeCalendarioEEscala.quantidadeDeDiasNoMes(mes);
@@ -1352,12 +1177,7 @@ public class EscalaAtalhosService {
 				public Escala atalhoCiclo7A(Escala escala) {
 					
 					// Pegando os turnos compatíveis
-					List<Turnos> listaTurnos = new ArrayList<>();
-					List<RegimeDeTrabalhoTurno> listaTurnosInicial = regimeDeTrabalhoTurnoService.buscarPorRegime(escala.getIdRegimeFk());
-					listaTurnos.add(turnosService.buscarPorNome(""));
-					for(RegimeDeTrabalhoTurno t: listaTurnosInicial) {
-						listaTurnos.add(t.getIdTurnoFk());
-					}
+					List<Turnos> listaTurnos = regimeDeTrabalhoTurnoService.buscarPorRegimesEUnidadeEFolha(escala);
 					
 					String mes = escala.getIdAnoMesFk().getNomeAnoMes();
 					int qtdDiasNoMes = utilidadesDeCalendarioEEscala.quantidadeDeDiasNoMes(mes);
@@ -1392,12 +1212,7 @@ public class EscalaAtalhosService {
 				public Escala atalhoCiclo7B(Escala escala) {
 					
 					// Pegando os turnos compatíveis
-					List<Turnos> listaTurnos = new ArrayList<>();
-					List<RegimeDeTrabalhoTurno> listaTurnosInicial = regimeDeTrabalhoTurnoService.buscarPorRegime(escala.getIdRegimeFk());
-					listaTurnos.add(turnosService.buscarPorNome(""));
-					for(RegimeDeTrabalhoTurno t: listaTurnosInicial) {
-						listaTurnos.add(t.getIdTurnoFk());
-					}
+					List<Turnos> listaTurnos = regimeDeTrabalhoTurnoService.buscarPorRegimesEUnidadeEFolha(escala);
 					
 					
 					if( listaTurnos.contains(turnosService.buscarPorNome("M"))) {escala.setDia02Fk(turnosService.buscarPorNome("M"));}//M
@@ -1428,12 +1243,7 @@ public class EscalaAtalhosService {
 				public Escala atalhoCiclo7C(Escala escala) {
 					
 					// Pegando os turnos compatíveis
-					List<Turnos> listaTurnos = new ArrayList<>();
-					List<RegimeDeTrabalhoTurno> listaTurnosInicial = regimeDeTrabalhoTurnoService.buscarPorRegime(escala.getIdRegimeFk());
-					listaTurnos.add(turnosService.buscarPorNome(""));
-					for(RegimeDeTrabalhoTurno t: listaTurnosInicial) {
-						listaTurnos.add(t.getIdTurnoFk());
-					}
+					List<Turnos> listaTurnos = regimeDeTrabalhoTurnoService.buscarPorRegimesEUnidadeEFolha(escala);
 					
 					String mes = escala.getIdAnoMesFk().getNomeAnoMes();
 					int qtdDiasNoMes = utilidadesDeCalendarioEEscala.quantidadeDeDiasNoMes(mes);
@@ -1466,12 +1276,7 @@ public class EscalaAtalhosService {
 				public Escala atalhoCiclo7D(Escala escala) {
 					
 					// Pegando os turnos compatíveis
-					List<Turnos> listaTurnos = new ArrayList<>();
-					List<RegimeDeTrabalhoTurno> listaTurnosInicial = regimeDeTrabalhoTurnoService.buscarPorRegime(escala.getIdRegimeFk());
-					listaTurnos.add(turnosService.buscarPorNome(""));
-					for(RegimeDeTrabalhoTurno t: listaTurnosInicial) {
-						listaTurnos.add(t.getIdTurnoFk());
-					}
+					List<Turnos> listaTurnos = regimeDeTrabalhoTurnoService.buscarPorRegimesEUnidadeEFolha(escala);
 					
 					String mes = escala.getIdAnoMesFk().getNomeAnoMes();
 					int qtdDiasNoMes = utilidadesDeCalendarioEEscala.quantidadeDeDiasNoMes(mes);
@@ -1504,12 +1309,7 @@ public class EscalaAtalhosService {
 				public Escala atalhoCiclo7E(Escala escala) {
 					
 					// Pegando os turnos compatíveis
-					List<Turnos> listaTurnos = new ArrayList<>();
-					List<RegimeDeTrabalhoTurno> listaTurnosInicial = regimeDeTrabalhoTurnoService.buscarPorRegime(escala.getIdRegimeFk());
-					listaTurnos.add(turnosService.buscarPorNome(""));
-					for(RegimeDeTrabalhoTurno t: listaTurnosInicial) {
-						listaTurnos.add(t.getIdTurnoFk());
-					}
+					List<Turnos> listaTurnos = regimeDeTrabalhoTurnoService.buscarPorRegimesEUnidadeEFolha(escala);
 					
 					String mes = escala.getIdAnoMesFk().getNomeAnoMes();
 					int qtdDiasNoMes = utilidadesDeCalendarioEEscala.quantidadeDeDiasNoMes(mes);
@@ -1544,12 +1344,7 @@ public class EscalaAtalhosService {
 				public Escala atalhoCiclo7F(Escala escala) {
 					
 					// Pegando os turnos compatíveis
-					List<Turnos> listaTurnos = new ArrayList<>();
-					List<RegimeDeTrabalhoTurno> listaTurnosInicial = regimeDeTrabalhoTurnoService.buscarPorRegime(escala.getIdRegimeFk());
-					listaTurnos.add(turnosService.buscarPorNome(""));
-					for(RegimeDeTrabalhoTurno t: listaTurnosInicial) {
-						listaTurnos.add(t.getIdTurnoFk());
-					}
+					List<Turnos> listaTurnos = regimeDeTrabalhoTurnoService.buscarPorRegimesEUnidadeEFolha(escala);
 					
 					String mes = escala.getIdAnoMesFk().getNomeAnoMes();
 					int qtdDiasNoMes = utilidadesDeCalendarioEEscala.quantidadeDeDiasNoMes(mes);
@@ -1585,12 +1380,7 @@ public class EscalaAtalhosService {
 				public Escala atalhoCiclo8A(Escala escala) {
 					
 					// Pegando os turnos compatíveis
-					List<Turnos> listaTurnos = new ArrayList<>();
-					List<RegimeDeTrabalhoTurno> listaTurnosInicial = regimeDeTrabalhoTurnoService.buscarPorRegime(escala.getIdRegimeFk());
-					listaTurnos.add(turnosService.buscarPorNome(""));
-					for(RegimeDeTrabalhoTurno t: listaTurnosInicial) {
-						listaTurnos.add(t.getIdTurnoFk());
-					}
+					List<Turnos> listaTurnos = regimeDeTrabalhoTurnoService.buscarPorRegimesEUnidadeEFolha(escala);
 					
 					String mes = escala.getIdAnoMesFk().getNomeAnoMes();
 					int qtdDiasNoMes = utilidadesDeCalendarioEEscala.quantidadeDeDiasNoMes(mes);
@@ -1637,12 +1427,7 @@ public class EscalaAtalhosService {
 				public Escala atalhoCiclo8B(Escala escala) {
 					
 					// Pegando os turnos compatíveis
-					List<Turnos> listaTurnos = new ArrayList<>();
-					List<RegimeDeTrabalhoTurno> listaTurnosInicial = regimeDeTrabalhoTurnoService.buscarPorRegime(escala.getIdRegimeFk());
-					listaTurnos.add(turnosService.buscarPorNome(""));
-					for(RegimeDeTrabalhoTurno t: listaTurnosInicial) {
-						listaTurnos.add(t.getIdTurnoFk());
-					}
+					List<Turnos> listaTurnos = regimeDeTrabalhoTurnoService.buscarPorRegimesEUnidadeEFolha(escala);
 					
 					String mes = escala.getIdAnoMesFk().getNomeAnoMes();
 					int qtdDiasNoMes = utilidadesDeCalendarioEEscala.quantidadeDeDiasNoMes(mes);
@@ -1689,12 +1474,7 @@ public class EscalaAtalhosService {
 				public Escala atalhoCiclo8C(Escala escala) {
 					
 					// Pegando os turnos compatíveis
-					List<Turnos> listaTurnos = new ArrayList<>();
-					List<RegimeDeTrabalhoTurno> listaTurnosInicial = regimeDeTrabalhoTurnoService.buscarPorRegime(escala.getIdRegimeFk());
-					listaTurnos.add(turnosService.buscarPorNome(""));
-					for(RegimeDeTrabalhoTurno t: listaTurnosInicial) {
-						listaTurnos.add(t.getIdTurnoFk());
-					}
+					List<Turnos> listaTurnos = regimeDeTrabalhoTurnoService.buscarPorRegimesEUnidadeEFolha(escala);
 					
 					String mes = escala.getIdAnoMesFk().getNomeAnoMes();
 					int qtdDiasNoMes = utilidadesDeCalendarioEEscala.quantidadeDeDiasNoMes(mes);
@@ -1741,12 +1521,7 @@ public class EscalaAtalhosService {
 				public Escala atalhoCiclo8D(Escala escala) {
 					
 					// Pegando os turnos compatíveis
-					List<Turnos> listaTurnos = new ArrayList<>();
-					List<RegimeDeTrabalhoTurno> listaTurnosInicial = regimeDeTrabalhoTurnoService.buscarPorRegime(escala.getIdRegimeFk());
-					listaTurnos.add(turnosService.buscarPorNome(""));
-					for(RegimeDeTrabalhoTurno t: listaTurnosInicial) {
-						listaTurnos.add(t.getIdTurnoFk());
-					}
+					List<Turnos> listaTurnos = regimeDeTrabalhoTurnoService.buscarPorRegimesEUnidadeEFolha(escala);
 					
 					String mes = escala.getIdAnoMesFk().getNomeAnoMes();
 					int qtdDiasNoMes = utilidadesDeCalendarioEEscala.quantidadeDeDiasNoMes(mes);
@@ -1793,12 +1568,7 @@ public class EscalaAtalhosService {
 				public Escala atalhoCiclo8E(Escala escala) {
 					
 					// Pegando os turnos compatíveis
-					List<Turnos> listaTurnos = new ArrayList<>();
-					List<RegimeDeTrabalhoTurno> listaTurnosInicial = regimeDeTrabalhoTurnoService.buscarPorRegime(escala.getIdRegimeFk());
-					listaTurnos.add(turnosService.buscarPorNome(""));
-					for(RegimeDeTrabalhoTurno t: listaTurnosInicial) {
-						listaTurnos.add(t.getIdTurnoFk());
-					}
+					List<Turnos> listaTurnos = regimeDeTrabalhoTurnoService.buscarPorRegimesEUnidadeEFolha(escala);
 					
 					String mes = escala.getIdAnoMesFk().getNomeAnoMes();
 					int qtdDiasNoMes = utilidadesDeCalendarioEEscala.quantidadeDeDiasNoMes(mes);
@@ -1845,12 +1615,7 @@ public class EscalaAtalhosService {
 				public Escala atalhoCiclo8F(Escala escala) {
 					
 					// Pegando os turnos compatíveis
-					List<Turnos> listaTurnos = new ArrayList<>();
-					List<RegimeDeTrabalhoTurno> listaTurnosInicial = regimeDeTrabalhoTurnoService.buscarPorRegime(escala.getIdRegimeFk());
-					listaTurnos.add(turnosService.buscarPorNome(""));
-					for(RegimeDeTrabalhoTurno t: listaTurnosInicial) {
-						listaTurnos.add(t.getIdTurnoFk());
-					}
+					List<Turnos> listaTurnos = regimeDeTrabalhoTurnoService.buscarPorRegimesEUnidadeEFolha(escala);
 					
 					String mes = escala.getIdAnoMesFk().getNomeAnoMes();
 					int qtdDiasNoMes = utilidadesDeCalendarioEEscala.quantidadeDeDiasNoMes(mes);
@@ -1897,12 +1662,7 @@ public class EscalaAtalhosService {
 				public Escala atalhoCiclo8G(Escala escala) {
 					
 					// Pegando os turnos compatíveis
-					List<Turnos> listaTurnos = new ArrayList<>();
-					List<RegimeDeTrabalhoTurno> listaTurnosInicial = regimeDeTrabalhoTurnoService.buscarPorRegime(escala.getIdRegimeFk());
-					listaTurnos.add(turnosService.buscarPorNome(""));
-					for(RegimeDeTrabalhoTurno t: listaTurnosInicial) {
-						listaTurnos.add(t.getIdTurnoFk());
-					}
+					List<Turnos> listaTurnos = regimeDeTrabalhoTurnoService.buscarPorRegimesEUnidadeEFolha(escala);
 					
 					String mes = escala.getIdAnoMesFk().getNomeAnoMes();
 					int qtdDiasNoMes = utilidadesDeCalendarioEEscala.quantidadeDeDiasNoMes(mes);
@@ -1953,12 +1713,7 @@ public class EscalaAtalhosService {
 				public Escala atalhoCiclo9A(Escala escala) {
 					
 					// Pegando os turnos compatíveis
-					List<Turnos> listaTurnos = new ArrayList<>();
-					List<RegimeDeTrabalhoTurno> listaTurnosInicial = regimeDeTrabalhoTurnoService.buscarPorRegime(escala.getIdRegimeFk());
-					listaTurnos.add(turnosService.buscarPorNome(""));
-					for(RegimeDeTrabalhoTurno t: listaTurnosInicial) {
-						listaTurnos.add(t.getIdTurnoFk());
-					}
+					List<Turnos> listaTurnos = regimeDeTrabalhoTurnoService.buscarPorRegimesEUnidadeEFolha(escala);
 					
 					String mes = escala.getIdAnoMesFk().getNomeAnoMes();
 					int qtdDiasNoMes = utilidadesDeCalendarioEEscala.quantidadeDeDiasNoMes(mes);
@@ -2006,12 +1761,7 @@ public class EscalaAtalhosService {
 				public Escala atalhoCiclo9B(Escala escala) {
 					
 					// Pegando os turnos compatíveis
-					List<Turnos> listaTurnos = new ArrayList<>();
-					List<RegimeDeTrabalhoTurno> listaTurnosInicial = regimeDeTrabalhoTurnoService.buscarPorRegime(escala.getIdRegimeFk());
-					listaTurnos.add(turnosService.buscarPorNome(""));
-					for(RegimeDeTrabalhoTurno t: listaTurnosInicial) {
-						listaTurnos.add(t.getIdTurnoFk());
-					}
+					List<Turnos> listaTurnos = regimeDeTrabalhoTurnoService.buscarPorRegimesEUnidadeEFolha(escala);
 					
 					String mes = escala.getIdAnoMesFk().getNomeAnoMes();
 					int qtdDiasNoMes = utilidadesDeCalendarioEEscala.quantidadeDeDiasNoMes(mes);
@@ -2059,12 +1809,7 @@ public class EscalaAtalhosService {
 				public Escala atalhoCiclo9C(Escala escala) {
 					
 					// Pegando os turnos compatíveis
-					List<Turnos> listaTurnos = new ArrayList<>();
-					List<RegimeDeTrabalhoTurno> listaTurnosInicial = regimeDeTrabalhoTurnoService.buscarPorRegime(escala.getIdRegimeFk());
-					listaTurnos.add(turnosService.buscarPorNome(""));
-					for(RegimeDeTrabalhoTurno t: listaTurnosInicial) {
-						listaTurnos.add(t.getIdTurnoFk());
-					}
+					List<Turnos> listaTurnos = regimeDeTrabalhoTurnoService.buscarPorRegimesEUnidadeEFolha(escala);
 					
 					String mes = escala.getIdAnoMesFk().getNomeAnoMes();
 					int qtdDiasNoMes = utilidadesDeCalendarioEEscala.quantidadeDeDiasNoMes(mes);
@@ -2111,12 +1856,7 @@ public class EscalaAtalhosService {
 				public Escala atalhoCiclo9D(Escala escala) {
 					
 					// Pegando os turnos compatíveis
-					List<Turnos> listaTurnos = new ArrayList<>();
-					List<RegimeDeTrabalhoTurno> listaTurnosInicial = regimeDeTrabalhoTurnoService.buscarPorRegime(escala.getIdRegimeFk());
-					listaTurnos.add(turnosService.buscarPorNome(""));
-					for(RegimeDeTrabalhoTurno t: listaTurnosInicial) {
-						listaTurnos.add(t.getIdTurnoFk());
-					}
+					List<Turnos> listaTurnos = regimeDeTrabalhoTurnoService.buscarPorRegimesEUnidadeEFolha(escala);
 					
 					String mes = escala.getIdAnoMesFk().getNomeAnoMes();
 					int qtdDiasNoMes = utilidadesDeCalendarioEEscala.quantidadeDeDiasNoMes(mes);
@@ -2163,12 +1903,7 @@ public class EscalaAtalhosService {
 				public Escala atalhoCiclo9E(Escala escala) {
 					
 					// Pegando os turnos compatíveis
-					List<Turnos> listaTurnos = new ArrayList<>();
-					List<RegimeDeTrabalhoTurno> listaTurnosInicial = regimeDeTrabalhoTurnoService.buscarPorRegime(escala.getIdRegimeFk());
-					listaTurnos.add(turnosService.buscarPorNome(""));
-					for(RegimeDeTrabalhoTurno t: listaTurnosInicial) {
-						listaTurnos.add(t.getIdTurnoFk());
-					}
+					List<Turnos> listaTurnos = regimeDeTrabalhoTurnoService.buscarPorRegimesEUnidadeEFolha(escala);
 					
 					String mes = escala.getIdAnoMesFk().getNomeAnoMes();
 					int qtdDiasNoMes = utilidadesDeCalendarioEEscala.quantidadeDeDiasNoMes(mes);
@@ -2215,12 +1950,7 @@ public class EscalaAtalhosService {
 				public Escala atalhoCiclo9F(Escala escala) {
 					
 					// Pegando os turnos compatíveis
-					List<Turnos> listaTurnos = new ArrayList<>();
-					List<RegimeDeTrabalhoTurno> listaTurnosInicial = regimeDeTrabalhoTurnoService.buscarPorRegime(escala.getIdRegimeFk());
-					listaTurnos.add(turnosService.buscarPorNome(""));
-					for(RegimeDeTrabalhoTurno t: listaTurnosInicial) {
-						listaTurnos.add(t.getIdTurnoFk());
-					}
+					List<Turnos> listaTurnos = regimeDeTrabalhoTurnoService.buscarPorRegimesEUnidadeEFolha(escala);
 					
 					String mes = escala.getIdAnoMesFk().getNomeAnoMes();
 					int qtdDiasNoMes = utilidadesDeCalendarioEEscala.quantidadeDeDiasNoMes(mes);
@@ -2267,12 +1997,7 @@ public class EscalaAtalhosService {
 				public Escala atalhoCiclo9G(Escala escala) {
 					
 					// Pegando os turnos compatíveis
-					List<Turnos> listaTurnos = new ArrayList<>();
-					List<RegimeDeTrabalhoTurno> listaTurnosInicial = regimeDeTrabalhoTurnoService.buscarPorRegime(escala.getIdRegimeFk());
-					listaTurnos.add(turnosService.buscarPorNome(""));
-					for(RegimeDeTrabalhoTurno t: listaTurnosInicial) {
-						listaTurnos.add(t.getIdTurnoFk());
-					}
+					List<Turnos> listaTurnos = regimeDeTrabalhoTurnoService.buscarPorRegimesEUnidadeEFolha(escala);
 					
 					String mes = escala.getIdAnoMesFk().getNomeAnoMes();
 					int qtdDiasNoMes = utilidadesDeCalendarioEEscala.quantidadeDeDiasNoMes(mes);
@@ -2321,12 +2046,7 @@ public class EscalaAtalhosService {
 				public Escala atalhoCiclo10A(Escala escala) {
 					
 					// Pegando os turnos compatíveis
-					List<Turnos> listaTurnos = new ArrayList<>();
-					List<RegimeDeTrabalhoTurno> listaTurnosInicial = regimeDeTrabalhoTurnoService.buscarPorRegime(escala.getIdRegimeFk());
-					listaTurnos.add(turnosService.buscarPorNome(""));
-					for(RegimeDeTrabalhoTurno t: listaTurnosInicial) {
-						listaTurnos.add(t.getIdTurnoFk());
-					}
+					List<Turnos> listaTurnos = regimeDeTrabalhoTurnoService.buscarPorRegimesEUnidadeEFolha(escala);
 					
 					String mes = escala.getIdAnoMesFk().getNomeAnoMes();
 					int qtdDiasNoMes = utilidadesDeCalendarioEEscala.quantidadeDeDiasNoMes(mes);
@@ -2374,12 +2094,7 @@ public class EscalaAtalhosService {
 				public Escala atalhoCiclo10B(Escala escala) {
 					
 					// Pegando os turnos compatíveis
-					List<Turnos> listaTurnos = new ArrayList<>();
-					List<RegimeDeTrabalhoTurno> listaTurnosInicial = regimeDeTrabalhoTurnoService.buscarPorRegime(escala.getIdRegimeFk());
-					listaTurnos.add(turnosService.buscarPorNome(""));
-					for(RegimeDeTrabalhoTurno t: listaTurnosInicial) {
-						listaTurnos.add(t.getIdTurnoFk());
-					}
+					List<Turnos> listaTurnos = regimeDeTrabalhoTurnoService.buscarPorRegimesEUnidadeEFolha(escala);
 					
 					String mes = escala.getIdAnoMesFk().getNomeAnoMes();
 					int qtdDiasNoMes = utilidadesDeCalendarioEEscala.quantidadeDeDiasNoMes(mes);
@@ -2427,12 +2142,7 @@ public class EscalaAtalhosService {
 				public Escala atalhoCiclo10C(Escala escala) {
 					
 					// Pegando os turnos compatíveis
-					List<Turnos> listaTurnos = new ArrayList<>();
-					List<RegimeDeTrabalhoTurno> listaTurnosInicial = regimeDeTrabalhoTurnoService.buscarPorRegime(escala.getIdRegimeFk());
-					listaTurnos.add(turnosService.buscarPorNome(""));
-					for(RegimeDeTrabalhoTurno t: listaTurnosInicial) {
-						listaTurnos.add(t.getIdTurnoFk());
-					}
+					List<Turnos> listaTurnos = regimeDeTrabalhoTurnoService.buscarPorRegimesEUnidadeEFolha(escala);
 					
 					String mes = escala.getIdAnoMesFk().getNomeAnoMes();
 					int qtdDiasNoMes = utilidadesDeCalendarioEEscala.quantidadeDeDiasNoMes(mes);
@@ -2479,12 +2189,7 @@ public class EscalaAtalhosService {
 				public Escala atalhoCiclo10D(Escala escala) {
 					
 					// Pegando os turnos compatíveis
-					List<Turnos> listaTurnos = new ArrayList<>();
-					List<RegimeDeTrabalhoTurno> listaTurnosInicial = regimeDeTrabalhoTurnoService.buscarPorRegime(escala.getIdRegimeFk());
-					listaTurnos.add(turnosService.buscarPorNome(""));
-					for(RegimeDeTrabalhoTurno t: listaTurnosInicial) {
-						listaTurnos.add(t.getIdTurnoFk());
-					}
+					List<Turnos> listaTurnos = regimeDeTrabalhoTurnoService.buscarPorRegimesEUnidadeEFolha(escala);
 					
 					String mes = escala.getIdAnoMesFk().getNomeAnoMes();
 					int qtdDiasNoMes = utilidadesDeCalendarioEEscala.quantidadeDeDiasNoMes(mes);
@@ -2531,12 +2236,7 @@ public class EscalaAtalhosService {
 				public Escala atalhoCiclo10E(Escala escala) {
 					
 					// Pegando os turnos compatíveis
-					List<Turnos> listaTurnos = new ArrayList<>();
-					List<RegimeDeTrabalhoTurno> listaTurnosInicial = regimeDeTrabalhoTurnoService.buscarPorRegime(escala.getIdRegimeFk());
-					listaTurnos.add(turnosService.buscarPorNome(""));
-					for(RegimeDeTrabalhoTurno t: listaTurnosInicial) {
-						listaTurnos.add(t.getIdTurnoFk());
-					}
+					List<Turnos> listaTurnos = regimeDeTrabalhoTurnoService.buscarPorRegimesEUnidadeEFolha(escala);
 					
 					String mes = escala.getIdAnoMesFk().getNomeAnoMes();
 					int qtdDiasNoMes = utilidadesDeCalendarioEEscala.quantidadeDeDiasNoMes(mes);
@@ -2583,12 +2283,7 @@ public class EscalaAtalhosService {
 				public Escala atalhoCiclo10F(Escala escala) {
 					
 					// Pegando os turnos compatíveis
-					List<Turnos> listaTurnos = new ArrayList<>();
-					List<RegimeDeTrabalhoTurno> listaTurnosInicial = regimeDeTrabalhoTurnoService.buscarPorRegime(escala.getIdRegimeFk());
-					listaTurnos.add(turnosService.buscarPorNome(""));
-					for(RegimeDeTrabalhoTurno t: listaTurnosInicial) {
-						listaTurnos.add(t.getIdTurnoFk());
-					}
+					List<Turnos> listaTurnos = regimeDeTrabalhoTurnoService.buscarPorRegimesEUnidadeEFolha(escala);
 					
 					String mes = escala.getIdAnoMesFk().getNomeAnoMes();
 					int qtdDiasNoMes = utilidadesDeCalendarioEEscala.quantidadeDeDiasNoMes(mes);
@@ -2635,12 +2330,7 @@ public class EscalaAtalhosService {
 				public Escala atalhoCiclo10G(Escala escala) {
 					
 					// Pegando os turnos compatíveis
-					List<Turnos> listaTurnos = new ArrayList<>();
-					List<RegimeDeTrabalhoTurno> listaTurnosInicial = regimeDeTrabalhoTurnoService.buscarPorRegime(escala.getIdRegimeFk());
-					listaTurnos.add(turnosService.buscarPorNome(""));
-					for(RegimeDeTrabalhoTurno t: listaTurnosInicial) {
-						listaTurnos.add(t.getIdTurnoFk());
-					}
+					List<Turnos> listaTurnos = regimeDeTrabalhoTurnoService.buscarPorRegimesEUnidadeEFolha(escala);
 					
 					String mes = escala.getIdAnoMesFk().getNomeAnoMes();
 					int qtdDiasNoMes = utilidadesDeCalendarioEEscala.quantidadeDeDiasNoMes(mes);
@@ -2688,12 +2378,7 @@ public class EscalaAtalhosService {
 				public Escala atalhoCiclo11A(Escala escala) {
 					
 					// Pegando os turnos compatíveis
-					List<Turnos> listaTurnos = new ArrayList<>();
-					List<RegimeDeTrabalhoTurno> listaTurnosInicial = regimeDeTrabalhoTurnoService.buscarPorRegime(escala.getIdRegimeFk());
-					listaTurnos.add(turnosService.buscarPorNome(""));
-					for(RegimeDeTrabalhoTurno t: listaTurnosInicial) {
-						listaTurnos.add(t.getIdTurnoFk());
-					}
+					List<Turnos> listaTurnos = regimeDeTrabalhoTurnoService.buscarPorRegimesEUnidadeEFolha(escala);
 					
 					String mes = escala.getIdAnoMesFk().getNomeAnoMes();
 					int qtdDiasNoMes = utilidadesDeCalendarioEEscala.quantidadeDeDiasNoMes(mes);
@@ -2741,12 +2426,7 @@ public class EscalaAtalhosService {
 				public Escala atalhoCiclo11B(Escala escala) {
 					
 					// Pegando os turnos compatíveis
-					List<Turnos> listaTurnos = new ArrayList<>();
-					List<RegimeDeTrabalhoTurno> listaTurnosInicial = regimeDeTrabalhoTurnoService.buscarPorRegime(escala.getIdRegimeFk());
-					listaTurnos.add(turnosService.buscarPorNome(""));
-					for(RegimeDeTrabalhoTurno t: listaTurnosInicial) {
-						listaTurnos.add(t.getIdTurnoFk());
-					}
+					List<Turnos> listaTurnos = regimeDeTrabalhoTurnoService.buscarPorRegimesEUnidadeEFolha(escala);
 					
 					String mes = escala.getIdAnoMesFk().getNomeAnoMes();
 					int qtdDiasNoMes = utilidadesDeCalendarioEEscala.quantidadeDeDiasNoMes(mes);
@@ -2794,12 +2474,7 @@ public class EscalaAtalhosService {
 				public Escala atalhoCiclo11C(Escala escala) {
 					
 					// Pegando os turnos compatíveis
-					List<Turnos> listaTurnos = new ArrayList<>();
-					List<RegimeDeTrabalhoTurno> listaTurnosInicial = regimeDeTrabalhoTurnoService.buscarPorRegime(escala.getIdRegimeFk());
-					listaTurnos.add(turnosService.buscarPorNome(""));
-					for(RegimeDeTrabalhoTurno t: listaTurnosInicial) {
-						listaTurnos.add(t.getIdTurnoFk());
-					}
+					List<Turnos> listaTurnos = regimeDeTrabalhoTurnoService.buscarPorRegimesEUnidadeEFolha(escala);
 					
 					String mes = escala.getIdAnoMesFk().getNomeAnoMes();
 					int qtdDiasNoMes = utilidadesDeCalendarioEEscala.quantidadeDeDiasNoMes(mes);
@@ -2846,12 +2521,7 @@ public class EscalaAtalhosService {
 				public Escala atalhoCiclo11D(Escala escala) {
 					
 					// Pegando os turnos compatíveis
-					List<Turnos> listaTurnos = new ArrayList<>();
-					List<RegimeDeTrabalhoTurno> listaTurnosInicial = regimeDeTrabalhoTurnoService.buscarPorRegime(escala.getIdRegimeFk());
-					listaTurnos.add(turnosService.buscarPorNome(""));
-					for(RegimeDeTrabalhoTurno t: listaTurnosInicial) {
-						listaTurnos.add(t.getIdTurnoFk());
-					}
+					List<Turnos> listaTurnos = regimeDeTrabalhoTurnoService.buscarPorRegimesEUnidadeEFolha(escala);
 					
 					String mes = escala.getIdAnoMesFk().getNomeAnoMes();
 					int qtdDiasNoMes = utilidadesDeCalendarioEEscala.quantidadeDeDiasNoMes(mes);
@@ -2898,12 +2568,7 @@ public class EscalaAtalhosService {
 				public Escala atalhoCiclo11E(Escala escala) {
 					
 					// Pegando os turnos compatíveis
-					List<Turnos> listaTurnos = new ArrayList<>();
-					List<RegimeDeTrabalhoTurno> listaTurnosInicial = regimeDeTrabalhoTurnoService.buscarPorRegime(escala.getIdRegimeFk());
-					listaTurnos.add(turnosService.buscarPorNome(""));
-					for(RegimeDeTrabalhoTurno t: listaTurnosInicial) {
-						listaTurnos.add(t.getIdTurnoFk());
-					}
+					List<Turnos> listaTurnos = regimeDeTrabalhoTurnoService.buscarPorRegimesEUnidadeEFolha(escala);
 					
 					String mes = escala.getIdAnoMesFk().getNomeAnoMes();
 					int qtdDiasNoMes = utilidadesDeCalendarioEEscala.quantidadeDeDiasNoMes(mes);
@@ -2950,12 +2615,7 @@ public class EscalaAtalhosService {
 				public Escala atalhoCiclo11F(Escala escala) {
 					
 					// Pegando os turnos compatíveis
-					List<Turnos> listaTurnos = new ArrayList<>();
-					List<RegimeDeTrabalhoTurno> listaTurnosInicial = regimeDeTrabalhoTurnoService.buscarPorRegime(escala.getIdRegimeFk());
-					listaTurnos.add(turnosService.buscarPorNome(""));
-					for(RegimeDeTrabalhoTurno t: listaTurnosInicial) {
-						listaTurnos.add(t.getIdTurnoFk());
-					}
+					List<Turnos> listaTurnos = regimeDeTrabalhoTurnoService.buscarPorRegimesEUnidadeEFolha(escala);
 					
 					String mes = escala.getIdAnoMesFk().getNomeAnoMes();
 					int qtdDiasNoMes = utilidadesDeCalendarioEEscala.quantidadeDeDiasNoMes(mes);
@@ -3002,12 +2662,7 @@ public class EscalaAtalhosService {
 				public Escala atalhoCiclo11G(Escala escala) {
 					
 					// Pegando os turnos compatíveis
-					List<Turnos> listaTurnos = new ArrayList<>();
-					List<RegimeDeTrabalhoTurno> listaTurnosInicial = regimeDeTrabalhoTurnoService.buscarPorRegime(escala.getIdRegimeFk());
-					listaTurnos.add(turnosService.buscarPorNome(""));
-					for(RegimeDeTrabalhoTurno t: listaTurnosInicial) {
-						listaTurnos.add(t.getIdTurnoFk());
-					}
+					List<Turnos> listaTurnos = regimeDeTrabalhoTurnoService.buscarPorRegimesEUnidadeEFolha(escala);
 					
 					String mes = escala.getIdAnoMesFk().getNomeAnoMes();
 					int qtdDiasNoMes = utilidadesDeCalendarioEEscala.quantidadeDeDiasNoMes(mes);
@@ -3056,12 +2711,7 @@ public class EscalaAtalhosService {
 				public Escala atalhoCiclo12A(Escala escala) {
 					
 					// Pegando os turnos compatíveis
-					List<Turnos> listaTurnos = new ArrayList<>();
-					List<RegimeDeTrabalhoTurno> listaTurnosInicial = regimeDeTrabalhoTurnoService.buscarPorRegime(escala.getIdRegimeFk());
-					listaTurnos.add(turnosService.buscarPorNome(""));
-					for(RegimeDeTrabalhoTurno t: listaTurnosInicial) {
-						listaTurnos.add(t.getIdTurnoFk());
-					}
+					List<Turnos> listaTurnos = regimeDeTrabalhoTurnoService.buscarPorRegimesEUnidadeEFolha(escala);
 					
 					String mes = escala.getIdAnoMesFk().getNomeAnoMes();
 					int qtdDiasNoMes = utilidadesDeCalendarioEEscala.quantidadeDeDiasNoMes(mes);
@@ -3109,12 +2759,7 @@ public class EscalaAtalhosService {
 				public Escala atalhoCiclo12B(Escala escala) {
 					
 					// Pegando os turnos compatíveis
-					List<Turnos> listaTurnos = new ArrayList<>();
-					List<RegimeDeTrabalhoTurno> listaTurnosInicial = regimeDeTrabalhoTurnoService.buscarPorRegime(escala.getIdRegimeFk());
-					listaTurnos.add(turnosService.buscarPorNome(""));
-					for(RegimeDeTrabalhoTurno t: listaTurnosInicial) {
-						listaTurnos.add(t.getIdTurnoFk());
-					}
+					List<Turnos> listaTurnos = regimeDeTrabalhoTurnoService.buscarPorRegimesEUnidadeEFolha(escala);
 					
 					String mes = escala.getIdAnoMesFk().getNomeAnoMes();
 					int qtdDiasNoMes = utilidadesDeCalendarioEEscala.quantidadeDeDiasNoMes(mes);
@@ -3162,12 +2807,7 @@ public class EscalaAtalhosService {
 				public Escala atalhoCiclo12C(Escala escala) {
 					
 					// Pegando os turnos compatíveis
-					List<Turnos> listaTurnos = new ArrayList<>();
-					List<RegimeDeTrabalhoTurno> listaTurnosInicial = regimeDeTrabalhoTurnoService.buscarPorRegime(escala.getIdRegimeFk());
-					listaTurnos.add(turnosService.buscarPorNome(""));
-					for(RegimeDeTrabalhoTurno t: listaTurnosInicial) {
-						listaTurnos.add(t.getIdTurnoFk());
-					}
+					List<Turnos> listaTurnos = regimeDeTrabalhoTurnoService.buscarPorRegimesEUnidadeEFolha(escala);
 					
 					String mes = escala.getIdAnoMesFk().getNomeAnoMes();
 					int qtdDiasNoMes = utilidadesDeCalendarioEEscala.quantidadeDeDiasNoMes(mes);
@@ -3214,12 +2854,7 @@ public class EscalaAtalhosService {
 				public Escala atalhoCiclo12D(Escala escala) {
 					
 					// Pegando os turnos compatíveis
-					List<Turnos> listaTurnos = new ArrayList<>();
-					List<RegimeDeTrabalhoTurno> listaTurnosInicial = regimeDeTrabalhoTurnoService.buscarPorRegime(escala.getIdRegimeFk());
-					listaTurnos.add(turnosService.buscarPorNome(""));
-					for(RegimeDeTrabalhoTurno t: listaTurnosInicial) {
-						listaTurnos.add(t.getIdTurnoFk());
-					}
+					List<Turnos> listaTurnos = regimeDeTrabalhoTurnoService.buscarPorRegimesEUnidadeEFolha(escala);
 					
 					String mes = escala.getIdAnoMesFk().getNomeAnoMes();
 					int qtdDiasNoMes = utilidadesDeCalendarioEEscala.quantidadeDeDiasNoMes(mes);
@@ -3266,12 +2901,7 @@ public class EscalaAtalhosService {
 				public Escala atalhoCiclo12E(Escala escala) {
 					
 					// Pegando os turnos compatíveis
-					List<Turnos> listaTurnos = new ArrayList<>();
-					List<RegimeDeTrabalhoTurno> listaTurnosInicial = regimeDeTrabalhoTurnoService.buscarPorRegime(escala.getIdRegimeFk());
-					listaTurnos.add(turnosService.buscarPorNome(""));
-					for(RegimeDeTrabalhoTurno t: listaTurnosInicial) {
-						listaTurnos.add(t.getIdTurnoFk());
-					}
+					List<Turnos> listaTurnos = regimeDeTrabalhoTurnoService.buscarPorRegimesEUnidadeEFolha(escala);
 					
 					String mes = escala.getIdAnoMesFk().getNomeAnoMes();
 					int qtdDiasNoMes = utilidadesDeCalendarioEEscala.quantidadeDeDiasNoMes(mes);
@@ -3318,12 +2948,7 @@ public class EscalaAtalhosService {
 				public Escala atalhoCiclo12F(Escala escala) {
 					
 					// Pegando os turnos compatíveis
-					List<Turnos> listaTurnos = new ArrayList<>();
-					List<RegimeDeTrabalhoTurno> listaTurnosInicial = regimeDeTrabalhoTurnoService.buscarPorRegime(escala.getIdRegimeFk());
-					listaTurnos.add(turnosService.buscarPorNome(""));
-					for(RegimeDeTrabalhoTurno t: listaTurnosInicial) {
-						listaTurnos.add(t.getIdTurnoFk());
-					}
+					List<Turnos> listaTurnos = regimeDeTrabalhoTurnoService.buscarPorRegimesEUnidadeEFolha(escala);
 					
 					String mes = escala.getIdAnoMesFk().getNomeAnoMes();
 					int qtdDiasNoMes = utilidadesDeCalendarioEEscala.quantidadeDeDiasNoMes(mes);
@@ -3370,12 +2995,7 @@ public class EscalaAtalhosService {
 				public Escala atalhoCiclo12G(Escala escala) {
 					
 					// Pegando os turnos compatíveis
-					List<Turnos> listaTurnos = new ArrayList<>();
-					List<RegimeDeTrabalhoTurno> listaTurnosInicial = regimeDeTrabalhoTurnoService.buscarPorRegime(escala.getIdRegimeFk());
-					listaTurnos.add(turnosService.buscarPorNome(""));
-					for(RegimeDeTrabalhoTurno t: listaTurnosInicial) {
-						listaTurnos.add(t.getIdTurnoFk());
-					}
+					List<Turnos> listaTurnos = regimeDeTrabalhoTurnoService.buscarPorRegimesEUnidadeEFolha(escala);
 					
 					String mes = escala.getIdAnoMesFk().getNomeAnoMes();
 					int qtdDiasNoMes = utilidadesDeCalendarioEEscala.quantidadeDeDiasNoMes(mes);

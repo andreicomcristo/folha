@@ -676,13 +676,8 @@ public class EscalaController {
 		model.addAttribute("nomeColuna7", nomeColuna7 );
 		
 		
-		// Colocando os turnos compatíveis
-		List<Turnos> listaTurnos = new ArrayList<>();
-		List<RegimeDeTrabalhoTurno> listaTurnosInicial = regimeDeTrabalhoTurnoService.buscarPorRegime(escala.getIdRegimeFk());
-		listaTurnos.add(turnosService.buscarPorNome(""));
-		for(RegimeDeTrabalhoTurno t: listaTurnosInicial) {
-			listaTurnos.add(t.getIdTurnoFk());
-		}
+		// Pegando os turnos compatíveis
+		List<Turnos> listaTurnos = regimeDeTrabalhoTurnoService.buscarPorRegimesEUnidadeEFolha(escala);
 		
 		model.addAttribute("dia01FkCompativel",  listaTurnos);
 		model.addAttribute("dia02FkCompativel",  listaTurnos);
@@ -1610,13 +1605,8 @@ public class EscalaController {
 		model.addAttribute("nomeColuna7", nomeColuna7 );
 		
 		
-		// Colocando os turnos compatíveis
-		List<Turnos> listaTurnos = new ArrayList<>();
-		List<RegimeDeTrabalhoTurno> listaTurnosInicial = regimeDeTrabalhoTurnoService.buscarPorRegime(escala.getIdRegimeFk());
-		listaTurnos.add(turnosService.buscarPorNome(""));
-		for(RegimeDeTrabalhoTurno t: listaTurnosInicial) {
-			listaTurnos.add(t.getIdTurnoFk());
-		}
+		// Pegando os turnos compatíveis
+		List<Turnos> listaTurnos = regimeDeTrabalhoTurnoService.buscarPorRegimesEUnidadeEFolha(escala);
 		
 		model.addAttribute("dia01FkCompativel",  listaTurnos);
 		model.addAttribute("dia02FkCompativel",  listaTurnos);
@@ -1711,13 +1701,8 @@ public class EscalaController {
 		model.addAttribute("nomeColuna7", nomeColuna7 );
 		
 		
-		// Colocando os turnos compatíveis
-		List<Turnos> listaTurnos = new ArrayList<>();
-		List<RegimeDeTrabalhoTurno> listaTurnosInicial = regimeDeTrabalhoTurnoService.buscarPorRegime(escala.getIdRegimeFk());
-		listaTurnos.add(turnosService.buscarPorNome(""));
-		for(RegimeDeTrabalhoTurno t: listaTurnosInicial) {
-			listaTurnos.add(t.getIdTurnoFk());
-		}
+		// Pegando os turnos compatíveis
+		List<Turnos> listaTurnos = regimeDeTrabalhoTurnoService.buscarPorRegimesEUnidadeEFolha(escala);
 		
 		model.addAttribute("dia01FkCompativel",  listaTurnos);
 		model.addAttribute("dia02FkCompativel",  listaTurnos);
@@ -1809,13 +1794,8 @@ public class EscalaController {
 		model.addAttribute("nomeColuna7", nomeColuna7 );
 		
 		
-		// Colocando os turnos compatíveis
-		List<Turnos> listaTurnos = new ArrayList<>();
-		List<RegimeDeTrabalhoTurno> listaTurnosInicial = regimeDeTrabalhoTurnoService.buscarPorRegime(escala.getIdRegimeFk());
-		listaTurnos.add(turnosService.buscarPorNome(""));
-		for(RegimeDeTrabalhoTurno t: listaTurnosInicial) {
-			listaTurnos.add(t.getIdTurnoFk());
-		}
+		// Pegando os turnos compatíveis
+		List<Turnos> listaTurnos = regimeDeTrabalhoTurnoService.buscarPorRegimesEUnidadeEFolha(escala);
 		
 		model.addAttribute("dia01FkCompativel",  listaTurnos);
 		model.addAttribute("dia02FkCompativel",  listaTurnos);
@@ -1908,13 +1888,8 @@ public class EscalaController {
 		model.addAttribute("nomeColuna7", nomeColuna7 );
 		
 		
-		// Colocando os turnos compatíveis
-		List<Turnos> listaTurnos = new ArrayList<>();
-		List<RegimeDeTrabalhoTurno> listaTurnosInicial = regimeDeTrabalhoTurnoService.buscarPorRegime(escala.getIdRegimeFk());
-		listaTurnos.add(turnosService.buscarPorNome(""));
-		for(RegimeDeTrabalhoTurno t: listaTurnosInicial) {
-			listaTurnos.add(t.getIdTurnoFk());
-		}
+		// Pegando os turnos compatíveis
+		List<Turnos> listaTurnos = regimeDeTrabalhoTurnoService.buscarPorRegimesEUnidadeEFolha(escala);
 		
 		model.addAttribute("dia01FkCompativel",  listaTurnos);
 		model.addAttribute("dia02FkCompativel",  listaTurnos);
@@ -2007,13 +1982,8 @@ public class EscalaController {
 		model.addAttribute("nomeColuna7", nomeColuna7 );
 		
 		
-		// Colocando os turnos compatíveis
-		List<Turnos> listaTurnos = new ArrayList<>();
-		List<RegimeDeTrabalhoTurno> listaTurnosInicial = regimeDeTrabalhoTurnoService.buscarPorRegime(escala.getIdRegimeFk());
-		listaTurnos.add(turnosService.buscarPorNome(""));
-		for(RegimeDeTrabalhoTurno t: listaTurnosInicial) {
-			listaTurnos.add(t.getIdTurnoFk());
-		}
+		// Pegando os turnos compatíveis
+		List<Turnos> listaTurnos = regimeDeTrabalhoTurnoService.buscarPorRegimesEUnidadeEFolha(escala);
 		
 		model.addAttribute("dia01FkCompativel",  listaTurnos);
 		model.addAttribute("dia02FkCompativel",  listaTurnos);
@@ -2107,13 +2077,8 @@ public class EscalaController {
 		model.addAttribute("nomeColuna7", nomeColuna7 );
 		
 		
-		// Colocando os turnos compatíveis
-		List<Turnos> listaTurnos = new ArrayList<>();
-		List<RegimeDeTrabalhoTurno> listaTurnosInicial = regimeDeTrabalhoTurnoService.buscarPorRegime(escala.getIdRegimeFk());
-		listaTurnos.add(turnosService.buscarPorNome(""));
-		for(RegimeDeTrabalhoTurno t: listaTurnosInicial) {
-			listaTurnos.add(t.getIdTurnoFk());
-		}
+		// Pegando os turnos compatíveis
+		List<Turnos> listaTurnos = regimeDeTrabalhoTurnoService.buscarPorRegimesEUnidadeEFolha(escala);
 		
 		model.addAttribute("dia01FkCompativel",  listaTurnos);
 		model.addAttribute("dia02FkCompativel",  listaTurnos);
@@ -2206,13 +2171,8 @@ public class EscalaController {
 		model.addAttribute("nomeColuna7", nomeColuna7 );
 		
 		
-		// Colocando os turnos compatíveis
-		List<Turnos> listaTurnos = new ArrayList<>();
-		List<RegimeDeTrabalhoTurno> listaTurnosInicial = regimeDeTrabalhoTurnoService.buscarPorRegime(escala.getIdRegimeFk());
-		listaTurnos.add(turnosService.buscarPorNome(""));
-		for(RegimeDeTrabalhoTurno t: listaTurnosInicial) {
-			listaTurnos.add(t.getIdTurnoFk());
-		}
+		// Pegando os turnos compatíveis
+		List<Turnos> listaTurnos = regimeDeTrabalhoTurnoService.buscarPorRegimesEUnidadeEFolha(escala);
 		
 		model.addAttribute("dia01FkCompativel",  listaTurnos);
 		model.addAttribute("dia02FkCompativel",  listaTurnos);
@@ -2305,13 +2265,8 @@ public class EscalaController {
 		model.addAttribute("nomeColuna7", nomeColuna7 );
 		
 		
-		// Colocando os turnos compatíveis
-		List<Turnos> listaTurnos = new ArrayList<>();
-		List<RegimeDeTrabalhoTurno> listaTurnosInicial = regimeDeTrabalhoTurnoService.buscarPorRegime(escala.getIdRegimeFk());
-		listaTurnos.add(turnosService.buscarPorNome(""));
-		for(RegimeDeTrabalhoTurno t: listaTurnosInicial) {
-			listaTurnos.add(t.getIdTurnoFk());
-		}
+		// Pegando os turnos compatíveis
+		List<Turnos> listaTurnos = regimeDeTrabalhoTurnoService.buscarPorRegimesEUnidadeEFolha(escala);
 		
 		model.addAttribute("dia01FkCompativel",  listaTurnos);
 		model.addAttribute("dia02FkCompativel",  listaTurnos);
@@ -2404,13 +2359,8 @@ public class EscalaController {
 		model.addAttribute("nomeColuna7", nomeColuna7 );
 		
 		
-		// Colocando os turnos compatíveis
-		List<Turnos> listaTurnos = new ArrayList<>();
-		List<RegimeDeTrabalhoTurno> listaTurnosInicial = regimeDeTrabalhoTurnoService.buscarPorRegime(escala.getIdRegimeFk());
-		listaTurnos.add(turnosService.buscarPorNome(""));
-		for(RegimeDeTrabalhoTurno t: listaTurnosInicial) {
-			listaTurnos.add(t.getIdTurnoFk());
-		}
+		// Pegando os turnos compatíveis
+		List<Turnos> listaTurnos = regimeDeTrabalhoTurnoService.buscarPorRegimesEUnidadeEFolha(escala);
 		
 		model.addAttribute("dia01FkCompativel",  listaTurnos);
 		model.addAttribute("dia02FkCompativel",  listaTurnos);
@@ -2503,13 +2453,8 @@ public class EscalaController {
 		model.addAttribute("nomeColuna7", nomeColuna7 );
 		
 		
-		// Colocando os turnos compatíveis
-		List<Turnos> listaTurnos = new ArrayList<>();
-		List<RegimeDeTrabalhoTurno> listaTurnosInicial = regimeDeTrabalhoTurnoService.buscarPorRegime(escala.getIdRegimeFk());
-		listaTurnos.add(turnosService.buscarPorNome(""));
-		for(RegimeDeTrabalhoTurno t: listaTurnosInicial) {
-			listaTurnos.add(t.getIdTurnoFk());
-		}
+		// Pegando os turnos compatíveis
+		List<Turnos> listaTurnos = regimeDeTrabalhoTurnoService.buscarPorRegimesEUnidadeEFolha(escala);
 		
 		model.addAttribute("dia01FkCompativel",  listaTurnos);
 		model.addAttribute("dia02FkCompativel",  listaTurnos);
@@ -2602,13 +2547,8 @@ public class EscalaController {
 		model.addAttribute("nomeColuna7", nomeColuna7 );
 		
 		
-		// Colocando os turnos compatíveis
-		List<Turnos> listaTurnos = new ArrayList<>();
-		List<RegimeDeTrabalhoTurno> listaTurnosInicial = regimeDeTrabalhoTurnoService.buscarPorRegime(escala.getIdRegimeFk());
-		listaTurnos.add(turnosService.buscarPorNome(""));
-		for(RegimeDeTrabalhoTurno t: listaTurnosInicial) {
-			listaTurnos.add(t.getIdTurnoFk());
-		}
+		// Pegando os turnos compatíveis
+		List<Turnos> listaTurnos = regimeDeTrabalhoTurnoService.buscarPorRegimesEUnidadeEFolha(escala);
 		
 		model.addAttribute("dia01FkCompativel",  listaTurnos);
 		model.addAttribute("dia02FkCompativel",  listaTurnos);
@@ -2702,13 +2642,8 @@ public class EscalaController {
 		model.addAttribute("nomeColuna7", nomeColuna7 );
 		
 		
-		// Colocando os turnos compatíveis
-		List<Turnos> listaTurnos = new ArrayList<>();
-		List<RegimeDeTrabalhoTurno> listaTurnosInicial = regimeDeTrabalhoTurnoService.buscarPorRegime(escala.getIdRegimeFk());
-		listaTurnos.add(turnosService.buscarPorNome(""));
-		for(RegimeDeTrabalhoTurno t: listaTurnosInicial) {
-			listaTurnos.add(t.getIdTurnoFk());
-		}
+		// Pegando os turnos compatíveis
+		List<Turnos> listaTurnos = regimeDeTrabalhoTurnoService.buscarPorRegimesEUnidadeEFolha(escala);
 		
 		model.addAttribute("dia01FkCompativel",  listaTurnos);
 		model.addAttribute("dia02FkCompativel",  listaTurnos);
@@ -2801,13 +2736,8 @@ public class EscalaController {
 		model.addAttribute("nomeColuna7", nomeColuna7 );
 		
 		
-		// Colocando os turnos compatíveis
-		List<Turnos> listaTurnos = new ArrayList<>();
-		List<RegimeDeTrabalhoTurno> listaTurnosInicial = regimeDeTrabalhoTurnoService.buscarPorRegime(escala.getIdRegimeFk());
-		listaTurnos.add(turnosService.buscarPorNome(""));
-		for(RegimeDeTrabalhoTurno t: listaTurnosInicial) {
-			listaTurnos.add(t.getIdTurnoFk());
-		}
+		// Pegando os turnos compatíveis
+		List<Turnos> listaTurnos = regimeDeTrabalhoTurnoService.buscarPorRegimesEUnidadeEFolha(escala);
 		
 		model.addAttribute("dia01FkCompativel",  listaTurnos);
 		model.addAttribute("dia02FkCompativel",  listaTurnos);
@@ -2900,13 +2830,8 @@ public class EscalaController {
 		model.addAttribute("nomeColuna7", nomeColuna7 );
 		
 		
-		// Colocando os turnos compatíveis
-		List<Turnos> listaTurnos = new ArrayList<>();
-		List<RegimeDeTrabalhoTurno> listaTurnosInicial = regimeDeTrabalhoTurnoService.buscarPorRegime(escala.getIdRegimeFk());
-		listaTurnos.add(turnosService.buscarPorNome(""));
-		for(RegimeDeTrabalhoTurno t: listaTurnosInicial) {
-			listaTurnos.add(t.getIdTurnoFk());
-		}
+		// Pegando os turnos compatíveis
+		List<Turnos> listaTurnos = regimeDeTrabalhoTurnoService.buscarPorRegimesEUnidadeEFolha(escala);
 		
 		model.addAttribute("dia01FkCompativel",  listaTurnos);
 		model.addAttribute("dia02FkCompativel",  listaTurnos);
@@ -2999,13 +2924,8 @@ public class EscalaController {
 		model.addAttribute("nomeColuna7", nomeColuna7 );
 		
 		
-		// Colocando os turnos compatíveis
-		List<Turnos> listaTurnos = new ArrayList<>();
-		List<RegimeDeTrabalhoTurno> listaTurnosInicial = regimeDeTrabalhoTurnoService.buscarPorRegime(escala.getIdRegimeFk());
-		listaTurnos.add(turnosService.buscarPorNome(""));
-		for(RegimeDeTrabalhoTurno t: listaTurnosInicial) {
-			listaTurnos.add(t.getIdTurnoFk());
-		}
+		// Pegando os turnos compatíveis
+		List<Turnos> listaTurnos = regimeDeTrabalhoTurnoService.buscarPorRegimesEUnidadeEFolha(escala);
 		
 		model.addAttribute("dia01FkCompativel",  listaTurnos);
 		model.addAttribute("dia02FkCompativel",  listaTurnos);
@@ -3098,13 +3018,8 @@ public class EscalaController {
 		model.addAttribute("nomeColuna7", nomeColuna7 );
 		
 		
-		// Colocando os turnos compatíveis
-		List<Turnos> listaTurnos = new ArrayList<>();
-		List<RegimeDeTrabalhoTurno> listaTurnosInicial = regimeDeTrabalhoTurnoService.buscarPorRegime(escala.getIdRegimeFk());
-		listaTurnos.add(turnosService.buscarPorNome(""));
-		for(RegimeDeTrabalhoTurno t: listaTurnosInicial) {
-			listaTurnos.add(t.getIdTurnoFk());
-		}
+		// Pegando os turnos compatíveis
+		List<Turnos> listaTurnos = regimeDeTrabalhoTurnoService.buscarPorRegimesEUnidadeEFolha(escala);
 		
 		model.addAttribute("dia01FkCompativel",  listaTurnos);
 		model.addAttribute("dia02FkCompativel",  listaTurnos);
@@ -3197,13 +3112,8 @@ public class EscalaController {
 		model.addAttribute("nomeColuna7", nomeColuna7 );
 		
 		
-		// Colocando os turnos compatíveis
-		List<Turnos> listaTurnos = new ArrayList<>();
-		List<RegimeDeTrabalhoTurno> listaTurnosInicial = regimeDeTrabalhoTurnoService.buscarPorRegime(escala.getIdRegimeFk());
-		listaTurnos.add(turnosService.buscarPorNome(""));
-		for(RegimeDeTrabalhoTurno t: listaTurnosInicial) {
-			listaTurnos.add(t.getIdTurnoFk());
-		}
+		// Pegando os turnos compatíveis
+		List<Turnos> listaTurnos = regimeDeTrabalhoTurnoService.buscarPorRegimesEUnidadeEFolha(escala);
 		
 		model.addAttribute("dia01FkCompativel",  listaTurnos);
 		model.addAttribute("dia02FkCompativel",  listaTurnos);
@@ -3297,13 +3207,8 @@ public class EscalaController {
 		model.addAttribute("nomeColuna7", nomeColuna7 );
 		
 		
-		// Colocando os turnos compatíveis
-		List<Turnos> listaTurnos = new ArrayList<>();
-		List<RegimeDeTrabalhoTurno> listaTurnosInicial = regimeDeTrabalhoTurnoService.buscarPorRegime(escala.getIdRegimeFk());
-		listaTurnos.add(turnosService.buscarPorNome(""));
-		for(RegimeDeTrabalhoTurno t: listaTurnosInicial) {
-			listaTurnos.add(t.getIdTurnoFk());
-		}
+		// Pegando os turnos compatíveis
+		List<Turnos> listaTurnos = regimeDeTrabalhoTurnoService.buscarPorRegimesEUnidadeEFolha(escala);
 		
 		model.addAttribute("dia01FkCompativel",  listaTurnos);
 		model.addAttribute("dia02FkCompativel",  listaTurnos);
@@ -3396,13 +3301,8 @@ public class EscalaController {
 		model.addAttribute("nomeColuna7", nomeColuna7 );
 		
 		
-		// Colocando os turnos compatíveis
-		List<Turnos> listaTurnos = new ArrayList<>();
-		List<RegimeDeTrabalhoTurno> listaTurnosInicial = regimeDeTrabalhoTurnoService.buscarPorRegime(escala.getIdRegimeFk());
-		listaTurnos.add(turnosService.buscarPorNome(""));
-		for(RegimeDeTrabalhoTurno t: listaTurnosInicial) {
-			listaTurnos.add(t.getIdTurnoFk());
-		}
+		// Pegando os turnos compatíveis
+		List<Turnos> listaTurnos = regimeDeTrabalhoTurnoService.buscarPorRegimesEUnidadeEFolha(escala);
 		
 		model.addAttribute("dia01FkCompativel",  listaTurnos);
 		model.addAttribute("dia02FkCompativel",  listaTurnos);
@@ -3495,13 +3395,8 @@ public class EscalaController {
 		model.addAttribute("nomeColuna7", nomeColuna7 );
 		
 		
-		// Colocando os turnos compatíveis
-		List<Turnos> listaTurnos = new ArrayList<>();
-		List<RegimeDeTrabalhoTurno> listaTurnosInicial = regimeDeTrabalhoTurnoService.buscarPorRegime(escala.getIdRegimeFk());
-		listaTurnos.add(turnosService.buscarPorNome(""));
-		for(RegimeDeTrabalhoTurno t: listaTurnosInicial) {
-			listaTurnos.add(t.getIdTurnoFk());
-		}
+		// Pegando os turnos compatíveis
+		List<Turnos> listaTurnos = regimeDeTrabalhoTurnoService.buscarPorRegimesEUnidadeEFolha(escala);
 		
 		model.addAttribute("dia01FkCompativel",  listaTurnos);
 		model.addAttribute("dia02FkCompativel",  listaTurnos);
@@ -3594,13 +3489,8 @@ public class EscalaController {
 		model.addAttribute("nomeColuna7", nomeColuna7 );
 		
 		
-		// Colocando os turnos compatíveis
-		List<Turnos> listaTurnos = new ArrayList<>();
-		List<RegimeDeTrabalhoTurno> listaTurnosInicial = regimeDeTrabalhoTurnoService.buscarPorRegime(escala.getIdRegimeFk());
-		listaTurnos.add(turnosService.buscarPorNome(""));
-		for(RegimeDeTrabalhoTurno t: listaTurnosInicial) {
-			listaTurnos.add(t.getIdTurnoFk());
-		}
+		// Pegando os turnos compatíveis
+		List<Turnos> listaTurnos = regimeDeTrabalhoTurnoService.buscarPorRegimesEUnidadeEFolha(escala);
 		
 		model.addAttribute("dia01FkCompativel",  listaTurnos);
 		model.addAttribute("dia02FkCompativel",  listaTurnos);
@@ -3693,13 +3583,8 @@ public class EscalaController {
 		model.addAttribute("nomeColuna7", nomeColuna7 );
 		
 		
-		// Colocando os turnos compatíveis
-		List<Turnos> listaTurnos = new ArrayList<>();
-		List<RegimeDeTrabalhoTurno> listaTurnosInicial = regimeDeTrabalhoTurnoService.buscarPorRegime(escala.getIdRegimeFk());
-		listaTurnos.add(turnosService.buscarPorNome(""));
-		for(RegimeDeTrabalhoTurno t: listaTurnosInicial) {
-			listaTurnos.add(t.getIdTurnoFk());
-		}
+		// Pegando os turnos compatíveis
+		List<Turnos> listaTurnos = regimeDeTrabalhoTurnoService.buscarPorRegimesEUnidadeEFolha(escala);
 		
 		model.addAttribute("dia01FkCompativel",  listaTurnos);
 		model.addAttribute("dia02FkCompativel",  listaTurnos);
@@ -3792,13 +3677,8 @@ public class EscalaController {
 		model.addAttribute("nomeColuna7", nomeColuna7 );
 		
 		
-		// Colocando os turnos compatíveis
-		List<Turnos> listaTurnos = new ArrayList<>();
-		List<RegimeDeTrabalhoTurno> listaTurnosInicial = regimeDeTrabalhoTurnoService.buscarPorRegime(escala.getIdRegimeFk());
-		listaTurnos.add(turnosService.buscarPorNome(""));
-		for(RegimeDeTrabalhoTurno t: listaTurnosInicial) {
-			listaTurnos.add(t.getIdTurnoFk());
-		}
+		// Pegando os turnos compatíveis
+		List<Turnos> listaTurnos = regimeDeTrabalhoTurnoService.buscarPorRegimesEUnidadeEFolha(escala);
 		
 		model.addAttribute("dia01FkCompativel",  listaTurnos);
 		model.addAttribute("dia02FkCompativel",  listaTurnos);
@@ -3892,13 +3772,8 @@ public class EscalaController {
 		model.addAttribute("nomeColuna7", nomeColuna7 );
 		
 		
-		// Colocando os turnos compatíveis
-		List<Turnos> listaTurnos = new ArrayList<>();
-		List<RegimeDeTrabalhoTurno> listaTurnosInicial = regimeDeTrabalhoTurnoService.buscarPorRegime(escala.getIdRegimeFk());
-		listaTurnos.add(turnosService.buscarPorNome(""));
-		for(RegimeDeTrabalhoTurno t: listaTurnosInicial) {
-			listaTurnos.add(t.getIdTurnoFk());
-		}
+		// Pegando os turnos compatíveis
+		List<Turnos> listaTurnos = regimeDeTrabalhoTurnoService.buscarPorRegimesEUnidadeEFolha(escala);
 		
 		model.addAttribute("dia01FkCompativel",  listaTurnos);
 		model.addAttribute("dia02FkCompativel",  listaTurnos);
@@ -3991,13 +3866,8 @@ public class EscalaController {
 		model.addAttribute("nomeColuna7", nomeColuna7 );
 		
 		
-		// Colocando os turnos compatíveis
-		List<Turnos> listaTurnos = new ArrayList<>();
-		List<RegimeDeTrabalhoTurno> listaTurnosInicial = regimeDeTrabalhoTurnoService.buscarPorRegime(escala.getIdRegimeFk());
-		listaTurnos.add(turnosService.buscarPorNome(""));
-		for(RegimeDeTrabalhoTurno t: listaTurnosInicial) {
-			listaTurnos.add(t.getIdTurnoFk());
-		}
+		// Pegando os turnos compatíveis
+		List<Turnos> listaTurnos = regimeDeTrabalhoTurnoService.buscarPorRegimesEUnidadeEFolha(escala);
 		
 		model.addAttribute("dia01FkCompativel",  listaTurnos);
 		model.addAttribute("dia02FkCompativel",  listaTurnos);
@@ -4090,13 +3960,8 @@ public class EscalaController {
 		model.addAttribute("nomeColuna7", nomeColuna7 );
 		
 		
-		// Colocando os turnos compatíveis
-		List<Turnos> listaTurnos = new ArrayList<>();
-		List<RegimeDeTrabalhoTurno> listaTurnosInicial = regimeDeTrabalhoTurnoService.buscarPorRegime(escala.getIdRegimeFk());
-		listaTurnos.add(turnosService.buscarPorNome(""));
-		for(RegimeDeTrabalhoTurno t: listaTurnosInicial) {
-			listaTurnos.add(t.getIdTurnoFk());
-		}
+		// Pegando os turnos compatíveis
+		List<Turnos> listaTurnos = regimeDeTrabalhoTurnoService.buscarPorRegimesEUnidadeEFolha(escala);
 		
 		model.addAttribute("dia01FkCompativel",  listaTurnos);
 		model.addAttribute("dia02FkCompativel",  listaTurnos);
@@ -4189,13 +4054,8 @@ public class EscalaController {
 		model.addAttribute("nomeColuna7", nomeColuna7 );
 		
 		
-		// Colocando os turnos compatíveis
-		List<Turnos> listaTurnos = new ArrayList<>();
-		List<RegimeDeTrabalhoTurno> listaTurnosInicial = regimeDeTrabalhoTurnoService.buscarPorRegime(escala.getIdRegimeFk());
-		listaTurnos.add(turnosService.buscarPorNome(""));
-		for(RegimeDeTrabalhoTurno t: listaTurnosInicial) {
-			listaTurnos.add(t.getIdTurnoFk());
-		}
+		// Pegando os turnos compatíveis
+		List<Turnos> listaTurnos = regimeDeTrabalhoTurnoService.buscarPorRegimesEUnidadeEFolha(escala);
 		
 		model.addAttribute("dia01FkCompativel",  listaTurnos);
 		model.addAttribute("dia02FkCompativel",  listaTurnos);
@@ -4288,13 +4148,8 @@ public class EscalaController {
 		model.addAttribute("nomeColuna7", nomeColuna7 );
 		
 		
-		// Colocando os turnos compatíveis
-		List<Turnos> listaTurnos = new ArrayList<>();
-		List<RegimeDeTrabalhoTurno> listaTurnosInicial = regimeDeTrabalhoTurnoService.buscarPorRegime(escala.getIdRegimeFk());
-		listaTurnos.add(turnosService.buscarPorNome(""));
-		for(RegimeDeTrabalhoTurno t: listaTurnosInicial) {
-			listaTurnos.add(t.getIdTurnoFk());
-		}
+		// Pegando os turnos compatíveis
+		List<Turnos> listaTurnos = regimeDeTrabalhoTurnoService.buscarPorRegimesEUnidadeEFolha(escala);
 		
 		model.addAttribute("dia01FkCompativel",  listaTurnos);
 		model.addAttribute("dia02FkCompativel",  listaTurnos);
@@ -4387,13 +4242,8 @@ public class EscalaController {
 		model.addAttribute("nomeColuna7", nomeColuna7 );
 		
 		
-		// Colocando os turnos compatíveis
-		List<Turnos> listaTurnos = new ArrayList<>();
-		List<RegimeDeTrabalhoTurno> listaTurnosInicial = regimeDeTrabalhoTurnoService.buscarPorRegime(escala.getIdRegimeFk());
-		listaTurnos.add(turnosService.buscarPorNome(""));
-		for(RegimeDeTrabalhoTurno t: listaTurnosInicial) {
-			listaTurnos.add(t.getIdTurnoFk());
-		}
+		// Pegando os turnos compatíveis
+		List<Turnos> listaTurnos = regimeDeTrabalhoTurnoService.buscarPorRegimesEUnidadeEFolha(escala);
 		
 		model.addAttribute("dia01FkCompativel",  listaTurnos);
 		model.addAttribute("dia02FkCompativel",  listaTurnos);
@@ -4487,13 +4337,8 @@ public class EscalaController {
 		model.addAttribute("nomeColuna7", nomeColuna7 );
 		
 		
-		// Colocando os turnos compatíveis
-		List<Turnos> listaTurnos = new ArrayList<>();
-		List<RegimeDeTrabalhoTurno> listaTurnosInicial = regimeDeTrabalhoTurnoService.buscarPorRegime(escala.getIdRegimeFk());
-		listaTurnos.add(turnosService.buscarPorNome(""));
-		for(RegimeDeTrabalhoTurno t: listaTurnosInicial) {
-			listaTurnos.add(t.getIdTurnoFk());
-		}
+		// Pegando os turnos compatíveis
+		List<Turnos> listaTurnos = regimeDeTrabalhoTurnoService.buscarPorRegimesEUnidadeEFolha(escala);
 		
 		model.addAttribute("dia01FkCompativel",  listaTurnos);
 		model.addAttribute("dia02FkCompativel",  listaTurnos);
@@ -4586,13 +4431,8 @@ public class EscalaController {
 		model.addAttribute("nomeColuna7", nomeColuna7 );
 		
 		
-		// Colocando os turnos compatíveis
-		List<Turnos> listaTurnos = new ArrayList<>();
-		List<RegimeDeTrabalhoTurno> listaTurnosInicial = regimeDeTrabalhoTurnoService.buscarPorRegime(escala.getIdRegimeFk());
-		listaTurnos.add(turnosService.buscarPorNome(""));
-		for(RegimeDeTrabalhoTurno t: listaTurnosInicial) {
-			listaTurnos.add(t.getIdTurnoFk());
-		}
+		// Pegando os turnos compatíveis
+		List<Turnos> listaTurnos = regimeDeTrabalhoTurnoService.buscarPorRegimesEUnidadeEFolha(escala);
 		
 		model.addAttribute("dia01FkCompativel",  listaTurnos);
 		model.addAttribute("dia02FkCompativel",  listaTurnos);
@@ -4685,13 +4525,8 @@ public class EscalaController {
 		model.addAttribute("nomeColuna7", nomeColuna7 );
 		
 		
-		// Colocando os turnos compatíveis
-		List<Turnos> listaTurnos = new ArrayList<>();
-		List<RegimeDeTrabalhoTurno> listaTurnosInicial = regimeDeTrabalhoTurnoService.buscarPorRegime(escala.getIdRegimeFk());
-		listaTurnos.add(turnosService.buscarPorNome(""));
-		for(RegimeDeTrabalhoTurno t: listaTurnosInicial) {
-			listaTurnos.add(t.getIdTurnoFk());
-		}
+		// Pegando os turnos compatíveis
+		List<Turnos> listaTurnos = regimeDeTrabalhoTurnoService.buscarPorRegimesEUnidadeEFolha(escala);
 		
 		model.addAttribute("dia01FkCompativel",  listaTurnos);
 		model.addAttribute("dia02FkCompativel",  listaTurnos);
@@ -4784,13 +4619,8 @@ public class EscalaController {
 		model.addAttribute("nomeColuna7", nomeColuna7 );
 		
 		
-		// Colocando os turnos compatíveis
-		List<Turnos> listaTurnos = new ArrayList<>();
-		List<RegimeDeTrabalhoTurno> listaTurnosInicial = regimeDeTrabalhoTurnoService.buscarPorRegime(escala.getIdRegimeFk());
-		listaTurnos.add(turnosService.buscarPorNome(""));
-		for(RegimeDeTrabalhoTurno t: listaTurnosInicial) {
-			listaTurnos.add(t.getIdTurnoFk());
-		}
+		// Pegando os turnos compatíveis
+		List<Turnos> listaTurnos = regimeDeTrabalhoTurnoService.buscarPorRegimesEUnidadeEFolha(escala);
 		
 		model.addAttribute("dia01FkCompativel",  listaTurnos);
 		model.addAttribute("dia02FkCompativel",  listaTurnos);
@@ -4883,13 +4713,8 @@ public class EscalaController {
 		model.addAttribute("nomeColuna7", nomeColuna7 );
 		
 		
-		// Colocando os turnos compatíveis
-		List<Turnos> listaTurnos = new ArrayList<>();
-		List<RegimeDeTrabalhoTurno> listaTurnosInicial = regimeDeTrabalhoTurnoService.buscarPorRegime(escala.getIdRegimeFk());
-		listaTurnos.add(turnosService.buscarPorNome(""));
-		for(RegimeDeTrabalhoTurno t: listaTurnosInicial) {
-			listaTurnos.add(t.getIdTurnoFk());
-		}
+		// Pegando os turnos compatíveis
+		List<Turnos> listaTurnos = regimeDeTrabalhoTurnoService.buscarPorRegimesEUnidadeEFolha(escala);
 		
 		model.addAttribute("dia01FkCompativel",  listaTurnos);
 		model.addAttribute("dia02FkCompativel",  listaTurnos);
@@ -4982,13 +4807,8 @@ public class EscalaController {
 		model.addAttribute("nomeColuna7", nomeColuna7 );
 		
 		
-		// Colocando os turnos compatíveis
-		List<Turnos> listaTurnos = new ArrayList<>();
-		List<RegimeDeTrabalhoTurno> listaTurnosInicial = regimeDeTrabalhoTurnoService.buscarPorRegime(escala.getIdRegimeFk());
-		listaTurnos.add(turnosService.buscarPorNome(""));
-		for(RegimeDeTrabalhoTurno t: listaTurnosInicial) {
-			listaTurnos.add(t.getIdTurnoFk());
-		}
+		// Pegando os turnos compatíveis
+		List<Turnos> listaTurnos = regimeDeTrabalhoTurnoService.buscarPorRegimesEUnidadeEFolha(escala);
 		
 		model.addAttribute("dia01FkCompativel",  listaTurnos);
 		model.addAttribute("dia02FkCompativel",  listaTurnos);
@@ -5082,13 +4902,8 @@ public class EscalaController {
 		model.addAttribute("nomeColuna7", nomeColuna7 );
 		
 		
-		// Colocando os turnos compatíveis
-		List<Turnos> listaTurnos = new ArrayList<>();
-		List<RegimeDeTrabalhoTurno> listaTurnosInicial = regimeDeTrabalhoTurnoService.buscarPorRegime(escala.getIdRegimeFk());
-		listaTurnos.add(turnosService.buscarPorNome(""));
-		for(RegimeDeTrabalhoTurno t: listaTurnosInicial) {
-			listaTurnos.add(t.getIdTurnoFk());
-		}
+		// Pegando os turnos compatíveis
+		List<Turnos> listaTurnos = regimeDeTrabalhoTurnoService.buscarPorRegimesEUnidadeEFolha(escala);
 		
 		model.addAttribute("dia01FkCompativel",  listaTurnos);
 		model.addAttribute("dia02FkCompativel",  listaTurnos);
@@ -5181,13 +4996,8 @@ public class EscalaController {
 		model.addAttribute("nomeColuna7", nomeColuna7 );
 		
 		
-		// Colocando os turnos compatíveis
-		List<Turnos> listaTurnos = new ArrayList<>();
-		List<RegimeDeTrabalhoTurno> listaTurnosInicial = regimeDeTrabalhoTurnoService.buscarPorRegime(escala.getIdRegimeFk());
-		listaTurnos.add(turnosService.buscarPorNome(""));
-		for(RegimeDeTrabalhoTurno t: listaTurnosInicial) {
-			listaTurnos.add(t.getIdTurnoFk());
-		}
+		// Pegando os turnos compatíveis
+		List<Turnos> listaTurnos = regimeDeTrabalhoTurnoService.buscarPorRegimesEUnidadeEFolha(escala);
 		
 		model.addAttribute("dia01FkCompativel",  listaTurnos);
 		model.addAttribute("dia02FkCompativel",  listaTurnos);
@@ -5280,13 +5090,8 @@ public class EscalaController {
 		model.addAttribute("nomeColuna7", nomeColuna7 );
 		
 		
-		// Colocando os turnos compatíveis
-		List<Turnos> listaTurnos = new ArrayList<>();
-		List<RegimeDeTrabalhoTurno> listaTurnosInicial = regimeDeTrabalhoTurnoService.buscarPorRegime(escala.getIdRegimeFk());
-		listaTurnos.add(turnosService.buscarPorNome(""));
-		for(RegimeDeTrabalhoTurno t: listaTurnosInicial) {
-			listaTurnos.add(t.getIdTurnoFk());
-		}
+		// Pegando os turnos compatíveis
+		List<Turnos> listaTurnos = regimeDeTrabalhoTurnoService.buscarPorRegimesEUnidadeEFolha(escala);
 		
 		model.addAttribute("dia01FkCompativel",  listaTurnos);
 		model.addAttribute("dia02FkCompativel",  listaTurnos);
@@ -5379,13 +5184,8 @@ public class EscalaController {
 		model.addAttribute("nomeColuna7", nomeColuna7 );
 		
 		
-		// Colocando os turnos compatíveis
-		List<Turnos> listaTurnos = new ArrayList<>();
-		List<RegimeDeTrabalhoTurno> listaTurnosInicial = regimeDeTrabalhoTurnoService.buscarPorRegime(escala.getIdRegimeFk());
-		listaTurnos.add(turnosService.buscarPorNome(""));
-		for(RegimeDeTrabalhoTurno t: listaTurnosInicial) {
-			listaTurnos.add(t.getIdTurnoFk());
-		}
+		// Pegando os turnos compatíveis
+		List<Turnos> listaTurnos = regimeDeTrabalhoTurnoService.buscarPorRegimesEUnidadeEFolha(escala);
 		
 		model.addAttribute("dia01FkCompativel",  listaTurnos);
 		model.addAttribute("dia02FkCompativel",  listaTurnos);
@@ -5478,13 +5278,8 @@ public class EscalaController {
 		model.addAttribute("nomeColuna7", nomeColuna7 );
 		
 		
-		// Colocando os turnos compatíveis
-		List<Turnos> listaTurnos = new ArrayList<>();
-		List<RegimeDeTrabalhoTurno> listaTurnosInicial = regimeDeTrabalhoTurnoService.buscarPorRegime(escala.getIdRegimeFk());
-		listaTurnos.add(turnosService.buscarPorNome(""));
-		for(RegimeDeTrabalhoTurno t: listaTurnosInicial) {
-			listaTurnos.add(t.getIdTurnoFk());
-		}
+		// Pegando os turnos compatíveis
+		List<Turnos> listaTurnos = regimeDeTrabalhoTurnoService.buscarPorRegimesEUnidadeEFolha(escala);
 		
 		model.addAttribute("dia01FkCompativel",  listaTurnos);
 		model.addAttribute("dia02FkCompativel",  listaTurnos);
@@ -5577,13 +5372,8 @@ public class EscalaController {
 		model.addAttribute("nomeColuna7", nomeColuna7 );
 		
 		
-		// Colocando os turnos compatíveis
-		List<Turnos> listaTurnos = new ArrayList<>();
-		List<RegimeDeTrabalhoTurno> listaTurnosInicial = regimeDeTrabalhoTurnoService.buscarPorRegime(escala.getIdRegimeFk());
-		listaTurnos.add(turnosService.buscarPorNome(""));
-		for(RegimeDeTrabalhoTurno t: listaTurnosInicial) {
-			listaTurnos.add(t.getIdTurnoFk());
-		}
+		// Pegando os turnos compatíveis
+		List<Turnos> listaTurnos = regimeDeTrabalhoTurnoService.buscarPorRegimesEUnidadeEFolha(escala);
 		
 		model.addAttribute("dia01FkCompativel",  listaTurnos);
 		model.addAttribute("dia02FkCompativel",  listaTurnos);
@@ -5678,13 +5468,8 @@ public class EscalaController {
 		model.addAttribute("nomeColuna7", nomeColuna7 );
 		
 		
-		// Colocando os turnos compatíveis
-		List<Turnos> listaTurnos = new ArrayList<>();
-		List<RegimeDeTrabalhoTurno> listaTurnosInicial = regimeDeTrabalhoTurnoService.buscarPorRegime(escala.getIdRegimeFk());
-		listaTurnos.add(turnosService.buscarPorNome(""));
-		for(RegimeDeTrabalhoTurno t: listaTurnosInicial) {
-			listaTurnos.add(t.getIdTurnoFk());
-		}
+		// Pegando os turnos compatíveis
+		List<Turnos> listaTurnos = regimeDeTrabalhoTurnoService.buscarPorRegimesEUnidadeEFolha(escala);
 		
 		model.addAttribute("dia01FkCompativel",  listaTurnos);
 		model.addAttribute("dia02FkCompativel",  listaTurnos);
@@ -5777,13 +5562,8 @@ public class EscalaController {
 		model.addAttribute("nomeColuna7", nomeColuna7 );
 		
 		
-		// Colocando os turnos compatíveis
-		List<Turnos> listaTurnos = new ArrayList<>();
-		List<RegimeDeTrabalhoTurno> listaTurnosInicial = regimeDeTrabalhoTurnoService.buscarPorRegime(escala.getIdRegimeFk());
-		listaTurnos.add(turnosService.buscarPorNome(""));
-		for(RegimeDeTrabalhoTurno t: listaTurnosInicial) {
-			listaTurnos.add(t.getIdTurnoFk());
-		}
+		// Pegando os turnos compatíveis
+		List<Turnos> listaTurnos = regimeDeTrabalhoTurnoService.buscarPorRegimesEUnidadeEFolha(escala);
 		
 		model.addAttribute("dia01FkCompativel",  listaTurnos);
 		model.addAttribute("dia02FkCompativel",  listaTurnos);
@@ -5876,13 +5656,8 @@ public class EscalaController {
 		model.addAttribute("nomeColuna7", nomeColuna7 );
 		
 		
-		// Colocando os turnos compatíveis
-		List<Turnos> listaTurnos = new ArrayList<>();
-		List<RegimeDeTrabalhoTurno> listaTurnosInicial = regimeDeTrabalhoTurnoService.buscarPorRegime(escala.getIdRegimeFk());
-		listaTurnos.add(turnosService.buscarPorNome(""));
-		for(RegimeDeTrabalhoTurno t: listaTurnosInicial) {
-			listaTurnos.add(t.getIdTurnoFk());
-		}
+		// Pegando os turnos compatíveis
+		List<Turnos> listaTurnos = regimeDeTrabalhoTurnoService.buscarPorRegimesEUnidadeEFolha(escala);
 		
 		model.addAttribute("dia01FkCompativel",  listaTurnos);
 		model.addAttribute("dia02FkCompativel",  listaTurnos);
@@ -5975,13 +5750,8 @@ public class EscalaController {
 		model.addAttribute("nomeColuna7", nomeColuna7 );
 		
 		
-		// Colocando os turnos compatíveis
-		List<Turnos> listaTurnos = new ArrayList<>();
-		List<RegimeDeTrabalhoTurno> listaTurnosInicial = regimeDeTrabalhoTurnoService.buscarPorRegime(escala.getIdRegimeFk());
-		listaTurnos.add(turnosService.buscarPorNome(""));
-		for(RegimeDeTrabalhoTurno t: listaTurnosInicial) {
-			listaTurnos.add(t.getIdTurnoFk());
-		}
+		// Pegando os turnos compatíveis
+		List<Turnos> listaTurnos = regimeDeTrabalhoTurnoService.buscarPorRegimesEUnidadeEFolha(escala);
 		
 		model.addAttribute("dia01FkCompativel",  listaTurnos);
 		model.addAttribute("dia02FkCompativel",  listaTurnos);
@@ -6074,13 +5844,8 @@ public class EscalaController {
 		model.addAttribute("nomeColuna7", nomeColuna7 );
 		
 		
-		// Colocando os turnos compatíveis
-		List<Turnos> listaTurnos = new ArrayList<>();
-		List<RegimeDeTrabalhoTurno> listaTurnosInicial = regimeDeTrabalhoTurnoService.buscarPorRegime(escala.getIdRegimeFk());
-		listaTurnos.add(turnosService.buscarPorNome(""));
-		for(RegimeDeTrabalhoTurno t: listaTurnosInicial) {
-			listaTurnos.add(t.getIdTurnoFk());
-		}
+		// Pegando os turnos compatíveis
+		List<Turnos> listaTurnos = regimeDeTrabalhoTurnoService.buscarPorRegimesEUnidadeEFolha(escala);
 		
 		model.addAttribute("dia01FkCompativel",  listaTurnos);
 		model.addAttribute("dia02FkCompativel",  listaTurnos);
@@ -6173,13 +5938,8 @@ public class EscalaController {
 		model.addAttribute("nomeColuna7", nomeColuna7 );
 		
 		
-		// Colocando os turnos compatíveis
-		List<Turnos> listaTurnos = new ArrayList<>();
-		List<RegimeDeTrabalhoTurno> listaTurnosInicial = regimeDeTrabalhoTurnoService.buscarPorRegime(escala.getIdRegimeFk());
-		listaTurnos.add(turnosService.buscarPorNome(""));
-		for(RegimeDeTrabalhoTurno t: listaTurnosInicial) {
-			listaTurnos.add(t.getIdTurnoFk());
-		}
+		// Pegando os turnos compatíveis
+		List<Turnos> listaTurnos = regimeDeTrabalhoTurnoService.buscarPorRegimesEUnidadeEFolha(escala);
 		
 		model.addAttribute("dia01FkCompativel",  listaTurnos);
 		model.addAttribute("dia02FkCompativel",  listaTurnos);
@@ -6272,13 +6032,8 @@ public class EscalaController {
 		model.addAttribute("nomeColuna7", nomeColuna7 );
 		
 		
-		// Colocando os turnos compatíveis
-		List<Turnos> listaTurnos = new ArrayList<>();
-		List<RegimeDeTrabalhoTurno> listaTurnosInicial = regimeDeTrabalhoTurnoService.buscarPorRegime(escala.getIdRegimeFk());
-		listaTurnos.add(turnosService.buscarPorNome(""));
-		for(RegimeDeTrabalhoTurno t: listaTurnosInicial) {
-			listaTurnos.add(t.getIdTurnoFk());
-		}
+		// Pegando os turnos compatíveis
+		List<Turnos> listaTurnos = regimeDeTrabalhoTurnoService.buscarPorRegimesEUnidadeEFolha(escala);
 		
 		model.addAttribute("dia01FkCompativel",  listaTurnos);
 		model.addAttribute("dia02FkCompativel",  listaTurnos);
@@ -6373,13 +6128,8 @@ public class EscalaController {
 		model.addAttribute("nomeColuna7", nomeColuna7 );
 		
 		
-		// Colocando os turnos compatíveis
-		List<Turnos> listaTurnos = new ArrayList<>();
-		List<RegimeDeTrabalhoTurno> listaTurnosInicial = regimeDeTrabalhoTurnoService.buscarPorRegime(escala.getIdRegimeFk());
-		listaTurnos.add(turnosService.buscarPorNome(""));
-		for(RegimeDeTrabalhoTurno t: listaTurnosInicial) {
-			listaTurnos.add(t.getIdTurnoFk());
-		}
+		// Pegando os turnos compatíveis
+		List<Turnos> listaTurnos = regimeDeTrabalhoTurnoService.buscarPorRegimesEUnidadeEFolha(escala);
 		
 		model.addAttribute("dia01FkCompativel",  listaTurnos);
 		model.addAttribute("dia02FkCompativel",  listaTurnos);
@@ -6472,13 +6222,8 @@ public class EscalaController {
 		model.addAttribute("nomeColuna7", nomeColuna7 );
 		
 		
-		// Colocando os turnos compatíveis
-		List<Turnos> listaTurnos = new ArrayList<>();
-		List<RegimeDeTrabalhoTurno> listaTurnosInicial = regimeDeTrabalhoTurnoService.buscarPorRegime(escala.getIdRegimeFk());
-		listaTurnos.add(turnosService.buscarPorNome(""));
-		for(RegimeDeTrabalhoTurno t: listaTurnosInicial) {
-			listaTurnos.add(t.getIdTurnoFk());
-		}
+		// Pegando os turnos compatíveis
+		List<Turnos> listaTurnos = regimeDeTrabalhoTurnoService.buscarPorRegimesEUnidadeEFolha(escala);
 		
 		model.addAttribute("dia01FkCompativel",  listaTurnos);
 		model.addAttribute("dia02FkCompativel",  listaTurnos);
@@ -6571,13 +6316,8 @@ public class EscalaController {
 		model.addAttribute("nomeColuna7", nomeColuna7 );
 		
 		
-		// Colocando os turnos compatíveis
-		List<Turnos> listaTurnos = new ArrayList<>();
-		List<RegimeDeTrabalhoTurno> listaTurnosInicial = regimeDeTrabalhoTurnoService.buscarPorRegime(escala.getIdRegimeFk());
-		listaTurnos.add(turnosService.buscarPorNome(""));
-		for(RegimeDeTrabalhoTurno t: listaTurnosInicial) {
-			listaTurnos.add(t.getIdTurnoFk());
-		}
+		// Pegando os turnos compatíveis
+		List<Turnos> listaTurnos = regimeDeTrabalhoTurnoService.buscarPorRegimesEUnidadeEFolha(escala);
 		
 		model.addAttribute("dia01FkCompativel",  listaTurnos);
 		model.addAttribute("dia02FkCompativel",  listaTurnos);
@@ -6670,13 +6410,8 @@ public class EscalaController {
 		model.addAttribute("nomeColuna7", nomeColuna7 );
 		
 		
-		// Colocando os turnos compatíveis
-		List<Turnos> listaTurnos = new ArrayList<>();
-		List<RegimeDeTrabalhoTurno> listaTurnosInicial = regimeDeTrabalhoTurnoService.buscarPorRegime(escala.getIdRegimeFk());
-		listaTurnos.add(turnosService.buscarPorNome(""));
-		for(RegimeDeTrabalhoTurno t: listaTurnosInicial) {
-			listaTurnos.add(t.getIdTurnoFk());
-		}
+		// Pegando os turnos compatíveis
+		List<Turnos> listaTurnos = regimeDeTrabalhoTurnoService.buscarPorRegimesEUnidadeEFolha(escala);
 		
 		model.addAttribute("dia01FkCompativel",  listaTurnos);
 		model.addAttribute("dia02FkCompativel",  listaTurnos);
@@ -6769,13 +6504,8 @@ public class EscalaController {
 		model.addAttribute("nomeColuna7", nomeColuna7 );
 		
 		
-		// Colocando os turnos compatíveis
-		List<Turnos> listaTurnos = new ArrayList<>();
-		List<RegimeDeTrabalhoTurno> listaTurnosInicial = regimeDeTrabalhoTurnoService.buscarPorRegime(escala.getIdRegimeFk());
-		listaTurnos.add(turnosService.buscarPorNome(""));
-		for(RegimeDeTrabalhoTurno t: listaTurnosInicial) {
-			listaTurnos.add(t.getIdTurnoFk());
-		}
+		// Pegando os turnos compatíveis
+		List<Turnos> listaTurnos = regimeDeTrabalhoTurnoService.buscarPorRegimesEUnidadeEFolha(escala);
 		
 		model.addAttribute("dia01FkCompativel",  listaTurnos);
 		model.addAttribute("dia02FkCompativel",  listaTurnos);
@@ -6868,13 +6598,8 @@ public class EscalaController {
 		model.addAttribute("nomeColuna7", nomeColuna7 );
 		
 		
-		// Colocando os turnos compatíveis
-		List<Turnos> listaTurnos = new ArrayList<>();
-		List<RegimeDeTrabalhoTurno> listaTurnosInicial = regimeDeTrabalhoTurnoService.buscarPorRegime(escala.getIdRegimeFk());
-		listaTurnos.add(turnosService.buscarPorNome(""));
-		for(RegimeDeTrabalhoTurno t: listaTurnosInicial) {
-			listaTurnos.add(t.getIdTurnoFk());
-		}
+		// Pegando os turnos compatíveis
+		List<Turnos> listaTurnos = regimeDeTrabalhoTurnoService.buscarPorRegimesEUnidadeEFolha(escala);
 		
 		model.addAttribute("dia01FkCompativel",  listaTurnos);
 		model.addAttribute("dia02FkCompativel",  listaTurnos);
@@ -6967,13 +6692,8 @@ public class EscalaController {
 		model.addAttribute("nomeColuna7", nomeColuna7 );
 		
 		
-		// Colocando os turnos compatíveis
-		List<Turnos> listaTurnos = new ArrayList<>();
-		List<RegimeDeTrabalhoTurno> listaTurnosInicial = regimeDeTrabalhoTurnoService.buscarPorRegime(escala.getIdRegimeFk());
-		listaTurnos.add(turnosService.buscarPorNome(""));
-		for(RegimeDeTrabalhoTurno t: listaTurnosInicial) {
-			listaTurnos.add(t.getIdTurnoFk());
-		}
+		// Pegando os turnos compatíveis
+		List<Turnos> listaTurnos = regimeDeTrabalhoTurnoService.buscarPorRegimesEUnidadeEFolha(escala);
 		
 		model.addAttribute("dia01FkCompativel",  listaTurnos);
 		model.addAttribute("dia02FkCompativel",  listaTurnos);
@@ -7068,13 +6788,8 @@ public class EscalaController {
 		model.addAttribute("nomeColuna7", nomeColuna7 );
 		
 		
-		// Colocando os turnos compatíveis
-		List<Turnos> listaTurnos = new ArrayList<>();
-		List<RegimeDeTrabalhoTurno> listaTurnosInicial = regimeDeTrabalhoTurnoService.buscarPorRegime(escala.getIdRegimeFk());
-		listaTurnos.add(turnosService.buscarPorNome(""));
-		for(RegimeDeTrabalhoTurno t: listaTurnosInicial) {
-			listaTurnos.add(t.getIdTurnoFk());
-		}
+		// Pegando os turnos compatíveis
+		List<Turnos> listaTurnos = regimeDeTrabalhoTurnoService.buscarPorRegimesEUnidadeEFolha(escala);
 		
 		model.addAttribute("dia01FkCompativel",  listaTurnos);
 		model.addAttribute("dia02FkCompativel",  listaTurnos);
@@ -7167,13 +6882,8 @@ public class EscalaController {
 		model.addAttribute("nomeColuna7", nomeColuna7 );
 		
 		
-		// Colocando os turnos compatíveis
-		List<Turnos> listaTurnos = new ArrayList<>();
-		List<RegimeDeTrabalhoTurno> listaTurnosInicial = regimeDeTrabalhoTurnoService.buscarPorRegime(escala.getIdRegimeFk());
-		listaTurnos.add(turnosService.buscarPorNome(""));
-		for(RegimeDeTrabalhoTurno t: listaTurnosInicial) {
-			listaTurnos.add(t.getIdTurnoFk());
-		}
+		// Pegando os turnos compatíveis
+		List<Turnos> listaTurnos = regimeDeTrabalhoTurnoService.buscarPorRegimesEUnidadeEFolha(escala);
 		
 		model.addAttribute("dia01FkCompativel",  listaTurnos);
 		model.addAttribute("dia02FkCompativel",  listaTurnos);
@@ -7266,13 +6976,8 @@ public class EscalaController {
 		model.addAttribute("nomeColuna7", nomeColuna7 );
 		
 		
-		// Colocando os turnos compatíveis
-		List<Turnos> listaTurnos = new ArrayList<>();
-		List<RegimeDeTrabalhoTurno> listaTurnosInicial = regimeDeTrabalhoTurnoService.buscarPorRegime(escala.getIdRegimeFk());
-		listaTurnos.add(turnosService.buscarPorNome(""));
-		for(RegimeDeTrabalhoTurno t: listaTurnosInicial) {
-			listaTurnos.add(t.getIdTurnoFk());
-		}
+		// Pegando os turnos compatíveis
+		List<Turnos> listaTurnos = regimeDeTrabalhoTurnoService.buscarPorRegimesEUnidadeEFolha(escala);
 		
 		model.addAttribute("dia01FkCompativel",  listaTurnos);
 		model.addAttribute("dia02FkCompativel",  listaTurnos);
@@ -7365,13 +7070,8 @@ public class EscalaController {
 		model.addAttribute("nomeColuna7", nomeColuna7 );
 		
 		
-		// Colocando os turnos compatíveis
-		List<Turnos> listaTurnos = new ArrayList<>();
-		List<RegimeDeTrabalhoTurno> listaTurnosInicial = regimeDeTrabalhoTurnoService.buscarPorRegime(escala.getIdRegimeFk());
-		listaTurnos.add(turnosService.buscarPorNome(""));
-		for(RegimeDeTrabalhoTurno t: listaTurnosInicial) {
-			listaTurnos.add(t.getIdTurnoFk());
-		}
+		// Pegando os turnos compatíveis
+		List<Turnos> listaTurnos = regimeDeTrabalhoTurnoService.buscarPorRegimesEUnidadeEFolha(escala);
 		
 		model.addAttribute("dia01FkCompativel",  listaTurnos);
 		model.addAttribute("dia02FkCompativel",  listaTurnos);
@@ -7464,13 +7164,8 @@ public class EscalaController {
 		model.addAttribute("nomeColuna7", nomeColuna7 );
 		
 		
-		// Colocando os turnos compatíveis
-		List<Turnos> listaTurnos = new ArrayList<>();
-		List<RegimeDeTrabalhoTurno> listaTurnosInicial = regimeDeTrabalhoTurnoService.buscarPorRegime(escala.getIdRegimeFk());
-		listaTurnos.add(turnosService.buscarPorNome(""));
-		for(RegimeDeTrabalhoTurno t: listaTurnosInicial) {
-			listaTurnos.add(t.getIdTurnoFk());
-		}
+		// Pegando os turnos compatíveis
+		List<Turnos> listaTurnos = regimeDeTrabalhoTurnoService.buscarPorRegimesEUnidadeEFolha(escala);
 		
 		model.addAttribute("dia01FkCompativel",  listaTurnos);
 		model.addAttribute("dia02FkCompativel",  listaTurnos);
@@ -7563,13 +7258,8 @@ public class EscalaController {
 		model.addAttribute("nomeColuna7", nomeColuna7 );
 		
 		
-		// Colocando os turnos compatíveis
-		List<Turnos> listaTurnos = new ArrayList<>();
-		List<RegimeDeTrabalhoTurno> listaTurnosInicial = regimeDeTrabalhoTurnoService.buscarPorRegime(escala.getIdRegimeFk());
-		listaTurnos.add(turnosService.buscarPorNome(""));
-		for(RegimeDeTrabalhoTurno t: listaTurnosInicial) {
-			listaTurnos.add(t.getIdTurnoFk());
-		}
+		// Pegando os turnos compatíveis
+		List<Turnos> listaTurnos = regimeDeTrabalhoTurnoService.buscarPorRegimesEUnidadeEFolha(escala);
 		
 		model.addAttribute("dia01FkCompativel",  listaTurnos);
 		model.addAttribute("dia02FkCompativel",  listaTurnos);
@@ -7662,13 +7352,8 @@ public class EscalaController {
 		model.addAttribute("nomeColuna7", nomeColuna7 );
 		
 		
-		// Colocando os turnos compatíveis
-		List<Turnos> listaTurnos = new ArrayList<>();
-		List<RegimeDeTrabalhoTurno> listaTurnosInicial = regimeDeTrabalhoTurnoService.buscarPorRegime(escala.getIdRegimeFk());
-		listaTurnos.add(turnosService.buscarPorNome(""));
-		for(RegimeDeTrabalhoTurno t: listaTurnosInicial) {
-			listaTurnos.add(t.getIdTurnoFk());
-		}
+		// Pegando os turnos compatíveis
+		List<Turnos> listaTurnos = regimeDeTrabalhoTurnoService.buscarPorRegimesEUnidadeEFolha(escala);
 		
 		model.addAttribute("dia01FkCompativel",  listaTurnos);
 		model.addAttribute("dia02FkCompativel",  listaTurnos);
@@ -7765,13 +7450,8 @@ public class EscalaController {
 		model.addAttribute("nomeColuna7", nomeColuna7 );
 		
 		
-		// Colocando os turnos compatíveis
-		List<Turnos> listaTurnos = new ArrayList<>();
-		List<RegimeDeTrabalhoTurno> listaTurnosInicial = regimeDeTrabalhoTurnoService.buscarPorRegime(escala.getIdRegimeFk());
-		listaTurnos.add(turnosService.buscarPorNome(""));
-		for(RegimeDeTrabalhoTurno t: listaTurnosInicial) {
-			listaTurnos.add(t.getIdTurnoFk());
-		}
+		// Pegando os turnos compatíveis
+		List<Turnos> listaTurnos = regimeDeTrabalhoTurnoService.buscarPorRegimesEUnidadeEFolha(escala);
 		
 		model.addAttribute("dia01FkCompativel",  listaTurnos);
 		model.addAttribute("dia02FkCompativel",  listaTurnos);
@@ -7864,13 +7544,8 @@ public class EscalaController {
 		model.addAttribute("nomeColuna7", nomeColuna7 );
 		
 		
-		// Colocando os turnos compatíveis
-		List<Turnos> listaTurnos = new ArrayList<>();
-		List<RegimeDeTrabalhoTurno> listaTurnosInicial = regimeDeTrabalhoTurnoService.buscarPorRegime(escala.getIdRegimeFk());
-		listaTurnos.add(turnosService.buscarPorNome(""));
-		for(RegimeDeTrabalhoTurno t: listaTurnosInicial) {
-			listaTurnos.add(t.getIdTurnoFk());
-		}
+		// Pegando os turnos compatíveis
+		List<Turnos> listaTurnos = regimeDeTrabalhoTurnoService.buscarPorRegimesEUnidadeEFolha(escala);
 		
 		model.addAttribute("dia01FkCompativel",  listaTurnos);
 		model.addAttribute("dia02FkCompativel",  listaTurnos);
@@ -7963,13 +7638,8 @@ public class EscalaController {
 		model.addAttribute("nomeColuna7", nomeColuna7 );
 		
 		
-		// Colocando os turnos compatíveis
-		List<Turnos> listaTurnos = new ArrayList<>();
-		List<RegimeDeTrabalhoTurno> listaTurnosInicial = regimeDeTrabalhoTurnoService.buscarPorRegime(escala.getIdRegimeFk());
-		listaTurnos.add(turnosService.buscarPorNome(""));
-		for(RegimeDeTrabalhoTurno t: listaTurnosInicial) {
-			listaTurnos.add(t.getIdTurnoFk());
-		}
+		// Pegando os turnos compatíveis
+		List<Turnos> listaTurnos = regimeDeTrabalhoTurnoService.buscarPorRegimesEUnidadeEFolha(escala);
 		
 		model.addAttribute("dia01FkCompativel",  listaTurnos);
 		model.addAttribute("dia02FkCompativel",  listaTurnos);
@@ -8062,13 +7732,8 @@ public class EscalaController {
 		model.addAttribute("nomeColuna7", nomeColuna7 );
 		
 		
-		// Colocando os turnos compatíveis
-		List<Turnos> listaTurnos = new ArrayList<>();
-		List<RegimeDeTrabalhoTurno> listaTurnosInicial = regimeDeTrabalhoTurnoService.buscarPorRegime(escala.getIdRegimeFk());
-		listaTurnos.add(turnosService.buscarPorNome(""));
-		for(RegimeDeTrabalhoTurno t: listaTurnosInicial) {
-			listaTurnos.add(t.getIdTurnoFk());
-		}
+		// Pegando os turnos compatíveis
+		List<Turnos> listaTurnos = regimeDeTrabalhoTurnoService.buscarPorRegimesEUnidadeEFolha(escala);
 		
 		model.addAttribute("dia01FkCompativel",  listaTurnos);
 		model.addAttribute("dia02FkCompativel",  listaTurnos);
@@ -8161,13 +7826,8 @@ public class EscalaController {
 		model.addAttribute("nomeColuna7", nomeColuna7 );
 		
 		
-		// Colocando os turnos compatíveis
-		List<Turnos> listaTurnos = new ArrayList<>();
-		List<RegimeDeTrabalhoTurno> listaTurnosInicial = regimeDeTrabalhoTurnoService.buscarPorRegime(escala.getIdRegimeFk());
-		listaTurnos.add(turnosService.buscarPorNome(""));
-		for(RegimeDeTrabalhoTurno t: listaTurnosInicial) {
-			listaTurnos.add(t.getIdTurnoFk());
-		}
+		// Pegando os turnos compatíveis
+		List<Turnos> listaTurnos = regimeDeTrabalhoTurnoService.buscarPorRegimesEUnidadeEFolha(escala);
 		
 		model.addAttribute("dia01FkCompativel",  listaTurnos);
 		model.addAttribute("dia02FkCompativel",  listaTurnos);
@@ -8260,13 +7920,8 @@ public class EscalaController {
 		model.addAttribute("nomeColuna7", nomeColuna7 );
 		
 		
-		// Colocando os turnos compatíveis
-		List<Turnos> listaTurnos = new ArrayList<>();
-		List<RegimeDeTrabalhoTurno> listaTurnosInicial = regimeDeTrabalhoTurnoService.buscarPorRegime(escala.getIdRegimeFk());
-		listaTurnos.add(turnosService.buscarPorNome(""));
-		for(RegimeDeTrabalhoTurno t: listaTurnosInicial) {
-			listaTurnos.add(t.getIdTurnoFk());
-		}
+		// Pegando os turnos compatíveis
+		List<Turnos> listaTurnos = regimeDeTrabalhoTurnoService.buscarPorRegimesEUnidadeEFolha(escala);
 		
 		model.addAttribute("dia01FkCompativel",  listaTurnos);
 		model.addAttribute("dia02FkCompativel",  listaTurnos);
@@ -8359,13 +8014,8 @@ public class EscalaController {
 		model.addAttribute("nomeColuna7", nomeColuna7 );
 		
 		
-		// Colocando os turnos compatíveis
-		List<Turnos> listaTurnos = new ArrayList<>();
-		List<RegimeDeTrabalhoTurno> listaTurnosInicial = regimeDeTrabalhoTurnoService.buscarPorRegime(escala.getIdRegimeFk());
-		listaTurnos.add(turnosService.buscarPorNome(""));
-		for(RegimeDeTrabalhoTurno t: listaTurnosInicial) {
-			listaTurnos.add(t.getIdTurnoFk());
-		}
+		// Pegando os turnos compatíveis
+		List<Turnos> listaTurnos = regimeDeTrabalhoTurnoService.buscarPorRegimesEUnidadeEFolha(escala);
 		
 		model.addAttribute("dia01FkCompativel",  listaTurnos);
 		model.addAttribute("dia02FkCompativel",  listaTurnos);
@@ -8461,13 +8111,8 @@ public class EscalaController {
 		model.addAttribute("nomeColuna7", nomeColuna7 );
 		
 		
-		// Colocando os turnos compatíveis
-		List<Turnos> listaTurnos = new ArrayList<>();
-		List<RegimeDeTrabalhoTurno> listaTurnosInicial = regimeDeTrabalhoTurnoService.buscarPorRegime(escala.getIdRegimeFk());
-		listaTurnos.add(turnosService.buscarPorNome(""));
-		for(RegimeDeTrabalhoTurno t: listaTurnosInicial) {
-			listaTurnos.add(t.getIdTurnoFk());
-		}
+		// Pegando os turnos compatíveis
+		List<Turnos> listaTurnos = regimeDeTrabalhoTurnoService.buscarPorRegimesEUnidadeEFolha(escala);
 		
 		model.addAttribute("dia01FkCompativel",  listaTurnos);
 		model.addAttribute("dia02FkCompativel",  listaTurnos);
@@ -8560,13 +8205,8 @@ public class EscalaController {
 		model.addAttribute("nomeColuna7", nomeColuna7 );
 		
 		
-		// Colocando os turnos compatíveis
-		List<Turnos> listaTurnos = new ArrayList<>();
-		List<RegimeDeTrabalhoTurno> listaTurnosInicial = regimeDeTrabalhoTurnoService.buscarPorRegime(escala.getIdRegimeFk());
-		listaTurnos.add(turnosService.buscarPorNome(""));
-		for(RegimeDeTrabalhoTurno t: listaTurnosInicial) {
-			listaTurnos.add(t.getIdTurnoFk());
-		}
+		// Pegando os turnos compatíveis
+		List<Turnos> listaTurnos = regimeDeTrabalhoTurnoService.buscarPorRegimesEUnidadeEFolha(escala);
 		
 		model.addAttribute("dia01FkCompativel",  listaTurnos);
 		model.addAttribute("dia02FkCompativel",  listaTurnos);
@@ -8659,13 +8299,8 @@ public class EscalaController {
 		model.addAttribute("nomeColuna7", nomeColuna7 );
 		
 		
-		// Colocando os turnos compatíveis
-		List<Turnos> listaTurnos = new ArrayList<>();
-		List<RegimeDeTrabalhoTurno> listaTurnosInicial = regimeDeTrabalhoTurnoService.buscarPorRegime(escala.getIdRegimeFk());
-		listaTurnos.add(turnosService.buscarPorNome(""));
-		for(RegimeDeTrabalhoTurno t: listaTurnosInicial) {
-			listaTurnos.add(t.getIdTurnoFk());
-		}
+		// Pegando os turnos compatíveis
+		List<Turnos> listaTurnos = regimeDeTrabalhoTurnoService.buscarPorRegimesEUnidadeEFolha(escala);
 		
 		model.addAttribute("dia01FkCompativel",  listaTurnos);
 		model.addAttribute("dia02FkCompativel",  listaTurnos);
@@ -8758,13 +8393,8 @@ public class EscalaController {
 		model.addAttribute("nomeColuna7", nomeColuna7 );
 		
 		
-		// Colocando os turnos compatíveis
-		List<Turnos> listaTurnos = new ArrayList<>();
-		List<RegimeDeTrabalhoTurno> listaTurnosInicial = regimeDeTrabalhoTurnoService.buscarPorRegime(escala.getIdRegimeFk());
-		listaTurnos.add(turnosService.buscarPorNome(""));
-		for(RegimeDeTrabalhoTurno t: listaTurnosInicial) {
-			listaTurnos.add(t.getIdTurnoFk());
-		}
+		// Pegando os turnos compatíveis
+		List<Turnos> listaTurnos = regimeDeTrabalhoTurnoService.buscarPorRegimesEUnidadeEFolha(escala);
 		
 		model.addAttribute("dia01FkCompativel",  listaTurnos);
 		model.addAttribute("dia02FkCompativel",  listaTurnos);
@@ -8857,13 +8487,8 @@ public class EscalaController {
 		model.addAttribute("nomeColuna7", nomeColuna7 );
 		
 		
-		// Colocando os turnos compatíveis
-		List<Turnos> listaTurnos = new ArrayList<>();
-		List<RegimeDeTrabalhoTurno> listaTurnosInicial = regimeDeTrabalhoTurnoService.buscarPorRegime(escala.getIdRegimeFk());
-		listaTurnos.add(turnosService.buscarPorNome(""));
-		for(RegimeDeTrabalhoTurno t: listaTurnosInicial) {
-			listaTurnos.add(t.getIdTurnoFk());
-		}
+		// Pegando os turnos compatíveis
+		List<Turnos> listaTurnos = regimeDeTrabalhoTurnoService.buscarPorRegimesEUnidadeEFolha(escala);
 		
 		model.addAttribute("dia01FkCompativel",  listaTurnos);
 		model.addAttribute("dia02FkCompativel",  listaTurnos);
@@ -8956,13 +8581,8 @@ public class EscalaController {
 		model.addAttribute("nomeColuna7", nomeColuna7 );
 		
 		
-		// Colocando os turnos compatíveis
-		List<Turnos> listaTurnos = new ArrayList<>();
-		List<RegimeDeTrabalhoTurno> listaTurnosInicial = regimeDeTrabalhoTurnoService.buscarPorRegime(escala.getIdRegimeFk());
-		listaTurnos.add(turnosService.buscarPorNome(""));
-		for(RegimeDeTrabalhoTurno t: listaTurnosInicial) {
-			listaTurnos.add(t.getIdTurnoFk());
-		}
+		// Pegando os turnos compatíveis
+		List<Turnos> listaTurnos = regimeDeTrabalhoTurnoService.buscarPorRegimesEUnidadeEFolha(escala);
 		
 		model.addAttribute("dia01FkCompativel",  listaTurnos);
 		model.addAttribute("dia02FkCompativel",  listaTurnos);
@@ -9055,13 +8675,8 @@ public class EscalaController {
 		model.addAttribute("nomeColuna7", nomeColuna7 );
 		
 		
-		// Colocando os turnos compatíveis
-		List<Turnos> listaTurnos = new ArrayList<>();
-		List<RegimeDeTrabalhoTurno> listaTurnosInicial = regimeDeTrabalhoTurnoService.buscarPorRegime(escala.getIdRegimeFk());
-		listaTurnos.add(turnosService.buscarPorNome(""));
-		for(RegimeDeTrabalhoTurno t: listaTurnosInicial) {
-			listaTurnos.add(t.getIdTurnoFk());
-		}
+		// Pegando os turnos compatíveis
+		List<Turnos> listaTurnos = regimeDeTrabalhoTurnoService.buscarPorRegimesEUnidadeEFolha(escala);
 		
 		model.addAttribute("dia01FkCompativel",  listaTurnos);
 		model.addAttribute("dia02FkCompativel",  listaTurnos);
