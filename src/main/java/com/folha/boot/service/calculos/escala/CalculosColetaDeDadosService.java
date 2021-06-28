@@ -17,13 +17,18 @@ import com.folha.boot.domain.FuncionariosFerias;
 import com.folha.boot.domain.FuncionariosFeriasPeriodos;
 import com.folha.boot.domain.FuncionariosLicencas;
 import com.folha.boot.domain.PessoaFuncionarios;
+import com.folha.boot.domain.RubricaVencimento;
+import com.folha.boot.domain.RubricaVencimentoObs;
 import com.folha.boot.domain.models.calculos.EscalasNoMes;
 import com.folha.boot.domain.models.calculos.FeriasNoMes;
 import com.folha.boot.domain.models.calculos.LicencasNoMes;
 import com.folha.boot.domain.models.calculos.ReferenciasDeEscala;
 import com.folha.boot.service.EscalaPosTransparenciaService;
 import com.folha.boot.service.EscalaService;
+import com.folha.boot.service.RubricaVencimentoObsService;
+import com.folha.boot.service.RubricaVencimentoService;
 import com.folha.boot.service.util.UtilidadesDeCalendarioEEscala;
+import com.folha.boot.service.util.UtilidadesMatematicas;
 
 @Service
 @Transactional(readOnly = false)
@@ -39,7 +44,10 @@ public class CalculosColetaDeDadosService {
 	private  FuncionariosLicencasReposytory funcionariosLicencasReposytory;
 	@Autowired
 	private  EscalaReposytoty escalaReposytoty;
-
+	@Autowired
+	private  RubricaVencimentoService rubricaVencimentoService;
+	@Autowired
+	private  RubricaVencimentoObsService rubricaVencimentoObsService;
 	
 	@Transactional(readOnly = true)
 	public List<EscalasNoMes> buscarEscalasPorMes(AnoMes anoMes){
@@ -129,6 +137,54 @@ public class CalculosColetaDeDadosService {
 	}
 
 	
+	
+	public void anotarObservacoes(AnoMes anoMes) {
+		List<RubricaVencimento>listaRubricasVencimento = rubricaVencimentoService.buscarPorMes(anoMes);
+		List<RubricaVencimentoObs>listaRubricasVencimentoObs = rubricaVencimentoObsService.buscarPorMes(anoMes);
+		
+		for(int i=0;i<listaRubricasVencimentoObs.size();i++) {
+			for(int j=0;j<listaRubricasVencimento.size();j++) {
+				listaRubricasVencimento.get(j).setObservacao("");
+				if(listaRubricasVencimentoObs.get(i).getIdFuncionarioFk().equals(listaRubricasVencimento.get(j).getIdFuncionarioFk())) {
+					listaRubricasVencimento.get(j).setObservacao( listaRubricasVencimento.get(j).getObservacao() + listaRubricasVencimentoObs.get(i).getObservacao()+"; " );
+					listaRubricasVencimento.get(j).setObservacao( listaRubricasVencimento.get(j).getObservacao().trim()  );
+				}
+			}
+			
+		}
+		
+	}
+	
+	
+	
+	public void ajustarValoresBrutos(AnoMes anoMes) {
+		List<RubricaVencimento>listaRubricasVencimento = rubricaVencimentoService.buscarPorMes(anoMes);
+		
+		for(int i=0;i<listaRubricasVencimento.size();i++) {
+			
+			listaRubricasVencimento.get(i).setValorBruto( UtilidadesMatematicas.ajustaValorDecimal( listaRubricasVencimento.get(i).getValorBruto(), 2)  );
+			listaRubricasVencimento.get(i).setValorIr( UtilidadesMatematicas.ajustaValorDecimal( listaRubricasVencimento.get(i).getValorIr(), 2)  );
+			listaRubricasVencimento.get(i).setValorLiquido( UtilidadesMatematicas.ajustaValorDecimal( listaRubricasVencimento.get(i).getValorLiquido(), 2)  );
+			listaRubricasVencimento.get(i).setValorPatronal( UtilidadesMatematicas.ajustaValorDecimal( listaRubricasVencimento.get(i).getValorPatronal(), 2)  );
+			listaRubricasVencimento.get(i).setValorPrevidencia( UtilidadesMatematicas.ajustaValorDecimal( listaRubricasVencimento.get(i).getValorPrevidencia(), 2)  );
+			listaRubricasVencimento.get(i).setDescontoProp( UtilidadesMatematicas.ajustaValorDecimal( listaRubricasVencimento.get(i).getDescontoProp(), 2)  );
+			listaRubricasVencimento.get(i).setPensaoProp( UtilidadesMatematicas.ajustaValorDecimal( listaRubricasVencimento.get(i).getPensaoProp(), 2)  );
+			
+			if(listaRubricasVencimento.get(i).getIdNaturezaFk().getSigla().equalsIgnoreCase("V")) {
+				listaRubricasVencimento.get(i).setValorBruto(
+						UtilidadesMatematicas.ajustaValorDecimal(
+							(
+								listaRubricasVencimento.get(i).getValorLiquido()+
+								listaRubricasVencimento.get(i).getValorIr()+
+								listaRubricasVencimento.get(i).getValorPrevidencia()+
+								listaRubricasVencimento.get(i).getDescontoProp()+
+								listaRubricasVencimento.get(i).getPensaoProp()
+							),2)
+						);
+			}
+		}
+		
+	}
 	
 	
 }

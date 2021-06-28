@@ -118,6 +118,15 @@ public class CalculosCalcularService {
 		
 		System.out.println("AAAA:"+"CALCULADORA:"+new Date().getHours()+"-"+new Date().getMinutes()+new Date().getSeconds());
 		
+		
+		//Anotando Observacoes nas Rubricas Vencimentos
+		calculosColetaDeDadosService.anotarObservacoes(anoMes);
+		
+		//Arredondando valores Brutos
+		calculosColetaDeDadosService.ajustarValoresBrutos(anoMes);
+		
+		
+		
 		//Colocando a média de tempo de cálculo por escala
 		Date momentoFim = new Date();
 		if(listaEscalas.size()>300) {

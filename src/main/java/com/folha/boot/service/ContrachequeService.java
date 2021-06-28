@@ -98,7 +98,7 @@ public class ContrachequeService {
 		for(int i=0;i<listaObservacoes1.size();i++) {
 			boolean jaTem = false;
 			for(int j=0;j<listaObservacoes.size();j++) {
-				if(listaObservacoes1.get(i).getObsercavao().toString().equalsIgnoreCase(listaObservacoes.get(j).getObsercavao().toString())) {jaTem = true;}
+				if(listaObservacoes1.get(i).getObservacao().toString().equalsIgnoreCase(listaObservacoes.get(j).getObservacao().toString())) {jaTem = true;}
 			}
 			if(jaTem==false) {listaObservacoes.add(listaObservacoes1.get(i));}
 		}
@@ -128,9 +128,9 @@ public class ContrachequeService {
 		
 		
 		for(int i=0;i<listaObservacoes.size();i++) {
-			if(listaObservacoes.get(i).getObsercavao()!=null) {
-				if(!listaObservacoes.get(i).getObsercavao().equalsIgnoreCase("")) {
-					observacao = observacao+listaObservacoes.get(i).getObsercavao();
+			if(listaObservacoes.get(i).getObservacao()!=null) {
+				if(!listaObservacoes.get(i).getObservacao().equalsIgnoreCase("")) {
+					observacao = observacao+listaObservacoes.get(i).getObservacao();
 				}
 			}
 		}
@@ -471,7 +471,7 @@ public class ContrachequeService {
 			cell.setHorizontalAlignment(Element.ALIGN_CENTER);
 			table.addCell(cell);	
 			
-			cell = new PdfPCell(new Phrase( String.valueOf( previdencia ) ,corpoFont2) );
+			cell = new PdfPCell(new Phrase( String.valueOf( UtilidadesMatematicas.ajustaValorDecimal( previdencia, 2 )  ) ,corpoFont2) );
 			cell.setVerticalAlignment(Element.ALIGN_MIDDLE);
 			cell.setHorizontalAlignment(Element.ALIGN_CENTER);
 			table.addCell(cell);	
@@ -516,7 +516,7 @@ public class ContrachequeService {
 					cell.setHorizontalAlignment(Element.ALIGN_CENTER);
 					table.addCell(cell);	
 					
-					cell = new PdfPCell(new Phrase( String.valueOf( listaPensao.get(i).getValorDescontado() ) ,corpoFont2) );
+					cell = new PdfPCell(new Phrase( String.valueOf(  UtilidadesMatematicas.ajustaValorDecimal(  listaPensao.get(i).getValorDescontado() ,2) ) ,corpoFont2) );
 					cell.setVerticalAlignment(Element.ALIGN_MIDDLE);
 					cell.setHorizontalAlignment(Element.ALIGN_CENTER);
 					table.addCell(cell);	
@@ -562,7 +562,7 @@ public class ContrachequeService {
 			cell.setHorizontalAlignment(Element.ALIGN_CENTER);
 			table.addCell(cell);	
 			
-			cell = new PdfPCell(new Phrase( String.valueOf( ir ) ,corpoFont2) );
+			cell = new PdfPCell(new Phrase( String.valueOf(  UtilidadesMatematicas.ajustaValorDecimal(  ir ,2) ) ,corpoFont2) );
 			cell.setVerticalAlignment(Element.ALIGN_MIDDLE);
 			cell.setHorizontalAlignment(Element.ALIGN_CENTER);
 			table.addCell(cell);	

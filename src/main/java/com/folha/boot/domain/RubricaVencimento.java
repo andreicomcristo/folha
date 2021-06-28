@@ -13,6 +13,8 @@ import com.folha.boot.service.util.UtilidadesDeTexto;
 @Table(name = "rubrica_vencimento")
 public class RubricaVencimento extends AbstractEntity<Long> {
 
+	@Column(name = "observacao")
+    private String observacao;
 	@Column(name = "codigo")
     private String codigo;
     @Column(name = "variacao")
@@ -213,6 +215,14 @@ public class RubricaVencimento extends AbstractEntity<Long> {
 
 	public void setPensaoProp(Double pensaoProp) {
 		this.pensaoProp = pensaoProp;
+	}
+
+	public String getObservacao() {
+		return observacao;
+	}
+
+	public void setObservacao(String observacao) {
+		this.observacao = observacao;
 	}
     
     

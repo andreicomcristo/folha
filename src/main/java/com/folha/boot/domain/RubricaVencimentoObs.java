@@ -14,8 +14,8 @@ import javax.persistence.Table;
 @Table(name = "rubrica_vencimento_obs")
 public class RubricaVencimentoObs extends AbstractEntity<Long> {
 
-	@Column(name = "obsercavao")
-    private String obsercavao;
+	@Column(name = "observacao")
+    private String observacao;
     @JoinColumn(name = "id_ano_mes_fk", referencedColumnName = "id")
     @ManyToOne
     private AnoMes idAnoMesFk;
@@ -26,12 +26,12 @@ public class RubricaVencimentoObs extends AbstractEntity<Long> {
     public RubricaVencimentoObs() {
     }
 
-	public String getObsercavao() {
-		return obsercavao;
+	public String getObservacao() {
+		return observacao;
 	}
 
-	public void setObsercavao(String obsercavao) {
-		this.obsercavao = obsercavao;
+	public void setObservacao(String observacao) {
+		this.observacao = observacao;
 	}
 
 	public AnoMes getIdAnoMesFk() {

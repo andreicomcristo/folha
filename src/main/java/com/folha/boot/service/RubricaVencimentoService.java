@@ -8,6 +8,7 @@ import com.folha.boot.Reposytory.BancosReposytory;
 import com.folha.boot.Reposytory.RubricaVencimentoReposytory;
 import com.folha.boot.domain.AnoMes;
 import com.folha.boot.domain.Bancos;
+import com.folha.boot.domain.Fonte;
 import com.folha.boot.domain.Pessoa;
 import com.folha.boot.domain.PessoaFuncionarios;
 import com.folha.boot.domain.RubricaVencimento;
@@ -88,6 +89,11 @@ public class RubricaVencimentoService {
 	//@Override
 	public List<RubricaVencimento> buscarPorMesDescontoOuVantagem(AnoMes anoMes, String natureza) {
 		return reposytory.findByIdAnoMesFkAndIdNaturezaFkSiglaOrderByIdAnoMesFkAscIdFuncionarioFkIdPessoaFkCpfAscIdFuncionarioFkMatriculaAscSequenciaAscIdUnidadeFkNomeFantasiaAsc(anoMes, natureza);
+	}
+	
+	//@Override
+	public List<RubricaVencimento> buscarPorMesEFonteDescontoOuVantagem(AnoMes anoMes, Fonte fonte, String natureza) {
+		return reposytory.findByIdAnoMesFkAndIdFonteFkAndIdNaturezaFkSiglaOrderByIdAnoMesFkAscIdFuncionarioFkIdPessoaFkCpfAscIdFuncionarioFkMatriculaAscSequenciaAscIdUnidadeFkNomeFantasiaAsc(anoMes, fonte, natureza);
 	}
 	
 	//@Override
