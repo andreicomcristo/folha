@@ -33,6 +33,9 @@ import com.folha.boot.domain.FuncionariosLicencas;
 import com.folha.boot.domain.HorasFaltasFolhasVariaveis;
 import com.folha.boot.domain.PessoaFuncionarios;
 import com.folha.boot.domain.PreRequisitoCodigoDiferenciadoCodigoDiferenciado;
+import com.folha.boot.domain.RubricaPensaoObs;
+import com.folha.boot.domain.RubricaPensaoObsVencimento;
+import com.folha.boot.domain.RubricaVencimento;
 import com.folha.boot.domain.TiposDeFolha;
 import com.folha.boot.domain.VencimentosFuncionario;
 import com.folha.boot.domain.models.calculos.EscalasNoMes;
@@ -60,7 +63,10 @@ import com.folha.boot.service.HorasFaltasFolhasVariaveisService;
 import com.folha.boot.service.NaoDescontaInssService;
 import com.folha.boot.service.PreRequisitoCodigoDiferenciadoCodigoDiferenciadoService;
 import com.folha.boot.service.RubricaNaturezaService;
+import com.folha.boot.service.RubricaPensaoObsService;
+import com.folha.boot.service.RubricaPensaoObsVencimentoService;
 import com.folha.boot.service.RubricaService;
+import com.folha.boot.service.RubricaVencimentoService;
 import com.folha.boot.service.TurnosService;
 import com.folha.boot.service.VencimentosFuncionarioService;
 import com.folha.boot.service.VinculosService;
@@ -122,6 +128,12 @@ public class CalculosAlternativosService {
 	private AnoMesService anoMesService;
 	@Autowired
 	private PreRequisitoCodigoDiferenciadoCodigoDiferenciadoService preRequisitoCodigoDiferenciadoCodigoDiferenciadoService;
+	@Autowired
+	private RubricaPensaoObsService rubricaPensaoObsService;
+	@Autowired
+	private RubricaPensaoObsVencimentoService rubricaPensaoObsVencimentoService;
+	@Autowired
+	private RubricaVencimentoService rubricaVencimentoService;
 	
 	
 	
@@ -3547,6 +3559,28 @@ public class CalculosAlternativosService {
 			}
 		}
 		return listaVencimentos;
+	}
+	
+	
+	public void colocarProporcaoNasPensoes(AnoMes anoMes) {
+		rubricaPensaoObsVencimentoService.excluirPorMes(anoMes);
+		List<RubricaPensaoObs> listaPensoes = rubricaPensaoObsService.buscarPorMes(anoMes);
+		
+		for(int i=0;i<listaPensoes.size();i++) {
+			List<RubricaVencimento> listaVencimentos = rubricaVencimentoService.buscarPorMesEPessoa(anoMes, listaPensoes.get(i).getIdRubricaPensaoFk().getIdPessoaFk());
+				for(int k=0;k<listaVencimentos.size();k++) {
+					if(listaVencimentos.get(k).getIdNaturezaFk().getSigla().equalsIgnoreCase("V")) {
+						Double valor = UtilidadesMatematicas.ajustaValorDecimal( listaPensoes.get(i).getValorDescontado() * (listaVencimentos.get(k).getPercentagem()/100)  , 2);
+						RubricaPensaoObsVencimento r = new RubricaPensaoObsVencimento();
+						r.setId(null);
+						r.setIdAnoMesFk(anoMes);
+						r.setIdRubricaPensaoObsFk(listaPensoes.get(i));
+						r.setIdRubricaVencimentoFk(listaVencimentos.get(k));
+						r.setValorDescontado(valor);
+						rubricaPensaoObsVencimentoService.salvar(r);
+					}
+				}
+		}
 	}
 	
 	

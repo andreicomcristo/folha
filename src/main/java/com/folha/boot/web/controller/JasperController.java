@@ -471,6 +471,7 @@ public class JasperController {
 			Double totalBruto = 0.0;
 			Double totalInss = 0.0;
 			Double totalIr = 0.0;
+			Double totalPensao = 0.0;
 			Double totalOutrosDescontos = 0.0;
 			Double totalPatronal = 0.0;
 			Double totalLiquido = 0.0;
@@ -482,7 +483,8 @@ public class JasperController {
 				totalBruto = totalBruto + lista.get(i).getValorBruto();
 				totalInss = totalInss + lista.get(i).getValorPrevidencia();
 				totalIr = totalIr + lista.get(i).getValorIr();
-				totalOutrosDescontos = totalOutrosDescontos + lista.get(i).getDescontoProp() + lista.get(i).getPensaoProp();
+				totalPensao = totalPensao + lista.get(i).getPensaoProp();
+				totalOutrosDescontos = totalOutrosDescontos + lista.get(i).getDescontoProp();
 				totalPatronal = totalPatronal + lista.get(i).getValorPatronal();
 				totalLiquido = totalLiquido + lista.get(i).getValorLiquido();
 			}
@@ -509,6 +511,9 @@ public class JasperController {
 			
 			Extenso g = new Extenso(UtilidadesMatematicas.ajustaValorDecimal(totalBrutoComPatronal, 2));
 			String totalBrutoComPatronalExtenso = g.toString() ;
+			
+			Extenso h = new Extenso(UtilidadesMatematicas.ajustaValorDecimal(totalPensao, 2));
+			String totalPensaoExtenso = h.toString() ;
 			 
 			
 			service.addParametros("ANO_MES_I", mes);		
@@ -517,6 +522,7 @@ public class JasperController {
 			service.addParametros("VALOR_TOTAL_BRUTO_I", "R$ "+UtilidadesMatematicas.ajustaValorDecimal(totalBruto, 2));
 			service.addParametros("VALOR_TOTAL_INSS_I", "R$ "+UtilidadesMatematicas.ajustaValorDecimal(totalInss, 2));
 			service.addParametros("VALOR_TOTAL_IR_I", "R$ "+UtilidadesMatematicas.ajustaValorDecimal(totalIr, 2));
+			service.addParametros("VALOR_TOTAL_PENSAO_I", "R$ "+UtilidadesMatematicas.ajustaValorDecimal(totalPensao, 2));
 			service.addParametros("VALOR_TOTAL_OUTROS_DESCONTOS_I", "R$ "+UtilidadesMatematicas.ajustaValorDecimal(totalOutrosDescontos, 2));
 			service.addParametros("VALOR_TOTAL_PATRONAL_I", "R$ "+UtilidadesMatematicas.ajustaValorDecimal(totalPatronal, 2));
 			service.addParametros("VALOR_TOTAL_LIQUIDO_I", "R$ "+UtilidadesMatematicas.ajustaValorDecimal(totalLiquido, 2));
@@ -525,6 +531,7 @@ public class JasperController {
 			service.addParametros("TOTAL_BRUTO_I", totalBrutoExtenso);
 			service.addParametros("TOTAL_INSS_I", totalInssExtenso);
 			service.addParametros("TOTAL_IR_I", totalIrExtenso);
+			service.addParametros("TOTAL_PENSAO_I", totalPensaoExtenso);
 			service.addParametros("TOTAL_OUTROS_DESCONTOS_I", totalOutrosDescontosExtenso);
 			service.addParametros("TOTAL_PATRONAL_I", totalPatronalExtenso);
 			service.addParametros("TOTAL_LIQUIDO_I", totalLiquidoExtenso);
@@ -534,7 +541,7 @@ public class JasperController {
 			
 			
 			
-			service.setCaminho("/jasper/folha/processo_por_fonte.jasper");
+			service.setCaminho("/jasper/folha/processo_por_fonte1.jasper");
 			byte[] bytes = service.gerarRelatorio(); 
 			response.setContentType(MediaType.APPLICATION_PDF_VALUE);
 			//Faz o download

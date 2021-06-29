@@ -125,6 +125,9 @@ public class CalculosCalcularService {
 		//Arredondando valores Brutos
 		calculosColetaDeDadosService.ajustarValoresBrutos(anoMes);
 		
+		//Anotando as Pensoes
+		calculosAlternativosService.colocarProporcaoNasPensoes(anoMes);
+		
 		
 		
 		//Colocando a média de tempo de cálculo por escala

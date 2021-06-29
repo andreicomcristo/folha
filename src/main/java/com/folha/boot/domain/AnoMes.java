@@ -42,6 +42,8 @@ public class AnoMes extends AbstractEntity<Long> {
     private List<FaixasValoresFolhExt> faixasValoresFolhExtList;
     @OneToMany(mappedBy = "idAnoMesFk")
     private List<PessoaComplementoDePlantao> pessoaComplementoDePlantaoList;
+    @OneToMany(mappedBy = "idAnoMesFk")
+    private List<RubricaPensaoObsVencimento> rubricaPensaoObsVencimentoList;
     
     @OneToMany(mappedBy = "idAnoMesFk")
     private List<UnidadeAdmiteChDif> unidadeAdmiteChDifList;
@@ -355,6 +357,12 @@ public class AnoMes extends AbstractEntity<Long> {
 	}
 	public void setFaixasValoresGpfCedidoList(List<FaixasValoresGpfCedido> faixasValoresGpfCedidoList) {
 		this.faixasValoresGpfCedidoList = faixasValoresGpfCedidoList;
+	}
+	public List<RubricaPensaoObsVencimento> getRubricaPensaoObsVencimentoList() {
+		return rubricaPensaoObsVencimentoList;
+	}
+	public void setRubricaPensaoObsVencimentoList(List<RubricaPensaoObsVencimento> rubricaPensaoObsVencimentoList) {
+		this.rubricaPensaoObsVencimentoList = rubricaPensaoObsVencimentoList;
 	}
 		
 	
