@@ -16,7 +16,7 @@
 			</li>
 			<!--submenu configuracoes-->
 			<li class="main-menu-item">
-				<a sec:authorize="hasAnyAuthority( 'MASTER' )" class="k-btn"><span  class=" oi oi-chevron-bottom eleventh icones-sidebar-tamanho align-middle"></span> Administrador </a>				
+				<a sec:authorize="hasAnyAuthority( 'MASTER' )" class="k-btn"><span  class=" oi oi-chevron-bottom eleventh icones-sidebar-tamanho align-middle"></span>Administrador </a>				
 				<ul class="k-show">
 					
 					<li><a  class="bi-btn"><span class=" oi oi-chevron-bottom z60 icones-sidebar-tamanho align-middle"></span>Saúde e Capacitação </a>
@@ -39,7 +39,7 @@
 						</ul>
 					</li>
 							
-					<li><a  class="fz-btn"><span class=" oi oi-chevron-bottom z181 icones-sidebar-tamanho align-middle"></span> Rubricas </a>
+					<li><a  class="fz-btn"><span class=" oi oi-chevron-bottom z181 icones-sidebar-tamanho align-middle"></span>Rubricas </a>
 						<ul class="fz-show">
 									
 							<li><a  class="et-btn"><span class=" oi oi-chevron-bottom z149 icones-sidebar-tamanho align-middle"></span>Característica </a>
@@ -67,7 +67,7 @@
 					</li>			
 									
 					<li>
-						<a class="l-btn"><span class=" oi oi-chevron-bottom twelfth icones-sidebar-tamanho align-middle"></span> Segurança </a>
+						<a class="l-btn"><span class=" oi oi-chevron-bottom twelfth icones-sidebar-tamanho align-middle"></span>Segurança </a>
 						<ul class="l-show">
 						
 						<!-- 
@@ -138,7 +138,7 @@
 						</ul>
 					</li>
 
-					<li><a class="a-btn"><span class=" oi oi-chevron-bottom first icones-sidebar-tamanho align-middle"></span> RH - Carreiras </a>
+					<li><a class="a-btn"><span class=" oi oi-chevron-bottom first icones-sidebar-tamanho align-middle"></span>RH - Carreiras </a>
 						<ul class="a-show">
 						
 							<li><a  class="ag-btn"><span class=" oi oi-chevron-bottom thirtythird icones-sidebar-tamanho align-middle"></span>Carreiras </a>
@@ -165,7 +165,7 @@
 						</ul>
 					</li>
 
-					<li><a class="b-btn"><span class=" oi oi-chevron-bottom second icones-sidebar-tamanho align-middle"></span> RH - Cargos </a>
+					<li><a class="b-btn"><span class=" oi oi-chevron-bottom second icones-sidebar-tamanho align-middle"></span>RH - Cargos </a>
 						<ul class="b-show">
 						
 							<li><a  class="aj-btn"><span class=" oi oi-chevron-bottom thirtysixth icones-sidebar-tamanho align-middle"></span>Cargos </a>
@@ -191,7 +191,7 @@
 						</ul>
 					</li>
 
-					<li><a class="c-btn"><span class=" oi oi-chevron-bottom third icones-sidebar-tamanho align-middle"></span> RH - Pessoais </a>
+					<li><a class="c-btn"><span class=" oi oi-chevron-bottom third icones-sidebar-tamanho align-middle"></span>RH - Pessoais </a>
 						<ul class="c-show">
 						
 							<li><a  class="o-btn"><span class=" oi oi-chevron-bottom fifteenth icones-sidebar-tamanho align-middle"></span>Escolaridade </a>
@@ -328,7 +328,7 @@
 						</ul>
 					</li>
 
-					<li><a class="f-btn"><span class=" oi oi-chevron-bottom sixth icones-sidebar-tamanho align-middle"></span> RH - Tipos de Documento </a>
+					<li><a class="f-btn"><span class=" oi oi-chevron-bottom sixth icones-sidebar-tamanho align-middle"></span>RH - Tipos de Documento </a>
 						<ul class="f-show">
 						
 							<li><a class="an-btn"><span class=" oi oi-chevron-bottom fourtyth icones-sidebar-tamanho align-middle"></span>Tipos de Licença</a>
@@ -840,6 +840,8 @@
 							<li><a  class="hi-btn"><span class=" oi oi-chevron-bottom z216 icones-sidebar-tamanho align-middle"></span>Operacionais</a>
 								<ul class="hi-show">
 									<li class="menu-item" urlmatch='/jasper/abrirRelatoriosFolha/processoPorFonte'><a sec:authorize-url="/jasper/abrirRelatoriosFolha/processoPorFonte" th:href="@{/jasper/abrirRelatoriosFolha/processoPorFonte}"><span class=" oi oi-chevron-right icones-sidebar-tamanho align-middle"></span>Por Fonte</a></li>
+									<li class="menu-item" urlmatch='/jasper/abrirRelatoriosFolha/processoPorUnidade'><a sec:authorize-url="/jasper/abrirRelatoriosFolha/processoPorUnidade" th:href="@{/jasper/abrirRelatoriosFolha/processoPorUnidade}"><span class=" oi oi-chevron-right icones-sidebar-tamanho align-middle"></span>Por Unidade</a></li>
+									<li class="menu-item" urlmatch='/jasper/abrirRelatoriosFolha/processoPorFonte/e/unidade'><a sec:authorize-url="/jasper/abrirRelatoriosFolha/processoPorFonte/e/unidade" th:href="@{/jasper/abrirRelatoriosFolha/processoPorFonte/e/unidade}"><span class=" oi oi-chevron-right icones-sidebar-tamanho align-middle"></span>Por Fonte e Unidade</a></li>
 								</ul>
 							</li>
 							
@@ -901,7 +903,7 @@
 				</ul>
 			</li>
 
-			<li class="main-menu-item"><a sec:authorize="hasAnyAuthority( 'MASTER' , 'RH_SEDE' , 'MASTER_RH_SEDE' )"  class="h-btn"><span class=" oi oi-chevron-bottom eigth icones-sidebar-tamanho align-middle"></span> Recursos Humanos - Sede </a>
+			<li class="main-menu-item"><a sec:authorize="hasAnyAuthority( 'MASTER' , 'RH_SEDE' , 'MASTER_RH_SEDE' )"  class="h-btn"><span class=" oi oi-chevron-bottom eigth icones-sidebar-tamanho align-middle"></span>Recursos Humanos - Sede </a>
 				<ul class="h-show">	
 							
 						<li><a  class="gc-btn"><span class=" oi oi-chevron-bottom z184 icones-sidebar-tamanho align-middle"></span>Escala </a>

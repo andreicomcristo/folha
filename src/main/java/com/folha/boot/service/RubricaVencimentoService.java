@@ -12,6 +12,7 @@ import com.folha.boot.domain.Fonte;
 import com.folha.boot.domain.Pessoa;
 import com.folha.boot.domain.PessoaFuncionarios;
 import com.folha.boot.domain.RubricaVencimento;
+import com.folha.boot.domain.Unidades;
 import com.folha.boot.domain.models.calculos.RubricasVencimento;
 
 @Service
@@ -94,6 +95,16 @@ public class RubricaVencimentoService {
 	//@Override
 	public List<RubricaVencimento> buscarPorMesEFonteDescontoOuVantagem(AnoMes anoMes, Fonte fonte, String natureza) {
 		return reposytory.findByIdAnoMesFkAndIdFonteFkAndIdNaturezaFkSiglaOrderByIdAnoMesFkAscIdFuncionarioFkIdPessoaFkCpfAscIdFuncionarioFkMatriculaAscSequenciaAscIdUnidadeFkNomeFantasiaAsc(anoMes, fonte, natureza);
+	}
+	
+	//@Override
+	public List<RubricaVencimento> buscarPorMesEFonteEunidadeDescontoOuVantagem(AnoMes anoMes, Fonte fonte, Unidades unidade, String natureza) {
+		return reposytory.findByIdAnoMesFkAndIdFonteFkAndIdUnidadeFkAndIdNaturezaFkSiglaOrderByIdAnoMesFkAscIdFuncionarioFkIdPessoaFkCpfAscIdFuncionarioFkMatriculaAscSequenciaAscIdUnidadeFkNomeFantasiaAsc(anoMes, fonte, unidade, natureza);
+	}
+	
+	//@Override
+	public List<RubricaVencimento> buscarPorMesEUnidadeDescontoOuVantagem(AnoMes anoMes, Unidades unidade, String natureza) {
+		return reposytory.findByIdAnoMesFkAndIdUnidadeFkAndIdNaturezaFkSiglaOrderByIdAnoMesFkAscIdFuncionarioFkIdPessoaFkCpfAscIdFuncionarioFkMatriculaAscSequenciaAscIdUnidadeFkNomeFantasiaAsc(anoMes, unidade, natureza);
 	}
 	
 	//@Override

@@ -10,6 +10,7 @@ import com.folha.boot.domain.Fonte;
 import com.folha.boot.domain.Pessoa;
 import com.folha.boot.domain.PessoaFuncionarios;
 import com.folha.boot.domain.RubricaVencimento;
+import com.folha.boot.domain.Unidades;
 
 @Repository
 public interface RubricaVencimentoReposytory extends JpaRepository<RubricaVencimento, Long> {
@@ -19,6 +20,10 @@ public interface RubricaVencimentoReposytory extends JpaRepository<RubricaVencim
 	public List<RubricaVencimento> findByIdAnoMesFkAndIdNaturezaFkSiglaOrderByIdAnoMesFkAscIdFuncionarioFkIdPessoaFkCpfAscIdFuncionarioFkMatriculaAscSequenciaAscIdUnidadeFkNomeFantasiaAsc(AnoMes anoMes, String nome);
 	
 	public List<RubricaVencimento> findByIdAnoMesFkAndIdFonteFkAndIdNaturezaFkSiglaOrderByIdAnoMesFkAscIdFuncionarioFkIdPessoaFkCpfAscIdFuncionarioFkMatriculaAscSequenciaAscIdUnidadeFkNomeFantasiaAsc(AnoMes anoMes, Fonte fonte, String nome);
+	
+	public List<RubricaVencimento> findByIdAnoMesFkAndIdFonteFkAndIdUnidadeFkAndIdNaturezaFkSiglaOrderByIdAnoMesFkAscIdFuncionarioFkIdPessoaFkCpfAscIdFuncionarioFkMatriculaAscSequenciaAscIdUnidadeFkNomeFantasiaAsc(AnoMes anoMes, Fonte fonte, Unidades unidade, String nome);
+	
+	public List<RubricaVencimento> findByIdAnoMesFkAndIdUnidadeFkAndIdNaturezaFkSiglaOrderByIdAnoMesFkAscIdFuncionarioFkIdPessoaFkCpfAscIdFuncionarioFkMatriculaAscSequenciaAscIdUnidadeFkNomeFantasiaAsc(AnoMes anoMes, Unidades unidade, String nome);
 	
 	
 	public List<RubricaVencimento> findByIdAnoMesFkAndIdNaturezaFkSiglaAndIdFuncionarioFkOrderByIdAnoMesFkAscIdFuncionarioFkIdPessoaFkCpfAscIdFuncionarioFkMatriculaAscSequenciaAscIdUnidadeFkNomeFantasiaAsc(AnoMes anoMes, String nome, PessoaFuncionarios funcionario);

@@ -3563,7 +3563,6 @@ public class CalculosAlternativosService {
 	
 	
 	public void colocarProporcaoNasPensoes(AnoMes anoMes) {
-		rubricaPensaoObsVencimentoService.excluirPorMes(anoMes);
 		List<RubricaPensaoObs> listaPensoes = rubricaPensaoObsService.buscarPorMes(anoMes);
 		
 		for(int i=0;i<listaPensoes.size();i++) {

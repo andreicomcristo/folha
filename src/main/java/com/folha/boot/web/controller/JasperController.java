@@ -550,7 +550,199 @@ public class JasperController {
 		}	
 		
 	
+		
+		
+		
+		
+		//VencimentosTodosPorFonteEUnidade
+		@GetMapping("/abrirRelatoriosFolha/processoPorFonte/e/unidade")
+		public String abrirRelatoriosProcessoPorFonteEUnidade() {		
+			return "/reports/ProcessoPorFonteEUnidade";
+		}
+
+		@GetMapping("/relatoriosFolha/processoPorFonte/e/unidade")
+		public void exibirRelatoriosProcessoPorFonteEUnidade(@RequestParam("mes") Long mes, @RequestParam("fonte") Long fonte, @RequestParam("unidade") Long unidade, HttpServletResponse response) throws IOException {
+			
+			
+			Double totalBruto = 0.0;
+			Double totalInss = 0.0;
+			Double totalIr = 0.0;
+			Double totalPensao = 0.0;
+			Double totalOutrosDescontos = 0.0;
+			Double totalPatronal = 0.0;
+			Double totalLiquido = 0.0;
+			Double totalBrutoComPatronal = 0.0;
+			
+			List<RubricaVencimento> lista = rubricaVencimentoService.buscarPorMesEFonteEunidadeDescontoOuVantagem(anoMesService.buscarPorId(mes), fonteService.buscarPorId(fonte), unidadesService.buscarPorId(unidade), "V");
+			
+			for(int i=0;i<lista.size();i++) {
+				totalBruto = totalBruto + lista.get(i).getValorBruto();
+				totalInss = totalInss + lista.get(i).getValorPrevidencia();
+				totalIr = totalIr + lista.get(i).getValorIr();
+				totalPensao = totalPensao + lista.get(i).getPensaoProp();
+				totalOutrosDescontos = totalOutrosDescontos + lista.get(i).getDescontoProp();
+				totalPatronal = totalPatronal + lista.get(i).getValorPatronal();
+				totalLiquido = totalLiquido + lista.get(i).getValorLiquido();
+			}
+			
+			totalBrutoComPatronal = totalBruto + totalPatronal;
+			
+			Extenso a = new Extenso(UtilidadesMatematicas.ajustaValorDecimal(totalBruto, 2));
+			String totalBrutoExtenso = a.toString() ;
+			
+			Extenso b = new Extenso(UtilidadesMatematicas.ajustaValorDecimal(totalInss, 2));
+			String totalInssExtenso = b.toString() ;
+					
+			Extenso c = new Extenso(UtilidadesMatematicas.ajustaValorDecimal(totalIr, 2));		
+			String totalIrExtenso = c.toString() ;
+					
+			Extenso d = new Extenso(UtilidadesMatematicas.ajustaValorDecimal(totalOutrosDescontos, 2));		
+			String totalOutrosDescontosExtenso = d.toString() ;
+					
+			Extenso e = new Extenso(UtilidadesMatematicas.ajustaValorDecimal(totalPatronal, 2));
+			String totalPatronalExtenso = e.toString() ;
+					
+			Extenso f = new Extenso(UtilidadesMatematicas.ajustaValorDecimal(totalLiquido, 2));
+			String totalLiquidoExtenso = f.toString() ;
+			
+			Extenso g = new Extenso(UtilidadesMatematicas.ajustaValorDecimal(totalBrutoComPatronal, 2));
+			String totalBrutoComPatronalExtenso = g.toString() ;
+			
+			Extenso h = new Extenso(UtilidadesMatematicas.ajustaValorDecimal(totalPensao, 2));
+			String totalPensaoExtenso = h.toString() ;
+			 
+			
+			service.addParametros("ANO_MES_I", mes);		
+			service.addParametros("FONTE_I", fonte);
+			service.addParametros("UNIDADE_I", unidade);
+			
+			service.addParametros("VALOR_TOTAL_BRUTO_I", "R$ "+UtilidadesMatematicas.ajustaValorDecimal(totalBruto, 2));
+			service.addParametros("VALOR_TOTAL_INSS_I", "R$ "+UtilidadesMatematicas.ajustaValorDecimal(totalInss, 2));
+			service.addParametros("VALOR_TOTAL_IR_I", "R$ "+UtilidadesMatematicas.ajustaValorDecimal(totalIr, 2));
+			service.addParametros("VALOR_TOTAL_PENSAO_I", "R$ "+UtilidadesMatematicas.ajustaValorDecimal(totalPensao, 2));
+			service.addParametros("VALOR_TOTAL_OUTROS_DESCONTOS_I", "R$ "+UtilidadesMatematicas.ajustaValorDecimal(totalOutrosDescontos, 2));
+			service.addParametros("VALOR_TOTAL_PATRONAL_I", "R$ "+UtilidadesMatematicas.ajustaValorDecimal(totalPatronal, 2));
+			service.addParametros("VALOR_TOTAL_LIQUIDO_I", "R$ "+UtilidadesMatematicas.ajustaValorDecimal(totalLiquido, 2));
+			service.addParametros("VALOR_TOTAL_BRUTO_COM_PATRONAL_I", "R$ "+UtilidadesMatematicas.ajustaValorDecimal(totalBrutoComPatronal, 2));
+			
+			service.addParametros("TOTAL_BRUTO_I", totalBrutoExtenso);
+			service.addParametros("TOTAL_INSS_I", totalInssExtenso);
+			service.addParametros("TOTAL_IR_I", totalIrExtenso);
+			service.addParametros("TOTAL_PENSAO_I", totalPensaoExtenso);
+			service.addParametros("TOTAL_OUTROS_DESCONTOS_I", totalOutrosDescontosExtenso);
+			service.addParametros("TOTAL_PATRONAL_I", totalPatronalExtenso);
+			service.addParametros("TOTAL_LIQUIDO_I", totalLiquidoExtenso);
+			service.addParametros("TOTAL_BRUTO_COM_PATRONAL_I", totalBrutoComPatronalExtenso);
+			
+			
+			
+			
+			
+			service.setCaminho("/jasper/folha/processo_por_fonte_e_unidade1.jasper");
+			byte[] bytes = service.gerarRelatorio(); 
+			response.setContentType(MediaType.APPLICATION_PDF_VALUE);
+			//Faz o download
+			response.setHeader("Content-disposition", "attachment; filename=dados.pdf");
+			response.getOutputStream().write(bytes);
+		}		
 	
+		
+		
+		
+		
+		//VencimentosTodosPorUnidade
+		@GetMapping("/abrirRelatoriosFolha/processoPorUnidade")
+		public String abrirRelatoriosProcessoPorUnidade() {		
+			return "/reports/ProcessoPorUnidade";
+		}
+
+		@GetMapping("/relatoriosFolha/processoPorUnidade")
+		public void exibirRelatoriosProcessoPorUnidade(@RequestParam("mes") Long mes, @RequestParam("unidade") Long unidade, HttpServletResponse response) throws IOException {
+			
+			
+			Double totalBruto = 0.0;
+			Double totalInss = 0.0;
+			Double totalIr = 0.0;
+			Double totalPensao = 0.0;
+			Double totalOutrosDescontos = 0.0;
+			Double totalPatronal = 0.0;
+			Double totalLiquido = 0.0;
+			Double totalBrutoComPatronal = 0.0;
+			
+			List<RubricaVencimento> lista = rubricaVencimentoService.buscarPorMesEUnidadeDescontoOuVantagem(anoMesService.buscarPorId(mes), unidadesService.buscarPorId(unidade), "V");
+			
+			for(int i=0;i<lista.size();i++) {
+				totalBruto = totalBruto + lista.get(i).getValorBruto();
+				totalInss = totalInss + lista.get(i).getValorPrevidencia();
+				totalIr = totalIr + lista.get(i).getValorIr();
+				totalPensao = totalPensao + lista.get(i).getPensaoProp();
+				totalOutrosDescontos = totalOutrosDescontos + lista.get(i).getDescontoProp();
+				totalPatronal = totalPatronal + lista.get(i).getValorPatronal();
+				totalLiquido = totalLiquido + lista.get(i).getValorLiquido();
+			}
+			
+			totalBrutoComPatronal = totalBruto + totalPatronal;
+			
+			Extenso a = new Extenso(UtilidadesMatematicas.ajustaValorDecimal(totalBruto, 2));
+			String totalBrutoExtenso = a.toString() ;
+			
+			Extenso b = new Extenso(UtilidadesMatematicas.ajustaValorDecimal(totalInss, 2));
+			String totalInssExtenso = b.toString() ;
+					
+			Extenso c = new Extenso(UtilidadesMatematicas.ajustaValorDecimal(totalIr, 2));		
+			String totalIrExtenso = c.toString() ;
+					
+			Extenso d = new Extenso(UtilidadesMatematicas.ajustaValorDecimal(totalOutrosDescontos, 2));		
+			String totalOutrosDescontosExtenso = d.toString() ;
+					
+			Extenso e = new Extenso(UtilidadesMatematicas.ajustaValorDecimal(totalPatronal, 2));
+			String totalPatronalExtenso = e.toString() ;
+					
+			Extenso f = new Extenso(UtilidadesMatematicas.ajustaValorDecimal(totalLiquido, 2));
+			String totalLiquidoExtenso = f.toString() ;
+			
+			Extenso g = new Extenso(UtilidadesMatematicas.ajustaValorDecimal(totalBrutoComPatronal, 2));
+			String totalBrutoComPatronalExtenso = g.toString() ;
+			
+			Extenso h = new Extenso(UtilidadesMatematicas.ajustaValorDecimal(totalPensao, 2));
+			String totalPensaoExtenso = h.toString() ;
+			 
+			
+			service.addParametros("ANO_MES_I", mes);		
+			service.addParametros("UNIDADE_I", unidade);
+			
+			service.addParametros("VALOR_TOTAL_BRUTO_I", "R$ "+UtilidadesMatematicas.ajustaValorDecimal(totalBruto, 2));
+			service.addParametros("VALOR_TOTAL_INSS_I", "R$ "+UtilidadesMatematicas.ajustaValorDecimal(totalInss, 2));
+			service.addParametros("VALOR_TOTAL_IR_I", "R$ "+UtilidadesMatematicas.ajustaValorDecimal(totalIr, 2));
+			service.addParametros("VALOR_TOTAL_PENSAO_I", "R$ "+UtilidadesMatematicas.ajustaValorDecimal(totalPensao, 2));
+			service.addParametros("VALOR_TOTAL_OUTROS_DESCONTOS_I", "R$ "+UtilidadesMatematicas.ajustaValorDecimal(totalOutrosDescontos, 2));
+			service.addParametros("VALOR_TOTAL_PATRONAL_I", "R$ "+UtilidadesMatematicas.ajustaValorDecimal(totalPatronal, 2));
+			service.addParametros("VALOR_TOTAL_LIQUIDO_I", "R$ "+UtilidadesMatematicas.ajustaValorDecimal(totalLiquido, 2));
+			service.addParametros("VALOR_TOTAL_BRUTO_COM_PATRONAL_I", "R$ "+UtilidadesMatematicas.ajustaValorDecimal(totalBrutoComPatronal, 2));
+			
+			service.addParametros("TOTAL_BRUTO_I", totalBrutoExtenso);
+			service.addParametros("TOTAL_INSS_I", totalInssExtenso);
+			service.addParametros("TOTAL_IR_I", totalIrExtenso);
+			service.addParametros("TOTAL_PENSAO_I", totalPensaoExtenso);
+			service.addParametros("TOTAL_OUTROS_DESCONTOS_I", totalOutrosDescontosExtenso);
+			service.addParametros("TOTAL_PATRONAL_I", totalPatronalExtenso);
+			service.addParametros("TOTAL_LIQUIDO_I", totalLiquidoExtenso);
+			service.addParametros("TOTAL_BRUTO_COM_PATRONAL_I", totalBrutoComPatronalExtenso);
+			
+			
+			
+			
+			
+			service.setCaminho("/jasper/folha/processo_por_unidade2.jasper");
+			byte[] bytes = service.gerarRelatorio(); 
+			response.setContentType(MediaType.APPLICATION_PDF_VALUE);
+			//Faz o download
+			response.setHeader("Content-disposition", "attachment; filename=dados.pdf");
+			response.getOutputStream().write(bytes);
+		}		
+		
+		
+		
 	
 	
 	@ModelAttribute("idUnidadeFk")

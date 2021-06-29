@@ -18,6 +18,7 @@ import com.folha.boot.domain.models.calculos.FeriasNoMes;
 import com.folha.boot.domain.models.calculos.LicencasNoMes;
 import com.folha.boot.domain.models.calculos.RubricasVencimento;
 import com.folha.boot.service.RubricaPensaoObsService;
+import com.folha.boot.service.RubricaPensaoObsVencimentoService;
 import com.folha.boot.service.RubricaVencimentoObsService;
 import com.folha.boot.service.RubricaVencimentoService;
 import com.folha.boot.service.TempoCalculoService;
@@ -45,6 +46,8 @@ public class CalculosCalcularService {
 	private RubricaVencimentoObsService rubricaVencimentoObsService;
 	@Autowired
 	private RubricaPensaoObsService rubricaPensaoObsService;
+	@Autowired
+	private RubricaPensaoObsVencimentoService rubricaPensaoObsVencimentoService;
 	@Autowired
 	private TempoCalculoService tempoCalculoService;
 
@@ -104,6 +107,7 @@ public class CalculosCalcularService {
 		System.out.println("AAAA:"+"OBTENDO LIQUIDOS:"+new Date().getHours()+"-"+new Date().getMinutes()+new Date().getSeconds());
 		
 		//Limpando o banco
+		rubricaPensaoObsVencimentoService.excluirPorMes(anoMes);
 		rubricaVencimentoService.excluirPorMes(anoMes);
 		rubricaVencimentoObsService.excluirPorMes(anoMes);
 		rubricaPensaoObsService.excluirPorMes(anoMes);

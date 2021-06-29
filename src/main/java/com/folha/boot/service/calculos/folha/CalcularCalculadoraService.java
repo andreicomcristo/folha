@@ -364,7 +364,7 @@ public class CalcularCalculadoraService {
 			lista.get(i).setValorLiquido(UtilidadesMatematicas.ajustaValorDecimal(lista.get(i).getValorLiquido(), 2));
 			lista.get(i).setValorPatronal(UtilidadesMatematicas.ajustaValorDecimal(lista.get(i).getValorPatronal(), 2));
 			lista.get(i).setValorPrevidencia(UtilidadesMatematicas.ajustaValorDecimal(lista.get(i).getValorPrevidencia(), 2));
-			lista.get(i).setPercentagem(UtilidadesMatematicas.ajustaValorDecimal(lista.get(i).getPercentagem(), 2));
+			lista.get(i).setPercentagem(UtilidadesMatematicas.ajustaValorDecimal(lista.get(i).getPercentagem(), 4));
 			lista.get(i).setDescontoProp(UtilidadesMatematicas.ajustaValorDecimal(lista.get(i).getDescontoProp(), 2));
 			lista.get(i).setPensaoProp(UtilidadesMatematicas.ajustaValorDecimal(lista.get(i).getPensaoProp(), 2));
 		}
