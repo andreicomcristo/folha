@@ -152,6 +152,7 @@
 		                    <th style="font-size:10px;" >Cargo</th>		                    
 		                    <th style="font-size:10px;" >Turm</th>
 		                    <th style="font-size:10px;" >Hr</th>	                    
+		                    <th style="font-size:10px;" >Folh</th>
 		                    <th style="font-size:10px;" >01</th>
 		                    <th style="font-size:10px;" >02</th>
 		                    <th style="font-size:10px;" >03</th>
@@ -203,8 +204,7 @@
 				                        	<a th:text="'Ch Semanal: '+${d.idFuncionarioFk.idCargaHorariaAtualFk.cargaHoraria} " style="width:155px; height:25px; text-align:left; font-size:09px;  " role="button"></a><br>
 				                        	<a th:text="${d.idFuncionarioFk.idEspecialidadeAtualFk.idCargoFk.idNivelCargoFk.nomeNivelCargo} " style="width:155px; height:25px; text-align:left; font-size:09px;  " role="button"></a><br>
 				                        	<a th:text="${d.idFuncionarioFk.idVinculoAtualFk.nomeVinculo} " style="width:155px; height:25px; text-align:left; font-size:09px;  " role="button"></a><br>
-				                        	<a th:text="'Folha: '+${d.idTipoFolhaFk.nomeTipoFolha}" style="width:155px; height:25px; text-align:left; font-size:09px;  " role="button"></a><br>
-				                        	<a th:text="'Regime: '+${d.idRegimeFk.nomeRegimeDeTrabalho}" style="width:155px; height:25px; text-align:left; font-size:09px;  " role="button"></a><br>
+				                        	<a th:text="'Regime: '+${d.idRegimeFk != null} ? ${d.idRegimeFk.nomeRegimeDeTrabalho} : ''  " style="width:155px; height:25px; text-align:left; font-size:09px;  " role="button"></a><br>
 				                        	<a th:text="'Complemento Plantão: '+${d.idComplementoPlantaoSimNaoFk.descricao}" style="width:155px; height:25px; text-align:left; font-size:09px;  " role="button"></a><br>
 				                        	<a th:text="'Incremento Risco: '+${d.idIncrementoDeRiscoSimNaoFk.descricao}" style="width:155px; height:25px; text-align:left; font-size:09px;  " role="button"></a><br>
 				                        	<a th:text="'Presencial: '+${d.idPresencialSimNaoFk.descricao}" style="width:155px; height:25px; text-align:left; font-size:09px;  " role="button"></a><br>
@@ -225,7 +225,8 @@
 		                    
 		                    <td style="font-size:07px;"  th:text="${d.idFuncionarioFk.idEspecialidadeAtualFk.idCargoFk.nomeCargo+'-'+d.idFuncionarioFk.idEspecialidadeAtualFk.nomeEspecialidadeCargo}"></td>		                    
 		                    <td style="font-size:08px;"  th:text="${d.idTurmaFk.nomeTurma}"></td>
-		                    <td style="font-size:08px;"  th:text="${d.horasTotais}"></td>		                    
+		                    <td style="font-size:08px;"  th:text="${d.horasTotais}"></td>
+		                    <td style="font-size:10px;"  th:text="${d.idTipoFolhaFk != null} ? ${d.idTipoFolhaFk.nomeTipoFolha} : ''  "></td>
 		                    <td style="font-size:10px;"  th:text="${d.dia01Fk.nomeTurno}"></td>
 		                    <td style="font-size:10px;"  th:text="${d.dia02Fk.nomeTurno}"></td>
 		                    <td style="font-size:10px;"  th:text="${d.dia03Fk.nomeTurno}"></td>

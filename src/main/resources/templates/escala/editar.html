@@ -119,7 +119,7 @@
 								 	
 								 	<th>
 								 		<label class="text" style="font-size:12px;">Regime </label>
-					                	<select disabled="disabled" aria-disabled="true" style="width:180px; height:25px; font-size:10px" id="turma" class="form-select" th:field="*{idRegimeFk}" >
+					                	<select  style="width:180px; height:25px; font-size:10px" id="turma" class="form-select" th:field="*{idRegimeFk}" >
 											<option value=""></option>
 											<option th:each="d : ${idRegimeFk}" th:value="${d.id}"th:text="${d.nomeRegimeDeTrabalho}">ADM</option>
 										</select>	
