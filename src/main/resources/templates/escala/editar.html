@@ -38,6 +38,7 @@
 				                	<input type=hidden id="" th:field="*{idCoordenacaoFk}" />
 				                	<input type=hidden id="" th:field="*{idFuncionarioFk}" />
 				                	<input type=hidden id="" th:field="*{idTipoFolhaFk}" />
+				                	<input type=hidden id="" th:field="*{idRegimeFk}" />
 				                	
 				                	
 				                	<input type=hidden id="" th:field="*{idAvaliacaoAssiduidadeFk}" />
@@ -88,6 +89,11 @@
 				                    	<label style="color:grey;" th:text="*{idFuncionarioFk.idVinculoAtualFk.nomeVinculo}" class="text" >Cargo </label>
 									</th>
 									
+									<th>
+										<label class="text" >Regime : </label>
+				                    	<label style="color:grey;" th:text="*{idRegimeFk.nomeRegimeDeTrabalho}" class="text" >Regime</label>
+									</th>
+									
 								 </tr>
 							 </thead>
 						</table>
@@ -99,7 +105,7 @@
 								 <tr>
 								 	<th>
 								 		<label class="text" style="font-size:12px;">Presencial </label>
-					                	<select style="width:180px; height:25px; font-size:10px" id="turma" class="form-select"  th:field="*{idPresencialSimNaoFk}" >
+					                	<select style="width:250px; height:25px; font-size:10px" id="turma" class="form-select"  th:field="*{idPresencialSimNaoFk}" >
 											<option value=""></option>
 											<option th:each="d : ${idPresencialSimNaoFk}" th:value="${d.id}"th:text="${d.descricao}">Presencial</option>
 										</select>
@@ -112,21 +118,22 @@
 								 	</th>
 								 	<th>
 								 		<label class="text" style="font-size:12px;">Incentivo de Risco </label>
-								 		<select style="width:180px; height:25px; font-size:10px" id="turma" class="form-select"   th:field="*{idIncrementoDeRiscoSimNaoFk}" >
+								 		<select style="width:250px; height:25px; font-size:10px" id="turma" class="form-select"   th:field="*{idIncrementoDeRiscoSimNaoFk}" >
 											<option th:each="d : ${idIncrementoDeRiscoCompativel}" th:value="${d.id}"th:text="${d.descricao}">Incremento de Risco</option>
 										</select>
 								 	</th>
-								 	
+								 	<!-- 
 								 	<th>
 								 		<label class="text" style="font-size:12px;">Regime </label>
-					                	<select  style="width:180px; height:25px; font-size:10px" id="turma" class="form-select" th:field="*{idRegimeFk}" >
+					                	<select disabled="disabled" aria-disabled="true" style="width:180px; height:25px; font-size:10px" id="turma" class="form-select"  >
 											<option value=""></option>
 											<option th:each="d : ${idRegimeFk}" th:value="${d.id}"th:text="${d.nomeRegimeDeTrabalho}">ADM</option>
 										</select>	
 									</th>
+									 -->
 								 	<th>
 								 		<label class="text" style="font-size:12px;">Turma </label>
-					                	<select style="width:300px; height:25px; font-size:10px" id="turma" class="form-select"  th:field="*{idTurmaFk}" >
+					                	<select style="width:440px; height:25px; font-size:10px" id="turma" class="form-select"  th:field="*{idTurmaFk}" >
 											<option value=""></option>
 											<option th:each="d : ${idTurmaFk}" th:value="${d.id}"th:text="${d.descricaoTurma}">TURMA</option>
 										</select>
