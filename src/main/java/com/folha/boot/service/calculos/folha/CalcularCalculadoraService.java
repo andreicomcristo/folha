@@ -165,7 +165,8 @@ public class CalcularCalculadoraService {
 					}
 					
 					//Calculando Ir
-					ir = calcularIrService.valorIr(vantagens-descontos-pensao-inss, anoMes);
+					ir = calcularIrService.calcularValorIr(vantagens-descontos-pensao-inss, anoMes, listaPessoasComRubricaVencimento.get(i));
+					//ir = calcularIrService.valorIr(vantagens-descontos-pensao-inss, anoMes);
 					//Calculando patronal
 					Double fatorPatronal = 0.0;
 					if(!fatorPatronalService.buscarPorMesExato(anoMes).isEmpty()) {
@@ -261,7 +262,8 @@ public class CalcularCalculadoraService {
 					}
 					
 					//Calculando Ir
-					ir = calcularIrService.valorIr(vantagens-descontos-pensao-inss, anoMes);
+					ir = calcularIrService.calcularValorIr(vantagens-descontos-pensao-inss, anoMes, listaPessoasComRubricaVencimento.get(i));
+					//ir = calcularIrService.valorIr(vantagens-descontos-pensao-inss, anoMes);
 					//Calculando patronal
 					Double fatorPatronal = 0.0;
 					if(!fatorPatronalService.buscarPorMesExato(anoMes).isEmpty()) {

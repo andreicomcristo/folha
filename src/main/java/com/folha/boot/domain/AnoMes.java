@@ -49,6 +49,8 @@ public class AnoMes extends AbstractEntity<Long> {
     private List<UnidadeAdmiteChDif> unidadeAdmiteChDifList;
     @OneToMany(mappedBy = "idAnoMesFk")
     private List<UnidadeAdmiteIncrementoDeRisco> unidadeAdmiteIncrementoDeRiscoList;
+    @OneToMany(mappedBy = "idAnoMesFk")
+    private List<NaoDescontaIr> naoDescontaIrList;
     
     @OneToMany(mappedBy = "idAnoMesFk")
     private List<UnidadeAdmiteComplementoPlantao> unidadeAdmiteComplementoPlantaoList;
@@ -363,6 +365,12 @@ public class AnoMes extends AbstractEntity<Long> {
 	}
 	public void setRubricaPensaoObsVencimentoList(List<RubricaPensaoObsVencimento> rubricaPensaoObsVencimentoList) {
 		this.rubricaPensaoObsVencimentoList = rubricaPensaoObsVencimentoList;
+	}
+	public List<NaoDescontaIr> getNaoDescontaIrList() {
+		return naoDescontaIrList;
+	}
+	public void setNaoDescontaIrList(List<NaoDescontaIr> naoDescontaIrList) {
+		this.naoDescontaIrList = naoDescontaIrList;
 	}
 		
 	
