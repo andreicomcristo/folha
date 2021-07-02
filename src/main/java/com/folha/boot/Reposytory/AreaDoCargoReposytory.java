@@ -14,5 +14,7 @@ public interface AreaDoCargoReposytory extends JpaRepository<AreaDoCargo, Long> 
 
 	public List<AreaDoCargo> findByNomeOrderByNomeAsc(String nome);
 	
+	public AreaDoCargo findFirstByNomeOrderByNomeAsc(String nome);
+	
 	
 }

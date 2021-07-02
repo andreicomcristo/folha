@@ -66,10 +66,14 @@
 		                    	<a class="btn btn-outline-info btn-sm" th:href="@{/especialidades/editar/{id} (id=${d.id}) }" role="button">
 		                        	<span class="oi oi-brush" title="Editar" aria-hidden="true"></span>
 		                        </a>
+		                        <a class="btn btn-outline-danger btn-sm" th:href="@{/especialidades/excluir/{id} (id=${d.id}) }" role="button">
+		                        	<span class="oi oi-circle-x" title="Editar" aria-hidden="true"></span>
+		                        </a>
 		                        <button th:id="${ 'btn_especialidades/excluir/' + d.id}" type="button" class="btn btn btn-outline-danger btn-sm" 
 		                            		data-toggle="modal" data-target="#myModal">
 		                                <span class="oi oi-circle-x" title="Exclusão habilitada" aria-hidden="true"></span>
 		                        </button>
+		                        
 		                   	</td>
 						</tr>
 					</tbody>                    

@@ -15,9 +15,9 @@ public class CargosService{
 	@Autowired
 	private CargosReposytory reposytory;
 	
-	public void salvar(Cargos cargos) {
+	public Cargos salvar(Cargos cargos) {
 		// TODO Auto-generated method stub
-		reposytory.save(cargos);
+		return reposytory.save(cargos);
 		
 	}
 

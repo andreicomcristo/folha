@@ -15,7 +15,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import com.folha.boot.domain.Cargos;
+import com.folha.boot.domain.CargosEspecialidade;
 import com.folha.boot.domain.NiveisCargo;
+import com.folha.boot.service.AreaDoCargoService;
+import com.folha.boot.service.CargosEspecialidadeService;
 import com.folha.boot.service.CargosService;
 import com.folha.boot.service.NiveisCargoService;
 
@@ -28,7 +31,10 @@ public class CargosController {
 	private CargosService service;	
 	@Autowired
 	private NiveisCargoService niveisCargoService;
-	
+	@Autowired
+	private CargosEspecialidadeService cargosEspecialidadeService;
+	@Autowired
+	private AreaDoCargoService areaDoCargoService;
 
 	@GetMapping("/cadastrar")
 	public String cadastrar(Cargos cargos) {
@@ -42,8 +48,25 @@ public class CargosController {
 	}
 	
 	@PostMapping("/salvar")
-	public String salvar(Cargos cargos, RedirectAttributes attr) {	
-		service.salvar(cargos);
+	public String salvar(Cargos cargos, String areaMeio, RedirectAttributes attr) {	
+		
+		
+		Boolean novoSalvamento = false;
+		if(cargos.getId()==null) {novoSalvamento = true;}
+		Cargos cargoSalvo = service.salvar(cargos);
+		
+		//Salvando a especialidade nao se aplica
+		if(novoSalvamento == true) {
+			CargosEspecialidade cargosEspecialidade = new CargosEspecialidade();
+			if(areaMeio == null) {cargosEspecialidade.setIdAreaDoCargoFk(areaDoCargoService.buscarPorNomePrimeiro("FIM"));}else {cargosEspecialidade.setIdAreaDoCargoFk(areaDoCargoService.buscarPorNomePrimeiro("MEIO"));}
+			cargosEspecialidade.setDescricaoEspecialidadeCargo("NAO SE APLICA");
+			cargosEspecialidade.setNomeEspecialidadeCargo("NAO SE APLICA");
+			cargosEspecialidade.setIdCargoFk(cargoSalvo);
+			cargosEspecialidade.setId(null);
+			cargosEspecialidadeService.salvar(cargosEspecialidade);
+		}
+		
+		
 		attr.addFlashAttribute("success", "Inserido com sucesso.");
 		return "redirect:/cargos/cadastrar";
 	}
