@@ -74,6 +74,10 @@
 		                    <td style="font-size:11px;" th:text="${f.dtCadastro != null} ? ${#dates.format(f.dtCadastro, 'dd/MM/yyyy') } : ''  "></td>
 		                    
 		                    <td colspan="2">
+		                    	<a class="btn btn-outline-danger btn-sm" th:href="@{/pessoaCodDiferenciado/cancelar/lista/unidade/{id} (id=${f.id}) }" role="button">
+		                        	<span class="oi oi-circle-x" title="Excluir" aria-hidden="true"></span>
+		                        </a>
+		                    
 		                    	<button th:id="${ 'btn_pessoaCodDiferenciado/cancelar/lista/unidade/' + f.id}" type="button" class="btn btn btn-outline-danger btn-sm" 
 		                            		data-toggle="modal" data-target="#myModal">
 		                                <span class="oi oi-circle-x" title="Exclusão habilitada" aria-hidden="true"></span>
