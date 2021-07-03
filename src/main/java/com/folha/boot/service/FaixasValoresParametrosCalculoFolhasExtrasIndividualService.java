@@ -128,6 +128,11 @@ public class FaixasValoresParametrosCalculoFolhasExtrasIndividualService {
 				f.setValorHoraDia(listaInicial.get(i).getValorHoraDia());
 				f.setValorHoraFimDeSemana(listaInicial.get(i).getValorHoraFimDeSemana());
 				f.setValorHoraNoite(listaInicial.get(i).getValorHoraNoite());
+				
+				f.setValorHoraA(listaInicial.get(i).getValorHoraA());
+				f.setValorHoraB(listaInicial.get(i).getValorHoraB());
+				f.setValorHoraC(listaInicial.get(i).getValorHoraC());
+				
 				f.setValorHoraSemana(listaInicial.get(i).getValorHoraSemana());
 				f.setValorLiquidoPorHora(listaInicial.get(i).getValorLiquidoPorHora());
 				f.setObservacao(listaInicial.get(i).getObservacao());
@@ -177,46 +182,58 @@ public class FaixasValoresParametrosCalculoFolhasExtrasIndividualService {
 	        cell.setCellStyle(headerCellStyle);
 	        
 	        cell = row.createCell(7);
-	        cell.setCellValue("Valor Hr Semana");
+	        cell.setCellValue("Valor Hr A");
 	        cell.setCellStyle(headerCellStyle);
 	        
 	        cell = row.createCell(8);
-	        cell.setCellValue("Valor Hr Fim Semana");
+	        cell.setCellValue("Valor Hr B");
 	        cell.setCellStyle(headerCellStyle);
 	        
 	        cell = row.createCell(9);
-	        cell.setCellValue("Valor Liquido por Hora");
+	        cell.setCellValue("Valor Hr C");
 	        cell.setCellStyle(headerCellStyle);
 	        
 	        cell = row.createCell(10);
-	        cell.setCellValue("Valor Bruto por Hora");
+	        cell.setCellValue("Valor Hr Semana");
 	        cell.setCellStyle(headerCellStyle);
 	        
 	        cell = row.createCell(11);
-	        cell.setCellValue("Valor Bruto Total");
+	        cell.setCellValue("Valor Hr Fim Semana");
 	        cell.setCellStyle(headerCellStyle);
 	        
 	        cell = row.createCell(12);
-	        cell.setCellValue("Nível");
+	        cell.setCellValue("Valor Liquido por Hora");
 	        cell.setCellStyle(headerCellStyle);
 	        
 	        cell = row.createCell(13);
-	        cell.setCellValue("Regime");
+	        cell.setCellValue("Valor Bruto por Hora");
 	        cell.setCellStyle(headerCellStyle);
 	        
 	        cell = row.createCell(14);
-	        cell.setCellValue("Diferenciado");
+	        cell.setCellValue("Valor Bruto Total");
 	        cell.setCellStyle(headerCellStyle);
 	        
 	        cell = row.createCell(15);
-	        cell.setCellValue("Cnes");
+	        cell.setCellValue("Nível");
 	        cell.setCellStyle(headerCellStyle);
 	        
 	        cell = row.createCell(16);
-	        cell.setCellValue("Unidade");
+	        cell.setCellValue("Regime");
 	        cell.setCellStyle(headerCellStyle);
 	        
 	        cell = row.createCell(17);
+	        cell.setCellValue("Diferenciado");
+	        cell.setCellStyle(headerCellStyle);
+	        
+	        cell = row.createCell(18);
+	        cell.setCellValue("Cnes");
+	        cell.setCellStyle(headerCellStyle);
+	        
+	        cell = row.createCell(19);
+	        cell.setCellValue("Unidade");
+	        cell.setCellStyle(headerCellStyle);
+	        
+	        cell = row.createCell(20);
 	        cell.setCellValue("Obs");
 	        cell.setCellStyle(headerCellStyle);
 	        
@@ -230,17 +247,22 @@ public class FaixasValoresParametrosCalculoFolhasExtrasIndividualService {
 	        	dataRow.createCell(4).setCellValue(lista.get(i).getIdTipoDeFolhaFk().getNomeTipoFolha());
 	        	dataRow.createCell(5).setCellValue(lista.get(i).getValorHoraDia());
 	        	dataRow.createCell(6).setCellValue(lista.get(i).getValorHoraNoite());
-	        	dataRow.createCell(7).setCellValue(lista.get(i).getValorHoraSemana());
-	        	dataRow.createCell(8).setCellValue(lista.get(i).getValorHoraFimDeSemana());
-	        	dataRow.createCell(9).setCellValue(lista.get(i).getValorLiquidoPorHora());
-	        	dataRow.createCell(10).setCellValue(lista.get(i).getValorBrutoPorHora());
-	        	dataRow.createCell(11).setCellValue(lista.get(i).getValorBrutoFixoTotal());
-	        	dataRow.createCell(12).setCellValue(lista.get(i).getIdNivelFk().getNomeNivelCargo());
-	        	dataRow.createCell(13).setCellValue(lista.get(i).getIdRegimeDeTrabalhoFk().getNomeRegimeDeTrabalho());
-	        	dataRow.createCell(14).setCellValue(lista.get(i).getIdCodDiferenciadoFk().getNomeCodigoDiferenciado());
-	        	dataRow.createCell(15).setCellValue(lista.get(i).getIdCodDiferenciadoFk().getIdUnidadeFk().getCnes());
-	        	dataRow.createCell(16).setCellValue(lista.get(i).getIdCodDiferenciadoFk().getIdUnidadeFk().getNomeFantasia());
-	        	dataRow.createCell(17).setCellValue(lista.get(i).getObservacao());
+	        	
+	        	dataRow.createCell(7).setCellValue(lista.get(i).getValorHoraA());
+	        	dataRow.createCell(8).setCellValue(lista.get(i).getValorHoraB());
+	        	dataRow.createCell(9).setCellValue(lista.get(i).getValorHoraC());
+	        	
+	        	dataRow.createCell(10).setCellValue(lista.get(i).getValorHoraSemana());
+	        	dataRow.createCell(11).setCellValue(lista.get(i).getValorHoraFimDeSemana());
+	        	dataRow.createCell(12).setCellValue(lista.get(i).getValorLiquidoPorHora());
+	        	dataRow.createCell(13).setCellValue(lista.get(i).getValorBrutoPorHora());
+	        	dataRow.createCell(14).setCellValue(lista.get(i).getValorBrutoFixoTotal());
+	        	dataRow.createCell(15).setCellValue(lista.get(i).getIdNivelFk().getNomeNivelCargo());
+	        	dataRow.createCell(16).setCellValue(lista.get(i).getIdRegimeDeTrabalhoFk().getNomeRegimeDeTrabalho());
+	        	dataRow.createCell(17).setCellValue(lista.get(i).getIdCodDiferenciadoFk().getNomeCodigoDiferenciado());
+	        	dataRow.createCell(18).setCellValue(lista.get(i).getIdCodDiferenciadoFk().getIdUnidadeFk().getCnes());
+	        	dataRow.createCell(19).setCellValue(lista.get(i).getIdCodDiferenciadoFk().getIdUnidadeFk().getNomeFantasia());
+	        	dataRow.createCell(20).setCellValue(lista.get(i).getObservacao());
 	        	
 	        	
 	        }
@@ -264,6 +286,9 @@ public class FaixasValoresParametrosCalculoFolhasExtrasIndividualService {
 	        sheet.autoSizeColumn(15);
 	        sheet.autoSizeColumn(16);
 	        sheet.autoSizeColumn(17);
+	        sheet.autoSizeColumn(18);
+	        sheet.autoSizeColumn(19);
+	        sheet.autoSizeColumn(20);
 	        
 	        
 	        
@@ -284,9 +309,9 @@ public class FaixasValoresParametrosCalculoFolhasExtrasIndividualService {
 
 		try {
 
-			PdfPTable table = new PdfPTable(18);
+			PdfPTable table = new PdfPTable(21);
 			table.setWidthPercentage(90);
-			table.setWidths(new int[] { 2, 2, 2, 9, 2, 2, 2, 2, 2, 2, 2, 3, 2, 2, 2, 2, 9, 6 });
+			table.setWidths(new int[] { 2, 2, 2, 9, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 3, 2, 2, 2, 2, 9, 6 });
 
 			// Tipos de Fonte
 			Font tituloFont = FontFactory.getFont(FontFactory.HELVETICA_BOLD,14);
@@ -322,6 +347,18 @@ public class FaixasValoresParametrosCalculoFolhasExtrasIndividualService {
 			table.addCell(hcell);
 			
 			hcell = new PdfPCell(new Phrase("Valor Hora Noite", cabecalhoFont));
+			hcell.setHorizontalAlignment(Element.ALIGN_CENTER);
+			table.addCell(hcell);
+			
+			hcell = new PdfPCell(new Phrase("Valor Hora A", cabecalhoFont));
+			hcell.setHorizontalAlignment(Element.ALIGN_CENTER);
+			table.addCell(hcell);
+			
+			hcell = new PdfPCell(new Phrase("Valor Hora B", cabecalhoFont));
+			hcell.setHorizontalAlignment(Element.ALIGN_CENTER);
+			table.addCell(hcell);
+			
+			hcell = new PdfPCell(new Phrase("Valor Hora C", cabecalhoFont));
 			hcell.setHorizontalAlignment(Element.ALIGN_CENTER);
 			table.addCell(hcell);
 			
@@ -409,6 +446,21 @@ public class FaixasValoresParametrosCalculoFolhasExtrasIndividualService {
 				table.addCell(cell);
 				
 				cell = new PdfPCell(new Phrase(String.valueOf(lista.get(i).getValorHoraNoite()) ,corpoFont) );
+				cell.setVerticalAlignment(Element.ALIGN_MIDDLE);
+				cell.setHorizontalAlignment(Element.ALIGN_CENTER);
+				table.addCell(cell);
+				
+				cell = new PdfPCell(new Phrase(String.valueOf(lista.get(i).getValorHoraA()) ,corpoFont) );
+				cell.setVerticalAlignment(Element.ALIGN_MIDDLE);
+				cell.setHorizontalAlignment(Element.ALIGN_CENTER);
+				table.addCell(cell);
+				
+				cell = new PdfPCell(new Phrase(String.valueOf(lista.get(i).getValorHoraB()) ,corpoFont) );
+				cell.setVerticalAlignment(Element.ALIGN_MIDDLE);
+				cell.setHorizontalAlignment(Element.ALIGN_CENTER);
+				table.addCell(cell);
+				
+				cell = new PdfPCell(new Phrase(String.valueOf(lista.get(i).getValorHoraC()) ,corpoFont) );
 				cell.setVerticalAlignment(Element.ALIGN_MIDDLE);
 				cell.setHorizontalAlignment(Element.ALIGN_CENTER);
 				table.addCell(cell);

@@ -2107,6 +2107,14 @@ public class CalculosAlternativosService {
 						int horasFimSemana = listaEscalas.get(i).getEscala().getHorasFimSemana();
 						int horasTotais = listaEscalas.get(i).getEscala().getHorasTotais();
 						
+						int horasA = listaEscalas.get(i).getEscala().getHorasA();
+						int horasB = listaEscalas.get(i).getEscala().getHorasB();
+						int horasC = listaEscalas.get(i).getEscala().getHorasC();
+						
+						Double valorHorasA = listaValoresExtra.get(j).getValorHoraA();
+						Double valorHorasB = listaValoresExtra.get(j).getValorHoraB();
+						Double valorHorasC = listaValoresExtra.get(j).getValorHoraC();
+						
 						Double valorHorasDia = listaValoresExtra.get(j).getValorHoraDia();
 						Double valorHorasNoite = listaValoresExtra.get(j).getValorHoraNoite();
 						Double valorHorasSemana = listaValoresExtra.get(j).getValorHoraSemana();
@@ -2133,6 +2141,10 @@ public class CalculosAlternativosService {
 								
 									 valorHorasDia = listaValoresExtraIndividual.get(k).getValorHoraDia();
 									 
+									 valorHorasA = listaValoresExtraIndividual.get(k).getValorHoraA();
+									 valorHorasB = listaValoresExtraIndividual.get(k).getValorHoraB();
+									 valorHorasC = listaValoresExtraIndividual.get(k).getValorHoraC();
+									 
 									 valorHorasNoite = listaValoresExtraIndividual.get(k).getValorHoraNoite();
 									 valorHorasSemana = listaValoresExtraIndividual.get(k).getValorHoraSemana();
 									 valorHorasFimSemana = listaValoresExtraIndividual.get(k).getValorHoraFimDeSemana();
@@ -2145,11 +2157,11 @@ public class CalculosAlternativosService {
 						
 						
 						if(listaValoresExtra.get(j).getIdCodDiferenciadoFk().getIdTipoBrutoLiquidoFk().getNome().equalsIgnoreCase("B")) {
-							valorBruto= (horasDia*valorHorasDia) + (horasNoite*valorHorasNoite) + (horasSemana*valorHorasSemana) + (horasFimSemana*valorHorasFimSemana) + (horasTotais*valorHorasTotaisBruta);
+							valorBruto= (horasDia*valorHorasDia) + (horasNoite*valorHorasNoite) + (horasA*valorHorasA) + (horasB*valorHorasB) + (horasC*valorHorasC) + (horasSemana*valorHorasSemana) + (horasFimSemana*valorHorasFimSemana) + (horasTotais*valorHorasTotaisBruta);
 						}
 						
 						if(listaValoresExtra.get(j).getIdCodDiferenciadoFk().getIdTipoBrutoLiquidoFk().getNome().equalsIgnoreCase("L")) {
-							valorLiquido= (horasDia*valorHorasDia) + (horasNoite*valorHorasNoite) + (horasSemana*valorHorasSemana) + (horasFimSemana*valorHorasFimSemana) + (horasTotais*valorHorasTotaisLiquida);
+							valorLiquido= (horasDia*valorHorasDia) + (horasNoite*valorHorasNoite) + (horasA*valorHorasA) + (horasB*valorHorasB) + (horasC*valorHorasC) + (horasSemana*valorHorasSemana) + (horasFimSemana*valorHorasFimSemana) + (horasTotais*valorHorasTotaisLiquida);
 						}
 						
 						r.setAnoMes(anoMes);
@@ -2313,6 +2325,14 @@ public class CalculosAlternativosService {
 										int horasFimSemana = listaEscalas.get(i).getEscala().getHorasFimSemana();
 										int horasTotais = listaEscalas.get(i).getEscala().getHorasTotais();
 										
+										int horasA = listaEscalas.get(i).getEscala().getHorasA();
+										int horasB = listaEscalas.get(i).getEscala().getHorasB();
+										int horasC = listaEscalas.get(i).getEscala().getHorasC();
+										
+										Double valorHorasA = listaValoresExtra.get(j).getValorHoraA();
+										Double valorHorasB = listaValoresExtra.get(j).getValorHoraB();
+										Double valorHorasC = listaValoresExtra.get(j).getValorHoraC();
+										
 										Double valorHorasDia = listaValoresExtra.get(j).getValorHoraDia();
 										Double valorHorasNoite = listaValoresExtra.get(j).getValorHoraNoite();
 										Double valorHorasSemana = listaValoresExtra.get(j).getValorHoraSemana();
@@ -2336,6 +2356,10 @@ public class CalculosAlternativosService {
 													 
 													
 												) {
+													 valorHorasA = listaValoresExtraIndividual.get(m).getValorHoraA();
+													 valorHorasB = listaValoresExtraIndividual.get(m).getValorHoraB();
+													 valorHorasC = listaValoresExtraIndividual.get(m).getValorHoraC();
+												
 													 valorHorasDia = listaValoresExtraIndividual.get(m).getValorHoraDia();
 													 valorHorasNoite = listaValoresExtraIndividual.get(m).getValorHoraNoite();
 													 valorHorasSemana = listaValoresExtraIndividual.get(m).getValorHoraSemana();
@@ -2349,11 +2373,11 @@ public class CalculosAlternativosService {
 										
 										
 										if(listaValoresExtra.get(j).getIdCodDiferenciadoFk().getIdTipoBrutoLiquidoFk().getNome().equalsIgnoreCase("B")) {
-											valorBruto= (horasDia*valorHorasDia) + (horasNoite*valorHorasNoite) + (horasSemana*valorHorasSemana) + (horasFimSemana*valorHorasFimSemana) + (horasTotais*valorHorasTotaisBruta);
+											valorBruto= (horasDia*valorHorasDia) + (horasNoite*valorHorasNoite)+ (horasA*valorHorasA)+ (horasB*valorHorasB)+ (horasC*valorHorasC) + (horasSemana*valorHorasSemana) + (horasFimSemana*valorHorasFimSemana) + (horasTotais*valorHorasTotaisBruta);
 										}
 										
 										if(listaValoresExtra.get(j).getIdCodDiferenciadoFk().getIdTipoBrutoLiquidoFk().getNome().equalsIgnoreCase("L")) {
-											valorLiquido= (horasDia*valorHorasDia) + (horasNoite*valorHorasNoite) + (horasSemana*valorHorasSemana) + (horasFimSemana*valorHorasFimSemana) + (horasTotais*valorHorasTotaisLiquida);
+											valorLiquido= (horasDia*valorHorasDia) + (horasNoite*valorHorasNoite) +(horasA*valorHorasA) +(horasB*valorHorasB) +(horasC*valorHorasC) + (horasSemana*valorHorasSemana) + (horasFimSemana*valorHorasFimSemana) + (horasTotais*valorHorasTotaisLiquida);
 										}
 										
 										r.setAnoMes(anoMes);

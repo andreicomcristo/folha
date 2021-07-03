@@ -241,6 +241,15 @@ public class FaixasValoresParametrosCalculoFolhasExtrasIndividualController {
 		if(faixasValoresParametrosCalculoFolhasExtrasIndividual.getValorHoraNoite()==null) {
 			faixasValoresParametrosCalculoFolhasExtrasIndividual.setValorHoraNoite(0.0);
 		}
+		if(faixasValoresParametrosCalculoFolhasExtrasIndividual.getValorHoraA()==null) {
+			faixasValoresParametrosCalculoFolhasExtrasIndividual.setValorHoraA(0.0);
+		}
+		if(faixasValoresParametrosCalculoFolhasExtrasIndividual.getValorHoraB()==null) {
+			faixasValoresParametrosCalculoFolhasExtrasIndividual.setValorHoraB(0.0);
+		}
+		if(faixasValoresParametrosCalculoFolhasExtrasIndividual.getValorHoraC()==null) {
+			faixasValoresParametrosCalculoFolhasExtrasIndividual.setValorHoraC(0.0);
+		}
 		if(faixasValoresParametrosCalculoFolhasExtrasIndividual.getValorHoraSemana()==null) {
 			faixasValoresParametrosCalculoFolhasExtrasIndividual.setValorHoraSemana(0.0);
 		}
@@ -280,6 +289,15 @@ public class FaixasValoresParametrosCalculoFolhasExtrasIndividualController {
 		}
 		if(faixasValoresParametrosCalculoFolhasExtrasIndividual.getValorHoraNoite()==null) {
 			faixasValoresParametrosCalculoFolhasExtrasIndividual.setValorHoraNoite(0.0);
+		}
+		if(faixasValoresParametrosCalculoFolhasExtrasIndividual.getValorHoraA()==null) {
+			faixasValoresParametrosCalculoFolhasExtrasIndividual.setValorHoraA(0.0);
+		}
+		if(faixasValoresParametrosCalculoFolhasExtrasIndividual.getValorHoraB()==null) {
+			faixasValoresParametrosCalculoFolhasExtrasIndividual.setValorHoraB(0.0);
+		}
+		if(faixasValoresParametrosCalculoFolhasExtrasIndividual.getValorHoraC()==null) {
+			faixasValoresParametrosCalculoFolhasExtrasIndividual.setValorHoraC(0.0);
 		}
 		if(faixasValoresParametrosCalculoFolhasExtrasIndividual.getValorHoraSemana()==null) {
 			faixasValoresParametrosCalculoFolhasExtrasIndividual.setValorHoraSemana(0.0);

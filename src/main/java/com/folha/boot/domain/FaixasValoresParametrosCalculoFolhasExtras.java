@@ -13,6 +13,15 @@ public class FaixasValoresParametrosCalculoFolhasExtras extends AbstractEntity<L
     private Double valorHoraDia;
     @Column(name = "valor_hora_noite")
     private Double valorHoraNoite;
+    
+    @Column(name = "valor_hora_a")
+    private Double valorHoraA;
+    @Column(name = "valor_hora_b")
+    private Double valorHoraB;
+    @Column(name = "valor_hora_c")
+    private Double valorHoraC;
+    
+    
     @Column(name = "valor_hora_semana")
     private Double valorHoraSemana;
     @Column(name = "valor_hora_fim_de_semana")
@@ -111,6 +120,24 @@ public class FaixasValoresParametrosCalculoFolhasExtras extends AbstractEntity<L
 	}
 	public void setIdTipoDeFolhaFk(TiposDeFolha idTipoDeFolhaFk) {
 		this.idTipoDeFolhaFk = idTipoDeFolhaFk;
+	}
+	public Double getValorHoraA() {
+		return valorHoraA;
+	}
+	public void setValorHoraA(Double valorHoraA) {
+		this.valorHoraA = valorHoraA;
+	}
+	public Double getValorHoraB() {
+		return valorHoraB;
+	}
+	public void setValorHoraB(Double valorHoraB) {
+		this.valorHoraB = valorHoraB;
+	}
+	public Double getValorHoraC() {
+		return valorHoraC;
+	}
+	public void setValorHoraC(Double valorHoraC) {
+		this.valorHoraC = valorHoraC;
 	}
 	
 	
