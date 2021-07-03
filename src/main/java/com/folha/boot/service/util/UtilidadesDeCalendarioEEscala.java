@@ -576,6 +576,122 @@ public class UtilidadesDeCalendarioEEscala {
     	return resposta;
     }
     
+    public int horasAEscala(Escala escala) {
+    	int resposta = 0;
+    	
+    	resposta = resposta + escala.getDia01Fk().getHorasA(); 
+    	resposta = resposta + escala.getDia02Fk().getHorasA();
+    	resposta = resposta + escala.getDia03Fk().getHorasA();
+    	resposta = resposta + escala.getDia04Fk().getHorasA();
+    	resposta = resposta + escala.getDia05Fk().getHorasA();
+    	resposta = resposta + escala.getDia06Fk().getHorasA();
+    	resposta = resposta + escala.getDia07Fk().getHorasA();
+    	resposta = resposta + escala.getDia08Fk().getHorasA();
+    	resposta = resposta + escala.getDia09Fk().getHorasA();
+    	resposta = resposta + escala.getDia10Fk().getHorasA();
+    	resposta = resposta + escala.getDia11Fk().getHorasA();
+    	resposta = resposta + escala.getDia12Fk().getHorasA();
+    	resposta = resposta + escala.getDia13Fk().getHorasA();
+    	resposta = resposta + escala.getDia14Fk().getHorasA();
+    	resposta = resposta + escala.getDia15Fk().getHorasA();
+    	resposta = resposta + escala.getDia16Fk().getHorasA();
+    	resposta = resposta + escala.getDia17Fk().getHorasA();
+    	resposta = resposta + escala.getDia18Fk().getHorasA();
+    	resposta = resposta + escala.getDia19Fk().getHorasA();
+    	resposta = resposta + escala.getDia20Fk().getHorasA();
+    	resposta = resposta + escala.getDia21Fk().getHorasA();
+    	resposta = resposta + escala.getDia22Fk().getHorasA();
+    	resposta = resposta + escala.getDia23Fk().getHorasA();
+    	resposta = resposta + escala.getDia24Fk().getHorasA();
+    	resposta = resposta + escala.getDia25Fk().getHorasA();
+    	resposta = resposta + escala.getDia26Fk().getHorasA();
+    	resposta = resposta + escala.getDia27Fk().getHorasA();
+    	resposta = resposta + escala.getDia28Fk().getHorasA();
+    	resposta = resposta + escala.getDia29Fk().getHorasA();
+    	resposta = resposta + escala.getDia30Fk().getHorasA();
+    	resposta = resposta + escala.getDia31Fk().getHorasA();
+    	
+    	return resposta;
+    }
+    
+    public int horasBEscala(Escala escala) {
+    	int resposta = 0;
+    	
+    	resposta = resposta + escala.getDia01Fk().getHorasB(); 
+    	resposta = resposta + escala.getDia02Fk().getHorasB();
+    	resposta = resposta + escala.getDia03Fk().getHorasB();
+    	resposta = resposta + escala.getDia04Fk().getHorasB();
+    	resposta = resposta + escala.getDia05Fk().getHorasB();
+    	resposta = resposta + escala.getDia06Fk().getHorasB();
+    	resposta = resposta + escala.getDia07Fk().getHorasB();
+    	resposta = resposta + escala.getDia08Fk().getHorasB();
+    	resposta = resposta + escala.getDia09Fk().getHorasB();
+    	resposta = resposta + escala.getDia10Fk().getHorasB();
+    	resposta = resposta + escala.getDia11Fk().getHorasB();
+    	resposta = resposta + escala.getDia12Fk().getHorasB();
+    	resposta = resposta + escala.getDia13Fk().getHorasB();
+    	resposta = resposta + escala.getDia14Fk().getHorasB();
+    	resposta = resposta + escala.getDia15Fk().getHorasB();
+    	resposta = resposta + escala.getDia16Fk().getHorasB();
+    	resposta = resposta + escala.getDia17Fk().getHorasB();
+    	resposta = resposta + escala.getDia18Fk().getHorasB();
+    	resposta = resposta + escala.getDia19Fk().getHorasB();
+    	resposta = resposta + escala.getDia20Fk().getHorasB();
+    	resposta = resposta + escala.getDia21Fk().getHorasB();
+    	resposta = resposta + escala.getDia22Fk().getHorasB();
+    	resposta = resposta + escala.getDia23Fk().getHorasB();
+    	resposta = resposta + escala.getDia24Fk().getHorasB();
+    	resposta = resposta + escala.getDia25Fk().getHorasB();
+    	resposta = resposta + escala.getDia26Fk().getHorasB();
+    	resposta = resposta + escala.getDia27Fk().getHorasB();
+    	resposta = resposta + escala.getDia28Fk().getHorasB();
+    	resposta = resposta + escala.getDia29Fk().getHorasB();
+    	resposta = resposta + escala.getDia30Fk().getHorasB();
+    	resposta = resposta + escala.getDia31Fk().getHorasB();
+    	
+    	return resposta;
+    }
+    
+    public int horasCEscala(Escala escala) {
+    	int resposta = 0;
+    	
+    	resposta = resposta + escala.getDia01Fk().getHorasC(); 
+    	resposta = resposta + escala.getDia02Fk().getHorasC();
+    	resposta = resposta + escala.getDia03Fk().getHorasC();
+    	resposta = resposta + escala.getDia04Fk().getHorasC();
+    	resposta = resposta + escala.getDia05Fk().getHorasC();
+    	resposta = resposta + escala.getDia06Fk().getHorasC();
+    	resposta = resposta + escala.getDia07Fk().getHorasC();
+    	resposta = resposta + escala.getDia08Fk().getHorasC();
+    	resposta = resposta + escala.getDia09Fk().getHorasC();
+    	resposta = resposta + escala.getDia10Fk().getHorasC();
+    	resposta = resposta + escala.getDia11Fk().getHorasC();
+    	resposta = resposta + escala.getDia12Fk().getHorasC();
+    	resposta = resposta + escala.getDia13Fk().getHorasC();
+    	resposta = resposta + escala.getDia14Fk().getHorasC();
+    	resposta = resposta + escala.getDia15Fk().getHorasC();
+    	resposta = resposta + escala.getDia16Fk().getHorasC();
+    	resposta = resposta + escala.getDia17Fk().getHorasC();
+    	resposta = resposta + escala.getDia18Fk().getHorasC();
+    	resposta = resposta + escala.getDia19Fk().getHorasC();
+    	resposta = resposta + escala.getDia20Fk().getHorasC();
+    	resposta = resposta + escala.getDia21Fk().getHorasC();
+    	resposta = resposta + escala.getDia22Fk().getHorasC();
+    	resposta = resposta + escala.getDia23Fk().getHorasC();
+    	resposta = resposta + escala.getDia24Fk().getHorasC();
+    	resposta = resposta + escala.getDia25Fk().getHorasC();
+    	resposta = resposta + escala.getDia26Fk().getHorasC();
+    	resposta = resposta + escala.getDia27Fk().getHorasC();
+    	resposta = resposta + escala.getDia28Fk().getHorasC();
+    	resposta = resposta + escala.getDia29Fk().getHorasC();
+    	resposta = resposta + escala.getDia30Fk().getHorasC();
+    	resposta = resposta + escala.getDia31Fk().getHorasC();
+    	
+    	return resposta;
+    }
+    
+    
+    
     public int horasSemanaEscala(Escala escala) {
     	int resposta = 0;
     

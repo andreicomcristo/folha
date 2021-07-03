@@ -767,13 +767,16 @@ public class CalculosAlternativosService {
 									
 									//Tirando os noturnos
 									if(listaLicencas.get(j).getFuncionariosLicencas().getIdCorteAdicionalNoturnoSimNaoFk().getSigla().equalsIgnoreCase("S")) {
-										if(listaEscalas.get(i).getEscala().getDia01Fk().getHorasNoite()>0) {
+										if(listaEscalas.get(i).getEscala().getDia01Fk().getHorasNoite()>0 || listaEscalas.get(i).getEscala().getDia01Fk().getHorasA()>0 || listaEscalas.get(i).getEscala().getDia01Fk().getHorasB()>0 || listaEscalas.get(i).getEscala().getDia01Fk().getHorasC()>0) {
 											listaEscalas.get(i).getReferencias().setObsReferencias( listaEscalas.get(i).getReferencias().getObsReferencias()+ " 01"+ listaEscalas.get(i).getEscala().getDia01Fk().getHorasNoite());
 										}
 										listaEscalas.get(i).getEscala().getDia01Fk().setPlantoes( 0.0 );
-										listaEscalas.get(i).getEscala().getDia01Fk().setHorasManha( listaEscalas.get(i).getEscala().getDia01Fk().getHorasManha()+ listaEscalas.get(i).getEscala().getDia01Fk().getHorasNoite()/2 );
-										listaEscalas.get(i).getEscala().getDia01Fk().setHorasTarde( listaEscalas.get(i).getEscala().getDia01Fk().getHorasTarde()+ listaEscalas.get(i).getEscala().getDia01Fk().getHorasNoite()/2 );
+										listaEscalas.get(i).getEscala().getDia01Fk().setHorasManha( listaEscalas.get(i).getEscala().getDia01Fk().getHorasManha()+ (listaEscalas.get(i).getEscala().getDia01Fk().getHorasNoite()/2)+ (listaEscalas.get(i).getEscala().getDia01Fk().getHorasA()/2) + (listaEscalas.get(i).getEscala().getDia01Fk().getHorasB()/2) + (listaEscalas.get(i).getEscala().getDia01Fk().getHorasC()/2) );
+										listaEscalas.get(i).getEscala().getDia01Fk().setHorasTarde( listaEscalas.get(i).getEscala().getDia01Fk().getHorasTarde()+ (listaEscalas.get(i).getEscala().getDia01Fk().getHorasNoite()/2)+ (listaEscalas.get(i).getEscala().getDia01Fk().getHorasA()/2) + (listaEscalas.get(i).getEscala().getDia01Fk().getHorasB()/2) + (listaEscalas.get(i).getEscala().getDia01Fk().getHorasC()/2) );
 										listaEscalas.get(i).getEscala().getDia01Fk().setHorasNoite( 0 );
+										listaEscalas.get(i).getEscala().getDia01Fk().setHorasA( 0 );
+										listaEscalas.get(i).getEscala().getDia01Fk().setHorasB( 0 );
+										listaEscalas.get(i).getEscala().getDia01Fk().setHorasC( 0 );
 									}
 									
 									//Tirando horas Efetivas
@@ -805,13 +808,16 @@ public class CalculosAlternativosService {
 									
 									//Tirando os noturnos
 									if(listaLicencas.get(j).getFuncionariosLicencas().getIdCorteAdicionalNoturnoSimNaoFk().getSigla().equalsIgnoreCase("S")) {
-										if(listaEscalas.get(i).getEscala().getDia02Fk().getHorasNoite()>0) {
+										if(listaEscalas.get(i).getEscala().getDia02Fk().getHorasNoite()>0 || listaEscalas.get(i).getEscala().getDia02Fk().getHorasA()>0 || listaEscalas.get(i).getEscala().getDia02Fk().getHorasB()>0 || listaEscalas.get(i).getEscala().getDia02Fk().getHorasC()>0) {
 											listaEscalas.get(i).getReferencias().setObsReferencias( listaEscalas.get(i).getReferencias().getObsReferencias()+ " 02"+ listaEscalas.get(i).getEscala().getDia02Fk().getHorasNoite());
 										}
 										listaEscalas.get(i).getEscala().getDia02Fk().setPlantoes( 0.0 );
-										listaEscalas.get(i).getEscala().getDia02Fk().setHorasManha( listaEscalas.get(i).getEscala().getDia02Fk().getHorasManha()+ listaEscalas.get(i).getEscala().getDia02Fk().getHorasNoite()/2 );
-										listaEscalas.get(i).getEscala().getDia02Fk().setHorasTarde( listaEscalas.get(i).getEscala().getDia02Fk().getHorasTarde()+ listaEscalas.get(i).getEscala().getDia02Fk().getHorasNoite()/2 );
+										listaEscalas.get(i).getEscala().getDia02Fk().setHorasManha( listaEscalas.get(i).getEscala().getDia02Fk().getHorasManha()+ (listaEscalas.get(i).getEscala().getDia02Fk().getHorasNoite()/2 )+ (listaEscalas.get(i).getEscala().getDia02Fk().getHorasA()/2) + (listaEscalas.get(i).getEscala().getDia02Fk().getHorasB()/2) + (listaEscalas.get(i).getEscala().getDia02Fk().getHorasC()/2) );
+										listaEscalas.get(i).getEscala().getDia02Fk().setHorasTarde( listaEscalas.get(i).getEscala().getDia02Fk().getHorasTarde()+ (listaEscalas.get(i).getEscala().getDia02Fk().getHorasNoite()/2 )+ (listaEscalas.get(i).getEscala().getDia02Fk().getHorasA()/2) + (listaEscalas.get(i).getEscala().getDia02Fk().getHorasB()/2) + (listaEscalas.get(i).getEscala().getDia02Fk().getHorasC()/2) );
 										listaEscalas.get(i).getEscala().getDia02Fk().setHorasNoite( 0 );
+										listaEscalas.get(i).getEscala().getDia02Fk().setHorasA( 0 );
+										listaEscalas.get(i).getEscala().getDia02Fk().setHorasB( 0 );
+										listaEscalas.get(i).getEscala().getDia02Fk().setHorasC( 0 );
 									}
 									
 									//Tirando horas Efetivas
@@ -843,13 +849,16 @@ public class CalculosAlternativosService {
 									
 									//Tirando os noturnos
 									if(listaLicencas.get(j).getFuncionariosLicencas().getIdCorteAdicionalNoturnoSimNaoFk().getSigla().equalsIgnoreCase("S")) {
-										if(listaEscalas.get(i).getEscala().getDia03Fk().getHorasNoite()>0) {
+										if(listaEscalas.get(i).getEscala().getDia03Fk().getHorasNoite()>0 || listaEscalas.get(i).getEscala().getDia03Fk().getHorasA()>0 || listaEscalas.get(i).getEscala().getDia03Fk().getHorasB()>0 || listaEscalas.get(i).getEscala().getDia03Fk().getHorasC()>0) {
 											listaEscalas.get(i).getReferencias().setObsReferencias( listaEscalas.get(i).getReferencias().getObsReferencias()+ " 03"+ listaEscalas.get(i).getEscala().getDia03Fk().getHorasNoite());
 										}
 										listaEscalas.get(i).getEscala().getDia03Fk().setPlantoes( 0.0 );
-										listaEscalas.get(i).getEscala().getDia03Fk().setHorasManha( listaEscalas.get(i).getEscala().getDia03Fk().getHorasManha()+ listaEscalas.get(i).getEscala().getDia03Fk().getHorasNoite()/2 );
-										listaEscalas.get(i).getEscala().getDia03Fk().setHorasTarde( listaEscalas.get(i).getEscala().getDia03Fk().getHorasTarde()+ listaEscalas.get(i).getEscala().getDia03Fk().getHorasNoite()/2 );
+										listaEscalas.get(i).getEscala().getDia03Fk().setHorasManha( listaEscalas.get(i).getEscala().getDia03Fk().getHorasManha()+ (listaEscalas.get(i).getEscala().getDia03Fk().getHorasNoite()/2)+ (listaEscalas.get(i).getEscala().getDia03Fk().getHorasA()/2) + (listaEscalas.get(i).getEscala().getDia03Fk().getHorasB()/2) + (listaEscalas.get(i).getEscala().getDia03Fk().getHorasC()/2) ); 
+										listaEscalas.get(i).getEscala().getDia03Fk().setHorasTarde( listaEscalas.get(i).getEscala().getDia03Fk().getHorasTarde()+ (listaEscalas.get(i).getEscala().getDia03Fk().getHorasNoite()/2)+ (listaEscalas.get(i).getEscala().getDia03Fk().getHorasA()/2) + (listaEscalas.get(i).getEscala().getDia03Fk().getHorasB()/2) + (listaEscalas.get(i).getEscala().getDia03Fk().getHorasC()/2) ); 
 										listaEscalas.get(i).getEscala().getDia03Fk().setHorasNoite( 0 );
+										listaEscalas.get(i).getEscala().getDia03Fk().setHorasA( 0 );
+										listaEscalas.get(i).getEscala().getDia03Fk().setHorasB( 0 );
+										listaEscalas.get(i).getEscala().getDia03Fk().setHorasC( 0 );
 									}
 									
 									//Tirando horas Efetivas
@@ -881,13 +890,16 @@ public class CalculosAlternativosService {
 									
 									//Tirando os noturnos
 									if(listaLicencas.get(j).getFuncionariosLicencas().getIdCorteAdicionalNoturnoSimNaoFk().getSigla().equalsIgnoreCase("S")) {
-										if(listaEscalas.get(i).getEscala().getDia04Fk().getHorasNoite()>0) {
+										if(listaEscalas.get(i).getEscala().getDia04Fk().getHorasNoite()>0 || listaEscalas.get(i).getEscala().getDia04Fk().getHorasA()>0 || listaEscalas.get(i).getEscala().getDia04Fk().getHorasB()>0 || listaEscalas.get(i).getEscala().getDia04Fk().getHorasC()>0) {
 											listaEscalas.get(i).getReferencias().setObsReferencias( listaEscalas.get(i).getReferencias().getObsReferencias()+ " 04"+ listaEscalas.get(i).getEscala().getDia04Fk().getHorasNoite());
 										}
 										listaEscalas.get(i).getEscala().getDia04Fk().setPlantoes( 0.0 );
-										listaEscalas.get(i).getEscala().getDia04Fk().setHorasManha( listaEscalas.get(i).getEscala().getDia04Fk().getHorasManha()+ listaEscalas.get(i).getEscala().getDia04Fk().getHorasNoite()/2 );
-										listaEscalas.get(i).getEscala().getDia04Fk().setHorasTarde( listaEscalas.get(i).getEscala().getDia04Fk().getHorasTarde()+ listaEscalas.get(i).getEscala().getDia04Fk().getHorasNoite()/2 );
+										listaEscalas.get(i).getEscala().getDia04Fk().setHorasManha( listaEscalas.get(i).getEscala().getDia04Fk().getHorasManha()+ (listaEscalas.get(i).getEscala().getDia04Fk().getHorasNoite()/2 )+ (listaEscalas.get(i).getEscala().getDia04Fk().getHorasA()/2) + (listaEscalas.get(i).getEscala().getDia04Fk().getHorasB()/2) + (listaEscalas.get(i).getEscala().getDia04Fk().getHorasC()/2) );
+										listaEscalas.get(i).getEscala().getDia04Fk().setHorasTarde( listaEscalas.get(i).getEscala().getDia04Fk().getHorasTarde()+ (listaEscalas.get(i).getEscala().getDia04Fk().getHorasNoite()/2 )+ (listaEscalas.get(i).getEscala().getDia04Fk().getHorasA()/2) + (listaEscalas.get(i).getEscala().getDia04Fk().getHorasB()/2) + (listaEscalas.get(i).getEscala().getDia04Fk().getHorasC()/2) );
 										listaEscalas.get(i).getEscala().getDia04Fk().setHorasNoite( 0 );
+										listaEscalas.get(i).getEscala().getDia04Fk().setHorasA( 0 );
+										listaEscalas.get(i).getEscala().getDia04Fk().setHorasB( 0 );
+										listaEscalas.get(i).getEscala().getDia04Fk().setHorasC( 0 );
 									}
 									
 									//Tirando horas Efetivas
@@ -919,13 +931,16 @@ public class CalculosAlternativosService {
 									
 									//Tirando os noturnos
 									if(listaLicencas.get(j).getFuncionariosLicencas().getIdCorteAdicionalNoturnoSimNaoFk().getSigla().equalsIgnoreCase("S")) {
-										if(listaEscalas.get(i).getEscala().getDia05Fk().getHorasNoite()>0) {
+										if(listaEscalas.get(i).getEscala().getDia05Fk().getHorasNoite()>0 || listaEscalas.get(i).getEscala().getDia05Fk().getHorasA()>0 || listaEscalas.get(i).getEscala().getDia05Fk().getHorasB()>0 || listaEscalas.get(i).getEscala().getDia05Fk().getHorasC()>0) {
 											listaEscalas.get(i).getReferencias().setObsReferencias( listaEscalas.get(i).getReferencias().getObsReferencias()+ " 05"+ listaEscalas.get(i).getEscala().getDia05Fk().getHorasNoite());
 										}
 										listaEscalas.get(i).getEscala().getDia05Fk().setPlantoes( 0.0 );
-										listaEscalas.get(i).getEscala().getDia05Fk().setHorasManha( listaEscalas.get(i).getEscala().getDia05Fk().getHorasManha()+ listaEscalas.get(i).getEscala().getDia05Fk().getHorasNoite()/2 );
-										listaEscalas.get(i).getEscala().getDia05Fk().setHorasTarde( listaEscalas.get(i).getEscala().getDia05Fk().getHorasTarde()+ listaEscalas.get(i).getEscala().getDia05Fk().getHorasNoite()/2 );
+										listaEscalas.get(i).getEscala().getDia05Fk().setHorasManha( listaEscalas.get(i).getEscala().getDia05Fk().getHorasManha()+ (listaEscalas.get(i).getEscala().getDia05Fk().getHorasNoite()/2 )+ (listaEscalas.get(i).getEscala().getDia05Fk().getHorasA()/2) + (listaEscalas.get(i).getEscala().getDia05Fk().getHorasB()/2) + (listaEscalas.get(i).getEscala().getDia05Fk().getHorasC()/2) );
+										listaEscalas.get(i).getEscala().getDia05Fk().setHorasTarde( listaEscalas.get(i).getEscala().getDia05Fk().getHorasTarde()+ (listaEscalas.get(i).getEscala().getDia05Fk().getHorasNoite()/2 )+ (listaEscalas.get(i).getEscala().getDia05Fk().getHorasA()/2) + (listaEscalas.get(i).getEscala().getDia05Fk().getHorasB()/2) + (listaEscalas.get(i).getEscala().getDia05Fk().getHorasC()/2) );
 										listaEscalas.get(i).getEscala().getDia05Fk().setHorasNoite( 0 );
+										listaEscalas.get(i).getEscala().getDia05Fk().setHorasA( 0 );
+										listaEscalas.get(i).getEscala().getDia05Fk().setHorasB( 0 );
+										listaEscalas.get(i).getEscala().getDia05Fk().setHorasC( 0 );
 									}
 									
 									//Tirando horas Efetivas
@@ -957,13 +972,16 @@ public class CalculosAlternativosService {
 									
 									//Tirando os noturnos
 									if(listaLicencas.get(j).getFuncionariosLicencas().getIdCorteAdicionalNoturnoSimNaoFk().getSigla().equalsIgnoreCase("S")) {
-										if(listaEscalas.get(i).getEscala().getDia06Fk().getHorasNoite()>0) {
+										if(listaEscalas.get(i).getEscala().getDia06Fk().getHorasNoite()>0 || listaEscalas.get(i).getEscala().getDia06Fk().getHorasA()>0 || listaEscalas.get(i).getEscala().getDia06Fk().getHorasB()>0 || listaEscalas.get(i).getEscala().getDia06Fk().getHorasC()>0) {
 											listaEscalas.get(i).getReferencias().setObsReferencias( listaEscalas.get(i).getReferencias().getObsReferencias()+ " 06"+ listaEscalas.get(i).getEscala().getDia06Fk().getHorasNoite());
 										}
 										listaEscalas.get(i).getEscala().getDia06Fk().setPlantoes( 0.0 );
-										listaEscalas.get(i).getEscala().getDia06Fk().setHorasManha( listaEscalas.get(i).getEscala().getDia06Fk().getHorasManha()+ listaEscalas.get(i).getEscala().getDia06Fk().getHorasNoite()/2 );
-										listaEscalas.get(i).getEscala().getDia06Fk().setHorasTarde( listaEscalas.get(i).getEscala().getDia06Fk().getHorasTarde()+ listaEscalas.get(i).getEscala().getDia06Fk().getHorasNoite()/2 );
+										listaEscalas.get(i).getEscala().getDia06Fk().setHorasManha( listaEscalas.get(i).getEscala().getDia06Fk().getHorasManha()+ (listaEscalas.get(i).getEscala().getDia06Fk().getHorasNoite()/2 )+ (listaEscalas.get(i).getEscala().getDia06Fk().getHorasA()/2) + (listaEscalas.get(i).getEscala().getDia06Fk().getHorasB()/2) + (listaEscalas.get(i).getEscala().getDia06Fk().getHorasC()/2) );
+										listaEscalas.get(i).getEscala().getDia06Fk().setHorasTarde( listaEscalas.get(i).getEscala().getDia06Fk().getHorasTarde()+ (listaEscalas.get(i).getEscala().getDia06Fk().getHorasNoite()/2 )+ (listaEscalas.get(i).getEscala().getDia06Fk().getHorasA()/2) + (listaEscalas.get(i).getEscala().getDia06Fk().getHorasB()/2) + (listaEscalas.get(i).getEscala().getDia06Fk().getHorasC()/2) );
 										listaEscalas.get(i).getEscala().getDia06Fk().setHorasNoite( 0 );
+										listaEscalas.get(i).getEscala().getDia06Fk().setHorasA( 0 );
+										listaEscalas.get(i).getEscala().getDia06Fk().setHorasB( 0 );
+										listaEscalas.get(i).getEscala().getDia06Fk().setHorasC( 0 );
 									}
 									
 									//Tirando horas Efetivas
@@ -995,13 +1013,16 @@ public class CalculosAlternativosService {
 									
 									//Tirando os noturnos
 									if(listaLicencas.get(j).getFuncionariosLicencas().getIdCorteAdicionalNoturnoSimNaoFk().getSigla().equalsIgnoreCase("S")) {
-										if(listaEscalas.get(i).getEscala().getDia07Fk().getHorasNoite()>0) {
+										if(listaEscalas.get(i).getEscala().getDia07Fk().getHorasNoite()>0 || listaEscalas.get(i).getEscala().getDia07Fk().getHorasA()>0 || listaEscalas.get(i).getEscala().getDia07Fk().getHorasB()>0 || listaEscalas.get(i).getEscala().getDia07Fk().getHorasC()>0) {
 											listaEscalas.get(i).getReferencias().setObsReferencias( listaEscalas.get(i).getReferencias().getObsReferencias()+ " 07"+ listaEscalas.get(i).getEscala().getDia07Fk().getHorasNoite());
 										}
 										listaEscalas.get(i).getEscala().getDia07Fk().setPlantoes( 0.0 );
-										listaEscalas.get(i).getEscala().getDia07Fk().setHorasManha( listaEscalas.get(i).getEscala().getDia07Fk().getHorasManha()+ listaEscalas.get(i).getEscala().getDia07Fk().getHorasNoite()/2 );
-										listaEscalas.get(i).getEscala().getDia07Fk().setHorasTarde( listaEscalas.get(i).getEscala().getDia07Fk().getHorasTarde()+ listaEscalas.get(i).getEscala().getDia07Fk().getHorasNoite()/2 );
+										listaEscalas.get(i).getEscala().getDia07Fk().setHorasManha( listaEscalas.get(i).getEscala().getDia07Fk().getHorasManha()+ (listaEscalas.get(i).getEscala().getDia07Fk().getHorasNoite()/2 )+ (listaEscalas.get(i).getEscala().getDia07Fk().getHorasA()/2) + (listaEscalas.get(i).getEscala().getDia07Fk().getHorasB()/2) + (listaEscalas.get(i).getEscala().getDia07Fk().getHorasC()/2) );
+										listaEscalas.get(i).getEscala().getDia07Fk().setHorasTarde( listaEscalas.get(i).getEscala().getDia07Fk().getHorasTarde()+ (listaEscalas.get(i).getEscala().getDia07Fk().getHorasNoite()/2 )+ (listaEscalas.get(i).getEscala().getDia07Fk().getHorasA()/2) + (listaEscalas.get(i).getEscala().getDia07Fk().getHorasB()/2) + (listaEscalas.get(i).getEscala().getDia07Fk().getHorasC()/2) );
 										listaEscalas.get(i).getEscala().getDia07Fk().setHorasNoite( 0 );
+										listaEscalas.get(i).getEscala().getDia07Fk().setHorasA( 0 );
+										listaEscalas.get(i).getEscala().getDia07Fk().setHorasB( 0 );
+										listaEscalas.get(i).getEscala().getDia07Fk().setHorasC( 0 );
 									}
 									
 									//Tirando horas Efetivas
@@ -1033,13 +1054,16 @@ public class CalculosAlternativosService {
 									
 									//Tirando os noturnos
 									if(listaLicencas.get(j).getFuncionariosLicencas().getIdCorteAdicionalNoturnoSimNaoFk().getSigla().equalsIgnoreCase("S")) {
-										if(listaEscalas.get(i).getEscala().getDia08Fk().getHorasNoite()>0) {
+										if(listaEscalas.get(i).getEscala().getDia08Fk().getHorasNoite()>0 || listaEscalas.get(i).getEscala().getDia08Fk().getHorasA()>0 || listaEscalas.get(i).getEscala().getDia08Fk().getHorasB()>0 || listaEscalas.get(i).getEscala().getDia08Fk().getHorasC()>0) {
 											listaEscalas.get(i).getReferencias().setObsReferencias( listaEscalas.get(i).getReferencias().getObsReferencias()+ " 08"+ listaEscalas.get(i).getEscala().getDia08Fk().getHorasNoite());
 										}
 										listaEscalas.get(i).getEscala().getDia08Fk().setPlantoes( 0.0 );
-										listaEscalas.get(i).getEscala().getDia08Fk().setHorasManha( listaEscalas.get(i).getEscala().getDia08Fk().getHorasManha()+ listaEscalas.get(i).getEscala().getDia08Fk().getHorasNoite()/2 );
-										listaEscalas.get(i).getEscala().getDia08Fk().setHorasTarde( listaEscalas.get(i).getEscala().getDia08Fk().getHorasTarde()+ listaEscalas.get(i).getEscala().getDia08Fk().getHorasNoite()/2 );
+										listaEscalas.get(i).getEscala().getDia08Fk().setHorasManha( listaEscalas.get(i).getEscala().getDia08Fk().getHorasManha()+ (listaEscalas.get(i).getEscala().getDia08Fk().getHorasNoite()/2 )+ (listaEscalas.get(i).getEscala().getDia08Fk().getHorasA()/2) + (listaEscalas.get(i).getEscala().getDia08Fk().getHorasB()/2) + (listaEscalas.get(i).getEscala().getDia08Fk().getHorasC()/2) );
+										listaEscalas.get(i).getEscala().getDia08Fk().setHorasTarde( listaEscalas.get(i).getEscala().getDia08Fk().getHorasTarde()+ (listaEscalas.get(i).getEscala().getDia08Fk().getHorasNoite()/2 )+ (listaEscalas.get(i).getEscala().getDia08Fk().getHorasA()/2) + (listaEscalas.get(i).getEscala().getDia08Fk().getHorasB()/2) + (listaEscalas.get(i).getEscala().getDia08Fk().getHorasC()/2) );
 										listaEscalas.get(i).getEscala().getDia08Fk().setHorasNoite( 0 );
+										listaEscalas.get(i).getEscala().getDia08Fk().setHorasA( 0 );
+										listaEscalas.get(i).getEscala().getDia08Fk().setHorasB( 0 );
+										listaEscalas.get(i).getEscala().getDia08Fk().setHorasC( 0 );
 									}
 									
 									//Tirando horas Efetivas
@@ -1071,13 +1095,16 @@ public class CalculosAlternativosService {
 									
 									//Tirando os noturnos
 									if(listaLicencas.get(j).getFuncionariosLicencas().getIdCorteAdicionalNoturnoSimNaoFk().getSigla().equalsIgnoreCase("S")) {
-										if(listaEscalas.get(i).getEscala().getDia09Fk().getHorasNoite()>0) {
+										if(listaEscalas.get(i).getEscala().getDia09Fk().getHorasNoite()>0 || listaEscalas.get(i).getEscala().getDia09Fk().getHorasA()>0 || listaEscalas.get(i).getEscala().getDia09Fk().getHorasB()>0 || listaEscalas.get(i).getEscala().getDia09Fk().getHorasC()>0) {
 											listaEscalas.get(i).getReferencias().setObsReferencias( listaEscalas.get(i).getReferencias().getObsReferencias()+ " 09"+ listaEscalas.get(i).getEscala().getDia09Fk().getHorasNoite());
 										}
 										listaEscalas.get(i).getEscala().getDia09Fk().setPlantoes( 0.0 );
-										listaEscalas.get(i).getEscala().getDia09Fk().setHorasManha( listaEscalas.get(i).getEscala().getDia09Fk().getHorasManha()+ listaEscalas.get(i).getEscala().getDia09Fk().getHorasNoite()/2 );
-										listaEscalas.get(i).getEscala().getDia09Fk().setHorasTarde( listaEscalas.get(i).getEscala().getDia09Fk().getHorasTarde()+ listaEscalas.get(i).getEscala().getDia09Fk().getHorasNoite()/2 );
+										listaEscalas.get(i).getEscala().getDia09Fk().setHorasManha( listaEscalas.get(i).getEscala().getDia09Fk().getHorasManha()+ (listaEscalas.get(i).getEscala().getDia09Fk().getHorasNoite()/2 )+ (listaEscalas.get(i).getEscala().getDia09Fk().getHorasA()/2) + (listaEscalas.get(i).getEscala().getDia09Fk().getHorasB()/2) + (listaEscalas.get(i).getEscala().getDia09Fk().getHorasC()/2) );
+										listaEscalas.get(i).getEscala().getDia09Fk().setHorasTarde( listaEscalas.get(i).getEscala().getDia09Fk().getHorasTarde()+ (listaEscalas.get(i).getEscala().getDia09Fk().getHorasNoite()/2 )+ (listaEscalas.get(i).getEscala().getDia09Fk().getHorasA()/2) + (listaEscalas.get(i).getEscala().getDia09Fk().getHorasB()/2) + (listaEscalas.get(i).getEscala().getDia09Fk().getHorasC()/2) );
 										listaEscalas.get(i).getEscala().getDia09Fk().setHorasNoite( 0 );
+										listaEscalas.get(i).getEscala().getDia09Fk().setHorasA( 0 );
+										listaEscalas.get(i).getEscala().getDia09Fk().setHorasB( 0 );
+										listaEscalas.get(i).getEscala().getDia09Fk().setHorasC( 0 );
 									}
 									
 									//Tirando horas Efetivas
@@ -1109,13 +1136,16 @@ public class CalculosAlternativosService {
 									
 									//Tirando os noturnos
 									if(listaLicencas.get(j).getFuncionariosLicencas().getIdCorteAdicionalNoturnoSimNaoFk().getSigla().equalsIgnoreCase("S")) {
-										if(listaEscalas.get(i).getEscala().getDia10Fk().getHorasNoite()>0) {
+										if(listaEscalas.get(i).getEscala().getDia10Fk().getHorasNoite()>0 || listaEscalas.get(i).getEscala().getDia10Fk().getHorasA()>0 || listaEscalas.get(i).getEscala().getDia10Fk().getHorasB()>0 || listaEscalas.get(i).getEscala().getDia10Fk().getHorasC()>0) {
 											listaEscalas.get(i).getReferencias().setObsReferencias( listaEscalas.get(i).getReferencias().getObsReferencias()+ " 10"+ listaEscalas.get(i).getEscala().getDia10Fk().getHorasNoite());
 										}
 										listaEscalas.get(i).getEscala().getDia10Fk().setPlantoes( 0.0 );
-										listaEscalas.get(i).getEscala().getDia10Fk().setHorasManha( listaEscalas.get(i).getEscala().getDia10Fk().getHorasManha()+ listaEscalas.get(i).getEscala().getDia10Fk().getHorasNoite()/2 );
-										listaEscalas.get(i).getEscala().getDia10Fk().setHorasTarde( listaEscalas.get(i).getEscala().getDia10Fk().getHorasTarde()+ listaEscalas.get(i).getEscala().getDia10Fk().getHorasNoite()/2 );
+										listaEscalas.get(i).getEscala().getDia10Fk().setHorasManha( listaEscalas.get(i).getEscala().getDia10Fk().getHorasManha()+ (listaEscalas.get(i).getEscala().getDia10Fk().getHorasNoite()/2 )+ (listaEscalas.get(i).getEscala().getDia10Fk().getHorasA()/2) + (listaEscalas.get(i).getEscala().getDia10Fk().getHorasB()/2) + (listaEscalas.get(i).getEscala().getDia10Fk().getHorasC()/2) );
+										listaEscalas.get(i).getEscala().getDia10Fk().setHorasTarde( listaEscalas.get(i).getEscala().getDia10Fk().getHorasTarde()+ (listaEscalas.get(i).getEscala().getDia10Fk().getHorasNoite()/2 )+ (listaEscalas.get(i).getEscala().getDia10Fk().getHorasA()/2) + (listaEscalas.get(i).getEscala().getDia10Fk().getHorasB()/2) + (listaEscalas.get(i).getEscala().getDia10Fk().getHorasC()/2) );
 										listaEscalas.get(i).getEscala().getDia10Fk().setHorasNoite( 0 );
+										listaEscalas.get(i).getEscala().getDia10Fk().setHorasA( 0 );
+										listaEscalas.get(i).getEscala().getDia10Fk().setHorasB( 0 );
+										listaEscalas.get(i).getEscala().getDia10Fk().setHorasC( 0 );
 									}
 									
 									//Tirando horas Efetivas
@@ -1147,13 +1177,16 @@ public class CalculosAlternativosService {
 									
 									//Tirando os noturnos
 									if(listaLicencas.get(j).getFuncionariosLicencas().getIdCorteAdicionalNoturnoSimNaoFk().getSigla().equalsIgnoreCase("S")) {
-										if(listaEscalas.get(i).getEscala().getDia11Fk().getHorasNoite()>0) {
+										if(listaEscalas.get(i).getEscala().getDia11Fk().getHorasNoite()>0 || listaEscalas.get(i).getEscala().getDia11Fk().getHorasA()>0 || listaEscalas.get(i).getEscala().getDia11Fk().getHorasB()>0 || listaEscalas.get(i).getEscala().getDia11Fk().getHorasC()>0) {
 											listaEscalas.get(i).getReferencias().setObsReferencias( listaEscalas.get(i).getReferencias().getObsReferencias()+ " 11"+ listaEscalas.get(i).getEscala().getDia11Fk().getHorasNoite());
 										}
 										listaEscalas.get(i).getEscala().getDia11Fk().setPlantoes( 0.0 );
-										listaEscalas.get(i).getEscala().getDia11Fk().setHorasManha( listaEscalas.get(i).getEscala().getDia11Fk().getHorasManha()+ listaEscalas.get(i).getEscala().getDia11Fk().getHorasNoite()/2 );
-										listaEscalas.get(i).getEscala().getDia11Fk().setHorasTarde( listaEscalas.get(i).getEscala().getDia11Fk().getHorasTarde()+ listaEscalas.get(i).getEscala().getDia11Fk().getHorasNoite()/2 );
+										listaEscalas.get(i).getEscala().getDia11Fk().setHorasManha( listaEscalas.get(i).getEscala().getDia11Fk().getHorasManha()+ (listaEscalas.get(i).getEscala().getDia11Fk().getHorasNoite()/2 )+ (listaEscalas.get(i).getEscala().getDia11Fk().getHorasA()/2) + (listaEscalas.get(i).getEscala().getDia11Fk().getHorasB()/2) + (listaEscalas.get(i).getEscala().getDia11Fk().getHorasC()/2) );
+										listaEscalas.get(i).getEscala().getDia11Fk().setHorasTarde( listaEscalas.get(i).getEscala().getDia11Fk().getHorasTarde()+ (listaEscalas.get(i).getEscala().getDia11Fk().getHorasNoite()/2 )+ (listaEscalas.get(i).getEscala().getDia11Fk().getHorasA()/2) + (listaEscalas.get(i).getEscala().getDia11Fk().getHorasB()/2) + (listaEscalas.get(i).getEscala().getDia11Fk().getHorasC()/2) );
 										listaEscalas.get(i).getEscala().getDia11Fk().setHorasNoite( 0 );
+										listaEscalas.get(i).getEscala().getDia11Fk().setHorasA( 0 );
+										listaEscalas.get(i).getEscala().getDia11Fk().setHorasB( 0 );
+										listaEscalas.get(i).getEscala().getDia11Fk().setHorasC( 0 );
 									}
 									
 									//Tirando horas Efetivas
@@ -1185,13 +1218,16 @@ public class CalculosAlternativosService {
 									
 									//Tirando os noturnos
 									if(listaLicencas.get(j).getFuncionariosLicencas().getIdCorteAdicionalNoturnoSimNaoFk().getSigla().equalsIgnoreCase("S")) {
-										if(listaEscalas.get(i).getEscala().getDia12Fk().getHorasNoite()>0) {
+										if(listaEscalas.get(i).getEscala().getDia12Fk().getHorasNoite()>0 || listaEscalas.get(i).getEscala().getDia12Fk().getHorasA()>0 || listaEscalas.get(i).getEscala().getDia12Fk().getHorasB()>0 || listaEscalas.get(i).getEscala().getDia12Fk().getHorasC()>0) {
 											listaEscalas.get(i).getReferencias().setObsReferencias( listaEscalas.get(i).getReferencias().getObsReferencias()+ " 12"+ listaEscalas.get(i).getEscala().getDia12Fk().getHorasNoite());
 										}
 										listaEscalas.get(i).getEscala().getDia12Fk().setPlantoes( 0.0 );
-										listaEscalas.get(i).getEscala().getDia12Fk().setHorasManha( listaEscalas.get(i).getEscala().getDia12Fk().getHorasManha()+ listaEscalas.get(i).getEscala().getDia12Fk().getHorasNoite()/2 );
-										listaEscalas.get(i).getEscala().getDia12Fk().setHorasTarde( listaEscalas.get(i).getEscala().getDia12Fk().getHorasTarde()+ listaEscalas.get(i).getEscala().getDia12Fk().getHorasNoite()/2 );
+										listaEscalas.get(i).getEscala().getDia12Fk().setHorasManha( listaEscalas.get(i).getEscala().getDia12Fk().getHorasManha()+ (listaEscalas.get(i).getEscala().getDia12Fk().getHorasNoite()/2 )+ (listaEscalas.get(i).getEscala().getDia12Fk().getHorasA()/2) + (listaEscalas.get(i).getEscala().getDia12Fk().getHorasB()/2) + (listaEscalas.get(i).getEscala().getDia12Fk().getHorasC()/2) );
+										listaEscalas.get(i).getEscala().getDia12Fk().setHorasTarde( listaEscalas.get(i).getEscala().getDia12Fk().getHorasTarde()+ (listaEscalas.get(i).getEscala().getDia12Fk().getHorasNoite()/2 )+ (listaEscalas.get(i).getEscala().getDia12Fk().getHorasA()/2) + (listaEscalas.get(i).getEscala().getDia12Fk().getHorasB()/2) + (listaEscalas.get(i).getEscala().getDia12Fk().getHorasC()/2) );
 										listaEscalas.get(i).getEscala().getDia12Fk().setHorasNoite( 0 );
+										listaEscalas.get(i).getEscala().getDia12Fk().setHorasA( 0 );
+										listaEscalas.get(i).getEscala().getDia12Fk().setHorasB( 0 );
+										listaEscalas.get(i).getEscala().getDia12Fk().setHorasC( 0 );
 									}
 									
 									//Tirando horas Efetivas
@@ -1223,13 +1259,16 @@ public class CalculosAlternativosService {
 									
 									//Tirando os noturnos
 									if(listaLicencas.get(j).getFuncionariosLicencas().getIdCorteAdicionalNoturnoSimNaoFk().getSigla().equalsIgnoreCase("S")) {
-										if(listaEscalas.get(i).getEscala().getDia13Fk().getHorasNoite()>0) {
+										if(listaEscalas.get(i).getEscala().getDia13Fk().getHorasNoite()>0 || listaEscalas.get(i).getEscala().getDia13Fk().getHorasA()>0 || listaEscalas.get(i).getEscala().getDia13Fk().getHorasB()>0 || listaEscalas.get(i).getEscala().getDia13Fk().getHorasC()>0) {
 											listaEscalas.get(i).getReferencias().setObsReferencias( listaEscalas.get(i).getReferencias().getObsReferencias()+ " 13"+ listaEscalas.get(i).getEscala().getDia13Fk().getHorasNoite());
 										}
 										listaEscalas.get(i).getEscala().getDia13Fk().setPlantoes( 0.0 );
-										listaEscalas.get(i).getEscala().getDia13Fk().setHorasManha( listaEscalas.get(i).getEscala().getDia13Fk().getHorasManha()+ listaEscalas.get(i).getEscala().getDia13Fk().getHorasNoite()/2 );
-										listaEscalas.get(i).getEscala().getDia13Fk().setHorasTarde( listaEscalas.get(i).getEscala().getDia13Fk().getHorasTarde()+ listaEscalas.get(i).getEscala().getDia13Fk().getHorasNoite()/2 );
+										listaEscalas.get(i).getEscala().getDia13Fk().setHorasManha( listaEscalas.get(i).getEscala().getDia13Fk().getHorasManha()+ (listaEscalas.get(i).getEscala().getDia13Fk().getHorasNoite()/2 )+ (listaEscalas.get(i).getEscala().getDia13Fk().getHorasA()/2) + (listaEscalas.get(i).getEscala().getDia13Fk().getHorasB()/2) + (listaEscalas.get(i).getEscala().getDia13Fk().getHorasC()/2) );
+										listaEscalas.get(i).getEscala().getDia13Fk().setHorasTarde( listaEscalas.get(i).getEscala().getDia13Fk().getHorasTarde()+ (listaEscalas.get(i).getEscala().getDia13Fk().getHorasNoite()/2 )+ (listaEscalas.get(i).getEscala().getDia13Fk().getHorasA()/2) + (listaEscalas.get(i).getEscala().getDia13Fk().getHorasB()/2) + (listaEscalas.get(i).getEscala().getDia13Fk().getHorasC()/2) );
 										listaEscalas.get(i).getEscala().getDia13Fk().setHorasNoite( 0 );
+										listaEscalas.get(i).getEscala().getDia13Fk().setHorasA( 0 );
+										listaEscalas.get(i).getEscala().getDia13Fk().setHorasB( 0 );
+										listaEscalas.get(i).getEscala().getDia13Fk().setHorasC( 0 );
 									}
 									
 									//Tirando horas Efetivas
@@ -1261,13 +1300,16 @@ public class CalculosAlternativosService {
 									
 									//Tirando os noturnos
 									if(listaLicencas.get(j).getFuncionariosLicencas().getIdCorteAdicionalNoturnoSimNaoFk().getSigla().equalsIgnoreCase("S")) {
-										if(listaEscalas.get(i).getEscala().getDia14Fk().getHorasNoite()>0) {
+										if(listaEscalas.get(i).getEscala().getDia14Fk().getHorasNoite()>0 || listaEscalas.get(i).getEscala().getDia14Fk().getHorasA()>0 || listaEscalas.get(i).getEscala().getDia14Fk().getHorasB()>0 || listaEscalas.get(i).getEscala().getDia14Fk().getHorasC()>0) {
 											listaEscalas.get(i).getReferencias().setObsReferencias( listaEscalas.get(i).getReferencias().getObsReferencias()+ " 14"+ listaEscalas.get(i).getEscala().getDia14Fk().getHorasNoite());
 										}
 										listaEscalas.get(i).getEscala().getDia14Fk().setPlantoes( 0.0 );
-										listaEscalas.get(i).getEscala().getDia14Fk().setHorasManha( listaEscalas.get(i).getEscala().getDia14Fk().getHorasManha()+ listaEscalas.get(i).getEscala().getDia14Fk().getHorasNoite()/2 );
-										listaEscalas.get(i).getEscala().getDia14Fk().setHorasTarde( listaEscalas.get(i).getEscala().getDia14Fk().getHorasTarde()+ listaEscalas.get(i).getEscala().getDia14Fk().getHorasNoite()/2 );
+										listaEscalas.get(i).getEscala().getDia14Fk().setHorasManha( listaEscalas.get(i).getEscala().getDia14Fk().getHorasManha()+ (listaEscalas.get(i).getEscala().getDia14Fk().getHorasNoite()/2 )+ (listaEscalas.get(i).getEscala().getDia14Fk().getHorasA()/2) + (listaEscalas.get(i).getEscala().getDia14Fk().getHorasB()/2) + (listaEscalas.get(i).getEscala().getDia14Fk().getHorasC()/2) );
+										listaEscalas.get(i).getEscala().getDia14Fk().setHorasTarde( listaEscalas.get(i).getEscala().getDia14Fk().getHorasTarde()+ (listaEscalas.get(i).getEscala().getDia14Fk().getHorasNoite()/2 )+ (listaEscalas.get(i).getEscala().getDia14Fk().getHorasA()/2) + (listaEscalas.get(i).getEscala().getDia14Fk().getHorasB()/2) + (listaEscalas.get(i).getEscala().getDia14Fk().getHorasC()/2) );
 										listaEscalas.get(i).getEscala().getDia14Fk().setHorasNoite( 0 );
+										listaEscalas.get(i).getEscala().getDia14Fk().setHorasA( 0 );
+										listaEscalas.get(i).getEscala().getDia14Fk().setHorasB( 0 );
+										listaEscalas.get(i).getEscala().getDia14Fk().setHorasC( 0 );
 									}
 									
 									//Tirando horas Efetivas
@@ -1299,13 +1341,16 @@ public class CalculosAlternativosService {
 									
 									//Tirando os noturnos
 									if(listaLicencas.get(j).getFuncionariosLicencas().getIdCorteAdicionalNoturnoSimNaoFk().getSigla().equalsIgnoreCase("S")) {
-										if(listaEscalas.get(i).getEscala().getDia15Fk().getHorasNoite()>0) {
+										if(listaEscalas.get(i).getEscala().getDia15Fk().getHorasNoite()>0 || listaEscalas.get(i).getEscala().getDia15Fk().getHorasA()>0 || listaEscalas.get(i).getEscala().getDia15Fk().getHorasB()>0 || listaEscalas.get(i).getEscala().getDia15Fk().getHorasC()>0) {
 											listaEscalas.get(i).getReferencias().setObsReferencias( listaEscalas.get(i).getReferencias().getObsReferencias()+ " 15"+ listaEscalas.get(i).getEscala().getDia15Fk().getHorasNoite());
 										}
 										listaEscalas.get(i).getEscala().getDia15Fk().setPlantoes( 0.0 );
-										listaEscalas.get(i).getEscala().getDia15Fk().setHorasManha( listaEscalas.get(i).getEscala().getDia15Fk().getHorasManha()+ listaEscalas.get(i).getEscala().getDia15Fk().getHorasNoite()/2 );
-										listaEscalas.get(i).getEscala().getDia15Fk().setHorasTarde( listaEscalas.get(i).getEscala().getDia15Fk().getHorasTarde()+ listaEscalas.get(i).getEscala().getDia15Fk().getHorasNoite()/2 );
+										listaEscalas.get(i).getEscala().getDia15Fk().setHorasManha( listaEscalas.get(i).getEscala().getDia15Fk().getHorasManha()+ (listaEscalas.get(i).getEscala().getDia15Fk().getHorasNoite()/2 )+ (listaEscalas.get(i).getEscala().getDia15Fk().getHorasA()/2) + (listaEscalas.get(i).getEscala().getDia15Fk().getHorasB()/2) + (listaEscalas.get(i).getEscala().getDia15Fk().getHorasC()/2) );
+										listaEscalas.get(i).getEscala().getDia15Fk().setHorasTarde( listaEscalas.get(i).getEscala().getDia15Fk().getHorasTarde()+ (listaEscalas.get(i).getEscala().getDia15Fk().getHorasNoite()/2 )+ (listaEscalas.get(i).getEscala().getDia15Fk().getHorasA()/2) + (listaEscalas.get(i).getEscala().getDia15Fk().getHorasB()/2) + (listaEscalas.get(i).getEscala().getDia15Fk().getHorasC()/2) );
 										listaEscalas.get(i).getEscala().getDia15Fk().setHorasNoite( 0 );
+										listaEscalas.get(i).getEscala().getDia15Fk().setHorasA( 0 );
+										listaEscalas.get(i).getEscala().getDia15Fk().setHorasB( 0 );
+										listaEscalas.get(i).getEscala().getDia15Fk().setHorasC( 0 );
 									}
 									
 									//Tirando horas Efetivas
@@ -1337,13 +1382,16 @@ public class CalculosAlternativosService {
 									
 									//Tirando os noturnos
 									if(listaLicencas.get(j).getFuncionariosLicencas().getIdCorteAdicionalNoturnoSimNaoFk().getSigla().equalsIgnoreCase("S")) {
-										if(listaEscalas.get(i).getEscala().getDia16Fk().getHorasNoite()>0) {
+										if(listaEscalas.get(i).getEscala().getDia16Fk().getHorasNoite()>0 || listaEscalas.get(i).getEscala().getDia16Fk().getHorasA()>0 || listaEscalas.get(i).getEscala().getDia16Fk().getHorasB()>0 || listaEscalas.get(i).getEscala().getDia16Fk().getHorasC()>0) {
 											listaEscalas.get(i).getReferencias().setObsReferencias( listaEscalas.get(i).getReferencias().getObsReferencias()+ " 16"+ listaEscalas.get(i).getEscala().getDia16Fk().getHorasNoite());
 										}
 										listaEscalas.get(i).getEscala().getDia16Fk().setPlantoes( 0.0 );
-										listaEscalas.get(i).getEscala().getDia16Fk().setHorasManha( listaEscalas.get(i).getEscala().getDia16Fk().getHorasManha()+ listaEscalas.get(i).getEscala().getDia16Fk().getHorasNoite()/2 );
-										listaEscalas.get(i).getEscala().getDia16Fk().setHorasTarde( listaEscalas.get(i).getEscala().getDia16Fk().getHorasTarde()+ listaEscalas.get(i).getEscala().getDia16Fk().getHorasNoite()/2 );
+										listaEscalas.get(i).getEscala().getDia16Fk().setHorasManha( listaEscalas.get(i).getEscala().getDia16Fk().getHorasManha()+ (listaEscalas.get(i).getEscala().getDia16Fk().getHorasNoite()/2 )+ (listaEscalas.get(i).getEscala().getDia16Fk().getHorasA()/2) + (listaEscalas.get(i).getEscala().getDia16Fk().getHorasB()/2) + (listaEscalas.get(i).getEscala().getDia16Fk().getHorasC()/2) );
+										listaEscalas.get(i).getEscala().getDia16Fk().setHorasTarde( listaEscalas.get(i).getEscala().getDia16Fk().getHorasTarde()+ (listaEscalas.get(i).getEscala().getDia16Fk().getHorasNoite()/2 )+ (listaEscalas.get(i).getEscala().getDia16Fk().getHorasA()/2) + (listaEscalas.get(i).getEscala().getDia16Fk().getHorasB()/2) + (listaEscalas.get(i).getEscala().getDia16Fk().getHorasC()/2) );
 										listaEscalas.get(i).getEscala().getDia16Fk().setHorasNoite( 0 );
+										listaEscalas.get(i).getEscala().getDia16Fk().setHorasA( 0 );
+										listaEscalas.get(i).getEscala().getDia16Fk().setHorasB( 0 );
+										listaEscalas.get(i).getEscala().getDia16Fk().setHorasC( 0 );
 									}
 									
 									//Tirando horas Efetivas
@@ -1375,13 +1423,16 @@ public class CalculosAlternativosService {
 									
 									//Tirando os noturnos
 									if(listaLicencas.get(j).getFuncionariosLicencas().getIdCorteAdicionalNoturnoSimNaoFk().getSigla().equalsIgnoreCase("S")) {
-										if(listaEscalas.get(i).getEscala().getDia17Fk().getHorasNoite()>0) {
+										if(listaEscalas.get(i).getEscala().getDia17Fk().getHorasNoite()>0 || listaEscalas.get(i).getEscala().getDia17Fk().getHorasA()>0 || listaEscalas.get(i).getEscala().getDia17Fk().getHorasB()>0 || listaEscalas.get(i).getEscala().getDia17Fk().getHorasC()>0) {
 											listaEscalas.get(i).getReferencias().setObsReferencias( listaEscalas.get(i).getReferencias().getObsReferencias()+ " 17"+ listaEscalas.get(i).getEscala().getDia17Fk().getHorasNoite());
 										}
 										listaEscalas.get(i).getEscala().getDia17Fk().setPlantoes( 0.0 );
-										listaEscalas.get(i).getEscala().getDia17Fk().setHorasManha( listaEscalas.get(i).getEscala().getDia17Fk().getHorasManha()+ listaEscalas.get(i).getEscala().getDia17Fk().getHorasNoite()/2 );
-										listaEscalas.get(i).getEscala().getDia17Fk().setHorasTarde( listaEscalas.get(i).getEscala().getDia17Fk().getHorasTarde()+ listaEscalas.get(i).getEscala().getDia17Fk().getHorasNoite()/2 );
+										listaEscalas.get(i).getEscala().getDia17Fk().setHorasManha( listaEscalas.get(i).getEscala().getDia17Fk().getHorasManha()+ (listaEscalas.get(i).getEscala().getDia17Fk().getHorasNoite()/2 )+ (listaEscalas.get(i).getEscala().getDia17Fk().getHorasA()/2) + (listaEscalas.get(i).getEscala().getDia17Fk().getHorasB()/2) + (listaEscalas.get(i).getEscala().getDia17Fk().getHorasC()/2) );
+										listaEscalas.get(i).getEscala().getDia17Fk().setHorasTarde( listaEscalas.get(i).getEscala().getDia17Fk().getHorasTarde()+ (listaEscalas.get(i).getEscala().getDia17Fk().getHorasNoite()/2 )+ (listaEscalas.get(i).getEscala().getDia17Fk().getHorasA()/2) + (listaEscalas.get(i).getEscala().getDia17Fk().getHorasB()/2) + (listaEscalas.get(i).getEscala().getDia17Fk().getHorasC()/2) );
 										listaEscalas.get(i).getEscala().getDia17Fk().setHorasNoite( 0 );
+										listaEscalas.get(i).getEscala().getDia17Fk().setHorasA( 0 );
+										listaEscalas.get(i).getEscala().getDia17Fk().setHorasB( 0 );
+										listaEscalas.get(i).getEscala().getDia17Fk().setHorasC( 0 );
 									}
 									
 									//Tirando horas Efetivas
@@ -1413,13 +1464,16 @@ public class CalculosAlternativosService {
 									
 									//Tirando os noturnos
 									if(listaLicencas.get(j).getFuncionariosLicencas().getIdCorteAdicionalNoturnoSimNaoFk().getSigla().equalsIgnoreCase("S")) {
-										if(listaEscalas.get(i).getEscala().getDia18Fk().getHorasNoite()>0) {
+										if(listaEscalas.get(i).getEscala().getDia18Fk().getHorasNoite()>0 || listaEscalas.get(i).getEscala().getDia18Fk().getHorasA()>0 || listaEscalas.get(i).getEscala().getDia18Fk().getHorasB()>0 || listaEscalas.get(i).getEscala().getDia18Fk().getHorasC()>0) {
 											listaEscalas.get(i).getReferencias().setObsReferencias( listaEscalas.get(i).getReferencias().getObsReferencias()+ " 18"+ listaEscalas.get(i).getEscala().getDia18Fk().getHorasNoite());
 										}
 										listaEscalas.get(i).getEscala().getDia18Fk().setPlantoes( 0.0 );
-										listaEscalas.get(i).getEscala().getDia18Fk().setHorasManha( listaEscalas.get(i).getEscala().getDia18Fk().getHorasManha()+ listaEscalas.get(i).getEscala().getDia18Fk().getHorasNoite()/2 );
-										listaEscalas.get(i).getEscala().getDia18Fk().setHorasTarde( listaEscalas.get(i).getEscala().getDia18Fk().getHorasTarde()+ listaEscalas.get(i).getEscala().getDia18Fk().getHorasNoite()/2 );
+										listaEscalas.get(i).getEscala().getDia18Fk().setHorasManha( listaEscalas.get(i).getEscala().getDia18Fk().getHorasManha()+ (listaEscalas.get(i).getEscala().getDia18Fk().getHorasNoite()/2 )+ (listaEscalas.get(i).getEscala().getDia18Fk().getHorasA()/2) + (listaEscalas.get(i).getEscala().getDia18Fk().getHorasB()/2) + (listaEscalas.get(i).getEscala().getDia18Fk().getHorasC()/2) );
+										listaEscalas.get(i).getEscala().getDia18Fk().setHorasTarde( listaEscalas.get(i).getEscala().getDia18Fk().getHorasTarde()+ (listaEscalas.get(i).getEscala().getDia18Fk().getHorasNoite()/2 )+ (listaEscalas.get(i).getEscala().getDia18Fk().getHorasA()/2) + (listaEscalas.get(i).getEscala().getDia18Fk().getHorasB()/2) + (listaEscalas.get(i).getEscala().getDia18Fk().getHorasC()/2) );
 										listaEscalas.get(i).getEscala().getDia18Fk().setHorasNoite( 0 );
+										listaEscalas.get(i).getEscala().getDia18Fk().setHorasA( 0 );
+										listaEscalas.get(i).getEscala().getDia18Fk().setHorasB( 0 );
+										listaEscalas.get(i).getEscala().getDia18Fk().setHorasC( 0 );
 									}
 									
 									//Tirando horas Efetivas
@@ -1451,13 +1505,16 @@ public class CalculosAlternativosService {
 									
 									//Tirando os noturnos
 									if(listaLicencas.get(j).getFuncionariosLicencas().getIdCorteAdicionalNoturnoSimNaoFk().getSigla().equalsIgnoreCase("S")) {
-										if(listaEscalas.get(i).getEscala().getDia19Fk().getHorasNoite()>0) {
+										if(listaEscalas.get(i).getEscala().getDia19Fk().getHorasNoite()>0 || listaEscalas.get(i).getEscala().getDia19Fk().getHorasA()>0 || listaEscalas.get(i).getEscala().getDia19Fk().getHorasB()>0 || listaEscalas.get(i).getEscala().getDia19Fk().getHorasC()>0) {
 											listaEscalas.get(i).getReferencias().setObsReferencias( listaEscalas.get(i).getReferencias().getObsReferencias()+ " 19"+ listaEscalas.get(i).getEscala().getDia19Fk().getHorasNoite());
 										}
 										listaEscalas.get(i).getEscala().getDia19Fk().setPlantoes( 0.0 );
-										listaEscalas.get(i).getEscala().getDia19Fk().setHorasManha( listaEscalas.get(i).getEscala().getDia19Fk().getHorasManha()+ listaEscalas.get(i).getEscala().getDia19Fk().getHorasNoite()/2 );
-										listaEscalas.get(i).getEscala().getDia19Fk().setHorasTarde( listaEscalas.get(i).getEscala().getDia19Fk().getHorasTarde()+ listaEscalas.get(i).getEscala().getDia19Fk().getHorasNoite()/2 );
+										listaEscalas.get(i).getEscala().getDia19Fk().setHorasManha( listaEscalas.get(i).getEscala().getDia19Fk().getHorasManha()+ (listaEscalas.get(i).getEscala().getDia19Fk().getHorasNoite()/2 )+ (listaEscalas.get(i).getEscala().getDia19Fk().getHorasA()/2) + (listaEscalas.get(i).getEscala().getDia19Fk().getHorasB()/2) + (listaEscalas.get(i).getEscala().getDia19Fk().getHorasC()/2) );
+										listaEscalas.get(i).getEscala().getDia19Fk().setHorasTarde( listaEscalas.get(i).getEscala().getDia19Fk().getHorasTarde()+ (listaEscalas.get(i).getEscala().getDia19Fk().getHorasNoite()/2 )+ (listaEscalas.get(i).getEscala().getDia19Fk().getHorasA()/2) + (listaEscalas.get(i).getEscala().getDia19Fk().getHorasB()/2) + (listaEscalas.get(i).getEscala().getDia19Fk().getHorasC()/2) );
 										listaEscalas.get(i).getEscala().getDia19Fk().setHorasNoite( 0 );
+										listaEscalas.get(i).getEscala().getDia19Fk().setHorasA( 0 );
+										listaEscalas.get(i).getEscala().getDia19Fk().setHorasB( 0 );
+										listaEscalas.get(i).getEscala().getDia19Fk().setHorasC( 0 );
 									}
 									
 									//Tirando horas Efetivas
@@ -1489,13 +1546,16 @@ public class CalculosAlternativosService {
 									
 									//Tirando os noturnos
 									if(listaLicencas.get(j).getFuncionariosLicencas().getIdCorteAdicionalNoturnoSimNaoFk().getSigla().equalsIgnoreCase("S")) {
-										if(listaEscalas.get(i).getEscala().getDia20Fk().getHorasNoite()>0) {
+										if(listaEscalas.get(i).getEscala().getDia20Fk().getHorasNoite()>0 || listaEscalas.get(i).getEscala().getDia20Fk().getHorasA()>0 || listaEscalas.get(i).getEscala().getDia20Fk().getHorasB()>0 || listaEscalas.get(i).getEscala().getDia20Fk().getHorasC()>0) {
 											listaEscalas.get(i).getReferencias().setObsReferencias( listaEscalas.get(i).getReferencias().getObsReferencias()+ " 20"+ listaEscalas.get(i).getEscala().getDia20Fk().getHorasNoite());
 										}
 										listaEscalas.get(i).getEscala().getDia20Fk().setPlantoes( 0.0 );
-										listaEscalas.get(i).getEscala().getDia20Fk().setHorasManha( listaEscalas.get(i).getEscala().getDia20Fk().getHorasManha()+ listaEscalas.get(i).getEscala().getDia20Fk().getHorasNoite()/2 );
-										listaEscalas.get(i).getEscala().getDia20Fk().setHorasTarde( listaEscalas.get(i).getEscala().getDia20Fk().getHorasTarde()+ listaEscalas.get(i).getEscala().getDia20Fk().getHorasNoite()/2 );
+										listaEscalas.get(i).getEscala().getDia20Fk().setHorasManha( listaEscalas.get(i).getEscala().getDia20Fk().getHorasManha()+ (listaEscalas.get(i).getEscala().getDia20Fk().getHorasNoite()/2 )+ (listaEscalas.get(i).getEscala().getDia20Fk().getHorasA()/2) + (listaEscalas.get(i).getEscala().getDia20Fk().getHorasB()/2) + (listaEscalas.get(i).getEscala().getDia20Fk().getHorasC()/2) );
+										listaEscalas.get(i).getEscala().getDia20Fk().setHorasTarde( listaEscalas.get(i).getEscala().getDia20Fk().getHorasTarde()+ (listaEscalas.get(i).getEscala().getDia20Fk().getHorasNoite()/2 )+ (listaEscalas.get(i).getEscala().getDia20Fk().getHorasA()/2) + (listaEscalas.get(i).getEscala().getDia20Fk().getHorasB()/2) + (listaEscalas.get(i).getEscala().getDia20Fk().getHorasC()/2) );
 										listaEscalas.get(i).getEscala().getDia20Fk().setHorasNoite( 0 );
+										listaEscalas.get(i).getEscala().getDia20Fk().setHorasA( 0 );
+										listaEscalas.get(i).getEscala().getDia20Fk().setHorasB( 0 );
+										listaEscalas.get(i).getEscala().getDia20Fk().setHorasC( 0 );
 									}
 									
 									//Tirando horas Efetivas
@@ -1527,13 +1587,16 @@ public class CalculosAlternativosService {
 									
 									//Tirando os noturnos
 									if(listaLicencas.get(j).getFuncionariosLicencas().getIdCorteAdicionalNoturnoSimNaoFk().getSigla().equalsIgnoreCase("S")) {
-										if(listaEscalas.get(i).getEscala().getDia21Fk().getHorasNoite()>0) {
+										if(listaEscalas.get(i).getEscala().getDia21Fk().getHorasNoite()>0 || listaEscalas.get(i).getEscala().getDia21Fk().getHorasA()>0 || listaEscalas.get(i).getEscala().getDia21Fk().getHorasB()>0 || listaEscalas.get(i).getEscala().getDia21Fk().getHorasC()>0) {
 											listaEscalas.get(i).getReferencias().setObsReferencias( listaEscalas.get(i).getReferencias().getObsReferencias()+ " 21"+ listaEscalas.get(i).getEscala().getDia21Fk().getHorasNoite());
 										}
 										listaEscalas.get(i).getEscala().getDia21Fk().setPlantoes( 0.0 );
-										listaEscalas.get(i).getEscala().getDia21Fk().setHorasManha( listaEscalas.get(i).getEscala().getDia21Fk().getHorasManha()+ listaEscalas.get(i).getEscala().getDia21Fk().getHorasNoite()/2 );
-										listaEscalas.get(i).getEscala().getDia21Fk().setHorasTarde( listaEscalas.get(i).getEscala().getDia21Fk().getHorasTarde()+ listaEscalas.get(i).getEscala().getDia21Fk().getHorasNoite()/2 );
+										listaEscalas.get(i).getEscala().getDia21Fk().setHorasManha( listaEscalas.get(i).getEscala().getDia21Fk().getHorasManha()+ (listaEscalas.get(i).getEscala().getDia21Fk().getHorasNoite()/2 )+ (listaEscalas.get(i).getEscala().getDia21Fk().getHorasA()/2) + (listaEscalas.get(i).getEscala().getDia21Fk().getHorasB()/2) + (listaEscalas.get(i).getEscala().getDia21Fk().getHorasC()/2) );
+										listaEscalas.get(i).getEscala().getDia21Fk().setHorasTarde( listaEscalas.get(i).getEscala().getDia21Fk().getHorasTarde()+ (listaEscalas.get(i).getEscala().getDia21Fk().getHorasNoite()/2 )+ (listaEscalas.get(i).getEscala().getDia21Fk().getHorasA()/2) + (listaEscalas.get(i).getEscala().getDia21Fk().getHorasB()/2) + (listaEscalas.get(i).getEscala().getDia21Fk().getHorasC()/2) );
 										listaEscalas.get(i).getEscala().getDia21Fk().setHorasNoite( 0 );
+										listaEscalas.get(i).getEscala().getDia21Fk().setHorasA( 0 );
+										listaEscalas.get(i).getEscala().getDia21Fk().setHorasB( 0 );
+										listaEscalas.get(i).getEscala().getDia21Fk().setHorasC( 0 );
 									}
 									
 									//Tirando horas Efetivas
@@ -1565,13 +1628,16 @@ public class CalculosAlternativosService {
 									
 									//Tirando os noturnos
 									if(listaLicencas.get(j).getFuncionariosLicencas().getIdCorteAdicionalNoturnoSimNaoFk().getSigla().equalsIgnoreCase("S")) {
-										if(listaEscalas.get(i).getEscala().getDia22Fk().getHorasNoite()>0) {
+										if(listaEscalas.get(i).getEscala().getDia22Fk().getHorasNoite()>0 || listaEscalas.get(i).getEscala().getDia22Fk().getHorasA()>0 || listaEscalas.get(i).getEscala().getDia22Fk().getHorasB()>0 || listaEscalas.get(i).getEscala().getDia22Fk().getHorasC()>0) {
 											listaEscalas.get(i).getReferencias().setObsReferencias( listaEscalas.get(i).getReferencias().getObsReferencias()+ " 22"+ listaEscalas.get(i).getEscala().getDia22Fk().getHorasNoite());
 										}
 										listaEscalas.get(i).getEscala().getDia22Fk().setPlantoes( 0.0 );
-										listaEscalas.get(i).getEscala().getDia22Fk().setHorasManha( listaEscalas.get(i).getEscala().getDia22Fk().getHorasManha()+ listaEscalas.get(i).getEscala().getDia22Fk().getHorasNoite()/2 );
-										listaEscalas.get(i).getEscala().getDia22Fk().setHorasTarde( listaEscalas.get(i).getEscala().getDia22Fk().getHorasTarde()+ listaEscalas.get(i).getEscala().getDia22Fk().getHorasNoite()/2 );
+										listaEscalas.get(i).getEscala().getDia22Fk().setHorasManha( listaEscalas.get(i).getEscala().getDia22Fk().getHorasManha()+ (listaEscalas.get(i).getEscala().getDia22Fk().getHorasNoite()/2 )+ (listaEscalas.get(i).getEscala().getDia22Fk().getHorasA()/2) + (listaEscalas.get(i).getEscala().getDia22Fk().getHorasB()/2) + (listaEscalas.get(i).getEscala().getDia22Fk().getHorasC()/2) );
+										listaEscalas.get(i).getEscala().getDia22Fk().setHorasTarde( listaEscalas.get(i).getEscala().getDia22Fk().getHorasTarde()+ (listaEscalas.get(i).getEscala().getDia22Fk().getHorasNoite()/2 )+ (listaEscalas.get(i).getEscala().getDia22Fk().getHorasA()/2) + (listaEscalas.get(i).getEscala().getDia22Fk().getHorasB()/2) + (listaEscalas.get(i).getEscala().getDia22Fk().getHorasC()/2) );
 										listaEscalas.get(i).getEscala().getDia22Fk().setHorasNoite( 0 );
+										listaEscalas.get(i).getEscala().getDia22Fk().setHorasA( 0 );
+										listaEscalas.get(i).getEscala().getDia22Fk().setHorasB( 0 );
+										listaEscalas.get(i).getEscala().getDia22Fk().setHorasC( 0 );
 									}
 									
 									//Tirando horas Efetivas
@@ -1603,13 +1669,16 @@ public class CalculosAlternativosService {
 									
 									//Tirando os noturnos
 									if(listaLicencas.get(j).getFuncionariosLicencas().getIdCorteAdicionalNoturnoSimNaoFk().getSigla().equalsIgnoreCase("S")) {
-										if(listaEscalas.get(i).getEscala().getDia23Fk().getHorasNoite()>0) {
+										if(listaEscalas.get(i).getEscala().getDia23Fk().getHorasNoite()>0 || listaEscalas.get(i).getEscala().getDia23Fk().getHorasA()>0 || listaEscalas.get(i).getEscala().getDia23Fk().getHorasB()>0 || listaEscalas.get(i).getEscala().getDia23Fk().getHorasC()>0) {
 											listaEscalas.get(i).getReferencias().setObsReferencias( listaEscalas.get(i).getReferencias().getObsReferencias()+ " 23"+ listaEscalas.get(i).getEscala().getDia23Fk().getHorasNoite());
 										}
 										listaEscalas.get(i).getEscala().getDia23Fk().setPlantoes( 0.0 );
-										listaEscalas.get(i).getEscala().getDia23Fk().setHorasManha( listaEscalas.get(i).getEscala().getDia23Fk().getHorasManha()+ listaEscalas.get(i).getEscala().getDia23Fk().getHorasNoite()/2 );
-										listaEscalas.get(i).getEscala().getDia23Fk().setHorasTarde( listaEscalas.get(i).getEscala().getDia23Fk().getHorasTarde()+ listaEscalas.get(i).getEscala().getDia23Fk().getHorasNoite()/2 );
+										listaEscalas.get(i).getEscala().getDia23Fk().setHorasManha( listaEscalas.get(i).getEscala().getDia23Fk().getHorasManha()+ (listaEscalas.get(i).getEscala().getDia23Fk().getHorasNoite()/2 )+ (listaEscalas.get(i).getEscala().getDia23Fk().getHorasA()/2) + (listaEscalas.get(i).getEscala().getDia23Fk().getHorasB()/2) + (listaEscalas.get(i).getEscala().getDia23Fk().getHorasC()/2) );
+										listaEscalas.get(i).getEscala().getDia23Fk().setHorasTarde( listaEscalas.get(i).getEscala().getDia23Fk().getHorasTarde()+ (listaEscalas.get(i).getEscala().getDia23Fk().getHorasNoite()/2 )+ (listaEscalas.get(i).getEscala().getDia23Fk().getHorasA()/2) + (listaEscalas.get(i).getEscala().getDia23Fk().getHorasB()/2) + (listaEscalas.get(i).getEscala().getDia23Fk().getHorasC()/2) );
 										listaEscalas.get(i).getEscala().getDia23Fk().setHorasNoite( 0 );
+										listaEscalas.get(i).getEscala().getDia23Fk().setHorasA( 0 );
+										listaEscalas.get(i).getEscala().getDia23Fk().setHorasB( 0 );
+										listaEscalas.get(i).getEscala().getDia23Fk().setHorasC( 0 );
 									}
 									
 									//Tirando horas Efetivas
@@ -1641,13 +1710,16 @@ public class CalculosAlternativosService {
 									
 									//Tirando os noturnos
 									if(listaLicencas.get(j).getFuncionariosLicencas().getIdCorteAdicionalNoturnoSimNaoFk().getSigla().equalsIgnoreCase("S")) {
-										if(listaEscalas.get(i).getEscala().getDia24Fk().getHorasNoite()>0) {
+										if(listaEscalas.get(i).getEscala().getDia24Fk().getHorasNoite()>0 || listaEscalas.get(i).getEscala().getDia24Fk().getHorasA()>0 || listaEscalas.get(i).getEscala().getDia24Fk().getHorasB()>0 || listaEscalas.get(i).getEscala().getDia24Fk().getHorasC()>0) {
 											listaEscalas.get(i).getReferencias().setObsReferencias( listaEscalas.get(i).getReferencias().getObsReferencias()+ " 24"+ listaEscalas.get(i).getEscala().getDia24Fk().getHorasNoite());
 										}
 										listaEscalas.get(i).getEscala().getDia24Fk().setPlantoes( 0.0 );
-										listaEscalas.get(i).getEscala().getDia24Fk().setHorasManha( listaEscalas.get(i).getEscala().getDia24Fk().getHorasManha()+ listaEscalas.get(i).getEscala().getDia24Fk().getHorasNoite()/2 );
-										listaEscalas.get(i).getEscala().getDia24Fk().setHorasTarde( listaEscalas.get(i).getEscala().getDia24Fk().getHorasTarde()+ listaEscalas.get(i).getEscala().getDia24Fk().getHorasNoite()/2 );
+										listaEscalas.get(i).getEscala().getDia24Fk().setHorasManha( listaEscalas.get(i).getEscala().getDia24Fk().getHorasManha()+ (listaEscalas.get(i).getEscala().getDia24Fk().getHorasNoite()/2 )+ (listaEscalas.get(i).getEscala().getDia24Fk().getHorasA()/2) + (listaEscalas.get(i).getEscala().getDia24Fk().getHorasB()/2) + (listaEscalas.get(i).getEscala().getDia24Fk().getHorasC()/2) );
+										listaEscalas.get(i).getEscala().getDia24Fk().setHorasTarde( listaEscalas.get(i).getEscala().getDia24Fk().getHorasTarde()+ (listaEscalas.get(i).getEscala().getDia24Fk().getHorasNoite()/2 )+ (listaEscalas.get(i).getEscala().getDia24Fk().getHorasA()/2) + (listaEscalas.get(i).getEscala().getDia24Fk().getHorasB()/2) + (listaEscalas.get(i).getEscala().getDia24Fk().getHorasC()/2) );
 										listaEscalas.get(i).getEscala().getDia24Fk().setHorasNoite( 0 );
+										listaEscalas.get(i).getEscala().getDia24Fk().setHorasA( 0 );
+										listaEscalas.get(i).getEscala().getDia24Fk().setHorasB( 0 );
+										listaEscalas.get(i).getEscala().getDia24Fk().setHorasC( 0 );
 									}
 									
 									//Tirando horas Efetivas
@@ -1679,13 +1751,16 @@ public class CalculosAlternativosService {
 									
 									//Tirando os noturnos
 									if(listaLicencas.get(j).getFuncionariosLicencas().getIdCorteAdicionalNoturnoSimNaoFk().getSigla().equalsIgnoreCase("S")) {
-										if(listaEscalas.get(i).getEscala().getDia25Fk().getHorasNoite()>0) {
+										if(listaEscalas.get(i).getEscala().getDia25Fk().getHorasNoite()>0 || listaEscalas.get(i).getEscala().getDia25Fk().getHorasA()>0 || listaEscalas.get(i).getEscala().getDia25Fk().getHorasB()>0 || listaEscalas.get(i).getEscala().getDia25Fk().getHorasC()>0) {
 											listaEscalas.get(i).getReferencias().setObsReferencias( listaEscalas.get(i).getReferencias().getObsReferencias()+ " 25"+ listaEscalas.get(i).getEscala().getDia25Fk().getHorasNoite());
 										}
 										listaEscalas.get(i).getEscala().getDia25Fk().setPlantoes( 0.0 );
-										listaEscalas.get(i).getEscala().getDia25Fk().setHorasManha( listaEscalas.get(i).getEscala().getDia25Fk().getHorasManha()+ listaEscalas.get(i).getEscala().getDia25Fk().getHorasNoite()/2 );
-										listaEscalas.get(i).getEscala().getDia25Fk().setHorasTarde( listaEscalas.get(i).getEscala().getDia25Fk().getHorasTarde()+ listaEscalas.get(i).getEscala().getDia25Fk().getHorasNoite()/2 );
+										listaEscalas.get(i).getEscala().getDia25Fk().setHorasManha( listaEscalas.get(i).getEscala().getDia25Fk().getHorasManha()+ (listaEscalas.get(i).getEscala().getDia25Fk().getHorasNoite()/2 )+ (listaEscalas.get(i).getEscala().getDia25Fk().getHorasA()/2) + (listaEscalas.get(i).getEscala().getDia25Fk().getHorasB()/2) + (listaEscalas.get(i).getEscala().getDia25Fk().getHorasC()/2) );
+										listaEscalas.get(i).getEscala().getDia25Fk().setHorasTarde( listaEscalas.get(i).getEscala().getDia25Fk().getHorasTarde()+ (listaEscalas.get(i).getEscala().getDia25Fk().getHorasNoite()/2 )+ (listaEscalas.get(i).getEscala().getDia25Fk().getHorasA()/2) + (listaEscalas.get(i).getEscala().getDia25Fk().getHorasB()/2) + (listaEscalas.get(i).getEscala().getDia25Fk().getHorasC()/2) );
 										listaEscalas.get(i).getEscala().getDia25Fk().setHorasNoite( 0 );
+										listaEscalas.get(i).getEscala().getDia25Fk().setHorasA( 0 );
+										listaEscalas.get(i).getEscala().getDia25Fk().setHorasB( 0 );
+										listaEscalas.get(i).getEscala().getDia25Fk().setHorasC( 0 );
 									}
 									
 									//Tirando horas Efetivas
@@ -1717,13 +1792,16 @@ public class CalculosAlternativosService {
 									
 									//Tirando os noturnos
 									if(listaLicencas.get(j).getFuncionariosLicencas().getIdCorteAdicionalNoturnoSimNaoFk().getSigla().equalsIgnoreCase("S")) {
-										if(listaEscalas.get(i).getEscala().getDia26Fk().getHorasNoite()>0) {
+										if(listaEscalas.get(i).getEscala().getDia26Fk().getHorasNoite()>0 || listaEscalas.get(i).getEscala().getDia26Fk().getHorasA()>0 || listaEscalas.get(i).getEscala().getDia26Fk().getHorasB()>0 || listaEscalas.get(i).getEscala().getDia26Fk().getHorasC()>0) {
 											listaEscalas.get(i).getReferencias().setObsReferencias( listaEscalas.get(i).getReferencias().getObsReferencias()+ " 26"+ listaEscalas.get(i).getEscala().getDia26Fk().getHorasNoite());
 										}
 										listaEscalas.get(i).getEscala().getDia26Fk().setPlantoes( 0.0 );
-										listaEscalas.get(i).getEscala().getDia26Fk().setHorasManha( listaEscalas.get(i).getEscala().getDia26Fk().getHorasManha()+ listaEscalas.get(i).getEscala().getDia26Fk().getHorasNoite()/2 );
-										listaEscalas.get(i).getEscala().getDia26Fk().setHorasTarde( listaEscalas.get(i).getEscala().getDia26Fk().getHorasTarde()+ listaEscalas.get(i).getEscala().getDia26Fk().getHorasNoite()/2 );
+										listaEscalas.get(i).getEscala().getDia26Fk().setHorasManha( listaEscalas.get(i).getEscala().getDia26Fk().getHorasManha()+ (listaEscalas.get(i).getEscala().getDia26Fk().getHorasNoite()/2 )+ (listaEscalas.get(i).getEscala().getDia26Fk().getHorasA()/2) + (listaEscalas.get(i).getEscala().getDia26Fk().getHorasB()/2) + (listaEscalas.get(i).getEscala().getDia26Fk().getHorasC()/2) );
+										listaEscalas.get(i).getEscala().getDia26Fk().setHorasTarde( listaEscalas.get(i).getEscala().getDia26Fk().getHorasTarde()+ (listaEscalas.get(i).getEscala().getDia26Fk().getHorasNoite()/2 )+ (listaEscalas.get(i).getEscala().getDia26Fk().getHorasA()/2) + (listaEscalas.get(i).getEscala().getDia26Fk().getHorasB()/2) + (listaEscalas.get(i).getEscala().getDia26Fk().getHorasC()/2) );
 										listaEscalas.get(i).getEscala().getDia26Fk().setHorasNoite( 0 );
+										listaEscalas.get(i).getEscala().getDia26Fk().setHorasA( 0 );
+										listaEscalas.get(i).getEscala().getDia26Fk().setHorasB( 0 );
+										listaEscalas.get(i).getEscala().getDia26Fk().setHorasC( 0 );
 									}
 									
 									//Tirando horas Efetivas
@@ -1755,13 +1833,16 @@ public class CalculosAlternativosService {
 									
 									//Tirando os noturnos
 									if(listaLicencas.get(j).getFuncionariosLicencas().getIdCorteAdicionalNoturnoSimNaoFk().getSigla().equalsIgnoreCase("S")) {
-										if(listaEscalas.get(i).getEscala().getDia27Fk().getHorasNoite()>0) {
+										if(listaEscalas.get(i).getEscala().getDia27Fk().getHorasNoite()>0 || listaEscalas.get(i).getEscala().getDia27Fk().getHorasA()>0 || listaEscalas.get(i).getEscala().getDia27Fk().getHorasB()>0 || listaEscalas.get(i).getEscala().getDia27Fk().getHorasC()>0) {
 											listaEscalas.get(i).getReferencias().setObsReferencias( listaEscalas.get(i).getReferencias().getObsReferencias()+ " 27"+ listaEscalas.get(i).getEscala().getDia27Fk().getHorasNoite());
 										}
 										listaEscalas.get(i).getEscala().getDia27Fk().setPlantoes( 0.0 );
-										listaEscalas.get(i).getEscala().getDia27Fk().setHorasManha( listaEscalas.get(i).getEscala().getDia27Fk().getHorasManha()+ listaEscalas.get(i).getEscala().getDia27Fk().getHorasNoite()/2 );
-										listaEscalas.get(i).getEscala().getDia27Fk().setHorasTarde( listaEscalas.get(i).getEscala().getDia27Fk().getHorasTarde()+ listaEscalas.get(i).getEscala().getDia27Fk().getHorasNoite()/2 );
+										listaEscalas.get(i).getEscala().getDia27Fk().setHorasManha( listaEscalas.get(i).getEscala().getDia27Fk().getHorasManha()+ (listaEscalas.get(i).getEscala().getDia27Fk().getHorasNoite()/2 )+ (listaEscalas.get(i).getEscala().getDia27Fk().getHorasA()/2) + (listaEscalas.get(i).getEscala().getDia27Fk().getHorasB()/2) + (listaEscalas.get(i).getEscala().getDia27Fk().getHorasC()/2) );
+										listaEscalas.get(i).getEscala().getDia27Fk().setHorasTarde( listaEscalas.get(i).getEscala().getDia27Fk().getHorasTarde()+ (listaEscalas.get(i).getEscala().getDia27Fk().getHorasNoite()/2 )+ (listaEscalas.get(i).getEscala().getDia27Fk().getHorasA()/2) + (listaEscalas.get(i).getEscala().getDia27Fk().getHorasB()/2) + (listaEscalas.get(i).getEscala().getDia27Fk().getHorasC()/2) );
 										listaEscalas.get(i).getEscala().getDia27Fk().setHorasNoite( 0 );
+										listaEscalas.get(i).getEscala().getDia27Fk().setHorasA( 0 );
+										listaEscalas.get(i).getEscala().getDia27Fk().setHorasB( 0 );
+										listaEscalas.get(i).getEscala().getDia27Fk().setHorasC( 0 );
 									}
 									
 									//Tirando horas Efetivas
@@ -1793,13 +1874,16 @@ public class CalculosAlternativosService {
 									
 									//Tirando os noturnos
 									if(listaLicencas.get(j).getFuncionariosLicencas().getIdCorteAdicionalNoturnoSimNaoFk().getSigla().equalsIgnoreCase("S")) {
-										if(listaEscalas.get(i).getEscala().getDia28Fk().getHorasNoite()>0) {
+										if(listaEscalas.get(i).getEscala().getDia28Fk().getHorasNoite()>0 || listaEscalas.get(i).getEscala().getDia28Fk().getHorasA()>0 || listaEscalas.get(i).getEscala().getDia28Fk().getHorasB()>0 || listaEscalas.get(i).getEscala().getDia28Fk().getHorasC()>0) {
 											listaEscalas.get(i).getReferencias().setObsReferencias( listaEscalas.get(i).getReferencias().getObsReferencias()+ " 28"+ listaEscalas.get(i).getEscala().getDia28Fk().getHorasNoite());
 										}
 										listaEscalas.get(i).getEscala().getDia28Fk().setPlantoes( 0.0 );
-										listaEscalas.get(i).getEscala().getDia28Fk().setHorasManha( listaEscalas.get(i).getEscala().getDia28Fk().getHorasManha()+ listaEscalas.get(i).getEscala().getDia28Fk().getHorasNoite()/2 );
-										listaEscalas.get(i).getEscala().getDia28Fk().setHorasTarde( listaEscalas.get(i).getEscala().getDia28Fk().getHorasTarde()+ listaEscalas.get(i).getEscala().getDia28Fk().getHorasNoite()/2 );
+										listaEscalas.get(i).getEscala().getDia28Fk().setHorasManha( listaEscalas.get(i).getEscala().getDia28Fk().getHorasManha()+ (listaEscalas.get(i).getEscala().getDia28Fk().getHorasNoite()/2 )+ (listaEscalas.get(i).getEscala().getDia28Fk().getHorasA()/2) + (listaEscalas.get(i).getEscala().getDia28Fk().getHorasB()/2) + (listaEscalas.get(i).getEscala().getDia28Fk().getHorasC()/2) );
+										listaEscalas.get(i).getEscala().getDia28Fk().setHorasTarde( listaEscalas.get(i).getEscala().getDia28Fk().getHorasTarde()+ (listaEscalas.get(i).getEscala().getDia28Fk().getHorasNoite()/2 )+ (listaEscalas.get(i).getEscala().getDia28Fk().getHorasA()/2) + (listaEscalas.get(i).getEscala().getDia28Fk().getHorasB()/2) + (listaEscalas.get(i).getEscala().getDia28Fk().getHorasC()/2) );
 										listaEscalas.get(i).getEscala().getDia28Fk().setHorasNoite( 0 );
+										listaEscalas.get(i).getEscala().getDia28Fk().setHorasA( 0 );
+										listaEscalas.get(i).getEscala().getDia28Fk().setHorasB( 0 );
+										listaEscalas.get(i).getEscala().getDia28Fk().setHorasC( 0 );
 									}
 									
 									//Tirando horas Efetivas
@@ -1831,13 +1915,16 @@ public class CalculosAlternativosService {
 									
 									//Tirando os noturnos
 									if(listaLicencas.get(j).getFuncionariosLicencas().getIdCorteAdicionalNoturnoSimNaoFk().getSigla().equalsIgnoreCase("S")) {
-										if(listaEscalas.get(i).getEscala().getDia29Fk().getHorasNoite()>0) {
+										if(listaEscalas.get(i).getEscala().getDia29Fk().getHorasNoite()>0 || listaEscalas.get(i).getEscala().getDia29Fk().getHorasA()>0 || listaEscalas.get(i).getEscala().getDia29Fk().getHorasB()>0 || listaEscalas.get(i).getEscala().getDia29Fk().getHorasC()>0) {
 											listaEscalas.get(i).getReferencias().setObsReferencias( listaEscalas.get(i).getReferencias().getObsReferencias()+ " 29"+ listaEscalas.get(i).getEscala().getDia29Fk().getHorasNoite());
 										}
 										listaEscalas.get(i).getEscala().getDia29Fk().setPlantoes( 0.0 );
-										listaEscalas.get(i).getEscala().getDia29Fk().setHorasManha( listaEscalas.get(i).getEscala().getDia29Fk().getHorasManha()+ listaEscalas.get(i).getEscala().getDia29Fk().getHorasNoite()/2 );
-										listaEscalas.get(i).getEscala().getDia29Fk().setHorasTarde( listaEscalas.get(i).getEscala().getDia29Fk().getHorasTarde()+ listaEscalas.get(i).getEscala().getDia29Fk().getHorasNoite()/2 );
+										listaEscalas.get(i).getEscala().getDia29Fk().setHorasManha( listaEscalas.get(i).getEscala().getDia29Fk().getHorasManha()+ (listaEscalas.get(i).getEscala().getDia29Fk().getHorasNoite()/2 )+ (listaEscalas.get(i).getEscala().getDia29Fk().getHorasA()/2) + (listaEscalas.get(i).getEscala().getDia29Fk().getHorasB()/2) + (listaEscalas.get(i).getEscala().getDia29Fk().getHorasC()/2) );
+										listaEscalas.get(i).getEscala().getDia29Fk().setHorasTarde( listaEscalas.get(i).getEscala().getDia29Fk().getHorasTarde()+ (listaEscalas.get(i).getEscala().getDia29Fk().getHorasNoite()/2 )+ (listaEscalas.get(i).getEscala().getDia29Fk().getHorasA()/2) + (listaEscalas.get(i).getEscala().getDia29Fk().getHorasB()/2) + (listaEscalas.get(i).getEscala().getDia29Fk().getHorasC()/2) );
 										listaEscalas.get(i).getEscala().getDia29Fk().setHorasNoite( 0 );
+										listaEscalas.get(i).getEscala().getDia29Fk().setHorasA( 0 );
+										listaEscalas.get(i).getEscala().getDia29Fk().setHorasB( 0 );
+										listaEscalas.get(i).getEscala().getDia29Fk().setHorasC( 0 );
 									}
 									
 									//Tirando horas Efetivas
@@ -1869,13 +1956,16 @@ public class CalculosAlternativosService {
 									
 									//Tirando os noturnos
 									if(listaLicencas.get(j).getFuncionariosLicencas().getIdCorteAdicionalNoturnoSimNaoFk().getSigla().equalsIgnoreCase("S")) {
-										if(listaEscalas.get(i).getEscala().getDia30Fk().getHorasNoite()>0) {
+										if(listaEscalas.get(i).getEscala().getDia30Fk().getHorasNoite()>0 || listaEscalas.get(i).getEscala().getDia30Fk().getHorasA()>0 || listaEscalas.get(i).getEscala().getDia30Fk().getHorasB()>0 || listaEscalas.get(i).getEscala().getDia30Fk().getHorasC()>0) {
 											listaEscalas.get(i).getReferencias().setObsReferencias( listaEscalas.get(i).getReferencias().getObsReferencias()+ " 30"+ listaEscalas.get(i).getEscala().getDia30Fk().getHorasNoite());
 										}
 										listaEscalas.get(i).getEscala().getDia30Fk().setPlantoes( 0.0 );
-										listaEscalas.get(i).getEscala().getDia30Fk().setHorasManha( listaEscalas.get(i).getEscala().getDia30Fk().getHorasManha()+ listaEscalas.get(i).getEscala().getDia30Fk().getHorasNoite()/2 );
-										listaEscalas.get(i).getEscala().getDia30Fk().setHorasTarde( listaEscalas.get(i).getEscala().getDia30Fk().getHorasTarde()+ listaEscalas.get(i).getEscala().getDia30Fk().getHorasNoite()/2 );
+										listaEscalas.get(i).getEscala().getDia30Fk().setHorasManha( listaEscalas.get(i).getEscala().getDia30Fk().getHorasManha()+ (listaEscalas.get(i).getEscala().getDia30Fk().getHorasNoite()/2 )+ (listaEscalas.get(i).getEscala().getDia30Fk().getHorasA()/2) + (listaEscalas.get(i).getEscala().getDia30Fk().getHorasB()/2) + (listaEscalas.get(i).getEscala().getDia30Fk().getHorasC()/2) );
+										listaEscalas.get(i).getEscala().getDia30Fk().setHorasTarde( listaEscalas.get(i).getEscala().getDia30Fk().getHorasTarde()+ (listaEscalas.get(i).getEscala().getDia30Fk().getHorasNoite()/2 )+ (listaEscalas.get(i).getEscala().getDia30Fk().getHorasA()/2) + (listaEscalas.get(i).getEscala().getDia30Fk().getHorasB()/2) + (listaEscalas.get(i).getEscala().getDia30Fk().getHorasC()/2) );
 										listaEscalas.get(i).getEscala().getDia30Fk().setHorasNoite( 0 );
+										listaEscalas.get(i).getEscala().getDia30Fk().setHorasA( 0 );
+										listaEscalas.get(i).getEscala().getDia30Fk().setHorasB( 0 );
+										listaEscalas.get(i).getEscala().getDia30Fk().setHorasC( 0 );
 									}
 									
 									//Tirando horas Efetivas
@@ -1907,13 +1997,16 @@ public class CalculosAlternativosService {
 									
 									//Tirando os noturnos
 									if(listaLicencas.get(j).getFuncionariosLicencas().getIdCorteAdicionalNoturnoSimNaoFk().getSigla().equalsIgnoreCase("S")) {
-										if(listaEscalas.get(i).getEscala().getDia31Fk().getHorasNoite()>0) {
+										if(listaEscalas.get(i).getEscala().getDia31Fk().getHorasNoite()>0 || listaEscalas.get(i).getEscala().getDia31Fk().getHorasA()>0 || listaEscalas.get(i).getEscala().getDia31Fk().getHorasB()>0 || listaEscalas.get(i).getEscala().getDia31Fk().getHorasC()>0) {
 											listaEscalas.get(i).getReferencias().setObsReferencias( listaEscalas.get(i).getReferencias().getObsReferencias()+ " 31"+ listaEscalas.get(i).getEscala().getDia31Fk().getHorasNoite());
 										}
 										listaEscalas.get(i).getEscala().getDia31Fk().setPlantoes( 0.0 );
-										listaEscalas.get(i).getEscala().getDia31Fk().setHorasManha( listaEscalas.get(i).getEscala().getDia31Fk().getHorasManha()+ listaEscalas.get(i).getEscala().getDia31Fk().getHorasNoite()/2 );
-										listaEscalas.get(i).getEscala().getDia31Fk().setHorasTarde( listaEscalas.get(i).getEscala().getDia31Fk().getHorasTarde()+ listaEscalas.get(i).getEscala().getDia31Fk().getHorasNoite()/2 );
+										listaEscalas.get(i).getEscala().getDia31Fk().setHorasManha( listaEscalas.get(i).getEscala().getDia31Fk().getHorasManha()+ (listaEscalas.get(i).getEscala().getDia31Fk().getHorasNoite()/2 )+ (listaEscalas.get(i).getEscala().getDia31Fk().getHorasA()/2) + (listaEscalas.get(i).getEscala().getDia31Fk().getHorasB()/2) + (listaEscalas.get(i).getEscala().getDia31Fk().getHorasC()/2) );
+										listaEscalas.get(i).getEscala().getDia31Fk().setHorasTarde( listaEscalas.get(i).getEscala().getDia31Fk().getHorasTarde()+ (listaEscalas.get(i).getEscala().getDia31Fk().getHorasNoite()/2 )+ (listaEscalas.get(i).getEscala().getDia31Fk().getHorasA()/2) + (listaEscalas.get(i).getEscala().getDia31Fk().getHorasB()/2) + (listaEscalas.get(i).getEscala().getDia31Fk().getHorasC()/2) );
 										listaEscalas.get(i).getEscala().getDia31Fk().setHorasNoite( 0 );
+										listaEscalas.get(i).getEscala().getDia31Fk().setHorasA( 0 );
+										listaEscalas.get(i).getEscala().getDia31Fk().setHorasB( 0 );
+										listaEscalas.get(i).getEscala().getDia31Fk().setHorasC( 0 );
 									}
 									
 									//Tirando horas Efetivas

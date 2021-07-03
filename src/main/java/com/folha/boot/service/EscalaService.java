@@ -198,6 +198,10 @@ public class EscalaService {
 			escalaAMudar.setHorasDia(escala.getHorasDia());
 			escalaAMudar.setHorasFimSemana(escala.getHorasFimSemana());
 			escalaAMudar.setHorasNoite(escala.getHorasNoite());
+			escalaAMudar.setHorasA(escala.getHorasA());
+			escalaAMudar.setHorasB(escala.getHorasB());
+			escalaAMudar.setHorasC(escala.getHorasC());
+			
 			escalaAMudar.setHorasSemana(escala.getHorasSemana());
 			escalaAMudar.setHorasTotais(escala.getHorasTotais());
 			
@@ -242,7 +246,7 @@ public class EscalaService {
     			if(escala.getDia01Fk().getHorasTarde()>0  && lista.get(i).getDia01Fk().getHorasTarde()>0 ) {
     				respostaInterna = respostaInterna+"1 tarde;";
 	    		}
-    			if(escala.getDia01Fk().getHorasNoite()>0  && lista.get(i).getDia01Fk().getHorasNoite()>0 ) {
+    			if(escala.getDia01Fk().getHorasNoite()>0  && ( lista.get(i).getDia01Fk().getHorasNoite() + lista.get(i).getDia01Fk().getHorasA() + lista.get(i).getDia01Fk().getHorasB()+ lista.get(i).getDia01Fk().getHorasC() )>0 ) {
     				respostaInterna = respostaInterna+"1 noite;";
 	    		}
     			
@@ -253,7 +257,7 @@ public class EscalaService {
     			if(escala.getDia02Fk().getHorasTarde()>0  && lista.get(i).getDia02Fk().getHorasTarde()>0 ) {
     				respostaInterna = respostaInterna+"2 tarde;";
 	    		}
-    			if(escala.getDia02Fk().getHorasNoite()>0  && lista.get(i).getDia02Fk().getHorasNoite()>0 ) {
+    			if(escala.getDia02Fk().getHorasNoite()>0  && ( lista.get(i).getDia02Fk().getHorasNoite() + lista.get(i).getDia02Fk().getHorasA() + lista.get(i).getDia02Fk().getHorasB()+ lista.get(i).getDia02Fk().getHorasC() ) >0 ) {
     				respostaInterna = respostaInterna+"2 noite;";
 	    		}
     			
@@ -264,7 +268,7 @@ public class EscalaService {
     			if(escala.getDia03Fk().getHorasTarde()>0  && lista.get(i).getDia03Fk().getHorasTarde()>0 ) {
     				respostaInterna = respostaInterna+"3 tarde;";
 	    		}
-    			if(escala.getDia03Fk().getHorasNoite()>0  && lista.get(i).getDia03Fk().getHorasNoite()>0 ) {
+    			if(escala.getDia03Fk().getHorasNoite()>0  && ( lista.get(i).getDia03Fk().getHorasNoite() + lista.get(i).getDia03Fk().getHorasA() + lista.get(i).getDia03Fk().getHorasB()+ lista.get(i).getDia03Fk().getHorasC() ) >0 ) {
     				respostaInterna = respostaInterna+"3 noite;";
 	    		}
     			
@@ -275,7 +279,7 @@ public class EscalaService {
     			if(escala.getDia04Fk().getHorasTarde()>0  && lista.get(i).getDia04Fk().getHorasTarde()>0 ) {
     				respostaInterna = respostaInterna+"4 tarde;";
 	    		}
-    			if(escala.getDia04Fk().getHorasNoite()>0  && lista.get(i).getDia04Fk().getHorasNoite()>0 ) {
+    			if(escala.getDia04Fk().getHorasNoite()>0  && ( lista.get(i).getDia04Fk().getHorasNoite() + lista.get(i).getDia04Fk().getHorasA() + lista.get(i).getDia04Fk().getHorasB()+ lista.get(i).getDia04Fk().getHorasC() ) >0 ) {
     				respostaInterna = respostaInterna+"4 noite;";
 	    		}
     			
@@ -286,7 +290,7 @@ public class EscalaService {
     			if(escala.getDia05Fk().getHorasTarde()>0  && lista.get(i).getDia05Fk().getHorasTarde()>0 ) {
     				respostaInterna = respostaInterna+"5 tarde;";
 	    		}
-    			if(escala.getDia05Fk().getHorasNoite()>0  && lista.get(i).getDia05Fk().getHorasNoite()>0 ) {
+    			if(escala.getDia05Fk().getHorasNoite()>0  && ( lista.get(i).getDia05Fk().getHorasNoite() + lista.get(i).getDia05Fk().getHorasA() + lista.get(i).getDia05Fk().getHorasB()+ lista.get(i).getDia05Fk().getHorasC() ) >0 ) {
     				respostaInterna = respostaInterna+"5 noite;";
 	    		}
     			
@@ -297,7 +301,7 @@ public class EscalaService {
     			if(escala.getDia06Fk().getHorasTarde()>0  && lista.get(i).getDia06Fk().getHorasTarde()>0 ) {
     				respostaInterna = respostaInterna+"6 tarde;";
 	    		}
-    			if(escala.getDia06Fk().getHorasNoite()>0  && lista.get(i).getDia06Fk().getHorasNoite()>0 ) {
+    			if(escala.getDia06Fk().getHorasNoite()>0  && ( lista.get(i).getDia06Fk().getHorasNoite() + lista.get(i).getDia06Fk().getHorasA() + lista.get(i).getDia06Fk().getHorasB()+ lista.get(i).getDia06Fk().getHorasC() ) >0 ) {
     				respostaInterna = respostaInterna+"6 noite;";
 	    		}
     			
@@ -308,7 +312,7 @@ public class EscalaService {
     			if(escala.getDia07Fk().getHorasTarde()>0  && lista.get(i).getDia07Fk().getHorasTarde()>0 ) {
     				respostaInterna = respostaInterna+"7 tarde;";
 	    		}
-    			if(escala.getDia07Fk().getHorasNoite()>0  && lista.get(i).getDia07Fk().getHorasNoite()>0 ) {
+    			if(escala.getDia07Fk().getHorasNoite()>0  && ( lista.get(i).getDia07Fk().getHorasNoite() + lista.get(i).getDia07Fk().getHorasA() + lista.get(i).getDia07Fk().getHorasB()+ lista.get(i).getDia07Fk().getHorasC() ) >0 ) {
     				respostaInterna = respostaInterna+"7 noite;";
 	    		}
     			
@@ -319,7 +323,7 @@ public class EscalaService {
     			if(escala.getDia08Fk().getHorasTarde()>0  && lista.get(i).getDia08Fk().getHorasTarde()>0 ) {
     				respostaInterna = respostaInterna+"8 tarde;";
 	    		}
-    			if(escala.getDia08Fk().getHorasNoite()>0  && lista.get(i).getDia08Fk().getHorasNoite()>0 ) {
+    			if(escala.getDia08Fk().getHorasNoite()>0  && ( lista.get(i).getDia08Fk().getHorasNoite() + lista.get(i).getDia08Fk().getHorasA() + lista.get(i).getDia08Fk().getHorasB()+ lista.get(i).getDia08Fk().getHorasC() ) >0 ) {
     				respostaInterna = respostaInterna+"8 noite;";
 	    		}
     			
@@ -330,7 +334,7 @@ public class EscalaService {
     			if(escala.getDia09Fk().getHorasTarde()>0  && lista.get(i).getDia09Fk().getHorasTarde()>0 ) {
     				respostaInterna = respostaInterna+"9 tarde;";
 	    		}
-    			if(escala.getDia09Fk().getHorasNoite()>0  && lista.get(i).getDia09Fk().getHorasNoite()>0 ) {
+    			if(escala.getDia09Fk().getHorasNoite()>0  && ( lista.get(i).getDia09Fk().getHorasNoite() + lista.get(i).getDia09Fk().getHorasA() + lista.get(i).getDia09Fk().getHorasB()+ lista.get(i).getDia09Fk().getHorasC() ) >0 ) {
     				respostaInterna = respostaInterna+"9 noite;";
 	    		}
     			
@@ -341,7 +345,7 @@ public class EscalaService {
     			if(escala.getDia10Fk().getHorasTarde()>0  && lista.get(i).getDia10Fk().getHorasTarde()>0 ) {
     				respostaInterna = respostaInterna+"10 tarde;";
 	    		}
-    			if(escala.getDia10Fk().getHorasNoite()>0  && lista.get(i).getDia10Fk().getHorasNoite()>0 ) {
+    			if(escala.getDia10Fk().getHorasNoite()>0  && ( lista.get(i).getDia10Fk().getHorasNoite() + lista.get(i).getDia10Fk().getHorasA() + lista.get(i).getDia10Fk().getHorasB()+ lista.get(i).getDia10Fk().getHorasC() ) >0 ) {
     				respostaInterna = respostaInterna+"10 noite;";
 	    		}
     			
@@ -352,7 +356,7 @@ public class EscalaService {
     			if(escala.getDia11Fk().getHorasTarde()>0  && lista.get(i).getDia11Fk().getHorasTarde()>0 ) {
     				respostaInterna = respostaInterna+"11 tarde;";
 	    		}
-    			if(escala.getDia11Fk().getHorasNoite()>0  && lista.get(i).getDia11Fk().getHorasNoite()>0 ) {
+    			if(escala.getDia11Fk().getHorasNoite()>0  && ( lista.get(i).getDia11Fk().getHorasNoite() + lista.get(i).getDia11Fk().getHorasA() + lista.get(i).getDia11Fk().getHorasB()+ lista.get(i).getDia11Fk().getHorasC() ) >0 ) {
     				respostaInterna = respostaInterna+"11 noite;";
 	    		}
     			
@@ -363,7 +367,7 @@ public class EscalaService {
     			if(escala.getDia12Fk().getHorasTarde()>0  && lista.get(i).getDia12Fk().getHorasTarde()>0 ) {
     				respostaInterna = respostaInterna+"12 tarde;";
 	    		}
-    			if(escala.getDia12Fk().getHorasNoite()>0  && lista.get(i).getDia12Fk().getHorasNoite()>0 ) {
+    			if(escala.getDia12Fk().getHorasNoite()>0  && ( lista.get(i).getDia12Fk().getHorasNoite() + lista.get(i).getDia12Fk().getHorasA() + lista.get(i).getDia12Fk().getHorasB()+ lista.get(i).getDia12Fk().getHorasC() ) >0 ) {
     				respostaInterna = respostaInterna+"12 noite;";
 	    		}
     			
@@ -374,7 +378,7 @@ public class EscalaService {
     			if(escala.getDia13Fk().getHorasTarde()>0  && lista.get(i).getDia13Fk().getHorasTarde()>0 ) {
     				respostaInterna = respostaInterna+"13 tarde;";
 	    		}
-    			if(escala.getDia13Fk().getHorasNoite()>0  && lista.get(i).getDia13Fk().getHorasNoite()>0 ) {
+    			if(escala.getDia13Fk().getHorasNoite()>0  && ( lista.get(i).getDia13Fk().getHorasNoite() + lista.get(i).getDia13Fk().getHorasA() + lista.get(i).getDia13Fk().getHorasB()+ lista.get(i).getDia13Fk().getHorasC() ) >0 ) {
     				respostaInterna = respostaInterna+"13 noite;";
 	    		}
     			
@@ -385,7 +389,7 @@ public class EscalaService {
     			if(escala.getDia14Fk().getHorasTarde()>0  && lista.get(i).getDia14Fk().getHorasTarde()>0 ) {
     				respostaInterna = respostaInterna+"14 tarde;";
 	    		}
-    			if(escala.getDia14Fk().getHorasNoite()>0  && lista.get(i).getDia14Fk().getHorasNoite()>0 ) {
+    			if(escala.getDia14Fk().getHorasNoite()>0  && ( lista.get(i).getDia14Fk().getHorasNoite() + lista.get(i).getDia14Fk().getHorasA() + lista.get(i).getDia14Fk().getHorasB()+ lista.get(i).getDia14Fk().getHorasC() ) >0 ) {
     				respostaInterna = respostaInterna+"14 noite;";
 	    		}
     			
@@ -396,7 +400,7 @@ public class EscalaService {
     			if(escala.getDia15Fk().getHorasTarde()>0  && lista.get(i).getDia15Fk().getHorasTarde()>0 ) {
     				respostaInterna = respostaInterna+"15 tarde;";
 	    		}
-    			if(escala.getDia15Fk().getHorasNoite()>0  && lista.get(i).getDia15Fk().getHorasNoite()>0 ) {
+    			if(escala.getDia15Fk().getHorasNoite()>0  && ( lista.get(i).getDia15Fk().getHorasNoite() + lista.get(i).getDia15Fk().getHorasA() + lista.get(i).getDia15Fk().getHorasB()+ lista.get(i).getDia15Fk().getHorasC() ) >0 ) {
     				respostaInterna = respostaInterna+"15 noite;";
 	    		}
     			
@@ -407,7 +411,7 @@ public class EscalaService {
     			if(escala.getDia16Fk().getHorasTarde()>0  && lista.get(i).getDia16Fk().getHorasTarde()>0 ) {
     				respostaInterna = respostaInterna+"16 tarde;";
 	    		}
-    			if(escala.getDia16Fk().getHorasNoite()>0  && lista.get(i).getDia16Fk().getHorasNoite()>0 ) {
+    			if(escala.getDia16Fk().getHorasNoite()>0  && ( lista.get(i).getDia16Fk().getHorasNoite() + lista.get(i).getDia16Fk().getHorasA() + lista.get(i).getDia16Fk().getHorasB()+ lista.get(i).getDia16Fk().getHorasC() ) >0 ) {
     				respostaInterna = respostaInterna+"16 noite;";
 	    		}
     			
@@ -418,7 +422,7 @@ public class EscalaService {
     			if(escala.getDia17Fk().getHorasTarde()>0  && lista.get(i).getDia17Fk().getHorasTarde()>0 ) {
     				respostaInterna = respostaInterna+"17 tarde;";
 	    		}
-    			if(escala.getDia17Fk().getHorasNoite()>0  && lista.get(i).getDia17Fk().getHorasNoite()>0 ) {
+    			if(escala.getDia17Fk().getHorasNoite()>0  && ( lista.get(i).getDia17Fk().getHorasNoite() + lista.get(i).getDia17Fk().getHorasA() + lista.get(i).getDia17Fk().getHorasB()+ lista.get(i).getDia17Fk().getHorasC() ) >0 ) {
     				respostaInterna = respostaInterna+"17 noite;";
 	    		}
     			
@@ -429,7 +433,7 @@ public class EscalaService {
     			if(escala.getDia18Fk().getHorasTarde()>0  && lista.get(i).getDia18Fk().getHorasTarde()>0 ) {
     				respostaInterna = respostaInterna+"18 tarde;";
 	    		}
-    			if(escala.getDia18Fk().getHorasNoite()>0  && lista.get(i).getDia18Fk().getHorasNoite()>0 ) {
+    			if(escala.getDia18Fk().getHorasNoite()>0  && ( lista.get(i).getDia18Fk().getHorasNoite() + lista.get(i).getDia18Fk().getHorasA() + lista.get(i).getDia18Fk().getHorasB()+ lista.get(i).getDia18Fk().getHorasC() ) >0 ) {
     				respostaInterna = respostaInterna+"18 noite;";
 	    		}
     			
@@ -440,7 +444,7 @@ public class EscalaService {
     			if(escala.getDia19Fk().getHorasTarde()>0  && lista.get(i).getDia19Fk().getHorasTarde()>0 ) {
     				respostaInterna = respostaInterna+"19 tarde;";
 	    		}
-    			if(escala.getDia19Fk().getHorasNoite()>0  && lista.get(i).getDia19Fk().getHorasNoite()>0 ) {
+    			if(escala.getDia19Fk().getHorasNoite()>0  && ( lista.get(i).getDia19Fk().getHorasNoite() + lista.get(i).getDia19Fk().getHorasA() + lista.get(i).getDia19Fk().getHorasB()+ lista.get(i).getDia19Fk().getHorasC() ) >0 ) {
     				respostaInterna = respostaInterna+"19 noite;";
 	    		}
     			
@@ -451,7 +455,7 @@ public class EscalaService {
     			if(escala.getDia20Fk().getHorasTarde()>0  && lista.get(i).getDia20Fk().getHorasTarde()>0 ) {
     				respostaInterna = respostaInterna+"20 tarde;";
 	    		}
-    			if(escala.getDia20Fk().getHorasNoite()>0  && lista.get(i).getDia20Fk().getHorasNoite()>0 ) {
+    			if(escala.getDia20Fk().getHorasNoite()>0  && ( lista.get(i).getDia20Fk().getHorasNoite() + lista.get(i).getDia20Fk().getHorasA() + lista.get(i).getDia20Fk().getHorasB()+ lista.get(i).getDia20Fk().getHorasC() ) >0 ) {
     				respostaInterna = respostaInterna+"20 noite;";
 	    		}
     			
@@ -462,7 +466,7 @@ public class EscalaService {
     			if(escala.getDia21Fk().getHorasTarde()>0  && lista.get(i).getDia21Fk().getHorasTarde()>0 ) {
     				respostaInterna = respostaInterna+"21 tarde;";
 	    		}
-    			if(escala.getDia21Fk().getHorasNoite()>0  && lista.get(i).getDia21Fk().getHorasNoite()>0 ) {
+    			if(escala.getDia21Fk().getHorasNoite()>0  && ( lista.get(i).getDia21Fk().getHorasNoite() + lista.get(i).getDia21Fk().getHorasA() + lista.get(i).getDia21Fk().getHorasB()+ lista.get(i).getDia21Fk().getHorasC() ) >0 ) {
     				respostaInterna = respostaInterna+"21 noite;";
 	    		}
     			
@@ -473,7 +477,7 @@ public class EscalaService {
     			if(escala.getDia22Fk().getHorasTarde()>0  && lista.get(i).getDia22Fk().getHorasTarde()>0 ) {
     				respostaInterna = respostaInterna+"22 tarde;";
 	    		}
-    			if(escala.getDia22Fk().getHorasNoite()>0  && lista.get(i).getDia22Fk().getHorasNoite()>0 ) {
+    			if(escala.getDia22Fk().getHorasNoite()>0  && ( lista.get(i).getDia22Fk().getHorasNoite() + lista.get(i).getDia22Fk().getHorasA() + lista.get(i).getDia22Fk().getHorasB()+ lista.get(i).getDia22Fk().getHorasC() ) >0 ) {
     				respostaInterna = respostaInterna+"22 noite;";
 	    		}
     			
@@ -484,7 +488,7 @@ public class EscalaService {
     			if(escala.getDia23Fk().getHorasTarde()>0  && lista.get(i).getDia23Fk().getHorasTarde()>0 ) {
     				respostaInterna = respostaInterna+"23 tarde;";
 	    		}
-    			if(escala.getDia23Fk().getHorasNoite()>0  && lista.get(i).getDia23Fk().getHorasNoite()>0 ) {
+    			if(escala.getDia23Fk().getHorasNoite()>0  && ( lista.get(i).getDia23Fk().getHorasNoite() + lista.get(i).getDia23Fk().getHorasA() + lista.get(i).getDia23Fk().getHorasB()+ lista.get(i).getDia23Fk().getHorasC() ) >0 ) {
     				respostaInterna = respostaInterna+"23 noite;";
 	    		}
     			
@@ -495,7 +499,7 @@ public class EscalaService {
     			if(escala.getDia24Fk().getHorasTarde()>0  && lista.get(i).getDia24Fk().getHorasTarde()>0 ) {
     				respostaInterna = respostaInterna+"24 tarde;";
 	    		}
-    			if(escala.getDia24Fk().getHorasNoite()>0  && lista.get(i).getDia24Fk().getHorasNoite()>0 ) {
+    			if(escala.getDia24Fk().getHorasNoite()>0  && ( lista.get(i).getDia24Fk().getHorasNoite() + lista.get(i).getDia24Fk().getHorasA() + lista.get(i).getDia24Fk().getHorasB()+ lista.get(i).getDia24Fk().getHorasC() ) >0 ) {
     				respostaInterna = respostaInterna+"24 noite;";
 	    		}
     			
@@ -506,7 +510,7 @@ public class EscalaService {
     			if(escala.getDia25Fk().getHorasTarde()>0  && lista.get(i).getDia25Fk().getHorasTarde()>0 ) {
     				respostaInterna = respostaInterna+"25 tarde;";
 	    		}
-    			if(escala.getDia25Fk().getHorasNoite()>0  && lista.get(i).getDia25Fk().getHorasNoite()>0 ) {
+    			if(escala.getDia25Fk().getHorasNoite()>0  && ( lista.get(i).getDia25Fk().getHorasNoite() + lista.get(i).getDia25Fk().getHorasA() + lista.get(i).getDia25Fk().getHorasB()+ lista.get(i).getDia25Fk().getHorasC() ) >0 ) {
     				respostaInterna = respostaInterna+"25 noite;";
 	    		}
     			
@@ -517,7 +521,7 @@ public class EscalaService {
     			if(escala.getDia26Fk().getHorasTarde()>0  && lista.get(i).getDia26Fk().getHorasTarde()>0 ) {
     				respostaInterna = respostaInterna+"26 tarde;";
 	    		}
-    			if(escala.getDia26Fk().getHorasNoite()>0  && lista.get(i).getDia26Fk().getHorasNoite()>0 ) {
+    			if(escala.getDia26Fk().getHorasNoite()>0  && ( lista.get(i).getDia26Fk().getHorasNoite() + lista.get(i).getDia26Fk().getHorasA() + lista.get(i).getDia26Fk().getHorasB()+ lista.get(i).getDia26Fk().getHorasC() ) >0 ) {
     				respostaInterna = respostaInterna+"26 noite;";
 	    		}
     			
@@ -528,7 +532,7 @@ public class EscalaService {
     			if(escala.getDia27Fk().getHorasTarde()>0  && lista.get(i).getDia27Fk().getHorasTarde()>0 ) {
     				respostaInterna = respostaInterna+"27 tarde;";
 	    		}
-    			if(escala.getDia27Fk().getHorasNoite()>0  && lista.get(i).getDia27Fk().getHorasNoite()>0 ) {
+    			if(escala.getDia27Fk().getHorasNoite()>0  && ( lista.get(i).getDia27Fk().getHorasNoite() + lista.get(i).getDia27Fk().getHorasA() + lista.get(i).getDia27Fk().getHorasB()+ lista.get(i).getDia27Fk().getHorasC() ) >0 ) {
     				respostaInterna = respostaInterna+"27 noite;";
 	    		}
     			
@@ -539,7 +543,7 @@ public class EscalaService {
     			if(escala.getDia28Fk().getHorasTarde()>0  && lista.get(i).getDia28Fk().getHorasTarde()>0 ) {
     				respostaInterna = respostaInterna+"28 tarde;";
 	    		}
-    			if(escala.getDia28Fk().getHorasNoite()>0  && lista.get(i).getDia28Fk().getHorasNoite()>0 ) {
+    			if(escala.getDia28Fk().getHorasNoite()>0  && ( lista.get(i).getDia28Fk().getHorasNoite() + lista.get(i).getDia28Fk().getHorasA() + lista.get(i).getDia28Fk().getHorasB()+ lista.get(i).getDia28Fk().getHorasC() ) >0 ) {
     				respostaInterna = respostaInterna+"28 noite;";
 	    		}
     			
@@ -550,7 +554,7 @@ public class EscalaService {
     			if(escala.getDia29Fk().getHorasTarde()>0  && lista.get(i).getDia29Fk().getHorasTarde()>0 ) {
     				respostaInterna = respostaInterna+"29 tarde;";
 	    		}
-    			if(escala.getDia29Fk().getHorasNoite()>0  && lista.get(i).getDia29Fk().getHorasNoite()>0 ) {
+    			if(escala.getDia29Fk().getHorasNoite()>0  && ( lista.get(i).getDia29Fk().getHorasNoite() + lista.get(i).getDia29Fk().getHorasA() + lista.get(i).getDia29Fk().getHorasB()+ lista.get(i).getDia29Fk().getHorasC() ) >0 ) {
     				respostaInterna = respostaInterna+"29 noite;";
 	    		}
     			
@@ -561,7 +565,7 @@ public class EscalaService {
     			if(escala.getDia30Fk().getHorasTarde()>0  && lista.get(i).getDia30Fk().getHorasTarde()>0 ) {
     				respostaInterna = respostaInterna+"30 tarde;";
 	    		}
-    			if(escala.getDia30Fk().getHorasNoite()>0  && lista.get(i).getDia30Fk().getHorasNoite()>0 ) {
+    			if(escala.getDia30Fk().getHorasNoite()>0  && ( lista.get(i).getDia30Fk().getHorasNoite() + lista.get(i).getDia30Fk().getHorasA() + lista.get(i).getDia30Fk().getHorasB()+ lista.get(i).getDia30Fk().getHorasC() ) >0 ) {
     				respostaInterna = respostaInterna+"30 noite;";
 	    		}
     			
@@ -572,7 +576,7 @@ public class EscalaService {
     			if(escala.getDia31Fk().getHorasTarde()>0  && lista.get(i).getDia31Fk().getHorasTarde()>0 ) {
     				respostaInterna = respostaInterna+"31 tarde;";
 	    		}
-    			if(escala.getDia31Fk().getHorasNoite()>0  && lista.get(i).getDia31Fk().getHorasNoite()>0 ) {
+    			if(escala.getDia31Fk().getHorasNoite()>0  && ( lista.get(i).getDia31Fk().getHorasNoite() + lista.get(i).getDia31Fk().getHorasA() + lista.get(i).getDia31Fk().getHorasB()+ lista.get(i).getDia31Fk().getHorasC() ) >0 ) {
     				respostaInterna = respostaInterna+"31 noite;";
 	    		}
     			
@@ -664,97 +668,97 @@ public class EscalaService {
     	
     	for(int i = 0;i<lista.size();i++) {
     		horasDia01   = horasDia01   + lista.get(i).getDia01Fk().getHorasManha() + lista.get(i).getDia01Fk().getHorasTarde();
-    		horasNoite01 = horasNoite01 + lista.get(i).getDia01Fk().getHorasNoite() ;
+    		horasNoite01 = horasNoite01 + lista.get(i).getDia01Fk().getHorasNoite() + lista.get(i).getDia01Fk().getHorasA() + lista.get(i).getDia01Fk().getHorasB() + lista.get(i).getDia01Fk().getHorasC() ;
     		
     		horasDia02   = horasDia02   + lista.get(i).getDia02Fk().getHorasManha() + lista.get(i).getDia02Fk().getHorasTarde();
-    		horasNoite02 = horasNoite02 + lista.get(i).getDia02Fk().getHorasNoite() ;
+    		horasNoite02 = horasNoite02 + lista.get(i).getDia02Fk().getHorasNoite() + lista.get(i).getDia02Fk().getHorasA() + lista.get(i).getDia02Fk().getHorasB() + lista.get(i).getDia02Fk().getHorasC() ;
     		
     		horasDia03   = horasDia03   + lista.get(i).getDia03Fk().getHorasManha() + lista.get(i).getDia03Fk().getHorasTarde();
-    		horasNoite03 = horasNoite03 + lista.get(i).getDia03Fk().getHorasNoite() ;
+    		horasNoite03 = horasNoite03 + lista.get(i).getDia03Fk().getHorasNoite() + lista.get(i).getDia03Fk().getHorasA() + lista.get(i).getDia03Fk().getHorasB() + lista.get(i).getDia03Fk().getHorasC() ;
     		
     		horasDia04   = horasDia04   + lista.get(i).getDia04Fk().getHorasManha() + lista.get(i).getDia04Fk().getHorasTarde();
-    		horasNoite04 = horasNoite04 + lista.get(i).getDia04Fk().getHorasNoite() ;
+    		horasNoite04 = horasNoite04 + lista.get(i).getDia04Fk().getHorasNoite() + lista.get(i).getDia04Fk().getHorasA() + lista.get(i).getDia04Fk().getHorasB() + lista.get(i).getDia04Fk().getHorasC() ;
     		
     		horasDia05   = horasDia05   + lista.get(i).getDia05Fk().getHorasManha() + lista.get(i).getDia05Fk().getHorasTarde();
-    		horasNoite05 = horasNoite05 + lista.get(i).getDia05Fk().getHorasNoite() ;
+    		horasNoite05 = horasNoite05 + lista.get(i).getDia05Fk().getHorasNoite() + lista.get(i).getDia05Fk().getHorasA() + lista.get(i).getDia05Fk().getHorasB() + lista.get(i).getDia05Fk().getHorasC() ;
     		
     		horasDia06   = horasDia06   + lista.get(i).getDia06Fk().getHorasManha() + lista.get(i).getDia06Fk().getHorasTarde();
-    		horasNoite06 = horasNoite06 + lista.get(i).getDia06Fk().getHorasNoite() ;
+    		horasNoite06 = horasNoite06 + lista.get(i).getDia06Fk().getHorasNoite() + lista.get(i).getDia06Fk().getHorasA() + lista.get(i).getDia06Fk().getHorasB() + lista.get(i).getDia06Fk().getHorasC() ;
     		
     		horasDia07   = horasDia07   + lista.get(i).getDia07Fk().getHorasManha() + lista.get(i).getDia07Fk().getHorasTarde();
-    		horasNoite07 = horasNoite07 + lista.get(i).getDia07Fk().getHorasNoite() ;
+    		horasNoite07 = horasNoite07 + lista.get(i).getDia07Fk().getHorasNoite() + lista.get(i).getDia07Fk().getHorasA() + lista.get(i).getDia07Fk().getHorasB() + lista.get(i).getDia07Fk().getHorasC() ;
     		
     		horasDia08   = horasDia08   + lista.get(i).getDia08Fk().getHorasManha() + lista.get(i).getDia08Fk().getHorasTarde();
-    		horasNoite08 = horasNoite08 + lista.get(i).getDia08Fk().getHorasNoite() ;
+    		horasNoite08 = horasNoite08 + lista.get(i).getDia08Fk().getHorasNoite() + lista.get(i).getDia08Fk().getHorasA() + lista.get(i).getDia08Fk().getHorasB() + lista.get(i).getDia08Fk().getHorasC() ;
     		
     		horasDia09   = horasDia09   + lista.get(i).getDia09Fk().getHorasManha() + lista.get(i).getDia09Fk().getHorasTarde();
-    		horasNoite09 = horasNoite09 + lista.get(i).getDia09Fk().getHorasNoite() ;
+    		horasNoite09 = horasNoite09 + lista.get(i).getDia09Fk().getHorasNoite() + lista.get(i).getDia09Fk().getHorasA() + lista.get(i).getDia09Fk().getHorasB() + lista.get(i).getDia09Fk().getHorasC() ;
     		
     		horasDia10   = horasDia10   + lista.get(i).getDia10Fk().getHorasManha() + lista.get(i).getDia10Fk().getHorasTarde();
-    		horasNoite10 = horasNoite10 + lista.get(i).getDia10Fk().getHorasNoite() ;
+    		horasNoite10 = horasNoite10 + lista.get(i).getDia10Fk().getHorasNoite() + lista.get(i).getDia10Fk().getHorasA() + lista.get(i).getDia10Fk().getHorasB() + lista.get(i).getDia10Fk().getHorasC() ;
     		
     		horasDia11   = horasDia11   + lista.get(i).getDia11Fk().getHorasManha() + lista.get(i).getDia11Fk().getHorasTarde();
-    		horasNoite11 = horasNoite11 + lista.get(i).getDia11Fk().getHorasNoite() ;
+    		horasNoite11 = horasNoite11 + lista.get(i).getDia11Fk().getHorasNoite() + lista.get(i).getDia11Fk().getHorasA() + lista.get(i).getDia11Fk().getHorasB() + lista.get(i).getDia11Fk().getHorasC() ;
     		
     		horasDia12   = horasDia12   + lista.get(i).getDia12Fk().getHorasManha() + lista.get(i).getDia12Fk().getHorasTarde();
-    		horasNoite12 = horasNoite12 + lista.get(i).getDia12Fk().getHorasNoite() ;
+    		horasNoite12 = horasNoite12 + lista.get(i).getDia12Fk().getHorasNoite() + lista.get(i).getDia12Fk().getHorasA() + lista.get(i).getDia12Fk().getHorasB() + lista.get(i).getDia12Fk().getHorasC() ;
     		
     		horasDia13   = horasDia13   + lista.get(i).getDia13Fk().getHorasManha() + lista.get(i).getDia13Fk().getHorasTarde();
-    		horasNoite13 = horasNoite13 + lista.get(i).getDia13Fk().getHorasNoite() ;
+    		horasNoite13 = horasNoite13 + lista.get(i).getDia13Fk().getHorasNoite() + lista.get(i).getDia13Fk().getHorasA() + lista.get(i).getDia13Fk().getHorasB() + lista.get(i).getDia13Fk().getHorasC() ;
     		
     		horasDia14   = horasDia14   + lista.get(i).getDia14Fk().getHorasManha() + lista.get(i).getDia14Fk().getHorasTarde();
-    		horasNoite14 = horasNoite14 + lista.get(i).getDia14Fk().getHorasNoite() ;
+    		horasNoite14 = horasNoite14 + lista.get(i).getDia14Fk().getHorasNoite() + lista.get(i).getDia14Fk().getHorasA() + lista.get(i).getDia14Fk().getHorasB() + lista.get(i).getDia14Fk().getHorasC() ;
     		
     		horasDia15   = horasDia15   + lista.get(i).getDia15Fk().getHorasManha() + lista.get(i).getDia15Fk().getHorasTarde();
-    		horasNoite15 = horasNoite15 + lista.get(i).getDia15Fk().getHorasNoite() ;
+    		horasNoite15 = horasNoite15 + lista.get(i).getDia15Fk().getHorasNoite() + lista.get(i).getDia15Fk().getHorasA() + lista.get(i).getDia15Fk().getHorasB() + lista.get(i).getDia15Fk().getHorasC() ;
     		
     		horasDia16   = horasDia16   + lista.get(i).getDia16Fk().getHorasManha() + lista.get(i).getDia16Fk().getHorasTarde();
-    		horasNoite16 = horasNoite16 + lista.get(i).getDia16Fk().getHorasNoite() ;
+    		horasNoite16 = horasNoite16 + lista.get(i).getDia16Fk().getHorasNoite() + lista.get(i).getDia16Fk().getHorasA() + lista.get(i).getDia16Fk().getHorasB() + lista.get(i).getDia16Fk().getHorasC() ;
     		
     		horasDia17   = horasDia17   + lista.get(i).getDia17Fk().getHorasManha() + lista.get(i).getDia17Fk().getHorasTarde();
-    		horasNoite17 = horasNoite17 + lista.get(i).getDia17Fk().getHorasNoite() ;
+    		horasNoite17 = horasNoite17 + lista.get(i).getDia17Fk().getHorasNoite() + lista.get(i).getDia17Fk().getHorasA() + lista.get(i).getDia17Fk().getHorasB() + lista.get(i).getDia17Fk().getHorasC() ;
     		
     		horasDia18   = horasDia17   + lista.get(i).getDia18Fk().getHorasManha() + lista.get(i).getDia18Fk().getHorasTarde();
-    		horasNoite18 = horasNoite18 + lista.get(i).getDia18Fk().getHorasNoite() ;
+    		horasNoite18 = horasNoite18 + lista.get(i).getDia18Fk().getHorasNoite() + lista.get(i).getDia18Fk().getHorasA() + lista.get(i).getDia18Fk().getHorasB() + lista.get(i).getDia18Fk().getHorasC() ;
     		
     		horasDia19   = horasDia19   + lista.get(i).getDia19Fk().getHorasManha() + lista.get(i).getDia19Fk().getHorasTarde();
-    		horasNoite19 = horasNoite19 + lista.get(i).getDia19Fk().getHorasNoite() ;
+    		horasNoite19 = horasNoite19 + lista.get(i).getDia19Fk().getHorasNoite() + lista.get(i).getDia19Fk().getHorasA() + lista.get(i).getDia19Fk().getHorasB() + lista.get(i).getDia19Fk().getHorasC() ;
     		
     		horasDia20   = horasDia20   + lista.get(i).getDia20Fk().getHorasManha() + lista.get(i).getDia20Fk().getHorasTarde();
-    		horasNoite20 = horasNoite20 + lista.get(i).getDia20Fk().getHorasNoite() ;
+    		horasNoite20 = horasNoite20 + lista.get(i).getDia20Fk().getHorasNoite() + lista.get(i).getDia20Fk().getHorasA() + lista.get(i).getDia20Fk().getHorasB() + lista.get(i).getDia20Fk().getHorasC() ;
     		
     		horasDia21   = horasDia21   + lista.get(i).getDia21Fk().getHorasManha() + lista.get(i).getDia21Fk().getHorasTarde();
-    		horasNoite21 = horasNoite21 + lista.get(i).getDia21Fk().getHorasNoite() ;
+    		horasNoite21 = horasNoite21 + lista.get(i).getDia21Fk().getHorasNoite() + lista.get(i).getDia21Fk().getHorasA() + lista.get(i).getDia21Fk().getHorasB() + lista.get(i).getDia21Fk().getHorasC() ;
     		
     		horasDia22   = horasDia22   + lista.get(i).getDia22Fk().getHorasManha() + lista.get(i).getDia22Fk().getHorasTarde();
-    		horasNoite22 = horasNoite22 + lista.get(i).getDia22Fk().getHorasNoite() ;
+    		horasNoite22 = horasNoite22 + lista.get(i).getDia22Fk().getHorasNoite() + lista.get(i).getDia22Fk().getHorasA() + lista.get(i).getDia22Fk().getHorasB() + lista.get(i).getDia22Fk().getHorasC() ;
     		
     		horasDia23   = horasDia23   + lista.get(i).getDia23Fk().getHorasManha() + lista.get(i).getDia23Fk().getHorasTarde();
-    		horasNoite23 = horasNoite23 + lista.get(i).getDia23Fk().getHorasNoite() ;
+    		horasNoite23 = horasNoite23 + lista.get(i).getDia23Fk().getHorasNoite() + lista.get(i).getDia23Fk().getHorasA() + lista.get(i).getDia23Fk().getHorasB() + lista.get(i).getDia23Fk().getHorasC() ;
     		
     		horasDia24   = horasDia24   + lista.get(i).getDia24Fk().getHorasManha() + lista.get(i).getDia24Fk().getHorasTarde();
-    		horasNoite24 = horasNoite24 + lista.get(i).getDia24Fk().getHorasNoite() ;
+    		horasNoite24 = horasNoite24 + lista.get(i).getDia24Fk().getHorasNoite() + lista.get(i).getDia24Fk().getHorasA() + lista.get(i).getDia24Fk().getHorasB() + lista.get(i).getDia24Fk().getHorasC() ;
     		
     		horasDia25   = horasDia25   + lista.get(i).getDia25Fk().getHorasManha() + lista.get(i).getDia25Fk().getHorasTarde();
-    		horasNoite25 = horasNoite25 + lista.get(i).getDia25Fk().getHorasNoite() ;
+    		horasNoite25 = horasNoite25 + lista.get(i).getDia25Fk().getHorasNoite() + lista.get(i).getDia25Fk().getHorasA() + lista.get(i).getDia25Fk().getHorasB() + lista.get(i).getDia25Fk().getHorasC() ;
     		
     		horasDia26   = horasDia26   + lista.get(i).getDia26Fk().getHorasManha() + lista.get(i).getDia26Fk().getHorasTarde();
-    		horasNoite26 = horasNoite26 + lista.get(i).getDia26Fk().getHorasNoite() ;
+    		horasNoite26 = horasNoite26 + lista.get(i).getDia26Fk().getHorasNoite() + lista.get(i).getDia26Fk().getHorasA() + lista.get(i).getDia26Fk().getHorasB() + lista.get(i).getDia26Fk().getHorasC() ;
     		
     		horasDia27   = horasDia27   + lista.get(i).getDia27Fk().getHorasManha() + lista.get(i).getDia27Fk().getHorasTarde();
-    		horasNoite27 = horasNoite27 + lista.get(i).getDia27Fk().getHorasNoite() ;
+    		horasNoite27 = horasNoite27 + lista.get(i).getDia27Fk().getHorasNoite() + lista.get(i).getDia27Fk().getHorasA() + lista.get(i).getDia27Fk().getHorasB() + lista.get(i).getDia27Fk().getHorasC() ;
     		
     		horasDia28   = horasDia28   + lista.get(i).getDia28Fk().getHorasManha() + lista.get(i).getDia28Fk().getHorasTarde();
-    		horasNoite28 = horasNoite28 + lista.get(i).getDia28Fk().getHorasNoite() ;
+    		horasNoite28 = horasNoite28 + lista.get(i).getDia28Fk().getHorasNoite() + lista.get(i).getDia28Fk().getHorasA() + lista.get(i).getDia28Fk().getHorasB() + lista.get(i).getDia28Fk().getHorasC() ;
     		
     		horasDia29   = horasDia29   + lista.get(i).getDia29Fk().getHorasManha() + lista.get(i).getDia29Fk().getHorasTarde();
-    		horasNoite29 = horasNoite29 + lista.get(i).getDia29Fk().getHorasNoite() ;
+    		horasNoite29 = horasNoite29 + lista.get(i).getDia29Fk().getHorasNoite() + lista.get(i).getDia29Fk().getHorasA() + lista.get(i).getDia29Fk().getHorasB() + lista.get(i).getDia29Fk().getHorasC() ;
     		
     		horasDia30   = horasDia30   + lista.get(i).getDia30Fk().getHorasManha() + lista.get(i).getDia30Fk().getHorasTarde();
-    		horasNoite30 = horasNoite30 + lista.get(i).getDia30Fk().getHorasNoite() ;
+    		horasNoite30 = horasNoite30 + lista.get(i).getDia30Fk().getHorasNoite() + lista.get(i).getDia30Fk().getHorasA() + lista.get(i).getDia30Fk().getHorasB() + lista.get(i).getDia30Fk().getHorasC() ;
     		
     		horasDia31   = horasDia31   + lista.get(i).getDia31Fk().getHorasManha() + lista.get(i).getDia31Fk().getHorasTarde();
-    		horasNoite31 = horasNoite31 + lista.get(i).getDia31Fk().getHorasNoite() ;
+    		horasNoite31 = horasNoite31 + lista.get(i).getDia31Fk().getHorasNoite() + lista.get(i).getDia31Fk().getHorasA() + lista.get(i).getDia31Fk().getHorasB() + lista.get(i).getDia31Fk().getHorasC() ;
     		
     	}
     	
@@ -880,6 +884,9 @@ public class EscalaService {
 		t01.setDescricaoTurno(escala.getDia01Fk().getDescricaoTurno());
 		t01.setHorasManha(escala.getDia01Fk().getHorasManha());
 		t01.setHorasNoite(escala.getDia01Fk().getHorasNoite());
+		t01.setHorasA(escala.getDia01Fk().getHorasA());
+		t01.setHorasB(escala.getDia01Fk().getHorasB());
+		t01.setHorasC(escala.getDia01Fk().getHorasC());
 		t01.setHorasTarde(escala.getDia01Fk().getHorasTarde());
 		t01.setId(escala.getDia01Fk().getId());
 		t01.setNomeTurno(escala.getDia01Fk().getNomeTurno());
@@ -890,6 +897,9 @@ public class EscalaService {
 		t02.setDescricaoTurno(escala.getDia02Fk().getDescricaoTurno());
 		t02.setHorasManha(escala.getDia02Fk().getHorasManha());
 		t02.setHorasNoite(escala.getDia02Fk().getHorasNoite());
+		t02.setHorasA(escala.getDia02Fk().getHorasA());
+		t02.setHorasB(escala.getDia02Fk().getHorasB());
+		t02.setHorasC(escala.getDia02Fk().getHorasC());
 		t02.setHorasTarde(escala.getDia02Fk().getHorasTarde());
 		t02.setId(escala.getDia02Fk().getId());
 		t02.setNomeTurno(escala.getDia02Fk().getNomeTurno());
@@ -900,6 +910,9 @@ public class EscalaService {
 		t03.setDescricaoTurno(escala.getDia03Fk().getDescricaoTurno());
 		t03.setHorasManha(escala.getDia03Fk().getHorasManha());
 		t03.setHorasNoite(escala.getDia03Fk().getHorasNoite());
+		t03.setHorasA(escala.getDia03Fk().getHorasA());
+		t03.setHorasB(escala.getDia03Fk().getHorasB());
+		t03.setHorasC(escala.getDia03Fk().getHorasC());
 		t03.setHorasTarde(escala.getDia03Fk().getHorasTarde());
 		t03.setId(escala.getDia03Fk().getId());
 		t03.setNomeTurno(escala.getDia03Fk().getNomeTurno());
@@ -910,6 +923,9 @@ public class EscalaService {
 		t04.setDescricaoTurno(escala.getDia04Fk().getDescricaoTurno());
 		t04.setHorasManha(escala.getDia04Fk().getHorasManha());
 		t04.setHorasNoite(escala.getDia04Fk().getHorasNoite());
+		t04.setHorasA(escala.getDia04Fk().getHorasA());
+		t04.setHorasB(escala.getDia04Fk().getHorasB());
+		t04.setHorasC(escala.getDia04Fk().getHorasC());
 		t04.setHorasTarde(escala.getDia04Fk().getHorasTarde());
 		t04.setId(escala.getDia04Fk().getId());
 		t04.setNomeTurno(escala.getDia04Fk().getNomeTurno());
@@ -920,6 +936,9 @@ public class EscalaService {
 		t05.setDescricaoTurno(escala.getDia05Fk().getDescricaoTurno());
 		t05.setHorasManha(escala.getDia05Fk().getHorasManha());
 		t05.setHorasNoite(escala.getDia05Fk().getHorasNoite());
+		t05.setHorasA(escala.getDia05Fk().getHorasA());
+		t05.setHorasB(escala.getDia05Fk().getHorasB());
+		t05.setHorasC(escala.getDia05Fk().getHorasC());
 		t05.setHorasTarde(escala.getDia05Fk().getHorasTarde());
 		t05.setId(escala.getDia05Fk().getId());
 		t05.setNomeTurno(escala.getDia05Fk().getNomeTurno());
@@ -930,6 +949,9 @@ public class EscalaService {
 		t06.setDescricaoTurno(escala.getDia06Fk().getDescricaoTurno());
 		t06.setHorasManha(escala.getDia06Fk().getHorasManha());
 		t06.setHorasNoite(escala.getDia06Fk().getHorasNoite());
+		t06.setHorasA(escala.getDia06Fk().getHorasA());
+		t06.setHorasB(escala.getDia06Fk().getHorasB());
+		t06.setHorasC(escala.getDia06Fk().getHorasC());
 		t06.setHorasTarde(escala.getDia06Fk().getHorasTarde());
 		t06.setId(escala.getDia06Fk().getId());
 		t06.setNomeTurno(escala.getDia06Fk().getNomeTurno());
@@ -940,6 +962,9 @@ public class EscalaService {
 		t07.setDescricaoTurno(escala.getDia07Fk().getDescricaoTurno());
 		t07.setHorasManha(escala.getDia07Fk().getHorasManha());
 		t07.setHorasNoite(escala.getDia07Fk().getHorasNoite());
+		t07.setHorasA(escala.getDia07Fk().getHorasA());
+		t07.setHorasB(escala.getDia07Fk().getHorasB());
+		t07.setHorasC(escala.getDia07Fk().getHorasC());
 		t07.setHorasTarde(escala.getDia07Fk().getHorasTarde());
 		t07.setId(escala.getDia07Fk().getId());
 		t07.setNomeTurno(escala.getDia07Fk().getNomeTurno());
@@ -950,6 +975,9 @@ public class EscalaService {
 		t08.setDescricaoTurno(escala.getDia08Fk().getDescricaoTurno());
 		t08.setHorasManha(escala.getDia08Fk().getHorasManha());
 		t08.setHorasNoite(escala.getDia08Fk().getHorasNoite());
+		t08.setHorasA(escala.getDia08Fk().getHorasA());
+		t08.setHorasB(escala.getDia08Fk().getHorasB());
+		t08.setHorasC(escala.getDia08Fk().getHorasC());
 		t08.setHorasTarde(escala.getDia08Fk().getHorasTarde());
 		t08.setId(escala.getDia08Fk().getId());
 		t08.setNomeTurno(escala.getDia08Fk().getNomeTurno());
@@ -960,6 +988,9 @@ public class EscalaService {
 		t09.setDescricaoTurno(escala.getDia09Fk().getDescricaoTurno());
 		t09.setHorasManha(escala.getDia09Fk().getHorasManha());
 		t09.setHorasNoite(escala.getDia09Fk().getHorasNoite());
+		t09.setHorasA(escala.getDia09Fk().getHorasA());
+		t09.setHorasB(escala.getDia09Fk().getHorasB());
+		t09.setHorasC(escala.getDia09Fk().getHorasC());
 		t09.setHorasTarde(escala.getDia09Fk().getHorasTarde());
 		t09.setId(escala.getDia09Fk().getId());
 		t09.setNomeTurno(escala.getDia09Fk().getNomeTurno());
@@ -970,6 +1001,9 @@ public class EscalaService {
 		t10.setDescricaoTurno(escala.getDia10Fk().getDescricaoTurno());
 		t10.setHorasManha(escala.getDia10Fk().getHorasManha());
 		t10.setHorasNoite(escala.getDia10Fk().getHorasNoite());
+		t10.setHorasA(escala.getDia10Fk().getHorasA());
+		t10.setHorasB(escala.getDia10Fk().getHorasB());
+		t10.setHorasC(escala.getDia10Fk().getHorasC());
 		t10.setHorasTarde(escala.getDia10Fk().getHorasTarde());
 		t10.setId(escala.getDia10Fk().getId());
 		t10.setNomeTurno(escala.getDia10Fk().getNomeTurno());
@@ -980,6 +1014,9 @@ public class EscalaService {
 		t11.setDescricaoTurno(escala.getDia11Fk().getDescricaoTurno());
 		t11.setHorasManha(escala.getDia11Fk().getHorasManha());
 		t11.setHorasNoite(escala.getDia11Fk().getHorasNoite());
+		t11.setHorasA(escala.getDia11Fk().getHorasA());
+		t11.setHorasB(escala.getDia11Fk().getHorasB());
+		t11.setHorasC(escala.getDia11Fk().getHorasC());
 		t11.setHorasTarde(escala.getDia11Fk().getHorasTarde());
 		t11.setId(escala.getDia11Fk().getId());
 		t11.setNomeTurno(escala.getDia11Fk().getNomeTurno());
@@ -990,6 +1027,9 @@ public class EscalaService {
 		t12.setDescricaoTurno(escala.getDia12Fk().getDescricaoTurno());
 		t12.setHorasManha(escala.getDia12Fk().getHorasManha());
 		t12.setHorasNoite(escala.getDia12Fk().getHorasNoite());
+		t12.setHorasA(escala.getDia12Fk().getHorasA());
+		t12.setHorasB(escala.getDia12Fk().getHorasB());
+		t12.setHorasC(escala.getDia12Fk().getHorasC());
 		t12.setHorasTarde(escala.getDia12Fk().getHorasTarde());
 		t12.setId(escala.getDia12Fk().getId());
 		t12.setNomeTurno(escala.getDia12Fk().getNomeTurno());
@@ -1000,6 +1040,9 @@ public class EscalaService {
 		t13.setDescricaoTurno(escala.getDia13Fk().getDescricaoTurno());
 		t13.setHorasManha(escala.getDia13Fk().getHorasManha());
 		t13.setHorasNoite(escala.getDia13Fk().getHorasNoite());
+		t13.setHorasA(escala.getDia13Fk().getHorasA());
+		t13.setHorasB(escala.getDia13Fk().getHorasB());
+		t13.setHorasC(escala.getDia13Fk().getHorasC());
 		t13.setHorasTarde(escala.getDia13Fk().getHorasTarde());
 		t13.setId(escala.getDia13Fk().getId());
 		t13.setNomeTurno(escala.getDia13Fk().getNomeTurno());
@@ -1010,6 +1053,9 @@ public class EscalaService {
 		t14.setDescricaoTurno(escala.getDia14Fk().getDescricaoTurno());
 		t14.setHorasManha(escala.getDia14Fk().getHorasManha());
 		t14.setHorasNoite(escala.getDia14Fk().getHorasNoite());
+		t14.setHorasA(escala.getDia14Fk().getHorasA());
+		t14.setHorasB(escala.getDia14Fk().getHorasB());
+		t14.setHorasC(escala.getDia14Fk().getHorasC());
 		t14.setHorasTarde(escala.getDia14Fk().getHorasTarde());
 		t14.setId(escala.getDia14Fk().getId());
 		t14.setNomeTurno(escala.getDia14Fk().getNomeTurno());
@@ -1020,6 +1066,9 @@ public class EscalaService {
 		t15.setDescricaoTurno(escala.getDia15Fk().getDescricaoTurno());
 		t15.setHorasManha(escala.getDia15Fk().getHorasManha());
 		t15.setHorasNoite(escala.getDia15Fk().getHorasNoite());
+		t15.setHorasA(escala.getDia15Fk().getHorasA());
+		t15.setHorasB(escala.getDia15Fk().getHorasB());
+		t15.setHorasC(escala.getDia15Fk().getHorasC());
 		t15.setHorasTarde(escala.getDia15Fk().getHorasTarde());
 		t15.setId(escala.getDia15Fk().getId());
 		t15.setNomeTurno(escala.getDia15Fk().getNomeTurno());
@@ -1030,6 +1079,9 @@ public class EscalaService {
 		t16.setDescricaoTurno(escala.getDia16Fk().getDescricaoTurno());
 		t16.setHorasManha(escala.getDia16Fk().getHorasManha());
 		t16.setHorasNoite(escala.getDia16Fk().getHorasNoite());
+		t16.setHorasA(escala.getDia16Fk().getHorasA());
+		t16.setHorasB(escala.getDia16Fk().getHorasB());
+		t16.setHorasC(escala.getDia16Fk().getHorasC());
 		t16.setHorasTarde(escala.getDia16Fk().getHorasTarde());
 		t16.setId(escala.getDia16Fk().getId());
 		t16.setNomeTurno(escala.getDia16Fk().getNomeTurno());
@@ -1040,6 +1092,9 @@ public class EscalaService {
 		t17.setDescricaoTurno(escala.getDia17Fk().getDescricaoTurno());
 		t17.setHorasManha(escala.getDia17Fk().getHorasManha());
 		t17.setHorasNoite(escala.getDia17Fk().getHorasNoite());
+		t17.setHorasA(escala.getDia17Fk().getHorasA());
+		t17.setHorasB(escala.getDia17Fk().getHorasB());
+		t17.setHorasC(escala.getDia17Fk().getHorasC());
 		t17.setHorasTarde(escala.getDia17Fk().getHorasTarde());
 		t17.setId(escala.getDia17Fk().getId());
 		t17.setNomeTurno(escala.getDia17Fk().getNomeTurno());
@@ -1050,6 +1105,9 @@ public class EscalaService {
 		t18.setDescricaoTurno(escala.getDia18Fk().getDescricaoTurno());
 		t18.setHorasManha(escala.getDia18Fk().getHorasManha());
 		t18.setHorasNoite(escala.getDia18Fk().getHorasNoite());
+		t18.setHorasA(escala.getDia18Fk().getHorasA());
+		t18.setHorasB(escala.getDia18Fk().getHorasB());
+		t18.setHorasC(escala.getDia18Fk().getHorasC());
 		t18.setHorasTarde(escala.getDia18Fk().getHorasTarde());
 		t18.setId(escala.getDia18Fk().getId());
 		t18.setNomeTurno(escala.getDia18Fk().getNomeTurno());
@@ -1060,6 +1118,9 @@ public class EscalaService {
 		t19.setDescricaoTurno(escala.getDia19Fk().getDescricaoTurno());
 		t19.setHorasManha(escala.getDia19Fk().getHorasManha());
 		t19.setHorasNoite(escala.getDia19Fk().getHorasNoite());
+		t19.setHorasA(escala.getDia19Fk().getHorasA());
+		t19.setHorasB(escala.getDia19Fk().getHorasB());
+		t19.setHorasC(escala.getDia19Fk().getHorasC());
 		t19.setHorasTarde(escala.getDia19Fk().getHorasTarde());
 		t19.setId(escala.getDia19Fk().getId());
 		t19.setNomeTurno(escala.getDia19Fk().getNomeTurno());
@@ -1070,6 +1131,9 @@ public class EscalaService {
 		t20.setDescricaoTurno(escala.getDia20Fk().getDescricaoTurno());
 		t20.setHorasManha(escala.getDia20Fk().getHorasManha());
 		t20.setHorasNoite(escala.getDia20Fk().getHorasNoite());
+		t20.setHorasA(escala.getDia20Fk().getHorasA());
+		t20.setHorasB(escala.getDia20Fk().getHorasB());
+		t20.setHorasC(escala.getDia20Fk().getHorasC());
 		t20.setHorasTarde(escala.getDia20Fk().getHorasTarde());
 		t20.setId(escala.getDia20Fk().getId());
 		t20.setNomeTurno(escala.getDia20Fk().getNomeTurno());
@@ -1080,6 +1144,9 @@ public class EscalaService {
 		t21.setDescricaoTurno(escala.getDia21Fk().getDescricaoTurno());
 		t21.setHorasManha(escala.getDia21Fk().getHorasManha());
 		t21.setHorasNoite(escala.getDia21Fk().getHorasNoite());
+		t21.setHorasA(escala.getDia21Fk().getHorasA());
+		t21.setHorasB(escala.getDia21Fk().getHorasB());
+		t21.setHorasC(escala.getDia21Fk().getHorasC());
 		t21.setHorasTarde(escala.getDia21Fk().getHorasTarde());
 		t21.setId(escala.getDia21Fk().getId());
 		t21.setNomeTurno(escala.getDia21Fk().getNomeTurno());
@@ -1090,6 +1157,9 @@ public class EscalaService {
 		t22.setDescricaoTurno(escala.getDia22Fk().getDescricaoTurno());
 		t22.setHorasManha(escala.getDia22Fk().getHorasManha());
 		t22.setHorasNoite(escala.getDia22Fk().getHorasNoite());
+		t22.setHorasA(escala.getDia22Fk().getHorasA());
+		t22.setHorasB(escala.getDia22Fk().getHorasB());
+		t22.setHorasC(escala.getDia22Fk().getHorasC());
 		t22.setHorasTarde(escala.getDia22Fk().getHorasTarde());
 		t22.setId(escala.getDia22Fk().getId());
 		t22.setNomeTurno(escala.getDia22Fk().getNomeTurno());
@@ -1100,6 +1170,9 @@ public class EscalaService {
 		t23.setDescricaoTurno(escala.getDia23Fk().getDescricaoTurno());
 		t23.setHorasManha(escala.getDia23Fk().getHorasManha());
 		t23.setHorasNoite(escala.getDia23Fk().getHorasNoite());
+		t23.setHorasA(escala.getDia23Fk().getHorasA());
+		t23.setHorasB(escala.getDia23Fk().getHorasB());
+		t23.setHorasC(escala.getDia23Fk().getHorasC());
 		t23.setHorasTarde(escala.getDia23Fk().getHorasTarde());
 		t23.setId(escala.getDia23Fk().getId());
 		t23.setNomeTurno(escala.getDia23Fk().getNomeTurno());
@@ -1110,6 +1183,9 @@ public class EscalaService {
 		t24.setDescricaoTurno(escala.getDia24Fk().getDescricaoTurno());
 		t24.setHorasManha(escala.getDia24Fk().getHorasManha());
 		t24.setHorasNoite(escala.getDia24Fk().getHorasNoite());
+		t24.setHorasA(escala.getDia24Fk().getHorasA());
+		t24.setHorasB(escala.getDia24Fk().getHorasB());
+		t24.setHorasC(escala.getDia24Fk().getHorasC());
 		t24.setHorasTarde(escala.getDia24Fk().getHorasTarde());
 		t24.setId(escala.getDia24Fk().getId());
 		t24.setNomeTurno(escala.getDia24Fk().getNomeTurno());
@@ -1120,6 +1196,9 @@ public class EscalaService {
 		t25.setDescricaoTurno(escala.getDia25Fk().getDescricaoTurno());
 		t25.setHorasManha(escala.getDia25Fk().getHorasManha());
 		t25.setHorasNoite(escala.getDia25Fk().getHorasNoite());
+		t25.setHorasA(escala.getDia25Fk().getHorasA());
+		t25.setHorasB(escala.getDia25Fk().getHorasB());
+		t25.setHorasC(escala.getDia25Fk().getHorasC());
 		t25.setHorasTarde(escala.getDia25Fk().getHorasTarde());
 		t25.setId(escala.getDia25Fk().getId());
 		t25.setNomeTurno(escala.getDia25Fk().getNomeTurno());
@@ -1130,6 +1209,9 @@ public class EscalaService {
 		t26.setDescricaoTurno(escala.getDia26Fk().getDescricaoTurno());
 		t26.setHorasManha(escala.getDia26Fk().getHorasManha());
 		t26.setHorasNoite(escala.getDia26Fk().getHorasNoite());
+		t26.setHorasA(escala.getDia26Fk().getHorasA());
+		t26.setHorasB(escala.getDia26Fk().getHorasB());
+		t26.setHorasC(escala.getDia26Fk().getHorasC());
 		t26.setHorasTarde(escala.getDia26Fk().getHorasTarde());
 		t26.setId(escala.getDia26Fk().getId());
 		t26.setNomeTurno(escala.getDia26Fk().getNomeTurno());
@@ -1140,6 +1222,9 @@ public class EscalaService {
 		t27.setDescricaoTurno(escala.getDia27Fk().getDescricaoTurno());
 		t27.setHorasManha(escala.getDia27Fk().getHorasManha());
 		t27.setHorasNoite(escala.getDia27Fk().getHorasNoite());
+		t27.setHorasA(escala.getDia27Fk().getHorasA());
+		t27.setHorasB(escala.getDia27Fk().getHorasB());
+		t27.setHorasC(escala.getDia27Fk().getHorasC());
 		t27.setHorasTarde(escala.getDia27Fk().getHorasTarde());
 		t27.setId(escala.getDia27Fk().getId());
 		t27.setNomeTurno(escala.getDia27Fk().getNomeTurno());
@@ -1150,6 +1235,9 @@ public class EscalaService {
 		t28.setDescricaoTurno(escala.getDia28Fk().getDescricaoTurno());
 		t28.setHorasManha(escala.getDia28Fk().getHorasManha());
 		t28.setHorasNoite(escala.getDia28Fk().getHorasNoite());
+		t28.setHorasA(escala.getDia28Fk().getHorasA());
+		t28.setHorasB(escala.getDia28Fk().getHorasB());
+		t28.setHorasC(escala.getDia28Fk().getHorasC());
 		t28.setHorasTarde(escala.getDia28Fk().getHorasTarde());
 		t28.setId(escala.getDia28Fk().getId());
 		t28.setNomeTurno(escala.getDia28Fk().getNomeTurno());
@@ -1160,6 +1248,9 @@ public class EscalaService {
 		t29.setDescricaoTurno(escala.getDia29Fk().getDescricaoTurno());
 		t29.setHorasManha(escala.getDia29Fk().getHorasManha());
 		t29.setHorasNoite(escala.getDia29Fk().getHorasNoite());
+		t29.setHorasA(escala.getDia29Fk().getHorasA());
+		t29.setHorasB(escala.getDia29Fk().getHorasB());
+		t29.setHorasC(escala.getDia29Fk().getHorasC());
 		t29.setHorasTarde(escala.getDia29Fk().getHorasTarde());
 		t29.setId(escala.getDia29Fk().getId());
 		t29.setNomeTurno(escala.getDia29Fk().getNomeTurno());
@@ -1170,6 +1261,9 @@ public class EscalaService {
 		t30.setDescricaoTurno(escala.getDia30Fk().getDescricaoTurno());
 		t30.setHorasManha(escala.getDia30Fk().getHorasManha());
 		t30.setHorasNoite(escala.getDia30Fk().getHorasNoite());
+		t30.setHorasA(escala.getDia30Fk().getHorasA());
+		t30.setHorasB(escala.getDia30Fk().getHorasB());
+		t30.setHorasC(escala.getDia30Fk().getHorasC());
 		t30.setHorasTarde(escala.getDia30Fk().getHorasTarde());
 		t30.setId(escala.getDia30Fk().getId());
 		t30.setNomeTurno(escala.getDia30Fk().getNomeTurno());
@@ -1180,6 +1274,9 @@ public class EscalaService {
 		t31.setDescricaoTurno(escala.getDia31Fk().getDescricaoTurno());
 		t31.setHorasManha(escala.getDia31Fk().getHorasManha());
 		t31.setHorasNoite(escala.getDia31Fk().getHorasNoite());
+		t31.setHorasA(escala.getDia31Fk().getHorasA());
+		t31.setHorasB(escala.getDia31Fk().getHorasB());
+		t31.setHorasC(escala.getDia31Fk().getHorasC());
 		t31.setHorasTarde(escala.getDia31Fk().getHorasTarde());
 		t31.setId(escala.getDia31Fk().getId());
 		t31.setNomeTurno(escala.getDia31Fk().getNomeTurno());
@@ -1230,6 +1327,9 @@ public class EscalaService {
 		t01.setDescricaoTurno(escala.getDia01Fk().getDescricaoTurno());
 		t01.setHorasManha(escala.getDia01Fk().getHorasManha());
 		t01.setHorasNoite(escala.getDia01Fk().getHorasNoite());
+		t01.setHorasA(escala.getDia01Fk().getHorasA());
+		t01.setHorasB(escala.getDia01Fk().getHorasB());
+		t01.setHorasC(escala.getDia01Fk().getHorasC());
 		t01.setHorasTarde(escala.getDia01Fk().getHorasTarde());
 		t01.setId(escala.getDia01Fk().getId());
 		t01.setNomeTurno(escala.getDia01Fk().getNomeTurno());
@@ -1240,6 +1340,9 @@ public class EscalaService {
 		t02.setDescricaoTurno(escala.getDia02Fk().getDescricaoTurno());
 		t02.setHorasManha(escala.getDia02Fk().getHorasManha());
 		t02.setHorasNoite(escala.getDia02Fk().getHorasNoite());
+		t02.setHorasA(escala.getDia02Fk().getHorasA());
+		t02.setHorasB(escala.getDia02Fk().getHorasB());
+		t02.setHorasC(escala.getDia02Fk().getHorasC());
 		t02.setHorasTarde(escala.getDia02Fk().getHorasTarde());
 		t02.setId(escala.getDia02Fk().getId());
 		t02.setNomeTurno(escala.getDia02Fk().getNomeTurno());
@@ -1250,6 +1353,9 @@ public class EscalaService {
 		t03.setDescricaoTurno(escala.getDia03Fk().getDescricaoTurno());
 		t03.setHorasManha(escala.getDia03Fk().getHorasManha());
 		t03.setHorasNoite(escala.getDia03Fk().getHorasNoite());
+		t03.setHorasA(escala.getDia03Fk().getHorasA());
+		t03.setHorasB(escala.getDia03Fk().getHorasB());
+		t03.setHorasC(escala.getDia03Fk().getHorasC());
 		t03.setHorasTarde(escala.getDia03Fk().getHorasTarde());
 		t03.setId(escala.getDia03Fk().getId());
 		t03.setNomeTurno(escala.getDia03Fk().getNomeTurno());
@@ -1260,6 +1366,9 @@ public class EscalaService {
 		t04.setDescricaoTurno(escala.getDia04Fk().getDescricaoTurno());
 		t04.setHorasManha(escala.getDia04Fk().getHorasManha());
 		t04.setHorasNoite(escala.getDia04Fk().getHorasNoite());
+		t04.setHorasA(escala.getDia04Fk().getHorasA());
+		t04.setHorasB(escala.getDia04Fk().getHorasB());
+		t04.setHorasC(escala.getDia04Fk().getHorasC());
 		t04.setHorasTarde(escala.getDia04Fk().getHorasTarde());
 		t04.setId(escala.getDia04Fk().getId());
 		t04.setNomeTurno(escala.getDia04Fk().getNomeTurno());
@@ -1270,6 +1379,9 @@ public class EscalaService {
 		t05.setDescricaoTurno(escala.getDia05Fk().getDescricaoTurno());
 		t05.setHorasManha(escala.getDia05Fk().getHorasManha());
 		t05.setHorasNoite(escala.getDia05Fk().getHorasNoite());
+		t05.setHorasA(escala.getDia05Fk().getHorasA());
+		t05.setHorasB(escala.getDia05Fk().getHorasB());
+		t05.setHorasC(escala.getDia05Fk().getHorasC());
 		t05.setHorasTarde(escala.getDia05Fk().getHorasTarde());
 		t05.setId(escala.getDia05Fk().getId());
 		t05.setNomeTurno(escala.getDia05Fk().getNomeTurno());
@@ -1280,6 +1392,9 @@ public class EscalaService {
 		t06.setDescricaoTurno(escala.getDia06Fk().getDescricaoTurno());
 		t06.setHorasManha(escala.getDia06Fk().getHorasManha());
 		t06.setHorasNoite(escala.getDia06Fk().getHorasNoite());
+		t06.setHorasA(escala.getDia06Fk().getHorasA());
+		t06.setHorasB(escala.getDia06Fk().getHorasB());
+		t06.setHorasC(escala.getDia06Fk().getHorasC());
 		t06.setHorasTarde(escala.getDia06Fk().getHorasTarde());
 		t06.setId(escala.getDia06Fk().getId());
 		t06.setNomeTurno(escala.getDia06Fk().getNomeTurno());
@@ -1290,6 +1405,9 @@ public class EscalaService {
 		t07.setDescricaoTurno(escala.getDia07Fk().getDescricaoTurno());
 		t07.setHorasManha(escala.getDia07Fk().getHorasManha());
 		t07.setHorasNoite(escala.getDia07Fk().getHorasNoite());
+		t07.setHorasA(escala.getDia07Fk().getHorasA());
+		t07.setHorasB(escala.getDia07Fk().getHorasB());
+		t07.setHorasC(escala.getDia07Fk().getHorasC());
 		t07.setHorasTarde(escala.getDia07Fk().getHorasTarde());
 		t07.setId(escala.getDia07Fk().getId());
 		t07.setNomeTurno(escala.getDia07Fk().getNomeTurno());
@@ -1300,6 +1418,9 @@ public class EscalaService {
 		t08.setDescricaoTurno(escala.getDia08Fk().getDescricaoTurno());
 		t08.setHorasManha(escala.getDia08Fk().getHorasManha());
 		t08.setHorasNoite(escala.getDia08Fk().getHorasNoite());
+		t08.setHorasA(escala.getDia08Fk().getHorasA());
+		t08.setHorasB(escala.getDia08Fk().getHorasB());
+		t08.setHorasC(escala.getDia08Fk().getHorasC());
 		t08.setHorasTarde(escala.getDia08Fk().getHorasTarde());
 		t08.setId(escala.getDia08Fk().getId());
 		t08.setNomeTurno(escala.getDia08Fk().getNomeTurno());
@@ -1310,6 +1431,9 @@ public class EscalaService {
 		t09.setDescricaoTurno(escala.getDia09Fk().getDescricaoTurno());
 		t09.setHorasManha(escala.getDia09Fk().getHorasManha());
 		t09.setHorasNoite(escala.getDia09Fk().getHorasNoite());
+		t09.setHorasA(escala.getDia09Fk().getHorasA());
+		t09.setHorasB(escala.getDia09Fk().getHorasB());
+		t09.setHorasC(escala.getDia09Fk().getHorasC());
 		t09.setHorasTarde(escala.getDia09Fk().getHorasTarde());
 		t09.setId(escala.getDia09Fk().getId());
 		t09.setNomeTurno(escala.getDia09Fk().getNomeTurno());
@@ -1320,6 +1444,9 @@ public class EscalaService {
 		t10.setDescricaoTurno(escala.getDia10Fk().getDescricaoTurno());
 		t10.setHorasManha(escala.getDia10Fk().getHorasManha());
 		t10.setHorasNoite(escala.getDia10Fk().getHorasNoite());
+		t10.setHorasA(escala.getDia10Fk().getHorasA());
+		t10.setHorasB(escala.getDia10Fk().getHorasB());
+		t10.setHorasC(escala.getDia10Fk().getHorasC());
 		t10.setHorasTarde(escala.getDia10Fk().getHorasTarde());
 		t10.setId(escala.getDia10Fk().getId());
 		t10.setNomeTurno(escala.getDia10Fk().getNomeTurno());
@@ -1330,6 +1457,9 @@ public class EscalaService {
 		t11.setDescricaoTurno(escala.getDia11Fk().getDescricaoTurno());
 		t11.setHorasManha(escala.getDia11Fk().getHorasManha());
 		t11.setHorasNoite(escala.getDia11Fk().getHorasNoite());
+		t11.setHorasA(escala.getDia11Fk().getHorasA());
+		t11.setHorasB(escala.getDia11Fk().getHorasB());
+		t11.setHorasC(escala.getDia11Fk().getHorasC());
 		t11.setHorasTarde(escala.getDia11Fk().getHorasTarde());
 		t11.setId(escala.getDia11Fk().getId());
 		t11.setNomeTurno(escala.getDia11Fk().getNomeTurno());
@@ -1340,6 +1470,9 @@ public class EscalaService {
 		t12.setDescricaoTurno(escala.getDia12Fk().getDescricaoTurno());
 		t12.setHorasManha(escala.getDia12Fk().getHorasManha());
 		t12.setHorasNoite(escala.getDia12Fk().getHorasNoite());
+		t12.setHorasA(escala.getDia12Fk().getHorasA());
+		t12.setHorasB(escala.getDia12Fk().getHorasB());
+		t12.setHorasC(escala.getDia12Fk().getHorasC());
 		t12.setHorasTarde(escala.getDia12Fk().getHorasTarde());
 		t12.setId(escala.getDia12Fk().getId());
 		t12.setNomeTurno(escala.getDia12Fk().getNomeTurno());
@@ -1350,6 +1483,9 @@ public class EscalaService {
 		t13.setDescricaoTurno(escala.getDia13Fk().getDescricaoTurno());
 		t13.setHorasManha(escala.getDia13Fk().getHorasManha());
 		t13.setHorasNoite(escala.getDia13Fk().getHorasNoite());
+		t13.setHorasA(escala.getDia13Fk().getHorasA());
+		t13.setHorasB(escala.getDia13Fk().getHorasB());
+		t13.setHorasC(escala.getDia13Fk().getHorasC());
 		t13.setHorasTarde(escala.getDia13Fk().getHorasTarde());
 		t13.setId(escala.getDia13Fk().getId());
 		t13.setNomeTurno(escala.getDia13Fk().getNomeTurno());
@@ -1360,6 +1496,9 @@ public class EscalaService {
 		t14.setDescricaoTurno(escala.getDia14Fk().getDescricaoTurno());
 		t14.setHorasManha(escala.getDia14Fk().getHorasManha());
 		t14.setHorasNoite(escala.getDia14Fk().getHorasNoite());
+		t14.setHorasA(escala.getDia14Fk().getHorasA());
+		t14.setHorasB(escala.getDia14Fk().getHorasB());
+		t14.setHorasC(escala.getDia14Fk().getHorasC());
 		t14.setHorasTarde(escala.getDia14Fk().getHorasTarde());
 		t14.setId(escala.getDia14Fk().getId());
 		t14.setNomeTurno(escala.getDia14Fk().getNomeTurno());
@@ -1370,6 +1509,9 @@ public class EscalaService {
 		t15.setDescricaoTurno(escala.getDia15Fk().getDescricaoTurno());
 		t15.setHorasManha(escala.getDia15Fk().getHorasManha());
 		t15.setHorasNoite(escala.getDia15Fk().getHorasNoite());
+		t15.setHorasA(escala.getDia15Fk().getHorasA());
+		t15.setHorasB(escala.getDia15Fk().getHorasB());
+		t15.setHorasC(escala.getDia15Fk().getHorasC());
 		t15.setHorasTarde(escala.getDia15Fk().getHorasTarde());
 		t15.setId(escala.getDia15Fk().getId());
 		t15.setNomeTurno(escala.getDia15Fk().getNomeTurno());
@@ -1380,6 +1522,9 @@ public class EscalaService {
 		t16.setDescricaoTurno(escala.getDia16Fk().getDescricaoTurno());
 		t16.setHorasManha(escala.getDia16Fk().getHorasManha());
 		t16.setHorasNoite(escala.getDia16Fk().getHorasNoite());
+		t16.setHorasA(escala.getDia16Fk().getHorasA());
+		t16.setHorasB(escala.getDia16Fk().getHorasB());
+		t16.setHorasC(escala.getDia16Fk().getHorasC());
 		t16.setHorasTarde(escala.getDia16Fk().getHorasTarde());
 		t16.setId(escala.getDia16Fk().getId());
 		t16.setNomeTurno(escala.getDia16Fk().getNomeTurno());
@@ -1390,6 +1535,9 @@ public class EscalaService {
 		t17.setDescricaoTurno(escala.getDia17Fk().getDescricaoTurno());
 		t17.setHorasManha(escala.getDia17Fk().getHorasManha());
 		t17.setHorasNoite(escala.getDia17Fk().getHorasNoite());
+		t17.setHorasA(escala.getDia17Fk().getHorasA());
+		t17.setHorasB(escala.getDia17Fk().getHorasB());
+		t17.setHorasC(escala.getDia17Fk().getHorasC());
 		t17.setHorasTarde(escala.getDia17Fk().getHorasTarde());
 		t17.setId(escala.getDia17Fk().getId());
 		t17.setNomeTurno(escala.getDia17Fk().getNomeTurno());
@@ -1400,6 +1548,9 @@ public class EscalaService {
 		t18.setDescricaoTurno(escala.getDia18Fk().getDescricaoTurno());
 		t18.setHorasManha(escala.getDia18Fk().getHorasManha());
 		t18.setHorasNoite(escala.getDia18Fk().getHorasNoite());
+		t18.setHorasA(escala.getDia18Fk().getHorasA());
+		t18.setHorasB(escala.getDia18Fk().getHorasB());
+		t18.setHorasC(escala.getDia18Fk().getHorasC());
 		t18.setHorasTarde(escala.getDia18Fk().getHorasTarde());
 		t18.setId(escala.getDia18Fk().getId());
 		t18.setNomeTurno(escala.getDia18Fk().getNomeTurno());
@@ -1410,6 +1561,9 @@ public class EscalaService {
 		t19.setDescricaoTurno(escala.getDia19Fk().getDescricaoTurno());
 		t19.setHorasManha(escala.getDia19Fk().getHorasManha());
 		t19.setHorasNoite(escala.getDia19Fk().getHorasNoite());
+		t19.setHorasA(escala.getDia19Fk().getHorasA());
+		t19.setHorasB(escala.getDia19Fk().getHorasB());
+		t19.setHorasC(escala.getDia19Fk().getHorasC());
 		t19.setHorasTarde(escala.getDia19Fk().getHorasTarde());
 		t19.setId(escala.getDia19Fk().getId());
 		t19.setNomeTurno(escala.getDia19Fk().getNomeTurno());
@@ -1420,6 +1574,9 @@ public class EscalaService {
 		t20.setDescricaoTurno(escala.getDia20Fk().getDescricaoTurno());
 		t20.setHorasManha(escala.getDia20Fk().getHorasManha());
 		t20.setHorasNoite(escala.getDia20Fk().getHorasNoite());
+		t20.setHorasA(escala.getDia20Fk().getHorasA());
+		t20.setHorasB(escala.getDia20Fk().getHorasB());
+		t20.setHorasC(escala.getDia20Fk().getHorasC());
 		t20.setHorasTarde(escala.getDia20Fk().getHorasTarde());
 		t20.setId(escala.getDia20Fk().getId());
 		t20.setNomeTurno(escala.getDia20Fk().getNomeTurno());
@@ -1430,6 +1587,9 @@ public class EscalaService {
 		t21.setDescricaoTurno(escala.getDia21Fk().getDescricaoTurno());
 		t21.setHorasManha(escala.getDia21Fk().getHorasManha());
 		t21.setHorasNoite(escala.getDia21Fk().getHorasNoite());
+		t21.setHorasA(escala.getDia21Fk().getHorasA());
+		t21.setHorasB(escala.getDia21Fk().getHorasB());
+		t21.setHorasC(escala.getDia21Fk().getHorasC());
 		t21.setHorasTarde(escala.getDia21Fk().getHorasTarde());
 		t21.setId(escala.getDia21Fk().getId());
 		t21.setNomeTurno(escala.getDia21Fk().getNomeTurno());
@@ -1440,6 +1600,9 @@ public class EscalaService {
 		t22.setDescricaoTurno(escala.getDia22Fk().getDescricaoTurno());
 		t22.setHorasManha(escala.getDia22Fk().getHorasManha());
 		t22.setHorasNoite(escala.getDia22Fk().getHorasNoite());
+		t22.setHorasA(escala.getDia22Fk().getHorasA());
+		t22.setHorasB(escala.getDia22Fk().getHorasB());
+		t22.setHorasC(escala.getDia22Fk().getHorasC());
 		t22.setHorasTarde(escala.getDia22Fk().getHorasTarde());
 		t22.setId(escala.getDia22Fk().getId());
 		t22.setNomeTurno(escala.getDia22Fk().getNomeTurno());
@@ -1450,6 +1613,9 @@ public class EscalaService {
 		t23.setDescricaoTurno(escala.getDia23Fk().getDescricaoTurno());
 		t23.setHorasManha(escala.getDia23Fk().getHorasManha());
 		t23.setHorasNoite(escala.getDia23Fk().getHorasNoite());
+		t23.setHorasA(escala.getDia23Fk().getHorasA());
+		t23.setHorasB(escala.getDia23Fk().getHorasB());
+		t23.setHorasC(escala.getDia23Fk().getHorasC());
 		t23.setHorasTarde(escala.getDia23Fk().getHorasTarde());
 		t23.setId(escala.getDia23Fk().getId());
 		t23.setNomeTurno(escala.getDia23Fk().getNomeTurno());
@@ -1460,6 +1626,9 @@ public class EscalaService {
 		t24.setDescricaoTurno(escala.getDia24Fk().getDescricaoTurno());
 		t24.setHorasManha(escala.getDia24Fk().getHorasManha());
 		t24.setHorasNoite(escala.getDia24Fk().getHorasNoite());
+		t24.setHorasA(escala.getDia24Fk().getHorasA());
+		t24.setHorasB(escala.getDia24Fk().getHorasB());
+		t24.setHorasC(escala.getDia24Fk().getHorasC());
 		t24.setHorasTarde(escala.getDia24Fk().getHorasTarde());
 		t24.setId(escala.getDia24Fk().getId());
 		t24.setNomeTurno(escala.getDia24Fk().getNomeTurno());
@@ -1470,6 +1639,9 @@ public class EscalaService {
 		t25.setDescricaoTurno(escala.getDia25Fk().getDescricaoTurno());
 		t25.setHorasManha(escala.getDia25Fk().getHorasManha());
 		t25.setHorasNoite(escala.getDia25Fk().getHorasNoite());
+		t25.setHorasA(escala.getDia25Fk().getHorasA());
+		t25.setHorasB(escala.getDia25Fk().getHorasB());
+		t25.setHorasC(escala.getDia25Fk().getHorasC());
 		t25.setHorasTarde(escala.getDia25Fk().getHorasTarde());
 		t25.setId(escala.getDia25Fk().getId());
 		t25.setNomeTurno(escala.getDia25Fk().getNomeTurno());
@@ -1480,6 +1652,9 @@ public class EscalaService {
 		t26.setDescricaoTurno(escala.getDia26Fk().getDescricaoTurno());
 		t26.setHorasManha(escala.getDia26Fk().getHorasManha());
 		t26.setHorasNoite(escala.getDia26Fk().getHorasNoite());
+		t26.setHorasA(escala.getDia26Fk().getHorasA());
+		t26.setHorasB(escala.getDia26Fk().getHorasB());
+		t26.setHorasC(escala.getDia26Fk().getHorasC());
 		t26.setHorasTarde(escala.getDia26Fk().getHorasTarde());
 		t26.setId(escala.getDia26Fk().getId());
 		t26.setNomeTurno(escala.getDia26Fk().getNomeTurno());
@@ -1490,6 +1665,9 @@ public class EscalaService {
 		t27.setDescricaoTurno(escala.getDia27Fk().getDescricaoTurno());
 		t27.setHorasManha(escala.getDia27Fk().getHorasManha());
 		t27.setHorasNoite(escala.getDia27Fk().getHorasNoite());
+		t27.setHorasA(escala.getDia27Fk().getHorasA());
+		t27.setHorasB(escala.getDia27Fk().getHorasB());
+		t27.setHorasC(escala.getDia27Fk().getHorasC());
 		t27.setHorasTarde(escala.getDia27Fk().getHorasTarde());
 		t27.setId(escala.getDia27Fk().getId());
 		t27.setNomeTurno(escala.getDia27Fk().getNomeTurno());
@@ -1500,6 +1678,9 @@ public class EscalaService {
 		t28.setDescricaoTurno(escala.getDia28Fk().getDescricaoTurno());
 		t28.setHorasManha(escala.getDia28Fk().getHorasManha());
 		t28.setHorasNoite(escala.getDia28Fk().getHorasNoite());
+		t28.setHorasA(escala.getDia28Fk().getHorasA());
+		t28.setHorasB(escala.getDia28Fk().getHorasB());
+		t28.setHorasC(escala.getDia28Fk().getHorasC());
 		t28.setHorasTarde(escala.getDia28Fk().getHorasTarde());
 		t28.setId(escala.getDia28Fk().getId());
 		t28.setNomeTurno(escala.getDia28Fk().getNomeTurno());
@@ -1510,6 +1691,9 @@ public class EscalaService {
 		t29.setDescricaoTurno(escala.getDia29Fk().getDescricaoTurno());
 		t29.setHorasManha(escala.getDia29Fk().getHorasManha());
 		t29.setHorasNoite(escala.getDia29Fk().getHorasNoite());
+		t29.setHorasA(escala.getDia29Fk().getHorasA());
+		t29.setHorasB(escala.getDia29Fk().getHorasB());
+		t29.setHorasC(escala.getDia29Fk().getHorasC());
 		t29.setHorasTarde(escala.getDia29Fk().getHorasTarde());
 		t29.setId(escala.getDia29Fk().getId());
 		t29.setNomeTurno(escala.getDia29Fk().getNomeTurno());
@@ -1520,6 +1704,9 @@ public class EscalaService {
 		t30.setDescricaoTurno(escala.getDia30Fk().getDescricaoTurno());
 		t30.setHorasManha(escala.getDia30Fk().getHorasManha());
 		t30.setHorasNoite(escala.getDia30Fk().getHorasNoite());
+		t30.setHorasA(escala.getDia30Fk().getHorasA());
+		t30.setHorasB(escala.getDia30Fk().getHorasB());
+		t30.setHorasC(escala.getDia30Fk().getHorasC());
 		t30.setHorasTarde(escala.getDia30Fk().getHorasTarde());
 		t30.setId(escala.getDia30Fk().getId());
 		t30.setNomeTurno(escala.getDia30Fk().getNomeTurno());
@@ -1530,12 +1717,14 @@ public class EscalaService {
 		t31.setDescricaoTurno(escala.getDia31Fk().getDescricaoTurno());
 		t31.setHorasManha(escala.getDia31Fk().getHorasManha());
 		t31.setHorasNoite(escala.getDia31Fk().getHorasNoite());
+		t31.setHorasA(escala.getDia31Fk().getHorasA());
+		t31.setHorasB(escala.getDia31Fk().getHorasB());
+		t31.setHorasC(escala.getDia31Fk().getHorasC());
 		t31.setHorasTarde(escala.getDia31Fk().getHorasTarde());
 		t31.setId(escala.getDia31Fk().getId());
 		t31.setNomeTurno(escala.getDia31Fk().getNomeTurno());
 		t31.setPlantoes(escala.getDia31Fk().getPlantoes());
 		escalaNova.setDia31Fk(t31);
-
 		
 		
 		

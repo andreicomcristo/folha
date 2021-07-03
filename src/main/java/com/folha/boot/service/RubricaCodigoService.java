@@ -18,8 +18,8 @@ public class RubricaCodigoService {
 	@Autowired
 	private  RubricaCodigoReposytory reposytory;
 
-	public void salvar(RubricaCodigo rubricaGeralSomaCodigo) {
-		reposytory.save(rubricaGeralSomaCodigo);
+	public RubricaCodigo salvar(RubricaCodigo rubricaGeralSomaCodigo) {
+		return reposytory.save(rubricaGeralSomaCodigo);
 	}
 
 	public void editar(RubricaCodigo rubricaGeralSomaCodigo) {

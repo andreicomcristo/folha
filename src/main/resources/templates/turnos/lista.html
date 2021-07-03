@@ -50,6 +50,9 @@
 		                    <th style="font-size:10px;" >H Manhã</th>
 		                    <th style="font-size:10px;" >H Tarde</th>
 		                    <th style="font-size:10px;" >H Noite</th>
+		                    <th style="font-size:10px;" >H A</th>
+		                    <th style="font-size:10px;" >H B</th>
+		                    <th style="font-size:10px;" >H C</th>
 		                    <th style="font-size:10px;" >Plantões</th>
 		                    <th style="font-size:10px;" >Ações</th>
 	                    </tr>
@@ -62,12 +65,18 @@
 		                    <td style="font-size:10px;"  th:text="${d.horasManha != null} ? ${d.horasManha} : ''  "></td>
 		                    <td style="font-size:10px;"  th:text="${d.horasTarde != null} ? ${d.horasTarde} : ''  "></td>
 		                    <td style="font-size:10px;"  th:text="${d.horasNoite != null} ? ${d.horasNoite} : ''  "></td>
+		                    <td style="font-size:10px;"  th:text="${d.horasA != null} ? ${d.horasA} : ''  "></td>
+		                    <td style="font-size:10px;"  th:text="${d.horasB != null} ? ${d.horasB} : ''  "></td>
+		                    <td style="font-size:10px;"  th:text="${d.horasC != null} ? ${d.horasC} : ''  "></td>
 		                    <td style="font-size:10px;"  th:text="${d.plantoes != null} ? ${d.plantoes} : ''  "></td>
 		                    
 		                    
 		                    <td colspan="2">
 		                    	<a class="btn btn-outline-info btn-sm" th:href="@{/turnos/editar/{id} (id=${d.id}) }" role="button">
 		                        	<span class="oi oi-brush" title="Editar" aria-hidden="true"></span>
+		                        </a>
+		                        <a class="btn btn-outline-danger btn-sm" th:href="@{/turnos/cancelar/{id} (id=${d.id}) }" role="button">
+		                        	<span class="oi oi-circle-x" title="Excluir" aria-hidden="true"></span>
 		                        </a>
 		                        <button th:id="${ 'btn_turnos/cancelar/' + d.id}" type="button" class="btn btn btn-outline-danger btn-sm" 
 		                            		data-toggle="modal" data-target="#myModal">

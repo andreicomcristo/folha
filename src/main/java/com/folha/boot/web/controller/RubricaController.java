@@ -47,8 +47,19 @@ public class RubricaController {
 	
 	@GetMapping("/cadastrar")
 	public String cadastrar(Rubrica rubrica) {
-		
 		return "/rubrica/cadastro";
+	}
+	
+	@GetMapping("/cadastrar/com/codigo/{id}")
+	public String cadastrarComCodigo(@PathVariable("id") Long id, ModelMap model) {
+		RubricaCodigo rubricaCodigo = rubricaCodigoService.buscarPorId(id);
+		Rubrica rubrica = new Rubrica();
+		
+		rubrica.setId(null);
+		rubrica.setIdCodigoFk(rubricaCodigo);
+		
+		model.addAttribute("rubrica", rubrica);
+		return "/rubrica/cadastroComCodigo";
 	}
 	
 	@GetMapping("/listar")

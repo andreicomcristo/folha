@@ -84,6 +84,18 @@ import com.folha.boot.service.util.UtilidadesMatematicas;
 			return utilidadesDeCalendarioEEscala.horasNoiteEscala(escala);
 		}
 		
+		public int quantidadeDeHorasANaEscala(Escala escala) {
+			return utilidadesDeCalendarioEEscala.horasAEscala(escala);
+		}
+		
+		public int quantidadeDeHorasBNaEscala(Escala escala) {
+			return utilidadesDeCalendarioEEscala.horasBEscala(escala);
+		}
+		
+		public int quantidadeDeHorasCNaEscala(Escala escala) {
+			return utilidadesDeCalendarioEEscala.horasCEscala(escala);
+		}
+		
 		public int quantidadeDeHorasSemanaNaEscala(Escala escala) {
 			return utilidadesDeCalendarioEEscala.horasSemanaEscala(escala);
 		}
@@ -96,6 +108,11 @@ import com.folha.boot.service.util.UtilidadesMatematicas;
 			escala.setHorasTotais(quantidadeDeHorasTotaisNaEscala(escala));
 			escala.setHorasDia(quantidadeDeHorasDiaNaEscala(escala));
 			escala.setHorasNoite(quantidadeDeHorasNoiteNaEscala(escala));
+			
+			escala.setHorasA(quantidadeDeHorasANaEscala(escala));
+			escala.setHorasB(quantidadeDeHorasBNaEscala(escala));
+			escala.setHorasC(quantidadeDeHorasCNaEscala(escala));
+			
 			escala.setHorasSemana(quantidadeDeHorasSemanaNaEscala(escala));
 			escala.setHorasFimSemana(quantidadeDeHorasFimDeSemanaNaEscala(escala));
 			escala.setPlantoes( utilidadesMatematicas.ajustaValorDecimal( quantidadeDePlantoesNaEscala(escala),2));
