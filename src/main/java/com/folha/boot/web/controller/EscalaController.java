@@ -86,6 +86,7 @@ import com.folha.boot.service.EscalaPosTransparenciaService;
 import com.folha.boot.service.EscalaService;
 import com.folha.boot.service.FaixasValoresParametrosCalculoFolhasExtrasService;
 import com.folha.boot.service.IncompatibilidadeCodigoDiferenciadoCodigoDiferenciadoService;
+import com.folha.boot.service.IncompatibilidadeFolhaFolhaService;
 import com.folha.boot.service.IncrementoDeRiscoUnidadeCargoService;
 import com.folha.boot.service.PessoaChDifService;
 import com.folha.boot.service.PessoaCodDiferenciadoService;
@@ -214,6 +215,8 @@ public class EscalaController {
 	IncompatibilidadeCodigoDiferenciadoCodigoDiferenciadoService incompatibilidadeCodigoDiferenciadoCodigoDiferenciadoService;
 	@Autowired
 	private RegimeDeTrabalhoTurnoService regimeDeTrabalhoTurnoService;
+	@Autowired
+	private IncompatibilidadeFolhaFolhaService incompatibilidadeFolhaFolhaService;
 	
 	
 	
@@ -858,7 +861,15 @@ public class EscalaController {
 		escala.setIdOperadorMudancaFk(usuarioService.pegarOperadorLogado());
 		escala.setDtMudanca(new Date());
 		
-
+		//Avaliando incompatibilidade folha folha
+		boolean incompatibilidadeFolhaFolha = incompatibilidadeFolhaFolhaService.incompativelFolhaFolha(escala);
+		if(incompatibilidadeFolhaFolha==true) {
+			return "redirect:/escalas/mensagem/de/incompatibilidade/folha/folha";
+		}
+		
+		
+		
+		
 		//Avaliando Efetivo dando Extra sem cumprir a CH Efetiva
 		boolean extraSemCumprirEfetivo = escalaCompatibilidadeService.horasExtrasSemEfetivas(escala);
 		if(extraSemCumprirEfetivo==true) {
@@ -1479,11 +1490,7 @@ public class EscalaController {
 		escala = escalaAtalhosService.atalhoLimparEscala(escala);
 		escala = escalaCalculosService.converteTurnoNuloEmFolga(escala);
 		escala = escalaCalculosService.calcularDadosEscala(escala);
-		//Avaliando Efetivo dando Extra sem cumprir a CH Efetiva
-		boolean extraSemCumprirEfetivo = escalaCompatibilidadeService.horasExtrasSemEfetivas(escala);
-		if(extraSemCumprirEfetivo==true) {
-			return "redirect:/escalas/mensagem/de/efetivo/com/extra/sem/ch/efetiva/informada";
-		}
+		
 		
 		
 		salvar(escala, null, null);
@@ -8793,6 +8800,15 @@ public class EscalaController {
 		return "/choqueescala/extra";
 	}
 	
+	@GetMapping("/mensagem/de/incompatibilidade/folha/folha")
+	public String mensagemDeIncompatibilidadeFolhaFolha(ModelMap model) {	
+		
+		model.addAttribute("atencao", "ATENÇÃO");
+		model.addAttribute("choque", "INCOMPATIBILIDADE DE FOLHA");
+		model.addAttribute("mensagem", "Você está tentando lançar horas em tipos de folhas diferentes e incompatíveis entre si para esse(a) funcionário(a). Veja os tipos de folha nas escalas dele(a) esse mês (inclusive se tem atividade em outra unidade) e resolva essa questão.");
+		
+		return "/choqueescala/extra";
+	}
 	
 
 	// Metodos da Inclusão	

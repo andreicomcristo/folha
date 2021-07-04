@@ -19,6 +19,7 @@ import com.folha.boot.domain.Escala;
 import com.folha.boot.domain.EscalaPosTransparencia;
 import com.folha.boot.domain.Pessoa;
 import com.folha.boot.domain.PessoaDocumentos;
+import com.folha.boot.domain.PessoaFuncionarios;
 import com.folha.boot.domain.TiposDeFolha;
 import com.folha.boot.domain.Turmas;
 import com.folha.boot.domain.Turnos;
@@ -1816,6 +1817,12 @@ public class EscalaService {
 		Pessoa pessoa = escala.getIdFuncionarioFk().getIdPessoaFk();
 		AnoMes anoMes = escala.getIdAnoMesFk();
 		return this.reposytory.findByIdFuncionarioFkIdPessoaFkAndIdAnoMesFkAndDtCancelamentoIsNullOrderByIdCoordenacaoFkIdLocalidadeFkIdUnidadeFkAscIdTipoFolhaFkAscIdFuncionarioFkIdPessoaFkNomeAsc(pessoa, anoMes);
+	}
+	
+	public List<Escala> buscarPorFuncionarioEAnoMes( Escala escala) {
+		PessoaFuncionarios funcionario = escala.getIdFuncionarioFk();
+		AnoMes anoMes = escala.getIdAnoMesFk();
+		return this.reposytory.findByIdFuncionarioFkAndIdAnoMesFkAndDtCancelamentoIsNullOrderByIdCoordenacaoFkIdLocalidadeFkIdUnidadeFkAscIdTipoFolhaFkAscIdFuncionarioFkIdPessoaFkNomeAsc(funcionario, anoMes);
 	}
 	
 	public int buscarQuantidadeDeEscalasPorMes(AnoMes anoMes){
