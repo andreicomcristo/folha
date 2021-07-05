@@ -137,20 +137,20 @@ public class IncompatibilidadeFolhaFolhaService implements GenericService<Incomp
     		List <IncompatibilidadeFolhaFolha> listaB = new ArrayList<>();
     		for(int j=0;j<listaA.size();j++) {
     			boolean encontrou = false;
-    			for(int i=0;i<listaExcessao.size();i++) {
-    				if( (listaA.get(j).getIdFolhaFk().equals(listaExcessao.get(i).getIdFolhaFk())  &&  listaA.get(j).getIdFolhaIncompativelFk().equals(listaExcessao.get(i).getIdFolhaIncompativelFk()))    ) {
-    					encontrou = true;
-    				}
-    				
-    				if( (listaA.get(j).getIdFolhaFk().equals(listaExcessao.get(i).getIdFolhaIncompativelFk())  &&  listaA.get(j).getIdFolhaIncompativelFk().equals(listaExcessao.get(i).getIdFolhaFk()))    ) {
-    					encontrou = true;
-    				}
-    				
-	    			if(encontrou == false) {
-	    				listaB.add(listaA.get(j));
+	    			for(int i=0;i<listaExcessao.size();i++) {
+	    				if( (listaA.get(j).getIdFolhaFk().equals(listaExcessao.get(i).getIdFolhaFk())  &&  listaA.get(j).getIdFolhaIncompativelFk().equals(listaExcessao.get(i).getIdFolhaIncompativelFk()))    ) {
+	    					encontrou = true; break;
+	    				}
+	    				
+	    				if( (listaA.get(j).getIdFolhaFk().equals(listaExcessao.get(i).getIdFolhaIncompativelFk())  &&  listaA.get(j).getIdFolhaIncompativelFk().equals(listaExcessao.get(i).getIdFolhaFk()))    ) {
+	    					encontrou = true; break;
+	    				}
 	    			}
-    				
+    			
+    			if(encontrou == false) {
+    				listaB.add(listaA.get(j));
     			}
+    			
     		}
     		
 	    		if(!listaB.isEmpty()) {
