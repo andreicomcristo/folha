@@ -135,14 +135,19 @@ public class IncompatibilidadeFolhaFolhaService implements GenericService<Incomp
     		List <IncompatibilidadeFolhaFolhaExcessao> listaExcessao = incompatibilidadeFolhaFolhaExcessaoService.buscarPorMesExatoEFuncionario(escala.getIdAnoMesFk(), escala.getIdFuncionarioFk());
     		
     		List <IncompatibilidadeFolhaFolha> listaB = new ArrayList<>();
-    		for(IncompatibilidadeFolhaFolha in: listaA) {
+    		for(int j=0;j<listaA.size();j++) {
     			boolean encontrou = false;
     			for(int i=0;i<listaExcessao.size();i++) {
-    				if( (in.getIdFolhaFk().equals(listaExcessao.get(i).getIdFolhaFk())  &&  in.getIdFolhaIncompativelFk().equals(listaExcessao.get(i).getIdFolhaIncompativelFk()))   ||   (in.getIdFolhaIncompativelFk().equals(listaExcessao.get(i).getIdFolhaFk())  &&  in.getIdFolhaFk().equals(listaExcessao.get(i).getIdFolhaIncompativelFk()))  ) {
-    					encontrou = true; break;
+    				if( (listaA.get(j).getIdFolhaFk().equals(listaExcessao.get(i).getIdFolhaFk())  &&  listaA.get(j).getIdFolhaIncompativelFk().equals(listaExcessao.get(i).getIdFolhaIncompativelFk()))    ) {
+    					encontrou = true;
     				}
+    				
+    				if( (listaA.get(j).getIdFolhaFk().equals(listaExcessao.get(i).getIdFolhaIncompativelFk())  &&  listaA.get(j).getIdFolhaIncompativelFk().equals(listaExcessao.get(i).getIdFolhaFk()))    ) {
+    					encontrou = true;
+    				}
+    				
 	    			if(encontrou == false) {
-	    				listaB.add(in);
+	    				listaB.add(listaA.get(j));
 	    			}
     				
     			}
