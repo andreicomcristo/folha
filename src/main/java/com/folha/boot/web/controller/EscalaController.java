@@ -8807,7 +8807,7 @@ public class EscalaController {
 		model.addAttribute("choque", "INCOMPATIBILIDADE DE FOLHA");
 		model.addAttribute("mensagem", "Você está tentando lançar horas em tipos de folhas diferentes e incompatíveis entre si para esse(a) funcionário(a). Veja os tipos de folha nas escalas dele(a) esse mês (inclusive se tem atividade em outra unidade) e resolva essa questão.");
 		
-		return "/choqueescala/extra";
+		return "/choqueescala/naoPresencial";
 	}
 	
 
@@ -8977,6 +8977,12 @@ public class EscalaController {
 			escala.setDia29Fk(turnos);
 			escala.setDia30Fk(turnos);
 			escala.setDia31Fk(turnos);
+			
+			//Avaliando incompatibilidade folha folha
+			boolean incompatibilidadeFolhaFolha = incompatibilidadeFolhaFolhaService.incompativelFolhaFolha(escala);
+			if(incompatibilidadeFolhaFolha==true) {
+				return "redirect:/escalas/mensagem/de/incompatibilidade/folha/folha";
+			}
 			
 			salvar(escala, null, null);
 			
