@@ -8808,7 +8808,7 @@ public class EscalaController {
 		
 		model.addAttribute("atencao", "ATENÇÃO");
 		model.addAttribute("choque", "INCOMPATIBILIDADE DE FOLHA");
-		model.addAttribute("mensagem", "Você está tentando lançar horas em tipos de folhas diferentes e incompatíveis entre si para esse(a) funcionário(a). Veja os tipos de folha nas escalas dele(a) esse mês (inclusive se tem atividade em outra unidade) e resolva essa questão."+"["+folhaA+"] ["+folhaB+"]");
+		model.addAttribute("mensagem", "Você está tentando lançar horas em tipos de folhas diferentes e incompatíveis entre si para esse(a) funcionário(a). Veja os tipos de folha nas escalas dele(a) esse mês (inclusive se tem atividade em outra unidade) e resolva essa questão: "+"["+folhaA+"] ["+folhaB+"].");
 		
 		return "/choqueescala/naoPresencial";
 	}
