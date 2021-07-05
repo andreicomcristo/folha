@@ -8803,9 +8803,12 @@ public class EscalaController {
 	@GetMapping("/mensagem/de/incompatibilidade/folha/folha")
 	public String mensagemDeIncompatibilidadeFolhaFolha(ModelMap model) {	
 		
+		String folhaA = tiposDeFolhaService.buscarPorId( pegarFolhaA()).getNomeTipoFolha(); 
+		String folhaB = tiposDeFolhaService.buscarPorId( pegarFolhaB()).getNomeTipoFolha();
+		
 		model.addAttribute("atencao", "ATENÇÃO");
 		model.addAttribute("choque", "INCOMPATIBILIDADE DE FOLHA");
-		model.addAttribute("mensagem", "Você está tentando lançar horas em tipos de folhas diferentes e incompatíveis entre si para esse(a) funcionário(a). Veja os tipos de folha nas escalas dele(a) esse mês (inclusive se tem atividade em outra unidade) e resolva essa questão.");
+		model.addAttribute("mensagem", "Você está tentando lançar horas em tipos de folhas diferentes e incompatíveis entre si para esse(a) funcionário(a). Veja os tipos de folha nas escalas dele(a) esse mês (inclusive se tem atividade em outra unidade) e resolva essa questão."+"["+folhaA+"] ["+folhaB+"]");
 		
 		return "/choqueescala/naoPresencial";
 	}
@@ -9346,6 +9349,14 @@ public class EscalaController {
 	public Long pegarIdCodigoDifernciado2() {
 		return Long.valueOf(request.getSession().getAttribute("idCodigoDifernciado2").toString()) ;
 	}
+	
+	public Long pegarFolhaA() {
+		return Long.valueOf(request.getSession().getAttribute("folhaA").toString()) ;
+	}
+	public Long pegarFolhaB() {
+		return Long.valueOf(request.getSession().getAttribute("folhaB").toString()) ;
+	}
+	
 	
 	
 }

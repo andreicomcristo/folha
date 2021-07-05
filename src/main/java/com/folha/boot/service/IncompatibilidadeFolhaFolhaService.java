@@ -3,6 +3,9 @@ package com.folha.boot.service;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.servlet.http.HttpSession;
+
+import org.springframework.beans.factory.ObjectFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -20,6 +23,8 @@ import com.folha.boot.service.seguranca.UsuarioService;
 @Service
 public class IncompatibilidadeFolhaFolhaService implements GenericService<IncompatibilidadeFolhaFolha> {
 
+	@Autowired
+    ObjectFactory<HttpSession> httpSessionFactory;
     @Autowired
     private IncompatibilidadeFolhaFolhaReposytory reposytory;
     @Autowired
@@ -160,7 +165,14 @@ public class IncompatibilidadeFolhaFolhaService implements GenericService<Incomp
 	    				for(int j=0;j<listaEscalas.size();j++) {
 	    					if(!listaEscalas.get(j).getId().equals(escala.getId())) {
 	    						if( (listaEscalas.get(j).getIdTipoFolhaFk().equals(listaB.get(i).getIdFolhaFk())  && escala.getIdTipoFolhaFk().equals(listaB.get(i).getIdFolhaIncompativelFk()) )     ||   (listaEscalas.get(j).getIdTipoFolhaFk().equals(listaB.get(i).getIdFolhaIncompativelFk())  && escala.getIdTipoFolhaFk().equals(listaB.get(i).getIdFolhaFk()) )    ) {
-	    							resposta = true; break;
+	    							resposta = true; 
+	    							
+	    							// Colocando na Sessao
+	    							HttpSession session = httpSessionFactory.getObject();
+	    					        session.setAttribute("folhaA", listaB.get(i).getIdFolhaFk().getId() );
+	    					        session.setAttribute("folhaB", listaB.get(i).getIdFolhaIncompativelFk().getId() );
+	    							
+	    							break;
 	    						}
 	    					}
 	    				}
