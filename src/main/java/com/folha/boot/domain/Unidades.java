@@ -113,6 +113,8 @@ public class Unidades extends AbstractEntity<Long> {
     private List<PessoaComplementoDePlantao> pessoaComplementoDePlantaoList;
     @OneToMany(mappedBy = "idUnidadeFk")
     private List<FaixasValoresGpfCedido> faixasValoresGpfCedidoList;
+    @OneToMany(mappedBy = "idUnidadeFk")
+    private List<FaixasValoresLicencaMaternidade> faixasValoresLicencaMaternidadeList;
     
     
     @OneToMany(mappedBy = "idUnidadeFk")
@@ -653,6 +655,15 @@ public class Unidades extends AbstractEntity<Long> {
 
 	public void setUnidadeTurnoList(List<UnidadeTurno> unidadeTurnoList) {
 		this.unidadeTurnoList = unidadeTurnoList;
+	}
+
+	public List<FaixasValoresLicencaMaternidade> getFaixasValoresLicencaMaternidadeList() {
+		return faixasValoresLicencaMaternidadeList;
+	}
+
+	public void setFaixasValoresLicencaMaternidadeList(
+			List<FaixasValoresLicencaMaternidade> faixasValoresLicencaMaternidadeList) {
+		this.faixasValoresLicencaMaternidadeList = faixasValoresLicencaMaternidadeList;
 	}
 	
 	

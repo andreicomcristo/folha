@@ -74,6 +74,9 @@ public class PessoaFuncionarios extends AbstractEntity<Long> {
     @ManyToOne(optional = false)
     private Pessoa idPessoaFk;
     
+    @OneToMany(mappedBy = "idFuncionarioFk")
+    private List<FaixasValoresLicencaMaternidade> faixasValoresLicencaMaternidadeList;
+    
     @JoinColumn(name = "id_operador_cadastro_fk", referencedColumnName = "id")
     @ManyToOne
     private PessoaOperadores idOperadorCadastroFk;
@@ -572,6 +575,15 @@ public class PessoaFuncionarios extends AbstractEntity<Long> {
 
 	public void setNaoDescontaIrList(List<NaoDescontaIr> naoDescontaIrList) {
 		this.naoDescontaIrList = naoDescontaIrList;
+	}
+
+	public List<FaixasValoresLicencaMaternidade> getFaixasValoresLicencaMaternidadeList() {
+		return faixasValoresLicencaMaternidadeList;
+	}
+
+	public void setFaixasValoresLicencaMaternidadeList(
+			List<FaixasValoresLicencaMaternidade> faixasValoresLicencaMaternidadeList) {
+		this.faixasValoresLicencaMaternidadeList = faixasValoresLicencaMaternidadeList;
 	}
 	
 	
