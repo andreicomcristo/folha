@@ -3941,7 +3941,7 @@ public class CalculosAlternativosService {
 				r.setNatureza( rubricaNaturezaService.buscarPorSigla("V").get(0) );
 				r.setPercentagem(0.0);
 				r.setPessoaFuncionarios(vencimentosFuncionario.getFaixasValoresLicencaMaternidade().getIdFuncionarioFk());
-				r.setTipoBrutoLiquido( tipoBrutoLiquidoService.buscarPorNome("BRUTO").get(0) );
+				r.setTipoBrutoLiquido( tipoBrutoLiquidoService.buscarPorNome("B").get(0) );
 				r.setUnidade(vencimentosFuncionario.getFaixasValoresLicencaMaternidade().getIdUnidadeFk());
 				r.setVariacao("00");
 				
