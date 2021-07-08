@@ -15,6 +15,7 @@ import com.folha.boot.domain.RubricaVencimento;
 import com.folha.boot.domain.TempoCalculo;
 import com.folha.boot.domain.models.calculos.EscalasNoMes;
 import com.folha.boot.domain.models.calculos.FeriasNoMes;
+import com.folha.boot.domain.models.calculos.LicencasMaternidadeNoMes;
 import com.folha.boot.domain.models.calculos.LicencasNoMes;
 import com.folha.boot.domain.models.calculos.RubricasVencimento;
 import com.folha.boot.service.RubricaPensaoObsService;
@@ -68,11 +69,18 @@ public class CalculosCalcularService {
 		List<LicencasNoMes> listaLicencas = new ArrayList<>();  
 		listaLicencas = calculosColetaDeDadosService.buscarLicencasPorMes(anoMes);
 		
+		//Coletando Licenças Maternidade Da Folha
+		List<LicencasMaternidadeNoMes> listaLicencasMaternidade = new ArrayList<>();  
+		listaLicencasMaternidade = calculosColetaDeDadosService.buscarFaixasValoresLicencaMaternidadePorMes(anoMes);
+		
 		//Aplicando férias
 		listaEscalas = calculosAlternativosService.aplicarFeriasNaEscala(listaEscalas, listaFerias);
 		
 		//Aplicando licenças
 		listaEscalas = calculosAlternativosService.aplicarLicencasNaEscala(listaEscalas, listaLicencas, anoMes);
+		
+		//Aplicando licenças Maternidade Da Folha
+		listaEscalas = calculosAlternativosService.aplicarLicencasMaternidadeDaFolhaNaEscala(listaEscalas, listaLicencasMaternidade, anoMes);
 		
 		//Aplicando Faltas Semana Fim Semana
 		listaEscalas = calculosAlternativosService.aplicarFaltasVariaveisNaEscalaSemanaFimSemana(listaEscalas );
@@ -81,7 +89,7 @@ public class CalculosCalcularService {
 		listaEscalas = calculosAlternativosService.aplicarFaltasVariaveisNaEscalaDiaNoite(listaEscalas );
 		
 		//Obtendo valores
-		List<RubricasVencimento> listaVencimentos = calculosAlternativosService.obterVencimentosDiferenciadoPorEscala(listaEscalas,listaFerias , anoMes); 
+		List<RubricasVencimento> listaVencimentos = calculosAlternativosService.obterVencimentosDiferenciadoPorEscala(listaEscalas,listaFerias, listaLicencasMaternidade , anoMes); 
 		
 		//Colocando valores líquidos onde nao tiver
 		listaVencimentos = calculosAlternativosService.colocandoLiquidoNasRubricas(listaVencimentos);

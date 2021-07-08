@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html layout:decorate = "~{layout}">
+<head><meta charset="UTF-8"/></head>
+<body>	
+	<section class="layout-content" layout:fragment="corpo">		
+		<nav class="navbar navbar-expand-md bg-light">    
+	    	<a class="btn btn-outline-light oi oi-action-undo" type="button" href="javascript:history.back()"></a>
+			<a class="btn btn-outline-light oi oi-action-redo" type="button" href="javascript:history.forward()"></a>
+	    	
+	    	<a class="btn btn-outline-dark btn-md" th:href="@{/faixasValoresLicencaMaternidade/funcionarios/listar}" role="button">
+	        	<span class="oi oi-plus" title="Cadastro" aria-hidden="true"></span>
+	            <span>Novo</span>
+	        </a>
+	        <a class="btn btn-outline-dark btn-md" th:href="@{/faixasValoresLicencaMaternidade/listar}" role="button">
+	        	<span class="oi oi-loop-square" title="Atualizar" aria-hidden="true"></span>
+	            <span>Atualizar</span>
+	        </a>
+	            <label for="nome" class= "fonte-tutulos-tamanho">Lista de Licença Maternidade Prestadoras</label>
+	    </nav>
+	  	
+	  	<div class="container">
+	    	<p>                
+	        	<button class=" oi oi-magnifying-glass btn btn-outline-success my-2 my-sm-0" type="button" data-toggle="collapse" data-target="#collapseAnoMes"
+	            		aria-controls="collapseAnoMes">Filtrar Ano Mes
+	            </button> 
+	           
+	            <button class=" oi oi-cloud-download btn btn-outline-secondary my-2 my-sm-0" type="button" data-toggle="collapse" data-target="#collapseDownload"
+	            		aria-controls="collapseEstado">Download
+	            </button>
+	            <p></p>
+	      </p>
+	      <div class="row">
+	      	<div class="col">
+	        	<div class="collapse" id="collapseAnoMes">
+		            <nav class="navbar navbar-light bg-light">
+	    	           <form class="form-inline" method="GET" th:action="@{/faixasValoresLicencaMaternidade/buscar/nome/anomes}">	        	           
+	        	           
+	        	           <input class="form-control mr-sm-2" type="search" placeholder="Ano mes" aria-label="Search"
+	                              th:name="anoMes"/> 
+							
+	                       <button class="btn btn-outline-success my-2 my-sm-0">Buscar</button> 
+	                   </form>  
+	                </nav>
+	            </div>
+	        </div>
+	    </div>
+	    
+	    
+	    
+	     
+	    
+	    
+	        
+	    <div class="row">
+	      	<div class="col">
+	        	<div class="collapse" id="collapseDownload">
+		            <nav class="navbar navbar-light bg-light">
+	                	<form class="form-inline" method="GET" th:action="@{/faixasValoresLicencaMaternidade/buscar/id/uf}">
+	                   		
+	                        <a class="btn btn-outline-success btn-md" th:href="@{/faixasValoresLicencaMaternidade/exporta/excel}" role="button">
+				        		<span class="oi oi-cloud-download" title="exportaExcel" aria-hidden="true"></span>
+				            	<span>Exporta Excel</span>
+				       	    </a>
+				       	    
+				       	    <a class="btn btn-outline-danger btn-md" th:href="@{/faixasValoresLicencaMaternidade/exporta/pdf}" role="button">
+				        		<span class="oi oi-cloud-download" title="exportaPdf" aria-hidden="true"></span>
+				            	<span>Exporta Pdf</span>
+				       	    </a>
+	       	    
+	                  </form>
+	                </nav>
+	            </div>
+	        </div>
+	    </div>
+	    	    	    
+	    <div class="container" id="listagem">	        
+	    	<div th:replace="fragments/alert"></div>
+	    	
+	        <div style="height: 450px; overflow-y: auto;" class="table-responsive">
+	        	<table style="width: 1270px;" class="table table-striped table-hover table-sm myTable">
+	            	<thead>
+	          			<tr>
+		                	<th style="font-size:10px;" >#</th>
+		                    <th style="font-size:10px;" >Nome</th>
+		                    <th style="font-size:10px;" >Cpf</th>
+		                    <th style="font-size:10px;" >Unidade</th>
+		                    <th style="font-size:10px;" >Dt Inicio</th>
+		                    <th style="font-size:10px;" >Dt Fim</th>
+		                    <th style="font-size:10px;" >Fonte</th>
+		                    <th style="font-size:10px;" >Valor por Dia</th>
+		                    <th style="font-size:10px;" >Obs</th>
+		                    <th style="font-size:10px;" >Ações</th>
+	                    </tr>
+	                </thead>                  
+	                <tbody>
+		            	<tr th:each="d : ${faixasValoresLicencaMaternidade}">
+		                	<td style="font-size:10px;"  th:text="${d.id}"></td>
+		                    <td style="font-size:10px;"  th:text="${d.idFuncionarioFk != null} ? ${d.idFuncionarioFk?.idPessoaFk?.nome} : ''  "></td>
+		                    <td style="font-size:10px;"  th:text="${d.idFuncionarioFk != null} ? ${d.idFuncionarioFk?.idPessoaFk?.cpf} : ''  "></td>
+		                    <td style="font-size:10px;"  th:text="${d.idUnidadeFk != null} ? ${d.idUnidadeFk.nomeFantasia} : ''  "></td>
+		                    <td style="font-size:10px;"  th:text="${d.dtInicial != null} ? ${d.dtInicial} : ''  "></td>
+		                    <td style="font-size:10px;"  th:text="${d.dtFinal != null} ? ${d.dtFinal} : ''  "></td>
+		                    <td style="font-size:10px;"  th:text="${d.idFonteFk != null} ? ${d.idFonteFk.nome +'-'+ d.idFonteFk.descricao} : ''  "></td>
+		                    <td style="font-size:10px;"  th:text="${d.valorBrutoPorDia != null} ? ${d.valorBrutoPorDia} : ''  "></td>
+		                    <td style="font-size:10px;"  th:text="${d.observacao != null} ? ${d.observacao} : ''  "></td>
+		                    
+		                    
+		                    <td colspan="2">
+		                    	<a class="btn btn-outline-info btn-sm" th:href="@{/faixasValoresLicencaMaternidade/editar/{id} (id=${d.id}) }" role="button">
+		                        	<span class="oi oi-brush" title="Editar" aria-hidden="true"></span>
+		                        </a>
+		                        
+		                        <a class="btn btn-outline-danger btn-sm" th:href="@{/faixasValoresLicencaMaternidade/cancelar/{id} (id=${d.id}) }" role="button">
+		                        	<span class="oi oi-circle-x" title="Excluir" aria-hidden="true"></span>
+		                        </a>
+		                        
+		                        <button th:id="${ 'btn_faixasValoresLicencaMaternidade/cancelar/' + d.id}" type="button" class="btn btn btn-outline-danger btn-sm" 
+		                            		data-toggle="modal" data-target="#myModal">
+		                                <span class="oi oi-circle-x" title="Exclusão habilitada" aria-hidden="true"></span>
+		                        </button>
+		                   	</td>
+						</tr>
+					</tbody>                    
+	            </table>                 
+	         </div>
+		</div>
+		 <nav aria-label="Page navigation example">
+		 <div> Quantidade de registros: [[${totalItems}]]<br>  Página: [[${currentePage}]] de [[${totalPages}]] </div> 
+		 <div>
+		 	<span >
+		 		<a></a>
+		 		<samp >[[${i}]]</samp> &nbsp; &nbsp;
+		 	</span>
+		 </div>
+		 	<ul class="pagination justify-content-center" >
+		 		<li class="page-item disabled" ></li>		 		
+	
+			 	<li ><a class="btn btn-light btn-paginacao oi oi-media-step-backward" th:if="${currentePage != i}"  th:href="@{'/faixasValoresLicencaMaternidade/paginar/'+ 1 }" ></a></li>
+			 	
+			 	<li ><a class="btn btn-light    btn-paginacao    oi oi-media-skip-backward" th:if="${currentePage > 1}"  th:href="@{'/faixasValoresLicencaMaternidade/paginar/'+ ${currentePage -1}}" ></a></li> 
+			 	
+			 	<li ><a class="btn btn-light    btn-paginacao oi" th:if="${currentePage > 1000}"  th:href="@{'/faixasValoresLicencaMaternidade/paginar/'+ ${currentePage-1000} }" >-1000</a></li>
+			 	
+			 	<li ><a class="btn btn-light    btn-paginacao" th:if="${currentePage > 100}"  th:href="@{'/faixasValoresLicencaMaternidade/paginar/'+ ${currentePage-100} }" >-100</a></li>
+			 	
+			 	<li ><a class="btn btn-light    btn-paginacao" th:if="${currentePage > 10}"  th:href="@{'/faixasValoresLicencaMaternidade/paginar/'+ ${currentePage-10} }" >-10</a></li>
+
+			 	<li ><a class="btn btn-light    btn-paginacao"  th:if="${currentePage < totalPages - 10}"  th:href="@{'/faixasValoresLicencaMaternidade/paginar/'+ ${currentePage+10} }" >+10</a></li>
+			 	
+			 	<li ><a class="btn btn-light    btn-paginacao"  th:if="${currentePage < totalPages - 100}"  th:href="@{'/faixasValoresLicencaMaternidade/paginar/'+ ${currentePage+100} }" >+100</a></li>
+			 	
+			 	<li ><a class="btn btn-light    btn-paginacao"  th:if="${currentePage < totalPages - 1000}"  th:href="@{'/faixasValoresLicencaMaternidade/paginar/'+ ${currentePage+1000} }" >+1000</a></li>
+			 	
+			 	<li ><a class="btn btn-light    btn-paginacao    oi oi-media-skip-forward" th:if="${currentePage < totalPages}"  th:href="@{'/faixasValoresLicencaMaternidade/paginar/' + ${currentePage +1}}"></a> </li>
+		 		
+		 		<li ><a class="btn btn-light    btn-paginacao    oi oi-media-step-forward"  th:if="${currentePage != i}"  th:href="@{'/faixasValoresLicencaMaternidade/paginar/'+ ${totalPages} }" ></a></li> 
+		 	</ul>
+		</nav>     	        
+	    <div th:replace="fragments/modal :: modal"></div>   
+	</section>	
+</body>
+</html>		

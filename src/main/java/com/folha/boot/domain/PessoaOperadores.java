@@ -131,6 +131,8 @@ public class PessoaOperadores extends AbstractEntity<Long> {
     private List<FaixasValoresLicencaMaternidade> faixasValoresLicencaMaternidadeList;
     @OneToMany(mappedBy = "idOperadorCancelamentoFk")
     private List<FaixasValoresLicencaMaternidade> faixasValoresLicencaMaternidadeList1;
+    @OneToMany(mappedBy = "idOperadorUltimaMudancaFk")
+    private List<FaixasValoresLicencaMaternidade> faixasValoresLicencaMaternidadeList2;
     
     @OneToMany(mappedBy = "idOperadorCadastroFk")
     private List<PessoaComplementoDePlantaoSede> pessoaComplementoDePlantaoSedeList;
@@ -806,6 +808,15 @@ public class PessoaOperadores extends AbstractEntity<Long> {
 			List<FaixasValoresLicencaMaternidade> faixasValoresLicencaMaternidadeList1) {
 		this.faixasValoresLicencaMaternidadeList1 = faixasValoresLicencaMaternidadeList1;
 	}
+	public List<FaixasValoresLicencaMaternidade> getFaixasValoresLicencaMaternidadeList2() {
+		return faixasValoresLicencaMaternidadeList2;
+	}
+	public void setFaixasValoresLicencaMaternidadeList2(
+			List<FaixasValoresLicencaMaternidade> faixasValoresLicencaMaternidadeList2) {
+		this.faixasValoresLicencaMaternidadeList2 = faixasValoresLicencaMaternidadeList2;
+	}
+	
+	
     
 	
 	

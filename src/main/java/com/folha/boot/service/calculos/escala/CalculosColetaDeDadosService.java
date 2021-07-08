@@ -8,11 +8,13 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.folha.boot.Reposytory.EscalaReposytoty;
+import com.folha.boot.Reposytory.FaixasValoresLicencaMaternidadeReposytory;
 import com.folha.boot.Reposytory.FuncionariosFeriasPeriodosReposytory;
 import com.folha.boot.Reposytory.FuncionariosLicencasCidReposytory;
 import com.folha.boot.Reposytory.FuncionariosLicencasReposytory;
 import com.folha.boot.domain.AnoMes;
 import com.folha.boot.domain.Escala;
+import com.folha.boot.domain.FaixasValoresLicencaMaternidade;
 import com.folha.boot.domain.FuncionariosFerias;
 import com.folha.boot.domain.FuncionariosFeriasPeriodos;
 import com.folha.boot.domain.FuncionariosLicencas;
@@ -21,6 +23,7 @@ import com.folha.boot.domain.RubricaVencimento;
 import com.folha.boot.domain.RubricaVencimentoObs;
 import com.folha.boot.domain.models.calculos.EscalasNoMes;
 import com.folha.boot.domain.models.calculos.FeriasNoMes;
+import com.folha.boot.domain.models.calculos.LicencasMaternidadeNoMes;
 import com.folha.boot.domain.models.calculos.LicencasNoMes;
 import com.folha.boot.domain.models.calculos.ReferenciasDeEscala;
 import com.folha.boot.service.EscalaPosTransparenciaService;
@@ -42,6 +45,8 @@ public class CalculosColetaDeDadosService {
 	private  FuncionariosFeriasPeriodosReposytory funcionariosFeriasPeriodosReposytory;
 	@Autowired
 	private  FuncionariosLicencasReposytory funcionariosLicencasReposytory;
+	@Autowired
+	private  FaixasValoresLicencaMaternidadeReposytory faixasValoresLicencaMaternidadeReposytory;
 	@Autowired
 	private  EscalaReposytoty escalaReposytoty;
 	@Autowired
@@ -136,6 +141,35 @@ public class CalculosColetaDeDadosService {
 		return listaResposta;
 	}
 
+	
+	
+	@SuppressWarnings("deprecation")
+	@Transactional(readOnly = true)
+	public List<LicencasMaternidadeNoMes> buscarFaixasValoresLicencaMaternidadePorMes(AnoMes anoMes){
+		
+		Date dataInicial = new Date( Integer.parseInt(anoMes.getNomeAnoMes().substring(0, 4))-1900 , Integer.parseInt(anoMes.getNomeAnoMes().substring(4, 6))-1   ,  1 );
+		int diaFinala = utilidadesDeCalendarioEEscala.quantidadeDeDiasNoMes(anoMes.getNomeAnoMes());
+		
+		Date dataFinal = new Date( Integer.parseInt(anoMes.getNomeAnoMes().substring(0, 4))-1900 , Integer.parseInt(anoMes.getNomeAnoMes().substring(4, 6))-1   ,  diaFinala );
+		List<FaixasValoresLicencaMaternidade> lista = faixasValoresLicencaMaternidadeReposytory.findByDtInicialLessThanEqualAndDtFinalGreaterThanEqualAndDtCancelamentoIsNullOrderByIdFuncionarioFkIdPessoaFkCpfAsc(dataFinal, dataInicial); 
+		
+		List<LicencasMaternidadeNoMes> listaResposta = new ArrayList<>();
+		for(int i=0;i<lista.size();i++) {
+			LicencasMaternidadeNoMes f= new LicencasMaternidadeNoMes();
+			
+			int diaInicial = dataInicial.getDate();
+			if(dataInicial.before(lista.get(i).getDtInicial())) {diaInicial = lista.get(i).getDtInicial().getDate();}
+			int diaFinal = dataFinal.getDate();
+			if(lista.get(i).getDtFinal().before(dataFinal)) {diaFinal = lista.get(i).getDtFinal().getDate();}
+			f.setFaixasValoresLicencaMaternidade(lista.get(i));
+			f.setDiaInicial(diaInicial);
+			f.setDiaFinal(diaFinal);
+			f.setQtdDias((diaFinal-diaInicial)+1);
+			listaResposta.add(f);
+		}
+		
+		return listaResposta;
+	}
 	
 	
 	public void anotarObservacoes(AnoMes anoMes) {

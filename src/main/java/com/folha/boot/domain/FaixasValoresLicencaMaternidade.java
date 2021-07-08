@@ -12,7 +12,9 @@ import com.folha.boot.service.util.UtilidadesDeTexto;
 public class FaixasValoresLicencaMaternidade extends AbstractEntity<Long> {
 
 	
-    
+	@Column(name = "dt_ultima_mudanca")
+    @Temporal(TemporalType.DATE)
+    private Date dtUltimaMudanca;
 	@Column(name = "dt_inicial")
     @Temporal(TemporalType.DATE)
     private Date dtInicial;
@@ -42,6 +44,11 @@ public class FaixasValoresLicencaMaternidade extends AbstractEntity<Long> {
     @JoinColumn(name = "id_operador_cancelamento_fk", referencedColumnName = "id")
     @ManyToOne
     private PessoaOperadores idOperadorCancelamentoFk;
+    
+    @JoinColumn(name = "id_operador_ultima_mudanca_fk", referencedColumnName = "id")
+    @ManyToOne
+    private PessoaOperadores idOperadorUltimaMudancaFk;
+    
     @JoinColumn(name = "id_unidade_fk", referencedColumnName = "id")
     @ManyToOne
     private Unidades idUnidadeFk;
@@ -135,6 +142,22 @@ public class FaixasValoresLicencaMaternidade extends AbstractEntity<Long> {
 
 	public void setIdUnidadeFk(Unidades idUnidadeFk) {
 		this.idUnidadeFk = idUnidadeFk;
+	}
+
+	public Date getDtUltimaMudanca() {
+		return dtUltimaMudanca;
+	}
+
+	public void setDtUltimaMudanca(Date dtUltimaMudanca) {
+		this.dtUltimaMudanca = dtUltimaMudanca;
+	}
+
+	public PessoaOperadores getIdOperadorUltimaMudancaFk() {
+		return idOperadorUltimaMudancaFk;
+	}
+
+	public void setIdOperadorUltimaMudancaFk(PessoaOperadores idOperadorUltimaMudancaFk) {
+		this.idOperadorUltimaMudancaFk = idOperadorUltimaMudancaFk;
 	}
 
     

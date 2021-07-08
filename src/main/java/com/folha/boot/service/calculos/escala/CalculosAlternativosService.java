@@ -23,6 +23,7 @@ import com.folha.boot.domain.FaixasValoresGpfMedica;
 import com.folha.boot.domain.FaixasValoresGpfMedicaDiferenciada;
 import com.folha.boot.domain.FaixasValoresGpfMedicaDiferenciadaDiarista;
 import com.folha.boot.domain.FaixasValoresIncentivoDeRisco;
+import com.folha.boot.domain.FaixasValoresLicencaMaternidade;
 import com.folha.boot.domain.FaixasValoresParametrosCalculoFolhasExtras;
 import com.folha.boot.domain.FaixasValoresParametrosCalculoFolhasExtrasIndividual;
 import com.folha.boot.domain.FaixasValoresPss;
@@ -41,6 +42,7 @@ import com.folha.boot.domain.VencimentosFuncionario;
 import com.folha.boot.domain.models.calculos.EscalasNoMes;
 import com.folha.boot.domain.models.calculos.FeriasNoMes;
 import com.folha.boot.domain.models.calculos.FuncionarioHoras;
+import com.folha.boot.domain.models.calculos.LicencasMaternidadeNoMes;
 import com.folha.boot.domain.models.calculos.LicencasNoMes;
 import com.folha.boot.domain.models.calculos.ReferenciasDeEscala;
 import com.folha.boot.domain.models.calculos.RubricasVencimento;
@@ -67,6 +69,9 @@ import com.folha.boot.service.RubricaPensaoObsService;
 import com.folha.boot.service.RubricaPensaoObsVencimentoService;
 import com.folha.boot.service.RubricaService;
 import com.folha.boot.service.RubricaVencimentoService;
+import com.folha.boot.service.TipoBrutoLiquidoService;
+import com.folha.boot.service.TipoDeFolhaTurnoService;
+import com.folha.boot.service.TiposDeFolhaService;
 import com.folha.boot.service.TurnosService;
 import com.folha.boot.service.VencimentosFuncionarioService;
 import com.folha.boot.service.VinculosService;
@@ -134,6 +139,11 @@ public class CalculosAlternativosService {
 	private RubricaPensaoObsVencimentoService rubricaPensaoObsVencimentoService;
 	@Autowired
 	private RubricaVencimentoService rubricaVencimentoService;
+	@Autowired
+	private TipoBrutoLiquidoService tipoBrutoLiquidoService;
+	@Autowired
+	private TiposDeFolhaService tiposDeFolhaService;
+	
 	
 	
 	
@@ -2059,7 +2069,562 @@ public class CalculosAlternativosService {
 	
 	
 	
-	public List<RubricasVencimento> obterVencimentosDiferenciadoPorEscala(List<EscalasNoMes> listaEscalas, List<FeriasNoMes> listaFerias , AnoMes anoMes) {
+	
+	@SuppressWarnings("deprecation")
+	public List<EscalasNoMes> aplicarLicencasMaternidadeDaFolhaNaEscala(List<EscalasNoMes> listaEscalas, List<LicencasMaternidadeNoMes> listaLicencas, AnoMes anoMes){
+		List<EscalasNoMes> listaResposta = new ArrayList<>();
+		
+		for(int i=0;i<listaEscalas.size();i++) {
+			
+			for(int j=0;j<listaLicencas.size();j++) {
+				
+				//Colocando data da previdencia
+				Date dataInicial = new Date( Integer.parseInt(anoMes.getNomeAnoMes().substring(0, 4))-1900 , Integer.parseInt(anoMes.getNomeAnoMes().substring(4, 6))-1   ,  1 );
+				int diaFinala = utilidadesDeCalendarioEEscala.quantidadeDeDiasNoMes(anoMes.getNomeAnoMes());
+				Date dataFinal = new Date( Integer.parseInt(anoMes.getNomeAnoMes().substring(0, 4))-1900 , Integer.parseInt(anoMes.getNomeAnoMes().substring(4, 6))-1   ,  diaFinala );
+				
+					if(listaEscalas.get(i).getReferencias().getCpf()==listaLicencas.get(j).getFaixasValoresLicencaMaternidade().getIdFuncionarioFk().getIdPessoaFk().getCpf() ) {
+						if( true ) {
+							if( true ) {
+								//Anotando Informação de Licença
+								listaEscalas.get(i).getReferencias().setObsReferencias( listaEscalas.get(i).getReferencias().getObsReferencias()+ " CADASTRO LICENCA MATERNIDADE CADASTRADA FOLHA DE PAGAMENTO"+" DE "+listaLicencas.get(j).getFaixasValoresLicencaMaternidade().getDtInicial()+" ATE "+listaLicencas.get(j).getFaixasValoresLicencaMaternidade().getDtFinal() );
+								
+								
+								
+								//Tratando Turnos
+								if(listaLicencas.get(j).getDiaInicial()<=1 && listaLicencas.get(j).getDiaFinal()>=1 ){
+									listaEscalas.get(i).getReferencias().setDiasLicenca( listaEscalas.get(i).getReferencias().getDiasLicenca()+1 );
+									
+									//Tirando horas Extras
+									if( (listaEscalas.get(i).getEscala().getIdTipoFolhaFk().getIdFolhaEfetivaSimNaoFk().getSigla().equalsIgnoreCase("N"))   ) {
+										listaEscalas.get(i).getReferencias().setHorasLicencaDescontadas( listaEscalas.get(i).getReferencias().getHorasLicencaDescontadas() + listaEscalas.get(i).getEscala().getDia01Fk().getHorasManha() + listaEscalas.get(i).getEscala().getDia01Fk().getHorasTarde() + listaEscalas.get(i).getEscala().getDia01Fk().getHorasNoite()+ listaEscalas.get(i).getEscala().getDia01Fk().getHorasA()+ listaEscalas.get(i).getEscala().getDia01Fk().getHorasB()+ listaEscalas.get(i).getEscala().getDia01Fk().getHorasC() );
+										if(listaEscalas.get(i).getEscala().getDia01Fk()!=turnosService.buscarPorNome("")) {
+											listaEscalas.get(i).getReferencias().setObsReferencias( listaEscalas.get(i).getReferencias().getObsReferencias()+ " 01"+ listaEscalas.get(i).getEscala().getDia01Fk().getNomeTurno());
+										}
+										listaEscalas.get(i).getEscala().setDia01Fk(turnosService.buscarPorNome(""));
+									}
+									
+								}
+								
+								
+								//Tratando Turnos
+								if(listaLicencas.get(j).getDiaInicial()<=2 && listaLicencas.get(j).getDiaFinal()>=2 ){
+									listaEscalas.get(i).getReferencias().setDiasLicenca( listaEscalas.get(i).getReferencias().getDiasLicenca()+1 );
+									
+									//Tirando horas Extras
+									if( (listaEscalas.get(i).getEscala().getIdTipoFolhaFk().getIdFolhaEfetivaSimNaoFk().getSigla().equalsIgnoreCase("N"))   ) {
+										listaEscalas.get(i).getReferencias().setHorasLicencaDescontadas( listaEscalas.get(i).getReferencias().getHorasLicencaDescontadas() + listaEscalas.get(i).getEscala().getDia02Fk().getHorasManha() + listaEscalas.get(i).getEscala().getDia02Fk().getHorasTarde() + listaEscalas.get(i).getEscala().getDia02Fk().getHorasNoite()+ listaEscalas.get(i).getEscala().getDia02Fk().getHorasA()+ listaEscalas.get(i).getEscala().getDia02Fk().getHorasB()+ listaEscalas.get(i).getEscala().getDia02Fk().getHorasC() );
+										if(listaEscalas.get(i).getEscala().getDia02Fk()!=turnosService.buscarPorNome("")) {
+											listaEscalas.get(i).getReferencias().setObsReferencias( listaEscalas.get(i).getReferencias().getObsReferencias()+ " 02"+ listaEscalas.get(i).getEscala().getDia02Fk().getNomeTurno());
+										}
+										listaEscalas.get(i).getEscala().setDia02Fk(turnosService.buscarPorNome(""));
+									}
+									
+								}
+								
+								
+								//Tratando Turnos
+								if(listaLicencas.get(j).getDiaInicial()<=3 && listaLicencas.get(j).getDiaFinal()>=3 ){
+									listaEscalas.get(i).getReferencias().setDiasLicenca( listaEscalas.get(i).getReferencias().getDiasLicenca()+1 );
+									
+									//Tirando horas Extras
+									if( (listaEscalas.get(i).getEscala().getIdTipoFolhaFk().getIdFolhaEfetivaSimNaoFk().getSigla().equalsIgnoreCase("N"))   ) {
+										listaEscalas.get(i).getReferencias().setHorasLicencaDescontadas( listaEscalas.get(i).getReferencias().getHorasLicencaDescontadas() + listaEscalas.get(i).getEscala().getDia03Fk().getHorasManha() + listaEscalas.get(i).getEscala().getDia03Fk().getHorasTarde() + listaEscalas.get(i).getEscala().getDia03Fk().getHorasNoite()+ listaEscalas.get(i).getEscala().getDia03Fk().getHorasA()+ listaEscalas.get(i).getEscala().getDia03Fk().getHorasB()+ listaEscalas.get(i).getEscala().getDia03Fk().getHorasC() );
+										if(listaEscalas.get(i).getEscala().getDia03Fk()!=turnosService.buscarPorNome("")) {
+											listaEscalas.get(i).getReferencias().setObsReferencias( listaEscalas.get(i).getReferencias().getObsReferencias()+ " 03"+ listaEscalas.get(i).getEscala().getDia03Fk().getNomeTurno());
+										}
+										listaEscalas.get(i).getEscala().setDia03Fk(turnosService.buscarPorNome(""));
+									}
+									
+								}
+								
+								
+								//Tratando Turnos
+								if(listaLicencas.get(j).getDiaInicial()<=4 && listaLicencas.get(j).getDiaFinal()>=4 ){
+									listaEscalas.get(i).getReferencias().setDiasLicenca( listaEscalas.get(i).getReferencias().getDiasLicenca()+1 );
+									
+									//Tirando horas Extras
+									if( (listaEscalas.get(i).getEscala().getIdTipoFolhaFk().getIdFolhaEfetivaSimNaoFk().getSigla().equalsIgnoreCase("N"))   ) {
+										listaEscalas.get(i).getReferencias().setHorasLicencaDescontadas( listaEscalas.get(i).getReferencias().getHorasLicencaDescontadas() + listaEscalas.get(i).getEscala().getDia04Fk().getHorasManha() + listaEscalas.get(i).getEscala().getDia04Fk().getHorasTarde() + listaEscalas.get(i).getEscala().getDia04Fk().getHorasNoite()+ listaEscalas.get(i).getEscala().getDia04Fk().getHorasA()+ listaEscalas.get(i).getEscala().getDia04Fk().getHorasB()+ listaEscalas.get(i).getEscala().getDia04Fk().getHorasC() );
+										if(listaEscalas.get(i).getEscala().getDia04Fk()!=turnosService.buscarPorNome("")) {
+											listaEscalas.get(i).getReferencias().setObsReferencias( listaEscalas.get(i).getReferencias().getObsReferencias()+ " 04"+ listaEscalas.get(i).getEscala().getDia04Fk().getNomeTurno());
+										}
+										listaEscalas.get(i).getEscala().setDia04Fk(turnosService.buscarPorNome(""));
+									}
+									
+								}
+								
+								
+								//Tratando Turnos
+								if(listaLicencas.get(j).getDiaInicial()<=5 && listaLicencas.get(j).getDiaFinal()>=5 ){
+									listaEscalas.get(i).getReferencias().setDiasLicenca( listaEscalas.get(i).getReferencias().getDiasLicenca()+1 );
+									
+									//Tirando horas Extras
+									if( (listaEscalas.get(i).getEscala().getIdTipoFolhaFk().getIdFolhaEfetivaSimNaoFk().getSigla().equalsIgnoreCase("N"))   ) {
+										listaEscalas.get(i).getReferencias().setHorasLicencaDescontadas( listaEscalas.get(i).getReferencias().getHorasLicencaDescontadas() + listaEscalas.get(i).getEscala().getDia05Fk().getHorasManha() + listaEscalas.get(i).getEscala().getDia05Fk().getHorasTarde() + listaEscalas.get(i).getEscala().getDia05Fk().getHorasNoite()+ listaEscalas.get(i).getEscala().getDia05Fk().getHorasA()+ listaEscalas.get(i).getEscala().getDia05Fk().getHorasB()+ listaEscalas.get(i).getEscala().getDia05Fk().getHorasC() );
+										if(listaEscalas.get(i).getEscala().getDia05Fk()!=turnosService.buscarPorNome("")) {
+											listaEscalas.get(i).getReferencias().setObsReferencias( listaEscalas.get(i).getReferencias().getObsReferencias()+ " 05"+ listaEscalas.get(i).getEscala().getDia05Fk().getNomeTurno());
+										}
+										listaEscalas.get(i).getEscala().setDia05Fk(turnosService.buscarPorNome(""));
+									}
+									
+								}
+								
+								
+								//Tratando Turnos
+								if(listaLicencas.get(j).getDiaInicial()<=6 && listaLicencas.get(j).getDiaFinal()>=6 ){
+									listaEscalas.get(i).getReferencias().setDiasLicenca( listaEscalas.get(i).getReferencias().getDiasLicenca()+1 );
+									
+									//Tirando horas Extras
+									if( (listaEscalas.get(i).getEscala().getIdTipoFolhaFk().getIdFolhaEfetivaSimNaoFk().getSigla().equalsIgnoreCase("N"))   ) {
+										listaEscalas.get(i).getReferencias().setHorasLicencaDescontadas( listaEscalas.get(i).getReferencias().getHorasLicencaDescontadas() + listaEscalas.get(i).getEscala().getDia06Fk().getHorasManha() + listaEscalas.get(i).getEscala().getDia06Fk().getHorasTarde() + listaEscalas.get(i).getEscala().getDia06Fk().getHorasNoite()+ listaEscalas.get(i).getEscala().getDia06Fk().getHorasA()+ listaEscalas.get(i).getEscala().getDia06Fk().getHorasB()+ listaEscalas.get(i).getEscala().getDia06Fk().getHorasC() );
+										if(listaEscalas.get(i).getEscala().getDia06Fk()!=turnosService.buscarPorNome("")) {
+											listaEscalas.get(i).getReferencias().setObsReferencias( listaEscalas.get(i).getReferencias().getObsReferencias()+ " 06"+ listaEscalas.get(i).getEscala().getDia06Fk().getNomeTurno());
+										}
+										listaEscalas.get(i).getEscala().setDia06Fk(turnosService.buscarPorNome(""));
+									}
+									
+								}
+								
+								
+								//Tratando Turnos
+								if(listaLicencas.get(j).getDiaInicial()<=7 && listaLicencas.get(j).getDiaFinal()>=7 ){
+									listaEscalas.get(i).getReferencias().setDiasLicenca( listaEscalas.get(i).getReferencias().getDiasLicenca()+1 );
+									
+									//Tirando horas Extras
+									if( (listaEscalas.get(i).getEscala().getIdTipoFolhaFk().getIdFolhaEfetivaSimNaoFk().getSigla().equalsIgnoreCase("N"))   ) {
+										listaEscalas.get(i).getReferencias().setHorasLicencaDescontadas( listaEscalas.get(i).getReferencias().getHorasLicencaDescontadas() + listaEscalas.get(i).getEscala().getDia07Fk().getHorasManha() + listaEscalas.get(i).getEscala().getDia07Fk().getHorasTarde() + listaEscalas.get(i).getEscala().getDia07Fk().getHorasNoite()+ listaEscalas.get(i).getEscala().getDia07Fk().getHorasA()+ listaEscalas.get(i).getEscala().getDia07Fk().getHorasB()+ listaEscalas.get(i).getEscala().getDia07Fk().getHorasC() );
+										if(listaEscalas.get(i).getEscala().getDia07Fk()!=turnosService.buscarPorNome("")) {
+											listaEscalas.get(i).getReferencias().setObsReferencias( listaEscalas.get(i).getReferencias().getObsReferencias()+ " 07"+ listaEscalas.get(i).getEscala().getDia07Fk().getNomeTurno());
+										}
+										listaEscalas.get(i).getEscala().setDia07Fk(turnosService.buscarPorNome(""));
+									}
+									
+								}
+								
+								
+								//Tratando Turnos
+								if(listaLicencas.get(j).getDiaInicial()<=8 && listaLicencas.get(j).getDiaFinal()>=8 ){
+									listaEscalas.get(i).getReferencias().setDiasLicenca( listaEscalas.get(i).getReferencias().getDiasLicenca()+1 );
+									
+									//Tirando horas Extras
+									if( (listaEscalas.get(i).getEscala().getIdTipoFolhaFk().getIdFolhaEfetivaSimNaoFk().getSigla().equalsIgnoreCase("N"))   ) {
+										listaEscalas.get(i).getReferencias().setHorasLicencaDescontadas( listaEscalas.get(i).getReferencias().getHorasLicencaDescontadas() + listaEscalas.get(i).getEscala().getDia08Fk().getHorasManha() + listaEscalas.get(i).getEscala().getDia08Fk().getHorasTarde() + listaEscalas.get(i).getEscala().getDia08Fk().getHorasNoite()+ listaEscalas.get(i).getEscala().getDia08Fk().getHorasA()+ listaEscalas.get(i).getEscala().getDia08Fk().getHorasB()+ listaEscalas.get(i).getEscala().getDia08Fk().getHorasC() );
+										if(listaEscalas.get(i).getEscala().getDia08Fk()!=turnosService.buscarPorNome("")) {
+											listaEscalas.get(i).getReferencias().setObsReferencias( listaEscalas.get(i).getReferencias().getObsReferencias()+ " 08"+ listaEscalas.get(i).getEscala().getDia08Fk().getNomeTurno());
+										}
+										listaEscalas.get(i).getEscala().setDia08Fk(turnosService.buscarPorNome(""));
+									}
+									
+								}
+								
+								
+								//Tratando Turnos
+								if(listaLicencas.get(j).getDiaInicial()<=9 && listaLicencas.get(j).getDiaFinal()>=9 ){
+									listaEscalas.get(i).getReferencias().setDiasLicenca( listaEscalas.get(i).getReferencias().getDiasLicenca()+1 );
+									
+									//Tirando horas Extras
+									if( (listaEscalas.get(i).getEscala().getIdTipoFolhaFk().getIdFolhaEfetivaSimNaoFk().getSigla().equalsIgnoreCase("N"))   ) {
+										listaEscalas.get(i).getReferencias().setHorasLicencaDescontadas( listaEscalas.get(i).getReferencias().getHorasLicencaDescontadas() + listaEscalas.get(i).getEscala().getDia09Fk().getHorasManha() + listaEscalas.get(i).getEscala().getDia09Fk().getHorasTarde() + listaEscalas.get(i).getEscala().getDia09Fk().getHorasNoite()+ listaEscalas.get(i).getEscala().getDia09Fk().getHorasA()+ listaEscalas.get(i).getEscala().getDia09Fk().getHorasB()+ listaEscalas.get(i).getEscala().getDia09Fk().getHorasC() );
+										if(listaEscalas.get(i).getEscala().getDia09Fk()!=turnosService.buscarPorNome("")) {
+											listaEscalas.get(i).getReferencias().setObsReferencias( listaEscalas.get(i).getReferencias().getObsReferencias()+ " 09"+ listaEscalas.get(i).getEscala().getDia09Fk().getNomeTurno());
+										}
+										listaEscalas.get(i).getEscala().setDia09Fk(turnosService.buscarPorNome(""));
+									}
+									
+								}
+								
+								
+								//Tratando Turnos
+								if(listaLicencas.get(j).getDiaInicial()<=10 && listaLicencas.get(j).getDiaFinal()>=10 ){
+									listaEscalas.get(i).getReferencias().setDiasLicenca( listaEscalas.get(i).getReferencias().getDiasLicenca()+1 );
+									
+									//Tirando horas Extras
+									if( (listaEscalas.get(i).getEscala().getIdTipoFolhaFk().getIdFolhaEfetivaSimNaoFk().getSigla().equalsIgnoreCase("N"))   ) {
+										listaEscalas.get(i).getReferencias().setHorasLicencaDescontadas( listaEscalas.get(i).getReferencias().getHorasLicencaDescontadas() + listaEscalas.get(i).getEscala().getDia10Fk().getHorasManha() + listaEscalas.get(i).getEscala().getDia10Fk().getHorasTarde() + listaEscalas.get(i).getEscala().getDia10Fk().getHorasNoite()+ listaEscalas.get(i).getEscala().getDia10Fk().getHorasA()+ listaEscalas.get(i).getEscala().getDia10Fk().getHorasB()+ listaEscalas.get(i).getEscala().getDia10Fk().getHorasC() );
+										if(listaEscalas.get(i).getEscala().getDia10Fk()!=turnosService.buscarPorNome("")) {
+											listaEscalas.get(i).getReferencias().setObsReferencias( listaEscalas.get(i).getReferencias().getObsReferencias()+ " 10"+ listaEscalas.get(i).getEscala().getDia10Fk().getNomeTurno());
+										}
+										listaEscalas.get(i).getEscala().setDia10Fk(turnosService.buscarPorNome(""));
+									}
+									
+								}
+								
+								
+								//Tratando Turnos
+								if(listaLicencas.get(j).getDiaInicial()<=11 && listaLicencas.get(j).getDiaFinal()>=11 ){
+									listaEscalas.get(i).getReferencias().setDiasLicenca( listaEscalas.get(i).getReferencias().getDiasLicenca()+1 );
+									
+									//Tirando horas Extras
+									if( (listaEscalas.get(i).getEscala().getIdTipoFolhaFk().getIdFolhaEfetivaSimNaoFk().getSigla().equalsIgnoreCase("N"))   ) {
+										listaEscalas.get(i).getReferencias().setHorasLicencaDescontadas( listaEscalas.get(i).getReferencias().getHorasLicencaDescontadas() + listaEscalas.get(i).getEscala().getDia11Fk().getHorasManha() + listaEscalas.get(i).getEscala().getDia11Fk().getHorasTarde() + listaEscalas.get(i).getEscala().getDia11Fk().getHorasNoite()+ listaEscalas.get(i).getEscala().getDia11Fk().getHorasA()+ listaEscalas.get(i).getEscala().getDia11Fk().getHorasB()+ listaEscalas.get(i).getEscala().getDia11Fk().getHorasC() );
+										if(listaEscalas.get(i).getEscala().getDia11Fk()!=turnosService.buscarPorNome("")) {
+											listaEscalas.get(i).getReferencias().setObsReferencias( listaEscalas.get(i).getReferencias().getObsReferencias()+ " 11"+ listaEscalas.get(i).getEscala().getDia11Fk().getNomeTurno());
+										}
+										listaEscalas.get(i).getEscala().setDia11Fk(turnosService.buscarPorNome(""));
+									}
+									
+								}
+								
+								
+								//Tratando Turnos
+								if(listaLicencas.get(j).getDiaInicial()<=12 && listaLicencas.get(j).getDiaFinal()>=12 ){
+									listaEscalas.get(i).getReferencias().setDiasLicenca( listaEscalas.get(i).getReferencias().getDiasLicenca()+1 );
+									
+									//Tirando horas Extras
+									if( (listaEscalas.get(i).getEscala().getIdTipoFolhaFk().getIdFolhaEfetivaSimNaoFk().getSigla().equalsIgnoreCase("N"))   ) {
+										listaEscalas.get(i).getReferencias().setHorasLicencaDescontadas( listaEscalas.get(i).getReferencias().getHorasLicencaDescontadas() + listaEscalas.get(i).getEscala().getDia12Fk().getHorasManha() + listaEscalas.get(i).getEscala().getDia12Fk().getHorasTarde() + listaEscalas.get(i).getEscala().getDia12Fk().getHorasNoite()+ listaEscalas.get(i).getEscala().getDia12Fk().getHorasA()+ listaEscalas.get(i).getEscala().getDia12Fk().getHorasB()+ listaEscalas.get(i).getEscala().getDia12Fk().getHorasC() );
+										if(listaEscalas.get(i).getEscala().getDia12Fk()!=turnosService.buscarPorNome("")) {
+											listaEscalas.get(i).getReferencias().setObsReferencias( listaEscalas.get(i).getReferencias().getObsReferencias()+ " 12"+ listaEscalas.get(i).getEscala().getDia12Fk().getNomeTurno());
+										}
+										listaEscalas.get(i).getEscala().setDia12Fk(turnosService.buscarPorNome(""));
+									}
+									
+								}
+								
+								
+								//Tratando Turnos
+								if(listaLicencas.get(j).getDiaInicial()<=13 && listaLicencas.get(j).getDiaFinal()>=13 ){
+									listaEscalas.get(i).getReferencias().setDiasLicenca( listaEscalas.get(i).getReferencias().getDiasLicenca()+1 );
+									
+									//Tirando horas Extras
+									if( (listaEscalas.get(i).getEscala().getIdTipoFolhaFk().getIdFolhaEfetivaSimNaoFk().getSigla().equalsIgnoreCase("N"))   ) {
+										listaEscalas.get(i).getReferencias().setHorasLicencaDescontadas( listaEscalas.get(i).getReferencias().getHorasLicencaDescontadas() + listaEscalas.get(i).getEscala().getDia13Fk().getHorasManha() + listaEscalas.get(i).getEscala().getDia13Fk().getHorasTarde() + listaEscalas.get(i).getEscala().getDia13Fk().getHorasNoite()+ listaEscalas.get(i).getEscala().getDia13Fk().getHorasA()+ listaEscalas.get(i).getEscala().getDia13Fk().getHorasB()+ listaEscalas.get(i).getEscala().getDia13Fk().getHorasC() );
+										if(listaEscalas.get(i).getEscala().getDia13Fk()!=turnosService.buscarPorNome("")) {
+											listaEscalas.get(i).getReferencias().setObsReferencias( listaEscalas.get(i).getReferencias().getObsReferencias()+ " 13"+ listaEscalas.get(i).getEscala().getDia13Fk().getNomeTurno());
+										}
+										listaEscalas.get(i).getEscala().setDia13Fk(turnosService.buscarPorNome(""));
+									}
+									
+								}
+								
+								
+								//Tratando Turnos
+								if(listaLicencas.get(j).getDiaInicial()<=14 && listaLicencas.get(j).getDiaFinal()>=14 ){
+									listaEscalas.get(i).getReferencias().setDiasLicenca( listaEscalas.get(i).getReferencias().getDiasLicenca()+1 );
+									
+									//Tirando horas Extras
+									if( (listaEscalas.get(i).getEscala().getIdTipoFolhaFk().getIdFolhaEfetivaSimNaoFk().getSigla().equalsIgnoreCase("N"))   ) {
+										listaEscalas.get(i).getReferencias().setHorasLicencaDescontadas( listaEscalas.get(i).getReferencias().getHorasLicencaDescontadas() + listaEscalas.get(i).getEscala().getDia14Fk().getHorasManha() + listaEscalas.get(i).getEscala().getDia14Fk().getHorasTarde() + listaEscalas.get(i).getEscala().getDia14Fk().getHorasNoite()+ listaEscalas.get(i).getEscala().getDia14Fk().getHorasA()+ listaEscalas.get(i).getEscala().getDia14Fk().getHorasB()+ listaEscalas.get(i).getEscala().getDia14Fk().getHorasC() );
+										if(listaEscalas.get(i).getEscala().getDia14Fk()!=turnosService.buscarPorNome("")) {
+											listaEscalas.get(i).getReferencias().setObsReferencias( listaEscalas.get(i).getReferencias().getObsReferencias()+ " 14"+ listaEscalas.get(i).getEscala().getDia14Fk().getNomeTurno());
+										}
+										listaEscalas.get(i).getEscala().setDia14Fk(turnosService.buscarPorNome(""));
+									}
+									
+								}
+								
+								
+								//Tratando Turnos
+								if(listaLicencas.get(j).getDiaInicial()<=15 && listaLicencas.get(j).getDiaFinal()>=15 ){
+									listaEscalas.get(i).getReferencias().setDiasLicenca( listaEscalas.get(i).getReferencias().getDiasLicenca()+1 );
+									
+									//Tirando horas Extras
+									if( (listaEscalas.get(i).getEscala().getIdTipoFolhaFk().getIdFolhaEfetivaSimNaoFk().getSigla().equalsIgnoreCase("N"))   ) {
+										listaEscalas.get(i).getReferencias().setHorasLicencaDescontadas( listaEscalas.get(i).getReferencias().getHorasLicencaDescontadas() + listaEscalas.get(i).getEscala().getDia15Fk().getHorasManha() + listaEscalas.get(i).getEscala().getDia15Fk().getHorasTarde() + listaEscalas.get(i).getEscala().getDia15Fk().getHorasNoite()+ listaEscalas.get(i).getEscala().getDia15Fk().getHorasA()+ listaEscalas.get(i).getEscala().getDia15Fk().getHorasB()+ listaEscalas.get(i).getEscala().getDia15Fk().getHorasC() );
+										if(listaEscalas.get(i).getEscala().getDia15Fk()!=turnosService.buscarPorNome("")) {
+											listaEscalas.get(i).getReferencias().setObsReferencias( listaEscalas.get(i).getReferencias().getObsReferencias()+ " 15"+ listaEscalas.get(i).getEscala().getDia15Fk().getNomeTurno());
+										}
+										listaEscalas.get(i).getEscala().setDia15Fk(turnosService.buscarPorNome(""));
+									}
+									
+								}
+								
+								
+								//Tratando Turnos
+								if(listaLicencas.get(j).getDiaInicial()<=16 && listaLicencas.get(j).getDiaFinal()>=16 ){
+									listaEscalas.get(i).getReferencias().setDiasLicenca( listaEscalas.get(i).getReferencias().getDiasLicenca()+1 );
+									
+									//Tirando horas Extras
+									if( (listaEscalas.get(i).getEscala().getIdTipoFolhaFk().getIdFolhaEfetivaSimNaoFk().getSigla().equalsIgnoreCase("N"))   ) {
+										listaEscalas.get(i).getReferencias().setHorasLicencaDescontadas( listaEscalas.get(i).getReferencias().getHorasLicencaDescontadas() + listaEscalas.get(i).getEscala().getDia16Fk().getHorasManha() + listaEscalas.get(i).getEscala().getDia16Fk().getHorasTarde() + listaEscalas.get(i).getEscala().getDia16Fk().getHorasNoite()+ listaEscalas.get(i).getEscala().getDia16Fk().getHorasA()+ listaEscalas.get(i).getEscala().getDia16Fk().getHorasB()+ listaEscalas.get(i).getEscala().getDia16Fk().getHorasC() );
+										if(listaEscalas.get(i).getEscala().getDia16Fk()!=turnosService.buscarPorNome("")) {
+											listaEscalas.get(i).getReferencias().setObsReferencias( listaEscalas.get(i).getReferencias().getObsReferencias()+ " 16"+ listaEscalas.get(i).getEscala().getDia16Fk().getNomeTurno());
+										}
+										listaEscalas.get(i).getEscala().setDia16Fk(turnosService.buscarPorNome(""));
+									}
+									
+								}
+								
+								
+								//Tratando Turnos
+								if(listaLicencas.get(j).getDiaInicial()<=17 && listaLicencas.get(j).getDiaFinal()>=17 ){
+									listaEscalas.get(i).getReferencias().setDiasLicenca( listaEscalas.get(i).getReferencias().getDiasLicenca()+1 );
+									
+									//Tirando horas Extras
+									if( (listaEscalas.get(i).getEscala().getIdTipoFolhaFk().getIdFolhaEfetivaSimNaoFk().getSigla().equalsIgnoreCase("N"))   ) {
+										listaEscalas.get(i).getReferencias().setHorasLicencaDescontadas( listaEscalas.get(i).getReferencias().getHorasLicencaDescontadas() + listaEscalas.get(i).getEscala().getDia17Fk().getHorasManha() + listaEscalas.get(i).getEscala().getDia17Fk().getHorasTarde() + listaEscalas.get(i).getEscala().getDia17Fk().getHorasNoite()+ listaEscalas.get(i).getEscala().getDia17Fk().getHorasA()+ listaEscalas.get(i).getEscala().getDia17Fk().getHorasB()+ listaEscalas.get(i).getEscala().getDia17Fk().getHorasC() );
+										if(listaEscalas.get(i).getEscala().getDia17Fk()!=turnosService.buscarPorNome("")) {
+											listaEscalas.get(i).getReferencias().setObsReferencias( listaEscalas.get(i).getReferencias().getObsReferencias()+ " 17"+ listaEscalas.get(i).getEscala().getDia17Fk().getNomeTurno());
+										}
+										listaEscalas.get(i).getEscala().setDia17Fk(turnosService.buscarPorNome(""));
+									}
+									
+								}
+								
+								
+								//Tratando Turnos
+								if(listaLicencas.get(j).getDiaInicial()<=18 && listaLicencas.get(j).getDiaFinal()>=18 ){
+									listaEscalas.get(i).getReferencias().setDiasLicenca( listaEscalas.get(i).getReferencias().getDiasLicenca()+1 );
+									
+									//Tirando horas Extras
+									if( (listaEscalas.get(i).getEscala().getIdTipoFolhaFk().getIdFolhaEfetivaSimNaoFk().getSigla().equalsIgnoreCase("N"))   ) {
+										listaEscalas.get(i).getReferencias().setHorasLicencaDescontadas( listaEscalas.get(i).getReferencias().getHorasLicencaDescontadas() + listaEscalas.get(i).getEscala().getDia18Fk().getHorasManha() + listaEscalas.get(i).getEscala().getDia18Fk().getHorasTarde() + listaEscalas.get(i).getEscala().getDia18Fk().getHorasNoite()+ listaEscalas.get(i).getEscala().getDia18Fk().getHorasA()+ listaEscalas.get(i).getEscala().getDia18Fk().getHorasB()+ listaEscalas.get(i).getEscala().getDia18Fk().getHorasC() );
+										if(listaEscalas.get(i).getEscala().getDia18Fk()!=turnosService.buscarPorNome("")) {
+											listaEscalas.get(i).getReferencias().setObsReferencias( listaEscalas.get(i).getReferencias().getObsReferencias()+ " 18"+ listaEscalas.get(i).getEscala().getDia18Fk().getNomeTurno());
+										}
+										listaEscalas.get(i).getEscala().setDia18Fk(turnosService.buscarPorNome(""));
+									}
+									
+								}
+								
+								
+								//Tratando Turnos
+								if(listaLicencas.get(j).getDiaInicial()<=19 && listaLicencas.get(j).getDiaFinal()>=19 ){
+									listaEscalas.get(i).getReferencias().setDiasLicenca( listaEscalas.get(i).getReferencias().getDiasLicenca()+1 );
+									
+									//Tirando horas Extras
+									if( (listaEscalas.get(i).getEscala().getIdTipoFolhaFk().getIdFolhaEfetivaSimNaoFk().getSigla().equalsIgnoreCase("N"))   ) {
+										listaEscalas.get(i).getReferencias().setHorasLicencaDescontadas( listaEscalas.get(i).getReferencias().getHorasLicencaDescontadas() + listaEscalas.get(i).getEscala().getDia19Fk().getHorasManha() + listaEscalas.get(i).getEscala().getDia19Fk().getHorasTarde() + listaEscalas.get(i).getEscala().getDia19Fk().getHorasNoite()+ listaEscalas.get(i).getEscala().getDia19Fk().getHorasA()+ listaEscalas.get(i).getEscala().getDia19Fk().getHorasB()+ listaEscalas.get(i).getEscala().getDia19Fk().getHorasC() );
+										if(listaEscalas.get(i).getEscala().getDia19Fk()!=turnosService.buscarPorNome("")) {
+											listaEscalas.get(i).getReferencias().setObsReferencias( listaEscalas.get(i).getReferencias().getObsReferencias()+ " 19"+ listaEscalas.get(i).getEscala().getDia19Fk().getNomeTurno());
+										}
+										listaEscalas.get(i).getEscala().setDia19Fk(turnosService.buscarPorNome(""));
+									}
+									
+								}
+								
+								
+								//Tratando Turnos
+								if(listaLicencas.get(j).getDiaInicial()<=20 && listaLicencas.get(j).getDiaFinal()>=20 ){
+									listaEscalas.get(i).getReferencias().setDiasLicenca( listaEscalas.get(i).getReferencias().getDiasLicenca()+1 );
+									
+									//Tirando horas Extras
+									if( (listaEscalas.get(i).getEscala().getIdTipoFolhaFk().getIdFolhaEfetivaSimNaoFk().getSigla().equalsIgnoreCase("N"))   ) {
+										listaEscalas.get(i).getReferencias().setHorasLicencaDescontadas( listaEscalas.get(i).getReferencias().getHorasLicencaDescontadas() + listaEscalas.get(i).getEscala().getDia20Fk().getHorasManha() + listaEscalas.get(i).getEscala().getDia20Fk().getHorasTarde() + listaEscalas.get(i).getEscala().getDia20Fk().getHorasNoite()+ listaEscalas.get(i).getEscala().getDia20Fk().getHorasA()+ listaEscalas.get(i).getEscala().getDia20Fk().getHorasB()+ listaEscalas.get(i).getEscala().getDia20Fk().getHorasC() );
+										if(listaEscalas.get(i).getEscala().getDia20Fk()!=turnosService.buscarPorNome("")) {
+											listaEscalas.get(i).getReferencias().setObsReferencias( listaEscalas.get(i).getReferencias().getObsReferencias()+ " 20"+ listaEscalas.get(i).getEscala().getDia20Fk().getNomeTurno());
+										}
+										listaEscalas.get(i).getEscala().setDia20Fk(turnosService.buscarPorNome(""));
+									}
+									
+								}
+								
+								
+								//Tratando Turnos
+								if(listaLicencas.get(j).getDiaInicial()<=21 && listaLicencas.get(j).getDiaFinal()>=21 ){
+									listaEscalas.get(i).getReferencias().setDiasLicenca( listaEscalas.get(i).getReferencias().getDiasLicenca()+1 );
+									
+									//Tirando horas Extras
+									if( (listaEscalas.get(i).getEscala().getIdTipoFolhaFk().getIdFolhaEfetivaSimNaoFk().getSigla().equalsIgnoreCase("N"))   ) {
+										listaEscalas.get(i).getReferencias().setHorasLicencaDescontadas( listaEscalas.get(i).getReferencias().getHorasLicencaDescontadas() + listaEscalas.get(i).getEscala().getDia21Fk().getHorasManha() + listaEscalas.get(i).getEscala().getDia21Fk().getHorasTarde() + listaEscalas.get(i).getEscala().getDia21Fk().getHorasNoite()+ listaEscalas.get(i).getEscala().getDia21Fk().getHorasA()+ listaEscalas.get(i).getEscala().getDia21Fk().getHorasB()+ listaEscalas.get(i).getEscala().getDia21Fk().getHorasC() );
+										if(listaEscalas.get(i).getEscala().getDia21Fk()!=turnosService.buscarPorNome("")) {
+											listaEscalas.get(i).getReferencias().setObsReferencias( listaEscalas.get(i).getReferencias().getObsReferencias()+ " 21"+ listaEscalas.get(i).getEscala().getDia21Fk().getNomeTurno());
+										}
+										listaEscalas.get(i).getEscala().setDia21Fk(turnosService.buscarPorNome(""));
+									}
+									
+								}
+								
+								
+								//Tratando Turnos
+								if(listaLicencas.get(j).getDiaInicial()<=22 && listaLicencas.get(j).getDiaFinal()>=22 ){
+									listaEscalas.get(i).getReferencias().setDiasLicenca( listaEscalas.get(i).getReferencias().getDiasLicenca()+1 );
+									
+									//Tirando horas Extras
+									if( (listaEscalas.get(i).getEscala().getIdTipoFolhaFk().getIdFolhaEfetivaSimNaoFk().getSigla().equalsIgnoreCase("N"))   ) {
+										listaEscalas.get(i).getReferencias().setHorasLicencaDescontadas( listaEscalas.get(i).getReferencias().getHorasLicencaDescontadas() + listaEscalas.get(i).getEscala().getDia22Fk().getHorasManha() + listaEscalas.get(i).getEscala().getDia22Fk().getHorasTarde() + listaEscalas.get(i).getEscala().getDia22Fk().getHorasNoite()+ listaEscalas.get(i).getEscala().getDia22Fk().getHorasA()+ listaEscalas.get(i).getEscala().getDia22Fk().getHorasB()+ listaEscalas.get(i).getEscala().getDia22Fk().getHorasC() );
+										if(listaEscalas.get(i).getEscala().getDia22Fk()!=turnosService.buscarPorNome("")) {
+											listaEscalas.get(i).getReferencias().setObsReferencias( listaEscalas.get(i).getReferencias().getObsReferencias()+ " 22"+ listaEscalas.get(i).getEscala().getDia22Fk().getNomeTurno());
+										}
+										listaEscalas.get(i).getEscala().setDia22Fk(turnosService.buscarPorNome(""));
+									}
+									
+								}
+								
+								
+								//Tratando Turnos
+								if(listaLicencas.get(j).getDiaInicial()<=23 && listaLicencas.get(j).getDiaFinal()>=23 ){
+									listaEscalas.get(i).getReferencias().setDiasLicenca( listaEscalas.get(i).getReferencias().getDiasLicenca()+1 );
+									
+									//Tirando horas Extras
+									if( (listaEscalas.get(i).getEscala().getIdTipoFolhaFk().getIdFolhaEfetivaSimNaoFk().getSigla().equalsIgnoreCase("N"))   ) {
+										listaEscalas.get(i).getReferencias().setHorasLicencaDescontadas( listaEscalas.get(i).getReferencias().getHorasLicencaDescontadas() + listaEscalas.get(i).getEscala().getDia23Fk().getHorasManha() + listaEscalas.get(i).getEscala().getDia23Fk().getHorasTarde() + listaEscalas.get(i).getEscala().getDia23Fk().getHorasNoite()+ listaEscalas.get(i).getEscala().getDia23Fk().getHorasA()+ listaEscalas.get(i).getEscala().getDia23Fk().getHorasB()+ listaEscalas.get(i).getEscala().getDia23Fk().getHorasC() );
+										if(listaEscalas.get(i).getEscala().getDia23Fk()!=turnosService.buscarPorNome("")) {
+											listaEscalas.get(i).getReferencias().setObsReferencias( listaEscalas.get(i).getReferencias().getObsReferencias()+ " 23"+ listaEscalas.get(i).getEscala().getDia23Fk().getNomeTurno());
+										}
+										listaEscalas.get(i).getEscala().setDia23Fk(turnosService.buscarPorNome(""));
+									}
+									
+								}
+								
+								
+								//Tratando Turnos
+								if(listaLicencas.get(j).getDiaInicial()<=24 && listaLicencas.get(j).getDiaFinal()>=24 ){
+									listaEscalas.get(i).getReferencias().setDiasLicenca( listaEscalas.get(i).getReferencias().getDiasLicenca()+1 );
+									
+									//Tirando horas Extras
+									if( (listaEscalas.get(i).getEscala().getIdTipoFolhaFk().getIdFolhaEfetivaSimNaoFk().getSigla().equalsIgnoreCase("N"))   ) {
+										listaEscalas.get(i).getReferencias().setHorasLicencaDescontadas( listaEscalas.get(i).getReferencias().getHorasLicencaDescontadas() + listaEscalas.get(i).getEscala().getDia24Fk().getHorasManha() + listaEscalas.get(i).getEscala().getDia24Fk().getHorasTarde() + listaEscalas.get(i).getEscala().getDia24Fk().getHorasNoite()+ listaEscalas.get(i).getEscala().getDia24Fk().getHorasA()+ listaEscalas.get(i).getEscala().getDia24Fk().getHorasB()+ listaEscalas.get(i).getEscala().getDia24Fk().getHorasC() );
+										if(listaEscalas.get(i).getEscala().getDia24Fk()!=turnosService.buscarPorNome("")) {
+											listaEscalas.get(i).getReferencias().setObsReferencias( listaEscalas.get(i).getReferencias().getObsReferencias()+ " 24"+ listaEscalas.get(i).getEscala().getDia24Fk().getNomeTurno());
+										}
+										listaEscalas.get(i).getEscala().setDia24Fk(turnosService.buscarPorNome(""));
+									}
+									
+								}
+								
+								
+								//Tratando Turnos
+								if(listaLicencas.get(j).getDiaInicial()<=25 && listaLicencas.get(j).getDiaFinal()>=25 ){
+									listaEscalas.get(i).getReferencias().setDiasLicenca( listaEscalas.get(i).getReferencias().getDiasLicenca()+1 );
+									
+									//Tirando horas Extras
+									if( (listaEscalas.get(i).getEscala().getIdTipoFolhaFk().getIdFolhaEfetivaSimNaoFk().getSigla().equalsIgnoreCase("N"))   ) {
+										listaEscalas.get(i).getReferencias().setHorasLicencaDescontadas( listaEscalas.get(i).getReferencias().getHorasLicencaDescontadas() + listaEscalas.get(i).getEscala().getDia25Fk().getHorasManha() + listaEscalas.get(i).getEscala().getDia25Fk().getHorasTarde() + listaEscalas.get(i).getEscala().getDia25Fk().getHorasNoite()+ listaEscalas.get(i).getEscala().getDia25Fk().getHorasA()+ listaEscalas.get(i).getEscala().getDia25Fk().getHorasB()+ listaEscalas.get(i).getEscala().getDia25Fk().getHorasC() );
+										if(listaEscalas.get(i).getEscala().getDia25Fk()!=turnosService.buscarPorNome("")) {
+											listaEscalas.get(i).getReferencias().setObsReferencias( listaEscalas.get(i).getReferencias().getObsReferencias()+ " 25"+ listaEscalas.get(i).getEscala().getDia25Fk().getNomeTurno());
+										}
+										listaEscalas.get(i).getEscala().setDia25Fk(turnosService.buscarPorNome(""));
+									}
+									
+								}
+								
+								
+								//Tratando Turnos
+								if(listaLicencas.get(j).getDiaInicial()<=26 && listaLicencas.get(j).getDiaFinal()>=26 ){
+									listaEscalas.get(i).getReferencias().setDiasLicenca( listaEscalas.get(i).getReferencias().getDiasLicenca()+1 );
+									
+									//Tirando horas Extras
+									if( (listaEscalas.get(i).getEscala().getIdTipoFolhaFk().getIdFolhaEfetivaSimNaoFk().getSigla().equalsIgnoreCase("N"))   ) {
+										listaEscalas.get(i).getReferencias().setHorasLicencaDescontadas( listaEscalas.get(i).getReferencias().getHorasLicencaDescontadas() + listaEscalas.get(i).getEscala().getDia26Fk().getHorasManha() + listaEscalas.get(i).getEscala().getDia26Fk().getHorasTarde() + listaEscalas.get(i).getEscala().getDia26Fk().getHorasNoite()+ listaEscalas.get(i).getEscala().getDia26Fk().getHorasA()+ listaEscalas.get(i).getEscala().getDia26Fk().getHorasB()+ listaEscalas.get(i).getEscala().getDia26Fk().getHorasC() );
+										if(listaEscalas.get(i).getEscala().getDia26Fk()!=turnosService.buscarPorNome("")) {
+											listaEscalas.get(i).getReferencias().setObsReferencias( listaEscalas.get(i).getReferencias().getObsReferencias()+ " 26"+ listaEscalas.get(i).getEscala().getDia26Fk().getNomeTurno());
+										}
+										listaEscalas.get(i).getEscala().setDia26Fk(turnosService.buscarPorNome(""));
+									}
+									
+								}
+								
+								
+								//Tratando Turnos
+								if(listaLicencas.get(j).getDiaInicial()<=27 && listaLicencas.get(j).getDiaFinal()>=27 ){
+									listaEscalas.get(i).getReferencias().setDiasLicenca( listaEscalas.get(i).getReferencias().getDiasLicenca()+1 );
+									
+									//Tirando horas Extras
+									if( (listaEscalas.get(i).getEscala().getIdTipoFolhaFk().getIdFolhaEfetivaSimNaoFk().getSigla().equalsIgnoreCase("N"))   ) {
+										listaEscalas.get(i).getReferencias().setHorasLicencaDescontadas( listaEscalas.get(i).getReferencias().getHorasLicencaDescontadas() + listaEscalas.get(i).getEscala().getDia27Fk().getHorasManha() + listaEscalas.get(i).getEscala().getDia27Fk().getHorasTarde() + listaEscalas.get(i).getEscala().getDia27Fk().getHorasNoite()+ listaEscalas.get(i).getEscala().getDia27Fk().getHorasA()+ listaEscalas.get(i).getEscala().getDia27Fk().getHorasB()+ listaEscalas.get(i).getEscala().getDia27Fk().getHorasC() );
+										if(listaEscalas.get(i).getEscala().getDia27Fk()!=turnosService.buscarPorNome("")) {
+											listaEscalas.get(i).getReferencias().setObsReferencias( listaEscalas.get(i).getReferencias().getObsReferencias()+ " 27"+ listaEscalas.get(i).getEscala().getDia27Fk().getNomeTurno());
+										}
+										listaEscalas.get(i).getEscala().setDia27Fk(turnosService.buscarPorNome(""));
+									}
+									
+								}
+								
+								
+								//Tratando Turnos
+								if(listaLicencas.get(j).getDiaInicial()<=28 && listaLicencas.get(j).getDiaFinal()>=28 ){
+									listaEscalas.get(i).getReferencias().setDiasLicenca( listaEscalas.get(i).getReferencias().getDiasLicenca()+1 );
+									
+									//Tirando horas Extras
+									if( (listaEscalas.get(i).getEscala().getIdTipoFolhaFk().getIdFolhaEfetivaSimNaoFk().getSigla().equalsIgnoreCase("N"))   ) {
+										listaEscalas.get(i).getReferencias().setHorasLicencaDescontadas( listaEscalas.get(i).getReferencias().getHorasLicencaDescontadas() + listaEscalas.get(i).getEscala().getDia28Fk().getHorasManha() + listaEscalas.get(i).getEscala().getDia28Fk().getHorasTarde() + listaEscalas.get(i).getEscala().getDia28Fk().getHorasNoite()+ listaEscalas.get(i).getEscala().getDia28Fk().getHorasA()+ listaEscalas.get(i).getEscala().getDia28Fk().getHorasB()+ listaEscalas.get(i).getEscala().getDia28Fk().getHorasC() );
+										if(listaEscalas.get(i).getEscala().getDia28Fk()!=turnosService.buscarPorNome("")) {
+											listaEscalas.get(i).getReferencias().setObsReferencias( listaEscalas.get(i).getReferencias().getObsReferencias()+ " 28"+ listaEscalas.get(i).getEscala().getDia28Fk().getNomeTurno());
+										}
+										listaEscalas.get(i).getEscala().setDia28Fk(turnosService.buscarPorNome(""));
+									}
+									
+								}
+								
+								
+								//Tratando Turnos
+								if(listaLicencas.get(j).getDiaInicial()<=29 && listaLicencas.get(j).getDiaFinal()>=29 ){
+									listaEscalas.get(i).getReferencias().setDiasLicenca( listaEscalas.get(i).getReferencias().getDiasLicenca()+1 );
+									
+									//Tirando horas Extras
+									if( (listaEscalas.get(i).getEscala().getIdTipoFolhaFk().getIdFolhaEfetivaSimNaoFk().getSigla().equalsIgnoreCase("N"))   ) {
+										listaEscalas.get(i).getReferencias().setHorasLicencaDescontadas( listaEscalas.get(i).getReferencias().getHorasLicencaDescontadas() + listaEscalas.get(i).getEscala().getDia29Fk().getHorasManha() + listaEscalas.get(i).getEscala().getDia29Fk().getHorasTarde() + listaEscalas.get(i).getEscala().getDia29Fk().getHorasNoite()+ listaEscalas.get(i).getEscala().getDia29Fk().getHorasA()+ listaEscalas.get(i).getEscala().getDia29Fk().getHorasB()+ listaEscalas.get(i).getEscala().getDia29Fk().getHorasC() );
+										if(listaEscalas.get(i).getEscala().getDia29Fk()!=turnosService.buscarPorNome("")) {
+											listaEscalas.get(i).getReferencias().setObsReferencias( listaEscalas.get(i).getReferencias().getObsReferencias()+ " 29"+ listaEscalas.get(i).getEscala().getDia29Fk().getNomeTurno());
+										}
+										listaEscalas.get(i).getEscala().setDia29Fk(turnosService.buscarPorNome(""));
+									}
+									
+								}
+								
+								
+								//Tratando Turnos
+								if(listaLicencas.get(j).getDiaInicial()<=30 && listaLicencas.get(j).getDiaFinal()>=30 ){
+									listaEscalas.get(i).getReferencias().setDiasLicenca( listaEscalas.get(i).getReferencias().getDiasLicenca()+1 );
+									
+									//Tirando horas Extras
+									if( (listaEscalas.get(i).getEscala().getIdTipoFolhaFk().getIdFolhaEfetivaSimNaoFk().getSigla().equalsIgnoreCase("N"))   ) {
+										listaEscalas.get(i).getReferencias().setHorasLicencaDescontadas( listaEscalas.get(i).getReferencias().getHorasLicencaDescontadas() + listaEscalas.get(i).getEscala().getDia30Fk().getHorasManha() + listaEscalas.get(i).getEscala().getDia30Fk().getHorasTarde() + listaEscalas.get(i).getEscala().getDia30Fk().getHorasNoite()+ listaEscalas.get(i).getEscala().getDia30Fk().getHorasA()+ listaEscalas.get(i).getEscala().getDia30Fk().getHorasB()+ listaEscalas.get(i).getEscala().getDia30Fk().getHorasC() );
+										if(listaEscalas.get(i).getEscala().getDia30Fk()!=turnosService.buscarPorNome("")) {
+											listaEscalas.get(i).getReferencias().setObsReferencias( listaEscalas.get(i).getReferencias().getObsReferencias()+ " 30"+ listaEscalas.get(i).getEscala().getDia30Fk().getNomeTurno());
+										}
+										listaEscalas.get(i).getEscala().setDia30Fk(turnosService.buscarPorNome(""));
+									}
+									
+								}
+								
+								
+								//Tratando Turnos
+								if(listaLicencas.get(j).getDiaInicial()<=31 && listaLicencas.get(j).getDiaFinal()>=31 ){
+									listaEscalas.get(i).getReferencias().setDiasLicenca( listaEscalas.get(i).getReferencias().getDiasLicenca()+1 );
+									
+									//Tirando horas Extras
+									if( (listaEscalas.get(i).getEscala().getIdTipoFolhaFk().getIdFolhaEfetivaSimNaoFk().getSigla().equalsIgnoreCase("N"))   ) {
+										listaEscalas.get(i).getReferencias().setHorasLicencaDescontadas( listaEscalas.get(i).getReferencias().getHorasLicencaDescontadas() + listaEscalas.get(i).getEscala().getDia31Fk().getHorasManha() + listaEscalas.get(i).getEscala().getDia31Fk().getHorasTarde() + listaEscalas.get(i).getEscala().getDia31Fk().getHorasNoite()+ listaEscalas.get(i).getEscala().getDia31Fk().getHorasA()+ listaEscalas.get(i).getEscala().getDia31Fk().getHorasB()+ listaEscalas.get(i).getEscala().getDia31Fk().getHorasC() );
+										if(listaEscalas.get(i).getEscala().getDia31Fk()!=turnosService.buscarPorNome("")) {
+											listaEscalas.get(i).getReferencias().setObsReferencias( listaEscalas.get(i).getReferencias().getObsReferencias()+ " 31"+ listaEscalas.get(i).getEscala().getDia31Fk().getNomeTurno());
+										}
+										listaEscalas.get(i).getEscala().setDia31Fk(turnosService.buscarPorNome(""));
+									}
+									
+								}
+								
+								
+								
+														
+								
+								
+								
+								
+								
+								
+							listaEscalas.get(i).getReferencias().setObsReferencias(listaEscalas.get(i).getReferencias().getObsReferencias()+"; ");
+							}
+							
+						}
+					}
+			}
+			//Recalculando Datas e plantoes
+			listaEscalas.get(i).setEscala(escalaCalculosService.calcularDadosEscala( listaEscalas.get(i).getEscala() ));
+			
+			//Inserindo na resposta
+			listaResposta.add(listaEscalas.get(i));
+		}
+		
+		
+		
+		
+		
+		
+			return listaResposta;
+	}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	public List<RubricasVencimento> obterVencimentosDiferenciadoPorEscala(List<EscalasNoMes> listaEscalas, List<FeriasNoMes> listaFerias , List<LicencasMaternidadeNoMes> listaLicencasMaternidade, AnoMes anoMes) {
 		List<FaixasValoresParametrosCalculoFolhasExtras> listaValoresExtra = faixasValoresParametrosCalculoFolhasExtrasService.buscarPorMesExato(anoMes); 
 		List<FaixasValoresParametrosCalculoFolhasExtrasIndividual> listaValoresExtraIndividual = faixasValoresParametrosCalculoFolhasExtrasIndividualService.buscarPorMesExato(anoMes);
 		List<RubricasVencimento> lista = new ArrayList<>();
@@ -3224,6 +3789,18 @@ public class CalculosAlternativosService {
 									Double valorLiquido = 0.0;
 									Double valorFixoTotal = listaFolhExt.get(j).getValor();
 									
+									//Quando tem licenca maternidade, pagamento proporcional
+									int diasLicencaMaternidade = 0;
+									int qtdDiasNoMes = utilidadesDeCalendarioEEscala.quantidadeDeDiasNoMes(anoMes.getNomeAnoMes());
+									for(int n=0;n<listaLicencasMaternidade.size();n++) {
+										if(listaLicencasMaternidade.get(n).getFaixasValoresLicencaMaternidade().getIdFuncionarioFk().equals(listaEscalas.get(i).getEscala().getIdFuncionarioFk())) {
+											diasLicencaMaternidade = diasLicencaMaternidade + listaLicencasMaternidade.get(n).getQtdDias();
+										}
+									}
+									if(diasLicencaMaternidade>0) {
+										valorFixoTotal = ( (valorFixoTotal / qtdDiasNoMes) * (qtdDiasNoMes - diasLicencaMaternidade) ) ;
+									}
+									
 									Double valorDaLinha = (valorFixoTotal) ;
 									
 									//Avaliando se já tem alguma linha já cadastrada
@@ -3321,7 +3898,11 @@ public class CalculosAlternativosService {
 					lista.add(listaD.get(m));
 				}
 				
-				
+				//Buscando rubricas atribuidas aos colaboradores pela folha LICENCA MATERNIDADE
+				List<RubricasVencimento> listaE= obterVencimentosRubricasAtribuidasPelaFolhaLicencaMaternidade(listaLicencasMaternidade, anoMes);
+				for(int m=0;m<listaE.size();m++) {
+					lista.add(listaE.get(m));
+				}
 				
 				
 		
@@ -3329,6 +3910,60 @@ public class CalculosAlternativosService {
 	}
 	
 	
+	
+	
+	
+	
+	
+	
+	
+	//Obter Vencimentos Rubricas Atribuidas Pela Folha (LICENCA MATERNIDADE)
+	public List<RubricasVencimento> obterVencimentosRubricasAtribuidasPelaFolhaLicencaMaternidade(List<LicencasMaternidadeNoMes> listaLicencasMaternidade, AnoMes anoMes) {
+		List<RubricasVencimento> lista = new ArrayList<>();
+		
+		for(int i=0;i<listaLicencasMaternidade.size();i++) {
+			if(true) {
+				RubricasVencimento r = new RubricasVencimento();
+				LicencasMaternidadeNoMes vencimentosFuncionario = listaLicencasMaternidade.get(i);
+				Double valor = vencimentosFuncionario.getQtdDias()*vencimentosFuncionario.getFaixasValoresLicencaMaternidade().getValorBrutoPorDia(); 
+				
+				TiposDeFolha folhaAtual = null;
+				folhaAtual = tiposDeFolhaService.buscarPorNome("EXCEPCIONAL").get(0);
+				
+				if(valor<0) {valor=0.0;}
+				valor = UtilidadesMatematicas.ajustaValorDecimal(valor, 2);
+				
+				r.setAnoMes(anoMes);
+				r.setSequencia(1);
+				r.setCodigo("LIC MAT");
+				r.setDescricao("LICENCA MATERNIDADE PARA PRESTADORA");
+				r.setFonte(listaLicencasMaternidade.get(i).getFaixasValoresLicencaMaternidade().getIdFonteFk());
+				r.setNatureza( rubricaNaturezaService.buscarPorSigla("V").get(0) );
+				r.setPercentagem(0.0);
+				r.setPessoaFuncionarios(vencimentosFuncionario.getFaixasValoresLicencaMaternidade().getIdFuncionarioFk());
+				r.setTipoBrutoLiquido( tipoBrutoLiquidoService.buscarPorNome("BRUTO").get(0) );
+				r.setUnidade(vencimentosFuncionario.getFaixasValoresLicencaMaternidade().getIdUnidadeFk());
+				r.setVariacao("00");
+				
+				{r.setValorBruto(valor);}
+				{r.setValorLiquido(0.0);} 
+				
+				r.setValorIr(0.0);
+				r.setValorPatronal(0.0);
+				r.setValorPrevidencia(0.0);
+								
+				r.setTiposDeFolha(folhaAtual);
+				
+				if(valor>0) {
+					lista.add(r);
+				}
+				
+					
+					
+			}
+		}
+		return lista;
+	}
 	
 	
 	
