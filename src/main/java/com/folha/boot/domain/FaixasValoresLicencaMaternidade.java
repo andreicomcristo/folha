@@ -52,6 +52,10 @@ public class FaixasValoresLicencaMaternidade extends AbstractEntity<Long> {
     @JoinColumn(name = "id_unidade_fk", referencedColumnName = "id")
     @ManyToOne
     private Unidades idUnidadeFk;
+    
+    @JoinColumn(name = "id_tipo_de_folha_fk", referencedColumnName = "id")
+    @ManyToOne
+    private TiposDeFolha idTipoDeFolhaFk;
 
     public FaixasValoresLicencaMaternidade() {
     }
@@ -158,6 +162,14 @@ public class FaixasValoresLicencaMaternidade extends AbstractEntity<Long> {
 
 	public void setIdOperadorUltimaMudancaFk(PessoaOperadores idOperadorUltimaMudancaFk) {
 		this.idOperadorUltimaMudancaFk = idOperadorUltimaMudancaFk;
+	}
+
+	public TiposDeFolha getIdTipoDeFolhaFk() {
+		return idTipoDeFolhaFk;
+	}
+
+	public void setIdTipoDeFolhaFk(TiposDeFolha idTipoDeFolhaFk) {
+		this.idTipoDeFolhaFk = idTipoDeFolhaFk;
 	}
 
     

@@ -54,6 +54,13 @@
 							</select>
 							<p></p>
 							
+							<label for="nome" class="">Folha </label>
+							<select id="idFonteFk" class="form-select" th:field="*{idTipoDeFolhaFk}">
+								<option value="">Selecione a Folha</option>
+								<option class="form-select" th:each="d : ${idTipoDeFolhaFk}" th:value="${d.id}"th:text="${d.nomeTipoFolha}" selected >ADM</option>
+							</select>
+							<p></p>
+							
 							<label for="nome" class="">Valor Bruto por Dia</label>							
 							<input type="text"
 								class=" form-control form-control-md"  

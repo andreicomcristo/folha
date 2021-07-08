@@ -30,6 +30,7 @@ import com.folha.boot.domain.Fonte;
 import com.folha.boot.domain.NiveisCargo;
 import com.folha.boot.domain.PessoaFuncionarios;
 import com.folha.boot.domain.TipoBrutoLiquido;
+import com.folha.boot.domain.TiposDeFolha;
 import com.folha.boot.domain.Unidades;
 import com.folha.boot.service.AnoMesService;
 import com.folha.boot.service.CargaHorariaSemanalService;
@@ -40,6 +41,7 @@ import com.folha.boot.service.FonteService;
 import com.folha.boot.service.NiveisCargoService;
 import com.folha.boot.service.PessoaFuncionariosService;
 import com.folha.boot.service.TipoBrutoLiquidoService;
+import com.folha.boot.service.TiposDeFolhaService;
 import com.folha.boot.service.UnidadesService;
 import com.folha.boot.service.seguranca.UsuarioService;
 
@@ -67,6 +69,8 @@ public class FaixasValoresLicencaMaternidadeController {
 	private FonteService fonteService;
 	@Autowired
 	private TipoBrutoLiquidoService tipoBrutoLiquidoService;
+	@Autowired
+	private TiposDeFolhaService tiposDeFolhaService;
 	@Autowired
 	private NiveisCargoService niveisCargoService;
 	@Autowired
@@ -292,6 +296,13 @@ public class FaixasValoresLicencaMaternidadeController {
 	public List<Unidades> getIdUnidadeRegimeFk() {
 		return unidadesService.buscarTodos();	
 	}
+	@ModelAttribute("idTipoDeFolhaFk")
+	public List<TiposDeFolha> getIdTipoDeFolhaFk() {
+		return tiposDeFolhaService.buscarTodos();	
+	}
+	
+	
+	
 	@ModelAttribute("idClasseCarreiraFk")
 	public List<ClassesCarreira> getIdClasseCarreiraFk() {
 		return classesCarreiraService.buscarTodos();	

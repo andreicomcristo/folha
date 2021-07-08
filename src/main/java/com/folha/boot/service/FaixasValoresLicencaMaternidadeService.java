@@ -134,10 +134,14 @@ public class FaixasValoresLicencaMaternidadeService {
 	        cell.setCellStyle(headerCellStyle);
 	        
 	        cell = row.createCell(7);
-	        cell.setCellValue("Valor Bruto por Dia");
+	        cell.setCellValue("Folha");
 	        cell.setCellStyle(headerCellStyle);
 	        
 	        cell = row.createCell(8);
+	        cell.setCellValue("Valor Bruto por Dia");
+	        cell.setCellStyle(headerCellStyle);
+	        
+	        cell = row.createCell(9);
 	        cell.setCellValue("Obs");
 	        cell.setCellStyle(headerCellStyle);
 	        
@@ -154,7 +158,8 @@ public class FaixasValoresLicencaMaternidadeService {
 	        	dataRow.createCell(5).setCellValue(lista.get(i).getDtFinal());
 	        	dataRow.createCell(6).setCellValue(lista.get(i).getIdFonteFk().getNome());
 	        	dataRow.createCell(7).setCellValue(lista.get(i).getValorBrutoPorDia());
-	        	dataRow.createCell(8).setCellValue(lista.get(i).getObservacao());
+	        	dataRow.createCell(8).setCellValue(lista.get(i).getIdTipoDeFolhaFk().getNomeTipoFolha());
+	        	dataRow.createCell(9).setCellValue(lista.get(i).getObservacao());
 	        	
 	        }
 	
@@ -168,6 +173,7 @@ public class FaixasValoresLicencaMaternidadeService {
 	        sheet.autoSizeColumn(6);
 	        sheet.autoSizeColumn(7);
 	        sheet.autoSizeColumn(8);
+	        sheet.autoSizeColumn(9);
 	        
 	        
 	        
@@ -187,9 +193,9 @@ public class FaixasValoresLicencaMaternidadeService {
 
 		try {
 
-			PdfPTable table = new PdfPTable(9);
+			PdfPTable table = new PdfPTable(10);
 			table.setWidthPercentage(90);
-			table.setWidths(new int[] { 2, 2, 2, 2, 2, 2, 2, 2, 2 });
+			table.setWidths(new int[] { 2, 2, 2, 2, 2, 2, 2, 2, 2, 2 });
 
 			// Tipos de Fonte
 			Font tituloFont = FontFactory.getFont(FontFactory.HELVETICA_BOLD,14);
@@ -225,6 +231,10 @@ public class FaixasValoresLicencaMaternidadeService {
 			table.addCell(hcell);
 			
 			hcell = new PdfPCell(new Phrase("Fonte", cabecalhoFont));
+			hcell.setHorizontalAlignment(Element.ALIGN_CENTER);
+			table.addCell(hcell);
+			
+			hcell = new PdfPCell(new Phrase("Folha", cabecalhoFont));
 			hcell.setHorizontalAlignment(Element.ALIGN_CENTER);
 			table.addCell(hcell);
 			
@@ -277,6 +287,11 @@ public class FaixasValoresLicencaMaternidadeService {
 				table.addCell(cell);
 				
 				cell = new PdfPCell(new Phrase(String.valueOf(lista.get(i).getIdFonteFk().getNome()) ,corpoFont) );
+				cell.setVerticalAlignment(Element.ALIGN_MIDDLE);
+				cell.setHorizontalAlignment(Element.ALIGN_CENTER);
+				table.addCell(cell);
+				
+				cell = new PdfPCell(new Phrase(String.valueOf(lista.get(i).getIdTipoDeFolhaFk().getNomeTipoFolha()) ,corpoFont) );
 				cell.setVerticalAlignment(Element.ALIGN_MIDDLE);
 				cell.setHorizontalAlignment(Element.ALIGN_CENTER);
 				table.addCell(cell);

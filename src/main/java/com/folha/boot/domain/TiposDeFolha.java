@@ -41,7 +41,8 @@ public class TiposDeFolha extends AbstractEntity<Long> {
     @ManyToOne
     private SimNao idAdmiteIncrementoDeRiscoSimNaoFk;
     
-	
+    @OneToMany(mappedBy = "idTipoDeFolhaFk")
+    private List<FaixasValoresLicencaMaternidade> faixasValoresLicencaMaternidadeList;
     
     @OneToMany(mappedBy = "idTipoDeFolhaFk")
     private List<TipoDeFolhaTurno> tipoDeFolhaTurnoList;
@@ -144,6 +145,13 @@ public class TiposDeFolha extends AbstractEntity<Long> {
 	}
 	public void setTipoDeFolhaTurnoList(List<TipoDeFolhaTurno> tipoDeFolhaTurnoList) {
 		this.tipoDeFolhaTurnoList = tipoDeFolhaTurnoList;
+	}
+	public List<FaixasValoresLicencaMaternidade> getFaixasValoresLicencaMaternidadeList() {
+		return faixasValoresLicencaMaternidadeList;
+	}
+	public void setFaixasValoresLicencaMaternidadeList(
+			List<FaixasValoresLicencaMaternidade> faixasValoresLicencaMaternidadeList) {
+		this.faixasValoresLicencaMaternidadeList = faixasValoresLicencaMaternidadeList;
 	}
 	
 	
