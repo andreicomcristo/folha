@@ -87,6 +87,11 @@ public class AnoMes extends AbstractEntity<Long> {
     private List<FaixasValoresGpfMedica> faixasValoresGpfMedicaList;
     
     @OneToMany(mappedBy = "idAnoMesFk")
+    private List<FuncionarioFolha> funcionarioFolhaList;
+    @OneToMany(mappedBy = "idAnoMesFk")
+    private List<ConversaoFontePorFolha> conversaoFontePorFolhaList;
+    
+    @OneToMany(mappedBy = "idAnoMesFk")
     private List<IncrementoDeRiscoUnidadeCargo> incrementoDeRiscoUnidadeCargoList;
     
     @OneToMany(mappedBy = "idAnoMesFk")
@@ -371,6 +376,18 @@ public class AnoMes extends AbstractEntity<Long> {
 	}
 	public void setNaoDescontaIrList(List<NaoDescontaIr> naoDescontaIrList) {
 		this.naoDescontaIrList = naoDescontaIrList;
+	}
+	public List<FuncionarioFolha> getFuncionarioFolhaList() {
+		return funcionarioFolhaList;
+	}
+	public void setFuncionarioFolhaList(List<FuncionarioFolha> funcionarioFolhaList) {
+		this.funcionarioFolhaList = funcionarioFolhaList;
+	}
+	public List<ConversaoFontePorFolha> getConversaoFontePorFolhaList() {
+		return conversaoFontePorFolhaList;
+	}
+	public void setConversaoFontePorFolhaList(List<ConversaoFontePorFolha> conversaoFontePorFolhaList) {
+		this.conversaoFontePorFolhaList = conversaoFontePorFolhaList;
 	}
 		
 	
