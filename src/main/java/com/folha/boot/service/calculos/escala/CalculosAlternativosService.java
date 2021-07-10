@@ -13,6 +13,7 @@ import com.folha.boot.Reposytory.FuncionariosLicencasCidReposytory;
 import com.folha.boot.Reposytory.FuncionariosLicencasReposytory;
 import com.folha.boot.Reposytory.RubricaNaturezaReposytory;
 import com.folha.boot.domain.AnoMes;
+import com.folha.boot.domain.ConversaoFontePorFolha;
 import com.folha.boot.domain.Escala;
 import com.folha.boot.domain.EscalaCodDiferenciado;
 import com.folha.boot.domain.FaixasValoresFolhExt;
@@ -47,6 +48,7 @@ import com.folha.boot.domain.models.calculos.LicencasNoMes;
 import com.folha.boot.domain.models.calculos.ReferenciasDeEscala;
 import com.folha.boot.domain.models.calculos.RubricasVencimento;
 import com.folha.boot.service.AnoMesService;
+import com.folha.boot.service.ConversaoFontePorFolhaService;
 import com.folha.boot.service.EscalaCalculosService;
 import com.folha.boot.service.EscalaCodDiferenciadoService;
 import com.folha.boot.service.FaixasValoresFolhExtService;
@@ -143,6 +145,8 @@ public class CalculosAlternativosService {
 	private TipoBrutoLiquidoService tipoBrutoLiquidoService;
 	@Autowired
 	private TiposDeFolhaService tiposDeFolhaService;
+	@Autowired
+	private ConversaoFontePorFolhaService conversaoFontePorFolhaService;
 	
 	
 	
@@ -4308,6 +4312,19 @@ public class CalculosAlternativosService {
 		for(int i=0;i<listaVencimentos.size();i++) {
 			if((listaVencimentos.get(i).getValorBruto()>0)  &&  (listaVencimentos.get(i).getValorLiquido()==0.0) ) {
 				listaVencimentos.get(i).setValorLiquido(calcularLiquidoService.calcularLiquido(listaVencimentos.get(i).getValorBruto(), listaVencimentos.get(i).getPessoaFuncionarios(), listaVencimentos.get(i).getAnoMes()));
+			}
+		}
+		return listaVencimentos;
+	}
+	
+	
+	public List<RubricasVencimento> conversaoFontePorFolha(List<RubricasVencimento> listaVencimentos, AnoMes anoMes) {
+		List<ConversaoFontePorFolha> listaConversao = conversaoFontePorFolhaService.buscarPorMesExato(anoMes);
+		for(int i=0;i<listaVencimentos.size();i++) {
+			for(int j=0;j<listaConversao.size();j++) {
+				if(listaVencimentos.get(i).getTiposDeFolha().equals(listaConversao.get(j).getIdFolhaFk())) {
+					listaVencimentos.get(i).setFonte(listaConversao.get(j).getIdFonteFk());
+				}
 			}
 		}
 		return listaVencimentos;

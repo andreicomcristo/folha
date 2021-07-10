@@ -1,5 +1,6 @@
 package com.folha.boot.service;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -18,6 +19,7 @@ import com.folha.boot.domain.CodigoDiferenciado;
 import com.folha.boot.domain.CoordenacaoEscala;
 import com.folha.boot.domain.Escala;
 import com.folha.boot.domain.FaixasValoresParametrosCalculoFolhasExtras;
+import com.folha.boot.domain.FuncionarioFolha;
 import com.folha.boot.domain.IncrementoDeRiscoUnidadeCargo;
 import com.folha.boot.domain.NiveisCargo;
 import com.folha.boot.domain.Pessoa;
@@ -101,6 +103,8 @@ public class EscalaCompatibilidadeService {
 	private CalculosColetaDeDadosService calculosColetaDeDadosService;
 	@Autowired
 	private EscalaCalculosService escalaCalculosService;
+	@Autowired
+	private FuncionarioFolhaService funcionarioFolhaService;
 	
 	public boolean horasExtrasSemEfetivas(Escala escala) {
 		boolean resposta = false;
@@ -230,11 +234,12 @@ public class EscalaCompatibilidadeService {
 	
 	
 	
-	public List<TiposDeFolha> getTiposDeFolhaCompativel(AnoMes anoMes, NiveisCargo nivel, Vinculos vinculo) {
+	public List<TiposDeFolha> getTiposDeFolhaCompativel(AnoMes anoMes, NiveisCargo nivel, Vinculos vinculo, PessoaFuncionarios funcionario) {
 		
 		List<TiposDeFolha> lista = tiposDeFolhaService.buscarTodos();
 		List<TiposDeFolhaVinculo> lista1 = tiposDeFolhaVinculoService.buscarPorMesVinculo(anoMes, vinculo);
 		List<TiposDeFolhaNivelCargo> lista2 = tiposDeFolhaNivelCargoService.buscarPorMesNivel(anoMes, nivel);
+		List <FuncionarioFolha>lista3 = funcionarioFolhaService.buscarPorFuncionarioEMes(funcionario, anoMes);
 		
 		//Retirando quando nao tem Vinculo Compativel
 		for(int i=0;i<lista.size();i++) {
@@ -254,6 +259,14 @@ public class EscalaCompatibilidadeService {
 			if(achou == false) {lista.remove(i); i=i-1;}
 		}
 		
+		//Mudando para folha Exclusiva
+		if(!lista3.isEmpty()) {
+			List<TiposDeFolha> listaA = new ArrayList<>();
+			for(FuncionarioFolha f : lista3) {
+				listaA.add(f.getIdFolhaFk());
+			}
+			return listaA;
+		}
 		
 		return lista;
 	}

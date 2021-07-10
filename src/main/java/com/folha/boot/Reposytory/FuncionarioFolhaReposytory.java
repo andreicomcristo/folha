@@ -8,6 +8,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 import com.folha.boot.domain.AnoMes;
 import com.folha.boot.domain.FuncionarioFolha;
+import com.folha.boot.domain.PessoaFuncionarios;
 
 
 @Repository
@@ -18,6 +19,8 @@ public interface FuncionarioFolhaReposytory extends JpaRepository<FuncionarioFol
 	public List<FuncionarioFolha> findByIdAnoMesFkOrderByIdAnoMesFkNomeAnoMesDescIdFuncionarioFkIdPessoaFkNomeAsc(AnoMes anoMes);
 	
 	public List<FuncionarioFolha> findByIdAnoMesFkNomeAnoMesContainingOrderByIdAnoMesFkNomeAnoMesDescIdFuncionarioFkIdPessoaFkNomeAsc(String nome);
+	
+	public List<FuncionarioFolha> findByIdFuncionarioFkAndIdAnoMesFkOrderByIdAnoMesFkNomeAnoMesDescIdFuncionarioFkIdPessoaFkNomeAscIdFolhaFkNomeTipoFolhaAsc(PessoaFuncionarios funcionario, AnoMes anoMes);
 	
 	public Page<FuncionarioFolha> findAllByOrderByIdAnoMesFkNomeAnoMesDescIdFuncionarioFkIdPessoaFkNomeAsc(final Pageable page);
 	

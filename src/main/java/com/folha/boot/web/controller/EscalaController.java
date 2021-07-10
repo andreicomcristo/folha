@@ -8885,7 +8885,7 @@ public class EscalaController {
 		inclusaoEscala.setId(id);		
 		List<AcessoOperadoresCoordenacao> listaDeCoordenacoes = acessoOperadoresCoordenacaoService.buscarPorOperador(usuarioService.pegarOperadorLogado());
 		
-		model.addAttribute("idTipoFolhaFkCompativel", escalaCompatibilidadeService.getTiposDeFolhaCompativel(anoMes, nivel, vinculo ) );
+		model.addAttribute("idTipoFolhaFkCompativel", escalaCompatibilidadeService.getTiposDeFolhaCompativel(anoMes, nivel, vinculo, funcionario ) );
 		model.addAttribute("escolhaAcessoEscala", new EscolhaAcessoEscala()); 
 		model.addAttribute("coordenacaoEscala", coordenacaoEscalaService.buscarAcessoIndividual(usuarioService.pegarUnidadeLogada() , usuarioService.pegarOperadorLogado() , listaDeCoordenacoes ) );
 		model.addAttribute("anoMes", anoMesService.buscarTodos());

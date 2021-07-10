@@ -94,6 +94,9 @@ public class CalculosCalcularService {
 		//Colocando valores líquidos onde nao tiver
 		listaVencimentos = calculosAlternativosService.colocandoLiquidoNasRubricas(listaVencimentos);
 		
+		//Mudando as fontes quando a Folha Muda a Fonte (CONVERSAO FONTE POR FOLHA)
+		listaVencimentos = calculosAlternativosService.conversaoFontePorFolha(listaVencimentos, anoMes);
+		
 		//Limpando o banco
 		rubricaPensaoObsVencimentoService.excluirPorMes(anoMes);
 		rubricaVencimentoService.excluirPorMes(anoMes);

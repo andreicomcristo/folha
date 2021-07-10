@@ -17,11 +17,9 @@ import com.folha.boot.domain.Unidades;
 @Repository
 public interface DiasLicencaMaternidadeReposytory extends JpaRepository<DiasLicencaMaternidade, Long>{
 
-	public List<DiasLicencaMaternidade> findAll();
+	public List<DiasLicencaMaternidade> findByDtCancelamentoIsNull();
 	
-	public DiasLicencaMaternidade findFirstBy();
-	
-	public Page<DiasLicencaMaternidade> findAll(final Pageable page);
+	public Page<DiasLicencaMaternidade> findByDtCancelamentoIsNull(final Pageable page);
 	
 	
 }

@@ -23,6 +23,7 @@ import org.springframework.transaction.annotation.Transactional;
 import com.folha.boot.Reposytory.FuncionarioFolhaReposytory;
 import com.folha.boot.domain.AnoMes;
 import com.folha.boot.domain.FuncionarioFolha;
+import com.folha.boot.domain.PessoaFuncionarios;
 import com.itextpdf.text.Document;
 import com.itextpdf.text.DocumentException;
 import com.itextpdf.text.Element;
@@ -79,6 +80,11 @@ public class FuncionarioFolhaService {
 	@Transactional(readOnly = true)
 	public List<FuncionarioFolha> buscarPorNome(String nome) {
 		return reposytory.findByIdAnoMesFkNomeAnoMesContainingOrderByIdAnoMesFkNomeAnoMesDescIdFuncionarioFkIdPessoaFkNomeAsc(nome);
+	}
+	
+	@Transactional(readOnly = true)
+	public List<FuncionarioFolha> buscarPorFuncionarioEMes(PessoaFuncionarios funcionario , AnoMes anoMes) {
+		return reposytory.findByIdFuncionarioFkAndIdAnoMesFkOrderByIdAnoMesFkNomeAnoMesDescIdFuncionarioFkIdPessoaFkNomeAscIdFolhaFkNomeTipoFolhaAsc(funcionario, anoMes);
 	}
 	
 	public Page<FuncionarioFolha> findPaginated(int pageNo, int pageSize) {

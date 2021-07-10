@@ -32,12 +32,18 @@
 							
 							<label for="nome" class="" th:text = "*{idFuncionarioFk.idPessoaFk.nome} +'-'+ *{'Cpf : '+idFuncionarioFk.idPessoaFk.cpf} +'-'+ *{'Mat : '+idFuncionarioFk.matricula }">Mês </label>
 							<p></p>	
-							
 								
 							<label>Data Inicial</label>
 							<input type="text"
 								class="form-control form-control-sm uppercase" autofocus="autofocus" data-mask="00/00/0000"
 								id="codigo" placeholder="Data Inicial" th:field="*{dtInicial}" />
+							<p></p>	
+								
+							<label for="nome" class="">Dias </label>
+							<select id="idFonteFk" class="form-select" th:name="dias">
+								<option value="">Selecione Quantidade de Dias</option>
+								<option class="form-select" th:each="d : ${diasFk}" th:value="${d.id}"th:text="${d.dias}"  >ADM</option>
+							</select>
 							<p></p>	
 								
 							<label for="nome" class="">Fonte </label>
@@ -47,33 +53,21 @@
 							</select>
 							<p></p>
 							
-							<label for="nome" class="">Unidade </label>
-							<select id="idFonteFk" class="form-select" th:field="*{idUnidadeFk}">
-								<option value="">Selecione a Unidade</option>
-								<option class="form-select" th:each="d : ${idUnidadeFk}" th:value="${d.id}"th:text="${d.nomeFantasia}" selected >ADM</option>
-							</select>
-							<p></p>
-							
 							<label for="nome" class="">Folha </label>
 							<select id="idFonteFk" class="form-select" th:field="*{idTipoDeFolhaFk}">
 								<option value="">Selecione a Folha</option>
 								<option class="form-select" th:each="d : ${idTipoDeFolhaFk}" th:value="${d.id}"th:text="${d.nomeTipoFolha}" selected >ADM</option>
 							</select>
 							<p></p>
-							
-							<label for="nome" class="">Valor Bruto por Dia</label>							
-							<input type="text"
-								class=" form-control form-control-md"  
-								id="valorHoraDia" placeholder="Valor " th:field="*{valorBrutoPorDia}" /> 
-							<p></p>
-											
+								
 							<label for="nome" class="">Observação </label>
 							<input type="text"
 								class="form-control form-control-md uppercase" autofocus="autofocus"
 								id="descricaoEstadoCivil" placeholder="Observação" th:field="*{observacao}" />						
 							<p></p>
 											
-							<input type="hidden" id="id" th:field="*{id}" />					
+							<input type="hidden" id="id" th:field="*{id}" />			
+							<input type="hidden" id="id" th:field="*{idUnidadeFk}" />		
 							<input type="hidden" id="id" th:field="*{idFuncionarioFk}" />													
 							<input type="hidden" id="id" th:field="*{dtFinal}" />
 							<input type="hidden" id="id" th:field="*{dtCadastro}" />
@@ -82,6 +76,7 @@
 							<input type="hidden" id="id" th:field="*{idOperadorCadastroFk}" />
 							<input type="hidden" id="id" th:field="*{idOperadorCancelamentoFk}" />
 							<input type="hidden" id="id" th:field="*{idOperadorUltimaMudancaFk}" />
+							<input type="hidden" id="id" th:field="*{valorBrutoPorDia}" />
 							
 							
 							<p></p>

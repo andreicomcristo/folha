@@ -22,19 +22,11 @@ public class DiasLicencaMaternidadeService {
 	public void salvar(DiasLicencaMaternidade diasLicencaMaternidade) {
 		// TODO Auto-generated method stub
 		
-		if(reposytory.findAll().size()>0 && diasLicencaMaternidade.getId()==null) {
-			reposytory.deleteAll();
-		}
-		
 		reposytory.save(diasLicencaMaternidade);
 	}
 
 	public void editar(DiasLicencaMaternidade diasLicencaMaternidade) {
 		// TODO Auto-generated method stub
-		
-		if(reposytory.findAll().size()>0 && diasLicencaMaternidade.getId()==null) {
-			reposytory.deleteAll();
-		}
 		
 		reposytory.save(diasLicencaMaternidade);
 	}
@@ -50,23 +42,18 @@ public class DiasLicencaMaternidadeService {
 		return reposytory.findById(id).get();
 	}
 	
-	@Transactional(readOnly = true)
-	public DiasLicencaMaternidade buscarPrimeiro() {
-		// TODO Auto-generated method stub
-		return reposytory.findFirstBy();
-	}
 
 	@Transactional(readOnly = true)
 	public List<DiasLicencaMaternidade> buscarTodos() {
 		// TODO Auto-generated method stub
-		return reposytory.findAll();
+		return reposytory.findByDtCancelamentoIsNull();
 	}
 	
 	
 	
 	public Page<DiasLicencaMaternidade> findPaginated(int pageNo, int pageSize) {
 		Pageable pageable = PageRequest.of(pageNo -1, pageSize);
-		return this.reposytory.findAll(pageable);
+		return this.reposytory.findByDtCancelamentoIsNull(pageable);
 	}
 
 	

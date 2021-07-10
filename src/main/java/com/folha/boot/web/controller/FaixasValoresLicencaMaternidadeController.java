@@ -25,6 +25,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import com.folha.boot.domain.AnoMes;
 import com.folha.boot.domain.CargaHorariaSemanal;
 import com.folha.boot.domain.ClassesCarreira;
+import com.folha.boot.domain.DiasLicencaMaternidade;
 import com.folha.boot.domain.FaixasValoresLicencaMaternidade;
 import com.folha.boot.domain.Fonte;
 import com.folha.boot.domain.NiveisCargo;
@@ -194,14 +195,14 @@ public class FaixasValoresLicencaMaternidadeController {
 	}
 	
 	@PostMapping("/salvar")
-	public String salvar(FaixasValoresLicencaMaternidade faixasValoresLicencaMaternidade, RedirectAttributes attr) {
+	public String salvar(FaixasValoresLicencaMaternidade faixasValoresLicencaMaternidade, Long dias, RedirectAttributes attr) {
 		
 		if(faixasValoresLicencaMaternidade.getValorBrutoPorDia()==null) {
 			faixasValoresLicencaMaternidade.setValorBrutoPorDia(0.0);
 		}
 		
 		Long dataA = faixasValoresLicencaMaternidade.getDtInicial().getTime() /1000/60/60/24;
-		Long dataB = dataA + diasLicencaMaternidadeService.buscarPrimeiro().getDias() ;
+		Long dataB = dataA + diasLicencaMaternidadeService.buscarPorId(dias).getDias() ;
 		Date dataFinal = new Date(dataB*1000*60*60*24);
 		
 		faixasValoresLicencaMaternidade.setDtFinal(dataFinal);
@@ -222,14 +223,14 @@ public class FaixasValoresLicencaMaternidadeController {
 	}
 	
 	@PostMapping("/editar")
-	public String editar(FaixasValoresLicencaMaternidade faixasValoresLicencaMaternidade, RedirectAttributes attr) {	
+	public String editar(FaixasValoresLicencaMaternidade faixasValoresLicencaMaternidade, Long dias, RedirectAttributes attr) {	
 		
 		if(faixasValoresLicencaMaternidade.getValorBrutoPorDia()==null) {
 			faixasValoresLicencaMaternidade.setValorBrutoPorDia(0.0);
 		}
 		
 		Long dataA = faixasValoresLicencaMaternidade.getDtInicial().getTime() /1000/60/60/24;
-		Long dataB = dataA + diasLicencaMaternidadeService.buscarPrimeiro().getDias() ;
+		Long dataB = dataA + diasLicencaMaternidadeService.buscarPorId(dias).getDias() ;
 		Date dataFinal = new Date(dataB*1000*60*60*24);
 		
 		faixasValoresLicencaMaternidade.setDtFinal(dataFinal);
@@ -314,6 +315,10 @@ public class FaixasValoresLicencaMaternidadeController {
 	@ModelAttribute("idFonteFk")
 	public List<Fonte> getIdFonteFk() {
 		return fonteService.buscarTodos();
+	}
+	@ModelAttribute("diasFk")
+	public List<DiasLicencaMaternidade> getDias() {
+		return diasLicencaMaternidadeService.buscarTodos();
 	}
 	@ModelAttribute("idTipoBrutoLiquidoFk")
 	public List<TipoBrutoLiquido> getIdTipoBrutoLiquidoFk() {
