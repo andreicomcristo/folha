@@ -216,7 +216,11 @@ public class FaixasValoresLicencaMaternidadeController {
 		faixasValoresLicencaMaternidade.setIdOperadorUltimaMudancaFk(usuarioService.pegarOperadorLogado());
 		
 		String mes = String.valueOf( (faixasValoresLicencaMaternidade.getDtInicial().getMonth()+1) );  
+		if(mes.length()<2) {mes = "0"+mes;}
+		if(mes.length()<2) {mes = "0"+mes;}
 		String ano = String.valueOf( (faixasValoresLicencaMaternidade.getDtInicial().getYear()+1900) );
+		if(ano.length()<4) {ano = "0"+ano;}
+		if(ano.length()<4) {ano = "0"+ano;}
 		
 		AnoMes mesAtual = null;
 		if(!anoMesService.buscarPorNome(ano+mes).isEmpty()){
