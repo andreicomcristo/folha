@@ -227,6 +227,8 @@ public class FaixasValoresLicencaMaternidadeController {
 			mesAtual = anoMesService.buscarPorNome(ano+mes).get(0);
 		} 
 		
+		System.out.println(mesAtual);
+		
 		if(mesAtual==null) {
 			return "redirect:/faixasValoresLicencaMaternidade/mensagem/de/mes/inexistente";
 		}
