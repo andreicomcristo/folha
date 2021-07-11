@@ -63,14 +63,14 @@
 					            	<span class="" title="Editar Escala" aria-hidden="true">Ver Alterações</span>
 					            </a>
 		                    </td>
-		                    <td style="font-size:10px;"  th:text="${d.idFuncionarioFk.idEspecialidadeAtualFk.idCargoFk.nomeCargo+'-'+d.idFuncionarioFk.idEspecialidadeAtualFk.nomeEspecialidadeCargo}"></td>
+		                    <td style="font-size:10px;"  th:text="${d.idFuncionarioFk?.idEspecialidadeAtualFk?.idCargoFk?.nomeCargo+'-'+d.idFuncionarioFk?.idEspecialidadeAtualFk?.nomeEspecialidadeCargo}"></td>
 		                    
-		                    <td style="font-size:10px;"  th:text="${d.idTurmaFk.nomeTurma}"></td>
+		                    <td style="font-size:10px;"  th:text="${d.idTurmaFk?.nomeTurma}"></td>
 		                    <td style="font-size:10px;"  th:text="${d.horasTotais}"></td>
 		                    
-		                    <td style="font-size:10px;"  th:text="${d.idTipoFolhaFk.nomeTipoFolha}"></td>
-		                    <td style="font-size:10px;"  th:text="${d.idFuncionarioFk.idPessoaFk.cpf}"></td>
-		                    <td style="font-size:10px;"  th:text="${d.idFuncionarioFk.matricula}"></td>
+		                    <td style="font-size:10px;"  th:text="${d.idTipoFolhaFk?.nomeTipoFolha}"></td>
+		                    <td style="font-size:10px;"  th:text="${d.idFuncionarioFk?.idPessoaFk?.cpf}"></td>
+		                    <td style="font-size:10px;"  th:text="${d.idFuncionarioFk?.matricula}"></td>
 		                    
 		                    
 							<!-- 
