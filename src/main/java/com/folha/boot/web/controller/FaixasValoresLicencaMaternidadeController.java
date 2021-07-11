@@ -242,7 +242,10 @@ public class FaixasValoresLicencaMaternidadeController {
 				faixasValoresLicencaMaternidade.setId(null);
 				faixasValoresLicencaMaternidade.setValorBrutoPorDia(listaValores.get(i).getValor());
 				faixasValoresLicencaMaternidade.setIdUnidadeFk(listaValores.get(i).getUnidade());
-				service.salvar(faixasValoresLicencaMaternidade);
+					if(faixasValoresLicencaMaternidade.getValorBrutoPorDia()>0) {
+						service.salvar(faixasValoresLicencaMaternidade);
+					}
+				
 				
 			}
 		}else {
