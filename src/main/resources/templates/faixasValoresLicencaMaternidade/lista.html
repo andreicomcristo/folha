@@ -86,6 +86,7 @@
 		                    <th style="font-size:10px;" >Unidade</th>
 		                    <th style="font-size:10px;" >Dt Inicio</th>
 		                    <th style="font-size:10px;" >Dt Fim</th>
+		                    <th style="font-size:10px;" >Dias</th>
 		                    <th style="font-size:10px;" >Fonte</th>
 		                    <th style="font-size:10px;" >Folha</th>
 		                    <th style="font-size:10px;" >Valor por Dia</th>
@@ -101,7 +102,8 @@
 		                    <td style="font-size:10px;"  th:text="${d.idUnidadeFk != null} ? ${d.idUnidadeFk.nomeFantasia} : ''  "></td>
 		                    <td style="font-size:10px;"  th:text="${d.dtInicial != null} ? ${d.dtInicial} : ''  "></td>
 		                    <td style="font-size:10px;"  th:text="${d.dtFinal != null} ? ${d.dtFinal} : ''  "></td>
-		                    <td style="font-size:10px;"  th:text="${d.idFonteFk != null} ? ${d.idFonteFk.nome +'-'+ d.idFonteFk.descricao} : ''  "></td>
+		                    <td style="font-size:10px;"  th:text="${d.idDiasFk != null} ? ${d.idDiasFk?.dias} : ''  "></td>
+		                    <td style="font-size:10px;"  th:text="${d.idFonteFk != null} ? ${d.idFonteFk?.nome +'-'+ d.idFonteFk?.descricao} : ''  "></td>
 		                    <td style="font-size:10px;"  th:text="${d.idTipoDeFolhaFk != null} ? ${d.idTipoDeFolhaFk.nomeTipoFolha} : ''  "></td>
 		                    <td style="font-size:10px;"  th:text="${d.valorBrutoPorDia != null} ? ${d.valorBrutoPorDia} : ''  "></td>
 		                    <td style="font-size:10px;"  th:text="${d.observacao != null} ? ${d.observacao} : ''  "></td>

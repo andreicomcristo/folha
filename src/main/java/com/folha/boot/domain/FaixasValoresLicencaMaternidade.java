@@ -32,6 +32,9 @@ public class FaixasValoresLicencaMaternidade extends AbstractEntity<Long> {
     @Column(name = "dt_cancelamento")
     @Temporal(TemporalType.DATE)
     private Date dtCancelamento;
+    @JoinColumn(name = "id_dias_fk", referencedColumnName = "id")
+    @ManyToOne
+    private DiasLicencaMaternidade idDiasFk;
     @JoinColumn(name = "id_fonte_fk", referencedColumnName = "id")
     @ManyToOne
     private Fonte idFonteFk;
@@ -170,6 +173,14 @@ public class FaixasValoresLicencaMaternidade extends AbstractEntity<Long> {
 
 	public void setIdTipoDeFolhaFk(TiposDeFolha idTipoDeFolhaFk) {
 		this.idTipoDeFolhaFk = idTipoDeFolhaFk;
+	}
+
+	public DiasLicencaMaternidade getIdDiasFk() {
+		return idDiasFk;
+	}
+
+	public void setIdDiasFk(DiasLicencaMaternidade idDiasFk) {
+		this.idDiasFk = idDiasFk;
 	}
 
     

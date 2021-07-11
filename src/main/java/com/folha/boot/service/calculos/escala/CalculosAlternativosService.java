@@ -39,6 +39,7 @@ import com.folha.boot.domain.RubricaPensaoObs;
 import com.folha.boot.domain.RubricaPensaoObsVencimento;
 import com.folha.boot.domain.RubricaVencimento;
 import com.folha.boot.domain.TiposDeFolha;
+import com.folha.boot.domain.Unidades;
 import com.folha.boot.domain.VencimentosFuncionario;
 import com.folha.boot.domain.models.calculos.EscalasNoMes;
 import com.folha.boot.domain.models.calculos.FeriasNoMes;
@@ -47,6 +48,9 @@ import com.folha.boot.domain.models.calculos.LicencasMaternidadeNoMes;
 import com.folha.boot.domain.models.calculos.LicencasNoMes;
 import com.folha.boot.domain.models.calculos.ReferenciasDeEscala;
 import com.folha.boot.domain.models.calculos.RubricasVencimento;
+import com.folha.boot.domain.models.calculos.UnidadeFator;
+import com.folha.boot.domain.models.calculos.UnidadeMesValor;
+import com.folha.boot.domain.models.calculos.UnidadeValor;
 import com.folha.boot.service.AnoMesService;
 import com.folha.boot.service.ConversaoFontePorFolhaService;
 import com.folha.boot.service.EscalaCalculosService;
@@ -4353,4 +4357,196 @@ public class CalculosAlternativosService {
 	
 	
 	
+	
+	
+	public List<UnidadeValor> pegarValoresDosUltimosSeisMeses(PessoaFuncionarios funcionario, AnoMes anoMes){
+
+		List<UnidadeValor> listaResposta = new ArrayList<>();
+		
+		List<UnidadeMesValor> lista = new ArrayList<>();
+		
+		AnoMes mes06 =  anoMesService.buscarPorNome(  UtilidadesDeCalendarioEEscala.mesAnteriorAnterior(anoMes.getNomeAnoMes()) ).get(0) ;
+		AnoMes mes05 =  anoMesService.buscarPorNome(  UtilidadesDeCalendarioEEscala.mesAnteriorAnterior(mes06.getNomeAnoMes()) ).get(0) ;
+		AnoMes mes04 =  anoMesService.buscarPorNome(  UtilidadesDeCalendarioEEscala.mesAnteriorAnterior(mes05.getNomeAnoMes()) ).get(0) ;
+		AnoMes mes03 =  anoMesService.buscarPorNome(  UtilidadesDeCalendarioEEscala.mesAnteriorAnterior(mes04.getNomeAnoMes()) ).get(0) ;
+		AnoMes mes02 =  anoMesService.buscarPorNome(  UtilidadesDeCalendarioEEscala.mesAnteriorAnterior(mes06.getNomeAnoMes()) ).get(0) ;
+		AnoMes mes01 =  anoMesService.buscarPorNome(  UtilidadesDeCalendarioEEscala.mesAnteriorAnterior(mes02.getNomeAnoMes()) ).get(0) ;
+		
+		List<RubricaVencimento> listaVencimentos06 = rubricaVencimentoService.buscarPorMesEPessoa(mes06, funcionario.getIdPessoaFk());
+		List<RubricaVencimento> listaVencimentos05 = rubricaVencimentoService.buscarPorMesEPessoa(mes05, funcionario.getIdPessoaFk());
+		List<RubricaVencimento> listaVencimentos04 = rubricaVencimentoService.buscarPorMesEPessoa(mes04, funcionario.getIdPessoaFk());
+		List<RubricaVencimento> listaVencimentos03 = rubricaVencimentoService.buscarPorMesEPessoa(mes03, funcionario.getIdPessoaFk());
+		List<RubricaVencimento> listaVencimentos02 = rubricaVencimentoService.buscarPorMesEPessoa(mes02, funcionario.getIdPessoaFk());
+		List<RubricaVencimento> listaVencimentos01 = rubricaVencimentoService.buscarPorMesEPessoa(mes01, funcionario.getIdPessoaFk());
+		
+		
+		//Colocando Vencimentos do Sexto Mes
+		for(RubricaVencimento r: listaVencimentos06) {
+			AnoMes anoMesX = r.getIdAnoMesFk();
+			Unidades unidadeX = r.getIdUnidadeFk();
+			Double valor = r.getValorBruto() - r.getDescontoProp();
+			
+			UnidadeMesValor unidadeMesValor = new UnidadeMesValor(); 
+			unidadeMesValor.setAnoMes(anoMesX);
+			unidadeMesValor.setUnidade(unidadeX);
+			unidadeMesValor.setValor(valor);
+			lista.add(unidadeMesValor);
+		}
+		
+		
+		//Colocando Vencimentos do Quinto Mes
+		for(RubricaVencimento r: listaVencimentos05) {
+			AnoMes anoMesX = r.getIdAnoMesFk();
+			Unidades unidadeX = r.getIdUnidadeFk();
+			Double valor = r.getValorBruto() - r.getDescontoProp();
+			
+			UnidadeMesValor unidadeMesValor = new UnidadeMesValor(); 
+			unidadeMesValor.setAnoMes(anoMesX);
+			unidadeMesValor.setUnidade(unidadeX);
+			unidadeMesValor.setValor(valor);
+			lista.add(unidadeMesValor);
+		}
+		
+		
+		//Colocando Vencimentos do Quarto Mes
+		for(RubricaVencimento r: listaVencimentos04) {
+			AnoMes anoMesX = r.getIdAnoMesFk();
+			Unidades unidadeX = r.getIdUnidadeFk();
+			Double valor = r.getValorBruto() - r.getDescontoProp();
+			
+			UnidadeMesValor unidadeMesValor = new UnidadeMesValor(); 
+			unidadeMesValor.setAnoMes(anoMesX);
+			unidadeMesValor.setUnidade(unidadeX);
+			unidadeMesValor.setValor(valor);
+			lista.add(unidadeMesValor);
+		}
+		
+		
+		//Colocando Vencimentos do Terceiro Mes
+		for(RubricaVencimento r: listaVencimentos03) {
+			AnoMes anoMesX = r.getIdAnoMesFk();
+			Unidades unidadeX = r.getIdUnidadeFk();
+			Double valor = r.getValorBruto() - r.getDescontoProp();
+			
+			UnidadeMesValor unidadeMesValor = new UnidadeMesValor(); 
+			unidadeMesValor.setAnoMes(anoMesX);
+			unidadeMesValor.setUnidade(unidadeX);
+			unidadeMesValor.setValor(valor);
+			lista.add(unidadeMesValor);
+		}
+		
+		
+		//Colocando Vencimentos do Segundo Mes
+		for(RubricaVencimento r: listaVencimentos02) {
+			AnoMes anoMesX = r.getIdAnoMesFk();
+			Unidades unidadeX = r.getIdUnidadeFk();
+			Double valor = r.getValorBruto() - r.getDescontoProp();
+			
+			UnidadeMesValor unidadeMesValor = new UnidadeMesValor(); 
+			unidadeMesValor.setAnoMes(anoMesX);
+			unidadeMesValor.setUnidade(unidadeX);
+			unidadeMesValor.setValor(valor);
+			lista.add(unidadeMesValor);
+		}
+		
+		
+		//Colocando Vencimentos do Primeiro Mes
+		for(RubricaVencimento r: listaVencimentos01) {
+			AnoMes anoMesX = r.getIdAnoMesFk();
+			Unidades unidadeX = r.getIdUnidadeFk();
+			Double valor = r.getValorBruto() - r.getDescontoProp();
+			
+			UnidadeMesValor unidadeMesValor = new UnidadeMesValor(); 
+			unidadeMesValor.setAnoMes(anoMesX);
+			unidadeMesValor.setUnidade(unidadeX);
+			unidadeMesValor.setValor(valor);
+			lista.add(unidadeMesValor);
+		}
+		
+		//Coletando Meses
+		List<AnoMes> listaMeses = new ArrayList<>();
+		listaMeses.add(mes01);
+		listaMeses.add(mes02);
+		listaMeses.add(mes03);
+		listaMeses.add(mes04);
+		listaMeses.add(mes05);
+		listaMeses.add(mes06);
+		
+		//Coletando Unidades
+		List<Unidades> listaUnidades = new ArrayList<>();
+		for(UnidadeMesValor u: lista) {
+			if(!listaUnidades.contains(u.getUnidade())) {
+				listaUnidades.add(u.getUnidade());
+			}
+		}
+		
+		//Organizando soma de Valores
+		List<UnidadeMesValor> listaA = new ArrayList<>();
+		for(int i=0;i<listaMeses.size();i++) {
+			for(int j=0;j<listaUnidades.size();j++) {
+				Double valor = 0.0;
+					for(int k=0;k<lista.size();k++) {
+						if (  (listaMeses.get(i).equals(lista.get(k).getAnoMes()))  &&  (listaUnidades.get(j).equals(lista.get(k).getUnidade()))  ) {
+							valor = valor + lista.get(k).getValor();
+						}
+					}
+						
+						UnidadeMesValor unidadeMesValor = new UnidadeMesValor();
+						unidadeMesValor.setAnoMes(listaMeses.get(i));
+						unidadeMesValor.setUnidade(listaUnidades.get(j));
+						unidadeMesValor.setValor(valor);
+						listaA.add(unidadeMesValor);
+			
+			}
+			
+		}
+		
+		// Buscando fator de Divisao
+		List <UnidadeFator> listaFatores = new ArrayList<>();
+		for(int i=0;i<listaUnidades.size();i++) {
+			int fator = 6;
+			boolean achouValor = false;
+			for(int j=0;j<listaA.size();j++) {
+				if(listaUnidades.get(i).equals(listaA.get(j).getUnidade())) {
+					if(listaA.get(j).getValor()>0) {achouValor = true;}
+					if(achouValor==false) {
+						if(listaA.get(j).getValor()==0.0) {fator = fator - 1;}
+					}
+				}
+			}
+			if(fator <=0 ) {fator = 1;}
+			UnidadeFator unidadeFator = new UnidadeFator();
+			unidadeFator.setUnidade(listaUnidades.get(i));
+			unidadeFator.setFator(fator);
+			listaFatores.add(unidadeFator);
+		}
+		
+		//Calculando Valores
+		for(int i=0;i<listaFatores.size();i++) {
+			Double valor = 0.0;
+			for(int j=0;j<listaA.size();j++) {
+				if(listaFatores.get(i).getUnidade().equals(listaA.get(j).getUnidade())) {
+					valor = valor + listaA.get(j).getValor();
+				}
+			}
+			valor = (valor / (listaFatores.get(i).getFator()+0.0) );
+			valor = (valor / 30);
+			
+			UnidadeValor unidadeValor = new UnidadeValor();
+			unidadeValor.setUnidade(listaFatores.get(i).getUnidade());
+			unidadeValor.setValor(valor);
+			
+			listaResposta.add(unidadeValor);			
+		}
+		
+		
+		
+		return listaResposta;
+	}
+	
+	
 }
+
+
+
+

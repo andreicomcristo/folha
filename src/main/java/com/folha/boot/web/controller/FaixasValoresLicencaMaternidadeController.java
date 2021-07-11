@@ -33,6 +33,7 @@ import com.folha.boot.domain.PessoaFuncionarios;
 import com.folha.boot.domain.TipoBrutoLiquido;
 import com.folha.boot.domain.TiposDeFolha;
 import com.folha.boot.domain.Unidades;
+import com.folha.boot.domain.models.calculos.UnidadeValor;
 import com.folha.boot.service.AnoMesService;
 import com.folha.boot.service.CargaHorariaSemanalService;
 import com.folha.boot.service.ClassesCarreiraService;
@@ -44,6 +45,7 @@ import com.folha.boot.service.PessoaFuncionariosService;
 import com.folha.boot.service.TipoBrutoLiquidoService;
 import com.folha.boot.service.TiposDeFolhaService;
 import com.folha.boot.service.UnidadesService;
+import com.folha.boot.service.calculos.escala.CalculosAlternativosService;
 import com.folha.boot.service.seguranca.UsuarioService;
 
 
@@ -78,6 +80,8 @@ public class FaixasValoresLicencaMaternidadeController {
 	private PessoaFuncionariosService pessoaFuncionariosService;
 	@Autowired
 	private DiasLicencaMaternidadeService diasLicencaMaternidadeService;
+	@Autowired
+	private CalculosAlternativosService calculosAlternativosService;
 	
 	////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 	/*Lista de funcionarios
@@ -195,14 +199,14 @@ public class FaixasValoresLicencaMaternidadeController {
 	}
 	
 	@PostMapping("/salvar")
-	public String salvar(FaixasValoresLicencaMaternidade faixasValoresLicencaMaternidade, Long dias, RedirectAttributes attr) {
+	public String salvar(FaixasValoresLicencaMaternidade faixasValoresLicencaMaternidade, RedirectAttributes attr) {
 		
 		if(faixasValoresLicencaMaternidade.getValorBrutoPorDia()==null) {
 			faixasValoresLicencaMaternidade.setValorBrutoPorDia(0.0);
 		}
 		
 		Long dataA = faixasValoresLicencaMaternidade.getDtInicial().getTime() /1000/60/60/24;
-		Long dataB = dataA + diasLicencaMaternidadeService.buscarPorId(dias).getDias() ;
+		Long dataB = dataA + faixasValoresLicencaMaternidade.getIdDiasFk().getDias() ;
 		Date dataFinal = new Date(dataB*1000*60*60*24);
 		
 		faixasValoresLicencaMaternidade.setDtFinal(dataFinal);
@@ -211,7 +215,37 @@ public class FaixasValoresLicencaMaternidadeController {
 		faixasValoresLicencaMaternidade.setDtUltimaMudanca(new Date());
 		faixasValoresLicencaMaternidade.setIdOperadorUltimaMudancaFk(usuarioService.pegarOperadorLogado());
 		
-		service.salvar(faixasValoresLicencaMaternidade);
+		String mes = String.valueOf( (faixasValoresLicencaMaternidade.getDtInicial().getMonth()+1) );  
+		String ano = String.valueOf( (faixasValoresLicencaMaternidade.getDtInicial().getYear()+1900) );
+		
+		AnoMes mesAtual = null;
+		if(!anoMesService.buscarPorNome(ano+mes).isEmpty()){
+			mesAtual = anoMesService.buscarPorNome(ano+mes).get(0);
+		} 
+		
+		if(mesAtual==null) {
+			return "redirect:/faixasValoresLicencaMaternidade/mensagem/de/mes/inexistente";
+		}
+		
+		if(faixasValoresLicencaMaternidade.getValorBrutoPorDia()==null) {
+			faixasValoresLicencaMaternidade.setValorBrutoPorDia(0.0);
+		}
+		//Avaliando se o operador indicou valor
+		if(faixasValoresLicencaMaternidade.getValorBrutoPorDia()==0.0) {
+			List<UnidadeValor> listaValores = calculosAlternativosService.pegarValoresDosUltimosSeisMeses(faixasValoresLicencaMaternidade.getIdFuncionarioFk(), mesAtual);
+			
+			for(int i=0;i<listaValores.size();i++) {
+				faixasValoresLicencaMaternidade.setId(null);
+				faixasValoresLicencaMaternidade.setValorBrutoPorDia(listaValores.get(i).getValor());
+				faixasValoresLicencaMaternidade.setIdUnidadeFk(listaValores.get(i).getUnidade());
+				service.salvar(faixasValoresLicencaMaternidade);
+				
+			}
+		}else {
+			faixasValoresLicencaMaternidade.setIdUnidadeFk(faixasValoresLicencaMaternidade.getIdFuncionarioFk().getIdUnidadeAtuacaoAtualFk());
+			service.salvar(faixasValoresLicencaMaternidade);
+		}
+		
 		attr.addFlashAttribute("success", "Inserido com sucesso.");
 		return "redirect:/faixasValoresLicencaMaternidade/funcionarios/listar";
 	}
@@ -223,15 +257,17 @@ public class FaixasValoresLicencaMaternidadeController {
 	}
 	
 	@PostMapping("/editar")
-	public String editar(FaixasValoresLicencaMaternidade faixasValoresLicencaMaternidade, Long dias, RedirectAttributes attr) {	
+	public String editar(FaixasValoresLicencaMaternidade faixasValoresLicencaMaternidade, RedirectAttributes attr) {	
 		
 		if(faixasValoresLicencaMaternidade.getValorBrutoPorDia()==null) {
 			faixasValoresLicencaMaternidade.setValorBrutoPorDia(0.0);
 		}
 		
 		Long dataA = faixasValoresLicencaMaternidade.getDtInicial().getTime() /1000/60/60/24;
-		Long dataB = dataA + diasLicencaMaternidadeService.buscarPorId(dias).getDias() ;
+		Long dataB = dataA + faixasValoresLicencaMaternidade.getIdDiasFk().getDias() ;
 		Date dataFinal = new Date(dataB*1000*60*60*24);
+		
+		
 		
 		faixasValoresLicencaMaternidade.setDtFinal(dataFinal);
 		faixasValoresLicencaMaternidade.setDtUltimaMudanca(new Date());
@@ -279,6 +315,20 @@ public class FaixasValoresLicencaMaternidadeController {
 		return ResponseEntity.ok().headers(headers).contentType(MediaType.APPLICATION_PDF)
 				.body(new InputStreamResource(bis));
 	}
+	
+	
+	
+	@GetMapping("/mensagem/de/mes/inexistente")
+	public String mensagemDeChoque(ModelMap model) {	
+		
+		model.addAttribute("atencao", "ATENÇÃO");
+		model.addAttribute("choque", "MES INEXISTENTE");
+		model.addAttribute("mensagem", "A data inicial indicada envolve um mês inexistente no sistema.");
+		
+		return "/choqueescala/choque";
+	}
+	
+	
 	
 	@ModelAttribute("idFuncionarioFk")
 	public List<PessoaFuncionarios> getIdFuncionarioFk() {

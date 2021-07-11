@@ -30,7 +30,7 @@ public class UtilidadesDeCalendarioEEscala {
         return date;
 	}
     
-    public String getDiaSemana(int ano, int mes, int dia) {  
+    public static String getDiaSemana(int ano, int mes, int dia) {  
         //Algoritmo para descobrir o dia da semana  
         int a = ((12 - mes) / 10);  
         int b = ano - a;  
@@ -66,7 +66,7 @@ public class UtilidadesDeCalendarioEEscala {
     }
 
     
-    public String getDiaSemanaPorAnoMesEDia(String anoMes, int dia) {  
+    public static String getDiaSemanaPorAnoMesEDia(String anoMes, int dia) {  
         //Algoritmo para descobrir o dia da semana  
     	int ano = Integer.parseInt(anoMes.substring(0, 4));
     	int mes = Integer.parseInt(anoMes.substring(4, 6));
@@ -103,7 +103,7 @@ public class UtilidadesDeCalendarioEEscala {
        
     }
     
-    public boolean anoBisexto (int ano){
+    public static boolean anoBisexto (int ano){
     boolean bisexto = false;
     if((ano % 4 == 0) && ( (ano % 100 != 0) || (ano % 400 == 0) ))  {
     bisexto = true;
@@ -127,7 +127,7 @@ public class UtilidadesDeCalendarioEEscala {
         
     }
     
-    public int quantidadeDeDiasNoMes(String mesDaEscala){
+    public static int quantidadeDeDiasNoMes(String mesDaEscala){
     
         int resposta = 0;
 
@@ -152,7 +152,30 @@ public class UtilidadesDeCalendarioEEscala {
     
     }
     
-    public int quantidadeDeDiasNoMesAnterior(String mesDaEscala){
+    
+    public static String mesAnteriorAnterior(String mesDaEscala){
+        
+        String resposta = "";
+
+        int anoAtual = Integer.parseInt(mesDaEscala.substring(0, 4));
+        int mesAtual = Integer.parseInt(mesDaEscala.substring(4, 6));
+        
+        if(mesAtual==1){anoAtual = anoAtual-1; mesAtual = 12;}else{mesAtual = mesAtual-1;}
+        
+        String anoAnterior = String.valueOf(anoAtual);
+        String mesAnterior = String.valueOf(mesAtual);
+        
+        if(mesAnterior.length()==1){mesAnterior = "0"+mesAnterior;}
+        
+        mesDaEscala = anoAnterior+""+mesAnterior;
+        
+        resposta = mesDaEscala;    
+
+        return resposta;
+    
+    }
+    
+    public static int quantidadeDeDiasNoMesAnterior(String mesDaEscala){
     
         int resposta = 0;
 
@@ -189,7 +212,8 @@ public class UtilidadesDeCalendarioEEscala {
     
     }
     
-    public int quantidadeDeDiasDeSemanaNoMes(String mesDaEscala, int quantidadeDeDiasNoMes){
+    
+    public static int quantidadeDeDiasDeSemanaNoMes(String mesDaEscala, int quantidadeDeDiasNoMes){
         int resposta = 0;
         for(int i=0;i<quantidadeDeDiasNoMes;i++){
             int dia = (i+1);
@@ -202,7 +226,7 @@ public class UtilidadesDeCalendarioEEscala {
         return resposta;
     }
     
-    public String corrigeAnagramaEscala(String dadoInicial){
+    public static String corrigeAnagramaEscala(String dadoInicial){
     
         String resposta = dadoInicial;
 
@@ -296,7 +320,7 @@ public class UtilidadesDeCalendarioEEscala {
     
     }
     
-    public String retiraLetraDaEscala(String escalaOriginal, String letraATirar){
+    public static String retiraLetraDaEscala(String escalaOriginal, String letraATirar){
     
         String resposta = "";
         String interseccao = "";

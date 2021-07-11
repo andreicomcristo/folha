@@ -17,6 +17,10 @@ public class DiasLicencaMaternidade extends AbstractEntity<Long> {
 	
 	@Column(name = "dias")
     private Integer dias;
+	
+	@OneToMany(mappedBy = "idDiasFk")
+    private List<FaixasValoresLicencaMaternidade> faixasValoresLicencaMaternidadeList;
+
 
 	public Integer getDias() {
 		return dias;
@@ -32,6 +36,15 @@ public class DiasLicencaMaternidade extends AbstractEntity<Long> {
 
 	public void setDtCancelamento(Date dtCancelamento) {
 		this.dtCancelamento = dtCancelamento;
+	}
+
+	public List<FaixasValoresLicencaMaternidade> getFaixasValoresLicencaMaternidadeList() {
+		return faixasValoresLicencaMaternidadeList;
+	}
+
+	public void setFaixasValoresLicencaMaternidadeList(
+			List<FaixasValoresLicencaMaternidade> faixasValoresLicencaMaternidadeList) {
+		this.faixasValoresLicencaMaternidadeList = faixasValoresLicencaMaternidadeList;
 	}
 	
 		
