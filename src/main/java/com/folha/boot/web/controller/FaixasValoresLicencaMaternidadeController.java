@@ -272,11 +272,6 @@ public class FaixasValoresLicencaMaternidadeController {
 		if(faixasValoresLicencaMaternidade.getValorBrutoPorDia()==null) {
 			faixasValoresLicencaMaternidade.setValorBrutoPorDia(0.0);
 		}
-		//Primeiro salvamento de data
-		if(faixasValoresLicencaMaternidade.getValorBrutoPorDia()==0.0) {
-			service.salvar(faixasValoresLicencaMaternidade);
-		}
-		
 		
 		Long dataA = faixasValoresLicencaMaternidade.getDtInicial().getTime() /1000/60/60/24;
 		Long dataB = dataA + faixasValoresLicencaMaternidade.getIdDiasFk().getDias() ;
@@ -306,9 +301,11 @@ public class FaixasValoresLicencaMaternidadeController {
 			return "redirect:/faixasValoresLicencaMaternidade/mensagem/de/mes/inexistente";
 		}
 		
-		if(faixasValoresLicencaMaternidade.getValorBrutoPorDia()==null) {
-			faixasValoresLicencaMaternidade.setValorBrutoPorDia(0.0);
+		//Primeiro salvamento de data
+		if(faixasValoresLicencaMaternidade.getValorBrutoPorDia()==0.0) {
+			service.salvar(faixasValoresLicencaMaternidade);
 		}
+		
 		//Avaliando se o operador indicou valor
 		if(faixasValoresLicencaMaternidade.getValorBrutoPorDia()==0.0) {
 			List<UnidadeValor> listaValores = calculosAlternativosService.pegarValoresDosUltimosSeisMeses(faixasValoresLicencaMaternidade.getIdFuncionarioFk(), mesAtual);
