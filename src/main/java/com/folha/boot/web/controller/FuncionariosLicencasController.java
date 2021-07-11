@@ -51,8 +51,6 @@ public class FuncionariosLicencasController {
 	@Autowired
 	private CidsService cidsService; 
 	@Autowired
-	FuncionariosLicencasCid funcionariosLicencasCid;
-	@Autowired
 	private FuncionariosLicencasService service;
 	@Autowired
 	private CargosService cargosService;
@@ -219,6 +217,9 @@ public class FuncionariosLicencasController {
 		PessoaFuncionarios funcionario = pessoaFuncionariosService.buscarPorId(getIdFuncionarioSession());				
 		funcionariosLicencas.setIdFuncionarioFk(funcionario);
 		//relaciona as licenças com licençasCid		
+		
+		//Linha colocada para instanciar o objeto dentro do controller
+		FuncionariosLicencasCid funcionariosLicencasCid = new FuncionariosLicencasCid();
 		
 		if(!getIdCidSession().equals(null)){
 		
