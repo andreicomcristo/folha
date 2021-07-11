@@ -27,6 +27,7 @@
 				<div class="form-row">
 					<div class="form-group col-md-6">
 						<label for="nome" class="fonte-tutulos-tamanho">Cadastro de Cargos </label>
+						<p></p>	
 						
 						<label for="nome" class="">Cargo </label>
 						<input type="text"	class="form-control form-control-md" autofocus="autofocus"
@@ -44,6 +45,10 @@
 								<option th:each="d : ${idNivelCargoFk}" th:value="${d.id}"th:text="${d.nomeNivelCargo}">ADM</option>
 						</select>	
 						<p></p>	
+						
+						<input type="checkbox" id="areaMeio" th:name="areaMeio"    value="S">Área Meio</input>
+						<p></p>
+						
 						<input type="hidden" id="id" th:field="*{id}" />
 						<button class="btn btn-outline-dark">Cadastrar</button>
 					</div>

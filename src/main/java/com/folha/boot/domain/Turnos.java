@@ -25,6 +25,14 @@ public class Turnos extends AbstractEntity<Long>{
     private Integer horasTarde;
     @Column(name = "horas_noite")
     private Integer horasNoite;
+    
+    @Column(name = "horas_a")
+    private Integer horasA;
+    @Column(name = "horas_b")
+    private Integer horasB;
+    @Column(name = "horas_c")
+    private Integer horasC;
+    
     // @Max(value=?)  @Min(value=?)//if you know range of your decimal fields consider using these annotations to enforce field validation
     @Column(name = "plantoes")
     private Double plantoes;
@@ -219,6 +227,11 @@ public class Turnos extends AbstractEntity<Long>{
 
     @OneToMany(mappedBy = "idTurnoFk")
     private List<RegimeDeTrabalhoTurno> regimeDeTrabalhoTurnoList;
+    
+    @OneToMany(mappedBy = "idTurnoFk")
+    private List<UnidadeTurno> unidadeTurnoList;
+    @OneToMany(mappedBy = "idTurnoFk")
+    private List<TipoDeFolhaTurno> tipoDeFolhaTurnoList;
     
 	public String getNomeTurno() {
 		return nomeTurno;
@@ -819,6 +832,36 @@ public class Turnos extends AbstractEntity<Long>{
 	}
 	public void setRegimeDeTrabalhoTurnoList(List<RegimeDeTrabalhoTurno> regimeDeTrabalhoTurnoList) {
 		this.regimeDeTrabalhoTurnoList = regimeDeTrabalhoTurnoList;
+	}
+	public List<UnidadeTurno> getUnidadeTurnoList() {
+		return unidadeTurnoList;
+	}
+	public void setUnidadeTurnoList(List<UnidadeTurno> unidadeTurnoList) {
+		this.unidadeTurnoList = unidadeTurnoList;
+	}
+	public List<TipoDeFolhaTurno> getTipoDeFolhaTurnoList() {
+		return tipoDeFolhaTurnoList;
+	}
+	public void setTipoDeFolhaTurnoList(List<TipoDeFolhaTurno> tipoDeFolhaTurnoList) {
+		this.tipoDeFolhaTurnoList = tipoDeFolhaTurnoList;
+	}
+	public Integer getHorasA() {
+		return horasA;
+	}
+	public void setHorasA(Integer horasA) {
+		this.horasA = horasA;
+	}
+	public Integer getHorasB() {
+		return horasB;
+	}
+	public void setHorasB(Integer horasB) {
+		this.horasB = horasB;
+	}
+	public Integer getHorasC() {
+		return horasC;
+	}
+	public void setHorasC(Integer horasC) {
+		this.horasC = horasC;
 	}
     
     

@@ -38,6 +38,7 @@
 				                	<input type=hidden id="" th:field="*{idCoordenacaoFk}" />
 				                	<input type=hidden id="" th:field="*{idFuncionarioFk}" />
 				                	<input type=hidden id="" th:field="*{idTipoFolhaFk}" />
+				                	<input type=hidden id="" th:field="*{idRegimeFk}" />
 				                	
 				                	
 				                	<input type=hidden id="" th:field="*{idAvaliacaoAssiduidadeFk}" />
@@ -88,6 +89,11 @@
 				                    	<label style="color:grey;" th:text="*{idFuncionarioFk.idVinculoAtualFk.nomeVinculo}" class="text" >Cargo </label>
 									</th>
 									
+									<th>
+										<label class="text" >Regime : </label>
+				                    	<label style="color:grey;" th:text="*{idRegimeFk.nomeRegimeDeTrabalho}" class="text" >Regime</label>
+									</th>
+									
 								 </tr>
 							 </thead>
 						</table>
@@ -99,7 +105,7 @@
 								 <tr>
 								 	<th>
 								 		<label class="text" style="font-size:12px;">Presencial </label>
-					                	<select style="width:180px; height:25px; font-size:10px" id="turma" class="form-select"  th:field="*{idPresencialSimNaoFk}" >
+					                	<select style="width:250px; height:25px; font-size:10px" id="turma" class="form-select"  th:field="*{idPresencialSimNaoFk}" >
 											<option value=""></option>
 											<option th:each="d : ${idPresencialSimNaoFk}" th:value="${d.id}"th:text="${d.descricao}">Presencial</option>
 										</select>
@@ -112,21 +118,22 @@
 								 	</th>
 								 	<th>
 								 		<label class="text" style="font-size:12px;">Incentivo de Risco </label>
-								 		<select style="width:180px; height:25px; font-size:10px" id="turma" class="form-select"   th:field="*{idIncrementoDeRiscoSimNaoFk}" >
+								 		<select style="width:250px; height:25px; font-size:10px" id="turma" class="form-select"   th:field="*{idIncrementoDeRiscoSimNaoFk}" >
 											<option th:each="d : ${idIncrementoDeRiscoCompativel}" th:value="${d.id}"th:text="${d.descricao}">Incremento de Risco</option>
 										</select>
 								 	</th>
-								 	
+								 	<!-- 
 								 	<th>
 								 		<label class="text" style="font-size:12px;">Regime </label>
-					                	<select disabled="disabled" aria-disabled="true" style="width:180px; height:25px; font-size:10px" id="turma" class="form-select" th:field="*{idRegimeFk}" >
+					                	<select disabled="disabled" aria-disabled="true" style="width:180px; height:25px; font-size:10px" id="turma" class="form-select"  >
 											<option value=""></option>
 											<option th:each="d : ${idRegimeFk}" th:value="${d.id}"th:text="${d.nomeRegimeDeTrabalho}">ADM</option>
 										</select>	
 									</th>
+									 -->
 								 	<th>
 								 		<label class="text" style="font-size:12px;">Turma </label>
-					                	<select style="width:300px; height:25px; font-size:10px" id="turma" class="form-select"  th:field="*{idTurmaFk}" >
+					                	<select style="width:440px; height:25px; font-size:10px" id="turma" class="form-select"  th:field="*{idTurmaFk}" >
 											<option value=""></option>
 											<option th:each="d : ${idTurmaFk}" th:value="${d.id}"th:text="${d.descricaoTurma}">TURMA</option>
 										</select>
@@ -208,47 +215,48 @@
 			                    </tr>
 								
 								
+								
 				          			<tr>
 					                	<th>
-					        				<label class="text"  style="font-size:12px;">01 </label>
-											<select style="width:140px; height:25px; font-size:10px; color:red" id="escaladia01" class="form-select"   th:field="*{dia01Fk}" >
-												<option th:each="d : ${dia01Fk}" th:value="${d.id}"th:text="${d.nomeTurno}">M</option>
+					                		<label class="text"  style="font-size:12px;">01 </label>
+											<select style="width:140px; height:25px; font-size:10px; color:red" id="abcd" class="form-select"   th:field="*{dia01Fk}" name="abcd">
+												<option th:each="d : ${dia01FkCompativel}" th:value="${d.id}"th:text="${d.nomeTurno}">M</option>
 											</select>        	
 					                	</th>
 					                    <th>
 					        				<label class="text"  style="font-size:12px;">02 </label>
-											<select style="width:140px; height:25px; font-size:10px; color:red" id="escaladia02" class="form-select"   th:field="*{dia02Fk}" >
-												<option th:each="d : ${dia02Fk}" th:value="${d.id}"th:text="${d.nomeTurno}">M</option>
+											<select style="width:140px; height:25px; font-size:10px; color:red" id="escaladia02" class="form-select"   th:field="*{dia02Fk}" th:name="dia02Fk">
+												<option th:each="d : ${dia02FkCompativel}" th:value="${d.id}"th:text="${d.nomeTurno}">M</option>
 											</select>            
 					                    </th>
 					                    <th>
 					                    	<label class="text"  style="font-size:12px;">03 </label>
-											<select style="width:140px; height:25px; font-size:10px; color:red" id="escaladia03" class="form-select"   th:field="*{dia03Fk}" >
-												<option th:each="d : ${dia03Fk}" th:value="${d.id}"th:text="${d.nomeTurno}">M</option>
+											<select style="width:140px; height:25px; font-size:10px; color:red" id="escaladia03" class="form-select"   th:field="*{dia03Fk}" th:name="dia03Fk">
+												<option th:each="d : ${dia03FkCompativel}" th:value="${d.id}"th:text="${d.nomeTurno}">M</option>
 											</select>
 					                    </th>
 					                    <th>
 					                    	<label class="text"  style="font-size:12px;">04 </label>
-											<select style="width:140px; height:25px; font-size:10px; color:red" id="escaladia04" class="form-select"   th:field="*{dia04Fk}" >
-												<option th:each="d : ${dia04Fk}" th:value="${d.id}"th:text="${d.nomeTurno}">M</option>
+											<select style="width:140px; height:25px; font-size:10px; color:red" id="escaladia04" class="form-select"   th:field="*{dia04Fk}" th:name="dia04Fk">
+												<option th:each="d : ${dia04FkCompativel}" th:value="${d.id}"th:text="${d.nomeTurno}">M</option>
 											</select>
 										</th>
 					                    <th>
 						                    <label class="text"  style="font-size:12px;">05 </label>
-											<select style="width:140px; height:25px; font-size:10px; color:red" id="escaladia05" class="form-select"   th:field="*{dia05Fk}" >
-												<option th:each="d : ${dia05Fk}" th:value="${d.id}"th:text="${d.nomeTurno}">M</option>
+											<select style="width:140px; height:25px; font-size:10px; color:red" id="escaladia05" class="form-select"   th:field="*{dia05Fk}" th:name="dia05Fk">
+												<option th:each="d : ${dia05FkCompativel}" th:value="${d.id}"th:text="${d.nomeTurno}">M</option>
 											</select>
 					                    </th>
 					                    <th>
 											<label class="text"  style="font-size:12px;">06 </label>
-											<select style="width:140px; height:25px; font-size:10px; color:red" id="escaladia06" class="form-select"   th:field="*{dia06Fk}" >
-												<option th:each="d : ${dia06Fk}" th:value="${d.id}"th:text="${d.nomeTurno}">M</option>
+											<select style="width:140px; height:25px; font-size:10px; color:red" id="escaladia06" class="form-select"   th:field="*{dia06Fk}" th:name="dia06Fk">
+												<option th:each="d : ${dia06FkCompativel}" th:value="${d.id}"th:text="${d.nomeTurno}">M</option>
 											</select>
 										</th>
 					                    <th>
 					                    	<label class="text"  style="font-size:12px;">07 </label>
-											<select style="width:140px; height:25px; font-size:10px; color:red"  id="escaladia07" class="form-select"   th:field="*{dia07Fk}" >
-												<option th:each="d : ${dia07Fk}" th:value="${d.id}"th:text="${d.nomeTurno}">M</option>
+											<select style="width:140px; height:25px; font-size:10px; color:red"  id="escaladia07" class="form-select"   th:field="*{dia07Fk}" th:name="dia07Fk">
+												<option th:each="d : ${dia07FkCompativel}" th:value="${d.id}"th:text="${d.nomeTurno}">M</option>
 											</select>
 					                    </th>
 					                </tr>
@@ -256,44 +264,44 @@
 				          			<tr>
 					                	<th>
 					        				<label class="text"  style="font-size:12px;">08 </label>
-											<select style="width:140px; height:25px; font-size:10px; color:red" id="escaladia08" class="form-select"   th:field="*{dia08Fk}" >
-												<option th:each="d : ${dia08Fk}" th:value="${d.id}"th:text="${d.nomeTurno}">M</option>
+											<select style="width:140px; height:25px; font-size:10px; color:red" id="escaladia08" class="form-select"   th:field="*{dia08Fk}" th:name="dia08Fk">
+												<option th:each="d : ${dia08FkCompativel}" th:value="${d.id}"th:text="${d.nomeTurno}">M</option>
 											</select>        	
 					                	</th>
 					                    <th>
 					        				<label class="text"  style="font-size:12px;">09 </label>
-											<select style="width:140px; height:25px; font-size:10px; color:red" id="escaladia09" class="form-select"   th:field="*{dia09Fk}" >
-												<option th:each="d : ${dia09Fk}" th:value="${d.id}"th:text="${d.nomeTurno}">M</option>
+											<select style="width:140px; height:25px; font-size:10px; color:red" id="escaladia09" class="form-select"   th:field="*{dia09Fk}" th:name="dia09Fk">
+												<option th:each="d : ${dia09FkCompativel}" th:value="${d.id}"th:text="${d.nomeTurno}">M</option>
 											</select>            
 					                    </th>
 					                    <th>
 					                    	<label class="text"  style="font-size:12px;">10 </label>
-											<select style="width:140px; height:25px; font-size:10px; color:red" id="escaladia10" class="form-select"   th:field="*{dia10Fk}" >
-												<option th:each="d : ${dia10Fk}" th:value="${d.id}"th:text="${d.nomeTurno}">M</option>
+											<select style="width:140px; height:25px; font-size:10px; color:red" id="escaladia10" class="form-select"   th:field="*{dia10Fk}" th:name="dia10Fk">
+												<option th:each="d : ${dia10FkCompativel}" th:value="${d.id}"th:text="${d.nomeTurno}">M</option>
 											</select>
 					                    </th>
 					                    <th>
 					                    	<label class="text"  style="font-size:12px;">11 </label>
-											<select style="width:140px; height:25px; font-size:10px; color:red" id="escaladia11" class="form-select"   th:field="*{dia11Fk}" >
-												<option th:each="d : ${dia11Fk}" th:value="${d.id}"th:text="${d.nomeTurno}">M</option>
+											<select style="width:140px; height:25px; font-size:10px; color:red" id="escaladia11" class="form-select"   th:field="*{dia11Fk}" th:name="dia11Fk">
+												<option th:each="d : ${dia11FkCompativel}" th:value="${d.id}"th:text="${d.nomeTurno}">M</option>
 											</select>
 										</th>
 					                    <th>
 						                    <label class="text"  style="font-size:12px;">12 </label>
-											<select style="width:140px; height:25px; font-size:10px; color:red" id="escaladia12" class="form-select"   th:field="*{dia12Fk}" >
-												<option th:each="d : ${dia12Fk}" th:value="${d.id}"th:text="${d.nomeTurno}">M</option>
+											<select style="width:140px; height:25px; font-size:10px; color:red" id="escaladia12" class="form-select"   th:field="*{dia12Fk}" th:name="dia12Fk">
+												<option th:each="d : ${dia12FkCompativel}" th:value="${d.id}"th:text="${d.nomeTurno}">M</option>
 											</select>
 					                    </th>
 					                    <th>
 											<label class="text"  style="font-size:12px;">13 </label>
-											<select style="width:140px; height:25px; font-size:10px; color:red" id="escaladia13" class="form-select"   th:field="*{dia13Fk}" >
-												<option th:each="d : ${dia13Fk}" th:value="${d.id}"th:text="${d.nomeTurno}">M</option>
+											<select style="width:140px; height:25px; font-size:10px; color:red" id="escaladia13" class="form-select"   th:field="*{dia13Fk}" th:name="dia13Fk">
+												<option th:each="d : ${dia13FkCompativel}" th:value="${d.id}"th:text="${d.nomeTurno}">M</option>
 											</select>
 										</th>
 					                    <th>
 					                    	<label class="text"  style="font-size:12px;">14 </label>
-											<select style="width:140px; height:25px; font-size:10px; color:red"  id="escaladia14" class="form-select"   th:field="*{dia14Fk}" >
-												<option th:each="d : ${dia14Fk}" th:value="${d.id}"th:text="${d.nomeTurno}">M</option>
+											<select style="width:140px; height:25px; font-size:10px; color:red"  id="escaladia14" class="form-select"   th:field="*{dia14Fk}" th:name="dia14Fk">
+												<option th:each="d : ${dia14FkCompativel}" th:value="${d.id}"th:text="${d.nomeTurno}">M</option>
 											</select>
 					                    </th>
 					                </tr>
@@ -301,44 +309,44 @@
 				          			<tr>
 					                	<th>
 					        				<label class="text"  style="font-size:12px;">15 </label>
-											<select style="width:140px; height:25px; font-size:10px; color:red" id="escaladia15" class="form-select"   th:field="*{dia15Fk}" >
-												<option th:each="d : ${dia15Fk}" th:value="${d.id}"th:text="${d.nomeTurno}">M</option>
+											<select style="width:140px; height:25px; font-size:10px; color:red" id="escaladia15" class="form-select"   th:field="*{dia15Fk}" th:name="dia15Fk">
+												<option th:each="d : ${dia15FkCompativel}" th:value="${d.id}"th:text="${d.nomeTurno}">M</option>
 											</select>        	
 					                	</th>
 					                    <th>
 					        				<label class="text"  style="font-size:12px;">16 </label>
-											<select style="width:140px; height:25px; font-size:10px; color:red" id="escaladia16" class="form-select"   th:field="*{dia16Fk}" >
-												<option th:each="d : ${dia16Fk}" th:value="${d.id}"th:text="${d.nomeTurno}">M</option>
+											<select style="width:140px; height:25px; font-size:10px; color:red" id="escaladia16" class="form-select"   th:field="*{dia16Fk}" th:name="dia16Fk">
+												<option th:each="d : ${dia16FkCompativel}" th:value="${d.id}"th:text="${d.nomeTurno}">M</option>
 											</select>            
 					                    </th>
 					                    <th>
 					                    	<label class="text"  style="font-size:12px;">17 </label>
-											<select style="width:140px; height:25px; font-size:10px; color:red" id="escaladia17" class="form-select"   th:field="*{dia17Fk}" >
-												<option th:each="d : ${dia17Fk}" th:value="${d.id}"th:text="${d.nomeTurno}">M</option>
+											<select style="width:140px; height:25px; font-size:10px; color:red" id="escaladia17" class="form-select"   th:field="*{dia17Fk}" th:name="dia17Fk">
+												<option th:each="d : ${dia17FkCompativel}" th:value="${d.id}"th:text="${d.nomeTurno}">M</option>
 											</select>
 					                    </th>
 					                    <th>
 					                    	<label class="text"  style="font-size:12px;">18 </label>
-											<select style="width:140px; height:25px; font-size:10px; color:red" id="escaladia18" class="form-select"   th:field="*{dia18Fk}" >
-												<option th:each="d : ${dia18Fk}" th:value="${d.id}"th:text="${d.nomeTurno}">M</option>
+											<select style="width:140px; height:25px; font-size:10px; color:red" id="escaladia18" class="form-select"   th:field="*{dia18Fk}" th:name="dia18Fk">
+												<option th:each="d : ${dia18FkCompativel}" th:value="${d.id}"th:text="${d.nomeTurno}">M</option>
 											</select>
 										</th>
 					                    <th>
 						                    <label class="text"  style="font-size:12px;">19 </label>
-											<select style="width:140px; height:25px; font-size:10px; color:red" id="escaladia19" class="form-select"   th:field="*{dia19Fk}" >
-												<option th:each="d : ${dia19Fk}" th:value="${d.id}"th:text="${d.nomeTurno}">M</option>
+											<select style="width:140px; height:25px; font-size:10px; color:red" id="escaladia19" class="form-select"   th:field="*{dia19Fk}" th:name="dia19Fk">
+												<option th:each="d : ${dia19FkCompativel}" th:value="${d.id}"th:text="${d.nomeTurno}">M</option>
 											</select>
 					                    </th>
 					                    <th>
 											<label class="text"  style="font-size:12px;">20 </label>
-											<select style="width:140px; height:25px; font-size:10px; color:red" id="escaladia20" class="form-select"   th:field="*{dia20Fk}" >
-												<option th:each="d : ${dia20Fk}" th:value="${d.id}"th:text="${d.nomeTurno}">M</option>
+											<select style="width:140px; height:25px; font-size:10px; color:red" id="escaladia20" class="form-select"   th:field="*{dia20Fk}" th:name="dia20Fk">
+												<option th:each="d : ${dia20FkCompativel}" th:value="${d.id}"th:text="${d.nomeTurno}">M</option>
 											</select>
 										</th>
 					                    <th>
 					                    	<label class="text"  style="font-size:12px;">21 </label>
-											<select style="width:140px; height:25px; font-size:10px; color:red"  id="escaladia21" class="form-select"   th:field="*{dia21Fk}" >
-												<option th:each="d : ${dia21Fk}" th:value="${d.id}"th:text="${d.nomeTurno}">M</option>
+											<select style="width:140px; height:25px; font-size:10px; color:red"  id="escaladia21" class="form-select"   th:field="*{dia21Fk}" th:name="dia21Fk">
+												<option th:each="d : ${dia21FkCompativel}" th:value="${d.id}"th:text="${d.nomeTurno}">M</option>
 											</select>
 					                    </th>
 					                </tr>
@@ -346,44 +354,44 @@
 				          			<tr>
 					                	<th>
 					        				<label class="text"  style="font-size:12px;">22 </label>
-											<select style="width:140px; height:25px; font-size:10px; color:red" id="escaladia22" class="form-select"   th:field="*{dia22Fk}" >
-												<option th:each="d : ${dia22Fk}" th:value="${d.id}"th:text="${d.nomeTurno}">M</option>
+											<select style="width:140px; height:25px; font-size:10px; color:red" id="escaladia22" class="form-select"   th:field="*{dia22Fk}" th:name="dia22Fk">
+												<option th:each="d : ${dia22FkCompativel}" th:value="${d.id}"th:text="${d.nomeTurno}">M</option>
 											</select>        	
 					                	</th>
 					                    <th>
 					        				<label class="text"  style="font-size:12px;">23 </label>
-											<select style="width:140px; height:25px; font-size:10px; color:red" id="escaladia23" class="form-select"   th:field="*{dia23Fk}" >
-												<option th:each="d : ${dia23Fk}" th:value="${d.id}"th:text="${d.nomeTurno}">M</option>
+											<select style="width:140px; height:25px; font-size:10px; color:red" id="escaladia23" class="form-select"   th:field="*{dia23Fk}" th:name="dia23Fk">
+												<option th:each="d : ${dia23FkCompativel}" th:value="${d.id}"th:text="${d.nomeTurno}">M</option>
 											</select>            
 					                    </th>
 					                    <th>
 					                    	<label class="text"  style="font-size:12px;">24 </label>
-											<select style="width:140px; height:25px; font-size:10px; color:red" id="escaladia24" class="form-select"   th:field="*{dia24Fk}" >
-												<option th:each="d : ${dia24Fk}" th:value="${d.id}"th:text="${d.nomeTurno}">M</option>
+											<select style="width:140px; height:25px; font-size:10px; color:red" id="escaladia24" class="form-select"   th:field="*{dia24Fk}" th:name="dia24Fk">
+												<option th:each="d : ${dia24FkCompativel}" th:value="${d.id}"th:text="${d.nomeTurno}">M</option>
 											</select>
 					                    </th>
 					                    <th>
 					                    	<label class="text"  style="font-size:12px;">25 </label>
-											<select style="width:140px; height:25px; font-size:10px; color:red" id="escaladia25" class="form-select"   th:field="*{dia25Fk}" >
-												<option th:each="d : ${dia25Fk}" th:value="${d.id}"th:text="${d.nomeTurno}">M</option>
+											<select style="width:140px; height:25px; font-size:10px; color:red" id="escaladia25" class="form-select"   th:field="*{dia25Fk}" th:name="dia25Fk">
+												<option th:each="d : ${dia25FkCompativel}" th:value="${d.id}"th:text="${d.nomeTurno}">M</option>
 											</select>
 										</th>
 					                    <th>
 						                    <label class="text"  style="font-size:12px;">26 </label>
-											<select style="width:140px; height:25px; font-size:10px; color:red" id="escaladia26" class="form-select"   th:field="*{dia26Fk}" >
-												<option th:each="d : ${dia26Fk}" th:value="${d.id}"th:text="${d.nomeTurno}">M</option>
+											<select style="width:140px; height:25px; font-size:10px; color:red" id="escaladia26" class="form-select"   th:field="*{dia26Fk}" th:name="dia26Fk">
+												<option th:each="d : ${dia26FkCompativel}" th:value="${d.id}"th:text="${d.nomeTurno}">M</option>
 											</select>
 					                    </th>
 					                    <th>
 											<label class="text"  style="font-size:12px;">27 </label>
-											<select style="width:140px; height:25px; font-size:10px; color:red" id="escaladia27" class="form-select"   th:field="*{dia27Fk}" >
-												<option th:each="d : ${dia27Fk}" th:value="${d.id}"th:text="${d.nomeTurno}">M</option>
+											<select style="width:140px; height:25px; font-size:10px; color:red" id="escaladia27" class="form-select"   th:field="*{dia27Fk}" th:name="dia27Fk">
+												<option th:each="d : ${dia27FkCompativel}" th:value="${d.id}"th:text="${d.nomeTurno}">M</option>
 											</select>
 										</th>
 					                    <th>
 					                    	<label class="text"  style="font-size:12px;">28 </label>
-											<select style="width:140px; height:25px; font-size:10px; color:red"  id="escaladia28" class="form-select"   th:field="*{dia28Fk}" >
-												<option th:each="d : ${dia28Fk}" th:value="${d.id}"th:text="${d.nomeTurno}">M</option>
+											<select style="width:140px; height:25px; font-size:10px; color:red"  id="escaladia28" class="form-select"   th:field="*{dia28Fk}" th:name="dia28Fk">
+												<option th:each="d : ${dia28FkCompativel}" th:value="${d.id}"th:text="${d.nomeTurno}">M</option>
 											</select>
 					                    </th>
 					                </tr>
@@ -391,20 +399,20 @@
 				          			<tr>
 					                	<th>
 					        				<label class="text"  style="font-size:12px;" th:if="${qtdDiasNoMes > 28}" >29 </label>
-											<select style="width:140px; height:25px; font-size:10px; color:red" th:if="${qtdDiasNoMes > 28}" id="escaladia29" class="form-select"   th:field="*{dia29Fk}" >												
-												<option th:each="d : ${dia29Fk}" th:value="${d.id}"th:text="${d.nomeTurno}">M</option>
+											<select style="width:140px; height:25px; font-size:10px; color:red" th:if="${qtdDiasNoMes > 28}" id="escaladia29" class="form-select"   th:field="*{dia29Fk}" th:name="dia29Fk">												
+												<option th:each="d : ${dia29FkCompativel}" th:value="${d.id}"th:text="${d.nomeTurno}">M</option>
 											</select>        	
 					                	</th>
 					                    <th>
 					        				<label class="text"  style="font-size:12px;" th:if="${qtdDiasNoMes > 29}" >30 </label>
-											<select style="width:140px; height:25px; font-size:10px; color:red" th:if="${qtdDiasNoMes > 29}" id="escaladia30" class="form-select"   th:field="*{dia30Fk}" >
-												<option th:each="d : ${dia30Fk}" th:value="${d.id}"th:text="${d.nomeTurno}">M</option>
+											<select style="width:140px; height:25px; font-size:10px; color:red" th:if="${qtdDiasNoMes > 29}" id="escaladia30" class="form-select"   th:field="*{dia30Fk}" th:name="dia30Fk">
+												<option th:each="d : ${dia30FkCompativel}" th:value="${d.id}"th:text="${d.nomeTurno}">M</option>
 											</select>            
 					                    </th>
 					                    <th>
 					                    	<label class="text"  style="font-size:12px;" th:if="${qtdDiasNoMes > 30}">31 </label>
-											<select style="width:140px; height:25px; font-size:10px; color:red" th:if="${qtdDiasNoMes > 30}" id="escaladia31" class="form-select"   th:field="*{dia31Fk}" >
-												<option th:each="d : ${dia31Fk}" th:value="${d.id}"th:text="${d.nomeTurno}">M</option>
+											<select style="width:140px; height:25px; font-size:10px; color:red" th:if="${qtdDiasNoMes > 30}" id="escaladia31" class="form-select"   th:field="*{dia31Fk}" th:name="dia31Fk">
+												<option th:each="d : ${dia31FkCompativel}" th:value="${d.id}"th:text="${d.nomeTurno}">M</option>
 											</select>
 					                    </th>
 					                </tr>
@@ -476,87 +484,88 @@
 							<table style="width: 1320px;">			
 								<thead>		
 									
+									
 								
 									<tr>
 										<th>
-											<a  style="font-size:10px" th:object="${escala}" class="btn btn-outline-secondary btn-sm" th:href="@{/escalas/atalho/ciclo1_a}"
+											<a  style="font-size:10px" th:object="${escala}" class="btn btn-outline-secondary btn-sm" th:href="@{/escalas/atalho/ciclo1/a}"
 												role="button"> <span>MT N F F F F</span><span  
 												title="Cadastro" aria-hidden="true"></span>
 											</a>
 									   </th>
 									   
 									   <th>
-											<a  style="font-size:10px" class="btn btn-outline-secondary btn-sm" th:href="@{/escalas/atalho/ciclo2_a}"
+											<a  style="font-size:10px" class="btn btn-outline-secondary btn-sm" th:href="@{/escalas/atalho/ciclo2/a}"
 												role="button"> <span>MTN F F F F F</span><span  
 												title="Cadastro" aria-hidden="true"></span>
 											</a>
 									   </th>
 									   
 									   <th>
-											<a  style="font-size:10px; width:100px;" class="btn btn-outline-warning btn-sm" th:href="@{/escalas/atalho/limpar_escala}"
+											<a  style="font-size:10px; width:100px;" class="btn btn-outline-warning btn-sm" th:href="@{/escalas/atalho/limpar/escala}"
 												role="button"> <span>Limpar Escala</span><span  
 												title="Cadastro" aria-hidden="true"></span>
 											</a>
 										</th>
 									   
 									   <th>
-											<a  style="font-size:10px" class="btn btn-outline-secondary btn-sm" th:href="@{/escalas/atalho/ciclo4_a}"
+											<a  style="font-size:10px" class="btn btn-outline-secondary btn-sm" th:href="@{/escalas/atalho/ciclo4/a}"
 												role="button"> <span>M M N F F F</span><span  
 												title="Cadastro" aria-hidden="true"></span>
 											</a>
 									   </th>
 									   
 									   <th>
-											<a  style="font-size:10px" class="btn btn-outline-secondary btn-sm" th:href="@{/escalas/atalho/ciclo5_a}"
+											<a  style="font-size:10px" class="btn btn-outline-secondary btn-sm" th:href="@{/escalas/atalho/ciclo5/a}"
 												role="button"> <span>T T N F F F</span><span  
 												title="Cadastro" aria-hidden="true"></span>
 											</a>
 									   </th>
 									   
 									   <th>
-											<a  style="font-size:10px" class="btn btn-outline-secondary btn-sm" th:href="@{/escalas/atalho/ciclo6_a}"
+											<a  style="font-size:10px" class="btn btn-outline-secondary btn-sm" th:href="@{/escalas/atalho/ciclo6/a}"
 												role="button"> <span>MT MT F F F F</span><span  
 												title="Cadastro" aria-hidden="true"></span>
 											</a>
 									   </th>
 									   
 									   <th>
-											<a  style="font-size:10px" class="btn btn-outline-secondary btn-sm" th:href="@{/escalas/atalho/ciclo7_a}"
+											<a  style="font-size:10px" class="btn btn-outline-secondary btn-sm" th:href="@{/escalas/atalho/ciclo7/a}"
 												role="button"> <span>M T N F F F</span><span  
 												title="Cadastro" aria-hidden="true"></span>
 											</a>
 									   </th>
 									   
 									   <th>
-											<a  style="font-size:10px; width:153px;" class="btn btn-outline-secondary btn-sm" th:href="@{/escalas/atalho/ciclo8_a}"
+											<a  style="font-size:10px; width:153px;" class="btn btn-outline-secondary btn-sm" th:href="@{/escalas/atalho/ciclo8/a}"
 												role="button"> <span>SEGUNDA MTN</span><span  
 												title="Cadastro" aria-hidden="true"></span>
 											</a>
 									   </th>
 									   
 									   <th>
-											<a  style="font-size:10px; width:153px;" class="btn btn-outline-secondary btn-sm" th:href="@{/escalas/atalho/ciclo9_a}"
+											<a  style="font-size:10px; width:153px;" class="btn btn-outline-secondary btn-sm" th:href="@{/escalas/atalho/ciclo9/a}"
 												role="button"> <span>SEGUNDA M</span><span  
 												title="Cadastro" aria-hidden="true"></span>
 											</a>
 									   </th>
 									   
 									   <th>
-											<a  style="font-size:10px; width:153px;" class="btn btn-outline-secondary btn-sm" th:href="@{/escalas/atalho/ciclo10_a}"
+											<a  style="font-size:10px; width:153px;" class="btn btn-outline-secondary btn-sm" th:href="@{/escalas/atalho/ciclo10/a}"
 												role="button"> <span>SEGUNDA T</span><span  
 												title="Cadastro" aria-hidden="true"></span>
 											</a>
 									   </th>
 									   
 									   <th>
-											<a  style="font-size:10px; width:153px;" class="btn btn-outline-secondary btn-sm" th:href="@{/escalas/atalho/ciclo11_a}"
+											<a  style="font-size:10px; width:153px;" class="btn btn-outline-secondary btn-sm" th:href="@{/escalas/atalho/ciclo11/a}"
 												role="button"> <span>SEGUNDA MT</span><span  
 												title="Cadastro" aria-hidden="true"></span>
 											</a>
 									   </th>
 									   
 									   <th>
-											<a  style="font-size:10px; width:153px;" class="btn btn-outline-secondary btn-sm" th:href="@{/escalas/atalho/ciclo12_a}"
+											<a  style="font-size:10px; width:153px;" class="btn btn-outline-secondary btn-sm" th:href="@{/escalas/atalho/ciclo12/a}"
 												role="button"> <span>SEGUNDA N</span><span  
 												title="Cadastro" aria-hidden="true"></span>
 											</a>
@@ -568,84 +577,84 @@
 									
 									<tr>
 									   <th>
-											<a  style="font-size:10px" class="btn btn-outline-secondary btn-sm" th:href="@{/escalas/atalho/ciclo1_b}"
+											<a  style="font-size:10px" class="btn btn-outline-secondary btn-sm" th:href="@{/escalas/atalho/ciclo1/b}"
 												role="button"> <span>F MT N F F F</span><span  
 												title="Cadastro" aria-hidden="true"></span>
 											</a>
 									   </th>
 									   
 									   <th>
-											<a  style="font-size:10px" class="btn btn-outline-secondary btn-sm" th:href="@{/escalas/atalho/ciclo2_b}"
+											<a  style="font-size:10px" class="btn btn-outline-secondary btn-sm" th:href="@{/escalas/atalho/ciclo2/b}"
 												role="button"> <span>F MTN F F F F</span><span  
 												title="Cadastro" aria-hidden="true"></span>
 											</a>
 									   </th>
 									   
 									   <th>
-											<a  style="font-size:10px; width:100px;" class="btn btn-outline-secondary btn-sm" th:href="@{/escalas/atalho/diarista_manha}"
+									  		<a  style="font-size:10px; width:100px;" class="btn btn-outline-secondary btn-sm" th:href="@{/escalas/atalho/diarista/manha  }"
 												role="button"> <span>M DE SEG A SEX</span><span  
 												title="Cadastro" aria-hidden="true"></span>
 											</a>
 									   </th>
 									   
 									   <th>
-											<a  style="font-size:10px" class="btn btn-outline-secondary btn-sm" th:href="@{/escalas/atalho/ciclo4_b}"
+											<a  style="font-size:10px" class="btn btn-outline-secondary btn-sm" th:href="@{/escalas/atalho/ciclo4/b}"
 												role="button"> <span>F M M N F F</span><span  
 												title="Cadastro" aria-hidden="true"></span>
 											</a>
 									   </th>
 									   
 									   <th>
-											<a  style="font-size:10px" class="btn btn-outline-secondary btn-sm" th:href="@{/escalas/atalho/ciclo5_b}"
+											<a  style="font-size:10px" class="btn btn-outline-secondary btn-sm" th:href="@{/escalas/atalho/ciclo5/b}"
 												role="button"> <span>F T T N F F</span><span  
 												title="Cadastro" aria-hidden="true"></span>
 											</a>
 									   </th>
 									   
 									   <th>
-											<a  style="font-size:10px" class="btn btn-outline-secondary btn-sm" th:href="@{/escalas/atalho/ciclo6_b}"
+											<a  style="font-size:10px" class="btn btn-outline-secondary btn-sm" th:href="@{/escalas/atalho/ciclo6/b}"
 												role="button"> <span>F MT MT F F F</span><span  
 												title="Cadastro" aria-hidden="true"></span>
 											</a>
 									   </th>
 									   
 									   <th>
-											<a  style="font-size:10px" class="btn btn-outline-secondary btn-sm" th:href="@{/escalas/atalho/ciclo7_b}"
+											<a  style="font-size:10px" class="btn btn-outline-secondary btn-sm" th:href="@{/escalas/atalho/ciclo7/b}"
 												role="button"> <span>F M T N F F</span><span  
 												title="Cadastro" aria-hidden="true"></span>
 											</a>
 									   </th>
 									   
 									   <th>
-											<a  style="font-size:10px; width:153px;" class="btn btn-outline-secondary btn-sm" th:href="@{/escalas/atalho/ciclo8_b}"
+											<a  style="font-size:10px; width:153px;" class="btn btn-outline-secondary btn-sm" th:href="@{/escalas/atalho/ciclo8/b}"
 												role="button"> <span>TERCA MTN</span><span  
 												title="Cadastro" aria-hidden="true"></span>
 											</a>
 									   </th>
 									   
 									   <th>
-											<a  style="font-size:10px; width:153px;" class="btn btn-outline-secondary btn-sm" th:href="@{/escalas/atalho/ciclo9_b}"
+											<a  style="font-size:10px; width:153px;" class="btn btn-outline-secondary btn-sm" th:href="@{/escalas/atalho/ciclo9/b}"
 												role="button"> <span>TERCA M</span><span  
 												title="Cadastro" aria-hidden="true"></span>
 											</a>
 									   </th>
 									   
 									   <th>
-											<a  style="font-size:10px; width:153px;" class="btn btn-outline-secondary btn-sm" th:href="@{/escalas/atalho/ciclo10_b}"
+											<a  style="font-size:10px; width:153px;" class="btn btn-outline-secondary btn-sm" th:href="@{/escalas/atalho/ciclo10/b}"
 												role="button"> <span>TERCA T</span><span  
 												title="Cadastro" aria-hidden="true"></span>
 											</a>
 									   </th>
 									   
 									   <th>
-											<a  style="font-size:10px; width:153px;" class="btn btn-outline-secondary btn-sm" th:href="@{/escalas/atalho/ciclo11_b}"
+											<a  style="font-size:10px; width:153px;" class="btn btn-outline-secondary btn-sm" th:href="@{/escalas/atalho/ciclo11/b}"
 												role="button"> <span>TERCA MT</span><span  
 												title="Cadastro" aria-hidden="true"></span>
 											</a>
 									   </th>
 									   
 									   <th>
-											<a  style="font-size:10px; width:153px;" class="btn btn-outline-secondary btn-sm" th:href="@{/escalas/atalho/ciclo12_b}"
+											<a  style="font-size:10px; width:153px;" class="btn btn-outline-secondary btn-sm" th:href="@{/escalas/atalho/ciclo12/b}"
 												role="button"> <span>TERCA N</span><span  
 												title="Cadastro" aria-hidden="true"></span>
 											</a>
@@ -656,84 +665,84 @@
 								   
 								   <tr>
 									   <th>
-											<a  style="font-size:10px" class="btn btn-outline-secondary btn-sm" th:href="@{/escalas/atalho/ciclo1_c}"
+											<a  style="font-size:10px" class="btn btn-outline-secondary btn-sm" th:href="@{/escalas/atalho/ciclo1/c}"
 												role="button"> <span>F F MT N F F</span><span  
 												title="Cadastro" aria-hidden="true"></span>
 											</a>
 									   </th>
 									   
 									   <th>
-											<a  style="font-size:10px" class="btn btn-outline-secondary btn-sm" th:href="@{/escalas/atalho/ciclo2_c}"
+											<a  style="font-size:10px" class="btn btn-outline-secondary btn-sm" th:href="@{/escalas/atalho/ciclo2/c}"
 												role="button"> <span>F F MTN F F F</span><span  
 												title="Cadastro" aria-hidden="true"></span>
 											</a>
 									   </th>
 									   
 									   <th>
-											<a  style="font-size:10px; width:100px;" class="btn btn-outline-secondary btn-sm" th:href="@{/escalas/atalho/diarista_tarde}"
+											<a  style="font-size:10px; width:100px;" class="btn btn-outline-secondary btn-sm" th:href="@{/escalas/atalho/diarista/tarde}"
 												role="button"> <span>T DE SEG A SEX</span><span  
 												title="Cadastro" aria-hidden="true"></span>
 											</a>
 									   </th>
 									   
 									   <th>
-											<a  style="font-size:10px" class="btn btn-outline-secondary btn-sm" th:href="@{/escalas/atalho/ciclo4_c}"
+											<a  style="font-size:10px" class="btn btn-outline-secondary btn-sm" th:href="@{/escalas/atalho/ciclo4/c}"
 												role="button"> <span>F F M M N F</span><span  
 												title="Cadastro" aria-hidden="true"></span>
 											</a>
 									   </th>
 									   
 									   <th>
-											<a  style="font-size:10px" class="btn btn-outline-secondary btn-sm" th:href="@{/escalas/atalho/ciclo5_c}"
+											<a  style="font-size:10px" class="btn btn-outline-secondary btn-sm" th:href="@{/escalas/atalho/ciclo5/c}"
 												role="button"> <span>F F T T N F</span><span  
 												title="Cadastro" aria-hidden="true"></span>
 											</a>
 									   </th>
 									   
 									   <th>
-											<a  style="font-size:10px" class="btn btn-outline-secondary btn-sm" th:href="@{/escalas/atalho/ciclo6_c}"
+											<a  style="font-size:10px" class="btn btn-outline-secondary btn-sm" th:href="@{/escalas/atalho/ciclo6/c}"
 												role="button"> <span>F F MT MT F F</span><span  
 												title="Cadastro" aria-hidden="true"></span>
 											</a>
 									   </th>
 									   
 									   <th>
-											<a  style="font-size:10px" class="btn btn-outline-secondary btn-sm" th:href="@{/escalas/atalho/ciclo7_c}"
+											<a  style="font-size:10px" class="btn btn-outline-secondary btn-sm" th:href="@{/escalas/atalho/ciclo7/c}"
 												role="button"> <span>F F M T N F</span><span  
 												title="Cadastro" aria-hidden="true"></span>
 											</a>
 									   </th>
 									   
 									   <th>
-											<a  style="font-size:10px; width:153px;" class="btn btn-outline-secondary btn-sm" th:href="@{/escalas/atalho/ciclo8_c}"
+											<a  style="font-size:10px; width:153px;" class="btn btn-outline-secondary btn-sm" th:href="@{/escalas/atalho/ciclo8/c}"
 												role="button"> <span>QUARTA MTN</span><span  
 												title="Cadastro" aria-hidden="true"></span>
 											</a>
 									   </th>
 									   
 									   <th>
-											<a  style="font-size:10px; width:153px;" class="btn btn-outline-secondary btn-sm" th:href="@{/escalas/atalho/ciclo9_c}"
+											<a  style="font-size:10px; width:153px;" class="btn btn-outline-secondary btn-sm" th:href="@{/escalas/atalho/ciclo9/c}"
 												role="button"> <span>QUARTA M</span><span  
 												title="Cadastro" aria-hidden="true"></span>
 											</a>
 									   </th>
 									   
 									   <th>
-											<a  style="font-size:10px; width:153px;" class="btn btn-outline-secondary btn-sm" th:href="@{/escalas/atalho/ciclo10_c}"
+											<a  style="font-size:10px; width:153px;" class="btn btn-outline-secondary btn-sm" th:href="@{/escalas/atalho/ciclo10/c}"
 												role="button"> <span>QUARTA T</span><span  
 												title="Cadastro" aria-hidden="true"></span>
 											</a>
 									   </th>
 									   
 									   <th>
-											<a  style="font-size:10px; width:153px;" class="btn btn-outline-secondary btn-sm" th:href="@{/escalas/atalho/ciclo11_c}"
+											<a  style="font-size:10px; width:153px;" class="btn btn-outline-secondary btn-sm" th:href="@{/escalas/atalho/ciclo11/c}"
 												role="button"> <span>QUARTA MT</span><span  
 												title="Cadastro" aria-hidden="true"></span>
 											</a>
 									   </th>
 									   
 									   <th>
-											<a  style="font-size:10px; width:153px;" class="btn btn-outline-secondary btn-sm" th:href="@{/escalas/atalho/ciclo12_c}"
+											<a  style="font-size:10px; width:153px;" class="btn btn-outline-secondary btn-sm" th:href="@{/escalas/atalho/ciclo12/c}"
 												role="button"> <span>QUARTA N</span><span  
 												title="Cadastro" aria-hidden="true"></span>
 											</a>
@@ -745,84 +754,84 @@
 								   
 								   <tr>
 									   <th>
-											<a  style="font-size:10px" class="btn btn-outline-secondary btn-sm" th:href="@{/escalas/atalho/ciclo1_d}"
+											<a  style="font-size:10px" class="btn btn-outline-secondary btn-sm" th:href="@{/escalas/atalho/ciclo1/d}"
 												role="button"> <span>F F F MT N F</span><span  
 												title="Cadastro" aria-hidden="true"></span>
 											</a>
 									   </th>
 									   
 									   <th>
-											<a  style="font-size:10px" class="btn btn-outline-secondary btn-sm" th:href="@{/escalas/atalho/ciclo2_d}"
+											<a  style="font-size:10px" class="btn btn-outline-secondary btn-sm" th:href="@{/escalas/atalho/ciclo2/d}"
 												role="button"> <span>F F F MTN F F</span><span  
 												title="Cadastro" aria-hidden="true"></span>
 											</a>
 									   </th>
 									   
 									   <th>
-											<a  style="font-size:10px; width:100px;" class="btn btn-outline-secondary btn-sm" th:href="@{/escalas/atalho/diarista_dia}"
+											<a  style="font-size:10px; width:100px;" class="btn btn-outline-secondary btn-sm" th:href="@{/escalas/atalho/diarista/dia}"
 												role="button"> <span>D DE SEG A SEX</span><span  
 												title="Cadastro" aria-hidden="true"></span>
 											</a>
 									   </th>
 									   
 									   <th>
-											<a  style="font-size:10px" class="btn btn-outline-secondary btn-sm" th:href="@{/escalas/atalho/ciclo4_d}"
+											<a  style="font-size:10px" class="btn btn-outline-secondary btn-sm" th:href="@{/escalas/atalho/ciclo4/d}"
 												role="button"> <span>F F F M M N</span><span  
 												title="Cadastro" aria-hidden="true"></span>
 											</a>
 									   </th>
 									   
 									   <th>
-											<a  style="font-size:10px" class="btn btn-outline-secondary btn-sm" th:href="@{/escalas/atalho/ciclo5_d}"
+											<a  style="font-size:10px" class="btn btn-outline-secondary btn-sm" th:href="@{/escalas/atalho/ciclo5/d}"
 												role="button"> <span>F F F T T N</span><span  
 												title="Cadastro" aria-hidden="true"></span>
 											</a>
 									   </th>
 									   
 									   <th>
-											<a  style="font-size:10px" class="btn btn-outline-secondary btn-sm" th:href="@{/escalas/atalho/ciclo6_d}"
+											<a  style="font-size:10px" class="btn btn-outline-secondary btn-sm" th:href="@{/escalas/atalho/ciclo6/d}"
 												role="button"> <span>F F F MT MT F</span><span  
 												title="Cadastro" aria-hidden="true"></span>
 											</a>
 									   </th>
 									   
 									   <th>
-											<a  style="font-size:10px" class="btn btn-outline-secondary btn-sm" th:href="@{/escalas/atalho/ciclo7_d}"
+											<a  style="font-size:10px" class="btn btn-outline-secondary btn-sm" th:href="@{/escalas/atalho/ciclo7/d}"
 												role="button"> <span>F F F M T N</span><span  
 												title="Cadastro" aria-hidden="true"></span>
 											</a>
 									   </th>
 									   
 									   <th>
-											<a  style="font-size:10px; width:153px;" class="btn btn-outline-secondary btn-sm" th:href="@{/escalas/atalho/ciclo8_d}"
+											<a  style="font-size:10px; width:153px;" class="btn btn-outline-secondary btn-sm" th:href="@{/escalas/atalho/ciclo8/d}"
 												role="button"> <span>QUINTA MTN</span><span  
 												title="Cadastro" aria-hidden="true"></span>
 											</a>
 									   </th>
 									   
 									   <th>
-											<a  style="font-size:10px; width:153px;" class="btn btn-outline-secondary btn-sm" th:href="@{/escalas/atalho/ciclo9_d}"
+											<a  style="font-size:10px; width:153px;" class="btn btn-outline-secondary btn-sm" th:href="@{/escalas/atalho/ciclo9/d}"
 												role="button"> <span>QUINTA M</span><span  
 												title="Cadastro" aria-hidden="true"></span>
 											</a>
 									   </th>
 									   
 									   <th>
-											<a  style="font-size:10px; width:153px;" class="btn btn-outline-secondary btn-sm" th:href="@{/escalas/atalho/ciclo10_d}"
+											<a  style="font-size:10px; width:153px;" class="btn btn-outline-secondary btn-sm" th:href="@{/escalas/atalho/ciclo10/d}"
 												role="button"> <span>QUINTA T</span><span  
 												title="Cadastro" aria-hidden="true"></span>
 											</a>
 									   </th>
 									   
 									   <th>
-											<a  style="font-size:10px; width:153px;" class="btn btn-outline-secondary btn-sm" th:href="@{/escalas/atalho/ciclo11_d}"
+											<a  style="font-size:10px; width:153px;" class="btn btn-outline-secondary btn-sm" th:href="@{/escalas/atalho/ciclo11/d}"
 												role="button"> <span>QUINTA MT</span><span  
 												title="Cadastro" aria-hidden="true"></span>
 											</a>
 									   </th>
 									   
 									   <th>
-											<a  style="font-size:10px; width:153px;" class="btn btn-outline-secondary btn-sm" th:href="@{/escalas/atalho/ciclo12_d}"
+											<a  style="font-size:10px; width:153px;" class="btn btn-outline-secondary btn-sm" th:href="@{/escalas/atalho/ciclo12/d}"
 												role="button"> <span>QUINTA N</span><span  
 												title="Cadastro" aria-hidden="true"></span>
 											</a>
@@ -834,84 +843,84 @@
 								   
 								   <tr>
 									   <th>
-											<a  style="font-size:10px" class="btn btn-outline-secondary btn-sm" th:href="@{/escalas/atalho/ciclo1_e}"
+											<a  style="font-size:10px" class="btn btn-outline-secondary btn-sm" th:href="@{/escalas/atalho/ciclo1/e}"
 												role="button"> <span>F F F F MT N</span><span  
 												title="Cadastro" aria-hidden="true"></span>
 											</a>
 									   </th>
 									   
 									   <th>
-											<a  style="font-size:10px" class="btn btn-outline-secondary btn-sm" th:href="@{/escalas/atalho/ciclo2_e}"
+											<a  style="font-size:10px" class="btn btn-outline-secondary btn-sm" th:href="@{/escalas/atalho/ciclo2/e}"
 												role="button"> <span>F F F F MTN F</span><span  
 												title="Cadastro" aria-hidden="true"></span>
 											</a>
 									   </th>
 									   
 									   <th>
-											<a  style="font-size:10px; width:100px;" class="btn btn-outline-secondary btn-sm" th:href="@{/escalas/atalho/mt_dias_impares}"
+											<a  style="font-size:10px; width:100px;" class="btn btn-outline-secondary btn-sm" th:href="@{/escalas/atalho/mt/dias/impares}"
 												role="button"> <span>MT DIAS IMPAR</span><span  
 												title="Cadastro" aria-hidden="true"></span>
 											</a>
 									   </th>
 									   
 									   <th>
-											<a  style="font-size:10px" class="btn btn-outline-secondary btn-sm" th:href="@{/escalas/atalho/ciclo4_e}"
+											<a  style="font-size:10px" class="btn btn-outline-secondary btn-sm" th:href="@{/escalas/atalho/ciclo4/e}"
 												role="button"> <span>N F F F M M</span><span  
 												title="Cadastro" aria-hidden="true"></span>
 											</a>
 									   </th>
 									   
 									   <th>
-											<a  style="font-size:10px" class="btn btn-outline-secondary btn-sm" th:href="@{/escalas/atalho/ciclo5_e}"
+											<a  style="font-size:10px" class="btn btn-outline-secondary btn-sm" th:href="@{/escalas/atalho/ciclo5/e}"
 												role="button"> <span>N F F F T T</span><span  
 												title="Cadastro" aria-hidden="true"></span>
 											</a>
 									   </th>
 									   
 									   <th>
-											<a  style="font-size:10px" class="btn btn-outline-secondary btn-sm" th:href="@{/escalas/atalho/ciclo6_e}"
+											<a  style="font-size:10px" class="btn btn-outline-secondary btn-sm" th:href="@{/escalas/atalho/ciclo6/e}"
 												role="button"> <span>F F F F MT MT</span><span  
 												title="Cadastro" aria-hidden="true"></span>
 											</a>
 									   </th>
 									   
 									   <th>
-											<a  style="font-size:10px" class="btn btn-outline-secondary btn-sm" th:href="@{/escalas/atalho/ciclo7_e}"
+											<a  style="font-size:10px" class="btn btn-outline-secondary btn-sm" th:href="@{/escalas/atalho/ciclo7/e}"
 												role="button"> <span>N F F F M T</span><span  
 												title="Cadastro" aria-hidden="true"></span>
 											</a>
 									   </th>
 									   
 									   <th>
-											<a  style="font-size:10px; width:153px;" class="btn btn-outline-secondary btn-sm" th:href="@{/escalas/atalho/ciclo8_e}"
+											<a  style="font-size:10px; width:153px;" class="btn btn-outline-secondary btn-sm" th:href="@{/escalas/atalho/ciclo8/e}"
 												role="button"> <span>SEXTA MTN</span><span  
 												title="Cadastro" aria-hidden="true"></span>
 											</a>
 									   </th>
 									   
 									   <th>
-											<a  style="font-size:10px; width:153px;" class="btn btn-outline-secondary btn-sm" th:href="@{/escalas/atalho/ciclo9_e}"
+											<a  style="font-size:10px; width:153px;" class="btn btn-outline-secondary btn-sm" th:href="@{/escalas/atalho/ciclo9/e}"
 												role="button"> <span>SEXTA M</span><span  
 												title="Cadastro" aria-hidden="true"></span>
 											</a>
 									   </th>
 									   
 									   <th>
-											<a  style="font-size:10px; width:153px;" class="btn btn-outline-secondary btn-sm" th:href="@{/escalas/atalho/ciclo10_e}"
+											<a  style="font-size:10px; width:153px;" class="btn btn-outline-secondary btn-sm" th:href="@{/escalas/atalho/ciclo10/e}"
 												role="button"> <span>SEXTA T</span><span  
 												title="Cadastro" aria-hidden="true"></span>
 											</a>
 									   </th>
 									   
 									   <th>
-											<a  style="font-size:10px; width:153px;" class="btn btn-outline-secondary btn-sm" th:href="@{/escalas/atalho/ciclo11_e}"
+											<a  style="font-size:10px; width:153px;" class="btn btn-outline-secondary btn-sm" th:href="@{/escalas/atalho/ciclo11/e}"
 												role="button"> <span>SEXTA MT</span><span  
 												title="Cadastro" aria-hidden="true"></span>
 											</a>
 									   </th>
 									   
 									   <th>
-											<a  style="font-size:10px; width:153px;" class="btn btn-outline-secondary btn-sm" th:href="@{/escalas/atalho/ciclo12_e}"
+											<a  style="font-size:10px; width:153px;" class="btn btn-outline-secondary btn-sm" th:href="@{/escalas/atalho/ciclo12/e}"
 												role="button"> <span>SEXTA N</span><span  
 												title="Cadastro" aria-hidden="true"></span>
 											</a>
@@ -923,61 +932,61 @@
 								   
 								   <tr>
 									   <th>
-											<a  style="font-size:10px" class="btn btn-outline-secondary btn-sm" th:href="@{/escalas/atalho/ciclo1_f}"
+											<a  style="font-size:10px" class="btn btn-outline-secondary btn-sm" th:href="@{/escalas/atalho/ciclo1/f}"
 												role="button"> <span>N F F F F MT</span><span  
 												title="Cadastro" aria-hidden="true"></span>
 											</a>
 									   </th>
 									   
 									   <th>
-											<a  style="font-size:10px" class="btn btn-outline-secondary btn-sm" th:href="@{/escalas/atalho/ciclo2_f}"
+											<a  style="font-size:10px" class="btn btn-outline-secondary btn-sm" th:href="@{/escalas/atalho/ciclo2/f}"
 												role="button"> <span>F F F F F MTN</span><span  
 												title="Cadastro" aria-hidden="true"></span>
 											</a>
 									   </th>
 									   
 									   <th>
-									   		<a  style="font-size:10px; width:100px;" class="btn btn-outline-secondary btn-sm" th:href="@{/escalas/atalho/mt_dias_pares}"
+									   		<a  style="font-size:10px; width:100px;" class="btn btn-outline-secondary btn-sm" th:href="@{/escalas/atalho/mt/dias/pares}"
 												role="button"> <span>MT DIAS PARES</span><span  
 												title="Cadastro" aria-hidden="true"></span>
 											</a>
 									   </th>
 									   
 									   <th>
-											<a  style="font-size:10px" class="btn btn-outline-secondary btn-sm" th:href="@{/escalas/atalho/ciclo4_f}"
+											<a  style="font-size:10px" class="btn btn-outline-secondary btn-sm" th:href="@{/escalas/atalho/ciclo4/f}"
 												role="button"> <span>M N F F F M</span><span  
 												title="Cadastro" aria-hidden="true"></span>
 											</a>
 									   </th>
 									   
 									   <th>
-											<a  style="font-size:10px" class="btn btn-outline-secondary btn-sm" th:href="@{/escalas/atalho/ciclo5_f}"
+											<a  style="font-size:10px" class="btn btn-outline-secondary btn-sm" th:href="@{/escalas/atalho/ciclo5/f}"
 												role="button"> <span>T N F F F T</span><span  
 												title="Cadastro" aria-hidden="true"></span>
 											</a>
 									   </th>
 									   
 									   <th>
-											<a  style="font-size:10px" class="btn btn-outline-secondary btn-sm" th:href="@{/escalas/atalho/ciclo6_f}"
+											<a  style="font-size:10px" class="btn btn-outline-secondary btn-sm" th:href="@{/escalas/atalho/ciclo6/f}"
 												role="button"> <span>MT F F F F MT</span><span  
 												title="Cadastro" aria-hidden="true"></span>
 											</a>
 									   </th>
 									   
 									   <th>
-											<a  style="font-size:10px" class="btn btn-outline-secondary btn-sm" th:href="@{/escalas/atalho/ciclo7_f}"
+											<a  style="font-size:10px" class="btn btn-outline-secondary btn-sm" th:href="@{/escalas/atalho/ciclo7/f}"
 												role="button"> <span>T N F F F M</span><span  
 												title="Cadastro" aria-hidden="true"></span>
 											</a>
 									   </th>
 									   
 									   <th>
-											<a  style="font-size:10px; width:75px;" class="btn btn-outline-secondary btn-sm" th:href="@{/escalas/atalho/ciclo8_f}"
+											<a  style="font-size:10px; width:75px;" class="btn btn-outline-secondary btn-sm" th:href="@{/escalas/atalho/ciclo8/f}"
 												role="button"> <span>SAB MTN</span><span  
 												title="Cadastro" aria-hidden="true"></span>
 											</a>
 											
-											<a  style="font-size:10px; width:75px;" class="btn btn-outline-secondary btn-sm" th:href="@{/escalas/atalho/ciclo8_g}"
+											<a  style="font-size:10px; width:75px;" class="btn btn-outline-secondary btn-sm" th:href="@{/escalas/atalho/ciclo8/g}"
 												role="button"> <span>DOM MTN</span><span  
 												title="Cadastro" aria-hidden="true"></span>
 											</a>
@@ -986,12 +995,12 @@
 									   </th>
 									   
 									   <th>
-											<a  style="font-size:10px; width:75px;" class="btn btn-outline-secondary btn-sm" th:href="@{/escalas/atalho/ciclo9_f}"
+											<a  style="font-size:10px; width:75px;" class="btn btn-outline-secondary btn-sm" th:href="@{/escalas/atalho/ciclo9/f}"
 												role="button"> <span>SAB M</span><span  
 												title="Cadastro" aria-hidden="true"></span>
 											</a>
 											
-											<a  style="font-size:10px; width:75px;" class="btn btn-outline-secondary btn-sm" th:href="@{/escalas/atalho/ciclo9_g}"
+											<a  style="font-size:10px; width:75px;" class="btn btn-outline-secondary btn-sm" th:href="@{/escalas/atalho/ciclo9/g}"
 												role="button"> <span>DOM M</span><span  
 												title="Cadastro" aria-hidden="true"></span>
 											</a>
@@ -1000,12 +1009,12 @@
 									   </th>
 									   
 									   <th>
-											<a  style="font-size:10px; width:75px;" class="btn btn-outline-secondary btn-sm" th:href="@{/escalas/atalho/ciclo10_f}"
+											<a  style="font-size:10px; width:75px;" class="btn btn-outline-secondary btn-sm" th:href="@{/escalas/atalho/ciclo10/f}"
 												role="button"> <span>SAB T</span><span  
 												title="Cadastro" aria-hidden="true"></span>
 											</a>
 											
-											<a  style="font-size:10px; width:75px;" class="btn btn-outline-secondary btn-sm" th:href="@{/escalas/atalho/ciclo10_g}"
+											<a  style="font-size:10px; width:75px;" class="btn btn-outline-secondary btn-sm" th:href="@{/escalas/atalho/ciclo10/g}"
 												role="button"> <span>DOM T</span><span  
 												title="Cadastro" aria-hidden="true"></span>
 											</a>
@@ -1014,12 +1023,12 @@
 									   </th>
 									   
 									   <th>
-											<a  style="font-size:10px; width:75px;" class="btn btn-outline-secondary btn-sm" th:href="@{/escalas/atalho/ciclo11_f}"
+											<a  style="font-size:10px; width:75px;" class="btn btn-outline-secondary btn-sm" th:href="@{/escalas/atalho/ciclo11/f}"
 												role="button"> <span>SAB MT</span><span  
 												title="Cadastro" aria-hidden="true"></span>
 											</a>
 											
-											<a  style="font-size:10px; width:75px;" class="btn btn-outline-secondary btn-sm" th:href="@{/escalas/atalho/ciclo11_g}"
+											<a  style="font-size:10px; width:75px;" class="btn btn-outline-secondary btn-sm" th:href="@{/escalas/atalho/ciclo11/g}"
 												role="button"> <span>DOM MT</span><span  
 												title="Cadastro" aria-hidden="true"></span>
 											</a>
@@ -1027,12 +1036,12 @@
 									   </th>
 									   
 									   <th>
-											<a  style="font-size:10px; width:75px;" class="btn btn-outline-secondary btn-sm" th:href="@{/escalas/atalho/ciclo12_f}"
+											<a  style="font-size:10px; width:75px;" class="btn btn-outline-secondary btn-sm" th:href="@{/escalas/atalho/ciclo12/f}"
 												role="button"> <span>SAB N</span><span  
 												title="Cadastro" aria-hidden="true"></span>
 											</a>
 											
-											<a  style="font-size:10px; width:75px;" class="btn btn-outline-secondary btn-sm" th:href="@{/escalas/atalho/ciclo12_g}"
+											<a  style="font-size:10px; width:75px;" class="btn btn-outline-secondary btn-sm" th:href="@{/escalas/atalho/ciclo12/g}"
 												role="button"> <span>DOM N</span><span  
 												title="Cadastro" aria-hidden="true"></span>
 											</a>

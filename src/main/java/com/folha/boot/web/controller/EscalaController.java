@@ -2,6 +2,7 @@ package com.folha.boot.web.controller;
 
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -10,6 +11,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.apache.commons.compress.utils.IOUtils;
+import org.hibernate.annotations.Parameter;
 import org.springframework.beans.factory.ObjectFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.InputStreamResource;
@@ -24,6 +26,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
@@ -52,6 +55,7 @@ import com.folha.boot.domain.PessoaFuncionarios;
 import com.folha.boot.domain.PessoaIncrementoDeRisco;
 import com.folha.boot.domain.PessoaIncrementoDeRiscoSede;
 import com.folha.boot.domain.PessoaOperadores;
+import com.folha.boot.domain.RegimeDeTrabalhoTurno;
 import com.folha.boot.domain.RegimesDeTrabalho;
 import com.folha.boot.domain.SimNao;
 import com.folha.boot.domain.TiposDeDocumento;
@@ -82,6 +86,7 @@ import com.folha.boot.service.EscalaPosTransparenciaService;
 import com.folha.boot.service.EscalaService;
 import com.folha.boot.service.FaixasValoresParametrosCalculoFolhasExtrasService;
 import com.folha.boot.service.IncompatibilidadeCodigoDiferenciadoCodigoDiferenciadoService;
+import com.folha.boot.service.IncompatibilidadeFolhaFolhaService;
 import com.folha.boot.service.IncrementoDeRiscoUnidadeCargoService;
 import com.folha.boot.service.PessoaChDifService;
 import com.folha.boot.service.PessoaCodDiferenciadoService;
@@ -94,6 +99,7 @@ import com.folha.boot.service.PessoaIncrementoDeRiscoService;
 import com.folha.boot.service.PessoaOperadoresService;
 import com.folha.boot.service.PessoaService;
 import com.folha.boot.service.PreRequisitoCodigoDiferenciadoCodigoDiferenciadoService;
+import com.folha.boot.service.RegimeDeTrabalhoTurnoService;
 import com.folha.boot.service.RegimesDeTrabalhoService;
 import com.folha.boot.service.SimNaoService;
 import com.folha.boot.service.TiposDeDocumentoService;
@@ -207,6 +213,10 @@ public class EscalaController {
 	PreRequisitoCodigoDiferenciadoCodigoDiferenciadoService preRequisitoCodigoDiferenciadoCodigoDiferenciadoService;
 	@Autowired
 	IncompatibilidadeCodigoDiferenciadoCodigoDiferenciadoService incompatibilidadeCodigoDiferenciadoCodigoDiferenciadoService;
+	@Autowired
+	private RegimeDeTrabalhoTurnoService regimeDeTrabalhoTurnoService;
+	@Autowired
+	private IncompatibilidadeFolhaFolhaService incompatibilidadeFolhaFolhaService;
 	
 	
 	
@@ -631,8 +641,6 @@ public class EscalaController {
 		
 		escala = service.buscarPorId(id);
 		
-		//this.escalaAtual = escala;
-		
 		//comando para armazenar a escala na sessão
         session.setAttribute("escalaAtual", escala  );
 		
@@ -669,6 +677,43 @@ public class EscalaController {
 		model.addAttribute("nomeColuna5", nomeColuna5 );
 		model.addAttribute("nomeColuna6", nomeColuna6 );
 		model.addAttribute("nomeColuna7", nomeColuna7 );
+		
+		
+		// Pegando os turnos compatíveis
+		List<Turnos> listaTurnos = regimeDeTrabalhoTurnoService.buscarPorRegimesEUnidadeEFolha(escala);
+		
+		model.addAttribute("dia01FkCompativel",  listaTurnos);
+		model.addAttribute("dia02FkCompativel",  listaTurnos);
+		model.addAttribute("dia03FkCompativel",  listaTurnos);
+		model.addAttribute("dia04FkCompativel",  listaTurnos);
+		model.addAttribute("dia05FkCompativel",  listaTurnos);
+		model.addAttribute("dia06FkCompativel",  listaTurnos);
+		model.addAttribute("dia07FkCompativel",  listaTurnos);
+		model.addAttribute("dia08FkCompativel",  listaTurnos);
+		model.addAttribute("dia09FkCompativel",  listaTurnos);
+		model.addAttribute("dia10FkCompativel",  listaTurnos);
+		model.addAttribute("dia11FkCompativel",  listaTurnos);
+		model.addAttribute("dia12FkCompativel",  listaTurnos);
+		model.addAttribute("dia13FkCompativel",  listaTurnos);
+		model.addAttribute("dia14FkCompativel",  listaTurnos);
+		model.addAttribute("dia15FkCompativel",  listaTurnos);
+		model.addAttribute("dia16FkCompativel",  listaTurnos);
+		model.addAttribute("dia17FkCompativel",  listaTurnos);
+		model.addAttribute("dia18FkCompativel",  listaTurnos);
+		model.addAttribute("dia19FkCompativel",  listaTurnos);
+		model.addAttribute("dia20FkCompativel",  listaTurnos);
+		model.addAttribute("dia21FkCompativel",  listaTurnos);
+		model.addAttribute("dia22FkCompativel",  listaTurnos);
+		model.addAttribute("dia23FkCompativel",  listaTurnos);
+		model.addAttribute("dia24FkCompativel",  listaTurnos);
+		model.addAttribute("dia25FkCompativel",  listaTurnos);
+		model.addAttribute("dia26FkCompativel",  listaTurnos);
+		model.addAttribute("dia27FkCompativel",  listaTurnos);
+		model.addAttribute("dia28FkCompativel",  listaTurnos);
+		model.addAttribute("dia29FkCompativel",  listaTurnos);
+		model.addAttribute("dia30FkCompativel",  listaTurnos);
+		model.addAttribute("dia31FkCompativel",  listaTurnos);
+		
 		
 		//this.escalaAtual = escala;
 		
@@ -816,7 +861,15 @@ public class EscalaController {
 		escala.setIdOperadorMudancaFk(usuarioService.pegarOperadorLogado());
 		escala.setDtMudanca(new Date());
 		
-
+		//Avaliando incompatibilidade folha folha
+		boolean incompatibilidadeFolhaFolha = incompatibilidadeFolhaFolhaService.incompativelFolhaFolha(escala);
+		if(incompatibilidadeFolhaFolha==true) {
+			return "redirect:/escalas/mensagem/de/incompatibilidade/folha/folha";
+		}
+		
+		
+		
+		
 		//Avaliando Efetivo dando Extra sem cumprir a CH Efetiva
 		boolean extraSemCumprirEfetivo = escalaCompatibilidadeService.horasExtrasSemEfetivas(escala);
 		if(extraSemCumprirEfetivo==true) {
@@ -1426,7 +1479,7 @@ public class EscalaController {
 	
 	// Atalhos Escala
 	
-	@GetMapping("/atalho/limpar_escala/choque")
+	@GetMapping("/atalho/limpar/escala/choque")
 	public String atalhoLimparEscalaChoque( RedirectAttributes attr, String critica) {	
 		//Tratando escala Bloqueada
 		if(anoMesService.buscarPorId(mesAtual()).getIdEscalaBloqueadaFk().getSigla().equalsIgnoreCase("S")) {
@@ -1434,14 +1487,10 @@ public class EscalaController {
 		}		
 		
 		Escala escala = service.buscarPorId(ultimoIdEscala());
-		escala = escalaAtalhosService.atalhoLimaprEscala(escala);
+		escala = escalaAtalhosService.atalhoLimparEscala(escala);
 		escala = escalaCalculosService.converteTurnoNuloEmFolga(escala);
 		escala = escalaCalculosService.calcularDadosEscala(escala);
-		//Avaliando Efetivo dando Extra sem cumprir a CH Efetiva
-		boolean extraSemCumprirEfetivo = escalaCompatibilidadeService.horasExtrasSemEfetivas(escala);
-		if(extraSemCumprirEfetivo==true) {
-			return "redirect:/escalas/mensagem/de/efetivo/com/extra/sem/ch/efetiva/informada";
-		}
+		
 		
 		
 		salvar(escala, null, null);
@@ -1451,7 +1500,7 @@ public class EscalaController {
 		return "redirect:/escalas/alterar/escala/"+escala.getId();
 	}
 	
-	@GetMapping("/atalho/limpar_escala")
+	@GetMapping("/atalho/limpar/escala")
 	public String atalhoLimparEscala( RedirectAttributes attr) {
 		//Tratando escala Bloqueada
 		if(anoMesService.buscarPorId(mesAtual()).getIdEscalaBloqueadaFk().getSigla().equalsIgnoreCase("S")) {
@@ -1460,7 +1509,7 @@ public class EscalaController {
 
 		Escala escala = service.buscarPorId(ultimoIdEscala());
 		escala = escalaCalculosService.converteTurnoNuloEmFolga(escala);
-		escala = escalaAtalhosService.atalhoLimaprEscala(escala);
+		escala = escalaAtalhosService.atalhoLimparEscala(escala);
 		escala = escalaCalculosService.converteTurnoNuloEmFolga(escala);
 		escala = escalaCalculosService.calcularDadosEscala(escala);
 		salvar(escala, null, null);
@@ -1469,7 +1518,9 @@ public class EscalaController {
 		return "redirect:/escalas/alterar/escala/"+escala.getId();
 	}
 	
-	@GetMapping("/atalho/diarista_manha")
+	
+	/*
+	@GetMapping("/atalho/diarista/manha")
 	public String atalhoDiaristaManha( RedirectAttributes attr) {
 		//Tratando escala Bloqueada
 		if(anoMesService.buscarPorId(mesAtual()).getIdEscalaBloqueadaFk().getSigla().equalsIgnoreCase("S")) {
@@ -1508,48 +1559,203 @@ public class EscalaController {
 		
 		return "redirect:/escalas/alterar/escala/"+escala.getId();
 	}
+	*/
 	
-	@GetMapping("/atalho/diarista_tarde")
-	public String atalhoDiaristaTarde( RedirectAttributes attr) {	
+	
+	
+	
+	@GetMapping("/atalho/diarista/manha")
+	public String atalhoDiaristaManha(	RedirectAttributes attr, ModelMap model) {
+		
 		//Tratando escala Bloqueada
 		if(anoMesService.buscarPorId(mesAtual()).getIdEscalaBloqueadaFk().getSigla().equalsIgnoreCase("S")) {
 		return "redirect:/escalas/mensagem/de/escala/bloqueada";
 		}		
-		
+
 		Escala escalaA = service.buscarPorId(ultimoIdEscala());
 		Escala escala = service.converteDeEscalaParaEscalaComId(escalaA);
+		
+		escala = escalaCalculosService.converteTurnoNuloEmFolga(escala);
+		escala = escalaAtalhosService.atalhoDiaristasManha(escala);
+		escala = escalaCalculosService.converteTurnoNuloEmFolga(escala);
+		escala = escalaCalculosService.calcularDadosEscala(escala);
+		
+		String anoMesDaEscala = "202105";
+		if(escala!=null){anoMesDaEscala = escala.getIdAnoMesFk().getNomeAnoMes();}
+		int qtdDiasNoMes = escalaCalculosService.quantidadeDeDiasNoMes(anoMesDaEscala);
+		
+		// CALCULANDO OS DIAS DO MES
+		String nomeColuna1 = escalaCalculosService.obtemNomeDiaColuna(anoMesDaEscala, 1);
+		String nomeColuna2 = escalaCalculosService.obtemNomeDiaColuna(anoMesDaEscala, 2);
+		String nomeColuna3 = escalaCalculosService.obtemNomeDiaColuna(anoMesDaEscala, 3);
+		String nomeColuna4 = escalaCalculosService.obtemNomeDiaColuna(anoMesDaEscala, 4);
+		String nomeColuna5 = escalaCalculosService.obtemNomeDiaColuna(anoMesDaEscala, 5);
+		String nomeColuna6 = escalaCalculosService.obtemNomeDiaColuna(anoMesDaEscala, 6);
+		String nomeColuna7 = escalaCalculosService.obtemNomeDiaColuna(anoMesDaEscala, 7);
+		// falta complemento de planantao compativel
+		
+		model.addAttribute("idCodigoDiferenciadoFkCompativel", escalaCompatibilidadeService.getCodigosDiferenciadoCompativel( escala) );
+		model.addAttribute("idChDifFkCompativel", pessoaChDifService.listaSimNaoCompativelComPessoa(usuarioService.pegarUnidadeLogada(), escala.getIdFuncionarioFk().getIdPessoaFk(), escala.getIdAnoMesFk()) );
+		model.addAttribute("idIncrementoDeRiscoCompativel", escalaCompatibilidadeService.getIncrementoDeRiscoCompativel(escala) );
+		model.addAttribute("idComplementoDePlantaoCompativel", escalaCompatibilidadeService.getComplementoDePlantaoCompativel(escala) );
+		
+	
+		model.addAttribute("escala", escala );
+		model.addAttribute("idLinha", escala.getId() );
+		model.addAttribute("qtdDiasNoMes", qtdDiasNoMes );
+		model.addAttribute("nomeColuna1", nomeColuna1 );
+		model.addAttribute("nomeColuna2", nomeColuna2 );
+		model.addAttribute("nomeColuna3", nomeColuna3 );
+		model.addAttribute("nomeColuna4", nomeColuna4 );
+		model.addAttribute("nomeColuna5", nomeColuna5 );
+		model.addAttribute("nomeColuna6", nomeColuna6 );
+		model.addAttribute("nomeColuna7", nomeColuna7 );
+		
+		
+		// Pegando os turnos compatíveis
+		List<Turnos> listaTurnos = regimeDeTrabalhoTurnoService.buscarPorRegimesEUnidadeEFolha(escala);
+		
+		model.addAttribute("dia01FkCompativel",  listaTurnos);
+		model.addAttribute("dia02FkCompativel",  listaTurnos);
+		model.addAttribute("dia03FkCompativel",  listaTurnos);
+		model.addAttribute("dia04FkCompativel",  listaTurnos);
+		model.addAttribute("dia05FkCompativel",  listaTurnos);
+		model.addAttribute("dia06FkCompativel",  listaTurnos);
+		model.addAttribute("dia07FkCompativel",  listaTurnos);
+		model.addAttribute("dia08FkCompativel",  listaTurnos);
+		model.addAttribute("dia09FkCompativel",  listaTurnos);
+		model.addAttribute("dia10FkCompativel",  listaTurnos);
+		model.addAttribute("dia11FkCompativel",  listaTurnos);
+		model.addAttribute("dia12FkCompativel",  listaTurnos);
+		model.addAttribute("dia13FkCompativel",  listaTurnos);
+		model.addAttribute("dia14FkCompativel",  listaTurnos);
+		model.addAttribute("dia15FkCompativel",  listaTurnos);
+		model.addAttribute("dia16FkCompativel",  listaTurnos);
+		model.addAttribute("dia17FkCompativel",  listaTurnos);
+		model.addAttribute("dia18FkCompativel",  listaTurnos);
+		model.addAttribute("dia19FkCompativel",  listaTurnos);
+		model.addAttribute("dia20FkCompativel",  listaTurnos);
+		model.addAttribute("dia21FkCompativel",  listaTurnos);
+		model.addAttribute("dia22FkCompativel",  listaTurnos);
+		model.addAttribute("dia23FkCompativel",  listaTurnos);
+		model.addAttribute("dia24FkCompativel",  listaTurnos);
+		model.addAttribute("dia25FkCompativel",  listaTurnos);
+		model.addAttribute("dia26FkCompativel",  listaTurnos);
+		model.addAttribute("dia27FkCompativel",  listaTurnos);
+		model.addAttribute("dia28FkCompativel",  listaTurnos);
+		model.addAttribute("dia29FkCompativel",  listaTurnos);
+		model.addAttribute("dia30FkCompativel",  listaTurnos);
+		model.addAttribute("dia31FkCompativel",  listaTurnos);
+		
+		
+		//this.escalaAtual = escala;
+		
+		//comando para armazenar a escala na sessão
+		HttpSession session = httpSessionFactory.getObject();
+        session.setAttribute("escalaAtual", escala  );
+		
+		
+		return "/escala/editar";
+	}
+	
+	
+	
+	@GetMapping("/atalho/diarista/tarde")
+	public String atalhoDiaristaTarde( RedirectAttributes attr, ModelMap model) {	
+		
+		//Tratando escala Bloqueada
+		if(anoMesService.buscarPorId(mesAtual()).getIdEscalaBloqueadaFk().getSigla().equalsIgnoreCase("S")) {
+		return "redirect:/escalas/mensagem/de/escala/bloqueada";
+		}		
 
+		Escala escalaA = service.buscarPorId(ultimoIdEscala());
+		Escala escala = service.converteDeEscalaParaEscalaComId(escalaA);
+		
 		escala = escalaCalculosService.converteTurnoNuloEmFolga(escala);
 		escala = escalaAtalhosService.atalhoDiaristasTarde(escala);
 		escala = escalaCalculosService.converteTurnoNuloEmFolga(escala);
 		escala = escalaCalculosService.calcularDadosEscala(escala);
 		
-		//Avaliando Efetivo dando Extra sem cumprir a CH Efetiva
-		boolean extraSemCumprirEfetivo = escalaCompatibilidadeService.horasExtrasSemEfetivas(escala);
-		if(extraSemCumprirEfetivo==true) {
-			return "redirect:/escalas/mensagem/de/efetivo/com/extra/sem/ch/efetiva/informada";
-		}
+		String anoMesDaEscala = "202105";
+		if(escala!=null){anoMesDaEscala = escala.getIdAnoMesFk().getNomeAnoMes();}
+		int qtdDiasNoMes = escalaCalculosService.quantidadeDeDiasNoMes(anoMesDaEscala);
 		
-		//AVALIAÇÃO PARA SABER SE TEM CHOQUES
-		//this.choque = service.choquesEmEscalaOnipresenca(escala);
-		//comando para armazenar choque na sessão
-        HttpSession session = httpSessionFactory.getObject();
-        session.setAttribute("choque", service.choquesEmEscalaOnipresenca(escala)  );
-		//this.choqueDescansoDepoisNoturno = service.choquesEmEscalaDepoisDoNoturno(escala);
-        //comando para armazenar choque na sessão
-        session.setAttribute("choqueDescansoDepoisNoturno", service.choquesEmEscalaDepoisDoNoturno(escala)  );
-		if(choqueDescansoDepoisNoturno().length()>0) {attr.addFlashAttribute("fail", choqueDescansoDepoisNoturno()); return atalhoLimparEscalaChoque(attr, choqueDescansoDepoisNoturno()); }
-		if(choque().length()>0) {attr.addFlashAttribute("fail", choque()); return atalhoLimparEscalaChoque(attr, choque());  }
-		if((choqueDescansoDepoisNoturno().length()==0) && (choque().length()==0)) {
-			salvar(escala, null, null);
-			session = httpSessionFactory.getObject(); session.setAttribute("ultimoIdEscala", escala.getId()  );
-			attr.addFlashAttribute("success", "Confirme CH Dif, Incremento de Risco, Diferenciado, Regime e Turma antes de Lançar.");
-		}
-		return "redirect:/escalas/alterar/escala/"+escala.getId();
-	}
+		// CALCULANDO OS DIAS DO MES
+		String nomeColuna1 = escalaCalculosService.obtemNomeDiaColuna(anoMesDaEscala, 1);
+		String nomeColuna2 = escalaCalculosService.obtemNomeDiaColuna(anoMesDaEscala, 2);
+		String nomeColuna3 = escalaCalculosService.obtemNomeDiaColuna(anoMesDaEscala, 3);
+		String nomeColuna4 = escalaCalculosService.obtemNomeDiaColuna(anoMesDaEscala, 4);
+		String nomeColuna5 = escalaCalculosService.obtemNomeDiaColuna(anoMesDaEscala, 5);
+		String nomeColuna6 = escalaCalculosService.obtemNomeDiaColuna(anoMesDaEscala, 6);
+		String nomeColuna7 = escalaCalculosService.obtemNomeDiaColuna(anoMesDaEscala, 7);
+		// falta complemento de planantao compativel
+		
+		model.addAttribute("idCodigoDiferenciadoFkCompativel", escalaCompatibilidadeService.getCodigosDiferenciadoCompativel( escala) );
+		model.addAttribute("idChDifFkCompativel", pessoaChDifService.listaSimNaoCompativelComPessoa(usuarioService.pegarUnidadeLogada(), escala.getIdFuncionarioFk().getIdPessoaFk(), escala.getIdAnoMesFk()) );
+		model.addAttribute("idIncrementoDeRiscoCompativel", escalaCompatibilidadeService.getIncrementoDeRiscoCompativel(escala) );
+		model.addAttribute("idComplementoDePlantaoCompativel", escalaCompatibilidadeService.getComplementoDePlantaoCompativel(escala) );
+		
 	
-	@GetMapping("/atalho/diarista_dia")
-	public String atalhoDiaristaDia( RedirectAttributes attr) {	
+		model.addAttribute("escala", escala );
+		model.addAttribute("idLinha", escala.getId() );
+		model.addAttribute("qtdDiasNoMes", qtdDiasNoMes );
+		model.addAttribute("nomeColuna1", nomeColuna1 );
+		model.addAttribute("nomeColuna2", nomeColuna2 );
+		model.addAttribute("nomeColuna3", nomeColuna3 );
+		model.addAttribute("nomeColuna4", nomeColuna4 );
+		model.addAttribute("nomeColuna5", nomeColuna5 );
+		model.addAttribute("nomeColuna6", nomeColuna6 );
+		model.addAttribute("nomeColuna7", nomeColuna7 );
+		
+		
+		// Pegando os turnos compatíveis
+		List<Turnos> listaTurnos = regimeDeTrabalhoTurnoService.buscarPorRegimesEUnidadeEFolha(escala);
+		
+		model.addAttribute("dia01FkCompativel",  listaTurnos);
+		model.addAttribute("dia02FkCompativel",  listaTurnos);
+		model.addAttribute("dia03FkCompativel",  listaTurnos);
+		model.addAttribute("dia04FkCompativel",  listaTurnos);
+		model.addAttribute("dia05FkCompativel",  listaTurnos);
+		model.addAttribute("dia06FkCompativel",  listaTurnos);
+		model.addAttribute("dia07FkCompativel",  listaTurnos);
+		model.addAttribute("dia08FkCompativel",  listaTurnos);
+		model.addAttribute("dia09FkCompativel",  listaTurnos);
+		model.addAttribute("dia10FkCompativel",  listaTurnos);
+		model.addAttribute("dia11FkCompativel",  listaTurnos);
+		model.addAttribute("dia12FkCompativel",  listaTurnos);
+		model.addAttribute("dia13FkCompativel",  listaTurnos);
+		model.addAttribute("dia14FkCompativel",  listaTurnos);
+		model.addAttribute("dia15FkCompativel",  listaTurnos);
+		model.addAttribute("dia16FkCompativel",  listaTurnos);
+		model.addAttribute("dia17FkCompativel",  listaTurnos);
+		model.addAttribute("dia18FkCompativel",  listaTurnos);
+		model.addAttribute("dia19FkCompativel",  listaTurnos);
+		model.addAttribute("dia20FkCompativel",  listaTurnos);
+		model.addAttribute("dia21FkCompativel",  listaTurnos);
+		model.addAttribute("dia22FkCompativel",  listaTurnos);
+		model.addAttribute("dia23FkCompativel",  listaTurnos);
+		model.addAttribute("dia24FkCompativel",  listaTurnos);
+		model.addAttribute("dia25FkCompativel",  listaTurnos);
+		model.addAttribute("dia26FkCompativel",  listaTurnos);
+		model.addAttribute("dia27FkCompativel",  listaTurnos);
+		model.addAttribute("dia28FkCompativel",  listaTurnos);
+		model.addAttribute("dia29FkCompativel",  listaTurnos);
+		model.addAttribute("dia30FkCompativel",  listaTurnos);
+		model.addAttribute("dia31FkCompativel",  listaTurnos);
+		
+		
+		//this.escalaAtual = escala;
+		
+		//comando para armazenar a escala na sessão
+		HttpSession session = httpSessionFactory.getObject();
+        session.setAttribute("escalaAtual", escala  );
+		
+		
+		return "/escala/editar";	}
+	
+	@GetMapping("/atalho/diarista/dia")
+	public String atalhoDiaristaDia( RedirectAttributes attr, ModelMap model) {	
+		
 		//Tratando escala Bloqueada
 		if(anoMesService.buscarPorId(mesAtual()).getIdEscalaBloqueadaFk().getSigla().equalsIgnoreCase("S")) {
 		return "redirect:/escalas/mensagem/de/escala/bloqueada";
@@ -1557,38 +1763,93 @@ public class EscalaController {
 
 		Escala escalaA = service.buscarPorId(ultimoIdEscala());
 		Escala escala = service.converteDeEscalaParaEscalaComId(escalaA);
-
+		
 		escala = escalaCalculosService.converteTurnoNuloEmFolga(escala);
 		escala = escalaAtalhosService.atalhoDiaristasDia(escala);
 		escala = escalaCalculosService.converteTurnoNuloEmFolga(escala);
 		escala = escalaCalculosService.calcularDadosEscala(escala);
 		
-		//Avaliando Efetivo dando Extra sem cumprir a CH Efetiva
-		boolean extraSemCumprirEfetivo = escalaCompatibilidadeService.horasExtrasSemEfetivas(escala);
-		if(extraSemCumprirEfetivo==true) {
-			return "redirect:/escalas/mensagem/de/efetivo/com/extra/sem/ch/efetiva/informada";
-		}
+		String anoMesDaEscala = "202105";
+		if(escala!=null){anoMesDaEscala = escala.getIdAnoMesFk().getNomeAnoMes();}
+		int qtdDiasNoMes = escalaCalculosService.quantidadeDeDiasNoMes(anoMesDaEscala);
 		
-		//AVALIAÇÃO PARA SABER SE TEM CHOQUES
-		//this.choque = service.choquesEmEscalaOnipresenca(escala);
-		//comando para armazenar choque na sessão
-        HttpSession session = httpSessionFactory.getObject();
-        session.setAttribute("choque", service.choquesEmEscalaOnipresenca(escala)  );
-		//this.choqueDescansoDepoisNoturno = service.choquesEmEscalaDepoisDoNoturno(escala);
-        //comando para armazenar choque na sessão
-        session.setAttribute("choqueDescansoDepoisNoturno", service.choquesEmEscalaDepoisDoNoturno(escala)  );
-		if(choqueDescansoDepoisNoturno().length()>0) {attr.addFlashAttribute("fail", choqueDescansoDepoisNoturno()); return atalhoLimparEscalaChoque(attr, choqueDescansoDepoisNoturno()); }
-		if(choque().length()>0) {attr.addFlashAttribute("fail", choque()); return atalhoLimparEscalaChoque(attr, choque());  }
-		if((choqueDescansoDepoisNoturno().length()==0) && (choque().length()==0)) {
-			salvar(escala, null, null);
-			session = httpSessionFactory.getObject(); session.setAttribute("ultimoIdEscala", escala.getId()  );
-			attr.addFlashAttribute("success", "Confirme CH Dif, Incremento de Risco, Diferenciado, Regime e Turma antes de Lançar.");
-		}
-		return "redirect:/escalas/alterar/escala/"+escala.getId();
+		// CALCULANDO OS DIAS DO MES
+		String nomeColuna1 = escalaCalculosService.obtemNomeDiaColuna(anoMesDaEscala, 1);
+		String nomeColuna2 = escalaCalculosService.obtemNomeDiaColuna(anoMesDaEscala, 2);
+		String nomeColuna3 = escalaCalculosService.obtemNomeDiaColuna(anoMesDaEscala, 3);
+		String nomeColuna4 = escalaCalculosService.obtemNomeDiaColuna(anoMesDaEscala, 4);
+		String nomeColuna5 = escalaCalculosService.obtemNomeDiaColuna(anoMesDaEscala, 5);
+		String nomeColuna6 = escalaCalculosService.obtemNomeDiaColuna(anoMesDaEscala, 6);
+		String nomeColuna7 = escalaCalculosService.obtemNomeDiaColuna(anoMesDaEscala, 7);
+		// falta complemento de planantao compativel
+		
+		model.addAttribute("idCodigoDiferenciadoFkCompativel", escalaCompatibilidadeService.getCodigosDiferenciadoCompativel( escala) );
+		model.addAttribute("idChDifFkCompativel", pessoaChDifService.listaSimNaoCompativelComPessoa(usuarioService.pegarUnidadeLogada(), escala.getIdFuncionarioFk().getIdPessoaFk(), escala.getIdAnoMesFk()) );
+		model.addAttribute("idIncrementoDeRiscoCompativel", escalaCompatibilidadeService.getIncrementoDeRiscoCompativel(escala) );
+		model.addAttribute("idComplementoDePlantaoCompativel", escalaCompatibilidadeService.getComplementoDePlantaoCompativel(escala) );
+		
+	
+		model.addAttribute("escala", escala );
+		model.addAttribute("idLinha", escala.getId() );
+		model.addAttribute("qtdDiasNoMes", qtdDiasNoMes );
+		model.addAttribute("nomeColuna1", nomeColuna1 );
+		model.addAttribute("nomeColuna2", nomeColuna2 );
+		model.addAttribute("nomeColuna3", nomeColuna3 );
+		model.addAttribute("nomeColuna4", nomeColuna4 );
+		model.addAttribute("nomeColuna5", nomeColuna5 );
+		model.addAttribute("nomeColuna6", nomeColuna6 );
+		model.addAttribute("nomeColuna7", nomeColuna7 );
+		
+		
+		// Pegando os turnos compatíveis
+		List<Turnos> listaTurnos = regimeDeTrabalhoTurnoService.buscarPorRegimesEUnidadeEFolha(escala);
+		
+		model.addAttribute("dia01FkCompativel",  listaTurnos);
+		model.addAttribute("dia02FkCompativel",  listaTurnos);
+		model.addAttribute("dia03FkCompativel",  listaTurnos);
+		model.addAttribute("dia04FkCompativel",  listaTurnos);
+		model.addAttribute("dia05FkCompativel",  listaTurnos);
+		model.addAttribute("dia06FkCompativel",  listaTurnos);
+		model.addAttribute("dia07FkCompativel",  listaTurnos);
+		model.addAttribute("dia08FkCompativel",  listaTurnos);
+		model.addAttribute("dia09FkCompativel",  listaTurnos);
+		model.addAttribute("dia10FkCompativel",  listaTurnos);
+		model.addAttribute("dia11FkCompativel",  listaTurnos);
+		model.addAttribute("dia12FkCompativel",  listaTurnos);
+		model.addAttribute("dia13FkCompativel",  listaTurnos);
+		model.addAttribute("dia14FkCompativel",  listaTurnos);
+		model.addAttribute("dia15FkCompativel",  listaTurnos);
+		model.addAttribute("dia16FkCompativel",  listaTurnos);
+		model.addAttribute("dia17FkCompativel",  listaTurnos);
+		model.addAttribute("dia18FkCompativel",  listaTurnos);
+		model.addAttribute("dia19FkCompativel",  listaTurnos);
+		model.addAttribute("dia20FkCompativel",  listaTurnos);
+		model.addAttribute("dia21FkCompativel",  listaTurnos);
+		model.addAttribute("dia22FkCompativel",  listaTurnos);
+		model.addAttribute("dia23FkCompativel",  listaTurnos);
+		model.addAttribute("dia24FkCompativel",  listaTurnos);
+		model.addAttribute("dia25FkCompativel",  listaTurnos);
+		model.addAttribute("dia26FkCompativel",  listaTurnos);
+		model.addAttribute("dia27FkCompativel",  listaTurnos);
+		model.addAttribute("dia28FkCompativel",  listaTurnos);
+		model.addAttribute("dia29FkCompativel",  listaTurnos);
+		model.addAttribute("dia30FkCompativel",  listaTurnos);
+		model.addAttribute("dia31FkCompativel",  listaTurnos);
+		
+		
+		//this.escalaAtual = escala;
+		
+		//comando para armazenar a escala na sessão
+		HttpSession session = httpSessionFactory.getObject();
+        session.setAttribute("escalaAtual", escala  );
+		
+		
+		return "/escala/editar";
 	}
 	
-	@GetMapping("/atalho/mt_dias_impares")
-	public String atalhoMTDiasImpares( RedirectAttributes attr) {	
+	@GetMapping("/atalho/mt/dias/impares")
+	public String atalhoMTDiasImpares( RedirectAttributes attr, ModelMap model) {	
+		
 		//Tratando escala Bloqueada
 		if(anoMesService.buscarPorId(mesAtual()).getIdEscalaBloqueadaFk().getSigla().equalsIgnoreCase("S")) {
 		return "redirect:/escalas/mensagem/de/escala/bloqueada";
@@ -1596,38 +1857,93 @@ public class EscalaController {
 
 		Escala escalaA = service.buscarPorId(ultimoIdEscala());
 		Escala escala = service.converteDeEscalaParaEscalaComId(escalaA);
-
+		
 		escala = escalaCalculosService.converteTurnoNuloEmFolga(escala);
 		escala = escalaAtalhosService.atalhoMTDiasImpares(escala);
 		escala = escalaCalculosService.converteTurnoNuloEmFolga(escala);
 		escala = escalaCalculosService.calcularDadosEscala(escala);
 		
-		//Avaliando Efetivo dando Extra sem cumprir a CH Efetiva
-		boolean extraSemCumprirEfetivo = escalaCompatibilidadeService.horasExtrasSemEfetivas(escala);
-		if(extraSemCumprirEfetivo==true) {
-			return "redirect:/escalas/mensagem/de/efetivo/com/extra/sem/ch/efetiva/informada";
-		}
+		String anoMesDaEscala = "202105";
+		if(escala!=null){anoMesDaEscala = escala.getIdAnoMesFk().getNomeAnoMes();}
+		int qtdDiasNoMes = escalaCalculosService.quantidadeDeDiasNoMes(anoMesDaEscala);
 		
-		//AVALIAÇÃO PARA SABER SE TEM CHOQUES
-		//this.choque = service.choquesEmEscalaOnipresenca(escala);
-		//comando para armazenar choque na sessão
-        HttpSession session = httpSessionFactory.getObject();
-        session.setAttribute("choque", service.choquesEmEscalaOnipresenca(escala)  );
-		//this.choqueDescansoDepoisNoturno = service.choquesEmEscalaDepoisDoNoturno(escala);
-        //comando para armazenar choque na sessão
-        session.setAttribute("choqueDescansoDepoisNoturno", service.choquesEmEscalaDepoisDoNoturno(escala)  );
-		if(choqueDescansoDepoisNoturno().length()>0) {attr.addFlashAttribute("fail", choqueDescansoDepoisNoturno()); return atalhoLimparEscalaChoque(attr, choqueDescansoDepoisNoturno()); }
-		if(choque().length()>0) {attr.addFlashAttribute("fail", choque()); return atalhoLimparEscalaChoque(attr, choque());  }
-		if((choqueDescansoDepoisNoturno().length()==0) && (choque().length()==0)) {
-			salvar(escala, null, null);
-			session = httpSessionFactory.getObject(); session.setAttribute("ultimoIdEscala", escala.getId()  );
-			attr.addFlashAttribute("success", "Confirme CH Dif, Incremento de Risco, Diferenciado, Regime e Turma antes de Lançar.");
-		}
-		return "redirect:/escalas/alterar/escala/"+escala.getId();
+		// CALCULANDO OS DIAS DO MES
+		String nomeColuna1 = escalaCalculosService.obtemNomeDiaColuna(anoMesDaEscala, 1);
+		String nomeColuna2 = escalaCalculosService.obtemNomeDiaColuna(anoMesDaEscala, 2);
+		String nomeColuna3 = escalaCalculosService.obtemNomeDiaColuna(anoMesDaEscala, 3);
+		String nomeColuna4 = escalaCalculosService.obtemNomeDiaColuna(anoMesDaEscala, 4);
+		String nomeColuna5 = escalaCalculosService.obtemNomeDiaColuna(anoMesDaEscala, 5);
+		String nomeColuna6 = escalaCalculosService.obtemNomeDiaColuna(anoMesDaEscala, 6);
+		String nomeColuna7 = escalaCalculosService.obtemNomeDiaColuna(anoMesDaEscala, 7);
+		// falta complemento de planantao compativel
+		
+		model.addAttribute("idCodigoDiferenciadoFkCompativel", escalaCompatibilidadeService.getCodigosDiferenciadoCompativel( escala) );
+		model.addAttribute("idChDifFkCompativel", pessoaChDifService.listaSimNaoCompativelComPessoa(usuarioService.pegarUnidadeLogada(), escala.getIdFuncionarioFk().getIdPessoaFk(), escala.getIdAnoMesFk()) );
+		model.addAttribute("idIncrementoDeRiscoCompativel", escalaCompatibilidadeService.getIncrementoDeRiscoCompativel(escala) );
+		model.addAttribute("idComplementoDePlantaoCompativel", escalaCompatibilidadeService.getComplementoDePlantaoCompativel(escala) );
+		
+	
+		model.addAttribute("escala", escala );
+		model.addAttribute("idLinha", escala.getId() );
+		model.addAttribute("qtdDiasNoMes", qtdDiasNoMes );
+		model.addAttribute("nomeColuna1", nomeColuna1 );
+		model.addAttribute("nomeColuna2", nomeColuna2 );
+		model.addAttribute("nomeColuna3", nomeColuna3 );
+		model.addAttribute("nomeColuna4", nomeColuna4 );
+		model.addAttribute("nomeColuna5", nomeColuna5 );
+		model.addAttribute("nomeColuna6", nomeColuna6 );
+		model.addAttribute("nomeColuna7", nomeColuna7 );
+		
+		
+		// Pegando os turnos compatíveis
+		List<Turnos> listaTurnos = regimeDeTrabalhoTurnoService.buscarPorRegimesEUnidadeEFolha(escala);
+		
+		model.addAttribute("dia01FkCompativel",  listaTurnos);
+		model.addAttribute("dia02FkCompativel",  listaTurnos);
+		model.addAttribute("dia03FkCompativel",  listaTurnos);
+		model.addAttribute("dia04FkCompativel",  listaTurnos);
+		model.addAttribute("dia05FkCompativel",  listaTurnos);
+		model.addAttribute("dia06FkCompativel",  listaTurnos);
+		model.addAttribute("dia07FkCompativel",  listaTurnos);
+		model.addAttribute("dia08FkCompativel",  listaTurnos);
+		model.addAttribute("dia09FkCompativel",  listaTurnos);
+		model.addAttribute("dia10FkCompativel",  listaTurnos);
+		model.addAttribute("dia11FkCompativel",  listaTurnos);
+		model.addAttribute("dia12FkCompativel",  listaTurnos);
+		model.addAttribute("dia13FkCompativel",  listaTurnos);
+		model.addAttribute("dia14FkCompativel",  listaTurnos);
+		model.addAttribute("dia15FkCompativel",  listaTurnos);
+		model.addAttribute("dia16FkCompativel",  listaTurnos);
+		model.addAttribute("dia17FkCompativel",  listaTurnos);
+		model.addAttribute("dia18FkCompativel",  listaTurnos);
+		model.addAttribute("dia19FkCompativel",  listaTurnos);
+		model.addAttribute("dia20FkCompativel",  listaTurnos);
+		model.addAttribute("dia21FkCompativel",  listaTurnos);
+		model.addAttribute("dia22FkCompativel",  listaTurnos);
+		model.addAttribute("dia23FkCompativel",  listaTurnos);
+		model.addAttribute("dia24FkCompativel",  listaTurnos);
+		model.addAttribute("dia25FkCompativel",  listaTurnos);
+		model.addAttribute("dia26FkCompativel",  listaTurnos);
+		model.addAttribute("dia27FkCompativel",  listaTurnos);
+		model.addAttribute("dia28FkCompativel",  listaTurnos);
+		model.addAttribute("dia29FkCompativel",  listaTurnos);
+		model.addAttribute("dia30FkCompativel",  listaTurnos);
+		model.addAttribute("dia31FkCompativel",  listaTurnos);
+		
+		
+		//this.escalaAtual = escala;
+		
+		//comando para armazenar a escala na sessão
+		HttpSession session = httpSessionFactory.getObject();
+        session.setAttribute("escalaAtual", escala  );
+		
+		
+		return "/escala/editar";
 	}
 	
-	@GetMapping("/atalho/mt_dias_pares")
-	public String atalhoMTDiasPares( RedirectAttributes attr) {	
+	@GetMapping("/atalho/mt/dias/pares")
+	public String atalhoMTDiasPares( RedirectAttributes attr, ModelMap model) {	
+		
 		//Tratando escala Bloqueada
 		if(anoMesService.buscarPorId(mesAtual()).getIdEscalaBloqueadaFk().getSigla().equalsIgnoreCase("S")) {
 		return "redirect:/escalas/mensagem/de/escala/bloqueada";
@@ -1635,78 +1951,188 @@ public class EscalaController {
 
 		Escala escalaA = service.buscarPorId(ultimoIdEscala());
 		Escala escala = service.converteDeEscalaParaEscalaComId(escalaA);
-
+		
 		escala = escalaCalculosService.converteTurnoNuloEmFolga(escala);
 		escala = escalaAtalhosService.atalhoMTDiasPares(escala);
 		escala = escalaCalculosService.converteTurnoNuloEmFolga(escala);
 		escala = escalaCalculosService.calcularDadosEscala(escala);
 		
-		//Avaliando Efetivo dando Extra sem cumprir a CH Efetiva
-		boolean extraSemCumprirEfetivo = escalaCompatibilidadeService.horasExtrasSemEfetivas(escala);
-		if(extraSemCumprirEfetivo==true) {
-			return "redirect:/escalas/mensagem/de/efetivo/com/extra/sem/ch/efetiva/informada";
-		}
+		String anoMesDaEscala = "202105";
+		if(escala!=null){anoMesDaEscala = escala.getIdAnoMesFk().getNomeAnoMes();}
+		int qtdDiasNoMes = escalaCalculosService.quantidadeDeDiasNoMes(anoMesDaEscala);
 		
-		//AVALIAÇÃO PARA SABER SE TEM CHOQUES
-		//this.choque = service.choquesEmEscalaOnipresenca(escala);
-		//comando para armazenar choque na sessão
-        HttpSession session = httpSessionFactory.getObject();
-        session.setAttribute("choque", service.choquesEmEscalaOnipresenca(escala)  );
-		//this.choqueDescansoDepoisNoturno = service.choquesEmEscalaDepoisDoNoturno(escala);
-        //comando para armazenar choque na sessão
-        session.setAttribute("choqueDescansoDepoisNoturno", service.choquesEmEscalaDepoisDoNoturno(escala)  );
-		if(choqueDescansoDepoisNoturno().length()>0) {attr.addFlashAttribute("fail", choqueDescansoDepoisNoturno()); return atalhoLimparEscalaChoque(attr, choqueDescansoDepoisNoturno()); }
-		if(choque().length()>0) {attr.addFlashAttribute("fail", choque()); return atalhoLimparEscalaChoque(attr, choque());  }
-		if((choqueDescansoDepoisNoturno().length()==0) && (choque().length()==0)) {
-			salvar(escala, null, null);
-			session = httpSessionFactory.getObject(); session.setAttribute("ultimoIdEscala", escala.getId()  );
-			attr.addFlashAttribute("success", "Confirme CH Dif, Incremento de Risco, Diferenciado, Regime e Turma antes de Lançar.");
-		}
-		return "redirect:/escalas/alterar/escala/"+escala.getId();
+		// CALCULANDO OS DIAS DO MES
+		String nomeColuna1 = escalaCalculosService.obtemNomeDiaColuna(anoMesDaEscala, 1);
+		String nomeColuna2 = escalaCalculosService.obtemNomeDiaColuna(anoMesDaEscala, 2);
+		String nomeColuna3 = escalaCalculosService.obtemNomeDiaColuna(anoMesDaEscala, 3);
+		String nomeColuna4 = escalaCalculosService.obtemNomeDiaColuna(anoMesDaEscala, 4);
+		String nomeColuna5 = escalaCalculosService.obtemNomeDiaColuna(anoMesDaEscala, 5);
+		String nomeColuna6 = escalaCalculosService.obtemNomeDiaColuna(anoMesDaEscala, 6);
+		String nomeColuna7 = escalaCalculosService.obtemNomeDiaColuna(anoMesDaEscala, 7);
+		// falta complemento de planantao compativel
+		
+		model.addAttribute("idCodigoDiferenciadoFkCompativel", escalaCompatibilidadeService.getCodigosDiferenciadoCompativel( escala) );
+		model.addAttribute("idChDifFkCompativel", pessoaChDifService.listaSimNaoCompativelComPessoa(usuarioService.pegarUnidadeLogada(), escala.getIdFuncionarioFk().getIdPessoaFk(), escala.getIdAnoMesFk()) );
+		model.addAttribute("idIncrementoDeRiscoCompativel", escalaCompatibilidadeService.getIncrementoDeRiscoCompativel(escala) );
+		model.addAttribute("idComplementoDePlantaoCompativel", escalaCompatibilidadeService.getComplementoDePlantaoCompativel(escala) );
+		
+	
+		model.addAttribute("escala", escala );
+		model.addAttribute("idLinha", escala.getId() );
+		model.addAttribute("qtdDiasNoMes", qtdDiasNoMes );
+		model.addAttribute("nomeColuna1", nomeColuna1 );
+		model.addAttribute("nomeColuna2", nomeColuna2 );
+		model.addAttribute("nomeColuna3", nomeColuna3 );
+		model.addAttribute("nomeColuna4", nomeColuna4 );
+		model.addAttribute("nomeColuna5", nomeColuna5 );
+		model.addAttribute("nomeColuna6", nomeColuna6 );
+		model.addAttribute("nomeColuna7", nomeColuna7 );
+		
+		
+		// Pegando os turnos compatíveis
+		List<Turnos> listaTurnos = regimeDeTrabalhoTurnoService.buscarPorRegimesEUnidadeEFolha(escala);
+		
+		model.addAttribute("dia01FkCompativel",  listaTurnos);
+		model.addAttribute("dia02FkCompativel",  listaTurnos);
+		model.addAttribute("dia03FkCompativel",  listaTurnos);
+		model.addAttribute("dia04FkCompativel",  listaTurnos);
+		model.addAttribute("dia05FkCompativel",  listaTurnos);
+		model.addAttribute("dia06FkCompativel",  listaTurnos);
+		model.addAttribute("dia07FkCompativel",  listaTurnos);
+		model.addAttribute("dia08FkCompativel",  listaTurnos);
+		model.addAttribute("dia09FkCompativel",  listaTurnos);
+		model.addAttribute("dia10FkCompativel",  listaTurnos);
+		model.addAttribute("dia11FkCompativel",  listaTurnos);
+		model.addAttribute("dia12FkCompativel",  listaTurnos);
+		model.addAttribute("dia13FkCompativel",  listaTurnos);
+		model.addAttribute("dia14FkCompativel",  listaTurnos);
+		model.addAttribute("dia15FkCompativel",  listaTurnos);
+		model.addAttribute("dia16FkCompativel",  listaTurnos);
+		model.addAttribute("dia17FkCompativel",  listaTurnos);
+		model.addAttribute("dia18FkCompativel",  listaTurnos);
+		model.addAttribute("dia19FkCompativel",  listaTurnos);
+		model.addAttribute("dia20FkCompativel",  listaTurnos);
+		model.addAttribute("dia21FkCompativel",  listaTurnos);
+		model.addAttribute("dia22FkCompativel",  listaTurnos);
+		model.addAttribute("dia23FkCompativel",  listaTurnos);
+		model.addAttribute("dia24FkCompativel",  listaTurnos);
+		model.addAttribute("dia25FkCompativel",  listaTurnos);
+		model.addAttribute("dia26FkCompativel",  listaTurnos);
+		model.addAttribute("dia27FkCompativel",  listaTurnos);
+		model.addAttribute("dia28FkCompativel",  listaTurnos);
+		model.addAttribute("dia29FkCompativel",  listaTurnos);
+		model.addAttribute("dia30FkCompativel",  listaTurnos);
+		model.addAttribute("dia31FkCompativel",  listaTurnos);
+		
+		
+		//this.escalaAtual = escala;
+		
+		//comando para armazenar a escala na sessão
+		HttpSession session = httpSessionFactory.getObject();
+        session.setAttribute("escalaAtual", escala  );
+		
+		
+		return "/escala/editar";
 	}
 	
 	//Ciclo 1
-	@GetMapping("/atalho/ciclo1_a")
-	public String atalhoCiclo1A( RedirectAttributes attr) {	
+	@GetMapping("/atalho/ciclo1/a")
+	public String atalhoCiclo1A( RedirectAttributes attr, ModelMap model) {	
+		
 		//Tratando escala Bloqueada
 		if(anoMesService.buscarPorId(mesAtual()).getIdEscalaBloqueadaFk().getSigla().equalsIgnoreCase("S")) {
 		return "redirect:/escalas/mensagem/de/escala/bloqueada";
 		}		
-		
+
 		Escala escalaA = service.buscarPorId(ultimoIdEscala());
 		Escala escala = service.converteDeEscalaParaEscalaComId(escalaA);
-
+		
 		escala = escalaCalculosService.converteTurnoNuloEmFolga(escala);
 		escala = escalaAtalhosService.atalhoCiclo1A(escala);
 		escala = escalaCalculosService.converteTurnoNuloEmFolga(escala);
 		escala = escalaCalculosService.calcularDadosEscala(escala);
 		
-		//Avaliando Efetivo dando Extra sem cumprir a CH Efetiva
-		boolean extraSemCumprirEfetivo = escalaCompatibilidadeService.horasExtrasSemEfetivas(escala);
-		if(extraSemCumprirEfetivo==true) {
-			return "redirect:/escalas/mensagem/de/efetivo/com/extra/sem/ch/efetiva/informada";
-		}
+		String anoMesDaEscala = "202105";
+		if(escala!=null){anoMesDaEscala = escala.getIdAnoMesFk().getNomeAnoMes();}
+		int qtdDiasNoMes = escalaCalculosService.quantidadeDeDiasNoMes(anoMesDaEscala);
 		
-		//AVALIAÇÃO PARA SABER SE TEM CHOQUES
-		//this.choque = service.choquesEmEscalaOnipresenca(escala);
-		//comando para armazenar choque na sessão
-        HttpSession session = httpSessionFactory.getObject();
-        session.setAttribute("choque", service.choquesEmEscalaOnipresenca(escala)  );
-		//this.choqueDescansoDepoisNoturno = service.choquesEmEscalaDepoisDoNoturno(escala);
-        //comando para armazenar choque na sessão
-        session.setAttribute("choqueDescansoDepoisNoturno", service.choquesEmEscalaDepoisDoNoturno(escala)  );
-		if(choqueDescansoDepoisNoturno().length()>0) {attr.addFlashAttribute("fail", choqueDescansoDepoisNoturno()); return atalhoLimparEscalaChoque(attr, choqueDescansoDepoisNoturno()); }
-		if(choque().length()>0) {attr.addFlashAttribute("fail", choque()); return atalhoLimparEscalaChoque(attr, choque());  }
-		if((choqueDescansoDepoisNoturno().length()==0) && (choque().length()==0)) {
-			salvar(escala, null, null);
-			session = httpSessionFactory.getObject(); session.setAttribute("ultimoIdEscala", escala.getId()  );
-			attr.addFlashAttribute("success", "Confirme CH Dif, Incremento de Risco, Diferenciado, Regime e Turma antes de Lançar.");
-		}
-		return "redirect:/escalas/alterar/escala/"+escala.getId();
+		// CALCULANDO OS DIAS DO MES
+		String nomeColuna1 = escalaCalculosService.obtemNomeDiaColuna(anoMesDaEscala, 1);
+		String nomeColuna2 = escalaCalculosService.obtemNomeDiaColuna(anoMesDaEscala, 2);
+		String nomeColuna3 = escalaCalculosService.obtemNomeDiaColuna(anoMesDaEscala, 3);
+		String nomeColuna4 = escalaCalculosService.obtemNomeDiaColuna(anoMesDaEscala, 4);
+		String nomeColuna5 = escalaCalculosService.obtemNomeDiaColuna(anoMesDaEscala, 5);
+		String nomeColuna6 = escalaCalculosService.obtemNomeDiaColuna(anoMesDaEscala, 6);
+		String nomeColuna7 = escalaCalculosService.obtemNomeDiaColuna(anoMesDaEscala, 7);
+		// falta complemento de planantao compativel
+		
+		model.addAttribute("idCodigoDiferenciadoFkCompativel", escalaCompatibilidadeService.getCodigosDiferenciadoCompativel( escala) );
+		model.addAttribute("idChDifFkCompativel", pessoaChDifService.listaSimNaoCompativelComPessoa(usuarioService.pegarUnidadeLogada(), escala.getIdFuncionarioFk().getIdPessoaFk(), escala.getIdAnoMesFk()) );
+		model.addAttribute("idIncrementoDeRiscoCompativel", escalaCompatibilidadeService.getIncrementoDeRiscoCompativel(escala) );
+		model.addAttribute("idComplementoDePlantaoCompativel", escalaCompatibilidadeService.getComplementoDePlantaoCompativel(escala) );
+		
+	
+		model.addAttribute("escala", escala );
+		model.addAttribute("idLinha", escala.getId() );
+		model.addAttribute("qtdDiasNoMes", qtdDiasNoMes );
+		model.addAttribute("nomeColuna1", nomeColuna1 );
+		model.addAttribute("nomeColuna2", nomeColuna2 );
+		model.addAttribute("nomeColuna3", nomeColuna3 );
+		model.addAttribute("nomeColuna4", nomeColuna4 );
+		model.addAttribute("nomeColuna5", nomeColuna5 );
+		model.addAttribute("nomeColuna6", nomeColuna6 );
+		model.addAttribute("nomeColuna7", nomeColuna7 );
+		
+		
+		// Pegando os turnos compatíveis
+		List<Turnos> listaTurnos = regimeDeTrabalhoTurnoService.buscarPorRegimesEUnidadeEFolha(escala);
+		
+		model.addAttribute("dia01FkCompativel",  listaTurnos);
+		model.addAttribute("dia02FkCompativel",  listaTurnos);
+		model.addAttribute("dia03FkCompativel",  listaTurnos);
+		model.addAttribute("dia04FkCompativel",  listaTurnos);
+		model.addAttribute("dia05FkCompativel",  listaTurnos);
+		model.addAttribute("dia06FkCompativel",  listaTurnos);
+		model.addAttribute("dia07FkCompativel",  listaTurnos);
+		model.addAttribute("dia08FkCompativel",  listaTurnos);
+		model.addAttribute("dia09FkCompativel",  listaTurnos);
+		model.addAttribute("dia10FkCompativel",  listaTurnos);
+		model.addAttribute("dia11FkCompativel",  listaTurnos);
+		model.addAttribute("dia12FkCompativel",  listaTurnos);
+		model.addAttribute("dia13FkCompativel",  listaTurnos);
+		model.addAttribute("dia14FkCompativel",  listaTurnos);
+		model.addAttribute("dia15FkCompativel",  listaTurnos);
+		model.addAttribute("dia16FkCompativel",  listaTurnos);
+		model.addAttribute("dia17FkCompativel",  listaTurnos);
+		model.addAttribute("dia18FkCompativel",  listaTurnos);
+		model.addAttribute("dia19FkCompativel",  listaTurnos);
+		model.addAttribute("dia20FkCompativel",  listaTurnos);
+		model.addAttribute("dia21FkCompativel",  listaTurnos);
+		model.addAttribute("dia22FkCompativel",  listaTurnos);
+		model.addAttribute("dia23FkCompativel",  listaTurnos);
+		model.addAttribute("dia24FkCompativel",  listaTurnos);
+		model.addAttribute("dia25FkCompativel",  listaTurnos);
+		model.addAttribute("dia26FkCompativel",  listaTurnos);
+		model.addAttribute("dia27FkCompativel",  listaTurnos);
+		model.addAttribute("dia28FkCompativel",  listaTurnos);
+		model.addAttribute("dia29FkCompativel",  listaTurnos);
+		model.addAttribute("dia30FkCompativel",  listaTurnos);
+		model.addAttribute("dia31FkCompativel",  listaTurnos);
+		
+		
+		//this.escalaAtual = escala;
+		
+		//comando para armazenar a escala na sessão
+		HttpSession session = httpSessionFactory.getObject();
+        session.setAttribute("escalaAtual", escala  );
+		
+		
+		return "/escala/editar";
 	}
 	
-	@GetMapping("/atalho/ciclo1_b")
-	public String atalhoCiclo1B( RedirectAttributes attr) {	
+	@GetMapping("/atalho/ciclo1/b")
+	public String atalhoCiclo1B( RedirectAttributes attr, ModelMap model) {	
+		
 		//Tratando escala Bloqueada
 		if(anoMesService.buscarPorId(mesAtual()).getIdEscalaBloqueadaFk().getSigla().equalsIgnoreCase("S")) {
 		return "redirect:/escalas/mensagem/de/escala/bloqueada";
@@ -1714,38 +2140,93 @@ public class EscalaController {
 
 		Escala escalaA = service.buscarPorId(ultimoIdEscala());
 		Escala escala = service.converteDeEscalaParaEscalaComId(escalaA);
-
+		
 		escala = escalaCalculosService.converteTurnoNuloEmFolga(escala);
 		escala = escalaAtalhosService.atalhoCiclo1B(escala);
 		escala = escalaCalculosService.converteTurnoNuloEmFolga(escala);
 		escala = escalaCalculosService.calcularDadosEscala(escala);
 		
-		//Avaliando Efetivo dando Extra sem cumprir a CH Efetiva
-		boolean extraSemCumprirEfetivo = escalaCompatibilidadeService.horasExtrasSemEfetivas(escala);
-		if(extraSemCumprirEfetivo==true) {
-			return "redirect:/escalas/mensagem/de/efetivo/com/extra/sem/ch/efetiva/informada";
-		}
+		String anoMesDaEscala = "202105";
+		if(escala!=null){anoMesDaEscala = escala.getIdAnoMesFk().getNomeAnoMes();}
+		int qtdDiasNoMes = escalaCalculosService.quantidadeDeDiasNoMes(anoMesDaEscala);
 		
-		//AVALIAÇÃO PARA SABER SE TEM CHOQUES
-		//this.choque = service.choquesEmEscalaOnipresenca(escala);
-		//comando para armazenar choque na sessão
-        HttpSession session = httpSessionFactory.getObject();
-        session.setAttribute("choque", service.choquesEmEscalaOnipresenca(escala)  );
-		//this.choqueDescansoDepoisNoturno = service.choquesEmEscalaDepoisDoNoturno(escala);
-        //comando para armazenar choque na sessão
-        session.setAttribute("choqueDescansoDepoisNoturno", service.choquesEmEscalaDepoisDoNoturno(escala)  );
-		if(choqueDescansoDepoisNoturno().length()>0) {attr.addFlashAttribute("fail", choqueDescansoDepoisNoturno()); return atalhoLimparEscalaChoque(attr, choqueDescansoDepoisNoturno()); }
-		if(choque().length()>0) {attr.addFlashAttribute("fail", choque()); return atalhoLimparEscalaChoque(attr, choque());  }
-		if((choqueDescansoDepoisNoturno().length()==0) && (choque().length()==0)) {
-			salvar(escala, null, null);
-			session = httpSessionFactory.getObject(); session.setAttribute("ultimoIdEscala", escala.getId()  );
-			attr.addFlashAttribute("success", "Confirme CH Dif, Incremento de Risco, Diferenciado, Regime e Turma antes de Lançar.");
-		}
-		return "redirect:/escalas/alterar/escala/"+escala.getId();
+		// CALCULANDO OS DIAS DO MES
+		String nomeColuna1 = escalaCalculosService.obtemNomeDiaColuna(anoMesDaEscala, 1);
+		String nomeColuna2 = escalaCalculosService.obtemNomeDiaColuna(anoMesDaEscala, 2);
+		String nomeColuna3 = escalaCalculosService.obtemNomeDiaColuna(anoMesDaEscala, 3);
+		String nomeColuna4 = escalaCalculosService.obtemNomeDiaColuna(anoMesDaEscala, 4);
+		String nomeColuna5 = escalaCalculosService.obtemNomeDiaColuna(anoMesDaEscala, 5);
+		String nomeColuna6 = escalaCalculosService.obtemNomeDiaColuna(anoMesDaEscala, 6);
+		String nomeColuna7 = escalaCalculosService.obtemNomeDiaColuna(anoMesDaEscala, 7);
+		// falta complemento de planantao compativel
+		
+		model.addAttribute("idCodigoDiferenciadoFkCompativel", escalaCompatibilidadeService.getCodigosDiferenciadoCompativel( escala) );
+		model.addAttribute("idChDifFkCompativel", pessoaChDifService.listaSimNaoCompativelComPessoa(usuarioService.pegarUnidadeLogada(), escala.getIdFuncionarioFk().getIdPessoaFk(), escala.getIdAnoMesFk()) );
+		model.addAttribute("idIncrementoDeRiscoCompativel", escalaCompatibilidadeService.getIncrementoDeRiscoCompativel(escala) );
+		model.addAttribute("idComplementoDePlantaoCompativel", escalaCompatibilidadeService.getComplementoDePlantaoCompativel(escala) );
+		
+	
+		model.addAttribute("escala", escala );
+		model.addAttribute("idLinha", escala.getId() );
+		model.addAttribute("qtdDiasNoMes", qtdDiasNoMes );
+		model.addAttribute("nomeColuna1", nomeColuna1 );
+		model.addAttribute("nomeColuna2", nomeColuna2 );
+		model.addAttribute("nomeColuna3", nomeColuna3 );
+		model.addAttribute("nomeColuna4", nomeColuna4 );
+		model.addAttribute("nomeColuna5", nomeColuna5 );
+		model.addAttribute("nomeColuna6", nomeColuna6 );
+		model.addAttribute("nomeColuna7", nomeColuna7 );
+		
+		
+		// Pegando os turnos compatíveis
+		List<Turnos> listaTurnos = regimeDeTrabalhoTurnoService.buscarPorRegimesEUnidadeEFolha(escala);
+		
+		model.addAttribute("dia01FkCompativel",  listaTurnos);
+		model.addAttribute("dia02FkCompativel",  listaTurnos);
+		model.addAttribute("dia03FkCompativel",  listaTurnos);
+		model.addAttribute("dia04FkCompativel",  listaTurnos);
+		model.addAttribute("dia05FkCompativel",  listaTurnos);
+		model.addAttribute("dia06FkCompativel",  listaTurnos);
+		model.addAttribute("dia07FkCompativel",  listaTurnos);
+		model.addAttribute("dia08FkCompativel",  listaTurnos);
+		model.addAttribute("dia09FkCompativel",  listaTurnos);
+		model.addAttribute("dia10FkCompativel",  listaTurnos);
+		model.addAttribute("dia11FkCompativel",  listaTurnos);
+		model.addAttribute("dia12FkCompativel",  listaTurnos);
+		model.addAttribute("dia13FkCompativel",  listaTurnos);
+		model.addAttribute("dia14FkCompativel",  listaTurnos);
+		model.addAttribute("dia15FkCompativel",  listaTurnos);
+		model.addAttribute("dia16FkCompativel",  listaTurnos);
+		model.addAttribute("dia17FkCompativel",  listaTurnos);
+		model.addAttribute("dia18FkCompativel",  listaTurnos);
+		model.addAttribute("dia19FkCompativel",  listaTurnos);
+		model.addAttribute("dia20FkCompativel",  listaTurnos);
+		model.addAttribute("dia21FkCompativel",  listaTurnos);
+		model.addAttribute("dia22FkCompativel",  listaTurnos);
+		model.addAttribute("dia23FkCompativel",  listaTurnos);
+		model.addAttribute("dia24FkCompativel",  listaTurnos);
+		model.addAttribute("dia25FkCompativel",  listaTurnos);
+		model.addAttribute("dia26FkCompativel",  listaTurnos);
+		model.addAttribute("dia27FkCompativel",  listaTurnos);
+		model.addAttribute("dia28FkCompativel",  listaTurnos);
+		model.addAttribute("dia29FkCompativel",  listaTurnos);
+		model.addAttribute("dia30FkCompativel",  listaTurnos);
+		model.addAttribute("dia31FkCompativel",  listaTurnos);
+		
+		
+		//this.escalaAtual = escala;
+		
+		//comando para armazenar a escala na sessão
+		HttpSession session = httpSessionFactory.getObject();
+        session.setAttribute("escalaAtual", escala  );
+		
+		
+		return "/escala/editar";
 	}
 	
-	@GetMapping("/atalho/ciclo1_c")
-	public String atalhoCiclo1C( RedirectAttributes attr) {	
+	@GetMapping("/atalho/ciclo1/c")
+	public String atalhoCiclo1C( RedirectAttributes attr, ModelMap model) {	
+		
 		//Tratando escala Bloqueada
 		if(anoMesService.buscarPorId(mesAtual()).getIdEscalaBloqueadaFk().getSigla().equalsIgnoreCase("S")) {
 		return "redirect:/escalas/mensagem/de/escala/bloqueada";
@@ -1753,38 +2234,93 @@ public class EscalaController {
 
 		Escala escalaA = service.buscarPorId(ultimoIdEscala());
 		Escala escala = service.converteDeEscalaParaEscalaComId(escalaA);
-
+		
 		escala = escalaCalculosService.converteTurnoNuloEmFolga(escala);
 		escala = escalaAtalhosService.atalhoCiclo1C(escala);
 		escala = escalaCalculosService.converteTurnoNuloEmFolga(escala);
 		escala = escalaCalculosService.calcularDadosEscala(escala);
 		
-		//Avaliando Efetivo dando Extra sem cumprir a CH Efetiva
-		boolean extraSemCumprirEfetivo = escalaCompatibilidadeService.horasExtrasSemEfetivas(escala);
-		if(extraSemCumprirEfetivo==true) {
-			return "redirect:/escalas/mensagem/de/efetivo/com/extra/sem/ch/efetiva/informada";
-		}
+		String anoMesDaEscala = "202105";
+		if(escala!=null){anoMesDaEscala = escala.getIdAnoMesFk().getNomeAnoMes();}
+		int qtdDiasNoMes = escalaCalculosService.quantidadeDeDiasNoMes(anoMesDaEscala);
 		
-		//AVALIAÇÃO PARA SABER SE TEM CHOQUES
-		//this.choque = service.choquesEmEscalaOnipresenca(escala);
-		//comando para armazenar choque na sessão
-        HttpSession session = httpSessionFactory.getObject();
-        session.setAttribute("choque", service.choquesEmEscalaOnipresenca(escala)  );
-		//this.choqueDescansoDepoisNoturno = service.choquesEmEscalaDepoisDoNoturno(escala);
-        //comando para armazenar choque na sessão
-        session.setAttribute("choqueDescansoDepoisNoturno", service.choquesEmEscalaDepoisDoNoturno(escala)  );
-		if(choqueDescansoDepoisNoturno().length()>0) {attr.addFlashAttribute("fail", choqueDescansoDepoisNoturno()); return atalhoLimparEscalaChoque(attr, choqueDescansoDepoisNoturno()); }
-		if(choque().length()>0) {attr.addFlashAttribute("fail", choque()); return atalhoLimparEscalaChoque(attr, choque());  }
-		if((choqueDescansoDepoisNoturno().length()==0) && (choque().length()==0)) {
-			salvar(escala, null, null);
-			session = httpSessionFactory.getObject(); session.setAttribute("ultimoIdEscala", escala.getId()  );
-			attr.addFlashAttribute("success", "Confirme CH Dif, Incremento de Risco, Diferenciado, Regime e Turma antes de Lançar.");
-		}
-		return "redirect:/escalas/alterar/escala/"+escala.getId();
+		// CALCULANDO OS DIAS DO MES
+		String nomeColuna1 = escalaCalculosService.obtemNomeDiaColuna(anoMesDaEscala, 1);
+		String nomeColuna2 = escalaCalculosService.obtemNomeDiaColuna(anoMesDaEscala, 2);
+		String nomeColuna3 = escalaCalculosService.obtemNomeDiaColuna(anoMesDaEscala, 3);
+		String nomeColuna4 = escalaCalculosService.obtemNomeDiaColuna(anoMesDaEscala, 4);
+		String nomeColuna5 = escalaCalculosService.obtemNomeDiaColuna(anoMesDaEscala, 5);
+		String nomeColuna6 = escalaCalculosService.obtemNomeDiaColuna(anoMesDaEscala, 6);
+		String nomeColuna7 = escalaCalculosService.obtemNomeDiaColuna(anoMesDaEscala, 7);
+		// falta complemento de planantao compativel
+		
+		model.addAttribute("idCodigoDiferenciadoFkCompativel", escalaCompatibilidadeService.getCodigosDiferenciadoCompativel( escala) );
+		model.addAttribute("idChDifFkCompativel", pessoaChDifService.listaSimNaoCompativelComPessoa(usuarioService.pegarUnidadeLogada(), escala.getIdFuncionarioFk().getIdPessoaFk(), escala.getIdAnoMesFk()) );
+		model.addAttribute("idIncrementoDeRiscoCompativel", escalaCompatibilidadeService.getIncrementoDeRiscoCompativel(escala) );
+		model.addAttribute("idComplementoDePlantaoCompativel", escalaCompatibilidadeService.getComplementoDePlantaoCompativel(escala) );
+		
+	
+		model.addAttribute("escala", escala );
+		model.addAttribute("idLinha", escala.getId() );
+		model.addAttribute("qtdDiasNoMes", qtdDiasNoMes );
+		model.addAttribute("nomeColuna1", nomeColuna1 );
+		model.addAttribute("nomeColuna2", nomeColuna2 );
+		model.addAttribute("nomeColuna3", nomeColuna3 );
+		model.addAttribute("nomeColuna4", nomeColuna4 );
+		model.addAttribute("nomeColuna5", nomeColuna5 );
+		model.addAttribute("nomeColuna6", nomeColuna6 );
+		model.addAttribute("nomeColuna7", nomeColuna7 );
+		
+		
+		// Pegando os turnos compatíveis
+		List<Turnos> listaTurnos = regimeDeTrabalhoTurnoService.buscarPorRegimesEUnidadeEFolha(escala);
+		
+		model.addAttribute("dia01FkCompativel",  listaTurnos);
+		model.addAttribute("dia02FkCompativel",  listaTurnos);
+		model.addAttribute("dia03FkCompativel",  listaTurnos);
+		model.addAttribute("dia04FkCompativel",  listaTurnos);
+		model.addAttribute("dia05FkCompativel",  listaTurnos);
+		model.addAttribute("dia06FkCompativel",  listaTurnos);
+		model.addAttribute("dia07FkCompativel",  listaTurnos);
+		model.addAttribute("dia08FkCompativel",  listaTurnos);
+		model.addAttribute("dia09FkCompativel",  listaTurnos);
+		model.addAttribute("dia10FkCompativel",  listaTurnos);
+		model.addAttribute("dia11FkCompativel",  listaTurnos);
+		model.addAttribute("dia12FkCompativel",  listaTurnos);
+		model.addAttribute("dia13FkCompativel",  listaTurnos);
+		model.addAttribute("dia14FkCompativel",  listaTurnos);
+		model.addAttribute("dia15FkCompativel",  listaTurnos);
+		model.addAttribute("dia16FkCompativel",  listaTurnos);
+		model.addAttribute("dia17FkCompativel",  listaTurnos);
+		model.addAttribute("dia18FkCompativel",  listaTurnos);
+		model.addAttribute("dia19FkCompativel",  listaTurnos);
+		model.addAttribute("dia20FkCompativel",  listaTurnos);
+		model.addAttribute("dia21FkCompativel",  listaTurnos);
+		model.addAttribute("dia22FkCompativel",  listaTurnos);
+		model.addAttribute("dia23FkCompativel",  listaTurnos);
+		model.addAttribute("dia24FkCompativel",  listaTurnos);
+		model.addAttribute("dia25FkCompativel",  listaTurnos);
+		model.addAttribute("dia26FkCompativel",  listaTurnos);
+		model.addAttribute("dia27FkCompativel",  listaTurnos);
+		model.addAttribute("dia28FkCompativel",  listaTurnos);
+		model.addAttribute("dia29FkCompativel",  listaTurnos);
+		model.addAttribute("dia30FkCompativel",  listaTurnos);
+		model.addAttribute("dia31FkCompativel",  listaTurnos);
+		
+		
+		//this.escalaAtual = escala;
+		
+		//comando para armazenar a escala na sessão
+		HttpSession session = httpSessionFactory.getObject();
+        session.setAttribute("escalaAtual", escala  );
+		
+		
+		return "/escala/editar";
 	}
 	
-	@GetMapping("/atalho/ciclo1_d")
-	public String atalhoCiclo1D( RedirectAttributes attr) {	
+	@GetMapping("/atalho/ciclo1/d")
+	public String atalhoCiclo1D( RedirectAttributes attr, ModelMap model) {	
+		
 		//Tratando escala Bloqueada
 		if(anoMesService.buscarPorId(mesAtual()).getIdEscalaBloqueadaFk().getSigla().equalsIgnoreCase("S")) {
 		return "redirect:/escalas/mensagem/de/escala/bloqueada";
@@ -1792,37 +2328,93 @@ public class EscalaController {
 
 		Escala escalaA = service.buscarPorId(ultimoIdEscala());
 		Escala escala = service.converteDeEscalaParaEscalaComId(escalaA);
-
+		
 		escala = escalaCalculosService.converteTurnoNuloEmFolga(escala);
 		escala = escalaAtalhosService.atalhoCiclo1D(escala);
 		escala = escalaCalculosService.converteTurnoNuloEmFolga(escala);
 		escala = escalaCalculosService.calcularDadosEscala(escala);
 		
-		//Avaliando Efetivo dando Extra sem cumprir a CH Efetiva
-		boolean extraSemCumprirEfetivo = escalaCompatibilidadeService.horasExtrasSemEfetivas(escala);
-		if(extraSemCumprirEfetivo==true) {
-			return "redirect:/escalas/mensagem/de/efetivo/com/extra/sem/ch/efetiva/informada";
-		}
+		String anoMesDaEscala = "202105";
+		if(escala!=null){anoMesDaEscala = escala.getIdAnoMesFk().getNomeAnoMes();}
+		int qtdDiasNoMes = escalaCalculosService.quantidadeDeDiasNoMes(anoMesDaEscala);
 		
-		//AVALIAÇÃO PARA SABER SE TEM CHOQUES
-		//comando para armazenar choque na sessão
-        HttpSession session = httpSessionFactory.getObject();
-        session.setAttribute("choque", service.choquesEmEscalaOnipresenca(escala)  );
-		//this.choqueDescansoDepoisNoturno = service.choquesEmEscalaDepoisDoNoturno(escala);
-        //comando para armazenar choque na sessão
-        session.setAttribute("choqueDescansoDepoisNoturno", service.choquesEmEscalaDepoisDoNoturno(escala)  );
-		if(choqueDescansoDepoisNoturno().length()>0) {attr.addFlashAttribute("fail", choqueDescansoDepoisNoturno()); return atalhoLimparEscalaChoque(attr, choqueDescansoDepoisNoturno()); }
-		if(choque().length()>0) {attr.addFlashAttribute("fail", choque()); return atalhoLimparEscalaChoque(attr, choque());  }
-		if((choqueDescansoDepoisNoturno().length()==0) && (choque().length()==0)) {
-			salvar(escala, null, null);
-			session = httpSessionFactory.getObject(); session.setAttribute("ultimoIdEscala", escala.getId()  );
-			attr.addFlashAttribute("success", "Confirme CH Dif, Incremento de Risco, Diferenciado, Regime e Turma antes de Lançar.");
-		}
-		return "redirect:/escalas/alterar/escala/"+escala.getId();
+		// CALCULANDO OS DIAS DO MES
+		String nomeColuna1 = escalaCalculosService.obtemNomeDiaColuna(anoMesDaEscala, 1);
+		String nomeColuna2 = escalaCalculosService.obtemNomeDiaColuna(anoMesDaEscala, 2);
+		String nomeColuna3 = escalaCalculosService.obtemNomeDiaColuna(anoMesDaEscala, 3);
+		String nomeColuna4 = escalaCalculosService.obtemNomeDiaColuna(anoMesDaEscala, 4);
+		String nomeColuna5 = escalaCalculosService.obtemNomeDiaColuna(anoMesDaEscala, 5);
+		String nomeColuna6 = escalaCalculosService.obtemNomeDiaColuna(anoMesDaEscala, 6);
+		String nomeColuna7 = escalaCalculosService.obtemNomeDiaColuna(anoMesDaEscala, 7);
+		// falta complemento de planantao compativel
+		
+		model.addAttribute("idCodigoDiferenciadoFkCompativel", escalaCompatibilidadeService.getCodigosDiferenciadoCompativel( escala) );
+		model.addAttribute("idChDifFkCompativel", pessoaChDifService.listaSimNaoCompativelComPessoa(usuarioService.pegarUnidadeLogada(), escala.getIdFuncionarioFk().getIdPessoaFk(), escala.getIdAnoMesFk()) );
+		model.addAttribute("idIncrementoDeRiscoCompativel", escalaCompatibilidadeService.getIncrementoDeRiscoCompativel(escala) );
+		model.addAttribute("idComplementoDePlantaoCompativel", escalaCompatibilidadeService.getComplementoDePlantaoCompativel(escala) );
+		
+	
+		model.addAttribute("escala", escala );
+		model.addAttribute("idLinha", escala.getId() );
+		model.addAttribute("qtdDiasNoMes", qtdDiasNoMes );
+		model.addAttribute("nomeColuna1", nomeColuna1 );
+		model.addAttribute("nomeColuna2", nomeColuna2 );
+		model.addAttribute("nomeColuna3", nomeColuna3 );
+		model.addAttribute("nomeColuna4", nomeColuna4 );
+		model.addAttribute("nomeColuna5", nomeColuna5 );
+		model.addAttribute("nomeColuna6", nomeColuna6 );
+		model.addAttribute("nomeColuna7", nomeColuna7 );
+		
+		
+		// Pegando os turnos compatíveis
+		List<Turnos> listaTurnos = regimeDeTrabalhoTurnoService.buscarPorRegimesEUnidadeEFolha(escala);
+		
+		model.addAttribute("dia01FkCompativel",  listaTurnos);
+		model.addAttribute("dia02FkCompativel",  listaTurnos);
+		model.addAttribute("dia03FkCompativel",  listaTurnos);
+		model.addAttribute("dia04FkCompativel",  listaTurnos);
+		model.addAttribute("dia05FkCompativel",  listaTurnos);
+		model.addAttribute("dia06FkCompativel",  listaTurnos);
+		model.addAttribute("dia07FkCompativel",  listaTurnos);
+		model.addAttribute("dia08FkCompativel",  listaTurnos);
+		model.addAttribute("dia09FkCompativel",  listaTurnos);
+		model.addAttribute("dia10FkCompativel",  listaTurnos);
+		model.addAttribute("dia11FkCompativel",  listaTurnos);
+		model.addAttribute("dia12FkCompativel",  listaTurnos);
+		model.addAttribute("dia13FkCompativel",  listaTurnos);
+		model.addAttribute("dia14FkCompativel",  listaTurnos);
+		model.addAttribute("dia15FkCompativel",  listaTurnos);
+		model.addAttribute("dia16FkCompativel",  listaTurnos);
+		model.addAttribute("dia17FkCompativel",  listaTurnos);
+		model.addAttribute("dia18FkCompativel",  listaTurnos);
+		model.addAttribute("dia19FkCompativel",  listaTurnos);
+		model.addAttribute("dia20FkCompativel",  listaTurnos);
+		model.addAttribute("dia21FkCompativel",  listaTurnos);
+		model.addAttribute("dia22FkCompativel",  listaTurnos);
+		model.addAttribute("dia23FkCompativel",  listaTurnos);
+		model.addAttribute("dia24FkCompativel",  listaTurnos);
+		model.addAttribute("dia25FkCompativel",  listaTurnos);
+		model.addAttribute("dia26FkCompativel",  listaTurnos);
+		model.addAttribute("dia27FkCompativel",  listaTurnos);
+		model.addAttribute("dia28FkCompativel",  listaTurnos);
+		model.addAttribute("dia29FkCompativel",  listaTurnos);
+		model.addAttribute("dia30FkCompativel",  listaTurnos);
+		model.addAttribute("dia31FkCompativel",  listaTurnos);
+		
+		
+		//this.escalaAtual = escala;
+		
+		//comando para armazenar a escala na sessão
+		HttpSession session = httpSessionFactory.getObject();
+        session.setAttribute("escalaAtual", escala  );
+		
+		
+		return "/escala/editar";
 	}
 	
-	@GetMapping("/atalho/ciclo1_e")
-	public String atalhoCiclo1E( RedirectAttributes attr) {	
+	@GetMapping("/atalho/ciclo1/e")
+	public String atalhoCiclo1E( RedirectAttributes attr, ModelMap model) {	
+		
 		//Tratando escala Bloqueada
 		if(anoMesService.buscarPorId(mesAtual()).getIdEscalaBloqueadaFk().getSigla().equalsIgnoreCase("S")) {
 		return "redirect:/escalas/mensagem/de/escala/bloqueada";
@@ -1830,38 +2422,93 @@ public class EscalaController {
 
 		Escala escalaA = service.buscarPorId(ultimoIdEscala());
 		Escala escala = service.converteDeEscalaParaEscalaComId(escalaA);
-
+		
 		escala = escalaCalculosService.converteTurnoNuloEmFolga(escala);
 		escala = escalaAtalhosService.atalhoCiclo1E(escala);
 		escala = escalaCalculosService.converteTurnoNuloEmFolga(escala);
 		escala = escalaCalculosService.calcularDadosEscala(escala);
 		
-		//Avaliando Efetivo dando Extra sem cumprir a CH Efetiva
-		boolean extraSemCumprirEfetivo = escalaCompatibilidadeService.horasExtrasSemEfetivas(escala);
-		if(extraSemCumprirEfetivo==true) {
-			return "redirect:/escalas/mensagem/de/efetivo/com/extra/sem/ch/efetiva/informada";
-		}
+		String anoMesDaEscala = "202105";
+		if(escala!=null){anoMesDaEscala = escala.getIdAnoMesFk().getNomeAnoMes();}
+		int qtdDiasNoMes = escalaCalculosService.quantidadeDeDiasNoMes(anoMesDaEscala);
 		
-		//AVALIAÇÃO PARA SABER SE TEM CHOQUES
-		//this.choque = service.choquesEmEscalaOnipresenca(escala);
-		//comando para armazenar choque na sessão
-        HttpSession session = httpSessionFactory.getObject();
-        session.setAttribute("choque", service.choquesEmEscalaOnipresenca(escala)  );
-		//this.choqueDescansoDepoisNoturno = service.choquesEmEscalaDepoisDoNoturno(escala);
-        //comando para armazenar choque na sessão
-        session.setAttribute("choqueDescansoDepoisNoturno", service.choquesEmEscalaDepoisDoNoturno(escala)  );
-		if(choqueDescansoDepoisNoturno().length()>0) {attr.addFlashAttribute("fail", choqueDescansoDepoisNoturno()); return atalhoLimparEscalaChoque(attr, choqueDescansoDepoisNoturno()); }
-		if(choque().length()>0) {attr.addFlashAttribute("fail", choque()); return atalhoLimparEscalaChoque(attr, choque());  }
-		if((choqueDescansoDepoisNoturno().length()==0) && (choque().length()==0)) {
-			salvar(escala, null, null);
-			session = httpSessionFactory.getObject(); session.setAttribute("ultimoIdEscala", escala.getId()  );
-			attr.addFlashAttribute("success", "Confirme CH Dif, Incremento de Risco, Diferenciado, Regime e Turma antes de Lançar.");
-		}
-		return "redirect:/escalas/alterar/escala/"+escala.getId();
+		// CALCULANDO OS DIAS DO MES
+		String nomeColuna1 = escalaCalculosService.obtemNomeDiaColuna(anoMesDaEscala, 1);
+		String nomeColuna2 = escalaCalculosService.obtemNomeDiaColuna(anoMesDaEscala, 2);
+		String nomeColuna3 = escalaCalculosService.obtemNomeDiaColuna(anoMesDaEscala, 3);
+		String nomeColuna4 = escalaCalculosService.obtemNomeDiaColuna(anoMesDaEscala, 4);
+		String nomeColuna5 = escalaCalculosService.obtemNomeDiaColuna(anoMesDaEscala, 5);
+		String nomeColuna6 = escalaCalculosService.obtemNomeDiaColuna(anoMesDaEscala, 6);
+		String nomeColuna7 = escalaCalculosService.obtemNomeDiaColuna(anoMesDaEscala, 7);
+		// falta complemento de planantao compativel
+		
+		model.addAttribute("idCodigoDiferenciadoFkCompativel", escalaCompatibilidadeService.getCodigosDiferenciadoCompativel( escala) );
+		model.addAttribute("idChDifFkCompativel", pessoaChDifService.listaSimNaoCompativelComPessoa(usuarioService.pegarUnidadeLogada(), escala.getIdFuncionarioFk().getIdPessoaFk(), escala.getIdAnoMesFk()) );
+		model.addAttribute("idIncrementoDeRiscoCompativel", escalaCompatibilidadeService.getIncrementoDeRiscoCompativel(escala) );
+		model.addAttribute("idComplementoDePlantaoCompativel", escalaCompatibilidadeService.getComplementoDePlantaoCompativel(escala) );
+		
+	
+		model.addAttribute("escala", escala );
+		model.addAttribute("idLinha", escala.getId() );
+		model.addAttribute("qtdDiasNoMes", qtdDiasNoMes );
+		model.addAttribute("nomeColuna1", nomeColuna1 );
+		model.addAttribute("nomeColuna2", nomeColuna2 );
+		model.addAttribute("nomeColuna3", nomeColuna3 );
+		model.addAttribute("nomeColuna4", nomeColuna4 );
+		model.addAttribute("nomeColuna5", nomeColuna5 );
+		model.addAttribute("nomeColuna6", nomeColuna6 );
+		model.addAttribute("nomeColuna7", nomeColuna7 );
+		
+		
+		// Pegando os turnos compatíveis
+		List<Turnos> listaTurnos = regimeDeTrabalhoTurnoService.buscarPorRegimesEUnidadeEFolha(escala);
+		
+		model.addAttribute("dia01FkCompativel",  listaTurnos);
+		model.addAttribute("dia02FkCompativel",  listaTurnos);
+		model.addAttribute("dia03FkCompativel",  listaTurnos);
+		model.addAttribute("dia04FkCompativel",  listaTurnos);
+		model.addAttribute("dia05FkCompativel",  listaTurnos);
+		model.addAttribute("dia06FkCompativel",  listaTurnos);
+		model.addAttribute("dia07FkCompativel",  listaTurnos);
+		model.addAttribute("dia08FkCompativel",  listaTurnos);
+		model.addAttribute("dia09FkCompativel",  listaTurnos);
+		model.addAttribute("dia10FkCompativel",  listaTurnos);
+		model.addAttribute("dia11FkCompativel",  listaTurnos);
+		model.addAttribute("dia12FkCompativel",  listaTurnos);
+		model.addAttribute("dia13FkCompativel",  listaTurnos);
+		model.addAttribute("dia14FkCompativel",  listaTurnos);
+		model.addAttribute("dia15FkCompativel",  listaTurnos);
+		model.addAttribute("dia16FkCompativel",  listaTurnos);
+		model.addAttribute("dia17FkCompativel",  listaTurnos);
+		model.addAttribute("dia18FkCompativel",  listaTurnos);
+		model.addAttribute("dia19FkCompativel",  listaTurnos);
+		model.addAttribute("dia20FkCompativel",  listaTurnos);
+		model.addAttribute("dia21FkCompativel",  listaTurnos);
+		model.addAttribute("dia22FkCompativel",  listaTurnos);
+		model.addAttribute("dia23FkCompativel",  listaTurnos);
+		model.addAttribute("dia24FkCompativel",  listaTurnos);
+		model.addAttribute("dia25FkCompativel",  listaTurnos);
+		model.addAttribute("dia26FkCompativel",  listaTurnos);
+		model.addAttribute("dia27FkCompativel",  listaTurnos);
+		model.addAttribute("dia28FkCompativel",  listaTurnos);
+		model.addAttribute("dia29FkCompativel",  listaTurnos);
+		model.addAttribute("dia30FkCompativel",  listaTurnos);
+		model.addAttribute("dia31FkCompativel",  listaTurnos);
+		
+		
+		//this.escalaAtual = escala;
+		
+		//comando para armazenar a escala na sessão
+		HttpSession session = httpSessionFactory.getObject();
+        session.setAttribute("escalaAtual", escala  );
+		
+		
+		return "/escala/editar";
 	}
 	
-	@GetMapping("/atalho/ciclo1_f")
-	public String atalhoCiclo1F( RedirectAttributes attr) {	
+	@GetMapping("/atalho/ciclo1/f")
+	public String atalhoCiclo1F( RedirectAttributes attr, ModelMap model) {	
+		
 		//Tratando escala Bloqueada
 		if(anoMesService.buscarPorId(mesAtual()).getIdEscalaBloqueadaFk().getSigla().equalsIgnoreCase("S")) {
 		return "redirect:/escalas/mensagem/de/escala/bloqueada";
@@ -1869,39 +2516,94 @@ public class EscalaController {
 
 		Escala escalaA = service.buscarPorId(ultimoIdEscala());
 		Escala escala = service.converteDeEscalaParaEscalaComId(escalaA);
-
+		
 		escala = escalaCalculosService.converteTurnoNuloEmFolga(escala);
 		escala = escalaAtalhosService.atalhoCiclo1F(escala);
 		escala = escalaCalculosService.converteTurnoNuloEmFolga(escala);
 		escala = escalaCalculosService.calcularDadosEscala(escala);
 		
-		//Avaliando Efetivo dando Extra sem cumprir a CH Efetiva
-		boolean extraSemCumprirEfetivo = escalaCompatibilidadeService.horasExtrasSemEfetivas(escala);
-		if(extraSemCumprirEfetivo==true) {
-			return "redirect:/escalas/mensagem/de/efetivo/com/extra/sem/ch/efetiva/informada";
-		}
+		String anoMesDaEscala = "202105";
+		if(escala!=null){anoMesDaEscala = escala.getIdAnoMesFk().getNomeAnoMes();}
+		int qtdDiasNoMes = escalaCalculosService.quantidadeDeDiasNoMes(anoMesDaEscala);
 		
-		//AVALIAÇÃO PARA SABER SE TEM CHOQUES
-		//this.choque = service.choquesEmEscalaOnipresenca(escala);
-		//comando para armazenar choque na sessão
-        HttpSession session = httpSessionFactory.getObject();
-        session.setAttribute("choque", service.choquesEmEscalaOnipresenca(escala)  );
-		//this.choqueDescansoDepoisNoturno = service.choquesEmEscalaDepoisDoNoturno(escala);
-        //comando para armazenar choque na sessão
-        session.setAttribute("choqueDescansoDepoisNoturno", service.choquesEmEscalaDepoisDoNoturno(escala)  );
-		if(choqueDescansoDepoisNoturno().length()>0) {attr.addFlashAttribute("fail", choqueDescansoDepoisNoturno()); return atalhoLimparEscalaChoque(attr, choqueDescansoDepoisNoturno()); }
-		if(choque().length()>0) {attr.addFlashAttribute("fail", choque()); return atalhoLimparEscalaChoque(attr, choque());  }
-		if((choqueDescansoDepoisNoturno().length()==0) && (choque().length()==0)) {
-			salvar(escala, null, null);
-			session = httpSessionFactory.getObject(); session.setAttribute("ultimoIdEscala", escala.getId()  );
-			attr.addFlashAttribute("success", "Confirme CH Dif, Incremento de Risco, Diferenciado, Regime e Turma antes de Lançar.");
-		}
-		return "redirect:/escalas/alterar/escala/"+escala.getId();
+		// CALCULANDO OS DIAS DO MES
+		String nomeColuna1 = escalaCalculosService.obtemNomeDiaColuna(anoMesDaEscala, 1);
+		String nomeColuna2 = escalaCalculosService.obtemNomeDiaColuna(anoMesDaEscala, 2);
+		String nomeColuna3 = escalaCalculosService.obtemNomeDiaColuna(anoMesDaEscala, 3);
+		String nomeColuna4 = escalaCalculosService.obtemNomeDiaColuna(anoMesDaEscala, 4);
+		String nomeColuna5 = escalaCalculosService.obtemNomeDiaColuna(anoMesDaEscala, 5);
+		String nomeColuna6 = escalaCalculosService.obtemNomeDiaColuna(anoMesDaEscala, 6);
+		String nomeColuna7 = escalaCalculosService.obtemNomeDiaColuna(anoMesDaEscala, 7);
+		// falta complemento de planantao compativel
+		
+		model.addAttribute("idCodigoDiferenciadoFkCompativel", escalaCompatibilidadeService.getCodigosDiferenciadoCompativel( escala) );
+		model.addAttribute("idChDifFkCompativel", pessoaChDifService.listaSimNaoCompativelComPessoa(usuarioService.pegarUnidadeLogada(), escala.getIdFuncionarioFk().getIdPessoaFk(), escala.getIdAnoMesFk()) );
+		model.addAttribute("idIncrementoDeRiscoCompativel", escalaCompatibilidadeService.getIncrementoDeRiscoCompativel(escala) );
+		model.addAttribute("idComplementoDePlantaoCompativel", escalaCompatibilidadeService.getComplementoDePlantaoCompativel(escala) );
+		
+	
+		model.addAttribute("escala", escala );
+		model.addAttribute("idLinha", escala.getId() );
+		model.addAttribute("qtdDiasNoMes", qtdDiasNoMes );
+		model.addAttribute("nomeColuna1", nomeColuna1 );
+		model.addAttribute("nomeColuna2", nomeColuna2 );
+		model.addAttribute("nomeColuna3", nomeColuna3 );
+		model.addAttribute("nomeColuna4", nomeColuna4 );
+		model.addAttribute("nomeColuna5", nomeColuna5 );
+		model.addAttribute("nomeColuna6", nomeColuna6 );
+		model.addAttribute("nomeColuna7", nomeColuna7 );
+		
+		
+		// Pegando os turnos compatíveis
+		List<Turnos> listaTurnos = regimeDeTrabalhoTurnoService.buscarPorRegimesEUnidadeEFolha(escala);
+		
+		model.addAttribute("dia01FkCompativel",  listaTurnos);
+		model.addAttribute("dia02FkCompativel",  listaTurnos);
+		model.addAttribute("dia03FkCompativel",  listaTurnos);
+		model.addAttribute("dia04FkCompativel",  listaTurnos);
+		model.addAttribute("dia05FkCompativel",  listaTurnos);
+		model.addAttribute("dia06FkCompativel",  listaTurnos);
+		model.addAttribute("dia07FkCompativel",  listaTurnos);
+		model.addAttribute("dia08FkCompativel",  listaTurnos);
+		model.addAttribute("dia09FkCompativel",  listaTurnos);
+		model.addAttribute("dia10FkCompativel",  listaTurnos);
+		model.addAttribute("dia11FkCompativel",  listaTurnos);
+		model.addAttribute("dia12FkCompativel",  listaTurnos);
+		model.addAttribute("dia13FkCompativel",  listaTurnos);
+		model.addAttribute("dia14FkCompativel",  listaTurnos);
+		model.addAttribute("dia15FkCompativel",  listaTurnos);
+		model.addAttribute("dia16FkCompativel",  listaTurnos);
+		model.addAttribute("dia17FkCompativel",  listaTurnos);
+		model.addAttribute("dia18FkCompativel",  listaTurnos);
+		model.addAttribute("dia19FkCompativel",  listaTurnos);
+		model.addAttribute("dia20FkCompativel",  listaTurnos);
+		model.addAttribute("dia21FkCompativel",  listaTurnos);
+		model.addAttribute("dia22FkCompativel",  listaTurnos);
+		model.addAttribute("dia23FkCompativel",  listaTurnos);
+		model.addAttribute("dia24FkCompativel",  listaTurnos);
+		model.addAttribute("dia25FkCompativel",  listaTurnos);
+		model.addAttribute("dia26FkCompativel",  listaTurnos);
+		model.addAttribute("dia27FkCompativel",  listaTurnos);
+		model.addAttribute("dia28FkCompativel",  listaTurnos);
+		model.addAttribute("dia29FkCompativel",  listaTurnos);
+		model.addAttribute("dia30FkCompativel",  listaTurnos);
+		model.addAttribute("dia31FkCompativel",  listaTurnos);
+		
+		
+		//this.escalaAtual = escala;
+		
+		//comando para armazenar a escala na sessão
+		HttpSession session = httpSessionFactory.getObject();
+        session.setAttribute("escalaAtual", escala  );
+		
+		
+		return "/escala/editar";
 	}
 	
 	//Ciclo2
-	@GetMapping("/atalho/ciclo2_a")
-	public String atalhoCiclo2A( RedirectAttributes attr) {	
+	@GetMapping("/atalho/ciclo2/a")
+	public String atalhoCiclo2A( RedirectAttributes attr, ModelMap model) {	
+		
 		//Tratando escala Bloqueada
 		if(anoMesService.buscarPorId(mesAtual()).getIdEscalaBloqueadaFk().getSigla().equalsIgnoreCase("S")) {
 		return "redirect:/escalas/mensagem/de/escala/bloqueada";
@@ -1909,38 +2611,93 @@ public class EscalaController {
 
 		Escala escalaA = service.buscarPorId(ultimoIdEscala());
 		Escala escala = service.converteDeEscalaParaEscalaComId(escalaA);
-
+		
 		escala = escalaCalculosService.converteTurnoNuloEmFolga(escala);
 		escala = escalaAtalhosService.atalhoCiclo2A(escala);
 		escala = escalaCalculosService.converteTurnoNuloEmFolga(escala);
 		escala = escalaCalculosService.calcularDadosEscala(escala);
 		
-		//Avaliando Efetivo dando Extra sem cumprir a CH Efetiva
-		boolean extraSemCumprirEfetivo = escalaCompatibilidadeService.horasExtrasSemEfetivas(escala);
-		if(extraSemCumprirEfetivo==true) {
-			return "redirect:/escalas/mensagem/de/efetivo/com/extra/sem/ch/efetiva/informada";
-		}
+		String anoMesDaEscala = "202105";
+		if(escala!=null){anoMesDaEscala = escala.getIdAnoMesFk().getNomeAnoMes();}
+		int qtdDiasNoMes = escalaCalculosService.quantidadeDeDiasNoMes(anoMesDaEscala);
 		
-		//AVALIAÇÃO PARA SABER SE TEM CHOQUES
-		//this.choque = service.choquesEmEscalaOnipresenca(escala);
-		//comando para armazenar choque na sessão
-        HttpSession session = httpSessionFactory.getObject();
-        session.setAttribute("choque", service.choquesEmEscalaOnipresenca(escala)  );
-		//this.choqueDescansoDepoisNoturno = service.choquesEmEscalaDepoisDoNoturno(escala);
-        //comando para armazenar choque na sessão
-        session.setAttribute("choqueDescansoDepoisNoturno", service.choquesEmEscalaDepoisDoNoturno(escala)  );
-		if(choqueDescansoDepoisNoturno().length()>0) {attr.addFlashAttribute("fail", choqueDescansoDepoisNoturno()); return atalhoLimparEscalaChoque(attr, choqueDescansoDepoisNoturno()); }
-		if(choque().length()>0) {attr.addFlashAttribute("fail", choque()); return atalhoLimparEscalaChoque(attr, choque());  }
-		if((choqueDescansoDepoisNoturno().length()==0) && (choque().length()==0)) {
-			salvar(escala, null, null);
-			session = httpSessionFactory.getObject(); session.setAttribute("ultimoIdEscala", escala.getId()  );
-			attr.addFlashAttribute("success", "Confirme CH Dif, Incremento de Risco, Diferenciado, Regime e Turma antes de Lançar.");
-		}
-		return "redirect:/escalas/alterar/escala/"+escala.getId();
+		// CALCULANDO OS DIAS DO MES
+		String nomeColuna1 = escalaCalculosService.obtemNomeDiaColuna(anoMesDaEscala, 1);
+		String nomeColuna2 = escalaCalculosService.obtemNomeDiaColuna(anoMesDaEscala, 2);
+		String nomeColuna3 = escalaCalculosService.obtemNomeDiaColuna(anoMesDaEscala, 3);
+		String nomeColuna4 = escalaCalculosService.obtemNomeDiaColuna(anoMesDaEscala, 4);
+		String nomeColuna5 = escalaCalculosService.obtemNomeDiaColuna(anoMesDaEscala, 5);
+		String nomeColuna6 = escalaCalculosService.obtemNomeDiaColuna(anoMesDaEscala, 6);
+		String nomeColuna7 = escalaCalculosService.obtemNomeDiaColuna(anoMesDaEscala, 7);
+		// falta complemento de planantao compativel
+		
+		model.addAttribute("idCodigoDiferenciadoFkCompativel", escalaCompatibilidadeService.getCodigosDiferenciadoCompativel( escala) );
+		model.addAttribute("idChDifFkCompativel", pessoaChDifService.listaSimNaoCompativelComPessoa(usuarioService.pegarUnidadeLogada(), escala.getIdFuncionarioFk().getIdPessoaFk(), escala.getIdAnoMesFk()) );
+		model.addAttribute("idIncrementoDeRiscoCompativel", escalaCompatibilidadeService.getIncrementoDeRiscoCompativel(escala) );
+		model.addAttribute("idComplementoDePlantaoCompativel", escalaCompatibilidadeService.getComplementoDePlantaoCompativel(escala) );
+		
+	
+		model.addAttribute("escala", escala );
+		model.addAttribute("idLinha", escala.getId() );
+		model.addAttribute("qtdDiasNoMes", qtdDiasNoMes );
+		model.addAttribute("nomeColuna1", nomeColuna1 );
+		model.addAttribute("nomeColuna2", nomeColuna2 );
+		model.addAttribute("nomeColuna3", nomeColuna3 );
+		model.addAttribute("nomeColuna4", nomeColuna4 );
+		model.addAttribute("nomeColuna5", nomeColuna5 );
+		model.addAttribute("nomeColuna6", nomeColuna6 );
+		model.addAttribute("nomeColuna7", nomeColuna7 );
+		
+		
+		// Pegando os turnos compatíveis
+		List<Turnos> listaTurnos = regimeDeTrabalhoTurnoService.buscarPorRegimesEUnidadeEFolha(escala);
+		
+		model.addAttribute("dia01FkCompativel",  listaTurnos);
+		model.addAttribute("dia02FkCompativel",  listaTurnos);
+		model.addAttribute("dia03FkCompativel",  listaTurnos);
+		model.addAttribute("dia04FkCompativel",  listaTurnos);
+		model.addAttribute("dia05FkCompativel",  listaTurnos);
+		model.addAttribute("dia06FkCompativel",  listaTurnos);
+		model.addAttribute("dia07FkCompativel",  listaTurnos);
+		model.addAttribute("dia08FkCompativel",  listaTurnos);
+		model.addAttribute("dia09FkCompativel",  listaTurnos);
+		model.addAttribute("dia10FkCompativel",  listaTurnos);
+		model.addAttribute("dia11FkCompativel",  listaTurnos);
+		model.addAttribute("dia12FkCompativel",  listaTurnos);
+		model.addAttribute("dia13FkCompativel",  listaTurnos);
+		model.addAttribute("dia14FkCompativel",  listaTurnos);
+		model.addAttribute("dia15FkCompativel",  listaTurnos);
+		model.addAttribute("dia16FkCompativel",  listaTurnos);
+		model.addAttribute("dia17FkCompativel",  listaTurnos);
+		model.addAttribute("dia18FkCompativel",  listaTurnos);
+		model.addAttribute("dia19FkCompativel",  listaTurnos);
+		model.addAttribute("dia20FkCompativel",  listaTurnos);
+		model.addAttribute("dia21FkCompativel",  listaTurnos);
+		model.addAttribute("dia22FkCompativel",  listaTurnos);
+		model.addAttribute("dia23FkCompativel",  listaTurnos);
+		model.addAttribute("dia24FkCompativel",  listaTurnos);
+		model.addAttribute("dia25FkCompativel",  listaTurnos);
+		model.addAttribute("dia26FkCompativel",  listaTurnos);
+		model.addAttribute("dia27FkCompativel",  listaTurnos);
+		model.addAttribute("dia28FkCompativel",  listaTurnos);
+		model.addAttribute("dia29FkCompativel",  listaTurnos);
+		model.addAttribute("dia30FkCompativel",  listaTurnos);
+		model.addAttribute("dia31FkCompativel",  listaTurnos);
+		
+		
+		//this.escalaAtual = escala;
+		
+		//comando para armazenar a escala na sessão
+		HttpSession session = httpSessionFactory.getObject();
+        session.setAttribute("escalaAtual", escala  );
+		
+		
+		return "/escala/editar";
 	}
 	
-	@GetMapping("/atalho/ciclo2_b")
-	public String atalhoCiclo2B( RedirectAttributes attr) {	
+	@GetMapping("/atalho/ciclo2/b")
+	public String atalhoCiclo2B( RedirectAttributes attr, ModelMap model) {	
+		
 		//Tratando escala Bloqueada
 		if(anoMesService.buscarPorId(mesAtual()).getIdEscalaBloqueadaFk().getSigla().equalsIgnoreCase("S")) {
 		return "redirect:/escalas/mensagem/de/escala/bloqueada";
@@ -1948,38 +2705,93 @@ public class EscalaController {
 
 		Escala escalaA = service.buscarPorId(ultimoIdEscala());
 		Escala escala = service.converteDeEscalaParaEscalaComId(escalaA);
-
+		
 		escala = escalaCalculosService.converteTurnoNuloEmFolga(escala);
 		escala = escalaAtalhosService.atalhoCiclo2B(escala);
 		escala = escalaCalculosService.converteTurnoNuloEmFolga(escala);
 		escala = escalaCalculosService.calcularDadosEscala(escala);
 		
-		//Avaliando Efetivo dando Extra sem cumprir a CH Efetiva
-		boolean extraSemCumprirEfetivo = escalaCompatibilidadeService.horasExtrasSemEfetivas(escala);
-		if(extraSemCumprirEfetivo==true) {
-			return "redirect:/escalas/mensagem/de/efetivo/com/extra/sem/ch/efetiva/informada";
-		}
+		String anoMesDaEscala = "202105";
+		if(escala!=null){anoMesDaEscala = escala.getIdAnoMesFk().getNomeAnoMes();}
+		int qtdDiasNoMes = escalaCalculosService.quantidadeDeDiasNoMes(anoMesDaEscala);
 		
-		//AVALIAÇÃO PARA SABER SE TEM CHOQUES
-		//this.choque = service.choquesEmEscalaOnipresenca(escala);
-		//comando para armazenar choque na sessão
-        HttpSession session = httpSessionFactory.getObject();
-        session.setAttribute("choque", service.choquesEmEscalaOnipresenca(escala)  );
-		//this.choqueDescansoDepoisNoturno = service.choquesEmEscalaDepoisDoNoturno(escala);
-        //comando para armazenar choque na sessão
-        session.setAttribute("choqueDescansoDepoisNoturno", service.choquesEmEscalaDepoisDoNoturno(escala)  );
-		if(choqueDescansoDepoisNoturno().length()>0) {attr.addFlashAttribute("fail", choqueDescansoDepoisNoturno()); return atalhoLimparEscalaChoque(attr, choqueDescansoDepoisNoturno()); }
-		if(choque().length()>0) {attr.addFlashAttribute("fail", choque()); return atalhoLimparEscalaChoque(attr, choque());  }
-		if((choqueDescansoDepoisNoturno().length()==0) && (choque().length()==0)) {
-			salvar(escala, null, null);
-			session = httpSessionFactory.getObject(); session.setAttribute("ultimoIdEscala", escala.getId()  );
-			attr.addFlashAttribute("success", "Confirme CH Dif, Incremento de Risco, Diferenciado, Regime e Turma antes de Lançar.");
-		}
-		return "redirect:/escalas/alterar/escala/"+escala.getId();
+		// CALCULANDO OS DIAS DO MES
+		String nomeColuna1 = escalaCalculosService.obtemNomeDiaColuna(anoMesDaEscala, 1);
+		String nomeColuna2 = escalaCalculosService.obtemNomeDiaColuna(anoMesDaEscala, 2);
+		String nomeColuna3 = escalaCalculosService.obtemNomeDiaColuna(anoMesDaEscala, 3);
+		String nomeColuna4 = escalaCalculosService.obtemNomeDiaColuna(anoMesDaEscala, 4);
+		String nomeColuna5 = escalaCalculosService.obtemNomeDiaColuna(anoMesDaEscala, 5);
+		String nomeColuna6 = escalaCalculosService.obtemNomeDiaColuna(anoMesDaEscala, 6);
+		String nomeColuna7 = escalaCalculosService.obtemNomeDiaColuna(anoMesDaEscala, 7);
+		// falta complemento de planantao compativel
+		
+		model.addAttribute("idCodigoDiferenciadoFkCompativel", escalaCompatibilidadeService.getCodigosDiferenciadoCompativel( escala) );
+		model.addAttribute("idChDifFkCompativel", pessoaChDifService.listaSimNaoCompativelComPessoa(usuarioService.pegarUnidadeLogada(), escala.getIdFuncionarioFk().getIdPessoaFk(), escala.getIdAnoMesFk()) );
+		model.addAttribute("idIncrementoDeRiscoCompativel", escalaCompatibilidadeService.getIncrementoDeRiscoCompativel(escala) );
+		model.addAttribute("idComplementoDePlantaoCompativel", escalaCompatibilidadeService.getComplementoDePlantaoCompativel(escala) );
+		
+	
+		model.addAttribute("escala", escala );
+		model.addAttribute("idLinha", escala.getId() );
+		model.addAttribute("qtdDiasNoMes", qtdDiasNoMes );
+		model.addAttribute("nomeColuna1", nomeColuna1 );
+		model.addAttribute("nomeColuna2", nomeColuna2 );
+		model.addAttribute("nomeColuna3", nomeColuna3 );
+		model.addAttribute("nomeColuna4", nomeColuna4 );
+		model.addAttribute("nomeColuna5", nomeColuna5 );
+		model.addAttribute("nomeColuna6", nomeColuna6 );
+		model.addAttribute("nomeColuna7", nomeColuna7 );
+		
+		
+		// Pegando os turnos compatíveis
+		List<Turnos> listaTurnos = regimeDeTrabalhoTurnoService.buscarPorRegimesEUnidadeEFolha(escala);
+		
+		model.addAttribute("dia01FkCompativel",  listaTurnos);
+		model.addAttribute("dia02FkCompativel",  listaTurnos);
+		model.addAttribute("dia03FkCompativel",  listaTurnos);
+		model.addAttribute("dia04FkCompativel",  listaTurnos);
+		model.addAttribute("dia05FkCompativel",  listaTurnos);
+		model.addAttribute("dia06FkCompativel",  listaTurnos);
+		model.addAttribute("dia07FkCompativel",  listaTurnos);
+		model.addAttribute("dia08FkCompativel",  listaTurnos);
+		model.addAttribute("dia09FkCompativel",  listaTurnos);
+		model.addAttribute("dia10FkCompativel",  listaTurnos);
+		model.addAttribute("dia11FkCompativel",  listaTurnos);
+		model.addAttribute("dia12FkCompativel",  listaTurnos);
+		model.addAttribute("dia13FkCompativel",  listaTurnos);
+		model.addAttribute("dia14FkCompativel",  listaTurnos);
+		model.addAttribute("dia15FkCompativel",  listaTurnos);
+		model.addAttribute("dia16FkCompativel",  listaTurnos);
+		model.addAttribute("dia17FkCompativel",  listaTurnos);
+		model.addAttribute("dia18FkCompativel",  listaTurnos);
+		model.addAttribute("dia19FkCompativel",  listaTurnos);
+		model.addAttribute("dia20FkCompativel",  listaTurnos);
+		model.addAttribute("dia21FkCompativel",  listaTurnos);
+		model.addAttribute("dia22FkCompativel",  listaTurnos);
+		model.addAttribute("dia23FkCompativel",  listaTurnos);
+		model.addAttribute("dia24FkCompativel",  listaTurnos);
+		model.addAttribute("dia25FkCompativel",  listaTurnos);
+		model.addAttribute("dia26FkCompativel",  listaTurnos);
+		model.addAttribute("dia27FkCompativel",  listaTurnos);
+		model.addAttribute("dia28FkCompativel",  listaTurnos);
+		model.addAttribute("dia29FkCompativel",  listaTurnos);
+		model.addAttribute("dia30FkCompativel",  listaTurnos);
+		model.addAttribute("dia31FkCompativel",  listaTurnos);
+		
+		
+		//this.escalaAtual = escala;
+		
+		//comando para armazenar a escala na sessão
+		HttpSession session = httpSessionFactory.getObject();
+        session.setAttribute("escalaAtual", escala  );
+		
+		
+		return "/escala/editar";
 	}
 	
-	@GetMapping("/atalho/ciclo2_c")
-	public String atalhoCiclo2C( RedirectAttributes attr) {	
+	@GetMapping("/atalho/ciclo2/c")
+	public String atalhoCiclo2C( RedirectAttributes attr, ModelMap model) {	
+		
 		//Tratando escala Bloqueada
 		if(anoMesService.buscarPorId(mesAtual()).getIdEscalaBloqueadaFk().getSigla().equalsIgnoreCase("S")) {
 		return "redirect:/escalas/mensagem/de/escala/bloqueada";
@@ -1987,38 +2799,93 @@ public class EscalaController {
 
 		Escala escalaA = service.buscarPorId(ultimoIdEscala());
 		Escala escala = service.converteDeEscalaParaEscalaComId(escalaA);
-
+		
 		escala = escalaCalculosService.converteTurnoNuloEmFolga(escala);
 		escala = escalaAtalhosService.atalhoCiclo2C(escala);
 		escala = escalaCalculosService.converteTurnoNuloEmFolga(escala);
 		escala = escalaCalculosService.calcularDadosEscala(escala);
 		
-		//Avaliando Efetivo dando Extra sem cumprir a CH Efetiva
-		boolean extraSemCumprirEfetivo = escalaCompatibilidadeService.horasExtrasSemEfetivas(escala);
-		if(extraSemCumprirEfetivo==true) {
-			return "redirect:/escalas/mensagem/de/efetivo/com/extra/sem/ch/efetiva/informada";
-		}
+		String anoMesDaEscala = "202105";
+		if(escala!=null){anoMesDaEscala = escala.getIdAnoMesFk().getNomeAnoMes();}
+		int qtdDiasNoMes = escalaCalculosService.quantidadeDeDiasNoMes(anoMesDaEscala);
 		
-		//AVALIAÇÃO PARA SABER SE TEM CHOQUES
-		//this.choque = service.choquesEmEscalaOnipresenca(escala);
-		//comando para armazenar choque na sessão
-        HttpSession session = httpSessionFactory.getObject();
-        session.setAttribute("choque", service.choquesEmEscalaOnipresenca(escala)  );
-		//this.choqueDescansoDepoisNoturno = service.choquesEmEscalaDepoisDoNoturno(escala);
-        //comando para armazenar choque na sessão
-        session.setAttribute("choqueDescansoDepoisNoturno", service.choquesEmEscalaDepoisDoNoturno(escala)  );
-		if(choqueDescansoDepoisNoturno().length()>0) {attr.addFlashAttribute("fail", choqueDescansoDepoisNoturno()); return atalhoLimparEscalaChoque(attr, choqueDescansoDepoisNoturno()); }
-		if(choque().length()>0) {attr.addFlashAttribute("fail", choque()); return atalhoLimparEscalaChoque(attr, choque());  }
-		if((choqueDescansoDepoisNoturno().length()==0) && (choque().length()==0)) {
-			salvar(escala, null, null);
-			session = httpSessionFactory.getObject(); session.setAttribute("ultimoIdEscala", escala.getId()  );
-			attr.addFlashAttribute("success", "Confirme CH Dif, Incremento de Risco, Diferenciado, Regime e Turma antes de Lançar.");
-		}
-		return "redirect:/escalas/alterar/escala/"+escala.getId();
+		// CALCULANDO OS DIAS DO MES
+		String nomeColuna1 = escalaCalculosService.obtemNomeDiaColuna(anoMesDaEscala, 1);
+		String nomeColuna2 = escalaCalculosService.obtemNomeDiaColuna(anoMesDaEscala, 2);
+		String nomeColuna3 = escalaCalculosService.obtemNomeDiaColuna(anoMesDaEscala, 3);
+		String nomeColuna4 = escalaCalculosService.obtemNomeDiaColuna(anoMesDaEscala, 4);
+		String nomeColuna5 = escalaCalculosService.obtemNomeDiaColuna(anoMesDaEscala, 5);
+		String nomeColuna6 = escalaCalculosService.obtemNomeDiaColuna(anoMesDaEscala, 6);
+		String nomeColuna7 = escalaCalculosService.obtemNomeDiaColuna(anoMesDaEscala, 7);
+		// falta complemento de planantao compativel
+		
+		model.addAttribute("idCodigoDiferenciadoFkCompativel", escalaCompatibilidadeService.getCodigosDiferenciadoCompativel( escala) );
+		model.addAttribute("idChDifFkCompativel", pessoaChDifService.listaSimNaoCompativelComPessoa(usuarioService.pegarUnidadeLogada(), escala.getIdFuncionarioFk().getIdPessoaFk(), escala.getIdAnoMesFk()) );
+		model.addAttribute("idIncrementoDeRiscoCompativel", escalaCompatibilidadeService.getIncrementoDeRiscoCompativel(escala) );
+		model.addAttribute("idComplementoDePlantaoCompativel", escalaCompatibilidadeService.getComplementoDePlantaoCompativel(escala) );
+		
+	
+		model.addAttribute("escala", escala );
+		model.addAttribute("idLinha", escala.getId() );
+		model.addAttribute("qtdDiasNoMes", qtdDiasNoMes );
+		model.addAttribute("nomeColuna1", nomeColuna1 );
+		model.addAttribute("nomeColuna2", nomeColuna2 );
+		model.addAttribute("nomeColuna3", nomeColuna3 );
+		model.addAttribute("nomeColuna4", nomeColuna4 );
+		model.addAttribute("nomeColuna5", nomeColuna5 );
+		model.addAttribute("nomeColuna6", nomeColuna6 );
+		model.addAttribute("nomeColuna7", nomeColuna7 );
+		
+		
+		// Pegando os turnos compatíveis
+		List<Turnos> listaTurnos = regimeDeTrabalhoTurnoService.buscarPorRegimesEUnidadeEFolha(escala);
+		
+		model.addAttribute("dia01FkCompativel",  listaTurnos);
+		model.addAttribute("dia02FkCompativel",  listaTurnos);
+		model.addAttribute("dia03FkCompativel",  listaTurnos);
+		model.addAttribute("dia04FkCompativel",  listaTurnos);
+		model.addAttribute("dia05FkCompativel",  listaTurnos);
+		model.addAttribute("dia06FkCompativel",  listaTurnos);
+		model.addAttribute("dia07FkCompativel",  listaTurnos);
+		model.addAttribute("dia08FkCompativel",  listaTurnos);
+		model.addAttribute("dia09FkCompativel",  listaTurnos);
+		model.addAttribute("dia10FkCompativel",  listaTurnos);
+		model.addAttribute("dia11FkCompativel",  listaTurnos);
+		model.addAttribute("dia12FkCompativel",  listaTurnos);
+		model.addAttribute("dia13FkCompativel",  listaTurnos);
+		model.addAttribute("dia14FkCompativel",  listaTurnos);
+		model.addAttribute("dia15FkCompativel",  listaTurnos);
+		model.addAttribute("dia16FkCompativel",  listaTurnos);
+		model.addAttribute("dia17FkCompativel",  listaTurnos);
+		model.addAttribute("dia18FkCompativel",  listaTurnos);
+		model.addAttribute("dia19FkCompativel",  listaTurnos);
+		model.addAttribute("dia20FkCompativel",  listaTurnos);
+		model.addAttribute("dia21FkCompativel",  listaTurnos);
+		model.addAttribute("dia22FkCompativel",  listaTurnos);
+		model.addAttribute("dia23FkCompativel",  listaTurnos);
+		model.addAttribute("dia24FkCompativel",  listaTurnos);
+		model.addAttribute("dia25FkCompativel",  listaTurnos);
+		model.addAttribute("dia26FkCompativel",  listaTurnos);
+		model.addAttribute("dia27FkCompativel",  listaTurnos);
+		model.addAttribute("dia28FkCompativel",  listaTurnos);
+		model.addAttribute("dia29FkCompativel",  listaTurnos);
+		model.addAttribute("dia30FkCompativel",  listaTurnos);
+		model.addAttribute("dia31FkCompativel",  listaTurnos);
+		
+		
+		//this.escalaAtual = escala;
+		
+		//comando para armazenar a escala na sessão
+		HttpSession session = httpSessionFactory.getObject();
+        session.setAttribute("escalaAtual", escala  );
+		
+		
+		return "/escala/editar";
 	}
 	
-	@GetMapping("/atalho/ciclo2_d")
-	public String atalhoCiclo2D( RedirectAttributes attr) {	
+	@GetMapping("/atalho/ciclo2/d")
+	public String atalhoCiclo2D( RedirectAttributes attr, ModelMap model) {	
+		
 		//Tratando escala Bloqueada
 		if(anoMesService.buscarPorId(mesAtual()).getIdEscalaBloqueadaFk().getSigla().equalsIgnoreCase("S")) {
 		return "redirect:/escalas/mensagem/de/escala/bloqueada";
@@ -2026,38 +2893,93 @@ public class EscalaController {
 
 		Escala escalaA = service.buscarPorId(ultimoIdEscala());
 		Escala escala = service.converteDeEscalaParaEscalaComId(escalaA);
-
+		
 		escala = escalaCalculosService.converteTurnoNuloEmFolga(escala);
 		escala = escalaAtalhosService.atalhoCiclo2D(escala);
 		escala = escalaCalculosService.converteTurnoNuloEmFolga(escala);
 		escala = escalaCalculosService.calcularDadosEscala(escala);
 		
-		//Avaliando Efetivo dando Extra sem cumprir a CH Efetiva
-		boolean extraSemCumprirEfetivo = escalaCompatibilidadeService.horasExtrasSemEfetivas(escala);
-		if(extraSemCumprirEfetivo==true) {
-			return "redirect:/escalas/mensagem/de/efetivo/com/extra/sem/ch/efetiva/informada";
-		}
+		String anoMesDaEscala = "202105";
+		if(escala!=null){anoMesDaEscala = escala.getIdAnoMesFk().getNomeAnoMes();}
+		int qtdDiasNoMes = escalaCalculosService.quantidadeDeDiasNoMes(anoMesDaEscala);
 		
-		//AVALIAÇÃO PARA SABER SE TEM CHOQUES
-		//this.choque = service.choquesEmEscalaOnipresenca(escala);
-		//comando para armazenar choque na sessão
-        HttpSession session = httpSessionFactory.getObject();
-        session.setAttribute("choque", service.choquesEmEscalaOnipresenca(escala)  );
-		//this.choqueDescansoDepoisNoturno = service.choquesEmEscalaDepoisDoNoturno(escala);
-        //comando para armazenar choque na sessão
-        session.setAttribute("choqueDescansoDepoisNoturno", service.choquesEmEscalaDepoisDoNoturno(escala)  );
-		if(choqueDescansoDepoisNoturno().length()>0) {attr.addFlashAttribute("fail", choqueDescansoDepoisNoturno()); return atalhoLimparEscalaChoque(attr, choqueDescansoDepoisNoturno()); }
-		if(choque().length()>0) {attr.addFlashAttribute("fail", choque()); return atalhoLimparEscalaChoque(attr, choque());  }
-		if((choqueDescansoDepoisNoturno().length()==0) && (choque().length()==0)) {
-			salvar(escala, null, null);
-			session = httpSessionFactory.getObject(); session.setAttribute("ultimoIdEscala", escala.getId()  );
-			attr.addFlashAttribute("success", "Confirme CH Dif, Incremento de Risco, Diferenciado, Regime e Turma antes de Lançar.");
-		}
-		return "redirect:/escalas/alterar/escala/"+escala.getId();
+		// CALCULANDO OS DIAS DO MES
+		String nomeColuna1 = escalaCalculosService.obtemNomeDiaColuna(anoMesDaEscala, 1);
+		String nomeColuna2 = escalaCalculosService.obtemNomeDiaColuna(anoMesDaEscala, 2);
+		String nomeColuna3 = escalaCalculosService.obtemNomeDiaColuna(anoMesDaEscala, 3);
+		String nomeColuna4 = escalaCalculosService.obtemNomeDiaColuna(anoMesDaEscala, 4);
+		String nomeColuna5 = escalaCalculosService.obtemNomeDiaColuna(anoMesDaEscala, 5);
+		String nomeColuna6 = escalaCalculosService.obtemNomeDiaColuna(anoMesDaEscala, 6);
+		String nomeColuna7 = escalaCalculosService.obtemNomeDiaColuna(anoMesDaEscala, 7);
+		// falta complemento de planantao compativel
+		
+		model.addAttribute("idCodigoDiferenciadoFkCompativel", escalaCompatibilidadeService.getCodigosDiferenciadoCompativel( escala) );
+		model.addAttribute("idChDifFkCompativel", pessoaChDifService.listaSimNaoCompativelComPessoa(usuarioService.pegarUnidadeLogada(), escala.getIdFuncionarioFk().getIdPessoaFk(), escala.getIdAnoMesFk()) );
+		model.addAttribute("idIncrementoDeRiscoCompativel", escalaCompatibilidadeService.getIncrementoDeRiscoCompativel(escala) );
+		model.addAttribute("idComplementoDePlantaoCompativel", escalaCompatibilidadeService.getComplementoDePlantaoCompativel(escala) );
+		
+	
+		model.addAttribute("escala", escala );
+		model.addAttribute("idLinha", escala.getId() );
+		model.addAttribute("qtdDiasNoMes", qtdDiasNoMes );
+		model.addAttribute("nomeColuna1", nomeColuna1 );
+		model.addAttribute("nomeColuna2", nomeColuna2 );
+		model.addAttribute("nomeColuna3", nomeColuna3 );
+		model.addAttribute("nomeColuna4", nomeColuna4 );
+		model.addAttribute("nomeColuna5", nomeColuna5 );
+		model.addAttribute("nomeColuna6", nomeColuna6 );
+		model.addAttribute("nomeColuna7", nomeColuna7 );
+		
+		
+		// Pegando os turnos compatíveis
+		List<Turnos> listaTurnos = regimeDeTrabalhoTurnoService.buscarPorRegimesEUnidadeEFolha(escala);
+		
+		model.addAttribute("dia01FkCompativel",  listaTurnos);
+		model.addAttribute("dia02FkCompativel",  listaTurnos);
+		model.addAttribute("dia03FkCompativel",  listaTurnos);
+		model.addAttribute("dia04FkCompativel",  listaTurnos);
+		model.addAttribute("dia05FkCompativel",  listaTurnos);
+		model.addAttribute("dia06FkCompativel",  listaTurnos);
+		model.addAttribute("dia07FkCompativel",  listaTurnos);
+		model.addAttribute("dia08FkCompativel",  listaTurnos);
+		model.addAttribute("dia09FkCompativel",  listaTurnos);
+		model.addAttribute("dia10FkCompativel",  listaTurnos);
+		model.addAttribute("dia11FkCompativel",  listaTurnos);
+		model.addAttribute("dia12FkCompativel",  listaTurnos);
+		model.addAttribute("dia13FkCompativel",  listaTurnos);
+		model.addAttribute("dia14FkCompativel",  listaTurnos);
+		model.addAttribute("dia15FkCompativel",  listaTurnos);
+		model.addAttribute("dia16FkCompativel",  listaTurnos);
+		model.addAttribute("dia17FkCompativel",  listaTurnos);
+		model.addAttribute("dia18FkCompativel",  listaTurnos);
+		model.addAttribute("dia19FkCompativel",  listaTurnos);
+		model.addAttribute("dia20FkCompativel",  listaTurnos);
+		model.addAttribute("dia21FkCompativel",  listaTurnos);
+		model.addAttribute("dia22FkCompativel",  listaTurnos);
+		model.addAttribute("dia23FkCompativel",  listaTurnos);
+		model.addAttribute("dia24FkCompativel",  listaTurnos);
+		model.addAttribute("dia25FkCompativel",  listaTurnos);
+		model.addAttribute("dia26FkCompativel",  listaTurnos);
+		model.addAttribute("dia27FkCompativel",  listaTurnos);
+		model.addAttribute("dia28FkCompativel",  listaTurnos);
+		model.addAttribute("dia29FkCompativel",  listaTurnos);
+		model.addAttribute("dia30FkCompativel",  listaTurnos);
+		model.addAttribute("dia31FkCompativel",  listaTurnos);
+		
+		
+		//this.escalaAtual = escala;
+		
+		//comando para armazenar a escala na sessão
+		HttpSession session = httpSessionFactory.getObject();
+        session.setAttribute("escalaAtual", escala  );
+		
+		
+		return "/escala/editar";
 	}
 	
-	@GetMapping("/atalho/ciclo2_e")
-	public String atalhoCiclo2E( RedirectAttributes attr) {	
+	@GetMapping("/atalho/ciclo2/e")
+	public String atalhoCiclo2E( RedirectAttributes attr, ModelMap model) {	
+		
 		//Tratando escala Bloqueada
 		if(anoMesService.buscarPorId(mesAtual()).getIdEscalaBloqueadaFk().getSigla().equalsIgnoreCase("S")) {
 		return "redirect:/escalas/mensagem/de/escala/bloqueada";
@@ -2065,38 +2987,93 @@ public class EscalaController {
 
 		Escala escalaA = service.buscarPorId(ultimoIdEscala());
 		Escala escala = service.converteDeEscalaParaEscalaComId(escalaA);
-
+		
 		escala = escalaCalculosService.converteTurnoNuloEmFolga(escala);
 		escala = escalaAtalhosService.atalhoCiclo2E(escala);
 		escala = escalaCalculosService.converteTurnoNuloEmFolga(escala);
 		escala = escalaCalculosService.calcularDadosEscala(escala);
 		
-		//Avaliando Efetivo dando Extra sem cumprir a CH Efetiva
-		boolean extraSemCumprirEfetivo = escalaCompatibilidadeService.horasExtrasSemEfetivas(escala);
-		if(extraSemCumprirEfetivo==true) {
-			return "redirect:/escalas/mensagem/de/efetivo/com/extra/sem/ch/efetiva/informada";
-		}
+		String anoMesDaEscala = "202105";
+		if(escala!=null){anoMesDaEscala = escala.getIdAnoMesFk().getNomeAnoMes();}
+		int qtdDiasNoMes = escalaCalculosService.quantidadeDeDiasNoMes(anoMesDaEscala);
 		
-		//AVALIAÇÃO PARA SABER SE TEM CHOQUES
-		//this.choque = service.choquesEmEscalaOnipresenca(escala);
-		//comando para armazenar choque na sessão
-        HttpSession session = httpSessionFactory.getObject();
-        session.setAttribute("choque", service.choquesEmEscalaOnipresenca(escala)  );
-		//this.choqueDescansoDepoisNoturno = service.choquesEmEscalaDepoisDoNoturno(escala);
-        //comando para armazenar choque na sessão
-        session.setAttribute("choqueDescansoDepoisNoturno", service.choquesEmEscalaDepoisDoNoturno(escala)  );
-		if(choqueDescansoDepoisNoturno().length()>0) {attr.addFlashAttribute("fail", choqueDescansoDepoisNoturno()); return atalhoLimparEscalaChoque(attr, choqueDescansoDepoisNoturno()); }
-		if(choque().length()>0) {attr.addFlashAttribute("fail", choque()); return atalhoLimparEscalaChoque(attr, choque());  }
-		if((choqueDescansoDepoisNoturno().length()==0) && (choque().length()==0)) {
-			salvar(escala, null, null);
-			session = httpSessionFactory.getObject(); session.setAttribute("ultimoIdEscala", escala.getId()  );
-			attr.addFlashAttribute("success", "Confirme CH Dif, Incremento de Risco, Diferenciado, Regime e Turma antes de Lançar.");
-		}
-		return "redirect:/escalas/alterar/escala/"+escala.getId();
+		// CALCULANDO OS DIAS DO MES
+		String nomeColuna1 = escalaCalculosService.obtemNomeDiaColuna(anoMesDaEscala, 1);
+		String nomeColuna2 = escalaCalculosService.obtemNomeDiaColuna(anoMesDaEscala, 2);
+		String nomeColuna3 = escalaCalculosService.obtemNomeDiaColuna(anoMesDaEscala, 3);
+		String nomeColuna4 = escalaCalculosService.obtemNomeDiaColuna(anoMesDaEscala, 4);
+		String nomeColuna5 = escalaCalculosService.obtemNomeDiaColuna(anoMesDaEscala, 5);
+		String nomeColuna6 = escalaCalculosService.obtemNomeDiaColuna(anoMesDaEscala, 6);
+		String nomeColuna7 = escalaCalculosService.obtemNomeDiaColuna(anoMesDaEscala, 7);
+		// falta complemento de planantao compativel
+		
+		model.addAttribute("idCodigoDiferenciadoFkCompativel", escalaCompatibilidadeService.getCodigosDiferenciadoCompativel( escala) );
+		model.addAttribute("idChDifFkCompativel", pessoaChDifService.listaSimNaoCompativelComPessoa(usuarioService.pegarUnidadeLogada(), escala.getIdFuncionarioFk().getIdPessoaFk(), escala.getIdAnoMesFk()) );
+		model.addAttribute("idIncrementoDeRiscoCompativel", escalaCompatibilidadeService.getIncrementoDeRiscoCompativel(escala) );
+		model.addAttribute("idComplementoDePlantaoCompativel", escalaCompatibilidadeService.getComplementoDePlantaoCompativel(escala) );
+		
+	
+		model.addAttribute("escala", escala );
+		model.addAttribute("idLinha", escala.getId() );
+		model.addAttribute("qtdDiasNoMes", qtdDiasNoMes );
+		model.addAttribute("nomeColuna1", nomeColuna1 );
+		model.addAttribute("nomeColuna2", nomeColuna2 );
+		model.addAttribute("nomeColuna3", nomeColuna3 );
+		model.addAttribute("nomeColuna4", nomeColuna4 );
+		model.addAttribute("nomeColuna5", nomeColuna5 );
+		model.addAttribute("nomeColuna6", nomeColuna6 );
+		model.addAttribute("nomeColuna7", nomeColuna7 );
+		
+		
+		// Pegando os turnos compatíveis
+		List<Turnos> listaTurnos = regimeDeTrabalhoTurnoService.buscarPorRegimesEUnidadeEFolha(escala);
+		
+		model.addAttribute("dia01FkCompativel",  listaTurnos);
+		model.addAttribute("dia02FkCompativel",  listaTurnos);
+		model.addAttribute("dia03FkCompativel",  listaTurnos);
+		model.addAttribute("dia04FkCompativel",  listaTurnos);
+		model.addAttribute("dia05FkCompativel",  listaTurnos);
+		model.addAttribute("dia06FkCompativel",  listaTurnos);
+		model.addAttribute("dia07FkCompativel",  listaTurnos);
+		model.addAttribute("dia08FkCompativel",  listaTurnos);
+		model.addAttribute("dia09FkCompativel",  listaTurnos);
+		model.addAttribute("dia10FkCompativel",  listaTurnos);
+		model.addAttribute("dia11FkCompativel",  listaTurnos);
+		model.addAttribute("dia12FkCompativel",  listaTurnos);
+		model.addAttribute("dia13FkCompativel",  listaTurnos);
+		model.addAttribute("dia14FkCompativel",  listaTurnos);
+		model.addAttribute("dia15FkCompativel",  listaTurnos);
+		model.addAttribute("dia16FkCompativel",  listaTurnos);
+		model.addAttribute("dia17FkCompativel",  listaTurnos);
+		model.addAttribute("dia18FkCompativel",  listaTurnos);
+		model.addAttribute("dia19FkCompativel",  listaTurnos);
+		model.addAttribute("dia20FkCompativel",  listaTurnos);
+		model.addAttribute("dia21FkCompativel",  listaTurnos);
+		model.addAttribute("dia22FkCompativel",  listaTurnos);
+		model.addAttribute("dia23FkCompativel",  listaTurnos);
+		model.addAttribute("dia24FkCompativel",  listaTurnos);
+		model.addAttribute("dia25FkCompativel",  listaTurnos);
+		model.addAttribute("dia26FkCompativel",  listaTurnos);
+		model.addAttribute("dia27FkCompativel",  listaTurnos);
+		model.addAttribute("dia28FkCompativel",  listaTurnos);
+		model.addAttribute("dia29FkCompativel",  listaTurnos);
+		model.addAttribute("dia30FkCompativel",  listaTurnos);
+		model.addAttribute("dia31FkCompativel",  listaTurnos);
+		
+		
+		//this.escalaAtual = escala;
+		
+		//comando para armazenar a escala na sessão
+		HttpSession session = httpSessionFactory.getObject();
+        session.setAttribute("escalaAtual", escala  );
+		
+		
+		return "/escala/editar";
 	}
 	
-	@GetMapping("/atalho/ciclo2_f")
-	public String atalhoCiclo2F( RedirectAttributes attr) {	
+	@GetMapping("/atalho/ciclo2/f")
+	public String atalhoCiclo2F( RedirectAttributes attr, ModelMap model) {	
+		
 		//Tratando escala Bloqueada
 		if(anoMesService.buscarPorId(mesAtual()).getIdEscalaBloqueadaFk().getSigla().equalsIgnoreCase("S")) {
 		return "redirect:/escalas/mensagem/de/escala/bloqueada";
@@ -2104,39 +3081,94 @@ public class EscalaController {
 
 		Escala escalaA = service.buscarPorId(ultimoIdEscala());
 		Escala escala = service.converteDeEscalaParaEscalaComId(escalaA);
-
+		
 		escala = escalaCalculosService.converteTurnoNuloEmFolga(escala);
 		escala = escalaAtalhosService.atalhoCiclo2F(escala);
 		escala = escalaCalculosService.converteTurnoNuloEmFolga(escala);
 		escala = escalaCalculosService.calcularDadosEscala(escala);
 		
-		//Avaliando Efetivo dando Extra sem cumprir a CH Efetiva
-		boolean extraSemCumprirEfetivo = escalaCompatibilidadeService.horasExtrasSemEfetivas(escala);
-		if(extraSemCumprirEfetivo==true) {
-			return "redirect:/escalas/mensagem/de/efetivo/com/extra/sem/ch/efetiva/informada";
-		}
+		String anoMesDaEscala = "202105";
+		if(escala!=null){anoMesDaEscala = escala.getIdAnoMesFk().getNomeAnoMes();}
+		int qtdDiasNoMes = escalaCalculosService.quantidadeDeDiasNoMes(anoMesDaEscala);
 		
-		//AVALIAÇÃO PARA SABER SE TEM CHOQUES
-		//this.choque = service.choquesEmEscalaOnipresenca(escala);
-		//comando para armazenar choque na sessão
-        HttpSession session = httpSessionFactory.getObject();
-        session.setAttribute("choque", service.choquesEmEscalaOnipresenca(escala)  );
-		//this.choqueDescansoDepoisNoturno = service.choquesEmEscalaDepoisDoNoturno(escala);
-        //comando para armazenar choque na sessão
-        session.setAttribute("choqueDescansoDepoisNoturno", service.choquesEmEscalaDepoisDoNoturno(escala)  );
-		if(choqueDescansoDepoisNoturno().length()>0) {attr.addFlashAttribute("fail", choqueDescansoDepoisNoturno()); return atalhoLimparEscalaChoque(attr, choqueDescansoDepoisNoturno()); }
-		if(choque().length()>0) {attr.addFlashAttribute("fail", choque()); return atalhoLimparEscalaChoque(attr, choque());  }
-		if((choqueDescansoDepoisNoturno().length()==0) && (choque().length()==0)) {
-			salvar(escala, null, null);
-			session = httpSessionFactory.getObject(); session.setAttribute("ultimoIdEscala", escala.getId()  );
-			attr.addFlashAttribute("success", "Confirme CH Dif, Incremento de Risco, Diferenciado, Regime e Turma antes de Lançar.");
-		}
-		return "redirect:/escalas/alterar/escala/"+escala.getId();
+		// CALCULANDO OS DIAS DO MES
+		String nomeColuna1 = escalaCalculosService.obtemNomeDiaColuna(anoMesDaEscala, 1);
+		String nomeColuna2 = escalaCalculosService.obtemNomeDiaColuna(anoMesDaEscala, 2);
+		String nomeColuna3 = escalaCalculosService.obtemNomeDiaColuna(anoMesDaEscala, 3);
+		String nomeColuna4 = escalaCalculosService.obtemNomeDiaColuna(anoMesDaEscala, 4);
+		String nomeColuna5 = escalaCalculosService.obtemNomeDiaColuna(anoMesDaEscala, 5);
+		String nomeColuna6 = escalaCalculosService.obtemNomeDiaColuna(anoMesDaEscala, 6);
+		String nomeColuna7 = escalaCalculosService.obtemNomeDiaColuna(anoMesDaEscala, 7);
+		// falta complemento de planantao compativel
+		
+		model.addAttribute("idCodigoDiferenciadoFkCompativel", escalaCompatibilidadeService.getCodigosDiferenciadoCompativel( escala) );
+		model.addAttribute("idChDifFkCompativel", pessoaChDifService.listaSimNaoCompativelComPessoa(usuarioService.pegarUnidadeLogada(), escala.getIdFuncionarioFk().getIdPessoaFk(), escala.getIdAnoMesFk()) );
+		model.addAttribute("idIncrementoDeRiscoCompativel", escalaCompatibilidadeService.getIncrementoDeRiscoCompativel(escala) );
+		model.addAttribute("idComplementoDePlantaoCompativel", escalaCompatibilidadeService.getComplementoDePlantaoCompativel(escala) );
+		
+	
+		model.addAttribute("escala", escala );
+		model.addAttribute("idLinha", escala.getId() );
+		model.addAttribute("qtdDiasNoMes", qtdDiasNoMes );
+		model.addAttribute("nomeColuna1", nomeColuna1 );
+		model.addAttribute("nomeColuna2", nomeColuna2 );
+		model.addAttribute("nomeColuna3", nomeColuna3 );
+		model.addAttribute("nomeColuna4", nomeColuna4 );
+		model.addAttribute("nomeColuna5", nomeColuna5 );
+		model.addAttribute("nomeColuna6", nomeColuna6 );
+		model.addAttribute("nomeColuna7", nomeColuna7 );
+		
+		
+		// Pegando os turnos compatíveis
+		List<Turnos> listaTurnos = regimeDeTrabalhoTurnoService.buscarPorRegimesEUnidadeEFolha(escala);
+		
+		model.addAttribute("dia01FkCompativel",  listaTurnos);
+		model.addAttribute("dia02FkCompativel",  listaTurnos);
+		model.addAttribute("dia03FkCompativel",  listaTurnos);
+		model.addAttribute("dia04FkCompativel",  listaTurnos);
+		model.addAttribute("dia05FkCompativel",  listaTurnos);
+		model.addAttribute("dia06FkCompativel",  listaTurnos);
+		model.addAttribute("dia07FkCompativel",  listaTurnos);
+		model.addAttribute("dia08FkCompativel",  listaTurnos);
+		model.addAttribute("dia09FkCompativel",  listaTurnos);
+		model.addAttribute("dia10FkCompativel",  listaTurnos);
+		model.addAttribute("dia11FkCompativel",  listaTurnos);
+		model.addAttribute("dia12FkCompativel",  listaTurnos);
+		model.addAttribute("dia13FkCompativel",  listaTurnos);
+		model.addAttribute("dia14FkCompativel",  listaTurnos);
+		model.addAttribute("dia15FkCompativel",  listaTurnos);
+		model.addAttribute("dia16FkCompativel",  listaTurnos);
+		model.addAttribute("dia17FkCompativel",  listaTurnos);
+		model.addAttribute("dia18FkCompativel",  listaTurnos);
+		model.addAttribute("dia19FkCompativel",  listaTurnos);
+		model.addAttribute("dia20FkCompativel",  listaTurnos);
+		model.addAttribute("dia21FkCompativel",  listaTurnos);
+		model.addAttribute("dia22FkCompativel",  listaTurnos);
+		model.addAttribute("dia23FkCompativel",  listaTurnos);
+		model.addAttribute("dia24FkCompativel",  listaTurnos);
+		model.addAttribute("dia25FkCompativel",  listaTurnos);
+		model.addAttribute("dia26FkCompativel",  listaTurnos);
+		model.addAttribute("dia27FkCompativel",  listaTurnos);
+		model.addAttribute("dia28FkCompativel",  listaTurnos);
+		model.addAttribute("dia29FkCompativel",  listaTurnos);
+		model.addAttribute("dia30FkCompativel",  listaTurnos);
+		model.addAttribute("dia31FkCompativel",  listaTurnos);
+		
+		
+		//this.escalaAtual = escala;
+		
+		//comando para armazenar a escala na sessão
+		HttpSession session = httpSessionFactory.getObject();
+        session.setAttribute("escalaAtual", escala  );
+		
+		
+		return "/escala/editar";
 	}
 
 	//Ciclo4
-	@GetMapping("/atalho/ciclo4_a")
-	public String atalhoCiclo4A( RedirectAttributes attr) {	
+	@GetMapping("/atalho/ciclo4/a")
+	public String atalhoCiclo4A( RedirectAttributes attr, ModelMap model) {	
+		
 		//Tratando escala Bloqueada
 		if(anoMesService.buscarPorId(mesAtual()).getIdEscalaBloqueadaFk().getSigla().equalsIgnoreCase("S")) {
 		return "redirect:/escalas/mensagem/de/escala/bloqueada";
@@ -2144,38 +3176,93 @@ public class EscalaController {
 
 		Escala escalaA = service.buscarPorId(ultimoIdEscala());
 		Escala escala = service.converteDeEscalaParaEscalaComId(escalaA);
-
+		
 		escala = escalaCalculosService.converteTurnoNuloEmFolga(escala);
 		escala = escalaAtalhosService.atalhoCiclo4A(escala);
 		escala = escalaCalculosService.converteTurnoNuloEmFolga(escala);
 		escala = escalaCalculosService.calcularDadosEscala(escala);
 		
-		//Avaliando Efetivo dando Extra sem cumprir a CH Efetiva
-		boolean extraSemCumprirEfetivo = escalaCompatibilidadeService.horasExtrasSemEfetivas(escala);
-		if(extraSemCumprirEfetivo==true) {
-			return "redirect:/escalas/mensagem/de/efetivo/com/extra/sem/ch/efetiva/informada";
-		}
+		String anoMesDaEscala = "202105";
+		if(escala!=null){anoMesDaEscala = escala.getIdAnoMesFk().getNomeAnoMes();}
+		int qtdDiasNoMes = escalaCalculosService.quantidadeDeDiasNoMes(anoMesDaEscala);
 		
-		//AVALIAÇÃO PARA SABER SE TEM CHOQUES
-		//this.choque = service.choquesEmEscalaOnipresenca(escala);
-		//comando para armazenar choque na sessão
-        HttpSession session = httpSessionFactory.getObject();
-        session.setAttribute("choque", service.choquesEmEscalaOnipresenca(escala)  );
-		//this.choqueDescansoDepoisNoturno = service.choquesEmEscalaDepoisDoNoturno(escala);
-        //comando para armazenar choque na sessão
-        session.setAttribute("choqueDescansoDepoisNoturno", service.choquesEmEscalaDepoisDoNoturno(escala)  );
-		if(choqueDescansoDepoisNoturno().length()>0) {attr.addFlashAttribute("fail", choqueDescansoDepoisNoturno()); return atalhoLimparEscalaChoque(attr, choqueDescansoDepoisNoturno()); }
-		if(choque().length()>0) {attr.addFlashAttribute("fail", choque()); return atalhoLimparEscalaChoque(attr, choque());  }
-		if((choqueDescansoDepoisNoturno().length()==0) && (choque().length()==0)) {
-			salvar(escala, null, null);
-			session = httpSessionFactory.getObject(); session.setAttribute("ultimoIdEscala", escala.getId()  );
-			attr.addFlashAttribute("success", "Confirme CH Dif, Incremento de Risco, Diferenciado, Regime e Turma antes de Lançar.");
-		}
-		return "redirect:/escalas/alterar/escala/"+escala.getId();
+		// CALCULANDO OS DIAS DO MES
+		String nomeColuna1 = escalaCalculosService.obtemNomeDiaColuna(anoMesDaEscala, 1);
+		String nomeColuna2 = escalaCalculosService.obtemNomeDiaColuna(anoMesDaEscala, 2);
+		String nomeColuna3 = escalaCalculosService.obtemNomeDiaColuna(anoMesDaEscala, 3);
+		String nomeColuna4 = escalaCalculosService.obtemNomeDiaColuna(anoMesDaEscala, 4);
+		String nomeColuna5 = escalaCalculosService.obtemNomeDiaColuna(anoMesDaEscala, 5);
+		String nomeColuna6 = escalaCalculosService.obtemNomeDiaColuna(anoMesDaEscala, 6);
+		String nomeColuna7 = escalaCalculosService.obtemNomeDiaColuna(anoMesDaEscala, 7);
+		// falta complemento de planantao compativel
+		
+		model.addAttribute("idCodigoDiferenciadoFkCompativel", escalaCompatibilidadeService.getCodigosDiferenciadoCompativel( escala) );
+		model.addAttribute("idChDifFkCompativel", pessoaChDifService.listaSimNaoCompativelComPessoa(usuarioService.pegarUnidadeLogada(), escala.getIdFuncionarioFk().getIdPessoaFk(), escala.getIdAnoMesFk()) );
+		model.addAttribute("idIncrementoDeRiscoCompativel", escalaCompatibilidadeService.getIncrementoDeRiscoCompativel(escala) );
+		model.addAttribute("idComplementoDePlantaoCompativel", escalaCompatibilidadeService.getComplementoDePlantaoCompativel(escala) );
+		
+	
+		model.addAttribute("escala", escala );
+		model.addAttribute("idLinha", escala.getId() );
+		model.addAttribute("qtdDiasNoMes", qtdDiasNoMes );
+		model.addAttribute("nomeColuna1", nomeColuna1 );
+		model.addAttribute("nomeColuna2", nomeColuna2 );
+		model.addAttribute("nomeColuna3", nomeColuna3 );
+		model.addAttribute("nomeColuna4", nomeColuna4 );
+		model.addAttribute("nomeColuna5", nomeColuna5 );
+		model.addAttribute("nomeColuna6", nomeColuna6 );
+		model.addAttribute("nomeColuna7", nomeColuna7 );
+		
+		
+		// Pegando os turnos compatíveis
+		List<Turnos> listaTurnos = regimeDeTrabalhoTurnoService.buscarPorRegimesEUnidadeEFolha(escala);
+		
+		model.addAttribute("dia01FkCompativel",  listaTurnos);
+		model.addAttribute("dia02FkCompativel",  listaTurnos);
+		model.addAttribute("dia03FkCompativel",  listaTurnos);
+		model.addAttribute("dia04FkCompativel",  listaTurnos);
+		model.addAttribute("dia05FkCompativel",  listaTurnos);
+		model.addAttribute("dia06FkCompativel",  listaTurnos);
+		model.addAttribute("dia07FkCompativel",  listaTurnos);
+		model.addAttribute("dia08FkCompativel",  listaTurnos);
+		model.addAttribute("dia09FkCompativel",  listaTurnos);
+		model.addAttribute("dia10FkCompativel",  listaTurnos);
+		model.addAttribute("dia11FkCompativel",  listaTurnos);
+		model.addAttribute("dia12FkCompativel",  listaTurnos);
+		model.addAttribute("dia13FkCompativel",  listaTurnos);
+		model.addAttribute("dia14FkCompativel",  listaTurnos);
+		model.addAttribute("dia15FkCompativel",  listaTurnos);
+		model.addAttribute("dia16FkCompativel",  listaTurnos);
+		model.addAttribute("dia17FkCompativel",  listaTurnos);
+		model.addAttribute("dia18FkCompativel",  listaTurnos);
+		model.addAttribute("dia19FkCompativel",  listaTurnos);
+		model.addAttribute("dia20FkCompativel",  listaTurnos);
+		model.addAttribute("dia21FkCompativel",  listaTurnos);
+		model.addAttribute("dia22FkCompativel",  listaTurnos);
+		model.addAttribute("dia23FkCompativel",  listaTurnos);
+		model.addAttribute("dia24FkCompativel",  listaTurnos);
+		model.addAttribute("dia25FkCompativel",  listaTurnos);
+		model.addAttribute("dia26FkCompativel",  listaTurnos);
+		model.addAttribute("dia27FkCompativel",  listaTurnos);
+		model.addAttribute("dia28FkCompativel",  listaTurnos);
+		model.addAttribute("dia29FkCompativel",  listaTurnos);
+		model.addAttribute("dia30FkCompativel",  listaTurnos);
+		model.addAttribute("dia31FkCompativel",  listaTurnos);
+		
+		
+		//this.escalaAtual = escala;
+		
+		//comando para armazenar a escala na sessão
+		HttpSession session = httpSessionFactory.getObject();
+        session.setAttribute("escalaAtual", escala  );
+		
+		
+		return "/escala/editar";
 	}
 	
-	@GetMapping("/atalho/ciclo4_b")
-	public String atalhoCiclo4B( RedirectAttributes attr) {	
+	@GetMapping("/atalho/ciclo4/b")
+	public String atalhoCiclo4B( RedirectAttributes attr, ModelMap model) {	
+		
 		//Tratando escala Bloqueada
 		if(anoMesService.buscarPorId(mesAtual()).getIdEscalaBloqueadaFk().getSigla().equalsIgnoreCase("S")) {
 		return "redirect:/escalas/mensagem/de/escala/bloqueada";
@@ -2183,38 +3270,93 @@ public class EscalaController {
 
 		Escala escalaA = service.buscarPorId(ultimoIdEscala());
 		Escala escala = service.converteDeEscalaParaEscalaComId(escalaA);
-
+		
 		escala = escalaCalculosService.converteTurnoNuloEmFolga(escala);
 		escala = escalaAtalhosService.atalhoCiclo4B(escala);
 		escala = escalaCalculosService.converteTurnoNuloEmFolga(escala);
 		escala = escalaCalculosService.calcularDadosEscala(escala);
 		
-		//Avaliando Efetivo dando Extra sem cumprir a CH Efetiva
-		boolean extraSemCumprirEfetivo = escalaCompatibilidadeService.horasExtrasSemEfetivas(escala);
-		if(extraSemCumprirEfetivo==true) {
-			return "redirect:/escalas/mensagem/de/efetivo/com/extra/sem/ch/efetiva/informada";
-		}
+		String anoMesDaEscala = "202105";
+		if(escala!=null){anoMesDaEscala = escala.getIdAnoMesFk().getNomeAnoMes();}
+		int qtdDiasNoMes = escalaCalculosService.quantidadeDeDiasNoMes(anoMesDaEscala);
 		
-		//AVALIAÇÃO PARA SABER SE TEM CHOQUES
-		//this.choque = service.choquesEmEscalaOnipresenca(escala);
-		//comando para armazenar choque na sessão
-        HttpSession session = httpSessionFactory.getObject();
-        session.setAttribute("choque", service.choquesEmEscalaOnipresenca(escala)  );
-		//this.choqueDescansoDepoisNoturno = service.choquesEmEscalaDepoisDoNoturno(escala);
-        //comando para armazenar choque na sessão
-        session.setAttribute("choqueDescansoDepoisNoturno", service.choquesEmEscalaDepoisDoNoturno(escala)  );
-		if(choqueDescansoDepoisNoturno().length()>0) {attr.addFlashAttribute("fail", choqueDescansoDepoisNoturno()); return atalhoLimparEscalaChoque(attr, choqueDescansoDepoisNoturno()); }
-		if(choque().length()>0) {attr.addFlashAttribute("fail", choque()); return atalhoLimparEscalaChoque(attr, choque());  }
-		if((choqueDescansoDepoisNoturno().length()==0) && (choque().length()==0)) {
-			salvar(escala, null, null);
-			session = httpSessionFactory.getObject(); session.setAttribute("ultimoIdEscala", escala.getId()  );
-			attr.addFlashAttribute("success", "Confirme CH Dif, Incremento de Risco, Diferenciado, Regime e Turma antes de Lançar.");
-		}
-		return "redirect:/escalas/alterar/escala/"+escala.getId();
+		// CALCULANDO OS DIAS DO MES
+		String nomeColuna1 = escalaCalculosService.obtemNomeDiaColuna(anoMesDaEscala, 1);
+		String nomeColuna2 = escalaCalculosService.obtemNomeDiaColuna(anoMesDaEscala, 2);
+		String nomeColuna3 = escalaCalculosService.obtemNomeDiaColuna(anoMesDaEscala, 3);
+		String nomeColuna4 = escalaCalculosService.obtemNomeDiaColuna(anoMesDaEscala, 4);
+		String nomeColuna5 = escalaCalculosService.obtemNomeDiaColuna(anoMesDaEscala, 5);
+		String nomeColuna6 = escalaCalculosService.obtemNomeDiaColuna(anoMesDaEscala, 6);
+		String nomeColuna7 = escalaCalculosService.obtemNomeDiaColuna(anoMesDaEscala, 7);
+		// falta complemento de planantao compativel
+		
+		model.addAttribute("idCodigoDiferenciadoFkCompativel", escalaCompatibilidadeService.getCodigosDiferenciadoCompativel( escala) );
+		model.addAttribute("idChDifFkCompativel", pessoaChDifService.listaSimNaoCompativelComPessoa(usuarioService.pegarUnidadeLogada(), escala.getIdFuncionarioFk().getIdPessoaFk(), escala.getIdAnoMesFk()) );
+		model.addAttribute("idIncrementoDeRiscoCompativel", escalaCompatibilidadeService.getIncrementoDeRiscoCompativel(escala) );
+		model.addAttribute("idComplementoDePlantaoCompativel", escalaCompatibilidadeService.getComplementoDePlantaoCompativel(escala) );
+		
+	
+		model.addAttribute("escala", escala );
+		model.addAttribute("idLinha", escala.getId() );
+		model.addAttribute("qtdDiasNoMes", qtdDiasNoMes );
+		model.addAttribute("nomeColuna1", nomeColuna1 );
+		model.addAttribute("nomeColuna2", nomeColuna2 );
+		model.addAttribute("nomeColuna3", nomeColuna3 );
+		model.addAttribute("nomeColuna4", nomeColuna4 );
+		model.addAttribute("nomeColuna5", nomeColuna5 );
+		model.addAttribute("nomeColuna6", nomeColuna6 );
+		model.addAttribute("nomeColuna7", nomeColuna7 );
+		
+		
+		// Pegando os turnos compatíveis
+		List<Turnos> listaTurnos = regimeDeTrabalhoTurnoService.buscarPorRegimesEUnidadeEFolha(escala);
+		
+		model.addAttribute("dia01FkCompativel",  listaTurnos);
+		model.addAttribute("dia02FkCompativel",  listaTurnos);
+		model.addAttribute("dia03FkCompativel",  listaTurnos);
+		model.addAttribute("dia04FkCompativel",  listaTurnos);
+		model.addAttribute("dia05FkCompativel",  listaTurnos);
+		model.addAttribute("dia06FkCompativel",  listaTurnos);
+		model.addAttribute("dia07FkCompativel",  listaTurnos);
+		model.addAttribute("dia08FkCompativel",  listaTurnos);
+		model.addAttribute("dia09FkCompativel",  listaTurnos);
+		model.addAttribute("dia10FkCompativel",  listaTurnos);
+		model.addAttribute("dia11FkCompativel",  listaTurnos);
+		model.addAttribute("dia12FkCompativel",  listaTurnos);
+		model.addAttribute("dia13FkCompativel",  listaTurnos);
+		model.addAttribute("dia14FkCompativel",  listaTurnos);
+		model.addAttribute("dia15FkCompativel",  listaTurnos);
+		model.addAttribute("dia16FkCompativel",  listaTurnos);
+		model.addAttribute("dia17FkCompativel",  listaTurnos);
+		model.addAttribute("dia18FkCompativel",  listaTurnos);
+		model.addAttribute("dia19FkCompativel",  listaTurnos);
+		model.addAttribute("dia20FkCompativel",  listaTurnos);
+		model.addAttribute("dia21FkCompativel",  listaTurnos);
+		model.addAttribute("dia22FkCompativel",  listaTurnos);
+		model.addAttribute("dia23FkCompativel",  listaTurnos);
+		model.addAttribute("dia24FkCompativel",  listaTurnos);
+		model.addAttribute("dia25FkCompativel",  listaTurnos);
+		model.addAttribute("dia26FkCompativel",  listaTurnos);
+		model.addAttribute("dia27FkCompativel",  listaTurnos);
+		model.addAttribute("dia28FkCompativel",  listaTurnos);
+		model.addAttribute("dia29FkCompativel",  listaTurnos);
+		model.addAttribute("dia30FkCompativel",  listaTurnos);
+		model.addAttribute("dia31FkCompativel",  listaTurnos);
+		
+		
+		//this.escalaAtual = escala;
+		
+		//comando para armazenar a escala na sessão
+		HttpSession session = httpSessionFactory.getObject();
+        session.setAttribute("escalaAtual", escala  );
+		
+		
+		return "/escala/editar";
 	}
 	
-	@GetMapping("/atalho/ciclo4_c")
-	public String atalhoCiclo4C( RedirectAttributes attr) {	
+	@GetMapping("/atalho/ciclo4/c")
+	public String atalhoCiclo4C( RedirectAttributes attr, ModelMap model) {	
+		
 		//Tratando escala Bloqueada
 		if(anoMesService.buscarPorId(mesAtual()).getIdEscalaBloqueadaFk().getSigla().equalsIgnoreCase("S")) {
 		return "redirect:/escalas/mensagem/de/escala/bloqueada";
@@ -2222,38 +3364,93 @@ public class EscalaController {
 
 		Escala escalaA = service.buscarPorId(ultimoIdEscala());
 		Escala escala = service.converteDeEscalaParaEscalaComId(escalaA);
-
+		
 		escala = escalaCalculosService.converteTurnoNuloEmFolga(escala);
 		escala = escalaAtalhosService.atalhoCiclo4C(escala);
 		escala = escalaCalculosService.converteTurnoNuloEmFolga(escala);
 		escala = escalaCalculosService.calcularDadosEscala(escala);
 		
-		//Avaliando Efetivo dando Extra sem cumprir a CH Efetiva
-		boolean extraSemCumprirEfetivo = escalaCompatibilidadeService.horasExtrasSemEfetivas(escala);
-		if(extraSemCumprirEfetivo==true) {
-			return "redirect:/escalas/mensagem/de/efetivo/com/extra/sem/ch/efetiva/informada";
-		}
+		String anoMesDaEscala = "202105";
+		if(escala!=null){anoMesDaEscala = escala.getIdAnoMesFk().getNomeAnoMes();}
+		int qtdDiasNoMes = escalaCalculosService.quantidadeDeDiasNoMes(anoMesDaEscala);
 		
-		//AVALIAÇÃO PARA SABER SE TEM CHOQUES
-		//this.choque = service.choquesEmEscalaOnipresenca(escala);
-		//comando para armazenar choque na sessão
-        HttpSession session = httpSessionFactory.getObject();
-        session.setAttribute("choque", service.choquesEmEscalaOnipresenca(escala)  );
-		//this.choqueDescansoDepoisNoturno = service.choquesEmEscalaDepoisDoNoturno(escala);
-        //comando para armazenar choque na sessão
-        session.setAttribute("choqueDescansoDepoisNoturno", service.choquesEmEscalaDepoisDoNoturno(escala)  );
-		if(choqueDescansoDepoisNoturno().length()>0) {attr.addFlashAttribute("fail", choqueDescansoDepoisNoturno()); return atalhoLimparEscalaChoque(attr, choqueDescansoDepoisNoturno()); }
-		if(choque().length()>0) {attr.addFlashAttribute("fail", choque()); return atalhoLimparEscalaChoque(attr, choque());  }
-		if((choqueDescansoDepoisNoturno().length()==0) && (choque().length()==0)) {
-			salvar(escala, null, null);
-			session = httpSessionFactory.getObject(); session.setAttribute("ultimoIdEscala", escala.getId()  );
-			attr.addFlashAttribute("success", "Confirme CH Dif, Incremento de Risco, Diferenciado, Regime e Turma antes de Lançar.");
-		}
-		return "redirect:/escalas/alterar/escala/"+escala.getId();
+		// CALCULANDO OS DIAS DO MES
+		String nomeColuna1 = escalaCalculosService.obtemNomeDiaColuna(anoMesDaEscala, 1);
+		String nomeColuna2 = escalaCalculosService.obtemNomeDiaColuna(anoMesDaEscala, 2);
+		String nomeColuna3 = escalaCalculosService.obtemNomeDiaColuna(anoMesDaEscala, 3);
+		String nomeColuna4 = escalaCalculosService.obtemNomeDiaColuna(anoMesDaEscala, 4);
+		String nomeColuna5 = escalaCalculosService.obtemNomeDiaColuna(anoMesDaEscala, 5);
+		String nomeColuna6 = escalaCalculosService.obtemNomeDiaColuna(anoMesDaEscala, 6);
+		String nomeColuna7 = escalaCalculosService.obtemNomeDiaColuna(anoMesDaEscala, 7);
+		// falta complemento de planantao compativel
+		
+		model.addAttribute("idCodigoDiferenciadoFkCompativel", escalaCompatibilidadeService.getCodigosDiferenciadoCompativel( escala) );
+		model.addAttribute("idChDifFkCompativel", pessoaChDifService.listaSimNaoCompativelComPessoa(usuarioService.pegarUnidadeLogada(), escala.getIdFuncionarioFk().getIdPessoaFk(), escala.getIdAnoMesFk()) );
+		model.addAttribute("idIncrementoDeRiscoCompativel", escalaCompatibilidadeService.getIncrementoDeRiscoCompativel(escala) );
+		model.addAttribute("idComplementoDePlantaoCompativel", escalaCompatibilidadeService.getComplementoDePlantaoCompativel(escala) );
+		
+	
+		model.addAttribute("escala", escala );
+		model.addAttribute("idLinha", escala.getId() );
+		model.addAttribute("qtdDiasNoMes", qtdDiasNoMes );
+		model.addAttribute("nomeColuna1", nomeColuna1 );
+		model.addAttribute("nomeColuna2", nomeColuna2 );
+		model.addAttribute("nomeColuna3", nomeColuna3 );
+		model.addAttribute("nomeColuna4", nomeColuna4 );
+		model.addAttribute("nomeColuna5", nomeColuna5 );
+		model.addAttribute("nomeColuna6", nomeColuna6 );
+		model.addAttribute("nomeColuna7", nomeColuna7 );
+		
+		
+		// Pegando os turnos compatíveis
+		List<Turnos> listaTurnos = regimeDeTrabalhoTurnoService.buscarPorRegimesEUnidadeEFolha(escala);
+		
+		model.addAttribute("dia01FkCompativel",  listaTurnos);
+		model.addAttribute("dia02FkCompativel",  listaTurnos);
+		model.addAttribute("dia03FkCompativel",  listaTurnos);
+		model.addAttribute("dia04FkCompativel",  listaTurnos);
+		model.addAttribute("dia05FkCompativel",  listaTurnos);
+		model.addAttribute("dia06FkCompativel",  listaTurnos);
+		model.addAttribute("dia07FkCompativel",  listaTurnos);
+		model.addAttribute("dia08FkCompativel",  listaTurnos);
+		model.addAttribute("dia09FkCompativel",  listaTurnos);
+		model.addAttribute("dia10FkCompativel",  listaTurnos);
+		model.addAttribute("dia11FkCompativel",  listaTurnos);
+		model.addAttribute("dia12FkCompativel",  listaTurnos);
+		model.addAttribute("dia13FkCompativel",  listaTurnos);
+		model.addAttribute("dia14FkCompativel",  listaTurnos);
+		model.addAttribute("dia15FkCompativel",  listaTurnos);
+		model.addAttribute("dia16FkCompativel",  listaTurnos);
+		model.addAttribute("dia17FkCompativel",  listaTurnos);
+		model.addAttribute("dia18FkCompativel",  listaTurnos);
+		model.addAttribute("dia19FkCompativel",  listaTurnos);
+		model.addAttribute("dia20FkCompativel",  listaTurnos);
+		model.addAttribute("dia21FkCompativel",  listaTurnos);
+		model.addAttribute("dia22FkCompativel",  listaTurnos);
+		model.addAttribute("dia23FkCompativel",  listaTurnos);
+		model.addAttribute("dia24FkCompativel",  listaTurnos);
+		model.addAttribute("dia25FkCompativel",  listaTurnos);
+		model.addAttribute("dia26FkCompativel",  listaTurnos);
+		model.addAttribute("dia27FkCompativel",  listaTurnos);
+		model.addAttribute("dia28FkCompativel",  listaTurnos);
+		model.addAttribute("dia29FkCompativel",  listaTurnos);
+		model.addAttribute("dia30FkCompativel",  listaTurnos);
+		model.addAttribute("dia31FkCompativel",  listaTurnos);
+		
+		
+		//this.escalaAtual = escala;
+		
+		//comando para armazenar a escala na sessão
+		HttpSession session = httpSessionFactory.getObject();
+        session.setAttribute("escalaAtual", escala  );
+		
+		
+		return "/escala/editar";
 	}
 	
-	@GetMapping("/atalho/ciclo4_d")
-	public String atalhoCiclo4D( RedirectAttributes attr) {	
+	@GetMapping("/atalho/ciclo4/d")
+	public String atalhoCiclo4D( RedirectAttributes attr, ModelMap model) {	
+		
 		//Tratando escala Bloqueada
 		if(anoMesService.buscarPorId(mesAtual()).getIdEscalaBloqueadaFk().getSigla().equalsIgnoreCase("S")) {
 		return "redirect:/escalas/mensagem/de/escala/bloqueada";
@@ -2261,38 +3458,93 @@ public class EscalaController {
 
 		Escala escalaA = service.buscarPorId(ultimoIdEscala());
 		Escala escala = service.converteDeEscalaParaEscalaComId(escalaA);
-
+		
 		escala = escalaCalculosService.converteTurnoNuloEmFolga(escala);
 		escala = escalaAtalhosService.atalhoCiclo4D(escala);
 		escala = escalaCalculosService.converteTurnoNuloEmFolga(escala);
 		escala = escalaCalculosService.calcularDadosEscala(escala);
 		
-		//Avaliando Efetivo dando Extra sem cumprir a CH Efetiva
-		boolean extraSemCumprirEfetivo = escalaCompatibilidadeService.horasExtrasSemEfetivas(escala);
-		if(extraSemCumprirEfetivo==true) {
-			return "redirect:/escalas/mensagem/de/efetivo/com/extra/sem/ch/efetiva/informada";
-		}
+		String anoMesDaEscala = "202105";
+		if(escala!=null){anoMesDaEscala = escala.getIdAnoMesFk().getNomeAnoMes();}
+		int qtdDiasNoMes = escalaCalculosService.quantidadeDeDiasNoMes(anoMesDaEscala);
 		
-		//AVALIAÇÃO PARA SABER SE TEM CHOQUES
-		//this.choque = service.choquesEmEscalaOnipresenca(escala);
-		//comando para armazenar choque na sessão
-        HttpSession session = httpSessionFactory.getObject();
-        session.setAttribute("choque", service.choquesEmEscalaOnipresenca(escala)  );
-		//this.choqueDescansoDepoisNoturno = service.choquesEmEscalaDepoisDoNoturno(escala);
-        //comando para armazenar choque na sessão
-        session.setAttribute("choqueDescansoDepoisNoturno", service.choquesEmEscalaDepoisDoNoturno(escala)  );
-		if(choqueDescansoDepoisNoturno().length()>0) {attr.addFlashAttribute("fail", choqueDescansoDepoisNoturno()); return atalhoLimparEscalaChoque(attr, choqueDescansoDepoisNoturno()); }
-		if(choque().length()>0) {attr.addFlashAttribute("fail", choque()); return atalhoLimparEscalaChoque(attr, choque());  }
-		if((choqueDescansoDepoisNoturno().length()==0) && (choque().length()==0)) {
-			salvar(escala, null, null);
-			session = httpSessionFactory.getObject(); session.setAttribute("ultimoIdEscala", escala.getId()  );
-			attr.addFlashAttribute("success", "Confirme CH Dif, Incremento de Risco, Diferenciado, Regime e Turma antes de Lançar.");
-		}
-		return "redirect:/escalas/alterar/escala/"+escala.getId();
+		// CALCULANDO OS DIAS DO MES
+		String nomeColuna1 = escalaCalculosService.obtemNomeDiaColuna(anoMesDaEscala, 1);
+		String nomeColuna2 = escalaCalculosService.obtemNomeDiaColuna(anoMesDaEscala, 2);
+		String nomeColuna3 = escalaCalculosService.obtemNomeDiaColuna(anoMesDaEscala, 3);
+		String nomeColuna4 = escalaCalculosService.obtemNomeDiaColuna(anoMesDaEscala, 4);
+		String nomeColuna5 = escalaCalculosService.obtemNomeDiaColuna(anoMesDaEscala, 5);
+		String nomeColuna6 = escalaCalculosService.obtemNomeDiaColuna(anoMesDaEscala, 6);
+		String nomeColuna7 = escalaCalculosService.obtemNomeDiaColuna(anoMesDaEscala, 7);
+		// falta complemento de planantao compativel
+		
+		model.addAttribute("idCodigoDiferenciadoFkCompativel", escalaCompatibilidadeService.getCodigosDiferenciadoCompativel( escala) );
+		model.addAttribute("idChDifFkCompativel", pessoaChDifService.listaSimNaoCompativelComPessoa(usuarioService.pegarUnidadeLogada(), escala.getIdFuncionarioFk().getIdPessoaFk(), escala.getIdAnoMesFk()) );
+		model.addAttribute("idIncrementoDeRiscoCompativel", escalaCompatibilidadeService.getIncrementoDeRiscoCompativel(escala) );
+		model.addAttribute("idComplementoDePlantaoCompativel", escalaCompatibilidadeService.getComplementoDePlantaoCompativel(escala) );
+		
+	
+		model.addAttribute("escala", escala );
+		model.addAttribute("idLinha", escala.getId() );
+		model.addAttribute("qtdDiasNoMes", qtdDiasNoMes );
+		model.addAttribute("nomeColuna1", nomeColuna1 );
+		model.addAttribute("nomeColuna2", nomeColuna2 );
+		model.addAttribute("nomeColuna3", nomeColuna3 );
+		model.addAttribute("nomeColuna4", nomeColuna4 );
+		model.addAttribute("nomeColuna5", nomeColuna5 );
+		model.addAttribute("nomeColuna6", nomeColuna6 );
+		model.addAttribute("nomeColuna7", nomeColuna7 );
+		
+		
+		// Pegando os turnos compatíveis
+		List<Turnos> listaTurnos = regimeDeTrabalhoTurnoService.buscarPorRegimesEUnidadeEFolha(escala);
+		
+		model.addAttribute("dia01FkCompativel",  listaTurnos);
+		model.addAttribute("dia02FkCompativel",  listaTurnos);
+		model.addAttribute("dia03FkCompativel",  listaTurnos);
+		model.addAttribute("dia04FkCompativel",  listaTurnos);
+		model.addAttribute("dia05FkCompativel",  listaTurnos);
+		model.addAttribute("dia06FkCompativel",  listaTurnos);
+		model.addAttribute("dia07FkCompativel",  listaTurnos);
+		model.addAttribute("dia08FkCompativel",  listaTurnos);
+		model.addAttribute("dia09FkCompativel",  listaTurnos);
+		model.addAttribute("dia10FkCompativel",  listaTurnos);
+		model.addAttribute("dia11FkCompativel",  listaTurnos);
+		model.addAttribute("dia12FkCompativel",  listaTurnos);
+		model.addAttribute("dia13FkCompativel",  listaTurnos);
+		model.addAttribute("dia14FkCompativel",  listaTurnos);
+		model.addAttribute("dia15FkCompativel",  listaTurnos);
+		model.addAttribute("dia16FkCompativel",  listaTurnos);
+		model.addAttribute("dia17FkCompativel",  listaTurnos);
+		model.addAttribute("dia18FkCompativel",  listaTurnos);
+		model.addAttribute("dia19FkCompativel",  listaTurnos);
+		model.addAttribute("dia20FkCompativel",  listaTurnos);
+		model.addAttribute("dia21FkCompativel",  listaTurnos);
+		model.addAttribute("dia22FkCompativel",  listaTurnos);
+		model.addAttribute("dia23FkCompativel",  listaTurnos);
+		model.addAttribute("dia24FkCompativel",  listaTurnos);
+		model.addAttribute("dia25FkCompativel",  listaTurnos);
+		model.addAttribute("dia26FkCompativel",  listaTurnos);
+		model.addAttribute("dia27FkCompativel",  listaTurnos);
+		model.addAttribute("dia28FkCompativel",  listaTurnos);
+		model.addAttribute("dia29FkCompativel",  listaTurnos);
+		model.addAttribute("dia30FkCompativel",  listaTurnos);
+		model.addAttribute("dia31FkCompativel",  listaTurnos);
+		
+		
+		//this.escalaAtual = escala;
+		
+		//comando para armazenar a escala na sessão
+		HttpSession session = httpSessionFactory.getObject();
+        session.setAttribute("escalaAtual", escala  );
+		
+		
+		return "/escala/editar";
 	}
 	
-	@GetMapping("/atalho/ciclo4_e")
-	public String atalhoCiclo4E( RedirectAttributes attr) {	
+	@GetMapping("/atalho/ciclo4/e")
+	public String atalhoCiclo4E( RedirectAttributes attr, ModelMap model) {	
+		
 		//Tratando escala Bloqueada
 		if(anoMesService.buscarPorId(mesAtual()).getIdEscalaBloqueadaFk().getSigla().equalsIgnoreCase("S")) {
 		return "redirect:/escalas/mensagem/de/escala/bloqueada";
@@ -2300,38 +3552,93 @@ public class EscalaController {
 
 		Escala escalaA = service.buscarPorId(ultimoIdEscala());
 		Escala escala = service.converteDeEscalaParaEscalaComId(escalaA);
-
+		
 		escala = escalaCalculosService.converteTurnoNuloEmFolga(escala);
 		escala = escalaAtalhosService.atalhoCiclo4E(escala);
 		escala = escalaCalculosService.converteTurnoNuloEmFolga(escala);
 		escala = escalaCalculosService.calcularDadosEscala(escala);
 		
-		//Avaliando Efetivo dando Extra sem cumprir a CH Efetiva
-		boolean extraSemCumprirEfetivo = escalaCompatibilidadeService.horasExtrasSemEfetivas(escala);
-		if(extraSemCumprirEfetivo==true) {
-			return "redirect:/escalas/mensagem/de/efetivo/com/extra/sem/ch/efetiva/informada";
-		}
+		String anoMesDaEscala = "202105";
+		if(escala!=null){anoMesDaEscala = escala.getIdAnoMesFk().getNomeAnoMes();}
+		int qtdDiasNoMes = escalaCalculosService.quantidadeDeDiasNoMes(anoMesDaEscala);
 		
-		//AVALIAÇÃO PARA SABER SE TEM CHOQUES
-		//this.choque = service.choquesEmEscalaOnipresenca(escala);
-		//comando para armazenar choque na sessão
-        HttpSession session = httpSessionFactory.getObject();
-        session.setAttribute("choque", service.choquesEmEscalaOnipresenca(escala)  );
-		//this.choqueDescansoDepoisNoturno = service.choquesEmEscalaDepoisDoNoturno(escala);
-        //comando para armazenar choque na sessão
-        session.setAttribute("choqueDescansoDepoisNoturno", service.choquesEmEscalaDepoisDoNoturno(escala)  );
-		if(choqueDescansoDepoisNoturno().length()>0) {attr.addFlashAttribute("fail", choqueDescansoDepoisNoturno()); return atalhoLimparEscalaChoque(attr, choqueDescansoDepoisNoturno()); }
-		if(choque().length()>0) {attr.addFlashAttribute("fail", choque()); return atalhoLimparEscalaChoque(attr, choque());  }
-		if((choqueDescansoDepoisNoturno().length()==0) && (choque().length()==0)) {
-			salvar(escala, null, null);
-			session = httpSessionFactory.getObject(); session.setAttribute("ultimoIdEscala", escala.getId()  );
-			attr.addFlashAttribute("success", "Confirme CH Dif, Incremento de Risco, Diferenciado, Regime e Turma antes de Lançar.");
-		}
-		return "redirect:/escalas/alterar/escala/"+escala.getId();
+		// CALCULANDO OS DIAS DO MES
+		String nomeColuna1 = escalaCalculosService.obtemNomeDiaColuna(anoMesDaEscala, 1);
+		String nomeColuna2 = escalaCalculosService.obtemNomeDiaColuna(anoMesDaEscala, 2);
+		String nomeColuna3 = escalaCalculosService.obtemNomeDiaColuna(anoMesDaEscala, 3);
+		String nomeColuna4 = escalaCalculosService.obtemNomeDiaColuna(anoMesDaEscala, 4);
+		String nomeColuna5 = escalaCalculosService.obtemNomeDiaColuna(anoMesDaEscala, 5);
+		String nomeColuna6 = escalaCalculosService.obtemNomeDiaColuna(anoMesDaEscala, 6);
+		String nomeColuna7 = escalaCalculosService.obtemNomeDiaColuna(anoMesDaEscala, 7);
+		// falta complemento de planantao compativel
+		
+		model.addAttribute("idCodigoDiferenciadoFkCompativel", escalaCompatibilidadeService.getCodigosDiferenciadoCompativel( escala) );
+		model.addAttribute("idChDifFkCompativel", pessoaChDifService.listaSimNaoCompativelComPessoa(usuarioService.pegarUnidadeLogada(), escala.getIdFuncionarioFk().getIdPessoaFk(), escala.getIdAnoMesFk()) );
+		model.addAttribute("idIncrementoDeRiscoCompativel", escalaCompatibilidadeService.getIncrementoDeRiscoCompativel(escala) );
+		model.addAttribute("idComplementoDePlantaoCompativel", escalaCompatibilidadeService.getComplementoDePlantaoCompativel(escala) );
+		
+	
+		model.addAttribute("escala", escala );
+		model.addAttribute("idLinha", escala.getId() );
+		model.addAttribute("qtdDiasNoMes", qtdDiasNoMes );
+		model.addAttribute("nomeColuna1", nomeColuna1 );
+		model.addAttribute("nomeColuna2", nomeColuna2 );
+		model.addAttribute("nomeColuna3", nomeColuna3 );
+		model.addAttribute("nomeColuna4", nomeColuna4 );
+		model.addAttribute("nomeColuna5", nomeColuna5 );
+		model.addAttribute("nomeColuna6", nomeColuna6 );
+		model.addAttribute("nomeColuna7", nomeColuna7 );
+		
+		
+		// Pegando os turnos compatíveis
+		List<Turnos> listaTurnos = regimeDeTrabalhoTurnoService.buscarPorRegimesEUnidadeEFolha(escala);
+		
+		model.addAttribute("dia01FkCompativel",  listaTurnos);
+		model.addAttribute("dia02FkCompativel",  listaTurnos);
+		model.addAttribute("dia03FkCompativel",  listaTurnos);
+		model.addAttribute("dia04FkCompativel",  listaTurnos);
+		model.addAttribute("dia05FkCompativel",  listaTurnos);
+		model.addAttribute("dia06FkCompativel",  listaTurnos);
+		model.addAttribute("dia07FkCompativel",  listaTurnos);
+		model.addAttribute("dia08FkCompativel",  listaTurnos);
+		model.addAttribute("dia09FkCompativel",  listaTurnos);
+		model.addAttribute("dia10FkCompativel",  listaTurnos);
+		model.addAttribute("dia11FkCompativel",  listaTurnos);
+		model.addAttribute("dia12FkCompativel",  listaTurnos);
+		model.addAttribute("dia13FkCompativel",  listaTurnos);
+		model.addAttribute("dia14FkCompativel",  listaTurnos);
+		model.addAttribute("dia15FkCompativel",  listaTurnos);
+		model.addAttribute("dia16FkCompativel",  listaTurnos);
+		model.addAttribute("dia17FkCompativel",  listaTurnos);
+		model.addAttribute("dia18FkCompativel",  listaTurnos);
+		model.addAttribute("dia19FkCompativel",  listaTurnos);
+		model.addAttribute("dia20FkCompativel",  listaTurnos);
+		model.addAttribute("dia21FkCompativel",  listaTurnos);
+		model.addAttribute("dia22FkCompativel",  listaTurnos);
+		model.addAttribute("dia23FkCompativel",  listaTurnos);
+		model.addAttribute("dia24FkCompativel",  listaTurnos);
+		model.addAttribute("dia25FkCompativel",  listaTurnos);
+		model.addAttribute("dia26FkCompativel",  listaTurnos);
+		model.addAttribute("dia27FkCompativel",  listaTurnos);
+		model.addAttribute("dia28FkCompativel",  listaTurnos);
+		model.addAttribute("dia29FkCompativel",  listaTurnos);
+		model.addAttribute("dia30FkCompativel",  listaTurnos);
+		model.addAttribute("dia31FkCompativel",  listaTurnos);
+		
+		
+		//this.escalaAtual = escala;
+		
+		//comando para armazenar a escala na sessão
+		HttpSession session = httpSessionFactory.getObject();
+        session.setAttribute("escalaAtual", escala  );
+		
+		
+		return "/escala/editar";
 	}
 	
-	@GetMapping("/atalho/ciclo4_f")
-	public String atalhoCiclo4F( RedirectAttributes attr) {	
+	@GetMapping("/atalho/ciclo4/f")
+	public String atalhoCiclo4F( RedirectAttributes attr, ModelMap model) {	
+		
 		//Tratando escala Bloqueada
 		if(anoMesService.buscarPorId(mesAtual()).getIdEscalaBloqueadaFk().getSigla().equalsIgnoreCase("S")) {
 		return "redirect:/escalas/mensagem/de/escala/bloqueada";
@@ -2339,39 +3646,94 @@ public class EscalaController {
 
 		Escala escalaA = service.buscarPorId(ultimoIdEscala());
 		Escala escala = service.converteDeEscalaParaEscalaComId(escalaA);
-
+		
 		escala = escalaCalculosService.converteTurnoNuloEmFolga(escala);
 		escala = escalaAtalhosService.atalhoCiclo4F(escala);
 		escala = escalaCalculosService.converteTurnoNuloEmFolga(escala);
 		escala = escalaCalculosService.calcularDadosEscala(escala);
 		
-		//Avaliando Efetivo dando Extra sem cumprir a CH Efetiva
-		boolean extraSemCumprirEfetivo = escalaCompatibilidadeService.horasExtrasSemEfetivas(escala);
-		if(extraSemCumprirEfetivo==true) {
-			return "redirect:/escalas/mensagem/de/efetivo/com/extra/sem/ch/efetiva/informada";
-		}
+		String anoMesDaEscala = "202105";
+		if(escala!=null){anoMesDaEscala = escala.getIdAnoMesFk().getNomeAnoMes();}
+		int qtdDiasNoMes = escalaCalculosService.quantidadeDeDiasNoMes(anoMesDaEscala);
 		
-		//AVALIAÇÃO PARA SABER SE TEM CHOQUES
-		//this.choque = service.choquesEmEscalaOnipresenca(escala);
-		//comando para armazenar choque na sessão
-        HttpSession session = httpSessionFactory.getObject();
-        session.setAttribute("choque", service.choquesEmEscalaOnipresenca(escala)  );
-		//this.choqueDescansoDepoisNoturno = service.choquesEmEscalaDepoisDoNoturno(escala);
-        //comando para armazenar choque na sessão
-        session.setAttribute("choqueDescansoDepoisNoturno", service.choquesEmEscalaDepoisDoNoturno(escala)  );
-		if(choqueDescansoDepoisNoturno().length()>0) {attr.addFlashAttribute("fail", choqueDescansoDepoisNoturno()); return atalhoLimparEscalaChoque(attr, choqueDescansoDepoisNoturno()); }
-		if(choque().length()>0) {attr.addFlashAttribute("fail", choque()); return atalhoLimparEscalaChoque(attr, choque());  }
-		if((choqueDescansoDepoisNoturno().length()==0) && (choque().length()==0)) {
-			salvar(escala, null, null);
-			session = httpSessionFactory.getObject(); session.setAttribute("ultimoIdEscala", escala.getId()  );
-			attr.addFlashAttribute("success", "Confirme CH Dif, Incremento de Risco, Diferenciado, Regime e Turma antes de Lançar.");
-		}
-		return "redirect:/escalas/alterar/escala/"+escala.getId();
+		// CALCULANDO OS DIAS DO MES
+		String nomeColuna1 = escalaCalculosService.obtemNomeDiaColuna(anoMesDaEscala, 1);
+		String nomeColuna2 = escalaCalculosService.obtemNomeDiaColuna(anoMesDaEscala, 2);
+		String nomeColuna3 = escalaCalculosService.obtemNomeDiaColuna(anoMesDaEscala, 3);
+		String nomeColuna4 = escalaCalculosService.obtemNomeDiaColuna(anoMesDaEscala, 4);
+		String nomeColuna5 = escalaCalculosService.obtemNomeDiaColuna(anoMesDaEscala, 5);
+		String nomeColuna6 = escalaCalculosService.obtemNomeDiaColuna(anoMesDaEscala, 6);
+		String nomeColuna7 = escalaCalculosService.obtemNomeDiaColuna(anoMesDaEscala, 7);
+		// falta complemento de planantao compativel
+		
+		model.addAttribute("idCodigoDiferenciadoFkCompativel", escalaCompatibilidadeService.getCodigosDiferenciadoCompativel( escala) );
+		model.addAttribute("idChDifFkCompativel", pessoaChDifService.listaSimNaoCompativelComPessoa(usuarioService.pegarUnidadeLogada(), escala.getIdFuncionarioFk().getIdPessoaFk(), escala.getIdAnoMesFk()) );
+		model.addAttribute("idIncrementoDeRiscoCompativel", escalaCompatibilidadeService.getIncrementoDeRiscoCompativel(escala) );
+		model.addAttribute("idComplementoDePlantaoCompativel", escalaCompatibilidadeService.getComplementoDePlantaoCompativel(escala) );
+		
+	
+		model.addAttribute("escala", escala );
+		model.addAttribute("idLinha", escala.getId() );
+		model.addAttribute("qtdDiasNoMes", qtdDiasNoMes );
+		model.addAttribute("nomeColuna1", nomeColuna1 );
+		model.addAttribute("nomeColuna2", nomeColuna2 );
+		model.addAttribute("nomeColuna3", nomeColuna3 );
+		model.addAttribute("nomeColuna4", nomeColuna4 );
+		model.addAttribute("nomeColuna5", nomeColuna5 );
+		model.addAttribute("nomeColuna6", nomeColuna6 );
+		model.addAttribute("nomeColuna7", nomeColuna7 );
+		
+		
+		// Pegando os turnos compatíveis
+		List<Turnos> listaTurnos = regimeDeTrabalhoTurnoService.buscarPorRegimesEUnidadeEFolha(escala);
+		
+		model.addAttribute("dia01FkCompativel",  listaTurnos);
+		model.addAttribute("dia02FkCompativel",  listaTurnos);
+		model.addAttribute("dia03FkCompativel",  listaTurnos);
+		model.addAttribute("dia04FkCompativel",  listaTurnos);
+		model.addAttribute("dia05FkCompativel",  listaTurnos);
+		model.addAttribute("dia06FkCompativel",  listaTurnos);
+		model.addAttribute("dia07FkCompativel",  listaTurnos);
+		model.addAttribute("dia08FkCompativel",  listaTurnos);
+		model.addAttribute("dia09FkCompativel",  listaTurnos);
+		model.addAttribute("dia10FkCompativel",  listaTurnos);
+		model.addAttribute("dia11FkCompativel",  listaTurnos);
+		model.addAttribute("dia12FkCompativel",  listaTurnos);
+		model.addAttribute("dia13FkCompativel",  listaTurnos);
+		model.addAttribute("dia14FkCompativel",  listaTurnos);
+		model.addAttribute("dia15FkCompativel",  listaTurnos);
+		model.addAttribute("dia16FkCompativel",  listaTurnos);
+		model.addAttribute("dia17FkCompativel",  listaTurnos);
+		model.addAttribute("dia18FkCompativel",  listaTurnos);
+		model.addAttribute("dia19FkCompativel",  listaTurnos);
+		model.addAttribute("dia20FkCompativel",  listaTurnos);
+		model.addAttribute("dia21FkCompativel",  listaTurnos);
+		model.addAttribute("dia22FkCompativel",  listaTurnos);
+		model.addAttribute("dia23FkCompativel",  listaTurnos);
+		model.addAttribute("dia24FkCompativel",  listaTurnos);
+		model.addAttribute("dia25FkCompativel",  listaTurnos);
+		model.addAttribute("dia26FkCompativel",  listaTurnos);
+		model.addAttribute("dia27FkCompativel",  listaTurnos);
+		model.addAttribute("dia28FkCompativel",  listaTurnos);
+		model.addAttribute("dia29FkCompativel",  listaTurnos);
+		model.addAttribute("dia30FkCompativel",  listaTurnos);
+		model.addAttribute("dia31FkCompativel",  listaTurnos);
+		
+		
+		//this.escalaAtual = escala;
+		
+		//comando para armazenar a escala na sessão
+		HttpSession session = httpSessionFactory.getObject();
+        session.setAttribute("escalaAtual", escala  );
+		
+		
+		return "/escala/editar";
 	}
 
 	//Ciclo5
-	@GetMapping("/atalho/ciclo5_a")
-	public String atalhoCiclo5A( RedirectAttributes attr) {	
+	@GetMapping("/atalho/ciclo5/a")
+	public String atalhoCiclo5A( RedirectAttributes attr, ModelMap model) {	
+		
 		//Tratando escala Bloqueada
 		if(anoMesService.buscarPorId(mesAtual()).getIdEscalaBloqueadaFk().getSigla().equalsIgnoreCase("S")) {
 		return "redirect:/escalas/mensagem/de/escala/bloqueada";
@@ -2379,38 +3741,93 @@ public class EscalaController {
 
 		Escala escalaA = service.buscarPorId(ultimoIdEscala());
 		Escala escala = service.converteDeEscalaParaEscalaComId(escalaA);
-
+		
 		escala = escalaCalculosService.converteTurnoNuloEmFolga(escala);
 		escala = escalaAtalhosService.atalhoCiclo5A(escala);
 		escala = escalaCalculosService.converteTurnoNuloEmFolga(escala);
 		escala = escalaCalculosService.calcularDadosEscala(escala);
 		
-		//Avaliando Efetivo dando Extra sem cumprir a CH Efetiva
-		boolean extraSemCumprirEfetivo = escalaCompatibilidadeService.horasExtrasSemEfetivas(escala);
-		if(extraSemCumprirEfetivo==true) {
-			return "redirect:/escalas/mensagem/de/efetivo/com/extra/sem/ch/efetiva/informada";
-		}
+		String anoMesDaEscala = "202105";
+		if(escala!=null){anoMesDaEscala = escala.getIdAnoMesFk().getNomeAnoMes();}
+		int qtdDiasNoMes = escalaCalculosService.quantidadeDeDiasNoMes(anoMesDaEscala);
 		
-		//AVALIAÇÃO PARA SABER SE TEM CHOQUES
-		//this.choque = service.choquesEmEscalaOnipresenca(escala);
-		//comando para armazenar choque na sessão
-        HttpSession session = httpSessionFactory.getObject();
-        session.setAttribute("choque", service.choquesEmEscalaOnipresenca(escala)  );
-		//this.choqueDescansoDepoisNoturno = service.choquesEmEscalaDepoisDoNoturno(escala);
-        //comando para armazenar choque na sessão
-        session.setAttribute("choqueDescansoDepoisNoturno", service.choquesEmEscalaDepoisDoNoturno(escala)  );
-		if(choqueDescansoDepoisNoturno().length()>0) {attr.addFlashAttribute("fail", choqueDescansoDepoisNoturno()); return atalhoLimparEscalaChoque(attr, choqueDescansoDepoisNoturno()); }
-		if(choque().length()>0) {attr.addFlashAttribute("fail", choque()); return atalhoLimparEscalaChoque(attr, choque());  }
-		if((choqueDescansoDepoisNoturno().length()==0) && (choque().length()==0)) {
-			salvar(escala, null, null);
-			session = httpSessionFactory.getObject(); session.setAttribute("ultimoIdEscala", escala.getId()  );
-			attr.addFlashAttribute("success", "Confirme CH Dif, Incremento de Risco, Diferenciado, Regime e Turma antes de Lançar.");
-		}
-		return "redirect:/escalas/alterar/escala/"+escala.getId();
+		// CALCULANDO OS DIAS DO MES
+		String nomeColuna1 = escalaCalculosService.obtemNomeDiaColuna(anoMesDaEscala, 1);
+		String nomeColuna2 = escalaCalculosService.obtemNomeDiaColuna(anoMesDaEscala, 2);
+		String nomeColuna3 = escalaCalculosService.obtemNomeDiaColuna(anoMesDaEscala, 3);
+		String nomeColuna4 = escalaCalculosService.obtemNomeDiaColuna(anoMesDaEscala, 4);
+		String nomeColuna5 = escalaCalculosService.obtemNomeDiaColuna(anoMesDaEscala, 5);
+		String nomeColuna6 = escalaCalculosService.obtemNomeDiaColuna(anoMesDaEscala, 6);
+		String nomeColuna7 = escalaCalculosService.obtemNomeDiaColuna(anoMesDaEscala, 7);
+		// falta complemento de planantao compativel
+		
+		model.addAttribute("idCodigoDiferenciadoFkCompativel", escalaCompatibilidadeService.getCodigosDiferenciadoCompativel( escala) );
+		model.addAttribute("idChDifFkCompativel", pessoaChDifService.listaSimNaoCompativelComPessoa(usuarioService.pegarUnidadeLogada(), escala.getIdFuncionarioFk().getIdPessoaFk(), escala.getIdAnoMesFk()) );
+		model.addAttribute("idIncrementoDeRiscoCompativel", escalaCompatibilidadeService.getIncrementoDeRiscoCompativel(escala) );
+		model.addAttribute("idComplementoDePlantaoCompativel", escalaCompatibilidadeService.getComplementoDePlantaoCompativel(escala) );
+		
+	
+		model.addAttribute("escala", escala );
+		model.addAttribute("idLinha", escala.getId() );
+		model.addAttribute("qtdDiasNoMes", qtdDiasNoMes );
+		model.addAttribute("nomeColuna1", nomeColuna1 );
+		model.addAttribute("nomeColuna2", nomeColuna2 );
+		model.addAttribute("nomeColuna3", nomeColuna3 );
+		model.addAttribute("nomeColuna4", nomeColuna4 );
+		model.addAttribute("nomeColuna5", nomeColuna5 );
+		model.addAttribute("nomeColuna6", nomeColuna6 );
+		model.addAttribute("nomeColuna7", nomeColuna7 );
+		
+		
+		// Pegando os turnos compatíveis
+		List<Turnos> listaTurnos = regimeDeTrabalhoTurnoService.buscarPorRegimesEUnidadeEFolha(escala);
+		
+		model.addAttribute("dia01FkCompativel",  listaTurnos);
+		model.addAttribute("dia02FkCompativel",  listaTurnos);
+		model.addAttribute("dia03FkCompativel",  listaTurnos);
+		model.addAttribute("dia04FkCompativel",  listaTurnos);
+		model.addAttribute("dia05FkCompativel",  listaTurnos);
+		model.addAttribute("dia06FkCompativel",  listaTurnos);
+		model.addAttribute("dia07FkCompativel",  listaTurnos);
+		model.addAttribute("dia08FkCompativel",  listaTurnos);
+		model.addAttribute("dia09FkCompativel",  listaTurnos);
+		model.addAttribute("dia10FkCompativel",  listaTurnos);
+		model.addAttribute("dia11FkCompativel",  listaTurnos);
+		model.addAttribute("dia12FkCompativel",  listaTurnos);
+		model.addAttribute("dia13FkCompativel",  listaTurnos);
+		model.addAttribute("dia14FkCompativel",  listaTurnos);
+		model.addAttribute("dia15FkCompativel",  listaTurnos);
+		model.addAttribute("dia16FkCompativel",  listaTurnos);
+		model.addAttribute("dia17FkCompativel",  listaTurnos);
+		model.addAttribute("dia18FkCompativel",  listaTurnos);
+		model.addAttribute("dia19FkCompativel",  listaTurnos);
+		model.addAttribute("dia20FkCompativel",  listaTurnos);
+		model.addAttribute("dia21FkCompativel",  listaTurnos);
+		model.addAttribute("dia22FkCompativel",  listaTurnos);
+		model.addAttribute("dia23FkCompativel",  listaTurnos);
+		model.addAttribute("dia24FkCompativel",  listaTurnos);
+		model.addAttribute("dia25FkCompativel",  listaTurnos);
+		model.addAttribute("dia26FkCompativel",  listaTurnos);
+		model.addAttribute("dia27FkCompativel",  listaTurnos);
+		model.addAttribute("dia28FkCompativel",  listaTurnos);
+		model.addAttribute("dia29FkCompativel",  listaTurnos);
+		model.addAttribute("dia30FkCompativel",  listaTurnos);
+		model.addAttribute("dia31FkCompativel",  listaTurnos);
+		
+		
+		//this.escalaAtual = escala;
+		
+		//comando para armazenar a escala na sessão
+		HttpSession session = httpSessionFactory.getObject();
+        session.setAttribute("escalaAtual", escala  );
+		
+		
+		return "/escala/editar";
 	}
 	
-	@GetMapping("/atalho/ciclo5_b")
-	public String atalhoCiclo5B( RedirectAttributes attr) {	
+	@GetMapping("/atalho/ciclo5/b")
+	public String atalhoCiclo5B( RedirectAttributes attr, ModelMap model) {	
+		
 		//Tratando escala Bloqueada
 		if(anoMesService.buscarPorId(mesAtual()).getIdEscalaBloqueadaFk().getSigla().equalsIgnoreCase("S")) {
 		return "redirect:/escalas/mensagem/de/escala/bloqueada";
@@ -2418,38 +3835,93 @@ public class EscalaController {
 
 		Escala escalaA = service.buscarPorId(ultimoIdEscala());
 		Escala escala = service.converteDeEscalaParaEscalaComId(escalaA);
-
+		
 		escala = escalaCalculosService.converteTurnoNuloEmFolga(escala);
 		escala = escalaAtalhosService.atalhoCiclo5B(escala);
 		escala = escalaCalculosService.converteTurnoNuloEmFolga(escala);
 		escala = escalaCalculosService.calcularDadosEscala(escala);
 		
-		//Avaliando Efetivo dando Extra sem cumprir a CH Efetiva
-		boolean extraSemCumprirEfetivo = escalaCompatibilidadeService.horasExtrasSemEfetivas(escala);
-		if(extraSemCumprirEfetivo==true) {
-			return "redirect:/escalas/mensagem/de/efetivo/com/extra/sem/ch/efetiva/informada";
-		}
+		String anoMesDaEscala = "202105";
+		if(escala!=null){anoMesDaEscala = escala.getIdAnoMesFk().getNomeAnoMes();}
+		int qtdDiasNoMes = escalaCalculosService.quantidadeDeDiasNoMes(anoMesDaEscala);
 		
-		//AVALIAÇÃO PARA SABER SE TEM CHOQUES
-		//this.choque = service.choquesEmEscalaOnipresenca(escala);
-		//comando para armazenar choque na sessão
-        HttpSession session = httpSessionFactory.getObject();
-        session.setAttribute("choque", service.choquesEmEscalaOnipresenca(escala)  );
-		//this.choqueDescansoDepoisNoturno = service.choquesEmEscalaDepoisDoNoturno(escala);
-        //comando para armazenar choque na sessão
-        session.setAttribute("choqueDescansoDepoisNoturno", service.choquesEmEscalaDepoisDoNoturno(escala)  );
-		if(choqueDescansoDepoisNoturno().length()>0) {attr.addFlashAttribute("fail", choqueDescansoDepoisNoturno()); return atalhoLimparEscalaChoque(attr, choqueDescansoDepoisNoturno()); }
-		if(choque().length()>0) {attr.addFlashAttribute("fail", choque()); return atalhoLimparEscalaChoque(attr, choque());  }
-		if((choqueDescansoDepoisNoturno().length()==0) && (choque().length()==0)) {
-			salvar(escala, null, null);
-			session = httpSessionFactory.getObject(); session.setAttribute("ultimoIdEscala", escala.getId()  );
-			attr.addFlashAttribute("success", "Confirme CH Dif, Incremento de Risco, Diferenciado, Regime e Turma antes de Lançar.");
-		}
-		return "redirect:/escalas/alterar/escala/"+escala.getId();
+		// CALCULANDO OS DIAS DO MES
+		String nomeColuna1 = escalaCalculosService.obtemNomeDiaColuna(anoMesDaEscala, 1);
+		String nomeColuna2 = escalaCalculosService.obtemNomeDiaColuna(anoMesDaEscala, 2);
+		String nomeColuna3 = escalaCalculosService.obtemNomeDiaColuna(anoMesDaEscala, 3);
+		String nomeColuna4 = escalaCalculosService.obtemNomeDiaColuna(anoMesDaEscala, 4);
+		String nomeColuna5 = escalaCalculosService.obtemNomeDiaColuna(anoMesDaEscala, 5);
+		String nomeColuna6 = escalaCalculosService.obtemNomeDiaColuna(anoMesDaEscala, 6);
+		String nomeColuna7 = escalaCalculosService.obtemNomeDiaColuna(anoMesDaEscala, 7);
+		// falta complemento de planantao compativel
+		
+		model.addAttribute("idCodigoDiferenciadoFkCompativel", escalaCompatibilidadeService.getCodigosDiferenciadoCompativel( escala) );
+		model.addAttribute("idChDifFkCompativel", pessoaChDifService.listaSimNaoCompativelComPessoa(usuarioService.pegarUnidadeLogada(), escala.getIdFuncionarioFk().getIdPessoaFk(), escala.getIdAnoMesFk()) );
+		model.addAttribute("idIncrementoDeRiscoCompativel", escalaCompatibilidadeService.getIncrementoDeRiscoCompativel(escala) );
+		model.addAttribute("idComplementoDePlantaoCompativel", escalaCompatibilidadeService.getComplementoDePlantaoCompativel(escala) );
+		
+	
+		model.addAttribute("escala", escala );
+		model.addAttribute("idLinha", escala.getId() );
+		model.addAttribute("qtdDiasNoMes", qtdDiasNoMes );
+		model.addAttribute("nomeColuna1", nomeColuna1 );
+		model.addAttribute("nomeColuna2", nomeColuna2 );
+		model.addAttribute("nomeColuna3", nomeColuna3 );
+		model.addAttribute("nomeColuna4", nomeColuna4 );
+		model.addAttribute("nomeColuna5", nomeColuna5 );
+		model.addAttribute("nomeColuna6", nomeColuna6 );
+		model.addAttribute("nomeColuna7", nomeColuna7 );
+		
+		
+		// Pegando os turnos compatíveis
+		List<Turnos> listaTurnos = regimeDeTrabalhoTurnoService.buscarPorRegimesEUnidadeEFolha(escala);
+		
+		model.addAttribute("dia01FkCompativel",  listaTurnos);
+		model.addAttribute("dia02FkCompativel",  listaTurnos);
+		model.addAttribute("dia03FkCompativel",  listaTurnos);
+		model.addAttribute("dia04FkCompativel",  listaTurnos);
+		model.addAttribute("dia05FkCompativel",  listaTurnos);
+		model.addAttribute("dia06FkCompativel",  listaTurnos);
+		model.addAttribute("dia07FkCompativel",  listaTurnos);
+		model.addAttribute("dia08FkCompativel",  listaTurnos);
+		model.addAttribute("dia09FkCompativel",  listaTurnos);
+		model.addAttribute("dia10FkCompativel",  listaTurnos);
+		model.addAttribute("dia11FkCompativel",  listaTurnos);
+		model.addAttribute("dia12FkCompativel",  listaTurnos);
+		model.addAttribute("dia13FkCompativel",  listaTurnos);
+		model.addAttribute("dia14FkCompativel",  listaTurnos);
+		model.addAttribute("dia15FkCompativel",  listaTurnos);
+		model.addAttribute("dia16FkCompativel",  listaTurnos);
+		model.addAttribute("dia17FkCompativel",  listaTurnos);
+		model.addAttribute("dia18FkCompativel",  listaTurnos);
+		model.addAttribute("dia19FkCompativel",  listaTurnos);
+		model.addAttribute("dia20FkCompativel",  listaTurnos);
+		model.addAttribute("dia21FkCompativel",  listaTurnos);
+		model.addAttribute("dia22FkCompativel",  listaTurnos);
+		model.addAttribute("dia23FkCompativel",  listaTurnos);
+		model.addAttribute("dia24FkCompativel",  listaTurnos);
+		model.addAttribute("dia25FkCompativel",  listaTurnos);
+		model.addAttribute("dia26FkCompativel",  listaTurnos);
+		model.addAttribute("dia27FkCompativel",  listaTurnos);
+		model.addAttribute("dia28FkCompativel",  listaTurnos);
+		model.addAttribute("dia29FkCompativel",  listaTurnos);
+		model.addAttribute("dia30FkCompativel",  listaTurnos);
+		model.addAttribute("dia31FkCompativel",  listaTurnos);
+		
+		
+		//this.escalaAtual = escala;
+		
+		//comando para armazenar a escala na sessão
+		HttpSession session = httpSessionFactory.getObject();
+        session.setAttribute("escalaAtual", escala  );
+		
+		
+		return "/escala/editar";
 	}
 	
-	@GetMapping("/atalho/ciclo5_c")
-	public String atalhoCiclo5C( RedirectAttributes attr) {	
+	@GetMapping("/atalho/ciclo5/c")
+	public String atalhoCiclo5C( RedirectAttributes attr, ModelMap model) {	
+		
 		//Tratando escala Bloqueada
 		if(anoMesService.buscarPorId(mesAtual()).getIdEscalaBloqueadaFk().getSigla().equalsIgnoreCase("S")) {
 		return "redirect:/escalas/mensagem/de/escala/bloqueada";
@@ -2463,32 +3935,87 @@ public class EscalaController {
 		escala = escalaCalculosService.converteTurnoNuloEmFolga(escala);
 		escala = escalaCalculosService.calcularDadosEscala(escala);
 		
-		//Avaliando Efetivo dando Extra sem cumprir a CH Efetiva
-		boolean extraSemCumprirEfetivo = escalaCompatibilidadeService.horasExtrasSemEfetivas(escala);
-		if(extraSemCumprirEfetivo==true) {
-			return "redirect:/escalas/mensagem/de/efetivo/com/extra/sem/ch/efetiva/informada";
-		}
+		String anoMesDaEscala = "202105";
+		if(escala!=null){anoMesDaEscala = escala.getIdAnoMesFk().getNomeAnoMes();}
+		int qtdDiasNoMes = escalaCalculosService.quantidadeDeDiasNoMes(anoMesDaEscala);
 		
-		//AVALIAÇÃO PARA SABER SE TEM CHOQUES
-		//this.choque = service.choquesEmEscalaOnipresenca(escala);
-		//comando para armazenar choque na sessão
-        HttpSession session = httpSessionFactory.getObject();
-        session.setAttribute("choque", service.choquesEmEscalaOnipresenca(escala)  );
-		//this.choqueDescansoDepoisNoturno = service.choquesEmEscalaDepoisDoNoturno(escala);
-        //comando para armazenar choque na sessão
-        session.setAttribute("choqueDescansoDepoisNoturno", service.choquesEmEscalaDepoisDoNoturno(escala)  );
-		if(choqueDescansoDepoisNoturno().length()>0) {attr.addFlashAttribute("fail", choqueDescansoDepoisNoturno()); return atalhoLimparEscalaChoque(attr, choqueDescansoDepoisNoturno()); }
-		if(choque().length()>0) {attr.addFlashAttribute("fail", choque()); return atalhoLimparEscalaChoque(attr, choque());  }
-		if((choqueDescansoDepoisNoturno().length()==0) && (choque().length()==0)) {
-			salvar(escala, null, null);
-			session = httpSessionFactory.getObject(); session.setAttribute("ultimoIdEscala", escala.getId()  );
-			attr.addFlashAttribute("success", "Confirme CH Dif, Incremento de Risco, Diferenciado, Regime e Turma antes de Lançar.");
-		}
-		return "redirect:/escalas/alterar/escala/"+escala.getId();
+		// CALCULANDO OS DIAS DO MES
+		String nomeColuna1 = escalaCalculosService.obtemNomeDiaColuna(anoMesDaEscala, 1);
+		String nomeColuna2 = escalaCalculosService.obtemNomeDiaColuna(anoMesDaEscala, 2);
+		String nomeColuna3 = escalaCalculosService.obtemNomeDiaColuna(anoMesDaEscala, 3);
+		String nomeColuna4 = escalaCalculosService.obtemNomeDiaColuna(anoMesDaEscala, 4);
+		String nomeColuna5 = escalaCalculosService.obtemNomeDiaColuna(anoMesDaEscala, 5);
+		String nomeColuna6 = escalaCalculosService.obtemNomeDiaColuna(anoMesDaEscala, 6);
+		String nomeColuna7 = escalaCalculosService.obtemNomeDiaColuna(anoMesDaEscala, 7);
+		// falta complemento de planantao compativel
+		
+		model.addAttribute("idCodigoDiferenciadoFkCompativel", escalaCompatibilidadeService.getCodigosDiferenciadoCompativel( escala) );
+		model.addAttribute("idChDifFkCompativel", pessoaChDifService.listaSimNaoCompativelComPessoa(usuarioService.pegarUnidadeLogada(), escala.getIdFuncionarioFk().getIdPessoaFk(), escala.getIdAnoMesFk()) );
+		model.addAttribute("idIncrementoDeRiscoCompativel", escalaCompatibilidadeService.getIncrementoDeRiscoCompativel(escala) );
+		model.addAttribute("idComplementoDePlantaoCompativel", escalaCompatibilidadeService.getComplementoDePlantaoCompativel(escala) );
+		
+	
+		model.addAttribute("escala", escala );
+		model.addAttribute("idLinha", escala.getId() );
+		model.addAttribute("qtdDiasNoMes", qtdDiasNoMes );
+		model.addAttribute("nomeColuna1", nomeColuna1 );
+		model.addAttribute("nomeColuna2", nomeColuna2 );
+		model.addAttribute("nomeColuna3", nomeColuna3 );
+		model.addAttribute("nomeColuna4", nomeColuna4 );
+		model.addAttribute("nomeColuna5", nomeColuna5 );
+		model.addAttribute("nomeColuna6", nomeColuna6 );
+		model.addAttribute("nomeColuna7", nomeColuna7 );
+		
+		
+		// Pegando os turnos compatíveis
+		List<Turnos> listaTurnos = regimeDeTrabalhoTurnoService.buscarPorRegimesEUnidadeEFolha(escala);
+		
+		model.addAttribute("dia01FkCompativel",  listaTurnos);
+		model.addAttribute("dia02FkCompativel",  listaTurnos);
+		model.addAttribute("dia03FkCompativel",  listaTurnos);
+		model.addAttribute("dia04FkCompativel",  listaTurnos);
+		model.addAttribute("dia05FkCompativel",  listaTurnos);
+		model.addAttribute("dia06FkCompativel",  listaTurnos);
+		model.addAttribute("dia07FkCompativel",  listaTurnos);
+		model.addAttribute("dia08FkCompativel",  listaTurnos);
+		model.addAttribute("dia09FkCompativel",  listaTurnos);
+		model.addAttribute("dia10FkCompativel",  listaTurnos);
+		model.addAttribute("dia11FkCompativel",  listaTurnos);
+		model.addAttribute("dia12FkCompativel",  listaTurnos);
+		model.addAttribute("dia13FkCompativel",  listaTurnos);
+		model.addAttribute("dia14FkCompativel",  listaTurnos);
+		model.addAttribute("dia15FkCompativel",  listaTurnos);
+		model.addAttribute("dia16FkCompativel",  listaTurnos);
+		model.addAttribute("dia17FkCompativel",  listaTurnos);
+		model.addAttribute("dia18FkCompativel",  listaTurnos);
+		model.addAttribute("dia19FkCompativel",  listaTurnos);
+		model.addAttribute("dia20FkCompativel",  listaTurnos);
+		model.addAttribute("dia21FkCompativel",  listaTurnos);
+		model.addAttribute("dia22FkCompativel",  listaTurnos);
+		model.addAttribute("dia23FkCompativel",  listaTurnos);
+		model.addAttribute("dia24FkCompativel",  listaTurnos);
+		model.addAttribute("dia25FkCompativel",  listaTurnos);
+		model.addAttribute("dia26FkCompativel",  listaTurnos);
+		model.addAttribute("dia27FkCompativel",  listaTurnos);
+		model.addAttribute("dia28FkCompativel",  listaTurnos);
+		model.addAttribute("dia29FkCompativel",  listaTurnos);
+		model.addAttribute("dia30FkCompativel",  listaTurnos);
+		model.addAttribute("dia31FkCompativel",  listaTurnos);
+		
+		
+		//this.escalaAtual = escala;
+		
+		//comando para armazenar a escala na sessão
+		HttpSession session = httpSessionFactory.getObject();
+        session.setAttribute("escalaAtual", escala  );
+		
+		
+		return "/escala/editar";
 	}
 	
-	@GetMapping("/atalho/ciclo5_d")
-	public String atalhoCiclo5D( RedirectAttributes attr) {	
+	@GetMapping("/atalho/ciclo5/d")
+	public String atalhoCiclo5D( RedirectAttributes attr, ModelMap model) {	
+		
 		//Tratando escala Bloqueada
 		if(anoMesService.buscarPorId(mesAtual()).getIdEscalaBloqueadaFk().getSigla().equalsIgnoreCase("S")) {
 		return "redirect:/escalas/mensagem/de/escala/bloqueada";
@@ -2502,32 +4029,87 @@ public class EscalaController {
 		escala = escalaCalculosService.converteTurnoNuloEmFolga(escala);
 		escala = escalaCalculosService.calcularDadosEscala(escala);
 		
-		//Avaliando Efetivo dando Extra sem cumprir a CH Efetiva
-		boolean extraSemCumprirEfetivo = escalaCompatibilidadeService.horasExtrasSemEfetivas(escala);
-		if(extraSemCumprirEfetivo==true) {
-			return "redirect:/escalas/mensagem/de/efetivo/com/extra/sem/ch/efetiva/informada";
-		}
+		String anoMesDaEscala = "202105";
+		if(escala!=null){anoMesDaEscala = escala.getIdAnoMesFk().getNomeAnoMes();}
+		int qtdDiasNoMes = escalaCalculosService.quantidadeDeDiasNoMes(anoMesDaEscala);
 		
-		//AVALIAÇÃO PARA SABER SE TEM CHOQUES
-		//this.choque = service.choquesEmEscalaOnipresenca(escala);
-		//comando para armazenar choque na sessão
-        HttpSession session = httpSessionFactory.getObject();
-        session.setAttribute("choque", service.choquesEmEscalaOnipresenca(escala)  );
-		//this.choqueDescansoDepoisNoturno = service.choquesEmEscalaDepoisDoNoturno(escala);
-        //comando para armazenar choque na sessão
-        session.setAttribute("choqueDescansoDepoisNoturno", service.choquesEmEscalaDepoisDoNoturno(escala)  );
-		if(choqueDescansoDepoisNoturno().length()>0) {attr.addFlashAttribute("fail", choqueDescansoDepoisNoturno()); return atalhoLimparEscalaChoque(attr, choqueDescansoDepoisNoturno()); }
-		if(choque().length()>0) {attr.addFlashAttribute("fail", choque()); return atalhoLimparEscalaChoque(attr, choque());  }
-		if((choqueDescansoDepoisNoturno().length()==0) && (choque().length()==0)) {
-			salvar(escala, null, null);
-			session = httpSessionFactory.getObject(); session.setAttribute("ultimoIdEscala", escala.getId()  );
-			attr.addFlashAttribute("success", "Confirme CH Dif, Incremento de Risco, Diferenciado, Regime e Turma antes de Lançar.");
-		}
-		return "redirect:/escalas/alterar/escala/"+escala.getId();
+		// CALCULANDO OS DIAS DO MES
+		String nomeColuna1 = escalaCalculosService.obtemNomeDiaColuna(anoMesDaEscala, 1);
+		String nomeColuna2 = escalaCalculosService.obtemNomeDiaColuna(anoMesDaEscala, 2);
+		String nomeColuna3 = escalaCalculosService.obtemNomeDiaColuna(anoMesDaEscala, 3);
+		String nomeColuna4 = escalaCalculosService.obtemNomeDiaColuna(anoMesDaEscala, 4);
+		String nomeColuna5 = escalaCalculosService.obtemNomeDiaColuna(anoMesDaEscala, 5);
+		String nomeColuna6 = escalaCalculosService.obtemNomeDiaColuna(anoMesDaEscala, 6);
+		String nomeColuna7 = escalaCalculosService.obtemNomeDiaColuna(anoMesDaEscala, 7);
+		// falta complemento de planantao compativel
+		
+		model.addAttribute("idCodigoDiferenciadoFkCompativel", escalaCompatibilidadeService.getCodigosDiferenciadoCompativel( escala) );
+		model.addAttribute("idChDifFkCompativel", pessoaChDifService.listaSimNaoCompativelComPessoa(usuarioService.pegarUnidadeLogada(), escala.getIdFuncionarioFk().getIdPessoaFk(), escala.getIdAnoMesFk()) );
+		model.addAttribute("idIncrementoDeRiscoCompativel", escalaCompatibilidadeService.getIncrementoDeRiscoCompativel(escala) );
+		model.addAttribute("idComplementoDePlantaoCompativel", escalaCompatibilidadeService.getComplementoDePlantaoCompativel(escala) );
+		
+	
+		model.addAttribute("escala", escala );
+		model.addAttribute("idLinha", escala.getId() );
+		model.addAttribute("qtdDiasNoMes", qtdDiasNoMes );
+		model.addAttribute("nomeColuna1", nomeColuna1 );
+		model.addAttribute("nomeColuna2", nomeColuna2 );
+		model.addAttribute("nomeColuna3", nomeColuna3 );
+		model.addAttribute("nomeColuna4", nomeColuna4 );
+		model.addAttribute("nomeColuna5", nomeColuna5 );
+		model.addAttribute("nomeColuna6", nomeColuna6 );
+		model.addAttribute("nomeColuna7", nomeColuna7 );
+		
+		
+		// Pegando os turnos compatíveis
+		List<Turnos> listaTurnos = regimeDeTrabalhoTurnoService.buscarPorRegimesEUnidadeEFolha(escala);
+		
+		model.addAttribute("dia01FkCompativel",  listaTurnos);
+		model.addAttribute("dia02FkCompativel",  listaTurnos);
+		model.addAttribute("dia03FkCompativel",  listaTurnos);
+		model.addAttribute("dia04FkCompativel",  listaTurnos);
+		model.addAttribute("dia05FkCompativel",  listaTurnos);
+		model.addAttribute("dia06FkCompativel",  listaTurnos);
+		model.addAttribute("dia07FkCompativel",  listaTurnos);
+		model.addAttribute("dia08FkCompativel",  listaTurnos);
+		model.addAttribute("dia09FkCompativel",  listaTurnos);
+		model.addAttribute("dia10FkCompativel",  listaTurnos);
+		model.addAttribute("dia11FkCompativel",  listaTurnos);
+		model.addAttribute("dia12FkCompativel",  listaTurnos);
+		model.addAttribute("dia13FkCompativel",  listaTurnos);
+		model.addAttribute("dia14FkCompativel",  listaTurnos);
+		model.addAttribute("dia15FkCompativel",  listaTurnos);
+		model.addAttribute("dia16FkCompativel",  listaTurnos);
+		model.addAttribute("dia17FkCompativel",  listaTurnos);
+		model.addAttribute("dia18FkCompativel",  listaTurnos);
+		model.addAttribute("dia19FkCompativel",  listaTurnos);
+		model.addAttribute("dia20FkCompativel",  listaTurnos);
+		model.addAttribute("dia21FkCompativel",  listaTurnos);
+		model.addAttribute("dia22FkCompativel",  listaTurnos);
+		model.addAttribute("dia23FkCompativel",  listaTurnos);
+		model.addAttribute("dia24FkCompativel",  listaTurnos);
+		model.addAttribute("dia25FkCompativel",  listaTurnos);
+		model.addAttribute("dia26FkCompativel",  listaTurnos);
+		model.addAttribute("dia27FkCompativel",  listaTurnos);
+		model.addAttribute("dia28FkCompativel",  listaTurnos);
+		model.addAttribute("dia29FkCompativel",  listaTurnos);
+		model.addAttribute("dia30FkCompativel",  listaTurnos);
+		model.addAttribute("dia31FkCompativel",  listaTurnos);
+		
+		
+		//this.escalaAtual = escala;
+		
+		//comando para armazenar a escala na sessão
+		HttpSession session = httpSessionFactory.getObject();
+        session.setAttribute("escalaAtual", escala  );
+		
+		
+		return "/escala/editar";
 	}
 	
-	@GetMapping("/atalho/ciclo5_e")
-	public String atalhoCiclo5E( RedirectAttributes attr) {	
+	@GetMapping("/atalho/ciclo5/e")
+	public String atalhoCiclo5E( RedirectAttributes attr, ModelMap model) {	
+		
 		//Tratando escala Bloqueada
 		if(anoMesService.buscarPorId(mesAtual()).getIdEscalaBloqueadaFk().getSigla().equalsIgnoreCase("S")) {
 		return "redirect:/escalas/mensagem/de/escala/bloqueada";
@@ -2541,32 +4123,87 @@ public class EscalaController {
 		escala = escalaCalculosService.converteTurnoNuloEmFolga(escala);
 		escala = escalaCalculosService.calcularDadosEscala(escala);
 		
-		//Avaliando Efetivo dando Extra sem cumprir a CH Efetiva
-		boolean extraSemCumprirEfetivo = escalaCompatibilidadeService.horasExtrasSemEfetivas(escala);
-		if(extraSemCumprirEfetivo==true) {
-			return "redirect:/escalas/mensagem/de/efetivo/com/extra/sem/ch/efetiva/informada";
-		}
+		String anoMesDaEscala = "202105";
+		if(escala!=null){anoMesDaEscala = escala.getIdAnoMesFk().getNomeAnoMes();}
+		int qtdDiasNoMes = escalaCalculosService.quantidadeDeDiasNoMes(anoMesDaEscala);
 		
-		//AVALIAÇÃO PARA SABER SE TEM CHOQUES
-		//this.choque = service.choquesEmEscalaOnipresenca(escala);
-		//comando para armazenar choque na sessão
-        HttpSession session = httpSessionFactory.getObject();
-        session.setAttribute("choque", service.choquesEmEscalaOnipresenca(escala)  );
-		//this.choqueDescansoDepoisNoturno = service.choquesEmEscalaDepoisDoNoturno(escala);
-        //comando para armazenar choque na sessão
-        session.setAttribute("choqueDescansoDepoisNoturno", service.choquesEmEscalaDepoisDoNoturno(escala)  );
-		if(choqueDescansoDepoisNoturno().length()>0) {attr.addFlashAttribute("fail", choqueDescansoDepoisNoturno()); return atalhoLimparEscalaChoque(attr, choqueDescansoDepoisNoturno()); }
-		if(choque().length()>0) {attr.addFlashAttribute("fail", choque()); return atalhoLimparEscalaChoque(attr, choque());  }
-		if((choqueDescansoDepoisNoturno().length()==0) && (choque().length()==0)) {
-			salvar(escala, null, null);
-			session = httpSessionFactory.getObject(); session.setAttribute("ultimoIdEscala", escala.getId()  );
-			attr.addFlashAttribute("success", "Confirme CH Dif, Incremento de Risco, Diferenciado, Regime e Turma antes de Lançar.");
-		}
-		return "redirect:/escalas/alterar/escala/"+escala.getId();
+		// CALCULANDO OS DIAS DO MES
+		String nomeColuna1 = escalaCalculosService.obtemNomeDiaColuna(anoMesDaEscala, 1);
+		String nomeColuna2 = escalaCalculosService.obtemNomeDiaColuna(anoMesDaEscala, 2);
+		String nomeColuna3 = escalaCalculosService.obtemNomeDiaColuna(anoMesDaEscala, 3);
+		String nomeColuna4 = escalaCalculosService.obtemNomeDiaColuna(anoMesDaEscala, 4);
+		String nomeColuna5 = escalaCalculosService.obtemNomeDiaColuna(anoMesDaEscala, 5);
+		String nomeColuna6 = escalaCalculosService.obtemNomeDiaColuna(anoMesDaEscala, 6);
+		String nomeColuna7 = escalaCalculosService.obtemNomeDiaColuna(anoMesDaEscala, 7);
+		// falta complemento de planantao compativel
+		
+		model.addAttribute("idCodigoDiferenciadoFkCompativel", escalaCompatibilidadeService.getCodigosDiferenciadoCompativel( escala) );
+		model.addAttribute("idChDifFkCompativel", pessoaChDifService.listaSimNaoCompativelComPessoa(usuarioService.pegarUnidadeLogada(), escala.getIdFuncionarioFk().getIdPessoaFk(), escala.getIdAnoMesFk()) );
+		model.addAttribute("idIncrementoDeRiscoCompativel", escalaCompatibilidadeService.getIncrementoDeRiscoCompativel(escala) );
+		model.addAttribute("idComplementoDePlantaoCompativel", escalaCompatibilidadeService.getComplementoDePlantaoCompativel(escala) );
+		
+	
+		model.addAttribute("escala", escala );
+		model.addAttribute("idLinha", escala.getId() );
+		model.addAttribute("qtdDiasNoMes", qtdDiasNoMes );
+		model.addAttribute("nomeColuna1", nomeColuna1 );
+		model.addAttribute("nomeColuna2", nomeColuna2 );
+		model.addAttribute("nomeColuna3", nomeColuna3 );
+		model.addAttribute("nomeColuna4", nomeColuna4 );
+		model.addAttribute("nomeColuna5", nomeColuna5 );
+		model.addAttribute("nomeColuna6", nomeColuna6 );
+		model.addAttribute("nomeColuna7", nomeColuna7 );
+		
+		
+		// Pegando os turnos compatíveis
+		List<Turnos> listaTurnos = regimeDeTrabalhoTurnoService.buscarPorRegimesEUnidadeEFolha(escala);
+		
+		model.addAttribute("dia01FkCompativel",  listaTurnos);
+		model.addAttribute("dia02FkCompativel",  listaTurnos);
+		model.addAttribute("dia03FkCompativel",  listaTurnos);
+		model.addAttribute("dia04FkCompativel",  listaTurnos);
+		model.addAttribute("dia05FkCompativel",  listaTurnos);
+		model.addAttribute("dia06FkCompativel",  listaTurnos);
+		model.addAttribute("dia07FkCompativel",  listaTurnos);
+		model.addAttribute("dia08FkCompativel",  listaTurnos);
+		model.addAttribute("dia09FkCompativel",  listaTurnos);
+		model.addAttribute("dia10FkCompativel",  listaTurnos);
+		model.addAttribute("dia11FkCompativel",  listaTurnos);
+		model.addAttribute("dia12FkCompativel",  listaTurnos);
+		model.addAttribute("dia13FkCompativel",  listaTurnos);
+		model.addAttribute("dia14FkCompativel",  listaTurnos);
+		model.addAttribute("dia15FkCompativel",  listaTurnos);
+		model.addAttribute("dia16FkCompativel",  listaTurnos);
+		model.addAttribute("dia17FkCompativel",  listaTurnos);
+		model.addAttribute("dia18FkCompativel",  listaTurnos);
+		model.addAttribute("dia19FkCompativel",  listaTurnos);
+		model.addAttribute("dia20FkCompativel",  listaTurnos);
+		model.addAttribute("dia21FkCompativel",  listaTurnos);
+		model.addAttribute("dia22FkCompativel",  listaTurnos);
+		model.addAttribute("dia23FkCompativel",  listaTurnos);
+		model.addAttribute("dia24FkCompativel",  listaTurnos);
+		model.addAttribute("dia25FkCompativel",  listaTurnos);
+		model.addAttribute("dia26FkCompativel",  listaTurnos);
+		model.addAttribute("dia27FkCompativel",  listaTurnos);
+		model.addAttribute("dia28FkCompativel",  listaTurnos);
+		model.addAttribute("dia29FkCompativel",  listaTurnos);
+		model.addAttribute("dia30FkCompativel",  listaTurnos);
+		model.addAttribute("dia31FkCompativel",  listaTurnos);
+		
+		
+		//this.escalaAtual = escala;
+		
+		//comando para armazenar a escala na sessão
+		HttpSession session = httpSessionFactory.getObject();
+        session.setAttribute("escalaAtual", escala  );
+		
+		
+		return "/escala/editar";
 	}
 	
-	@GetMapping("/atalho/ciclo5_f")
-	public String atalhoCiclo5F( RedirectAttributes attr) {	
+	@GetMapping("/atalho/ciclo5/f")
+	public String atalhoCiclo5F( RedirectAttributes attr, ModelMap model) {	
+		
 		//Tratando escala Bloqueada
 		if(anoMesService.buscarPorId(mesAtual()).getIdEscalaBloqueadaFk().getSigla().equalsIgnoreCase("S")) {
 		return "redirect:/escalas/mensagem/de/escala/bloqueada";
@@ -2580,33 +4217,88 @@ public class EscalaController {
 		escala = escalaCalculosService.converteTurnoNuloEmFolga(escala);
 		escala = escalaCalculosService.calcularDadosEscala(escala);
 		
-		//Avaliando Efetivo dando Extra sem cumprir a CH Efetiva
-		boolean extraSemCumprirEfetivo = escalaCompatibilidadeService.horasExtrasSemEfetivas(escala);
-		if(extraSemCumprirEfetivo==true) {
-			return "redirect:/escalas/mensagem/de/efetivo/com/extra/sem/ch/efetiva/informada";
-		}
+		String anoMesDaEscala = "202105";
+		if(escala!=null){anoMesDaEscala = escala.getIdAnoMesFk().getNomeAnoMes();}
+		int qtdDiasNoMes = escalaCalculosService.quantidadeDeDiasNoMes(anoMesDaEscala);
 		
-		//AVALIAÇÃO PARA SABER SE TEM CHOQUES
-		//this.choque = service.choquesEmEscalaOnipresenca(escala);
-		//comando para armazenar choque na sessão
-        HttpSession session = httpSessionFactory.getObject();
-        session.setAttribute("choque", service.choquesEmEscalaOnipresenca(escala)  );
-		//this.choqueDescansoDepoisNoturno = service.choquesEmEscalaDepoisDoNoturno(escala);
-        //comando para armazenar choque na sessão
-        session.setAttribute("choqueDescansoDepoisNoturno", service.choquesEmEscalaDepoisDoNoturno(escala)  );
-		if(choqueDescansoDepoisNoturno().length()>0) {attr.addFlashAttribute("fail", choqueDescansoDepoisNoturno()); return atalhoLimparEscalaChoque(attr, choqueDescansoDepoisNoturno()); }
-		if(choque().length()>0) {attr.addFlashAttribute("fail", choque()); return atalhoLimparEscalaChoque(attr, choque());  }
-		if((choqueDescansoDepoisNoturno().length()==0) && (choque().length()==0)) {
-			salvar(escala, null, null);
-			session = httpSessionFactory.getObject(); session.setAttribute("ultimoIdEscala", escala.getId()  );
-			attr.addFlashAttribute("success", "Confirme CH Dif, Incremento de Risco, Diferenciado, Regime e Turma antes de Lançar.");
-		}
-		return "redirect:/escalas/alterar/escala/"+escala.getId();
+		// CALCULANDO OS DIAS DO MES
+		String nomeColuna1 = escalaCalculosService.obtemNomeDiaColuna(anoMesDaEscala, 1);
+		String nomeColuna2 = escalaCalculosService.obtemNomeDiaColuna(anoMesDaEscala, 2);
+		String nomeColuna3 = escalaCalculosService.obtemNomeDiaColuna(anoMesDaEscala, 3);
+		String nomeColuna4 = escalaCalculosService.obtemNomeDiaColuna(anoMesDaEscala, 4);
+		String nomeColuna5 = escalaCalculosService.obtemNomeDiaColuna(anoMesDaEscala, 5);
+		String nomeColuna6 = escalaCalculosService.obtemNomeDiaColuna(anoMesDaEscala, 6);
+		String nomeColuna7 = escalaCalculosService.obtemNomeDiaColuna(anoMesDaEscala, 7);
+		// falta complemento de planantao compativel
+		
+		model.addAttribute("idCodigoDiferenciadoFkCompativel", escalaCompatibilidadeService.getCodigosDiferenciadoCompativel( escala) );
+		model.addAttribute("idChDifFkCompativel", pessoaChDifService.listaSimNaoCompativelComPessoa(usuarioService.pegarUnidadeLogada(), escala.getIdFuncionarioFk().getIdPessoaFk(), escala.getIdAnoMesFk()) );
+		model.addAttribute("idIncrementoDeRiscoCompativel", escalaCompatibilidadeService.getIncrementoDeRiscoCompativel(escala) );
+		model.addAttribute("idComplementoDePlantaoCompativel", escalaCompatibilidadeService.getComplementoDePlantaoCompativel(escala) );
+		
+	
+		model.addAttribute("escala", escala );
+		model.addAttribute("idLinha", escala.getId() );
+		model.addAttribute("qtdDiasNoMes", qtdDiasNoMes );
+		model.addAttribute("nomeColuna1", nomeColuna1 );
+		model.addAttribute("nomeColuna2", nomeColuna2 );
+		model.addAttribute("nomeColuna3", nomeColuna3 );
+		model.addAttribute("nomeColuna4", nomeColuna4 );
+		model.addAttribute("nomeColuna5", nomeColuna5 );
+		model.addAttribute("nomeColuna6", nomeColuna6 );
+		model.addAttribute("nomeColuna7", nomeColuna7 );
+		
+		
+		// Pegando os turnos compatíveis
+		List<Turnos> listaTurnos = regimeDeTrabalhoTurnoService.buscarPorRegimesEUnidadeEFolha(escala);
+		
+		model.addAttribute("dia01FkCompativel",  listaTurnos);
+		model.addAttribute("dia02FkCompativel",  listaTurnos);
+		model.addAttribute("dia03FkCompativel",  listaTurnos);
+		model.addAttribute("dia04FkCompativel",  listaTurnos);
+		model.addAttribute("dia05FkCompativel",  listaTurnos);
+		model.addAttribute("dia06FkCompativel",  listaTurnos);
+		model.addAttribute("dia07FkCompativel",  listaTurnos);
+		model.addAttribute("dia08FkCompativel",  listaTurnos);
+		model.addAttribute("dia09FkCompativel",  listaTurnos);
+		model.addAttribute("dia10FkCompativel",  listaTurnos);
+		model.addAttribute("dia11FkCompativel",  listaTurnos);
+		model.addAttribute("dia12FkCompativel",  listaTurnos);
+		model.addAttribute("dia13FkCompativel",  listaTurnos);
+		model.addAttribute("dia14FkCompativel",  listaTurnos);
+		model.addAttribute("dia15FkCompativel",  listaTurnos);
+		model.addAttribute("dia16FkCompativel",  listaTurnos);
+		model.addAttribute("dia17FkCompativel",  listaTurnos);
+		model.addAttribute("dia18FkCompativel",  listaTurnos);
+		model.addAttribute("dia19FkCompativel",  listaTurnos);
+		model.addAttribute("dia20FkCompativel",  listaTurnos);
+		model.addAttribute("dia21FkCompativel",  listaTurnos);
+		model.addAttribute("dia22FkCompativel",  listaTurnos);
+		model.addAttribute("dia23FkCompativel",  listaTurnos);
+		model.addAttribute("dia24FkCompativel",  listaTurnos);
+		model.addAttribute("dia25FkCompativel",  listaTurnos);
+		model.addAttribute("dia26FkCompativel",  listaTurnos);
+		model.addAttribute("dia27FkCompativel",  listaTurnos);
+		model.addAttribute("dia28FkCompativel",  listaTurnos);
+		model.addAttribute("dia29FkCompativel",  listaTurnos);
+		model.addAttribute("dia30FkCompativel",  listaTurnos);
+		model.addAttribute("dia31FkCompativel",  listaTurnos);
+		
+		
+		//this.escalaAtual = escala;
+		
+		//comando para armazenar a escala na sessão
+		HttpSession session = httpSessionFactory.getObject();
+        session.setAttribute("escalaAtual", escala  );
+		
+		
+		return "/escala/editar";
 	}
 
 	//Ciclo6
-	@GetMapping("/atalho/ciclo6_a")
-	public String atalhoCiclo6A( RedirectAttributes attr) {	
+	@GetMapping("/atalho/ciclo6/a")
+	public String atalhoCiclo6A( RedirectAttributes attr, ModelMap model) {	
+		
 		//Tratando escala Bloqueada
 		if(anoMesService.buscarPorId(mesAtual()).getIdEscalaBloqueadaFk().getSigla().equalsIgnoreCase("S")) {
 		return "redirect:/escalas/mensagem/de/escala/bloqueada";
@@ -2620,32 +4312,87 @@ public class EscalaController {
 		escala = escalaCalculosService.converteTurnoNuloEmFolga(escala);
 		escala = escalaCalculosService.calcularDadosEscala(escala);
 		
-		//Avaliando Efetivo dando Extra sem cumprir a CH Efetiva
-		boolean extraSemCumprirEfetivo = escalaCompatibilidadeService.horasExtrasSemEfetivas(escala);
-		if(extraSemCumprirEfetivo==true) {
-			return "redirect:/escalas/mensagem/de/efetivo/com/extra/sem/ch/efetiva/informada";
-		}
+		String anoMesDaEscala = "202105";
+		if(escala!=null){anoMesDaEscala = escala.getIdAnoMesFk().getNomeAnoMes();}
+		int qtdDiasNoMes = escalaCalculosService.quantidadeDeDiasNoMes(anoMesDaEscala);
 		
-		//AVALIAÇÃO PARA SABER SE TEM CHOQUES
-		//this.choque = service.choquesEmEscalaOnipresenca(escala);
-		//comando para armazenar choque na sessão
-        HttpSession session = httpSessionFactory.getObject();
-        session.setAttribute("choque", service.choquesEmEscalaOnipresenca(escala)  );
-		//this.choqueDescansoDepoisNoturno = service.choquesEmEscalaDepoisDoNoturno(escala);
-        //comando para armazenar choque na sessão
-        session.setAttribute("choqueDescansoDepoisNoturno", service.choquesEmEscalaDepoisDoNoturno(escala)  );
-		if(choqueDescansoDepoisNoturno().length()>0) {attr.addFlashAttribute("fail", choqueDescansoDepoisNoturno()); return atalhoLimparEscalaChoque(attr, choqueDescansoDepoisNoturno()); }
-		if(choque().length()>0) {attr.addFlashAttribute("fail", choque()); return atalhoLimparEscalaChoque(attr, choque());  }
-		if((choqueDescansoDepoisNoturno().length()==0) && (choque().length()==0)) {
-			salvar(escala, null, null);
-			session = httpSessionFactory.getObject(); session.setAttribute("ultimoIdEscala", escala.getId()  );
-			attr.addFlashAttribute("success", "Confirme CH Dif, Incremento de Risco, Diferenciado, Regime e Turma antes de Lançar.");
-		}
-		return "redirect:/escalas/alterar/escala/"+escala.getId();
+		// CALCULANDO OS DIAS DO MES
+		String nomeColuna1 = escalaCalculosService.obtemNomeDiaColuna(anoMesDaEscala, 1);
+		String nomeColuna2 = escalaCalculosService.obtemNomeDiaColuna(anoMesDaEscala, 2);
+		String nomeColuna3 = escalaCalculosService.obtemNomeDiaColuna(anoMesDaEscala, 3);
+		String nomeColuna4 = escalaCalculosService.obtemNomeDiaColuna(anoMesDaEscala, 4);
+		String nomeColuna5 = escalaCalculosService.obtemNomeDiaColuna(anoMesDaEscala, 5);
+		String nomeColuna6 = escalaCalculosService.obtemNomeDiaColuna(anoMesDaEscala, 6);
+		String nomeColuna7 = escalaCalculosService.obtemNomeDiaColuna(anoMesDaEscala, 7);
+		// falta complemento de planantao compativel
+		
+		model.addAttribute("idCodigoDiferenciadoFkCompativel", escalaCompatibilidadeService.getCodigosDiferenciadoCompativel( escala) );
+		model.addAttribute("idChDifFkCompativel", pessoaChDifService.listaSimNaoCompativelComPessoa(usuarioService.pegarUnidadeLogada(), escala.getIdFuncionarioFk().getIdPessoaFk(), escala.getIdAnoMesFk()) );
+		model.addAttribute("idIncrementoDeRiscoCompativel", escalaCompatibilidadeService.getIncrementoDeRiscoCompativel(escala) );
+		model.addAttribute("idComplementoDePlantaoCompativel", escalaCompatibilidadeService.getComplementoDePlantaoCompativel(escala) );
+		
+	
+		model.addAttribute("escala", escala );
+		model.addAttribute("idLinha", escala.getId() );
+		model.addAttribute("qtdDiasNoMes", qtdDiasNoMes );
+		model.addAttribute("nomeColuna1", nomeColuna1 );
+		model.addAttribute("nomeColuna2", nomeColuna2 );
+		model.addAttribute("nomeColuna3", nomeColuna3 );
+		model.addAttribute("nomeColuna4", nomeColuna4 );
+		model.addAttribute("nomeColuna5", nomeColuna5 );
+		model.addAttribute("nomeColuna6", nomeColuna6 );
+		model.addAttribute("nomeColuna7", nomeColuna7 );
+		
+		
+		// Pegando os turnos compatíveis
+		List<Turnos> listaTurnos = regimeDeTrabalhoTurnoService.buscarPorRegimesEUnidadeEFolha(escala);
+		
+		model.addAttribute("dia01FkCompativel",  listaTurnos);
+		model.addAttribute("dia02FkCompativel",  listaTurnos);
+		model.addAttribute("dia03FkCompativel",  listaTurnos);
+		model.addAttribute("dia04FkCompativel",  listaTurnos);
+		model.addAttribute("dia05FkCompativel",  listaTurnos);
+		model.addAttribute("dia06FkCompativel",  listaTurnos);
+		model.addAttribute("dia07FkCompativel",  listaTurnos);
+		model.addAttribute("dia08FkCompativel",  listaTurnos);
+		model.addAttribute("dia09FkCompativel",  listaTurnos);
+		model.addAttribute("dia10FkCompativel",  listaTurnos);
+		model.addAttribute("dia11FkCompativel",  listaTurnos);
+		model.addAttribute("dia12FkCompativel",  listaTurnos);
+		model.addAttribute("dia13FkCompativel",  listaTurnos);
+		model.addAttribute("dia14FkCompativel",  listaTurnos);
+		model.addAttribute("dia15FkCompativel",  listaTurnos);
+		model.addAttribute("dia16FkCompativel",  listaTurnos);
+		model.addAttribute("dia17FkCompativel",  listaTurnos);
+		model.addAttribute("dia18FkCompativel",  listaTurnos);
+		model.addAttribute("dia19FkCompativel",  listaTurnos);
+		model.addAttribute("dia20FkCompativel",  listaTurnos);
+		model.addAttribute("dia21FkCompativel",  listaTurnos);
+		model.addAttribute("dia22FkCompativel",  listaTurnos);
+		model.addAttribute("dia23FkCompativel",  listaTurnos);
+		model.addAttribute("dia24FkCompativel",  listaTurnos);
+		model.addAttribute("dia25FkCompativel",  listaTurnos);
+		model.addAttribute("dia26FkCompativel",  listaTurnos);
+		model.addAttribute("dia27FkCompativel",  listaTurnos);
+		model.addAttribute("dia28FkCompativel",  listaTurnos);
+		model.addAttribute("dia29FkCompativel",  listaTurnos);
+		model.addAttribute("dia30FkCompativel",  listaTurnos);
+		model.addAttribute("dia31FkCompativel",  listaTurnos);
+		
+		
+		//this.escalaAtual = escala;
+		
+		//comando para armazenar a escala na sessão
+		HttpSession session = httpSessionFactory.getObject();
+        session.setAttribute("escalaAtual", escala  );
+		
+		
+		return "/escala/editar";
 	}
 	
-	@GetMapping("/atalho/ciclo6_b")
-	public String atalhoCiclo6B( RedirectAttributes attr) {	
+	@GetMapping("/atalho/ciclo6/b")
+	public String atalhoCiclo6B( RedirectAttributes attr, ModelMap model) {	
+		
 		//Tratando escala Bloqueada
 		if(anoMesService.buscarPorId(mesAtual()).getIdEscalaBloqueadaFk().getSigla().equalsIgnoreCase("S")) {
 		return "redirect:/escalas/mensagem/de/escala/bloqueada";
@@ -2659,32 +4406,87 @@ public class EscalaController {
 		escala = escalaCalculosService.converteTurnoNuloEmFolga(escala);
 		escala = escalaCalculosService.calcularDadosEscala(escala);
 		
-		//Avaliando Efetivo dando Extra sem cumprir a CH Efetiva
-		boolean extraSemCumprirEfetivo = escalaCompatibilidadeService.horasExtrasSemEfetivas(escala);
-		if(extraSemCumprirEfetivo==true) {
-			return "redirect:/escalas/mensagem/de/efetivo/com/extra/sem/ch/efetiva/informada";
-		}
+		String anoMesDaEscala = "202105";
+		if(escala!=null){anoMesDaEscala = escala.getIdAnoMesFk().getNomeAnoMes();}
+		int qtdDiasNoMes = escalaCalculosService.quantidadeDeDiasNoMes(anoMesDaEscala);
 		
-		//AVALIAÇÃO PARA SABER SE TEM CHOQUES
-		//this.choque = service.choquesEmEscalaOnipresenca(escala);
-		//comando para armazenar choque na sessão
-        HttpSession session = httpSessionFactory.getObject();
-        session.setAttribute("choque", service.choquesEmEscalaOnipresenca(escala)  );
-		//this.choqueDescansoDepoisNoturno = service.choquesEmEscalaDepoisDoNoturno(escala);
-        //comando para armazenar choque na sessão
-        session.setAttribute("choqueDescansoDepoisNoturno", service.choquesEmEscalaDepoisDoNoturno(escala)  );
-		if(choqueDescansoDepoisNoturno().length()>0) {attr.addFlashAttribute("fail", choqueDescansoDepoisNoturno()); return atalhoLimparEscalaChoque(attr, choqueDescansoDepoisNoturno()); }
-		if(choque().length()>0) {attr.addFlashAttribute("fail", choque()); return atalhoLimparEscalaChoque(attr, choque());  }
-		if((choqueDescansoDepoisNoturno().length()==0) && (choque().length()==0)) {
-			salvar(escala, null, null);
-			session = httpSessionFactory.getObject(); session.setAttribute("ultimoIdEscala", escala.getId()  );
-			attr.addFlashAttribute("success", "Confirme CH Dif, Incremento de Risco, Diferenciado, Regime e Turma antes de Lançar.");
-		}
-		return "redirect:/escalas/alterar/escala/"+escala.getId();
+		// CALCULANDO OS DIAS DO MES
+		String nomeColuna1 = escalaCalculosService.obtemNomeDiaColuna(anoMesDaEscala, 1);
+		String nomeColuna2 = escalaCalculosService.obtemNomeDiaColuna(anoMesDaEscala, 2);
+		String nomeColuna3 = escalaCalculosService.obtemNomeDiaColuna(anoMesDaEscala, 3);
+		String nomeColuna4 = escalaCalculosService.obtemNomeDiaColuna(anoMesDaEscala, 4);
+		String nomeColuna5 = escalaCalculosService.obtemNomeDiaColuna(anoMesDaEscala, 5);
+		String nomeColuna6 = escalaCalculosService.obtemNomeDiaColuna(anoMesDaEscala, 6);
+		String nomeColuna7 = escalaCalculosService.obtemNomeDiaColuna(anoMesDaEscala, 7);
+		// falta complemento de planantao compativel
+		
+		model.addAttribute("idCodigoDiferenciadoFkCompativel", escalaCompatibilidadeService.getCodigosDiferenciadoCompativel( escala) );
+		model.addAttribute("idChDifFkCompativel", pessoaChDifService.listaSimNaoCompativelComPessoa(usuarioService.pegarUnidadeLogada(), escala.getIdFuncionarioFk().getIdPessoaFk(), escala.getIdAnoMesFk()) );
+		model.addAttribute("idIncrementoDeRiscoCompativel", escalaCompatibilidadeService.getIncrementoDeRiscoCompativel(escala) );
+		model.addAttribute("idComplementoDePlantaoCompativel", escalaCompatibilidadeService.getComplementoDePlantaoCompativel(escala) );
+		
+	
+		model.addAttribute("escala", escala );
+		model.addAttribute("idLinha", escala.getId() );
+		model.addAttribute("qtdDiasNoMes", qtdDiasNoMes );
+		model.addAttribute("nomeColuna1", nomeColuna1 );
+		model.addAttribute("nomeColuna2", nomeColuna2 );
+		model.addAttribute("nomeColuna3", nomeColuna3 );
+		model.addAttribute("nomeColuna4", nomeColuna4 );
+		model.addAttribute("nomeColuna5", nomeColuna5 );
+		model.addAttribute("nomeColuna6", nomeColuna6 );
+		model.addAttribute("nomeColuna7", nomeColuna7 );
+		
+		
+		// Pegando os turnos compatíveis
+		List<Turnos> listaTurnos = regimeDeTrabalhoTurnoService.buscarPorRegimesEUnidadeEFolha(escala);
+		
+		model.addAttribute("dia01FkCompativel",  listaTurnos);
+		model.addAttribute("dia02FkCompativel",  listaTurnos);
+		model.addAttribute("dia03FkCompativel",  listaTurnos);
+		model.addAttribute("dia04FkCompativel",  listaTurnos);
+		model.addAttribute("dia05FkCompativel",  listaTurnos);
+		model.addAttribute("dia06FkCompativel",  listaTurnos);
+		model.addAttribute("dia07FkCompativel",  listaTurnos);
+		model.addAttribute("dia08FkCompativel",  listaTurnos);
+		model.addAttribute("dia09FkCompativel",  listaTurnos);
+		model.addAttribute("dia10FkCompativel",  listaTurnos);
+		model.addAttribute("dia11FkCompativel",  listaTurnos);
+		model.addAttribute("dia12FkCompativel",  listaTurnos);
+		model.addAttribute("dia13FkCompativel",  listaTurnos);
+		model.addAttribute("dia14FkCompativel",  listaTurnos);
+		model.addAttribute("dia15FkCompativel",  listaTurnos);
+		model.addAttribute("dia16FkCompativel",  listaTurnos);
+		model.addAttribute("dia17FkCompativel",  listaTurnos);
+		model.addAttribute("dia18FkCompativel",  listaTurnos);
+		model.addAttribute("dia19FkCompativel",  listaTurnos);
+		model.addAttribute("dia20FkCompativel",  listaTurnos);
+		model.addAttribute("dia21FkCompativel",  listaTurnos);
+		model.addAttribute("dia22FkCompativel",  listaTurnos);
+		model.addAttribute("dia23FkCompativel",  listaTurnos);
+		model.addAttribute("dia24FkCompativel",  listaTurnos);
+		model.addAttribute("dia25FkCompativel",  listaTurnos);
+		model.addAttribute("dia26FkCompativel",  listaTurnos);
+		model.addAttribute("dia27FkCompativel",  listaTurnos);
+		model.addAttribute("dia28FkCompativel",  listaTurnos);
+		model.addAttribute("dia29FkCompativel",  listaTurnos);
+		model.addAttribute("dia30FkCompativel",  listaTurnos);
+		model.addAttribute("dia31FkCompativel",  listaTurnos);
+		
+		
+		//this.escalaAtual = escala;
+		
+		//comando para armazenar a escala na sessão
+		HttpSession session = httpSessionFactory.getObject();
+        session.setAttribute("escalaAtual", escala  );
+		
+		
+		return "/escala/editar";
 	}
 	
-	@GetMapping("/atalho/ciclo6_c")
-	public String atalhoCiclo6C( RedirectAttributes attr) {	
+	@GetMapping("/atalho/ciclo6/c")
+	public String atalhoCiclo6C( RedirectAttributes attr, ModelMap model) {	
+		
 		//Tratando escala Bloqueada
 		if(anoMesService.buscarPorId(mesAtual()).getIdEscalaBloqueadaFk().getSigla().equalsIgnoreCase("S")) {
 		return "redirect:/escalas/mensagem/de/escala/bloqueada";
@@ -2698,32 +4500,87 @@ public class EscalaController {
 		escala = escalaCalculosService.converteTurnoNuloEmFolga(escala);
 		escala = escalaCalculosService.calcularDadosEscala(escala);
 		
-		//Avaliando Efetivo dando Extra sem cumprir a CH Efetiva
-		boolean extraSemCumprirEfetivo = escalaCompatibilidadeService.horasExtrasSemEfetivas(escala);
-		if(extraSemCumprirEfetivo==true) {
-			return "redirect:/escalas/mensagem/de/efetivo/com/extra/sem/ch/efetiva/informada";
-		}
+		String anoMesDaEscala = "202105";
+		if(escala!=null){anoMesDaEscala = escala.getIdAnoMesFk().getNomeAnoMes();}
+		int qtdDiasNoMes = escalaCalculosService.quantidadeDeDiasNoMes(anoMesDaEscala);
 		
-		//AVALIAÇÃO PARA SABER SE TEM CHOQUES
-		//this.choque = service.choquesEmEscalaOnipresenca(escala);
-		//comando para armazenar choque na sessão
-        HttpSession session = httpSessionFactory.getObject();
-        session.setAttribute("choque", service.choquesEmEscalaOnipresenca(escala)  );
-		//this.choqueDescansoDepoisNoturno = service.choquesEmEscalaDepoisDoNoturno(escala);
-        //comando para armazenar choque na sessão
-        session.setAttribute("choqueDescansoDepoisNoturno", service.choquesEmEscalaDepoisDoNoturno(escala)  );
-		if(choqueDescansoDepoisNoturno().length()>0) {attr.addFlashAttribute("fail", choqueDescansoDepoisNoturno()); return atalhoLimparEscalaChoque(attr, choqueDescansoDepoisNoturno()); }
-		if(choque().length()>0) {attr.addFlashAttribute("fail", choque()); return atalhoLimparEscalaChoque(attr, choque());  }
-		if((choqueDescansoDepoisNoturno().length()==0) && (choque().length()==0)) {
-			salvar(escala, null, null);
-			session = httpSessionFactory.getObject(); session.setAttribute("ultimoIdEscala", escala.getId()  );
-			attr.addFlashAttribute("success", "Confirme CH Dif, Incremento de Risco, Diferenciado, Regime e Turma antes de Lançar.");
-		}
-		return "redirect:/escalas/alterar/escala/"+escala.getId();
+		// CALCULANDO OS DIAS DO MES
+		String nomeColuna1 = escalaCalculosService.obtemNomeDiaColuna(anoMesDaEscala, 1);
+		String nomeColuna2 = escalaCalculosService.obtemNomeDiaColuna(anoMesDaEscala, 2);
+		String nomeColuna3 = escalaCalculosService.obtemNomeDiaColuna(anoMesDaEscala, 3);
+		String nomeColuna4 = escalaCalculosService.obtemNomeDiaColuna(anoMesDaEscala, 4);
+		String nomeColuna5 = escalaCalculosService.obtemNomeDiaColuna(anoMesDaEscala, 5);
+		String nomeColuna6 = escalaCalculosService.obtemNomeDiaColuna(anoMesDaEscala, 6);
+		String nomeColuna7 = escalaCalculosService.obtemNomeDiaColuna(anoMesDaEscala, 7);
+		// falta complemento de planantao compativel
+		
+		model.addAttribute("idCodigoDiferenciadoFkCompativel", escalaCompatibilidadeService.getCodigosDiferenciadoCompativel( escala) );
+		model.addAttribute("idChDifFkCompativel", pessoaChDifService.listaSimNaoCompativelComPessoa(usuarioService.pegarUnidadeLogada(), escala.getIdFuncionarioFk().getIdPessoaFk(), escala.getIdAnoMesFk()) );
+		model.addAttribute("idIncrementoDeRiscoCompativel", escalaCompatibilidadeService.getIncrementoDeRiscoCompativel(escala) );
+		model.addAttribute("idComplementoDePlantaoCompativel", escalaCompatibilidadeService.getComplementoDePlantaoCompativel(escala) );
+		
+	
+		model.addAttribute("escala", escala );
+		model.addAttribute("idLinha", escala.getId() );
+		model.addAttribute("qtdDiasNoMes", qtdDiasNoMes );
+		model.addAttribute("nomeColuna1", nomeColuna1 );
+		model.addAttribute("nomeColuna2", nomeColuna2 );
+		model.addAttribute("nomeColuna3", nomeColuna3 );
+		model.addAttribute("nomeColuna4", nomeColuna4 );
+		model.addAttribute("nomeColuna5", nomeColuna5 );
+		model.addAttribute("nomeColuna6", nomeColuna6 );
+		model.addAttribute("nomeColuna7", nomeColuna7 );
+		
+		
+		// Pegando os turnos compatíveis
+		List<Turnos> listaTurnos = regimeDeTrabalhoTurnoService.buscarPorRegimesEUnidadeEFolha(escala);
+		
+		model.addAttribute("dia01FkCompativel",  listaTurnos);
+		model.addAttribute("dia02FkCompativel",  listaTurnos);
+		model.addAttribute("dia03FkCompativel",  listaTurnos);
+		model.addAttribute("dia04FkCompativel",  listaTurnos);
+		model.addAttribute("dia05FkCompativel",  listaTurnos);
+		model.addAttribute("dia06FkCompativel",  listaTurnos);
+		model.addAttribute("dia07FkCompativel",  listaTurnos);
+		model.addAttribute("dia08FkCompativel",  listaTurnos);
+		model.addAttribute("dia09FkCompativel",  listaTurnos);
+		model.addAttribute("dia10FkCompativel",  listaTurnos);
+		model.addAttribute("dia11FkCompativel",  listaTurnos);
+		model.addAttribute("dia12FkCompativel",  listaTurnos);
+		model.addAttribute("dia13FkCompativel",  listaTurnos);
+		model.addAttribute("dia14FkCompativel",  listaTurnos);
+		model.addAttribute("dia15FkCompativel",  listaTurnos);
+		model.addAttribute("dia16FkCompativel",  listaTurnos);
+		model.addAttribute("dia17FkCompativel",  listaTurnos);
+		model.addAttribute("dia18FkCompativel",  listaTurnos);
+		model.addAttribute("dia19FkCompativel",  listaTurnos);
+		model.addAttribute("dia20FkCompativel",  listaTurnos);
+		model.addAttribute("dia21FkCompativel",  listaTurnos);
+		model.addAttribute("dia22FkCompativel",  listaTurnos);
+		model.addAttribute("dia23FkCompativel",  listaTurnos);
+		model.addAttribute("dia24FkCompativel",  listaTurnos);
+		model.addAttribute("dia25FkCompativel",  listaTurnos);
+		model.addAttribute("dia26FkCompativel",  listaTurnos);
+		model.addAttribute("dia27FkCompativel",  listaTurnos);
+		model.addAttribute("dia28FkCompativel",  listaTurnos);
+		model.addAttribute("dia29FkCompativel",  listaTurnos);
+		model.addAttribute("dia30FkCompativel",  listaTurnos);
+		model.addAttribute("dia31FkCompativel",  listaTurnos);
+		
+		
+		//this.escalaAtual = escala;
+		
+		//comando para armazenar a escala na sessão
+		HttpSession session = httpSessionFactory.getObject();
+        session.setAttribute("escalaAtual", escala  );
+		
+		
+		return "/escala/editar";
 	}
 	
-	@GetMapping("/atalho/ciclo6_d")
-	public String atalhoCiclo6D( RedirectAttributes attr) {	
+	@GetMapping("/atalho/ciclo6/d")
+	public String atalhoCiclo6D( RedirectAttributes attr, ModelMap model) {	
+		
 		//Tratando escala Bloqueada
 		if(anoMesService.buscarPorId(mesAtual()).getIdEscalaBloqueadaFk().getSigla().equalsIgnoreCase("S")) {
 		return "redirect:/escalas/mensagem/de/escala/bloqueada";
@@ -2737,32 +4594,87 @@ public class EscalaController {
 		escala = escalaCalculosService.converteTurnoNuloEmFolga(escala);
 		escala = escalaCalculosService.calcularDadosEscala(escala);
 		
-		//Avaliando Efetivo dando Extra sem cumprir a CH Efetiva
-		boolean extraSemCumprirEfetivo = escalaCompatibilidadeService.horasExtrasSemEfetivas(escala);
-		if(extraSemCumprirEfetivo==true) {
-			return "redirect:/escalas/mensagem/de/efetivo/com/extra/sem/ch/efetiva/informada";
-		}
+		String anoMesDaEscala = "202105";
+		if(escala!=null){anoMesDaEscala = escala.getIdAnoMesFk().getNomeAnoMes();}
+		int qtdDiasNoMes = escalaCalculosService.quantidadeDeDiasNoMes(anoMesDaEscala);
 		
-		//AVALIAÇÃO PARA SABER SE TEM CHOQUES
-		//this.choque = service.choquesEmEscalaOnipresenca(escala);
-		//comando para armazenar choque na sessão
-        HttpSession session = httpSessionFactory.getObject();
-        session.setAttribute("choque", service.choquesEmEscalaOnipresenca(escala)  );
-		//this.choqueDescansoDepoisNoturno = service.choquesEmEscalaDepoisDoNoturno(escala);
-        //comando para armazenar choque na sessão
-        session.setAttribute("choqueDescansoDepoisNoturno", service.choquesEmEscalaDepoisDoNoturno(escala)  );
-		if(choqueDescansoDepoisNoturno().length()>0) {attr.addFlashAttribute("fail", choqueDescansoDepoisNoturno()); return atalhoLimparEscalaChoque(attr, choqueDescansoDepoisNoturno()); }
-		if(choque().length()>0) {attr.addFlashAttribute("fail", choque()); return atalhoLimparEscalaChoque(attr, choque());  }
-		if((choqueDescansoDepoisNoturno().length()==0) && (choque().length()==0)) {
-			salvar(escala, null, null);
-			session = httpSessionFactory.getObject(); session.setAttribute("ultimoIdEscala", escala.getId()  );
-			attr.addFlashAttribute("success", "Confirme CH Dif, Incremento de Risco, Diferenciado, Regime e Turma antes de Lançar.");
-		}
-		return "redirect:/escalas/alterar/escala/"+escala.getId();
+		// CALCULANDO OS DIAS DO MES
+		String nomeColuna1 = escalaCalculosService.obtemNomeDiaColuna(anoMesDaEscala, 1);
+		String nomeColuna2 = escalaCalculosService.obtemNomeDiaColuna(anoMesDaEscala, 2);
+		String nomeColuna3 = escalaCalculosService.obtemNomeDiaColuna(anoMesDaEscala, 3);
+		String nomeColuna4 = escalaCalculosService.obtemNomeDiaColuna(anoMesDaEscala, 4);
+		String nomeColuna5 = escalaCalculosService.obtemNomeDiaColuna(anoMesDaEscala, 5);
+		String nomeColuna6 = escalaCalculosService.obtemNomeDiaColuna(anoMesDaEscala, 6);
+		String nomeColuna7 = escalaCalculosService.obtemNomeDiaColuna(anoMesDaEscala, 7);
+		// falta complemento de planantao compativel
+		
+		model.addAttribute("idCodigoDiferenciadoFkCompativel", escalaCompatibilidadeService.getCodigosDiferenciadoCompativel( escala) );
+		model.addAttribute("idChDifFkCompativel", pessoaChDifService.listaSimNaoCompativelComPessoa(usuarioService.pegarUnidadeLogada(), escala.getIdFuncionarioFk().getIdPessoaFk(), escala.getIdAnoMesFk()) );
+		model.addAttribute("idIncrementoDeRiscoCompativel", escalaCompatibilidadeService.getIncrementoDeRiscoCompativel(escala) );
+		model.addAttribute("idComplementoDePlantaoCompativel", escalaCompatibilidadeService.getComplementoDePlantaoCompativel(escala) );
+		
+	
+		model.addAttribute("escala", escala );
+		model.addAttribute("idLinha", escala.getId() );
+		model.addAttribute("qtdDiasNoMes", qtdDiasNoMes );
+		model.addAttribute("nomeColuna1", nomeColuna1 );
+		model.addAttribute("nomeColuna2", nomeColuna2 );
+		model.addAttribute("nomeColuna3", nomeColuna3 );
+		model.addAttribute("nomeColuna4", nomeColuna4 );
+		model.addAttribute("nomeColuna5", nomeColuna5 );
+		model.addAttribute("nomeColuna6", nomeColuna6 );
+		model.addAttribute("nomeColuna7", nomeColuna7 );
+		
+		
+		// Pegando os turnos compatíveis
+		List<Turnos> listaTurnos = regimeDeTrabalhoTurnoService.buscarPorRegimesEUnidadeEFolha(escala);
+		
+		model.addAttribute("dia01FkCompativel",  listaTurnos);
+		model.addAttribute("dia02FkCompativel",  listaTurnos);
+		model.addAttribute("dia03FkCompativel",  listaTurnos);
+		model.addAttribute("dia04FkCompativel",  listaTurnos);
+		model.addAttribute("dia05FkCompativel",  listaTurnos);
+		model.addAttribute("dia06FkCompativel",  listaTurnos);
+		model.addAttribute("dia07FkCompativel",  listaTurnos);
+		model.addAttribute("dia08FkCompativel",  listaTurnos);
+		model.addAttribute("dia09FkCompativel",  listaTurnos);
+		model.addAttribute("dia10FkCompativel",  listaTurnos);
+		model.addAttribute("dia11FkCompativel",  listaTurnos);
+		model.addAttribute("dia12FkCompativel",  listaTurnos);
+		model.addAttribute("dia13FkCompativel",  listaTurnos);
+		model.addAttribute("dia14FkCompativel",  listaTurnos);
+		model.addAttribute("dia15FkCompativel",  listaTurnos);
+		model.addAttribute("dia16FkCompativel",  listaTurnos);
+		model.addAttribute("dia17FkCompativel",  listaTurnos);
+		model.addAttribute("dia18FkCompativel",  listaTurnos);
+		model.addAttribute("dia19FkCompativel",  listaTurnos);
+		model.addAttribute("dia20FkCompativel",  listaTurnos);
+		model.addAttribute("dia21FkCompativel",  listaTurnos);
+		model.addAttribute("dia22FkCompativel",  listaTurnos);
+		model.addAttribute("dia23FkCompativel",  listaTurnos);
+		model.addAttribute("dia24FkCompativel",  listaTurnos);
+		model.addAttribute("dia25FkCompativel",  listaTurnos);
+		model.addAttribute("dia26FkCompativel",  listaTurnos);
+		model.addAttribute("dia27FkCompativel",  listaTurnos);
+		model.addAttribute("dia28FkCompativel",  listaTurnos);
+		model.addAttribute("dia29FkCompativel",  listaTurnos);
+		model.addAttribute("dia30FkCompativel",  listaTurnos);
+		model.addAttribute("dia31FkCompativel",  listaTurnos);
+		
+		
+		//this.escalaAtual = escala;
+		
+		//comando para armazenar a escala na sessão
+		HttpSession session = httpSessionFactory.getObject();
+        session.setAttribute("escalaAtual", escala  );
+		
+		
+		return "/escala/editar";
 	}
 	
-	@GetMapping("/atalho/ciclo6_e")
-	public String atalhoCiclo6E( RedirectAttributes attr) {	
+	@GetMapping("/atalho/ciclo6/e")
+	public String atalhoCiclo6E( RedirectAttributes attr, ModelMap model) {	
+		
 		//Tratando escala Bloqueada
 		if(anoMesService.buscarPorId(mesAtual()).getIdEscalaBloqueadaFk().getSigla().equalsIgnoreCase("S")) {
 		return "redirect:/escalas/mensagem/de/escala/bloqueada";
@@ -2776,32 +4688,87 @@ public class EscalaController {
 		escala = escalaCalculosService.converteTurnoNuloEmFolga(escala);
 		escala = escalaCalculosService.calcularDadosEscala(escala);
 		
-		//Avaliando Efetivo dando Extra sem cumprir a CH Efetiva
-		boolean extraSemCumprirEfetivo = escalaCompatibilidadeService.horasExtrasSemEfetivas(escala);
-		if(extraSemCumprirEfetivo==true) {
-			return "redirect:/escalas/mensagem/de/efetivo/com/extra/sem/ch/efetiva/informada";
-		}
+		String anoMesDaEscala = "202105";
+		if(escala!=null){anoMesDaEscala = escala.getIdAnoMesFk().getNomeAnoMes();}
+		int qtdDiasNoMes = escalaCalculosService.quantidadeDeDiasNoMes(anoMesDaEscala);
 		
-		//AVALIAÇÃO PARA SABER SE TEM CHOQUES
-		//this.choque = service.choquesEmEscalaOnipresenca(escala);
-		//comando para armazenar choque na sessão
-        HttpSession session = httpSessionFactory.getObject();
-        session.setAttribute("choque", service.choquesEmEscalaOnipresenca(escala)  );
-		//this.choqueDescansoDepoisNoturno = service.choquesEmEscalaDepoisDoNoturno(escala);
-        //comando para armazenar choque na sessão
-        session.setAttribute("choqueDescansoDepoisNoturno", service.choquesEmEscalaDepoisDoNoturno(escala)  );
-		if(choqueDescansoDepoisNoturno().length()>0) {attr.addFlashAttribute("fail", choqueDescansoDepoisNoturno()); return atalhoLimparEscalaChoque(attr, choqueDescansoDepoisNoturno()); }
-		if(choque().length()>0) {attr.addFlashAttribute("fail", choque()); return atalhoLimparEscalaChoque(attr, choque());  }
-		if((choqueDescansoDepoisNoturno().length()==0) && (choque().length()==0)) {
-			salvar(escala, null, null);
-			session = httpSessionFactory.getObject(); session.setAttribute("ultimoIdEscala", escala.getId()  );
-			attr.addFlashAttribute("success", "Confirme CH Dif, Incremento de Risco, Diferenciado, Regime e Turma antes de Lançar.");
-		}
-		return "redirect:/escalas/alterar/escala/"+escala.getId();
+		// CALCULANDO OS DIAS DO MES
+		String nomeColuna1 = escalaCalculosService.obtemNomeDiaColuna(anoMesDaEscala, 1);
+		String nomeColuna2 = escalaCalculosService.obtemNomeDiaColuna(anoMesDaEscala, 2);
+		String nomeColuna3 = escalaCalculosService.obtemNomeDiaColuna(anoMesDaEscala, 3);
+		String nomeColuna4 = escalaCalculosService.obtemNomeDiaColuna(anoMesDaEscala, 4);
+		String nomeColuna5 = escalaCalculosService.obtemNomeDiaColuna(anoMesDaEscala, 5);
+		String nomeColuna6 = escalaCalculosService.obtemNomeDiaColuna(anoMesDaEscala, 6);
+		String nomeColuna7 = escalaCalculosService.obtemNomeDiaColuna(anoMesDaEscala, 7);
+		// falta complemento de planantao compativel
+		
+		model.addAttribute("idCodigoDiferenciadoFkCompativel", escalaCompatibilidadeService.getCodigosDiferenciadoCompativel( escala) );
+		model.addAttribute("idChDifFkCompativel", pessoaChDifService.listaSimNaoCompativelComPessoa(usuarioService.pegarUnidadeLogada(), escala.getIdFuncionarioFk().getIdPessoaFk(), escala.getIdAnoMesFk()) );
+		model.addAttribute("idIncrementoDeRiscoCompativel", escalaCompatibilidadeService.getIncrementoDeRiscoCompativel(escala) );
+		model.addAttribute("idComplementoDePlantaoCompativel", escalaCompatibilidadeService.getComplementoDePlantaoCompativel(escala) );
+		
+	
+		model.addAttribute("escala", escala );
+		model.addAttribute("idLinha", escala.getId() );
+		model.addAttribute("qtdDiasNoMes", qtdDiasNoMes );
+		model.addAttribute("nomeColuna1", nomeColuna1 );
+		model.addAttribute("nomeColuna2", nomeColuna2 );
+		model.addAttribute("nomeColuna3", nomeColuna3 );
+		model.addAttribute("nomeColuna4", nomeColuna4 );
+		model.addAttribute("nomeColuna5", nomeColuna5 );
+		model.addAttribute("nomeColuna6", nomeColuna6 );
+		model.addAttribute("nomeColuna7", nomeColuna7 );
+		
+		
+		// Pegando os turnos compatíveis
+		List<Turnos> listaTurnos = regimeDeTrabalhoTurnoService.buscarPorRegimesEUnidadeEFolha(escala);
+		
+		model.addAttribute("dia01FkCompativel",  listaTurnos);
+		model.addAttribute("dia02FkCompativel",  listaTurnos);
+		model.addAttribute("dia03FkCompativel",  listaTurnos);
+		model.addAttribute("dia04FkCompativel",  listaTurnos);
+		model.addAttribute("dia05FkCompativel",  listaTurnos);
+		model.addAttribute("dia06FkCompativel",  listaTurnos);
+		model.addAttribute("dia07FkCompativel",  listaTurnos);
+		model.addAttribute("dia08FkCompativel",  listaTurnos);
+		model.addAttribute("dia09FkCompativel",  listaTurnos);
+		model.addAttribute("dia10FkCompativel",  listaTurnos);
+		model.addAttribute("dia11FkCompativel",  listaTurnos);
+		model.addAttribute("dia12FkCompativel",  listaTurnos);
+		model.addAttribute("dia13FkCompativel",  listaTurnos);
+		model.addAttribute("dia14FkCompativel",  listaTurnos);
+		model.addAttribute("dia15FkCompativel",  listaTurnos);
+		model.addAttribute("dia16FkCompativel",  listaTurnos);
+		model.addAttribute("dia17FkCompativel",  listaTurnos);
+		model.addAttribute("dia18FkCompativel",  listaTurnos);
+		model.addAttribute("dia19FkCompativel",  listaTurnos);
+		model.addAttribute("dia20FkCompativel",  listaTurnos);
+		model.addAttribute("dia21FkCompativel",  listaTurnos);
+		model.addAttribute("dia22FkCompativel",  listaTurnos);
+		model.addAttribute("dia23FkCompativel",  listaTurnos);
+		model.addAttribute("dia24FkCompativel",  listaTurnos);
+		model.addAttribute("dia25FkCompativel",  listaTurnos);
+		model.addAttribute("dia26FkCompativel",  listaTurnos);
+		model.addAttribute("dia27FkCompativel",  listaTurnos);
+		model.addAttribute("dia28FkCompativel",  listaTurnos);
+		model.addAttribute("dia29FkCompativel",  listaTurnos);
+		model.addAttribute("dia30FkCompativel",  listaTurnos);
+		model.addAttribute("dia31FkCompativel",  listaTurnos);
+		
+		
+		//this.escalaAtual = escala;
+		
+		//comando para armazenar a escala na sessão
+		HttpSession session = httpSessionFactory.getObject();
+        session.setAttribute("escalaAtual", escala  );
+		
+		
+		return "/escala/editar";
 	}
 	
-	@GetMapping("/atalho/ciclo6_f")
-	public String atalhoCiclo6F( RedirectAttributes attr) {	
+	@GetMapping("/atalho/ciclo6/f")
+	public String atalhoCiclo6F( RedirectAttributes attr, ModelMap model) {	
+		
 		//Tratando escala Bloqueada
 		if(anoMesService.buscarPorId(mesAtual()).getIdEscalaBloqueadaFk().getSigla().equalsIgnoreCase("S")) {
 		return "redirect:/escalas/mensagem/de/escala/bloqueada";
@@ -2815,33 +4782,88 @@ public class EscalaController {
 		escala = escalaCalculosService.converteTurnoNuloEmFolga(escala);
 		escala = escalaCalculosService.calcularDadosEscala(escala);
 		
-		//Avaliando Efetivo dando Extra sem cumprir a CH Efetiva
-		boolean extraSemCumprirEfetivo = escalaCompatibilidadeService.horasExtrasSemEfetivas(escala);
-		if(extraSemCumprirEfetivo==true) {
-			return "redirect:/escalas/mensagem/de/efetivo/com/extra/sem/ch/efetiva/informada";
-		}
+		String anoMesDaEscala = "202105";
+		if(escala!=null){anoMesDaEscala = escala.getIdAnoMesFk().getNomeAnoMes();}
+		int qtdDiasNoMes = escalaCalculosService.quantidadeDeDiasNoMes(anoMesDaEscala);
 		
-		//AVALIAÇÃO PARA SABER SE TEM CHOQUES
-		//this.choque = service.choquesEmEscalaOnipresenca(escala);
-		//comando para armazenar choque na sessão
-        HttpSession session = httpSessionFactory.getObject();
-        session.setAttribute("choque", service.choquesEmEscalaOnipresenca(escala)  );
-		//this.choqueDescansoDepoisNoturno = service.choquesEmEscalaDepoisDoNoturno(escala);
-        //comando para armazenar choque na sessão
-        session.setAttribute("choqueDescansoDepoisNoturno", service.choquesEmEscalaDepoisDoNoturno(escala)  );
-		if(choqueDescansoDepoisNoturno().length()>0) {attr.addFlashAttribute("fail", choqueDescansoDepoisNoturno()); return atalhoLimparEscalaChoque(attr, choqueDescansoDepoisNoturno()); }
-		if(choque().length()>0) {attr.addFlashAttribute("fail", choque()); return atalhoLimparEscalaChoque(attr, choque());  }
-		if((choqueDescansoDepoisNoturno().length()==0) && (choque().length()==0)) {
-			salvar(escala, null, null);
-			session = httpSessionFactory.getObject(); session.setAttribute("ultimoIdEscala", escala.getId()  );
-			attr.addFlashAttribute("success", "Confirme CH Dif, Incremento de Risco, Diferenciado, Regime e Turma antes de Lançar.");
-		}
-		return "redirect:/escalas/alterar/escala/"+escala.getId();
+		// CALCULANDO OS DIAS DO MES
+		String nomeColuna1 = escalaCalculosService.obtemNomeDiaColuna(anoMesDaEscala, 1);
+		String nomeColuna2 = escalaCalculosService.obtemNomeDiaColuna(anoMesDaEscala, 2);
+		String nomeColuna3 = escalaCalculosService.obtemNomeDiaColuna(anoMesDaEscala, 3);
+		String nomeColuna4 = escalaCalculosService.obtemNomeDiaColuna(anoMesDaEscala, 4);
+		String nomeColuna5 = escalaCalculosService.obtemNomeDiaColuna(anoMesDaEscala, 5);
+		String nomeColuna6 = escalaCalculosService.obtemNomeDiaColuna(anoMesDaEscala, 6);
+		String nomeColuna7 = escalaCalculosService.obtemNomeDiaColuna(anoMesDaEscala, 7);
+		// falta complemento de planantao compativel
+		
+		model.addAttribute("idCodigoDiferenciadoFkCompativel", escalaCompatibilidadeService.getCodigosDiferenciadoCompativel( escala) );
+		model.addAttribute("idChDifFkCompativel", pessoaChDifService.listaSimNaoCompativelComPessoa(usuarioService.pegarUnidadeLogada(), escala.getIdFuncionarioFk().getIdPessoaFk(), escala.getIdAnoMesFk()) );
+		model.addAttribute("idIncrementoDeRiscoCompativel", escalaCompatibilidadeService.getIncrementoDeRiscoCompativel(escala) );
+		model.addAttribute("idComplementoDePlantaoCompativel", escalaCompatibilidadeService.getComplementoDePlantaoCompativel(escala) );
+		
+	
+		model.addAttribute("escala", escala );
+		model.addAttribute("idLinha", escala.getId() );
+		model.addAttribute("qtdDiasNoMes", qtdDiasNoMes );
+		model.addAttribute("nomeColuna1", nomeColuna1 );
+		model.addAttribute("nomeColuna2", nomeColuna2 );
+		model.addAttribute("nomeColuna3", nomeColuna3 );
+		model.addAttribute("nomeColuna4", nomeColuna4 );
+		model.addAttribute("nomeColuna5", nomeColuna5 );
+		model.addAttribute("nomeColuna6", nomeColuna6 );
+		model.addAttribute("nomeColuna7", nomeColuna7 );
+		
+		
+		// Pegando os turnos compatíveis
+		List<Turnos> listaTurnos = regimeDeTrabalhoTurnoService.buscarPorRegimesEUnidadeEFolha(escala);
+		
+		model.addAttribute("dia01FkCompativel",  listaTurnos);
+		model.addAttribute("dia02FkCompativel",  listaTurnos);
+		model.addAttribute("dia03FkCompativel",  listaTurnos);
+		model.addAttribute("dia04FkCompativel",  listaTurnos);
+		model.addAttribute("dia05FkCompativel",  listaTurnos);
+		model.addAttribute("dia06FkCompativel",  listaTurnos);
+		model.addAttribute("dia07FkCompativel",  listaTurnos);
+		model.addAttribute("dia08FkCompativel",  listaTurnos);
+		model.addAttribute("dia09FkCompativel",  listaTurnos);
+		model.addAttribute("dia10FkCompativel",  listaTurnos);
+		model.addAttribute("dia11FkCompativel",  listaTurnos);
+		model.addAttribute("dia12FkCompativel",  listaTurnos);
+		model.addAttribute("dia13FkCompativel",  listaTurnos);
+		model.addAttribute("dia14FkCompativel",  listaTurnos);
+		model.addAttribute("dia15FkCompativel",  listaTurnos);
+		model.addAttribute("dia16FkCompativel",  listaTurnos);
+		model.addAttribute("dia17FkCompativel",  listaTurnos);
+		model.addAttribute("dia18FkCompativel",  listaTurnos);
+		model.addAttribute("dia19FkCompativel",  listaTurnos);
+		model.addAttribute("dia20FkCompativel",  listaTurnos);
+		model.addAttribute("dia21FkCompativel",  listaTurnos);
+		model.addAttribute("dia22FkCompativel",  listaTurnos);
+		model.addAttribute("dia23FkCompativel",  listaTurnos);
+		model.addAttribute("dia24FkCompativel",  listaTurnos);
+		model.addAttribute("dia25FkCompativel",  listaTurnos);
+		model.addAttribute("dia26FkCompativel",  listaTurnos);
+		model.addAttribute("dia27FkCompativel",  listaTurnos);
+		model.addAttribute("dia28FkCompativel",  listaTurnos);
+		model.addAttribute("dia29FkCompativel",  listaTurnos);
+		model.addAttribute("dia30FkCompativel",  listaTurnos);
+		model.addAttribute("dia31FkCompativel",  listaTurnos);
+		
+		
+		//this.escalaAtual = escala;
+		
+		//comando para armazenar a escala na sessão
+		HttpSession session = httpSessionFactory.getObject();
+        session.setAttribute("escalaAtual", escala  );
+		
+		
+		return "/escala/editar";
 	}
 
 	//Ciclo7
-	@GetMapping("/atalho/ciclo7_a")
-	public String atalhoCiclo7A( RedirectAttributes attr) {	
+	@GetMapping("/atalho/ciclo7/a")
+	public String atalhoCiclo7A( RedirectAttributes attr, ModelMap model) {	
+		
 		//Tratando escala Bloqueada
 		if(anoMesService.buscarPorId(mesAtual()).getIdEscalaBloqueadaFk().getSigla().equalsIgnoreCase("S")) {
 		return "redirect:/escalas/mensagem/de/escala/bloqueada";
@@ -2855,32 +4877,87 @@ public class EscalaController {
 		escala = escalaCalculosService.converteTurnoNuloEmFolga(escala);
 		escala = escalaCalculosService.calcularDadosEscala(escala);
 		
-		//Avaliando Efetivo dando Extra sem cumprir a CH Efetiva
-		boolean extraSemCumprirEfetivo = escalaCompatibilidadeService.horasExtrasSemEfetivas(escala);
-		if(extraSemCumprirEfetivo==true) {
-			return "redirect:/escalas/mensagem/de/efetivo/com/extra/sem/ch/efetiva/informada";
-		}
+		String anoMesDaEscala = "202105";
+		if(escala!=null){anoMesDaEscala = escala.getIdAnoMesFk().getNomeAnoMes();}
+		int qtdDiasNoMes = escalaCalculosService.quantidadeDeDiasNoMes(anoMesDaEscala);
 		
-		//AVALIAÇÃO PARA SABER SE TEM CHOQUES
-		//this.choque = service.choquesEmEscalaOnipresenca(escala);
-		//comando para armazenar choque na sessão
-        HttpSession session = httpSessionFactory.getObject();
-        session.setAttribute("choque", service.choquesEmEscalaOnipresenca(escala)  );
-		//this.choqueDescansoDepoisNoturno = service.choquesEmEscalaDepoisDoNoturno(escala);
-        //comando para armazenar choque na sessão
-        session.setAttribute("choqueDescansoDepoisNoturno", service.choquesEmEscalaDepoisDoNoturno(escala)  );
-		if(choqueDescansoDepoisNoturno().length()>0) {attr.addFlashAttribute("fail", choqueDescansoDepoisNoturno()); return atalhoLimparEscalaChoque(attr, choqueDescansoDepoisNoturno()); }
-		if(choque().length()>0) {attr.addFlashAttribute("fail", choque()); return atalhoLimparEscalaChoque(attr, choque());  }
-		if((choqueDescansoDepoisNoturno().length()==0) && (choque().length()==0)) {
-			salvar(escala, null, null);
-			session = httpSessionFactory.getObject(); session.setAttribute("ultimoIdEscala", escala.getId()  );
-			attr.addFlashAttribute("success", "Confirme CH Dif, Incremento de Risco, Diferenciado, Regime e Turma antes de Lançar.");
-		}
-		return "redirect:/escalas/alterar/escala/"+escala.getId();
+		// CALCULANDO OS DIAS DO MES
+		String nomeColuna1 = escalaCalculosService.obtemNomeDiaColuna(anoMesDaEscala, 1);
+		String nomeColuna2 = escalaCalculosService.obtemNomeDiaColuna(anoMesDaEscala, 2);
+		String nomeColuna3 = escalaCalculosService.obtemNomeDiaColuna(anoMesDaEscala, 3);
+		String nomeColuna4 = escalaCalculosService.obtemNomeDiaColuna(anoMesDaEscala, 4);
+		String nomeColuna5 = escalaCalculosService.obtemNomeDiaColuna(anoMesDaEscala, 5);
+		String nomeColuna6 = escalaCalculosService.obtemNomeDiaColuna(anoMesDaEscala, 6);
+		String nomeColuna7 = escalaCalculosService.obtemNomeDiaColuna(anoMesDaEscala, 7);
+		// falta complemento de planantao compativel
+		
+		model.addAttribute("idCodigoDiferenciadoFkCompativel", escalaCompatibilidadeService.getCodigosDiferenciadoCompativel( escala) );
+		model.addAttribute("idChDifFkCompativel", pessoaChDifService.listaSimNaoCompativelComPessoa(usuarioService.pegarUnidadeLogada(), escala.getIdFuncionarioFk().getIdPessoaFk(), escala.getIdAnoMesFk()) );
+		model.addAttribute("idIncrementoDeRiscoCompativel", escalaCompatibilidadeService.getIncrementoDeRiscoCompativel(escala) );
+		model.addAttribute("idComplementoDePlantaoCompativel", escalaCompatibilidadeService.getComplementoDePlantaoCompativel(escala) );
+		
+	
+		model.addAttribute("escala", escala );
+		model.addAttribute("idLinha", escala.getId() );
+		model.addAttribute("qtdDiasNoMes", qtdDiasNoMes );
+		model.addAttribute("nomeColuna1", nomeColuna1 );
+		model.addAttribute("nomeColuna2", nomeColuna2 );
+		model.addAttribute("nomeColuna3", nomeColuna3 );
+		model.addAttribute("nomeColuna4", nomeColuna4 );
+		model.addAttribute("nomeColuna5", nomeColuna5 );
+		model.addAttribute("nomeColuna6", nomeColuna6 );
+		model.addAttribute("nomeColuna7", nomeColuna7 );
+		
+		
+		// Pegando os turnos compatíveis
+		List<Turnos> listaTurnos = regimeDeTrabalhoTurnoService.buscarPorRegimesEUnidadeEFolha(escala);
+		
+		model.addAttribute("dia01FkCompativel",  listaTurnos);
+		model.addAttribute("dia02FkCompativel",  listaTurnos);
+		model.addAttribute("dia03FkCompativel",  listaTurnos);
+		model.addAttribute("dia04FkCompativel",  listaTurnos);
+		model.addAttribute("dia05FkCompativel",  listaTurnos);
+		model.addAttribute("dia06FkCompativel",  listaTurnos);
+		model.addAttribute("dia07FkCompativel",  listaTurnos);
+		model.addAttribute("dia08FkCompativel",  listaTurnos);
+		model.addAttribute("dia09FkCompativel",  listaTurnos);
+		model.addAttribute("dia10FkCompativel",  listaTurnos);
+		model.addAttribute("dia11FkCompativel",  listaTurnos);
+		model.addAttribute("dia12FkCompativel",  listaTurnos);
+		model.addAttribute("dia13FkCompativel",  listaTurnos);
+		model.addAttribute("dia14FkCompativel",  listaTurnos);
+		model.addAttribute("dia15FkCompativel",  listaTurnos);
+		model.addAttribute("dia16FkCompativel",  listaTurnos);
+		model.addAttribute("dia17FkCompativel",  listaTurnos);
+		model.addAttribute("dia18FkCompativel",  listaTurnos);
+		model.addAttribute("dia19FkCompativel",  listaTurnos);
+		model.addAttribute("dia20FkCompativel",  listaTurnos);
+		model.addAttribute("dia21FkCompativel",  listaTurnos);
+		model.addAttribute("dia22FkCompativel",  listaTurnos);
+		model.addAttribute("dia23FkCompativel",  listaTurnos);
+		model.addAttribute("dia24FkCompativel",  listaTurnos);
+		model.addAttribute("dia25FkCompativel",  listaTurnos);
+		model.addAttribute("dia26FkCompativel",  listaTurnos);
+		model.addAttribute("dia27FkCompativel",  listaTurnos);
+		model.addAttribute("dia28FkCompativel",  listaTurnos);
+		model.addAttribute("dia29FkCompativel",  listaTurnos);
+		model.addAttribute("dia30FkCompativel",  listaTurnos);
+		model.addAttribute("dia31FkCompativel",  listaTurnos);
+		
+		
+		//this.escalaAtual = escala;
+		
+		//comando para armazenar a escala na sessão
+		HttpSession session = httpSessionFactory.getObject();
+        session.setAttribute("escalaAtual", escala  );
+		
+		
+		return "/escala/editar";
 	}
 	
-	@GetMapping("/atalho/ciclo7_b")
-	public String atalhoCiclo7B( RedirectAttributes attr) {	
+	@GetMapping("/atalho/ciclo7/b")
+	public String atalhoCiclo7B( RedirectAttributes attr, ModelMap model) {	
+		
 		//Tratando escala Bloqueada
 		if(anoMesService.buscarPorId(mesAtual()).getIdEscalaBloqueadaFk().getSigla().equalsIgnoreCase("S")) {
 		return "redirect:/escalas/mensagem/de/escala/bloqueada";
@@ -2894,32 +4971,87 @@ public class EscalaController {
 		escala = escalaCalculosService.converteTurnoNuloEmFolga(escala);
 		escala = escalaCalculosService.calcularDadosEscala(escala);
 		
-		//Avaliando Efetivo dando Extra sem cumprir a CH Efetiva
-		boolean extraSemCumprirEfetivo = escalaCompatibilidadeService.horasExtrasSemEfetivas(escala);
-		if(extraSemCumprirEfetivo==true) {
-			return "redirect:/escalas/mensagem/de/efetivo/com/extra/sem/ch/efetiva/informada";
-		}
+		String anoMesDaEscala = "202105";
+		if(escala!=null){anoMesDaEscala = escala.getIdAnoMesFk().getNomeAnoMes();}
+		int qtdDiasNoMes = escalaCalculosService.quantidadeDeDiasNoMes(anoMesDaEscala);
 		
-		//AVALIAÇÃO PARA SABER SE TEM CHOQUES
-		//this.choque = service.choquesEmEscalaOnipresenca(escala);
-		//comando para armazenar choque na sessão
-        HttpSession session = httpSessionFactory.getObject();
-        session.setAttribute("choque", service.choquesEmEscalaOnipresenca(escala)  );
-		//this.choqueDescansoDepoisNoturno = service.choquesEmEscalaDepoisDoNoturno(escala);
-        //comando para armazenar choque na sessão
-        session.setAttribute("choqueDescansoDepoisNoturno", service.choquesEmEscalaDepoisDoNoturno(escala)  );
-		if(choqueDescansoDepoisNoturno().length()>0) {attr.addFlashAttribute("fail", choqueDescansoDepoisNoturno()); return atalhoLimparEscalaChoque(attr, choqueDescansoDepoisNoturno()); }
-		if(choque().length()>0) {attr.addFlashAttribute("fail", choque()); return atalhoLimparEscalaChoque(attr, choque());  }
-		if((choqueDescansoDepoisNoturno().length()==0) && (choque().length()==0)) {
-			salvar(escala, null, null);
-			session = httpSessionFactory.getObject(); session.setAttribute("ultimoIdEscala", escala.getId()  );
-			attr.addFlashAttribute("success", "Confirme CH Dif, Incremento de Risco, Diferenciado, Regime e Turma antes de Lançar.");
-		}
-		return "redirect:/escalas/alterar/escala/"+escala.getId();
+		// CALCULANDO OS DIAS DO MES
+		String nomeColuna1 = escalaCalculosService.obtemNomeDiaColuna(anoMesDaEscala, 1);
+		String nomeColuna2 = escalaCalculosService.obtemNomeDiaColuna(anoMesDaEscala, 2);
+		String nomeColuna3 = escalaCalculosService.obtemNomeDiaColuna(anoMesDaEscala, 3);
+		String nomeColuna4 = escalaCalculosService.obtemNomeDiaColuna(anoMesDaEscala, 4);
+		String nomeColuna5 = escalaCalculosService.obtemNomeDiaColuna(anoMesDaEscala, 5);
+		String nomeColuna6 = escalaCalculosService.obtemNomeDiaColuna(anoMesDaEscala, 6);
+		String nomeColuna7 = escalaCalculosService.obtemNomeDiaColuna(anoMesDaEscala, 7);
+		// falta complemento de planantao compativel
+		
+		model.addAttribute("idCodigoDiferenciadoFkCompativel", escalaCompatibilidadeService.getCodigosDiferenciadoCompativel( escala) );
+		model.addAttribute("idChDifFkCompativel", pessoaChDifService.listaSimNaoCompativelComPessoa(usuarioService.pegarUnidadeLogada(), escala.getIdFuncionarioFk().getIdPessoaFk(), escala.getIdAnoMesFk()) );
+		model.addAttribute("idIncrementoDeRiscoCompativel", escalaCompatibilidadeService.getIncrementoDeRiscoCompativel(escala) );
+		model.addAttribute("idComplementoDePlantaoCompativel", escalaCompatibilidadeService.getComplementoDePlantaoCompativel(escala) );
+		
+	
+		model.addAttribute("escala", escala );
+		model.addAttribute("idLinha", escala.getId() );
+		model.addAttribute("qtdDiasNoMes", qtdDiasNoMes );
+		model.addAttribute("nomeColuna1", nomeColuna1 );
+		model.addAttribute("nomeColuna2", nomeColuna2 );
+		model.addAttribute("nomeColuna3", nomeColuna3 );
+		model.addAttribute("nomeColuna4", nomeColuna4 );
+		model.addAttribute("nomeColuna5", nomeColuna5 );
+		model.addAttribute("nomeColuna6", nomeColuna6 );
+		model.addAttribute("nomeColuna7", nomeColuna7 );
+		
+		
+		// Pegando os turnos compatíveis
+		List<Turnos> listaTurnos = regimeDeTrabalhoTurnoService.buscarPorRegimesEUnidadeEFolha(escala);
+		
+		model.addAttribute("dia01FkCompativel",  listaTurnos);
+		model.addAttribute("dia02FkCompativel",  listaTurnos);
+		model.addAttribute("dia03FkCompativel",  listaTurnos);
+		model.addAttribute("dia04FkCompativel",  listaTurnos);
+		model.addAttribute("dia05FkCompativel",  listaTurnos);
+		model.addAttribute("dia06FkCompativel",  listaTurnos);
+		model.addAttribute("dia07FkCompativel",  listaTurnos);
+		model.addAttribute("dia08FkCompativel",  listaTurnos);
+		model.addAttribute("dia09FkCompativel",  listaTurnos);
+		model.addAttribute("dia10FkCompativel",  listaTurnos);
+		model.addAttribute("dia11FkCompativel",  listaTurnos);
+		model.addAttribute("dia12FkCompativel",  listaTurnos);
+		model.addAttribute("dia13FkCompativel",  listaTurnos);
+		model.addAttribute("dia14FkCompativel",  listaTurnos);
+		model.addAttribute("dia15FkCompativel",  listaTurnos);
+		model.addAttribute("dia16FkCompativel",  listaTurnos);
+		model.addAttribute("dia17FkCompativel",  listaTurnos);
+		model.addAttribute("dia18FkCompativel",  listaTurnos);
+		model.addAttribute("dia19FkCompativel",  listaTurnos);
+		model.addAttribute("dia20FkCompativel",  listaTurnos);
+		model.addAttribute("dia21FkCompativel",  listaTurnos);
+		model.addAttribute("dia22FkCompativel",  listaTurnos);
+		model.addAttribute("dia23FkCompativel",  listaTurnos);
+		model.addAttribute("dia24FkCompativel",  listaTurnos);
+		model.addAttribute("dia25FkCompativel",  listaTurnos);
+		model.addAttribute("dia26FkCompativel",  listaTurnos);
+		model.addAttribute("dia27FkCompativel",  listaTurnos);
+		model.addAttribute("dia28FkCompativel",  listaTurnos);
+		model.addAttribute("dia29FkCompativel",  listaTurnos);
+		model.addAttribute("dia30FkCompativel",  listaTurnos);
+		model.addAttribute("dia31FkCompativel",  listaTurnos);
+		
+		
+		//this.escalaAtual = escala;
+		
+		//comando para armazenar a escala na sessão
+		HttpSession session = httpSessionFactory.getObject();
+        session.setAttribute("escalaAtual", escala  );
+		
+		
+		return "/escala/editar";
 	}
 	
-	@GetMapping("/atalho/ciclo7_c")
-	public String atalhoCiclo7C( RedirectAttributes attr) {	
+	@GetMapping("/atalho/ciclo7/c")
+	public String atalhoCiclo7C( RedirectAttributes attr, ModelMap model) {	
+		
 		//Tratando escala Bloqueada
 		if(anoMesService.buscarPorId(mesAtual()).getIdEscalaBloqueadaFk().getSigla().equalsIgnoreCase("S")) {
 		return "redirect:/escalas/mensagem/de/escala/bloqueada";
@@ -2933,32 +5065,87 @@ public class EscalaController {
 		escala = escalaCalculosService.converteTurnoNuloEmFolga(escala);
 		escala = escalaCalculosService.calcularDadosEscala(escala);
 		
-		//Avaliando Efetivo dando Extra sem cumprir a CH Efetiva
-		boolean extraSemCumprirEfetivo = escalaCompatibilidadeService.horasExtrasSemEfetivas(escala);
-		if(extraSemCumprirEfetivo==true) {
-			return "redirect:/escalas/mensagem/de/efetivo/com/extra/sem/ch/efetiva/informada";
-		}
+		String anoMesDaEscala = "202105";
+		if(escala!=null){anoMesDaEscala = escala.getIdAnoMesFk().getNomeAnoMes();}
+		int qtdDiasNoMes = escalaCalculosService.quantidadeDeDiasNoMes(anoMesDaEscala);
 		
-		//AVALIAÇÃO PARA SABER SE TEM CHOQUES
-		//this.choque = service.choquesEmEscalaOnipresenca(escala);
-		//comando para armazenar choque na sessão
-        HttpSession session = httpSessionFactory.getObject();
-        session.setAttribute("choque", service.choquesEmEscalaOnipresenca(escala)  );
-		//this.choqueDescansoDepoisNoturno = service.choquesEmEscalaDepoisDoNoturno(escala);
-        //comando para armazenar choque na sessão
-        session.setAttribute("choqueDescansoDepoisNoturno", service.choquesEmEscalaDepoisDoNoturno(escala)  );
-		if(choqueDescansoDepoisNoturno().length()>0) {attr.addFlashAttribute("fail", choqueDescansoDepoisNoturno()); return atalhoLimparEscalaChoque(attr, choqueDescansoDepoisNoturno()); }
-		if(choque().length()>0) {attr.addFlashAttribute("fail", choque()); return atalhoLimparEscalaChoque(attr, choque());  }
-		if((choqueDescansoDepoisNoturno().length()==0) && (choque().length()==0)) {
-			salvar(escala, null, null);
-			session = httpSessionFactory.getObject(); session.setAttribute("ultimoIdEscala", escala.getId()  );
-			attr.addFlashAttribute("success", "Confirme CH Dif, Incremento de Risco, Diferenciado, Regime e Turma antes de Lançar.");
-		}
-		return "redirect:/escalas/alterar/escala/"+escala.getId();
+		// CALCULANDO OS DIAS DO MES
+		String nomeColuna1 = escalaCalculosService.obtemNomeDiaColuna(anoMesDaEscala, 1);
+		String nomeColuna2 = escalaCalculosService.obtemNomeDiaColuna(anoMesDaEscala, 2);
+		String nomeColuna3 = escalaCalculosService.obtemNomeDiaColuna(anoMesDaEscala, 3);
+		String nomeColuna4 = escalaCalculosService.obtemNomeDiaColuna(anoMesDaEscala, 4);
+		String nomeColuna5 = escalaCalculosService.obtemNomeDiaColuna(anoMesDaEscala, 5);
+		String nomeColuna6 = escalaCalculosService.obtemNomeDiaColuna(anoMesDaEscala, 6);
+		String nomeColuna7 = escalaCalculosService.obtemNomeDiaColuna(anoMesDaEscala, 7);
+		// falta complemento de planantao compativel
+		
+		model.addAttribute("idCodigoDiferenciadoFkCompativel", escalaCompatibilidadeService.getCodigosDiferenciadoCompativel( escala) );
+		model.addAttribute("idChDifFkCompativel", pessoaChDifService.listaSimNaoCompativelComPessoa(usuarioService.pegarUnidadeLogada(), escala.getIdFuncionarioFk().getIdPessoaFk(), escala.getIdAnoMesFk()) );
+		model.addAttribute("idIncrementoDeRiscoCompativel", escalaCompatibilidadeService.getIncrementoDeRiscoCompativel(escala) );
+		model.addAttribute("idComplementoDePlantaoCompativel", escalaCompatibilidadeService.getComplementoDePlantaoCompativel(escala) );
+		
+	
+		model.addAttribute("escala", escala );
+		model.addAttribute("idLinha", escala.getId() );
+		model.addAttribute("qtdDiasNoMes", qtdDiasNoMes );
+		model.addAttribute("nomeColuna1", nomeColuna1 );
+		model.addAttribute("nomeColuna2", nomeColuna2 );
+		model.addAttribute("nomeColuna3", nomeColuna3 );
+		model.addAttribute("nomeColuna4", nomeColuna4 );
+		model.addAttribute("nomeColuna5", nomeColuna5 );
+		model.addAttribute("nomeColuna6", nomeColuna6 );
+		model.addAttribute("nomeColuna7", nomeColuna7 );
+		
+		
+		// Pegando os turnos compatíveis
+		List<Turnos> listaTurnos = regimeDeTrabalhoTurnoService.buscarPorRegimesEUnidadeEFolha(escala);
+		
+		model.addAttribute("dia01FkCompativel",  listaTurnos);
+		model.addAttribute("dia02FkCompativel",  listaTurnos);
+		model.addAttribute("dia03FkCompativel",  listaTurnos);
+		model.addAttribute("dia04FkCompativel",  listaTurnos);
+		model.addAttribute("dia05FkCompativel",  listaTurnos);
+		model.addAttribute("dia06FkCompativel",  listaTurnos);
+		model.addAttribute("dia07FkCompativel",  listaTurnos);
+		model.addAttribute("dia08FkCompativel",  listaTurnos);
+		model.addAttribute("dia09FkCompativel",  listaTurnos);
+		model.addAttribute("dia10FkCompativel",  listaTurnos);
+		model.addAttribute("dia11FkCompativel",  listaTurnos);
+		model.addAttribute("dia12FkCompativel",  listaTurnos);
+		model.addAttribute("dia13FkCompativel",  listaTurnos);
+		model.addAttribute("dia14FkCompativel",  listaTurnos);
+		model.addAttribute("dia15FkCompativel",  listaTurnos);
+		model.addAttribute("dia16FkCompativel",  listaTurnos);
+		model.addAttribute("dia17FkCompativel",  listaTurnos);
+		model.addAttribute("dia18FkCompativel",  listaTurnos);
+		model.addAttribute("dia19FkCompativel",  listaTurnos);
+		model.addAttribute("dia20FkCompativel",  listaTurnos);
+		model.addAttribute("dia21FkCompativel",  listaTurnos);
+		model.addAttribute("dia22FkCompativel",  listaTurnos);
+		model.addAttribute("dia23FkCompativel",  listaTurnos);
+		model.addAttribute("dia24FkCompativel",  listaTurnos);
+		model.addAttribute("dia25FkCompativel",  listaTurnos);
+		model.addAttribute("dia26FkCompativel",  listaTurnos);
+		model.addAttribute("dia27FkCompativel",  listaTurnos);
+		model.addAttribute("dia28FkCompativel",  listaTurnos);
+		model.addAttribute("dia29FkCompativel",  listaTurnos);
+		model.addAttribute("dia30FkCompativel",  listaTurnos);
+		model.addAttribute("dia31FkCompativel",  listaTurnos);
+		
+		
+		//this.escalaAtual = escala;
+		
+		//comando para armazenar a escala na sessão
+		HttpSession session = httpSessionFactory.getObject();
+        session.setAttribute("escalaAtual", escala  );
+		
+		
+		return "/escala/editar";
 	}
 	
-	@GetMapping("/atalho/ciclo7_d")
-	public String atalhoCiclo7D( RedirectAttributes attr) {	
+	@GetMapping("/atalho/ciclo7/d")
+	public String atalhoCiclo7D( RedirectAttributes attr, ModelMap model) {	
+		
 		//Tratando escala Bloqueada
 		if(anoMesService.buscarPorId(mesAtual()).getIdEscalaBloqueadaFk().getSigla().equalsIgnoreCase("S")) {
 		return "redirect:/escalas/mensagem/de/escala/bloqueada";
@@ -2972,32 +5159,87 @@ public class EscalaController {
 		escala = escalaCalculosService.converteTurnoNuloEmFolga(escala);
 		escala = escalaCalculosService.calcularDadosEscala(escala);
 		
-		//Avaliando Efetivo dando Extra sem cumprir a CH Efetiva
-		boolean extraSemCumprirEfetivo = escalaCompatibilidadeService.horasExtrasSemEfetivas(escala);
-		if(extraSemCumprirEfetivo==true) {
-			return "redirect:/escalas/mensagem/de/efetivo/com/extra/sem/ch/efetiva/informada";
-		}
+		String anoMesDaEscala = "202105";
+		if(escala!=null){anoMesDaEscala = escala.getIdAnoMesFk().getNomeAnoMes();}
+		int qtdDiasNoMes = escalaCalculosService.quantidadeDeDiasNoMes(anoMesDaEscala);
 		
-		//AVALIAÇÃO PARA SABER SE TEM CHOQUES
-		//this.choque = service.choquesEmEscalaOnipresenca(escala);
-		//comando para armazenar choque na sessão
-        HttpSession session = httpSessionFactory.getObject();
-        session.setAttribute("choque", service.choquesEmEscalaOnipresenca(escala)  );
-		//this.choqueDescansoDepoisNoturno = service.choquesEmEscalaDepoisDoNoturno(escala);
-        //comando para armazenar choque na sessão
-        session.setAttribute("choqueDescansoDepoisNoturno", service.choquesEmEscalaDepoisDoNoturno(escala)  );
-		if(choqueDescansoDepoisNoturno().length()>0) {attr.addFlashAttribute("fail", choqueDescansoDepoisNoturno()); return atalhoLimparEscalaChoque(attr, choqueDescansoDepoisNoturno()); }
-		if(choque().length()>0) {attr.addFlashAttribute("fail", choque()); return atalhoLimparEscalaChoque(attr, choque());  }
-		if((choqueDescansoDepoisNoturno().length()==0) && (choque().length()==0)) {
-			salvar(escala, null, null);
-			session = httpSessionFactory.getObject(); session.setAttribute("ultimoIdEscala", escala.getId()  );
-			attr.addFlashAttribute("success", "Confirme CH Dif, Incremento de Risco, Diferenciado, Regime e Turma antes de Lançar.");
-		}
-		return "redirect:/escalas/alterar/escala/"+escala.getId();
+		// CALCULANDO OS DIAS DO MES
+		String nomeColuna1 = escalaCalculosService.obtemNomeDiaColuna(anoMesDaEscala, 1);
+		String nomeColuna2 = escalaCalculosService.obtemNomeDiaColuna(anoMesDaEscala, 2);
+		String nomeColuna3 = escalaCalculosService.obtemNomeDiaColuna(anoMesDaEscala, 3);
+		String nomeColuna4 = escalaCalculosService.obtemNomeDiaColuna(anoMesDaEscala, 4);
+		String nomeColuna5 = escalaCalculosService.obtemNomeDiaColuna(anoMesDaEscala, 5);
+		String nomeColuna6 = escalaCalculosService.obtemNomeDiaColuna(anoMesDaEscala, 6);
+		String nomeColuna7 = escalaCalculosService.obtemNomeDiaColuna(anoMesDaEscala, 7);
+		// falta complemento de planantao compativel
+		
+		model.addAttribute("idCodigoDiferenciadoFkCompativel", escalaCompatibilidadeService.getCodigosDiferenciadoCompativel( escala) );
+		model.addAttribute("idChDifFkCompativel", pessoaChDifService.listaSimNaoCompativelComPessoa(usuarioService.pegarUnidadeLogada(), escala.getIdFuncionarioFk().getIdPessoaFk(), escala.getIdAnoMesFk()) );
+		model.addAttribute("idIncrementoDeRiscoCompativel", escalaCompatibilidadeService.getIncrementoDeRiscoCompativel(escala) );
+		model.addAttribute("idComplementoDePlantaoCompativel", escalaCompatibilidadeService.getComplementoDePlantaoCompativel(escala) );
+		
+	
+		model.addAttribute("escala", escala );
+		model.addAttribute("idLinha", escala.getId() );
+		model.addAttribute("qtdDiasNoMes", qtdDiasNoMes );
+		model.addAttribute("nomeColuna1", nomeColuna1 );
+		model.addAttribute("nomeColuna2", nomeColuna2 );
+		model.addAttribute("nomeColuna3", nomeColuna3 );
+		model.addAttribute("nomeColuna4", nomeColuna4 );
+		model.addAttribute("nomeColuna5", nomeColuna5 );
+		model.addAttribute("nomeColuna6", nomeColuna6 );
+		model.addAttribute("nomeColuna7", nomeColuna7 );
+		
+		
+		// Pegando os turnos compatíveis
+		List<Turnos> listaTurnos = regimeDeTrabalhoTurnoService.buscarPorRegimesEUnidadeEFolha(escala);
+		
+		model.addAttribute("dia01FkCompativel",  listaTurnos);
+		model.addAttribute("dia02FkCompativel",  listaTurnos);
+		model.addAttribute("dia03FkCompativel",  listaTurnos);
+		model.addAttribute("dia04FkCompativel",  listaTurnos);
+		model.addAttribute("dia05FkCompativel",  listaTurnos);
+		model.addAttribute("dia06FkCompativel",  listaTurnos);
+		model.addAttribute("dia07FkCompativel",  listaTurnos);
+		model.addAttribute("dia08FkCompativel",  listaTurnos);
+		model.addAttribute("dia09FkCompativel",  listaTurnos);
+		model.addAttribute("dia10FkCompativel",  listaTurnos);
+		model.addAttribute("dia11FkCompativel",  listaTurnos);
+		model.addAttribute("dia12FkCompativel",  listaTurnos);
+		model.addAttribute("dia13FkCompativel",  listaTurnos);
+		model.addAttribute("dia14FkCompativel",  listaTurnos);
+		model.addAttribute("dia15FkCompativel",  listaTurnos);
+		model.addAttribute("dia16FkCompativel",  listaTurnos);
+		model.addAttribute("dia17FkCompativel",  listaTurnos);
+		model.addAttribute("dia18FkCompativel",  listaTurnos);
+		model.addAttribute("dia19FkCompativel",  listaTurnos);
+		model.addAttribute("dia20FkCompativel",  listaTurnos);
+		model.addAttribute("dia21FkCompativel",  listaTurnos);
+		model.addAttribute("dia22FkCompativel",  listaTurnos);
+		model.addAttribute("dia23FkCompativel",  listaTurnos);
+		model.addAttribute("dia24FkCompativel",  listaTurnos);
+		model.addAttribute("dia25FkCompativel",  listaTurnos);
+		model.addAttribute("dia26FkCompativel",  listaTurnos);
+		model.addAttribute("dia27FkCompativel",  listaTurnos);
+		model.addAttribute("dia28FkCompativel",  listaTurnos);
+		model.addAttribute("dia29FkCompativel",  listaTurnos);
+		model.addAttribute("dia30FkCompativel",  listaTurnos);
+		model.addAttribute("dia31FkCompativel",  listaTurnos);
+		
+		
+		//this.escalaAtual = escala;
+		
+		//comando para armazenar a escala na sessão
+		HttpSession session = httpSessionFactory.getObject();
+        session.setAttribute("escalaAtual", escala  );
+		
+		
+		return "/escala/editar";
 	}
 	
-	@GetMapping("/atalho/ciclo7_e")
-	public String atalhoCiclo7E( RedirectAttributes attr) {	
+	@GetMapping("/atalho/ciclo7/e")
+	public String atalhoCiclo7E( RedirectAttributes attr, ModelMap model) {	
+		
 		//Tratando escala Bloqueada
 		if(anoMesService.buscarPorId(mesAtual()).getIdEscalaBloqueadaFk().getSigla().equalsIgnoreCase("S")) {
 		return "redirect:/escalas/mensagem/de/escala/bloqueada";
@@ -3011,32 +5253,87 @@ public class EscalaController {
 		escala = escalaCalculosService.converteTurnoNuloEmFolga(escala);
 		escala = escalaCalculosService.calcularDadosEscala(escala);
 		
-		//Avaliando Efetivo dando Extra sem cumprir a CH Efetiva
-		boolean extraSemCumprirEfetivo = escalaCompatibilidadeService.horasExtrasSemEfetivas(escala);
-		if(extraSemCumprirEfetivo==true) {
-			return "redirect:/escalas/mensagem/de/efetivo/com/extra/sem/ch/efetiva/informada";
-		}
+		String anoMesDaEscala = "202105";
+		if(escala!=null){anoMesDaEscala = escala.getIdAnoMesFk().getNomeAnoMes();}
+		int qtdDiasNoMes = escalaCalculosService.quantidadeDeDiasNoMes(anoMesDaEscala);
 		
-		//AVALIAÇÃO PARA SABER SE TEM CHOQUES
-		//this.choque = service.choquesEmEscalaOnipresenca(escala);
-		//comando para armazenar choque na sessão
-        HttpSession session = httpSessionFactory.getObject();
-        session.setAttribute("choque", service.choquesEmEscalaOnipresenca(escala)  );
-		//this.choqueDescansoDepoisNoturno = service.choquesEmEscalaDepoisDoNoturno(escala);
-        //comando para armazenar choque na sessão
-        session.setAttribute("choqueDescansoDepoisNoturno", service.choquesEmEscalaDepoisDoNoturno(escala)  );
-		if(choqueDescansoDepoisNoturno().length()>0) {attr.addFlashAttribute("fail", choqueDescansoDepoisNoturno()); return atalhoLimparEscalaChoque(attr, choqueDescansoDepoisNoturno()); }
-		if(choque().length()>0) {attr.addFlashAttribute("fail", choque()); return atalhoLimparEscalaChoque(attr, choque());  }
-		if((choqueDescansoDepoisNoturno().length()==0) && (choque().length()==0)) {
-			salvar(escala, null, null);
-			session = httpSessionFactory.getObject(); session.setAttribute("ultimoIdEscala", escala.getId()  );
-			attr.addFlashAttribute("success", "Confirme CH Dif, Incremento de Risco, Diferenciado, Regime e Turma antes de Lançar.");
-		}
-		return "redirect:/escalas/alterar/escala/"+escala.getId();
+		// CALCULANDO OS DIAS DO MES
+		String nomeColuna1 = escalaCalculosService.obtemNomeDiaColuna(anoMesDaEscala, 1);
+		String nomeColuna2 = escalaCalculosService.obtemNomeDiaColuna(anoMesDaEscala, 2);
+		String nomeColuna3 = escalaCalculosService.obtemNomeDiaColuna(anoMesDaEscala, 3);
+		String nomeColuna4 = escalaCalculosService.obtemNomeDiaColuna(anoMesDaEscala, 4);
+		String nomeColuna5 = escalaCalculosService.obtemNomeDiaColuna(anoMesDaEscala, 5);
+		String nomeColuna6 = escalaCalculosService.obtemNomeDiaColuna(anoMesDaEscala, 6);
+		String nomeColuna7 = escalaCalculosService.obtemNomeDiaColuna(anoMesDaEscala, 7);
+		// falta complemento de planantao compativel
+		
+		model.addAttribute("idCodigoDiferenciadoFkCompativel", escalaCompatibilidadeService.getCodigosDiferenciadoCompativel( escala) );
+		model.addAttribute("idChDifFkCompativel", pessoaChDifService.listaSimNaoCompativelComPessoa(usuarioService.pegarUnidadeLogada(), escala.getIdFuncionarioFk().getIdPessoaFk(), escala.getIdAnoMesFk()) );
+		model.addAttribute("idIncrementoDeRiscoCompativel", escalaCompatibilidadeService.getIncrementoDeRiscoCompativel(escala) );
+		model.addAttribute("idComplementoDePlantaoCompativel", escalaCompatibilidadeService.getComplementoDePlantaoCompativel(escala) );
+		
+	
+		model.addAttribute("escala", escala );
+		model.addAttribute("idLinha", escala.getId() );
+		model.addAttribute("qtdDiasNoMes", qtdDiasNoMes );
+		model.addAttribute("nomeColuna1", nomeColuna1 );
+		model.addAttribute("nomeColuna2", nomeColuna2 );
+		model.addAttribute("nomeColuna3", nomeColuna3 );
+		model.addAttribute("nomeColuna4", nomeColuna4 );
+		model.addAttribute("nomeColuna5", nomeColuna5 );
+		model.addAttribute("nomeColuna6", nomeColuna6 );
+		model.addAttribute("nomeColuna7", nomeColuna7 );
+		
+		
+		// Pegando os turnos compatíveis
+		List<Turnos> listaTurnos = regimeDeTrabalhoTurnoService.buscarPorRegimesEUnidadeEFolha(escala);
+		
+		model.addAttribute("dia01FkCompativel",  listaTurnos);
+		model.addAttribute("dia02FkCompativel",  listaTurnos);
+		model.addAttribute("dia03FkCompativel",  listaTurnos);
+		model.addAttribute("dia04FkCompativel",  listaTurnos);
+		model.addAttribute("dia05FkCompativel",  listaTurnos);
+		model.addAttribute("dia06FkCompativel",  listaTurnos);
+		model.addAttribute("dia07FkCompativel",  listaTurnos);
+		model.addAttribute("dia08FkCompativel",  listaTurnos);
+		model.addAttribute("dia09FkCompativel",  listaTurnos);
+		model.addAttribute("dia10FkCompativel",  listaTurnos);
+		model.addAttribute("dia11FkCompativel",  listaTurnos);
+		model.addAttribute("dia12FkCompativel",  listaTurnos);
+		model.addAttribute("dia13FkCompativel",  listaTurnos);
+		model.addAttribute("dia14FkCompativel",  listaTurnos);
+		model.addAttribute("dia15FkCompativel",  listaTurnos);
+		model.addAttribute("dia16FkCompativel",  listaTurnos);
+		model.addAttribute("dia17FkCompativel",  listaTurnos);
+		model.addAttribute("dia18FkCompativel",  listaTurnos);
+		model.addAttribute("dia19FkCompativel",  listaTurnos);
+		model.addAttribute("dia20FkCompativel",  listaTurnos);
+		model.addAttribute("dia21FkCompativel",  listaTurnos);
+		model.addAttribute("dia22FkCompativel",  listaTurnos);
+		model.addAttribute("dia23FkCompativel",  listaTurnos);
+		model.addAttribute("dia24FkCompativel",  listaTurnos);
+		model.addAttribute("dia25FkCompativel",  listaTurnos);
+		model.addAttribute("dia26FkCompativel",  listaTurnos);
+		model.addAttribute("dia27FkCompativel",  listaTurnos);
+		model.addAttribute("dia28FkCompativel",  listaTurnos);
+		model.addAttribute("dia29FkCompativel",  listaTurnos);
+		model.addAttribute("dia30FkCompativel",  listaTurnos);
+		model.addAttribute("dia31FkCompativel",  listaTurnos);
+		
+		
+		//this.escalaAtual = escala;
+		
+		//comando para armazenar a escala na sessão
+		HttpSession session = httpSessionFactory.getObject();
+        session.setAttribute("escalaAtual", escala  );
+		
+		
+		return "/escala/editar";
 	}
 	
-	@GetMapping("/atalho/ciclo7_f")
-	public String atalhoCiclo7F( RedirectAttributes attr) {	
+	@GetMapping("/atalho/ciclo7/f")
+	public String atalhoCiclo7F( RedirectAttributes attr, ModelMap model) {	
+		
 		//Tratando escala Bloqueada
 		if(anoMesService.buscarPorId(mesAtual()).getIdEscalaBloqueadaFk().getSigla().equalsIgnoreCase("S")) {
 		return "redirect:/escalas/mensagem/de/escala/bloqueada";
@@ -3050,34 +5347,89 @@ public class EscalaController {
 		escala = escalaCalculosService.converteTurnoNuloEmFolga(escala);
 		escala = escalaCalculosService.calcularDadosEscala(escala);
 		
-		//Avaliando Efetivo dando Extra sem cumprir a CH Efetiva
-		boolean extraSemCumprirEfetivo = escalaCompatibilidadeService.horasExtrasSemEfetivas(escala);
-		if(extraSemCumprirEfetivo==true) {
-			return "redirect:/escalas/mensagem/de/efetivo/com/extra/sem/ch/efetiva/informada";
-		}
+		String anoMesDaEscala = "202105";
+		if(escala!=null){anoMesDaEscala = escala.getIdAnoMesFk().getNomeAnoMes();}
+		int qtdDiasNoMes = escalaCalculosService.quantidadeDeDiasNoMes(anoMesDaEscala);
 		
-		//AVALIAÇÃO PARA SABER SE TEM CHOQUES
-		//this.choque = service.choquesEmEscalaOnipresenca(escala);
-		//comando para armazenar choque na sessão
-        HttpSession session = httpSessionFactory.getObject();
-        session.setAttribute("choque", service.choquesEmEscalaOnipresenca(escala)  );
-		//this.choqueDescansoDepoisNoturno = service.choquesEmEscalaDepoisDoNoturno(escala);
-        //comando para armazenar choque na sessão
-        session.setAttribute("choqueDescansoDepoisNoturno", service.choquesEmEscalaDepoisDoNoturno(escala)  );
-		if(choqueDescansoDepoisNoturno().length()>0) {attr.addFlashAttribute("fail", choqueDescansoDepoisNoturno()); return atalhoLimparEscalaChoque(attr, choqueDescansoDepoisNoturno()); }
-		if(choque().length()>0) {attr.addFlashAttribute("fail", choque()); return atalhoLimparEscalaChoque(attr, choque());  }
-		if((choqueDescansoDepoisNoturno().length()==0) && (choque().length()==0)) {
-			salvar(escala, null, null);
-			session = httpSessionFactory.getObject(); session.setAttribute("ultimoIdEscala", escala.getId()  );
-			attr.addFlashAttribute("success", "Confirme CH Dif, Incremento de Risco, Diferenciado, Regime e Turma antes de Lançar.");
-		}
-		return "redirect:/escalas/alterar/escala/"+escala.getId();
+		// CALCULANDO OS DIAS DO MES
+		String nomeColuna1 = escalaCalculosService.obtemNomeDiaColuna(anoMesDaEscala, 1);
+		String nomeColuna2 = escalaCalculosService.obtemNomeDiaColuna(anoMesDaEscala, 2);
+		String nomeColuna3 = escalaCalculosService.obtemNomeDiaColuna(anoMesDaEscala, 3);
+		String nomeColuna4 = escalaCalculosService.obtemNomeDiaColuna(anoMesDaEscala, 4);
+		String nomeColuna5 = escalaCalculosService.obtemNomeDiaColuna(anoMesDaEscala, 5);
+		String nomeColuna6 = escalaCalculosService.obtemNomeDiaColuna(anoMesDaEscala, 6);
+		String nomeColuna7 = escalaCalculosService.obtemNomeDiaColuna(anoMesDaEscala, 7);
+		// falta complemento de planantao compativel
+		
+		model.addAttribute("idCodigoDiferenciadoFkCompativel", escalaCompatibilidadeService.getCodigosDiferenciadoCompativel( escala) );
+		model.addAttribute("idChDifFkCompativel", pessoaChDifService.listaSimNaoCompativelComPessoa(usuarioService.pegarUnidadeLogada(), escala.getIdFuncionarioFk().getIdPessoaFk(), escala.getIdAnoMesFk()) );
+		model.addAttribute("idIncrementoDeRiscoCompativel", escalaCompatibilidadeService.getIncrementoDeRiscoCompativel(escala) );
+		model.addAttribute("idComplementoDePlantaoCompativel", escalaCompatibilidadeService.getComplementoDePlantaoCompativel(escala) );
+		
+	
+		model.addAttribute("escala", escala );
+		model.addAttribute("idLinha", escala.getId() );
+		model.addAttribute("qtdDiasNoMes", qtdDiasNoMes );
+		model.addAttribute("nomeColuna1", nomeColuna1 );
+		model.addAttribute("nomeColuna2", nomeColuna2 );
+		model.addAttribute("nomeColuna3", nomeColuna3 );
+		model.addAttribute("nomeColuna4", nomeColuna4 );
+		model.addAttribute("nomeColuna5", nomeColuna5 );
+		model.addAttribute("nomeColuna6", nomeColuna6 );
+		model.addAttribute("nomeColuna7", nomeColuna7 );
+		
+		
+		// Pegando os turnos compatíveis
+		List<Turnos> listaTurnos = regimeDeTrabalhoTurnoService.buscarPorRegimesEUnidadeEFolha(escala);
+		
+		model.addAttribute("dia01FkCompativel",  listaTurnos);
+		model.addAttribute("dia02FkCompativel",  listaTurnos);
+		model.addAttribute("dia03FkCompativel",  listaTurnos);
+		model.addAttribute("dia04FkCompativel",  listaTurnos);
+		model.addAttribute("dia05FkCompativel",  listaTurnos);
+		model.addAttribute("dia06FkCompativel",  listaTurnos);
+		model.addAttribute("dia07FkCompativel",  listaTurnos);
+		model.addAttribute("dia08FkCompativel",  listaTurnos);
+		model.addAttribute("dia09FkCompativel",  listaTurnos);
+		model.addAttribute("dia10FkCompativel",  listaTurnos);
+		model.addAttribute("dia11FkCompativel",  listaTurnos);
+		model.addAttribute("dia12FkCompativel",  listaTurnos);
+		model.addAttribute("dia13FkCompativel",  listaTurnos);
+		model.addAttribute("dia14FkCompativel",  listaTurnos);
+		model.addAttribute("dia15FkCompativel",  listaTurnos);
+		model.addAttribute("dia16FkCompativel",  listaTurnos);
+		model.addAttribute("dia17FkCompativel",  listaTurnos);
+		model.addAttribute("dia18FkCompativel",  listaTurnos);
+		model.addAttribute("dia19FkCompativel",  listaTurnos);
+		model.addAttribute("dia20FkCompativel",  listaTurnos);
+		model.addAttribute("dia21FkCompativel",  listaTurnos);
+		model.addAttribute("dia22FkCompativel",  listaTurnos);
+		model.addAttribute("dia23FkCompativel",  listaTurnos);
+		model.addAttribute("dia24FkCompativel",  listaTurnos);
+		model.addAttribute("dia25FkCompativel",  listaTurnos);
+		model.addAttribute("dia26FkCompativel",  listaTurnos);
+		model.addAttribute("dia27FkCompativel",  listaTurnos);
+		model.addAttribute("dia28FkCompativel",  listaTurnos);
+		model.addAttribute("dia29FkCompativel",  listaTurnos);
+		model.addAttribute("dia30FkCompativel",  listaTurnos);
+		model.addAttribute("dia31FkCompativel",  listaTurnos);
+		
+		
+		//this.escalaAtual = escala;
+		
+		//comando para armazenar a escala na sessão
+		HttpSession session = httpSessionFactory.getObject();
+        session.setAttribute("escalaAtual", escala  );
+		
+		
+		return "/escala/editar";
 	}
 
 
 	//Ciclo8
-	@GetMapping("/atalho/ciclo8_a")
-	public String atalhoCiclo8A( RedirectAttributes attr) {	
+	@GetMapping("/atalho/ciclo8/a")
+	public String atalhoCiclo8A( RedirectAttributes attr, ModelMap model) {	
+		
 		//Tratando escala Bloqueada
 		if(anoMesService.buscarPorId(mesAtual()).getIdEscalaBloqueadaFk().getSigla().equalsIgnoreCase("S")) {
 		return "redirect:/escalas/mensagem/de/escala/bloqueada";
@@ -3091,32 +5443,87 @@ public class EscalaController {
 		escala = escalaCalculosService.converteTurnoNuloEmFolga(escala);
 		escala = escalaCalculosService.calcularDadosEscala(escala);
 		
-		//Avaliando Efetivo dando Extra sem cumprir a CH Efetiva
-		boolean extraSemCumprirEfetivo = escalaCompatibilidadeService.horasExtrasSemEfetivas(escala);
-		if(extraSemCumprirEfetivo==true) {
-			return "redirect:/escalas/mensagem/de/efetivo/com/extra/sem/ch/efetiva/informada";
-		}
+		String anoMesDaEscala = "202105";
+		if(escala!=null){anoMesDaEscala = escala.getIdAnoMesFk().getNomeAnoMes();}
+		int qtdDiasNoMes = escalaCalculosService.quantidadeDeDiasNoMes(anoMesDaEscala);
 		
-		//AVALIAÇÃO PARA SABER SE TEM CHOQUES
-		//this.choque = service.choquesEmEscalaOnipresenca(escala);
-		//comando para armazenar choque na sessão
-        HttpSession session = httpSessionFactory.getObject();
-        session.setAttribute("choque", service.choquesEmEscalaOnipresenca(escala)  );
-		//this.choqueDescansoDepoisNoturno = service.choquesEmEscalaDepoisDoNoturno(escala);
-        //comando para armazenar choque na sessão
-        session.setAttribute("choqueDescansoDepoisNoturno", service.choquesEmEscalaDepoisDoNoturno(escala)  );
-		if(choqueDescansoDepoisNoturno().length()>0) {attr.addFlashAttribute("fail", choqueDescansoDepoisNoturno()); return atalhoLimparEscalaChoque(attr, choqueDescansoDepoisNoturno()); }
-		if(choque().length()>0) {attr.addFlashAttribute("fail", choque()); return atalhoLimparEscalaChoque(attr, choque());  }
-		if((choqueDescansoDepoisNoturno().length()==0) && (choque().length()==0)) {
-			salvar(escala, null, null);
-			session = httpSessionFactory.getObject(); session.setAttribute("ultimoIdEscala", escala.getId()  );
-			attr.addFlashAttribute("success", "Confirme CH Dif, Incremento de Risco, Diferenciado, Regime e Turma antes de Lançar.");
-		}
-		return "redirect:/escalas/alterar/escala/"+escala.getId();
+		// CALCULANDO OS DIAS DO MES
+		String nomeColuna1 = escalaCalculosService.obtemNomeDiaColuna(anoMesDaEscala, 1);
+		String nomeColuna2 = escalaCalculosService.obtemNomeDiaColuna(anoMesDaEscala, 2);
+		String nomeColuna3 = escalaCalculosService.obtemNomeDiaColuna(anoMesDaEscala, 3);
+		String nomeColuna4 = escalaCalculosService.obtemNomeDiaColuna(anoMesDaEscala, 4);
+		String nomeColuna5 = escalaCalculosService.obtemNomeDiaColuna(anoMesDaEscala, 5);
+		String nomeColuna6 = escalaCalculosService.obtemNomeDiaColuna(anoMesDaEscala, 6);
+		String nomeColuna7 = escalaCalculosService.obtemNomeDiaColuna(anoMesDaEscala, 7);
+		// falta complemento de planantao compativel
+		
+		model.addAttribute("idCodigoDiferenciadoFkCompativel", escalaCompatibilidadeService.getCodigosDiferenciadoCompativel( escala) );
+		model.addAttribute("idChDifFkCompativel", pessoaChDifService.listaSimNaoCompativelComPessoa(usuarioService.pegarUnidadeLogada(), escala.getIdFuncionarioFk().getIdPessoaFk(), escala.getIdAnoMesFk()) );
+		model.addAttribute("idIncrementoDeRiscoCompativel", escalaCompatibilidadeService.getIncrementoDeRiscoCompativel(escala) );
+		model.addAttribute("idComplementoDePlantaoCompativel", escalaCompatibilidadeService.getComplementoDePlantaoCompativel(escala) );
+		
+	
+		model.addAttribute("escala", escala );
+		model.addAttribute("idLinha", escala.getId() );
+		model.addAttribute("qtdDiasNoMes", qtdDiasNoMes );
+		model.addAttribute("nomeColuna1", nomeColuna1 );
+		model.addAttribute("nomeColuna2", nomeColuna2 );
+		model.addAttribute("nomeColuna3", nomeColuna3 );
+		model.addAttribute("nomeColuna4", nomeColuna4 );
+		model.addAttribute("nomeColuna5", nomeColuna5 );
+		model.addAttribute("nomeColuna6", nomeColuna6 );
+		model.addAttribute("nomeColuna7", nomeColuna7 );
+		
+		
+		// Pegando os turnos compatíveis
+		List<Turnos> listaTurnos = regimeDeTrabalhoTurnoService.buscarPorRegimesEUnidadeEFolha(escala);
+		
+		model.addAttribute("dia01FkCompativel",  listaTurnos);
+		model.addAttribute("dia02FkCompativel",  listaTurnos);
+		model.addAttribute("dia03FkCompativel",  listaTurnos);
+		model.addAttribute("dia04FkCompativel",  listaTurnos);
+		model.addAttribute("dia05FkCompativel",  listaTurnos);
+		model.addAttribute("dia06FkCompativel",  listaTurnos);
+		model.addAttribute("dia07FkCompativel",  listaTurnos);
+		model.addAttribute("dia08FkCompativel",  listaTurnos);
+		model.addAttribute("dia09FkCompativel",  listaTurnos);
+		model.addAttribute("dia10FkCompativel",  listaTurnos);
+		model.addAttribute("dia11FkCompativel",  listaTurnos);
+		model.addAttribute("dia12FkCompativel",  listaTurnos);
+		model.addAttribute("dia13FkCompativel",  listaTurnos);
+		model.addAttribute("dia14FkCompativel",  listaTurnos);
+		model.addAttribute("dia15FkCompativel",  listaTurnos);
+		model.addAttribute("dia16FkCompativel",  listaTurnos);
+		model.addAttribute("dia17FkCompativel",  listaTurnos);
+		model.addAttribute("dia18FkCompativel",  listaTurnos);
+		model.addAttribute("dia19FkCompativel",  listaTurnos);
+		model.addAttribute("dia20FkCompativel",  listaTurnos);
+		model.addAttribute("dia21FkCompativel",  listaTurnos);
+		model.addAttribute("dia22FkCompativel",  listaTurnos);
+		model.addAttribute("dia23FkCompativel",  listaTurnos);
+		model.addAttribute("dia24FkCompativel",  listaTurnos);
+		model.addAttribute("dia25FkCompativel",  listaTurnos);
+		model.addAttribute("dia26FkCompativel",  listaTurnos);
+		model.addAttribute("dia27FkCompativel",  listaTurnos);
+		model.addAttribute("dia28FkCompativel",  listaTurnos);
+		model.addAttribute("dia29FkCompativel",  listaTurnos);
+		model.addAttribute("dia30FkCompativel",  listaTurnos);
+		model.addAttribute("dia31FkCompativel",  listaTurnos);
+		
+		
+		//this.escalaAtual = escala;
+		
+		//comando para armazenar a escala na sessão
+		HttpSession session = httpSessionFactory.getObject();
+        session.setAttribute("escalaAtual", escala  );
+		
+		
+		return "/escala/editar";
 	}
 	
-	@GetMapping("/atalho/ciclo8_b")
-	public String atalhoCiclo8B( RedirectAttributes attr) {	
+	@GetMapping("/atalho/ciclo8/b")
+	public String atalhoCiclo8B( RedirectAttributes attr, ModelMap model) {	
+		
 		//Tratando escala Bloqueada
 		if(anoMesService.buscarPorId(mesAtual()).getIdEscalaBloqueadaFk().getSigla().equalsIgnoreCase("S")) {
 		return "redirect:/escalas/mensagem/de/escala/bloqueada";
@@ -3130,32 +5537,87 @@ public class EscalaController {
 		escala = escalaCalculosService.converteTurnoNuloEmFolga(escala);
 		escala = escalaCalculosService.calcularDadosEscala(escala);
 		
-		//Avaliando Efetivo dando Extra sem cumprir a CH Efetiva
-		boolean extraSemCumprirEfetivo = escalaCompatibilidadeService.horasExtrasSemEfetivas(escala);
-		if(extraSemCumprirEfetivo==true) {
-			return "redirect:/escalas/mensagem/de/efetivo/com/extra/sem/ch/efetiva/informada";
-		}
+		String anoMesDaEscala = "202105";
+		if(escala!=null){anoMesDaEscala = escala.getIdAnoMesFk().getNomeAnoMes();}
+		int qtdDiasNoMes = escalaCalculosService.quantidadeDeDiasNoMes(anoMesDaEscala);
 		
-		//AVALIAÇÃO PARA SABER SE TEM CHOQUES
-		//this.choque = service.choquesEmEscalaOnipresenca(escala);
-		//comando para armazenar choque na sessão
-        HttpSession session = httpSessionFactory.getObject();
-        session.setAttribute("choque", service.choquesEmEscalaOnipresenca(escala)  );
-		//this.choqueDescansoDepoisNoturno = service.choquesEmEscalaDepoisDoNoturno(escala);
-        //comando para armazenar choque na sessão
-        session.setAttribute("choqueDescansoDepoisNoturno", service.choquesEmEscalaDepoisDoNoturno(escala)  );
-		if(choqueDescansoDepoisNoturno().length()>0) {attr.addFlashAttribute("fail", choqueDescansoDepoisNoturno()); return atalhoLimparEscalaChoque(attr, choqueDescansoDepoisNoturno()); }
-		if(choque().length()>0) {attr.addFlashAttribute("fail", choque()); return atalhoLimparEscalaChoque(attr, choque());  }
-		if((choqueDescansoDepoisNoturno().length()==0) && (choque().length()==0)) {
-			salvar(escala, null, null);
-			session = httpSessionFactory.getObject(); session.setAttribute("ultimoIdEscala", escala.getId()  );
-			attr.addFlashAttribute("success", "Confirme CH Dif, Incremento de Risco, Diferenciado, Regime e Turma antes de Lançar.");
-		}
-		return "redirect:/escalas/alterar/escala/"+escala.getId();
+		// CALCULANDO OS DIAS DO MES
+		String nomeColuna1 = escalaCalculosService.obtemNomeDiaColuna(anoMesDaEscala, 1);
+		String nomeColuna2 = escalaCalculosService.obtemNomeDiaColuna(anoMesDaEscala, 2);
+		String nomeColuna3 = escalaCalculosService.obtemNomeDiaColuna(anoMesDaEscala, 3);
+		String nomeColuna4 = escalaCalculosService.obtemNomeDiaColuna(anoMesDaEscala, 4);
+		String nomeColuna5 = escalaCalculosService.obtemNomeDiaColuna(anoMesDaEscala, 5);
+		String nomeColuna6 = escalaCalculosService.obtemNomeDiaColuna(anoMesDaEscala, 6);
+		String nomeColuna7 = escalaCalculosService.obtemNomeDiaColuna(anoMesDaEscala, 7);
+		// falta complemento de planantao compativel
+		
+		model.addAttribute("idCodigoDiferenciadoFkCompativel", escalaCompatibilidadeService.getCodigosDiferenciadoCompativel( escala) );
+		model.addAttribute("idChDifFkCompativel", pessoaChDifService.listaSimNaoCompativelComPessoa(usuarioService.pegarUnidadeLogada(), escala.getIdFuncionarioFk().getIdPessoaFk(), escala.getIdAnoMesFk()) );
+		model.addAttribute("idIncrementoDeRiscoCompativel", escalaCompatibilidadeService.getIncrementoDeRiscoCompativel(escala) );
+		model.addAttribute("idComplementoDePlantaoCompativel", escalaCompatibilidadeService.getComplementoDePlantaoCompativel(escala) );
+		
+	
+		model.addAttribute("escala", escala );
+		model.addAttribute("idLinha", escala.getId() );
+		model.addAttribute("qtdDiasNoMes", qtdDiasNoMes );
+		model.addAttribute("nomeColuna1", nomeColuna1 );
+		model.addAttribute("nomeColuna2", nomeColuna2 );
+		model.addAttribute("nomeColuna3", nomeColuna3 );
+		model.addAttribute("nomeColuna4", nomeColuna4 );
+		model.addAttribute("nomeColuna5", nomeColuna5 );
+		model.addAttribute("nomeColuna6", nomeColuna6 );
+		model.addAttribute("nomeColuna7", nomeColuna7 );
+		
+		
+		// Pegando os turnos compatíveis
+		List<Turnos> listaTurnos = regimeDeTrabalhoTurnoService.buscarPorRegimesEUnidadeEFolha(escala);
+		
+		model.addAttribute("dia01FkCompativel",  listaTurnos);
+		model.addAttribute("dia02FkCompativel",  listaTurnos);
+		model.addAttribute("dia03FkCompativel",  listaTurnos);
+		model.addAttribute("dia04FkCompativel",  listaTurnos);
+		model.addAttribute("dia05FkCompativel",  listaTurnos);
+		model.addAttribute("dia06FkCompativel",  listaTurnos);
+		model.addAttribute("dia07FkCompativel",  listaTurnos);
+		model.addAttribute("dia08FkCompativel",  listaTurnos);
+		model.addAttribute("dia09FkCompativel",  listaTurnos);
+		model.addAttribute("dia10FkCompativel",  listaTurnos);
+		model.addAttribute("dia11FkCompativel",  listaTurnos);
+		model.addAttribute("dia12FkCompativel",  listaTurnos);
+		model.addAttribute("dia13FkCompativel",  listaTurnos);
+		model.addAttribute("dia14FkCompativel",  listaTurnos);
+		model.addAttribute("dia15FkCompativel",  listaTurnos);
+		model.addAttribute("dia16FkCompativel",  listaTurnos);
+		model.addAttribute("dia17FkCompativel",  listaTurnos);
+		model.addAttribute("dia18FkCompativel",  listaTurnos);
+		model.addAttribute("dia19FkCompativel",  listaTurnos);
+		model.addAttribute("dia20FkCompativel",  listaTurnos);
+		model.addAttribute("dia21FkCompativel",  listaTurnos);
+		model.addAttribute("dia22FkCompativel",  listaTurnos);
+		model.addAttribute("dia23FkCompativel",  listaTurnos);
+		model.addAttribute("dia24FkCompativel",  listaTurnos);
+		model.addAttribute("dia25FkCompativel",  listaTurnos);
+		model.addAttribute("dia26FkCompativel",  listaTurnos);
+		model.addAttribute("dia27FkCompativel",  listaTurnos);
+		model.addAttribute("dia28FkCompativel",  listaTurnos);
+		model.addAttribute("dia29FkCompativel",  listaTurnos);
+		model.addAttribute("dia30FkCompativel",  listaTurnos);
+		model.addAttribute("dia31FkCompativel",  listaTurnos);
+		
+		
+		//this.escalaAtual = escala;
+		
+		//comando para armazenar a escala na sessão
+		HttpSession session = httpSessionFactory.getObject();
+        session.setAttribute("escalaAtual", escala  );
+		
+		
+		return "/escala/editar";
 	}
 	
-	@GetMapping("/atalho/ciclo8_c")
-	public String atalhoCiclo8C( RedirectAttributes attr) {	
+	@GetMapping("/atalho/ciclo8/c")
+	public String atalhoCiclo8C( RedirectAttributes attr, ModelMap model) {	
+		
 		//Tratando escala Bloqueada
 		if(anoMesService.buscarPorId(mesAtual()).getIdEscalaBloqueadaFk().getSigla().equalsIgnoreCase("S")) {
 		return "redirect:/escalas/mensagem/de/escala/bloqueada";
@@ -3169,32 +5631,87 @@ public class EscalaController {
 		escala = escalaCalculosService.converteTurnoNuloEmFolga(escala);
 		escala = escalaCalculosService.calcularDadosEscala(escala);
 		
-		//Avaliando Efetivo dando Extra sem cumprir a CH Efetiva
-		boolean extraSemCumprirEfetivo = escalaCompatibilidadeService.horasExtrasSemEfetivas(escala);
-		if(extraSemCumprirEfetivo==true) {
-			return "redirect:/escalas/mensagem/de/efetivo/com/extra/sem/ch/efetiva/informada";
-		}
+		String anoMesDaEscala = "202105";
+		if(escala!=null){anoMesDaEscala = escala.getIdAnoMesFk().getNomeAnoMes();}
+		int qtdDiasNoMes = escalaCalculosService.quantidadeDeDiasNoMes(anoMesDaEscala);
 		
-		//AVALIAÇÃO PARA SABER SE TEM CHOQUES
-		//this.choque = service.choquesEmEscalaOnipresenca(escala);
-		//comando para armazenar choque na sessão
-        HttpSession session = httpSessionFactory.getObject();
-        session.setAttribute("choque", service.choquesEmEscalaOnipresenca(escala)  );
-		//this.choqueDescansoDepoisNoturno = service.choquesEmEscalaDepoisDoNoturno(escala);
-        //comando para armazenar choque na sessão
-        session.setAttribute("choqueDescansoDepoisNoturno", service.choquesEmEscalaDepoisDoNoturno(escala)  );
-		if(choqueDescansoDepoisNoturno().length()>0) {attr.addFlashAttribute("fail", choqueDescansoDepoisNoturno()); return atalhoLimparEscalaChoque(attr, choqueDescansoDepoisNoturno()); }
-		if(choque().length()>0) {attr.addFlashAttribute("fail", choque()); return atalhoLimparEscalaChoque(attr, choque());  }
-		if((choqueDescansoDepoisNoturno().length()==0) && (choque().length()==0)) {
-			salvar(escala, null, null);
-			session = httpSessionFactory.getObject(); session.setAttribute("ultimoIdEscala", escala.getId()  );
-			attr.addFlashAttribute("success", "Confirme CH Dif, Incremento de Risco, Diferenciado, Regime e Turma antes de Lançar.");
-		}
-		return "redirect:/escalas/alterar/escala/"+escala.getId();
+		// CALCULANDO OS DIAS DO MES
+		String nomeColuna1 = escalaCalculosService.obtemNomeDiaColuna(anoMesDaEscala, 1);
+		String nomeColuna2 = escalaCalculosService.obtemNomeDiaColuna(anoMesDaEscala, 2);
+		String nomeColuna3 = escalaCalculosService.obtemNomeDiaColuna(anoMesDaEscala, 3);
+		String nomeColuna4 = escalaCalculosService.obtemNomeDiaColuna(anoMesDaEscala, 4);
+		String nomeColuna5 = escalaCalculosService.obtemNomeDiaColuna(anoMesDaEscala, 5);
+		String nomeColuna6 = escalaCalculosService.obtemNomeDiaColuna(anoMesDaEscala, 6);
+		String nomeColuna7 = escalaCalculosService.obtemNomeDiaColuna(anoMesDaEscala, 7);
+		// falta complemento de planantao compativel
+		
+		model.addAttribute("idCodigoDiferenciadoFkCompativel", escalaCompatibilidadeService.getCodigosDiferenciadoCompativel( escala) );
+		model.addAttribute("idChDifFkCompativel", pessoaChDifService.listaSimNaoCompativelComPessoa(usuarioService.pegarUnidadeLogada(), escala.getIdFuncionarioFk().getIdPessoaFk(), escala.getIdAnoMesFk()) );
+		model.addAttribute("idIncrementoDeRiscoCompativel", escalaCompatibilidadeService.getIncrementoDeRiscoCompativel(escala) );
+		model.addAttribute("idComplementoDePlantaoCompativel", escalaCompatibilidadeService.getComplementoDePlantaoCompativel(escala) );
+		
+	
+		model.addAttribute("escala", escala );
+		model.addAttribute("idLinha", escala.getId() );
+		model.addAttribute("qtdDiasNoMes", qtdDiasNoMes );
+		model.addAttribute("nomeColuna1", nomeColuna1 );
+		model.addAttribute("nomeColuna2", nomeColuna2 );
+		model.addAttribute("nomeColuna3", nomeColuna3 );
+		model.addAttribute("nomeColuna4", nomeColuna4 );
+		model.addAttribute("nomeColuna5", nomeColuna5 );
+		model.addAttribute("nomeColuna6", nomeColuna6 );
+		model.addAttribute("nomeColuna7", nomeColuna7 );
+		
+		
+		// Pegando os turnos compatíveis
+		List<Turnos> listaTurnos = regimeDeTrabalhoTurnoService.buscarPorRegimesEUnidadeEFolha(escala);
+		
+		model.addAttribute("dia01FkCompativel",  listaTurnos);
+		model.addAttribute("dia02FkCompativel",  listaTurnos);
+		model.addAttribute("dia03FkCompativel",  listaTurnos);
+		model.addAttribute("dia04FkCompativel",  listaTurnos);
+		model.addAttribute("dia05FkCompativel",  listaTurnos);
+		model.addAttribute("dia06FkCompativel",  listaTurnos);
+		model.addAttribute("dia07FkCompativel",  listaTurnos);
+		model.addAttribute("dia08FkCompativel",  listaTurnos);
+		model.addAttribute("dia09FkCompativel",  listaTurnos);
+		model.addAttribute("dia10FkCompativel",  listaTurnos);
+		model.addAttribute("dia11FkCompativel",  listaTurnos);
+		model.addAttribute("dia12FkCompativel",  listaTurnos);
+		model.addAttribute("dia13FkCompativel",  listaTurnos);
+		model.addAttribute("dia14FkCompativel",  listaTurnos);
+		model.addAttribute("dia15FkCompativel",  listaTurnos);
+		model.addAttribute("dia16FkCompativel",  listaTurnos);
+		model.addAttribute("dia17FkCompativel",  listaTurnos);
+		model.addAttribute("dia18FkCompativel",  listaTurnos);
+		model.addAttribute("dia19FkCompativel",  listaTurnos);
+		model.addAttribute("dia20FkCompativel",  listaTurnos);
+		model.addAttribute("dia21FkCompativel",  listaTurnos);
+		model.addAttribute("dia22FkCompativel",  listaTurnos);
+		model.addAttribute("dia23FkCompativel",  listaTurnos);
+		model.addAttribute("dia24FkCompativel",  listaTurnos);
+		model.addAttribute("dia25FkCompativel",  listaTurnos);
+		model.addAttribute("dia26FkCompativel",  listaTurnos);
+		model.addAttribute("dia27FkCompativel",  listaTurnos);
+		model.addAttribute("dia28FkCompativel",  listaTurnos);
+		model.addAttribute("dia29FkCompativel",  listaTurnos);
+		model.addAttribute("dia30FkCompativel",  listaTurnos);
+		model.addAttribute("dia31FkCompativel",  listaTurnos);
+		
+		
+		//this.escalaAtual = escala;
+		
+		//comando para armazenar a escala na sessão
+		HttpSession session = httpSessionFactory.getObject();
+        session.setAttribute("escalaAtual", escala  );
+		
+		
+		return "/escala/editar";
 	}
 	
-	@GetMapping("/atalho/ciclo8_d")
-	public String atalhoCiclo8D( RedirectAttributes attr) {	
+	@GetMapping("/atalho/ciclo8/d")
+	public String atalhoCiclo8D( RedirectAttributes attr, ModelMap model) {	
+		
 		//Tratando escala Bloqueada
 		if(anoMesService.buscarPorId(mesAtual()).getIdEscalaBloqueadaFk().getSigla().equalsIgnoreCase("S")) {
 		return "redirect:/escalas/mensagem/de/escala/bloqueada";
@@ -3208,32 +5725,87 @@ public class EscalaController {
 		escala = escalaCalculosService.converteTurnoNuloEmFolga(escala);
 		escala = escalaCalculosService.calcularDadosEscala(escala);
 		
-		//Avaliando Efetivo dando Extra sem cumprir a CH Efetiva
-		boolean extraSemCumprirEfetivo = escalaCompatibilidadeService.horasExtrasSemEfetivas(escala);
-		if(extraSemCumprirEfetivo==true) {
-			return "redirect:/escalas/mensagem/de/efetivo/com/extra/sem/ch/efetiva/informada";
-		}
+		String anoMesDaEscala = "202105";
+		if(escala!=null){anoMesDaEscala = escala.getIdAnoMesFk().getNomeAnoMes();}
+		int qtdDiasNoMes = escalaCalculosService.quantidadeDeDiasNoMes(anoMesDaEscala);
 		
-		//AVALIAÇÃO PARA SABER SE TEM CHOQUES
-		//this.choque = service.choquesEmEscalaOnipresenca(escala);
-		//comando para armazenar choque na sessão
-        HttpSession session = httpSessionFactory.getObject();
-        session.setAttribute("choque", service.choquesEmEscalaOnipresenca(escala)  );
-		//this.choqueDescansoDepoisNoturno = service.choquesEmEscalaDepoisDoNoturno(escala);
-        //comando para armazenar choque na sessão
-        session.setAttribute("choqueDescansoDepoisNoturno", service.choquesEmEscalaDepoisDoNoturno(escala)  );
-		if(choqueDescansoDepoisNoturno().length()>0) {attr.addFlashAttribute("fail", choqueDescansoDepoisNoturno()); return atalhoLimparEscalaChoque(attr, choqueDescansoDepoisNoturno()); }
-		if(choque().length()>0) {attr.addFlashAttribute("fail", choque()); return atalhoLimparEscalaChoque(attr, choque());  }
-		if((choqueDescansoDepoisNoturno().length()==0) && (choque().length()==0)) {
-			salvar(escala, null, null);
-			session = httpSessionFactory.getObject(); session.setAttribute("ultimoIdEscala", escala.getId()  );
-			attr.addFlashAttribute("success", "Confirme CH Dif, Incremento de Risco, Diferenciado, Regime e Turma antes de Lançar.");
-		}
-		return "redirect:/escalas/alterar/escala/"+escala.getId();
+		// CALCULANDO OS DIAS DO MES
+		String nomeColuna1 = escalaCalculosService.obtemNomeDiaColuna(anoMesDaEscala, 1);
+		String nomeColuna2 = escalaCalculosService.obtemNomeDiaColuna(anoMesDaEscala, 2);
+		String nomeColuna3 = escalaCalculosService.obtemNomeDiaColuna(anoMesDaEscala, 3);
+		String nomeColuna4 = escalaCalculosService.obtemNomeDiaColuna(anoMesDaEscala, 4);
+		String nomeColuna5 = escalaCalculosService.obtemNomeDiaColuna(anoMesDaEscala, 5);
+		String nomeColuna6 = escalaCalculosService.obtemNomeDiaColuna(anoMesDaEscala, 6);
+		String nomeColuna7 = escalaCalculosService.obtemNomeDiaColuna(anoMesDaEscala, 7);
+		// falta complemento de planantao compativel
+		
+		model.addAttribute("idCodigoDiferenciadoFkCompativel", escalaCompatibilidadeService.getCodigosDiferenciadoCompativel( escala) );
+		model.addAttribute("idChDifFkCompativel", pessoaChDifService.listaSimNaoCompativelComPessoa(usuarioService.pegarUnidadeLogada(), escala.getIdFuncionarioFk().getIdPessoaFk(), escala.getIdAnoMesFk()) );
+		model.addAttribute("idIncrementoDeRiscoCompativel", escalaCompatibilidadeService.getIncrementoDeRiscoCompativel(escala) );
+		model.addAttribute("idComplementoDePlantaoCompativel", escalaCompatibilidadeService.getComplementoDePlantaoCompativel(escala) );
+		
+	
+		model.addAttribute("escala", escala );
+		model.addAttribute("idLinha", escala.getId() );
+		model.addAttribute("qtdDiasNoMes", qtdDiasNoMes );
+		model.addAttribute("nomeColuna1", nomeColuna1 );
+		model.addAttribute("nomeColuna2", nomeColuna2 );
+		model.addAttribute("nomeColuna3", nomeColuna3 );
+		model.addAttribute("nomeColuna4", nomeColuna4 );
+		model.addAttribute("nomeColuna5", nomeColuna5 );
+		model.addAttribute("nomeColuna6", nomeColuna6 );
+		model.addAttribute("nomeColuna7", nomeColuna7 );
+		
+		
+		// Pegando os turnos compatíveis
+		List<Turnos> listaTurnos = regimeDeTrabalhoTurnoService.buscarPorRegimesEUnidadeEFolha(escala);
+		
+		model.addAttribute("dia01FkCompativel",  listaTurnos);
+		model.addAttribute("dia02FkCompativel",  listaTurnos);
+		model.addAttribute("dia03FkCompativel",  listaTurnos);
+		model.addAttribute("dia04FkCompativel",  listaTurnos);
+		model.addAttribute("dia05FkCompativel",  listaTurnos);
+		model.addAttribute("dia06FkCompativel",  listaTurnos);
+		model.addAttribute("dia07FkCompativel",  listaTurnos);
+		model.addAttribute("dia08FkCompativel",  listaTurnos);
+		model.addAttribute("dia09FkCompativel",  listaTurnos);
+		model.addAttribute("dia10FkCompativel",  listaTurnos);
+		model.addAttribute("dia11FkCompativel",  listaTurnos);
+		model.addAttribute("dia12FkCompativel",  listaTurnos);
+		model.addAttribute("dia13FkCompativel",  listaTurnos);
+		model.addAttribute("dia14FkCompativel",  listaTurnos);
+		model.addAttribute("dia15FkCompativel",  listaTurnos);
+		model.addAttribute("dia16FkCompativel",  listaTurnos);
+		model.addAttribute("dia17FkCompativel",  listaTurnos);
+		model.addAttribute("dia18FkCompativel",  listaTurnos);
+		model.addAttribute("dia19FkCompativel",  listaTurnos);
+		model.addAttribute("dia20FkCompativel",  listaTurnos);
+		model.addAttribute("dia21FkCompativel",  listaTurnos);
+		model.addAttribute("dia22FkCompativel",  listaTurnos);
+		model.addAttribute("dia23FkCompativel",  listaTurnos);
+		model.addAttribute("dia24FkCompativel",  listaTurnos);
+		model.addAttribute("dia25FkCompativel",  listaTurnos);
+		model.addAttribute("dia26FkCompativel",  listaTurnos);
+		model.addAttribute("dia27FkCompativel",  listaTurnos);
+		model.addAttribute("dia28FkCompativel",  listaTurnos);
+		model.addAttribute("dia29FkCompativel",  listaTurnos);
+		model.addAttribute("dia30FkCompativel",  listaTurnos);
+		model.addAttribute("dia31FkCompativel",  listaTurnos);
+		
+		
+		//this.escalaAtual = escala;
+		
+		//comando para armazenar a escala na sessão
+		HttpSession session = httpSessionFactory.getObject();
+        session.setAttribute("escalaAtual", escala  );
+		
+		
+		return "/escala/editar";
 	}
 	
-	@GetMapping("/atalho/ciclo8_e")
-	public String atalhoCiclo8E( RedirectAttributes attr) {	
+	@GetMapping("/atalho/ciclo8/e")
+	public String atalhoCiclo8E( RedirectAttributes attr, ModelMap model) {	
+		
 		//Tratando escala Bloqueada
 		if(anoMesService.buscarPorId(mesAtual()).getIdEscalaBloqueadaFk().getSigla().equalsIgnoreCase("S")) {
 		return "redirect:/escalas/mensagem/de/escala/bloqueada";
@@ -3247,32 +5819,87 @@ public class EscalaController {
 		escala = escalaCalculosService.converteTurnoNuloEmFolga(escala);
 		escala = escalaCalculosService.calcularDadosEscala(escala);
 		
-		//Avaliando Efetivo dando Extra sem cumprir a CH Efetiva
-		boolean extraSemCumprirEfetivo = escalaCompatibilidadeService.horasExtrasSemEfetivas(escala);
-		if(extraSemCumprirEfetivo==true) {
-			return "redirect:/escalas/mensagem/de/efetivo/com/extra/sem/ch/efetiva/informada";
-		}
+		String anoMesDaEscala = "202105";
+		if(escala!=null){anoMesDaEscala = escala.getIdAnoMesFk().getNomeAnoMes();}
+		int qtdDiasNoMes = escalaCalculosService.quantidadeDeDiasNoMes(anoMesDaEscala);
 		
-		//AVALIAÇÃO PARA SABER SE TEM CHOQUES
-		//this.choque = service.choquesEmEscalaOnipresenca(escala);
-		//comando para armazenar choque na sessão
-        HttpSession session = httpSessionFactory.getObject();
-        session.setAttribute("choque", service.choquesEmEscalaOnipresenca(escala)  );
-		//this.choqueDescansoDepoisNoturno = service.choquesEmEscalaDepoisDoNoturno(escala);
-        //comando para armazenar choque na sessão
-        session.setAttribute("choqueDescansoDepoisNoturno", service.choquesEmEscalaDepoisDoNoturno(escala)  );
-		if(choqueDescansoDepoisNoturno().length()>0) {attr.addFlashAttribute("fail", choqueDescansoDepoisNoturno()); return atalhoLimparEscalaChoque(attr, choqueDescansoDepoisNoturno()); }
-		if(choque().length()>0) {attr.addFlashAttribute("fail", choque()); return atalhoLimparEscalaChoque(attr, choque());  }
-		if((choqueDescansoDepoisNoturno().length()==0) && (choque().length()==0)) {
-			salvar(escala, null, null);
-			session = httpSessionFactory.getObject(); session.setAttribute("ultimoIdEscala", escala.getId()  );
-			attr.addFlashAttribute("success", "Confirme CH Dif, Incremento de Risco, Diferenciado, Regime e Turma antes de Lançar.");
-		}
-		return "redirect:/escalas/alterar/escala/"+escala.getId();
+		// CALCULANDO OS DIAS DO MES
+		String nomeColuna1 = escalaCalculosService.obtemNomeDiaColuna(anoMesDaEscala, 1);
+		String nomeColuna2 = escalaCalculosService.obtemNomeDiaColuna(anoMesDaEscala, 2);
+		String nomeColuna3 = escalaCalculosService.obtemNomeDiaColuna(anoMesDaEscala, 3);
+		String nomeColuna4 = escalaCalculosService.obtemNomeDiaColuna(anoMesDaEscala, 4);
+		String nomeColuna5 = escalaCalculosService.obtemNomeDiaColuna(anoMesDaEscala, 5);
+		String nomeColuna6 = escalaCalculosService.obtemNomeDiaColuna(anoMesDaEscala, 6);
+		String nomeColuna7 = escalaCalculosService.obtemNomeDiaColuna(anoMesDaEscala, 7);
+		// falta complemento de planantao compativel
+		
+		model.addAttribute("idCodigoDiferenciadoFkCompativel", escalaCompatibilidadeService.getCodigosDiferenciadoCompativel( escala) );
+		model.addAttribute("idChDifFkCompativel", pessoaChDifService.listaSimNaoCompativelComPessoa(usuarioService.pegarUnidadeLogada(), escala.getIdFuncionarioFk().getIdPessoaFk(), escala.getIdAnoMesFk()) );
+		model.addAttribute("idIncrementoDeRiscoCompativel", escalaCompatibilidadeService.getIncrementoDeRiscoCompativel(escala) );
+		model.addAttribute("idComplementoDePlantaoCompativel", escalaCompatibilidadeService.getComplementoDePlantaoCompativel(escala) );
+		
+	
+		model.addAttribute("escala", escala );
+		model.addAttribute("idLinha", escala.getId() );
+		model.addAttribute("qtdDiasNoMes", qtdDiasNoMes );
+		model.addAttribute("nomeColuna1", nomeColuna1 );
+		model.addAttribute("nomeColuna2", nomeColuna2 );
+		model.addAttribute("nomeColuna3", nomeColuna3 );
+		model.addAttribute("nomeColuna4", nomeColuna4 );
+		model.addAttribute("nomeColuna5", nomeColuna5 );
+		model.addAttribute("nomeColuna6", nomeColuna6 );
+		model.addAttribute("nomeColuna7", nomeColuna7 );
+		
+		
+		// Pegando os turnos compatíveis
+		List<Turnos> listaTurnos = regimeDeTrabalhoTurnoService.buscarPorRegimesEUnidadeEFolha(escala);
+		
+		model.addAttribute("dia01FkCompativel",  listaTurnos);
+		model.addAttribute("dia02FkCompativel",  listaTurnos);
+		model.addAttribute("dia03FkCompativel",  listaTurnos);
+		model.addAttribute("dia04FkCompativel",  listaTurnos);
+		model.addAttribute("dia05FkCompativel",  listaTurnos);
+		model.addAttribute("dia06FkCompativel",  listaTurnos);
+		model.addAttribute("dia07FkCompativel",  listaTurnos);
+		model.addAttribute("dia08FkCompativel",  listaTurnos);
+		model.addAttribute("dia09FkCompativel",  listaTurnos);
+		model.addAttribute("dia10FkCompativel",  listaTurnos);
+		model.addAttribute("dia11FkCompativel",  listaTurnos);
+		model.addAttribute("dia12FkCompativel",  listaTurnos);
+		model.addAttribute("dia13FkCompativel",  listaTurnos);
+		model.addAttribute("dia14FkCompativel",  listaTurnos);
+		model.addAttribute("dia15FkCompativel",  listaTurnos);
+		model.addAttribute("dia16FkCompativel",  listaTurnos);
+		model.addAttribute("dia17FkCompativel",  listaTurnos);
+		model.addAttribute("dia18FkCompativel",  listaTurnos);
+		model.addAttribute("dia19FkCompativel",  listaTurnos);
+		model.addAttribute("dia20FkCompativel",  listaTurnos);
+		model.addAttribute("dia21FkCompativel",  listaTurnos);
+		model.addAttribute("dia22FkCompativel",  listaTurnos);
+		model.addAttribute("dia23FkCompativel",  listaTurnos);
+		model.addAttribute("dia24FkCompativel",  listaTurnos);
+		model.addAttribute("dia25FkCompativel",  listaTurnos);
+		model.addAttribute("dia26FkCompativel",  listaTurnos);
+		model.addAttribute("dia27FkCompativel",  listaTurnos);
+		model.addAttribute("dia28FkCompativel",  listaTurnos);
+		model.addAttribute("dia29FkCompativel",  listaTurnos);
+		model.addAttribute("dia30FkCompativel",  listaTurnos);
+		model.addAttribute("dia31FkCompativel",  listaTurnos);
+		
+		
+		//this.escalaAtual = escala;
+		
+		//comando para armazenar a escala na sessão
+		HttpSession session = httpSessionFactory.getObject();
+        session.setAttribute("escalaAtual", escala  );
+		
+		
+		return "/escala/editar";
 	}
 	
-	@GetMapping("/atalho/ciclo8_f")
-	public String atalhoCiclo8F( RedirectAttributes attr) {	
+	@GetMapping("/atalho/ciclo8/f")
+	public String atalhoCiclo8F( RedirectAttributes attr, ModelMap model) {	
+		
 		//Tratando escala Bloqueada
 		if(anoMesService.buscarPorId(mesAtual()).getIdEscalaBloqueadaFk().getSigla().equalsIgnoreCase("S")) {
 		return "redirect:/escalas/mensagem/de/escala/bloqueada";
@@ -3286,32 +5913,87 @@ public class EscalaController {
 		escala = escalaCalculosService.converteTurnoNuloEmFolga(escala);
 		escala = escalaCalculosService.calcularDadosEscala(escala);
 		
-		//Avaliando Efetivo dando Extra sem cumprir a CH Efetiva
-		boolean extraSemCumprirEfetivo = escalaCompatibilidadeService.horasExtrasSemEfetivas(escala);
-		if(extraSemCumprirEfetivo==true) {
-			return "redirect:/escalas/mensagem/de/efetivo/com/extra/sem/ch/efetiva/informada";
-		}
+		String anoMesDaEscala = "202105";
+		if(escala!=null){anoMesDaEscala = escala.getIdAnoMesFk().getNomeAnoMes();}
+		int qtdDiasNoMes = escalaCalculosService.quantidadeDeDiasNoMes(anoMesDaEscala);
 		
-		//AVALIAÇÃO PARA SABER SE TEM CHOQUES
-		//this.choque = service.choquesEmEscalaOnipresenca(escala);
-		//comando para armazenar choque na sessão
-        HttpSession session = httpSessionFactory.getObject();
-        session.setAttribute("choque", service.choquesEmEscalaOnipresenca(escala)  );
-		//this.choqueDescansoDepoisNoturno = service.choquesEmEscalaDepoisDoNoturno(escala);
-        //comando para armazenar choque na sessão
-        session.setAttribute("choqueDescansoDepoisNoturno", service.choquesEmEscalaDepoisDoNoturno(escala)  );
-		if(choqueDescansoDepoisNoturno().length()>0) {attr.addFlashAttribute("fail", choqueDescansoDepoisNoturno()); return atalhoLimparEscalaChoque(attr, choqueDescansoDepoisNoturno()); }
-		if(choque().length()>0) {attr.addFlashAttribute("fail", choque()); return atalhoLimparEscalaChoque(attr, choque());  }
-		if((choqueDescansoDepoisNoturno().length()==0) && (choque().length()==0)) {
-			salvar(escala, null, null);
-			session = httpSessionFactory.getObject(); session.setAttribute("ultimoIdEscala", escala.getId()  );
-			attr.addFlashAttribute("success", "Confirme CH Dif, Incremento de Risco, Diferenciado, Regime e Turma antes de Lançar.");
-		}
-		return "redirect:/escalas/alterar/escala/"+escala.getId();
+		// CALCULANDO OS DIAS DO MES
+		String nomeColuna1 = escalaCalculosService.obtemNomeDiaColuna(anoMesDaEscala, 1);
+		String nomeColuna2 = escalaCalculosService.obtemNomeDiaColuna(anoMesDaEscala, 2);
+		String nomeColuna3 = escalaCalculosService.obtemNomeDiaColuna(anoMesDaEscala, 3);
+		String nomeColuna4 = escalaCalculosService.obtemNomeDiaColuna(anoMesDaEscala, 4);
+		String nomeColuna5 = escalaCalculosService.obtemNomeDiaColuna(anoMesDaEscala, 5);
+		String nomeColuna6 = escalaCalculosService.obtemNomeDiaColuna(anoMesDaEscala, 6);
+		String nomeColuna7 = escalaCalculosService.obtemNomeDiaColuna(anoMesDaEscala, 7);
+		// falta complemento de planantao compativel
+		
+		model.addAttribute("idCodigoDiferenciadoFkCompativel", escalaCompatibilidadeService.getCodigosDiferenciadoCompativel( escala) );
+		model.addAttribute("idChDifFkCompativel", pessoaChDifService.listaSimNaoCompativelComPessoa(usuarioService.pegarUnidadeLogada(), escala.getIdFuncionarioFk().getIdPessoaFk(), escala.getIdAnoMesFk()) );
+		model.addAttribute("idIncrementoDeRiscoCompativel", escalaCompatibilidadeService.getIncrementoDeRiscoCompativel(escala) );
+		model.addAttribute("idComplementoDePlantaoCompativel", escalaCompatibilidadeService.getComplementoDePlantaoCompativel(escala) );
+		
+	
+		model.addAttribute("escala", escala );
+		model.addAttribute("idLinha", escala.getId() );
+		model.addAttribute("qtdDiasNoMes", qtdDiasNoMes );
+		model.addAttribute("nomeColuna1", nomeColuna1 );
+		model.addAttribute("nomeColuna2", nomeColuna2 );
+		model.addAttribute("nomeColuna3", nomeColuna3 );
+		model.addAttribute("nomeColuna4", nomeColuna4 );
+		model.addAttribute("nomeColuna5", nomeColuna5 );
+		model.addAttribute("nomeColuna6", nomeColuna6 );
+		model.addAttribute("nomeColuna7", nomeColuna7 );
+		
+		
+		// Pegando os turnos compatíveis
+		List<Turnos> listaTurnos = regimeDeTrabalhoTurnoService.buscarPorRegimesEUnidadeEFolha(escala);
+		
+		model.addAttribute("dia01FkCompativel",  listaTurnos);
+		model.addAttribute("dia02FkCompativel",  listaTurnos);
+		model.addAttribute("dia03FkCompativel",  listaTurnos);
+		model.addAttribute("dia04FkCompativel",  listaTurnos);
+		model.addAttribute("dia05FkCompativel",  listaTurnos);
+		model.addAttribute("dia06FkCompativel",  listaTurnos);
+		model.addAttribute("dia07FkCompativel",  listaTurnos);
+		model.addAttribute("dia08FkCompativel",  listaTurnos);
+		model.addAttribute("dia09FkCompativel",  listaTurnos);
+		model.addAttribute("dia10FkCompativel",  listaTurnos);
+		model.addAttribute("dia11FkCompativel",  listaTurnos);
+		model.addAttribute("dia12FkCompativel",  listaTurnos);
+		model.addAttribute("dia13FkCompativel",  listaTurnos);
+		model.addAttribute("dia14FkCompativel",  listaTurnos);
+		model.addAttribute("dia15FkCompativel",  listaTurnos);
+		model.addAttribute("dia16FkCompativel",  listaTurnos);
+		model.addAttribute("dia17FkCompativel",  listaTurnos);
+		model.addAttribute("dia18FkCompativel",  listaTurnos);
+		model.addAttribute("dia19FkCompativel",  listaTurnos);
+		model.addAttribute("dia20FkCompativel",  listaTurnos);
+		model.addAttribute("dia21FkCompativel",  listaTurnos);
+		model.addAttribute("dia22FkCompativel",  listaTurnos);
+		model.addAttribute("dia23FkCompativel",  listaTurnos);
+		model.addAttribute("dia24FkCompativel",  listaTurnos);
+		model.addAttribute("dia25FkCompativel",  listaTurnos);
+		model.addAttribute("dia26FkCompativel",  listaTurnos);
+		model.addAttribute("dia27FkCompativel",  listaTurnos);
+		model.addAttribute("dia28FkCompativel",  listaTurnos);
+		model.addAttribute("dia29FkCompativel",  listaTurnos);
+		model.addAttribute("dia30FkCompativel",  listaTurnos);
+		model.addAttribute("dia31FkCompativel",  listaTurnos);
+		
+		
+		//this.escalaAtual = escala;
+		
+		//comando para armazenar a escala na sessão
+		HttpSession session = httpSessionFactory.getObject();
+        session.setAttribute("escalaAtual", escala  );
+		
+		
+		return "/escala/editar";
 	}
 	
-	@GetMapping("/atalho/ciclo8_g")
-	public String atalhoCiclo8G( RedirectAttributes attr) {	
+	@GetMapping("/atalho/ciclo8/g")
+	public String atalhoCiclo8G( RedirectAttributes attr, ModelMap model) {	
+		
 		//Tratando escala Bloqueada
 		if(anoMesService.buscarPorId(mesAtual()).getIdEscalaBloqueadaFk().getSigla().equalsIgnoreCase("S")) {
 		return "redirect:/escalas/mensagem/de/escala/bloqueada";
@@ -3325,34 +6007,89 @@ public class EscalaController {
 		escala = escalaCalculosService.converteTurnoNuloEmFolga(escala);
 		escala = escalaCalculosService.calcularDadosEscala(escala);
 		
-		//Avaliando Efetivo dando Extra sem cumprir a CH Efetiva
-		boolean extraSemCumprirEfetivo = escalaCompatibilidadeService.horasExtrasSemEfetivas(escala);
-		if(extraSemCumprirEfetivo==true) {
-			return "redirect:/escalas/mensagem/de/efetivo/com/extra/sem/ch/efetiva/informada";
-		}
+		String anoMesDaEscala = "202105";
+		if(escala!=null){anoMesDaEscala = escala.getIdAnoMesFk().getNomeAnoMes();}
+		int qtdDiasNoMes = escalaCalculosService.quantidadeDeDiasNoMes(anoMesDaEscala);
 		
-		//AVALIAÇÃO PARA SABER SE TEM CHOQUES
-		//this.choque = service.choquesEmEscalaOnipresenca(escala);
-		//comando para armazenar choque na sessão
-        HttpSession session = httpSessionFactory.getObject();
-        session.setAttribute("choque", service.choquesEmEscalaOnipresenca(escala)  );
-		//this.choqueDescansoDepoisNoturno = service.choquesEmEscalaDepoisDoNoturno(escala);
-        //comando para armazenar choque na sessão
-        session.setAttribute("choqueDescansoDepoisNoturno", service.choquesEmEscalaDepoisDoNoturno(escala)  );
-		if(choqueDescansoDepoisNoturno().length()>0) {attr.addFlashAttribute("fail", choqueDescansoDepoisNoturno()); return atalhoLimparEscalaChoque(attr, choqueDescansoDepoisNoturno()); }
-		if(choque().length()>0) {attr.addFlashAttribute("fail", choque()); return atalhoLimparEscalaChoque(attr, choque());  }
-		if((choqueDescansoDepoisNoturno().length()==0) && (choque().length()==0)) {
-			salvar(escala, null, null);
-			session = httpSessionFactory.getObject(); session.setAttribute("ultimoIdEscala", escala.getId()  );
-			attr.addFlashAttribute("success", "Confirme CH Dif, Incremento de Risco, Diferenciado, Regime e Turma antes de Lançar.");
-		}
-		return "redirect:/escalas/alterar/escala/"+escala.getId();
+		// CALCULANDO OS DIAS DO MES
+		String nomeColuna1 = escalaCalculosService.obtemNomeDiaColuna(anoMesDaEscala, 1);
+		String nomeColuna2 = escalaCalculosService.obtemNomeDiaColuna(anoMesDaEscala, 2);
+		String nomeColuna3 = escalaCalculosService.obtemNomeDiaColuna(anoMesDaEscala, 3);
+		String nomeColuna4 = escalaCalculosService.obtemNomeDiaColuna(anoMesDaEscala, 4);
+		String nomeColuna5 = escalaCalculosService.obtemNomeDiaColuna(anoMesDaEscala, 5);
+		String nomeColuna6 = escalaCalculosService.obtemNomeDiaColuna(anoMesDaEscala, 6);
+		String nomeColuna7 = escalaCalculosService.obtemNomeDiaColuna(anoMesDaEscala, 7);
+		// falta complemento de planantao compativel
+		
+		model.addAttribute("idCodigoDiferenciadoFkCompativel", escalaCompatibilidadeService.getCodigosDiferenciadoCompativel( escala) );
+		model.addAttribute("idChDifFkCompativel", pessoaChDifService.listaSimNaoCompativelComPessoa(usuarioService.pegarUnidadeLogada(), escala.getIdFuncionarioFk().getIdPessoaFk(), escala.getIdAnoMesFk()) );
+		model.addAttribute("idIncrementoDeRiscoCompativel", escalaCompatibilidadeService.getIncrementoDeRiscoCompativel(escala) );
+		model.addAttribute("idComplementoDePlantaoCompativel", escalaCompatibilidadeService.getComplementoDePlantaoCompativel(escala) );
+		
+	
+		model.addAttribute("escala", escala );
+		model.addAttribute("idLinha", escala.getId() );
+		model.addAttribute("qtdDiasNoMes", qtdDiasNoMes );
+		model.addAttribute("nomeColuna1", nomeColuna1 );
+		model.addAttribute("nomeColuna2", nomeColuna2 );
+		model.addAttribute("nomeColuna3", nomeColuna3 );
+		model.addAttribute("nomeColuna4", nomeColuna4 );
+		model.addAttribute("nomeColuna5", nomeColuna5 );
+		model.addAttribute("nomeColuna6", nomeColuna6 );
+		model.addAttribute("nomeColuna7", nomeColuna7 );
+		
+		
+		// Pegando os turnos compatíveis
+		List<Turnos> listaTurnos = regimeDeTrabalhoTurnoService.buscarPorRegimesEUnidadeEFolha(escala);
+		
+		model.addAttribute("dia01FkCompativel",  listaTurnos);
+		model.addAttribute("dia02FkCompativel",  listaTurnos);
+		model.addAttribute("dia03FkCompativel",  listaTurnos);
+		model.addAttribute("dia04FkCompativel",  listaTurnos);
+		model.addAttribute("dia05FkCompativel",  listaTurnos);
+		model.addAttribute("dia06FkCompativel",  listaTurnos);
+		model.addAttribute("dia07FkCompativel",  listaTurnos);
+		model.addAttribute("dia08FkCompativel",  listaTurnos);
+		model.addAttribute("dia09FkCompativel",  listaTurnos);
+		model.addAttribute("dia10FkCompativel",  listaTurnos);
+		model.addAttribute("dia11FkCompativel",  listaTurnos);
+		model.addAttribute("dia12FkCompativel",  listaTurnos);
+		model.addAttribute("dia13FkCompativel",  listaTurnos);
+		model.addAttribute("dia14FkCompativel",  listaTurnos);
+		model.addAttribute("dia15FkCompativel",  listaTurnos);
+		model.addAttribute("dia16FkCompativel",  listaTurnos);
+		model.addAttribute("dia17FkCompativel",  listaTurnos);
+		model.addAttribute("dia18FkCompativel",  listaTurnos);
+		model.addAttribute("dia19FkCompativel",  listaTurnos);
+		model.addAttribute("dia20FkCompativel",  listaTurnos);
+		model.addAttribute("dia21FkCompativel",  listaTurnos);
+		model.addAttribute("dia22FkCompativel",  listaTurnos);
+		model.addAttribute("dia23FkCompativel",  listaTurnos);
+		model.addAttribute("dia24FkCompativel",  listaTurnos);
+		model.addAttribute("dia25FkCompativel",  listaTurnos);
+		model.addAttribute("dia26FkCompativel",  listaTurnos);
+		model.addAttribute("dia27FkCompativel",  listaTurnos);
+		model.addAttribute("dia28FkCompativel",  listaTurnos);
+		model.addAttribute("dia29FkCompativel",  listaTurnos);
+		model.addAttribute("dia30FkCompativel",  listaTurnos);
+		model.addAttribute("dia31FkCompativel",  listaTurnos);
+		
+		
+		//this.escalaAtual = escala;
+		
+		//comando para armazenar a escala na sessão
+		HttpSession session = httpSessionFactory.getObject();
+        session.setAttribute("escalaAtual", escala  );
+		
+		
+		return "/escala/editar";
 	}
 	
 	
 	//Ciclo8
-	@GetMapping("/atalho/ciclo9_a")
-	public String atalhoCiclo9A( RedirectAttributes attr) {	
+	@GetMapping("/atalho/ciclo9/a")
+	public String atalhoCiclo9A( RedirectAttributes attr, ModelMap model) {	
+		
 		//Tratando escala Bloqueada
 		if(anoMesService.buscarPorId(mesAtual()).getIdEscalaBloqueadaFk().getSigla().equalsIgnoreCase("S")) {
 		return "redirect:/escalas/mensagem/de/escala/bloqueada";
@@ -3366,32 +6103,87 @@ public class EscalaController {
 		escala = escalaCalculosService.converteTurnoNuloEmFolga(escala);
 		escala = escalaCalculosService.calcularDadosEscala(escala);
 		
-		//Avaliando Efetivo dando Extra sem cumprir a CH Efetiva
-		boolean extraSemCumprirEfetivo = escalaCompatibilidadeService.horasExtrasSemEfetivas(escala);
-		if(extraSemCumprirEfetivo==true) {
-			return "redirect:/escalas/mensagem/de/efetivo/com/extra/sem/ch/efetiva/informada";
-		}
+		String anoMesDaEscala = "202105";
+		if(escala!=null){anoMesDaEscala = escala.getIdAnoMesFk().getNomeAnoMes();}
+		int qtdDiasNoMes = escalaCalculosService.quantidadeDeDiasNoMes(anoMesDaEscala);
 		
-		//AVALIAÇÃO PARA SABER SE TEM CHOQUES
-		//this.choque = service.choquesEmEscalaOnipresenca(escala);
-		//comando para armazenar choque na sessão
-        HttpSession session = httpSessionFactory.getObject();
-        session.setAttribute("choque", service.choquesEmEscalaOnipresenca(escala)  );
-		//this.choqueDescansoDepoisNoturno = service.choquesEmEscalaDepoisDoNoturno(escala);
-        //comando para armazenar choque na sessão
-        session.setAttribute("choqueDescansoDepoisNoturno", service.choquesEmEscalaDepoisDoNoturno(escala)  );
-		if(choqueDescansoDepoisNoturno().length()>0) {attr.addFlashAttribute("fail", choqueDescansoDepoisNoturno()); return atalhoLimparEscalaChoque(attr, choqueDescansoDepoisNoturno()); }
-		if(choque().length()>0) {attr.addFlashAttribute("fail", choque()); return atalhoLimparEscalaChoque(attr, choque());  }
-		if((choqueDescansoDepoisNoturno().length()==0) && (choque().length()==0)) {
-			salvar(escala, null, null);
-			session = httpSessionFactory.getObject(); session.setAttribute("ultimoIdEscala", escala.getId()  );
-			attr.addFlashAttribute("success", "Confirme CH Dif, Incremento de Risco, Diferenciado, Regime e Turma antes de Lançar.");
-		}
-		return "redirect:/escalas/alterar/escala/"+escala.getId();
+		// CALCULANDO OS DIAS DO MES
+		String nomeColuna1 = escalaCalculosService.obtemNomeDiaColuna(anoMesDaEscala, 1);
+		String nomeColuna2 = escalaCalculosService.obtemNomeDiaColuna(anoMesDaEscala, 2);
+		String nomeColuna3 = escalaCalculosService.obtemNomeDiaColuna(anoMesDaEscala, 3);
+		String nomeColuna4 = escalaCalculosService.obtemNomeDiaColuna(anoMesDaEscala, 4);
+		String nomeColuna5 = escalaCalculosService.obtemNomeDiaColuna(anoMesDaEscala, 5);
+		String nomeColuna6 = escalaCalculosService.obtemNomeDiaColuna(anoMesDaEscala, 6);
+		String nomeColuna7 = escalaCalculosService.obtemNomeDiaColuna(anoMesDaEscala, 7);
+		// falta complemento de planantao compativel
+		
+		model.addAttribute("idCodigoDiferenciadoFkCompativel", escalaCompatibilidadeService.getCodigosDiferenciadoCompativel( escala) );
+		model.addAttribute("idChDifFkCompativel", pessoaChDifService.listaSimNaoCompativelComPessoa(usuarioService.pegarUnidadeLogada(), escala.getIdFuncionarioFk().getIdPessoaFk(), escala.getIdAnoMesFk()) );
+		model.addAttribute("idIncrementoDeRiscoCompativel", escalaCompatibilidadeService.getIncrementoDeRiscoCompativel(escala) );
+		model.addAttribute("idComplementoDePlantaoCompativel", escalaCompatibilidadeService.getComplementoDePlantaoCompativel(escala) );
+		
+	
+		model.addAttribute("escala", escala );
+		model.addAttribute("idLinha", escala.getId() );
+		model.addAttribute("qtdDiasNoMes", qtdDiasNoMes );
+		model.addAttribute("nomeColuna1", nomeColuna1 );
+		model.addAttribute("nomeColuna2", nomeColuna2 );
+		model.addAttribute("nomeColuna3", nomeColuna3 );
+		model.addAttribute("nomeColuna4", nomeColuna4 );
+		model.addAttribute("nomeColuna5", nomeColuna5 );
+		model.addAttribute("nomeColuna6", nomeColuna6 );
+		model.addAttribute("nomeColuna7", nomeColuna7 );
+		
+		
+		// Pegando os turnos compatíveis
+		List<Turnos> listaTurnos = regimeDeTrabalhoTurnoService.buscarPorRegimesEUnidadeEFolha(escala);
+		
+		model.addAttribute("dia01FkCompativel",  listaTurnos);
+		model.addAttribute("dia02FkCompativel",  listaTurnos);
+		model.addAttribute("dia03FkCompativel",  listaTurnos);
+		model.addAttribute("dia04FkCompativel",  listaTurnos);
+		model.addAttribute("dia05FkCompativel",  listaTurnos);
+		model.addAttribute("dia06FkCompativel",  listaTurnos);
+		model.addAttribute("dia07FkCompativel",  listaTurnos);
+		model.addAttribute("dia08FkCompativel",  listaTurnos);
+		model.addAttribute("dia09FkCompativel",  listaTurnos);
+		model.addAttribute("dia10FkCompativel",  listaTurnos);
+		model.addAttribute("dia11FkCompativel",  listaTurnos);
+		model.addAttribute("dia12FkCompativel",  listaTurnos);
+		model.addAttribute("dia13FkCompativel",  listaTurnos);
+		model.addAttribute("dia14FkCompativel",  listaTurnos);
+		model.addAttribute("dia15FkCompativel",  listaTurnos);
+		model.addAttribute("dia16FkCompativel",  listaTurnos);
+		model.addAttribute("dia17FkCompativel",  listaTurnos);
+		model.addAttribute("dia18FkCompativel",  listaTurnos);
+		model.addAttribute("dia19FkCompativel",  listaTurnos);
+		model.addAttribute("dia20FkCompativel",  listaTurnos);
+		model.addAttribute("dia21FkCompativel",  listaTurnos);
+		model.addAttribute("dia22FkCompativel",  listaTurnos);
+		model.addAttribute("dia23FkCompativel",  listaTurnos);
+		model.addAttribute("dia24FkCompativel",  listaTurnos);
+		model.addAttribute("dia25FkCompativel",  listaTurnos);
+		model.addAttribute("dia26FkCompativel",  listaTurnos);
+		model.addAttribute("dia27FkCompativel",  listaTurnos);
+		model.addAttribute("dia28FkCompativel",  listaTurnos);
+		model.addAttribute("dia29FkCompativel",  listaTurnos);
+		model.addAttribute("dia30FkCompativel",  listaTurnos);
+		model.addAttribute("dia31FkCompativel",  listaTurnos);
+		
+		
+		//this.escalaAtual = escala;
+		
+		//comando para armazenar a escala na sessão
+		HttpSession session = httpSessionFactory.getObject();
+        session.setAttribute("escalaAtual", escala  );
+		
+		
+		return "/escala/editar";
 	}
 	
-	@GetMapping("/atalho/ciclo9_b")
-	public String atalhoCiclo9B( RedirectAttributes attr) {	
+	@GetMapping("/atalho/ciclo9/b")
+	public String atalhoCiclo9B( RedirectAttributes attr, ModelMap model) {	
+		
 		//Tratando escala Bloqueada
 		if(anoMesService.buscarPorId(mesAtual()).getIdEscalaBloqueadaFk().getSigla().equalsIgnoreCase("S")) {
 		return "redirect:/escalas/mensagem/de/escala/bloqueada";
@@ -3405,32 +6197,87 @@ public class EscalaController {
 		escala = escalaCalculosService.converteTurnoNuloEmFolga(escala);
 		escala = escalaCalculosService.calcularDadosEscala(escala);
 		
-		//Avaliando Efetivo dando Extra sem cumprir a CH Efetiva
-		boolean extraSemCumprirEfetivo = escalaCompatibilidadeService.horasExtrasSemEfetivas(escala);
-		if(extraSemCumprirEfetivo==true) {
-			return "redirect:/escalas/mensagem/de/efetivo/com/extra/sem/ch/efetiva/informada";
-		}
+		String anoMesDaEscala = "202105";
+		if(escala!=null){anoMesDaEscala = escala.getIdAnoMesFk().getNomeAnoMes();}
+		int qtdDiasNoMes = escalaCalculosService.quantidadeDeDiasNoMes(anoMesDaEscala);
 		
-		//AVALIAÇÃO PARA SABER SE TEM CHOQUES
-		//this.choque = service.choquesEmEscalaOnipresenca(escala);
-		//comando para armazenar choque na sessão
-        HttpSession session = httpSessionFactory.getObject();
-        session.setAttribute("choque", service.choquesEmEscalaOnipresenca(escala)  );
-		//this.choqueDescansoDepoisNoturno = service.choquesEmEscalaDepoisDoNoturno(escala);
-        //comando para armazenar choque na sessão
-        session.setAttribute("choqueDescansoDepoisNoturno", service.choquesEmEscalaDepoisDoNoturno(escala)  );
-		if(choqueDescansoDepoisNoturno().length()>0) {attr.addFlashAttribute("fail", choqueDescansoDepoisNoturno()); return atalhoLimparEscalaChoque(attr, choqueDescansoDepoisNoturno()); }
-		if(choque().length()>0) {attr.addFlashAttribute("fail", choque()); return atalhoLimparEscalaChoque(attr, choque());  }
-		if((choqueDescansoDepoisNoturno().length()==0) && (choque().length()==0)) {
-			salvar(escala, null, null);
-			session = httpSessionFactory.getObject(); session.setAttribute("ultimoIdEscala", escala.getId()  );
-			attr.addFlashAttribute("success", "Confirme CH Dif, Incremento de Risco, Diferenciado, Regime e Turma antes de Lançar.");
-		}
-		return "redirect:/escalas/alterar/escala/"+escala.getId();
+		// CALCULANDO OS DIAS DO MES
+		String nomeColuna1 = escalaCalculosService.obtemNomeDiaColuna(anoMesDaEscala, 1);
+		String nomeColuna2 = escalaCalculosService.obtemNomeDiaColuna(anoMesDaEscala, 2);
+		String nomeColuna3 = escalaCalculosService.obtemNomeDiaColuna(anoMesDaEscala, 3);
+		String nomeColuna4 = escalaCalculosService.obtemNomeDiaColuna(anoMesDaEscala, 4);
+		String nomeColuna5 = escalaCalculosService.obtemNomeDiaColuna(anoMesDaEscala, 5);
+		String nomeColuna6 = escalaCalculosService.obtemNomeDiaColuna(anoMesDaEscala, 6);
+		String nomeColuna7 = escalaCalculosService.obtemNomeDiaColuna(anoMesDaEscala, 7);
+		// falta complemento de planantao compativel
+		
+		model.addAttribute("idCodigoDiferenciadoFkCompativel", escalaCompatibilidadeService.getCodigosDiferenciadoCompativel( escala) );
+		model.addAttribute("idChDifFkCompativel", pessoaChDifService.listaSimNaoCompativelComPessoa(usuarioService.pegarUnidadeLogada(), escala.getIdFuncionarioFk().getIdPessoaFk(), escala.getIdAnoMesFk()) );
+		model.addAttribute("idIncrementoDeRiscoCompativel", escalaCompatibilidadeService.getIncrementoDeRiscoCompativel(escala) );
+		model.addAttribute("idComplementoDePlantaoCompativel", escalaCompatibilidadeService.getComplementoDePlantaoCompativel(escala) );
+		
+	
+		model.addAttribute("escala", escala );
+		model.addAttribute("idLinha", escala.getId() );
+		model.addAttribute("qtdDiasNoMes", qtdDiasNoMes );
+		model.addAttribute("nomeColuna1", nomeColuna1 );
+		model.addAttribute("nomeColuna2", nomeColuna2 );
+		model.addAttribute("nomeColuna3", nomeColuna3 );
+		model.addAttribute("nomeColuna4", nomeColuna4 );
+		model.addAttribute("nomeColuna5", nomeColuna5 );
+		model.addAttribute("nomeColuna6", nomeColuna6 );
+		model.addAttribute("nomeColuna7", nomeColuna7 );
+		
+		
+		// Pegando os turnos compatíveis
+		List<Turnos> listaTurnos = regimeDeTrabalhoTurnoService.buscarPorRegimesEUnidadeEFolha(escala);
+		
+		model.addAttribute("dia01FkCompativel",  listaTurnos);
+		model.addAttribute("dia02FkCompativel",  listaTurnos);
+		model.addAttribute("dia03FkCompativel",  listaTurnos);
+		model.addAttribute("dia04FkCompativel",  listaTurnos);
+		model.addAttribute("dia05FkCompativel",  listaTurnos);
+		model.addAttribute("dia06FkCompativel",  listaTurnos);
+		model.addAttribute("dia07FkCompativel",  listaTurnos);
+		model.addAttribute("dia08FkCompativel",  listaTurnos);
+		model.addAttribute("dia09FkCompativel",  listaTurnos);
+		model.addAttribute("dia10FkCompativel",  listaTurnos);
+		model.addAttribute("dia11FkCompativel",  listaTurnos);
+		model.addAttribute("dia12FkCompativel",  listaTurnos);
+		model.addAttribute("dia13FkCompativel",  listaTurnos);
+		model.addAttribute("dia14FkCompativel",  listaTurnos);
+		model.addAttribute("dia15FkCompativel",  listaTurnos);
+		model.addAttribute("dia16FkCompativel",  listaTurnos);
+		model.addAttribute("dia17FkCompativel",  listaTurnos);
+		model.addAttribute("dia18FkCompativel",  listaTurnos);
+		model.addAttribute("dia19FkCompativel",  listaTurnos);
+		model.addAttribute("dia20FkCompativel",  listaTurnos);
+		model.addAttribute("dia21FkCompativel",  listaTurnos);
+		model.addAttribute("dia22FkCompativel",  listaTurnos);
+		model.addAttribute("dia23FkCompativel",  listaTurnos);
+		model.addAttribute("dia24FkCompativel",  listaTurnos);
+		model.addAttribute("dia25FkCompativel",  listaTurnos);
+		model.addAttribute("dia26FkCompativel",  listaTurnos);
+		model.addAttribute("dia27FkCompativel",  listaTurnos);
+		model.addAttribute("dia28FkCompativel",  listaTurnos);
+		model.addAttribute("dia29FkCompativel",  listaTurnos);
+		model.addAttribute("dia30FkCompativel",  listaTurnos);
+		model.addAttribute("dia31FkCompativel",  listaTurnos);
+		
+		
+		//this.escalaAtual = escala;
+		
+		//comando para armazenar a escala na sessão
+		HttpSession session = httpSessionFactory.getObject();
+        session.setAttribute("escalaAtual", escala  );
+		
+		
+		return "/escala/editar";
 	}
 	
-	@GetMapping("/atalho/ciclo9_c")
-	public String atalhoCiclo9C( RedirectAttributes attr) {	
+	@GetMapping("/atalho/ciclo9/c")
+	public String atalhoCiclo9C( RedirectAttributes attr, ModelMap model) {	
+		
 		//Tratando escala Bloqueada
 		if(anoMesService.buscarPorId(mesAtual()).getIdEscalaBloqueadaFk().getSigla().equalsIgnoreCase("S")) {
 		return "redirect:/escalas/mensagem/de/escala/bloqueada";
@@ -3444,32 +6291,87 @@ public class EscalaController {
 		escala = escalaCalculosService.converteTurnoNuloEmFolga(escala);
 		escala = escalaCalculosService.calcularDadosEscala(escala);
 		
-		//Avaliando Efetivo dando Extra sem cumprir a CH Efetiva
-		boolean extraSemCumprirEfetivo = escalaCompatibilidadeService.horasExtrasSemEfetivas(escala);
-		if(extraSemCumprirEfetivo==true) {
-			return "redirect:/escalas/mensagem/de/efetivo/com/extra/sem/ch/efetiva/informada";
-		}
+		String anoMesDaEscala = "202105";
+		if(escala!=null){anoMesDaEscala = escala.getIdAnoMesFk().getNomeAnoMes();}
+		int qtdDiasNoMes = escalaCalculosService.quantidadeDeDiasNoMes(anoMesDaEscala);
 		
-		//AVALIAÇÃO PARA SABER SE TEM CHOQUES
-		//this.choque = service.choquesEmEscalaOnipresenca(escala);
-		//comando para armazenar choque na sessão
-        HttpSession session = httpSessionFactory.getObject();
-        session.setAttribute("choque", service.choquesEmEscalaOnipresenca(escala)  );
-		//this.choqueDescansoDepoisNoturno = service.choquesEmEscalaDepoisDoNoturno(escala);
-        //comando para armazenar choque na sessão
-        session.setAttribute("choqueDescansoDepoisNoturno", service.choquesEmEscalaDepoisDoNoturno(escala)  );
-		if(choqueDescansoDepoisNoturno().length()>0) {attr.addFlashAttribute("fail", choqueDescansoDepoisNoturno()); return atalhoLimparEscalaChoque(attr, choqueDescansoDepoisNoturno()); }
-		if(choque().length()>0) {attr.addFlashAttribute("fail", choque()); return atalhoLimparEscalaChoque(attr, choque());  }
-		if((choqueDescansoDepoisNoturno().length()==0) && (choque().length()==0)) {
-			salvar(escala, null, null);
-			session = httpSessionFactory.getObject(); session.setAttribute("ultimoIdEscala", escala.getId()  );
-			attr.addFlashAttribute("success", "Confirme CH Dif, Incremento de Risco, Diferenciado, Regime e Turma antes de Lançar.");
-		}
-		return "redirect:/escalas/alterar/escala/"+escala.getId();
+		// CALCULANDO OS DIAS DO MES
+		String nomeColuna1 = escalaCalculosService.obtemNomeDiaColuna(anoMesDaEscala, 1);
+		String nomeColuna2 = escalaCalculosService.obtemNomeDiaColuna(anoMesDaEscala, 2);
+		String nomeColuna3 = escalaCalculosService.obtemNomeDiaColuna(anoMesDaEscala, 3);
+		String nomeColuna4 = escalaCalculosService.obtemNomeDiaColuna(anoMesDaEscala, 4);
+		String nomeColuna5 = escalaCalculosService.obtemNomeDiaColuna(anoMesDaEscala, 5);
+		String nomeColuna6 = escalaCalculosService.obtemNomeDiaColuna(anoMesDaEscala, 6);
+		String nomeColuna7 = escalaCalculosService.obtemNomeDiaColuna(anoMesDaEscala, 7);
+		// falta complemento de planantao compativel
+		
+		model.addAttribute("idCodigoDiferenciadoFkCompativel", escalaCompatibilidadeService.getCodigosDiferenciadoCompativel( escala) );
+		model.addAttribute("idChDifFkCompativel", pessoaChDifService.listaSimNaoCompativelComPessoa(usuarioService.pegarUnidadeLogada(), escala.getIdFuncionarioFk().getIdPessoaFk(), escala.getIdAnoMesFk()) );
+		model.addAttribute("idIncrementoDeRiscoCompativel", escalaCompatibilidadeService.getIncrementoDeRiscoCompativel(escala) );
+		model.addAttribute("idComplementoDePlantaoCompativel", escalaCompatibilidadeService.getComplementoDePlantaoCompativel(escala) );
+		
+	
+		model.addAttribute("escala", escala );
+		model.addAttribute("idLinha", escala.getId() );
+		model.addAttribute("qtdDiasNoMes", qtdDiasNoMes );
+		model.addAttribute("nomeColuna1", nomeColuna1 );
+		model.addAttribute("nomeColuna2", nomeColuna2 );
+		model.addAttribute("nomeColuna3", nomeColuna3 );
+		model.addAttribute("nomeColuna4", nomeColuna4 );
+		model.addAttribute("nomeColuna5", nomeColuna5 );
+		model.addAttribute("nomeColuna6", nomeColuna6 );
+		model.addAttribute("nomeColuna7", nomeColuna7 );
+		
+		
+		// Pegando os turnos compatíveis
+		List<Turnos> listaTurnos = regimeDeTrabalhoTurnoService.buscarPorRegimesEUnidadeEFolha(escala);
+		
+		model.addAttribute("dia01FkCompativel",  listaTurnos);
+		model.addAttribute("dia02FkCompativel",  listaTurnos);
+		model.addAttribute("dia03FkCompativel",  listaTurnos);
+		model.addAttribute("dia04FkCompativel",  listaTurnos);
+		model.addAttribute("dia05FkCompativel",  listaTurnos);
+		model.addAttribute("dia06FkCompativel",  listaTurnos);
+		model.addAttribute("dia07FkCompativel",  listaTurnos);
+		model.addAttribute("dia08FkCompativel",  listaTurnos);
+		model.addAttribute("dia09FkCompativel",  listaTurnos);
+		model.addAttribute("dia10FkCompativel",  listaTurnos);
+		model.addAttribute("dia11FkCompativel",  listaTurnos);
+		model.addAttribute("dia12FkCompativel",  listaTurnos);
+		model.addAttribute("dia13FkCompativel",  listaTurnos);
+		model.addAttribute("dia14FkCompativel",  listaTurnos);
+		model.addAttribute("dia15FkCompativel",  listaTurnos);
+		model.addAttribute("dia16FkCompativel",  listaTurnos);
+		model.addAttribute("dia17FkCompativel",  listaTurnos);
+		model.addAttribute("dia18FkCompativel",  listaTurnos);
+		model.addAttribute("dia19FkCompativel",  listaTurnos);
+		model.addAttribute("dia20FkCompativel",  listaTurnos);
+		model.addAttribute("dia21FkCompativel",  listaTurnos);
+		model.addAttribute("dia22FkCompativel",  listaTurnos);
+		model.addAttribute("dia23FkCompativel",  listaTurnos);
+		model.addAttribute("dia24FkCompativel",  listaTurnos);
+		model.addAttribute("dia25FkCompativel",  listaTurnos);
+		model.addAttribute("dia26FkCompativel",  listaTurnos);
+		model.addAttribute("dia27FkCompativel",  listaTurnos);
+		model.addAttribute("dia28FkCompativel",  listaTurnos);
+		model.addAttribute("dia29FkCompativel",  listaTurnos);
+		model.addAttribute("dia30FkCompativel",  listaTurnos);
+		model.addAttribute("dia31FkCompativel",  listaTurnos);
+		
+		
+		//this.escalaAtual = escala;
+		
+		//comando para armazenar a escala na sessão
+		HttpSession session = httpSessionFactory.getObject();
+        session.setAttribute("escalaAtual", escala  );
+		
+		
+		return "/escala/editar";
 	}
 	
-	@GetMapping("/atalho/ciclo9_d")
-	public String atalhoCiclo9D( RedirectAttributes attr) {	
+	@GetMapping("/atalho/ciclo9/d")
+	public String atalhoCiclo9D( RedirectAttributes attr, ModelMap model) {	
+		
 		//Tratando escala Bloqueada
 		if(anoMesService.buscarPorId(mesAtual()).getIdEscalaBloqueadaFk().getSigla().equalsIgnoreCase("S")) {
 		return "redirect:/escalas/mensagem/de/escala/bloqueada";
@@ -3483,32 +6385,87 @@ public class EscalaController {
 		escala = escalaCalculosService.converteTurnoNuloEmFolga(escala);
 		escala = escalaCalculosService.calcularDadosEscala(escala);
 		
-		//Avaliando Efetivo dando Extra sem cumprir a CH Efetiva
-		boolean extraSemCumprirEfetivo = escalaCompatibilidadeService.horasExtrasSemEfetivas(escala);
-		if(extraSemCumprirEfetivo==true) {
-			return "redirect:/escalas/mensagem/de/efetivo/com/extra/sem/ch/efetiva/informada";
-		}
+		String anoMesDaEscala = "202105";
+		if(escala!=null){anoMesDaEscala = escala.getIdAnoMesFk().getNomeAnoMes();}
+		int qtdDiasNoMes = escalaCalculosService.quantidadeDeDiasNoMes(anoMesDaEscala);
 		
-		//AVALIAÇÃO PARA SABER SE TEM CHOQUES
-		//this.choque = service.choquesEmEscalaOnipresenca(escala);
-		//comando para armazenar choque na sessão
-        HttpSession session = httpSessionFactory.getObject();
-        session.setAttribute("choque", service.choquesEmEscalaOnipresenca(escala)  );
-		//this.choqueDescansoDepoisNoturno = service.choquesEmEscalaDepoisDoNoturno(escala);
-        //comando para armazenar choque na sessão
-        session.setAttribute("choqueDescansoDepoisNoturno", service.choquesEmEscalaDepoisDoNoturno(escala)  );
-		if(choqueDescansoDepoisNoturno().length()>0) {attr.addFlashAttribute("fail", choqueDescansoDepoisNoturno()); return atalhoLimparEscalaChoque(attr, choqueDescansoDepoisNoturno()); }
-		if(choque().length()>0) {attr.addFlashAttribute("fail", choque()); return atalhoLimparEscalaChoque(attr, choque());  }
-		if((choqueDescansoDepoisNoturno().length()==0) && (choque().length()==0)) {
-			salvar(escala, null, null);
-			session = httpSessionFactory.getObject(); session.setAttribute("ultimoIdEscala", escala.getId()  );
-			attr.addFlashAttribute("success", "Confirme CH Dif, Incremento de Risco, Diferenciado, Regime e Turma antes de Lançar.");
-		}
-		return "redirect:/escalas/alterar/escala/"+escala.getId();
+		// CALCULANDO OS DIAS DO MES
+		String nomeColuna1 = escalaCalculosService.obtemNomeDiaColuna(anoMesDaEscala, 1);
+		String nomeColuna2 = escalaCalculosService.obtemNomeDiaColuna(anoMesDaEscala, 2);
+		String nomeColuna3 = escalaCalculosService.obtemNomeDiaColuna(anoMesDaEscala, 3);
+		String nomeColuna4 = escalaCalculosService.obtemNomeDiaColuna(anoMesDaEscala, 4);
+		String nomeColuna5 = escalaCalculosService.obtemNomeDiaColuna(anoMesDaEscala, 5);
+		String nomeColuna6 = escalaCalculosService.obtemNomeDiaColuna(anoMesDaEscala, 6);
+		String nomeColuna7 = escalaCalculosService.obtemNomeDiaColuna(anoMesDaEscala, 7);
+		// falta complemento de planantao compativel
+		
+		model.addAttribute("idCodigoDiferenciadoFkCompativel", escalaCompatibilidadeService.getCodigosDiferenciadoCompativel( escala) );
+		model.addAttribute("idChDifFkCompativel", pessoaChDifService.listaSimNaoCompativelComPessoa(usuarioService.pegarUnidadeLogada(), escala.getIdFuncionarioFk().getIdPessoaFk(), escala.getIdAnoMesFk()) );
+		model.addAttribute("idIncrementoDeRiscoCompativel", escalaCompatibilidadeService.getIncrementoDeRiscoCompativel(escala) );
+		model.addAttribute("idComplementoDePlantaoCompativel", escalaCompatibilidadeService.getComplementoDePlantaoCompativel(escala) );
+		
+	
+		model.addAttribute("escala", escala );
+		model.addAttribute("idLinha", escala.getId() );
+		model.addAttribute("qtdDiasNoMes", qtdDiasNoMes );
+		model.addAttribute("nomeColuna1", nomeColuna1 );
+		model.addAttribute("nomeColuna2", nomeColuna2 );
+		model.addAttribute("nomeColuna3", nomeColuna3 );
+		model.addAttribute("nomeColuna4", nomeColuna4 );
+		model.addAttribute("nomeColuna5", nomeColuna5 );
+		model.addAttribute("nomeColuna6", nomeColuna6 );
+		model.addAttribute("nomeColuna7", nomeColuna7 );
+		
+		
+		// Pegando os turnos compatíveis
+		List<Turnos> listaTurnos = regimeDeTrabalhoTurnoService.buscarPorRegimesEUnidadeEFolha(escala);
+		
+		model.addAttribute("dia01FkCompativel",  listaTurnos);
+		model.addAttribute("dia02FkCompativel",  listaTurnos);
+		model.addAttribute("dia03FkCompativel",  listaTurnos);
+		model.addAttribute("dia04FkCompativel",  listaTurnos);
+		model.addAttribute("dia05FkCompativel",  listaTurnos);
+		model.addAttribute("dia06FkCompativel",  listaTurnos);
+		model.addAttribute("dia07FkCompativel",  listaTurnos);
+		model.addAttribute("dia08FkCompativel",  listaTurnos);
+		model.addAttribute("dia09FkCompativel",  listaTurnos);
+		model.addAttribute("dia10FkCompativel",  listaTurnos);
+		model.addAttribute("dia11FkCompativel",  listaTurnos);
+		model.addAttribute("dia12FkCompativel",  listaTurnos);
+		model.addAttribute("dia13FkCompativel",  listaTurnos);
+		model.addAttribute("dia14FkCompativel",  listaTurnos);
+		model.addAttribute("dia15FkCompativel",  listaTurnos);
+		model.addAttribute("dia16FkCompativel",  listaTurnos);
+		model.addAttribute("dia17FkCompativel",  listaTurnos);
+		model.addAttribute("dia18FkCompativel",  listaTurnos);
+		model.addAttribute("dia19FkCompativel",  listaTurnos);
+		model.addAttribute("dia20FkCompativel",  listaTurnos);
+		model.addAttribute("dia21FkCompativel",  listaTurnos);
+		model.addAttribute("dia22FkCompativel",  listaTurnos);
+		model.addAttribute("dia23FkCompativel",  listaTurnos);
+		model.addAttribute("dia24FkCompativel",  listaTurnos);
+		model.addAttribute("dia25FkCompativel",  listaTurnos);
+		model.addAttribute("dia26FkCompativel",  listaTurnos);
+		model.addAttribute("dia27FkCompativel",  listaTurnos);
+		model.addAttribute("dia28FkCompativel",  listaTurnos);
+		model.addAttribute("dia29FkCompativel",  listaTurnos);
+		model.addAttribute("dia30FkCompativel",  listaTurnos);
+		model.addAttribute("dia31FkCompativel",  listaTurnos);
+		
+		
+		//this.escalaAtual = escala;
+		
+		//comando para armazenar a escala na sessão
+		HttpSession session = httpSessionFactory.getObject();
+        session.setAttribute("escalaAtual", escala  );
+		
+		
+		return "/escala/editar";
 	}
 	
-	@GetMapping("/atalho/ciclo9_e")
-	public String atalhoCiclo9E( RedirectAttributes attr) {	
+	@GetMapping("/atalho/ciclo9/e")
+	public String atalhoCiclo9E( RedirectAttributes attr, ModelMap model) {	
+		
 		//Tratando escala Bloqueada
 		if(anoMesService.buscarPorId(mesAtual()).getIdEscalaBloqueadaFk().getSigla().equalsIgnoreCase("S")) {
 		return "redirect:/escalas/mensagem/de/escala/bloqueada";
@@ -3522,32 +6479,87 @@ public class EscalaController {
 		escala = escalaCalculosService.converteTurnoNuloEmFolga(escala);
 		escala = escalaCalculosService.calcularDadosEscala(escala);
 		
-		//Avaliando Efetivo dando Extra sem cumprir a CH Efetiva
-		boolean extraSemCumprirEfetivo = escalaCompatibilidadeService.horasExtrasSemEfetivas(escala);
-		if(extraSemCumprirEfetivo==true) {
-			return "redirect:/escalas/mensagem/de/efetivo/com/extra/sem/ch/efetiva/informada";
-		}
+		String anoMesDaEscala = "202105";
+		if(escala!=null){anoMesDaEscala = escala.getIdAnoMesFk().getNomeAnoMes();}
+		int qtdDiasNoMes = escalaCalculosService.quantidadeDeDiasNoMes(anoMesDaEscala);
 		
-		//AVALIAÇÃO PARA SABER SE TEM CHOQUES
-		//this.choque = service.choquesEmEscalaOnipresenca(escala);
-		//comando para armazenar choque na sessão
-        HttpSession session = httpSessionFactory.getObject();
-        session.setAttribute("choque", service.choquesEmEscalaOnipresenca(escala)  );
-		//this.choqueDescansoDepoisNoturno = service.choquesEmEscalaDepoisDoNoturno(escala);
-        //comando para armazenar choque na sessão
-        session.setAttribute("choqueDescansoDepoisNoturno", service.choquesEmEscalaDepoisDoNoturno(escala)  );
-		if(choqueDescansoDepoisNoturno().length()>0) {attr.addFlashAttribute("fail", choqueDescansoDepoisNoturno()); return atalhoLimparEscalaChoque(attr, choqueDescansoDepoisNoturno()); }
-		if(choque().length()>0) {attr.addFlashAttribute("fail", choque()); return atalhoLimparEscalaChoque(attr, choque());  }
-		if((choqueDescansoDepoisNoturno().length()==0) && (choque().length()==0)) {
-			salvar(escala, null, null);
-			session = httpSessionFactory.getObject(); session.setAttribute("ultimoIdEscala", escala.getId()  );
-			attr.addFlashAttribute("success", "Confirme CH Dif, Incremento de Risco, Diferenciado, Regime e Turma antes de Lançar.");
-		}
-		return "redirect:/escalas/alterar/escala/"+escala.getId();
+		// CALCULANDO OS DIAS DO MES
+		String nomeColuna1 = escalaCalculosService.obtemNomeDiaColuna(anoMesDaEscala, 1);
+		String nomeColuna2 = escalaCalculosService.obtemNomeDiaColuna(anoMesDaEscala, 2);
+		String nomeColuna3 = escalaCalculosService.obtemNomeDiaColuna(anoMesDaEscala, 3);
+		String nomeColuna4 = escalaCalculosService.obtemNomeDiaColuna(anoMesDaEscala, 4);
+		String nomeColuna5 = escalaCalculosService.obtemNomeDiaColuna(anoMesDaEscala, 5);
+		String nomeColuna6 = escalaCalculosService.obtemNomeDiaColuna(anoMesDaEscala, 6);
+		String nomeColuna7 = escalaCalculosService.obtemNomeDiaColuna(anoMesDaEscala, 7);
+		// falta complemento de planantao compativel
+		
+		model.addAttribute("idCodigoDiferenciadoFkCompativel", escalaCompatibilidadeService.getCodigosDiferenciadoCompativel( escala) );
+		model.addAttribute("idChDifFkCompativel", pessoaChDifService.listaSimNaoCompativelComPessoa(usuarioService.pegarUnidadeLogada(), escala.getIdFuncionarioFk().getIdPessoaFk(), escala.getIdAnoMesFk()) );
+		model.addAttribute("idIncrementoDeRiscoCompativel", escalaCompatibilidadeService.getIncrementoDeRiscoCompativel(escala) );
+		model.addAttribute("idComplementoDePlantaoCompativel", escalaCompatibilidadeService.getComplementoDePlantaoCompativel(escala) );
+		
+	
+		model.addAttribute("escala", escala );
+		model.addAttribute("idLinha", escala.getId() );
+		model.addAttribute("qtdDiasNoMes", qtdDiasNoMes );
+		model.addAttribute("nomeColuna1", nomeColuna1 );
+		model.addAttribute("nomeColuna2", nomeColuna2 );
+		model.addAttribute("nomeColuna3", nomeColuna3 );
+		model.addAttribute("nomeColuna4", nomeColuna4 );
+		model.addAttribute("nomeColuna5", nomeColuna5 );
+		model.addAttribute("nomeColuna6", nomeColuna6 );
+		model.addAttribute("nomeColuna7", nomeColuna7 );
+		
+		
+		// Pegando os turnos compatíveis
+		List<Turnos> listaTurnos = regimeDeTrabalhoTurnoService.buscarPorRegimesEUnidadeEFolha(escala);
+		
+		model.addAttribute("dia01FkCompativel",  listaTurnos);
+		model.addAttribute("dia02FkCompativel",  listaTurnos);
+		model.addAttribute("dia03FkCompativel",  listaTurnos);
+		model.addAttribute("dia04FkCompativel",  listaTurnos);
+		model.addAttribute("dia05FkCompativel",  listaTurnos);
+		model.addAttribute("dia06FkCompativel",  listaTurnos);
+		model.addAttribute("dia07FkCompativel",  listaTurnos);
+		model.addAttribute("dia08FkCompativel",  listaTurnos);
+		model.addAttribute("dia09FkCompativel",  listaTurnos);
+		model.addAttribute("dia10FkCompativel",  listaTurnos);
+		model.addAttribute("dia11FkCompativel",  listaTurnos);
+		model.addAttribute("dia12FkCompativel",  listaTurnos);
+		model.addAttribute("dia13FkCompativel",  listaTurnos);
+		model.addAttribute("dia14FkCompativel",  listaTurnos);
+		model.addAttribute("dia15FkCompativel",  listaTurnos);
+		model.addAttribute("dia16FkCompativel",  listaTurnos);
+		model.addAttribute("dia17FkCompativel",  listaTurnos);
+		model.addAttribute("dia18FkCompativel",  listaTurnos);
+		model.addAttribute("dia19FkCompativel",  listaTurnos);
+		model.addAttribute("dia20FkCompativel",  listaTurnos);
+		model.addAttribute("dia21FkCompativel",  listaTurnos);
+		model.addAttribute("dia22FkCompativel",  listaTurnos);
+		model.addAttribute("dia23FkCompativel",  listaTurnos);
+		model.addAttribute("dia24FkCompativel",  listaTurnos);
+		model.addAttribute("dia25FkCompativel",  listaTurnos);
+		model.addAttribute("dia26FkCompativel",  listaTurnos);
+		model.addAttribute("dia27FkCompativel",  listaTurnos);
+		model.addAttribute("dia28FkCompativel",  listaTurnos);
+		model.addAttribute("dia29FkCompativel",  listaTurnos);
+		model.addAttribute("dia30FkCompativel",  listaTurnos);
+		model.addAttribute("dia31FkCompativel",  listaTurnos);
+		
+		
+		//this.escalaAtual = escala;
+		
+		//comando para armazenar a escala na sessão
+		HttpSession session = httpSessionFactory.getObject();
+        session.setAttribute("escalaAtual", escala  );
+		
+		
+		return "/escala/editar";
 	}
 	
-	@GetMapping("/atalho/ciclo9_f")
-	public String atalhoCiclo9F( RedirectAttributes attr) {	
+	@GetMapping("/atalho/ciclo9/f")
+	public String atalhoCiclo9F( RedirectAttributes attr, ModelMap model) {	
+		
 		//Tratando escala Bloqueada
 		if(anoMesService.buscarPorId(mesAtual()).getIdEscalaBloqueadaFk().getSigla().equalsIgnoreCase("S")) {
 		return "redirect:/escalas/mensagem/de/escala/bloqueada";
@@ -3561,32 +6573,87 @@ public class EscalaController {
 		escala = escalaCalculosService.converteTurnoNuloEmFolga(escala);
 		escala = escalaCalculosService.calcularDadosEscala(escala);
 		
-		//Avaliando Efetivo dando Extra sem cumprir a CH Efetiva
-		boolean extraSemCumprirEfetivo = escalaCompatibilidadeService.horasExtrasSemEfetivas(escala);
-		if(extraSemCumprirEfetivo==true) {
-			return "redirect:/escalas/mensagem/de/efetivo/com/extra/sem/ch/efetiva/informada";
-		}
+		String anoMesDaEscala = "202105";
+		if(escala!=null){anoMesDaEscala = escala.getIdAnoMesFk().getNomeAnoMes();}
+		int qtdDiasNoMes = escalaCalculosService.quantidadeDeDiasNoMes(anoMesDaEscala);
 		
-		//AVALIAÇÃO PARA SABER SE TEM CHOQUES
-		//this.choque = service.choquesEmEscalaOnipresenca(escala);
-		//comando para armazenar choque na sessão
-        HttpSession session = httpSessionFactory.getObject();
-        session.setAttribute("choque", service.choquesEmEscalaOnipresenca(escala)  );
-		//this.choqueDescansoDepoisNoturno = service.choquesEmEscalaDepoisDoNoturno(escala);
-        //comando para armazenar choque na sessão
-        session.setAttribute("choqueDescansoDepoisNoturno", service.choquesEmEscalaDepoisDoNoturno(escala)  );
-		if(choqueDescansoDepoisNoturno().length()>0) {attr.addFlashAttribute("fail", choqueDescansoDepoisNoturno()); return atalhoLimparEscalaChoque(attr, choqueDescansoDepoisNoturno()); }
-		if(choque().length()>0) {attr.addFlashAttribute("fail", choque()); return atalhoLimparEscalaChoque(attr, choque());  }
-		if((choqueDescansoDepoisNoturno().length()==0) && (choque().length()==0)) {
-			salvar(escala, null, null);
-			session = httpSessionFactory.getObject(); session.setAttribute("ultimoIdEscala", escala.getId()  );
-			attr.addFlashAttribute("success", "Confirme CH Dif, Incremento de Risco, Diferenciado, Regime e Turma antes de Lançar.");
-		}
-		return "redirect:/escalas/alterar/escala/"+escala.getId();
+		// CALCULANDO OS DIAS DO MES
+		String nomeColuna1 = escalaCalculosService.obtemNomeDiaColuna(anoMesDaEscala, 1);
+		String nomeColuna2 = escalaCalculosService.obtemNomeDiaColuna(anoMesDaEscala, 2);
+		String nomeColuna3 = escalaCalculosService.obtemNomeDiaColuna(anoMesDaEscala, 3);
+		String nomeColuna4 = escalaCalculosService.obtemNomeDiaColuna(anoMesDaEscala, 4);
+		String nomeColuna5 = escalaCalculosService.obtemNomeDiaColuna(anoMesDaEscala, 5);
+		String nomeColuna6 = escalaCalculosService.obtemNomeDiaColuna(anoMesDaEscala, 6);
+		String nomeColuna7 = escalaCalculosService.obtemNomeDiaColuna(anoMesDaEscala, 7);
+		// falta complemento de planantao compativel
+		
+		model.addAttribute("idCodigoDiferenciadoFkCompativel", escalaCompatibilidadeService.getCodigosDiferenciadoCompativel( escala) );
+		model.addAttribute("idChDifFkCompativel", pessoaChDifService.listaSimNaoCompativelComPessoa(usuarioService.pegarUnidadeLogada(), escala.getIdFuncionarioFk().getIdPessoaFk(), escala.getIdAnoMesFk()) );
+		model.addAttribute("idIncrementoDeRiscoCompativel", escalaCompatibilidadeService.getIncrementoDeRiscoCompativel(escala) );
+		model.addAttribute("idComplementoDePlantaoCompativel", escalaCompatibilidadeService.getComplementoDePlantaoCompativel(escala) );
+		
+	
+		model.addAttribute("escala", escala );
+		model.addAttribute("idLinha", escala.getId() );
+		model.addAttribute("qtdDiasNoMes", qtdDiasNoMes );
+		model.addAttribute("nomeColuna1", nomeColuna1 );
+		model.addAttribute("nomeColuna2", nomeColuna2 );
+		model.addAttribute("nomeColuna3", nomeColuna3 );
+		model.addAttribute("nomeColuna4", nomeColuna4 );
+		model.addAttribute("nomeColuna5", nomeColuna5 );
+		model.addAttribute("nomeColuna6", nomeColuna6 );
+		model.addAttribute("nomeColuna7", nomeColuna7 );
+		
+		
+		// Pegando os turnos compatíveis
+		List<Turnos> listaTurnos = regimeDeTrabalhoTurnoService.buscarPorRegimesEUnidadeEFolha(escala);
+		
+		model.addAttribute("dia01FkCompativel",  listaTurnos);
+		model.addAttribute("dia02FkCompativel",  listaTurnos);
+		model.addAttribute("dia03FkCompativel",  listaTurnos);
+		model.addAttribute("dia04FkCompativel",  listaTurnos);
+		model.addAttribute("dia05FkCompativel",  listaTurnos);
+		model.addAttribute("dia06FkCompativel",  listaTurnos);
+		model.addAttribute("dia07FkCompativel",  listaTurnos);
+		model.addAttribute("dia08FkCompativel",  listaTurnos);
+		model.addAttribute("dia09FkCompativel",  listaTurnos);
+		model.addAttribute("dia10FkCompativel",  listaTurnos);
+		model.addAttribute("dia11FkCompativel",  listaTurnos);
+		model.addAttribute("dia12FkCompativel",  listaTurnos);
+		model.addAttribute("dia13FkCompativel",  listaTurnos);
+		model.addAttribute("dia14FkCompativel",  listaTurnos);
+		model.addAttribute("dia15FkCompativel",  listaTurnos);
+		model.addAttribute("dia16FkCompativel",  listaTurnos);
+		model.addAttribute("dia17FkCompativel",  listaTurnos);
+		model.addAttribute("dia18FkCompativel",  listaTurnos);
+		model.addAttribute("dia19FkCompativel",  listaTurnos);
+		model.addAttribute("dia20FkCompativel",  listaTurnos);
+		model.addAttribute("dia21FkCompativel",  listaTurnos);
+		model.addAttribute("dia22FkCompativel",  listaTurnos);
+		model.addAttribute("dia23FkCompativel",  listaTurnos);
+		model.addAttribute("dia24FkCompativel",  listaTurnos);
+		model.addAttribute("dia25FkCompativel",  listaTurnos);
+		model.addAttribute("dia26FkCompativel",  listaTurnos);
+		model.addAttribute("dia27FkCompativel",  listaTurnos);
+		model.addAttribute("dia28FkCompativel",  listaTurnos);
+		model.addAttribute("dia29FkCompativel",  listaTurnos);
+		model.addAttribute("dia30FkCompativel",  listaTurnos);
+		model.addAttribute("dia31FkCompativel",  listaTurnos);
+		
+		
+		//this.escalaAtual = escala;
+		
+		//comando para armazenar a escala na sessão
+		HttpSession session = httpSessionFactory.getObject();
+        session.setAttribute("escalaAtual", escala  );
+		
+		
+		return "/escala/editar";
 	}
 	
-	@GetMapping("/atalho/ciclo9_g")
-	public String atalhoCiclo9G( RedirectAttributes attr) {	
+	@GetMapping("/atalho/ciclo9/g")
+	public String atalhoCiclo9G( RedirectAttributes attr, ModelMap model) {	
+		
 		//Tratando escala Bloqueada
 		if(anoMesService.buscarPorId(mesAtual()).getIdEscalaBloqueadaFk().getSigla().equalsIgnoreCase("S")) {
 		return "redirect:/escalas/mensagem/de/escala/bloqueada";
@@ -3600,34 +6667,89 @@ public class EscalaController {
 		escala = escalaCalculosService.converteTurnoNuloEmFolga(escala);
 		escala = escalaCalculosService.calcularDadosEscala(escala);
 		
-		//Avaliando Efetivo dando Extra sem cumprir a CH Efetiva
-		boolean extraSemCumprirEfetivo = escalaCompatibilidadeService.horasExtrasSemEfetivas(escala);
-		if(extraSemCumprirEfetivo==true) {
-			return "redirect:/escalas/mensagem/de/efetivo/com/extra/sem/ch/efetiva/informada";
-		}
+		String anoMesDaEscala = "202105";
+		if(escala!=null){anoMesDaEscala = escala.getIdAnoMesFk().getNomeAnoMes();}
+		int qtdDiasNoMes = escalaCalculosService.quantidadeDeDiasNoMes(anoMesDaEscala);
 		
-		//AVALIAÇÃO PARA SABER SE TEM CHOQUES
-		//this.choque = service.choquesEmEscalaOnipresenca(escala);
-		//comando para armazenar choque na sessão
-        HttpSession session = httpSessionFactory.getObject();
-        session.setAttribute("choque", service.choquesEmEscalaOnipresenca(escala)  );
-		//this.choqueDescansoDepoisNoturno = service.choquesEmEscalaDepoisDoNoturno(escala);
-        //comando para armazenar choque na sessão
-        session.setAttribute("choqueDescansoDepoisNoturno", service.choquesEmEscalaDepoisDoNoturno(escala)  );
-		if(choqueDescansoDepoisNoturno().length()>0) {attr.addFlashAttribute("fail", choqueDescansoDepoisNoturno()); return atalhoLimparEscalaChoque(attr, choqueDescansoDepoisNoturno()); }
-		if(choque().length()>0) {attr.addFlashAttribute("fail", choque()); return atalhoLimparEscalaChoque(attr, choque());  }
-		if((choqueDescansoDepoisNoturno().length()==0) && (choque().length()==0)) {
-			salvar(escala, null, null);
-			session = httpSessionFactory.getObject(); session.setAttribute("ultimoIdEscala", escala.getId()  );
-			attr.addFlashAttribute("success", "Confirme CH Dif, Incremento de Risco, Diferenciado, Regime e Turma antes de Lançar.");
-		}
-		return "redirect:/escalas/alterar/escala/"+escala.getId();
+		// CALCULANDO OS DIAS DO MES
+		String nomeColuna1 = escalaCalculosService.obtemNomeDiaColuna(anoMesDaEscala, 1);
+		String nomeColuna2 = escalaCalculosService.obtemNomeDiaColuna(anoMesDaEscala, 2);
+		String nomeColuna3 = escalaCalculosService.obtemNomeDiaColuna(anoMesDaEscala, 3);
+		String nomeColuna4 = escalaCalculosService.obtemNomeDiaColuna(anoMesDaEscala, 4);
+		String nomeColuna5 = escalaCalculosService.obtemNomeDiaColuna(anoMesDaEscala, 5);
+		String nomeColuna6 = escalaCalculosService.obtemNomeDiaColuna(anoMesDaEscala, 6);
+		String nomeColuna7 = escalaCalculosService.obtemNomeDiaColuna(anoMesDaEscala, 7);
+		// falta complemento de planantao compativel
+		
+		model.addAttribute("idCodigoDiferenciadoFkCompativel", escalaCompatibilidadeService.getCodigosDiferenciadoCompativel( escala) );
+		model.addAttribute("idChDifFkCompativel", pessoaChDifService.listaSimNaoCompativelComPessoa(usuarioService.pegarUnidadeLogada(), escala.getIdFuncionarioFk().getIdPessoaFk(), escala.getIdAnoMesFk()) );
+		model.addAttribute("idIncrementoDeRiscoCompativel", escalaCompatibilidadeService.getIncrementoDeRiscoCompativel(escala) );
+		model.addAttribute("idComplementoDePlantaoCompativel", escalaCompatibilidadeService.getComplementoDePlantaoCompativel(escala) );
+		
+	
+		model.addAttribute("escala", escala );
+		model.addAttribute("idLinha", escala.getId() );
+		model.addAttribute("qtdDiasNoMes", qtdDiasNoMes );
+		model.addAttribute("nomeColuna1", nomeColuna1 );
+		model.addAttribute("nomeColuna2", nomeColuna2 );
+		model.addAttribute("nomeColuna3", nomeColuna3 );
+		model.addAttribute("nomeColuna4", nomeColuna4 );
+		model.addAttribute("nomeColuna5", nomeColuna5 );
+		model.addAttribute("nomeColuna6", nomeColuna6 );
+		model.addAttribute("nomeColuna7", nomeColuna7 );
+		
+		
+		// Pegando os turnos compatíveis
+		List<Turnos> listaTurnos = regimeDeTrabalhoTurnoService.buscarPorRegimesEUnidadeEFolha(escala);
+		
+		model.addAttribute("dia01FkCompativel",  listaTurnos);
+		model.addAttribute("dia02FkCompativel",  listaTurnos);
+		model.addAttribute("dia03FkCompativel",  listaTurnos);
+		model.addAttribute("dia04FkCompativel",  listaTurnos);
+		model.addAttribute("dia05FkCompativel",  listaTurnos);
+		model.addAttribute("dia06FkCompativel",  listaTurnos);
+		model.addAttribute("dia07FkCompativel",  listaTurnos);
+		model.addAttribute("dia08FkCompativel",  listaTurnos);
+		model.addAttribute("dia09FkCompativel",  listaTurnos);
+		model.addAttribute("dia10FkCompativel",  listaTurnos);
+		model.addAttribute("dia11FkCompativel",  listaTurnos);
+		model.addAttribute("dia12FkCompativel",  listaTurnos);
+		model.addAttribute("dia13FkCompativel",  listaTurnos);
+		model.addAttribute("dia14FkCompativel",  listaTurnos);
+		model.addAttribute("dia15FkCompativel",  listaTurnos);
+		model.addAttribute("dia16FkCompativel",  listaTurnos);
+		model.addAttribute("dia17FkCompativel",  listaTurnos);
+		model.addAttribute("dia18FkCompativel",  listaTurnos);
+		model.addAttribute("dia19FkCompativel",  listaTurnos);
+		model.addAttribute("dia20FkCompativel",  listaTurnos);
+		model.addAttribute("dia21FkCompativel",  listaTurnos);
+		model.addAttribute("dia22FkCompativel",  listaTurnos);
+		model.addAttribute("dia23FkCompativel",  listaTurnos);
+		model.addAttribute("dia24FkCompativel",  listaTurnos);
+		model.addAttribute("dia25FkCompativel",  listaTurnos);
+		model.addAttribute("dia26FkCompativel",  listaTurnos);
+		model.addAttribute("dia27FkCompativel",  listaTurnos);
+		model.addAttribute("dia28FkCompativel",  listaTurnos);
+		model.addAttribute("dia29FkCompativel",  listaTurnos);
+		model.addAttribute("dia30FkCompativel",  listaTurnos);
+		model.addAttribute("dia31FkCompativel",  listaTurnos);
+		
+		
+		//this.escalaAtual = escala;
+		
+		//comando para armazenar a escala na sessão
+		HttpSession session = httpSessionFactory.getObject();
+        session.setAttribute("escalaAtual", escala  );
+		
+		
+		return "/escala/editar";
 	}
 	
 	
 	//Ciclo10
-	@GetMapping("/atalho/ciclo10_a")
-	public String atalhoCiclo10A( RedirectAttributes attr) {	
+	@GetMapping("/atalho/ciclo10/a")
+	public String atalhoCiclo10A( RedirectAttributes attr, ModelMap model) {	
+		
 		//Tratando escala Bloqueada
 		if(anoMesService.buscarPorId(mesAtual()).getIdEscalaBloqueadaFk().getSigla().equalsIgnoreCase("S")) {
 		return "redirect:/escalas/mensagem/de/escala/bloqueada";
@@ -3641,32 +6763,87 @@ public class EscalaController {
 		escala = escalaCalculosService.converteTurnoNuloEmFolga(escala);
 		escala = escalaCalculosService.calcularDadosEscala(escala);
 		
-		//Avaliando Efetivo dando Extra sem cumprir a CH Efetiva
-		boolean extraSemCumprirEfetivo = escalaCompatibilidadeService.horasExtrasSemEfetivas(escala);
-		if(extraSemCumprirEfetivo==true) {
-			return "redirect:/escalas/mensagem/de/efetivo/com/extra/sem/ch/efetiva/informada";
-		}
+		String anoMesDaEscala = "202105";
+		if(escala!=null){anoMesDaEscala = escala.getIdAnoMesFk().getNomeAnoMes();}
+		int qtdDiasNoMes = escalaCalculosService.quantidadeDeDiasNoMes(anoMesDaEscala);
 		
-		//AVALIAÇÃO PARA SABER SE TEM CHOQUES
-		//this.choque = service.choquesEmEscalaOnipresenca(escala);
-		//comando para armazenar choque na sessão
-        HttpSession session = httpSessionFactory.getObject();
-        session.setAttribute("choque", service.choquesEmEscalaOnipresenca(escala)  );
-		//this.choqueDescansoDepoisNoturno = service.choquesEmEscalaDepoisDoNoturno(escala);
-        //comando para armazenar choque na sessão
-        session.setAttribute("choqueDescansoDepoisNoturno", service.choquesEmEscalaDepoisDoNoturno(escala)  );
-		if(choqueDescansoDepoisNoturno().length()>0) {attr.addFlashAttribute("fail", choqueDescansoDepoisNoturno()); return atalhoLimparEscalaChoque(attr, choqueDescansoDepoisNoturno()); }
-		if(choque().length()>0) {attr.addFlashAttribute("fail", choque()); return atalhoLimparEscalaChoque(attr, choque());  }
-		if((choqueDescansoDepoisNoturno().length()==0) && (choque().length()==0)) {
-			salvar(escala, null, null);
-			session = httpSessionFactory.getObject(); session.setAttribute("ultimoIdEscala", escala.getId()  );
-			attr.addFlashAttribute("success", "Confirme CH Dif, Incremento de Risco, Diferenciado, Regime e Turma antes de Lançar.");
-		}
-		return "redirect:/escalas/alterar/escala/"+escala.getId();
+		// CALCULANDO OS DIAS DO MES
+		String nomeColuna1 = escalaCalculosService.obtemNomeDiaColuna(anoMesDaEscala, 1);
+		String nomeColuna2 = escalaCalculosService.obtemNomeDiaColuna(anoMesDaEscala, 2);
+		String nomeColuna3 = escalaCalculosService.obtemNomeDiaColuna(anoMesDaEscala, 3);
+		String nomeColuna4 = escalaCalculosService.obtemNomeDiaColuna(anoMesDaEscala, 4);
+		String nomeColuna5 = escalaCalculosService.obtemNomeDiaColuna(anoMesDaEscala, 5);
+		String nomeColuna6 = escalaCalculosService.obtemNomeDiaColuna(anoMesDaEscala, 6);
+		String nomeColuna7 = escalaCalculosService.obtemNomeDiaColuna(anoMesDaEscala, 7);
+		// falta complemento de planantao compativel
+		
+		model.addAttribute("idCodigoDiferenciadoFkCompativel", escalaCompatibilidadeService.getCodigosDiferenciadoCompativel( escala) );
+		model.addAttribute("idChDifFkCompativel", pessoaChDifService.listaSimNaoCompativelComPessoa(usuarioService.pegarUnidadeLogada(), escala.getIdFuncionarioFk().getIdPessoaFk(), escala.getIdAnoMesFk()) );
+		model.addAttribute("idIncrementoDeRiscoCompativel", escalaCompatibilidadeService.getIncrementoDeRiscoCompativel(escala) );
+		model.addAttribute("idComplementoDePlantaoCompativel", escalaCompatibilidadeService.getComplementoDePlantaoCompativel(escala) );
+		
+	
+		model.addAttribute("escala", escala );
+		model.addAttribute("idLinha", escala.getId() );
+		model.addAttribute("qtdDiasNoMes", qtdDiasNoMes );
+		model.addAttribute("nomeColuna1", nomeColuna1 );
+		model.addAttribute("nomeColuna2", nomeColuna2 );
+		model.addAttribute("nomeColuna3", nomeColuna3 );
+		model.addAttribute("nomeColuna4", nomeColuna4 );
+		model.addAttribute("nomeColuna5", nomeColuna5 );
+		model.addAttribute("nomeColuna6", nomeColuna6 );
+		model.addAttribute("nomeColuna7", nomeColuna7 );
+		
+		
+		// Pegando os turnos compatíveis
+		List<Turnos> listaTurnos = regimeDeTrabalhoTurnoService.buscarPorRegimesEUnidadeEFolha(escala);
+		
+		model.addAttribute("dia01FkCompativel",  listaTurnos);
+		model.addAttribute("dia02FkCompativel",  listaTurnos);
+		model.addAttribute("dia03FkCompativel",  listaTurnos);
+		model.addAttribute("dia04FkCompativel",  listaTurnos);
+		model.addAttribute("dia05FkCompativel",  listaTurnos);
+		model.addAttribute("dia06FkCompativel",  listaTurnos);
+		model.addAttribute("dia07FkCompativel",  listaTurnos);
+		model.addAttribute("dia08FkCompativel",  listaTurnos);
+		model.addAttribute("dia09FkCompativel",  listaTurnos);
+		model.addAttribute("dia10FkCompativel",  listaTurnos);
+		model.addAttribute("dia11FkCompativel",  listaTurnos);
+		model.addAttribute("dia12FkCompativel",  listaTurnos);
+		model.addAttribute("dia13FkCompativel",  listaTurnos);
+		model.addAttribute("dia14FkCompativel",  listaTurnos);
+		model.addAttribute("dia15FkCompativel",  listaTurnos);
+		model.addAttribute("dia16FkCompativel",  listaTurnos);
+		model.addAttribute("dia17FkCompativel",  listaTurnos);
+		model.addAttribute("dia18FkCompativel",  listaTurnos);
+		model.addAttribute("dia19FkCompativel",  listaTurnos);
+		model.addAttribute("dia20FkCompativel",  listaTurnos);
+		model.addAttribute("dia21FkCompativel",  listaTurnos);
+		model.addAttribute("dia22FkCompativel",  listaTurnos);
+		model.addAttribute("dia23FkCompativel",  listaTurnos);
+		model.addAttribute("dia24FkCompativel",  listaTurnos);
+		model.addAttribute("dia25FkCompativel",  listaTurnos);
+		model.addAttribute("dia26FkCompativel",  listaTurnos);
+		model.addAttribute("dia27FkCompativel",  listaTurnos);
+		model.addAttribute("dia28FkCompativel",  listaTurnos);
+		model.addAttribute("dia29FkCompativel",  listaTurnos);
+		model.addAttribute("dia30FkCompativel",  listaTurnos);
+		model.addAttribute("dia31FkCompativel",  listaTurnos);
+		
+		
+		//this.escalaAtual = escala;
+		
+		//comando para armazenar a escala na sessão
+		HttpSession session = httpSessionFactory.getObject();
+        session.setAttribute("escalaAtual", escala  );
+		
+		
+		return "/escala/editar";
 	}
 	
-	@GetMapping("/atalho/ciclo10_b")
-	public String atalhoCiclo10B( RedirectAttributes attr) {	
+	@GetMapping("/atalho/ciclo10/b")
+	public String atalhoCiclo10B( RedirectAttributes attr, ModelMap model) {	
+		
 		//Tratando escala Bloqueada
 		if(anoMesService.buscarPorId(mesAtual()).getIdEscalaBloqueadaFk().getSigla().equalsIgnoreCase("S")) {
 		return "redirect:/escalas/mensagem/de/escala/bloqueada";
@@ -3680,32 +6857,87 @@ public class EscalaController {
 		escala = escalaCalculosService.converteTurnoNuloEmFolga(escala);
 		escala = escalaCalculosService.calcularDadosEscala(escala);
 		
-		//Avaliando Efetivo dando Extra sem cumprir a CH Efetiva
-		boolean extraSemCumprirEfetivo = escalaCompatibilidadeService.horasExtrasSemEfetivas(escala);
-		if(extraSemCumprirEfetivo==true) {
-			return "redirect:/escalas/mensagem/de/efetivo/com/extra/sem/ch/efetiva/informada";
-		}
+		String anoMesDaEscala = "202105";
+		if(escala!=null){anoMesDaEscala = escala.getIdAnoMesFk().getNomeAnoMes();}
+		int qtdDiasNoMes = escalaCalculosService.quantidadeDeDiasNoMes(anoMesDaEscala);
 		
-		//AVALIAÇÃO PARA SABER SE TEM CHOQUES
-		//this.choque = service.choquesEmEscalaOnipresenca(escala);
-		//comando para armazenar choque na sessão
-        HttpSession session = httpSessionFactory.getObject();
-        session.setAttribute("choque", service.choquesEmEscalaOnipresenca(escala)  );
-		//this.choqueDescansoDepoisNoturno = service.choquesEmEscalaDepoisDoNoturno(escala);
-        //comando para armazenar choque na sessão
-        session.setAttribute("choqueDescansoDepoisNoturno", service.choquesEmEscalaDepoisDoNoturno(escala)  );
-		if(choqueDescansoDepoisNoturno().length()>0) {attr.addFlashAttribute("fail", choqueDescansoDepoisNoturno()); return atalhoLimparEscalaChoque(attr, choqueDescansoDepoisNoturno()); }
-		if(choque().length()>0) {attr.addFlashAttribute("fail", choque()); return atalhoLimparEscalaChoque(attr, choque());  }
-		if((choqueDescansoDepoisNoturno().length()==0) && (choque().length()==0)) {
-			salvar(escala, null, null);
-			session = httpSessionFactory.getObject(); session.setAttribute("ultimoIdEscala", escala.getId()  );
-			attr.addFlashAttribute("success", "Confirme CH Dif, Incremento de Risco, Diferenciado, Regime e Turma antes de Lançar.");
-		}
-		return "redirect:/escalas/alterar/escala/"+escala.getId();
+		// CALCULANDO OS DIAS DO MES
+		String nomeColuna1 = escalaCalculosService.obtemNomeDiaColuna(anoMesDaEscala, 1);
+		String nomeColuna2 = escalaCalculosService.obtemNomeDiaColuna(anoMesDaEscala, 2);
+		String nomeColuna3 = escalaCalculosService.obtemNomeDiaColuna(anoMesDaEscala, 3);
+		String nomeColuna4 = escalaCalculosService.obtemNomeDiaColuna(anoMesDaEscala, 4);
+		String nomeColuna5 = escalaCalculosService.obtemNomeDiaColuna(anoMesDaEscala, 5);
+		String nomeColuna6 = escalaCalculosService.obtemNomeDiaColuna(anoMesDaEscala, 6);
+		String nomeColuna7 = escalaCalculosService.obtemNomeDiaColuna(anoMesDaEscala, 7);
+		// falta complemento de planantao compativel
+		
+		model.addAttribute("idCodigoDiferenciadoFkCompativel", escalaCompatibilidadeService.getCodigosDiferenciadoCompativel( escala) );
+		model.addAttribute("idChDifFkCompativel", pessoaChDifService.listaSimNaoCompativelComPessoa(usuarioService.pegarUnidadeLogada(), escala.getIdFuncionarioFk().getIdPessoaFk(), escala.getIdAnoMesFk()) );
+		model.addAttribute("idIncrementoDeRiscoCompativel", escalaCompatibilidadeService.getIncrementoDeRiscoCompativel(escala) );
+		model.addAttribute("idComplementoDePlantaoCompativel", escalaCompatibilidadeService.getComplementoDePlantaoCompativel(escala) );
+		
+	
+		model.addAttribute("escala", escala );
+		model.addAttribute("idLinha", escala.getId() );
+		model.addAttribute("qtdDiasNoMes", qtdDiasNoMes );
+		model.addAttribute("nomeColuna1", nomeColuna1 );
+		model.addAttribute("nomeColuna2", nomeColuna2 );
+		model.addAttribute("nomeColuna3", nomeColuna3 );
+		model.addAttribute("nomeColuna4", nomeColuna4 );
+		model.addAttribute("nomeColuna5", nomeColuna5 );
+		model.addAttribute("nomeColuna6", nomeColuna6 );
+		model.addAttribute("nomeColuna7", nomeColuna7 );
+		
+		
+		// Pegando os turnos compatíveis
+		List<Turnos> listaTurnos = regimeDeTrabalhoTurnoService.buscarPorRegimesEUnidadeEFolha(escala);
+		
+		model.addAttribute("dia01FkCompativel",  listaTurnos);
+		model.addAttribute("dia02FkCompativel",  listaTurnos);
+		model.addAttribute("dia03FkCompativel",  listaTurnos);
+		model.addAttribute("dia04FkCompativel",  listaTurnos);
+		model.addAttribute("dia05FkCompativel",  listaTurnos);
+		model.addAttribute("dia06FkCompativel",  listaTurnos);
+		model.addAttribute("dia07FkCompativel",  listaTurnos);
+		model.addAttribute("dia08FkCompativel",  listaTurnos);
+		model.addAttribute("dia09FkCompativel",  listaTurnos);
+		model.addAttribute("dia10FkCompativel",  listaTurnos);
+		model.addAttribute("dia11FkCompativel",  listaTurnos);
+		model.addAttribute("dia12FkCompativel",  listaTurnos);
+		model.addAttribute("dia13FkCompativel",  listaTurnos);
+		model.addAttribute("dia14FkCompativel",  listaTurnos);
+		model.addAttribute("dia15FkCompativel",  listaTurnos);
+		model.addAttribute("dia16FkCompativel",  listaTurnos);
+		model.addAttribute("dia17FkCompativel",  listaTurnos);
+		model.addAttribute("dia18FkCompativel",  listaTurnos);
+		model.addAttribute("dia19FkCompativel",  listaTurnos);
+		model.addAttribute("dia20FkCompativel",  listaTurnos);
+		model.addAttribute("dia21FkCompativel",  listaTurnos);
+		model.addAttribute("dia22FkCompativel",  listaTurnos);
+		model.addAttribute("dia23FkCompativel",  listaTurnos);
+		model.addAttribute("dia24FkCompativel",  listaTurnos);
+		model.addAttribute("dia25FkCompativel",  listaTurnos);
+		model.addAttribute("dia26FkCompativel",  listaTurnos);
+		model.addAttribute("dia27FkCompativel",  listaTurnos);
+		model.addAttribute("dia28FkCompativel",  listaTurnos);
+		model.addAttribute("dia29FkCompativel",  listaTurnos);
+		model.addAttribute("dia30FkCompativel",  listaTurnos);
+		model.addAttribute("dia31FkCompativel",  listaTurnos);
+		
+		
+		//this.escalaAtual = escala;
+		
+		//comando para armazenar a escala na sessão
+		HttpSession session = httpSessionFactory.getObject();
+        session.setAttribute("escalaAtual", escala  );
+		
+		
+		return "/escala/editar";
 	}
 	
-	@GetMapping("/atalho/ciclo10_c")
-	public String atalhoCiclo10C( RedirectAttributes attr) {	
+	@GetMapping("/atalho/ciclo10/c")
+	public String atalhoCiclo10C( RedirectAttributes attr, ModelMap model) {	
+		
 		//Tratando escala Bloqueada
 		if(anoMesService.buscarPorId(mesAtual()).getIdEscalaBloqueadaFk().getSigla().equalsIgnoreCase("S")) {
 		return "redirect:/escalas/mensagem/de/escala/bloqueada";
@@ -3719,32 +6951,87 @@ public class EscalaController {
 		escala = escalaCalculosService.converteTurnoNuloEmFolga(escala);
 		escala = escalaCalculosService.calcularDadosEscala(escala);
 		
-		//Avaliando Efetivo dando Extra sem cumprir a CH Efetiva
-		boolean extraSemCumprirEfetivo = escalaCompatibilidadeService.horasExtrasSemEfetivas(escala);
-		if(extraSemCumprirEfetivo==true) {
-			return "redirect:/escalas/mensagem/de/efetivo/com/extra/sem/ch/efetiva/informada";
-		}
+		String anoMesDaEscala = "202105";
+		if(escala!=null){anoMesDaEscala = escala.getIdAnoMesFk().getNomeAnoMes();}
+		int qtdDiasNoMes = escalaCalculosService.quantidadeDeDiasNoMes(anoMesDaEscala);
 		
-		//AVALIAÇÃO PARA SABER SE TEM CHOQUES
-		//this.choque = service.choquesEmEscalaOnipresenca(escala);
-		//comando para armazenar choque na sessão
-        HttpSession session = httpSessionFactory.getObject();
-        session.setAttribute("choque", service.choquesEmEscalaOnipresenca(escala)  );
-		//this.choqueDescansoDepoisNoturno = service.choquesEmEscalaDepoisDoNoturno(escala);
-        //comando para armazenar choque na sessão
-        session.setAttribute("choqueDescansoDepoisNoturno", service.choquesEmEscalaDepoisDoNoturno(escala)  );
-		if(choqueDescansoDepoisNoturno().length()>0) {attr.addFlashAttribute("fail", choqueDescansoDepoisNoturno()); return atalhoLimparEscalaChoque(attr, choqueDescansoDepoisNoturno()); }
-		if(choque().length()>0) {attr.addFlashAttribute("fail", choque()); return atalhoLimparEscalaChoque(attr, choque());  }
-		if((choqueDescansoDepoisNoturno().length()==0) && (choque().length()==0)) {
-			salvar(escala, null, null);
-			session = httpSessionFactory.getObject(); session.setAttribute("ultimoIdEscala", escala.getId()  );
-			attr.addFlashAttribute("success", "Confirme CH Dif, Incremento de Risco, Diferenciado, Regime e Turma antes de Lançar.");
-		}
-		return "redirect:/escalas/alterar/escala/"+escala.getId();
+		// CALCULANDO OS DIAS DO MES
+		String nomeColuna1 = escalaCalculosService.obtemNomeDiaColuna(anoMesDaEscala, 1);
+		String nomeColuna2 = escalaCalculosService.obtemNomeDiaColuna(anoMesDaEscala, 2);
+		String nomeColuna3 = escalaCalculosService.obtemNomeDiaColuna(anoMesDaEscala, 3);
+		String nomeColuna4 = escalaCalculosService.obtemNomeDiaColuna(anoMesDaEscala, 4);
+		String nomeColuna5 = escalaCalculosService.obtemNomeDiaColuna(anoMesDaEscala, 5);
+		String nomeColuna6 = escalaCalculosService.obtemNomeDiaColuna(anoMesDaEscala, 6);
+		String nomeColuna7 = escalaCalculosService.obtemNomeDiaColuna(anoMesDaEscala, 7);
+		// falta complemento de planantao compativel
+		
+		model.addAttribute("idCodigoDiferenciadoFkCompativel", escalaCompatibilidadeService.getCodigosDiferenciadoCompativel( escala) );
+		model.addAttribute("idChDifFkCompativel", pessoaChDifService.listaSimNaoCompativelComPessoa(usuarioService.pegarUnidadeLogada(), escala.getIdFuncionarioFk().getIdPessoaFk(), escala.getIdAnoMesFk()) );
+		model.addAttribute("idIncrementoDeRiscoCompativel", escalaCompatibilidadeService.getIncrementoDeRiscoCompativel(escala) );
+		model.addAttribute("idComplementoDePlantaoCompativel", escalaCompatibilidadeService.getComplementoDePlantaoCompativel(escala) );
+		
+	
+		model.addAttribute("escala", escala );
+		model.addAttribute("idLinha", escala.getId() );
+		model.addAttribute("qtdDiasNoMes", qtdDiasNoMes );
+		model.addAttribute("nomeColuna1", nomeColuna1 );
+		model.addAttribute("nomeColuna2", nomeColuna2 );
+		model.addAttribute("nomeColuna3", nomeColuna3 );
+		model.addAttribute("nomeColuna4", nomeColuna4 );
+		model.addAttribute("nomeColuna5", nomeColuna5 );
+		model.addAttribute("nomeColuna6", nomeColuna6 );
+		model.addAttribute("nomeColuna7", nomeColuna7 );
+		
+		
+		// Pegando os turnos compatíveis
+		List<Turnos> listaTurnos = regimeDeTrabalhoTurnoService.buscarPorRegimesEUnidadeEFolha(escala);
+		
+		model.addAttribute("dia01FkCompativel",  listaTurnos);
+		model.addAttribute("dia02FkCompativel",  listaTurnos);
+		model.addAttribute("dia03FkCompativel",  listaTurnos);
+		model.addAttribute("dia04FkCompativel",  listaTurnos);
+		model.addAttribute("dia05FkCompativel",  listaTurnos);
+		model.addAttribute("dia06FkCompativel",  listaTurnos);
+		model.addAttribute("dia07FkCompativel",  listaTurnos);
+		model.addAttribute("dia08FkCompativel",  listaTurnos);
+		model.addAttribute("dia09FkCompativel",  listaTurnos);
+		model.addAttribute("dia10FkCompativel",  listaTurnos);
+		model.addAttribute("dia11FkCompativel",  listaTurnos);
+		model.addAttribute("dia12FkCompativel",  listaTurnos);
+		model.addAttribute("dia13FkCompativel",  listaTurnos);
+		model.addAttribute("dia14FkCompativel",  listaTurnos);
+		model.addAttribute("dia15FkCompativel",  listaTurnos);
+		model.addAttribute("dia16FkCompativel",  listaTurnos);
+		model.addAttribute("dia17FkCompativel",  listaTurnos);
+		model.addAttribute("dia18FkCompativel",  listaTurnos);
+		model.addAttribute("dia19FkCompativel",  listaTurnos);
+		model.addAttribute("dia20FkCompativel",  listaTurnos);
+		model.addAttribute("dia21FkCompativel",  listaTurnos);
+		model.addAttribute("dia22FkCompativel",  listaTurnos);
+		model.addAttribute("dia23FkCompativel",  listaTurnos);
+		model.addAttribute("dia24FkCompativel",  listaTurnos);
+		model.addAttribute("dia25FkCompativel",  listaTurnos);
+		model.addAttribute("dia26FkCompativel",  listaTurnos);
+		model.addAttribute("dia27FkCompativel",  listaTurnos);
+		model.addAttribute("dia28FkCompativel",  listaTurnos);
+		model.addAttribute("dia29FkCompativel",  listaTurnos);
+		model.addAttribute("dia30FkCompativel",  listaTurnos);
+		model.addAttribute("dia31FkCompativel",  listaTurnos);
+		
+		
+		//this.escalaAtual = escala;
+		
+		//comando para armazenar a escala na sessão
+		HttpSession session = httpSessionFactory.getObject();
+        session.setAttribute("escalaAtual", escala  );
+		
+		
+		return "/escala/editar";
 	}
 	
-	@GetMapping("/atalho/ciclo10_d")
-	public String atalhoCiclo10D( RedirectAttributes attr) {	
+	@GetMapping("/atalho/ciclo10/d")
+	public String atalhoCiclo10D( RedirectAttributes attr, ModelMap model) {	
+		
 		//Tratando escala Bloqueada
 		if(anoMesService.buscarPorId(mesAtual()).getIdEscalaBloqueadaFk().getSigla().equalsIgnoreCase("S")) {
 		return "redirect:/escalas/mensagem/de/escala/bloqueada";
@@ -3758,32 +7045,87 @@ public class EscalaController {
 		escala = escalaCalculosService.converteTurnoNuloEmFolga(escala);
 		escala = escalaCalculosService.calcularDadosEscala(escala);
 		
-		//Avaliando Efetivo dando Extra sem cumprir a CH Efetiva
-		boolean extraSemCumprirEfetivo = escalaCompatibilidadeService.horasExtrasSemEfetivas(escala);
-		if(extraSemCumprirEfetivo==true) {
-			return "redirect:/escalas/mensagem/de/efetivo/com/extra/sem/ch/efetiva/informada";
-		}
+		String anoMesDaEscala = "202105";
+		if(escala!=null){anoMesDaEscala = escala.getIdAnoMesFk().getNomeAnoMes();}
+		int qtdDiasNoMes = escalaCalculosService.quantidadeDeDiasNoMes(anoMesDaEscala);
 		
-		//AVALIAÇÃO PARA SABER SE TEM CHOQUES
-		//this.choque = service.choquesEmEscalaOnipresenca(escala);
-		//comando para armazenar choque na sessão
-        HttpSession session = httpSessionFactory.getObject();
-        session.setAttribute("choque", service.choquesEmEscalaOnipresenca(escala)  );
-		//this.choqueDescansoDepoisNoturno = service.choquesEmEscalaDepoisDoNoturno(escala);
-        //comando para armazenar choque na sessão
-        session.setAttribute("choqueDescansoDepoisNoturno", service.choquesEmEscalaDepoisDoNoturno(escala)  );
-		if(choqueDescansoDepoisNoturno().length()>0) {attr.addFlashAttribute("fail", choqueDescansoDepoisNoturno()); return atalhoLimparEscalaChoque(attr, choqueDescansoDepoisNoturno()); }
-		if(choque().length()>0) {attr.addFlashAttribute("fail", choque()); return atalhoLimparEscalaChoque(attr, choque());  }
-		if((choqueDescansoDepoisNoturno().length()==0) && (choque().length()==0)) {
-			salvar(escala, null, null);
-			session = httpSessionFactory.getObject(); session.setAttribute("ultimoIdEscala", escala.getId()  );
-			attr.addFlashAttribute("success", "Confirme CH Dif, Incremento de Risco, Diferenciado, Regime e Turma antes de Lançar.");
-		}
-		return "redirect:/escalas/alterar/escala/"+escala.getId();
+		// CALCULANDO OS DIAS DO MES
+		String nomeColuna1 = escalaCalculosService.obtemNomeDiaColuna(anoMesDaEscala, 1);
+		String nomeColuna2 = escalaCalculosService.obtemNomeDiaColuna(anoMesDaEscala, 2);
+		String nomeColuna3 = escalaCalculosService.obtemNomeDiaColuna(anoMesDaEscala, 3);
+		String nomeColuna4 = escalaCalculosService.obtemNomeDiaColuna(anoMesDaEscala, 4);
+		String nomeColuna5 = escalaCalculosService.obtemNomeDiaColuna(anoMesDaEscala, 5);
+		String nomeColuna6 = escalaCalculosService.obtemNomeDiaColuna(anoMesDaEscala, 6);
+		String nomeColuna7 = escalaCalculosService.obtemNomeDiaColuna(anoMesDaEscala, 7);
+		// falta complemento de planantao compativel
+		
+		model.addAttribute("idCodigoDiferenciadoFkCompativel", escalaCompatibilidadeService.getCodigosDiferenciadoCompativel( escala) );
+		model.addAttribute("idChDifFkCompativel", pessoaChDifService.listaSimNaoCompativelComPessoa(usuarioService.pegarUnidadeLogada(), escala.getIdFuncionarioFk().getIdPessoaFk(), escala.getIdAnoMesFk()) );
+		model.addAttribute("idIncrementoDeRiscoCompativel", escalaCompatibilidadeService.getIncrementoDeRiscoCompativel(escala) );
+		model.addAttribute("idComplementoDePlantaoCompativel", escalaCompatibilidadeService.getComplementoDePlantaoCompativel(escala) );
+		
+	
+		model.addAttribute("escala", escala );
+		model.addAttribute("idLinha", escala.getId() );
+		model.addAttribute("qtdDiasNoMes", qtdDiasNoMes );
+		model.addAttribute("nomeColuna1", nomeColuna1 );
+		model.addAttribute("nomeColuna2", nomeColuna2 );
+		model.addAttribute("nomeColuna3", nomeColuna3 );
+		model.addAttribute("nomeColuna4", nomeColuna4 );
+		model.addAttribute("nomeColuna5", nomeColuna5 );
+		model.addAttribute("nomeColuna6", nomeColuna6 );
+		model.addAttribute("nomeColuna7", nomeColuna7 );
+		
+		
+		// Pegando os turnos compatíveis
+		List<Turnos> listaTurnos = regimeDeTrabalhoTurnoService.buscarPorRegimesEUnidadeEFolha(escala);
+		
+		model.addAttribute("dia01FkCompativel",  listaTurnos);
+		model.addAttribute("dia02FkCompativel",  listaTurnos);
+		model.addAttribute("dia03FkCompativel",  listaTurnos);
+		model.addAttribute("dia04FkCompativel",  listaTurnos);
+		model.addAttribute("dia05FkCompativel",  listaTurnos);
+		model.addAttribute("dia06FkCompativel",  listaTurnos);
+		model.addAttribute("dia07FkCompativel",  listaTurnos);
+		model.addAttribute("dia08FkCompativel",  listaTurnos);
+		model.addAttribute("dia09FkCompativel",  listaTurnos);
+		model.addAttribute("dia10FkCompativel",  listaTurnos);
+		model.addAttribute("dia11FkCompativel",  listaTurnos);
+		model.addAttribute("dia12FkCompativel",  listaTurnos);
+		model.addAttribute("dia13FkCompativel",  listaTurnos);
+		model.addAttribute("dia14FkCompativel",  listaTurnos);
+		model.addAttribute("dia15FkCompativel",  listaTurnos);
+		model.addAttribute("dia16FkCompativel",  listaTurnos);
+		model.addAttribute("dia17FkCompativel",  listaTurnos);
+		model.addAttribute("dia18FkCompativel",  listaTurnos);
+		model.addAttribute("dia19FkCompativel",  listaTurnos);
+		model.addAttribute("dia20FkCompativel",  listaTurnos);
+		model.addAttribute("dia21FkCompativel",  listaTurnos);
+		model.addAttribute("dia22FkCompativel",  listaTurnos);
+		model.addAttribute("dia23FkCompativel",  listaTurnos);
+		model.addAttribute("dia24FkCompativel",  listaTurnos);
+		model.addAttribute("dia25FkCompativel",  listaTurnos);
+		model.addAttribute("dia26FkCompativel",  listaTurnos);
+		model.addAttribute("dia27FkCompativel",  listaTurnos);
+		model.addAttribute("dia28FkCompativel",  listaTurnos);
+		model.addAttribute("dia29FkCompativel",  listaTurnos);
+		model.addAttribute("dia30FkCompativel",  listaTurnos);
+		model.addAttribute("dia31FkCompativel",  listaTurnos);
+		
+		
+		//this.escalaAtual = escala;
+		
+		//comando para armazenar a escala na sessão
+		HttpSession session = httpSessionFactory.getObject();
+        session.setAttribute("escalaAtual", escala  );
+		
+		
+		return "/escala/editar";
 	}
 	
-	@GetMapping("/atalho/ciclo10_e")
-	public String atalhoCiclo10E( RedirectAttributes attr) {	
+	@GetMapping("/atalho/ciclo10/e")
+	public String atalhoCiclo10E( RedirectAttributes attr, ModelMap model) {	
+		
 		//Tratando escala Bloqueada
 		if(anoMesService.buscarPorId(mesAtual()).getIdEscalaBloqueadaFk().getSigla().equalsIgnoreCase("S")) {
 		return "redirect:/escalas/mensagem/de/escala/bloqueada";
@@ -3797,32 +7139,87 @@ public class EscalaController {
 		escala = escalaCalculosService.converteTurnoNuloEmFolga(escala);
 		escala = escalaCalculosService.calcularDadosEscala(escala);
 		
-		//Avaliando Efetivo dando Extra sem cumprir a CH Efetiva
-		boolean extraSemCumprirEfetivo = escalaCompatibilidadeService.horasExtrasSemEfetivas(escala);
-		if(extraSemCumprirEfetivo==true) {
-			return "redirect:/escalas/mensagem/de/efetivo/com/extra/sem/ch/efetiva/informada";
-		}
+		String anoMesDaEscala = "202105";
+		if(escala!=null){anoMesDaEscala = escala.getIdAnoMesFk().getNomeAnoMes();}
+		int qtdDiasNoMes = escalaCalculosService.quantidadeDeDiasNoMes(anoMesDaEscala);
 		
-		//AVALIAÇÃO PARA SABER SE TEM CHOQUES
-		//this.choque = service.choquesEmEscalaOnipresenca(escala);
-		//comando para armazenar choque na sessão
-        HttpSession session = httpSessionFactory.getObject();
-        session.setAttribute("choque", service.choquesEmEscalaOnipresenca(escala)  );
-		//this.choqueDescansoDepoisNoturno = service.choquesEmEscalaDepoisDoNoturno(escala);
-        //comando para armazenar choque na sessão
-        session.setAttribute("choqueDescansoDepoisNoturno", service.choquesEmEscalaDepoisDoNoturno(escala)  );
-		if(choqueDescansoDepoisNoturno().length()>0) {attr.addFlashAttribute("fail", choqueDescansoDepoisNoturno()); return atalhoLimparEscalaChoque(attr, choqueDescansoDepoisNoturno()); }
-		if(choque().length()>0) {attr.addFlashAttribute("fail", choque()); return atalhoLimparEscalaChoque(attr, choque());  }
-		if((choqueDescansoDepoisNoturno().length()==0) && (choque().length()==0)) {
-			salvar(escala, null, null);
-			session = httpSessionFactory.getObject(); session.setAttribute("ultimoIdEscala", escala.getId()  );
-			attr.addFlashAttribute("success", "Confirme CH Dif, Incremento de Risco, Diferenciado, Regime e Turma antes de Lançar.");
-		}
-		return "redirect:/escalas/alterar/escala/"+escala.getId();
+		// CALCULANDO OS DIAS DO MES
+		String nomeColuna1 = escalaCalculosService.obtemNomeDiaColuna(anoMesDaEscala, 1);
+		String nomeColuna2 = escalaCalculosService.obtemNomeDiaColuna(anoMesDaEscala, 2);
+		String nomeColuna3 = escalaCalculosService.obtemNomeDiaColuna(anoMesDaEscala, 3);
+		String nomeColuna4 = escalaCalculosService.obtemNomeDiaColuna(anoMesDaEscala, 4);
+		String nomeColuna5 = escalaCalculosService.obtemNomeDiaColuna(anoMesDaEscala, 5);
+		String nomeColuna6 = escalaCalculosService.obtemNomeDiaColuna(anoMesDaEscala, 6);
+		String nomeColuna7 = escalaCalculosService.obtemNomeDiaColuna(anoMesDaEscala, 7);
+		// falta complemento de planantao compativel
+		
+		model.addAttribute("idCodigoDiferenciadoFkCompativel", escalaCompatibilidadeService.getCodigosDiferenciadoCompativel( escala) );
+		model.addAttribute("idChDifFkCompativel", pessoaChDifService.listaSimNaoCompativelComPessoa(usuarioService.pegarUnidadeLogada(), escala.getIdFuncionarioFk().getIdPessoaFk(), escala.getIdAnoMesFk()) );
+		model.addAttribute("idIncrementoDeRiscoCompativel", escalaCompatibilidadeService.getIncrementoDeRiscoCompativel(escala) );
+		model.addAttribute("idComplementoDePlantaoCompativel", escalaCompatibilidadeService.getComplementoDePlantaoCompativel(escala) );
+		
+	
+		model.addAttribute("escala", escala );
+		model.addAttribute("idLinha", escala.getId() );
+		model.addAttribute("qtdDiasNoMes", qtdDiasNoMes );
+		model.addAttribute("nomeColuna1", nomeColuna1 );
+		model.addAttribute("nomeColuna2", nomeColuna2 );
+		model.addAttribute("nomeColuna3", nomeColuna3 );
+		model.addAttribute("nomeColuna4", nomeColuna4 );
+		model.addAttribute("nomeColuna5", nomeColuna5 );
+		model.addAttribute("nomeColuna6", nomeColuna6 );
+		model.addAttribute("nomeColuna7", nomeColuna7 );
+		
+		
+		// Pegando os turnos compatíveis
+		List<Turnos> listaTurnos = regimeDeTrabalhoTurnoService.buscarPorRegimesEUnidadeEFolha(escala);
+		
+		model.addAttribute("dia01FkCompativel",  listaTurnos);
+		model.addAttribute("dia02FkCompativel",  listaTurnos);
+		model.addAttribute("dia03FkCompativel",  listaTurnos);
+		model.addAttribute("dia04FkCompativel",  listaTurnos);
+		model.addAttribute("dia05FkCompativel",  listaTurnos);
+		model.addAttribute("dia06FkCompativel",  listaTurnos);
+		model.addAttribute("dia07FkCompativel",  listaTurnos);
+		model.addAttribute("dia08FkCompativel",  listaTurnos);
+		model.addAttribute("dia09FkCompativel",  listaTurnos);
+		model.addAttribute("dia10FkCompativel",  listaTurnos);
+		model.addAttribute("dia11FkCompativel",  listaTurnos);
+		model.addAttribute("dia12FkCompativel",  listaTurnos);
+		model.addAttribute("dia13FkCompativel",  listaTurnos);
+		model.addAttribute("dia14FkCompativel",  listaTurnos);
+		model.addAttribute("dia15FkCompativel",  listaTurnos);
+		model.addAttribute("dia16FkCompativel",  listaTurnos);
+		model.addAttribute("dia17FkCompativel",  listaTurnos);
+		model.addAttribute("dia18FkCompativel",  listaTurnos);
+		model.addAttribute("dia19FkCompativel",  listaTurnos);
+		model.addAttribute("dia20FkCompativel",  listaTurnos);
+		model.addAttribute("dia21FkCompativel",  listaTurnos);
+		model.addAttribute("dia22FkCompativel",  listaTurnos);
+		model.addAttribute("dia23FkCompativel",  listaTurnos);
+		model.addAttribute("dia24FkCompativel",  listaTurnos);
+		model.addAttribute("dia25FkCompativel",  listaTurnos);
+		model.addAttribute("dia26FkCompativel",  listaTurnos);
+		model.addAttribute("dia27FkCompativel",  listaTurnos);
+		model.addAttribute("dia28FkCompativel",  listaTurnos);
+		model.addAttribute("dia29FkCompativel",  listaTurnos);
+		model.addAttribute("dia30FkCompativel",  listaTurnos);
+		model.addAttribute("dia31FkCompativel",  listaTurnos);
+		
+		
+		//this.escalaAtual = escala;
+		
+		//comando para armazenar a escala na sessão
+		HttpSession session = httpSessionFactory.getObject();
+        session.setAttribute("escalaAtual", escala  );
+		
+		
+		return "/escala/editar";
 	}
 	
-	@GetMapping("/atalho/ciclo10_f")
-	public String atalhoCiclo10F( RedirectAttributes attr) {	
+	@GetMapping("/atalho/ciclo10/f")
+	public String atalhoCiclo10F( RedirectAttributes attr, ModelMap model) {	
+		
 		//Tratando escala Bloqueada
 		if(anoMesService.buscarPorId(mesAtual()).getIdEscalaBloqueadaFk().getSigla().equalsIgnoreCase("S")) {
 		return "redirect:/escalas/mensagem/de/escala/bloqueada";
@@ -3836,32 +7233,87 @@ public class EscalaController {
 		escala = escalaCalculosService.converteTurnoNuloEmFolga(escala);
 		escala = escalaCalculosService.calcularDadosEscala(escala);
 		
-		//Avaliando Efetivo dando Extra sem cumprir a CH Efetiva
-		boolean extraSemCumprirEfetivo = escalaCompatibilidadeService.horasExtrasSemEfetivas(escala);
-		if(extraSemCumprirEfetivo==true) {
-			return "redirect:/escalas/mensagem/de/efetivo/com/extra/sem/ch/efetiva/informada";
-		}
+		String anoMesDaEscala = "202105";
+		if(escala!=null){anoMesDaEscala = escala.getIdAnoMesFk().getNomeAnoMes();}
+		int qtdDiasNoMes = escalaCalculosService.quantidadeDeDiasNoMes(anoMesDaEscala);
 		
-		//AVALIAÇÃO PARA SABER SE TEM CHOQUES
-		//this.choque = service.choquesEmEscalaOnipresenca(escala);
-		//comando para armazenar choque na sessão
-        HttpSession session = httpSessionFactory.getObject();
-        session.setAttribute("choque", service.choquesEmEscalaOnipresenca(escala)  );
-		//this.choqueDescansoDepoisNoturno = service.choquesEmEscalaDepoisDoNoturno(escala);
-        //comando para armazenar choque na sessão
-        session.setAttribute("choqueDescansoDepoisNoturno", service.choquesEmEscalaDepoisDoNoturno(escala)  );
-		if(choqueDescansoDepoisNoturno().length()>0) {attr.addFlashAttribute("fail", choqueDescansoDepoisNoturno()); return atalhoLimparEscalaChoque(attr, choqueDescansoDepoisNoturno()); }
-		if(choque().length()>0) {attr.addFlashAttribute("fail", choque()); return atalhoLimparEscalaChoque(attr, choque());  }
-		if((choqueDescansoDepoisNoturno().length()==0) && (choque().length()==0)) {
-			salvar(escala, null, null);
-			session = httpSessionFactory.getObject(); session.setAttribute("ultimoIdEscala", escala.getId()  );
-			attr.addFlashAttribute("success", "Confirme CH Dif, Incremento de Risco, Diferenciado, Regime e Turma antes de Lançar.");
-		}
-		return "redirect:/escalas/alterar/escala/"+escala.getId();
+		// CALCULANDO OS DIAS DO MES
+		String nomeColuna1 = escalaCalculosService.obtemNomeDiaColuna(anoMesDaEscala, 1);
+		String nomeColuna2 = escalaCalculosService.obtemNomeDiaColuna(anoMesDaEscala, 2);
+		String nomeColuna3 = escalaCalculosService.obtemNomeDiaColuna(anoMesDaEscala, 3);
+		String nomeColuna4 = escalaCalculosService.obtemNomeDiaColuna(anoMesDaEscala, 4);
+		String nomeColuna5 = escalaCalculosService.obtemNomeDiaColuna(anoMesDaEscala, 5);
+		String nomeColuna6 = escalaCalculosService.obtemNomeDiaColuna(anoMesDaEscala, 6);
+		String nomeColuna7 = escalaCalculosService.obtemNomeDiaColuna(anoMesDaEscala, 7);
+		// falta complemento de planantao compativel
+		
+		model.addAttribute("idCodigoDiferenciadoFkCompativel", escalaCompatibilidadeService.getCodigosDiferenciadoCompativel( escala) );
+		model.addAttribute("idChDifFkCompativel", pessoaChDifService.listaSimNaoCompativelComPessoa(usuarioService.pegarUnidadeLogada(), escala.getIdFuncionarioFk().getIdPessoaFk(), escala.getIdAnoMesFk()) );
+		model.addAttribute("idIncrementoDeRiscoCompativel", escalaCompatibilidadeService.getIncrementoDeRiscoCompativel(escala) );
+		model.addAttribute("idComplementoDePlantaoCompativel", escalaCompatibilidadeService.getComplementoDePlantaoCompativel(escala) );
+		
+	
+		model.addAttribute("escala", escala );
+		model.addAttribute("idLinha", escala.getId() );
+		model.addAttribute("qtdDiasNoMes", qtdDiasNoMes );
+		model.addAttribute("nomeColuna1", nomeColuna1 );
+		model.addAttribute("nomeColuna2", nomeColuna2 );
+		model.addAttribute("nomeColuna3", nomeColuna3 );
+		model.addAttribute("nomeColuna4", nomeColuna4 );
+		model.addAttribute("nomeColuna5", nomeColuna5 );
+		model.addAttribute("nomeColuna6", nomeColuna6 );
+		model.addAttribute("nomeColuna7", nomeColuna7 );
+		
+		
+		// Pegando os turnos compatíveis
+		List<Turnos> listaTurnos = regimeDeTrabalhoTurnoService.buscarPorRegimesEUnidadeEFolha(escala);
+		
+		model.addAttribute("dia01FkCompativel",  listaTurnos);
+		model.addAttribute("dia02FkCompativel",  listaTurnos);
+		model.addAttribute("dia03FkCompativel",  listaTurnos);
+		model.addAttribute("dia04FkCompativel",  listaTurnos);
+		model.addAttribute("dia05FkCompativel",  listaTurnos);
+		model.addAttribute("dia06FkCompativel",  listaTurnos);
+		model.addAttribute("dia07FkCompativel",  listaTurnos);
+		model.addAttribute("dia08FkCompativel",  listaTurnos);
+		model.addAttribute("dia09FkCompativel",  listaTurnos);
+		model.addAttribute("dia10FkCompativel",  listaTurnos);
+		model.addAttribute("dia11FkCompativel",  listaTurnos);
+		model.addAttribute("dia12FkCompativel",  listaTurnos);
+		model.addAttribute("dia13FkCompativel",  listaTurnos);
+		model.addAttribute("dia14FkCompativel",  listaTurnos);
+		model.addAttribute("dia15FkCompativel",  listaTurnos);
+		model.addAttribute("dia16FkCompativel",  listaTurnos);
+		model.addAttribute("dia17FkCompativel",  listaTurnos);
+		model.addAttribute("dia18FkCompativel",  listaTurnos);
+		model.addAttribute("dia19FkCompativel",  listaTurnos);
+		model.addAttribute("dia20FkCompativel",  listaTurnos);
+		model.addAttribute("dia21FkCompativel",  listaTurnos);
+		model.addAttribute("dia22FkCompativel",  listaTurnos);
+		model.addAttribute("dia23FkCompativel",  listaTurnos);
+		model.addAttribute("dia24FkCompativel",  listaTurnos);
+		model.addAttribute("dia25FkCompativel",  listaTurnos);
+		model.addAttribute("dia26FkCompativel",  listaTurnos);
+		model.addAttribute("dia27FkCompativel",  listaTurnos);
+		model.addAttribute("dia28FkCompativel",  listaTurnos);
+		model.addAttribute("dia29FkCompativel",  listaTurnos);
+		model.addAttribute("dia30FkCompativel",  listaTurnos);
+		model.addAttribute("dia31FkCompativel",  listaTurnos);
+		
+		
+		//this.escalaAtual = escala;
+		
+		//comando para armazenar a escala na sessão
+		HttpSession session = httpSessionFactory.getObject();
+        session.setAttribute("escalaAtual", escala  );
+		
+		
+		return "/escala/editar";
 	}
 	
-	@GetMapping("/atalho/ciclo10_g")
-	public String atalhoCiclo10G( RedirectAttributes attr) {	
+	@GetMapping("/atalho/ciclo10/g")
+	public String atalhoCiclo10G( RedirectAttributes attr, ModelMap model) {	
+		
 		//Tratando escala Bloqueada
 		if(anoMesService.buscarPorId(mesAtual()).getIdEscalaBloqueadaFk().getSigla().equalsIgnoreCase("S")) {
 		return "redirect:/escalas/mensagem/de/escala/bloqueada";
@@ -3875,36 +7327,91 @@ public class EscalaController {
 		escala = escalaCalculosService.converteTurnoNuloEmFolga(escala);
 		escala = escalaCalculosService.calcularDadosEscala(escala);
 		
-		//Avaliando Efetivo dando Extra sem cumprir a CH Efetiva
-		boolean extraSemCumprirEfetivo = escalaCompatibilidadeService.horasExtrasSemEfetivas(escala);
-		if(extraSemCumprirEfetivo==true) {
-			return "redirect:/escalas/mensagem/de/efetivo/com/extra/sem/ch/efetiva/informada";
-		}
+		String anoMesDaEscala = "202105";
+		if(escala!=null){anoMesDaEscala = escala.getIdAnoMesFk().getNomeAnoMes();}
+		int qtdDiasNoMes = escalaCalculosService.quantidadeDeDiasNoMes(anoMesDaEscala);
 		
-		//AVALIAÇÃO PARA SABER SE TEM CHOQUES
-		//this.choque = service.choquesEmEscalaOnipresenca(escala);
-		//comando para armazenar choque na sessão
-        HttpSession session = httpSessionFactory.getObject();
-        session.setAttribute("choque", service.choquesEmEscalaOnipresenca(escala)  );
-		//this.choqueDescansoDepoisNoturno = service.choquesEmEscalaDepoisDoNoturno(escala);
-        //comando para armazenar choque na sessão
-        session.setAttribute("choqueDescansoDepoisNoturno", service.choquesEmEscalaDepoisDoNoturno(escala)  );
-		if(choqueDescansoDepoisNoturno().length()>0) {attr.addFlashAttribute("fail", choqueDescansoDepoisNoturno()); return atalhoLimparEscalaChoque(attr, choqueDescansoDepoisNoturno()); }
-		if(choque().length()>0) {attr.addFlashAttribute("fail", choque()); return atalhoLimparEscalaChoque(attr, choque());  }
-		if((choqueDescansoDepoisNoturno().length()==0) && (choque().length()==0)) {
-			salvar(escala, null, null);
-			session = httpSessionFactory.getObject(); session.setAttribute("ultimoIdEscala", escala.getId()  );
-			attr.addFlashAttribute("success", "Confirme CH Dif, Incremento de Risco, Diferenciado, Regime e Turma antes de Lançar.");
-		}
-		return "redirect:/escalas/alterar/escala/"+escala.getId();
+		// CALCULANDO OS DIAS DO MES
+		String nomeColuna1 = escalaCalculosService.obtemNomeDiaColuna(anoMesDaEscala, 1);
+		String nomeColuna2 = escalaCalculosService.obtemNomeDiaColuna(anoMesDaEscala, 2);
+		String nomeColuna3 = escalaCalculosService.obtemNomeDiaColuna(anoMesDaEscala, 3);
+		String nomeColuna4 = escalaCalculosService.obtemNomeDiaColuna(anoMesDaEscala, 4);
+		String nomeColuna5 = escalaCalculosService.obtemNomeDiaColuna(anoMesDaEscala, 5);
+		String nomeColuna6 = escalaCalculosService.obtemNomeDiaColuna(anoMesDaEscala, 6);
+		String nomeColuna7 = escalaCalculosService.obtemNomeDiaColuna(anoMesDaEscala, 7);
+		// falta complemento de planantao compativel
+		
+		model.addAttribute("idCodigoDiferenciadoFkCompativel", escalaCompatibilidadeService.getCodigosDiferenciadoCompativel( escala) );
+		model.addAttribute("idChDifFkCompativel", pessoaChDifService.listaSimNaoCompativelComPessoa(usuarioService.pegarUnidadeLogada(), escala.getIdFuncionarioFk().getIdPessoaFk(), escala.getIdAnoMesFk()) );
+		model.addAttribute("idIncrementoDeRiscoCompativel", escalaCompatibilidadeService.getIncrementoDeRiscoCompativel(escala) );
+		model.addAttribute("idComplementoDePlantaoCompativel", escalaCompatibilidadeService.getComplementoDePlantaoCompativel(escala) );
+		
+	
+		model.addAttribute("escala", escala );
+		model.addAttribute("idLinha", escala.getId() );
+		model.addAttribute("qtdDiasNoMes", qtdDiasNoMes );
+		model.addAttribute("nomeColuna1", nomeColuna1 );
+		model.addAttribute("nomeColuna2", nomeColuna2 );
+		model.addAttribute("nomeColuna3", nomeColuna3 );
+		model.addAttribute("nomeColuna4", nomeColuna4 );
+		model.addAttribute("nomeColuna5", nomeColuna5 );
+		model.addAttribute("nomeColuna6", nomeColuna6 );
+		model.addAttribute("nomeColuna7", nomeColuna7 );
+		
+		
+		// Pegando os turnos compatíveis
+		List<Turnos> listaTurnos = regimeDeTrabalhoTurnoService.buscarPorRegimesEUnidadeEFolha(escala);
+		
+		model.addAttribute("dia01FkCompativel",  listaTurnos);
+		model.addAttribute("dia02FkCompativel",  listaTurnos);
+		model.addAttribute("dia03FkCompativel",  listaTurnos);
+		model.addAttribute("dia04FkCompativel",  listaTurnos);
+		model.addAttribute("dia05FkCompativel",  listaTurnos);
+		model.addAttribute("dia06FkCompativel",  listaTurnos);
+		model.addAttribute("dia07FkCompativel",  listaTurnos);
+		model.addAttribute("dia08FkCompativel",  listaTurnos);
+		model.addAttribute("dia09FkCompativel",  listaTurnos);
+		model.addAttribute("dia10FkCompativel",  listaTurnos);
+		model.addAttribute("dia11FkCompativel",  listaTurnos);
+		model.addAttribute("dia12FkCompativel",  listaTurnos);
+		model.addAttribute("dia13FkCompativel",  listaTurnos);
+		model.addAttribute("dia14FkCompativel",  listaTurnos);
+		model.addAttribute("dia15FkCompativel",  listaTurnos);
+		model.addAttribute("dia16FkCompativel",  listaTurnos);
+		model.addAttribute("dia17FkCompativel",  listaTurnos);
+		model.addAttribute("dia18FkCompativel",  listaTurnos);
+		model.addAttribute("dia19FkCompativel",  listaTurnos);
+		model.addAttribute("dia20FkCompativel",  listaTurnos);
+		model.addAttribute("dia21FkCompativel",  listaTurnos);
+		model.addAttribute("dia22FkCompativel",  listaTurnos);
+		model.addAttribute("dia23FkCompativel",  listaTurnos);
+		model.addAttribute("dia24FkCompativel",  listaTurnos);
+		model.addAttribute("dia25FkCompativel",  listaTurnos);
+		model.addAttribute("dia26FkCompativel",  listaTurnos);
+		model.addAttribute("dia27FkCompativel",  listaTurnos);
+		model.addAttribute("dia28FkCompativel",  listaTurnos);
+		model.addAttribute("dia29FkCompativel",  listaTurnos);
+		model.addAttribute("dia30FkCompativel",  listaTurnos);
+		model.addAttribute("dia31FkCompativel",  listaTurnos);
+		
+		
+		//this.escalaAtual = escala;
+		
+		//comando para armazenar a escala na sessão
+		HttpSession session = httpSessionFactory.getObject();
+        session.setAttribute("escalaAtual", escala  );
+		
+		
+		return "/escala/editar";
 	}
 	
 	
 
 	
 	//Ciclo11
-	@GetMapping("/atalho/ciclo11_a")
-	public String atalhoCiclo11A( RedirectAttributes attr) {	
+	@GetMapping("/atalho/ciclo11/a")
+	public String atalhoCiclo11A( RedirectAttributes attr, ModelMap model) {	
+		
 		//Tratando escala Bloqueada
 		if(anoMesService.buscarPorId(mesAtual()).getIdEscalaBloqueadaFk().getSigla().equalsIgnoreCase("S")) {
 		return "redirect:/escalas/mensagem/de/escala/bloqueada";
@@ -3918,32 +7425,87 @@ public class EscalaController {
 		escala = escalaCalculosService.converteTurnoNuloEmFolga(escala);
 		escala = escalaCalculosService.calcularDadosEscala(escala);
 		
-		//Avaliando Efetivo dando Extra sem cumprir a CH Efetiva
-		boolean extraSemCumprirEfetivo = escalaCompatibilidadeService.horasExtrasSemEfetivas(escala);
-		if(extraSemCumprirEfetivo==true) {
-			return "redirect:/escalas/mensagem/de/efetivo/com/extra/sem/ch/efetiva/informada";
-		}
+		String anoMesDaEscala = "202105";
+		if(escala!=null){anoMesDaEscala = escala.getIdAnoMesFk().getNomeAnoMes();}
+		int qtdDiasNoMes = escalaCalculosService.quantidadeDeDiasNoMes(anoMesDaEscala);
 		
-		//AVALIAÇÃO PARA SABER SE TEM CHOQUES
-		//this.choque = service.choquesEmEscalaOnipresenca(escala);
-		//comando para armazenar choque na sessão
-        HttpSession session = httpSessionFactory.getObject();
-        session.setAttribute("choque", service.choquesEmEscalaOnipresenca(escala)  );
-		//this.choqueDescansoDepoisNoturno = service.choquesEmEscalaDepoisDoNoturno(escala);
-        //comando para armazenar choque na sessão
-        session.setAttribute("choqueDescansoDepoisNoturno", service.choquesEmEscalaDepoisDoNoturno(escala)  );
-		if(choqueDescansoDepoisNoturno().length()>0) {attr.addFlashAttribute("fail", choqueDescansoDepoisNoturno()); return atalhoLimparEscalaChoque(attr, choqueDescansoDepoisNoturno()); }
-		if(choque().length()>0) {attr.addFlashAttribute("fail", choque()); return atalhoLimparEscalaChoque(attr, choque());  }
-		if((choqueDescansoDepoisNoturno().length()==0) && (choque().length()==0)) {
-			salvar(escala, null, null);
-			session = httpSessionFactory.getObject(); session.setAttribute("ultimoIdEscala", escala.getId()  );
-			attr.addFlashAttribute("success", "Confirme CH Dif, Incremento de Risco, Diferenciado, Regime e Turma antes de Lançar.");
-		}
-		return "redirect:/escalas/alterar/escala/"+escala.getId();
+		// CALCULANDO OS DIAS DO MES
+		String nomeColuna1 = escalaCalculosService.obtemNomeDiaColuna(anoMesDaEscala, 1);
+		String nomeColuna2 = escalaCalculosService.obtemNomeDiaColuna(anoMesDaEscala, 2);
+		String nomeColuna3 = escalaCalculosService.obtemNomeDiaColuna(anoMesDaEscala, 3);
+		String nomeColuna4 = escalaCalculosService.obtemNomeDiaColuna(anoMesDaEscala, 4);
+		String nomeColuna5 = escalaCalculosService.obtemNomeDiaColuna(anoMesDaEscala, 5);
+		String nomeColuna6 = escalaCalculosService.obtemNomeDiaColuna(anoMesDaEscala, 6);
+		String nomeColuna7 = escalaCalculosService.obtemNomeDiaColuna(anoMesDaEscala, 7);
+		// falta complemento de planantao compativel
+		
+		model.addAttribute("idCodigoDiferenciadoFkCompativel", escalaCompatibilidadeService.getCodigosDiferenciadoCompativel( escala) );
+		model.addAttribute("idChDifFkCompativel", pessoaChDifService.listaSimNaoCompativelComPessoa(usuarioService.pegarUnidadeLogada(), escala.getIdFuncionarioFk().getIdPessoaFk(), escala.getIdAnoMesFk()) );
+		model.addAttribute("idIncrementoDeRiscoCompativel", escalaCompatibilidadeService.getIncrementoDeRiscoCompativel(escala) );
+		model.addAttribute("idComplementoDePlantaoCompativel", escalaCompatibilidadeService.getComplementoDePlantaoCompativel(escala) );
+		
+	
+		model.addAttribute("escala", escala );
+		model.addAttribute("idLinha", escala.getId() );
+		model.addAttribute("qtdDiasNoMes", qtdDiasNoMes );
+		model.addAttribute("nomeColuna1", nomeColuna1 );
+		model.addAttribute("nomeColuna2", nomeColuna2 );
+		model.addAttribute("nomeColuna3", nomeColuna3 );
+		model.addAttribute("nomeColuna4", nomeColuna4 );
+		model.addAttribute("nomeColuna5", nomeColuna5 );
+		model.addAttribute("nomeColuna6", nomeColuna6 );
+		model.addAttribute("nomeColuna7", nomeColuna7 );
+		
+		
+		// Pegando os turnos compatíveis
+		List<Turnos> listaTurnos = regimeDeTrabalhoTurnoService.buscarPorRegimesEUnidadeEFolha(escala);
+		
+		model.addAttribute("dia01FkCompativel",  listaTurnos);
+		model.addAttribute("dia02FkCompativel",  listaTurnos);
+		model.addAttribute("dia03FkCompativel",  listaTurnos);
+		model.addAttribute("dia04FkCompativel",  listaTurnos);
+		model.addAttribute("dia05FkCompativel",  listaTurnos);
+		model.addAttribute("dia06FkCompativel",  listaTurnos);
+		model.addAttribute("dia07FkCompativel",  listaTurnos);
+		model.addAttribute("dia08FkCompativel",  listaTurnos);
+		model.addAttribute("dia09FkCompativel",  listaTurnos);
+		model.addAttribute("dia10FkCompativel",  listaTurnos);
+		model.addAttribute("dia11FkCompativel",  listaTurnos);
+		model.addAttribute("dia12FkCompativel",  listaTurnos);
+		model.addAttribute("dia13FkCompativel",  listaTurnos);
+		model.addAttribute("dia14FkCompativel",  listaTurnos);
+		model.addAttribute("dia15FkCompativel",  listaTurnos);
+		model.addAttribute("dia16FkCompativel",  listaTurnos);
+		model.addAttribute("dia17FkCompativel",  listaTurnos);
+		model.addAttribute("dia18FkCompativel",  listaTurnos);
+		model.addAttribute("dia19FkCompativel",  listaTurnos);
+		model.addAttribute("dia20FkCompativel",  listaTurnos);
+		model.addAttribute("dia21FkCompativel",  listaTurnos);
+		model.addAttribute("dia22FkCompativel",  listaTurnos);
+		model.addAttribute("dia23FkCompativel",  listaTurnos);
+		model.addAttribute("dia24FkCompativel",  listaTurnos);
+		model.addAttribute("dia25FkCompativel",  listaTurnos);
+		model.addAttribute("dia26FkCompativel",  listaTurnos);
+		model.addAttribute("dia27FkCompativel",  listaTurnos);
+		model.addAttribute("dia28FkCompativel",  listaTurnos);
+		model.addAttribute("dia29FkCompativel",  listaTurnos);
+		model.addAttribute("dia30FkCompativel",  listaTurnos);
+		model.addAttribute("dia31FkCompativel",  listaTurnos);
+		
+		
+		//this.escalaAtual = escala;
+		
+		//comando para armazenar a escala na sessão
+		HttpSession session = httpSessionFactory.getObject();
+        session.setAttribute("escalaAtual", escala  );
+		
+		
+		return "/escala/editar";
 	}
 	
-	@GetMapping("/atalho/ciclo11_b")
-	public String atalhoCiclo11B( RedirectAttributes attr) {	
+	@GetMapping("/atalho/ciclo11/b")
+	public String atalhoCiclo11B( RedirectAttributes attr, ModelMap model) {	
+		
 		//Tratando escala Bloqueada
 		if(anoMesService.buscarPorId(mesAtual()).getIdEscalaBloqueadaFk().getSigla().equalsIgnoreCase("S")) {
 		return "redirect:/escalas/mensagem/de/escala/bloqueada";
@@ -3957,32 +7519,87 @@ public class EscalaController {
 		escala = escalaCalculosService.converteTurnoNuloEmFolga(escala);
 		escala = escalaCalculosService.calcularDadosEscala(escala);
 		
-		//Avaliando Efetivo dando Extra sem cumprir a CH Efetiva
-		boolean extraSemCumprirEfetivo = escalaCompatibilidadeService.horasExtrasSemEfetivas(escala);
-		if(extraSemCumprirEfetivo==true) {
-			return "redirect:/escalas/mensagem/de/efetivo/com/extra/sem/ch/efetiva/informada";
-		}
+		String anoMesDaEscala = "202105";
+		if(escala!=null){anoMesDaEscala = escala.getIdAnoMesFk().getNomeAnoMes();}
+		int qtdDiasNoMes = escalaCalculosService.quantidadeDeDiasNoMes(anoMesDaEscala);
 		
-		//AVALIAÇÃO PARA SABER SE TEM CHOQUES
-		//this.choque = service.choquesEmEscalaOnipresenca(escala);
-		//comando para armazenar choque na sessão
-        HttpSession session = httpSessionFactory.getObject();
-        session.setAttribute("choque", service.choquesEmEscalaOnipresenca(escala)  );
-		//this.choqueDescansoDepoisNoturno = service.choquesEmEscalaDepoisDoNoturno(escala);
-        //comando para armazenar choque na sessão
-        session.setAttribute("choqueDescansoDepoisNoturno", service.choquesEmEscalaDepoisDoNoturno(escala)  );
-		if(choqueDescansoDepoisNoturno().length()>0) {attr.addFlashAttribute("fail", choqueDescansoDepoisNoturno()); return atalhoLimparEscalaChoque(attr, choqueDescansoDepoisNoturno()); }
-		if(choque().length()>0) {attr.addFlashAttribute("fail", choque()); return atalhoLimparEscalaChoque(attr, choque());  }
-		if((choqueDescansoDepoisNoturno().length()==0) && (choque().length()==0)) {
-			salvar(escala, null, null);
-			session = httpSessionFactory.getObject(); session.setAttribute("ultimoIdEscala", escala.getId()  );
-			attr.addFlashAttribute("success", "Confirme CH Dif, Incremento de Risco, Diferenciado, Regime e Turma antes de Lançar.");
-		}
-		return "redirect:/escalas/alterar/escala/"+escala.getId();
+		// CALCULANDO OS DIAS DO MES
+		String nomeColuna1 = escalaCalculosService.obtemNomeDiaColuna(anoMesDaEscala, 1);
+		String nomeColuna2 = escalaCalculosService.obtemNomeDiaColuna(anoMesDaEscala, 2);
+		String nomeColuna3 = escalaCalculosService.obtemNomeDiaColuna(anoMesDaEscala, 3);
+		String nomeColuna4 = escalaCalculosService.obtemNomeDiaColuna(anoMesDaEscala, 4);
+		String nomeColuna5 = escalaCalculosService.obtemNomeDiaColuna(anoMesDaEscala, 5);
+		String nomeColuna6 = escalaCalculosService.obtemNomeDiaColuna(anoMesDaEscala, 6);
+		String nomeColuna7 = escalaCalculosService.obtemNomeDiaColuna(anoMesDaEscala, 7);
+		// falta complemento de planantao compativel
+		
+		model.addAttribute("idCodigoDiferenciadoFkCompativel", escalaCompatibilidadeService.getCodigosDiferenciadoCompativel( escala) );
+		model.addAttribute("idChDifFkCompativel", pessoaChDifService.listaSimNaoCompativelComPessoa(usuarioService.pegarUnidadeLogada(), escala.getIdFuncionarioFk().getIdPessoaFk(), escala.getIdAnoMesFk()) );
+		model.addAttribute("idIncrementoDeRiscoCompativel", escalaCompatibilidadeService.getIncrementoDeRiscoCompativel(escala) );
+		model.addAttribute("idComplementoDePlantaoCompativel", escalaCompatibilidadeService.getComplementoDePlantaoCompativel(escala) );
+		
+	
+		model.addAttribute("escala", escala );
+		model.addAttribute("idLinha", escala.getId() );
+		model.addAttribute("qtdDiasNoMes", qtdDiasNoMes );
+		model.addAttribute("nomeColuna1", nomeColuna1 );
+		model.addAttribute("nomeColuna2", nomeColuna2 );
+		model.addAttribute("nomeColuna3", nomeColuna3 );
+		model.addAttribute("nomeColuna4", nomeColuna4 );
+		model.addAttribute("nomeColuna5", nomeColuna5 );
+		model.addAttribute("nomeColuna6", nomeColuna6 );
+		model.addAttribute("nomeColuna7", nomeColuna7 );
+		
+		
+		// Pegando os turnos compatíveis
+		List<Turnos> listaTurnos = regimeDeTrabalhoTurnoService.buscarPorRegimesEUnidadeEFolha(escala);
+		
+		model.addAttribute("dia01FkCompativel",  listaTurnos);
+		model.addAttribute("dia02FkCompativel",  listaTurnos);
+		model.addAttribute("dia03FkCompativel",  listaTurnos);
+		model.addAttribute("dia04FkCompativel",  listaTurnos);
+		model.addAttribute("dia05FkCompativel",  listaTurnos);
+		model.addAttribute("dia06FkCompativel",  listaTurnos);
+		model.addAttribute("dia07FkCompativel",  listaTurnos);
+		model.addAttribute("dia08FkCompativel",  listaTurnos);
+		model.addAttribute("dia09FkCompativel",  listaTurnos);
+		model.addAttribute("dia10FkCompativel",  listaTurnos);
+		model.addAttribute("dia11FkCompativel",  listaTurnos);
+		model.addAttribute("dia12FkCompativel",  listaTurnos);
+		model.addAttribute("dia13FkCompativel",  listaTurnos);
+		model.addAttribute("dia14FkCompativel",  listaTurnos);
+		model.addAttribute("dia15FkCompativel",  listaTurnos);
+		model.addAttribute("dia16FkCompativel",  listaTurnos);
+		model.addAttribute("dia17FkCompativel",  listaTurnos);
+		model.addAttribute("dia18FkCompativel",  listaTurnos);
+		model.addAttribute("dia19FkCompativel",  listaTurnos);
+		model.addAttribute("dia20FkCompativel",  listaTurnos);
+		model.addAttribute("dia21FkCompativel",  listaTurnos);
+		model.addAttribute("dia22FkCompativel",  listaTurnos);
+		model.addAttribute("dia23FkCompativel",  listaTurnos);
+		model.addAttribute("dia24FkCompativel",  listaTurnos);
+		model.addAttribute("dia25FkCompativel",  listaTurnos);
+		model.addAttribute("dia26FkCompativel",  listaTurnos);
+		model.addAttribute("dia27FkCompativel",  listaTurnos);
+		model.addAttribute("dia28FkCompativel",  listaTurnos);
+		model.addAttribute("dia29FkCompativel",  listaTurnos);
+		model.addAttribute("dia30FkCompativel",  listaTurnos);
+		model.addAttribute("dia31FkCompativel",  listaTurnos);
+		
+		
+		//this.escalaAtual = escala;
+		
+		//comando para armazenar a escala na sessão
+		HttpSession session = httpSessionFactory.getObject();
+        session.setAttribute("escalaAtual", escala  );
+		
+		
+		return "/escala/editar";
 	}
 	
-	@GetMapping("/atalho/ciclo11_c")
-	public String atalhoCiclo11C( RedirectAttributes attr) {	
+	@GetMapping("/atalho/ciclo11/c")
+	public String atalhoCiclo11C( RedirectAttributes attr, ModelMap model) {	
+		
 		//Tratando escala Bloqueada
 		if(anoMesService.buscarPorId(mesAtual()).getIdEscalaBloqueadaFk().getSigla().equalsIgnoreCase("S")) {
 		return "redirect:/escalas/mensagem/de/escala/bloqueada";
@@ -3996,32 +7613,87 @@ public class EscalaController {
 		escala = escalaCalculosService.converteTurnoNuloEmFolga(escala);
 		escala = escalaCalculosService.calcularDadosEscala(escala);
 		
-		//Avaliando Efetivo dando Extra sem cumprir a CH Efetiva
-		boolean extraSemCumprirEfetivo = escalaCompatibilidadeService.horasExtrasSemEfetivas(escala);
-		if(extraSemCumprirEfetivo==true) {
-			return "redirect:/escalas/mensagem/de/efetivo/com/extra/sem/ch/efetiva/informada";
-		}
+		String anoMesDaEscala = "202105";
+		if(escala!=null){anoMesDaEscala = escala.getIdAnoMesFk().getNomeAnoMes();}
+		int qtdDiasNoMes = escalaCalculosService.quantidadeDeDiasNoMes(anoMesDaEscala);
 		
-		//AVALIAÇÃO PARA SABER SE TEM CHOQUES
-		//this.choque = service.choquesEmEscalaOnipresenca(escala);
-		//comando para armazenar choque na sessão
-        HttpSession session = httpSessionFactory.getObject();
-        session.setAttribute("choque", service.choquesEmEscalaOnipresenca(escala)  );
-		//this.choqueDescansoDepoisNoturno = service.choquesEmEscalaDepoisDoNoturno(escala);
-        //comando para armazenar choque na sessão
-        session.setAttribute("choqueDescansoDepoisNoturno", service.choquesEmEscalaDepoisDoNoturno(escala)  );
-		if(choqueDescansoDepoisNoturno().length()>0) {attr.addFlashAttribute("fail", choqueDescansoDepoisNoturno()); return atalhoLimparEscalaChoque(attr, choqueDescansoDepoisNoturno()); }
-		if(choque().length()>0) {attr.addFlashAttribute("fail", choque()); return atalhoLimparEscalaChoque(attr, choque());  }
-		if((choqueDescansoDepoisNoturno().length()==0) && (choque().length()==0)) {
-			salvar(escala, null, null);
-			session = httpSessionFactory.getObject(); session.setAttribute("ultimoIdEscala", escala.getId()  );
-			attr.addFlashAttribute("success", "Confirme CH Dif, Incremento de Risco, Diferenciado, Regime e Turma antes de Lançar.");
-		}
-		return "redirect:/escalas/alterar/escala/"+escala.getId();
+		// CALCULANDO OS DIAS DO MES
+		String nomeColuna1 = escalaCalculosService.obtemNomeDiaColuna(anoMesDaEscala, 1);
+		String nomeColuna2 = escalaCalculosService.obtemNomeDiaColuna(anoMesDaEscala, 2);
+		String nomeColuna3 = escalaCalculosService.obtemNomeDiaColuna(anoMesDaEscala, 3);
+		String nomeColuna4 = escalaCalculosService.obtemNomeDiaColuna(anoMesDaEscala, 4);
+		String nomeColuna5 = escalaCalculosService.obtemNomeDiaColuna(anoMesDaEscala, 5);
+		String nomeColuna6 = escalaCalculosService.obtemNomeDiaColuna(anoMesDaEscala, 6);
+		String nomeColuna7 = escalaCalculosService.obtemNomeDiaColuna(anoMesDaEscala, 7);
+		// falta complemento de planantao compativel
+		
+		model.addAttribute("idCodigoDiferenciadoFkCompativel", escalaCompatibilidadeService.getCodigosDiferenciadoCompativel( escala) );
+		model.addAttribute("idChDifFkCompativel", pessoaChDifService.listaSimNaoCompativelComPessoa(usuarioService.pegarUnidadeLogada(), escala.getIdFuncionarioFk().getIdPessoaFk(), escala.getIdAnoMesFk()) );
+		model.addAttribute("idIncrementoDeRiscoCompativel", escalaCompatibilidadeService.getIncrementoDeRiscoCompativel(escala) );
+		model.addAttribute("idComplementoDePlantaoCompativel", escalaCompatibilidadeService.getComplementoDePlantaoCompativel(escala) );
+		
+	
+		model.addAttribute("escala", escala );
+		model.addAttribute("idLinha", escala.getId() );
+		model.addAttribute("qtdDiasNoMes", qtdDiasNoMes );
+		model.addAttribute("nomeColuna1", nomeColuna1 );
+		model.addAttribute("nomeColuna2", nomeColuna2 );
+		model.addAttribute("nomeColuna3", nomeColuna3 );
+		model.addAttribute("nomeColuna4", nomeColuna4 );
+		model.addAttribute("nomeColuna5", nomeColuna5 );
+		model.addAttribute("nomeColuna6", nomeColuna6 );
+		model.addAttribute("nomeColuna7", nomeColuna7 );
+		
+		
+		// Pegando os turnos compatíveis
+		List<Turnos> listaTurnos = regimeDeTrabalhoTurnoService.buscarPorRegimesEUnidadeEFolha(escala);
+		
+		model.addAttribute("dia01FkCompativel",  listaTurnos);
+		model.addAttribute("dia02FkCompativel",  listaTurnos);
+		model.addAttribute("dia03FkCompativel",  listaTurnos);
+		model.addAttribute("dia04FkCompativel",  listaTurnos);
+		model.addAttribute("dia05FkCompativel",  listaTurnos);
+		model.addAttribute("dia06FkCompativel",  listaTurnos);
+		model.addAttribute("dia07FkCompativel",  listaTurnos);
+		model.addAttribute("dia08FkCompativel",  listaTurnos);
+		model.addAttribute("dia09FkCompativel",  listaTurnos);
+		model.addAttribute("dia10FkCompativel",  listaTurnos);
+		model.addAttribute("dia11FkCompativel",  listaTurnos);
+		model.addAttribute("dia12FkCompativel",  listaTurnos);
+		model.addAttribute("dia13FkCompativel",  listaTurnos);
+		model.addAttribute("dia14FkCompativel",  listaTurnos);
+		model.addAttribute("dia15FkCompativel",  listaTurnos);
+		model.addAttribute("dia16FkCompativel",  listaTurnos);
+		model.addAttribute("dia17FkCompativel",  listaTurnos);
+		model.addAttribute("dia18FkCompativel",  listaTurnos);
+		model.addAttribute("dia19FkCompativel",  listaTurnos);
+		model.addAttribute("dia20FkCompativel",  listaTurnos);
+		model.addAttribute("dia21FkCompativel",  listaTurnos);
+		model.addAttribute("dia22FkCompativel",  listaTurnos);
+		model.addAttribute("dia23FkCompativel",  listaTurnos);
+		model.addAttribute("dia24FkCompativel",  listaTurnos);
+		model.addAttribute("dia25FkCompativel",  listaTurnos);
+		model.addAttribute("dia26FkCompativel",  listaTurnos);
+		model.addAttribute("dia27FkCompativel",  listaTurnos);
+		model.addAttribute("dia28FkCompativel",  listaTurnos);
+		model.addAttribute("dia29FkCompativel",  listaTurnos);
+		model.addAttribute("dia30FkCompativel",  listaTurnos);
+		model.addAttribute("dia31FkCompativel",  listaTurnos);
+		
+		
+		//this.escalaAtual = escala;
+		
+		//comando para armazenar a escala na sessão
+		HttpSession session = httpSessionFactory.getObject();
+        session.setAttribute("escalaAtual", escala  );
+		
+		
+		return "/escala/editar";
 	}
 	
-	@GetMapping("/atalho/ciclo11_d")
-	public String atalhoCiclo11D( RedirectAttributes attr) {	
+	@GetMapping("/atalho/ciclo11/d")
+	public String atalhoCiclo11D( RedirectAttributes attr, ModelMap model) {	
+		
 		//Tratando escala Bloqueada
 		if(anoMesService.buscarPorId(mesAtual()).getIdEscalaBloqueadaFk().getSigla().equalsIgnoreCase("S")) {
 		return "redirect:/escalas/mensagem/de/escala/bloqueada";
@@ -4035,32 +7707,87 @@ public class EscalaController {
 		escala = escalaCalculosService.converteTurnoNuloEmFolga(escala);
 		escala = escalaCalculosService.calcularDadosEscala(escala);
 		
-		//Avaliando Efetivo dando Extra sem cumprir a CH Efetiva
-		boolean extraSemCumprirEfetivo = escalaCompatibilidadeService.horasExtrasSemEfetivas(escala);
-		if(extraSemCumprirEfetivo==true) {
-			return "redirect:/escalas/mensagem/de/efetivo/com/extra/sem/ch/efetiva/informada";
-		}
+		String anoMesDaEscala = "202105";
+		if(escala!=null){anoMesDaEscala = escala.getIdAnoMesFk().getNomeAnoMes();}
+		int qtdDiasNoMes = escalaCalculosService.quantidadeDeDiasNoMes(anoMesDaEscala);
 		
-		//AVALIAÇÃO PARA SABER SE TEM CHOQUES
-		//this.choque = service.choquesEmEscalaOnipresenca(escala);
-		//comando para armazenar choque na sessão
-        HttpSession session = httpSessionFactory.getObject();
-        session.setAttribute("choque", service.choquesEmEscalaOnipresenca(escala)  );
-		//this.choqueDescansoDepoisNoturno = service.choquesEmEscalaDepoisDoNoturno(escala);
-        //comando para armazenar choque na sessão
-        session.setAttribute("choqueDescansoDepoisNoturno", service.choquesEmEscalaDepoisDoNoturno(escala)  );
-		if(choqueDescansoDepoisNoturno().length()>0) {attr.addFlashAttribute("fail", choqueDescansoDepoisNoturno()); return atalhoLimparEscalaChoque(attr, choqueDescansoDepoisNoturno()); }
-		if(choque().length()>0) {attr.addFlashAttribute("fail", choque()); return atalhoLimparEscalaChoque(attr, choque());  }
-		if((choqueDescansoDepoisNoturno().length()==0) && (choque().length()==0)) {
-			salvar(escala, null, null);
-			session = httpSessionFactory.getObject(); session.setAttribute("ultimoIdEscala", escala.getId()  );
-			attr.addFlashAttribute("success", "Confirme CH Dif, Incremento de Risco, Diferenciado, Regime e Turma antes de Lançar.");
-		}
-		return "redirect:/escalas/alterar/escala/"+escala.getId();
+		// CALCULANDO OS DIAS DO MES
+		String nomeColuna1 = escalaCalculosService.obtemNomeDiaColuna(anoMesDaEscala, 1);
+		String nomeColuna2 = escalaCalculosService.obtemNomeDiaColuna(anoMesDaEscala, 2);
+		String nomeColuna3 = escalaCalculosService.obtemNomeDiaColuna(anoMesDaEscala, 3);
+		String nomeColuna4 = escalaCalculosService.obtemNomeDiaColuna(anoMesDaEscala, 4);
+		String nomeColuna5 = escalaCalculosService.obtemNomeDiaColuna(anoMesDaEscala, 5);
+		String nomeColuna6 = escalaCalculosService.obtemNomeDiaColuna(anoMesDaEscala, 6);
+		String nomeColuna7 = escalaCalculosService.obtemNomeDiaColuna(anoMesDaEscala, 7);
+		// falta complemento de planantao compativel
+		
+		model.addAttribute("idCodigoDiferenciadoFkCompativel", escalaCompatibilidadeService.getCodigosDiferenciadoCompativel( escala) );
+		model.addAttribute("idChDifFkCompativel", pessoaChDifService.listaSimNaoCompativelComPessoa(usuarioService.pegarUnidadeLogada(), escala.getIdFuncionarioFk().getIdPessoaFk(), escala.getIdAnoMesFk()) );
+		model.addAttribute("idIncrementoDeRiscoCompativel", escalaCompatibilidadeService.getIncrementoDeRiscoCompativel(escala) );
+		model.addAttribute("idComplementoDePlantaoCompativel", escalaCompatibilidadeService.getComplementoDePlantaoCompativel(escala) );
+		
+	
+		model.addAttribute("escala", escala );
+		model.addAttribute("idLinha", escala.getId() );
+		model.addAttribute("qtdDiasNoMes", qtdDiasNoMes );
+		model.addAttribute("nomeColuna1", nomeColuna1 );
+		model.addAttribute("nomeColuna2", nomeColuna2 );
+		model.addAttribute("nomeColuna3", nomeColuna3 );
+		model.addAttribute("nomeColuna4", nomeColuna4 );
+		model.addAttribute("nomeColuna5", nomeColuna5 );
+		model.addAttribute("nomeColuna6", nomeColuna6 );
+		model.addAttribute("nomeColuna7", nomeColuna7 );
+		
+		
+		// Pegando os turnos compatíveis
+		List<Turnos> listaTurnos = regimeDeTrabalhoTurnoService.buscarPorRegimesEUnidadeEFolha(escala);
+		
+		model.addAttribute("dia01FkCompativel",  listaTurnos);
+		model.addAttribute("dia02FkCompativel",  listaTurnos);
+		model.addAttribute("dia03FkCompativel",  listaTurnos);
+		model.addAttribute("dia04FkCompativel",  listaTurnos);
+		model.addAttribute("dia05FkCompativel",  listaTurnos);
+		model.addAttribute("dia06FkCompativel",  listaTurnos);
+		model.addAttribute("dia07FkCompativel",  listaTurnos);
+		model.addAttribute("dia08FkCompativel",  listaTurnos);
+		model.addAttribute("dia09FkCompativel",  listaTurnos);
+		model.addAttribute("dia10FkCompativel",  listaTurnos);
+		model.addAttribute("dia11FkCompativel",  listaTurnos);
+		model.addAttribute("dia12FkCompativel",  listaTurnos);
+		model.addAttribute("dia13FkCompativel",  listaTurnos);
+		model.addAttribute("dia14FkCompativel",  listaTurnos);
+		model.addAttribute("dia15FkCompativel",  listaTurnos);
+		model.addAttribute("dia16FkCompativel",  listaTurnos);
+		model.addAttribute("dia17FkCompativel",  listaTurnos);
+		model.addAttribute("dia18FkCompativel",  listaTurnos);
+		model.addAttribute("dia19FkCompativel",  listaTurnos);
+		model.addAttribute("dia20FkCompativel",  listaTurnos);
+		model.addAttribute("dia21FkCompativel",  listaTurnos);
+		model.addAttribute("dia22FkCompativel",  listaTurnos);
+		model.addAttribute("dia23FkCompativel",  listaTurnos);
+		model.addAttribute("dia24FkCompativel",  listaTurnos);
+		model.addAttribute("dia25FkCompativel",  listaTurnos);
+		model.addAttribute("dia26FkCompativel",  listaTurnos);
+		model.addAttribute("dia27FkCompativel",  listaTurnos);
+		model.addAttribute("dia28FkCompativel",  listaTurnos);
+		model.addAttribute("dia29FkCompativel",  listaTurnos);
+		model.addAttribute("dia30FkCompativel",  listaTurnos);
+		model.addAttribute("dia31FkCompativel",  listaTurnos);
+		
+		
+		//this.escalaAtual = escala;
+		
+		//comando para armazenar a escala na sessão
+		HttpSession session = httpSessionFactory.getObject();
+        session.setAttribute("escalaAtual", escala  );
+		
+		
+		return "/escala/editar";
 	}
 	
-	@GetMapping("/atalho/ciclo11_e")
-	public String atalhoCiclo11E( RedirectAttributes attr) {	
+	@GetMapping("/atalho/ciclo11/e")
+	public String atalhoCiclo11E( RedirectAttributes attr, ModelMap model) {	
+		
 		//Tratando escala Bloqueada
 		if(anoMesService.buscarPorId(mesAtual()).getIdEscalaBloqueadaFk().getSigla().equalsIgnoreCase("S")) {
 		return "redirect:/escalas/mensagem/de/escala/bloqueada";
@@ -4074,33 +7801,88 @@ public class EscalaController {
 		escala = escalaCalculosService.converteTurnoNuloEmFolga(escala);
 		escala = escalaCalculosService.calcularDadosEscala(escala);
 		
-		//Avaliando Efetivo dando Extra sem cumprir a CH Efetiva
-		boolean extraSemCumprirEfetivo = escalaCompatibilidadeService.horasExtrasSemEfetivas(escala);
-		if(extraSemCumprirEfetivo==true) {
-			return "redirect:/escalas/mensagem/de/efetivo/com/extra/sem/ch/efetiva/informada";
-		}
+		String anoMesDaEscala = "202105";
+		if(escala!=null){anoMesDaEscala = escala.getIdAnoMesFk().getNomeAnoMes();}
+		int qtdDiasNoMes = escalaCalculosService.quantidadeDeDiasNoMes(anoMesDaEscala);
 		
-		//AVALIAÇÃO PARA SABER SE TEM CHOQUES
-		//this.choque = service.choquesEmEscalaOnipresenca(escala);
-		//comando para armazenar choque na sessão
-        HttpSession session = httpSessionFactory.getObject();
-        session.setAttribute("choque", service.choquesEmEscalaOnipresenca(escala)  );
-		//this.choqueDescansoDepoisNoturno = service.choquesEmEscalaDepoisDoNoturno(escala);
-        //comando para armazenar choque na sessão
-        session.setAttribute("choqueDescansoDepoisNoturno", service.choquesEmEscalaDepoisDoNoturno(escala)  );
-		if(choqueDescansoDepoisNoturno().length()>0) {attr.addFlashAttribute("fail", choqueDescansoDepoisNoturno()); return atalhoLimparEscalaChoque(attr, choqueDescansoDepoisNoturno()); }
-		if(choque().length()>0) {attr.addFlashAttribute("fail", choque()); return atalhoLimparEscalaChoque(attr, choque());  }
-		if((choqueDescansoDepoisNoturno().length()==0) && (choque().length()==0)) {
-			salvar(escala, null, null);
-			session = httpSessionFactory.getObject(); session.setAttribute("ultimoIdEscala", escala.getId()  );
-			attr.addFlashAttribute("success", "Confirme CH Dif, Incremento de Risco, Diferenciado, Regime e Turma antes de Lançar.");
-		}
-		return "redirect:/escalas/alterar/escala/"+escala.getId();
+		// CALCULANDO OS DIAS DO MES
+		String nomeColuna1 = escalaCalculosService.obtemNomeDiaColuna(anoMesDaEscala, 1);
+		String nomeColuna2 = escalaCalculosService.obtemNomeDiaColuna(anoMesDaEscala, 2);
+		String nomeColuna3 = escalaCalculosService.obtemNomeDiaColuna(anoMesDaEscala, 3);
+		String nomeColuna4 = escalaCalculosService.obtemNomeDiaColuna(anoMesDaEscala, 4);
+		String nomeColuna5 = escalaCalculosService.obtemNomeDiaColuna(anoMesDaEscala, 5);
+		String nomeColuna6 = escalaCalculosService.obtemNomeDiaColuna(anoMesDaEscala, 6);
+		String nomeColuna7 = escalaCalculosService.obtemNomeDiaColuna(anoMesDaEscala, 7);
+		// falta complemento de planantao compativel
+		
+		model.addAttribute("idCodigoDiferenciadoFkCompativel", escalaCompatibilidadeService.getCodigosDiferenciadoCompativel( escala) );
+		model.addAttribute("idChDifFkCompativel", pessoaChDifService.listaSimNaoCompativelComPessoa(usuarioService.pegarUnidadeLogada(), escala.getIdFuncionarioFk().getIdPessoaFk(), escala.getIdAnoMesFk()) );
+		model.addAttribute("idIncrementoDeRiscoCompativel", escalaCompatibilidadeService.getIncrementoDeRiscoCompativel(escala) );
+		model.addAttribute("idComplementoDePlantaoCompativel", escalaCompatibilidadeService.getComplementoDePlantaoCompativel(escala) );
+		
+	
+		model.addAttribute("escala", escala );
+		model.addAttribute("idLinha", escala.getId() );
+		model.addAttribute("qtdDiasNoMes", qtdDiasNoMes );
+		model.addAttribute("nomeColuna1", nomeColuna1 );
+		model.addAttribute("nomeColuna2", nomeColuna2 );
+		model.addAttribute("nomeColuna3", nomeColuna3 );
+		model.addAttribute("nomeColuna4", nomeColuna4 );
+		model.addAttribute("nomeColuna5", nomeColuna5 );
+		model.addAttribute("nomeColuna6", nomeColuna6 );
+		model.addAttribute("nomeColuna7", nomeColuna7 );
+		
+		
+		// Pegando os turnos compatíveis
+		List<Turnos> listaTurnos = regimeDeTrabalhoTurnoService.buscarPorRegimesEUnidadeEFolha(escala);
+		
+		model.addAttribute("dia01FkCompativel",  listaTurnos);
+		model.addAttribute("dia02FkCompativel",  listaTurnos);
+		model.addAttribute("dia03FkCompativel",  listaTurnos);
+		model.addAttribute("dia04FkCompativel",  listaTurnos);
+		model.addAttribute("dia05FkCompativel",  listaTurnos);
+		model.addAttribute("dia06FkCompativel",  listaTurnos);
+		model.addAttribute("dia07FkCompativel",  listaTurnos);
+		model.addAttribute("dia08FkCompativel",  listaTurnos);
+		model.addAttribute("dia09FkCompativel",  listaTurnos);
+		model.addAttribute("dia10FkCompativel",  listaTurnos);
+		model.addAttribute("dia11FkCompativel",  listaTurnos);
+		model.addAttribute("dia12FkCompativel",  listaTurnos);
+		model.addAttribute("dia13FkCompativel",  listaTurnos);
+		model.addAttribute("dia14FkCompativel",  listaTurnos);
+		model.addAttribute("dia15FkCompativel",  listaTurnos);
+		model.addAttribute("dia16FkCompativel",  listaTurnos);
+		model.addAttribute("dia17FkCompativel",  listaTurnos);
+		model.addAttribute("dia18FkCompativel",  listaTurnos);
+		model.addAttribute("dia19FkCompativel",  listaTurnos);
+		model.addAttribute("dia20FkCompativel",  listaTurnos);
+		model.addAttribute("dia21FkCompativel",  listaTurnos);
+		model.addAttribute("dia22FkCompativel",  listaTurnos);
+		model.addAttribute("dia23FkCompativel",  listaTurnos);
+		model.addAttribute("dia24FkCompativel",  listaTurnos);
+		model.addAttribute("dia25FkCompativel",  listaTurnos);
+		model.addAttribute("dia26FkCompativel",  listaTurnos);
+		model.addAttribute("dia27FkCompativel",  listaTurnos);
+		model.addAttribute("dia28FkCompativel",  listaTurnos);
+		model.addAttribute("dia29FkCompativel",  listaTurnos);
+		model.addAttribute("dia30FkCompativel",  listaTurnos);
+		model.addAttribute("dia31FkCompativel",  listaTurnos);
+		
+		
+		//this.escalaAtual = escala;
+		
+		//comando para armazenar a escala na sessão
+		HttpSession session = httpSessionFactory.getObject();
+        session.setAttribute("escalaAtual", escala  );
+		
+		
+		return "/escala/editar";
 	}
 	
-	@GetMapping("/atalho/ciclo11_f")
-	public String atalhoCiclo11F( RedirectAttributes attr) {	
+	@GetMapping("/atalho/ciclo11/f")
+	public String atalhoCiclo11F( RedirectAttributes attr, ModelMap model) {	
 		
+		//Tratando escala Bloqueada
 		if(anoMesService.buscarPorId(mesAtual()).getIdEscalaBloqueadaFk().getSigla().equalsIgnoreCase("S")) {
 		return "redirect:/escalas/mensagem/de/escala/bloqueada";
 		}		
@@ -4113,33 +7895,88 @@ public class EscalaController {
 		escala = escalaCalculosService.converteTurnoNuloEmFolga(escala);
 		escala = escalaCalculosService.calcularDadosEscala(escala);
 		
-		//Avaliando Efetivo dando Extra sem cumprir a CH Efetiva
-		boolean extraSemCumprirEfetivo = escalaCompatibilidadeService.horasExtrasSemEfetivas(escala);
-		if(extraSemCumprirEfetivo==true) {
-			return "redirect:/escalas/mensagem/de/efetivo/com/extra/sem/ch/efetiva/informada";
-		}
+		String anoMesDaEscala = "202105";
+		if(escala!=null){anoMesDaEscala = escala.getIdAnoMesFk().getNomeAnoMes();}
+		int qtdDiasNoMes = escalaCalculosService.quantidadeDeDiasNoMes(anoMesDaEscala);
 		
-		//AVALIAÇÃO PARA SABER SE TEM CHOQUES
-		//this.choque = service.choquesEmEscalaOnipresenca(escala);
-		//comando para armazenar choque na sessão
-        HttpSession session = httpSessionFactory.getObject();
-        session.setAttribute("choque", service.choquesEmEscalaOnipresenca(escala)  );
-		//this.choqueDescansoDepoisNoturno = service.choquesEmEscalaDepoisDoNoturno(escala);
-        //comando para armazenar choque na sessão
-        session.setAttribute("choqueDescansoDepoisNoturno", service.choquesEmEscalaDepoisDoNoturno(escala)  );
-		if(choqueDescansoDepoisNoturno().length()>0) {attr.addFlashAttribute("fail", choqueDescansoDepoisNoturno()); return atalhoLimparEscalaChoque(attr, choqueDescansoDepoisNoturno()); }
-		if(choque().length()>0) {attr.addFlashAttribute("fail", choque()); return atalhoLimparEscalaChoque(attr, choque());  }
-		if((choqueDescansoDepoisNoturno().length()==0) && (choque().length()==0)) {
-			salvar(escala, null, null);
-			session = httpSessionFactory.getObject(); session.setAttribute("ultimoIdEscala", escala.getId()  );
-			attr.addFlashAttribute("success", "Confirme CH Dif, Incremento de Risco, Diferenciado, Regime e Turma antes de Lançar.");
-		}
-		return "redirect:/escalas/alterar/escala/"+escala.getId();
+		// CALCULANDO OS DIAS DO MES
+		String nomeColuna1 = escalaCalculosService.obtemNomeDiaColuna(anoMesDaEscala, 1);
+		String nomeColuna2 = escalaCalculosService.obtemNomeDiaColuna(anoMesDaEscala, 2);
+		String nomeColuna3 = escalaCalculosService.obtemNomeDiaColuna(anoMesDaEscala, 3);
+		String nomeColuna4 = escalaCalculosService.obtemNomeDiaColuna(anoMesDaEscala, 4);
+		String nomeColuna5 = escalaCalculosService.obtemNomeDiaColuna(anoMesDaEscala, 5);
+		String nomeColuna6 = escalaCalculosService.obtemNomeDiaColuna(anoMesDaEscala, 6);
+		String nomeColuna7 = escalaCalculosService.obtemNomeDiaColuna(anoMesDaEscala, 7);
+		// falta complemento de planantao compativel
+		
+		model.addAttribute("idCodigoDiferenciadoFkCompativel", escalaCompatibilidadeService.getCodigosDiferenciadoCompativel( escala) );
+		model.addAttribute("idChDifFkCompativel", pessoaChDifService.listaSimNaoCompativelComPessoa(usuarioService.pegarUnidadeLogada(), escala.getIdFuncionarioFk().getIdPessoaFk(), escala.getIdAnoMesFk()) );
+		model.addAttribute("idIncrementoDeRiscoCompativel", escalaCompatibilidadeService.getIncrementoDeRiscoCompativel(escala) );
+		model.addAttribute("idComplementoDePlantaoCompativel", escalaCompatibilidadeService.getComplementoDePlantaoCompativel(escala) );
+		
+	
+		model.addAttribute("escala", escala );
+		model.addAttribute("idLinha", escala.getId() );
+		model.addAttribute("qtdDiasNoMes", qtdDiasNoMes );
+		model.addAttribute("nomeColuna1", nomeColuna1 );
+		model.addAttribute("nomeColuna2", nomeColuna2 );
+		model.addAttribute("nomeColuna3", nomeColuna3 );
+		model.addAttribute("nomeColuna4", nomeColuna4 );
+		model.addAttribute("nomeColuna5", nomeColuna5 );
+		model.addAttribute("nomeColuna6", nomeColuna6 );
+		model.addAttribute("nomeColuna7", nomeColuna7 );
+		
+		
+		// Pegando os turnos compatíveis
+		List<Turnos> listaTurnos = regimeDeTrabalhoTurnoService.buscarPorRegimesEUnidadeEFolha(escala);
+		
+		model.addAttribute("dia01FkCompativel",  listaTurnos);
+		model.addAttribute("dia02FkCompativel",  listaTurnos);
+		model.addAttribute("dia03FkCompativel",  listaTurnos);
+		model.addAttribute("dia04FkCompativel",  listaTurnos);
+		model.addAttribute("dia05FkCompativel",  listaTurnos);
+		model.addAttribute("dia06FkCompativel",  listaTurnos);
+		model.addAttribute("dia07FkCompativel",  listaTurnos);
+		model.addAttribute("dia08FkCompativel",  listaTurnos);
+		model.addAttribute("dia09FkCompativel",  listaTurnos);
+		model.addAttribute("dia10FkCompativel",  listaTurnos);
+		model.addAttribute("dia11FkCompativel",  listaTurnos);
+		model.addAttribute("dia12FkCompativel",  listaTurnos);
+		model.addAttribute("dia13FkCompativel",  listaTurnos);
+		model.addAttribute("dia14FkCompativel",  listaTurnos);
+		model.addAttribute("dia15FkCompativel",  listaTurnos);
+		model.addAttribute("dia16FkCompativel",  listaTurnos);
+		model.addAttribute("dia17FkCompativel",  listaTurnos);
+		model.addAttribute("dia18FkCompativel",  listaTurnos);
+		model.addAttribute("dia19FkCompativel",  listaTurnos);
+		model.addAttribute("dia20FkCompativel",  listaTurnos);
+		model.addAttribute("dia21FkCompativel",  listaTurnos);
+		model.addAttribute("dia22FkCompativel",  listaTurnos);
+		model.addAttribute("dia23FkCompativel",  listaTurnos);
+		model.addAttribute("dia24FkCompativel",  listaTurnos);
+		model.addAttribute("dia25FkCompativel",  listaTurnos);
+		model.addAttribute("dia26FkCompativel",  listaTurnos);
+		model.addAttribute("dia27FkCompativel",  listaTurnos);
+		model.addAttribute("dia28FkCompativel",  listaTurnos);
+		model.addAttribute("dia29FkCompativel",  listaTurnos);
+		model.addAttribute("dia30FkCompativel",  listaTurnos);
+		model.addAttribute("dia31FkCompativel",  listaTurnos);
+		
+		
+		//this.escalaAtual = escala;
+		
+		//comando para armazenar a escala na sessão
+		HttpSession session = httpSessionFactory.getObject();
+        session.setAttribute("escalaAtual", escala  );
+		
+		
+		return "/escala/editar";
 	}
 	
-	@GetMapping("/atalho/ciclo11_g")
-	public String atalhoCiclo11G( RedirectAttributes attr) {	
+	@GetMapping("/atalho/ciclo11/g")
+	public String atalhoCiclo11G( RedirectAttributes attr, ModelMap model) {	
 		
+		//Tratando escala Bloqueada
 		if(anoMesService.buscarPorId(mesAtual()).getIdEscalaBloqueadaFk().getSigla().equalsIgnoreCase("S")) {
 		return "redirect:/escalas/mensagem/de/escala/bloqueada";
 		}		
@@ -4152,35 +7989,90 @@ public class EscalaController {
 		escala = escalaCalculosService.converteTurnoNuloEmFolga(escala);
 		escala = escalaCalculosService.calcularDadosEscala(escala);
 		
-		//Avaliando Efetivo dando Extra sem cumprir a CH Efetiva
-		boolean extraSemCumprirEfetivo = escalaCompatibilidadeService.horasExtrasSemEfetivas(escala);
-		if(extraSemCumprirEfetivo==true) {
-			return "redirect:/escalas/mensagem/de/efetivo/com/extra/sem/ch/efetiva/informada";
-		}
+		String anoMesDaEscala = "202105";
+		if(escala!=null){anoMesDaEscala = escala.getIdAnoMesFk().getNomeAnoMes();}
+		int qtdDiasNoMes = escalaCalculosService.quantidadeDeDiasNoMes(anoMesDaEscala);
 		
-		//AVALIAÇÃO PARA SABER SE TEM CHOQUES
-		//this.choque = service.choquesEmEscalaOnipresenca(escala);
-		//comando para armazenar choque na sessão
-        HttpSession session = httpSessionFactory.getObject();
-        session.setAttribute("choque", service.choquesEmEscalaOnipresenca(escala)  );
-		//this.choqueDescansoDepoisNoturno = service.choquesEmEscalaDepoisDoNoturno(escala);
-        //comando para armazenar choque na sessão
-        session.setAttribute("choqueDescansoDepoisNoturno", service.choquesEmEscalaDepoisDoNoturno(escala)  );
-		if(choqueDescansoDepoisNoturno().length()>0) {attr.addFlashAttribute("fail", choqueDescansoDepoisNoturno()); return atalhoLimparEscalaChoque(attr, choqueDescansoDepoisNoturno()); }
-		if(choque().length()>0) {attr.addFlashAttribute("fail", choque()); return atalhoLimparEscalaChoque(attr, choque());  }
-		if((choqueDescansoDepoisNoturno().length()==0) && (choque().length()==0)) {
-			salvar(escala, null, null);
-			session = httpSessionFactory.getObject(); session.setAttribute("ultimoIdEscala", escala.getId()  );
-			attr.addFlashAttribute("success", "Confirme CH Dif, Incremento de Risco, Diferenciado, Regime e Turma antes de Lançar.");
-		}
-		return "redirect:/escalas/alterar/escala/"+escala.getId();
+		// CALCULANDO OS DIAS DO MES
+		String nomeColuna1 = escalaCalculosService.obtemNomeDiaColuna(anoMesDaEscala, 1);
+		String nomeColuna2 = escalaCalculosService.obtemNomeDiaColuna(anoMesDaEscala, 2);
+		String nomeColuna3 = escalaCalculosService.obtemNomeDiaColuna(anoMesDaEscala, 3);
+		String nomeColuna4 = escalaCalculosService.obtemNomeDiaColuna(anoMesDaEscala, 4);
+		String nomeColuna5 = escalaCalculosService.obtemNomeDiaColuna(anoMesDaEscala, 5);
+		String nomeColuna6 = escalaCalculosService.obtemNomeDiaColuna(anoMesDaEscala, 6);
+		String nomeColuna7 = escalaCalculosService.obtemNomeDiaColuna(anoMesDaEscala, 7);
+		// falta complemento de planantao compativel
+		
+		model.addAttribute("idCodigoDiferenciadoFkCompativel", escalaCompatibilidadeService.getCodigosDiferenciadoCompativel( escala) );
+		model.addAttribute("idChDifFkCompativel", pessoaChDifService.listaSimNaoCompativelComPessoa(usuarioService.pegarUnidadeLogada(), escala.getIdFuncionarioFk().getIdPessoaFk(), escala.getIdAnoMesFk()) );
+		model.addAttribute("idIncrementoDeRiscoCompativel", escalaCompatibilidadeService.getIncrementoDeRiscoCompativel(escala) );
+		model.addAttribute("idComplementoDePlantaoCompativel", escalaCompatibilidadeService.getComplementoDePlantaoCompativel(escala) );
+		
+	
+		model.addAttribute("escala", escala );
+		model.addAttribute("idLinha", escala.getId() );
+		model.addAttribute("qtdDiasNoMes", qtdDiasNoMes );
+		model.addAttribute("nomeColuna1", nomeColuna1 );
+		model.addAttribute("nomeColuna2", nomeColuna2 );
+		model.addAttribute("nomeColuna3", nomeColuna3 );
+		model.addAttribute("nomeColuna4", nomeColuna4 );
+		model.addAttribute("nomeColuna5", nomeColuna5 );
+		model.addAttribute("nomeColuna6", nomeColuna6 );
+		model.addAttribute("nomeColuna7", nomeColuna7 );
+		
+		
+		// Pegando os turnos compatíveis
+		List<Turnos> listaTurnos = regimeDeTrabalhoTurnoService.buscarPorRegimesEUnidadeEFolha(escala);
+		
+		model.addAttribute("dia01FkCompativel",  listaTurnos);
+		model.addAttribute("dia02FkCompativel",  listaTurnos);
+		model.addAttribute("dia03FkCompativel",  listaTurnos);
+		model.addAttribute("dia04FkCompativel",  listaTurnos);
+		model.addAttribute("dia05FkCompativel",  listaTurnos);
+		model.addAttribute("dia06FkCompativel",  listaTurnos);
+		model.addAttribute("dia07FkCompativel",  listaTurnos);
+		model.addAttribute("dia08FkCompativel",  listaTurnos);
+		model.addAttribute("dia09FkCompativel",  listaTurnos);
+		model.addAttribute("dia10FkCompativel",  listaTurnos);
+		model.addAttribute("dia11FkCompativel",  listaTurnos);
+		model.addAttribute("dia12FkCompativel",  listaTurnos);
+		model.addAttribute("dia13FkCompativel",  listaTurnos);
+		model.addAttribute("dia14FkCompativel",  listaTurnos);
+		model.addAttribute("dia15FkCompativel",  listaTurnos);
+		model.addAttribute("dia16FkCompativel",  listaTurnos);
+		model.addAttribute("dia17FkCompativel",  listaTurnos);
+		model.addAttribute("dia18FkCompativel",  listaTurnos);
+		model.addAttribute("dia19FkCompativel",  listaTurnos);
+		model.addAttribute("dia20FkCompativel",  listaTurnos);
+		model.addAttribute("dia21FkCompativel",  listaTurnos);
+		model.addAttribute("dia22FkCompativel",  listaTurnos);
+		model.addAttribute("dia23FkCompativel",  listaTurnos);
+		model.addAttribute("dia24FkCompativel",  listaTurnos);
+		model.addAttribute("dia25FkCompativel",  listaTurnos);
+		model.addAttribute("dia26FkCompativel",  listaTurnos);
+		model.addAttribute("dia27FkCompativel",  listaTurnos);
+		model.addAttribute("dia28FkCompativel",  listaTurnos);
+		model.addAttribute("dia29FkCompativel",  listaTurnos);
+		model.addAttribute("dia30FkCompativel",  listaTurnos);
+		model.addAttribute("dia31FkCompativel",  listaTurnos);
+		
+		
+		//this.escalaAtual = escala;
+		
+		//comando para armazenar a escala na sessão
+		HttpSession session = httpSessionFactory.getObject();
+        session.setAttribute("escalaAtual", escala  );
+		
+		
+		return "/escala/editar";
 	}
 	
 
 	
 	//Ciclo12
-	@GetMapping("/atalho/ciclo12_a")
-	public String atalhoCiclo12A( RedirectAttributes attr) {	
+	@GetMapping("/atalho/ciclo12/a")
+	public String atalhoCiclo12A( RedirectAttributes attr, ModelMap model) {	
+		
 		//Tratando escala Bloqueada
 		if(anoMesService.buscarPorId(mesAtual()).getIdEscalaBloqueadaFk().getSigla().equalsIgnoreCase("S")) {
 		return "redirect:/escalas/mensagem/de/escala/bloqueada";
@@ -4194,32 +8086,87 @@ public class EscalaController {
 		escala = escalaCalculosService.converteTurnoNuloEmFolga(escala);
 		escala = escalaCalculosService.calcularDadosEscala(escala);
 		
-		//Avaliando Efetivo dando Extra sem cumprir a CH Efetiva
-		boolean extraSemCumprirEfetivo = escalaCompatibilidadeService.horasExtrasSemEfetivas(escala);
-		if(extraSemCumprirEfetivo==true) {
-			return "redirect:/escalas/mensagem/de/efetivo/com/extra/sem/ch/efetiva/informada";
-		}
+		String anoMesDaEscala = "202105";
+		if(escala!=null){anoMesDaEscala = escala.getIdAnoMesFk().getNomeAnoMes();}
+		int qtdDiasNoMes = escalaCalculosService.quantidadeDeDiasNoMes(anoMesDaEscala);
 		
-		//AVALIAÇÃO PARA SABER SE TEM CHOQUES
-		//this.choque = service.choquesEmEscalaOnipresenca(escala);
-		//comando para armazenar choque na sessão
-        HttpSession session = httpSessionFactory.getObject();
-        session.setAttribute("choque", service.choquesEmEscalaOnipresenca(escala)  );
-		//this.choqueDescansoDepoisNoturno = service.choquesEmEscalaDepoisDoNoturno(escala);
-        //comando para armazenar choque na sessão
-        session.setAttribute("choqueDescansoDepoisNoturno", service.choquesEmEscalaDepoisDoNoturno(escala)  );
-		if(choqueDescansoDepoisNoturno().length()>0) {attr.addFlashAttribute("fail", choqueDescansoDepoisNoturno()); return atalhoLimparEscalaChoque(attr, choqueDescansoDepoisNoturno()); }
-		if(choque().length()>0) {attr.addFlashAttribute("fail", choque()); return atalhoLimparEscalaChoque(attr, choque());  }
-		if((choqueDescansoDepoisNoturno().length()==0) && (choque().length()==0)) {
-			salvar(escala, null, null);
-			session = httpSessionFactory.getObject(); session.setAttribute("ultimoIdEscala", escala.getId()  );
-			attr.addFlashAttribute("success", "Confirme CH Dif, Incremento de Risco, Diferenciado, Regime e Turma antes de Lançar.");
-		}
-		return "redirect:/escalas/alterar/escala/"+escala.getId();
+		// CALCULANDO OS DIAS DO MES
+		String nomeColuna1 = escalaCalculosService.obtemNomeDiaColuna(anoMesDaEscala, 1);
+		String nomeColuna2 = escalaCalculosService.obtemNomeDiaColuna(anoMesDaEscala, 2);
+		String nomeColuna3 = escalaCalculosService.obtemNomeDiaColuna(anoMesDaEscala, 3);
+		String nomeColuna4 = escalaCalculosService.obtemNomeDiaColuna(anoMesDaEscala, 4);
+		String nomeColuna5 = escalaCalculosService.obtemNomeDiaColuna(anoMesDaEscala, 5);
+		String nomeColuna6 = escalaCalculosService.obtemNomeDiaColuna(anoMesDaEscala, 6);
+		String nomeColuna7 = escalaCalculosService.obtemNomeDiaColuna(anoMesDaEscala, 7);
+		// falta complemento de planantao compativel
+		
+		model.addAttribute("idCodigoDiferenciadoFkCompativel", escalaCompatibilidadeService.getCodigosDiferenciadoCompativel( escala) );
+		model.addAttribute("idChDifFkCompativel", pessoaChDifService.listaSimNaoCompativelComPessoa(usuarioService.pegarUnidadeLogada(), escala.getIdFuncionarioFk().getIdPessoaFk(), escala.getIdAnoMesFk()) );
+		model.addAttribute("idIncrementoDeRiscoCompativel", escalaCompatibilidadeService.getIncrementoDeRiscoCompativel(escala) );
+		model.addAttribute("idComplementoDePlantaoCompativel", escalaCompatibilidadeService.getComplementoDePlantaoCompativel(escala) );
+		
+	
+		model.addAttribute("escala", escala );
+		model.addAttribute("idLinha", escala.getId() );
+		model.addAttribute("qtdDiasNoMes", qtdDiasNoMes );
+		model.addAttribute("nomeColuna1", nomeColuna1 );
+		model.addAttribute("nomeColuna2", nomeColuna2 );
+		model.addAttribute("nomeColuna3", nomeColuna3 );
+		model.addAttribute("nomeColuna4", nomeColuna4 );
+		model.addAttribute("nomeColuna5", nomeColuna5 );
+		model.addAttribute("nomeColuna6", nomeColuna6 );
+		model.addAttribute("nomeColuna7", nomeColuna7 );
+		
+		
+		// Pegando os turnos compatíveis
+		List<Turnos> listaTurnos = regimeDeTrabalhoTurnoService.buscarPorRegimesEUnidadeEFolha(escala);
+		
+		model.addAttribute("dia01FkCompativel",  listaTurnos);
+		model.addAttribute("dia02FkCompativel",  listaTurnos);
+		model.addAttribute("dia03FkCompativel",  listaTurnos);
+		model.addAttribute("dia04FkCompativel",  listaTurnos);
+		model.addAttribute("dia05FkCompativel",  listaTurnos);
+		model.addAttribute("dia06FkCompativel",  listaTurnos);
+		model.addAttribute("dia07FkCompativel",  listaTurnos);
+		model.addAttribute("dia08FkCompativel",  listaTurnos);
+		model.addAttribute("dia09FkCompativel",  listaTurnos);
+		model.addAttribute("dia10FkCompativel",  listaTurnos);
+		model.addAttribute("dia11FkCompativel",  listaTurnos);
+		model.addAttribute("dia12FkCompativel",  listaTurnos);
+		model.addAttribute("dia13FkCompativel",  listaTurnos);
+		model.addAttribute("dia14FkCompativel",  listaTurnos);
+		model.addAttribute("dia15FkCompativel",  listaTurnos);
+		model.addAttribute("dia16FkCompativel",  listaTurnos);
+		model.addAttribute("dia17FkCompativel",  listaTurnos);
+		model.addAttribute("dia18FkCompativel",  listaTurnos);
+		model.addAttribute("dia19FkCompativel",  listaTurnos);
+		model.addAttribute("dia20FkCompativel",  listaTurnos);
+		model.addAttribute("dia21FkCompativel",  listaTurnos);
+		model.addAttribute("dia22FkCompativel",  listaTurnos);
+		model.addAttribute("dia23FkCompativel",  listaTurnos);
+		model.addAttribute("dia24FkCompativel",  listaTurnos);
+		model.addAttribute("dia25FkCompativel",  listaTurnos);
+		model.addAttribute("dia26FkCompativel",  listaTurnos);
+		model.addAttribute("dia27FkCompativel",  listaTurnos);
+		model.addAttribute("dia28FkCompativel",  listaTurnos);
+		model.addAttribute("dia29FkCompativel",  listaTurnos);
+		model.addAttribute("dia30FkCompativel",  listaTurnos);
+		model.addAttribute("dia31FkCompativel",  listaTurnos);
+		
+		
+		//this.escalaAtual = escala;
+		
+		//comando para armazenar a escala na sessão
+		HttpSession session = httpSessionFactory.getObject();
+        session.setAttribute("escalaAtual", escala  );
+		
+		
+		return "/escala/editar";
 	}
 	
-	@GetMapping("/atalho/ciclo12_b")
-	public String atalhoCiclo12B( RedirectAttributes attr) {	
+	@GetMapping("/atalho/ciclo12/b")
+	public String atalhoCiclo12B( RedirectAttributes attr, ModelMap model) {	
+		
 		//Tratando escala Bloqueada
 		if(anoMesService.buscarPorId(mesAtual()).getIdEscalaBloqueadaFk().getSigla().equalsIgnoreCase("S")) {
 		return "redirect:/escalas/mensagem/de/escala/bloqueada";
@@ -4233,32 +8180,87 @@ public class EscalaController {
 		escala = escalaCalculosService.converteTurnoNuloEmFolga(escala);
 		escala = escalaCalculosService.calcularDadosEscala(escala);
 		
-		//Avaliando Efetivo dando Extra sem cumprir a CH Efetiva
-		boolean extraSemCumprirEfetivo = escalaCompatibilidadeService.horasExtrasSemEfetivas(escala);
-		if(extraSemCumprirEfetivo==true) {
-			return "redirect:/escalas/mensagem/de/efetivo/com/extra/sem/ch/efetiva/informada";
-		}
+		String anoMesDaEscala = "202105";
+		if(escala!=null){anoMesDaEscala = escala.getIdAnoMesFk().getNomeAnoMes();}
+		int qtdDiasNoMes = escalaCalculosService.quantidadeDeDiasNoMes(anoMesDaEscala);
 		
-		//AVALIAÇÃO PARA SABER SE TEM CHOQUES
-		//this.choque = service.choquesEmEscalaOnipresenca(escala);
-		//comando para armazenar choque na sessão
-        HttpSession session = httpSessionFactory.getObject();
-        session.setAttribute("choque", service.choquesEmEscalaOnipresenca(escala)  );
-		//this.choqueDescansoDepoisNoturno = service.choquesEmEscalaDepoisDoNoturno(escala);
-        //comando para armazenar choque na sessão
-        session.setAttribute("choqueDescansoDepoisNoturno", service.choquesEmEscalaDepoisDoNoturno(escala)  );
-		if(choqueDescansoDepoisNoturno().length()>0) {attr.addFlashAttribute("fail", choqueDescansoDepoisNoturno()); return atalhoLimparEscalaChoque(attr, choqueDescansoDepoisNoturno()); }
-		if(choque().length()>0) {attr.addFlashAttribute("fail", choque()); return atalhoLimparEscalaChoque(attr, choque());  }
-		if((choqueDescansoDepoisNoturno().length()==0) && (choque().length()==0)) {
-			salvar(escala, null, null);
-			session = httpSessionFactory.getObject(); session.setAttribute("ultimoIdEscala", escala.getId()  );
-			attr.addFlashAttribute("success", "Confirme CH Dif, Incremento de Risco, Diferenciado, Regime e Turma antes de Lançar.");
-		}
-		return "redirect:/escalas/alterar/escala/"+escala.getId();
+		// CALCULANDO OS DIAS DO MES
+		String nomeColuna1 = escalaCalculosService.obtemNomeDiaColuna(anoMesDaEscala, 1);
+		String nomeColuna2 = escalaCalculosService.obtemNomeDiaColuna(anoMesDaEscala, 2);
+		String nomeColuna3 = escalaCalculosService.obtemNomeDiaColuna(anoMesDaEscala, 3);
+		String nomeColuna4 = escalaCalculosService.obtemNomeDiaColuna(anoMesDaEscala, 4);
+		String nomeColuna5 = escalaCalculosService.obtemNomeDiaColuna(anoMesDaEscala, 5);
+		String nomeColuna6 = escalaCalculosService.obtemNomeDiaColuna(anoMesDaEscala, 6);
+		String nomeColuna7 = escalaCalculosService.obtemNomeDiaColuna(anoMesDaEscala, 7);
+		// falta complemento de planantao compativel
+		
+		model.addAttribute("idCodigoDiferenciadoFkCompativel", escalaCompatibilidadeService.getCodigosDiferenciadoCompativel( escala) );
+		model.addAttribute("idChDifFkCompativel", pessoaChDifService.listaSimNaoCompativelComPessoa(usuarioService.pegarUnidadeLogada(), escala.getIdFuncionarioFk().getIdPessoaFk(), escala.getIdAnoMesFk()) );
+		model.addAttribute("idIncrementoDeRiscoCompativel", escalaCompatibilidadeService.getIncrementoDeRiscoCompativel(escala) );
+		model.addAttribute("idComplementoDePlantaoCompativel", escalaCompatibilidadeService.getComplementoDePlantaoCompativel(escala) );
+		
+	
+		model.addAttribute("escala", escala );
+		model.addAttribute("idLinha", escala.getId() );
+		model.addAttribute("qtdDiasNoMes", qtdDiasNoMes );
+		model.addAttribute("nomeColuna1", nomeColuna1 );
+		model.addAttribute("nomeColuna2", nomeColuna2 );
+		model.addAttribute("nomeColuna3", nomeColuna3 );
+		model.addAttribute("nomeColuna4", nomeColuna4 );
+		model.addAttribute("nomeColuna5", nomeColuna5 );
+		model.addAttribute("nomeColuna6", nomeColuna6 );
+		model.addAttribute("nomeColuna7", nomeColuna7 );
+		
+		
+		// Pegando os turnos compatíveis
+		List<Turnos> listaTurnos = regimeDeTrabalhoTurnoService.buscarPorRegimesEUnidadeEFolha(escala);
+		
+		model.addAttribute("dia01FkCompativel",  listaTurnos);
+		model.addAttribute("dia02FkCompativel",  listaTurnos);
+		model.addAttribute("dia03FkCompativel",  listaTurnos);
+		model.addAttribute("dia04FkCompativel",  listaTurnos);
+		model.addAttribute("dia05FkCompativel",  listaTurnos);
+		model.addAttribute("dia06FkCompativel",  listaTurnos);
+		model.addAttribute("dia07FkCompativel",  listaTurnos);
+		model.addAttribute("dia08FkCompativel",  listaTurnos);
+		model.addAttribute("dia09FkCompativel",  listaTurnos);
+		model.addAttribute("dia10FkCompativel",  listaTurnos);
+		model.addAttribute("dia11FkCompativel",  listaTurnos);
+		model.addAttribute("dia12FkCompativel",  listaTurnos);
+		model.addAttribute("dia13FkCompativel",  listaTurnos);
+		model.addAttribute("dia14FkCompativel",  listaTurnos);
+		model.addAttribute("dia15FkCompativel",  listaTurnos);
+		model.addAttribute("dia16FkCompativel",  listaTurnos);
+		model.addAttribute("dia17FkCompativel",  listaTurnos);
+		model.addAttribute("dia18FkCompativel",  listaTurnos);
+		model.addAttribute("dia19FkCompativel",  listaTurnos);
+		model.addAttribute("dia20FkCompativel",  listaTurnos);
+		model.addAttribute("dia21FkCompativel",  listaTurnos);
+		model.addAttribute("dia22FkCompativel",  listaTurnos);
+		model.addAttribute("dia23FkCompativel",  listaTurnos);
+		model.addAttribute("dia24FkCompativel",  listaTurnos);
+		model.addAttribute("dia25FkCompativel",  listaTurnos);
+		model.addAttribute("dia26FkCompativel",  listaTurnos);
+		model.addAttribute("dia27FkCompativel",  listaTurnos);
+		model.addAttribute("dia28FkCompativel",  listaTurnos);
+		model.addAttribute("dia29FkCompativel",  listaTurnos);
+		model.addAttribute("dia30FkCompativel",  listaTurnos);
+		model.addAttribute("dia31FkCompativel",  listaTurnos);
+		
+		
+		//this.escalaAtual = escala;
+		
+		//comando para armazenar a escala na sessão
+		HttpSession session = httpSessionFactory.getObject();
+        session.setAttribute("escalaAtual", escala  );
+		
+		
+		return "/escala/editar";
 	}
 	
-	@GetMapping("/atalho/ciclo12_c")
-	public String atalhoCiclo12C( RedirectAttributes attr) {	
+	@GetMapping("/atalho/ciclo12/c")
+	public String atalhoCiclo12C( RedirectAttributes attr, ModelMap model) {	
+		
 		//Tratando escala Bloqueada
 		if(anoMesService.buscarPorId(mesAtual()).getIdEscalaBloqueadaFk().getSigla().equalsIgnoreCase("S")) {
 		return "redirect:/escalas/mensagem/de/escala/bloqueada";
@@ -4272,32 +8274,87 @@ public class EscalaController {
 		escala = escalaCalculosService.converteTurnoNuloEmFolga(escala);
 		escala = escalaCalculosService.calcularDadosEscala(escala);
 		
-		//Avaliando Efetivo dando Extra sem cumprir a CH Efetiva
-		boolean extraSemCumprirEfetivo = escalaCompatibilidadeService.horasExtrasSemEfetivas(escala);
-		if(extraSemCumprirEfetivo==true) {
-			return "redirect:/escalas/mensagem/de/efetivo/com/extra/sem/ch/efetiva/informada";
-		}
+		String anoMesDaEscala = "202105";
+		if(escala!=null){anoMesDaEscala = escala.getIdAnoMesFk().getNomeAnoMes();}
+		int qtdDiasNoMes = escalaCalculosService.quantidadeDeDiasNoMes(anoMesDaEscala);
 		
-		//AVALIAÇÃO PARA SABER SE TEM CHOQUES
-		//this.choque = service.choquesEmEscalaOnipresenca(escala);
-		//comando para armazenar choque na sessão
-        HttpSession session = httpSessionFactory.getObject();
-        session.setAttribute("choque", service.choquesEmEscalaOnipresenca(escala)  );
-		//this.choqueDescansoDepoisNoturno = service.choquesEmEscalaDepoisDoNoturno(escala);
-        //comando para armazenar choque na sessão
-        session.setAttribute("choqueDescansoDepoisNoturno", service.choquesEmEscalaDepoisDoNoturno(escala)  );
-		if(choqueDescansoDepoisNoturno().length()>0) {attr.addFlashAttribute("fail", choqueDescansoDepoisNoturno()); return atalhoLimparEscalaChoque(attr, choqueDescansoDepoisNoturno()); }
-		if(choque().length()>0) {attr.addFlashAttribute("fail", choque()); return atalhoLimparEscalaChoque(attr, choque());  }
-		if((choqueDescansoDepoisNoturno().length()==0) && (choque().length()==0)) {
-			salvar(escala, null, null);
-			session = httpSessionFactory.getObject(); session.setAttribute("ultimoIdEscala", escala.getId()  );
-			attr.addFlashAttribute("success", "Confirme CH Dif, Incremento de Risco, Diferenciado, Regime e Turma antes de Lançar.");
-		}
-		return "redirect:/escalas/alterar/escala/"+escala.getId();
+		// CALCULANDO OS DIAS DO MES
+		String nomeColuna1 = escalaCalculosService.obtemNomeDiaColuna(anoMesDaEscala, 1);
+		String nomeColuna2 = escalaCalculosService.obtemNomeDiaColuna(anoMesDaEscala, 2);
+		String nomeColuna3 = escalaCalculosService.obtemNomeDiaColuna(anoMesDaEscala, 3);
+		String nomeColuna4 = escalaCalculosService.obtemNomeDiaColuna(anoMesDaEscala, 4);
+		String nomeColuna5 = escalaCalculosService.obtemNomeDiaColuna(anoMesDaEscala, 5);
+		String nomeColuna6 = escalaCalculosService.obtemNomeDiaColuna(anoMesDaEscala, 6);
+		String nomeColuna7 = escalaCalculosService.obtemNomeDiaColuna(anoMesDaEscala, 7);
+		// falta complemento de planantao compativel
+		
+		model.addAttribute("idCodigoDiferenciadoFkCompativel", escalaCompatibilidadeService.getCodigosDiferenciadoCompativel( escala) );
+		model.addAttribute("idChDifFkCompativel", pessoaChDifService.listaSimNaoCompativelComPessoa(usuarioService.pegarUnidadeLogada(), escala.getIdFuncionarioFk().getIdPessoaFk(), escala.getIdAnoMesFk()) );
+		model.addAttribute("idIncrementoDeRiscoCompativel", escalaCompatibilidadeService.getIncrementoDeRiscoCompativel(escala) );
+		model.addAttribute("idComplementoDePlantaoCompativel", escalaCompatibilidadeService.getComplementoDePlantaoCompativel(escala) );
+		
+	
+		model.addAttribute("escala", escala );
+		model.addAttribute("idLinha", escala.getId() );
+		model.addAttribute("qtdDiasNoMes", qtdDiasNoMes );
+		model.addAttribute("nomeColuna1", nomeColuna1 );
+		model.addAttribute("nomeColuna2", nomeColuna2 );
+		model.addAttribute("nomeColuna3", nomeColuna3 );
+		model.addAttribute("nomeColuna4", nomeColuna4 );
+		model.addAttribute("nomeColuna5", nomeColuna5 );
+		model.addAttribute("nomeColuna6", nomeColuna6 );
+		model.addAttribute("nomeColuna7", nomeColuna7 );
+		
+		
+		// Pegando os turnos compatíveis
+		List<Turnos> listaTurnos = regimeDeTrabalhoTurnoService.buscarPorRegimesEUnidadeEFolha(escala);
+		
+		model.addAttribute("dia01FkCompativel",  listaTurnos);
+		model.addAttribute("dia02FkCompativel",  listaTurnos);
+		model.addAttribute("dia03FkCompativel",  listaTurnos);
+		model.addAttribute("dia04FkCompativel",  listaTurnos);
+		model.addAttribute("dia05FkCompativel",  listaTurnos);
+		model.addAttribute("dia06FkCompativel",  listaTurnos);
+		model.addAttribute("dia07FkCompativel",  listaTurnos);
+		model.addAttribute("dia08FkCompativel",  listaTurnos);
+		model.addAttribute("dia09FkCompativel",  listaTurnos);
+		model.addAttribute("dia10FkCompativel",  listaTurnos);
+		model.addAttribute("dia11FkCompativel",  listaTurnos);
+		model.addAttribute("dia12FkCompativel",  listaTurnos);
+		model.addAttribute("dia13FkCompativel",  listaTurnos);
+		model.addAttribute("dia14FkCompativel",  listaTurnos);
+		model.addAttribute("dia15FkCompativel",  listaTurnos);
+		model.addAttribute("dia16FkCompativel",  listaTurnos);
+		model.addAttribute("dia17FkCompativel",  listaTurnos);
+		model.addAttribute("dia18FkCompativel",  listaTurnos);
+		model.addAttribute("dia19FkCompativel",  listaTurnos);
+		model.addAttribute("dia20FkCompativel",  listaTurnos);
+		model.addAttribute("dia21FkCompativel",  listaTurnos);
+		model.addAttribute("dia22FkCompativel",  listaTurnos);
+		model.addAttribute("dia23FkCompativel",  listaTurnos);
+		model.addAttribute("dia24FkCompativel",  listaTurnos);
+		model.addAttribute("dia25FkCompativel",  listaTurnos);
+		model.addAttribute("dia26FkCompativel",  listaTurnos);
+		model.addAttribute("dia27FkCompativel",  listaTurnos);
+		model.addAttribute("dia28FkCompativel",  listaTurnos);
+		model.addAttribute("dia29FkCompativel",  listaTurnos);
+		model.addAttribute("dia30FkCompativel",  listaTurnos);
+		model.addAttribute("dia31FkCompativel",  listaTurnos);
+		
+		
+		//this.escalaAtual = escala;
+		
+		//comando para armazenar a escala na sessão
+		HttpSession session = httpSessionFactory.getObject();
+        session.setAttribute("escalaAtual", escala  );
+		
+		
+		return "/escala/editar";
 	}
 	
-	@GetMapping("/atalho/ciclo12_d")
-	public String atalhoCiclo12D( RedirectAttributes attr) {	
+	@GetMapping("/atalho/ciclo12/d")
+	public String atalhoCiclo12D( RedirectAttributes attr, ModelMap model) {	
+		
 		//Tratando escala Bloqueada
 		if(anoMesService.buscarPorId(mesAtual()).getIdEscalaBloqueadaFk().getSigla().equalsIgnoreCase("S")) {
 		return "redirect:/escalas/mensagem/de/escala/bloqueada";
@@ -4311,32 +8368,87 @@ public class EscalaController {
 		escala = escalaCalculosService.converteTurnoNuloEmFolga(escala);
 		escala = escalaCalculosService.calcularDadosEscala(escala);
 		
-		//Avaliando Efetivo dando Extra sem cumprir a CH Efetiva
-		boolean extraSemCumprirEfetivo = escalaCompatibilidadeService.horasExtrasSemEfetivas(escala);
-		if(extraSemCumprirEfetivo==true) {
-			return "redirect:/escalas/mensagem/de/efetivo/com/extra/sem/ch/efetiva/informada";
-		}
+		String anoMesDaEscala = "202105";
+		if(escala!=null){anoMesDaEscala = escala.getIdAnoMesFk().getNomeAnoMes();}
+		int qtdDiasNoMes = escalaCalculosService.quantidadeDeDiasNoMes(anoMesDaEscala);
 		
-		//AVALIAÇÃO PARA SABER SE TEM CHOQUES
-		//this.choque = service.choquesEmEscalaOnipresenca(escala);
-		//comando para armazenar choque na sessão
-        HttpSession session = httpSessionFactory.getObject();
-        session.setAttribute("choque", service.choquesEmEscalaOnipresenca(escala)  );
-		//this.choqueDescansoDepoisNoturno = service.choquesEmEscalaDepoisDoNoturno(escala);
-        //comando para armazenar choque na sessão
-        session.setAttribute("choqueDescansoDepoisNoturno", service.choquesEmEscalaDepoisDoNoturno(escala)  );
-		if(choqueDescansoDepoisNoturno().length()>0) {attr.addFlashAttribute("fail", choqueDescansoDepoisNoturno()); return atalhoLimparEscalaChoque(attr, choqueDescansoDepoisNoturno()); }
-		if(choque().length()>0) {attr.addFlashAttribute("fail", choque()); return atalhoLimparEscalaChoque(attr, choque());  }
-		if((choqueDescansoDepoisNoturno().length()==0) && (choque().length()==0)) {
-			salvar(escala, null, null);
-			session = httpSessionFactory.getObject(); session.setAttribute("ultimoIdEscala", escala.getId()  );
-			attr.addFlashAttribute("success", "Confirme CH Dif, Incremento de Risco, Diferenciado, Regime e Turma antes de Lançar.");
-		}
-		return "redirect:/escalas/alterar/escala/"+escala.getId();
+		// CALCULANDO OS DIAS DO MES
+		String nomeColuna1 = escalaCalculosService.obtemNomeDiaColuna(anoMesDaEscala, 1);
+		String nomeColuna2 = escalaCalculosService.obtemNomeDiaColuna(anoMesDaEscala, 2);
+		String nomeColuna3 = escalaCalculosService.obtemNomeDiaColuna(anoMesDaEscala, 3);
+		String nomeColuna4 = escalaCalculosService.obtemNomeDiaColuna(anoMesDaEscala, 4);
+		String nomeColuna5 = escalaCalculosService.obtemNomeDiaColuna(anoMesDaEscala, 5);
+		String nomeColuna6 = escalaCalculosService.obtemNomeDiaColuna(anoMesDaEscala, 6);
+		String nomeColuna7 = escalaCalculosService.obtemNomeDiaColuna(anoMesDaEscala, 7);
+		// falta complemento de planantao compativel
+		
+		model.addAttribute("idCodigoDiferenciadoFkCompativel", escalaCompatibilidadeService.getCodigosDiferenciadoCompativel( escala) );
+		model.addAttribute("idChDifFkCompativel", pessoaChDifService.listaSimNaoCompativelComPessoa(usuarioService.pegarUnidadeLogada(), escala.getIdFuncionarioFk().getIdPessoaFk(), escala.getIdAnoMesFk()) );
+		model.addAttribute("idIncrementoDeRiscoCompativel", escalaCompatibilidadeService.getIncrementoDeRiscoCompativel(escala) );
+		model.addAttribute("idComplementoDePlantaoCompativel", escalaCompatibilidadeService.getComplementoDePlantaoCompativel(escala) );
+		
+	
+		model.addAttribute("escala", escala );
+		model.addAttribute("idLinha", escala.getId() );
+		model.addAttribute("qtdDiasNoMes", qtdDiasNoMes );
+		model.addAttribute("nomeColuna1", nomeColuna1 );
+		model.addAttribute("nomeColuna2", nomeColuna2 );
+		model.addAttribute("nomeColuna3", nomeColuna3 );
+		model.addAttribute("nomeColuna4", nomeColuna4 );
+		model.addAttribute("nomeColuna5", nomeColuna5 );
+		model.addAttribute("nomeColuna6", nomeColuna6 );
+		model.addAttribute("nomeColuna7", nomeColuna7 );
+		
+		
+		// Pegando os turnos compatíveis
+		List<Turnos> listaTurnos = regimeDeTrabalhoTurnoService.buscarPorRegimesEUnidadeEFolha(escala);
+		
+		model.addAttribute("dia01FkCompativel",  listaTurnos);
+		model.addAttribute("dia02FkCompativel",  listaTurnos);
+		model.addAttribute("dia03FkCompativel",  listaTurnos);
+		model.addAttribute("dia04FkCompativel",  listaTurnos);
+		model.addAttribute("dia05FkCompativel",  listaTurnos);
+		model.addAttribute("dia06FkCompativel",  listaTurnos);
+		model.addAttribute("dia07FkCompativel",  listaTurnos);
+		model.addAttribute("dia08FkCompativel",  listaTurnos);
+		model.addAttribute("dia09FkCompativel",  listaTurnos);
+		model.addAttribute("dia10FkCompativel",  listaTurnos);
+		model.addAttribute("dia11FkCompativel",  listaTurnos);
+		model.addAttribute("dia12FkCompativel",  listaTurnos);
+		model.addAttribute("dia13FkCompativel",  listaTurnos);
+		model.addAttribute("dia14FkCompativel",  listaTurnos);
+		model.addAttribute("dia15FkCompativel",  listaTurnos);
+		model.addAttribute("dia16FkCompativel",  listaTurnos);
+		model.addAttribute("dia17FkCompativel",  listaTurnos);
+		model.addAttribute("dia18FkCompativel",  listaTurnos);
+		model.addAttribute("dia19FkCompativel",  listaTurnos);
+		model.addAttribute("dia20FkCompativel",  listaTurnos);
+		model.addAttribute("dia21FkCompativel",  listaTurnos);
+		model.addAttribute("dia22FkCompativel",  listaTurnos);
+		model.addAttribute("dia23FkCompativel",  listaTurnos);
+		model.addAttribute("dia24FkCompativel",  listaTurnos);
+		model.addAttribute("dia25FkCompativel",  listaTurnos);
+		model.addAttribute("dia26FkCompativel",  listaTurnos);
+		model.addAttribute("dia27FkCompativel",  listaTurnos);
+		model.addAttribute("dia28FkCompativel",  listaTurnos);
+		model.addAttribute("dia29FkCompativel",  listaTurnos);
+		model.addAttribute("dia30FkCompativel",  listaTurnos);
+		model.addAttribute("dia31FkCompativel",  listaTurnos);
+		
+		
+		//this.escalaAtual = escala;
+		
+		//comando para armazenar a escala na sessão
+		HttpSession session = httpSessionFactory.getObject();
+        session.setAttribute("escalaAtual", escala  );
+		
+		
+		return "/escala/editar";
 	}
 	
-	@GetMapping("/atalho/ciclo12_e")
-	public String atalhoCiclo12E( RedirectAttributes attr) {	
+	@GetMapping("/atalho/ciclo12/e")
+	public String atalhoCiclo12E( RedirectAttributes attr, ModelMap model) {	
+		
 		//Tratando escala Bloqueada
 		if(anoMesService.buscarPorId(mesAtual()).getIdEscalaBloqueadaFk().getSigla().equalsIgnoreCase("S")) {
 		return "redirect:/escalas/mensagem/de/escala/bloqueada";
@@ -4350,32 +8462,87 @@ public class EscalaController {
 		escala = escalaCalculosService.converteTurnoNuloEmFolga(escala);
 		escala = escalaCalculosService.calcularDadosEscala(escala);
 		
-		//Avaliando Efetivo dando Extra sem cumprir a CH Efetiva
-		boolean extraSemCumprirEfetivo = escalaCompatibilidadeService.horasExtrasSemEfetivas(escala);
-		if(extraSemCumprirEfetivo==true) {
-			return "redirect:/escalas/mensagem/de/efetivo/com/extra/sem/ch/efetiva/informada";
-		}
+		String anoMesDaEscala = "202105";
+		if(escala!=null){anoMesDaEscala = escala.getIdAnoMesFk().getNomeAnoMes();}
+		int qtdDiasNoMes = escalaCalculosService.quantidadeDeDiasNoMes(anoMesDaEscala);
 		
-		//AVALIAÇÃO PARA SABER SE TEM CHOQUES
-		//this.choque = service.choquesEmEscalaOnipresenca(escala);
-		//comando para armazenar choque na sessão
-        HttpSession session = httpSessionFactory.getObject();
-        session.setAttribute("choque", service.choquesEmEscalaOnipresenca(escala)  );
-		//this.choqueDescansoDepoisNoturno = service.choquesEmEscalaDepoisDoNoturno(escala);
-        //comando para armazenar choque na sessão
-        session.setAttribute("choqueDescansoDepoisNoturno", service.choquesEmEscalaDepoisDoNoturno(escala)  );
-		if(choqueDescansoDepoisNoturno().length()>0) {attr.addFlashAttribute("fail", choqueDescansoDepoisNoturno()); return atalhoLimparEscalaChoque(attr, choqueDescansoDepoisNoturno()); }
-		if(choque().length()>0) {attr.addFlashAttribute("fail", choque()); return atalhoLimparEscalaChoque(attr, choque());  }
-		if((choqueDescansoDepoisNoturno().length()==0) && (choque().length()==0)) {
-			salvar(escala, null, null);
-			session = httpSessionFactory.getObject(); session.setAttribute("ultimoIdEscala", escala.getId()  );
-			attr.addFlashAttribute("success", "Confirme CH Dif, Incremento de Risco, Diferenciado, Regime e Turma antes de Lançar.");
-		}
-		return "redirect:/escalas/alterar/escala/"+escala.getId();
+		// CALCULANDO OS DIAS DO MES
+		String nomeColuna1 = escalaCalculosService.obtemNomeDiaColuna(anoMesDaEscala, 1);
+		String nomeColuna2 = escalaCalculosService.obtemNomeDiaColuna(anoMesDaEscala, 2);
+		String nomeColuna3 = escalaCalculosService.obtemNomeDiaColuna(anoMesDaEscala, 3);
+		String nomeColuna4 = escalaCalculosService.obtemNomeDiaColuna(anoMesDaEscala, 4);
+		String nomeColuna5 = escalaCalculosService.obtemNomeDiaColuna(anoMesDaEscala, 5);
+		String nomeColuna6 = escalaCalculosService.obtemNomeDiaColuna(anoMesDaEscala, 6);
+		String nomeColuna7 = escalaCalculosService.obtemNomeDiaColuna(anoMesDaEscala, 7);
+		// falta complemento de planantao compativel
+		
+		model.addAttribute("idCodigoDiferenciadoFkCompativel", escalaCompatibilidadeService.getCodigosDiferenciadoCompativel( escala) );
+		model.addAttribute("idChDifFkCompativel", pessoaChDifService.listaSimNaoCompativelComPessoa(usuarioService.pegarUnidadeLogada(), escala.getIdFuncionarioFk().getIdPessoaFk(), escala.getIdAnoMesFk()) );
+		model.addAttribute("idIncrementoDeRiscoCompativel", escalaCompatibilidadeService.getIncrementoDeRiscoCompativel(escala) );
+		model.addAttribute("idComplementoDePlantaoCompativel", escalaCompatibilidadeService.getComplementoDePlantaoCompativel(escala) );
+		
+	
+		model.addAttribute("escala", escala );
+		model.addAttribute("idLinha", escala.getId() );
+		model.addAttribute("qtdDiasNoMes", qtdDiasNoMes );
+		model.addAttribute("nomeColuna1", nomeColuna1 );
+		model.addAttribute("nomeColuna2", nomeColuna2 );
+		model.addAttribute("nomeColuna3", nomeColuna3 );
+		model.addAttribute("nomeColuna4", nomeColuna4 );
+		model.addAttribute("nomeColuna5", nomeColuna5 );
+		model.addAttribute("nomeColuna6", nomeColuna6 );
+		model.addAttribute("nomeColuna7", nomeColuna7 );
+		
+		
+		// Pegando os turnos compatíveis
+		List<Turnos> listaTurnos = regimeDeTrabalhoTurnoService.buscarPorRegimesEUnidadeEFolha(escala);
+		
+		model.addAttribute("dia01FkCompativel",  listaTurnos);
+		model.addAttribute("dia02FkCompativel",  listaTurnos);
+		model.addAttribute("dia03FkCompativel",  listaTurnos);
+		model.addAttribute("dia04FkCompativel",  listaTurnos);
+		model.addAttribute("dia05FkCompativel",  listaTurnos);
+		model.addAttribute("dia06FkCompativel",  listaTurnos);
+		model.addAttribute("dia07FkCompativel",  listaTurnos);
+		model.addAttribute("dia08FkCompativel",  listaTurnos);
+		model.addAttribute("dia09FkCompativel",  listaTurnos);
+		model.addAttribute("dia10FkCompativel",  listaTurnos);
+		model.addAttribute("dia11FkCompativel",  listaTurnos);
+		model.addAttribute("dia12FkCompativel",  listaTurnos);
+		model.addAttribute("dia13FkCompativel",  listaTurnos);
+		model.addAttribute("dia14FkCompativel",  listaTurnos);
+		model.addAttribute("dia15FkCompativel",  listaTurnos);
+		model.addAttribute("dia16FkCompativel",  listaTurnos);
+		model.addAttribute("dia17FkCompativel",  listaTurnos);
+		model.addAttribute("dia18FkCompativel",  listaTurnos);
+		model.addAttribute("dia19FkCompativel",  listaTurnos);
+		model.addAttribute("dia20FkCompativel",  listaTurnos);
+		model.addAttribute("dia21FkCompativel",  listaTurnos);
+		model.addAttribute("dia22FkCompativel",  listaTurnos);
+		model.addAttribute("dia23FkCompativel",  listaTurnos);
+		model.addAttribute("dia24FkCompativel",  listaTurnos);
+		model.addAttribute("dia25FkCompativel",  listaTurnos);
+		model.addAttribute("dia26FkCompativel",  listaTurnos);
+		model.addAttribute("dia27FkCompativel",  listaTurnos);
+		model.addAttribute("dia28FkCompativel",  listaTurnos);
+		model.addAttribute("dia29FkCompativel",  listaTurnos);
+		model.addAttribute("dia30FkCompativel",  listaTurnos);
+		model.addAttribute("dia31FkCompativel",  listaTurnos);
+		
+		
+		//this.escalaAtual = escala;
+		
+		//comando para armazenar a escala na sessão
+		HttpSession session = httpSessionFactory.getObject();
+        session.setAttribute("escalaAtual", escala  );
+		
+		
+		return "/escala/editar";
 	}
 	
-	@GetMapping("/atalho/ciclo12_f")
-	public String atalhoCiclo12F( RedirectAttributes attr) {	
+	@GetMapping("/atalho/ciclo12/f")
+	public String atalhoCiclo12F( RedirectAttributes attr, ModelMap model) {	
+		
 		//Tratando escala Bloqueada
 		if(anoMesService.buscarPorId(mesAtual()).getIdEscalaBloqueadaFk().getSigla().equalsIgnoreCase("S")) {
 		return "redirect:/escalas/mensagem/de/escala/bloqueada";
@@ -4389,32 +8556,87 @@ public class EscalaController {
 		escala = escalaCalculosService.converteTurnoNuloEmFolga(escala);
 		escala = escalaCalculosService.calcularDadosEscala(escala);
 		
-		//Avaliando Efetivo dando Extra sem cumprir a CH Efetiva
-		boolean extraSemCumprirEfetivo = escalaCompatibilidadeService.horasExtrasSemEfetivas(escala);
-		if(extraSemCumprirEfetivo==true) {
-			return "redirect:/escalas/mensagem/de/efetivo/com/extra/sem/ch/efetiva/informada";
-		}
+		String anoMesDaEscala = "202105";
+		if(escala!=null){anoMesDaEscala = escala.getIdAnoMesFk().getNomeAnoMes();}
+		int qtdDiasNoMes = escalaCalculosService.quantidadeDeDiasNoMes(anoMesDaEscala);
 		
-		//AVALIAÇÃO PARA SABER SE TEM CHOQUES
-		//this.choque = service.choquesEmEscalaOnipresenca(escala);
-		//comando para armazenar choque na sessão
-        HttpSession session = httpSessionFactory.getObject();
-        session.setAttribute("choque", service.choquesEmEscalaOnipresenca(escala)  );
-		//this.choqueDescansoDepoisNoturno = service.choquesEmEscalaDepoisDoNoturno(escala);
-        //comando para armazenar choque na sessão
-        session.setAttribute("choqueDescansoDepoisNoturno", service.choquesEmEscalaDepoisDoNoturno(escala)  );
-		if(choqueDescansoDepoisNoturno().length()>0) {attr.addFlashAttribute("fail", choqueDescansoDepoisNoturno()); return atalhoLimparEscalaChoque(attr, choqueDescansoDepoisNoturno()); }
-		if(choque().length()>0) {attr.addFlashAttribute("fail", choque()); return atalhoLimparEscalaChoque(attr, choque());  }
-		if((choqueDescansoDepoisNoturno().length()==0) && (choque().length()==0)) {
-			salvar(escala, null, null);
-			session = httpSessionFactory.getObject(); session.setAttribute("ultimoIdEscala", escala.getId()  );
-			attr.addFlashAttribute("success", "Confirme CH Dif, Incremento de Risco, Diferenciado, Regime e Turma antes de Lançar.");
-		}
-		return "redirect:/escalas/alterar/escala/"+escala.getId();
+		// CALCULANDO OS DIAS DO MES
+		String nomeColuna1 = escalaCalculosService.obtemNomeDiaColuna(anoMesDaEscala, 1);
+		String nomeColuna2 = escalaCalculosService.obtemNomeDiaColuna(anoMesDaEscala, 2);
+		String nomeColuna3 = escalaCalculosService.obtemNomeDiaColuna(anoMesDaEscala, 3);
+		String nomeColuna4 = escalaCalculosService.obtemNomeDiaColuna(anoMesDaEscala, 4);
+		String nomeColuna5 = escalaCalculosService.obtemNomeDiaColuna(anoMesDaEscala, 5);
+		String nomeColuna6 = escalaCalculosService.obtemNomeDiaColuna(anoMesDaEscala, 6);
+		String nomeColuna7 = escalaCalculosService.obtemNomeDiaColuna(anoMesDaEscala, 7);
+		// falta complemento de planantao compativel
+		
+		model.addAttribute("idCodigoDiferenciadoFkCompativel", escalaCompatibilidadeService.getCodigosDiferenciadoCompativel( escala) );
+		model.addAttribute("idChDifFkCompativel", pessoaChDifService.listaSimNaoCompativelComPessoa(usuarioService.pegarUnidadeLogada(), escala.getIdFuncionarioFk().getIdPessoaFk(), escala.getIdAnoMesFk()) );
+		model.addAttribute("idIncrementoDeRiscoCompativel", escalaCompatibilidadeService.getIncrementoDeRiscoCompativel(escala) );
+		model.addAttribute("idComplementoDePlantaoCompativel", escalaCompatibilidadeService.getComplementoDePlantaoCompativel(escala) );
+		
+	
+		model.addAttribute("escala", escala );
+		model.addAttribute("idLinha", escala.getId() );
+		model.addAttribute("qtdDiasNoMes", qtdDiasNoMes );
+		model.addAttribute("nomeColuna1", nomeColuna1 );
+		model.addAttribute("nomeColuna2", nomeColuna2 );
+		model.addAttribute("nomeColuna3", nomeColuna3 );
+		model.addAttribute("nomeColuna4", nomeColuna4 );
+		model.addAttribute("nomeColuna5", nomeColuna5 );
+		model.addAttribute("nomeColuna6", nomeColuna6 );
+		model.addAttribute("nomeColuna7", nomeColuna7 );
+		
+		
+		// Pegando os turnos compatíveis
+		List<Turnos> listaTurnos = regimeDeTrabalhoTurnoService.buscarPorRegimesEUnidadeEFolha(escala);
+		
+		model.addAttribute("dia01FkCompativel",  listaTurnos);
+		model.addAttribute("dia02FkCompativel",  listaTurnos);
+		model.addAttribute("dia03FkCompativel",  listaTurnos);
+		model.addAttribute("dia04FkCompativel",  listaTurnos);
+		model.addAttribute("dia05FkCompativel",  listaTurnos);
+		model.addAttribute("dia06FkCompativel",  listaTurnos);
+		model.addAttribute("dia07FkCompativel",  listaTurnos);
+		model.addAttribute("dia08FkCompativel",  listaTurnos);
+		model.addAttribute("dia09FkCompativel",  listaTurnos);
+		model.addAttribute("dia10FkCompativel",  listaTurnos);
+		model.addAttribute("dia11FkCompativel",  listaTurnos);
+		model.addAttribute("dia12FkCompativel",  listaTurnos);
+		model.addAttribute("dia13FkCompativel",  listaTurnos);
+		model.addAttribute("dia14FkCompativel",  listaTurnos);
+		model.addAttribute("dia15FkCompativel",  listaTurnos);
+		model.addAttribute("dia16FkCompativel",  listaTurnos);
+		model.addAttribute("dia17FkCompativel",  listaTurnos);
+		model.addAttribute("dia18FkCompativel",  listaTurnos);
+		model.addAttribute("dia19FkCompativel",  listaTurnos);
+		model.addAttribute("dia20FkCompativel",  listaTurnos);
+		model.addAttribute("dia21FkCompativel",  listaTurnos);
+		model.addAttribute("dia22FkCompativel",  listaTurnos);
+		model.addAttribute("dia23FkCompativel",  listaTurnos);
+		model.addAttribute("dia24FkCompativel",  listaTurnos);
+		model.addAttribute("dia25FkCompativel",  listaTurnos);
+		model.addAttribute("dia26FkCompativel",  listaTurnos);
+		model.addAttribute("dia27FkCompativel",  listaTurnos);
+		model.addAttribute("dia28FkCompativel",  listaTurnos);
+		model.addAttribute("dia29FkCompativel",  listaTurnos);
+		model.addAttribute("dia30FkCompativel",  listaTurnos);
+		model.addAttribute("dia31FkCompativel",  listaTurnos);
+		
+		
+		//this.escalaAtual = escala;
+		
+		//comando para armazenar a escala na sessão
+		HttpSession session = httpSessionFactory.getObject();
+        session.setAttribute("escalaAtual", escala  );
+		
+		
+		return "/escala/editar";
 	}
 	
-	@GetMapping("/atalho/ciclo12_g")
-	public String atalhoCiclo12G( RedirectAttributes attr) {	
+	@GetMapping("/atalho/ciclo12/g")
+	public String atalhoCiclo12G( RedirectAttributes attr, ModelMap model) {	
+		
 		//Tratando escala Bloqueada
 		if(anoMesService.buscarPorId(mesAtual()).getIdEscalaBloqueadaFk().getSigla().equalsIgnoreCase("S")) {
 		return "redirect:/escalas/mensagem/de/escala/bloqueada";
@@ -4428,28 +8650,82 @@ public class EscalaController {
 		escala = escalaCalculosService.converteTurnoNuloEmFolga(escala);
 		escala = escalaCalculosService.calcularDadosEscala(escala);
 		
-		//Avaliando Efetivo dando Extra sem cumprir a CH Efetiva
-		boolean extraSemCumprirEfetivo = escalaCompatibilidadeService.horasExtrasSemEfetivas(escala);
-		if(extraSemCumprirEfetivo==true) {
-			return "redirect:/escalas/mensagem/de/efetivo/com/extra/sem/ch/efetiva/informada";
-		}
+		String anoMesDaEscala = "202105";
+		if(escala!=null){anoMesDaEscala = escala.getIdAnoMesFk().getNomeAnoMes();}
+		int qtdDiasNoMes = escalaCalculosService.quantidadeDeDiasNoMes(anoMesDaEscala);
 		
-		//AVALIAÇÃO PARA SABER SE TEM CHOQUES
-		//this.choque = service.choquesEmEscalaOnipresenca(escala);
-		//comando para armazenar choque na sessão
-        HttpSession session = httpSessionFactory.getObject();
-        session.setAttribute("choque", service.choquesEmEscalaOnipresenca(escala)  );
-		//this.choqueDescansoDepoisNoturno = service.choquesEmEscalaDepoisDoNoturno(escala);
-        //comando para armazenar choque na sessão
-        session.setAttribute("choqueDescansoDepoisNoturno", service.choquesEmEscalaDepoisDoNoturno(escala)  );
-		if(choqueDescansoDepoisNoturno().length()>0) {attr.addFlashAttribute("fail", choqueDescansoDepoisNoturno()); return atalhoLimparEscalaChoque(attr, choqueDescansoDepoisNoturno()); }
-		if(choque().length()>0) {attr.addFlashAttribute("fail", choque()); return atalhoLimparEscalaChoque(attr, choque());  }
-		if((choqueDescansoDepoisNoturno().length()==0) && (choque().length()==0)) {
-			salvar(escala, null, null);
-			session = httpSessionFactory.getObject(); session.setAttribute("ultimoIdEscala", escala.getId()  );
-			attr.addFlashAttribute("success", "Confirme CH Dif, Incremento de Risco, Diferenciado, Regime e Turma antes de Lançar.");
-		}
-		return "redirect:/escalas/alterar/escala/"+escala.getId();
+		// CALCULANDO OS DIAS DO MES
+		String nomeColuna1 = escalaCalculosService.obtemNomeDiaColuna(anoMesDaEscala, 1);
+		String nomeColuna2 = escalaCalculosService.obtemNomeDiaColuna(anoMesDaEscala, 2);
+		String nomeColuna3 = escalaCalculosService.obtemNomeDiaColuna(anoMesDaEscala, 3);
+		String nomeColuna4 = escalaCalculosService.obtemNomeDiaColuna(anoMesDaEscala, 4);
+		String nomeColuna5 = escalaCalculosService.obtemNomeDiaColuna(anoMesDaEscala, 5);
+		String nomeColuna6 = escalaCalculosService.obtemNomeDiaColuna(anoMesDaEscala, 6);
+		String nomeColuna7 = escalaCalculosService.obtemNomeDiaColuna(anoMesDaEscala, 7);
+		// falta complemento de planantao compativel
+		
+		model.addAttribute("idCodigoDiferenciadoFkCompativel", escalaCompatibilidadeService.getCodigosDiferenciadoCompativel( escala) );
+		model.addAttribute("idChDifFkCompativel", pessoaChDifService.listaSimNaoCompativelComPessoa(usuarioService.pegarUnidadeLogada(), escala.getIdFuncionarioFk().getIdPessoaFk(), escala.getIdAnoMesFk()) );
+		model.addAttribute("idIncrementoDeRiscoCompativel", escalaCompatibilidadeService.getIncrementoDeRiscoCompativel(escala) );
+		model.addAttribute("idComplementoDePlantaoCompativel", escalaCompatibilidadeService.getComplementoDePlantaoCompativel(escala) );
+		
+	
+		model.addAttribute("escala", escala );
+		model.addAttribute("idLinha", escala.getId() );
+		model.addAttribute("qtdDiasNoMes", qtdDiasNoMes );
+		model.addAttribute("nomeColuna1", nomeColuna1 );
+		model.addAttribute("nomeColuna2", nomeColuna2 );
+		model.addAttribute("nomeColuna3", nomeColuna3 );
+		model.addAttribute("nomeColuna4", nomeColuna4 );
+		model.addAttribute("nomeColuna5", nomeColuna5 );
+		model.addAttribute("nomeColuna6", nomeColuna6 );
+		model.addAttribute("nomeColuna7", nomeColuna7 );
+		
+		
+		// Pegando os turnos compatíveis
+		List<Turnos> listaTurnos = regimeDeTrabalhoTurnoService.buscarPorRegimesEUnidadeEFolha(escala);
+		
+		model.addAttribute("dia01FkCompativel",  listaTurnos);
+		model.addAttribute("dia02FkCompativel",  listaTurnos);
+		model.addAttribute("dia03FkCompativel",  listaTurnos);
+		model.addAttribute("dia04FkCompativel",  listaTurnos);
+		model.addAttribute("dia05FkCompativel",  listaTurnos);
+		model.addAttribute("dia06FkCompativel",  listaTurnos);
+		model.addAttribute("dia07FkCompativel",  listaTurnos);
+		model.addAttribute("dia08FkCompativel",  listaTurnos);
+		model.addAttribute("dia09FkCompativel",  listaTurnos);
+		model.addAttribute("dia10FkCompativel",  listaTurnos);
+		model.addAttribute("dia11FkCompativel",  listaTurnos);
+		model.addAttribute("dia12FkCompativel",  listaTurnos);
+		model.addAttribute("dia13FkCompativel",  listaTurnos);
+		model.addAttribute("dia14FkCompativel",  listaTurnos);
+		model.addAttribute("dia15FkCompativel",  listaTurnos);
+		model.addAttribute("dia16FkCompativel",  listaTurnos);
+		model.addAttribute("dia17FkCompativel",  listaTurnos);
+		model.addAttribute("dia18FkCompativel",  listaTurnos);
+		model.addAttribute("dia19FkCompativel",  listaTurnos);
+		model.addAttribute("dia20FkCompativel",  listaTurnos);
+		model.addAttribute("dia21FkCompativel",  listaTurnos);
+		model.addAttribute("dia22FkCompativel",  listaTurnos);
+		model.addAttribute("dia23FkCompativel",  listaTurnos);
+		model.addAttribute("dia24FkCompativel",  listaTurnos);
+		model.addAttribute("dia25FkCompativel",  listaTurnos);
+		model.addAttribute("dia26FkCompativel",  listaTurnos);
+		model.addAttribute("dia27FkCompativel",  listaTurnos);
+		model.addAttribute("dia28FkCompativel",  listaTurnos);
+		model.addAttribute("dia29FkCompativel",  listaTurnos);
+		model.addAttribute("dia30FkCompativel",  listaTurnos);
+		model.addAttribute("dia31FkCompativel",  listaTurnos);
+		
+		
+		//this.escalaAtual = escala;
+		
+		//comando para armazenar a escala na sessão
+		HttpSession session = httpSessionFactory.getObject();
+        session.setAttribute("escalaAtual", escala  );
+		
+		
+		return "/escala/editar";
 	}
 	
 
@@ -4524,6 +8800,18 @@ public class EscalaController {
 		return "/choqueescala/extra";
 	}
 	
+	@GetMapping("/mensagem/de/incompatibilidade/folha/folha")
+	public String mensagemDeIncompatibilidadeFolhaFolha(ModelMap model) {	
+		
+		String folhaA = tiposDeFolhaService.buscarPorId( pegarFolhaA()).getNomeTipoFolha(); 
+		String folhaB = tiposDeFolhaService.buscarPorId( pegarFolhaB()).getNomeTipoFolha();
+		
+		model.addAttribute("atencao", "ATENÇÃO");
+		model.addAttribute("choque", "INCOMPATIBILIDADE DE FOLHA");
+		model.addAttribute("mensagem", "Você está tentando lançar horas em tipos de folhas diferentes e incompatíveis entre si para esse(a) funcionário(a). Veja os tipos de folha nas escalas dele(a) esse mês (inclusive se tem atividade em outra unidade) e resolva essa questão: "+"["+folhaA+"] ["+folhaB+"].");
+		
+		return "/choqueescala/naoPresencial";
+	}
 	
 
 	// Metodos da Inclusão	
@@ -4597,7 +8885,7 @@ public class EscalaController {
 		inclusaoEscala.setId(id);		
 		List<AcessoOperadoresCoordenacao> listaDeCoordenacoes = acessoOperadoresCoordenacaoService.buscarPorOperador(usuarioService.pegarOperadorLogado());
 		
-		model.addAttribute("idTipoFolhaFkCompativel", escalaCompatibilidadeService.getTiposDeFolhaCompativel(anoMes, nivel, vinculo ) );
+		model.addAttribute("idTipoFolhaFkCompativel", escalaCompatibilidadeService.getTiposDeFolhaCompativel(anoMes, nivel, vinculo, funcionario ) );
 		model.addAttribute("escolhaAcessoEscala", new EscolhaAcessoEscala()); 
 		model.addAttribute("coordenacaoEscala", coordenacaoEscalaService.buscarAcessoIndividual(usuarioService.pegarUnidadeLogada() , usuarioService.pegarOperadorLogado() , listaDeCoordenacoes ) );
 		model.addAttribute("anoMes", anoMesService.buscarTodos());
@@ -4692,6 +8980,12 @@ public class EscalaController {
 			escala.setDia29Fk(turnos);
 			escala.setDia30Fk(turnos);
 			escala.setDia31Fk(turnos);
+			
+			//Avaliando incompatibilidade folha folha
+			boolean incompatibilidadeFolhaFolha = incompatibilidadeFolhaFolhaService.incompativelFolhaFolha(escala);
+			if(incompatibilidadeFolhaFolha==true) {
+				return "redirect:/escalas/mensagem/de/incompatibilidade/folha/folha";
+			}
 			
 			salvar(escala, null, null);
 			
@@ -5055,6 +9349,14 @@ public class EscalaController {
 	public Long pegarIdCodigoDifernciado2() {
 		return Long.valueOf(request.getSession().getAttribute("idCodigoDifernciado2").toString()) ;
 	}
+	
+	public Long pegarFolhaA() {
+		return Long.valueOf(request.getSession().getAttribute("folhaA").toString()) ;
+	}
+	public Long pegarFolhaB() {
+		return Long.valueOf(request.getSession().getAttribute("folhaB").toString()) ;
+	}
+	
 	
 	
 }

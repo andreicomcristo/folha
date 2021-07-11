@@ -47,6 +47,8 @@ public class RubricaCodigoController {
 	@Autowired
 	private RubricaTipoService rubricaTipoService;
 	
+	
+	
 
 	@GetMapping("/cadastrar")
 	public String cadastrar(RubricaCodigo rubricaCodigo) {		
@@ -64,9 +66,10 @@ public class RubricaCodigoController {
 			}
 		}
 		
-		service.salvar(rubricaCodigo);
+		RubricaCodigo rubricaCodigoSalvo = service.salvar(rubricaCodigo);
 		attr.addFlashAttribute("success", "Inserido com sucesso.");
-		return "redirect:/rubricaCodigo/cadastrar";
+		//return "redirect:/rubricaCodigo/cadastrar";
+		return "redirect:/rubrica/cadastrar/com/codigo/"+rubricaCodigoSalvo.getId();
 	}
 	
 	@GetMapping("/editar/{id}")

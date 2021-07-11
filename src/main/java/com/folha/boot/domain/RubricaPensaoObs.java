@@ -26,6 +26,8 @@ public class RubricaPensaoObs extends AbstractEntity<Long> {
     @JoinColumn(name = "id_rubrica_pensao_fk", referencedColumnName = "id")
     @ManyToOne
     private RubricaPensao idRubricaPensaoFk;
+    @OneToMany(mappedBy = "idRubricaPensaoObsFk")
+    private List<RubricaPensaoObsVencimento> rubricaPensaoObsVencimentoList;
 
     public RubricaPensaoObs() {
     }
@@ -60,6 +62,14 @@ public class RubricaPensaoObs extends AbstractEntity<Long> {
 
 	public void setObservacao(String observacao) {
 		this.observacao = UtilidadesDeTexto.retiraEspacosDuplosAcentosEConverteEmMaiusculo(observacao);
+	}
+
+	public List<RubricaPensaoObsVencimento> getRubricaPensaoObsVencimentoList() {
+		return rubricaPensaoObsVencimentoList;
+	}
+
+	public void setRubricaPensaoObsVencimentoList(List<RubricaPensaoObsVencimento> rubricaPensaoObsVencimentoList) {
+		this.rubricaPensaoObsVencimentoList = rubricaPensaoObsVencimentoList;
 	}
     
     

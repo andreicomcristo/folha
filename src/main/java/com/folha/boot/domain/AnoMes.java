@@ -42,11 +42,15 @@ public class AnoMes extends AbstractEntity<Long> {
     private List<FaixasValoresFolhExt> faixasValoresFolhExtList;
     @OneToMany(mappedBy = "idAnoMesFk")
     private List<PessoaComplementoDePlantao> pessoaComplementoDePlantaoList;
+    @OneToMany(mappedBy = "idAnoMesFk")
+    private List<RubricaPensaoObsVencimento> rubricaPensaoObsVencimentoList;
     
     @OneToMany(mappedBy = "idAnoMesFk")
     private List<UnidadeAdmiteChDif> unidadeAdmiteChDifList;
     @OneToMany(mappedBy = "idAnoMesFk")
     private List<UnidadeAdmiteIncrementoDeRisco> unidadeAdmiteIncrementoDeRiscoList;
+    @OneToMany(mappedBy = "idAnoMesFk")
+    private List<NaoDescontaIr> naoDescontaIrList;
     
     @OneToMany(mappedBy = "idAnoMesFk")
     private List<UnidadeAdmiteComplementoPlantao> unidadeAdmiteComplementoPlantaoList;
@@ -81,6 +85,11 @@ public class AnoMes extends AbstractEntity<Long> {
     private List<HorasFaltasFolhasVariaveis> horasFaltasFolhasVariaveisList1;
     @OneToMany(mappedBy = "idAnoMesFk")
     private List<FaixasValoresGpfMedica> faixasValoresGpfMedicaList;
+    
+    @OneToMany(mappedBy = "idAnoMesFk")
+    private List<FuncionarioFolha> funcionarioFolhaList;
+    @OneToMany(mappedBy = "idAnoMesFk")
+    private List<ConversaoFontePorFolha> conversaoFontePorFolhaList;
     
     @OneToMany(mappedBy = "idAnoMesFk")
     private List<IncrementoDeRiscoUnidadeCargo> incrementoDeRiscoUnidadeCargoList;
@@ -355,6 +364,30 @@ public class AnoMes extends AbstractEntity<Long> {
 	}
 	public void setFaixasValoresGpfCedidoList(List<FaixasValoresGpfCedido> faixasValoresGpfCedidoList) {
 		this.faixasValoresGpfCedidoList = faixasValoresGpfCedidoList;
+	}
+	public List<RubricaPensaoObsVencimento> getRubricaPensaoObsVencimentoList() {
+		return rubricaPensaoObsVencimentoList;
+	}
+	public void setRubricaPensaoObsVencimentoList(List<RubricaPensaoObsVencimento> rubricaPensaoObsVencimentoList) {
+		this.rubricaPensaoObsVencimentoList = rubricaPensaoObsVencimentoList;
+	}
+	public List<NaoDescontaIr> getNaoDescontaIrList() {
+		return naoDescontaIrList;
+	}
+	public void setNaoDescontaIrList(List<NaoDescontaIr> naoDescontaIrList) {
+		this.naoDescontaIrList = naoDescontaIrList;
+	}
+	public List<FuncionarioFolha> getFuncionarioFolhaList() {
+		return funcionarioFolhaList;
+	}
+	public void setFuncionarioFolhaList(List<FuncionarioFolha> funcionarioFolhaList) {
+		this.funcionarioFolhaList = funcionarioFolhaList;
+	}
+	public List<ConversaoFontePorFolha> getConversaoFontePorFolhaList() {
+		return conversaoFontePorFolhaList;
+	}
+	public void setConversaoFontePorFolhaList(List<ConversaoFontePorFolha> conversaoFontePorFolhaList) {
+		this.conversaoFontePorFolhaList = conversaoFontePorFolhaList;
 	}
 		
 	

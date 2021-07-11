@@ -46,6 +46,10 @@ public class AreaDoCargoService {
 		return reposytory.findByNomeOrderByNomeAsc(nome);
 	}
 	
+	public AreaDoCargo buscarPorNomePrimeiro(String nome) {
+		return reposytory.findFirstByNomeOrderByNomeAsc(nome);
+	}
+	
 	
 	
 }

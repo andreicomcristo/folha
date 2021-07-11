@@ -34,6 +34,14 @@ public class Escala extends AbstractEntity<Long>{
     private Integer horasDia;
     @Column(name = "horas_noite")
     private Integer horasNoite;
+    
+    @Column(name = "horas_a")
+    private Integer horasA;
+    @Column(name = "horas_b")
+    private Integer horasB;
+    @Column(name = "horas_c")
+    private Integer horasC;
+    
     @Column(name = "horas_semana")
     private Integer horasSemana;
     @Column(name = "horas_fim_semana")
@@ -558,6 +566,30 @@ public class Escala extends AbstractEntity<Long>{
 
 	public void setObservacoes(String observacoes) {
 		this.observacoes = UtilidadesDeTexto.retiraEspacosDuplosAcentosEConverteEmMaiusculo(observacoes);
+	}
+
+	public Integer getHorasA() {
+		return horasA;
+	}
+
+	public void setHorasA(Integer horasA) {
+		this.horasA = horasA;
+	}
+
+	public Integer getHorasB() {
+		return horasB;
+	}
+
+	public void setHorasB(Integer horasB) {
+		this.horasB = horasB;
+	}
+
+	public Integer getHorasC() {
+		return horasC;
+	}
+
+	public void setHorasC(Integer horasC) {
+		this.horasC = horasC;
 	}
 	
 	

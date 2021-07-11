@@ -8,22 +8,30 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.folha.boot.Reposytory.EscalaReposytoty;
+import com.folha.boot.Reposytory.FaixasValoresLicencaMaternidadeReposytory;
 import com.folha.boot.Reposytory.FuncionariosFeriasPeriodosReposytory;
 import com.folha.boot.Reposytory.FuncionariosLicencasCidReposytory;
 import com.folha.boot.Reposytory.FuncionariosLicencasReposytory;
 import com.folha.boot.domain.AnoMes;
 import com.folha.boot.domain.Escala;
+import com.folha.boot.domain.FaixasValoresLicencaMaternidade;
 import com.folha.boot.domain.FuncionariosFerias;
 import com.folha.boot.domain.FuncionariosFeriasPeriodos;
 import com.folha.boot.domain.FuncionariosLicencas;
 import com.folha.boot.domain.PessoaFuncionarios;
+import com.folha.boot.domain.RubricaVencimento;
+import com.folha.boot.domain.RubricaVencimentoObs;
 import com.folha.boot.domain.models.calculos.EscalasNoMes;
 import com.folha.boot.domain.models.calculos.FeriasNoMes;
+import com.folha.boot.domain.models.calculos.LicencasMaternidadeNoMes;
 import com.folha.boot.domain.models.calculos.LicencasNoMes;
 import com.folha.boot.domain.models.calculos.ReferenciasDeEscala;
 import com.folha.boot.service.EscalaPosTransparenciaService;
 import com.folha.boot.service.EscalaService;
+import com.folha.boot.service.RubricaVencimentoObsService;
+import com.folha.boot.service.RubricaVencimentoService;
 import com.folha.boot.service.util.UtilidadesDeCalendarioEEscala;
+import com.folha.boot.service.util.UtilidadesMatematicas;
 
 @Service
 @Transactional(readOnly = false)
@@ -38,8 +46,13 @@ public class CalculosColetaDeDadosService {
 	@Autowired
 	private  FuncionariosLicencasReposytory funcionariosLicencasReposytory;
 	@Autowired
+	private  FaixasValoresLicencaMaternidadeReposytory faixasValoresLicencaMaternidadeReposytory;
+	@Autowired
 	private  EscalaReposytoty escalaReposytoty;
-
+	@Autowired
+	private  RubricaVencimentoService rubricaVencimentoService;
+	@Autowired
+	private  RubricaVencimentoObsService rubricaVencimentoObsService;
 	
 	@Transactional(readOnly = true)
 	public List<EscalasNoMes> buscarEscalasPorMes(AnoMes anoMes){
@@ -129,6 +142,83 @@ public class CalculosColetaDeDadosService {
 	}
 
 	
+	
+	@SuppressWarnings("deprecation")
+	@Transactional(readOnly = true)
+	public List<LicencasMaternidadeNoMes> buscarFaixasValoresLicencaMaternidadePorMes(AnoMes anoMes){
+		
+		Date dataInicial = new Date( Integer.parseInt(anoMes.getNomeAnoMes().substring(0, 4))-1900 , Integer.parseInt(anoMes.getNomeAnoMes().substring(4, 6))-1   ,  1 );
+		int diaFinala = utilidadesDeCalendarioEEscala.quantidadeDeDiasNoMes(anoMes.getNomeAnoMes());
+		
+		Date dataFinal = new Date( Integer.parseInt(anoMes.getNomeAnoMes().substring(0, 4))-1900 , Integer.parseInt(anoMes.getNomeAnoMes().substring(4, 6))-1   ,  diaFinala );
+		List<FaixasValoresLicencaMaternidade> lista = faixasValoresLicencaMaternidadeReposytory.findByDtInicialLessThanEqualAndDtFinalGreaterThanEqualAndDtCancelamentoIsNullOrderByIdFuncionarioFkIdPessoaFkCpfAsc(dataFinal, dataInicial); 
+		
+		List<LicencasMaternidadeNoMes> listaResposta = new ArrayList<>();
+		for(int i=0;i<lista.size();i++) {
+			LicencasMaternidadeNoMes f= new LicencasMaternidadeNoMes();
+			
+			int diaInicial = dataInicial.getDate();
+			if(dataInicial.before(lista.get(i).getDtInicial())) {diaInicial = lista.get(i).getDtInicial().getDate();}
+			int diaFinal = dataFinal.getDate();
+			if(lista.get(i).getDtFinal().before(dataFinal)) {diaFinal = lista.get(i).getDtFinal().getDate();}
+			f.setFaixasValoresLicencaMaternidade(lista.get(i));
+			f.setDiaInicial(diaInicial);
+			f.setDiaFinal(diaFinal);
+			f.setQtdDias((diaFinal-diaInicial)+1);
+			listaResposta.add(f);
+		}
+		
+		return listaResposta;
+	}
+	
+	
+	public void anotarObservacoes(AnoMes anoMes) {
+		List<RubricaVencimento>listaRubricasVencimento = rubricaVencimentoService.buscarPorMes(anoMes);
+		List<RubricaVencimentoObs>listaRubricasVencimentoObs = rubricaVencimentoObsService.buscarPorMes(anoMes);
+		
+		for(int i=0;i<listaRubricasVencimentoObs.size();i++) {
+			for(int j=0;j<listaRubricasVencimento.size();j++) {
+				listaRubricasVencimento.get(j).setObservacao("");
+				if(listaRubricasVencimentoObs.get(i).getIdFuncionarioFk().equals(listaRubricasVencimento.get(j).getIdFuncionarioFk())) {
+					listaRubricasVencimento.get(j).setObservacao( listaRubricasVencimento.get(j).getObservacao() + listaRubricasVencimentoObs.get(i).getObservacao()+"; " );
+					listaRubricasVencimento.get(j).setObservacao( listaRubricasVencimento.get(j).getObservacao().trim()  );
+				}
+			}
+			
+		}
+		
+	}
+	
+	
+	
+	public void ajustarValoresBrutos(AnoMes anoMes) {
+		List<RubricaVencimento>listaRubricasVencimento = rubricaVencimentoService.buscarPorMes(anoMes);
+		
+		for(int i=0;i<listaRubricasVencimento.size();i++) {
+			
+			listaRubricasVencimento.get(i).setValorBruto( UtilidadesMatematicas.ajustaValorDecimal( listaRubricasVencimento.get(i).getValorBruto(), 2)  );
+			listaRubricasVencimento.get(i).setValorIr( UtilidadesMatematicas.ajustaValorDecimal( listaRubricasVencimento.get(i).getValorIr(), 2)  );
+			listaRubricasVencimento.get(i).setValorLiquido( UtilidadesMatematicas.ajustaValorDecimal( listaRubricasVencimento.get(i).getValorLiquido(), 2)  );
+			listaRubricasVencimento.get(i).setValorPatronal( UtilidadesMatematicas.ajustaValorDecimal( listaRubricasVencimento.get(i).getValorPatronal(), 2)  );
+			listaRubricasVencimento.get(i).setValorPrevidencia( UtilidadesMatematicas.ajustaValorDecimal( listaRubricasVencimento.get(i).getValorPrevidencia(), 2)  );
+			listaRubricasVencimento.get(i).setDescontoProp( UtilidadesMatematicas.ajustaValorDecimal( listaRubricasVencimento.get(i).getDescontoProp(), 2)  );
+			listaRubricasVencimento.get(i).setPensaoProp( UtilidadesMatematicas.ajustaValorDecimal( listaRubricasVencimento.get(i).getPensaoProp(), 2)  );
+			
+			if(listaRubricasVencimento.get(i).getIdNaturezaFk().getSigla().equalsIgnoreCase("V")) {
+				listaRubricasVencimento.get(i).setValorBruto(
+						UtilidadesMatematicas.ajustaValorDecimal(
+							(
+								listaRubricasVencimento.get(i).getValorLiquido()+
+								listaRubricasVencimento.get(i).getValorIr()+
+								listaRubricasVencimento.get(i).getValorPrevidencia()+
+								listaRubricasVencimento.get(i).getDescontoProp()+
+								listaRubricasVencimento.get(i).getPensaoProp()
+							),2)
+						);
+			}
+		}
+		
+	}
 	
 	
 }

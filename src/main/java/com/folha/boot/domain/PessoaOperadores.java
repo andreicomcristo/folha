@@ -128,6 +128,13 @@ public class PessoaOperadores extends AbstractEntity<Long> {
     private List<PessoaIncrementoDeRiscoSede> pessoaIncrementoDeRiscoSedeList1;
     
     @OneToMany(mappedBy = "idOperadorCadastroFk")
+    private List<FaixasValoresLicencaMaternidade> faixasValoresLicencaMaternidadeList;
+    @OneToMany(mappedBy = "idOperadorCancelamentoFk")
+    private List<FaixasValoresLicencaMaternidade> faixasValoresLicencaMaternidadeList1;
+    @OneToMany(mappedBy = "idOperadorUltimaMudancaFk")
+    private List<FaixasValoresLicencaMaternidade> faixasValoresLicencaMaternidadeList2;
+    
+    @OneToMany(mappedBy = "idOperadorCadastroFk")
     private List<PessoaComplementoDePlantaoSede> pessoaComplementoDePlantaoSedeList;
     @OneToMany(mappedBy = "idOperadorCancelamentoFk")
     private List<PessoaComplementoDePlantaoSede> pessoaComplementoDePlantaoSedeList1;
@@ -787,6 +794,29 @@ public class PessoaOperadores extends AbstractEntity<Long> {
 	public void setFuncionariosLicencasCidList(List<FuncionariosLicencasCid> funcionariosLicencasCidList) {
 		this.funcionariosLicencasCidList = funcionariosLicencasCidList;
 	}
+	public List<FaixasValoresLicencaMaternidade> getFaixasValoresLicencaMaternidadeList() {
+		return faixasValoresLicencaMaternidadeList;
+	}
+	public void setFaixasValoresLicencaMaternidadeList(
+			List<FaixasValoresLicencaMaternidade> faixasValoresLicencaMaternidadeList) {
+		this.faixasValoresLicencaMaternidadeList = faixasValoresLicencaMaternidadeList;
+	}
+	public List<FaixasValoresLicencaMaternidade> getFaixasValoresLicencaMaternidadeList1() {
+		return faixasValoresLicencaMaternidadeList1;
+	}
+	public void setFaixasValoresLicencaMaternidadeList1(
+			List<FaixasValoresLicencaMaternidade> faixasValoresLicencaMaternidadeList1) {
+		this.faixasValoresLicencaMaternidadeList1 = faixasValoresLicencaMaternidadeList1;
+	}
+	public List<FaixasValoresLicencaMaternidade> getFaixasValoresLicencaMaternidadeList2() {
+		return faixasValoresLicencaMaternidadeList2;
+	}
+	public void setFaixasValoresLicencaMaternidadeList2(
+			List<FaixasValoresLicencaMaternidade> faixasValoresLicencaMaternidadeList2) {
+		this.faixasValoresLicencaMaternidadeList2 = faixasValoresLicencaMaternidadeList2;
+	}
+	
+	
     
 	
 	

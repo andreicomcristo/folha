@@ -31,7 +31,7 @@ public class RubricaVencimentoObsService {
 					r.setId(null);
 					r.setIdFuncionarioFk(lista.get(i).getEscala().getIdFuncionarioFk());
 					r.setIdAnoMesFk(lista.get(i).getEscala().getIdAnoMesFk());
-					r.setObsercavao(lista.get(i).getReferencias().getObsReferencias());
+					r.setObservacao(lista.get(i).getReferencias().getObsReferencias());
 					salvar(r);
 				}
 			}

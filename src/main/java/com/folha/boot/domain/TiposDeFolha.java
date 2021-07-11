@@ -29,6 +29,10 @@ public class TiposDeFolha extends AbstractEntity<Long> {
     private List<TiposDeFolhaVinculo> tiposDeFolhaVinculoList;
 	@OneToMany(mappedBy = "idTipoDeFolhaFk")
     private List<FaixasValoresParametrosCalculoFolhasExtrasIndividual> faixasValoresParametrosCalculoFolhasExtrasIndividualList;
+	@OneToMany(mappedBy = "idFolhaFk")
+    private List<ConversaoFontePorFolha> conversaoFontePorFolhaList;
+	@OneToMany(mappedBy = "idFolhaFk")
+    private List<FuncionarioFolha> funcionarioFolhaList;
 	
 	@JoinColumn(name = "id_folha_efetiva_sim_nao_fk", referencedColumnName = "id")
     @ManyToOne
@@ -41,7 +45,11 @@ public class TiposDeFolha extends AbstractEntity<Long> {
     @ManyToOne
     private SimNao idAdmiteIncrementoDeRiscoSimNaoFk;
     
-	
+    @OneToMany(mappedBy = "idTipoDeFolhaFk")
+    private List<FaixasValoresLicencaMaternidade> faixasValoresLicencaMaternidadeList;
+    
+    @OneToMany(mappedBy = "idTipoDeFolhaFk")
+    private List<TipoDeFolhaTurno> tipoDeFolhaTurnoList;
     
     
 	@OneToMany(mappedBy = "idTipoFolhaFk")
@@ -135,6 +143,31 @@ public class TiposDeFolha extends AbstractEntity<Long> {
 	public void setFaixasValoresParametrosCalculoFolhasExtrasIndividualList(
 			List<FaixasValoresParametrosCalculoFolhasExtrasIndividual> faixasValoresParametrosCalculoFolhasExtrasIndividualList) {
 		this.faixasValoresParametrosCalculoFolhasExtrasIndividualList = faixasValoresParametrosCalculoFolhasExtrasIndividualList;
+	}
+	public List<TipoDeFolhaTurno> getTipoDeFolhaTurnoList() {
+		return tipoDeFolhaTurnoList;
+	}
+	public void setTipoDeFolhaTurnoList(List<TipoDeFolhaTurno> tipoDeFolhaTurnoList) {
+		this.tipoDeFolhaTurnoList = tipoDeFolhaTurnoList;
+	}
+	public List<FaixasValoresLicencaMaternidade> getFaixasValoresLicencaMaternidadeList() {
+		return faixasValoresLicencaMaternidadeList;
+	}
+	public void setFaixasValoresLicencaMaternidadeList(
+			List<FaixasValoresLicencaMaternidade> faixasValoresLicencaMaternidadeList) {
+		this.faixasValoresLicencaMaternidadeList = faixasValoresLicencaMaternidadeList;
+	}
+	public List<ConversaoFontePorFolha> getConversaoFontePorFolhaList() {
+		return conversaoFontePorFolhaList;
+	}
+	public void setConversaoFontePorFolhaList(List<ConversaoFontePorFolha> conversaoFontePorFolhaList) {
+		this.conversaoFontePorFolhaList = conversaoFontePorFolhaList;
+	}
+	public List<FuncionarioFolha> getFuncionarioFolhaList() {
+		return funcionarioFolhaList;
+	}
+	public void setFuncionarioFolhaList(List<FuncionarioFolha> funcionarioFolhaList) {
+		this.funcionarioFolhaList = funcionarioFolhaList;
 	}
 	
 	

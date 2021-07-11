@@ -1,0 +1,809 @@
+<head th:fragment="head">
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title th:text="${session.preferencia.titulo}"></title>
+    <!-- Tell the browser to be responsive to screen width -->
+    <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
+    <!-- Bootstrap 3.3.7 -->
+    <link rel="stylesheet" href="/bower_components/bootstrap/dist/css/bootstrap.min.css">
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="/bower_components/font-awesome/css/font-awesome.min.css">
+    <!-- Ionicons -->
+    <link rel="stylesheet" href="/bower_components/Ionicons/css/ionicons.min.css">
+    <!-- Select2 -->
+    <link rel="stylesheet" href="/bower_components/select2/dist/css/select2.min.css">
+    <!-- Fallr -->
+    <link href="/css/jquery-fallr-2.0.1.css" media="screen" rel="stylesheet" type="text/css" />
+    <!-- Multiselect -->
+    <link href="/css/multi-select.css" media="screen" rel="stylesheet" type="text/css" />
+    <!-- Theme style -->
+    <link rel="stylesheet" href="/dist/css/AdminLTE.min.css">
+    <!-- AdminLTE Skins. Choose a skin from the css/skins
+         folder instead of downloading all of them to reduce the load. -->
+    <link rel="stylesheet" href="/dist/css/skins/_all-skins.min.css">    
+
+    <link href="/css/jquery-ui.min.css" rel="stylesheet">
+
+    <!-- <link href="/css/estilo.css" rel="stylesheet"> -->
+
+    <link rel="apple-touch-icon" href="/img/meu-touch-icon-iphone.png" />
+    <link rel="apple-touch-icon" sizes="72x72" href="/img/meu-touch-icon-ipad.png" />
+    <link rel="apple-touch-icon" sizes="114x114" href="/img/meu-touch-icon-iphone4.png" />
+
+    <!-- Google Font -->
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700,300italic,400italic,600italic">
+
+
+
+    <!-- jQuery 3 -->
+    <script src="/bower_components/jquery/dist/jquery.min.js"></script>
+    <!-- Bootstrap 3.3.7 -->
+    <script src="/bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
+    <!-- Slimscroll -->
+    <script src="/bower_components/jquery-slimscroll/jquery.slimscroll.min.js"></script>
+    <!-- FastClick -->
+    <script src="/bower_components/fastclick/lib/fastclick.js"></script>
+    <!-- Select2 -->
+    <script src="/bower_components/select2/dist/js/select2.full.min.js"></script>
+    <!-- Fallr -->
+    <script src="/js/jquery-fallr-2.0.1.js" type="text/javascript"></script>
+    <!-- AdminLTE App -->
+    <script src="/dist/js/adminlte.min.js"></script>
+
+    <script src="/js/jquery.maskedinput.min.js" type="text/javascript"></script>
+    <script src="/js/jquery.maskMoney.min.js" type="text/javascript"></script>
+    <script src="/js/jquery-ui.min.js"></script>
+    <script src="/js/jquery.multi-select.js" type="text/javascript"></script>
+    <script src="/js/jquery.quicksearch.js" type="text/javascript"></script>
+
+</head>
+<body class="hold-transition skin-blue sidebar-mini">
+<div class="wrapper">
+
+    <header th:fragment="header-interno" class="main-header">
+        <!-- Logo -->
+        <a href="index2.html" class="logo">
+            <!-- mini logo for sidebar mini 50x50 pixels -->
+            <span class="logo-mini"><b>GH</b></span>
+            <!-- logo for regular state and mobile devices -->
+            <span class="logo-lg"><b>Gest</b>HOSP</span>
+        </a>
+        <!-- Header Navbar: style can be found in header.less -->
+        <nav class="navbar navbar-static-top">
+            <!-- Sidebar toggle button-->
+            <a href="#" class="sidebar-toggle" data-toggle="push-menu" role="button">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </a>
+
+            <div class="navbar-custom-menu">
+                <ul class="nav navbar-nav">
+                    <!-- Messages: style can be found in dropdown.less-->
+                    <li class="dropdown messages-menu">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                            <i class="fa fa-envelope-o"></i>
+                            <span class="label label-success">0</span>
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li class="header">Você não possui mensagens</li>
+                            <li>
+                                <!-- inner menu: contains the actual data -->
+                                <ul class="menu">
+                                    
+                                </ul>
+                            </li>
+                        </ul>
+                    </li>
+                    <!-- Notifications: style can be found in dropdown.less -->
+                    <li class="dropdown notifications-menu">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                            <i class="fa fa-bell-o"></i>
+                            <span class="label label-success">0</span>
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li class="header">Você não possui avisos</li>
+                            
+                        </ul>
+                    </li>
+
+                    <!-- User Account: style can be found in dropdown.less -->
+                    <li class="dropdown user user-menu">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                            <img src="/img/usuario.png" class="user-image" alt="User Image">
+                            <span th:text="${#authentication.getPrincipal().getUsername()}" class="hidden-xs"></span>
+                        </a>
+                        <ul class="dropdown-menu">
+                            <!-- User image -->
+                            <li class="user-header">
+                                <img src="/img/usuario.png" class="img-circle" alt="User Image">
+
+                                <p th:text="${#authentication.getPrincipal().getUsername()}">
+                                    
+                                </p>
+                            </li>
+
+                            <!-- Menu Footer-->
+                            <li class="user-footer">
+                                <div class="pull-left">
+                                    <a href="/seguranca/usuario/alterar_senha_logado" class="btn btn-default btn-flat">Alterar Senha</a>
+                                </div>
+                                <div class="pull-right">
+                                    <a href="/logout" class="btn btn-default btn-flat">Sair</a>
+                                </div>
+                            </li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+        </nav>
+    </header>
+
+
+    <!-- Left side column. contains the logo and sidebar -->
+    <aside th:fragment="navbar" class="main-sidebar">
+        <!-- sidebar: style can be found in sidebar.less -->
+        <section class="sidebar">
+            <!-- Sidebar user panel -->
+            <div class="user-panel">
+                <div class="pull-left image">
+                    <img src="/img/usuario.png" class="img-circle" alt="User Image">
+                </div>
+                <div class="pull-left info">
+                    <p>Administrador</p>
+                    <a href="#"><i class="fa fa-circle text-success"></i> Online</a>
+                    <a href="#"><i class="fa fa-circle text-danger"></i> Offline</a>
+                </div>
+            </div>
+            <!-- search form -->
+            <form action="#" method="get" class="sidebar-form">
+                <div class="input-group">
+                    <input type="text" name="q" class="form-control" placeholder="Pesquisar...">
+                    <span class="input-group-btn">
+                <button type="submit" name="search" id="search-btn" class="btn btn-flat"><i class="fa fa-search"></i>
+                </button>
+              </span>
+                </div>
+            </form>
+            <!-- /.search form -->
+            <!-- sidebar menu: : style can be found in sidebar.less -->
+            <ul class="sidebar-menu" data-widget="tree">
+                <li>
+                    <a href="#">
+                        <i class="fa fa-home"></i> <span>Home</span>
+                    </a>
+                </li>
+
+                    <li class="treeview">
+                        <a href="#">
+                            <i class="fa fa-circle-o"></i> <span>Atendimento</span>
+                            <span class="pull-right-container">
+                                <i class="fa fa-angle-left pull-right"></i>
+                            </span>
+                        </a>
+                        <ul class="treeview-menu">                            
+                            <li><a href="/atendimento/alta_internacao/listar"><i class="fa fa-circle-o"></i>Altas de Internações</a></li>
+                            <li><a href="/atendimento/alta_obito_internacao/listar"><i class="fa fa-circle-o"></i>Altas de Internações (Óbitos)</a></li>
+                            <li><a href="/atendimento/atendimento/listar"><i class="fa fa-circle-o"></i>Atendimentos</a></li>
+                            <li><a href="/atendimento/entrada/listar"><i class="fa fa-circle-o"></i>Entradas</a></li>
+                            <li><a href="/atendimento/internacao/listar"><i class="fa fa-circle-o"></i>Internações</a></li>
+                            <li><a href="/atendimento/prescricao_medica/listar"><i class="fa fa-circle-o"></i>Prescrições Médicas</a></li>
+                            <li><a href="/atendimento/triagem/listar"><i class="fa fa-circle-o"></i>Triagem</a></li>
+                            <li><a href="/atendimento/internacao/mapa_internacoes"><i class="fa fa-circle-o"></i>Mapa de Internações</a></li>                                                            
+                        </ul>
+                    </li>
+
+                    <li class="treeview">
+                        <a href="#">
+                            <i class="fa fa-circle-o"></i> <span>Cadastro</span>
+                            <span class="pull-right-container">
+                                <i class="fa fa-angle-left pull-right"></i>
+                            </span>
+                        </a>
+                        <ul class="treeview-menu">                            
+                            <li><a href="/cadastro/alternativa/listar">Alternativas</a></li>
+                            <li><a href="/cadastro/area/listar">Áreas / Setores (Leitos)</a></li>
+                            <li><a href="/cadastro/categoria_item/listar">Categorias de Itens (Catálogo)</a></li>
+                            <li><a href="/cadastro/grupo_procedimento/listar">Grupos de Procedimentos</a></li>
+                            <li><a href="/cadastro/item/listar">Itens (Catálogo)</a></li>
+                            <li><a href="/cadastro/leito/listar">Leitos</a></li>
+                            <li><a href="/cadastro/paciente/listar">Pacientes</a></li>
+                            <li><a href="/cadastro/procedimento/listar">Procedimentos</a></li>
+                            <li><a href="/cadastro/profissional/listar">Profissionais</a></li>
+                            <li><a href="/cadastro/questionario/listar">Questionários</a></li>
+                            <li><a href="/cadastro/questao/listar">Questões</a></li>
+                            <li><a href="/cadastro/unidade/listar">Unidades</a></li>
+                            <li><a href="/cadastro/unidade_destino/listar">Unidades de Destino (Transferências Externas)</a></li>                                                           
+                        </ul>
+                    </li>
+
+                    <li class="treeview">
+                        <a href="#">
+                            <i class="fa fa-circle-o"></i> <span>Configurações</span>
+                            <span class="pull-right-container">
+                                <i class="fa fa-angle-left pull-right"></i>
+                            </span>
+                        </a>
+                        <ul class="treeview-menu">                            
+                            <li><a href="/configuracao/cid10/listar">Cid 10</a></li>
+                            <li sec:authorize="hasAnyAuthority('ADM', 'TESTE')"><a href="/configuracao/categoria_leito/listar">Categorias de Leitos</a></li>
+                            <li><a href="/configuracao/cidade/listar">Cidades</a></li>
+                            <li><a href="/configuracao/classificacao_risco/listar">Classificações de Risco</a></li>
+                            <li><a href="/configuracao/conselho_profissional/listar">Conselhos Profissionais</a></li>
+                            <li><a href="/configuracao/especialidade/listar">Especialidades</a></li>
+                            <li><a href="/configuracao/equipamento_leito/listar">Equipamentos de Leitos</a></li>
+                            <li><a href="/configuracao/fluxograma/listar">Fluxogramas</a></li>
+                            <li><a href="/configuracao/forma_aplicacao/listar">Formas de Aplicação</a></li>
+                            <li><a href="/configuracao/forma_chegada/listar">Formas de Chegada</a></li>
+                            <li><a href="/configuracao/frequencia_prescricao/listar">Frequências (Prescrições Médicas)</a></li>
+                            <li><a href="/configuracao/grau_parentesco/listar">Graus de Parentesco</a></li>
+                            <li><a href="/configuracao/escala_glasgow/listar">Escala (Glasgow)</a></li>
+                            <li><a href="/configuracao/item_menu/listar">Itens de Menu</a></li>
+                            <li><a href="/configuracao/menu/listar">Menus</a></li> 
+                            <li><a href="/configuracao/motivo_entrada/listar">Motivos de Entrada</a></li>
+                            <li><a href="/configuracao/preferencia/editar/1">Preferências</a></li>
+                            <li><a href="/configuracao/procedencia/listar">Procedências</a></li>
+                            <li><a href="/configuracao/profissao/listar">Profissões / Cargos</a></li>
+                            <li><a href="/configuracao/periodo_prescricao/listar">Períodos (Prescrições Médicas)</a></li>
+                            <li><a href="/configuracao/regua_dor/listar">Régua (Dor)</a></li>
+                            <li><a href="/configuracao/raca_cor/listar">Raça / Cor</a></li>
+                            <li><a href="/configuracao/sexo/listar">Sexos</a></li>
+                            <li><a href="/configuracao/severidade_alergia/listar">Severidades (Alergias)</a></li>
+                            <li><a href="/configuracao/situacao_atendimento/listar">Situações de Atendimentos</a></li>
+                            <li><a href="/configuracao/situacao_entrada/listar">Situações de Entradas</a></li>
+                            <li><a href="/configuracao/situacao_internacao/listar">Situações de Internações</a></li>
+                            <li><a href="/configuracao/situacao_leito/listar">Situações de Leitos</a></li>
+                            <li><a href="/configuracao/situacao_registro/listar">Situações de Registros</a></li>
+                            <li><a href="/configuracao/situacao_triagem/listar">Situações de Triagem</a></li>
+                            <li><a href="/configuracao/substancia_alergia/listar">Substâncias (Alergias)</a></li>
+                            <li><a href="/configuracao/tipo_cadastro/listar">Tipos de Cadastro</a></li>
+                            <li><a href="/configuracao/tipo_dieta/listar">Tipos de Dieta</a></li>
+                            <li><a href="/configuracao/tipo_leito/listar">Tipos de Leitos</a></li>
+                            <li><a href="/configuracao/tipo_questao/listar">Tipos de Questões</a></li>
+                            <li><a href="/configuracao/tipo_idade/listar">Tipos de Idade</a></li>
+                            <li><a href="/configuracao/tipo_operacao_leito/listar">Tipos de Operações (Leitos)</a></li>
+                            <li><a href="/configuracao/tipo_triagem/listar">Tipos de Triagens</a></li>
+                            <li><a href="/configuracao/tipo_repouso/listar">Tipos de Repouso</a></li>
+                            <li><a href="/configuracao/tipo_anexo/listar">Tipos de Anexo</a></li>
+                            <li><a href="/configuracao/unidade_medida/listar">Unidades de Medida</a></li>
+                            <li><a href="/configuracao/unidade_federativa/listar">Unidades Federativas</a></li>
+                            <li><a href="/configuracao/nacionalidade/listar">Nacionalidades</a></li>
+                            <li><a href="/configuracao/naturalidade/listar">Naturalidades</a></li>
+                            <li><a href="/configuracao/tipo_procedencia/listar">Tipos de Procedência</a></li>                                                                               
+                        </ul>
+                    </li>
+
+                    <li class="treeview">
+                        <a href="#">
+                            <i class="fa fa-circle-o"></i> <span>Hotelaria</span>
+                            <span class="pull-right-container">
+                                <i class="fa fa-angle-left pull-right"></i>
+                            </span>
+                        </a>
+                        <ul class="treeview-menu">                            
+                            <li><a href="/cadastro/leito/mapa_leitos">Mapa de Leitos</a></li>
+                            <li><a href="/hotelaria/operacao_leito/listar">Operações de Leitos</a></li>
+                            <li><a href="/hotelaria/transferencia_interna/listar">Transferências Internas</a></li>
+                            <li><a href="/hotelaria/transferencia_externa/listar">Transferências Externas</a></li>                                                          
+                        </ul>
+                    </li>
+
+                    <li class="treeview">
+                        <a href="#">
+                            <i class="fa fa-circle-o"></i> <span>Segurança</span>
+                            <span class="pull-right-container">
+                                <i class="fa fa-angle-left pull-right"></i>
+                            </span>
+                        </a>
+                        <ul class="treeview-menu">                            
+                            <li><a href="/seguranca/grupo_usuario/listar">Grupos de Usuários</a></li>
+                            <li><a href="/seguranca/permissao/listar">Permissões</a></li>
+                            <li><a href="/seguranca/recurso/listar">Recursos</a></li>
+                            <li><a href="/seguranca/usuario/listar">Usuários</a></li>                                                        
+                        </ul>
+                    </li>
+                                        
+            </ul>
+        </section>
+        <!-- /.sidebar -->
+    </aside>
+
+    <!-- Content Wrapper. Contains page content -->
+    <div  class="content-wrapper">        
+        <section th:fragment="breadcrumb(modulo, aplicacao)" class="content-header">
+            <h1 th:text="${aplicacao}">                
+            </h1>
+            <ol class="breadcrumb">
+                <li><a href="/"><i class="fa fa-home"></i> Home</a></li>                
+                <li th:text="${modulo}"></li>
+                <li th:text="${aplicacao}"></li>                             
+            </ol>
+        </section>
+
+
+
+
+        <!-- /.content-wrapper -->
+    <footer th:fragment="footer" class="main-footer">
+        <div class="pull-right hidden-xs">
+            <b>Version</b> 2.0.0
+        </div>
+        <strong><a href="#">GestHOSP</a></strong>
+    </footer>
+
+    <ul th:fragment="paginacao(caminho)" class="pagination">
+
+        <li th:if="${paginaAtual > 1}">
+            <a th:href="@{'../listar/1'}">Primeira</a>
+        </li>
+    
+        <li th:if="${paginaAtual > 1}">
+            <a th:href="@{'../listar/' + ${paginaAtual - 1}}"><</a>
+        </li>
+    
+        <li th:each="i : ${#numbers.sequence((paginaAtual != 1) ? paginaAtual - 2 : 1, (paginaAtual != totalPaginas) ? (paginaAtual == totalPaginas - 1) ? paginaAtual + 1 : paginaAtual + 2 : totalPaginas)}" th:classappend="${paginaAtual == i} ? active : ''">
+            <a th:if="${paginaAtual != i && i != 0}" th:href="@{${caminho} + '/listar/' + ${i}}">[[${i}]]</a>
+            <a th:unless="${paginaAtual != i}">[[${i}]]</a>
+        </li>
+    
+        <li th:if="${paginaAtual < totalPaginas}">
+            <a th:href="@{'../listar/' + ${paginaAtual + 1}}">></a>
+        </li>
+    
+        <li th:if="${paginaAtual < totalPaginas}">
+            <a th:href="@{'../listar/' + ${totalPaginas}}">Última</a>
+        </li>
+    
+    </ul>
+
+
+    <script th:fragment="msg" th:if="${sucesso}" type="text/javascript">
+        $(document).ready(function () {
+            $.fallr.show({
+                content: "[[${sucesso}]]",
+                position: 'center'
+            });
+        });
+    </script>
+
+    <script th:fragment="msg-erro" th:if="${#fields.hasAnyErrors()}" type="text/javascript">
+        $(document).ready(function () {
+
+            var erros = "[[${#fields.allErrors()}]]".replace("[", "").replace("]", "").split(",").join(".<br/>");
+
+            $.fallr.show({
+                icon: 'error',
+                content: erros,
+                position: 'center'
+            });
+        });
+    </script>
+
+
+<script th:fragment="excluir" th:if="${excluir}" type="text/javascript">
+    $(document).ready(function () {
+        var clicked = function () {
+            $.fallr.hide(function () {
+                $.post('[[${url_excluir}]]',
+                        {},
+                        function (data) {                                
+                            var teste_ok = function () {
+                                window.location.replace("");
+                            };
+                            $.fallr.show({
+                                icon: (data == 'OK') ? 'check' : 'error',
+                                content: (data == 'OK') ? 'Dados Excluídos com Sucesso!' : 'Erro! Dados Não Foram Excluídos!',
+                                position: 'center',
+                                buttons: {
+                                    button1: {text: 'OK', onclick: teste_ok},
+                                }
+                            });
+                        },
+                        "html");
+            });
+        };
+        $.fallr.show({
+            icon: 'help',
+            content: '[[${excluir}]]',
+            position: 'center',
+            buttons: {
+                button1: {text: 'Sim', danger: true, onclick: clicked},
+                button2: {text: 'Não'}
+            },
+        });
+    });
+</script>
+
+
+<script th:fragment="iniciar-js">
+    $(function () {
+      //Initialize Select2 Elements
+      $('.select2').select2();
+
+
+      $('.datepicker').datepicker({
+            closeText: "Sair",
+            prevText: "Anterior",
+            nextText: "Próximo",
+            currentText: "Hoje",
+            monthNames: ["Janeiro", "Fevereiro", "Março", "Abril", "Maio", "Junho",
+            "Julho", "Agosto", "Setembro", "Outubro", "Novembro", "Dezembro"],
+            monthNamesShort: ["Jan", "Fev", "Mar", "Abr", "Mai", "Jun", "Jul", "Ago", "Set", "Out", "Nov", "Dez"],
+            dayNames: ["Domingo", "Segunda", "Terça", "Quarta", "Quinta", "Sexta", "Sábado"],
+            dayNamesShort: ["Dom", "Seg", "Ter", "Qua", "Qui", "Sex", "Sab"],
+            dayNamesMin: ["Do", "Se", "Te", "Qu", "Qu", "Se", "Sa"],
+            dateFormat: 'dd/mm/yy'            
+        });
+
+        $(".mascara-cpf").mask("999.999.999-99");
+        $(".mascara-cnpj").mask("99.999.999/9999-99");
+        $(".mascara-cep").mask("99999-999");
+        $(".mascara-data").mask("99/99/9999");
+        $(".mascara-competencia").mask("99/9999");
+        $(".mascara-dia-vencimento").mask("99");
+        $(".mascara-ano").mask("9999");
+        $(".mascara-hora").mask("99:99");
+        $('.mascara-telefone').focusout(function () {
+            var phone, element;
+            element = $(this);
+            element.unmask();
+            phone = element.val().replace(/\D/g, '');
+            if (phone.length > 10) {
+                element.mask("(99)99999-999?9");
+            } else {
+                element.mask("(99)9999-9999?9");
+            }
+        }).trigger('focusout');
+
+        $(".mascara-valor").maskMoney({showSymbol: true, symbol: "R$", decimal: ",", thousands: ".", allowZero: true});
+
+        $('.multi-select').multiSelect({
+            keepOrder: true,
+            selectableHeader: "<label>Disponíveis:</label><br/><input type='text' class='form-control' autocomplete='off' placeholder='Filtrar por' />",
+            selectionHeader: "<label>Selecionados:</label><br/><input type='text' class='form-control' autocomplete='off' placeholder='Filtrar por' />",
+//                    selectableFooter: "<a href='#' class='btn btn-default selecionar-todos'>Adicionar Todos</a>",
+//                    selectionFooter: "<a href='#' class='btn btn-default deselecionar-todos'>Remover Todos</a>",
+            afterInit: function (ms) {
+                var that = this,
+                $selectableSearch = that.$selectableUl.prev(),
+                $selectionSearch = that.$selectionUl.prev(),
+                selectableSearchString = '#' + that.$container.attr('id') + ' .ms-elem-selectable:not(.ms-selected)',
+                selectionSearchString = '#' + that.$container.attr('id') + ' .ms-elem-selection.ms-selected';
+
+                that.qs1 = $selectableSearch.quicksearch(selectableSearchString)
+                .on('keydown', function (e) {
+                    if (e.which === 40) {
+                        that.$selectableUl.focus();
+                        return false;
+                    }
+                });
+
+                that.qs2 = $selectionSearch.quicksearch(selectionSearchString)
+                .on('keydown', function (e) {
+                    if (e.which == 40) {
+                        that.$selectionUl.focus();
+                        return false;
+                    }
+                });
+            },
+            afterSelect: function (values) {
+                $('form').append('<input type="hidden" name="' + this.$element.attr('name').replace('[]', '') + '_adicionar[]" value="' + values + '" />');
+                $('input[name="' + this.$element.attr('name').replace('[]', '') + '_remover[]"][value="' + values + '"]').remove();
+                this.qs1.cache();
+                this.qs2.cache();
+            },
+            afterDeselect: function (values) {
+                $('form').append('<input type="hidden" name="' + this.$element.attr('name').replace('[]', '') + '_remover[]" value="' + values + '" />');
+                $('input[name="' + this.$element.attr('name').replace('[]', '') + '_adicionar[]"][value="' + values + '"]').remove();
+                this.qs1.cache();
+                this.qs2.cache();
+            }
+        });
+
+        var elementos_selecionados = [];
+        function popular_lista() {
+            elementos_selecionados = []
+            $('table').find('.item_acao_grupo').each(function () {
+                if ($(this).is(':checked')) {
+                    elementos_selecionados.push($(this).val());
+                }
+            });
+        }
+
+        $("#check_grupo").click(function () {
+            if ($("#check_grupo").is(':checked')) {
+                $(".item_acao_grupo").prop('checked', true);
+            } else {
+                $(".item_acao_grupo").prop('checked', false);
+            }
+        });
+
+        $("#acao_grupo").click(function () {
+            if ($("#opcao_acao_grupo").val() === "") {
+                $.fallr.show({
+                    icon: 'error',
+                    content: '<p>Por favor, selecione uma ação!!!</p>',
+                    position: 'center'
+                });
+            } else {
+                $('table').find('.item_acao_grupo').each(function () {
+                    popular_lista();
+                });
+                var clicked = function () {
+                    if ($('#opcao_acao_grupo').val() == "excluir"){
+                        $.fallr.hide(function () {
+                            $.post("<?php echo $url . '/excluir_grupo/'; ?>",
+                                {elementos: elementos_selecionados},
+                                function () {
+                                    var teste_ok = function () {
+                                        window.location.replace("<?php echo current_url(); ?>");
+                                    };
+                                    $.fallr.show({
+                                        content: 'Dados Excluídos com Sucesso!',
+                                        position: 'center',
+                                        buttons: {
+                                            button1: {text: 'OK', onclick: teste_ok},
+                                        }
+                                    });
+                                },
+                                "html");
+                        });
+                    }else if ($('#opcao_acao_grupo').val() == "confirmar"){
+                        $.fallr.hide(function () {
+                            $.post("<?php echo $url . '/confirmar_grupo/'; ?>",
+                                {elementos: elementos_selecionados},
+                                function () {
+                                    var teste_ok = function () {
+                                        window.location.replace("<?php echo current_url(); ?>");
+                                    };
+                                    $.fallr.show({
+                                        content: 'Dados Alterados com Sucesso!',
+                                        position: 'center',
+                                        buttons: {
+                                            button1: {text: 'OK', onclick: teste_ok},
+                                        }
+                                    });
+                                },
+                                "html");
+                        });
+                    }else if ($('#opcao_acao_grupo').val() == "imprimir"){
+                        $.fallr.hide(function () {
+                            $.post("<?php echo $url . '/imprimir_grupo/'; ?>",
+                                {elementos: elementos_selecionados},
+                                function () {
+                                    window.location.replace("<?php echo $url . '/imprimir_grupo/'; ?>");
+                                },
+                                "html");
+                        });
+                    }
+                };
+                if (elementos_selecionados.length === 0) {
+                    $.fallr.show({
+                        icon: 'error',
+                        content: '<p>Nenhuma registro foi selecionado!!!</p>',
+                        position: 'center'
+                    });
+                } else {
+                    $.fallr.show({
+                        icon: 'help',
+                        content: 'Deseja Executar a Ação com Todos os Registros Selecionados?',
+                        position: 'center',
+                        buttons: {
+                            button1: {text: 'Sim', danger: true, onclick: clicked},
+                            button2: {text: 'Não'}
+                        },
+                    });
+                }
+
+            }
+        });
+
+        $('form').on('submit', function(e){
+            $('#enviar').text('Aguarde....');
+            $('#enviar').prop( "disabled", true );
+        });
+
+    })
+</script>
+
+</div>
+<!-- ./wrapper -->
+
+<script type="text/javascript">
+
+    $(document).ready(function () {
+
+        $('.datepicker').datepicker({
+            closeText: "Sair",
+            prevText: "Anterior",
+            nextText: "Próximo",
+            currentText: "Hoje",
+            monthNames: ["Janeiro", "Fevereiro", "Março", "Abril", "Maio", "Junho",
+            "Julho", "Agosto", "Setembro", "Outubro", "Novembro", "Dezembro"],
+            monthNamesShort: ["Jan", "Fev", "Mar", "Abr", "Mai", "Jun", "Jul", "Ago", "Set", "Out", "Nov", "Dez"],
+            dayNames: ["Domingo", "Segunda", "Terça", "Quarta", "Quinta", "Sexta", "Sábado"],
+            dayNamesShort: ["Dom", "Seg", "Ter", "Qua", "Qui", "Sex", "Sab"],
+            dayNamesMin: ["Do", "Se", "Te", "Qu", "Qu", "Se", "Sa"],
+            dateFormat: 'dd/mm/yy'            
+        });
+
+        $(".mascara-cpf").mask("999.999.999-99");
+        $(".mascara-cnpj").mask("99.999.999/9999-99");
+        $(".mascara-cep").mask("99999-999");
+        $(".mascara-data").mask("99/99/9999");
+        $(".mascara-competencia").mask("99/9999");
+        $(".mascara-dia-vencimento").mask("99");
+        $(".mascara-ano").mask("9999");
+        $(".mascara-hora").mask("99:99");
+        $('.mascara-telefone').focusout(function () {
+            var phone, element;
+            element = $(this);
+            element.unmask();
+            phone = element.val().replace(/\D/g, '');
+            if (phone.length > 10) {
+                element.mask("(99)99999-999?9");
+            } else {
+                element.mask("(99)9999-9999?9");
+            }
+        }).trigger('focusout');
+
+        $(".mascara-valor").maskMoney({showSymbol: true, symbol: "R$", decimal: ",", thousands: ".", allowZero: true});
+
+        $('.multi-select').multiSelect({
+            keepOrder: true,
+            selectableHeader: "<label>Disponíveis:</label><br/><input type='text' class='form-control' autocomplete='off' placeholder='Filtrar por' />",
+            selectionHeader: "<label>Selecionados:</label><br/><input type='text' class='form-control' autocomplete='off' placeholder='Filtrar por' />",
+//                    selectableFooter: "<a href='#' class='btn btn-default selecionar-todos'>Adicionar Todos</a>",
+//                    selectionFooter: "<a href='#' class='btn btn-default deselecionar-todos'>Remover Todos</a>",
+            afterInit: function (ms) {
+                var that = this,
+                $selectableSearch = that.$selectableUl.prev(),
+                $selectionSearch = that.$selectionUl.prev(),
+                selectableSearchString = '#' + that.$container.attr('id') + ' .ms-elem-selectable:not(.ms-selected)',
+                selectionSearchString = '#' + that.$container.attr('id') + ' .ms-elem-selection.ms-selected';
+
+                that.qs1 = $selectableSearch.quicksearch(selectableSearchString)
+                .on('keydown', function (e) {
+                    if (e.which === 40) {
+                        that.$selectableUl.focus();
+                        return false;
+                    }
+                });
+
+                that.qs2 = $selectionSearch.quicksearch(selectionSearchString)
+                .on('keydown', function (e) {
+                    if (e.which == 40) {
+                        that.$selectionUl.focus();
+                        return false;
+                    }
+                });
+            },
+            afterSelect: function (values) {
+                $('form').append('<input type="hidden" name="' + this.$element.attr('name').replace('[]', '') + '_adicionar[]" value="' + values + '" />');
+                $('input[name="' + this.$element.attr('name').replace('[]', '') + '_remover[]"][value="' + values + '"]').remove();
+                this.qs1.cache();
+                this.qs2.cache();
+            },
+            afterDeselect: function (values) {
+                $('form').append('<input type="hidden" name="' + this.$element.attr('name').replace('[]', '') + '_remover[]" value="' + values + '" />');
+                $('input[name="' + this.$element.attr('name').replace('[]', '') + '_adicionar[]"][value="' + values + '"]').remove();
+                this.qs1.cache();
+                this.qs2.cache();
+            }
+        });
+
+        var elementos_selecionados = [];
+        function popular_lista() {
+            elementos_selecionados = []
+            $('table').find('.item_acao_grupo').each(function () {
+                if ($(this).is(':checked')) {
+                    elementos_selecionados.push($(this).val());
+                }
+            });
+        }
+
+        $("#check_grupo").click(function () {
+            if ($("#check_grupo").is(':checked')) {
+                $(".item_acao_grupo").prop('checked', true);
+            } else {
+                $(".item_acao_grupo").prop('checked', false);
+            }
+        });
+
+        $("#acao_grupo").click(function () {
+            if ($("#opcao_acao_grupo").val() === "") {
+                $.fallr.show({
+                    icon: 'error',
+                    content: '<p>Por favor, selecione uma ação!!!</p>',
+                    position: 'center'
+                });
+            } else {
+                $('table').find('.item_acao_grupo').each(function () {
+                    popular_lista();
+                });
+                var clicked = function () {
+                    if ($('#opcao_acao_grupo').val() == "excluir"){
+                        $.fallr.hide(function () {
+                            $.post("<?php echo $url . '/excluir_grupo/'; ?>",
+                                {elementos: elementos_selecionados},
+                                function () {
+                                    var teste_ok = function () {
+                                        window.location.replace("<?php echo current_url(); ?>");
+                                    };
+                                    $.fallr.show({
+                                        content: 'Dados Excluídos com Sucesso!',
+                                        position: 'center',
+                                        buttons: {
+                                            button1: {text: 'OK', onclick: teste_ok},
+                                        }
+                                    });
+                                },
+                                "html");
+                        });
+                    }else if ($('#opcao_acao_grupo').val() == "confirmar"){
+                        $.fallr.hide(function () {
+                            $.post("<?php echo $url . '/confirmar_grupo/'; ?>",
+                                {elementos: elementos_selecionados},
+                                function () {
+                                    var teste_ok = function () {
+                                        window.location.replace("<?php echo current_url(); ?>");
+                                    };
+                                    $.fallr.show({
+                                        content: 'Dados Alterados com Sucesso!',
+                                        position: 'center',
+                                        buttons: {
+                                            button1: {text: 'OK', onclick: teste_ok},
+                                        }
+                                    });
+                                },
+                                "html");
+                        });
+                    }else if ($('#opcao_acao_grupo').val() == "imprimir"){
+                        $.fallr.hide(function () {
+                            $.post("<?php echo $url . '/imprimir_grupo/'; ?>",
+                                {elementos: elementos_selecionados},
+                                function () {
+                                    window.location.replace("<?php echo $url . '/imprimir_grupo/'; ?>");
+                                },
+                                "html");
+                        });
+                    }
+                };
+                if (elementos_selecionados.length === 0) {
+                    $.fallr.show({
+                        icon: 'error',
+                        content: '<p>Nenhuma registro foi selecionado!!!</p>',
+                        position: 'center'
+                    });
+                } else {
+                    $.fallr.show({
+                        icon: 'help',
+                        content: 'Deseja Executar a Ação com Todos os Registros Selecionados?',
+                        position: 'center',
+                        buttons: {
+                            button1: {text: 'Sim', danger: true, onclick: clicked},
+                            button2: {text: 'Não'}
+                        },
+                    });
+                }
+
+            }
+        });
+
+        $('form').on('submit', function(e){
+            $('#enviar').text('Aguarde....');
+            $('#enviar').prop( "disabled", true );
+        });
+        
+    });
+
+    function numeroParaMoeda(n, c, d, t)
+    {
+        c = isNaN(c = Math.abs(c)) ? 2 : c, d = d == undefined ? "," : d, t = t == undefined ? "." : t, s = n < 0 ? "-" : "", i = parseInt(n = Math.abs(+n || 0).toFixed(c)) + "", j = (j = i.length) > 3 ? j % 3 : 0;
+        return s + (j ? i.substr(0, j) + t : "") + i.substr(j).replace(/(\d{3})(?=\d)/g, "$1" + t) + (c ? d + Math.abs(n - i).toFixed(c).slice(2) : "");
+    }
+</script>
+
+</body>
+</html>
