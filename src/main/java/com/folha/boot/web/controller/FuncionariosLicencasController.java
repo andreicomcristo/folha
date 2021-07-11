@@ -223,6 +223,7 @@ public class FuncionariosLicencasController {
 			funcionariosLicencasCid.setIdFuncionariosLicencasFk(funcionariosLicencas);
 		}
 				
+		
 		///////////////////////////////////////
 		model.addAttribute("funcionario", funcionario);		
 		model.addAttribute("funcionariosLicencasCid", funcionariosLicencasCid);

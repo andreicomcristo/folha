@@ -71,7 +71,7 @@
 	    	
 	    	
 	        <div style=" left:0px; height: 470px;  overflow-y: auto;" class="table-responsive">
-	        	<table class="table table-striped table-hover table-sm myTable" style= "width:1310px;">
+	        	<table style="width: 1230px;" class="table table-striped table-hover table-sm myTable" >
 	            	<thead>
 	          			<tr>
 		                	<th style="font-size:10px;" >#</th>
@@ -99,15 +99,15 @@
 				                    <ul class="dropdown-menu dropdown-menu-right" role="menu">
 				                        
 				                        <li>
-				                        	<a th:text="'CPF: '+${d.idFuncionarioFk.idPessoaFk.cpf}" style="width:155px; height:25px; text-align:left; font-size:09px;  " role="button"></a><br>
-				                        	<a th:text="'Matrícula: '+${d.idFuncionarioFk.matricula}" style="width:155px; height:25px; text-align:left; font-size:09px;  " role="button"></a><br>
-				                        	<a th:text="'Ch Semanal: '+${d.idFuncionarioFk.idCargaHorariaAtualFk.cargaHoraria} " style="width:155px; height:25px; text-align:left; font-size:09px;  " role="button"></a><br>
-				                        	<a th:text="${d.idFuncionarioFk.idEspecialidadeAtualFk.idCargoFk.idNivelCargoFk.nomeNivelCargo} " style="width:155px; height:25px; text-align:left; font-size:09px;  " role="button"></a><br>
-				                        	<a th:text="'Folha: '+${d.idTipoFolhaFk.nomeTipoFolha}" style="width:155px; height:25px; text-align:left; font-size:09px;  " role="button"></a><br>
-				                        	<a th:text="'Regime: '+${d.idRegimeFk.nomeRegimeDeTrabalho}" style="width:155px; height:25px; text-align:left; font-size:09px;  " role="button"></a><br>
-				                        	<a th:text="'Complemento Plantão: '+${d.idComplementoPlantaoSimNaoFk.descricao}" style="width:155px; height:25px; text-align:left; font-size:09px;  " role="button"></a><br>
-				                        	<a th:text="'Incremento Risco: '+${d.idIncrementoDeRiscoSimNaoFk.descricao}" style="width:155px; height:25px; text-align:left; font-size:09px;  " role="button"></a><br>
-				                        	<a th:text="'Presencial: '+${d.idPresencialSimNaoFk.descricao}" style="width:155px; height:25px; text-align:left; font-size:09px;  " role="button"></a><br>
+				                        	<a th:text="'CPF: '+${d.idFuncionarioFk?.idPessoaFk?.cpf}" style="width:155px; height:25px; text-align:left; font-size:09px;  " role="button"></a><br>
+				                        	<a th:text="'Matrícula: '+${d.idFuncionarioFk?.matricula}" style="width:155px; height:25px; text-align:left; font-size:09px;  " role="button"></a><br>
+				                        	<a th:text="'Ch Semanal: '+${d.idFuncionarioFk?.idCargaHorariaAtualFk.cargaHoraria} " style="width:155px; height:25px; text-align:left; font-size:09px;  " role="button"></a><br>
+				                        	<a th:text="${d.idFuncionarioFk?.idEspecialidadeAtualFk?.idCargoFk?.idNivelCargoFk?.nomeNivelCargo} " style="width:155px; height:25px; text-align:left; font-size:09px;  " role="button"></a><br>
+				                        	<a th:text="'Folha: '+${d.idTipoFolhaFk?.nomeTipoFolha}" style="width:155px; height:25px; text-align:left; font-size:09px;  " role="button"></a><br>
+				                        	<a th:text="'Regime: '+${d.idRegimeFk?.nomeRegimeDeTrabalho}" style="width:155px; height:25px; text-align:left; font-size:09px;  " role="button"></a><br>
+				                        	<a th:text="'Complemento Plantão: '+${d.idComplementoPlantaoSimNaoFk?.descricao}" style="width:155px; height:25px; text-align:left; font-size:09px;  " role="button"></a><br>
+				                        	<a th:text="'Incremento Risco: '+${d.idIncrementoDeRiscoSimNaoFk?.descricao}" style="width:155px; height:25px; text-align:left; font-size:09px;  " role="button"></a><br>
+				                        	<a th:text="'Presencial: '+${d.idPresencialSimNaoFk?.descricao}" style="width:155px; height:25px; text-align:left; font-size:09px;  " role="button"></a><br>
 				                        	<a th:text="'Obs: '+${d.observacoes}" style="width:155px; height:25px; text-align:left; font-size:09px;  " role="button"></a>
 				                        	
 				                        </li>

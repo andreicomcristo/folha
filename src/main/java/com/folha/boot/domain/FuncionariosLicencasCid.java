@@ -10,6 +10,7 @@ import javax.persistence.*;
 @Table(name="funcionarios_licencas_cid")
 public class FuncionariosLicencasCid extends AbstractEntity<Long> {
 	
+	
 	@JoinColumn(name = "id_cid_fk", referencedColumnName = "id")
     @ManyToOne(optional = false)
     private Cids idCidFk;

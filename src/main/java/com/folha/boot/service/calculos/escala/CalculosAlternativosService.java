@@ -4361,7 +4361,7 @@ public class CalculosAlternativosService {
 	
 	public List<UnidadeValor> pegarValoresDosUltimosSeisMeses(PessoaFuncionarios funcionario, AnoMes anoMes){
 
-List<UnidadeValor> listaResposta = new ArrayList<>();
+		List<UnidadeValor> listaResposta = new ArrayList<>();
 		
 		List<UnidadeMesValor> lista = new ArrayList<>();
 		
