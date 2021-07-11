@@ -48,9 +48,6 @@ public class FuncionariosLicencasController {
 	
 	@Autowired
 	private CidsService cidsService; 
-	
-	/*@Autowired
-	private FuncionariosLicencasCid funcionariosLicencasCid;*/
 	@Autowired
 	private FuncionariosLicencasService service;
 	@Autowired
@@ -212,13 +209,13 @@ public class FuncionariosLicencasController {
 	}
 		
 	@GetMapping("/licencas/cadastrar")
-	public String cadastrarLicencas(FuncionariosLicencas funcionariosLicencas,FuncionariosLicencasCid funcionariosLicencasCid, ModelMap model) {
+	public String cadastrarLicencas(FuncionariosLicencas funcionariosLicencas, FuncionariosLicencasCid funcionariosLicencasCid, ModelMap model) {
 		//relaciona as licenças com funcionário
 		//Pessoa pessoa = pessoaService.buscarPorId(getIdPessoaSession());
 		PessoaFuncionarios funcionario = pessoaFuncionariosService.buscarPorId(getIdFuncionarioSession());				
 		funcionariosLicencas.setIdFuncionarioFk(funcionario);
 		//relaciona as licenças com licençasCid		
-		
+				
 		if(!getIdCidSession().equals(null)){
 		
 			Cids cid = cidsService.buscarPorId(getIdCidSession());
