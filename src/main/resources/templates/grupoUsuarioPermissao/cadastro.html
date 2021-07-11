@@ -39,7 +39,7 @@
 							
 							<label for="nome" class="">Permissão </label>
 							<select id="cargos" class="form-control" th:field="*{idPermissaoFk}">
-								<option value="">Selecione a Permissao</option>
+								<option value="">Selecione a Permissão</option>
 								<option th:each="d : ${idPermissaoFk}" th:value="${d.id}"th:text="${d.nome}">ADM</option>
 							</select>
 							<p></p>

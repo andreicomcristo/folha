@@ -78,7 +78,7 @@
 								id="valorHoraFimDeSemana" placeholder="Valor de Hora Fim De Semana" th:field="*{valorHoraFimDeSemana}" /> 
 							<p></p>
 							
-							<label for="nome" class="">Valor Liquido por Hora </label>
+							<label for="nome" class="">Valor Líquido por Hora </label>
 							<input type="text"
 								class=" form-control form-control-md" autofocus="autofocus"
 								id="valorLiquidoPorHora" placeholder="Valor Liquido Por Hora" th:field="*{valorLiquidoPorHora}" /> 
@@ -103,7 +103,7 @@
 							</select>	
 							<p></p>	
 							
-							<label for="nome" class="">Nivel </label>
+							<label for="nome" class="">Nível </label>
 							<select id="idNivelFk" class="form-select" th:field="*{idNivelFk}">
 								<option value="">Selecione Nível</option>
 								<option class="form-select" th:each="d : ${idNivelFk}" th:value="${d.id}"th:text="${d.nomeNivelCargo}" selected >ADM</option>

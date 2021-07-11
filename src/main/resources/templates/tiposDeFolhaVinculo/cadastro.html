@@ -37,7 +37,7 @@
 							</select>	
 							<p></p>	
 							
-							<label for="nome" class="">Nivel </label>
+							<label for="nome" class="">Nível </label>
 							<select id="idNivelFk" class="form-select" th:field="*{idVinculoFk}">
 								<option value="">Selecione Vinculo</option>
 								<option class="form-select" th:each="d : ${idVinculoFk}" th:value="${d.id}"th:text="${d.nomeVinculo}" selected >ADM</option>

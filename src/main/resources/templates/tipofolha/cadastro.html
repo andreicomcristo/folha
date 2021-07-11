@@ -63,9 +63,9 @@
 							<p></p>
 							
 							
-							<label for="nome" class="">Admite Complemento de Plantao Diferenciado (Folha Efetiva) </label>
+							<label for="nome" class="">Admite Complemento de Plantão Diferenciado (Folha Efetiva) </label>
 							<select id="cargos" class="form-select" th:field="*{idAdmiteComplementoDePlantaoSimNaoFk}">
-									<option value="">Admite Complemento de Plantao Diferenciado</option>
+									<option value="">Admite Complemento de Plantão Diferenciado</option>
 									<option class="form-select" th:each="d : ${idAdmiteComplementoDePlantaoSimNaoFk}" th:value="${d.id}"th:text="${d.descricao}" selected >ADM</option>
 							</select>		
 							<p></p>

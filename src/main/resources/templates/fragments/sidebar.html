@@ -6,7 +6,7 @@
 	<nav class="sidebar" th:fragment="nav-sidebar">
 		
 		<div class="text" > 
-			<label style="font-size:10px;" th:text="${nomeOperadorLogado} + '['+ ${nomeUnidadeLogada} + ']' " >Usuario</label> 
+			<label style="font-size:10px;" th:text="${nomeOperadorLogado} + '['+ ${nomeUnidadeLogada} + ']' " >Usuário</label> 
 		</div>
 		
 		
@@ -79,7 +79,7 @@
 							</li>
 						 -->	
 						
-							<li><a  class="cd-btn"><span class=" oi oi-chevron-bottom z81 icones-sidebar-tamanho align-middle"></span>Grupo Usuario </a>
+							<li><a  class="cd-btn"><span class=" oi oi-chevron-bottom z81 icones-sidebar-tamanho align-middle"></span>Grupo Usuário </a>
 								<ul class="cd-show">
 									<li class="menu-item" urlmatch='/grupousuario/cadastrar'><a sec:authorize-url="/grupousuario/cadastrar" th:href="@{/grupousuario/cadastrar}"><span class=" oi oi-chevron-right icones-sidebar-tamanho align-middle"></span>Cadastrar</a></li>
 									<li class="menu-item" urlmatch='/grupousuario/listar'><a sec:authorize-url="/grupousuario/listar" th:href="@{/grupousuario/listar}"><span class=" oi oi-chevron-right icones-sidebar-tamanho align-middle"></span>Listar</a></li>
@@ -96,14 +96,14 @@
 							<li><a  class="gv-btn"><span class=" oi oi-chevron-bottom z203 icones-sidebar-tamanho align-middle"></span>Compatibilidades </a>
 								<ul class="gv-show">
 									
-									<li><a  class="gm-btn"><span class=" oi oi-chevron-bottom z194 icones-sidebar-tamanho align-middle"></span>Grupo Usuario com Permissão </a>
+									<li><a  class="gm-btn"><span class=" oi oi-chevron-bottom z194 icones-sidebar-tamanho align-middle"></span>Grupo Usuário com Permissão </a>
 										<ul class="gm-show">
 											<li class="menu-item" urlmatch='/grupoUsuarioPermissao/cadastrar'><a sec:authorize-url="/grupoUsuarioPermissao/cadastrar" th:href="@{/grupoUsuarioPermissao/cadastrar}"><span class=" oi oi-chevron-right icones-sidebar-tamanho align-middle"></span>Cadastrar</a></li>
 											<li class="menu-item" urlmatch='/grupoUsuarioPermissao/listar'><a sec:authorize-url="/grupoUsuarioPermissao/listar" th:href="@{/grupoUsuarioPermissao/listar}"><span class=" oi oi-chevron-right icones-sidebar-tamanho align-middle"></span>Listar</a></li>
 										</ul>
 									</li>
 									
-									<li><a  class="gw-btn"><span class=" oi oi-chevron-bottom z204 icones-sidebar-tamanho align-middle"></span>Grupo Usuario com Grupo Usuário </a>
+									<li><a  class="gw-btn"><span class=" oi oi-chevron-bottom z204 icones-sidebar-tamanho align-middle"></span>Grupo Usuário com Grupo Usuário </a>
 										<ul class="gw-show">
 											<li class="menu-item" urlmatch='/grupoUsuarioGrupoUsuario/cadastrar'><a sec:authorize-url="/grupoUsuarioGrupoUsuario/cadastrar" th:href="@{/grupoUsuarioGrupoUsuario/cadastrar}"><span class=" oi oi-chevron-right icones-sidebar-tamanho align-middle"></span>Vincular</a></li>
 											<li class="menu-item" urlmatch='/grupoUsuarioGrupoUsuario/listar'><a sec:authorize-url="/grupoUsuarioGrupoUsuario/listar" th:href="@{/grupoUsuarioGrupoUsuario/listar}"><span class=" oi oi-chevron-right icones-sidebar-tamanho align-middle"></span>Listar</a></li>
@@ -235,7 +235,7 @@
 								</ul>
 							</li>
 						
-							<li><a class="m-btn"><span class=" oi oi-chevron-bottom thirteenth icones-sidebar-tamanho align-middle"></span>Carga Horaria Semanal </a>
+							<li><a class="m-btn"><span class=" oi oi-chevron-bottom thirteenth icones-sidebar-tamanho align-middle"></span>Carga Horária Semanal </a>
 								<ul class="m-show">
 									<li class="menu-item" urlmatch='/cargahorariasemanais/cadastrar'><a sec:authorize-url="/cargahorariasemanais/cadastrar" th:href="@{/cargahorariasemanais/cadastrar}"><span class=" oi oi-chevron-right icones-sidebar-tamanho align-middle"></span>Cadastrar</a></li>
 									<li class="menu-item" urlmatch='/cargahorariasemanais/listar'><a sec:authorize-url="/cargahorariasemanais/listar" th:href="@{/cargahorariasemanais/listar}"><span class=" oi oi-chevron-right icones-sidebar-tamanho align-middle"></span>Listar</a></li>
@@ -945,8 +945,8 @@
 											<li class="menu-item" urlmatch='/jasper/abrirRelatoriosFolha/VariacaoCustoPorNivel_unidade_grafico'><a sec:authorize-url="/jasper/abrirRelatoriosFolha/VariacaoCustoPorNivel_unidade_grafico" th:href="@{/jasper/abrirRelatoriosFolha/VariacaoCustoPorNivel_unidade_grafico}"><span class=" oi oi-chevron-right icones-sidebar-tamanho align-middle"></span>Custo Nível</a></li>
 											<li class="menu-item" urlmatch='/jasper/abrirRelatoriosFolha/VariacaoCustoPorNivel_unidade_pizza_grafico'><a sec:authorize-url="/jasper/abrirRelatoriosFolha/VariacaoCustoPorNivel_unidade_pizza_grafico" th:href="@{/jasper/abrirRelatoriosFolha/VariacaoCustoPorNivel_unidade_pizza_grafico}"><span class=" oi oi-chevron-right icones-sidebar-tamanho align-middle"></span>Custo Nível (Mês)</a></li>
 											<li class="menu-item" urlmatch='/jasper/abrirRelatoriosFolha/VariacaoCustoPorCago_unidade_grafico'><a sec:authorize-url="/jasper/abrirRelatoriosFolha/VariacaoCustoPorCago_unidade_grafico" th:href="@{/jasper/abrirRelatoriosFolha/VariacaoCustoPorCargo_unidade_grafico}"><span class=" oi oi-chevron-right icones-sidebar-tamanho align-middle"></span>Custo Cargo</a></li>
-											<li class="menu-item" urlmatch='/jasper/abrirRelatoriosFolha/VariacaoCustoPorEspecialidade_unidade_grafico'><a sec:authorize-url="/jasper/abrirRelatoriosFolha/VariacaoCustoPorEspecialidade_unidade_grafico" th:href="@{/jasper/abrirRelatoriosFolha/VariacaoCustoPorEspecialidade_unidade_grafico}"><span class=" oi oi-chevron-right icones-sidebar-tamanho align-middle"></span>Custo Especialidade</a></li>
-											<li class="menu-item" urlmatch='/jasper/abrirRelatoriosFolha/VariacaoCustoPorEspecialidade_na_unidade_grafico'><a sec:authorize-url="/jasper/abrirRelatoriosFolha/VariacaoCustoPorEspecialidade_na_unidade_grafico" th:href="@{/jasper/abrirRelatoriosFolha/VariacaoCustoPorEspecialidade_na_unidade_grafico}"><span class=" oi oi-chevron-right icones-sidebar-tamanho align-middle"></span>Custo Especialidade Escolha</a></li>
+											<li class="menu-item" urlmatch='/jasper/abrirRelatoriosFolha/VariacaoCustoPorEspecialidade_unidade_grafico'><a sec:authorize-url="/jasper/abrirRelatoriosFolha/VariacaoCustoPorEspecialidade_unidade_grafico" th:href="@{/jasper/abrirRelatoriosFolha/VariacaoCustoPorEspecialidade_unidade_grafico}"><span class=" oi oi-chevron-right icones-sidebar-tamanho align-middle"></span>Custo Todas as Especialidades</a></li>
+											<li class="menu-item" urlmatch='/jasper/abrirRelatoriosFolha/VariacaoCustoPorEspecialidade_na_unidade_grafico'><a sec:authorize-url="/jasper/abrirRelatoriosFolha/VariacaoCustoPorEspecialidade_na_unidade_grafico" th:href="@{/jasper/abrirRelatoriosFolha/VariacaoCustoPorEspecialidade_na_unidade_grafico}"><span class=" oi oi-chevron-right icones-sidebar-tamanho align-middle"></span>Custo Por Especialidade</a></li>
 										</ul>
 									</li>
 								
