@@ -228,7 +228,7 @@ public class FaixasValoresLicencaMaternidadeController {
 			mesAtual = anoMesService.buscarPorNome(ano+mes).get(0);
 		} 
 		
-		System.out.println("AAAA"+faixasValoresLicencaMaternidade.getId());
+		
 		
 		if(mesAtual==null) {
 			return "redirect:/faixasValoresLicencaMaternidade/mensagem/de/mes/inexistente";
@@ -277,14 +277,55 @@ public class FaixasValoresLicencaMaternidadeController {
 		Long dataB = dataA + faixasValoresLicencaMaternidade.getIdDiasFk().getDias() ;
 		Date dataFinal = new Date(dataB*1000*60*60*24);
 		
-		
-		
 		faixasValoresLicencaMaternidade.setDtFinal(dataFinal);
+		faixasValoresLicencaMaternidade.setDtCadastro(new Date());
+		faixasValoresLicencaMaternidade.setIdOperadorCadastroFk(usuarioService.pegarOperadorLogado());
 		faixasValoresLicencaMaternidade.setDtUltimaMudanca(new Date());
 		faixasValoresLicencaMaternidade.setIdOperadorUltimaMudancaFk(usuarioService.pegarOperadorLogado());
 		
-		service.editar(faixasValoresLicencaMaternidade);
-		attr.addFlashAttribute("success", "Editado com sucesso.");
+		String mes = String.valueOf( (faixasValoresLicencaMaternidade.getDtInicial().getMonth()+1) );  
+		if(mes.length()<2) {mes = "0"+mes;}
+		if(mes.length()<2) {mes = "0"+mes;}
+		String ano = String.valueOf( (faixasValoresLicencaMaternidade.getDtInicial().getYear()+1900) );
+		if(ano.length()<4) {ano = "0"+ano;}
+		if(ano.length()<4) {ano = "0"+ano;}
+		
+		AnoMes mesAtual = null;
+		if(!anoMesService.buscarPorNome(ano+mes).isEmpty()){
+			mesAtual = anoMesService.buscarPorNome(ano+mes).get(0);
+		} 
+		
+		
+		
+		if(mesAtual==null) {
+			return "redirect:/faixasValoresLicencaMaternidade/mensagem/de/mes/inexistente";
+		}
+		
+		if(faixasValoresLicencaMaternidade.getValorBrutoPorDia()==null) {
+			faixasValoresLicencaMaternidade.setValorBrutoPorDia(0.0);
+		}
+		//Avaliando se o operador indicou valor
+		if(faixasValoresLicencaMaternidade.getValorBrutoPorDia()==0.0) {
+			List<UnidadeValor> listaValores = calculosAlternativosService.pegarValoresDosUltimosSeisMeses(faixasValoresLicencaMaternidade.getIdFuncionarioFk(), mesAtual);
+			
+			for(int i=0;i<listaValores.size();i++) {
+				if(faixasValoresLicencaMaternidade.getIdUnidadeFk().equals(listaValores.get(i).getUnidade())) {
+					faixasValoresLicencaMaternidade.setValorBrutoPorDia(listaValores.get(i).getValor());
+					if(faixasValoresLicencaMaternidade.getValorBrutoPorDia()>0) {
+						service.salvar(faixasValoresLicencaMaternidade);
+						break;
+					}
+				}
+					
+				
+				
+			}
+		}else {
+			faixasValoresLicencaMaternidade.setIdUnidadeFk(faixasValoresLicencaMaternidade.getIdFuncionarioFk().getIdUnidadeAtuacaoAtualFk());
+			service.salvar(faixasValoresLicencaMaternidade);
+		}
+		
+		attr.addFlashAttribute("success", "Inserido com sucesso.");
 		return "redirect:/faixasValoresLicencaMaternidade/listar";
 	}
 	
