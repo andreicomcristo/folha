@@ -13,6 +13,7 @@ import java.util.List;
 @Transactional
 public class FuncionariosLicencas extends AbstractEntity<Long> { 
 
+	
 	@Column(name = "dt_inicial")
     @Temporal(TemporalType.DATE)
     private Date dtInicial;
