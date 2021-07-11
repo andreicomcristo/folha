@@ -22,7 +22,7 @@
 
 			<div th:replace="fragments/alert"></div>
 			<form
-				th:action="${faixasValoresLicencaMaternidade.id == null} ? @{/faixasValoresLicencaMaternidade/salvar} : @{/faixasValoresLicencaMaternidade/salvar}"
+				th:action="${faixasValoresLicencaMaternidade.id == null} ? @{/faixasValoresLicencaMaternidade/salvar} : @{/faixasValoresLicencaMaternidade/editar}"
 				th:object="${faixasValoresLicencaMaternidade}" method="POST">
 				<div class="form-row">
 

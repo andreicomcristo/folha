@@ -195,6 +195,7 @@ public class FaixasValoresLicencaMaternidadeController {
 	@GetMapping("/cadastrar/{id}")
 	public String cadastrar(@PathVariable("id") Long id, FaixasValoresLicencaMaternidade faixasValoresLicencaMaternidade) {
 		faixasValoresLicencaMaternidade.setIdFuncionarioFk(pessoaFuncionariosService.buscarPorId(id));
+		faixasValoresLicencaMaternidade.setId(null);
 		return "/faixasValoresLicencaMaternidade/cadastro";
 	}
 	
@@ -256,7 +257,7 @@ public class FaixasValoresLicencaMaternidadeController {
 		}
 		
 		attr.addFlashAttribute("success", "Inserido com sucesso.");
-		return "redirect:/faixasValoresLicencaMaternidade/funcionarios/listar";
+		return "redirect:/faixasValoresLicencaMaternidade/listar";
 	}
 	
 	@GetMapping("/editar/{id}")
