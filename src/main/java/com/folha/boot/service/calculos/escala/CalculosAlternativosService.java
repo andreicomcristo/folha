@@ -4501,7 +4501,7 @@ List<UnidadeValor> listaResposta = new ArrayList<>();
 		//Coletando Meses
 		List<AnoMes> listaMeses = new ArrayList<>();
 		for(int i=0;i<lista.size();i++) {
-			if(listaMeses.contains(lista.get(i).getAnoMes())) {
+			if(!listaMeses.contains(lista.get(i).getAnoMes())) {
 				if(lista.get(i).getAnoMes() != null) {
 					listaMeses.add(lista.get(i).getAnoMes());
 				}
