@@ -3,7 +3,9 @@ package com.folha.boot.web.controller;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
+import org.springframework.beans.factory.ObjectFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Controller;
@@ -17,7 +19,12 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import com.folha.boot.domain.Cargos;
 import com.folha.boot.domain.CargosEspecialidade;
+import com.folha.boot.domain.Cids;
+import com.folha.boot.domain.FuncionariosFerias;
+import com.folha.boot.domain.FuncionariosFeriasPeriodos;
 import com.folha.boot.domain.FuncionariosLicencas;
+import com.folha.boot.domain.FuncionariosLicencasCid;
+import com.folha.boot.domain.Pessoa;
 import com.folha.boot.domain.PessoaFuncionarios;
 import com.folha.boot.domain.PessoaOperadores;
 import com.folha.boot.domain.TiposDeLicenca;
@@ -25,6 +32,7 @@ import com.folha.boot.domain.Unidades;
 import com.folha.boot.domain.Vinculos;
 import com.folha.boot.service.CargosEspecialidadeService;
 import com.folha.boot.service.CargosService;
+import com.folha.boot.service.CidsService;
 import com.folha.boot.service.FuncionariosLicencasService;
 import com.folha.boot.service.PessoaFuncionariosService;
 import com.folha.boot.service.PessoaOperadoresService;
@@ -38,6 +46,12 @@ import com.folha.boot.service.seguranca.UsuarioService;
 public class FuncionariosLicencasController {
 
 	private String ultimaBuscaNome = "";
+	private String ultimaBuscaCodigo = "";
+	private String ultimaBuscaDescricao = "";
+	@Autowired
+	private CidsService cidsService; 
+	@Autowired
+	FuncionariosLicencasCid funcionariosLicencasCid;
 	@Autowired
 	private FuncionariosLicencasService service;
 	@Autowired
@@ -56,7 +70,8 @@ public class FuncionariosLicencasController {
 	private VinculosService vinculosService;
 	@Autowired
 	private UsuarioService usuarioService;
-	
+	@Autowired
+    ObjectFactory<HttpSession> httpSessionFactory;
 	/*///////////////////////////////////////
 	 * Lista de funcionarios para cadastro de licenças
 	*/
@@ -110,6 +125,145 @@ public class FuncionariosLicencasController {
 		List<PessoaFuncionarios> lista = page.getContent();
 		return paginarFuncionario(pageNo, page, lista, model);
 	}
+	///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+	// Paginação de Cids
+	
+	@GetMapping("/cids/listar")
+	public String listarCids(ModelMap model) {
+		this.ultimaBuscaCodigo = "";
+		this.ultimaBuscaDescricao = "";
+		return this.findPaginated(1, model);
+	}
+	
+	@GetMapping("/paginar/{pageNo}")
+	public String getPorNomePaginado(@PathVariable (value = "pageNo") int pageNo, ModelMap model) {
+		
+		if( (ultimaBuscaCodigo.equals("")) && (ultimaBuscaDescricao.equals("")) ){
+			return "redirect:/cids/listar/{pageNo}" ;}
+		else {		
+			if(!ultimaBuscaCodigo.equals("")) {
+				return this.findPaginatedCodigo(pageNo, ultimaBuscaCodigo, model);}
+			else {
+				return this.findPaginatedDescricao(pageNo, ultimaBuscaDescricao, model);}
+			}
+	}
+	
+	@GetMapping("/listar/{pageNo}")
+	public String findPaginated(@PathVariable (value = "pageNo") int pageNo, ModelMap model) {
+		int pageSeze = 10;
+		Page<Cids> page = cidsService.findPaginated(pageNo, pageSeze);
+		List<Cids> lista = page.getContent();
+		return paginar(pageNo, page, lista, model);
+	}
+	
+	public String findPaginatedCodigo(@PathVariable (value = "pageNo") int pageNo, String codigo, ModelMap model) {
+		int pageSeze = 10;
+		Page<Cids> page = cidsService.findPaginatedCodigo(pageNo, pageSeze, codigo);
+		List<Cids> lista = page.getContent();
+		return paginar(pageNo, page, lista, model);
+	}
+	
+	public String findPaginatedDescricao(@PathVariable (value = "pageNo") int pageNo, String descricao, ModelMap model) {
+		int pageSeze = 10;
+		Page<Cids> page = cidsService.findPaginatedDescricao(pageNo, pageSeze, descricao);
+		List<Cids> lista = page.getContent();
+		return paginar(pageNo, page, lista, model);
+	}
+	
+	public String paginar(int pageNo, Page<Cids> page, List<Cids> lista, ModelMap model) {	
+		model.addAttribute("currentePage", pageNo);
+		model.addAttribute("totalPages", page.getTotalPages());
+		model.addAttribute("totalItems", page.getTotalElements()); 
+		model.addAttribute("cids", lista);
+		return "/cid/lista";	
+	}
+	
+	@GetMapping("/buscar/codigo")
+	public String getPorCodigo(@RequestParam("codigo") String codigo, ModelMap model) {
+		this.ultimaBuscaCodigo = codigo;
+		this.ultimaBuscaDescricao = "";	
+		return this.findPaginatedCodigo(1, codigo, model);
+	}
+	
+	@GetMapping("/buscar/descricao")
+	public String getPorDescricao(@RequestParam("descricao") String descricao, ModelMap model) {
+		this.ultimaBuscaCodigo = "";
+		this.ultimaBuscaDescricao = descricao;	
+		return this.findPaginatedDescricao(1, descricao, model);
+	}
+		
+	@GetMapping("/buscar/codcid")
+	public String getCidPorNome(@RequestParam("codCid") String codCid, ModelMap model) {		
+		model.addAttribute("cids", cidsService.buscarPorNome(codCid.toUpperCase().trim()));
+		return "/cid/lista";
+	}
+	
+	
+	///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+	//Recebe o id do funcionário da tela de lista de funcionários	
+	@GetMapping("/funcionario/{id}")
+	public String salvaIdFuncionarioNaSession(@PathVariable("id") Long id, Long idFuncionario) {
+		
+		idFuncionario = pessoaFuncionariosService.buscarPorId(id).getId();
+		HttpSession session = httpSessionFactory.getObject();
+		session.setAttribute("idFuncionario", idFuncionario);     
+		//return "redirect:/funcionarioslicencas/pessoa/cadastrar";	
+	
+	return "redirect:/funcionarioslicencas/licencas/cadastrar"; 
+	}
+		
+	@GetMapping("/licencas/cadastrar")
+	public String cadastrarLicencas(FuncionariosLicencas funcionariosLicencas, ModelMap model) {
+		//relaciona as licenças com funcionário
+		//Pessoa pessoa = pessoaService.buscarPorId(getIdPessoaSession());
+		PessoaFuncionarios funcionario = pessoaFuncionariosService.buscarPorId(getIdFuncionarioSession());				
+		funcionariosLicencas.setIdFuncionarioFk(funcionario);
+		//relaciona as licenças com licençasCid		
+		
+		if(!getIdCidSession().equals(null)){
+		
+			Cids cid = cidsService.buscarPorId(getIdCidSession());
+			funcionariosLicencasCid.setIdCidFk(cid);
+			funcionariosLicencasCid.setIdFuncionariosLicencasFk(funcionariosLicencas);
+		}
+				
+		///////////////////////////////////////
+		model.addAttribute("funcionario", funcionario);		
+		model.addAttribute("funcionariosLicencasCid", funcionariosLicencasCid);
+		//model.addAttribute("funcionariosLicencas", service.buscarPorFuncionario(funcionario) );////rever essa lógica
+		//model.addAttribute("funcionariosFeriasPeriodos", periodosService.buscarPorFuncionarioComDias(funcionario));
+	
+	return "/funcionarioslicenca/cadastro"; 
+	
+	}
+	
+	//Recebe o id de funcionariosLicencasCid da tela de FuncionariosLicencas		
+	@GetMapping("/cid/{id}")
+	public String salvaIdCidNaSession(@PathVariable("id") Long id, Long idCid) {
+		
+		idCid = cidsService.buscarPorId(id).getId();
+		HttpSession session = httpSessionFactory.getObject();
+		session.setAttribute("idCid", idCid);     
+		//return "redirect:/funcionarioslicencas/pessoa/cadastrar";	
+	
+	return "redirect:/funcionarioslicencas/licencas/cadastrar"; 
+	}
+		
+	@GetMapping("/cids")
+	public String vinculaCids(Cids cids, ModelMap model) {
+					
+		model.addAttribute("cids", cidsService.buscarTodos());
+		
+		return "/funcionarioslicenca/listacids"; 
+	}
+	
+	
+
+	
+	
+	
+	
+	
 	
 	
 	
@@ -158,7 +312,8 @@ public class FuncionariosLicencasController {
 		model.addAttribute("funcionariosLicencas", service.buscarPorDtInicial(dtInicial.toUpperCase().trim()));
 		return "/funcionarioslicenca/lista";
 	}
-		
+	
+	
 	@ModelAttribute("idCargoAtualFk")
 	public List<Cargos> getCargos() {
 		return cargosService.buscarTodos();
@@ -208,6 +363,7 @@ public class FuncionariosLicencasController {
 		return vinculosService.buscarTodos();
 	}
 	
+	
 	@Autowired
 	HttpServletRequest request;
 	@ModelAttribute("nomeOperadorLogado")
@@ -219,5 +375,12 @@ public class FuncionariosLicencasController {
 		return request.getSession().getAttribute("unidade").toString();
 	}
 	
+	//Recupera um valor da Session
+	public Long getIdFuncionarioSession() {
+		return Long.valueOf(request.getSession().getAttribute("idFuncionario").toString()) ;
+	}
 	
+	public Long getIdCidSession() {
+		return Long.valueOf(request.getSession().getAttribute("idCid").toString()) ;
+	}
 }

@@ -28,7 +28,6 @@ public class CidsController {
 	String ultimaBuscaCodigo = "";
 	String ultimaBuscaDescricao = "";
 	
-	
 	@Autowired
 	private CidsService service;
 
@@ -36,16 +35,13 @@ public class CidsController {
 	public String cadastrar(Cids cids) {		
 		return "/cid/cadastro";
 	}
-	
-	
+		
 	@GetMapping("/listar")
 	public String listar(ModelMap model) {
 		this.ultimaBuscaCodigo = "";
 		this.ultimaBuscaDescricao = "";
 		return this.findPaginated(1, model);
 	}
-	
-	
 	
 	@PostMapping("/salvar")
 	public String salvar(Cids cids, RedirectAttributes attr) {
@@ -80,9 +76,6 @@ public class CidsController {
 		return "/cid/lista";
 	}
 	
-	
-	
-	
 	@GetMapping("/paginar/{pageNo}")
 	public String getPorNomePaginado(@PathVariable (value = "pageNo") int pageNo, ModelMap model) {
 		
@@ -95,8 +88,7 @@ public class CidsController {
 				return this.findPaginatedDescricao(pageNo, ultimaBuscaDescricao, model);}
 			}
 	}
-	
-	
+		
 	@GetMapping("/listar/{pageNo}")
 	public String findPaginated(@PathVariable (value = "pageNo") int pageNo, ModelMap model) {
 		int pageSeze = 10;
@@ -141,8 +133,7 @@ public class CidsController {
 		return this.findPaginatedDescricao(1, descricao, model);
 	}
 	
-	
-	
+		
 	@Autowired
 	HttpServletRequest request;
 	@ModelAttribute("nomeOperadorLogado")
@@ -153,7 +144,5 @@ public class CidsController {
 	public String unidadeLogada() {
 		return request.getSession().getAttribute("unidade").toString();
 	}
-	
-	
-	
+		
 }

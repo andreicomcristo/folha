@@ -5,8 +5,10 @@ import java.util.List;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
+import com.folha.boot.domain.FuncionariosFerias;
 import com.folha.boot.domain.FuncionariosFeriasPeriodos;
 import com.folha.boot.domain.FuncionariosLicencas;
+import com.folha.boot.domain.PessoaFuncionarios;
 
 @Repository
 public interface FuncionariosLicencasReposytory extends JpaRepository<FuncionariosLicencas , Long>{
@@ -16,4 +18,6 @@ public interface FuncionariosLicencasReposytory extends JpaRepository<Funcionari
 	public List<FuncionariosLicencas> findByDtInicialContainingOrderByDtInicialAsc(String dtInicial);
 	
 	public List<FuncionariosLicencas> findByDtInicialLessThanEqualAndDtFinalGreaterThanEqualAndDtCancelamentoIsNullOrderByIdFuncionarioFkIdPessoaFkCpfAsc (Date dataFinal, Date dataInicial);
+	
+	public List<FuncionariosLicencas> findByIdFuncionarioFk(PessoaFuncionarios funcionario);
 }

@@ -5,7 +5,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import com.folha.boot.Reposytory.FuncionariosLicencasReposytory;
+import com.folha.boot.domain.FuncionariosFerias;
 import com.folha.boot.domain.FuncionariosLicencas;
+import com.folha.boot.domain.PessoaFuncionarios;
 
 @Service
 @Transactional(readOnly = false)
@@ -32,6 +34,12 @@ public class FuncionariosLicencasService {
 	public FuncionariosLicencas buscarPorId(Long id) {
 		
 		return reposytory.findById(id).get();
+	}
+	
+	@Transactional(readOnly = true)
+	public List<FuncionariosLicencas> buscarPorFuncionario(PessoaFuncionarios funcionario) {
+		// TODO Auto-generated method stub
+		return reposytory.findByIdFuncionarioFk(funcionario);
 	}
 	
 	@Transactional(readOnly = true)
