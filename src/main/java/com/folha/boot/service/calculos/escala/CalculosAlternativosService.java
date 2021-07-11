@@ -4361,16 +4361,28 @@ public class CalculosAlternativosService {
 	
 	public List<UnidadeValor> pegarValoresDosUltimosSeisMeses(PessoaFuncionarios funcionario, AnoMes anoMes){
 
-		List<UnidadeValor> listaResposta = new ArrayList<>();
+List<UnidadeValor> listaResposta = new ArrayList<>();
 		
 		List<UnidadeMesValor> lista = new ArrayList<>();
 		
-		AnoMes mes06 =  anoMesService.buscarPorNome(  UtilidadesDeCalendarioEEscala.mesAnteriorAnterior(anoMes.getNomeAnoMes()) ).get(0) ;
-		AnoMes mes05 =  anoMesService.buscarPorNome(  UtilidadesDeCalendarioEEscala.mesAnteriorAnterior(mes06.getNomeAnoMes()) ).get(0) ;
-		AnoMes mes04 =  anoMesService.buscarPorNome(  UtilidadesDeCalendarioEEscala.mesAnteriorAnterior(mes05.getNomeAnoMes()) ).get(0) ;
-		AnoMes mes03 =  anoMesService.buscarPorNome(  UtilidadesDeCalendarioEEscala.mesAnteriorAnterior(mes04.getNomeAnoMes()) ).get(0) ;
-		AnoMes mes02 =  anoMesService.buscarPorNome(  UtilidadesDeCalendarioEEscala.mesAnteriorAnterior(mes06.getNomeAnoMes()) ).get(0) ;
-		AnoMes mes01 =  anoMesService.buscarPorNome(  UtilidadesDeCalendarioEEscala.mesAnteriorAnterior(mes02.getNomeAnoMes()) ).get(0) ;
+		AnoMes mes06 = null;
+		if(! anoMesService.buscarPorNome(  UtilidadesDeCalendarioEEscala.mesAnteriorAnterior(anoMes.getNomeAnoMes()) ).isEmpty() ) { mes06 = anoMesService.buscarPorNome(  UtilidadesDeCalendarioEEscala.mesAnteriorAnterior(anoMes.getNomeAnoMes()) ).get(0) ; }
+				
+		AnoMes mes05 = null;
+		if(! anoMesService.buscarPorNome(  UtilidadesDeCalendarioEEscala.mesAnteriorAnterior(mes06.getNomeAnoMes()) ).isEmpty() ) { mes05 = anoMesService.buscarPorNome(  UtilidadesDeCalendarioEEscala.mesAnteriorAnterior(mes06.getNomeAnoMes()) ).get(0) ; }
+		
+		AnoMes mes04 = null;
+		if(! anoMesService.buscarPorNome(  UtilidadesDeCalendarioEEscala.mesAnteriorAnterior(mes05.getNomeAnoMes()) ).isEmpty() ) { mes04 = anoMesService.buscarPorNome(  UtilidadesDeCalendarioEEscala.mesAnteriorAnterior(mes05.getNomeAnoMes()) ).get(0) ; }
+		
+		AnoMes mes03 = null;
+		if(! anoMesService.buscarPorNome(  UtilidadesDeCalendarioEEscala.mesAnteriorAnterior(mes04.getNomeAnoMes()) ).isEmpty() ) { mes03 = anoMesService.buscarPorNome(  UtilidadesDeCalendarioEEscala.mesAnteriorAnterior(mes04.getNomeAnoMes()) ).get(0) ; }
+		
+		AnoMes mes02 = null;
+		if(! anoMesService.buscarPorNome(  UtilidadesDeCalendarioEEscala.mesAnteriorAnterior(mes03.getNomeAnoMes()) ).isEmpty() ) { mes02 = anoMesService.buscarPorNome(  UtilidadesDeCalendarioEEscala.mesAnteriorAnterior(mes03.getNomeAnoMes()) ).get(0) ; }
+		
+		AnoMes mes01 = null;
+		if(! anoMesService.buscarPorNome(  UtilidadesDeCalendarioEEscala.mesAnteriorAnterior(mes02.getNomeAnoMes()) ).isEmpty() ) { mes01 = anoMesService.buscarPorNome(  UtilidadesDeCalendarioEEscala.mesAnteriorAnterior(mes02.getNomeAnoMes()) ).get(0) ; }
+		
 		
 		List<RubricaVencimento> listaVencimentos06 = rubricaVencimentoService.buscarPorMesEPessoa(mes06, funcionario.getIdPessoaFk());
 		List<RubricaVencimento> listaVencimentos05 = rubricaVencimentoService.buscarPorMesEPessoa(mes05, funcionario.getIdPessoaFk());
