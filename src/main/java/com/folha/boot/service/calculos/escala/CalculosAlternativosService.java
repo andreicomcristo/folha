@@ -4407,7 +4407,10 @@ List<UnidadeValor> listaResposta = new ArrayList<>();
 			unidadeMesValor.setAnoMes(anoMesX);
 			unidadeMesValor.setUnidade(unidadeX);
 			unidadeMesValor.setValor(valor);
-			lista.add(unidadeMesValor);
+			
+			if(anoMesX!=null) {
+				lista.add(unidadeMesValor);
+			}
 		}
 		
 		
@@ -4421,7 +4424,10 @@ List<UnidadeValor> listaResposta = new ArrayList<>();
 			unidadeMesValor.setAnoMes(anoMesX);
 			unidadeMesValor.setUnidade(unidadeX);
 			unidadeMesValor.setValor(valor);
-			lista.add(unidadeMesValor);
+			
+			if(anoMesX!=null) {
+				lista.add(unidadeMesValor);
+			}
 		}
 		
 		
@@ -4435,7 +4441,10 @@ List<UnidadeValor> listaResposta = new ArrayList<>();
 			unidadeMesValor.setAnoMes(anoMesX);
 			unidadeMesValor.setUnidade(unidadeX);
 			unidadeMesValor.setValor(valor);
-			lista.add(unidadeMesValor);
+			
+			if(anoMesX!=null) {
+				lista.add(unidadeMesValor);
+			}
 		}
 		
 		
@@ -4449,7 +4458,10 @@ List<UnidadeValor> listaResposta = new ArrayList<>();
 			unidadeMesValor.setAnoMes(anoMesX);
 			unidadeMesValor.setUnidade(unidadeX);
 			unidadeMesValor.setValor(valor);
-			lista.add(unidadeMesValor);
+			
+			if(anoMesX!=null) {
+				lista.add(unidadeMesValor);
+			}
 		}
 		
 		
@@ -4463,7 +4475,10 @@ List<UnidadeValor> listaResposta = new ArrayList<>();
 			unidadeMesValor.setAnoMes(anoMesX);
 			unidadeMesValor.setUnidade(unidadeX);
 			unidadeMesValor.setValor(valor);
-			lista.add(unidadeMesValor);
+			
+			if(anoMesX!=null) {
+				lista.add(unidadeMesValor);
+			}
 		}
 		
 		
@@ -4477,17 +4492,21 @@ List<UnidadeValor> listaResposta = new ArrayList<>();
 			unidadeMesValor.setAnoMes(anoMesX);
 			unidadeMesValor.setUnidade(unidadeX);
 			unidadeMesValor.setValor(valor);
-			lista.add(unidadeMesValor);
+			
+			if(anoMesX!=null) {
+				lista.add(unidadeMesValor);
+			}
 		}
 		
 		//Coletando Meses
 		List<AnoMes> listaMeses = new ArrayList<>();
-		listaMeses.add(mes01);
-		listaMeses.add(mes02);
-		listaMeses.add(mes03);
-		listaMeses.add(mes04);
-		listaMeses.add(mes05);
-		listaMeses.add(mes06);
+		for(int i=0;i<lista.size();i++) {
+			if(listaMeses.contains(lista.get(i).getAnoMes())) {
+				if(lista.get(i).getAnoMes() != null) {
+					listaMeses.add(lista.get(i).getAnoMes());
+				}
+			}
+		}
 		
 		//Coletando Unidades
 		List<Unidades> listaUnidades = new ArrayList<>();
@@ -4521,7 +4540,7 @@ List<UnidadeValor> listaResposta = new ArrayList<>();
 		// Buscando fator de Divisao
 		List <UnidadeFator> listaFatores = new ArrayList<>();
 		for(int i=0;i<listaUnidades.size();i++) {
-			int fator = 6;
+			int fator = listaMeses.size();
 			boolean achouValor = false;
 			for(int j=0;j<listaA.size();j++) {
 				if(listaUnidades.get(i).equals(listaA.get(j).getUnidade())) {
