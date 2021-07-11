@@ -5,7 +5,8 @@ import java.util.Date;
 import javax.persistence.*;
 
 @SuppressWarnings("serial")
-@Entity
+@Entity 
+
 @Table(name="funcionarios_licencas_cid")
 public class FuncionariosLicencasCid extends AbstractEntity<Long> {
 	

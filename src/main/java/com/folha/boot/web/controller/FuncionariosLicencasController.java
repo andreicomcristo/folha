@@ -20,11 +20,8 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import com.folha.boot.domain.Cargos;
 import com.folha.boot.domain.CargosEspecialidade;
 import com.folha.boot.domain.Cids;
-import com.folha.boot.domain.FuncionariosFerias;
-import com.folha.boot.domain.FuncionariosFeriasPeriodos;
 import com.folha.boot.domain.FuncionariosLicencas;
 import com.folha.boot.domain.FuncionariosLicencasCid;
-import com.folha.boot.domain.Pessoa;
 import com.folha.boot.domain.PessoaFuncionarios;
 import com.folha.boot.domain.PessoaOperadores;
 import com.folha.boot.domain.TiposDeLicenca;
@@ -48,10 +45,12 @@ public class FuncionariosLicencasController {
 	private String ultimaBuscaNome = "";
 	private String ultimaBuscaCodigo = "";
 	private String ultimaBuscaDescricao = "";
+	
 	@Autowired
 	private CidsService cidsService; 
-	@Autowired
-	FuncionariosLicencasCid funcionariosLicencasCid;
+	
+	/*@Autowired
+	private FuncionariosLicencasCid funcionariosLicencasCid;*/
 	@Autowired
 	private FuncionariosLicencasService service;
 	@Autowired
@@ -213,7 +212,7 @@ public class FuncionariosLicencasController {
 	}
 		
 	@GetMapping("/licencas/cadastrar")
-	public String cadastrarLicencas(FuncionariosLicencas funcionariosLicencas, ModelMap model) {
+	public String cadastrarLicencas(FuncionariosLicencas funcionariosLicencas,FuncionariosLicencasCid funcionariosLicencasCid, ModelMap model) {
 		//relaciona as licenças com funcionário
 		//Pessoa pessoa = pessoaService.buscarPorId(getIdPessoaSession());
 		PessoaFuncionarios funcionario = pessoaFuncionariosService.buscarPorId(getIdFuncionarioSession());				
