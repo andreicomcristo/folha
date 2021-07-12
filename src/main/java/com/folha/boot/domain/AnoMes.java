@@ -51,6 +51,8 @@ public class AnoMes extends AbstractEntity<Long> {
     private List<UnidadeAdmiteIncrementoDeRisco> unidadeAdmiteIncrementoDeRiscoList;
     @OneToMany(mappedBy = "idAnoMesFk")
     private List<NaoDescontaIr> naoDescontaIrList;
+    @OneToMany(mappedBy = "idAnoMesFk")
+    private List<LiberacaoIndividualEscala> liberacaoIndividualEscalaList;
     
     @OneToMany(mappedBy = "idAnoMesFk")
     private List<UnidadeAdmiteComplementoPlantao> unidadeAdmiteComplementoPlantaoList;
@@ -388,6 +390,12 @@ public class AnoMes extends AbstractEntity<Long> {
 	}
 	public void setConversaoFontePorFolhaList(List<ConversaoFontePorFolha> conversaoFontePorFolhaList) {
 		this.conversaoFontePorFolhaList = conversaoFontePorFolhaList;
+	}
+	public List<LiberacaoIndividualEscala> getLiberacaoIndividualEscalaList() {
+		return liberacaoIndividualEscalaList;
+	}
+	public void setLiberacaoIndividualEscalaList(List<LiberacaoIndividualEscala> liberacaoIndividualEscalaList) {
+		this.liberacaoIndividualEscalaList = liberacaoIndividualEscalaList;
 	}
 		
 	

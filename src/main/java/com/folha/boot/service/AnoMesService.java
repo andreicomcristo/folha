@@ -6,6 +6,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import com.folha.boot.Reposytory.AnoMesReposytory;
 import com.folha.boot.domain.AnoMes;
+import com.folha.boot.domain.Unidades;
 import com.folha.boot.service.util.Extenso;
 
 @Service
@@ -15,6 +16,9 @@ public class AnoMesService {
 	
 	@Autowired
 	private  AnoMesReposytory reposytory;
+	
+	@Autowired
+	private  LiberacaoIndividualEscalaService liberacaoIndividualEscalaService;
 
 	public void salvar(AnoMes anoMes) {
 		reposytory.save(anoMes);
@@ -50,7 +54,7 @@ public class AnoMesService {
 		return reposytory.findByNomeAnoMesOrderByNomeAnoMesDesc(nomeAnoMes);
 	}
 	
-	public boolean escalaBloqueada (String nomeAnoMes) {
+	public boolean escalaBloqueada (String nomeAnoMes, Unidades unidade) {
 		boolean resposta = true;
 		List<AnoMes> lista = buscarPorNome(nomeAnoMes);
 		if(!lista.isEmpty()) {
@@ -58,6 +62,12 @@ public class AnoMesService {
 				resposta = false;
 			}
 		}
+		
+		if(resposta == true) {
+			if(liberacaoIndividualEscalaService.escalaLiberadaExcepcionalmente(lista.get(0), unidade)==true) {resposta = false;}
+		}
+		
+		
 		return resposta;
 	}
 	

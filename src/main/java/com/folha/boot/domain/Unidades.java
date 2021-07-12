@@ -115,6 +115,8 @@ public class Unidades extends AbstractEntity<Long> {
     private List<FaixasValoresGpfCedido> faixasValoresGpfCedidoList;
     @OneToMany(mappedBy = "idUnidadeFk")
     private List<FaixasValoresLicencaMaternidade> faixasValoresLicencaMaternidadeList;
+    @OneToMany(mappedBy = "idUnidadeFk")
+    private List<LiberacaoIndividualEscala> liberacaoIndividualEscalaList;
     
     
     @OneToMany(mappedBy = "idUnidadeFk")
@@ -664,6 +666,14 @@ public class Unidades extends AbstractEntity<Long> {
 	public void setFaixasValoresLicencaMaternidadeList(
 			List<FaixasValoresLicencaMaternidade> faixasValoresLicencaMaternidadeList) {
 		this.faixasValoresLicencaMaternidadeList = faixasValoresLicencaMaternidadeList;
+	}
+
+	public List<LiberacaoIndividualEscala> getLiberacaoIndividualEscalaList() {
+		return liberacaoIndividualEscalaList;
+	}
+
+	public void setLiberacaoIndividualEscalaList(List<LiberacaoIndividualEscala> liberacaoIndividualEscalaList) {
+		this.liberacaoIndividualEscalaList = liberacaoIndividualEscalaList;
 	}
 	
 	

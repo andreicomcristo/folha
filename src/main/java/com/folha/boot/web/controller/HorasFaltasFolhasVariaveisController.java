@@ -62,7 +62,7 @@ public class HorasFaltasFolhasVariaveisController {
 		if(horasFaltasFolhasVariaveis.getHorasSemana()==null) {horasFaltasFolhasVariaveis.setHorasSemana(0);}
 		if(horasFaltasFolhasVariaveis.getHorasFimSemana()==null) {horasFaltasFolhasVariaveis.setHorasFimSemana(0);}
 		
-		if(anoMesService.escalaBloqueada(horasFaltasFolhasVariaveis.getIdAnoMesFk().getNomeAnoMes())==true) {
+		if(anoMesService.escalaBloqueada(horasFaltasFolhasVariaveis.getIdAnoMesFk().getNomeAnoMes(), usuarioService.pegarUnidadeLogada())==true) {
 			return "redirect:/escalas/mensagem/de/escala/bloqueada";
 		}
 		
@@ -120,7 +120,7 @@ public class HorasFaltasFolhasVariaveisController {
 		if(horasFaltasFolhasVariaveis.getHorasSemana()==null) {horasFaltasFolhasVariaveis.setHorasSemana(0);}
 		if(horasFaltasFolhasVariaveis.getHorasFimSemana()==null) {horasFaltasFolhasVariaveis.setHorasFimSemana(0);}
 		
-		if(anoMesService.escalaBloqueada(horasFaltasFolhasVariaveis.getIdAnoMesFk().getNomeAnoMes())==true) {
+		if(anoMesService.escalaBloqueada(horasFaltasFolhasVariaveis.getIdAnoMesFk().getNomeAnoMes(), usuarioService.pegarUnidadeLogada())==true) {
 			return "redirect:/escalas/mensagem/de/escala/bloqueada";
 		}
 		
@@ -174,7 +174,7 @@ public class HorasFaltasFolhasVariaveisController {
 		
 		HorasFaltasFolhasVariaveis horasFaltasFolhasVariaveis = service.buscarPorId(id);
 		
-		if(anoMesService.escalaBloqueada(horasFaltasFolhasVariaveis.getIdAnoMesFk().getNomeAnoMes())==true) {
+		if(anoMesService.escalaBloqueada(horasFaltasFolhasVariaveis.getIdAnoMesFk().getNomeAnoMes(), usuarioService.pegarUnidadeLogada())==true) {
 			return "redirect:/escalas/mensagem/de/escala/bloqueada";
 		}
 		

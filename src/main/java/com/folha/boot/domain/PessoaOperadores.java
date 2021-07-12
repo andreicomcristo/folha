@@ -119,6 +119,11 @@ public class PessoaOperadores extends AbstractEntity<Long> {
     /*@OneToMany(cascade = CascadeType.ALL, mappedBy = "idPessoaOperadoresFk")
     private List<UsersOperador> usersOperadorList;*/
     
+    @OneToMany(mappedBy = "idOperadorCadastroFk")
+    private List<LiberacaoIndividualEscala> liberacaoIndividualEscalaList;
+    @OneToMany(mappedBy = "idOperadorCancelamentoFk")
+    private List<LiberacaoIndividualEscala> liberacaoIndividualEscalaList1;
+    
     @OneToMany(mappedBy = "idOperadorCancelamentoFk")
     private List<FuncionariosLicencasCid> funcionariosLicencasCidList;
     
@@ -814,6 +819,18 @@ public class PessoaOperadores extends AbstractEntity<Long> {
 	public void setFaixasValoresLicencaMaternidadeList2(
 			List<FaixasValoresLicencaMaternidade> faixasValoresLicencaMaternidadeList2) {
 		this.faixasValoresLicencaMaternidadeList2 = faixasValoresLicencaMaternidadeList2;
+	}
+	public List<LiberacaoIndividualEscala> getLiberacaoIndividualEscalaList() {
+		return liberacaoIndividualEscalaList;
+	}
+	public void setLiberacaoIndividualEscalaList(List<LiberacaoIndividualEscala> liberacaoIndividualEscalaList) {
+		this.liberacaoIndividualEscalaList = liberacaoIndividualEscalaList;
+	}
+	public List<LiberacaoIndividualEscala> getLiberacaoIndividualEscalaList1() {
+		return liberacaoIndividualEscalaList1;
+	}
+	public void setLiberacaoIndividualEscalaList1(List<LiberacaoIndividualEscala> liberacaoIndividualEscalaList1) {
+		this.liberacaoIndividualEscalaList1 = liberacaoIndividualEscalaList1;
 	}
 	
 	

@@ -393,6 +393,33 @@
 
 			<li class="main-menu-item"><a sec:authorize="hasAnyAuthority( 'MASTER' , 'FOLHA_SEDE' , 'MASTER_RH_SEDE' )"  class="bg-btn"><span class=" oi oi-chevron-bottom z58 icones-sidebar-tamanho align-middle"></span>Folha </a>
 				<ul class="bg-show">
+				
+					<li><a  class="hd-btn"><span class=" oi oi-chevron-bottom z211 icones-sidebar-tamanho align-middle"></span>Escalas</a>
+						<ul class="hd-show">
+							
+							<li><a  class="gd-btn"><span class=" oi oi-chevron-bottom z185 icones-sidebar-tamanho align-middle"></span>Definir Ano Mês </a>
+								<ul class="gd-show">
+									<li class="menu-item" urlmatch='/anomes/cadastrar'><a sec:authorize-url="/anomes/cadastrar" th:href="@{/anomes/cadastrar}"><span class=" oi oi-chevron-right icones-sidebar-tamanho align-middle"></span>Criar</a></li>
+								</ul>
+							</li>		
+										
+							<li><a  class="ax-btn"><span class=" oi oi-chevron-bottom fiftyth icones-sidebar-tamanho align-middle"></span>Bloquear </a>
+								<ul class="ax-show">
+									<li class="menu-item" urlmatch='/anomes/listar'><a sec:authorize-url="/anomes/listar" th:href="@{/anomes/listar}"><span class=" oi oi-chevron-right icones-sidebar-tamanho align-middle"></span>Bloquear / Desbloquear</a></li>
+								</ul>
+							</li>
+							
+							<li><a  class="he-btn"><span class=" oi oi-chevron-bottom z212 icones-sidebar-tamanho align-middle"></span>Desbloquear UMA Unidade</a>
+								<ul class="he-show">
+									<li class="menu-item" urlmatch='/liberacaoIndividualEscala/cadastrar'><a sec:authorize-url="/liberacaoIndividualEscala/cadastrar" th:href="@{/liberacaoIndividualEscala/cadastrar}"><span class=" oi oi-chevron-right icones-sidebar-tamanho align-middle"></span>Cadastrar</a></li>
+									<li class="menu-item" urlmatch='/liberacaoIndividualEscala/listar'><a sec:authorize-url="/liberacaoIndividualEscala/listar" th:href="@{/liberacaoIndividualEscala/listar}"><span class=" oi oi-chevron-right icones-sidebar-tamanho align-middle"></span>Listar</a></li>
+								</ul>
+							</li>
+							
+						</ul>
+					</li>
+				
+				
 					<li><a  class="bh-btn"><span class=" oi oi-chevron-bottom z59 icones-sidebar-tamanho align-middle"></span>Configurações </a>
 						<ul class="bh-show">
 							
@@ -405,7 +432,7 @@
 											<li><a  class="cm-btn"><span class=" oi oi-chevron-bottom z90 icones-sidebar-tamanho align-middle"></span>Gestora </a>
 												<ul class="cm-show">
 													<li class="menu-item" urlmatch='/unidadeGestora/cadastrar'><a sec:authorize-url="/unidadeGestora/cadastrar" th:href="@{/unidadeGestora/cadastrar}"><span class=" oi oi-chevron-right icones-sidebar-tamanho align-middle"></span>Cadastrar</a></li>
-													<li class="menu-item" urlmatch='/unidadeGestora/cadastrar'><a sec:authorize-url="/unidadeGestora/cadastrar" th:href="@{/unidadeGestora/cadastrar}"><span class=" oi oi-chevron-right icones-sidebar-tamanho align-middle"></span>Listar</a></li>
+													<li class="menu-item" urlmatch='/unidadeGestora/listar'><a sec:authorize-url="/unidadeGestora/listar" th:href="@{/unidadeGestora/listar}"><span class=" oi oi-chevron-right icones-sidebar-tamanho align-middle"></span>Listar</a></li>
 												</ul>
 											</li>
 											
@@ -965,20 +992,6 @@
 						<li><a  class="gc-btn"><span class=" oi oi-chevron-bottom z184 icones-sidebar-tamanho align-middle"></span>Escala </a>
 							<ul class="gc-show">
 							
-								<li><a  class="gd-btn"><span class=" oi oi-chevron-bottom z185 icones-sidebar-tamanho align-middle"></span>Definir Ano Mês </a>
-									<ul class="gd-show">
-										<li class="menu-item" urlmatch='/anomes/cadastrar'><a sec:authorize-url="/anomes/cadastrar" th:href="@{/anomes/cadastrar}"><span class=" oi oi-chevron-right icones-sidebar-tamanho align-middle"></span>Criar</a></li>
-									</ul>
-								</li>		
-										
-								<li><a  class="ax-btn"><span class=" oi oi-chevron-bottom fiftyth icones-sidebar-tamanho align-middle"></span>Bloquear </a>
-									<ul class="ax-show">
-										<li class="menu-item" urlmatch='/anomes/listar'><a sec:authorize-url="/anomes/listar" th:href="@{/anomes/listar}"><span class=" oi oi-chevron-right icones-sidebar-tamanho align-middle"></span>Bloquear / Desbloquear</a></li>
-									</ul>
-								</li>
-										
-								
-							
 								<li><a  class="bq-btn"><span class=" oi oi-chevron-bottom z68 icones-sidebar-tamanho align-middle"></span>Lançadas/Excluídas</a>
 									<ul class="bq-show">
 										<li class="menu-item" urlmatch='/escalas/escolher/escala/alteracao/global'><a sec:authorize-url="/escalas/escolher/escala/alteracao/global" th:href="@{/escalas/escolher/escala/alteracao/global}"><span class=" oi oi-chevron-right icones-sidebar-tamanho align-middle"></span>Listar</a></li>
@@ -1312,19 +1325,9 @@
 
 
 						
-			<li><a  class="hd-btn"><span class=" oi oi-chevron-bottom z211 icones-sidebar-tamanho align-middle"></span>Menu 1 </a>
-				<ul class="hd-show">
-					<li><a ><span class=" oi oi-chevron-right icones-sidebar-tamanho align-middle"></span>Cadastrar</a></li>
-					<li><a ><span class=" oi oi-chevron-right icones-sidebar-tamanho align-middle"></span>Listar</a></li>
-				</ul>
-			</li>
+			
 						
-			<li><a  class="he-btn"><span class=" oi oi-chevron-bottom z212 icones-sidebar-tamanho align-middle"></span>Menu 1 </a>
-				<ul class="he-show">
-					<li><a ><span class=" oi oi-chevron-right icones-sidebar-tamanho align-middle"></span>Cadastrar</a></li>
-					<li><a ><span class=" oi oi-chevron-right icones-sidebar-tamanho align-middle"></span>Listar</a></li>
-				</ul>
-			</li>
+			
 						
 			<li><a  class="hf-btn"><span class=" oi oi-chevron-bottom z213 icones-sidebar-tamanho align-middle"></span>Menu 1 </a>
 				<ul class="hf-show">
