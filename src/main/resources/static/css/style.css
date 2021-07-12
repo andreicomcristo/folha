@@ -16,7 +16,7 @@
 
 .btna{
   position: absolute;
-  top: 60px;
+  top: 54px;
   left: 1px;
   height: 10px;
   width: 40px;
@@ -24,7 +24,7 @@
   background: #1b1b1b;
   border-radius: 3px;
   cursor: pointer;
-  transition: left 0.4s ease;
+  transition: left 0.2s ease;
 }
 .btna.click{
   left: 360px;
@@ -48,22 +48,22 @@
 .sidebar{
   position: fixed;
   width: 390px;
-  top: 60px;
+  top: 56px;
   height: 100%;
   left: -390px;
   background: #1b1b1b;
-  transition: left 0.4s ease;
+  transition: left 0.2s ease;
 }
 .sidebar.show{
   left: 0px;
   position: relative;
-  top:4px;
+  top:-1px;
 }
 .sidebar .text{
   color: white;
   font-size: 16px;
   font-weight: 600;
-  line-height: 65px;
+  line-height: 38px;
   text-align: center;
   background: #1e1e1e;
   letter-spacing: 1px;
