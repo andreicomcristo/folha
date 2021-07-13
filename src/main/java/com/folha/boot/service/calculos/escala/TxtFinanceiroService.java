@@ -21,9 +21,11 @@ import com.folha.boot.domain.AnoMes;
 import com.folha.boot.domain.Fonte;
 import com.folha.boot.domain.Pessoa;
 import com.folha.boot.domain.PessoaBancos;
+import com.folha.boot.domain.RubricaPensaoObsVencimento;
 import com.folha.boot.domain.RubricaVencimento;
 import com.folha.boot.domain.models.calculos.TxtFinanceiro;
 import com.folha.boot.service.PessoaBancosService;
+import com.folha.boot.service.RubricaPensaoObsVencimentoService;
 import com.folha.boot.service.RubricaVencimentoService;
 import com.folha.boot.service.calculos.folha.CalcularCalculadoraService;
 import com.folha.boot.service.util.UtilidadesMatematicas;
@@ -38,6 +40,8 @@ public class TxtFinanceiroService {
 	private CalcularCalculadoraService calcularCalculadoraService;
 	@Autowired
 	private PessoaBancosService pessoaBancosService;
+	@Autowired
+	private RubricaPensaoObsVencimentoService rubricaPensaoObsVencimentoService;
 	
 	
 	public ByteArrayInputStream exportarExcel(AnoMes anoMes, Fonte fonte) {
@@ -78,6 +82,9 @@ public class TxtFinanceiroService {
 		//Colocando os bancos de cada pessoa
 		for(int i=0;i<lista.size();i++) {
 			
+			//Fazendo a observacao ficar vazia
+			lista.get(i).setObs("");
+			
 			//Coletando bancos individualmente
 			List<PessoaBancos> listaPessoaBanco = pessoaBancosService.buscarPorPessoa(lista.get(i).getPessoa());
 			
@@ -97,6 +104,89 @@ public class TxtFinanceiroService {
 			
 		}
 		
+		
+		//Buscando Pensoes
+		List<RubricaPensaoObsVencimento> listaPensoes = rubricaPensaoObsVencimentoService.buscarPorMes(anoMes);
+		List<TxtFinanceiro> listaPensoesA = new ArrayList<>();
+		
+		for(int i=0;i<listaPensoes.size();i++) {
+			TxtFinanceiro txtFinanceiro = new TxtFinanceiro();
+			txtFinanceiro.setAnoMes(anoMes);
+			
+			txtFinanceiro.setNome(listaPensoes.get(i).getIdRubricaPensaoObsFk().getIdRubricaPensaoFk().getNomeBeneficiario());
+			txtFinanceiro.setCpf(listaPensoes.get(i).getIdRubricaPensaoObsFk().getIdRubricaPensaoFk().getCpfBeneficiario());
+			
+			PessoaBancos b = new PessoaBancos();
+			b.setIdBancoFk( listaPensoes.get(i).getIdRubricaPensaoObsFk().getIdRubricaPensaoFk().getIdBancoFk() );
+			txtFinanceiro.setBanco(b);
+			
+			txtFinanceiro.setNomeBanco(listaPensoes.get(i).getIdRubricaPensaoObsFk().getIdRubricaPensaoFk().getIdBancoFk().getNomeBanco());
+			txtFinanceiro.setCodigoBanco(listaPensoes.get(i).getIdRubricaPensaoObsFk().getIdRubricaPensaoFk().getIdBancoFk().getCodigoBanco());
+			txtFinanceiro.setAgencia(listaPensoes.get(i).getIdRubricaPensaoObsFk().getIdRubricaPensaoFk().getAgencia());
+			
+			String conta = listaPensoes.get(i).getIdRubricaPensaoObsFk().getIdRubricaPensaoFk().getConta()+listaPensoes.get(i).getIdRubricaPensaoObsFk().getIdRubricaPensaoFk().getDvConta();
+			if(listaPensoes.get(i).getIdRubricaPensaoObsFk().getIdRubricaPensaoFk().getIdBancoFk().getCodigoBanco().equalsIgnoreCase("104")) {
+				conta = listaPensoes.get(i).getIdRubricaPensaoObsFk().getIdRubricaPensaoFk().getOperacaoVariacao()+conta;
+			}
+			txtFinanceiro.setConta(conta);
+			
+			txtFinanceiro.setAnoMes(anoMes);
+			txtFinanceiro.setFonte(fonte);
+			txtFinanceiro.setPessoa(null);
+			
+			
+			
+			txtFinanceiro.setValor(listaPensoes.get(i).getValorDescontado());
+			listaPensoesA.add(txtFinanceiro);
+		}		
+		
+		List<String> listaCpfsPensao = new ArrayList<>(); 
+		for(int i=0;i<listaPensoesA.size();i++) {
+			if(!listaCpfsPensao.contains(listaPensoesA.get(i).getCpf())) {
+				listaCpfsPensao.add(listaPensoesA.get(i).getCpf());
+			}
+		}
+		
+		//Juntando pensoes
+		List<TxtFinanceiro> listaPensoesB = new ArrayList<>();
+		for(int i=0;i<listaCpfsPensao.size();i++) {
+			
+			TxtFinanceiro txtFinanceiro = new TxtFinanceiro();
+			Double valor = 0.0;
+			
+			for(int j=0;j<listaPensoesA.size();j++) {
+				if(listaCpfsPensao.get(i).equalsIgnoreCase(listaPensoesA.get(j).getCpf())) {
+					valor = valor+listaPensoesA.get(j).getValor();
+					txtFinanceiro.setAnoMes(anoMes);
+					txtFinanceiro.setFonte(fonte);
+					txtFinanceiro.setAgencia(listaPensoesA.get(j).getAgencia());
+					txtFinanceiro.setBanco(listaPensoesA.get(j).getBanco());
+					txtFinanceiro.setCodigoBanco(listaPensoesA.get(j).getCodigoBanco());
+					txtFinanceiro.setConta(listaPensoesA.get(j).getConta());
+					txtFinanceiro.setCpf(listaPensoesA.get(j).getCpf());
+					txtFinanceiro.setJuncao("");
+					txtFinanceiro.setNome(listaPensoesA.get(j).getNome());
+					txtFinanceiro.setNomeBanco(listaPensoesA.get(j).getNomeBanco());
+					
+					Pessoa p = new Pessoa();
+					p.setNome(listaPensoesA.get(j).getNome());
+					p.setCpf(listaPensoesA.get(j).getCpf());
+					
+					txtFinanceiro.setPessoa(p);
+					
+				}
+			}
+			txtFinanceiro.setValor(valor);
+			
+			listaPensoesB.add(txtFinanceiro);
+		}
+		
+		
+		//Colocando pensoes na lista principal
+		for(int i=0;i<listaPensoesB.size();i++) {
+			listaPensoesB.get(i).setObs("PENSAO");
+			lista.add(listaPensoesB.get(i));
+		}
 		
 		//Arredondando Valores
 		for(int i=0;i<lista.size();i++) {
@@ -225,6 +315,10 @@ public class TxtFinanceiroService {
 	        cell.setCellValue("Fonte");
 	        cell.setCellStyle(headerCellStyle);
 	        
+	        cell = row.createCell(11);
+	        cell.setCellValue("Obs");
+	        cell.setCellStyle(headerCellStyle);
+	        
 	        // Creating data rows for each customer
 	        for(int i = 0; i < lista.size(); i++) {
 	        	Row dataRow = sheet.createRow(i + 1);
@@ -239,6 +333,7 @@ public class TxtFinanceiroService {
 	        	dataRow.createCell(8).setCellValue(lista.get(i).getConta());
 	        	dataRow.createCell(9).setCellValue(lista.get(i).getAnoMes().getNomeAnoMes());
 	        	dataRow.createCell(10).setCellValue(lista.get(i).getFonte().getNome());
+	        	dataRow.createCell(11).setCellValue(lista.get(i).getObs());
 	        }
 	
 	        // Making size of column auto resize to fit with data
@@ -253,6 +348,7 @@ public class TxtFinanceiroService {
 	        sheet.autoSizeColumn(8);
 	        sheet.autoSizeColumn(9);
 	        sheet.autoSizeColumn(10);
+	        sheet.autoSizeColumn(11);
 	        
 	        ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
 	        workbook.write(outputStream);

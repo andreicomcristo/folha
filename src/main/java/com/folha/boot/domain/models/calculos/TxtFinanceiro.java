@@ -7,6 +7,7 @@ import com.folha.boot.domain.Escala;
 import com.folha.boot.domain.Fonte;
 import com.folha.boot.domain.Pessoa;
 import com.folha.boot.domain.PessoaBancos;
+import com.folha.boot.service.util.UtilidadesDeTexto;
 
 public class TxtFinanceiro {
 	
@@ -24,6 +25,8 @@ public class TxtFinanceiro {
 	String conta;
 	String valorString;
 	String nomeBanco;
+	
+	String obs;
 	
 	public TxtFinanceiro() {
 	}
@@ -132,5 +135,14 @@ public class TxtFinanceiro {
 		this.nomeBanco = nomeBanco;
 	}
 
+	public String getObs() {
+		return obs;
+	}
+
+	public void setObs(String obs) {
+		this.obs = UtilidadesDeTexto.retiraEspacosDuplosAcentosEConverteEmMaiusculo(obs);
+	}
+	
+	
 		
 }
