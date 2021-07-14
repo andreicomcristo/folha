@@ -477,11 +477,11 @@ public class JasperController {
 			List<RubricaVencimento> lista = rubricaVencimentoService.buscarPorMesEFonteDescontoOuVantagem(anoMesService.buscarPorId(mes), fonteService.buscarPorId(fonte), "V");
 			
 			for(int i=0;i<lista.size();i++) {
-				totalBruto = totalBruto + lista.get(i).getValorBruto();
+				totalBruto = totalBruto + lista.get(i).getValorBruto() - lista.get(i).getDescontoProp();
 				totalInss = totalInss + lista.get(i).getValorPrevidencia();
 				totalIr = totalIr + lista.get(i).getValorIr();
 				totalPensao = totalPensao + lista.get(i).getPensaoProp();
-				totalOutrosDescontos = totalOutrosDescontos + lista.get(i).getDescontoProp();
+				totalOutrosDescontos = totalOutrosDescontos + lista.get(i).getPensaoProp();
 				totalPatronal = totalPatronal + lista.get(i).getValorPatronal();
 				totalLiquido = totalLiquido + lista.get(i).getValorLiquido();
 			}
@@ -490,28 +490,38 @@ public class JasperController {
 			
 			Extenso a = new Extenso(UtilidadesMatematicas.ajustaValorDecimal(totalBruto, 2));
 			String totalBrutoExtenso = a.toString() ;
+			if(totalBrutoExtenso.equalsIgnoreCase("")) {totalBrutoExtenso = "Zero real e Zero centavo";}
 			
 			Extenso b = new Extenso(UtilidadesMatematicas.ajustaValorDecimal(totalInss, 2));
 			String totalInssExtenso = b.toString() ;
+			if(totalInssExtenso.equalsIgnoreCase("")) {totalInssExtenso = "Zero real e Zero centavo";}
 					
 			Extenso c = new Extenso(UtilidadesMatematicas.ajustaValorDecimal(totalIr, 2));		
 			String totalIrExtenso = c.toString() ;
+			if(totalIrExtenso.equalsIgnoreCase("")) {totalIrExtenso = "Zero real e Zero centavo";}
 					
 			Extenso d = new Extenso(UtilidadesMatematicas.ajustaValorDecimal(totalOutrosDescontos, 2));		
 			String totalOutrosDescontosExtenso = d.toString() ;
+			if(totalOutrosDescontosExtenso.equalsIgnoreCase("")) {totalOutrosDescontosExtenso = "Zero real e Zero centavo";}
 					
 			Extenso e = new Extenso(UtilidadesMatematicas.ajustaValorDecimal(totalPatronal, 2));
 			String totalPatronalExtenso = e.toString() ;
+			if(totalPatronalExtenso.equalsIgnoreCase("")) {totalPatronalExtenso = "Zero real e Zero centavo";}
 					
 			Extenso f = new Extenso(UtilidadesMatematicas.ajustaValorDecimal(totalLiquido, 2));
 			String totalLiquidoExtenso = f.toString() ;
+			if(totalLiquidoExtenso.equalsIgnoreCase("")) {totalLiquidoExtenso = "Zero real e Zero centavo";}
 			
 			Extenso g = new Extenso(UtilidadesMatematicas.ajustaValorDecimal(totalBrutoComPatronal, 2));
 			String totalBrutoComPatronalExtenso = g.toString() ;
+			if(totalBrutoComPatronalExtenso.equalsIgnoreCase("")) {totalBrutoComPatronalExtenso = "Zero real e Zero centavo";}
 			
 			Extenso h = new Extenso(UtilidadesMatematicas.ajustaValorDecimal(totalPensao, 2));
 			String totalPensaoExtenso = h.toString() ;
+			if(totalPensaoExtenso.equalsIgnoreCase("")) {totalPensaoExtenso = "Zero real e Zero centavo";}
 			 
+			service.addParametros("mes", anoMesService.buscarPorId(mes).getNomeAnoMes());
+			service.addParametros("fonte", fonteService.buscarPorId(fonte).getNome());
 			
 			service.addParametros("ANO_MES_I", mes);		
 			service.addParametros("FONTE_I", fonte);
@@ -538,7 +548,7 @@ public class JasperController {
 			
 			
 			
-			service.setCaminho("/jasper/folha/processo_por_fonte1.jasper");
+			service.setCaminho("/jasper/folha/processo_por_fonte7.jasper");
 			byte[] bytes = service.gerarRelatorio(); 
 			response.setContentType(MediaType.APPLICATION_PDF_VALUE);
 			//Faz o download
