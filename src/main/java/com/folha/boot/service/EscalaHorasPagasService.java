@@ -25,8 +25,6 @@ public class EscalaHorasPagasService {
 	
 	public void salvarLista( List <EscalasNoMes> lista) {
 		for(int i=0;i<lista.size();i++) {
-			if(lista.get(i).getReferencias().getObsReferencias()!=null) {
-				if(!lista.get(i).getReferencias().getObsReferencias().equalsIgnoreCase("")) {
 					EscalaHorasPagas r = new EscalaHorasPagas();
 					r.setId(null);
 					r.setHorasA(lista.get(i).getEscala().getHorasA());
@@ -46,8 +44,6 @@ public class EscalaHorasPagasService {
 					r.setPlantoes(lista.get(i).getEscala().getPlantoes());
 					
 					salvar(r);
-				}
-			}
 		}
 	}
 

@@ -108,9 +108,10 @@ public class CalculosCalcularService {
 		rubricaPensaoObsService.excluirPorMes(anoMes);
 		
 		//Persistindo
+		escalaHorasPagasService.salvarLista(listaEscalas);
 		rubricaVencimentoService.salvarLista(listaVencimentos);
 		rubricaVencimentoObsService.salvarLista(listaEscalas);
-		escalaHorasPagasService.salvarLista(listaEscalas);
+		
 		
 		//Chamando Calculadora
 		calcularCalculadoraService.calcularTudo(anoMes);
