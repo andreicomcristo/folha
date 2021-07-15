@@ -163,6 +163,9 @@ public class PessoaFuncionarios extends AbstractEntity<Long> {
     private List<Escala> escalaList;
     
     @OneToMany(mappedBy = "idFuncionarioFk")
+    private List<EscalaHorasPagas> escalaHorasPagasList;
+    
+    @OneToMany(mappedBy = "idFuncionarioFk")
     private List<EscalaPosTransparencia> escalaPosTransparenciaList;
     
     @OneToMany(mappedBy = "idFuncionarioFk")
@@ -595,6 +598,14 @@ public class PessoaFuncionarios extends AbstractEntity<Long> {
 
 	public void setFuncionarioFolhaList(List<FuncionarioFolha> funcionarioFolhaList) {
 		this.funcionarioFolhaList = funcionarioFolhaList;
+	}
+
+	public List<EscalaHorasPagas> getEscalaHorasPagasList() {
+		return escalaHorasPagasList;
+	}
+
+	public void setEscalaHorasPagasList(List<EscalaHorasPagas> escalaHorasPagasList) {
+		this.escalaHorasPagasList = escalaHorasPagasList;
 	}
 	
 	

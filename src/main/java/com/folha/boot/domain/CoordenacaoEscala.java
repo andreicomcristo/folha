@@ -32,6 +32,9 @@ public class CoordenacaoEscala extends AbstractEntity<Long>{
     private List<Escala> escalaList;
 	
 	@OneToMany(mappedBy = "idCoordenacaoFk")
+    private List<EscalaHorasPagas> escalaHorasPagasList;
+	
+	@OneToMany(mappedBy = "idCoordenacaoFk")
     private List<EscalaPosTransparencia> escalaPosTransparenciaList;
 	
 	@OneToMany(mappedBy = "idCoordenacaoFk")
@@ -106,6 +109,14 @@ public class CoordenacaoEscala extends AbstractEntity<Long>{
 
 	public void setDtCancelamento(Date dtCancelamento) {
 		this.dtCancelamento = dtCancelamento;
+	}
+
+	public List<EscalaHorasPagas> getEscalaHorasPagasList() {
+		return escalaHorasPagasList;
+	}
+
+	public void setEscalaHorasPagasList(List<EscalaHorasPagas> escalaHorasPagasList) {
+		this.escalaHorasPagasList = escalaHorasPagasList;
 	}
 
 	

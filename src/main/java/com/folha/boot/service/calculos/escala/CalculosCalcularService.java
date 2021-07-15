@@ -18,6 +18,7 @@ import com.folha.boot.domain.models.calculos.FeriasNoMes;
 import com.folha.boot.domain.models.calculos.LicencasMaternidadeNoMes;
 import com.folha.boot.domain.models.calculos.LicencasNoMes;
 import com.folha.boot.domain.models.calculos.RubricasVencimento;
+import com.folha.boot.service.EscalaHorasPagasService;
 import com.folha.boot.service.RubricaPensaoObsService;
 import com.folha.boot.service.RubricaPensaoObsVencimentoService;
 import com.folha.boot.service.RubricaVencimentoObsService;
@@ -51,6 +52,8 @@ public class CalculosCalcularService {
 	private RubricaPensaoObsVencimentoService rubricaPensaoObsVencimentoService;
 	@Autowired
 	private TempoCalculoService tempoCalculoService;
+	@Autowired
+	private EscalaHorasPagasService escalaHorasPagasService;
 
 	
 	public void calcular(AnoMes anoMes){
@@ -98,6 +101,7 @@ public class CalculosCalcularService {
 		listaVencimentos = calculosAlternativosService.conversaoFontePorFolha(listaVencimentos, anoMes);
 		
 		//Limpando o banco
+		escalaHorasPagasService.excluirPorMes(anoMes);
 		rubricaPensaoObsVencimentoService.excluirPorMes(anoMes);
 		rubricaVencimentoService.excluirPorMes(anoMes);
 		rubricaVencimentoObsService.excluirPorMes(anoMes);
@@ -106,6 +110,7 @@ public class CalculosCalcularService {
 		//Persistindo
 		rubricaVencimentoService.salvarLista(listaVencimentos);
 		rubricaVencimentoObsService.salvarLista(listaEscalas);
+		escalaHorasPagasService.salvarLista(listaEscalas);
 		
 		//Chamando Calculadora
 		calcularCalculadoraService.calcularTudo(anoMes);

@@ -44,6 +44,8 @@ public class TiposDeFolha extends AbstractEntity<Long> {
     @JoinColumn(name = "id_admite_incremento_de_risco_sim_nao_fk", referencedColumnName = "id")
     @ManyToOne
     private SimNao idAdmiteIncrementoDeRiscoSimNaoFk;
+    @OneToMany(mappedBy = "idTipoFolhaFk")
+    private List<EscalaHorasPagas> escalaHorasPagasList;
     
     @OneToMany(mappedBy = "idTipoDeFolhaFk")
     private List<FaixasValoresLicencaMaternidade> faixasValoresLicencaMaternidadeList;
@@ -168,6 +170,12 @@ public class TiposDeFolha extends AbstractEntity<Long> {
 	}
 	public void setFuncionarioFolhaList(List<FuncionarioFolha> funcionarioFolhaList) {
 		this.funcionarioFolhaList = funcionarioFolhaList;
+	}
+	public List<EscalaHorasPagas> getEscalaHorasPagasList() {
+		return escalaHorasPagasList;
+	}
+	public void setEscalaHorasPagasList(List<EscalaHorasPagas> escalaHorasPagasList) {
+		this.escalaHorasPagasList = escalaHorasPagasList;
 	}
 	
 	

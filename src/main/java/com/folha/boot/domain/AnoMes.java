@@ -56,6 +56,8 @@ public class AnoMes extends AbstractEntity<Long> {
     
     @OneToMany(mappedBy = "idAnoMesFk")
     private List<UnidadeAdmiteComplementoPlantao> unidadeAdmiteComplementoPlantaoList;
+    @OneToMany(mappedBy = "idAnoMesFk")
+    private List<EscalaHorasPagas> escalaHorasPagasList;
     
     @OneToMany(mappedBy = "idAnoMesFk")
     private List<TiposDeFolhaVinculo> tiposDeFolhaVinculoList;
@@ -396,6 +398,12 @@ public class AnoMes extends AbstractEntity<Long> {
 	}
 	public void setLiberacaoIndividualEscalaList(List<LiberacaoIndividualEscala> liberacaoIndividualEscalaList) {
 		this.liberacaoIndividualEscalaList = liberacaoIndividualEscalaList;
+	}
+	public List<EscalaHorasPagas> getEscalaHorasPagasList() {
+		return escalaHorasPagasList;
+	}
+	public void setEscalaHorasPagasList(List<EscalaHorasPagas> escalaHorasPagasList) {
+		this.escalaHorasPagasList = escalaHorasPagasList;
 	}
 		
 	
