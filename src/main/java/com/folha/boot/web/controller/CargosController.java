@@ -38,13 +38,13 @@ public class CargosController {
 
 	@GetMapping("/cadastrar")
 	public String cadastrar(Cargos cargos) {
-		return "/cargo/cadastro";
+		return "cargo/cadastro";
 	}
 	
 	@GetMapping("/listar")
 	public String listar(ModelMap model) {
 		model.addAttribute("cargos", service.buscarTodos());
-		return "/cargo/lista"; 
+		return "cargo/lista"; 
 	}
 	
 	@PostMapping("/salvar")
@@ -74,7 +74,7 @@ public class CargosController {
 	@GetMapping("/editar/{id}")
 	public String preEditar(@PathVariable("id") Long id, ModelMap model) {
 		model.addAttribute("cargos", service.buscarPorId(id));
-		return "/cargo/cadastro";
+		return "cargo/cadastro";
 	}
 	
 	@PostMapping("/editar")
@@ -94,7 +94,7 @@ public class CargosController {
 	@GetMapping("/buscar/nome/cargo")
 	public String getPorNome(@RequestParam("nomeCargo") String nomeCargo, ModelMap model) {	
 		model.addAttribute("cargos", service.buscarPorNome(nomeCargo.toUpperCase().trim()));
-		return "/cargo/lista";
+		return "cargo/lista";
 	}
 	
 	@ModelAttribute("idNivelCargoFk")

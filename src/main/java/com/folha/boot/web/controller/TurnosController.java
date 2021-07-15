@@ -36,13 +36,13 @@ public class TurnosController {
 
 	@GetMapping("/cadastrar")
 	public String cadastrar(Turnos turnos) {		
-		return "/turnos/cadastro";
+		return "turnos/cadastro";
 	}
 	/*
 	@GetMapping("/listar")
 	public String listar(ModelMap model) {
 		model.addAttribute("atividadeEscala", service.buscarNaUnidade(unidadesService.buscarPorId(idUnidadeLogada)));
-		return "/atividadeescala/lista"; 
+		return "atividadeescala/lista"; 
 	}
 	*/
 	@PostMapping("/salvar")
@@ -55,7 +55,7 @@ public class TurnosController {
 	@GetMapping("/editar/{id}")
 	public String preEditar(@PathVariable("id") Long id, ModelMap model) {
 		model.addAttribute("turnos", service.buscarPorId(id));
-		return "/turnos/cadastro";
+		return "turnos/cadastro";
 	}
 	
 	@PostMapping("/editar")
@@ -77,7 +77,7 @@ public class TurnosController {
 	@GetMapping("/buscar/nome/atividade/escala")
 	public String getPorNome(@RequestParam("nomeAtividade") String nomeAtividade, ModelMap model) {		
 		model.addAttribute("atividadeEscala", service.buscarNaUnidadePorNome( unidadesService.buscarPorId(idUnidadeLogada) ,nomeAtividade.toUpperCase().trim()));
-		return "/atividadeescala/lista";
+		return "atividadeescala/lista";
 	}
 	*/
 	
@@ -131,7 +131,7 @@ public class TurnosController {
 		model.addAttribute("totalPages", page.getTotalPages());
 		model.addAttribute("totalItems", page.getTotalElements()); 
 		model.addAttribute("turnos", lista);
-		return "/turnos/lista";	
+		return "turnos/lista";	
 	}
 
 	

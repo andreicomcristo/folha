@@ -26,13 +26,13 @@ public class EscolaridadesController {
 	@GetMapping("/cadastrar")
 	public String cadastrar(Escolaridades escolaridade) {
 		
-		return "/escolaridade/cadastro";
+		return "escolaridade/cadastro";
 	}
 	
 	@GetMapping("/listar")
 	public String listar(ModelMap model) {
 		model.addAttribute("escolaridades", service.buscarTodos());
-		return "/escolaridade/lista"; 
+		return "escolaridade/lista"; 
 	}
 	
 	@PostMapping("/salvar")
@@ -45,7 +45,7 @@ public class EscolaridadesController {
 	@GetMapping("/editar/{id}")
 	public String preEditar(@PathVariable("id") Long id, ModelMap model) {
 		model.addAttribute("escolaridades", service.buscarPorId(id));
-		return "/escolaridade/cadastro";
+		return "escolaridade/cadastro";
 	}
 	
 	@PostMapping("/editar")
@@ -65,7 +65,7 @@ public class EscolaridadesController {
 	@GetMapping("/buscar/nome/escolaridade")
 	public String getPorNome(@RequestParam("nomeEscolaridade") String nomeEscolaridade, ModelMap model) {		
 		model.addAttribute("escolaridades", service.buscarPorNome(nomeEscolaridade.toUpperCase().trim()));
-		return "/escolaridade/lista";
+		return "escolaridade/lista";
 	}
 	
 	

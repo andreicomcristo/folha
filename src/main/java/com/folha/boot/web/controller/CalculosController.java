@@ -124,7 +124,7 @@ public class CalculosController {
 	public String escolherMes(ModelMap model) {
 		model.addAttribute("mesDoCalculo", new MesDoCalculo());
 		model.addAttribute("anoMes", anoMesService.buscarTodos());
-		return "/calculos/escolherMes"; 
+		return "calculos/escolherMes"; 
 	}
 	
 	@GetMapping("/previsao/tempo/calculo")
@@ -167,7 +167,7 @@ public class CalculosController {
 		model.addAttribute("anoMes", anoMes);
 		model.addAttribute("mesDoCalculo", mesDoCalculo);
 		model.addAttribute("idAnoMesFk",mesDoCalculo.getAnoMes() );
-		return "/calculos/calcular";
+		return "calculos/calcular";
 	}	
 	
 	

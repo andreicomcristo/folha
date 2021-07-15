@@ -52,7 +52,7 @@ public class RubricaCodigoController {
 
 	@GetMapping("/cadastrar")
 	public String cadastrar(RubricaCodigo rubricaCodigo) {		
-		return "/rubricaCodigo/cadastro";
+		return "rubricaCodigo/cadastro";
 	}
 	
 	@PostMapping("/salvar")
@@ -75,7 +75,7 @@ public class RubricaCodigoController {
 	@GetMapping("/editar/{id}")
 	public String preEditar(@PathVariable("id") Long id, ModelMap model) {
 		model.addAttribute("rubricaCodigo", service.buscarPorId(id));
-		return "/rubricaCodigo/cadastro";
+		return "rubricaCodigo/cadastro";
 	}
 	
 	@PostMapping("/editar")
@@ -142,7 +142,7 @@ public class RubricaCodigoController {
 		model.addAttribute("totalPages", page.getTotalPages());
 		model.addAttribute("totalItems", page.getTotalElements()); 
 		model.addAttribute("rubricaCodigo", lista);
-		return "/rubricaCodigo/lista";	
+		return "rubricaCodigo/lista";	
 	}
 
 	@ModelAttribute("idFonteFk")

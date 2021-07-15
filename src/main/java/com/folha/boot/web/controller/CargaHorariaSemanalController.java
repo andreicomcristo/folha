@@ -26,13 +26,13 @@ public class CargaHorariaSemanalController {
 	@GetMapping("/cadastrar")
 	public String cadastrar(CargaHorariaSemanal cargaHorariaSemanal) {
 		
-		return "/cargahoraria/cadastro";
+		return "cargahoraria/cadastro";
 	}
 	
 	@GetMapping("/listar")
 	public String listar(ModelMap model) {
 		model.addAttribute("cargaHorariaSemanal", service.buscarTodos());		
-		return "/cargahoraria/lista"; 
+		return "cargahoraria/lista"; 
 	}
 	
 	@PostMapping("/salvar")
@@ -45,7 +45,7 @@ public class CargaHorariaSemanalController {
 	@GetMapping("/editar/{id}")
 	public String preEditar(@PathVariable("id") Long id, ModelMap model) {
 		model.addAttribute("cargaHorariaSemanal", service.buscarPorId(id));
-		return "/cargahoraria/cadastro";
+		return "cargahoraria/cadastro";
 	}
 	
 	@PostMapping("/editar")

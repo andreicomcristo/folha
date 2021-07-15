@@ -44,7 +44,7 @@ public class LiberacaoIndividualEscalaController {
 
 	@GetMapping("/cadastrar")
 	public String cadastrar(LiberacaoIndividualEscala liberacaoIndividualEscala) {		
-		return "/liberacaoIndividualEscala/cadastro";
+		return "liberacaoIndividualEscala/cadastro";
 	}
 	
 	@PostMapping("/salvar")
@@ -61,7 +61,7 @@ public class LiberacaoIndividualEscalaController {
 	@GetMapping("/editar/{id}")
 	public String preEditar(@PathVariable("id") Long id, ModelMap model) {
 		model.addAttribute("liberacaoIndividualEscala", service.buscarPorId(id));
-		return "/liberacaoIndividualEscala/cadastro";
+		return "liberacaoIndividualEscala/cadastro";
 	}
 	
 	@PostMapping("/editar")
@@ -127,7 +127,7 @@ public class LiberacaoIndividualEscalaController {
 		model.addAttribute("totalPages", page.getTotalPages());
 		model.addAttribute("totalItems", page.getTotalElements()); 
 		model.addAttribute("liberacaoIndividualEscala", lista);
-		return "/liberacaoIndividualEscala/lista";	
+		return "liberacaoIndividualEscala/lista";	
 	}
 
 	

@@ -36,13 +36,13 @@ public class FuncionariosAnexosController {
 	
 	@GetMapping("/cadastrar")
 	public String cadastrar(FuncionariosAnexos funcionariosAnexos) {
-		return "/funcionariosanexo/cadastro";
+		return "funcionariosanexo/cadastro";
 	}
 	
 	@GetMapping("/listar")
 	public String listar(ModelMap model) {
 		model.addAttribute("funcionariosAnexos", service.buscarTodos());
-		return "/funcionariosanexo/lista"; 
+		return "funcionariosanexo/lista"; 
 	}
 	
 	@PostMapping("/salvar")
@@ -55,7 +55,7 @@ public class FuncionariosAnexosController {
 	@GetMapping("/editar/{id}")
 	public String preEditar(@PathVariable("id") Long id, ModelMap model) {
 		model.addAttribute("funcionariosAnexos", service.buscarPorId(id));
-		return "/funcionariosanexo/cadastro";
+		return "funcionariosanexo/cadastro";
 	}
 	
 	@PostMapping("/editar")
@@ -75,7 +75,7 @@ public class FuncionariosAnexosController {
 	/*@GetMapping("/buscar/nome/coordenacao")
 	public String getPorNome(@RequestParam("nomeCoordenacao") String nomeCoordenacao, ModelMap model) {		
 		model.addAttribute("funcionariosAnexos", service.buscarPorNome(nomeCoordenacao.toUpperCase().trim()));
-		return "/coordenacaoescala/lista";
+		return "coordenacaoescala/lista";
 	}*/
 	
 	@ModelAttribute("idPessoaFuncionarioFk")

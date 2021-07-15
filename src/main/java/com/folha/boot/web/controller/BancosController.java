@@ -25,13 +25,13 @@ public class BancosController {
 	
 	@GetMapping("/cadastrar")
 	public String cadastrar(Bancos banco) {
-		return "/banco/cadastro";
+		return "banco/cadastro";
 	}
 	
 	@GetMapping("/listar")
 	public String listar(ModelMap model) {
 		model.addAttribute("bancos", service.buscarTodos());
-		return "/banco/lista"; 
+		return "banco/lista"; 
 	}
 	
 	@PostMapping("/salvar")
@@ -45,7 +45,7 @@ public class BancosController {
 	public String preEditar(@PathVariable("id") Long id, ModelMap model) {
 		model.addAttribute("bancos", service.buscarPorId(id));
 		
-		return "/banco/cadastro";
+		return "banco/cadastro";
 	}
 	
 	@PostMapping("/editar")
@@ -65,7 +65,7 @@ public class BancosController {
 	@GetMapping("/buscar/nome/banco")
 	public String getPorNome(@RequestParam("nomeBanco") String nomeBanco, ModelMap model) {	
 		model.addAttribute("bancos", service.buscarPorNome(nomeBanco.toUpperCase().trim()));
-		return "/banco/lista";
+		return "banco/lista";
 	}
 	
 	@Autowired

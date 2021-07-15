@@ -25,13 +25,13 @@ public class TiposDeDocumentoController {
 
 	@GetMapping("/cadastrar")
 	public String cadastrar(TiposDeDocumento tiposDeDocumento) {		
-		return "/tipodocumento/cadastro";
+		return "tipodocumento/cadastro";
 	}
 	
 	@GetMapping("/listar")
 	public String listar(ModelMap model) {
 		model.addAttribute("tiposDeDocumento", service.buscarTodos());
-		return "/tipodocumento/lista"; 
+		return "tipodocumento/lista"; 
 	}
 	
 	@PostMapping("/salvar")
@@ -44,7 +44,7 @@ public class TiposDeDocumentoController {
 	@GetMapping("/editar/{id}")
 	public String preEditar(@PathVariable("id") Long id, ModelMap model) {
 		model.addAttribute("tiposDeDocumento", service.buscarPorId(id));
-		return "/tipodocumento/cadastro";
+		return "tipodocumento/cadastro";
 	}
 	
 	@PostMapping("/editar")
@@ -64,7 +64,7 @@ public class TiposDeDocumentoController {
 	@GetMapping("/buscar/sigla/documento")
 	public String getPorNome(@RequestParam("siglaDocumento") String siglaDocumento, ModelMap model) {		
 		model.addAttribute("tiposDeDocumento", service.buscarPorNome(siglaDocumento.toUpperCase().trim()));
-		return "/tipodocumento/lista";
+		return "tipodocumento/lista";
 	}
 	
 	@Autowired

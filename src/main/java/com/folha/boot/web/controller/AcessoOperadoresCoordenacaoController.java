@@ -61,13 +61,13 @@ public class AcessoOperadoresCoordenacaoController {
 		model.addAttribute("unidade", usuarioService.pegarUnidadeLogada());
 		model.addAttribute("operador", pessoaOperadoresService.buscarPorId(idOperadorAlterado));
 		model.addAttribute("acessoOperadoresCoordenacaoLista", service.buscarPorOperadorEUnidade(pessoaOperadoresService.buscarPorId(idOperadorAlterado), usuarioService.pegarUnidadeLogada()));
-		return "/acessoOperadoresCoordenacaoEscala/cadastro";
+		return "acessoOperadoresCoordenacaoEscala/cadastro";
 	}
 	
 	@GetMapping("/listar")
 	public String listar(ModelMap model) {
 		model.addAttribute("acessoOperadoresCoordenacao", service.buscarTodos());
-		return "/operadorecoordenacao/lista"; 
+		return "operadorecoordenacao/lista"; 
 	}
 	
 	@PostMapping("/salvar")
@@ -114,7 +114,7 @@ public class AcessoOperadoresCoordenacaoController {
 		
 		model.addAttribute("acessoOperadoresCoordenacao", service.buscarPorId(id));
 		
-		return "/operadorecoordenacao/cadastro";
+		return "operadorecoordenacao/cadastro";
 	}
 	
 	
@@ -175,7 +175,7 @@ public class AcessoOperadoresCoordenacaoController {
 		model.addAttribute("totalPages", page.getTotalPages());
 		model.addAttribute("totalItems", page.getTotalElements()); 
 		model.addAttribute("pessoa", lista);
-		return "/acessoOperadoresCoordenacaoEscala/listaTodosAcessosEscala";	
+		return "acessoOperadoresCoordenacaoEscala/listaTodosAcessosEscala";	
 	}
 	
 	

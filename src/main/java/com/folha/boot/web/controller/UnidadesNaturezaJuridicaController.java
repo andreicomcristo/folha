@@ -34,13 +34,13 @@ public class UnidadesNaturezaJuridicaController {
 
 	@GetMapping("/cadastrar")
 	public String cadastrar(UnidadesNaturezaJuridica unidadesNaturezaJuridica) {		
-		return "/naturezajuridica/cadastro";
+		return "naturezajuridica/cadastro";
 	}
 	/*
 	@GetMapping("/listar")
 	public String listar(ModelMap model) {
 		model.addAttribute("unidadesNaturezaJuridica", service.buscarTodos());
-		return "/naturezajuridica/lista"; 
+		return "naturezajuridica/lista"; 
 	}
 	*/
 	@PostMapping("/salvar")
@@ -54,7 +54,7 @@ public class UnidadesNaturezaJuridicaController {
 	@GetMapping("/editar/{id}")
 	public String preEditar(@PathVariable("id") Long id, ModelMap model) {
 		model.addAttribute("unidadesNaturezaJuridica", service.buscarPorId(id));
-		return "/naturezajuridica/cadastro";
+		return "naturezajuridica/cadastro";
 	}
 	
 	@PostMapping("/editar")
@@ -123,7 +123,7 @@ public class UnidadesNaturezaJuridicaController {
 		model.addAttribute("totalPages", page.getTotalPages());
 		model.addAttribute("totalItems", page.getTotalElements()); 
 		model.addAttribute("unidadesNaturezaJuridica", lista);
-		return "/naturezajuridica/lista";	
+		return "naturezajuridica/lista";	
 	}
 
 	

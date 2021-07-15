@@ -40,7 +40,7 @@ public class DiasLicencaMaternidadeController {
 	@GetMapping("/cadastrar")
 	public String cadastrar(DiasLicencaMaternidade diasLicencaMaternidade) {
 		
-		return "/diasLicencaMaternidade/cadastro";
+		return "diasLicencaMaternidade/cadastro";
 	}
 	
 	@GetMapping("/listar")
@@ -64,7 +64,7 @@ public class DiasLicencaMaternidadeController {
 		model.addAttribute("totalPages", page.getTotalPages());
 		model.addAttribute("totalItems", page.getTotalElements()); 
 		model.addAttribute("diasLicencaMaternidade", lista);
-		return "/diasLicencaMaternidade/lista";	
+		return "diasLicencaMaternidade/lista";	
 	}
 	
 	@GetMapping("/paginar/{pageNo}")
@@ -92,7 +92,7 @@ public class DiasLicencaMaternidadeController {
 	@GetMapping("/editar/{id}")
 	public String preEditar(@PathVariable("id") Long id, ModelMap model) {
 		model.addAttribute("diasLicencaMaternidade", service.buscarPorId(id));
-		return "/diasLicencaMaternidade/cadastro";
+		return "diasLicencaMaternidade/cadastro";
 	}
 	
 	@PostMapping("/editar")

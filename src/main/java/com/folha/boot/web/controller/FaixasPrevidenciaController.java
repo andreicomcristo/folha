@@ -40,13 +40,13 @@ public class FaixasPrevidenciaController {
 	@GetMapping("/cadastrar")
 	public String cadastrar(FaixasPrevidencia faixasPrevidencia) {
 		
-		return "/faixaprevidencia/cadastro";
+		return "faixaprevidencia/cadastro";
 	}
 	/*
 	@GetMapping("/listar")
 	public String listar(ModelMap model) {
 		model.addAttribute("faixasPrevidencia", service.buscarTodos());
-		return "/faixaprevidencia/lista"; 
+		return "faixaprevidencia/lista"; 
 	}
 	*/
 	@PostMapping("/salvar")
@@ -59,7 +59,7 @@ public class FaixasPrevidenciaController {
 	@GetMapping("/editar/{id}")
 	public String preEditar(@PathVariable("id") Long id, ModelMap model) {
 		model.addAttribute("faixasPrevidencia", service.buscarPorId(id));
-		return "/faixaprevidencia/cadastro";
+		return "faixaprevidencia/cadastro";
 	}
 	
 	@PostMapping("/editar")
@@ -88,7 +88,7 @@ public class FaixasPrevidenciaController {
 	@GetMapping("/buscar/ano/mes")
 	public String getPorAnoMes(@RequestParam("anoMes") String anoMes, ModelMap model) {		
 		model.addAttribute("faixasPrevidencia", service.buscarPorAnoMes(anoMes));
-		return "/faixaprevidencia/lista";
+		return "faixaprevidencia/lista";
 	}
 	*/
 	
@@ -142,7 +142,7 @@ public class FaixasPrevidenciaController {
 		model.addAttribute("totalPages", page.getTotalPages());
 		model.addAttribute("totalItems", page.getTotalElements()); 
 		model.addAttribute("faixasPrevidencia", lista);
-		return "/faixaprevidencia/lista";	
+		return "faixaprevidencia/lista";	
 	}
 
 	

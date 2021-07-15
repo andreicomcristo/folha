@@ -39,7 +39,7 @@ public class RubricaTipoController {
 
 	@GetMapping("/cadastrar")
 	public String cadastrar(RubricaTipo rubricaTipo) {		
-		return "/rubricaTipo/cadastro";
+		return "rubricaTipo/cadastro";
 	}
 		
 	@PostMapping("/salvar")
@@ -52,7 +52,7 @@ public class RubricaTipoController {
 	@GetMapping("/editar/{id}")
 	public String preEditar(@PathVariable("id") Long id, ModelMap model) {
 		model.addAttribute("rubricaTipo", service.buscarPorId(id));
-		return "/rubricaTipo/cadastro";
+		return "rubricaTipo/cadastro";
 	}
 	
 	@PostMapping("/editar")
@@ -120,7 +120,7 @@ public class RubricaTipoController {
 		model.addAttribute("totalPages", page.getTotalPages());
 		model.addAttribute("totalItems", page.getTotalElements()); 
 		model.addAttribute("rubricaTipo", lista);
-		return "/rubricaTipo/lista";	
+		return "rubricaTipo/lista";	
 	}
 
 	

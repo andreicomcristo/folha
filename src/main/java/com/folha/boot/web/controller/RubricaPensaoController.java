@@ -120,7 +120,7 @@ public class RubricaPensaoController {
 		model.addAttribute("totalPages", page.getTotalPages());
 		model.addAttribute("totalItems", page.getTotalElements());
 		model.addAttribute("listaFuncionarios", lista);
-		return "/rubricaPensao/listafuncionario";
+		return "rubricaPensao/listafuncionario";
 	}
 
 	@GetMapping("/buscar/funcionarios/nome")
@@ -171,7 +171,7 @@ public class RubricaPensaoController {
 		model.addAttribute("totalPages", page.getTotalPages());
 		model.addAttribute("totalItems", page.getTotalElements());
 		model.addAttribute("rubricaPensao", lista);
-		return "/rubricaPensao/lista";
+		return "rubricaPensao/lista";
 	}
 
 	
@@ -213,7 +213,7 @@ public class RubricaPensaoController {
 		rubricaPensao.setIdPessoaFk(pessoa);						
 		model.addAttribute("pessoa", pessoa); 
 		model.addAttribute("pensao", service.buscarPorPessoa(pessoa));		
-		return "/rubricaPensao/cadastro";
+		return "rubricaPensao/cadastro";
 	}
 	
 	@PostMapping("/salvar")
@@ -239,7 +239,7 @@ public class RubricaPensaoController {
 		model.addAttribute("rubricaPensao", rubricaPensao);
 		model.addAttribute("pessoa", pessoa);
 		model.addAttribute("pensao", rubricaPensao);
-		return "/rubricaPensao/cadastro";
+		return "rubricaPensao/cadastro";
 	}
 	
 	@PostMapping("/editar")
@@ -281,7 +281,7 @@ public class RubricaPensaoController {
 		rubricaPensaoDependente.setIdRubricaPensaoFk(rubricaPensao);		
 		model.addAttribute("pensao", rubricaPensao); 
 		model.addAttribute("dependentes",dependenteService.buscarPensao(rubricaPensao));
-		return "/rubricaPensaoDependente/cadastro";
+		return "rubricaPensaoDependente/cadastro";
 	}
 	
 	@PostMapping("/dependentes/salvar")
@@ -298,7 +298,7 @@ public class RubricaPensaoController {
 		model.addAttribute("rubricaPensaoDependente", rubricaPensaoDependente);
 		model.addAttribute("dependentes", rubricaPensaoDependente);
 		model.addAttribute("pensao", rubricaPensao);
-		return "/rubricaPensaoDependente/cadastro";
+		return "rubricaPensaoDependente/cadastro";
 	}
 	
 	@PostMapping("/dependentes/editar")
@@ -326,7 +326,7 @@ public class RubricaPensaoController {
 	@GetMapping("/buscar/nome")
 	public String getPorNome(@RequestParam("cnesUnidade") String nome, ModelMap model) {
 		model.addAttribute("rubricaPensao", service.buscarPorNome(nome.toUpperCase().trim()));
-		return "/rubricaPensao/lista";
+		return "rubricaPensao/lista";
 	}
 
 	@GetMapping("/exporta/excel")

@@ -58,7 +58,7 @@ public class PessoaOperadoresController {
 			PessoaOperadores novoOperador = new PessoaOperadores();
 			novoOperador.setIdPessoaFk(pessoaService.buscarPorId(id));
 			model.addAttribute("pessoaOperadores", novoOperador );
-			return "/operador/cadastro";
+			return "operador/cadastro";
 		}
 		//Para o caso de já estar cadastrado
 		return "redirect:/operadores/mensagem/de/ja/cadastrado";
@@ -66,7 +66,7 @@ public class PessoaOperadoresController {
 	
 	@GetMapping("/cadastrar")
 	public String cadastrar(PessoaOperadores operadores) {		
-		return "/operador/cadastro";
+		return "operador/cadastro";
 	}
 	
 	/*
@@ -93,7 +93,7 @@ public class PessoaOperadoresController {
 		}
 		
 		
-		return "/operador/lista"; 
+		return "operador/lista"; 
 	}
 	*/	
 	
@@ -172,7 +172,7 @@ public class PessoaOperadoresController {
 		}
 		
 		
-		return "/operador/lista";	
+		return "operador/lista";	
 	}
 
 	
@@ -255,7 +255,7 @@ public class PessoaOperadoresController {
 		}
 		
 		
-		return "/operador/listaCancelados";	
+		return "operador/listaCancelados";	
 	}
 
 	
@@ -304,14 +304,14 @@ public class PessoaOperadoresController {
 	public String preEditarSenha(@PathVariable("id") Long id, ModelMap model, RedirectAttributes attr) {
 		attr.addFlashAttribute("fail", "Operador já cadastrado. Talvez você deseje editar.");
 		model.addAttribute("pessoaOperadores", service.buscarPorId(id));
-		return "/operador/cadastroSenha";
+		return "operador/cadastroSenha";
 	}
 	
 	@GetMapping("/editarUsuario/{id}")
 	public String preEditarUsuario(@PathVariable("id") Long id, ModelMap model, RedirectAttributes attr) {
 		attr.addFlashAttribute("fail", "Operador já cadastrado. Talvez você deseje editar.");
 		model.addAttribute("pessoaOperadores", service.buscarPorId(id));
-		return "/operador/cadastroUsuario";
+		return "operador/cadastroUsuario";
 	}
 	
 	@PostMapping("/editarSenha")
@@ -406,7 +406,7 @@ public class PessoaOperadoresController {
 		model.addAttribute("choque", "JÁ Cadastrada");
 		model.addAttribute("mensagem", "Esta Pessoa já existe como operador. Avalie se ela não está na lista dos operadores cancelados.");
 		
-		return "/alertas/jaTemPerfilNaUnidade";
+		return "alertas/jaTemPerfilNaUnidade";
 	}
 	
 	@GetMapping("/mensagem/de/ja/cadastrado/login")
@@ -416,7 +416,7 @@ public class PessoaOperadoresController {
 		model.addAttribute("choque", "JÁ Cadastrado");
 		model.addAttribute("mensagem", "Este Login já está sendo usado. Tente outro.");
 		
-		return "/alertas/jaTemPerfilNaUnidade";
+		return "alertas/jaTemPerfilNaUnidade";
 	}
 	
 	
@@ -427,7 +427,7 @@ public class PessoaOperadoresController {
 		model.addAttribute("choque", "JÁ Cadastrado");
 		model.addAttribute("mensagem", "Este Operador já está cadastrado.");
 		
-		return "/alertas/jaTemPerfilNaUnidade";
+		return "alertas/jaTemPerfilNaUnidade";
 	}
 	
 	@GetMapping("/mensagem/de/dados/incompletos")
@@ -437,7 +437,7 @@ public class PessoaOperadoresController {
 		model.addAttribute("choque", "Dados Inconsistentes");
 		model.addAttribute("mensagem", "Tanto Usuário quanto Senha devem conter pelo menos três caracteres.");
 		
-		return "/choqueescala/usuarioESenha";
+		return "choqueescala/usuarioESenha";
 	}
 
 	@Autowired

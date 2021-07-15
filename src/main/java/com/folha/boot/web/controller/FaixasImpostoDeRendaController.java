@@ -42,13 +42,13 @@ public class FaixasImpostoDeRendaController {
 	@GetMapping("/cadastrar")
 	public String cadastrar(FaixasImpostoDeRenda faixasImpostoDeRenda) {
 		
-		return "/faixaimpostoderenda/cadastro";
+		return "faixaimpostoderenda/cadastro";
 	}
 	/*
 	@GetMapping("/listar")
 	public String listar(ModelMap model) {
 		model.addAttribute("faixasImpostoDeRenda", service.buscarTodos());
-		return "/faixaimpostoderenda/lista"; 
+		return "faixaimpostoderenda/lista"; 
 	}
 	*/
 	@PostMapping("/salvar")
@@ -61,7 +61,7 @@ public class FaixasImpostoDeRendaController {
 	@GetMapping("/editar/{id}")
 	public String preEditar(@PathVariable("id") Long id, ModelMap model) {
 		model.addAttribute("faixasImpostoDeRenda", service.buscarPorId(id));
-		return "/faixaimpostoderenda/cadastro";
+		return "faixaimpostoderenda/cadastro";
 	}
 	
 	@PostMapping("/editar")
@@ -90,7 +90,7 @@ public class FaixasImpostoDeRendaController {
 	@GetMapping("/buscar/ano/mes") 
 	public String getPorAnoMes(@RequestParam("anoMes") String anoMes, ModelMap model) {		
 		model.addAttribute("faixasImpostoDeRenda", service.buscarPorAnoMes(anoMes));
-		return "/faixaimpostoderenda/lista";
+		return "faixaimpostoderenda/lista";
 	}
 	*/
 	
@@ -146,7 +146,7 @@ public class FaixasImpostoDeRendaController {
 		model.addAttribute("totalPages", page.getTotalPages());
 		model.addAttribute("totalItems", page.getTotalElements()); 
 		model.addAttribute("faixasImpostoDeRenda", lista);
-		return "/faixaimpostoderenda/lista";	
+		return "faixaimpostoderenda/lista";	
 	}
 
 	

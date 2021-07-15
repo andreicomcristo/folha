@@ -95,7 +95,7 @@ public class PessoaComplementoDePlantaoController {
 			model.addAttribute("totalPages", page.getTotalPages());
 			model.addAttribute("totalItems", page.getTotalElements()); 
 			model.addAttribute("listaFuncionarios", lista);
-			return "/pessoaComplementoDePlantao/listafuncionario";	
+			return "pessoaComplementoDePlantao/listafuncionario";	
 		}
 		
 		@GetMapping("/buscar/funcionarios/nome")
@@ -123,7 +123,7 @@ public class PessoaComplementoDePlantaoController {
 			model.addAttribute("listaPessoaComplementoDePlantao", service.buscarPorUnidadeEPessoa(usuarioService.pegarUnidadeLogada(), pessoa));
 			model.addAttribute("idAnoMes", service.buscarMesesCompativeis(usuarioService.pegarUnidadeLogada()));
 			
-			return "/pessoaComplementoDePlantao/cadastro"; 
+			return "pessoaComplementoDePlantao/cadastro"; 
 		}
 		
 		@GetMapping("/atribuir/pessoa/{id}")//Recebe o id do funcionário da tela de lista de funcionários
@@ -135,7 +135,7 @@ public class PessoaComplementoDePlantaoController {
 			model.addAttribute("listaPessoaComplementoDePlantao", service.buscarPorUnidadeEPessoa(usuarioService.pegarUnidadeLogada(), pessoa));
 			model.addAttribute("idAnoMes", service.buscarMesesCompativeis(usuarioService.pegarUnidadeLogada()));
 			
-			return "/pessoaComplementoDePlantao/cadastro"; 
+			return "pessoaComplementoDePlantao/cadastro"; 
 		}
 		
 
@@ -153,7 +153,7 @@ public class PessoaComplementoDePlantaoController {
 		model.addAttribute("listaPessoaComplementoDePlantao", service.buscarPorUnidadeEPessoa(usuarioService.pegarUnidadeLogada(), pessoaService.buscarPorId(idPessoaAtual)));
 		model.addAttribute("pessoaComplementoDePlantao", pessoaComplementoDePlantao);
 		model.addAttribute("idAnoMes", service.buscarMesesCompativeis(usuarioService.pegarUnidadeLogada()));
-		return "/pessoaComplementoDePlantao/cadastro";
+		return "pessoaComplementoDePlantao/cadastro";
 	}
 	
 	@GetMapping("/listar")
@@ -184,7 +184,7 @@ public class PessoaComplementoDePlantaoController {
 		model.addAttribute("totalPages", page.getTotalPages());
 		model.addAttribute("totalItems", page.getTotalElements()); 
 		model.addAttribute("listaPessoaComplementoDePlantao", lista);
-		return "/pessoaComplementoDePlantao/listaUnidade";	
+		return "pessoaComplementoDePlantao/listaUnidade";	
 	}
 	
 	@GetMapping("/paginar/{pageNo}")
@@ -216,7 +216,7 @@ public class PessoaComplementoDePlantaoController {
 	@GetMapping("/editar/{id}")
 	public String preEditar(@PathVariable("id") Long id, ModelMap model) {
 		model.addAttribute("pessoaComplementoDePlantao", service.buscarPorId(id));
-		return "/pessoaComplementoDePlantao/cadastro";
+		return "pessoaComplementoDePlantao/cadastro";
 	}
 	
 	@PostMapping("/editar")
@@ -254,7 +254,7 @@ public class PessoaComplementoDePlantaoController {
 	public String getPorNome(@RequestParam("nome") String nome, ModelMap model) {
 		model.addAttribute("idAnoMes", service.buscarMesesCompativeis(usuarioService.pegarUnidadeLogada()));
 		model.addAttribute("pessoaComplementoDePlantao", service.buscarPorNome(nome.toUpperCase().trim(), usuarioService.pegarUnidadeLogada()));
-		return "/pessoaComplementoDePlantao/listaUnidade";
+		return "pessoaComplementoDePlantao/listaUnidade";
 	}
 	
 	

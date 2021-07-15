@@ -91,7 +91,7 @@ public class VencimentosFuncionarioController {
 		model.addAttribute("totalPages", page.getTotalPages());
 		model.addAttribute("totalItems", page.getTotalElements()); 
 		model.addAttribute("listaFuncionarios", lista);
-		return "/vencimentosFuncionario/listafuncionario";	
+		return "vencimentosFuncionario/listafuncionario";	
 	}	
 	
 	@GetMapping("/buscar/funcionarios/nome")
@@ -117,13 +117,13 @@ public class VencimentosFuncionarioController {
 	@GetMapping("/cadastrar/{id}")
 	public String cadastrar(@PathVariable("id") Long id, VencimentosFuncionario vencimentosFuncionario) {
 		vencimentosFuncionario.setIdFuncionarioFk(pessoaFuncionariosService.buscarPorId(id));
-		return "/vencimentosFuncionario/cadastro";
+		return "vencimentosFuncionario/cadastro";
 	}
 	
 	@GetMapping("/cadastrar")
 	public String cadastrar(VencimentosFuncionario vencimentosFuncionario) {
 		
-		return "/vencimentosFuncionario/cadastro";
+		return "vencimentosFuncionario/cadastro";
 	}
 	
 	@GetMapping("/listar")
@@ -176,7 +176,7 @@ public class VencimentosFuncionarioController {
 		model.addAttribute("totalPages", page.getTotalPages());
 		model.addAttribute("totalItems", page.getTotalElements()); 
 		model.addAttribute("vencimentosFuncionario", lista1);
-		return "/vencimentosFuncionario/lista";	
+		return "vencimentosFuncionario/lista";	
 	}
 	
 	@GetMapping("/paginar/{pageNo}")
@@ -212,7 +212,7 @@ public class VencimentosFuncionarioController {
 	@GetMapping("/editar/{id}")
 	public String preEditar(@PathVariable("id") Long id, ModelMap model) {
 		model.addAttribute("vencimentosFuncionario", service.buscarPorId(id));
-		return "/vencimentosFuncionario/cadastro";
+		return "vencimentosFuncionario/cadastro";
 	}
 	
 	@PostMapping("/editar")
@@ -243,7 +243,7 @@ public class VencimentosFuncionarioController {
 	@GetMapping("/buscar/nome")
 	public String getPorNome(@RequestParam("cnesUnidade") String nome, ModelMap model) {		
 		model.addAttribute("vencimentosFuncionario", service.buscarPorNome(nome.toUpperCase().trim()));
-		return "/vencimentosFuncionario/lista";
+		return "vencimentosFuncionario/lista";
 	}
 	
 	@GetMapping("/exporta/excel")

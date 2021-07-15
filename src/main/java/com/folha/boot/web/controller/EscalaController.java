@@ -228,7 +228,7 @@ public class EscalaController {
 		model.addAttribute("escolhaAcessoEscala", new EscolhaAcessoEscala()); 
 		model.addAttribute("coordenacaoEscala", coordenacaoEscalaService.buscarAcessoIndividual(usuarioService.pegarUnidadeLogada() , usuarioService.pegarOperadorLogado() , listaDeCoordenacoes ) );
 		model.addAttribute("anoMes", anoMesService.buscarTodos());
-		return "/escala/escolher"; 
+		return "escala/escolher"; 
 	}
 	
 	@GetMapping("/escolher/escala/todos")
@@ -238,7 +238,7 @@ public class EscalaController {
 		model.addAttribute("escolhaAcessoEscala", new EscolhaAcessoEscala());
 		model.addAttribute("unidade", unidade); 
 		model.addAttribute("anoMes", anoMesService.buscarTodos());
-		return "/escala/escolherTodos"; 
+		return "escala/escolherTodos"; 
 	}
 	
 	@GetMapping("/escolher/escala/pos/transparencia")
@@ -248,7 +248,7 @@ public class EscalaController {
 		model.addAttribute("escolhaAcessoEscala", new EscolhaAcessoEscala());
 		model.addAttribute("unidade", unidade); 
 		model.addAttribute("anoMes", anoMesService.buscarTodos());
-		return "/escala/escolherMudancasPosTransparencia"; 
+		return "escala/escolherMudancasPosTransparencia"; 
 	}
 	
 	@GetMapping("/escolher/escala/pos/transparencia/global")
@@ -258,7 +258,7 @@ public class EscalaController {
 		model.addAttribute("escolhaAcessoEscala", new EscolhaAcessoEscala());
 		model.addAttribute("unidade", unidade); 
 		model.addAttribute("anoMes", anoMesService.buscarTodos());
-		return "/escala/escolherMudancasPosTransparenciaGlobal"; 
+		return "escala/escolherMudancasPosTransparenciaGlobal"; 
 	}
 	
 	//Escala Alteracao
@@ -269,7 +269,7 @@ public class EscalaController {
 		model.addAttribute("escolhaAcessoEscala", new EscolhaAcessoEscala());
 		model.addAttribute("unidade", unidade); 
 		model.addAttribute("anoMes", anoMesService.buscarTodos());
-		return "/escala/escolherEscalaAlteracao"; 
+		return "escala/escolherEscalaAlteracao"; 
 	}
 	
 	@GetMapping("/escolher/escala/alteracao/global")
@@ -279,7 +279,7 @@ public class EscalaController {
 		model.addAttribute("escolhaAcessoEscala", new EscolhaAcessoEscala());
 		model.addAttribute("unidade", unidade); 
 		model.addAttribute("anoMes", anoMesService.buscarTodos());
-		return "/escala/escolherEscalaAlteracaoGlobal"; 
+		return "escala/escolherEscalaAlteracaoGlobal"; 
 	}
 	
 	//Escala Colaborador
@@ -290,7 +290,7 @@ public class EscalaController {
 		model.addAttribute("escolhaAcessoEscala", new EscolhaAcessoEscala());
 		model.addAttribute("unidade", unidade); 
 		model.addAttribute("anoMes", anoMesService.buscarTodos());
-		return "/escala/escolherEscalaColaborador"; 
+		return "escala/escolherEscalaColaborador"; 
 	}
 	
 	@PostMapping("/ir/para/escala")
@@ -554,7 +554,7 @@ public class EscalaController {
 		model.addAttribute("totalPages", page.getTotalPages());
 		model.addAttribute("totalItems", page.getTotalElements()); 
 		model.addAttribute("listaEscala", lista);
-		return "/escala/lista";	
+		return "escala/lista";	
 	}
 	
 	public String paginarTodos(int pageNo, Page<Escala> page, List<Escala> lista, ModelMap model) {	
@@ -567,7 +567,7 @@ public class EscalaController {
 		model.addAttribute("totalPages", page.getTotalPages());
 		model.addAttribute("totalItems", page.getTotalElements()); 
 		model.addAttribute("listaEscala", lista);
-		return "/escala/listaTodos";	
+		return "escala/listaTodos";	
 	}
 	
 	public String paginarPosTransparencia(int pageNo, Page<EscalaPosTransparencia> page, List<EscalaPosTransparencia> lista, ModelMap model) {	
@@ -580,7 +580,7 @@ public class EscalaController {
 		model.addAttribute("totalPages", page.getTotalPages());
 		model.addAttribute("totalItems", page.getTotalElements()); 
 		model.addAttribute("listaEscala", lista);
-		return "/escala/listaPosTransparencia";	
+		return "escala/listaPosTransparencia";	
 	}
 	
 	public String paginarPosTransparenciaGlobal(int pageNo, Page<EscalaPosTransparencia> page, List<EscalaPosTransparencia> lista, ModelMap model) {	
@@ -593,7 +593,7 @@ public class EscalaController {
 		model.addAttribute("totalPages", page.getTotalPages());
 		model.addAttribute("totalItems", page.getTotalElements()); 
 		model.addAttribute("listaEscala", lista);
-		return "/escala/listaPosTransparenciaGlobal";	
+		return "escala/listaPosTransparenciaGlobal";	
 	}
 	
 	//Escala Alteracao
@@ -605,7 +605,7 @@ public class EscalaController {
 		model.addAttribute("totalPages", page.getTotalPages());
 		model.addAttribute("totalItems", page.getTotalElements()); 
 		model.addAttribute("listaEscala", lista);
-		return "/escala/listaEscalaAlteracao";	
+		return "escala/listaEscalaAlteracao";	
 	}
 	
 	public String paginarEscalaAlteracaoGlobal(int pageNo, Page<EscalaAlteracoes> page, List<EscalaAlteracoes> lista, ModelMap model) {	
@@ -616,7 +616,7 @@ public class EscalaController {
 		model.addAttribute("totalPages", page.getTotalPages());
 		model.addAttribute("totalItems", page.getTotalElements()); 
 		model.addAttribute("listaEscala", lista);
-		return "/escala/listaEscalaAlteracaoGlobal";	
+		return "escala/listaEscalaAlteracaoGlobal";	
 	}
 	
 	//Escala Colaborador
@@ -628,7 +628,7 @@ public class EscalaController {
 		model.addAttribute("totalPages", page.getTotalPages());
 		model.addAttribute("totalItems", page.getTotalElements()); 
 		model.addAttribute("listaEscala", lista);
-		return "/escala/listaEscalaColaborador";	
+		return "escala/listaEscalaColaborador";	
 	}
 		
 	@GetMapping("/alterar/escala/{id}")
@@ -720,7 +720,7 @@ public class EscalaController {
 		//comando para armazenar a escala na sessão
         session.setAttribute("escalaAtual", escala  );
 		
-		return "/escala/editar";
+		return "escala/editar";
 	}
 	
 	//Ver Escala Pos Transparência
@@ -757,7 +757,7 @@ public class EscalaController {
 		model.addAttribute("nomeColuna6", nomeColuna6 );
 		model.addAttribute("nomeColuna7", nomeColuna7 );
 		
-		return "/escala/verEscalaPosTransparencia";
+		return "escala/verEscalaPosTransparencia";
 	}
 	
 	//Ver Escala Alteracao X9
@@ -793,7 +793,7 @@ public class EscalaController {
 		model.addAttribute("nomeColuna6", nomeColuna6 );
 		model.addAttribute("nomeColuna7", nomeColuna7 );
 		
-		return "/escala/verEscalaAlteracao";
+		return "escala/verEscalaAlteracao";
 	}
 
 
@@ -832,7 +832,7 @@ public class EscalaController {
 		model.addAttribute("nomeColuna6", nomeColuna6 );
 		model.addAttribute("nomeColuna7", nomeColuna7 );
 		
-		return "/escala/verEscalaColaborador";
+		return "escala/verEscalaColaborador";
 	}
 
 	
@@ -1445,7 +1445,7 @@ public class EscalaController {
 		//comando para armazenar a escala na sessão
         session.setAttribute("escalaAtual", escala  );
 		
-		return "/escala/editarAvaliacao";
+		return "escala/editarAvaliacao";
 	}
 	
 	// Código Diferenciado
@@ -1480,7 +1480,7 @@ public class EscalaController {
 			//comando para armazenar a escala na sessão
 	        session.setAttribute("escalaAtual", escala  );
 			
-			return "/escala/editarDiferenciado";
+			return "escala/editarDiferenciado";
 		}
 		
 	
@@ -1667,7 +1667,7 @@ public class EscalaController {
         session.setAttribute("escalaAtual", escala  );
 		
 		
-		return "/escala/editar";
+		return "escala/editar";
 	}
 	
 	
@@ -1764,7 +1764,7 @@ public class EscalaController {
         session.setAttribute("escalaAtual", escala  );
 		
 		
-		return "/escala/editar";	}
+		return "escala/editar";	}
 	
 	@GetMapping("/atalho/diarista/dia")
 	public String atalhoDiaristaDia( RedirectAttributes attr, ModelMap model) {	
@@ -1858,7 +1858,7 @@ public class EscalaController {
         session.setAttribute("escalaAtual", escala  );
 		
 		
-		return "/escala/editar";
+		return "escala/editar";
 	}
 	
 	@GetMapping("/atalho/mt/dias/impares")
@@ -1953,7 +1953,7 @@ public class EscalaController {
         session.setAttribute("escalaAtual", escala  );
 		
 		
-		return "/escala/editar";
+		return "escala/editar";
 	}
 	
 	@GetMapping("/atalho/mt/dias/pares")
@@ -2048,7 +2048,7 @@ public class EscalaController {
         session.setAttribute("escalaAtual", escala  );
 		
 		
-		return "/escala/editar";
+		return "escala/editar";
 	}
 	
 	//Ciclo 1
@@ -2144,7 +2144,7 @@ public class EscalaController {
         session.setAttribute("escalaAtual", escala  );
 		
 		
-		return "/escala/editar";
+		return "escala/editar";
 	}
 	
 	@GetMapping("/atalho/ciclo1/b")
@@ -2239,7 +2239,7 @@ public class EscalaController {
         session.setAttribute("escalaAtual", escala  );
 		
 		
-		return "/escala/editar";
+		return "escala/editar";
 	}
 	
 	@GetMapping("/atalho/ciclo1/c")
@@ -2334,7 +2334,7 @@ public class EscalaController {
         session.setAttribute("escalaAtual", escala  );
 		
 		
-		return "/escala/editar";
+		return "escala/editar";
 	}
 	
 	@GetMapping("/atalho/ciclo1/d")
@@ -2429,7 +2429,7 @@ public class EscalaController {
         session.setAttribute("escalaAtual", escala  );
 		
 		
-		return "/escala/editar";
+		return "escala/editar";
 	}
 	
 	@GetMapping("/atalho/ciclo1/e")
@@ -2524,7 +2524,7 @@ public class EscalaController {
         session.setAttribute("escalaAtual", escala  );
 		
 		
-		return "/escala/editar";
+		return "escala/editar";
 	}
 	
 	@GetMapping("/atalho/ciclo1/f")
@@ -2619,7 +2619,7 @@ public class EscalaController {
         session.setAttribute("escalaAtual", escala  );
 		
 		
-		return "/escala/editar";
+		return "escala/editar";
 	}
 	
 	//Ciclo2
@@ -2715,7 +2715,7 @@ public class EscalaController {
         session.setAttribute("escalaAtual", escala  );
 		
 		
-		return "/escala/editar";
+		return "escala/editar";
 	}
 	
 	@GetMapping("/atalho/ciclo2/b")
@@ -2810,7 +2810,7 @@ public class EscalaController {
         session.setAttribute("escalaAtual", escala  );
 		
 		
-		return "/escala/editar";
+		return "escala/editar";
 	}
 	
 	@GetMapping("/atalho/ciclo2/c")
@@ -2905,7 +2905,7 @@ public class EscalaController {
         session.setAttribute("escalaAtual", escala  );
 		
 		
-		return "/escala/editar";
+		return "escala/editar";
 	}
 	
 	@GetMapping("/atalho/ciclo2/d")
@@ -3000,7 +3000,7 @@ public class EscalaController {
         session.setAttribute("escalaAtual", escala  );
 		
 		
-		return "/escala/editar";
+		return "escala/editar";
 	}
 	
 	@GetMapping("/atalho/ciclo2/e")
@@ -3095,7 +3095,7 @@ public class EscalaController {
         session.setAttribute("escalaAtual", escala  );
 		
 		
-		return "/escala/editar";
+		return "escala/editar";
 	}
 	
 	@GetMapping("/atalho/ciclo2/f")
@@ -3190,7 +3190,7 @@ public class EscalaController {
         session.setAttribute("escalaAtual", escala  );
 		
 		
-		return "/escala/editar";
+		return "escala/editar";
 	}
 
 	//Ciclo4
@@ -3286,7 +3286,7 @@ public class EscalaController {
         session.setAttribute("escalaAtual", escala  );
 		
 		
-		return "/escala/editar";
+		return "escala/editar";
 	}
 	
 	@GetMapping("/atalho/ciclo4/b")
@@ -3381,7 +3381,7 @@ public class EscalaController {
         session.setAttribute("escalaAtual", escala  );
 		
 		
-		return "/escala/editar";
+		return "escala/editar";
 	}
 	
 	@GetMapping("/atalho/ciclo4/c")
@@ -3476,7 +3476,7 @@ public class EscalaController {
         session.setAttribute("escalaAtual", escala  );
 		
 		
-		return "/escala/editar";
+		return "escala/editar";
 	}
 	
 	@GetMapping("/atalho/ciclo4/d")
@@ -3571,7 +3571,7 @@ public class EscalaController {
         session.setAttribute("escalaAtual", escala  );
 		
 		
-		return "/escala/editar";
+		return "escala/editar";
 	}
 	
 	@GetMapping("/atalho/ciclo4/e")
@@ -3666,7 +3666,7 @@ public class EscalaController {
         session.setAttribute("escalaAtual", escala  );
 		
 		
-		return "/escala/editar";
+		return "escala/editar";
 	}
 	
 	@GetMapping("/atalho/ciclo4/f")
@@ -3761,7 +3761,7 @@ public class EscalaController {
         session.setAttribute("escalaAtual", escala  );
 		
 		
-		return "/escala/editar";
+		return "escala/editar";
 	}
 
 	//Ciclo5
@@ -3857,7 +3857,7 @@ public class EscalaController {
         session.setAttribute("escalaAtual", escala  );
 		
 		
-		return "/escala/editar";
+		return "escala/editar";
 	}
 	
 	@GetMapping("/atalho/ciclo5/b")
@@ -3952,7 +3952,7 @@ public class EscalaController {
         session.setAttribute("escalaAtual", escala  );
 		
 		
-		return "/escala/editar";
+		return "escala/editar";
 	}
 	
 	@GetMapping("/atalho/ciclo5/c")
@@ -4047,7 +4047,7 @@ public class EscalaController {
         session.setAttribute("escalaAtual", escala  );
 		
 		
-		return "/escala/editar";
+		return "escala/editar";
 	}
 	
 	@GetMapping("/atalho/ciclo5/d")
@@ -4142,7 +4142,7 @@ public class EscalaController {
         session.setAttribute("escalaAtual", escala  );
 		
 		
-		return "/escala/editar";
+		return "escala/editar";
 	}
 	
 	@GetMapping("/atalho/ciclo5/e")
@@ -4237,7 +4237,7 @@ public class EscalaController {
         session.setAttribute("escalaAtual", escala  );
 		
 		
-		return "/escala/editar";
+		return "escala/editar";
 	}
 	
 	@GetMapping("/atalho/ciclo5/f")
@@ -4332,7 +4332,7 @@ public class EscalaController {
         session.setAttribute("escalaAtual", escala  );
 		
 		
-		return "/escala/editar";
+		return "escala/editar";
 	}
 
 	//Ciclo6
@@ -4428,7 +4428,7 @@ public class EscalaController {
         session.setAttribute("escalaAtual", escala  );
 		
 		
-		return "/escala/editar";
+		return "escala/editar";
 	}
 	
 	@GetMapping("/atalho/ciclo6/b")
@@ -4523,7 +4523,7 @@ public class EscalaController {
         session.setAttribute("escalaAtual", escala  );
 		
 		
-		return "/escala/editar";
+		return "escala/editar";
 	}
 	
 	@GetMapping("/atalho/ciclo6/c")
@@ -4618,7 +4618,7 @@ public class EscalaController {
         session.setAttribute("escalaAtual", escala  );
 		
 		
-		return "/escala/editar";
+		return "escala/editar";
 	}
 	
 	@GetMapping("/atalho/ciclo6/d")
@@ -4713,7 +4713,7 @@ public class EscalaController {
         session.setAttribute("escalaAtual", escala  );
 		
 		
-		return "/escala/editar";
+		return "escala/editar";
 	}
 	
 	@GetMapping("/atalho/ciclo6/e")
@@ -4808,7 +4808,7 @@ public class EscalaController {
         session.setAttribute("escalaAtual", escala  );
 		
 		
-		return "/escala/editar";
+		return "escala/editar";
 	}
 	
 	@GetMapping("/atalho/ciclo6/f")
@@ -4903,7 +4903,7 @@ public class EscalaController {
         session.setAttribute("escalaAtual", escala  );
 		
 		
-		return "/escala/editar";
+		return "escala/editar";
 	}
 
 	//Ciclo7
@@ -4999,7 +4999,7 @@ public class EscalaController {
         session.setAttribute("escalaAtual", escala  );
 		
 		
-		return "/escala/editar";
+		return "escala/editar";
 	}
 	
 	@GetMapping("/atalho/ciclo7/b")
@@ -5094,7 +5094,7 @@ public class EscalaController {
         session.setAttribute("escalaAtual", escala  );
 		
 		
-		return "/escala/editar";
+		return "escala/editar";
 	}
 	
 	@GetMapping("/atalho/ciclo7/c")
@@ -5189,7 +5189,7 @@ public class EscalaController {
         session.setAttribute("escalaAtual", escala  );
 		
 		
-		return "/escala/editar";
+		return "escala/editar";
 	}
 	
 	@GetMapping("/atalho/ciclo7/d")
@@ -5284,7 +5284,7 @@ public class EscalaController {
         session.setAttribute("escalaAtual", escala  );
 		
 		
-		return "/escala/editar";
+		return "escala/editar";
 	}
 	
 	@GetMapping("/atalho/ciclo7/e")
@@ -5379,7 +5379,7 @@ public class EscalaController {
         session.setAttribute("escalaAtual", escala  );
 		
 		
-		return "/escala/editar";
+		return "escala/editar";
 	}
 	
 	@GetMapping("/atalho/ciclo7/f")
@@ -5474,7 +5474,7 @@ public class EscalaController {
         session.setAttribute("escalaAtual", escala  );
 		
 		
-		return "/escala/editar";
+		return "escala/editar";
 	}
 
 
@@ -5571,7 +5571,7 @@ public class EscalaController {
         session.setAttribute("escalaAtual", escala  );
 		
 		
-		return "/escala/editar";
+		return "escala/editar";
 	}
 	
 	@GetMapping("/atalho/ciclo8/b")
@@ -5666,7 +5666,7 @@ public class EscalaController {
         session.setAttribute("escalaAtual", escala  );
 		
 		
-		return "/escala/editar";
+		return "escala/editar";
 	}
 	
 	@GetMapping("/atalho/ciclo8/c")
@@ -5761,7 +5761,7 @@ public class EscalaController {
         session.setAttribute("escalaAtual", escala  );
 		
 		
-		return "/escala/editar";
+		return "escala/editar";
 	}
 	
 	@GetMapping("/atalho/ciclo8/d")
@@ -5856,7 +5856,7 @@ public class EscalaController {
         session.setAttribute("escalaAtual", escala  );
 		
 		
-		return "/escala/editar";
+		return "escala/editar";
 	}
 	
 	@GetMapping("/atalho/ciclo8/e")
@@ -5951,7 +5951,7 @@ public class EscalaController {
         session.setAttribute("escalaAtual", escala  );
 		
 		
-		return "/escala/editar";
+		return "escala/editar";
 	}
 	
 	@GetMapping("/atalho/ciclo8/f")
@@ -6046,7 +6046,7 @@ public class EscalaController {
         session.setAttribute("escalaAtual", escala  );
 		
 		
-		return "/escala/editar";
+		return "escala/editar";
 	}
 	
 	@GetMapping("/atalho/ciclo8/g")
@@ -6141,7 +6141,7 @@ public class EscalaController {
         session.setAttribute("escalaAtual", escala  );
 		
 		
-		return "/escala/editar";
+		return "escala/editar";
 	}
 	
 	
@@ -6238,7 +6238,7 @@ public class EscalaController {
         session.setAttribute("escalaAtual", escala  );
 		
 		
-		return "/escala/editar";
+		return "escala/editar";
 	}
 	
 	@GetMapping("/atalho/ciclo9/b")
@@ -6333,7 +6333,7 @@ public class EscalaController {
         session.setAttribute("escalaAtual", escala  );
 		
 		
-		return "/escala/editar";
+		return "escala/editar";
 	}
 	
 	@GetMapping("/atalho/ciclo9/c")
@@ -6428,7 +6428,7 @@ public class EscalaController {
         session.setAttribute("escalaAtual", escala  );
 		
 		
-		return "/escala/editar";
+		return "escala/editar";
 	}
 	
 	@GetMapping("/atalho/ciclo9/d")
@@ -6523,7 +6523,7 @@ public class EscalaController {
         session.setAttribute("escalaAtual", escala  );
 		
 		
-		return "/escala/editar";
+		return "escala/editar";
 	}
 	
 	@GetMapping("/atalho/ciclo9/e")
@@ -6618,7 +6618,7 @@ public class EscalaController {
         session.setAttribute("escalaAtual", escala  );
 		
 		
-		return "/escala/editar";
+		return "escala/editar";
 	}
 	
 	@GetMapping("/atalho/ciclo9/f")
@@ -6713,7 +6713,7 @@ public class EscalaController {
         session.setAttribute("escalaAtual", escala  );
 		
 		
-		return "/escala/editar";
+		return "escala/editar";
 	}
 	
 	@GetMapping("/atalho/ciclo9/g")
@@ -6808,7 +6808,7 @@ public class EscalaController {
         session.setAttribute("escalaAtual", escala  );
 		
 		
-		return "/escala/editar";
+		return "escala/editar";
 	}
 	
 	
@@ -6906,7 +6906,7 @@ public class EscalaController {
         session.setAttribute("escalaAtual", escala  );
 		
 		
-		return "/escala/editar";
+		return "escala/editar";
 	}
 	
 	@GetMapping("/atalho/ciclo10/b")
@@ -7002,7 +7002,7 @@ public class EscalaController {
         session.setAttribute("escalaAtual", escala  );
 		
 		
-		return "/escala/editar";
+		return "escala/editar";
 	}
 	
 	@GetMapping("/atalho/ciclo10/c")
@@ -7097,7 +7097,7 @@ public class EscalaController {
         session.setAttribute("escalaAtual", escala  );
 		
 		
-		return "/escala/editar";
+		return "escala/editar";
 	}
 	
 	@GetMapping("/atalho/ciclo10/d")
@@ -7193,7 +7193,7 @@ public class EscalaController {
         session.setAttribute("escalaAtual", escala  );
 		
 		
-		return "/escala/editar";
+		return "escala/editar";
 	}
 	
 	@GetMapping("/atalho/ciclo10/e")
@@ -7289,7 +7289,7 @@ public class EscalaController {
         session.setAttribute("escalaAtual", escala  );
 		
 		
-		return "/escala/editar";
+		return "escala/editar";
 	}
 	
 	@GetMapping("/atalho/ciclo10/f")
@@ -7385,7 +7385,7 @@ public class EscalaController {
         session.setAttribute("escalaAtual", escala  );
 		
 		
-		return "/escala/editar";
+		return "escala/editar";
 	}
 	
 	@GetMapping("/atalho/ciclo10/g")
@@ -7481,7 +7481,7 @@ public class EscalaController {
         session.setAttribute("escalaAtual", escala  );
 		
 		
-		return "/escala/editar";
+		return "escala/editar";
 	}
 	
 	
@@ -7581,7 +7581,7 @@ public class EscalaController {
         session.setAttribute("escalaAtual", escala  );
 		
 		
-		return "/escala/editar";
+		return "escala/editar";
 	}
 	
 	@GetMapping("/atalho/ciclo11/b")
@@ -7677,7 +7677,7 @@ public class EscalaController {
         session.setAttribute("escalaAtual", escala  );
 		
 		
-		return "/escala/editar";
+		return "escala/editar";
 	}
 	
 	@GetMapping("/atalho/ciclo11/c")
@@ -7773,7 +7773,7 @@ public class EscalaController {
         session.setAttribute("escalaAtual", escala  );
 		
 		
-		return "/escala/editar";
+		return "escala/editar";
 	}
 	
 	@GetMapping("/atalho/ciclo11/d")
@@ -7869,7 +7869,7 @@ public class EscalaController {
         session.setAttribute("escalaAtual", escala  );
 		
 		
-		return "/escala/editar";
+		return "escala/editar";
 	}
 	
 	@GetMapping("/atalho/ciclo11/e")
@@ -7965,7 +7965,7 @@ public class EscalaController {
         session.setAttribute("escalaAtual", escala  );
 		
 		
-		return "/escala/editar";
+		return "escala/editar";
 	}
 	
 	@GetMapping("/atalho/ciclo11/f")
@@ -8060,7 +8060,7 @@ public class EscalaController {
         session.setAttribute("escalaAtual", escala  );
 		
 		
-		return "/escala/editar";
+		return "escala/editar";
 	}
 	
 	@GetMapping("/atalho/ciclo11/g")
@@ -8156,7 +8156,7 @@ public class EscalaController {
         session.setAttribute("escalaAtual", escala  );
 		
 		
-		return "/escala/editar";
+		return "escala/editar";
 	}
 	
 
@@ -8255,7 +8255,7 @@ public class EscalaController {
         session.setAttribute("escalaAtual", escala  );
 		
 		
-		return "/escala/editar";
+		return "escala/editar";
 	}
 	
 	@GetMapping("/atalho/ciclo12/b")
@@ -8351,7 +8351,7 @@ public class EscalaController {
         session.setAttribute("escalaAtual", escala  );
 		
 		
-		return "/escala/editar";
+		return "escala/editar";
 	}
 	
 	@GetMapping("/atalho/ciclo12/c")
@@ -8447,7 +8447,7 @@ public class EscalaController {
         session.setAttribute("escalaAtual", escala  );
 		
 		
-		return "/escala/editar";
+		return "escala/editar";
 	}
 	
 	@GetMapping("/atalho/ciclo12/d")
@@ -8543,7 +8543,7 @@ public class EscalaController {
         session.setAttribute("escalaAtual", escala  );
 		
 		
-		return "/escala/editar";
+		return "escala/editar";
 	}
 	
 	@GetMapping("/atalho/ciclo12/e")
@@ -8639,7 +8639,7 @@ public class EscalaController {
         session.setAttribute("escalaAtual", escala  );
 		
 		
-		return "/escala/editar";
+		return "escala/editar";
 	}
 	
 	@GetMapping("/atalho/ciclo12/f")
@@ -8735,7 +8735,7 @@ public class EscalaController {
         session.setAttribute("escalaAtual", escala  );
 		
 		
-		return "/escala/editar";
+		return "escala/editar";
 	}
 	
 	@GetMapping("/atalho/ciclo12/g")
@@ -8831,7 +8831,7 @@ public class EscalaController {
         session.setAttribute("escalaAtual", escala  );
 		
 		
-		return "/escala/editar";
+		return "escala/editar";
 	}
 	
 
@@ -8842,7 +8842,7 @@ public class EscalaController {
 		model.addAttribute("choque", "ESCALA BLOQUEADA");
 		model.addAttribute("mensagem", "Precisamos cumprir os prazos para evitar problemas.");
 		
-		return "/choqueescala/escalaBloqueada";
+		return "choqueescala/escalaBloqueada";
 	}
 	
 	@GetMapping("/mensagem/de/diferenciado/pre/requisito")
@@ -8852,7 +8852,7 @@ public class EscalaController {
 		model.addAttribute("choque", "INCOMPATIBILIDADE");
 		model.addAttribute("mensagem", "Você não pode colocar ["+codigoDiferenciadoService.buscarPorId( pegarIdCodigoDifernciado1() ).getDescricaoCodigoDiferenciado()+"] junto com ["+codigoDiferenciadoService.buscarPorId( pegarIdCodigoDifernciado2() ).getDescricaoCodigoDiferenciado()+"] na mesma escala."   );
 		
-		return "/choqueescala/choque";
+		return "choqueescala/choque";
 	}
 	
 	@GetMapping("/mensagem/de/choque")
@@ -8862,7 +8862,7 @@ public class EscalaController {
 		model.addAttribute("choque", "CHOQUE EM ESCALA");
 		model.addAttribute("mensagem", choque());
 		
-		return "/choqueescala/choque";
+		return "choqueescala/choque";
 	}
 	
 	@GetMapping("/mensagem/de/choque/depois/noturno")
@@ -8872,7 +8872,7 @@ public class EscalaController {
 		model.addAttribute("choque", "NÃO DESCANSO DEPOIS DO NOTURNO");
 		model.addAttribute("mensagem", choqueDescansoDepoisNoturno());
 		
-		return "/choqueescala/choqueDepoisNoturno";
+		return "choqueescala/choqueDepoisNoturno";
 	}
 	
 	@GetMapping("/mensagem/de/presencial/noturno")
@@ -8882,7 +8882,7 @@ public class EscalaController {
 		model.addAttribute("choque", "ESCALA NÃO PRESENCIAL");
 		model.addAttribute("mensagem", "Você não pode impetrar uma escala não presencial com adicional noturno.");
 		
-		return "/choqueescala/naoPresencial";
+		return "choqueescala/naoPresencial";
 	}
 	
 	@GetMapping("/mensagem/de/nao/escolha")
@@ -8892,7 +8892,7 @@ public class EscalaController {
 		model.addAttribute("choque", "ESCOLHA");
 		model.addAttribute("mensagem", "Campos obrigatórios");
 		
-		return "/choqueescala/obrigatorio";
+		return "choqueescala/obrigatorio";
 	}
 
 	
@@ -8903,7 +8903,7 @@ public class EscalaController {
 		model.addAttribute("choque", "EXTRA SEM INFORMAÇÃO DE CH EFETIVA");
 		model.addAttribute("mensagem", "Horas extras só podem ser informadas depois de indicadas todas as horas efetivas na unidade.");
 		
-		return "/choqueescala/extra";
+		return "choqueescala/extra";
 	}
 	
 	@GetMapping("/mensagem/de/incompatibilidade/folha/folha")
@@ -8916,7 +8916,7 @@ public class EscalaController {
 		model.addAttribute("choque", "INCOMPATIBILIDADE DE FOLHA");
 		model.addAttribute("mensagem", "Você está tentando lançar horas em tipos de folhas diferentes e incompatíveis entre si para esse(a) funcionário(a). Veja os tipos de folha nas escalas dele(a) esse mês (inclusive se tem atividade em outra unidade) e resolva essa questão: "+"["+folhaA+"] ["+folhaB+"].");
 		
-		return "/choqueescala/naoPresencial";
+		return "choqueescala/naoPresencial";
 	}
 	
 
@@ -8957,7 +8957,7 @@ public class EscalaController {
 		model.addAttribute("totalPages", page.getTotalPages());
 		model.addAttribute("totalItems", page.getTotalElements()); 
 		model.addAttribute("listaFuncionarios", lista);
-		return "/escala/listaInclusao";	
+		return "escala/listaInclusao";	
 	}
 	
 	@GetMapping("/buscar/inclusao/nome")
@@ -8998,7 +8998,7 @@ public class EscalaController {
 		model.addAttribute("nome", nome);
 		model.addAttribute("inclusaoEscala", inclusaoEscala);
 		
-		return "/escala/incluir"; 
+		return "escala/incluir"; 
 	}
 	
 	@PostMapping("/incluindo")

@@ -25,13 +25,13 @@ public class FaixasImpostoDeRendaNomeController {
 	@GetMapping("/cadastrar")
 	public String cadastrar(FaixasImpostoDeRendaNome faixasImpostoDeRendaNome) {
 		
-		return "/faixanomeir/cadastro";
+		return "faixanomeir/cadastro";
 	}
 	
 	@GetMapping("/listar")
 	public String listar(ModelMap model) {
 		model.addAttribute("faixasImpostoDeRendaNome", service.buscarTodos());
-		return "/faixanomeir/lista"; 
+		return "faixanomeir/lista"; 
 	}
 	
 	@PostMapping("/salvar")
@@ -44,7 +44,7 @@ public class FaixasImpostoDeRendaNomeController {
 	@GetMapping("/editar/{id}")
 	public String preEditar(@PathVariable("id") Long id, ModelMap model) {
 		model.addAttribute("faixasImpostoDeRendaNome", service.buscarPorId(id));
-		return "/faixanomeir/cadastro";
+		return "faixanomeir/cadastro";
 	}
 	
 	@PostMapping("/editar")
@@ -65,7 +65,7 @@ public class FaixasImpostoDeRendaNomeController {
 	public String getPorNome(@RequestParam("nomeFaixa") String nomeFaixa, ModelMap model) {	
 		System.out.println(nomeFaixa.toUpperCase().trim());
 		model.addAttribute("faixasImpostoDeRendaNome", service.buscarNome(nomeFaixa.toUpperCase().trim()));
-		return "/faixanomeir/lista";
+		return "faixanomeir/lista";
 	}
 	
 	@Autowired

@@ -82,7 +82,7 @@ public class FaixasValoresResidenteController {
 	@GetMapping("/cadastrar")
 	public String cadastrar(FaixasValoresResidente faixasValoresResidente) {
 		
-		return "/faixasValoresResidente/cadastro";
+		return "faixasValoresResidente/cadastro";
 	}
 	
 	@GetMapping("/listar")
@@ -111,7 +111,7 @@ public class FaixasValoresResidenteController {
 		model.addAttribute("totalPages", page.getTotalPages());
 		model.addAttribute("totalItems", page.getTotalElements()); 
 		model.addAttribute("faixasValoresResidente", lista);
-		return "/faixasValoresResidente/lista";	
+		return "faixasValoresResidente/lista";	
 	}
 	
 	@GetMapping("/paginar/{pageNo}")
@@ -143,7 +143,7 @@ public class FaixasValoresResidenteController {
 	@GetMapping("/editar/{id}")
 	public String preEditar(@PathVariable("id") Long id, ModelMap model) {
 		model.addAttribute("faixasValoresResidente", service.buscarPorId(id));
-		return "/faixasValoresResidente/cadastro";
+		return "faixasValoresResidente/cadastro";
 	}
 	
 	@PostMapping("/editar")
@@ -177,7 +177,7 @@ public class FaixasValoresResidenteController {
 	@GetMapping("/buscar/nome")
 	public String getPorNome(@RequestParam("cnesUnidade") String nome, ModelMap model) {		
 		model.addAttribute("faixasValoresResidente", service.buscarPorNome(nome.toUpperCase().trim()));
-		return "/faixasValoresResidente/lista";
+		return "faixasValoresResidente/lista";
 	}
 	
 	@GetMapping("/exporta/excel")

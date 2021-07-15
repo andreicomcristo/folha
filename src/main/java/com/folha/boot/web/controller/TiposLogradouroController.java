@@ -25,13 +25,13 @@ public class TiposLogradouroController {
 
 	@GetMapping("/cadastrar")
 	public String cadastrar(TiposLogradouro tiposLogradouro) {		
-		return "/tipologradouro/cadastro";
+		return "tipologradouro/cadastro";
 	}
 	
 	@GetMapping("/listar")
 	public String listar(ModelMap model) {
 		model.addAttribute("tiposLogradouro", service.buscarTodos());
-		return "/tipologradouro/lista"; 
+		return "tipologradouro/lista"; 
 	}
 	
 	@PostMapping("/salvar")
@@ -45,7 +45,7 @@ public class TiposLogradouroController {
 	@GetMapping("/editar/{id}")
 	public String preEditar(@PathVariable("id") Long id, ModelMap model) {
 		model.addAttribute("tiposLogradouro", service.buscarPorId(id));
-		return "/tipologradouro/cadastro";
+		return "tipologradouro/cadastro";
 	}
 	
 	@PostMapping("/editar")
@@ -65,7 +65,7 @@ public class TiposLogradouroController {
 	@GetMapping("/buscar/nome/tipologradouro")
 	public String getPorNome(@RequestParam("nomeTipoLogradouro") String nomeTipoLogradouro, ModelMap model) {		
 		model.addAttribute("tiposLogradouro", service.buscarPorNome(nomeTipoLogradouro.toUpperCase().trim()));
-		return "/tipologradouro/lista";
+		return "tipologradouro/lista";
 	}
 	
 	@Autowired

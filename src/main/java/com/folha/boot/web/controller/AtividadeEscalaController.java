@@ -41,13 +41,13 @@ public class AtividadeEscalaController {
 
 	@GetMapping("/cadastrar")
 	public String cadastrar(AtividadeEscala atividadeEscala) {		
-		return "/atividadeescala/cadastro";
+		return "atividadeescala/cadastro";
 	}
 	/*
 	@GetMapping("/listar")
 	public String listar(ModelMap model) {
 		model.addAttribute("atividadeEscala", service.buscarNaUnidade(unidadesService.buscarPorId(idUnidadeLogada)));
-		return "/atividadeescala/lista"; 
+		return "atividadeescala/lista"; 
 	}
 	*/
 	@PostMapping("/salvar")
@@ -60,7 +60,7 @@ public class AtividadeEscalaController {
 	@GetMapping("/editar/{id}")
 	public String preEditar(@PathVariable("id") Long id, ModelMap model) {
 		model.addAttribute("atividadeEscala", service.buscarPorId(id));
-		return "/atividadeescala/cadastro";
+		return "atividadeescala/cadastro";
 	}
 	
 	@PostMapping("/editar")
@@ -89,7 +89,7 @@ public class AtividadeEscalaController {
 	@GetMapping("/buscar/nome/atividade/escala")
 	public String getPorNome(@RequestParam("nomeAtividade") String nomeAtividade, ModelMap model) {	
 		model.addAttribute("atividadeEscala", service.buscarNaUnidadePorNome( unidadesService.buscarPorId(idUnidadeLogada) ,nomeAtividade.toUpperCase().trim()));
-		return "/atividadeescala/lista";
+		return "atividadeescala/lista";
 	}
 	*/
 	
@@ -143,7 +143,7 @@ public class AtividadeEscalaController {
 		model.addAttribute("totalPages", page.getTotalPages());
 		model.addAttribute("totalItems", page.getTotalElements()); 
 		model.addAttribute("atividadeEscala", lista);
-		return "/atividadeescala/lista";	
+		return "atividadeescala/lista";	
 	}
 
 	

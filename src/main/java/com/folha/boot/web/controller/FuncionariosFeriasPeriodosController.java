@@ -16,13 +16,13 @@ public class FuncionariosFeriasPeriodosController {
 	
 	@GetMapping("/cadastrar")
 	public String cadastrar(FuncionariosFeriasPeriodos funcionariosFeriasPeriodos) {
-		return "/funcionariosferiasperiodo/cadastro";
+		return "funcionariosferiasperiodo/cadastro";
 	}
 	
 	@GetMapping("/listar")
 	public String listar(ModelMap model) {
 		model.addAttribute("funcionariosFeriasPeriodos", service.buscarTodos());
-		return "/funcionariosferiasperiodo/lista"; 
+		return "funcionariosferiasperiodo/lista"; 
 	}
 	
 	@PostMapping("/salvar")
@@ -35,7 +35,7 @@ public class FuncionariosFeriasPeriodosController {
 	@GetMapping("/editar/{id}")
 	public String preEditar(@PathVariable("id") Long id, ModelMap model) {
 		model.addAttribute("funcionariosFeriasPeriodos", service.buscarPorId(id));
-		return "/funcionariosferiasperiodo/cadastro";
+		return "funcionariosferiasperiodo/cadastro";
 	}
 	
 	
@@ -57,7 +57,7 @@ public class FuncionariosFeriasPeriodosController {
 	/*@GetMapping("/buscar/ano/referencia")
 	public String getPorNome(@RequestParam("anoReferencia") String anoReferencia, ModelMap model) {		
 		model.addAttribute("funcionariosFeriasPeriodos", service.buscarPorAnoReferencia(anoReferencia.toUpperCase().trim()));
-		return "/funcionariosferiasperiodo/lista";
+		return "funcionariosferiasperiodo/lista";
 	}
 		
 	@ModelAttribute("idFeriasFk")

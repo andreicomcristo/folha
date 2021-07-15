@@ -24,7 +24,7 @@ public class HomeController {
 		model.addAttribute("usuario", username);
 		model.addAttribute("unidadeLogada", request.getSession().getAttribute("unidade"));
 		
-		return "/home";
+		return "home";
 	}
 	*/
 	@GetMapping("/home")
@@ -33,7 +33,7 @@ public class HomeController {
 		model.addAttribute("nomeOperadorLogado", request.getSession().getAttribute("operador"));
 		model.addAttribute("nomeUnidadeLogada", request.getSession().getAttribute("unidade").toString());
 		
-		return "/home";
+		return "home";
 	}
 	
 	@GetMapping("/")
@@ -42,7 +42,7 @@ public class HomeController {
 		model.addAttribute("nomeOperadorLogado", request.getSession().getAttribute("operador"));
 		model.addAttribute("nomeUnidadeLogada", request.getSession().getAttribute("unidade").toString());
 		
-		return "/home";
+		return "home";
 	}
 	
 	

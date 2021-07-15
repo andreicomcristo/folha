@@ -47,13 +47,13 @@ public class TipoDeFolhaTurnoController {
 	
 	@GetMapping("/cadastrar")
 	public String cadastrar(TipoDeFolhaTurno tipoDeFolhaTurno) {		
-		return "/tipoDeFolhaTurno/cadastro";
+		return "tipoDeFolhaTurno/cadastro";
 	}
 	/*
 	@GetMapping("/listar")
 	public String listar(ModelMap model) {
 		model.addAttribute("tipoDeFolhaTurno", service.buscarNaUnidade(unidadesService.buscarPorId(idUnidadeLogada)));
-		return "/tipoDeFolhaTurno/lista"; 
+		return "tipoDeFolhaTurno/lista"; 
 	}
 	*/
 	@PostMapping("/salvar")
@@ -72,7 +72,7 @@ public class TipoDeFolhaTurnoController {
 	@GetMapping("/editar/{id}")
 	public String preEditar(@PathVariable("id") Long id, ModelMap model) {
 		model.addAttribute("tipoDeFolhaTurno", service.buscarPorId(id));
-		return "/tipoDeFolhaTurno/cadastro";
+		return "tipoDeFolhaTurno/cadastro";
 	}
 	
 	@PostMapping("/editar")
@@ -147,7 +147,7 @@ public class TipoDeFolhaTurnoController {
 		model.addAttribute("totalPages", page.getTotalPages());
 		model.addAttribute("totalItems", page.getTotalElements()); 
 		model.addAttribute("tipoDeFolhaTurno", lista);
-		return "/tipoDeFolhaTurno/lista";	
+		return "tipoDeFolhaTurno/lista";	
 	}
 
 	
@@ -161,7 +161,7 @@ public class TipoDeFolhaTurnoController {
 		model.addAttribute("choque", "JÁ CADASTRADA");
 		model.addAttribute("mensagem", "Essca compatibilidade já está cadastrada.");
 		
-		return "/alertas/jaTemPerfilNaUnidade";
+		return "alertas/jaTemPerfilNaUnidade";
 	}
 	
 	

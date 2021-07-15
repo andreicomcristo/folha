@@ -49,7 +49,7 @@ public class TiposDeFolhaVinculoController {
 	@GetMapping("/cadastrar")
 	public String cadastrar(TiposDeFolhaVinculo tiposDeFolhaVinculo) {
 		
-		return "/tiposDeFolhaVinculo/cadastro";
+		return "tiposDeFolhaVinculo/cadastro";
 	}
 	
 	@GetMapping("/listar")
@@ -79,7 +79,7 @@ public class TiposDeFolhaVinculoController {
 		model.addAttribute("totalPages", page.getTotalPages());
 		model.addAttribute("totalItems", page.getTotalElements()); 
 		model.addAttribute("tiposDeFolhaVinculo", lista);
-		return "/tiposDeFolhaVinculo/lista";	
+		return "tiposDeFolhaVinculo/lista";	
 	}
 	
 	@GetMapping("/paginar/{pageNo}")
@@ -106,7 +106,7 @@ public class TiposDeFolhaVinculoController {
 	@GetMapping("/editar/{id}")
 	public String preEditar(@PathVariable("id") Long id, ModelMap model) {
 		model.addAttribute("tiposDeFolhaVinculo", service.buscarPorId(id));
-		return "/tiposDeFolhaVinculo/cadastro";
+		return "tiposDeFolhaVinculo/cadastro";
 	}
 	
 	@PostMapping("/editar")
@@ -136,7 +136,7 @@ public class TiposDeFolhaVinculoController {
 	@GetMapping("/buscar/nome")
 	public String getPorNome(@RequestParam("nome") String nome, ModelMap model) {		
 		model.addAttribute("tiposDeFolhaVinculo", service.buscarPorNome(nome.toUpperCase().trim()));
-		return "/tiposDeFolhaVinculo/lista";
+		return "tiposDeFolhaVinculo/lista";
 	}
 	
 	

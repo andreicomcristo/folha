@@ -25,13 +25,13 @@ public class SexosController {
 
 	@GetMapping("/cadastrar")
 	public String cadastrar(Sexos sexos) {		
-		return "/sexo/cadastro";
+		return "sexo/cadastro";
 	}
 	
 	@GetMapping("/listar")
 	public String listar(ModelMap model) {
 		model.addAttribute("sexos", service.buscarTodos());
-		return "/sexo/lista"; 
+		return "sexo/lista"; 
 	}
 	
 	@PostMapping("/salvar")
@@ -44,7 +44,7 @@ public class SexosController {
 	@GetMapping("/editar/{id}")
 	public String preEditar(@PathVariable("id") Long id, ModelMap model) {
 		model.addAttribute("sexos", service.buscarPorId(id));
-		return "/sexo/cadastro";
+		return "sexo/cadastro";
 	}
 	
 	@PostMapping("/editar")
@@ -64,7 +64,7 @@ public class SexosController {
 	@GetMapping("/buscar/nome/Sexo")
 	public String getPorNome(@RequestParam("nomeSexo") String nomeSexo, ModelMap model) {		
 		model.addAttribute("sexos", service.buscarPorNome(nomeSexo.toUpperCase().trim()));
-		return "/sexo/lista";
+		return "sexo/lista";
 	}
 	
 	@Autowired

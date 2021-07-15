@@ -91,7 +91,7 @@ public class PessoaDocumentosCtpsController {
 
 	@GetMapping("/cadastrar")
 	public String cadastrar(PessoaDocumentosCtps ctps) {		
-		return "/docctps/cadastro";
+		return "docctps/cadastro";
 	}
 	
 	@GetMapping("/cadastrar/{id}")
@@ -108,13 +108,13 @@ public class PessoaDocumentosCtpsController {
 		model.addAttribute("pessoaDocumentosLista6", pessoaDocumentosTituloService.buscarPorPessoa(pessoaService.buscarPorId(id)));
 		model.addAttribute("pessoaDocumentosLista7", enderecosServices.buscarPorPessoa(pessoaService.buscarPorId(id)));
 		
-		return "/docctps/cadastro";
+		return "docctps/cadastro";
 	}
 	
 	@GetMapping("/listar")
 	public String listar(ModelMap model) {
 		model.addAttribute("pessoaDocumentosCtps", service.buscarTodos());
-		return "/docctps/lista"; 
+		return "docctps/lista"; 
 	}
 	
 	@PostMapping("/salvar")
@@ -214,7 +214,7 @@ public class PessoaDocumentosCtpsController {
 	@GetMapping("/editar/{id}")
 	public String preEditar(@PathVariable("id") Long id, ModelMap model) {
 		model.addAttribute("pessoaDocumentosCtps", service.buscarPorId(id));
-		return "/docctps/cadastro";
+		return "docctps/cadastro";
 	}
 	
 	@PostMapping("/editar")
@@ -290,7 +290,7 @@ public class PessoaDocumentosCtpsController {
 	@GetMapping("/buscar/numero/documento/ctps")
 	public String getPorNome(@RequestParam("numero") String numero, ModelMap model) {		
 		model.addAttribute("pessoaDocumentosCtps", service.buscarPorNumero(numero.toUpperCase().trim()));
-		return "/docctps/lista";
+		return "docctps/lista";
 	}
 	
 	@ModelAttribute("idHabilitacaoCategoriasFk")

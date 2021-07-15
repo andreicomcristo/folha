@@ -26,13 +26,13 @@ public class PaisesController {
 	@GetMapping("/cadastrar")
 	public String cadastrar(Paises pais) {
 		
-		return "/pais/cadastro";
+		return "pais/cadastro";
 	}
 	
 	@GetMapping("/listar")
 	public String listar(ModelMap model) {
 		model.addAttribute("paises", service.buscarTodos());
-		return "/pais/lista"; 
+		return "pais/lista"; 
 	}
 	
 	@PostMapping("/salvar")
@@ -45,7 +45,7 @@ public class PaisesController {
 	@GetMapping("/editar/{id}")
 	public String preEditar(@PathVariable("id") Long id, ModelMap model) {
 		model.addAttribute("paises", service.buscarPorId(id));
-		return "/pais/cadastro";
+		return "pais/cadastro";
 	}
 	
 	@PostMapping("/editar")
@@ -65,7 +65,7 @@ public class PaisesController {
 	@GetMapping("/buscar/nome/pais")
 	public String getPorNome(@RequestParam("nomePais") String nomePais, ModelMap model) {		
 		model.addAttribute("paises", service.buscarPorNome(nomePais.toUpperCase().trim()));
-		return "/pais/lista";
+		return "pais/lista";
 	}
 	
 	@Autowired

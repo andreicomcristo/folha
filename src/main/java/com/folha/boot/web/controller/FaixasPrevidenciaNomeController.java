@@ -25,13 +25,13 @@ public class FaixasPrevidenciaNomeController {
 	@GetMapping("/cadastrar")
 	public String cadastrar(FaixasPrevidenciaNome faixasPrevidenciaNome) {
 		
-		return "/faixanomeprev/cadastro";
+		return "faixanomeprev/cadastro";
 	}
 	
 	@GetMapping("/listar")
 	public String listar(ModelMap model) {
 		model.addAttribute("faixasPrevidenciaNome", service.buscarTodos());
-		return "/faixanomeprev/lista"; 
+		return "faixanomeprev/lista"; 
 	}
 	
 	@PostMapping("/salvar")
@@ -44,7 +44,7 @@ public class FaixasPrevidenciaNomeController {
 	@GetMapping("/editar/{id}")
 	public String preEditar(@PathVariable("id") Long id, ModelMap model) {
 		model.addAttribute("faixasPrevidenciaNome", service.buscarPorId(id));
-		return "/faixanomeprev/cadastro";
+		return "faixanomeprev/cadastro";
 	}
 	
 	@PostMapping("/editar")
@@ -64,7 +64,7 @@ public class FaixasPrevidenciaNomeController {
 	@GetMapping("/buscar/nome/faixa")
 	public String getPorNome(@RequestParam("nomeFaixa") String nomeFaixa, ModelMap model) {		
 		model.addAttribute("faixasPrevidenciaNome", service.buscarNome(nomeFaixa.toUpperCase().trim()));
-		return "/faixanomeprev/lista";
+		return "faixanomeprev/lista";
 	}
 	
 	

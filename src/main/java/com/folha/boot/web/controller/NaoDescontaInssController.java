@@ -91,7 +91,7 @@ public class NaoDescontaInssController {
 		model.addAttribute("totalPages", page.getTotalPages());
 		model.addAttribute("totalItems", page.getTotalElements()); 
 		model.addAttribute("listaFuncionarios", lista);
-		return "/naoDescontaInss/listafuncionario";	
+		return "naoDescontaInss/listafuncionario";	
 	}	
 	
 	@GetMapping("/buscar/funcionarios/nome")
@@ -117,13 +117,13 @@ public class NaoDescontaInssController {
 	@GetMapping("/cadastrar/{id}")
 	public String cadastrar(@PathVariable("id") Long id, NaoDescontaInss naoDescontaInss) {
 		naoDescontaInss.setIdFuncionarioFk(pessoaFuncionariosService.buscarPorId(id));
-		return "/naoDescontaInss/cadastro";
+		return "naoDescontaInss/cadastro";
 	}
 	
 	@GetMapping("/cadastrar")
 	public String cadastrar(NaoDescontaInss naoDescontaInss) {
 		
-		return "/naoDescontaInss/cadastro";
+		return "naoDescontaInss/cadastro";
 	}
 	
 	@GetMapping("/listar")
@@ -153,7 +153,7 @@ public class NaoDescontaInssController {
 		model.addAttribute("totalPages", page.getTotalPages());
 		model.addAttribute("totalItems", page.getTotalElements()); 
 		model.addAttribute("naoDescontaInss", lista);
-		return "/naoDescontaInss/lista";	
+		return "naoDescontaInss/lista";	
 	}
 	
 	@GetMapping("/paginar/{pageNo}")
@@ -190,7 +190,7 @@ public class NaoDescontaInssController {
 	@GetMapping("/editar/{id}")
 	public String preEditar(@PathVariable("id") Long id, ModelMap model) {
 		model.addAttribute("naoDescontaInss", service.buscarPorId(id));
-		return "/naoDescontaInss/cadastro";
+		return "naoDescontaInss/cadastro";
 	}
 	
 	@PostMapping("/editar")
@@ -221,7 +221,7 @@ public class NaoDescontaInssController {
 	@GetMapping("/buscar/nome")
 	public String getPorNome(@RequestParam("cnesUnidade") String nome, ModelMap model) {		
 		model.addAttribute("naoDescontaInss", service.buscarPorNome(nome.toUpperCase().trim()));
-		return "/naoDescontaInss/lista";
+		return "naoDescontaInss/lista";
 	}
 	
 	@GetMapping("/exporta/excel")

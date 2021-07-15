@@ -25,13 +25,13 @@ public class PessoaDocumentosReservistaController {
 
 	@GetMapping("/cadastrar")
 	public String cadastrar(PessoaDocumentosReservista reservista) {		
-		return "/docreservista/cadastro";
+		return "docreservista/cadastro";
 	}
 	
 	@GetMapping("/listar")
 	public String listar(ModelMap model) {
 		model.addAttribute("pessoaDocumentosReservista", service.buscarTodos());
-		return "/docreservista/lista"; 
+		return "docreservista/lista"; 
 	}
 	
 	@PostMapping("/salvar")
@@ -45,7 +45,7 @@ public class PessoaDocumentosReservistaController {
 	@GetMapping("/editar/{id}")
 	public String preEditar(@PathVariable("id") Long id, ModelMap model) {
 		model.addAttribute("pessoaDocumentosReservista", service.buscarPorId(id));
-		return "/docreservista/cadastro";
+		return "docreservista/cadastro";
 	}
 	
 	@PostMapping("/editar")
@@ -65,7 +65,7 @@ public class PessoaDocumentosReservistaController {
 	@GetMapping("/buscar/numero/documento/reservista")
 	public String getPorNome(@RequestParam("numero") String numero, ModelMap model) {		
 		model.addAttribute("pessoaDocumentosReservista", service.buscarPorNumero(numero.toUpperCase().trim()));
-		return "/docctps/lista";
+		return "docctps/lista";
 	}
 	
 	@Autowired

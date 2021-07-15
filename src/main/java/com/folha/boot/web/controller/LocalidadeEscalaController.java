@@ -48,7 +48,7 @@ public class LocalidadeEscalaController {
 
 	@GetMapping("/cadastrar")
 	public String cadastrar(LocalidadeEscala localidadeEscala) {
-		return "/localidadeescala/cadastro";
+		return "localidadeescala/cadastro";
 	}
 
 	@PostMapping("/salvar")
@@ -61,7 +61,7 @@ public class LocalidadeEscalaController {
 	@GetMapping("/editar/{id}")
 	public String preEditar(@PathVariable("id") Long id, ModelMap model) {
 		model.addAttribute("localidadeEscala", service.buscarPorId(id));
-		return "/localidadeescala/cadastro";
+		return "localidadeescala/cadastro";
 	}
 	
 	
@@ -131,7 +131,7 @@ public class LocalidadeEscalaController {
 		model.addAttribute("totalPages", page.getTotalPages());
 		model.addAttribute("totalItems", page.getTotalElements()); 
 		model.addAttribute("localidadeEscala", lista);
-		return "/localidadeescala/lista";	
+		return "localidadeescala/lista";	
 	}
 	
 	@GetMapping("/exporta/excel")

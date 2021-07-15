@@ -98,7 +98,7 @@ public class PessoaLimiteHorasController {
 		model.addAttribute("totalPages", page.getTotalPages());
 		model.addAttribute("totalItems", page.getTotalElements()); 
 		model.addAttribute("listaFuncionarios", lista);
-		return "/pessoaLimiteHoras/listafuncionario";	
+		return "pessoaLimiteHoras/listafuncionario";	
 	}
 	
 	@GetMapping("/buscar/funcionarios/nome")
@@ -124,7 +124,7 @@ public class PessoaLimiteHorasController {
 		model.addAttribute("pessoaLimiteHoras", pessoaLimiteHoras);
 		model.addAttribute("listaPessoaLimiteHoras", service.buscarPorUnidadeEPessoa(usuarioService.pegarUnidadeLogada(), pessoa));
 		
-		return "/pessoaLimiteHoras/cadastro"; 
+		return "pessoaLimiteHoras/cadastro"; 
 	}
 	
 	@GetMapping("/atribuir/cod/diferenciado/pessoa/{id}")//Recebe o id do funcionário da tela de lista de funcionários
@@ -134,7 +134,7 @@ public class PessoaLimiteHorasController {
 		model.addAttribute("pessoaLimiteHoras", pessoaLimiteHoras);
 		model.addAttribute("listaPessoaLimiteHoras", service.buscarPorUnidadeEPessoa(usuarioService.pegarUnidadeLogada(), pessoa));
 		
-		return "/pessoaLimiteHoras/cadastro"; 
+		return "pessoaLimiteHoras/cadastro"; 
 	}
 	
 	
@@ -144,7 +144,7 @@ public class PessoaLimiteHorasController {
 		model.addAttribute("pessoaLimiteHoras", pessoaLimiteHoras);
 		model.addAttribute("listaPessoaLimiteHoras", service.buscarPorAprovarSede());
 		
-		return "/pessoaLimiteHoras/cadastroAutorizacaoSede"; 
+		return "pessoaLimiteHoras/cadastroAutorizacaoSede"; 
 	}
 	
 	@PostMapping("/salvar/aprovacao/sede")
@@ -165,7 +165,7 @@ public class PessoaLimiteHorasController {
 	public String preEditarAprovacaoSede(@PathVariable("id") Long id, ModelMap model) {
 		model.addAttribute("pessoaLimiteHoras", service.buscarPorId(id));
 		model.addAttribute("listaPessoaLimiteHoras", service.buscarPorAprovarSede());
-		return "/pessoaLimiteHoras/cadastroAutorizacaoSede";
+		return "pessoaLimiteHoras/cadastroAutorizacaoSede";
 	}
 	
 	
@@ -175,13 +175,13 @@ public class PessoaLimiteHorasController {
 	
 	@GetMapping("/cadastrar")
 	public String cadastrar(PessoaLimiteHoras pessoaLimiteHoras) {		
-		return "/pessoaLimiteHoras/cadastro";
+		return "pessoaLimiteHoras/cadastro";
 	}
 	/*
 	@GetMapping("/listar")
 	public String listar(ModelMap model) {
 		model.addAttribute("atividadeEscala", service.buscarNaUnidade(unidadesService.buscarPorId(idUnidadeLogada)));
-		return "/atividadeescala/lista"; 
+		return "atividadeescala/lista"; 
 	}
 	*/
 	@PostMapping("/salvar")
@@ -206,7 +206,7 @@ public class PessoaLimiteHorasController {
 	@GetMapping("/editar/{id}")
 	public String preEditar(@PathVariable("id") Long id, ModelMap model) {
 		model.addAttribute("pessoaLimiteHoras", service.buscarPorId(id));
-		return "/pessoaLimiteHoras/cadastro";
+		return "pessoaLimiteHoras/cadastro";
 	}
 	
 	@PostMapping("/editar")
@@ -246,7 +246,7 @@ public class PessoaLimiteHorasController {
 	@GetMapping("/buscar/nome/atividade/escala")
 	public String getPorNome(@RequestParam("nomeAtividade") String nomeAtividade, ModelMap model) {		
 		model.addAttribute("atividadeEscala", service.buscarNaUnidadePorNome( unidadesService.buscarPorId(idUnidadeLogada) ,nomeAtividade.toUpperCase().trim()));
-		return "/atividadeescala/lista";
+		return "atividadeescala/lista";
 	}
 	*/
 	
@@ -314,7 +314,7 @@ public class PessoaLimiteHorasController {
 		model.addAttribute("totalPages", page.getTotalPages());
 		model.addAttribute("totalItems", page.getTotalElements()); 
 		model.addAttribute("listaPessoaLimiteHoras", lista);
-		return "/pessoaLimiteHoras/lista";	
+		return "pessoaLimiteHoras/lista";	
 	}
 
 	
@@ -372,7 +372,7 @@ public class PessoaLimiteHorasController {
 		model.addAttribute("totalPages", page.getTotalPages());
 		model.addAttribute("totalItems", page.getTotalElements()); 
 		model.addAttribute("listaPessoaLimiteHoras", lista);
-		return "/pessoaLimiteHoras/listaUnidade";	
+		return "pessoaLimiteHoras/listaUnidade";	
 	}
 
 
@@ -386,7 +386,7 @@ public class PessoaLimiteHorasController {
 		model.addAttribute("choque", "ESCOLHA");
 		model.addAttribute("mensagem", "Campos obrigatórios");
 		
-		return "/choqueescala/obrigatorio";
+		return "choqueescala/obrigatorio";
 	}
 	
 	@GetMapping("/mensagem/de/ja/cadastrado")
@@ -396,7 +396,7 @@ public class PessoaLimiteHorasController {
 		model.addAttribute("choque", "Já Cadastrado");
 		model.addAttribute("mensagem", "Talvex você tenha que excluir algo antes de cadastrar esse.");
 		
-		return "/choqueescala/obrigatorio";
+		return "choqueescala/obrigatorio";
 	}
 	
 	

@@ -47,7 +47,7 @@ public class RubricaController {
 	
 	@GetMapping("/cadastrar")
 	public String cadastrar(Rubrica rubrica) {
-		return "/rubrica/cadastro";
+		return "rubrica/cadastro";
 	}
 	
 	@GetMapping("/cadastrar/com/codigo/{id}")
@@ -59,7 +59,7 @@ public class RubricaController {
 		rubrica.setIdCodigoFk(rubricaCodigo);
 		
 		model.addAttribute("rubrica", rubrica);
-		return "/rubrica/cadastroComCodigo";
+		return "rubrica/cadastroComCodigo";
 	}
 	
 	@GetMapping("/listar")
@@ -88,7 +88,7 @@ public class RubricaController {
 		model.addAttribute("totalPages", page.getTotalPages());
 		model.addAttribute("totalItems", page.getTotalElements()); 
 		model.addAttribute("rubrica", lista);
-		return "/rubrica/lista";	
+		return "rubrica/lista";	
 	}
 	
 	@GetMapping("/paginar/{pageNo}")
@@ -136,7 +136,7 @@ public class RubricaController {
 	@GetMapping("/editar/{id}")
 	public String preEditar(@PathVariable("id") Long id, ModelMap model) {
 		model.addAttribute("rubrica", service.buscarPorId(id));
-		return "/rubrica/cadastro";
+		return "rubrica/cadastro";
 	}
 	
 	@PostMapping("/editar")
@@ -176,7 +176,7 @@ public class RubricaController {
 	@GetMapping("/buscar/nome")
 	public String getPorNome(@RequestParam("cnesUnidade") String nome, ModelMap model) {		
 		model.addAttribute("rubrica", service.buscarPorNome(nome.toUpperCase().trim()));
-		return "/rubrica/lista";
+		return "rubrica/lista";
 	}
 	
 	@GetMapping("/exporta/excel")

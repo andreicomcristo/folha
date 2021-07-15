@@ -37,13 +37,13 @@ public class TiposDeFolhaController {
 	
 	@GetMapping("/cadastrar")
 	public String cadastrar(TiposDeFolha tiposDeFolha) {		
-		return "/tipofolha/cadastro";
+		return "tipofolha/cadastro";
 	}
 	
 	@GetMapping("/listar")
 	public String listar(ModelMap model) {
 		model.addAttribute("tiposDeFolha", service.buscarTodos());
-		return "/tipofolha/lista"; 
+		return "tipofolha/lista"; 
 	}
 	
 	@PostMapping("/salvar")
@@ -56,7 +56,7 @@ public class TiposDeFolhaController {
 	@GetMapping("/editar/{id}")
 	public String preEditar(@PathVariable("id") Long id, ModelMap model) {
 		model.addAttribute("tiposDeFolha", service.buscarPorId(id));
-		return "/tipofolha/cadastro";
+		return "tipofolha/cadastro";
 	}
 	
 	@PostMapping("/editar")
@@ -76,7 +76,7 @@ public class TiposDeFolhaController {
 	@GetMapping("/buscar/nome/tipofolha")
 	public String getPorNome(@RequestParam("nomeTipoFolha") String nomeTipoFolha, ModelMap model) {		
 		model.addAttribute("tiposDeFolha", service.buscarPorNome(nomeTipoFolha.toUpperCase().trim()));
-		return "/tipofolha/lista";
+		return "tipofolha/lista";
 	}
 	
 	@ModelAttribute("idTipoRemuneracaoFk")

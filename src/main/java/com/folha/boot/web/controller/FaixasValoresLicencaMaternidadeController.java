@@ -121,7 +121,7 @@ public class FaixasValoresLicencaMaternidadeController {
 		model.addAttribute("totalPages", page.getTotalPages());
 		model.addAttribute("totalItems", page.getTotalElements()); 
 		model.addAttribute("listaFuncionarios", lista);
-		return "/faixasValoresLicencaMaternidade/listafuncionario";	
+		return "faixasValoresLicencaMaternidade/listafuncionario";	
 	}	
 		
 	@GetMapping("/buscar/funcionarios/nome")
@@ -166,7 +166,7 @@ public class FaixasValoresLicencaMaternidadeController {
 		model.addAttribute("totalPages", page.getTotalPages());
 		model.addAttribute("totalItems", page.getTotalElements()); 
 		model.addAttribute("faixasValoresLicencaMaternidade", lista);
-		return "/faixasValoresLicencaMaternidade/lista";	
+		return "faixasValoresLicencaMaternidade/lista";	
 	}
 	
 	@GetMapping("/paginar/{pageNo}")
@@ -188,7 +188,7 @@ public class FaixasValoresLicencaMaternidadeController {
 	
 	@GetMapping("/cadastrar")
 	public String cadastrar(FaixasValoresLicencaMaternidade faixasValoresLicencaMaternidade) {
-		return "/faixasValoresLicencaMaternidade/cadastro";
+		return "faixasValoresLicencaMaternidade/cadastro";
 	}
 	
 	// Dados para Atribuição
@@ -196,7 +196,7 @@ public class FaixasValoresLicencaMaternidadeController {
 	public String cadastrar(@PathVariable("id") Long id, FaixasValoresLicencaMaternidade faixasValoresLicencaMaternidade) {
 		faixasValoresLicencaMaternidade.setIdFuncionarioFk(pessoaFuncionariosService.buscarPorId(id));
 		faixasValoresLicencaMaternidade.setId(null);
-		return "/faixasValoresLicencaMaternidade/cadastro";
+		return "faixasValoresLicencaMaternidade/cadastro";
 	}
 	
 	@PostMapping("/salvar")
@@ -263,7 +263,7 @@ public class FaixasValoresLicencaMaternidadeController {
 	@GetMapping("/editar/{id}")
 	public String preEditar(@PathVariable("id") Long id, ModelMap model) {
 		model.addAttribute("faixasValoresLicencaMaternidade", service.buscarPorId(id));
-		return "/faixasValoresLicencaMaternidade/cadastro";
+		return "faixasValoresLicencaMaternidade/cadastro";
 	}
 	
 	@PostMapping("/editar")
@@ -349,7 +349,7 @@ public class FaixasValoresLicencaMaternidadeController {
 	@GetMapping("/buscar/nome")
 	public String getPorNome(@RequestParam("cnesUnidade") String nome, ModelMap model) {		
 		model.addAttribute("faixasValoresLicencaMaternidade", service.buscarPorNome(nome.toUpperCase().trim()));
-		return "/faixasValoresLicencaMaternidade/lista";
+		return "faixasValoresLicencaMaternidade/lista";
 	}
 	
 	@GetMapping("/exporta/excel")
@@ -378,7 +378,7 @@ public class FaixasValoresLicencaMaternidadeController {
 		model.addAttribute("choque", "MES INEXISTENTE");
 		model.addAttribute("mensagem", "A data inicial indicada envolve um mês inexistente no sistema.");
 		
-		return "/choqueescala/choque";
+		return "choqueescala/choque";
 	}
 	
 	

@@ -75,7 +75,7 @@ public class JasperController {
 	//variacaoCustoPorUnidade
 	@GetMapping("/abrirRelatoriosFolha/variacaoCustoPorUnidade")
 	public String abrirRelatoriosFolhaVariacaoCustoPorUnidade() {		
-		return "/reports/variacaoCustoPorUnidade";
+		return "reports/variacaoCustoPorUnidade";
 	}
 
 	@GetMapping("/relatoriosFolha/variacaoCustoPorUnidade")
@@ -95,7 +95,7 @@ public class JasperController {
 	//variacaoCustoPorUnidadeMediaLeito
 	@GetMapping("/abrirRelatoriosFolha/variacaoCustoPorUnidadeMediaLeito")
 	public String abrirRelatoriosFolhaVariacaoCustoPorUnidadeMediaLeito() {		
-		return "/reports/variacaoCustoPorUnidadeMediaLeito";
+		return "reports/variacaoCustoPorUnidadeMediaLeito";
 	}
 
 	@GetMapping("/relatoriosFolha/variacaoCustoPorUnidadeMediaLeito")
@@ -114,7 +114,7 @@ public class JasperController {
 	//variacaoCustoPorUnidadeMediaLeitoCadastrado
 	@GetMapping("/abrirRelatoriosFolha/variacaoCustoPorUnidadeMediaLeitoCadastrado")
 	public String abrirRelatoriosFolhaVariacaoCustoPorUnidadeMediaLeitoCadastrado() {		
-		return "/reports/variacaoCustoPorUnidadeMediaLeitoCadastrado";
+		return "reports/variacaoCustoPorUnidadeMediaLeitoCadastrado";
 	}
 
 	@GetMapping("/relatoriosFolha/variacaoCustoPorUnidadeMediaLeitoCadastrado")
@@ -136,7 +136,7 @@ public class JasperController {
 	//variacaoCustoPorFonte
 	@GetMapping("/abrirRelatoriosFolha/variacaoCustoPorFonte")
 	public String abrirRelatoriosFolhavariacaoCustoPorFonte() {		
-		return "/reports/variacaoCustoPorFonte";
+		return "reports/variacaoCustoPorFonte";
 	}
 
 	@GetMapping("/relatoriosFolha/variacaoCustoPorFonte")
@@ -156,7 +156,7 @@ public class JasperController {
 	//variacaoCustoPorMes
 	@GetMapping("/abrirRelatoriosFolha/variacaoCustoPorMes")
 	public String abrirRelatoriosFolhavariacaoCustoPorMes() {		
-		return "/reports/variacaoCustoPorMes";
+		return "reports/variacaoCustoPorMes";
 	}
 
 	@GetMapping("/relatoriosFolha/variacaoCustoPorMes")
@@ -177,7 +177,7 @@ public class JasperController {
 	//variacaoCustoPorUnidadeArea
 	@GetMapping("/abrirRelatoriosFolha/variacaoCustoPorUnidadeArea")
 	public String abrirRelatoriosFolhavariacaoCustoPorUnidadeArea() {		
-		return "/reports/variacaoCustoPorUnidadeArea";
+		return "reports/variacaoCustoPorUnidadeArea";
 	}
 
 	@GetMapping("/relatoriosFolha/variacaoCustoPorUnidadeArea")
@@ -198,7 +198,7 @@ public class JasperController {
 	//variacaoCustoPorUnidadeFolha
 	@GetMapping("/abrirRelatoriosFolha/variacaoCustoPorUnidadeFolha")
 	public String abrirRelatoriosFolhavariacaoCustoPorUnidadeFolha() {		
-		return "/reports/variacaoCustoPorUnidadeFolha";
+		return "reports/variacaoCustoPorUnidadeFolha";
 	}
 
 	@GetMapping("/relatoriosFolha/variacaoCustoPorUnidadeFolha")
@@ -217,7 +217,7 @@ public class JasperController {
 	//variacaoCustoPorUnidadeNivel
 	@GetMapping("/abrirRelatoriosFolha/variacaoCustoPorUnidadeNivel")
 	public String abrirRelatoriosFolhavariacaoCustoPorUnidadeNivel() {		
-		return "/reports/variacaoCustoPorUnidadeNivel";
+		return "reports/variacaoCustoPorUnidadeNivel";
 	}
 
 	@GetMapping("/relatoriosFolha/variacaoCustoPorUnidadeNivel")
@@ -238,7 +238,7 @@ public class JasperController {
 	//variacaoCustoPorUnidadeNivelCargo
 	@GetMapping("/abrirRelatoriosFolha/variacaoCustoPorUnidadeNivelCargo")
 	public String abrirRelatoriosFolhavariacaoCustoPorUnidadeNivelCargo() {		
-		return "/reports/variacaoCustoPorUnidadeNivelCargo";
+		return "reports/variacaoCustoPorUnidadeNivelCargo";
 	}
 
 	@GetMapping("/relatoriosFolha/variacaoCustoPorUnidadeNivelCargo")
@@ -268,7 +268,7 @@ public class JasperController {
 	//variacaoCustoPorMes_grafico
 	@GetMapping("/abrirRelatoriosFolha/variacaoCustoPorMes_grafico")
 	public String abrirRelatoriosFolhavariacaoCustoPorMes_grafico() {		
-		return "/reports/variacaoCustoPorMes_grafico";
+		return "reports/variacaoCustoPorMes_grafico";
 	}
 
 	@GetMapping("/relatoriosFolha/variacaoCustoPorMes_grafico")
@@ -288,7 +288,7 @@ public class JasperController {
 	//variacaoCustoPorMes_global_grafico
 	@GetMapping("/abrirRelatoriosFolha/variacaoCustoPorMes_global_grafico")
 	public String abrirRelatoriosFolhavariacaoCustoPorMes_global_grafico() {		
-		return "/reports/variacaoCustoPorMes_global_grafico";
+		return "reports/variacaoCustoPorMes_global_grafico";
 	}
 
 	@GetMapping("/relatoriosFolha/variacaoCustoPorMes_global_grafico")
@@ -307,7 +307,7 @@ public class JasperController {
 	//VariacaoCustoPorNivel_unidade_grafico
 	@GetMapping("/abrirRelatoriosFolha/VariacaoCustoPorNivel_unidade_grafico")
 	public String abrirRelatoriosFolhaVariacaoCustoPorNivel_unidade_grafico() {	
-		return "/reports/VariacaoCustoPorNivel_unidade_grafico";
+		return "reports/VariacaoCustoPorNivel_unidade_grafico";
 	}
 
 	@GetMapping("/relatoriosFolha/VariacaoCustoPorNivel_unidade_grafico")
@@ -328,7 +328,7 @@ public class JasperController {
 	//VariacaoCustoPorCargo_unidade_grafico
 	@GetMapping("/abrirRelatoriosFolha/VariacaoCustoPorCargo_unidade_grafico")
 	public String abrirRelatoriosFolhaVariacaoCustoPorCargo_unidade_grafico() {	
-		return "/reports/VariacaoCustoPorCargo_unidade_grafico";
+		return "reports/VariacaoCustoPorCargo_unidade_grafico";
 	}
 
 	@GetMapping("/relatoriosFolha/VariacaoCustoPorCargo_unidade_grafico")
@@ -352,7 +352,7 @@ public class JasperController {
 	//VariacaoCustoPorEspecialidade_unidade_grafico
 	@GetMapping("/abrirRelatoriosFolha/VariacaoCustoPorEspecialidade_unidade_grafico")
 	public String abrirRelatoriosFolhaVariacaoCustoPorEspecialidade_unidade_grafico() {	
-		return "/reports/VariacaoCustoPorEspecialidade_unidade_grafico";
+		return "reports/VariacaoCustoPorEspecialidade_unidade_grafico";
 	}
 
 	@GetMapping("/relatoriosFolha/VariacaoCustoPorEspecialidade_unidade_grafico")
@@ -375,7 +375,7 @@ public class JasperController {
 	//VariacaoCustoPorEspecialidade_na_unidade_grafico
 	@GetMapping("/abrirRelatoriosFolha/VariacaoCustoPorEspecialidade_na_unidade_grafico")
 	public String abrirRelatoriosFolhaVariacaoCustoPorEspecialidade_na_unidade_grafico() {	
-		return "/reports/VariacaoCustoPorEspecialidade_na_unidade_grafico";
+		return "reports/VariacaoCustoPorEspecialidade_na_unidade_grafico";
 	}
 
 	@GetMapping("/relatoriosFolha/VariacaoCustoPorEspecialidade_na_unidade_grafico")
@@ -398,7 +398,7 @@ public class JasperController {
 	//VariacaoCustoPorNivel_unidade_pizza_grafico
 	@GetMapping("/abrirRelatoriosFolha/VariacaoCustoPorNivel_unidade_pizza_grafico")
 	public String abrirRelatoriosFolhaVariacaoCustoPorNivel_unidade_pizza_grafico() {	
-		return "/reports/VariacaoCustoPorNivel_unidade_pizza_grafico";
+		return "reports/VariacaoCustoPorNivel_unidade_pizza_grafico";
 	}
 
 	@GetMapping("/relatoriosFolha/VariacaoCustoPorNivel_unidade_pizza_grafico")
@@ -418,7 +418,7 @@ public class JasperController {
 	//VariacaoCustoPorUnidade_pizza_grafico
 	@GetMapping("/abrirRelatoriosFolha/VariacaoCustoPorUnidade_pizza_grafico")
 	public String abrirRelatoriosFolhaVariacaoCustoPorUnidade_pizza_grafico() {	
-		return "/reports/VariacaoCustoPorUnidade_pizza_grafico";
+		return "reports/VariacaoCustoPorUnidade_pizza_grafico";
 	}
 
 	@GetMapping("/relatoriosFolha/VariacaoCustoPorUnidade_pizza_grafico")
@@ -437,7 +437,7 @@ public class JasperController {
 	//VencimentosTodosPorMes
 	@GetMapping("/abrirRelatoriosFolha/VencimentosTodosPorMes")
 	public String abrirRelatoriosVencimentosTodosPorMes() {		
-		return "/reports/VencimentosTodosPorMes";
+		return "reports/VencimentosTodosPorMes";
 	}
 
 	@GetMapping("/relatoriosFolha/VencimentosTodosPorMes")
@@ -458,7 +458,7 @@ public class JasperController {
 	//VencimentosTodosPorFonteProcesso
 		@GetMapping("/abrirRelatoriosFolha/processoPorFonte")
 		public String abrirRelatoriosProcessoPorFonte() {		
-			return "/reports/processoPorFonte";
+			return "reports/processoPorFonte";
 		}
 
 		@GetMapping("/relatoriosFolha/processoPorFonte")
@@ -564,7 +564,7 @@ public class JasperController {
 		//VencimentosTodosPorFonteEUnidade
 		@GetMapping("/abrirRelatoriosFolha/processoPorFonte/e/unidade")
 		public String abrirRelatoriosProcessoPorFonteEUnidade() {		
-			return "/reports/ProcessoPorFonteEUnidade";
+			return "reports/ProcessoPorFonteEUnidade";
 		}
 
 		@GetMapping("/relatoriosFolha/processoPorFonte/e/unidade")
@@ -660,7 +660,7 @@ public class JasperController {
 		//VencimentosTodosPorUnidade
 		@GetMapping("/abrirRelatoriosFolha/processoPorUnidade")
 		public String abrirRelatoriosProcessoPorUnidade() {		
-			return "/reports/ProcessoPorUnidade";
+			return "reports/ProcessoPorUnidade";
 		}
 
 		@GetMapping("/relatoriosFolha/processoPorUnidade")

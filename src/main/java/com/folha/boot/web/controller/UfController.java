@@ -25,13 +25,13 @@ public class UfController {
 
 	@GetMapping("/cadastrar")
 	public String cadastrar(Uf uf) {		
-		return "/uf/cadastro";
+		return "uf/cadastro";
 	}
 	
 	@GetMapping("/listar")
 	public String listar(ModelMap model) {
 		model.addAttribute("uf", service.buscarTodos());
-		return "/uf/lista"; 
+		return "uf/lista"; 
 	}
 	
 	@PostMapping("/salvar")
@@ -44,7 +44,7 @@ public class UfController {
 	@GetMapping("/editar/{id}")
 	public String preEditar(@PathVariable("id") Long id, ModelMap model) {
 		model.addAttribute("uf", service.buscarPorId(id));
-		return "/uf/cadastro";
+		return "uf/cadastro";
 	}
 	
 	@PostMapping("/editar")
@@ -64,13 +64,13 @@ public class UfController {
 	@GetMapping("/buscar/nome/uf")
 	public String getPorNome(@RequestParam("nomeUf") String nomeUf, ModelMap model) {		
 		model.addAttribute("uf", service.buscarPorNome(nomeUf.toUpperCase().trim()));
-		return "/uf/lista";
+		return "uf/lista";
 	}
 	
 	@GetMapping("/buscar/id/uf")
 	public String getPorIdUf(@RequestParam("idUf") String idUf, ModelMap model) {		
 		model.addAttribute("uf", service.buscarPorId( Long.parseLong(idUf) ));
-		return "/uf/lista";
+		return "uf/lista";
 	}
 	
 	@Autowired

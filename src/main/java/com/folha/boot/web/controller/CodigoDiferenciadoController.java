@@ -52,13 +52,13 @@ public class CodigoDiferenciadoController {
 	
 	@GetMapping("/cadastrar")
 	public String cadastrar(CodigoDiferenciado codigoDiferenciado) {		
-		return "/codigodiferenciado/cadastro";
+		return "codigodiferenciado/cadastro";
 	}
 	
 	@GetMapping("/listar")
 	public String listar(ModelMap model) {
 		model.addAttribute("codigoDiferenciado", service.buscarTodosGeral());
-		return "/codigodiferenciado/lista"; 
+		return "codigodiferenciado/lista"; 
 	}
 	
 	@PostMapping("/salvar")
@@ -73,7 +73,7 @@ public class CodigoDiferenciadoController {
 	@GetMapping("/editar/{id}")
 	public String preEditar(@PathVariable("id") Long id, ModelMap model) {
 		model.addAttribute("codigoDiferenciado", service.buscarPorId(id));
-		return "/codigodiferenciado/cadastro";
+		return "codigodiferenciado/cadastro";
 	}
 	
 	@PostMapping("/editar")
@@ -103,7 +103,7 @@ public class CodigoDiferenciadoController {
 	@GetMapping("/buscar/nome/codigodiferenciado")
 	public String getPorNome(@RequestParam("nomeCodigoDiferenciado") String nomeCodigoDiferenciado, ModelMap model) {		
 		model.addAttribute("codigoDiferenciado", service.buscarPorNomeGeral(nomeCodigoDiferenciado.toUpperCase().trim()));
-		return "/codigodiferenciado/lista";
+		return "codigodiferenciado/lista";
 	}
 	
 	@ModelAttribute("idFonteFk")

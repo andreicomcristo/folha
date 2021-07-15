@@ -194,7 +194,7 @@ public class ContrachequeController {
 		model.addAttribute("totalPages", page.getTotalPages());
 		model.addAttribute("totalItems", page.getTotalElements()); 
 		model.addAttribute("pessoa", lista);
-		return "/contracheque/lista";	
+		return "contracheque/lista";	
 	}
 	
 	
@@ -209,7 +209,7 @@ public class ContrachequeController {
 		this.pessoaEscolhida = null;
 		model.addAttribute("mesDoCalculo", new MesDoCalculo());
 		model.addAttribute("anoMes", anoMesService.buscarTodos());
-		return "/contracheque/escolherMes"; 
+		return "contracheque/escolherMes"; 
 	}
 	
 	
@@ -218,7 +218,7 @@ public class ContrachequeController {
 		this.pessoaEscolhida = service.buscarPorId(id);
 		model.addAttribute("mesDoCalculo", new MesDoCalculo());
 		model.addAttribute("anoMes", anoMesService.buscarTodos());
-		return "/contracheque/escolherMesFolha"; 
+		return "contracheque/escolherMesFolha"; 
 	}
 	
 	

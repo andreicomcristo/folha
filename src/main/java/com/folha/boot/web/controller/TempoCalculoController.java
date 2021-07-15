@@ -40,7 +40,7 @@ public class TempoCalculoController {
 	@GetMapping("/cadastrar")
 	public String cadastrar(TempoCalculo tempoCalculo) {
 		
-		return "/tempoCalculo/cadastro";
+		return "tempoCalculo/cadastro";
 	}
 	
 	@GetMapping("/listar")
@@ -64,7 +64,7 @@ public class TempoCalculoController {
 		model.addAttribute("totalPages", page.getTotalPages());
 		model.addAttribute("totalItems", page.getTotalElements()); 
 		model.addAttribute("tempoCalculo", lista);
-		return "/tempoCalculo/lista";	
+		return "tempoCalculo/lista";	
 	}
 	
 	@GetMapping("/paginar/{pageNo}")
@@ -92,7 +92,7 @@ public class TempoCalculoController {
 	@GetMapping("/editar/{id}")
 	public String preEditar(@PathVariable("id") Long id, ModelMap model) {
 		model.addAttribute("tempoCalculo", service.buscarPorId(id));
-		return "/tempoCalculo/cadastro";
+		return "tempoCalculo/cadastro";
 	}
 	
 	@PostMapping("/editar")

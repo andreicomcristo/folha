@@ -49,14 +49,14 @@ public class CoordenacaoEscalaController {
 	
 	@GetMapping("/cadastrar")
 	public String cadastrar(CoordenacaoEscala conselho) {
-		return "/coordenacaoescala/cadastro";
+		return "coordenacaoescala/cadastro";
 	}
 	
 	/*
 	@GetMapping("/listar")
 	public String listar(ModelMap model) {
 		model.addAttribute("coordenacaoEscala", service.buscarNaUnidade(unidadesService.buscarPorId(idUnidadeLogada)));
-		return "/coordenacaoescala/lista"; 
+		return "coordenacaoescala/lista"; 
 	}
 	*/
 	@PostMapping("/salvar")
@@ -69,7 +69,7 @@ public class CoordenacaoEscalaController {
 	@GetMapping("/editar/{id}")
 	public String preEditar(@PathVariable("id") Long id, ModelMap model) {
 		model.addAttribute("coordenacaoEscala", service.buscarPorId(id));
-		return "/coordenacaoescala/cadastro";
+		return "coordenacaoescala/cadastro";
 	}
 	
 	@PostMapping("/editar")
@@ -98,7 +98,7 @@ public class CoordenacaoEscalaController {
 	/*@GetMapping("/buscar/nome/coordenacao")
 	public String getPorNome(@RequestParam("nomeCoordenacao") String nomeCoordenacao, ModelMap model) {		
 		model.addAttribute("coordenacaoEscala", service.buscarPorNome(nomeCoordenacao.toUpperCase().trim()));
-		return "/coordenacaoescala/lista";
+		return "coordenacaoescala/lista";
 	}*/
 	
 	
@@ -153,7 +153,7 @@ public class CoordenacaoEscalaController {
 		model.addAttribute("totalPages", page.getTotalPages());
 		model.addAttribute("totalItems", page.getTotalElements()); 
 		model.addAttribute("coordenacaoEscala", lista);
-		return "/coordenacaoescala/lista";	
+		return "coordenacaoescala/lista";	
 	}
 
 	

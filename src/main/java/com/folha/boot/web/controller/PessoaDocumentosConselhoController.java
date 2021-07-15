@@ -26,13 +26,13 @@ public class PessoaDocumentosConselhoController {
 	@GetMapping("/cadastrar")
 	public String cadastrar(PessoaDocumentosConselho DocConselho) {
 		
-		return "/docconselho/cadastro";
+		return "docconselho/cadastro";
 	}
 	
 	@GetMapping("/listar")
 	public String listar(ModelMap model) {
 		model.addAttribute("pessoaDocumentosConselho", service.buscarTodos());
-		return "/docconselho/lista"; 
+		return "docconselho/lista"; 
 	}
 	
 	@PostMapping("/salvar")
@@ -46,7 +46,7 @@ public class PessoaDocumentosConselhoController {
 	@GetMapping("/editar/{id}")
 	public String preEditar(@PathVariable("id") Long id, ModelMap model) {
 		model.addAttribute("pessoaDocumentosConselho", service.buscarPorId(id));
-		return "/docconselho/cadastro";
+		return "docconselho/cadastro";
 	}
 	
 	@PostMapping("/editar")
@@ -66,7 +66,7 @@ public class PessoaDocumentosConselhoController {
 	@GetMapping("/buscar/numero/documento/conselho")
 	public String getPorNome(@RequestParam("numeroConselho") String numeroConselho, ModelMap model) {		
 		model.addAttribute("pessoaDocumentosConselho", service.buscarPorNome(numeroConselho.toUpperCase().trim()));
-		return "/docconselho/lista";
+		return "docconselho/lista";
 	}
 	
 	@Autowired

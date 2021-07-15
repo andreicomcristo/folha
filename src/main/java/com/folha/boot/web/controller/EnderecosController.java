@@ -46,7 +46,7 @@ public class EnderecosController {
 	@GetMapping("/cadastrar")
 	public String cadastrar(Enderecos endereco) {
 		
-		return "/endereco/cadastro";
+		return "endereco/cadastro";
 	}
 	
 	@GetMapping("/cadastrar/{id}")
@@ -57,13 +57,13 @@ public class EnderecosController {
 		model.addAttribute("enderecos", this.enderecos);
 		model.addAttribute("pessoaDocumentosLista7", enderecosServices.buscarPorPessoa(pessoaService.buscarPorId(id)));
 		
-		return "/endereco/cadastro";
+		return "endereco/cadastro";
 	}
 	
 	@GetMapping("/listar")
 	public String listar(ModelMap model) {
 		model.addAttribute("enderecos", enderecosServices.buscarTodos());
-		return "/endereco/lista"; 
+		return "endereco/lista"; 
 	}
 	
 	@GetMapping("/listar/endereco/viacep")
@@ -119,7 +119,7 @@ public class EnderecosController {
 		model.addAttribute("pessoa", pessoaService.buscarPorId(idPessoaAtual));
 		model.addAttribute("enderecos", enderecosServices.buscarPorId(id));
 		model.addAttribute("pessoaDocumentosLista7", enderecosServices.buscarPorPessoa(pessoaService.buscarPorId(idPessoaAtual)));
-		return "/endereco/cadastro";
+		return "endereco/cadastro";
 	}
 	
 	@PostMapping("/editar")
@@ -148,7 +148,7 @@ public class EnderecosController {
 	@GetMapping("/buscar/endereco/logradouro")
 	public String getPorNome(@RequestParam("enderecoLogradouro") String enderecoLogradouro, ModelMap model) {		
 		model.addAttribute("enderecos", enderecosServices.buscarPorNome(enderecoLogradouro.toUpperCase().trim()));
-		return "/endereco/lista";
+		return "endereco/lista";
 	}
 
 	

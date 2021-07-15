@@ -26,13 +26,13 @@ public class EstadosCivisController {
 	@GetMapping("/cadastrar")
 	public String cadastrar(EstadosCivis estadoCivil) {
 		
-		return "/estadocivil/cadastro";
+		return "estadocivil/cadastro";
 	}
 	
 	@GetMapping("/listar")
 	public String listar(ModelMap model) {
 		model.addAttribute("estadosCivis", service.buscarTodos());
-		return "/estadocivil/lista"; 
+		return "estadocivil/lista"; 
 	}
 	
 	@PostMapping("/salvar")
@@ -45,7 +45,7 @@ public class EstadosCivisController {
 	@GetMapping("/editar/{id}")
 	public String preEditar(@PathVariable("id") Long id, ModelMap model) {
 		model.addAttribute("estadosCivis", service.buscarPorId(id));
-		return "/estadocivil/cadastro";
+		return "estadocivil/cadastro";
 	}
 	
 	@PostMapping("/editar")
@@ -65,7 +65,7 @@ public class EstadosCivisController {
 	@GetMapping("/buscar/nome/estadocivil")
 	public String getPorNome(@RequestParam("nomeEstadoCivil") String nomeEstadoCivil, ModelMap model) {		
 		model.addAttribute("estadosCivis", service.buscarPorNome(nomeEstadoCivil.toUpperCase().trim()));
-		return "/estadocivil/lista";
+		return "estadocivil/lista";
 	}
 	
 	

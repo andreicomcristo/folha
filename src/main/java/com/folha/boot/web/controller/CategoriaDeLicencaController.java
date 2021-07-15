@@ -27,7 +27,7 @@ public class CategoriaDeLicencaController {
 	private CategoriaDeLicencaService service;
 	@GetMapping("/cadastrar")
 	public String cadastrar(CategoriaDeLicenca categoriaDeLicenca) {
-		return "/categoriaDeLicenca/cadastro";
+		return "categoriaDeLicenca/cadastro";
 	}
 	
 	@GetMapping("/listar")
@@ -35,7 +35,7 @@ public class CategoriaDeLicencaController {
 		model.addAttribute("nomeOperadorLogado", request.getSession().getAttribute("operador"));
 		model.addAttribute("nomeUnidadeLogada", request.getSession().getAttribute("unidade").toString());
 		model.addAttribute("categoriaDeLicenca", service.buscarTodos());
-		return "/categoriaDeLicenca/lista"; 
+		return "categoriaDeLicenca/lista"; 
 	}
 	
 	@PostMapping("/salvar")
@@ -51,7 +51,7 @@ public class CategoriaDeLicencaController {
 		model.addAttribute("nomeUnidadeLogada", request.getSession().getAttribute("unidade").toString());
 		model.addAttribute("categoriaDeLicenca", service.buscarPorId(id));
 		
-		return "/categoriaDeLicenca/cadastro";
+		return "categoriaDeLicenca/cadastro";
 	}
 	
 	@PostMapping("/editar")
@@ -75,7 +75,7 @@ public class CategoriaDeLicencaController {
 		model.addAttribute("nomeOperadorLogado", request.getSession().getAttribute("operador"));
 		model.addAttribute("nomeUnidadeLogada", request.getSession().getAttribute("unidade").toString());
 		model.addAttribute("categoriaDeLicenca", service.buscarPorNome(nome));
-		return "/categoriaDeLicenca/lista";
+		return "categoriaDeLicenca/lista";
 	}
 	
 	

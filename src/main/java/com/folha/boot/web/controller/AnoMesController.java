@@ -32,13 +32,13 @@ public class AnoMesController {
 	
 	@GetMapping("/cadastrar")
 	public String cadastrar(AnoMes anoMes) {		
-		return "/anomes/cadastro";
+		return "anomes/cadastro";
 	}
 	
 	@GetMapping("/listar")
 	public String listar(ModelMap model) {
 		model.addAttribute("anoMes", service.buscarTodos());
-		return "/anomes/lista"; 
+		return "anomes/lista"; 
 	}
 	
 	@PostMapping("/salvar")
@@ -55,7 +55,7 @@ public class AnoMesController {
 	@GetMapping("/editar/{id}")
 	public String preEditar(@PathVariable("id") Long id, ModelMap model) {
 		model.addAttribute("anoMes", service.buscarPorId(id));
-		return "/anomes/cadastro";
+		return "anomes/cadastro";
 	}
 	
 	@PostMapping("/editar")
@@ -75,7 +75,7 @@ public class AnoMesController {
 	@GetMapping("/buscar/nome/AnoMes")
 	public String getPorNome(@RequestParam("nomeAnoMes") String nomeAnoMes, ModelMap model) {	
 		model.addAttribute("anoMes", service.buscarPorNome(nomeAnoMes.toUpperCase().trim()));
-		return "/anomes/lista";
+		return "anomes/lista";
 	}
 	
 	@ModelAttribute("idEscalaBloqueadaFk")

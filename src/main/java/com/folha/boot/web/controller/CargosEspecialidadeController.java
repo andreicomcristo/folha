@@ -35,13 +35,13 @@ public class CargosEspecialidadeController {
 	
 	@GetMapping("/cadastrar")
 	public String cadastrar(CargosEspecialidade especialidade) {		
-		return "/especialidade/cadastro";
+		return "especialidade/cadastro";
 	}
 	
 	@GetMapping("/listar")
 	public String listar(ModelMap model) {
 		model.addAttribute("cargosEspecialidade", service.buscarTodos());
-		return "/especialidade/lista"; 
+		return "especialidade/lista"; 
 	}
 	
 	@PostMapping("/salvar")
@@ -54,7 +54,7 @@ public class CargosEspecialidadeController {
 	@GetMapping("/editar/{id}")
 	public String preEditar(@PathVariable("id") Long id, ModelMap model) {
 		model.addAttribute("cargosEspecialidade", service.buscarPorId(id));
-		return "/especialidade/cadastro";
+		return "especialidade/cadastro";
 	}
 	
 	@PostMapping("/editar")
@@ -74,7 +74,7 @@ public class CargosEspecialidadeController {
 	@GetMapping("/buscar/nome/especialidade")
 	public String getPorNome(@RequestParam("nomeEspecialidadeCargo") String nomeEspecialidadeCargo, ModelMap model) {		
 		model.addAttribute("cargosEspecialidade", service.buscarPorNome(nomeEspecialidadeCargo.toUpperCase().trim()));
-		return "/especialidade/lista";
+		return "especialidade/lista";
 	}
 	
 	@ModelAttribute("idCargoFk")

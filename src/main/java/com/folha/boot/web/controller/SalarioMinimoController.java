@@ -44,7 +44,7 @@ public class SalarioMinimoController {
 	@GetMapping("/cadastrar")
 	public String cadastrar(SalarioMinimo salarioMinimo) {
 		
-		return "/salarioMinimo/cadastro";
+		return "salarioMinimo/cadastro";
 	}
 	
 	@GetMapping("/listar")
@@ -73,7 +73,7 @@ public class SalarioMinimoController {
 		model.addAttribute("totalPages", page.getTotalPages());
 		model.addAttribute("totalItems", page.getTotalElements()); 
 		model.addAttribute("salarioMinimo", lista);
-		return "/salarioMinimo/lista";	
+		return "salarioMinimo/lista";	
 	}
 	
 	@GetMapping("/paginar/{pageNo}")
@@ -105,7 +105,7 @@ public class SalarioMinimoController {
 	@GetMapping("/editar/{id}")
 	public String preEditar(@PathVariable("id") Long id, ModelMap model) {
 		model.addAttribute("salarioMinimo", service.buscarPorId(id));
-		return "/salarioMinimo/cadastro";
+		return "salarioMinimo/cadastro";
 	}
 	
 	@PostMapping("/editar")
@@ -139,7 +139,7 @@ public class SalarioMinimoController {
 	@GetMapping("/buscar/nome")
 	public String getPorNome(@RequestParam("cnesUnidade") String nome, ModelMap model) {		
 		model.addAttribute("salarioMinimo", service.buscarPorNome(nome.toUpperCase().trim()));
-		return "/salarioMinimo/lista";
+		return "salarioMinimo/lista";
 	}
 	
 	@GetMapping("/exporta/excel")

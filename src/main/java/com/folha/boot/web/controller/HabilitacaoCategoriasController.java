@@ -26,13 +26,13 @@ public class HabilitacaoCategoriasController {
 	@GetMapping("/cadastrar")
 	public String cadastrar(HabilitacaoCategorias habilitacaoCategorias) {
 		
-		return "/habilitacaocategoria/cadastro";
+		return "habilitacaocategoria/cadastro";
 	}
 	
 	@GetMapping("/listar")
 	public String listar(ModelMap model) {
 		model.addAttribute("habilitacaoCategorias", service.buscarTodos());
-		return "/habilitacaocategoria/lista"; 
+		return "habilitacaocategoria/lista"; 
 	}
 	
 	@PostMapping("/salvar")
@@ -45,7 +45,7 @@ public class HabilitacaoCategoriasController {
 	@GetMapping("/editar/{id}")
 	public String preEditar(@PathVariable("id") Long id, ModelMap model) {
 		model.addAttribute("habilitacaoCategorias", service.buscarPorId(id));
-		return "/habilitacaocategoria/cadastro";
+		return "habilitacaocategoria/cadastro";
 	}
 	
 	@PostMapping("/editar")
@@ -65,7 +65,7 @@ public class HabilitacaoCategoriasController {
 	@GetMapping("/buscar/nomeHabilitacaoCategoria")
 	public String getPorNome(@RequestParam("nomeHabilitacaoCategoria") String nomeHabilitacaoCategoria, ModelMap model) {		
 		model.addAttribute("habilitacaoCategorias", service.buscarPorNome(nomeHabilitacaoCategoria.toUpperCase().trim()));
-		return "/habilitacaocategoria/lista";
+		return "habilitacaocategoria/lista";
 	}
 	
 	

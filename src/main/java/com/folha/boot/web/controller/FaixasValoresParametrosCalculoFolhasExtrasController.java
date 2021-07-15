@@ -66,7 +66,7 @@ public class FaixasValoresParametrosCalculoFolhasExtrasController {
 	@GetMapping("/cadastrar")
 	public String cadastrar(FaixasValoresParametrosCalculoFolhasExtras faixasValoresParametrosCalculoFolhasExtras) {
 		
-		return "/faixaparametroextra/cadastro";
+		return "faixaparametroextra/cadastro";
 	}
 	
 	@GetMapping("/listar")
@@ -95,7 +95,7 @@ public class FaixasValoresParametrosCalculoFolhasExtrasController {
 		model.addAttribute("totalPages", page.getTotalPages());
 		model.addAttribute("totalItems", page.getTotalElements()); 
 		model.addAttribute("faixasValoresParametrosCalculoFolhasExtras", lista);
-		return "/faixaparametroextra/lista";	
+		return "faixaparametroextra/lista";	
 	}
 	
 	@GetMapping("/paginar/{pageNo}")
@@ -154,7 +154,7 @@ public class FaixasValoresParametrosCalculoFolhasExtrasController {
 	@GetMapping("/editar/{id}")
 	public String preEditar(@PathVariable("id") Long id, ModelMap model) {
 		model.addAttribute("faixasValoresParametrosCalculoFolhasExtras", service.buscarPorId(id));
-		return "/faixaparametroextra/cadastro";
+		return "faixaparametroextra/cadastro";
 	}
 	
 	@PostMapping("/editar")
@@ -213,7 +213,7 @@ public class FaixasValoresParametrosCalculoFolhasExtrasController {
 	@GetMapping("/buscar/nome")
 	public String getPorNome(@RequestParam("cnesUnidade") String nome, ModelMap model) {		
 		model.addAttribute("faixasValoresParametrosCalculoFolhasExtras", service.buscarPorNome(nome.toUpperCase().trim()));
-		return "/faixaparametroextra/lista";
+		return "faixaparametroextra/lista";
 	}
 	
 	@GetMapping("/exporta/excel")

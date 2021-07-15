@@ -24,13 +24,13 @@ public class TiposDeLicencaController {
 
 	@GetMapping("/cadastrar")
 	public String cadastrar(TiposDeLicenca tiposDeLicenca) {		
-		return "/tipolicenca/cadastro";
+		return "tipolicenca/cadastro";
 	}
 	
 	@GetMapping("/listar")
 	public String listar(ModelMap model) {
 		model.addAttribute("tiposDeLicenca", service.buscarTodos());
-		return "/tipolicenca/lista"; 
+		return "tipolicenca/lista"; 
 	}
 	
 	@PostMapping("/salvar")
@@ -43,7 +43,7 @@ public class TiposDeLicencaController {
 	@GetMapping("/editar/{id}")
 	public String preEditar(@PathVariable("id") Long id, ModelMap model) {
 		model.addAttribute("tiposDeLicenca", service.buscarPorId(id));
-		return "/tipolicenca/cadastro";
+		return "tipolicenca/cadastro";
 	}
 	
 	@PostMapping("/editar")
@@ -63,7 +63,7 @@ public class TiposDeLicencaController {
 	@GetMapping("/buscar/nome/tipolicenca")
 	public String getPorNome(@RequestParam("descricaoTipoLicenca") String descricaoTipoLicenca, ModelMap model) {		
 		model.addAttribute("tiposDeLicenca", service.buscarPorNome(descricaoTipoLicenca.toUpperCase().trim()));
-		return "/tipolicenca/lista";
+		return "tipolicenca/lista";
 	}
 	
 	@Autowired

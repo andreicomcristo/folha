@@ -50,7 +50,7 @@ public class HorasFaltasFolhasVariaveisController {
 
 	@GetMapping("/cadastrar")
 	public String cadastrar(HorasFaltasFolhasVariaveis horasFaltasFolhasVariaveis) {		
-		return "/horasFaltasFolhasVariaveis/cadastro";
+		return "horasFaltasFolhasVariaveis/cadastro";
 	}
 	
 	@PostMapping("/salvar")
@@ -108,7 +108,7 @@ public class HorasFaltasFolhasVariaveisController {
 	@GetMapping("/editar/{id}")
 	public String preEditar(@PathVariable("id") Long id, ModelMap model) {
 		model.addAttribute("horasFaltasFolhasVariaveis", service.buscarPorId(id));
-		return "/horasFaltasFolhasVariaveis/cadastro";
+		return "horasFaltasFolhasVariaveis/cadastro";
 	}
 	
 	@PostMapping("/editar")
@@ -188,7 +188,7 @@ public class HorasFaltasFolhasVariaveisController {
 	@GetMapping("/buscar/nome/atividade/escala")
 	public String getPorNome(@RequestParam("nomeAtividade") String nomeAtividade, ModelMap model) {	
 		model.addAttribute("horasFaltasFolhasVariaveis", service.buscarNaUnidadePorNome( unidadesService.buscarPorId(idUnidadeLogada) ,nomeAtividade.toUpperCase().trim()));
-		return "/horasFaltasFolhasVariaveis/lista";
+		return "horasFaltasFolhasVariaveis/lista";
 	}
 	*/
 	
@@ -242,7 +242,7 @@ public class HorasFaltasFolhasVariaveisController {
 		model.addAttribute("totalPages", page.getTotalPages());
 		model.addAttribute("totalItems", page.getTotalElements()); 
 		model.addAttribute("horasFaltasFolhasVariaveis", lista);
-		return "/horasFaltasFolhasVariaveis/lista";	
+		return "horasFaltasFolhasVariaveis/lista";	
 	}
 
 	
@@ -253,7 +253,7 @@ public class HorasFaltasFolhasVariaveisController {
 		model.addAttribute("choque", "INCOMPATIBILIDADE");
 		model.addAttribute("mensagem", "Você colocou horas em disposições incompatíveis com o NÍVEL");
 		
-		return "/alertas/nivelIncompativelComDisposicaoDasHoras";
+		return "alertas/nivelIncompativelComDisposicaoDasHoras";
 	}
 
 	

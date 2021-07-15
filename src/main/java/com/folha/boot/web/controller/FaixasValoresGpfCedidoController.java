@@ -80,7 +80,7 @@ public class FaixasValoresGpfCedidoController {
 	@GetMapping("/cadastrar")
 	public String cadastrar(FaixasValoresGpfCedido faixasValoresGpfCedido) {
 		
-		return "/faixasValoresGpfCedido/cadastro";
+		return "faixasValoresGpfCedido/cadastro";
 	}
 	
 	@GetMapping("/listar")
@@ -109,7 +109,7 @@ public class FaixasValoresGpfCedidoController {
 		model.addAttribute("totalPages", page.getTotalPages());
 		model.addAttribute("totalItems", page.getTotalElements()); 
 		model.addAttribute("faixasValoresGpfCedido", lista);
-		return "/faixasValoresGpfCedido/lista";	
+		return "faixasValoresGpfCedido/lista";	
 	}
 	
 	@GetMapping("/paginar/{pageNo}")
@@ -141,7 +141,7 @@ public class FaixasValoresGpfCedidoController {
 	@GetMapping("/editar/{id}")
 	public String preEditar(@PathVariable("id") Long id, ModelMap model) {
 		model.addAttribute("faixasValoresGpfCedido", service.buscarPorId(id));
-		return "/faixasValoresGpfCedido/cadastro";
+		return "faixasValoresGpfCedido/cadastro";
 	}
 	
 	@PostMapping("/editar")
@@ -175,7 +175,7 @@ public class FaixasValoresGpfCedidoController {
 	@GetMapping("/buscar/nome")
 	public String getPorNome(@RequestParam("cnesUnidade") String nome, ModelMap model) {		
 		model.addAttribute("faixasValoresGpfCedido", service.buscarPorNome(nome.toUpperCase().trim()));
-		return "/faixasValoresGpfCedido/lista";
+		return "faixasValoresGpfCedido/lista";
 	}
 	
 	@GetMapping("/exporta/excel")

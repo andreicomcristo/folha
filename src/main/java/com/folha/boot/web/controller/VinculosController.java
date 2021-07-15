@@ -25,13 +25,13 @@ public class VinculosController {
 
 	@GetMapping("/cadastrar")
 	public String cadastrar(Vinculos vinculos) {		
-		return "/vinculo/cadastro";
+		return "vinculo/cadastro";
 	}
 	
 	@GetMapping("/listar")
 	public String listar(ModelMap model) {
 		model.addAttribute("vinculos", service.buscarTodos());
-		return "/vinculo/lista"; 
+		return "vinculo/lista"; 
 	}
 	
 	@PostMapping("/salvar")
@@ -44,7 +44,7 @@ public class VinculosController {
 	@GetMapping("/editar/{id}")
 	public String preEditar(@PathVariable("id") Long id, ModelMap model) {
 		model.addAttribute("vinculos", service.buscarPorId(id));
-		return "/vinculo/cadastro";
+		return "vinculo/cadastro";
 	}
 	
 	@PostMapping("/editar")
@@ -64,7 +64,7 @@ public class VinculosController {
 	@GetMapping("/buscar/nome/vinculo")
 	public String getPorNome(@RequestParam("nomeVinculo") String nomeVinculo, ModelMap model) {		
 		model.addAttribute("vinculos", service.buscarPorNome(nomeVinculo.toUpperCase().trim()));
-		return "/vinculo/lista";
+		return "vinculo/lista";
 	}
 	
 	@Autowired

@@ -48,13 +48,13 @@ public class RegimeDeTrabalhoTurnoController {
 	
 	@GetMapping("/cadastrar")
 	public String cadastrar(RegimeDeTrabalhoTurno regimeDeTrabalhoTurno) {		
-		return "/regimeDeTrabalhoTurno/cadastro";
+		return "regimeDeTrabalhoTurno/cadastro";
 	}
 	/*
 	@GetMapping("/listar")
 	public String listar(ModelMap model) {
 		model.addAttribute("regimeDeTrabalhoTurno", service.buscarNaUnidade(unidadesService.buscarPorId(idUnidadeLogada)));
-		return "/regimeDeTrabalhoTurno/lista"; 
+		return "regimeDeTrabalhoTurno/lista"; 
 	}
 	*/
 	@PostMapping("/salvar")
@@ -73,7 +73,7 @@ public class RegimeDeTrabalhoTurnoController {
 	@GetMapping("/editar/{id}")
 	public String preEditar(@PathVariable("id") Long id, ModelMap model) {
 		model.addAttribute("regimeDeTrabalhoTurno", service.buscarPorId(id));
-		return "/regimeDeTrabalhoTurno/cadastro";
+		return "regimeDeTrabalhoTurno/cadastro";
 	}
 	
 	@PostMapping("/editar")
@@ -148,7 +148,7 @@ public class RegimeDeTrabalhoTurnoController {
 		model.addAttribute("totalPages", page.getTotalPages());
 		model.addAttribute("totalItems", page.getTotalElements()); 
 		model.addAttribute("regimeDeTrabalhoTurno", lista);
-		return "/regimeDeTrabalhoTurno/lista";	
+		return "regimeDeTrabalhoTurno/lista";	
 	}
 
 	
@@ -162,7 +162,7 @@ public class RegimeDeTrabalhoTurnoController {
 		model.addAttribute("choque", "JÁ CADASTRADA");
 		model.addAttribute("mensagem", "Essca compatibilidade já está cadastrada.");
 		
-		return "/alertas/jaTemPerfilNaUnidade";
+		return "alertas/jaTemPerfilNaUnidade";
 	}
 	
 	

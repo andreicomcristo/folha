@@ -33,7 +33,7 @@ public class CidsController {
 
 	@GetMapping("/cadastrar")
 	public String cadastrar(Cids cids) {		
-		return "/cid/cadastro";
+		return "cid/cadastro";
 	}
 		
 	@GetMapping("/listar")
@@ -53,7 +53,7 @@ public class CidsController {
 	@GetMapping("/editar/{id}")
 	public String preEditar(@PathVariable("id") Long id, ModelMap model) {
 		model.addAttribute("cids", service.buscarPorId(id));
-		return "/cid/cadastro";
+		return "cid/cadastro";
 	}
 	
 	@PostMapping("/editar")
@@ -73,7 +73,7 @@ public class CidsController {
 	@GetMapping("/buscar/codcid")
 	public String getPorNome(@RequestParam("codCid") String codCid, ModelMap model) {		
 		model.addAttribute("cids", service.buscarPorNome(codCid.toUpperCase().trim()));
-		return "/cid/lista";
+		return "cid/lista";
 	}
 	
 	@GetMapping("/paginar/{pageNo}")
@@ -116,7 +116,7 @@ public class CidsController {
 		model.addAttribute("totalPages", page.getTotalPages());
 		model.addAttribute("totalItems", page.getTotalElements()); 
 		model.addAttribute("cids", lista);
-		return "/cid/lista";	
+		return "cid/lista";	
 	}
 	
 	@GetMapping("/buscar/codigo")

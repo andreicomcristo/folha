@@ -121,7 +121,7 @@ public class PessoaChDifController {
 		model.addAttribute("totalPages", page.getTotalPages());
 		model.addAttribute("totalItems", page.getTotalElements()); 
 		model.addAttribute("listaFuncionarios", lista);
-		return "/pessoaChDif/listafuncionario";	
+		return "pessoaChDif/listafuncionario";	
 	}
 	
 	@GetMapping("/buscar/funcionarios/nome")
@@ -149,7 +149,7 @@ public class PessoaChDifController {
 		model.addAttribute("pessoaChDif", pessoaChDif);
 		model.addAttribute("listaPessoaChDif", service.buscarPorUnidadeEPessoa(unidadesService.buscarPorId(idUnidadeLogada), pessoa));
 		
-		return "/pessoaChDif/cadastro"; 
+		return "pessoaChDif/cadastro"; 
 	}
 	
 	@GetMapping("/atribuir/pessoa/{id}")//Recebe o id do funcionário da tela de lista de funcionários
@@ -161,7 +161,7 @@ public class PessoaChDifController {
 		model.addAttribute("pessoaChDif", pessoaChDif);
 		model.addAttribute("listaPessoaChDif", service.buscarPorUnidadeEPessoa(unidadesService.buscarPorId(idUnidadeLogada), pessoa));
 		
-		return "/pessoaChDif/cadastro"; 
+		return "pessoaChDif/cadastro"; 
 	}
 	
 
@@ -179,7 +179,7 @@ public class PessoaChDifController {
 		model.addAttribute("idAnoMes", service.buscarMesesCompativeis(unidadesService.buscarPorId(idUnidadeLogada)));
 		model.addAttribute("pessoaChDif", pessoaChDif);
 		model.addAttribute("listaPessoaChDif", service.buscarPorUnidadeEPessoa(unidadesService.buscarPorId(idUnidadeLogada), pessoaService.buscarPorId(idPessoaAtual)));
-		return "/pessoaChDif/cadastro";
+		return "pessoaChDif/cadastro";
 	}
 	
 	@GetMapping("/listar")
@@ -210,7 +210,7 @@ public class PessoaChDifController {
 		model.addAttribute("totalPages", page.getTotalPages());
 		model.addAttribute("totalItems", page.getTotalElements()); 
 		model.addAttribute("listaPessoaChDif", lista);
-		return "/pessoaChDif/listaUnidade";	
+		return "pessoaChDif/listaUnidade";	
 	}
 	
 	@GetMapping("/paginar/{pageNo}")
@@ -243,7 +243,7 @@ public class PessoaChDifController {
 		
 		model.addAttribute("idAnoMes", service.buscarMesesCompativeis(unidadesService.buscarPorId(idUnidadeLogada)));
 		model.addAttribute("pessoaChDif", service.buscarPorId(id));
-		return "/pessoaChDif/cadastro";
+		return "pessoaChDif/cadastro";
 	}
 	
 	@PostMapping("/editar")
@@ -282,7 +282,7 @@ public class PessoaChDifController {
 	public String getPorNome(@RequestParam("nome") String nome, ModelMap model) {		
 		model.addAttribute("idAnoMes", service.buscarMesesCompativeis(unidadesService.buscarPorId(idUnidadeLogada)));
 		model.addAttribute("pessoaChDif", service.buscarPorNome(nome.toUpperCase().trim(), unidadesService.buscarPorId(idUnidadeLogada)));
-		return "/pessoaChDif/listaUnidade";
+		return "pessoaChDif/listaUnidade";
 	}
 	
 	

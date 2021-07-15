@@ -22,7 +22,7 @@ public class MensagensController {
 		model.addAttribute("choque", "Cadastrado");
 		model.addAttribute("mensagem", "Isso que você está tentando cadastrar já se encontra cadastrado.");
 		
-		return "/mensagens/jaCadastrado";
+		return "mensagens/jaCadastrado";
 	}
 	
 	

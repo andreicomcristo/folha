@@ -25,13 +25,13 @@ public class PessoaDocumentosRgController {
 
 	@GetMapping("/cadastrar")
 	public String cadastrar(PessoaDocumentosRg Rg) {		
-		return "/docrg/cadastro";
+		return "docrg/cadastro";
 	}
 	
 	@GetMapping("/listar")
 	public String listar(ModelMap model) {
 		model.addAttribute("pessoaDocumentosRg", service.buscarTodos());
-		return "/docrg/lista"; 
+		return "docrg/lista"; 
 	}
 	
 	@PostMapping("/salvar")
@@ -45,7 +45,7 @@ public class PessoaDocumentosRgController {
 	@GetMapping("/editar/{id}")
 	public String preEditar(@PathVariable("id") Long id, ModelMap model) {
 		model.addAttribute("pessoaDocumentosRg", service.buscarPorId(id));
-		return "/docrg/cadastro";
+		return "docrg/cadastro";
 	}
 	
 	@PostMapping("/editar")
@@ -65,7 +65,7 @@ public class PessoaDocumentosRgController {
 	@GetMapping("/buscar/numero/documento/rg")
 	public String getPorNome(@RequestParam("rgNumero") String rgNumero, ModelMap model) {		
 		model.addAttribute("pessoaDocumentosRg", service.buscarPorNumero(rgNumero.toUpperCase().trim()));
-		return "/docrg/lista";
+		return "docrg/lista";
 	}
 	
 	@Autowired

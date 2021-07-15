@@ -60,7 +60,7 @@ public class UnidadeAdmiteChDifController {
 	@GetMapping("/cadastrar")
 	public String cadastrar(UnidadeAdmiteChDif unidadeAdmiteChDif) {
 		
-		return "/unidadeAdmiteChDif/cadastro";
+		return "unidadeAdmiteChDif/cadastro";
 	}
 	
 	@GetMapping("/listar")
@@ -90,7 +90,7 @@ public class UnidadeAdmiteChDifController {
 		model.addAttribute("totalPages", page.getTotalPages());
 		model.addAttribute("totalItems", page.getTotalElements()); 
 		model.addAttribute("unidadeAdmiteChDif", lista);
-		return "/unidadeAdmiteChDif/lista";	
+		return "unidadeAdmiteChDif/lista";	
 	}
 	
 	@GetMapping("/paginar/{pageNo}")
@@ -117,7 +117,7 @@ public class UnidadeAdmiteChDifController {
 	@GetMapping("/editar/{id}")
 	public String preEditar(@PathVariable("id") Long id, ModelMap model) {
 		model.addAttribute("unidadeAdmiteChDif", service.buscarPorId(id));
-		return "/unidadeAdmiteChDif/cadastro";
+		return "unidadeAdmiteChDif/cadastro";
 	}
 	
 	@PostMapping("/editar")
@@ -147,7 +147,7 @@ public class UnidadeAdmiteChDifController {
 	@GetMapping("/buscar/nome")
 	public String getPorNome(@RequestParam("nome") String nome, ModelMap model) {		
 		model.addAttribute("unidadeAdmiteChDif", service.buscarPorNome(nome.toUpperCase().trim()));
-		return "/unidadeAdmiteChDif/lista";
+		return "unidadeAdmiteChDif/lista";
 	}
 	
 	

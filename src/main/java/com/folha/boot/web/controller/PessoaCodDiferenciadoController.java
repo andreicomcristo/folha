@@ -98,7 +98,7 @@ public class PessoaCodDiferenciadoController {
 		model.addAttribute("totalPages", page.getTotalPages());
 		model.addAttribute("totalItems", page.getTotalElements()); 
 		model.addAttribute("listaFuncionarios", lista);
-		return "/pessoaCodDiferenciado/listafuncionario";	
+		return "pessoaCodDiferenciado/listafuncionario";	
 	}
 	
 	@GetMapping("/buscar/funcionarios/nome")
@@ -124,7 +124,7 @@ public class PessoaCodDiferenciadoController {
 		model.addAttribute("pessoaCodDiferenciado", pessoaCodDiferenciado);
 		model.addAttribute("listaPessoaCodDiferenciado", service.buscarPorUnidadeEPessoa(usuarioService.pegarUnidadeLogada(), pessoa));
 		
-		return "/pessoaCodDiferenciado/cadastro"; 
+		return "pessoaCodDiferenciado/cadastro"; 
 	}
 	
 	@GetMapping("/atribuir/cod/diferenciado/pessoa/{id}")//Recebe o id do funcionário da tela de lista de funcionários
@@ -134,7 +134,7 @@ public class PessoaCodDiferenciadoController {
 		model.addAttribute("pessoaCodDiferenciado", pessoaCodDiferenciado);
 		model.addAttribute("listaPessoaCodDiferenciado", service.buscarPorUnidadeEPessoa(usuarioService.pegarUnidadeLogada(), pessoa));
 		
-		return "/pessoaCodDiferenciado/cadastro"; 
+		return "pessoaCodDiferenciado/cadastro"; 
 	}
 	
 	
@@ -144,7 +144,7 @@ public class PessoaCodDiferenciadoController {
 		model.addAttribute("pessoaCodDiferenciado", pessoaCodDiferenciado);
 		model.addAttribute("listaPessoaCodDiferenciado", service.buscarPorAprovarSede());
 		
-		return "/pessoaCodDiferenciado/cadastroAutorizacaoSede"; 
+		return "pessoaCodDiferenciado/cadastroAutorizacaoSede"; 
 	}
 	
 	@PostMapping("/salvar/aprovacao/sede")
@@ -165,7 +165,7 @@ public class PessoaCodDiferenciadoController {
 	public String preEditarAprovacaoSede(@PathVariable("id") Long id, ModelMap model) {
 		model.addAttribute("pessoaCodDiferenciado", service.buscarPorId(id));
 		model.addAttribute("listaPessoaCodDiferenciado", service.buscarPorAprovarSede());
-		return "/pessoaCodDiferenciado/cadastroAutorizacaoSede";
+		return "pessoaCodDiferenciado/cadastroAutorizacaoSede";
 	}
 	
 	
@@ -175,13 +175,13 @@ public class PessoaCodDiferenciadoController {
 	
 	@GetMapping("/cadastrar")
 	public String cadastrar(PessoaCodDiferenciado pessoaCodDiferenciado) {		
-		return "/pessoaCodDiferenciado/cadastro";
+		return "pessoaCodDiferenciado/cadastro";
 	}
 	/*
 	@GetMapping("/listar")
 	public String listar(ModelMap model) {
 		model.addAttribute("atividadeEscala", service.buscarNaUnidade(unidadesService.buscarPorId(idUnidadeLogada)));
-		return "/atividadeescala/lista"; 
+		return "atividadeescala/lista"; 
 	}
 	*/
 	@PostMapping("/salvar")
@@ -202,7 +202,7 @@ public class PessoaCodDiferenciadoController {
 	@GetMapping("/editar/{id}")
 	public String preEditar(@PathVariable("id") Long id, ModelMap model) {
 		model.addAttribute("pessoaCodDiferenciado", service.buscarPorId(id));
-		return "/pessoaCodDiferenciado/cadastro";
+		return "pessoaCodDiferenciado/cadastro";
 	}
 	
 	@PostMapping("/editar")
@@ -242,7 +242,7 @@ public class PessoaCodDiferenciadoController {
 	@GetMapping("/buscar/nome/atividade/escala")
 	public String getPorNome(@RequestParam("nomeAtividade") String nomeAtividade, ModelMap model) {		
 		model.addAttribute("atividadeEscala", service.buscarNaUnidadePorNome( unidadesService.buscarPorId(idUnidadeLogada) ,nomeAtividade.toUpperCase().trim()));
-		return "/atividadeescala/lista";
+		return "atividadeescala/lista";
 	}
 	*/
 	
@@ -310,7 +310,7 @@ public class PessoaCodDiferenciadoController {
 		model.addAttribute("totalPages", page.getTotalPages());
 		model.addAttribute("totalItems", page.getTotalElements()); 
 		model.addAttribute("listaPessoaCodDiferenciado", lista);
-		return "/pessoaCodDiferenciado/lista";	
+		return "pessoaCodDiferenciado/lista";	
 	}
 
 	
@@ -368,7 +368,7 @@ public class PessoaCodDiferenciadoController {
 		model.addAttribute("totalPages", page.getTotalPages());
 		model.addAttribute("totalItems", page.getTotalElements()); 
 		model.addAttribute("listaPessoaCodDiferenciado", lista);
-		return "/pessoaCodDiferenciado/listaUnidade";	
+		return "pessoaCodDiferenciado/listaUnidade";	
 	}
 
 
@@ -382,7 +382,7 @@ public class PessoaCodDiferenciadoController {
 		model.addAttribute("choque", "ESCOLHA");
 		model.addAttribute("mensagem", "Campos obrigatórios");
 		
-		return "/choqueescala/obrigatorio";
+		return "choqueescala/obrigatorio";
 	}
 	
 	

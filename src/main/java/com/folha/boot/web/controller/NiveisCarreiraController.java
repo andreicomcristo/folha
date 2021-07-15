@@ -24,13 +24,13 @@ public class NiveisCarreiraController {
 
 	@GetMapping("/cadastrar")
 	public String cadastrar(NiveisCarreira niveisCarreira) {
-		return "/nivelcarreira/cadastro";
+		return "nivelcarreira/cadastro";
 	}
 	
 	@GetMapping("/listar")
 	public String listar(ModelMap model) {
 		model.addAttribute("niveisCarreira", service.buscarTodos());
-		return "/nivelcarreira/lista"; 
+		return "nivelcarreira/lista"; 
 	}
 	
 	@PostMapping("/salvar")
@@ -43,7 +43,7 @@ public class NiveisCarreiraController {
 	@GetMapping("/editar/{id}")
 	public String preEditar(@PathVariable("id") Long id, ModelMap model) {
 		model.addAttribute("niveisCarreira", service.buscarPorId(id));
-		return "/nivelcarreira/cadastro";
+		return "nivelcarreira/cadastro";
 	}
 	
 	@PostMapping("/editar")
@@ -63,7 +63,7 @@ public class NiveisCarreiraController {
 	@GetMapping("/buscar/nome/nivel")
 	public String getPorNome(@RequestParam("nomeNivelCarreira") String nomeNivelCarreira, ModelMap model) {		
 		model.addAttribute("niveisCarreira", service.buscarPorNome(nomeNivelCarreira.toUpperCase().trim()));
-		return "/nivelcarreira/lista";
+		return "nivelcarreira/lista";
 	}
 	
 	@Autowired

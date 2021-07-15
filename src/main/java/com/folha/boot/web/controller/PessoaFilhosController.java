@@ -40,7 +40,7 @@ public class PessoaFilhosController {
 
 	@GetMapping("/cadastrar")
 	public String cadastrar(PessoaFilhos filhos) {		
-		return "/filho/cadastro";
+		return "filho/cadastro";
 	}
 	
 	@GetMapping("/cadastrar/{id}")
@@ -51,13 +51,13 @@ public class PessoaFilhosController {
 		model.addAttribute("pessoaFilhos", this.pessoaFilhos);
 		model.addAttribute("pessoaDocumentosLista8", pessoaFilhosService.buscarPorPessoa(pessoaService.buscarPorId(id)));
 		
-		return "/filho/cadastro";
+		return "filho/cadastro";
 	}
 	
 	@GetMapping("/listar")
 	public String listar(ModelMap model) {
 		model.addAttribute("PessoaFilhos", pessoaFilhosService.buscarTodos());
-		return "/filho/lista"; 
+		return "filho/lista"; 
 	}
 	
 	@PostMapping("/salvar")
@@ -92,7 +92,7 @@ public class PessoaFilhosController {
 	@GetMapping("/editar/{id}")
 	public String preEditar(@PathVariable("id") Long id, ModelMap model) {
 		model.addAttribute("PessoaFilhos", pessoaFilhosService.buscarPorId(id));
-		return "/filho/cadastro";
+		return "filho/cadastro";
 	}
 	
 	@GetMapping("/editar/filho/{id}")
@@ -100,7 +100,7 @@ public class PessoaFilhosController {
 		model.addAttribute("pessoa", pessoaService.buscarPorId(idPessoaAtual));
 		model.addAttribute("pessoaFilhos", pessoaFilhosService.buscarPorId(id));
 		model.addAttribute("pessoaDocumentosLista8", pessoaFilhosService.buscarPorPessoa(pessoaService.buscarPorId(this.idPessoaAtual)));
-		return "/filho/cadastro";
+		return "filho/cadastro";
 	}
 	
 	@PostMapping("/editar")
@@ -129,7 +129,7 @@ public class PessoaFilhosController {
 	@GetMapping("/buscar/nome/filho")
 	public String getPorNome(@RequestParam("nomeFilho") String nomeFilho, ModelMap model) {		
 		model.addAttribute("PessoaFilhos", pessoaFilhosService.buscarPorNome(nomeFilho.toUpperCase().trim()));
-		return "/filho/lista";
+		return "filho/lista";
 	}
 	
 	@ModelAttribute("idTipoFiliacaoFk")

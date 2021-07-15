@@ -38,7 +38,7 @@ public class PessoaDocumentosHabilitacaoController {
 
 	@GetMapping("/cadastrar")
 	public String cadastrar(PessoaDocumentosHabilitacao habilitacao) {		
-		return "/dochabilitacao/cadastro";
+		return "dochabilitacao/cadastro";
 	}
 	
 	@GetMapping("/cadastrar/{id}")
@@ -46,13 +46,13 @@ public class PessoaDocumentosHabilitacaoController {
 		idPessoaAtual = id;
 		model.addAttribute("pessoa", pessoaService.buscarPorId(id));
 		model.addAttribute("pessoaDocumentosLista2", service.buscarPorPessoa(pessoaService.buscarPorId(id)));
-		return "/dochabilitacao/cadastro";
+		return "dochabilitacao/cadastro";
 	}
 	
 	@GetMapping("/listar")
 	public String listar(ModelMap model) {
 		model.addAttribute("pessoaDocumentosHabilitacao", service.buscarTodos());
-		return "/dochabilitacao/lista"; 
+		return "dochabilitacao/lista"; 
 	}
 	
 	@PostMapping("/salvar")
@@ -77,7 +77,7 @@ public class PessoaDocumentosHabilitacaoController {
 	@GetMapping("/editar/{id}")
 	public String preEditar(@PathVariable("id") Long id, ModelMap model) {
 		model.addAttribute("pessoaDocumentosHabilitacao", service.buscarPorId(id));
-		return "/dochabilitacao/cadastro";
+		return "dochabilitacao/cadastro";
 	}
 	
 	@PostMapping("/editar")
@@ -99,7 +99,7 @@ public class PessoaDocumentosHabilitacaoController {
 	@GetMapping("/buscar/numero/documento/habilitacao")
 	public String getPorNome(@RequestParam("numeroRegistro") String numeroRegistro, ModelMap model) {		
 		model.addAttribute("pessoaDocumentosHabilitacao", service.buscarPorNome(numeroRegistro.toUpperCase().trim()));
-		return "/dochabilitacao/lista";
+		return "dochabilitacao/lista";
 	}
 	
 	@ModelAttribute("idHabilitacaoCategoriasFk")

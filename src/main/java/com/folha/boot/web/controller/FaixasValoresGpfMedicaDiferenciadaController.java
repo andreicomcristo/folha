@@ -73,7 +73,7 @@ public class FaixasValoresGpfMedicaDiferenciadaController {
 	@GetMapping("/cadastrar")
 	public String cadastrar(FaixasValoresGpfMedicaDiferenciada faixasValoresGpfMedicaDiferenciada) {
 		
-		return "/faixasValoresGpfMedicaDiferenciada/cadastro";
+		return "faixasValoresGpfMedicaDiferenciada/cadastro";
 	}
 	
 	@GetMapping("/listar")
@@ -102,7 +102,7 @@ public class FaixasValoresGpfMedicaDiferenciadaController {
 		model.addAttribute("totalPages", page.getTotalPages());
 		model.addAttribute("totalItems", page.getTotalElements()); 
 		model.addAttribute("faixasValoresGpfMedicaDiferenciada", lista);
-		return "/faixasValoresGpfMedicaDiferenciada/lista";	
+		return "faixasValoresGpfMedicaDiferenciada/lista";	
 	}
 	
 	@GetMapping("/paginar/{pageNo}")
@@ -134,7 +134,7 @@ public class FaixasValoresGpfMedicaDiferenciadaController {
 	@GetMapping("/editar/{id}")
 	public String preEditar(@PathVariable("id") Long id, ModelMap model) {
 		model.addAttribute("faixasValoresGpfMedicaDiferenciada", service.buscarPorId(id));
-		return "/faixasValoresGpfMedicaDiferenciada/cadastro";
+		return "faixasValoresGpfMedicaDiferenciada/cadastro";
 	}
 	
 	@PostMapping("/editar")
@@ -168,7 +168,7 @@ public class FaixasValoresGpfMedicaDiferenciadaController {
 	@GetMapping("/buscar/nome")
 	public String getPorNome(@RequestParam("cnesUnidade") String nome, ModelMap model) {		
 		model.addAttribute("faixasValoresGpfMedicaDiferenciada", service.buscarPorNome(nome.toUpperCase().trim()));
-		return "/faixasValoresGpfMedicaDiferenciada/lista";
+		return "faixasValoresGpfMedicaDiferenciada/lista";
 	}
 	
 	@GetMapping("/exporta/excel")

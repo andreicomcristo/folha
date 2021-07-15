@@ -44,13 +44,13 @@ public class PreRequisitoCodigoDiferenciadoCodigoDiferenciadoController {
 	
 	@GetMapping("/cadastrar")
 	public String cadastrar(PreRequisitoCodigoDiferenciadoCodigoDiferenciado preRequisitoCodigoDiferenciadoCodigoDiferenciado) {		
-		return "/preRequisitoCodigoDiferenciadoCodigoDiferenciado/cadastro";
+		return "preRequisitoCodigoDiferenciadoCodigoDiferenciado/cadastro";
 	}
 	/*
 	@GetMapping("/listar")
 	public String listar(ModelMap model) {
 		model.addAttribute("preRequisitoCodigoDiferenciadoCodigoDiferenciado", service.buscarNaUnidade(unidadesService.buscarPorId(idUnidadeLogada)));
-		return "/preRequisitoCodigoDiferenciadoCodigoDiferenciado/lista"; 
+		return "preRequisitoCodigoDiferenciadoCodigoDiferenciado/lista"; 
 	}
 	*/
 	@PostMapping("/salvar")
@@ -69,7 +69,7 @@ public class PreRequisitoCodigoDiferenciadoCodigoDiferenciadoController {
 	@GetMapping("/editar/{id}")
 	public String preEditar(@PathVariable("id") Long id, ModelMap model) {
 		model.addAttribute("preRequisitoCodigoDiferenciadoCodigoDiferenciado", service.buscarPorId(id));
-		return "/preRequisitoCodigoDiferenciadoCodigoDiferenciado/cadastro";
+		return "preRequisitoCodigoDiferenciadoCodigoDiferenciado/cadastro";
 	}
 	
 	@PostMapping("/editar")
@@ -144,7 +144,7 @@ public class PreRequisitoCodigoDiferenciadoCodigoDiferenciadoController {
 		model.addAttribute("totalPages", page.getTotalPages());
 		model.addAttribute("totalItems", page.getTotalElements()); 
 		model.addAttribute("preRequisitoCodigoDiferenciadoCodigoDiferenciado", lista);
-		return "/preRequisitoCodigoDiferenciadoCodigoDiferenciado/lista";	
+		return "preRequisitoCodigoDiferenciadoCodigoDiferenciado/lista";	
 	}
 
 	
@@ -158,7 +158,7 @@ public class PreRequisitoCodigoDiferenciadoCodigoDiferenciadoController {
 		model.addAttribute("choque", "JÁ CADASTRADA");
 		model.addAttribute("mensagem", "Essca compatibilidade já está cadastrada.");
 		
-		return "/alertas/jaTemPerfilNaUnidade";
+		return "alertas/jaTemPerfilNaUnidade";
 	}
 	
 	

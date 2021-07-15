@@ -110,7 +110,7 @@ public class IncompatibilidadeFolhaFolhaExcessaoController {
 		model.addAttribute("totalPages", page.getTotalPages());
 		model.addAttribute("totalItems", page.getTotalElements()); 
 		model.addAttribute("listaFuncionarios", lista);
-		return "/incompatibilidadeFolhaFolhaExcessao/listafuncionario";	
+		return "incompatibilidadeFolhaFolhaExcessao/listafuncionario";	
 	}	
 		
 	@GetMapping("/buscar/funcionarios/nome")
@@ -155,7 +155,7 @@ public class IncompatibilidadeFolhaFolhaExcessaoController {
 		model.addAttribute("totalPages", page.getTotalPages());
 		model.addAttribute("totalItems", page.getTotalElements()); 
 		model.addAttribute("incompatibilidadeFolhaFolhaExcessao", lista);
-		return "/incompatibilidadeFolhaFolhaExcessao/lista";	
+		return "incompatibilidadeFolhaFolhaExcessao/lista";	
 	}
 	
 	@GetMapping("/paginar/{pageNo}")
@@ -177,14 +177,14 @@ public class IncompatibilidadeFolhaFolhaExcessaoController {
 	
 	@GetMapping("/cadastrar")
 	public String cadastrar(IncompatibilidadeFolhaFolhaExcessao incompatibilidadeFolhaFolhaExcessao) {
-		return "/incompatibilidadeFolhaFolhaExcessao/cadastro";
+		return "incompatibilidadeFolhaFolhaExcessao/cadastro";
 	}
 	
 	// Dados para Atribuição
 	@GetMapping("/cadastrar/{id}")
 	public String cadastrar(@PathVariable("id") Long id, IncompatibilidadeFolhaFolhaExcessao incompatibilidadeFolhaFolhaExcessao) {
 		incompatibilidadeFolhaFolhaExcessao.setIdFuncionarioFk(pessoaFuncionariosService.buscarPorId(id));
-		return "/incompatibilidadeFolhaFolhaExcessao/cadastro";
+		return "incompatibilidadeFolhaFolhaExcessao/cadastro";
 	}
 	
 	@PostMapping("/salvar")
@@ -198,7 +198,7 @@ public class IncompatibilidadeFolhaFolhaExcessaoController {
 	@GetMapping("/editar/{id}")
 	public String preEditar(@PathVariable("id") Long id, ModelMap model) {
 		model.addAttribute("incompatibilidadeFolhaFolhaExcessao", service.buscarPorId(id));
-		return "/incompatibilidadeFolhaFolhaExcessao/cadastro";
+		return "incompatibilidadeFolhaFolhaExcessao/cadastro";
 	}
 	
 	@PostMapping("/editar")
@@ -225,7 +225,7 @@ public class IncompatibilidadeFolhaFolhaExcessaoController {
 	@GetMapping("/buscar/nome")
 	public String getPorNome(@RequestParam("cnesUnidade") String nome, ModelMap model) {		
 		model.addAttribute("incompatibilidadeFolhaFolhaExcessao", service.buscarPorNome(nome.toUpperCase().trim()));
-		return "/incompatibilidadeFolhaFolhaExcessao/lista";
+		return "incompatibilidadeFolhaFolhaExcessao/lista";
 	}
 	
 	@GetMapping("/exporta/excel")

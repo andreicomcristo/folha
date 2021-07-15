@@ -38,13 +38,13 @@ public class CarreirasController {
 	public String cadastrar(Carreiras carreira, ModelMap model) {
 		List<Doc> docs = docStorageService.getFiles();
 		model.addAttribute("docs", docs);
-		return "/carreira/cadastro";
+		return "carreira/cadastro";
 	}
 	
 	@GetMapping("/listar")
 	public String listar(ModelMap model) {
 		model.addAttribute("carreiras", service.buscarTodos());
-		return "/carreira/lista"; 
+		return "carreira/lista"; 
 	}
 	
 	@PostMapping("/salvar")
@@ -57,7 +57,7 @@ public class CarreirasController {
 	@GetMapping("/editar/{id}")
 	public String preEditar(@PathVariable("id") Long id, ModelMap model) {
 		model.addAttribute("carreiras", service.buscarPorId(id));
-		return "/carreira/cadastro";
+		return "carreira/cadastro";
 	}
 	
 	@PostMapping("/editar")
@@ -77,7 +77,7 @@ public class CarreirasController {
 	@GetMapping("/buscar/nome/carreira")
 	public String getPorNome(@RequestParam("nomeCarreira") String nomeCarreira, ModelMap model) {	
 		model.addAttribute("carreiras", service.buscarPorNome(nomeCarreira.toUpperCase().trim()));
-		return "/carreira/lista";
+		return "carreira/lista";
 	}
 		
 	@PostMapping("/uploadFiles")

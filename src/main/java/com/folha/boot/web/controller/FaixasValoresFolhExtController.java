@@ -108,7 +108,7 @@ public class FaixasValoresFolhExtController {
 		model.addAttribute("totalPages", page.getTotalPages());
 		model.addAttribute("totalItems", page.getTotalElements()); 
 		model.addAttribute("listaFuncionarios", lista);
-		return "/faixasValoresFolhExt/listafuncionario";	
+		return "faixasValoresFolhExt/listafuncionario";	
 	}	
 		
 	@GetMapping("/buscar/funcionarios/nome")
@@ -153,7 +153,7 @@ public class FaixasValoresFolhExtController {
 		model.addAttribute("totalPages", page.getTotalPages());
 		model.addAttribute("totalItems", page.getTotalElements()); 
 		model.addAttribute("faixasValoresFolhExt", lista);
-		return "/faixasValoresFolhExt/lista";	
+		return "faixasValoresFolhExt/lista";	
 	}
 	
 	@GetMapping("/paginar/{pageNo}")
@@ -175,14 +175,14 @@ public class FaixasValoresFolhExtController {
 	
 	@GetMapping("/cadastrar")
 	public String cadastrar(FaixasValoresFolhExt faixasValoresFolhExt) {
-		return "/faixasValoresFolhExt/cadastro";
+		return "faixasValoresFolhExt/cadastro";
 	}
 	
 	// Dados para Atribuição
 	@GetMapping("/cadastrar/{id}")
 	public String cadastrar(@PathVariable("id") Long id, FaixasValoresFolhExt faixasValoresFolhExt) {
 		faixasValoresFolhExt.setIdFuncionarioFk(pessoaFuncionariosService.buscarPorId(id));
-		return "/faixasValoresFolhExt/cadastro";
+		return "faixasValoresFolhExt/cadastro";
 	}
 	
 	@PostMapping("/salvar")
@@ -200,7 +200,7 @@ public class FaixasValoresFolhExtController {
 	@GetMapping("/editar/{id}")
 	public String preEditar(@PathVariable("id") Long id, ModelMap model) {
 		model.addAttribute("faixasValoresFolhExt", service.buscarPorId(id));
-		return "/faixasValoresFolhExt/cadastro";
+		return "faixasValoresFolhExt/cadastro";
 	}
 	
 	@PostMapping("/editar")
@@ -231,7 +231,7 @@ public class FaixasValoresFolhExtController {
 	@GetMapping("/buscar/nome")
 	public String getPorNome(@RequestParam("cnesUnidade") String nome, ModelMap model) {		
 		model.addAttribute("faixasValoresFolhExt", service.buscarPorNome(nome.toUpperCase().trim()));
-		return "/faixasValoresFolhExt/lista";
+		return "faixasValoresFolhExt/lista";
 	}
 	
 	@GetMapping("/exporta/excel")

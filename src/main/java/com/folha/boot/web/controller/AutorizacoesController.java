@@ -25,13 +25,13 @@ public class AutorizacoesController {
 	@GetMapping("/cadastrar")
 	public String cadastrar(Autorizacoes autorizacoes) {
 
-		return "/autorizacao/cadastro";
+		return "autorizacao/cadastro";
 	}
 
 	@GetMapping("/listar")
 	public String listar(ModelMap model) {
 		model.addAttribute("autorizacoes", service.buscarTodos());
-		return "/autorizacao/lista";
+		return "autorizacao/lista";
 	}
 
 	@PostMapping("/salvar")
@@ -45,7 +45,7 @@ public class AutorizacoesController {
 	@GetMapping("/editar/{id}")
 	public String preEditar(@PathVariable("id") Long id, ModelMap model) {
 		model.addAttribute("autorizacoes", service.buscarPorId(id));
-		return "/autorizacao/cadastro";
+		return "autorizacao/cadastro";
 	}
  
 	@PostMapping("/editar")

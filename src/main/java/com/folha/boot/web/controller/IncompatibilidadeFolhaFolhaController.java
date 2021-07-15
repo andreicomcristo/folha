@@ -41,13 +41,13 @@ public class IncompatibilidadeFolhaFolhaController {
 	
 	@GetMapping("/cadastrar")
 	public String cadastrar(IncompatibilidadeFolhaFolha incompatibilidadeFolhaFolha) {		
-		return "/incompatibilidadeFolhaFolha/cadastro";
+		return "incompatibilidadeFolhaFolha/cadastro";
 	}
 	/*
 	@GetMapping("/listar")
 	public String listar(ModelMap model) {
 		model.addAttribute("incompatibilidadeFolhaFolha", service.buscarNaUnidade(unidadesService.buscarPorId(idUnidadeLogada)));
-		return "/incompatibilidadeFolhaFolha/lista"; 
+		return "incompatibilidadeFolhaFolha/lista"; 
 	}
 	*/
 	@PostMapping("/salvar")
@@ -66,7 +66,7 @@ public class IncompatibilidadeFolhaFolhaController {
 	@GetMapping("/editar/{id}")
 	public String preEditar(@PathVariable("id") Long id, ModelMap model) {
 		model.addAttribute("incompatibilidadeFolhaFolha", service.buscarPorId(id));
-		return "/incompatibilidadeFolhaFolha/cadastro";
+		return "incompatibilidadeFolhaFolha/cadastro";
 	}
 	
 	@PostMapping("/editar")
@@ -141,7 +141,7 @@ public class IncompatibilidadeFolhaFolhaController {
 		model.addAttribute("totalPages", page.getTotalPages());
 		model.addAttribute("totalItems", page.getTotalElements()); 
 		model.addAttribute("incompatibilidadeFolhaFolha", lista);
-		return "/incompatibilidadeFolhaFolha/lista";	
+		return "incompatibilidadeFolhaFolha/lista";	
 	}
 
 	
@@ -155,7 +155,7 @@ public class IncompatibilidadeFolhaFolhaController {
 		model.addAttribute("choque", "JÁ CADASTRADA");
 		model.addAttribute("mensagem", "Essa compatibilidade já está cadastrada.");
 		
-		return "/alertas/jaTemPerfilNaUnidade";
+		return "alertas/jaTemPerfilNaUnidade";
 	}
 	
 	

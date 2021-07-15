@@ -53,7 +53,7 @@ public class ConversaoFontePorFolhaController {
 	@GetMapping("/cadastrar")
 	public String cadastrar(ConversaoFontePorFolha conversaoFontePorFolha) {
 		
-		return "/conversaoFontePorFolha/cadastro";
+		return "conversaoFontePorFolha/cadastro";
 	}
 	
 	@GetMapping("/listar")
@@ -83,7 +83,7 @@ public class ConversaoFontePorFolhaController {
 		model.addAttribute("totalPages", page.getTotalPages());
 		model.addAttribute("totalItems", page.getTotalElements()); 
 		model.addAttribute("conversaoFontePorFolha", lista);
-		return "/conversaoFontePorFolha/lista";	
+		return "conversaoFontePorFolha/lista";	
 	}
 	
 	@GetMapping("/paginar/{pageNo}")
@@ -110,7 +110,7 @@ public class ConversaoFontePorFolhaController {
 	@GetMapping("/editar/{id}")
 	public String preEditar(@PathVariable("id") Long id, ModelMap model) {
 		model.addAttribute("conversaoFontePorFolha", service.buscarPorId(id));
-		return "/conversaoFontePorFolha/cadastro";
+		return "conversaoFontePorFolha/cadastro";
 	}
 	
 	@PostMapping("/editar")
@@ -140,7 +140,7 @@ public class ConversaoFontePorFolhaController {
 	@GetMapping("/buscar/nome")
 	public String getPorNome(@RequestParam("nome") String nome, ModelMap model) {		
 		model.addAttribute("conversaoFontePorFolha", service.buscarPorNome(nome.toUpperCase().trim()));
-		return "/conversaoFontePorFolha/lista";
+		return "conversaoFontePorFolha/lista";
 	}
 	
 	

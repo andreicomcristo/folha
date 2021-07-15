@@ -62,7 +62,7 @@ public class TiposDeFolhaNivelCargoController {
 	@GetMapping("/cadastrar")
 	public String cadastrar(TiposDeFolhaNivelCargo tiposDeFolhaNivelCargo) {
 		
-		return "/tiposDeFolhaNivelCargo/cadastro";
+		return "tiposDeFolhaNivelCargo/cadastro";
 	}
 	
 	@GetMapping("/listar")
@@ -92,7 +92,7 @@ public class TiposDeFolhaNivelCargoController {
 		model.addAttribute("totalPages", page.getTotalPages());
 		model.addAttribute("totalItems", page.getTotalElements()); 
 		model.addAttribute("tiposDeFolhaNivelCargo", lista);
-		return "/tiposDeFolhaNivelCargo/lista";	
+		return "tiposDeFolhaNivelCargo/lista";	
 	}
 	
 	@GetMapping("/paginar/{pageNo}")
@@ -119,7 +119,7 @@ public class TiposDeFolhaNivelCargoController {
 	@GetMapping("/editar/{id}")
 	public String preEditar(@PathVariable("id") Long id, ModelMap model) {
 		model.addAttribute("tiposDeFolhaNivelCargo", service.buscarPorId(id));
-		return "/tiposDeFolhaNivelCargo/cadastro";
+		return "tiposDeFolhaNivelCargo/cadastro";
 	}
 	
 	@PostMapping("/editar")
@@ -149,7 +149,7 @@ public class TiposDeFolhaNivelCargoController {
 	@GetMapping("/buscar/nome")
 	public String getPorNome(@RequestParam("nome") String nome, ModelMap model) {		
 		model.addAttribute("tiposDeFolhaNivelCargo", service.buscarPorNome(nome.toUpperCase().trim()));
-		return "/tiposDeFolhaNivelCargo/lista";
+		return "tiposDeFolhaNivelCargo/lista";
 	}
 	
 	

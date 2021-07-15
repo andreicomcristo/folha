@@ -24,13 +24,13 @@ public class AreasDeCapacitacaoController {
 
 	@GetMapping("/cadastrar")
 	public String cadastrar(AreasDeCapacitacao areasDeCapacitacao) {		
-		return "/areacapacitacao/cadastro";
+		return "areacapacitacao/cadastro";
 	}
 	
 	@GetMapping("/listar")
 	public String listar(ModelMap model) {
 		model.addAttribute("areasDeCapacitacao", service.buscarTodos());
-		return "/areacapacitacao/lista"; 
+		return "areacapacitacao/lista"; 
 	}
 	
 	@PostMapping("/salvar")
@@ -43,7 +43,7 @@ public class AreasDeCapacitacaoController {
 	@GetMapping("/editar/{id}")
 	public String preEditar(@PathVariable("id") Long id, ModelMap model) {
 		model.addAttribute("areasDeCapacitacao", service.buscarPorId(id));
-		return "/areacapacitacao/cadastro";
+		return "areacapacitacao/cadastro";
 	}
 	
 	@PostMapping("/editar")
@@ -63,7 +63,7 @@ public class AreasDeCapacitacaoController {
 	@GetMapping("/buscar/nome/area/capacitacao")
 	public String getPorNome(@RequestParam("areaDeCapacitacao") String areaDeCapacitacao, ModelMap model) {		
 		model.addAttribute("areasDeCapacitacao", service.buscarPorNome(areaDeCapacitacao.toUpperCase().trim()));
-		return "/areacapacitacao/lista";
+		return "areacapacitacao/lista";
 	}
 	
 	

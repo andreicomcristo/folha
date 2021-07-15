@@ -60,7 +60,7 @@ public class UnidadeAdmiteIncrementoDeRiscoController {
 	@GetMapping("/cadastrar")
 	public String cadastrar(UnidadeAdmiteIncrementoDeRisco unidadeAdmiteIncrementoDeRisco) {
 		
-		return "/unidadeAdmiteIncrementoDeRisco/cadastro";
+		return "unidadeAdmiteIncrementoDeRisco/cadastro";
 	}
 	
 	@GetMapping("/listar")
@@ -90,7 +90,7 @@ public class UnidadeAdmiteIncrementoDeRiscoController {
 		model.addAttribute("totalPages", page.getTotalPages());
 		model.addAttribute("totalItems", page.getTotalElements()); 
 		model.addAttribute("unidadeAdmiteIncrementoDeRisco", lista);
-		return "/unidadeAdmiteIncrementoDeRisco/lista";	
+		return "unidadeAdmiteIncrementoDeRisco/lista";	
 	}
 	
 	@GetMapping("/paginar/{pageNo}")
@@ -117,7 +117,7 @@ public class UnidadeAdmiteIncrementoDeRiscoController {
 	@GetMapping("/editar/{id}")
 	public String preEditar(@PathVariable("id") Long id, ModelMap model) {
 		model.addAttribute("unidadeAdmiteIncrementoDeRisco", service.buscarPorId(id));
-		return "/unidadeAdmiteIncrementoDeRisco/cadastro";
+		return "unidadeAdmiteIncrementoDeRisco/cadastro";
 	}
 	
 	@PostMapping("/editar")
@@ -147,7 +147,7 @@ public class UnidadeAdmiteIncrementoDeRiscoController {
 	@GetMapping("/buscar/nome")
 	public String getPorNome(@RequestParam("nome") String nome, ModelMap model) {		
 		model.addAttribute("unidadeAdmiteIncrementoDeRisco", service.buscarPorNome(nome.toUpperCase().trim()));
-		return "/unidadeAdmiteIncrementoDeRisco/lista";
+		return "unidadeAdmiteIncrementoDeRisco/lista";
 	}
 	
 	

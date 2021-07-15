@@ -25,13 +25,13 @@ public class ConselhosController {
 
 	@GetMapping("/cadastrar")
 	public String cadastrar(Conselhos conselho) {
-		return "/conselho/cadastro";
+		return "conselho/cadastro";
 	}
 	
 	@GetMapping("/listar")
 	public String listar(ModelMap model) {
 		model.addAttribute("conselhos", service.buscarTodos());
-		return "/conselho/lista"; 
+		return "conselho/lista"; 
 	}
 	
 	@PostMapping("/salvar")
@@ -44,7 +44,7 @@ public class ConselhosController {
 	@GetMapping("/editar/{id}")
 	public String preEditar(@PathVariable("id") Long id, ModelMap model) {
 		model.addAttribute("conselhos", service.buscarPorId(id));
-		return "/conselho/cadastro";
+		return "conselho/cadastro";
 	}
 	
 	@PostMapping("/editar")
@@ -64,7 +64,7 @@ public class ConselhosController {
 	@GetMapping("/buscar/descricao/conselho")
 	public String getPorNome(@RequestParam("nomeConselho") String nomeConselho, ModelMap model) {		
 		model.addAttribute("conselhos", service.buscarPorNome(nomeConselho.toUpperCase().trim()));
-		return "/conselho/lista";
+		return "conselho/lista";
 	}
 	
 	

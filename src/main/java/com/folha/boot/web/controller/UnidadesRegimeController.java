@@ -34,13 +34,13 @@ public class UnidadesRegimeController {
 
 	@GetMapping("/cadastrar")
 	public String cadastrar(UnidadesRegime unidadesRegime) {		
-		return "/unidaderegime/cadastro";
+		return "unidaderegime/cadastro";
 	}
 	/*
 	@GetMapping("/listar")
 	public String listar(ModelMap model) {
 		model.addAttribute("unidadesRegime", service.buscarTodos());
-		return "/unidaderegime/lista"; 
+		return "unidaderegime/lista"; 
 	}
 	*/
 	@PostMapping("/salvar")
@@ -54,7 +54,7 @@ public class UnidadesRegimeController {
 	@GetMapping("/editar/{id}")
 	public String preEditar(@PathVariable("id") Long id, ModelMap model) {
 		model.addAttribute("unidadesRegime", service.buscarPorId(id));
-		return "/unidaderegime/cadastro";
+		return "unidaderegime/cadastro";
 	}
 	
 	@PostMapping("/editar")
@@ -122,7 +122,7 @@ public class UnidadesRegimeController {
 		model.addAttribute("totalPages", page.getTotalPages());
 		model.addAttribute("totalItems", page.getTotalElements()); 
 		model.addAttribute("regime", lista);
-		return "/unidaderegime/lista";	
+		return "unidaderegime/lista";	
 	}
 
 	@Autowired

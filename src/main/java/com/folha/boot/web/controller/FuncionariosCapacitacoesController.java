@@ -59,13 +59,13 @@ public class FuncionariosCapacitacoesController {
 	
 	@GetMapping("/cadastrar")
 	public String cadastrar(FuncionariosCapacitacoes funcionariosCapacitacoes) {
-		return "/funcionariocapacitacao/cadastro";
+		return "funcionariocapacitacao/cadastro";
 	}
 	/*
 	@GetMapping("/listar")
 	public String listar(ModelMap model) {
 		model.addAttribute("funcionariosCapacitacoes", service.buscarTodos());
-		return "/funcionariocapacitacao/lista"; 
+		return "funcionariocapacitacao/lista"; 
 	}
 	*/
 	@PostMapping("/salvar")
@@ -81,7 +81,7 @@ public class FuncionariosCapacitacoesController {
 	@GetMapping("/editar/{id}")
 	public String preEditar(@PathVariable("id") Long id, ModelMap model) {
 		model.addAttribute("funcionariosCapacitacoes", service.buscarPorId(id));
-		return "/funcionariocapacitacao/cadastro";
+		return "funcionariocapacitacao/cadastro";
 	}
 	
 	@PostMapping("/editar")
@@ -161,7 +161,7 @@ public class FuncionariosCapacitacoesController {
 		model.addAttribute("totalPages", page.getTotalPages());
 		model.addAttribute("totalItems", page.getTotalElements()); 
 		model.addAttribute("funcionariosCapacitacoes", lista);
-		return "/funcionariocapacitacao/lista";	
+		return "funcionariocapacitacao/lista";	
 	}
 
 	

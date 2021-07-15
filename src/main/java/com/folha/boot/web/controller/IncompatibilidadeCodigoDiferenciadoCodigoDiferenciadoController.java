@@ -43,13 +43,13 @@ public class IncompatibilidadeCodigoDiferenciadoCodigoDiferenciadoController {
 	
 	@GetMapping("/cadastrar")
 	public String cadastrar(IncompatibilidadeCodigoDiferenciadoCodigoDiferenciado incompatibilidadeCodigoDiferenciadoCodigoDiferenciado) {		
-		return "/incompatibilidadeCodigoDiferenciadoCodigoDiferenciado/cadastro";
+		return "incompatibilidadeCodigoDiferenciadoCodigoDiferenciado/cadastro";
 	}
 	/*
 	@GetMapping("/listar")
 	public String listar(ModelMap model) {
 		model.addAttribute("incompatibilidadeCodigoDiferenciadoCodigoDiferenciado", service.buscarNaUnidade(unidadesService.buscarPorId(idUnidadeLogada)));
-		return "/incompatibilidadeCodigoDiferenciadoCodigoDiferenciado/lista"; 
+		return "incompatibilidadeCodigoDiferenciadoCodigoDiferenciado/lista"; 
 	}
 	*/
 	@PostMapping("/salvar")
@@ -68,7 +68,7 @@ public class IncompatibilidadeCodigoDiferenciadoCodigoDiferenciadoController {
 	@GetMapping("/editar/{id}")
 	public String preEditar(@PathVariable("id") Long id, ModelMap model) {
 		model.addAttribute("incompatibilidadeCodigoDiferenciadoCodigoDiferenciado", service.buscarPorId(id));
-		return "/incompatibilidadeCodigoDiferenciadoCodigoDiferenciado/cadastro";
+		return "incompatibilidadeCodigoDiferenciadoCodigoDiferenciado/cadastro";
 	}
 	
 	@PostMapping("/editar")
@@ -143,7 +143,7 @@ public class IncompatibilidadeCodigoDiferenciadoCodigoDiferenciadoController {
 		model.addAttribute("totalPages", page.getTotalPages());
 		model.addAttribute("totalItems", page.getTotalElements()); 
 		model.addAttribute("incompatibilidadeCodigoDiferenciadoCodigoDiferenciado", lista);
-		return "/incompatibilidadeCodigoDiferenciadoCodigoDiferenciado/lista";	
+		return "incompatibilidadeCodigoDiferenciadoCodigoDiferenciado/lista";	
 	}
 
 	
@@ -157,7 +157,7 @@ public class IncompatibilidadeCodigoDiferenciadoCodigoDiferenciadoController {
 		model.addAttribute("choque", "JÁ CADASTRADA");
 		model.addAttribute("mensagem", "Essca compatibilidade já está cadastrada.");
 		
-		return "/alertas/jaTemPerfilNaUnidade";
+		return "alertas/jaTemPerfilNaUnidade";
 	}
 	
 	

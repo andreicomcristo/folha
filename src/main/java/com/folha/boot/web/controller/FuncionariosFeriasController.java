@@ -53,13 +53,13 @@ public class FuncionariosFeriasController {
 	/*@GetMapping("/cadastrar")
 	public String cadastrar(FuncionariosFerias funcionariosFerias) {
 		
-		return "/funcionarioferias/cadastro";
+		return "funcionarioferias/cadastro";
 	}*/
 	
 	/*@GetMapping("/listar")
 	public String listar(ModelMap model) {
 		model.addAttribute("funcionariosFeriasPeriodos", periodosService.buscarTodos());
-		return "/funcionarioferias/lista"; 
+		return "funcionarioferias/lista"; 
 	}*/
 	
 	
@@ -97,7 +97,7 @@ public class FuncionariosFeriasController {
 		model.addAttribute("totalPages", page.getTotalPages());
 		model.addAttribute("totalItems", page.getTotalElements()); 
 		model.addAttribute("listaFuncionarios", lista);
-		return "/funcionarioferias/listafuncionario";	
+		return "funcionarioferias/listafuncionario";	
 	}	
 	
 	@GetMapping("/buscar/funcionarios/nome")
@@ -129,7 +129,7 @@ public class FuncionariosFeriasController {
 		model.addAttribute("feriasLista", feriasService.buscarFuncionarioComDias(funcionario));
 		model.addAttribute("funcionariosFeriasPeriodos", periodosService.buscarPorFuncionarioComDias(funcionario));
 		
-		return "/funcionarioferias/cadastro"; 
+		return "funcionarioferias/cadastro"; 
 	}
 	 
 	@PostMapping("/salvar")
@@ -150,7 +150,7 @@ public class FuncionariosFeriasController {
 		model.addAttribute("periodos", periodosService.buscarFerias(ferias));
 		model.addAttribute("funcionariosFeriasPeriodosLista", periodosService.buscarPorFeriasComDias(ferias));
 		
-		return "/funcionariosferiasperiodo/cadastro"; 
+		return "funcionariosferiasperiodo/cadastro"; 
 	}
 ////////////////////////////////////////////////////////////////////////////////////////////	
 	
@@ -163,7 +163,7 @@ public class FuncionariosFeriasController {
 		model.addAttribute("funcionariosFerias", feriasService.buscarFuncionarioComDias(funcionario));
 		model.addAttribute("funcionariosFeriasPeriodos", periodosService.buscarPorFuncionarioComDias(funcionario));
 						
-		return "/funcionarioferias/lista"; 
+		return "funcionarioferias/lista"; 
 	}	
 /////////////////////////////////////////////////////////////////////////////////////////////
 	@GetMapping("/periodos/listar/{id}")
@@ -172,7 +172,7 @@ public class FuncionariosFeriasController {
 		FuncionariosFerias ferias = feriasService.buscarPorId(id);
 		model.addAttribute("periodos", ferias.getFuncionariosFeriasPeriodosList());
 		
-		return "/funcionariosferiasperiodo/cadastro"; ///retornar para a lista de férias ANO REFERENCIA
+		return "funcionariosferiasperiodo/cadastro"; ///retornar para a lista de férias ANO REFERENCIA
 	}
 
 	@PostMapping("/periodos/salvar")
@@ -188,7 +188,7 @@ public class FuncionariosFeriasController {
 		model.addAttribute("ferias", feriasService.buscarPorId(periodosService.buscarPorId(id).getIdFeriasFk().getId()));// não precisa
 		model.addAttribute("funcionariosFeriasPeriodos", periodosService.buscarPorId(id));	
 	
-		return "/funcionariosferiasperiodo/cadastro";
+		return "funcionariosferiasperiodo/cadastro";
 	}
 		
 	@GetMapping("/periodos/excluir/{id}")
@@ -217,7 +217,7 @@ public class FuncionariosFeriasController {
 		PessoaFuncionarios funcionario = feriasService.buscarPorId(id).getIdFuncionarioFk();
 		model.addAttribute("funcionario", funcionario);
 		model.addAttribute("funcionariosFerias", feriasService.buscarPorId(id));
-		return "/funcionarioferias/cadastro";
+		return "funcionarioferias/cadastro";
 	}	
 	
 	@PostMapping("/editar")
@@ -254,7 +254,7 @@ public class FuncionariosFeriasController {
 		
 		model.addAttribute("funcionario", funcionario);
 		model.addAttribute("funcionariosFerias", feriasService.buscarPorAnoReferencia(anoReferencia.toUpperCase().trim()));
-		return "/funcionarioferias/lista";
+		return "funcionarioferias/lista";
 	}
 	//////////////////////////////////////////////////////////////////////////////////////////////
 	

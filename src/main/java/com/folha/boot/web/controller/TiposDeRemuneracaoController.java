@@ -27,13 +27,13 @@ public class TiposDeRemuneracaoController {
 	
 	@GetMapping("/cadastrar")
 	public String cadastrar(TiposDeRemuneracao tiposDeRemuneracao) {
-		return "/tipoRemuneracao/cadastro";
+		return "tipoRemuneracao/cadastro";
 	}
 	
 	@GetMapping("/listar")
 	public String listar(ModelMap model) {
 		model.addAttribute("tiposDeRemuneracao", service.buscarTodos());
-		return "/tipoRemuneracao/lista"; 
+		return "tipoRemuneracao/lista"; 
 	}
 	
 	@PostMapping("/salvar")
@@ -47,7 +47,7 @@ public class TiposDeRemuneracaoController {
 	public String preEditar(@PathVariable("id") Long id, ModelMap model) {
 		model.addAttribute("tiposDeRemuneracao", service.buscarPorId(id));
 		
-		return "/tipoRemuneracao/cadastro";
+		return "tipoRemuneracao/cadastro";
 	}
 	
 	@PostMapping("/editar")

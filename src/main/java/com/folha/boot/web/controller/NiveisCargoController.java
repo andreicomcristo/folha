@@ -25,13 +25,13 @@ public class NiveisCargoController {
 
 	@GetMapping("/cadastrar")
 	public String cadastrar(NiveisCargo nivel) {		
-		return "/nivel/cadastro";
+		return "nivel/cadastro";
 	}
 	
 	@GetMapping("/listar")
 	public String listar(ModelMap model) {
 		model.addAttribute("niveisCargo", service.buscarTodos());
-		return "/nivel/lista"; 
+		return "nivel/lista"; 
 	}
 	
 	@PostMapping("/salvar")
@@ -44,7 +44,7 @@ public class NiveisCargoController {
 	@GetMapping("/editar/{id}")
 	public String preEditar(@PathVariable("id") Long id, ModelMap model) {
 		model.addAttribute("niveisCargo", service.buscarPorId(id));
-		return "/nivel/cadastro";
+		return "nivel/cadastro";
 	}
 	
 	@PostMapping("/editar")
@@ -64,7 +64,7 @@ public class NiveisCargoController {
 	@GetMapping("/buscar/nome/nivel/cargo")
 	public String getPorNome(@RequestParam("nomeNivelCargo") String nomeNivelCargo, ModelMap model) {		
 		model.addAttribute("niveisCargo", service.buscarPorNome(nomeNivelCargo.toUpperCase().trim()));
-		return "/nivel/lista";
+		return "nivel/lista";
 	}
 	
 	@Autowired

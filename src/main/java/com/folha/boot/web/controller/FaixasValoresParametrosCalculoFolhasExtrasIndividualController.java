@@ -120,7 +120,7 @@ public class FaixasValoresParametrosCalculoFolhasExtrasIndividualController {
 		model.addAttribute("totalPages", page.getTotalPages());
 		model.addAttribute("totalItems", page.getTotalElements()); 
 		model.addAttribute("listaFuncionarios", lista);
-		return "/faixasValoresParametrosCalculoFolhasExtrasIndividual/listafuncionario";	
+		return "faixasValoresParametrosCalculoFolhasExtrasIndividual/listafuncionario";	
 	}	
 		
 	@GetMapping("/buscar/funcionarios/nome")
@@ -172,7 +172,7 @@ public class FaixasValoresParametrosCalculoFolhasExtrasIndividualController {
 		model.addAttribute("totalPages", page.getTotalPages());
 		model.addAttribute("totalItems", page.getTotalElements()); 
 		model.addAttribute("faixasValoresParametrosCalculoFolhasExtrasIndividual", lista);
-		return "/faixasValoresParametrosCalculoFolhasExtrasIndividual/lista";	
+		return "faixasValoresParametrosCalculoFolhasExtrasIndividual/lista";	
 	}
 	
 	@GetMapping("/paginar/{pageNo}")
@@ -209,7 +209,7 @@ public class FaixasValoresParametrosCalculoFolhasExtrasIndividualController {
 	
 	@GetMapping("/cadastrar")
 	public String cadastrar(FaixasValoresParametrosCalculoFolhasExtrasIndividual faixasValoresParametrosCalculoFolhasExtrasIndividual) {
-		return "/faixasValoresParametrosCalculoFolhasExtrasIndividual/cadastro";
+		return "faixasValoresParametrosCalculoFolhasExtrasIndividual/cadastro";
 	}
 	
 	// Dados para Atribuição
@@ -220,7 +220,7 @@ public class FaixasValoresParametrosCalculoFolhasExtrasIndividualController {
 		model.addAttribute("idCodDiferenciadoFk", codigoDiferenciadoService.buscarTodosGeralNaUnidade(funcionario.getIdUnidadeAtuacaoAtualFk()));
 		
 		
-		return "/faixasValoresParametrosCalculoFolhasExtrasIndividual/cadastro";
+		return "faixasValoresParametrosCalculoFolhasExtrasIndividual/cadastro";
 	}
 	
 	@PostMapping("/salvar")
@@ -269,7 +269,7 @@ public class FaixasValoresParametrosCalculoFolhasExtrasIndividualController {
 	@GetMapping("/editar/{id}")
 	public String preEditar(@PathVariable("id") Long id, ModelMap model) {
 		model.addAttribute("faixasValoresParametrosCalculoFolhasExtrasIndividual", service.buscarPorId(id));
-		return "/faixasValoresParametrosCalculoFolhasExtrasIndividual/cadastro";
+		return "faixasValoresParametrosCalculoFolhasExtrasIndividual/cadastro";
 	}
 	
 	@PostMapping("/editar")
@@ -330,7 +330,7 @@ public class FaixasValoresParametrosCalculoFolhasExtrasIndividualController {
 	@GetMapping("/buscar/nome")
 	public String getPorNome(@RequestParam("cnesUnidade") String nome, ModelMap model) {		
 		model.addAttribute("faixasValoresParametrosCalculoFolhasExtrasIndividual", service.buscarPorNome(nome.toUpperCase().trim()));
-		return "/faixasValoresParametrosCalculoFolhasExtrasIndividual/lista";
+		return "faixasValoresParametrosCalculoFolhasExtrasIndividual/lista";
 	}
 	
 	@GetMapping("/exporta/excel")

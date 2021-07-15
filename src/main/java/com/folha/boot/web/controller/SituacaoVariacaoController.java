@@ -24,13 +24,13 @@ public class SituacaoVariacaoController {
 
 	@GetMapping("/cadastrar")
 	public String cadastrar(SituacaoVariacao situacaoVariacao) {		
-		return "/situacaoVariacao/cadastro";
+		return "situacaoVariacao/cadastro";
 	}
 	
 	@GetMapping("/listar")
 	public String listar(ModelMap model) {
 		model.addAttribute("situacaoVariacao", service.buscarTodos());
-		return "/situacaoVariacao/lista"; 
+		return "situacaoVariacao/lista"; 
 	}
 	
 	@PostMapping("/salvar")
@@ -43,7 +43,7 @@ public class SituacaoVariacaoController {
 	@GetMapping("/editar/{id}")
 	public String preEditar(@PathVariable("id") Long id, ModelMap model) {
 		model.addAttribute("situacaoVariacao", service.buscarPorId(id));
-		return "/situacaoVariacao/cadastro";
+		return "situacaoVariacao/cadastro";
 	}
 	
 	@PostMapping("/editar")
@@ -63,7 +63,7 @@ public class SituacaoVariacaoController {
 	@GetMapping("/buscar/nome/situacao")
 	public String getPorNome(@RequestParam("nome") String nome, ModelMap model) {		
 		model.addAttribute("situacaoVariacao", service.buscarPorNome(nome));
-		return "/situacaoVariacao/lista";
+		return "situacaoVariacao/lista";
 	}
 	
 	@Autowired

@@ -70,14 +70,14 @@ public class PessoaController {
 	@GetMapping("/cadastrar/inicio")
 	public String cadastrarInicial(Pessoa pessoa, ModelMap model) {
 		model.addAttribute("pessoa", pessoa);
-		return "/pessoa/cadastroInicial";
+		return "pessoa/cadastroInicial";
 	}
 	
 	//Unidade
 	@GetMapping("/cadastrar/inicio/unidade")
 	public String cadastrarInicialUnidade(Pessoa pessoa, ModelMap model) {
 		model.addAttribute("pessoa", pessoa);
-		return "/pessoa/cadastroInicialUnidade";
+		return "pessoa/cadastroInicialUnidade";
 	}
 	
 	@GetMapping("/cadastrar")
@@ -85,7 +85,7 @@ public class PessoaController {
 		model.addAttribute("pessoa", pessoa);
 		model.addAttribute("pessoaFotos", pessoaFotos);
 		
-		return "/pessoa/cadastro";
+		return "pessoa/cadastro";
 	}
 	
 	// Global - Sede
@@ -156,7 +156,7 @@ public class PessoaController {
 		model.addAttribute("totalPages", page.getTotalPages());
 		model.addAttribute("totalItems", page.getTotalElements()); 
 		model.addAttribute("pessoa", lista);
-		return "/pessoa/lista";	
+		return "pessoa/lista";	
 	}
 	
 	
@@ -229,7 +229,7 @@ public class PessoaController {
 		model.addAttribute("totalPages", page.getTotalPages());
 		model.addAttribute("totalItems", page.getTotalElements()); 
 		model.addAttribute("pessoa", lista);
-		return "/pessoa/listaUnidade";	
+		return "pessoa/listaUnidade";	
 	}
 
 	
@@ -302,7 +302,7 @@ public class PessoaController {
 		model.addAttribute("totalPages", page.getTotalPages());
 		model.addAttribute("totalItems", page.getTotalElements()); 
 		model.addAttribute("pessoa", lista);
-		return "/pessoa/listaCadastroOperador";	
+		return "pessoa/listaCadastroOperador";	
 	}
 	
 	
@@ -375,7 +375,7 @@ public class PessoaController {
 		model.addAttribute("totalPages", page.getTotalPages());
 		model.addAttribute("totalItems", page.getTotalElements()); 
 		model.addAttribute("pessoa", lista);
-		return "/pessoa/listaUnidadeCadastroOperador";	
+		return "pessoa/listaUnidadeCadastroOperador";	
 	}
 
 	
@@ -439,14 +439,14 @@ public class PessoaController {
 	@GetMapping("retroceder/editar/{id}")
 	public String preEditarRetroceder(@PathVariable("id") Long id, ModelMap model) {
 		model.addAttribute("pessoa", service.buscarPorId(id));
-		return "/pessoa/cadastro";
+		return "pessoa/cadastro";
 	}
 	
 	//Unidade
 	@GetMapping("retroceder/editar/unidade/{id}")
 	public String preEditarRetrocederUnidade(@PathVariable("id") Long id, ModelMap model) {
 		model.addAttribute("pessoa", service.buscarPorId(id));
-		return "/pessoa/cadastroUnidade";
+		return "pessoa/cadastroUnidade";
 	}
 	
 	@PostMapping("/editar")
@@ -466,7 +466,7 @@ public class PessoaController {
 	@GetMapping("/buscar/nome/pessoa")
 	public String getPorNome(@RequestParam("nome") String nome, ModelMap model) {		
 		model.addAttribute("pessoa", service.buscarPorNome(nome.toUpperCase().trim()));
-		return "/pessoa/lista";
+		return "pessoa/lista";
 	}
 	
 	@GetMapping("/mensagem/de/cpf/invalido")
@@ -476,7 +476,7 @@ public class PessoaController {
 		model.addAttribute("choque", "Dados Inválidos");
 		model.addAttribute("mensagem", "CPF Inválido.");
 		
-		return "/choqueescala/choque";
+		return "choqueescala/choque";
 	}
 		
 	@ModelAttribute("idSexoFk")

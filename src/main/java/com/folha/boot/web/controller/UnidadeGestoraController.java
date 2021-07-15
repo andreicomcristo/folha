@@ -41,13 +41,13 @@ public class UnidadeGestoraController {
 	
 	@GetMapping("/cadastrar")
 	public String cadastrar(UnidadeGestora unidadeGestora) {		
-		return "/unidadeGestora/cadastro";
+		return "unidadeGestora/cadastro";
 	}
 	
 	@GetMapping("/listar")
 	public String listar(ModelMap model) {
 		model.addAttribute("unidadeGestora", service.buscarTodos());
-		return "/unidadeGestora/lista"; 
+		return "unidadeGestora/lista"; 
 	}
 	
 	@PostMapping("/salvar")
@@ -61,7 +61,7 @@ public class UnidadeGestoraController {
 	@GetMapping("/editar/{id}")
 	public String preEditar(@PathVariable("id") Long id, ModelMap model) {
 		model.addAttribute("unidadeGestora", service.buscarPorId(id));
-		return "/unidadeGestora/cadastro";
+		return "unidadeGestora/cadastro";
 	}
 	
 	@PostMapping("/editar")
@@ -74,7 +74,7 @@ public class UnidadeGestoraController {
 	@GetMapping("/buscar/nome/unidade")
 	public String getPorNome(@RequestParam("nomeFantasia") String nomeFantasia, ModelMap model) {		
 		model.addAttribute("unidadeGestora", service.buscarPorNome(nomeFantasia.toUpperCase().trim()));
-		return "/unidadeGestora/lista";
+		return "unidadeGestora/lista";
 	}
 	
 	@Autowired

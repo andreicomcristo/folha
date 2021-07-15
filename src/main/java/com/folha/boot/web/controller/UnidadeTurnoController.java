@@ -47,13 +47,13 @@ public class UnidadeTurnoController {
 	
 	@GetMapping("/cadastrar")
 	public String cadastrar(UnidadeTurno unidadeTurno) {		
-		return "/unidadeTurno/cadastro";
+		return "unidadeTurno/cadastro";
 	}
 	/*
 	@GetMapping("/listar")
 	public String listar(ModelMap model) {
 		model.addAttribute("unidadeTurno", service.buscarNaUnidade(unidadesService.buscarPorId(idUnidadeLogada)));
-		return "/unidadeTurno/lista"; 
+		return "unidadeTurno/lista"; 
 	}
 	*/
 	@PostMapping("/salvar")
@@ -72,7 +72,7 @@ public class UnidadeTurnoController {
 	@GetMapping("/editar/{id}")
 	public String preEditar(@PathVariable("id") Long id, ModelMap model) {
 		model.addAttribute("unidadeTurno", service.buscarPorId(id));
-		return "/unidadeTurno/cadastro";
+		return "unidadeTurno/cadastro";
 	}
 	
 	@PostMapping("/editar")
@@ -147,7 +147,7 @@ public class UnidadeTurnoController {
 		model.addAttribute("totalPages", page.getTotalPages());
 		model.addAttribute("totalItems", page.getTotalElements()); 
 		model.addAttribute("unidadeTurno", lista);
-		return "/unidadeTurno/lista";	
+		return "unidadeTurno/lista";	
 	}
 
 	
@@ -161,7 +161,7 @@ public class UnidadeTurnoController {
 		model.addAttribute("choque", "JÁ CADASTRADA");
 		model.addAttribute("mensagem", "Essca compatibilidade já está cadastrada.");
 		
-		return "/alertas/jaTemPerfilNaUnidade";
+		return "alertas/jaTemPerfilNaUnidade";
 	}
 	
 	

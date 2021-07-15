@@ -54,7 +54,7 @@ public class TxtFinanceiroController {
 	
 	@GetMapping("/selecionar")
 	public String selecionar(FonteMes fonteMes) {
-		return "/txtFinanceiro/selecao";
+		return "txtFinanceiro/selecao";
 	}
 	
 	

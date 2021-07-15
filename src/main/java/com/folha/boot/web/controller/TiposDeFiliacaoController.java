@@ -25,13 +25,13 @@ public class TiposDeFiliacaoController {
 
 	@GetMapping("/cadastrar")
 	public String cadastrar(TiposDeFiliacao tiposDeFiliacao) {		
-		return "/tipofiliacao/cadastro";
+		return "tipofiliacao/cadastro";
 	}
 	
 	@GetMapping("/listar")
 	public String listar(ModelMap model) {
 		model.addAttribute("tiposDeFiliacao", service.buscarTodos());
-		return "/tipofiliacao/lista"; 
+		return "tipofiliacao/lista"; 
 	}
 	
 	@PostMapping("/salvar")
@@ -44,7 +44,7 @@ public class TiposDeFiliacaoController {
 	@GetMapping("/editar/{id}")
 	public String preEditar(@PathVariable("id") Long id, ModelMap model) {
 		model.addAttribute("tiposDeFiliacao", service.buscarPorId(id));
-		return "/tipofiliacao/cadastro";
+		return "tipofiliacao/cadastro";
 	}
 	
 	@PostMapping("/editar")
@@ -64,7 +64,7 @@ public class TiposDeFiliacaoController {
 	@GetMapping("/buscar/nome/tipofiliacao")
 	public String getPorNome(@RequestParam("nomeTipoFiliacao") String nomeTipoFiliacao, ModelMap model) {		
 		model.addAttribute("tiposDeFiliacao", service.buscarPorNome(nomeTipoFiliacao.toUpperCase().trim()));
-		return "/tipofiliacao/lista";
+		return "tipofiliacao/lista";
 	}
 	
 	@Autowired

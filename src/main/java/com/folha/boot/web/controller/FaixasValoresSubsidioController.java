@@ -86,7 +86,7 @@ public class FaixasValoresSubsidioController {
 	@GetMapping("/cadastrar")
 	public String cadastrar(FaixasValoresSubsidio faixasValoresSubsidio) {
 		
-		return "/faixasValoresSubsidio/cadastro";
+		return "faixasValoresSubsidio/cadastro";
 	}
 	
 	@GetMapping("/listar")
@@ -115,7 +115,7 @@ public class FaixasValoresSubsidioController {
 		model.addAttribute("totalPages", page.getTotalPages());
 		model.addAttribute("totalItems", page.getTotalElements()); 
 		model.addAttribute("faixasValoresSubsidio", lista);
-		return "/faixasValoresSubsidio/lista";	
+		return "faixasValoresSubsidio/lista";	
 	}
 	
 	@GetMapping("/paginar/{pageNo}")
@@ -147,7 +147,7 @@ public class FaixasValoresSubsidioController {
 	@GetMapping("/editar/{id}")
 	public String preEditar(@PathVariable("id") Long id, ModelMap model) {
 		model.addAttribute("faixasValoresSubsidio", service.buscarPorId(id));
-		return "/faixasValoresSubsidio/cadastro";
+		return "faixasValoresSubsidio/cadastro";
 	}
 	
 	@PostMapping("/editar")
@@ -181,7 +181,7 @@ public class FaixasValoresSubsidioController {
 	@GetMapping("/buscar/nome")
 	public String getPorNome(@RequestParam("cnesUnidade") String nome, ModelMap model) {		
 		model.addAttribute("faixasValoresSubsidio", service.buscarPorNome(nome.toUpperCase().trim()));
-		return "/faixasValoresSubsidio/lista";
+		return "faixasValoresSubsidio/lista";
 	}
 	
 	@GetMapping("/exporta/excel")

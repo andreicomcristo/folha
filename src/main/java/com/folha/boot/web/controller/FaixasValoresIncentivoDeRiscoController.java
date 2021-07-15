@@ -60,7 +60,7 @@ public class FaixasValoresIncentivoDeRiscoController {
 	@GetMapping("/cadastrar")
 	public String cadastrar(FaixasValoresIncentivoDeRisco faixasValoresIncentivoDeRisco) {
 		
-		return "/faixasValoresIncentivoDeRisco/cadastro";
+		return "faixasValoresIncentivoDeRisco/cadastro";
 	}
 	
 	@GetMapping("/listar")
@@ -89,7 +89,7 @@ public class FaixasValoresIncentivoDeRiscoController {
 		model.addAttribute("totalPages", page.getTotalPages());
 		model.addAttribute("totalItems", page.getTotalElements()); 
 		model.addAttribute("faixasValoresIncentivoDeRisco", lista);
-		return "/faixasValoresIncentivoDeRisco/lista";	
+		return "faixasValoresIncentivoDeRisco/lista";	
 	}
 	
 	@GetMapping("/paginar/{pageNo}")
@@ -121,7 +121,7 @@ public class FaixasValoresIncentivoDeRiscoController {
 	@GetMapping("/editar/{id}")
 	public String preEditar(@PathVariable("id") Long id, ModelMap model) {
 		model.addAttribute("faixasValoresIncentivoDeRisco", service.buscarPorId(id));
-		return "/faixasValoresIncentivoDeRisco/cadastro";
+		return "faixasValoresIncentivoDeRisco/cadastro";
 	}
 	
 	@PostMapping("/editar")
@@ -155,7 +155,7 @@ public class FaixasValoresIncentivoDeRiscoController {
 	@GetMapping("/buscar/nome")
 	public String getPorNome(@RequestParam("cnesUnidade") String nome, ModelMap model) {		
 		model.addAttribute("faixasValoresIncentivoDeRisco", service.buscarPorNome(nome.toUpperCase().trim()));
-		return "/faixasValoresIncentivoDeRisco/lista";
+		return "faixasValoresIncentivoDeRisco/lista";
 	}
 	
 	@GetMapping("/exporta/excel")

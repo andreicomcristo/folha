@@ -114,7 +114,7 @@ public class PessoaIncrementoDeRiscoSedeController {
 			model.addAttribute("totalPages", page.getTotalPages());
 			model.addAttribute("totalItems", page.getTotalElements()); 
 			model.addAttribute("listaFuncionarios", lista);
-			return "/pessoaIncrementoDeRiscoSede/listafuncionario";	
+			return "pessoaIncrementoDeRiscoSede/listafuncionario";	
 		}
 		
 		@GetMapping("/buscar/funcionarios/nome")
@@ -142,7 +142,7 @@ public class PessoaIncrementoDeRiscoSedeController {
 			model.addAttribute("listaPessoaIncrementoDeRiscoSede", service.buscarPorPessoa( pessoa));
 			model.addAttribute("idAnoMes", service.buscarMesesCompativeis(usuarioService.pegarUnidadeLogada()));
 			
-			return "/pessoaIncrementoDeRiscoSede/cadastro"; 
+			return "pessoaIncrementoDeRiscoSede/cadastro"; 
 		}
 		
 		@GetMapping("/atribuir/pessoa/{id}")//Recebe o id do funcionário da tela de lista de funcionários
@@ -154,7 +154,7 @@ public class PessoaIncrementoDeRiscoSedeController {
 			model.addAttribute("listaPessoaIncrementoDeRiscoSede", service.buscarPorPessoa( pessoa));
 			model.addAttribute("idAnoMes", service.buscarMesesCompativeis(usuarioService.pegarUnidadeLogada()));
 			
-			return "/pessoaIncrementoDeRiscoSede/cadastro"; 
+			return "pessoaIncrementoDeRiscoSede/cadastro"; 
 		}
 		
 
@@ -172,7 +172,7 @@ public class PessoaIncrementoDeRiscoSedeController {
 		model.addAttribute("listaPessoaIncrementoDeRiscoSede", service.buscarPorUnidadeEPessoa(usuarioService.pegarUnidadeLogada(), pessoaService.buscarPorId(idPessoaAtual)));
 		model.addAttribute("pessoaIncrementoDeRiscoSede", pessoaIncrementoDeRiscoSede);
 		model.addAttribute("idAnoMes", service.buscarMesesCompativeis(usuarioService.pegarUnidadeLogada()));
-		return "/pessoaIncrementoDeRiscoSede/cadastro";
+		return "pessoaIncrementoDeRiscoSede/cadastro";
 	}
 	
 	@GetMapping("/listar")
@@ -203,7 +203,7 @@ public class PessoaIncrementoDeRiscoSedeController {
 		model.addAttribute("totalPages", page.getTotalPages());
 		model.addAttribute("totalItems", page.getTotalElements()); 
 		model.addAttribute("listaPessoaIncrementoDeRiscoSede", lista);
-		return "/pessoaIncrementoDeRiscoSede/listaUnidade";	
+		return "pessoaIncrementoDeRiscoSede/listaUnidade";	
 	}
 	
 	@GetMapping("/paginar/{pageNo}")
@@ -233,7 +233,7 @@ public class PessoaIncrementoDeRiscoSedeController {
 	@GetMapping("/editar/{id}")
 	public String preEditar(@PathVariable("id") Long id, ModelMap model) {
 		model.addAttribute("pessoaIncrementoDeRiscoSede", service.buscarPorId(id));
-		return "/pessoaIncrementoDeRiscoSede/cadastro";
+		return "pessoaIncrementoDeRiscoSede/cadastro";
 	}
 	
 	@PostMapping("/editar")
@@ -265,7 +265,7 @@ public class PessoaIncrementoDeRiscoSedeController {
 	public String getPorNome(@RequestParam("nome") String nome, ModelMap model) {
 		model.addAttribute("idAnoMes", service.buscarMesesCompativeis(usuarioService.pegarUnidadeLogada()));
 		model.addAttribute("pessoaIncrementoDeRiscoSede", service.buscarPorNome(nome.toUpperCase().trim(), usuarioService.pegarUnidadeLogada()));
-		return "/pessoaIncrementoDeRiscoSede/listaUnidade";
+		return "pessoaIncrementoDeRiscoSede/listaUnidade";
 	}
 	
 	

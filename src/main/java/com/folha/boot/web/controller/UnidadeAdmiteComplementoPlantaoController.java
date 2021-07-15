@@ -41,7 +41,7 @@ public class UnidadeAdmiteComplementoPlantaoController {
 	@GetMapping("/cadastrar")
 	public String cadastrar(UnidadeAdmiteComplementoPlantao unidadeAdmiteComplementoPlantao) {
 		
-		return "/unidadeAdmiteComplementoPlantao/cadastro";
+		return "unidadeAdmiteComplementoPlantao/cadastro";
 	}
 	
 	@GetMapping("/listar")
@@ -71,7 +71,7 @@ public class UnidadeAdmiteComplementoPlantaoController {
 		model.addAttribute("totalPages", page.getTotalPages());
 		model.addAttribute("totalItems", page.getTotalElements()); 
 		model.addAttribute("unidadeAdmiteComplementoPlantao", lista);
-		return "/unidadeAdmiteComplementoPlantao/lista";	
+		return "unidadeAdmiteComplementoPlantao/lista";	
 	}
 	
 	@GetMapping("/paginar/{pageNo}")
@@ -98,7 +98,7 @@ public class UnidadeAdmiteComplementoPlantaoController {
 	@GetMapping("/editar/{id}")
 	public String preEditar(@PathVariable("id") Long id, ModelMap model) {
 		model.addAttribute("unidadeAdmiteComplementoPlantao", service.buscarPorId(id));
-		return "/unidadeAdmiteComplementoPlantao/cadastro";
+		return "unidadeAdmiteComplementoPlantao/cadastro";
 	}
 	
 	@PostMapping("/editar")
@@ -128,7 +128,7 @@ public class UnidadeAdmiteComplementoPlantaoController {
 	@GetMapping("/buscar/nome")
 	public String getPorNome(@RequestParam("nome") String nome, ModelMap model) {		
 		model.addAttribute("unidadeAdmiteComplementoPlantao", service.buscarPorNome(nome.toUpperCase().trim()));
-		return "/unidadeAdmiteComplementoPlantao/lista";
+		return "unidadeAdmiteComplementoPlantao/lista";
 	}
 	
 	

@@ -43,13 +43,13 @@ public class FonteController {
 
 	@GetMapping("/cadastrar")
 	public String cadastrar(Fonte fonte) {		
-		return "/fonte/cadastro";
+		return "fonte/cadastro";
 	}
 	/*
 	@GetMapping("/listar")
 	public String listar(ModelMap model) {
 		model.addAttribute("fonte", service.buscarNaUnidade(unidadesService.buscarPorId(idUnidadeLogada)));
-		return "/fonte/lista"; 
+		return "fonte/lista"; 
 	}
 	*/
 	@PostMapping("/salvar")
@@ -62,7 +62,7 @@ public class FonteController {
 	@GetMapping("/editar/{id}")
 	public String preEditar(@PathVariable("id") Long id, ModelMap model) {
 		model.addAttribute("fonte", service.buscarPorId(id));
-		return "/fonte/cadastro";
+		return "fonte/cadastro";
 	}
 	
 	@PostMapping("/editar")
@@ -131,7 +131,7 @@ public class FonteController {
 		model.addAttribute("totalPages", page.getTotalPages());
 		model.addAttribute("totalItems", page.getTotalElements()); 
 		model.addAttribute("fonte", lista);
-		return "/fonte/lista";	
+		return "fonte/lista";	
 	}
 
 	

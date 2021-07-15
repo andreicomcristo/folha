@@ -112,7 +112,7 @@ public class FuncionarioFolhaController {
 		model.addAttribute("totalPages", page.getTotalPages());
 		model.addAttribute("totalItems", page.getTotalElements()); 
 		model.addAttribute("listaFuncionarios", lista);
-		return "/funcionarioFolha/listafuncionario";	
+		return "funcionarioFolha/listafuncionario";	
 	}	
 		
 	@GetMapping("/buscar/funcionarios/nome")
@@ -157,7 +157,7 @@ public class FuncionarioFolhaController {
 		model.addAttribute("totalPages", page.getTotalPages());
 		model.addAttribute("totalItems", page.getTotalElements()); 
 		model.addAttribute("funcionarioFolha", lista);
-		return "/funcionarioFolha/lista";	
+		return "funcionarioFolha/lista";	
 	}
 	
 	@GetMapping("/paginar/{pageNo}")
@@ -179,14 +179,14 @@ public class FuncionarioFolhaController {
 	
 	@GetMapping("/cadastrar")
 	public String cadastrar(FuncionarioFolha funcionarioFolha) {
-		return "/funcionarioFolha/cadastro";
+		return "funcionarioFolha/cadastro";
 	}
 	
 	// Dados para Atribuição
 	@GetMapping("/cadastrar/{id}")
 	public String cadastrar(@PathVariable("id") Long id, FuncionarioFolha funcionarioFolha) {
 		funcionarioFolha.setIdFuncionarioFk(pessoaFuncionariosService.buscarPorId(id));
-		return "/funcionarioFolha/cadastro";
+		return "funcionarioFolha/cadastro";
 	}
 	
 	@PostMapping("/salvar")
@@ -202,7 +202,7 @@ public class FuncionarioFolhaController {
 	@GetMapping("/editar/{id}")
 	public String preEditar(@PathVariable("id") Long id, ModelMap model) {
 		model.addAttribute("funcionarioFolha", service.buscarPorId(id));
-		return "/funcionarioFolha/cadastro";
+		return "funcionarioFolha/cadastro";
 	}
 	
 	@PostMapping("/editar")
@@ -231,7 +231,7 @@ public class FuncionarioFolhaController {
 	@GetMapping("/buscar/nome")
 	public String getPorNome(@RequestParam("cnesUnidade") String nome, ModelMap model) {		
 		model.addAttribute("funcionarioFolha", service.buscarPorNome(nome.toUpperCase().trim()));
-		return "/funcionarioFolha/lista";
+		return "funcionarioFolha/lista";
 	}
 	
 	@GetMapping("/exporta/excel")

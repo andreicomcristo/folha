@@ -25,13 +25,13 @@ public class ClassesCarreiraController {
 
 	@GetMapping("/cadastrar")
 	public String cadastrar(ClassesCarreira classesCarreira) {
-		return "/classe/cadastro";
+		return "classe/cadastro";
 	}
 	
 	@GetMapping("/listar")
 	public String listar(ModelMap model) {
 		model.addAttribute("classesCarreira", service.buscarTodos());
-		return "/classe/lista"; 
+		return "classe/lista"; 
 	}
 	
 	@PostMapping("/salvar")
@@ -44,7 +44,7 @@ public class ClassesCarreiraController {
 	@GetMapping("/editar/{id}")
 	public String preEditar(@PathVariable("id") Long id, ModelMap model) {
 		model.addAttribute("classesCarreira", service.buscarPorId(id));
-		return "/classe/cadastro";
+		return "classe/cadastro";
 	}
 	
 	@PostMapping("/editar")
@@ -64,7 +64,7 @@ public class ClassesCarreiraController {
 	@GetMapping("/buscar/nome/classe")
 	public String getPorNome(@RequestParam("nomeClasse") String nomeClasse, ModelMap model) {		
 		model.addAttribute("classesCarreira", service.buscarPorNome(nomeClasse.toUpperCase().trim()));
-		return "/classe/lista";
+		return "classe/lista";
 	}
 	
 	@Autowired

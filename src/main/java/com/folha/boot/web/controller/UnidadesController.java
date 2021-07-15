@@ -55,13 +55,13 @@ public class UnidadesController {
 	
 	@GetMapping("/cadastrar")
 	public String cadastrar(Unidades unidades) {		
-		return "/unidade/cadastro";
+		return "unidade/cadastro";
 	}
 	
 	@GetMapping("/listar")
 	public String listar(ModelMap model) {
 		model.addAttribute("unidades", service.buscarTodos());
-		return "/unidade/lista"; 
+		return "unidade/lista"; 
 	}
 	
 	@PostMapping("/salvar")
@@ -80,7 +80,7 @@ public class UnidadesController {
 	@GetMapping("/editar/{id}")
 	public String preEditar(@PathVariable("id") Long id, ModelMap model) {
 		model.addAttribute("unidades", service.buscarPorId(id));
-		return "/unidade/cadastro";
+		return "unidade/cadastro";
 	}
 	
 	@PostMapping("/editar")
@@ -103,7 +103,7 @@ public class UnidadesController {
 	@GetMapping("/buscar/nome/unidade")
 	public String getPorNome(@RequestParam("nomeFantasia") String nomeFantasia, ModelMap model) {		
 		model.addAttribute("unidades", service.buscarPorNome(nomeFantasia.toUpperCase().trim()));
-		return "/unidade/lista";
+		return "unidade/lista";
 	}
 	
 	@ModelAttribute("idEnderecoCidadeFk")

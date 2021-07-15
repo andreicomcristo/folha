@@ -106,7 +106,7 @@ public class FuncionariosLicencasController {
 		model.addAttribute("totalPages", page.getTotalPages());
 		model.addAttribute("totalItems", page.getTotalElements()); 
 		model.addAttribute("listaFuncionarios", lista);
-		return "/funcionarioferias/listafuncionario";	
+		return "funcionarioferias/listafuncionario";	
 	}	
 	
 	@GetMapping("/buscar/funcionarios/nome")
@@ -171,7 +171,7 @@ public class FuncionariosLicencasController {
 		model.addAttribute("totalPages", page.getTotalPages());
 		model.addAttribute("totalItems", page.getTotalElements()); 
 		model.addAttribute("cids", lista);
-		return "/cid/lista";	
+		return "cid/lista";	
 	}
 	
 	@GetMapping("/buscar/codigo")
@@ -191,7 +191,7 @@ public class FuncionariosLicencasController {
 	@GetMapping("/buscar/codcid")
 	public String getCidPorNome(@RequestParam("codCid") String codCid, ModelMap model) {		
 		model.addAttribute("cids", cidsService.buscarPorNome(codCid.toUpperCase().trim()));
-		return "/cid/lista";
+		return "cid/lista";
 	}
 	
 	
@@ -230,7 +230,7 @@ public class FuncionariosLicencasController {
 		//model.addAttribute("funcionariosLicencas", service.buscarPorFuncionario(funcionario) );////rever essa lógica
 		//model.addAttribute("funcionariosFeriasPeriodos", periodosService.buscarPorFuncionarioComDias(funcionario));
 	
-	return "/funcionarioslicenca/cadastro"; 
+	return "funcionarioslicenca/cadastro"; 
 	
 	}
 	
@@ -251,7 +251,7 @@ public class FuncionariosLicencasController {
 					
 		model.addAttribute("cids", cidsService.buscarTodos());
 		
-		return "/funcionarioslicenca/listacids"; 
+		return "funcionarioslicenca/listacids"; 
 	}
 	
 	
@@ -268,13 +268,13 @@ public class FuncionariosLicencasController {
 	
 	@GetMapping("/cadastrar")
 	public String cadastrar(FuncionariosLicencas funcionariosLicencas) {
-		return "/funcionarioslicenca/cadastro";
+		return "funcionarioslicenca/cadastro";
 	}
 	
 	@GetMapping("/listar")
 	public String listar(ModelMap model) {
 		model.addAttribute("funcionariosLicencas", service.buscarTodos());
-		return "/funcionarioslicenca/lista"; 
+		return "funcionarioslicenca/lista"; 
 	}
 	
 	@PostMapping("/salvar")
@@ -287,7 +287,7 @@ public class FuncionariosLicencasController {
 	@GetMapping("/editar/{id}")
 	public String preEditar(@PathVariable("id") Long id, ModelMap model) {
 		model.addAttribute("funcionariosLicencas", service.buscarPorId(id));
-		return "/funcionarioslicenca/cadastro";
+		return "funcionarioslicenca/cadastro";
 	}
 	
 	@PostMapping("/editar")
@@ -307,7 +307,7 @@ public class FuncionariosLicencasController {
 	@GetMapping("/buscar/data/inicial")
 	public String getPorNome(@RequestParam("dtInicial") String dtInicial, ModelMap model) {		
 		model.addAttribute("funcionariosLicencas", service.buscarPorDtInicial(dtInicial.toUpperCase().trim()));
-		return "/funcionarioslicenca/lista";
+		return "funcionarioslicenca/lista";
 	}
 	
 	

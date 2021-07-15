@@ -62,7 +62,7 @@ public class PessoaBancosController {
 
 	@GetMapping("/cadastrar")
 	public String cadastrar(PessoaDocumentos pessoaDocumentos) {		
-		return "/pessoabanco/cadastro";
+		return "pessoabanco/cadastro";
 	}
 	
 	@GetMapping("/cadastrar/{id}")
@@ -70,13 +70,13 @@ public class PessoaBancosController {
 		idPessoaAtual = id;
 		model.addAttribute("pessoa", pessoaService.buscarPorId(idPessoaAtual));
 		model.addAttribute("pessoaBancosLista", service.buscarPorPessoa(pessoaService.buscarPorId(this.idPessoaAtual)));
-		return "/pessoabanco/cadastro";
+		return "pessoabanco/cadastro";
 	}
 	
 	@GetMapping("/listar")
 	public String listar(ModelMap model) {
 		model.addAttribute("pessoaBancos", service.buscarTodos());
-		return "/pessoabanco/lista"; 
+		return "pessoabanco/lista"; 
 	}
 	
 	@PostMapping("/salvar")
@@ -118,7 +118,7 @@ public class PessoaBancosController {
 		model.addAttribute("pessoa", pessoaService.buscarPorId(id));
 		model.addAttribute("pessoaBancos", service.buscarPorId( id));
 		model.addAttribute("pessoaBancosLista", service.buscarPorPessoa(pessoaService.buscarPorId(this.idPessoaAtual)));
-		return "/pessoabanco/cadastro";
+		return "pessoabanco/cadastro";
 	}
 	
 	@PostMapping("/editar")
@@ -140,7 +140,7 @@ public class PessoaBancosController {
 	@GetMapping("/buscar/nome/banco")
 	public String getPorNome(@RequestParam("nomeBanco") String nomeBanco, ModelMap model) {		
 		model.addAttribute("pessoaDocumentos", service.buscarPorNome(nomeBanco.toUpperCase().trim()));
-		return "/pessoabanco/cadastro";
+		return "pessoabanco/cadastro";
 	}
 	
 	@GetMapping("/mensagem/de/prioritario/cadastrado")
@@ -150,7 +150,7 @@ public class PessoaBancosController {
 		model.addAttribute("choque", "PRIORITÁRIO");
 		model.addAttribute("mensagem", "Conta prioritária já cadastrada.");
 		
-		return "/alertas/prioritarioCadastrado";
+		return "alertas/prioritarioCadastrado";
 	}	
 	
 	@ModelAttribute("idBancoFk")

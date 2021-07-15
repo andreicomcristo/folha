@@ -50,13 +50,13 @@ public class LimiteHorasAcrescimoPorUnidadeEEspecialidadeController {
 
 	@GetMapping("/cadastrar")
 	public String cadastrar(LimiteHorasAcrescimoPorUnidadeEEspecialidade limiteHorasAcrescimoPorUnidadeEEspecialidade) {		
-		return "/limiteHorasAcrescimoPorUnidadeEEspecialidade/cadastro";
+		return "limiteHorasAcrescimoPorUnidadeEEspecialidade/cadastro";
 	}
 	/*
 	@GetMapping("/listar")
 	public String listar(ModelMap model) {
 		model.addAttribute("limiteHorasAcrescimoPorUnidadeEEspecialidade", service.buscarNaUnidade(unidadesService.buscarPorId(idUnidadeLogada)));
-		return "/limiteHorasAcrescimoPorUnidadeEEspecialidade/lista"; 
+		return "limiteHorasAcrescimoPorUnidadeEEspecialidade/lista"; 
 	}
 	*/
 	@PostMapping("/salvar")
@@ -70,7 +70,7 @@ public class LimiteHorasAcrescimoPorUnidadeEEspecialidadeController {
 	@GetMapping("/editar/{id}")
 	public String preEditar(@PathVariable("id") Long id, ModelMap model) {
 		model.addAttribute("limiteHorasAcrescimoPorUnidadeEEspecialidade", service.buscarPorId(id));
-		return "/limiteHorasAcrescimoPorUnidadeEEspecialidade/cadastro";
+		return "limiteHorasAcrescimoPorUnidadeEEspecialidade/cadastro";
 	}
 	
 	@PostMapping("/editar")
@@ -98,7 +98,7 @@ public class LimiteHorasAcrescimoPorUnidadeEEspecialidadeController {
 	@GetMapping("/buscar/nome/atividade/escala")
 	public String getPorNome(@RequestParam("nomeAtividade") String nomeAtividade, ModelMap model) {	
 		model.addAttribute("limiteHorasAcrescimoPorUnidadeEEspecialidade", service.buscarNaUnidadePorNome( unidadesService.buscarPorId(idUnidadeLogada) ,nomeAtividade.toUpperCase().trim()));
-		return "/limiteHorasAcrescimoPorUnidadeEEspecialidade/lista";
+		return "limiteHorasAcrescimoPorUnidadeEEspecialidade/lista";
 	}
 	*/
 	
@@ -152,7 +152,7 @@ public class LimiteHorasAcrescimoPorUnidadeEEspecialidadeController {
 		model.addAttribute("totalPages", page.getTotalPages());
 		model.addAttribute("totalItems", page.getTotalElements()); 
 		model.addAttribute("limiteHorasAcrescimoPorUnidadeEEspecialidade", lista);
-		return "/limiteHorasAcrescimoPorUnidadeEEspecialidade/lista";	
+		return "limiteHorasAcrescimoPorUnidadeEEspecialidade/lista";	
 	}
 
 	

@@ -59,7 +59,7 @@ public class FatorPatronalController {
 	@GetMapping("/cadastrar")
 	public String cadastrar(FatorPatronal fatorPatronal) {
 		
-		return "/fatorPatronal/cadastro";
+		return "fatorPatronal/cadastro";
 	}
 	
 	@GetMapping("/listar")
@@ -89,7 +89,7 @@ public class FatorPatronalController {
 		model.addAttribute("totalPages", page.getTotalPages());
 		model.addAttribute("totalItems", page.getTotalElements()); 
 		model.addAttribute("fatorPatronal", lista);
-		return "/fatorPatronal/lista";	
+		return "fatorPatronal/lista";	
 	}
 	
 	@GetMapping("/paginar/{pageNo}")
@@ -121,7 +121,7 @@ public class FatorPatronalController {
 	@GetMapping("/editar/{id}")
 	public String preEditar(@PathVariable("id") Long id, ModelMap model) {
 		model.addAttribute("fatorPatronal", service.buscarPorId(id));
-		return "/fatorPatronal/cadastro";
+		return "fatorPatronal/cadastro";
 	}
 	
 	@PostMapping("/editar")

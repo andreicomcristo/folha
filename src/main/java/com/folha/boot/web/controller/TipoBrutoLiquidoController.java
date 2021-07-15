@@ -40,7 +40,7 @@ public class TipoBrutoLiquidoController {
 
 	@GetMapping("/cadastrar")
 	public String cadastrar(TipoBrutoLiquido tipoBrutoLiquido) {		
-		return "/tipoBrutoLiquido/cadastro";
+		return "tipoBrutoLiquido/cadastro";
 	}
 	
 	
@@ -54,7 +54,7 @@ public class TipoBrutoLiquidoController {
 	@GetMapping("/editar/{id}")
 	public String preEditar(@PathVariable("id") Long id, ModelMap model) {
 		model.addAttribute("tipoBrutoLiquido", service.buscarPorId(id));
-		return "/tipoBrutoLiquido/cadastro";
+		return "tipoBrutoLiquido/cadastro";
 	}
 	
 	@PostMapping("/editar")
@@ -123,7 +123,7 @@ public class TipoBrutoLiquidoController {
 		model.addAttribute("totalPages", page.getTotalPages());
 		model.addAttribute("totalItems", page.getTotalElements()); 
 		model.addAttribute("tipoBrutoLiquido", lista);
-		return "/tipoBrutoLiquido/lista";	
+		return "tipoBrutoLiquido/lista";	
 	}
 
 	

@@ -53,7 +53,7 @@ public class IncrementoDeRiscoUnidadeCargoController {
 	@GetMapping("/cadastrar")
 	public String cadastrar(IncrementoDeRiscoUnidadeCargo IncrementoDeRiscoUnidadeCargo) {
 		
-		return "/incrementoDeRiscoUnidadeCargo/cadastro";
+		return "incrementoDeRiscoUnidadeCargo/cadastro";
 	}
 	
 	@GetMapping("/listar")
@@ -82,7 +82,7 @@ public class IncrementoDeRiscoUnidadeCargoController {
 		model.addAttribute("totalPages", page.getTotalPages());
 		model.addAttribute("totalItems", page.getTotalElements()); 
 		model.addAttribute("incrementoDeRiscoUnidadeCargo", lista);
-		return "/incrementoDeRiscoUnidadeCargo/lista";	
+		return "incrementoDeRiscoUnidadeCargo/lista";	
 	}
 	
 	@GetMapping("/paginar/{pageNo}")
@@ -110,7 +110,7 @@ public class IncrementoDeRiscoUnidadeCargoController {
 	@GetMapping("/editar/{id}")
 	public String preEditar(@PathVariable("id") Long id, ModelMap model) {
 		model.addAttribute("incrementoDeRiscoUnidadeCargo", service.buscarPorId(id));
-		return "/incrementoDeRiscoUnidadeCargo/cadastro";
+		return "incrementoDeRiscoUnidadeCargo/cadastro";
 	}
 	
 	@PostMapping("/editar")
@@ -140,7 +140,7 @@ public class IncrementoDeRiscoUnidadeCargoController {
 	@GetMapping("/buscar/nome")
 	public String getPorNome(@RequestParam("cnesUnidade") String nome, ModelMap model) {		
 		model.addAttribute("incrementoDeRiscoUnidadeCargo", service.buscarPorNome(nome.toUpperCase().trim()));
-		return "/incrementoDeRiscoUnidadeCargo/lista";
+		return "incrementoDeRiscoUnidadeCargo/lista";
 	}
 	
 	@GetMapping("/exporta/excel")

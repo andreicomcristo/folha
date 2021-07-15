@@ -51,7 +51,7 @@ public class CidadesController {
 
 	@GetMapping("/cadastrar")
 	public String cadastrar(Cidades cidade) {
-		return "/cidade/cadastro";
+		return "cidade/cadastro";
 	}
 
 	@PostMapping("/salvar")
@@ -64,7 +64,7 @@ public class CidadesController {
 	@GetMapping("/editar/{id}")
 	public String preEditar(@PathVariable("id") Long id, ModelMap model) {
 		model.addAttribute("cidades", service.buscarPorId(id));
-		return "/cidade/cadastro";
+		return "cidade/cadastro";
 	}
 	
 	@PostMapping("/editar")
@@ -147,7 +147,7 @@ public class CidadesController {
 		model.addAttribute("totalPages", page.getTotalPages());
 		model.addAttribute("totalItems", page.getTotalElements()); 
 		model.addAttribute("cidades", listaCidades);
-		return "/cidade/lista";	
+		return "cidade/lista";	
 	}
 	
 	@GetMapping("/exporta/excel")

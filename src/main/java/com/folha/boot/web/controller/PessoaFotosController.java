@@ -39,7 +39,7 @@ public class PessoaFotosController {
 
 	@GetMapping("/cadastrar")
 	public String cadastrar(PessoaFotos fotos) {		
-		return "/foto/cadastro";
+		return "foto/cadastro";
 	}
 	
 	@GetMapping("/cadastrar/{id}")
@@ -51,7 +51,7 @@ public class PessoaFotosController {
 		model.addAttribute("pessoaFotos", this.pessoaFotos);
 		model.addAttribute("pessoaDocumentosLista9", pessoaFotosUploadService.buscarPorPessoa(pessoaService.buscarPorId(id)));
 		
-		return "/foto/cadastro";
+		return "foto/cadastro";
 	}
 	
 	@PostMapping("/salvar/fotografia")
@@ -76,7 +76,7 @@ public class PessoaFotosController {
 	@GetMapping("/listar")
 	public String listar(ModelMap model) {
 		model.addAttribute("pessoaFotos", service.buscarTodos());
-		return "/foto/lista"; 
+		return "foto/lista"; 
 	}
 	
 	@PostMapping("/salvar")
@@ -89,7 +89,7 @@ public class PessoaFotosController {
 	@GetMapping("/editar/{id}")
 	public String preEditar(@PathVariable("id") Long id, ModelMap model) {
 		model.addAttribute("pessoaFotos", service.buscarPorId(id));
-		return "/foto/cadastro";
+		return "foto/cadastro";
 	}
 	
 	@PostMapping("/editar")

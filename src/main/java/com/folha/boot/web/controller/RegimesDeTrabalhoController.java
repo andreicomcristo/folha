@@ -23,13 +23,13 @@ public class RegimesDeTrabalhoController {
 
 	@GetMapping("/cadastrar")
 	public String cadastrar(RegimesDeTrabalho regimesDeTrabalho) {		
-		return "/regimedetrabalho/cadastro";
+		return "regimedetrabalho/cadastro";
 	}
 	
 	@GetMapping("/listar")
 	public String listar(ModelMap model) {
 		model.addAttribute("regimesDeTrabalho", service.buscarTodos());
-		return "/regimedetrabalho/lista"; 
+		return "regimedetrabalho/lista"; 
 	}
 	
 	@PostMapping("/salvar")
@@ -42,7 +42,7 @@ public class RegimesDeTrabalhoController {
 	@GetMapping("/editar/{id}")
 	public String preEditar(@PathVariable("id") Long id, ModelMap model) {
 		model.addAttribute("regimesDeTrabalho", service.buscarPorId(id));
-		return "/regimedetrabalho/cadastro";
+		return "regimedetrabalho/cadastro";
 	}
 	
 	@PostMapping("/editar")
@@ -62,7 +62,7 @@ public class RegimesDeTrabalhoController {
 	@GetMapping("/buscar/nome/regimedetrabalho")
 	public String getPorNome(@RequestParam("nomeRegimeDeTrabalho") String nomeRegimeDeTrabalho, ModelMap model) {		
 		model.addAttribute("regimesDeTrabalho", service.buscarPorNome(nomeRegimeDeTrabalho.toUpperCase().trim()));
-		return "/regimedetrabalho/lista";
+		return "regimedetrabalho/lista";
 	}
 	
 	@Autowired

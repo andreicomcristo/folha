@@ -120,7 +120,7 @@ public class PessoaFuncionariosController {
 	
 	@GetMapping("/cadastrar")
 	public String cadastrar(PessoaFuncionarios funcionarios) {		
-		return "/funcionario/cadastro";
+		return "funcionario/cadastro";
 	}
 	
 	@GetMapping("/cadastrar/{id}")
@@ -132,13 +132,13 @@ public class PessoaFuncionariosController {
 		model.addAttribute("pessoaFuncionarios", this.pessoaFuncionarios);
 		model.addAttribute("pessoaDocumentosLista10", pessoaFuncionariosService.buscarPorPessoa(pessoaService.buscarPorId(id)));
 		
-		return "/funcionario/cadastro";
+		return "funcionario/cadastro";
 	}
 	
 	@GetMapping("/listar")
 	public String listar(ModelMap model) {
 		model.addAttribute("pessoaFuncionarios", pessoaFuncionariosService.buscarTodos());
-		return "/funcionario/lista"; 
+		return "funcionario/lista"; 
 	}
 	
 	@GetMapping("/listar/historico/{id}")
@@ -153,7 +153,7 @@ public class PessoaFuncionariosController {
 		model.addAttribute("lista8", histFuncionariosUnidadeLotacaoService.buscarPorFuncionario(pessoaFuncionariosService.buscarPorId(id)));
 		model.addAttribute("lista9", histFuncionariosVinculosService.buscarPorFuncionario(pessoaFuncionariosService.buscarPorId(id)));
 		
-		return "/funcionario/listaHistorico"; 
+		return "funcionario/listaHistorico"; 
 	}
 	
 	@PostMapping("/salvar")
@@ -192,7 +192,7 @@ public class PessoaFuncionariosController {
 		
 		if(pessoaFuncionarios.getIdUnidadeAtuacaoAtualFk()==null || pessoaFuncionarios.getIdUnidadeLotacaoAtualFk()==null) {
 			attr.addFlashAttribute("success", "Não cadastrado. Escolhas Unidades de Atuação e Lotação.");
-			return "/funcionario/cadastro";
+			return "funcionario/cadastro";
 		}
 		
 		return "redirect:/funcionarios/cadastrar/"+idPessoaAtual+"";
@@ -203,7 +203,7 @@ public class PessoaFuncionariosController {
 		model.addAttribute("pessoa", pessoaService.buscarPorId(idPessoaAtual));
 		model.addAttribute("pessoaFuncionarios", pessoaFuncionariosService.buscarPorId(id));
 		model.addAttribute("pessoaDocumentosLista10", pessoaFuncionariosService.buscarPorPessoa(pessoaService.buscarPorId(idPessoaAtual)));
-		return "/funcionario/cadastro";
+		return "funcionario/cadastro";
 	}
 	
 	@PostMapping("/editar")
