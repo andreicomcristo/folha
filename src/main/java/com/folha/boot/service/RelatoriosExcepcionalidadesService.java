@@ -53,6 +53,7 @@ public class RelatoriosExcepcionalidadesService {
 	@Autowired
 	private FaixasValoresFolhExtService faixasValoresFolhExtService;		
 	
+	String caminhoImagemLogo = "./src/main/resources/static/image/logo.png";
 	
 	public ByteArrayInputStream exportarElegibilidadeSituacoesPdf() {
 
@@ -183,7 +184,7 @@ public class RelatoriosExcepcionalidadesService {
 			PdfPCell cellTitulo;
 			
 			// Colocando imagem
-			Image image = Image.getInstance("./src/main/resources/static/image/logo.png");
+			Image image = Image.getInstance( caminhoImagemLogo );
 			image.scaleAbsolute(30,30);
 						
 			cellTitulo = new PdfPCell( image );
@@ -359,7 +360,7 @@ public class RelatoriosExcepcionalidadesService {
 			PdfPCell cellTitulo;
 			
 			// Colocando imagem
-			Image image = Image.getInstance("./src/main/resources/static/image/logo.png");
+			Image image = Image.getInstance(caminhoImagemLogo);
 			image.scaleAbsolute(30,30);
 						
 			cellTitulo = new PdfPCell( image );
@@ -619,7 +620,7 @@ public class RelatoriosExcepcionalidadesService {
 			PdfPCell cellTitulo;
 			
 			// Colocando imagem
-			Image image = Image.getInstance("./src/main/resources/static/image/logo.png");
+			Image image = Image.getInstance(caminhoImagemLogo);
 			image.scaleAbsolute(30,30);
 						
 			cellTitulo = new PdfPCell( image );
