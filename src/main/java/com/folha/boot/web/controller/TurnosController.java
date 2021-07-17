@@ -1,6 +1,5 @@
 package com.folha.boot.web.controller;
 
-import java.util.Date;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
@@ -17,11 +16,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-import com.folha.boot.domain.AtividadeEscala;
 import com.folha.boot.domain.Turnos;
-import com.folha.boot.service.AtividadeEscalaService;
 import com.folha.boot.service.TurnosService;
-import com.folha.boot.service.UnidadesService;
 
 @Controller
 @RequestMapping("/turnos")

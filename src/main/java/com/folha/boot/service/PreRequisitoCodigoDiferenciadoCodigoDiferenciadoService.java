@@ -11,7 +11,6 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.folha.boot.Reposytory.PreRequisitoCodigoDiferenciadoCodigoDiferenciadoReposytory;
 import com.folha.boot.domain.CodigoDiferenciado;
-import com.folha.boot.domain.Escala;
 import com.folha.boot.domain.EscalaCodDiferenciado;
 import com.folha.boot.domain.PreRequisitoCodigoDiferenciadoCodigoDiferenciado;
 import com.folha.boot.service.seguranca.UsuarioService;

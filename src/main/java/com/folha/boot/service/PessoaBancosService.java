@@ -9,7 +9,6 @@ import org.springframework.transaction.annotation.Transactional;
 import com.folha.boot.Reposytory.PessoaBancosReposytory;
 import com.folha.boot.domain.Pessoa;
 import com.folha.boot.domain.PessoaBancos;
-import com.folha.boot.domain.PessoaDocumentos;
 
 @Service
 @Transactional(readOnly = false)

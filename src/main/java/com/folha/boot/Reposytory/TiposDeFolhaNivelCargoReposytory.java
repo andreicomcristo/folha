@@ -8,10 +8,8 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
 import com.folha.boot.domain.AnoMes;
-import com.folha.boot.domain.FaixasValoresParametrosCalculoFolhasExtras;
 import com.folha.boot.domain.NiveisCargo;
 import com.folha.boot.domain.TiposDeFolhaNivelCargo;
-import com.folha.boot.domain.Unidades;
 
 @Repository
 public interface TiposDeFolhaNivelCargoReposytory extends JpaRepository<TiposDeFolhaNivelCargo, Long>{

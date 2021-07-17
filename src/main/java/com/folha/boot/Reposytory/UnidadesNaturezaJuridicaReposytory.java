@@ -7,8 +7,6 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
-import com.folha.boot.domain.AtividadeEscala;
-import com.folha.boot.domain.Unidades;
 import com.folha.boot.domain.UnidadesNaturezaJuridica;
 
 @Repository

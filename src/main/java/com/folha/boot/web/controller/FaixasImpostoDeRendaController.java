@@ -17,10 +17,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.folha.boot.domain.AnoMes;
-import com.folha.boot.domain.AtividadeEscala;
 import com.folha.boot.domain.FaixasImpostoDeRenda;
 import com.folha.boot.domain.FaixasImpostoDeRendaNome;
-import com.folha.boot.domain.Uf;
 import com.folha.boot.service.AnoMesService;
 import com.folha.boot.service.FaixasImpostoDeRendaNomeService;
 import com.folha.boot.service.FaixasImpostoDeRendaService;

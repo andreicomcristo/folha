@@ -1,23 +1,14 @@
 package com.folha.boot.service;
 
-import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.folha.boot.Reposytory.EscalaReposytoty;
-import com.folha.boot.Reposytory.PessoaDocumentosReposytory;
-import com.folha.boot.domain.AnoMes;
-import com.folha.boot.domain.CoordenacaoEscala;
 import com.folha.boot.domain.Escala;
-import com.folha.boot.domain.Pessoa;
-import com.folha.boot.domain.PessoaDocumentos;
-import com.folha.boot.domain.RegimeDeTrabalhoTurno;
 import com.folha.boot.domain.Turnos;
 import com.folha.boot.service.util.UtilidadesDeCalendarioEEscala;
-import com.folha.boot.service.util.UtilidadesMatematicas;
 
 @Service
 @Transactional(readOnly = false)

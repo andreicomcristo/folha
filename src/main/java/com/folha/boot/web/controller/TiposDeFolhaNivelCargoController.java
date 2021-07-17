@@ -1,19 +1,11 @@
 package com.folha.boot.web.controller;
 
-import java.io.ByteArrayInputStream;
-import java.io.IOException;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 
-import org.apache.commons.compress.utils.IOUtils;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.core.io.InputStreamResource;
 import org.springframework.data.domain.Page;
-import org.springframework.http.HttpHeaders;
-import org.springframework.http.MediaType;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -25,23 +17,13 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.folha.boot.domain.AnoMes;
-import com.folha.boot.domain.Cidades;
-import com.folha.boot.domain.CodigoDiferenciado;
-import com.folha.boot.domain.FaixasPrevidencia;
-import com.folha.boot.domain.FaixasValoresParametrosCalculoFolhasExtras;
 import com.folha.boot.domain.NiveisCargo;
-import com.folha.boot.domain.RegimesDeTrabalho;
 import com.folha.boot.domain.TiposDeFolha;
 import com.folha.boot.domain.TiposDeFolhaNivelCargo;
-import com.folha.boot.domain.Unidades;
 import com.folha.boot.service.AnoMesService;
-import com.folha.boot.service.CodigoDiferenciadoService;
-import com.folha.boot.service.FaixasValoresParametrosCalculoFolhasExtrasService;
 import com.folha.boot.service.NiveisCargoService;
-import com.folha.boot.service.RegimesDeTrabalhoService;
 import com.folha.boot.service.TiposDeFolhaNivelCargoService;
 import com.folha.boot.service.TiposDeFolhaService;
-import com.folha.boot.service.UnidadesService;
 
 
 @Controller

@@ -2,13 +2,21 @@ package com.folha.boot.domain;
 
 import java.util.Date;
 import java.util.List;
-import javax.persistence.*;
-import javax.validation.constraints.*;
+
+import javax.persistence.Basic;
+import javax.persistence.CascadeType;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
+import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
+import javax.validation.constraints.NotBlank;
 
 import org.hibernate.validator.constraints.br.CPF;
-import org.springframework.beans.factory.annotation.Autowired;
 
-import com.folha.boot.service.PessoaService;
 import com.folha.boot.service.util.UtilidadesDeTexto;
 
 @SuppressWarnings("serial")

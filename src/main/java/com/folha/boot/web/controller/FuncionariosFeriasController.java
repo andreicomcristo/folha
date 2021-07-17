@@ -16,12 +16,12 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+
 import com.folha.boot.domain.FuncionariosFerias;
 import com.folha.boot.domain.FuncionariosFeriasPeriodos;
 import com.folha.boot.domain.PessoaFuncionarios;
 import com.folha.boot.domain.PessoaOperadores;
 import com.folha.boot.domain.Unidades;
-import com.folha.boot.domain.models.outros.FeriasPeriodosDias;
 import com.folha.boot.service.FuncionariosFeriasPeriodosService;
 import com.folha.boot.service.FuncionariosFeriasService;
 import com.folha.boot.service.PessoaFuncionariosService;

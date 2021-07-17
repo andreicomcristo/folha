@@ -2,13 +2,13 @@ package com.folha.boot.service;
 
 import java.util.ArrayList;
 import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
 import com.folha.boot.Reposytory.FuncionariosFeriasReposytory;
 import com.folha.boot.domain.FuncionariosFerias;
-import com.folha.boot.domain.Pessoa;
-import com.folha.boot.domain.PessoaDocumentos;
 import com.folha.boot.domain.PessoaFuncionarios;
 import com.folha.boot.domain.models.outros.FuncionariosFeriasComDias;
 

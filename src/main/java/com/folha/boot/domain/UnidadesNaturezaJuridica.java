@@ -1,7 +1,11 @@
 package com.folha.boot.domain;
 import java.util.List;
 
-import javax.persistence.*;
+import javax.persistence.CascadeType;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.OneToMany;
+import javax.persistence.Table;
 
 import com.folha.boot.service.util.UtilidadesDeTexto;
 

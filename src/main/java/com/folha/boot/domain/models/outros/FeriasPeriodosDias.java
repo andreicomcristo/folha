@@ -4,9 +4,6 @@ package com.folha.boot.domain.models.outros;
 
 import java.util.Date;
 
-import com.folha.boot.domain.AnoMes;
-import com.folha.boot.domain.PessoaFuncionarios;
-import com.folha.boot.domain.RubricaCodigo;
 
 public class FeriasPeriodosDias {
 

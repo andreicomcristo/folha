@@ -8,7 +8,6 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
 import com.folha.boot.domain.AnoMes;
-import com.folha.boot.domain.FaixasValoresParametrosCalculoFolhasExtras;
 import com.folha.boot.domain.FaixasValoresParametrosCalculoFolhasExtrasIndividual;
 import com.folha.boot.domain.NiveisCargo;
 import com.folha.boot.domain.RegimesDeTrabalho;

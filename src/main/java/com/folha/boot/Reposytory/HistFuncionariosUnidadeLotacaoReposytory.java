@@ -5,8 +5,6 @@ import java.util.List;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
-import com.folha.boot.domain.HistFuncionariosCargos;
-import com.folha.boot.domain.HistFuncionariosUnidadeAtuacao;
 import com.folha.boot.domain.HistFuncionariosUnidadeLotacao;
 import com.folha.boot.domain.PessoaFuncionarios;
 

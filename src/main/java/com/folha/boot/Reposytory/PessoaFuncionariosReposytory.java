@@ -7,9 +7,6 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
-import com.folha.boot.domain.AnoMes;
-import com.folha.boot.domain.CoordenacaoEscala;
-import com.folha.boot.domain.Escala;
 import com.folha.boot.domain.Pessoa;
 import com.folha.boot.domain.PessoaFuncionarios;
 import com.folha.boot.domain.Unidades;

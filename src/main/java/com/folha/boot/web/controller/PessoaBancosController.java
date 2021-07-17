@@ -21,14 +21,11 @@ import com.folha.boot.domain.Pessoa;
 import com.folha.boot.domain.PessoaBancos;
 import com.folha.boot.domain.PessoaDocumentos;
 import com.folha.boot.domain.SimNao;
-import com.folha.boot.domain.TiposDeDocumento;
 import com.folha.boot.service.BancosService;
 import com.folha.boot.service.PessoaBancosService;
-import com.folha.boot.service.PessoaDocumentosService;
 import com.folha.boot.service.PessoaOperadoresService;
 import com.folha.boot.service.PessoaService;
 import com.folha.boot.service.SimNaoService;
-import com.folha.boot.service.TiposDeDocumentoService;
 import com.folha.boot.service.UnidadesService;
 import com.folha.boot.service.seguranca.UsuarioService;
 

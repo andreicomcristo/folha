@@ -1,7 +1,6 @@
 package com.folha.boot.service;
 
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 import javax.servlet.http.HttpSession;
@@ -11,12 +10,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.folha.boot.Reposytory.EscalaReposytoty;
-import com.folha.boot.Reposytory.PessoaDocumentosReposytory;
 import com.folha.boot.domain.AnoMes;
 import com.folha.boot.domain.Cargos;
 import com.folha.boot.domain.CodigoDiferenciado;
-import com.folha.boot.domain.CoordenacaoEscala;
 import com.folha.boot.domain.Escala;
 import com.folha.boot.domain.FaixasValoresParametrosCalculoFolhasExtras;
 import com.folha.boot.domain.FuncionarioFolha;
@@ -26,7 +22,6 @@ import com.folha.boot.domain.Pessoa;
 import com.folha.boot.domain.PessoaCodDiferenciado;
 import com.folha.boot.domain.PessoaComplementoDePlantao;
 import com.folha.boot.domain.PessoaComplementoDePlantaoSede;
-import com.folha.boot.domain.PessoaDocumentos;
 import com.folha.boot.domain.PessoaFuncionarios;
 import com.folha.boot.domain.PessoaIncrementoDeRisco;
 import com.folha.boot.domain.PessoaIncrementoDeRiscoSede;
@@ -42,8 +37,6 @@ import com.folha.boot.domain.models.calculos.FeriasNoMes;
 import com.folha.boot.domain.models.calculos.LicencasNoMes;
 import com.folha.boot.service.calculos.escala.CalculosColetaDeDadosService;
 import com.folha.boot.service.seguranca.UsuarioService;
-import com.folha.boot.service.util.UtilidadesDeCalendarioEEscala;
-import com.folha.boot.service.util.UtilidadesMatematicas;
 
 @Service
 @Transactional(readOnly = false)

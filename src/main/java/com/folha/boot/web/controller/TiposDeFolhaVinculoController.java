@@ -6,10 +6,7 @@ import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 
-
-
 import org.springframework.beans.factory.annotation.Autowired;
-
 import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
@@ -26,8 +23,8 @@ import com.folha.boot.domain.TiposDeFolha;
 import com.folha.boot.domain.TiposDeFolhaVinculo;
 import com.folha.boot.domain.Vinculos;
 import com.folha.boot.service.AnoMesService;
-import com.folha.boot.service.TiposDeFolhaVinculoService;
 import com.folha.boot.service.TiposDeFolhaService;
+import com.folha.boot.service.TiposDeFolhaVinculoService;
 import com.folha.boot.service.VinculosService;
 
 

@@ -20,12 +20,11 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
 import com.folha.boot.Reposytory.FaixasValoresParametrosCalculoFolhasExtrasReposytory;
 import com.folha.boot.domain.AnoMes;
-import com.folha.boot.domain.Cidades;
 import com.folha.boot.domain.Escala;
 import com.folha.boot.domain.FaixasValoresParametrosCalculoFolhasExtras;
-import com.folha.boot.domain.Unidades;
 import com.itextpdf.text.Document;
 import com.itextpdf.text.DocumentException;
 import com.itextpdf.text.Element;

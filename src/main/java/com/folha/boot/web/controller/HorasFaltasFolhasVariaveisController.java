@@ -1,6 +1,5 @@
 package com.folha.boot.web.controller;
 
-import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -20,9 +19,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.folha.boot.domain.AnoMes;
 import com.folha.boot.domain.HorasFaltasFolhasVariaveis;
-import com.folha.boot.domain.LocalidadeEscala;
 import com.folha.boot.domain.PessoaFuncionarios;
-import com.folha.boot.domain.Unidades;
 import com.folha.boot.service.AnoMesService;
 import com.folha.boot.service.HorasFaltasFolhasVariaveisService;
 import com.folha.boot.service.PessoaFuncionariosService;

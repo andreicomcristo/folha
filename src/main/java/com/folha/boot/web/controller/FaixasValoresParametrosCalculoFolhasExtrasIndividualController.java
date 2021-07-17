@@ -3,8 +3,10 @@ package com.folha.boot.web.controller;
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.util.List;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+
 import org.apache.commons.compress.utils.IOUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.InputStreamResource;
@@ -21,10 +23,10 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+
 import com.folha.boot.domain.AnoMes;
 import com.folha.boot.domain.CargaHorariaSemanal;
 import com.folha.boot.domain.ClassesCarreira;
-import com.folha.boot.domain.CodigoDiferenciado;
 import com.folha.boot.domain.FaixasValoresParametrosCalculoFolhasExtrasIndividual;
 import com.folha.boot.domain.Fonte;
 import com.folha.boot.domain.NiveisCargo;

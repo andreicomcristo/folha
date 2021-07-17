@@ -8,12 +8,10 @@ import java.util.List;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
-
 import org.springframework.stereotype.Repository;
 
 import com.folha.boot.domain.AnoMes;
 import com.folha.boot.domain.EscalaAlteracoes;
-import com.folha.boot.domain.EscalaPosTransparencia;
 import com.folha.boot.domain.Unidades;
 
 

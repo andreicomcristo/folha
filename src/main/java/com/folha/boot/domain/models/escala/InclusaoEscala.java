@@ -1,14 +1,9 @@
 package com.folha.boot.domain.models.escala;
 
-import com.folha.boot.domain.AnoMes;
-import com.folha.boot.domain.CodigoDiferenciado;
-import com.folha.boot.domain.CoordenacaoEscala;
 import com.folha.boot.domain.PessoaFuncionarios;
 import com.folha.boot.domain.RegimesDeTrabalho;
-import com.folha.boot.domain.SimNao;
 import com.folha.boot.domain.TiposDeFolha;
 import com.folha.boot.domain.Turmas;
-import com.folha.boot.service.TiposDeFolhaService;
 
 public class InclusaoEscala {
 

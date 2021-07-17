@@ -7,8 +7,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.folha.boot.Reposytory.HistFuncionariosVinculosReposytory;
-import com.folha.boot.domain.HistFuncionariosCargaHoraria;
-import com.folha.boot.domain.HistFuncionariosSituacoes;
 import com.folha.boot.domain.HistFuncionariosVinculos;
 import com.folha.boot.domain.PessoaFuncionarios;
 

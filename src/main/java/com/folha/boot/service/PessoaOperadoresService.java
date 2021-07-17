@@ -11,9 +11,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.folha.boot.Reposytory.PessoaOperadoresReposytory;
 import com.folha.boot.domain.Pessoa;
-import com.folha.boot.domain.PessoaFuncionarios;
 import com.folha.boot.domain.PessoaOperadores;
-import com.folha.boot.domain.Unidades;
 
 @Service
 @Transactional(readOnly = false)

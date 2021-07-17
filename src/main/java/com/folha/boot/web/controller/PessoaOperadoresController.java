@@ -19,8 +19,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-import com.folha.boot.domain.AtividadeEscala;
-import com.folha.boot.domain.PessoaFuncionarios;
 import com.folha.boot.domain.PessoaOperadores;
 import com.folha.boot.domain.seguranca.Perfil;
 import com.folha.boot.service.PessoaOperadoresService;

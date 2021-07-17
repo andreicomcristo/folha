@@ -1,9 +1,14 @@
 package com.folha.boot.domain;
 
 import java.util.List;
-import javax.persistence.*;
 
-import com.folha.boot.service.util.UtilidadesDeTexto;
+import javax.persistence.Basic;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.OneToMany;
+import javax.persistence.Table;
+
+
 
 @SuppressWarnings("serial")
 @Entity

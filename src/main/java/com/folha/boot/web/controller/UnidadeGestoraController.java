@@ -13,20 +13,9 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
-import com.folha.boot.domain.Cidades;
-import com.folha.boot.domain.PessoaOperadores;
-import com.folha.boot.domain.TiposLogradouro;
+
 import com.folha.boot.domain.UnidadeGestora;
-import com.folha.boot.domain.Unidades;
-import com.folha.boot.domain.UnidadesNaturezaJuridica;
-import com.folha.boot.domain.UnidadesRegime;
-import com.folha.boot.service.CidadesService;
-import com.folha.boot.service.PessoaOperadoresService;
-import com.folha.boot.service.TiposLogradouroService;
 import com.folha.boot.service.UnidadeGestoraService;
-import com.folha.boot.service.UnidadesNaturezaJuridicaService;
-import com.folha.boot.service.UnidadesRegimeService;
-import com.folha.boot.service.UnidadesService;
 
 @Controller
 @RequestMapping("/unidadeGestora")

@@ -8,7 +8,6 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
 import com.folha.boot.domain.AnoMes;
-import com.folha.boot.domain.AtividadeEscala;
 import com.folha.boot.domain.CargosEspecialidade;
 import com.folha.boot.domain.LimiteHorasAcrescimoPorUnidadeEEspecialidade;
 import com.folha.boot.domain.Unidades;

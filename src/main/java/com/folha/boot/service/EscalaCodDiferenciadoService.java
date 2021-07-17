@@ -1,23 +1,18 @@
 package com.folha.boot.service;
 
 import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import com.folha.boot.Reposytory.AreasDeCapacitacaoReposytory;
+
 import com.folha.boot.Reposytory.EscalaCodDiferenciadoReposytory;
-import com.folha.boot.Reposytory.PessoaCodDiferenciadoReposytory;
-import com.folha.boot.domain.AreasDeCapacitacao;
-import com.folha.boot.domain.AtividadeEscala;
 import com.folha.boot.domain.CodigoDiferenciado;
 import com.folha.boot.domain.Escala;
 import com.folha.boot.domain.EscalaCodDiferenciado;
-import com.folha.boot.domain.Pessoa;
-import com.folha.boot.domain.PessoaCodDiferenciado;
-import com.folha.boot.domain.Unidades;
 
 @Service
 @Transactional(readOnly = false)

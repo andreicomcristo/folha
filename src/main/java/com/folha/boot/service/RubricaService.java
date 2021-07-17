@@ -20,9 +20,9 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
 import com.folha.boot.Reposytory.RubricaReposytory;
 import com.folha.boot.domain.AnoMes;
-import com.folha.boot.domain.PessoaFuncionarios;
 import com.folha.boot.domain.Rubrica;
 import com.folha.boot.domain.RubricaCodigo;
 import com.itextpdf.text.Document;

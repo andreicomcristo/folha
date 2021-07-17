@@ -6,6 +6,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+
 import org.apache.poi.ss.usermodel.Cell;
 import org.apache.poi.ss.usermodel.CellStyle;
 import org.apache.poi.ss.usermodel.FillPatternType;
@@ -20,13 +21,12 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
 import com.folha.boot.Reposytory.RubricaPensaoReposytory;
 import com.folha.boot.domain.AnoMes;
 import com.folha.boot.domain.Pessoa;
 import com.folha.boot.domain.RubricaPensao;
-import com.folha.boot.domain.RubricaPensaoDependente;
 import com.folha.boot.service.util.UtilidadesDeCalendarioEEscala;
-import com.folha.boot.service.util.UtilidadesMatematicas;
 import com.itextpdf.text.Document;
 import com.itextpdf.text.DocumentException;
 import com.itextpdf.text.Element;

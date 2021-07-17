@@ -16,9 +16,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-import com.folha.boot.domain.Cidades;
 import com.folha.boot.domain.Cids;
-import com.folha.boot.domain.Uf;
 import com.folha.boot.service.CidsService;
 
 @Controller

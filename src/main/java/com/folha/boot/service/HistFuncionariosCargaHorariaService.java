@@ -8,7 +8,6 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.folha.boot.Reposytory.HistFuncionariosCargaHorariaReposytory;
 import com.folha.boot.domain.HistFuncionariosCargaHoraria;
-import com.folha.boot.domain.HistFuncionariosUnidadeLotacao;
 import com.folha.boot.domain.PessoaFuncionarios;
 
 @Service

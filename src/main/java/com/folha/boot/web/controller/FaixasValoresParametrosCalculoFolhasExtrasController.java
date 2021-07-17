@@ -25,9 +25,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.folha.boot.domain.AnoMes;
-import com.folha.boot.domain.Cidades;
 import com.folha.boot.domain.CodigoDiferenciado;
-import com.folha.boot.domain.FaixasPrevidencia;
 import com.folha.boot.domain.FaixasValoresParametrosCalculoFolhasExtras;
 import com.folha.boot.domain.NiveisCargo;
 import com.folha.boot.domain.RegimesDeTrabalho;

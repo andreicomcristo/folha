@@ -9,7 +9,6 @@ import org.springframework.stereotype.Repository;
 
 import com.folha.boot.domain.AnoMes;
 import com.folha.boot.domain.Pessoa;
-
 import com.folha.boot.domain.PessoaComplementoDePlantao;
 import com.folha.boot.domain.Unidades;
 

@@ -10,9 +10,9 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.folha.boot.Reposytory.UnidadeTurnoReposytory;
+import com.folha.boot.domain.Turnos;
 import com.folha.boot.domain.UnidadeTurno;
 import com.folha.boot.domain.Unidades;
-import com.folha.boot.domain.Turnos;
 import com.folha.boot.service.seguranca.UsuarioService;
 
 @Service

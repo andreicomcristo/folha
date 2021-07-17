@@ -2,8 +2,6 @@ package com.folha.boot.domain.models.calculos;
 
 
 import com.folha.boot.domain.AnoMes;
-import com.folha.boot.domain.Bancos;
-import com.folha.boot.domain.Escala;
 import com.folha.boot.domain.Fonte;
 import com.folha.boot.domain.Pessoa;
 import com.folha.boot.domain.PessoaBancos;

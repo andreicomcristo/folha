@@ -10,8 +10,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.folha.boot.Reposytory.UnidadesNaturezaJuridicaReposytory;
-import com.folha.boot.domain.AtividadeEscala;
-import com.folha.boot.domain.Unidades;
 import com.folha.boot.domain.UnidadesNaturezaJuridica;
 
 @Service

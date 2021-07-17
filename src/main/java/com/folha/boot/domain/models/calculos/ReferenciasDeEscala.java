@@ -1,7 +1,6 @@
 package com.folha.boot.domain.models.calculos;
 
 import com.folha.boot.domain.AnoMes;
-import com.folha.boot.domain.CodigoDiferenciado;
 import com.folha.boot.domain.RegimesDeTrabalho;
 import com.folha.boot.domain.TiposDeFolha;
 import com.folha.boot.domain.Unidades;

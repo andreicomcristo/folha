@@ -27,15 +27,12 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import com.folha.boot.domain.AnoMes;
 import com.folha.boot.domain.CargaHorariaSemanal;
 import com.folha.boot.domain.CargosEspecialidade;
-import com.folha.boot.domain.Carreiras;
 import com.folha.boot.domain.ClassesCarreira;
 import com.folha.boot.domain.FaixasValoresGpfDiferenciada;
 import com.folha.boot.domain.Fonte;
 import com.folha.boot.domain.NiveisCargo;
-import com.folha.boot.domain.NiveisCarreira;
 import com.folha.boot.domain.TipoBrutoLiquido;
 import com.folha.boot.domain.Unidades;
-import com.folha.boot.domain.UnidadesRegime;
 import com.folha.boot.service.AnoMesService;
 import com.folha.boot.service.CargaHorariaSemanalService;
 import com.folha.boot.service.CargosEspecialidadeService;
@@ -46,7 +43,6 @@ import com.folha.boot.service.FonteService;
 import com.folha.boot.service.NiveisCargoService;
 import com.folha.boot.service.NiveisCarreiraService;
 import com.folha.boot.service.TipoBrutoLiquidoService;
-import com.folha.boot.service.UnidadesRegimeService;
 import com.folha.boot.service.UnidadesService;
 
 

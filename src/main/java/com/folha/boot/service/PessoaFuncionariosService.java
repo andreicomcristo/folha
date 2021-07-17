@@ -10,9 +10,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.folha.boot.Reposytory.PessoaFuncionariosReposytory;
-import com.folha.boot.domain.AnoMes;
-import com.folha.boot.domain.CoordenacaoEscala;
-import com.folha.boot.domain.Escala;
 import com.folha.boot.domain.Pessoa;
 import com.folha.boot.domain.PessoaFuncionarios;
 import com.folha.boot.domain.Unidades;

@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+
 import com.folha.boot.domain.Cidades;
 import com.folha.boot.domain.Escolaridades;
 import com.folha.boot.domain.EstadosCivis;
@@ -34,7 +35,6 @@ import com.folha.boot.service.SexosService;
 import com.folha.boot.service.UnidadesService;
 import com.folha.boot.service.seguranca.UsuarioService;
 import com.folha.boot.service.util.UtilidadesDeTexto;
-import com.folha.boot.service.util.UtilidadesMatematicas;
 
 @Controller
 @RequestMapping("/pessoas")

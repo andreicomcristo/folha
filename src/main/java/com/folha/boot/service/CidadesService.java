@@ -1,11 +1,11 @@
 package com.folha.boot.service;
 
 import java.io.ByteArrayInputStream;
-import java.util.Date;
-import java.util.List;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.net.MalformedURLException;
+import java.util.Date;
+import java.util.List;
 
 import org.apache.poi.ss.usermodel.Cell;
 import org.apache.poi.ss.usermodel.CellStyle;
@@ -21,10 +21,10 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
 import com.folha.boot.Reposytory.CidadesReposytory;
 import com.folha.boot.domain.Cidades;
 import com.folha.boot.domain.Uf;
-
 import com.itextpdf.text.Document;
 import com.itextpdf.text.DocumentException;
 import com.itextpdf.text.Element;

@@ -7,9 +7,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.folha.boot.Reposytory.UnidadeGestoraReposytory;
-import com.folha.boot.Reposytory.UnidadesReposytory;
 import com.folha.boot.domain.UnidadeGestora;
-import com.folha.boot.domain.Unidades;
 
 @Service
 @Transactional(readOnly = false)

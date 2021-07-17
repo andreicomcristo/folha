@@ -1,6 +1,6 @@
 package com.folha.boot.domain.seguranca;
 
-import java.util.List;
+
 
 import javax.persistence.*;
 

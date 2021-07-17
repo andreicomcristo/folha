@@ -1,7 +1,6 @@
 package com.folha.boot.Reposytory;
 
 
-import java.util.Date;
 import java.util.List;
 
 import org.springframework.data.domain.Page;
@@ -14,7 +13,6 @@ import com.folha.boot.domain.AnoMes;
 import com.folha.boot.domain.CargosEspecialidade;
 import com.folha.boot.domain.CoordenacaoEscala;
 import com.folha.boot.domain.Escala;
-import com.folha.boot.domain.FuncionariosFeriasPeriodos;
 import com.folha.boot.domain.Pessoa;
 import com.folha.boot.domain.PessoaFuncionarios;
 import com.folha.boot.domain.TiposDeFolha;

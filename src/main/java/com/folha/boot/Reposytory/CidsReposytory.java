@@ -7,9 +7,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
-import com.folha.boot.domain.Cidades;
 import com.folha.boot.domain.Cids;
-import com.folha.boot.domain.Uf;
 
 @Repository
 public interface CidsReposytory extends JpaRepository<Cids, Long> {

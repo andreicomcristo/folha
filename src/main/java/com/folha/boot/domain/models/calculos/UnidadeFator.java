@@ -1,7 +1,5 @@
 package com.folha.boot.domain.models.calculos;
 
-import com.folha.boot.domain.AnoMes;
-import com.folha.boot.domain.CoordenacaoEscala;
 import com.folha.boot.domain.Unidades;
 
 public class UnidadeFator {

@@ -6,10 +6,7 @@ import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 
-
-
 import org.springframework.beans.factory.annotation.Autowired;
-
 import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
@@ -22,10 +19,9 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.folha.boot.domain.AnoMes;
-import com.folha.boot.domain.TiposDeFolha;
 import com.folha.boot.domain.ConversaoFontePorFolha;
 import com.folha.boot.domain.Fonte;
-import com.folha.boot.domain.Vinculos;
+import com.folha.boot.domain.TiposDeFolha;
 import com.folha.boot.service.AnoMesService;
 import com.folha.boot.service.ConversaoFontePorFolhaService;
 import com.folha.boot.service.FonteService;

@@ -2,7 +2,11 @@ package com.folha.boot.domain;
 
 import java.util.List;
 
-import javax.persistence.*;
+import javax.persistence.Basic;
+import javax.persistence.CascadeType;
+import javax.persistence.Column;
+import javax.persistence.Id;
+import javax.persistence.OneToMany;
 
 @SuppressWarnings("serial")
 public class Users extends AbstractEntity<Long>{

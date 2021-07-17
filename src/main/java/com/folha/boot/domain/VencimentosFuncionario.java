@@ -1,11 +1,11 @@
 package com.folha.boot.domain;
 
-import java.util.List;
-import javax.persistence.*;
+import javax.persistence.Entity;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.Table;
 
 import org.springframework.transaction.annotation.Transactional;
-
-import com.folha.boot.service.util.UtilidadesDeTexto;
 
 @SuppressWarnings("serial")
 @Entity

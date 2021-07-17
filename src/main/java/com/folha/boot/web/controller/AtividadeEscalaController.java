@@ -17,8 +17,8 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+
 import com.folha.boot.domain.AtividadeEscala;
-import com.folha.boot.domain.LocalidadeEscala;
 import com.folha.boot.domain.Unidades;
 import com.folha.boot.service.AtividadeEscalaService;
 import com.folha.boot.service.UnidadesService;

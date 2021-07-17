@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+
 import com.folha.boot.domain.CodigoDiferenciado;
 import com.folha.boot.domain.Fonte;
 import com.folha.boot.domain.SimNao;
@@ -22,7 +23,6 @@ import com.folha.boot.domain.TipoBrutoLiquido;
 import com.folha.boot.domain.Unidades;
 import com.folha.boot.service.CodigoDiferenciadoService;
 import com.folha.boot.service.FonteService;
-import com.folha.boot.service.PessoaOperadoresService;
 import com.folha.boot.service.SimNaoService;
 import com.folha.boot.service.TipoBrutoLiquidoService;
 import com.folha.boot.service.UnidadesService;
