@@ -683,12 +683,12 @@ public class RelatoriosExcepcionalidadesService {
 
 			PdfPTable table = new PdfPTable(11);
 			table.setWidthPercentage(90);
-			table.setWidths(new int[] { 2, 2, 6, 3, 6, 6, 6, 2, 2, 2, 2 });
+			table.setWidths(new int[] { 2, 2, 6, 3, 6, 6, 6, 2, 6, 2, 2 });
 
 			// Tipos de Fonte
 			Font tituloFont = FontFactory.getFont(FontFactory.HELVETICA_BOLD,14);
 			Font cabecalhoFont = FontFactory.getFont(FontFactory.HELVETICA_BOLD,7);
-			Font corpoFont = FontFactory.getFont(FontFactory.TIMES_ROMAN, 6);
+			Font corpoFont = FontFactory.getFont(FontFactory.TIMES_ROMAN, 5);
 			Font nomeSistemaFont = FontFactory.getFont(FontFactory.TIMES_BOLDITALIC, 6);
 			Font rodapeFont = FontFactory.getFont(FontFactory.HELVETICA_BOLD, 4);
 			
