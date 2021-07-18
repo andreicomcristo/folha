@@ -65,12 +65,12 @@
 		                    <td style="font-size:11px;"  th:text="${d.idPessoaFk.cpf}"></td>
 		                    <td style="font-size:11px;"  th:text="${d.matricula}"></td>
 		                    <td style="font-size:11px;"  th:text="${d.idCargaHorariaAtualFk.cargaHoraria}"></td>  
-		                    <td style="font-size:11px;"> <a th:href="@{/funcionariosferias/ferias/{id} (id=${d.id}) }" title="Cadastar férias" ><span th:text="${d.idPessoaFk.nome}"></span></a></td>
+		                    <td style="font-size:11px;"> <a th:href="@{/funcionarioslicencas/funcionario/{id} (id=${d.id}) }" title="Cadastar Licença" ><span th:text="${d.idPessoaFk.nome}"></span></a></td>
 		                    <td style="font-size:11px;"  th:text="${d.idEspecialidadeAtualFk.idCargoFk.nomeCargo+'-'+d.idEspecialidadeAtualFk.nomeEspecialidadeCargo}"></td>
 		                    <td style="font-size:11px;"  th:text="${d.idVinculoAtualFk.nomeVinculo}"></td> 
 		                    <td colspan="2">
 		                    	
-		                        <a class="btn btn-outline-success btn-sm" th:href="@{/funcionariosferias/ferias/listar/{id} (id=${d.id}) }" role="button">
+		                        <a class="btn btn-outline-success btn-sm" th:href="@{/funcionarioslicencas/ferias/listar/{id} (id=${d.id}) }" role="button">
 		                        	<span class="oi oi-check" title="Listar férias" aria-hidden="true"></span>
 		                        </a>
 		                        <!-- não é permitido excluir aqui
@@ -97,25 +97,25 @@
 		 	<ul class="pagination justify-content-center" >
 		 		<li class="page-item disabled" ></li>		 		
 	
-			 	<li ><a class="btn btn-light btn-paginacao oi oi-media-step-backward" th:if="${currentePage != i}"  th:href="@{'/funcionariosferias/paginar/funcionarios/'+ 1 }" ></a></li>
+			 	<li ><a class="btn btn-light btn-paginacao oi oi-media-step-backward" th:if="${currentePage != i}"  th:href="@{'/funcionarioslicencas/paginar/funcionarios/'+ 1 }" ></a></li>
 			 	
-			 	<li ><a class="btn btn-light    btn-paginacao    oi oi-media-skip-backward" th:if="${currentePage > 1}"  th:href="@{'/funcionariosferias/paginar/funcionarios/'+ ${currentePage -1}}" ></a></li> 
+			 	<li ><a class="btn btn-light    btn-paginacao    oi oi-media-skip-backward" th:if="${currentePage > 1}"  th:href="@{'/funcionarioslicencas/paginar/funcionarios/'+ ${currentePage -1}}" ></a></li> 
 			 	
-			 	<li ><a class="btn btn-light    btn-paginacao oi" th:if="${currentePage > 1000}"  th:href="@{'/funcionariosferias/paginar/funcionarios/'+ ${currentePage-1000} }" >-1000</a></li>
+			 	<li ><a class="btn btn-light    btn-paginacao oi" th:if="${currentePage > 1000}"  th:href="@{'/funcionarioslicencas/paginar/funcionarios/'+ ${currentePage-1000} }" >-1000</a></li>
 			 	
-			 	<li ><a class="btn btn-light    btn-paginacao" th:if="${currentePage > 100}"  th:href="@{'/funcionariosferias/paginar/funcionarios/'+ ${currentePage-100} }" >-100</a></li>
+			 	<li ><a class="btn btn-light    btn-paginacao" th:if="${currentePage > 100}"  th:href="@{'/funcionarioslicencas/paginar/funcionarios/'+ ${currentePage-100} }" >-100</a></li>
 			 	
-			 	<li ><a class="btn btn-light    btn-paginacao" th:if="${currentePage > 10}"  th:href="@{'/funcionariosferias/paginar/funcionarios/'+ ${currentePage-10} }" >-10</a></li>
+			 	<li ><a class="btn btn-light    btn-paginacao" th:if="${currentePage > 10}"  th:href="@{'/funcionarioslicencas/paginar/funcionarios/'+ ${currentePage-10} }" >-10</a></li>
 
-			 	<li ><a class="btn btn-light    btn-paginacao"  th:if="${currentePage < totalPages - 10}"  th:href="@{'/funcionariosferias/paginar/funcionarios/'+ ${currentePage+10} }" >+10</a></li>
+			 	<li ><a class="btn btn-light    btn-paginacao"  th:if="${currentePage < totalPages - 10}"  th:href="@{'/funcionarioslicencas/paginar/funcionarios/'+ ${currentePage+10} }" >+10</a></li>
 			 	
-			 	<li ><a class="btn btn-light    btn-paginacao"  th:if="${currentePage < totalPages - 100}"  th:href="@{'/funcionariosferias/paginar/funcionarios/'+ ${currentePage+100} }" >+100</a></li>
+			 	<li ><a class="btn btn-light    btn-paginacao"  th:if="${currentePage < totalPages - 100}"  th:href="@{'/funcionarioslicencas/paginar/funcionarios/'+ ${currentePage+100} }" >+100</a></li>
 			 	
-			 	<li ><a class="btn btn-light    btn-paginacao"  th:if="${currentePage < totalPages - 1000}"  th:href="@{'/funcionariosferias/paginar/funcionarios/'+ ${currentePage+1000} }" >+1000</a></li>
+			 	<li ><a class="btn btn-light    btn-paginacao"  th:if="${currentePage < totalPages - 1000}"  th:href="@{'/funcionarioslicencas/paginar/funcionarios/'+ ${currentePage+1000} }" >+1000</a></li>
 			 	
-			 	<li ><a class="btn btn-light    btn-paginacao    oi oi-media-skip-forward" th:if="${currentePage < totalPages}"  th:href="@{'/funcionariosferias/paginar/funcionarios/' + ${currentePage +1}}"></a> </li>
+			 	<li ><a class="btn btn-light    btn-paginacao    oi oi-media-skip-forward" th:if="${currentePage < totalPages}"  th:href="@{'/funcionarioslicencas/paginar/funcionarios/' + ${currentePage +1}}"></a> </li>
 		 		
-		 		<li ><a class="btn btn-light    btn-paginacao    oi oi-media-step-forward"  th:if="${currentePage != i}"  th:href="@{'/funcionariosferias/paginar/funcionarios/'+ ${totalPages} }" ></a></li> 
+		 		<li ><a class="btn btn-light    btn-paginacao    oi oi-media-step-forward"  th:if="${currentePage != i}"  th:href="@{'/funcionarioslicencas/paginar/funcionarios/'+ ${totalPages} }" ></a></li> 
 		 	</ul>
 		</nav>     	        
 	    <div th:replace="fragments/modal :: modal"></div>   

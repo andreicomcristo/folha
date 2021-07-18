@@ -4,7 +4,7 @@
 <body>
 	<section class="layout-content" layout:fragment="corpo">
 		<nav class="navbar navbar-expand-md bg-light">		 				
-			<form th:each="d : ${funcionario}" th:action="@{/funcionariosferias/funcionarios/listar}"> 
+			<form th:each="d : ${funcionario}" th:action="@{/funcionarioslicencas/funcionarios/listar}"> 
 				<div class=" layout-content">
 					<a class="btn btn-outline-light oi oi-action-undo" type="button" href="javascript:history.back()"></a>
 					<a class="btn btn-outline-light oi oi-action-redo" type="button" href="javascript:history.forward()"></a>
@@ -24,28 +24,107 @@
 		<div class="container" id="cadastro">					    		   
 			<div th:replace="fragments/alert"></div>
 			<form
-				th:action="@{/funcionariosferias/salvar}"
-				th:object="${funcionariosFerias}" method="POST">
+				th:action="@{/funcionarioslicencas/salvar}"
+				th:object="${funcionariosLicencas}" method="POST">
 				<div class="form-row">
 
-					<div class="form-group col-md-6">
-						<label for="nome" class="fonte-tutulos-tamanho">Cadastar Férias</label>
+					<div class="form-group col-md-12">
+						<label for="nome" class="fonte-tutulos-tamanho">Cadastar Licenças</label>
 						<p></p>	
-						<label for="nome" class="">Ano de Referência</label>
-							<input type="text"
-								class="form-control form-control-md" autofocus="autofocus"
-								id="descricao" placeholder="Ano de Referência" th:field="*{anoReferencia}" />						
+												
+					<div class="form-row">								
+						<div class="form-group col-md-3">
+							<label for="nome" class="">Data Inicial</label>
+							<input type="text"	class="form-control form-control-md uppercase" data-mask="00/00/0000"
+							id="codigo" placeholder=" " th:field="*{dtInicial}" />								
+							<p></p>	
+						</div>																	
+						<div class="form-group col-md-3">		
+							<label for="nome" class="">Data Final</label>
+							<input type="text"	class="form-control form-control-md uppercase"  data-mask="00/00/0000" 
+							id="codigo" placeholder=" " th:field="*{dtFinal}" />
 							<p></p>
-														
-							<input type="hidden" id="id" th:field="*{id}" />
-							<input type="hidden" id="id" th:field="*{idFuncionarioFk}" />
-							<input type="hidden" id="id" th:field="*{dtCadastro}" />
-							<input type="hidden" id="id" th:field="*{dtCancelamento}" />
-							<input type="hidden" id="id" th:field="*{motivoCancelamento}" />
-							<input type="hidden" id="id" th:field="*{idUnidadeLancamentoFk}" />
-							<input type="hidden" id="id" th:field="*{idOperadorCadastroFk}" />						
-							<p></p>					
-						<button class="btn btn-outline-dark">Cadastrar</button>
+						</div>					
+						<div class="form-group col-md-3">		
+							<label for="nome">Data de Cadastro</label>
+							<input type="text"	class="form-control form-control-md uppercase" data-mask="00/00/0000"
+							id="codigo" placeholder=" " th:field="*{dtCadastro}" />
+							<p></p>
+						</div>							
+						<div class="form-group col-md-3">		
+							<label for="nome">Data da Última Alteração</label>
+							<input type="text"	class="form-control form-control-md uppercase" data-mask="00/00/0000"
+							id="codigo" placeholder=" " th:field="*{dtUltimaAlteracao}" />
+							<p></p>						
+						</div>																								
+					</div>	
+										
+					<div class="form-row">								
+						<div class="form-group col-md-3">
+							<label for="nome" class="">Data Previdência</label>
+							<input type="text"	class="form-control form-control-md uppercase" data-mask="00/00/0000"
+							id="codigo" placeholder=" " th:field="*{dtPrevidencia}" />								
+							<p></p>	
+						</div>																	
+						<div class="form-group col-md-3">		
+							<label for="nome" class="">Data da Publicação no D.O. </label>
+							<input type="text"	class="form-control form-control-md uppercase"  data-mask="00/00/0000" 
+							id="codigo" placeholder=" " th:field="*{dtPublicacaoDiarioOficial}" />
+							<p></p>
+						</div>					
+						<div class="form-group col-md-3">		
+							<label for="nome">Data Original - Início </label>
+							<input type="text"	class="form-control form-control-md uppercase" data-mask="00/00/0000"
+							id="codigo" placeholder=" " th:field="*{dtInicialOriginal}" />
+							<p></p>
+						</div>							
+						<div class="form-group col-md-3">		
+							<label for="nome">Data Original - Fim</label>
+							<input type="text"	class="form-control form-control-md uppercase" data-mask="00/00/0000"
+							id="codigo" placeholder=" " th:field="*{dtFinalOriginal}" />
+							<p></p>						
+						</div>																								
+					</div>	
+						
+					<div class="form-row">								
+						<div class="form-group col-md-4">
+							<label for="nome" class="">Data Cancelamento</label>
+							<input type="text"	class="form-control form-control-md uppercase" data-mask="00/00/0000"
+							id="codigo" placeholder=" " th:field="*{dtCancelamento}" />								
+							<p></p>	
+						</div>																	
+						<div class="form-group col-md-4">		
+							<label for="nome" class="">Motivo do Cancelamento </label>
+							<input type="text"	class="form-control form-control-md uppercase" 
+							id="codigo" placeholder=" " th:field="*{motivoCancelamento}" />
+							<p></p>
+						</div>					
+						<div class="form-group col-md-4">		
+							<label for="nome"> Observações </label>
+							<input type="text"	class="form-control form-control-md uppercase" 
+							id="codigo" placeholder="  " th:field="*{observacoes}" />
+							<p></p>
+						</div>																																					
+					</div>
+																												
+					<input type="hidden" id="id" th:field="*{id}"/>											
+					<input type="hidden" id="id" th:field="*{idCorteFolhaEfetivaSimNaoFk}"/>
+					<input type="hidden" id="id" th:field="*{idCargoAtualFk}"/>
+					<input type="hidden" id="id" th:field="*{idCargoEspecialidadeAtualFk}"/>
+					<input type="hidden" id="id" th:field="*{idFuncionarioFk}"/>
+					<input type="hidden" id="id" th:field="*{idOperadorCadastroFk}"/>
+					<input type="hidden" id="id" th:field="*{idOperadorCancelamentoFk}"/>
+					<input type="hidden" id="id" th:field="*{idVinculoAtualFk}"/>	
+					<input type="hidden" id="id" th:field="*{idOperadorUltimaAlteracaoFk}"/>	
+					<input type="hidden" id="id" th:field="*{idCorteFolhaExtraSimNaoFk}"/>	
+					<input type="hidden" id="id" th:field="*{idCorteAdicionalNoturnoSimNaoFk}"/>	
+					<input type="hidden" id="id" th:field="*{idPendenciaExameComprobatorioSimNaoFk}"/>	
+					<input type="hidden" id="id" th:field="*{idTipoLicencaFk}"/>	
+					<input type="hidden" id="id" th:field="*{idUnidadeAtuacaoAtualFk}"/>	
+					<input type="hidden" id="id" th:field="*{idUnidadeLotacaoAtualFk}"/>	
+					<p></p>					
+					<button class="btn btn-outline-dark">Cadastrar</button>
+					
 					</div>
 				</div>
 			</form>
@@ -55,22 +134,45 @@
 	            	<thead>
 	          			<tr>
 		                	<th style="font-size:10px;" >#</th>		                
-		                    <th style="font-size:10px;" >Ano Referência </th>
-		                    <th style="font-size:10px;" >Dias </th>
+		                    <th style="font-size:10px;" >Data Inicial </th>
+		                    <th style="font-size:10px;" >Data Final </th>
+		                    <th style="font-size:10px;" >Data de Cadastro </th>
+		                    <th style="font-size:10px;" >Data da Última Alteração </th>
+		                    <th style="font-size:10px;" >Data Previdência </th>
+		                    <th style="font-size:10px;" >Data da Publicação no D.O. </th>
+		                    <th style="font-size:10px;" >Data Original - Início </th>
+		                    <th style="font-size:10px;" >Data Original - Fim </th>
+		                    <th style="font-size:10px;" >Data Cancelamento </th>
+		                    <th style="font-size:10px;" >Motivo do Cancelamento</th>
+		                    <th style="font-size:10px;" >Observações </th>
 		                    <th style="font-size:10px;" >Ações</th>
+	                    
 	                    </tr>
 	                </thead>                  
 	                <tbody>
-		            	<tr th:each="f : ${feriasLista}">
-		                	<td  style="font-size:10px;"  th:text="${f.id}"></td>	
-		                	<td  style="font-size:10px;" > <a th:href="@{/funcionariosferias/periodos/{id} (id=${f.id}) }" ><span th:text="${f.anoReferencia}"></span></a></td>	                    
-		                    <td  style="font-size:10px;"  th:text="${f.dias}"></td>		                    		           		                  	                    		                     		         		                    
-		                    		                    		           		                  	                    		                     		         		                    
+		            	<tr th:each="f : ${listaLicencas}">
+		            	
+		            		<td  style="font-size:10px;" > 
+		                		<a th:href="@{/funcionarioslicencas/licencas/{id} (id=${f.id}) }" ><span th:text="${f.id}"></span></a>
+		                	</td>
+		                	<td  style="font-size:10px;"  th:text="${f.dtInicial}"></td>			                		                   		                	
+		                	<td  style="font-size:10px;"  th:text="${f.dtFinal}"></td>	                    		                    
+			                <td  style="font-size:10px;"  th:text="${f.dtCadastro}"></td>
+			                <td  style="font-size:10px;"  th:text="${f.dtUltimaAlteracao}"></td>
+			                <td  style="font-size:10px;"  th:text="${f.dtPrevidencia}"></td>
+			                <td  style="font-size:10px;"  th:text="${f.dtPublicacaoDiarioOficial}"></td>
+			                <td  style="font-size:10px;"  th:text="${f.dtInicialOriginal}"></td>
+			                <td  style="font-size:10px;"  th:text="${f.dtFinalOriginal}"></td>
+			                <td  style="font-size:10px;"  th:text="${f.dtCancelamento}"></td>
+			                <td  style="font-size:10px;"  th:text="${f.motivoCancelamento}"></td>
+			                <td  style="font-size:10px;"  th:text="${f.observacoes}"></td>
+			                 		                    		           		                  	                    		                     		         		                    		                    		                    		           		                  	                    		                     		         		                 
 		                    <td colspan="2">		                    	
-		                    	<a class="btn btn-outline-info btn-sm" th:href="@{/funcionariosferias/editar/{id} (id=${f.id})}" role="button">
+		                    	<a class="btn btn-outline-info btn-sm" th:href="@{/funcionarioslicencas/editar/{id} (id=${f.id})}" role="button">
 		                        	<span class="oi oi-brush" title="Editar" aria-hidden="true"></span>
-		                        </a>		                        
-		                        <button th:id="${ 'btn_funcionariosferias/cancelar/' + f.id}" type="button" class="btn btn btn-outline-danger btn-sm" 
+		                        </a>
+		                        		                        
+		                        <button th:id="${ 'btn_funcionarioslicencas/cancelar/' + f.id}" type="button" class="btn btn btn-outline-danger btn-sm" 
 		                            		data-toggle="modal" data-target="#myModal">
 		                                <span class="oi oi-circle-x" title="Exclusão habilitada" aria-hidden="true"></span>
 		                        </button>		                    			                       
@@ -83,7 +185,7 @@
 	         
 	         
 	         
-	         
+<!--	         
 	         	
 		<p>                
 	    	<button class=" oi oi-magnifying-glass btn btn-outline-warning my-2 my-sm-0" type="button" data-toggle="collapse" data-target="#collapsePeriodos"
@@ -139,7 +241,7 @@
 	   </div>
 		
 	         
-	         
+	 -->         
 	         
 	         
 		</div>	

@@ -50,8 +50,7 @@ public class FuncionariosLicencas extends AbstractEntity<Long> {
     private String observacoes;
     @Column(name = "dt_cancelamento")
     @Temporal(TemporalType.DATE)
-    private Date dtCancelamento;
-    
+    private Date dtCancelamento;  
     @Column(name = "motivo_cancelamento")
     private String motivoCancelamento;
 

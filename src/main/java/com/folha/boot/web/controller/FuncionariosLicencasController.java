@@ -77,12 +77,12 @@ public class FuncionariosLicencasController {
 	public String getPorNomePaginadoInclusao(@PathVariable (value = "pageNo") int pageNo, ModelMap model) {
 		
 		if( (ultimaBuscaNome.equals("")) ){
-			return "redirect:/funcionariosferias/funcionarios/listar/{pageNo}" ;}
+			return "redirect:/funcionarioslicencas/funcionarios/listar/{pageNo}" ;}
 		else {		
 			if(!ultimaBuscaNome.equals("")) {
 				return this.findPaginatedFuncionario(pageNo, ultimaBuscaNome, model);}
 			else {
-				return "redirect:/funcionariosferias/funcionarios/listar/{pageNo}" ;}
+				return "redirect:/funcionarioslicencas/funcionarios/listar/{pageNo}" ;}
 			}
 	}
 	
@@ -107,7 +107,7 @@ public class FuncionariosLicencasController {
 		model.addAttribute("totalPages", page.getTotalPages());
 		model.addAttribute("totalItems", page.getTotalElements()); 
 		model.addAttribute("listaFuncionarios", lista);
-		return "funcionarioferias/listafuncionario";	
+		return "funcionariolicenca/listafuncionario";	
 	}	
 	
 	@GetMapping("/buscar/funcionarios/nome")
@@ -194,8 +194,7 @@ public class FuncionariosLicencasController {
 		model.addAttribute("cids", cidsService.buscarPorNome(codCid.toUpperCase().trim()));
 		return "cid/lista";
 	}
-	
-	
+		
 	///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 	//Recebe o id do funcionário da tela de lista de funcionários	
 	@GetMapping("/funcionario/{id}")
@@ -217,23 +216,45 @@ public class FuncionariosLicencasController {
 		funcionariosLicencas.setIdFuncionarioFk(funcionario);
 		//relaciona as licenças com licençasCid		
 				
-		if(!getIdCidSession().equals(null)){
+		/*if(!getIdCidSession().equals(null)){
 		
 			Cids cid = cidsService.buscarPorId(getIdCidSession());
 			funcionariosLicencasCid.setIdCidFk(cid);
 			funcionariosLicencasCid.setIdFuncionariosLicencasFk(funcionariosLicencas);
-		}
+		}*/
 				
 		
 		///////////////////////////////////////
 		model.addAttribute("funcionario", funcionario);		
-		model.addAttribute("funcionariosLicencasCid", funcionariosLicencasCid);
-		//model.addAttribute("funcionariosLicencas", service.buscarPorFuncionario(funcionario) );////rever essa lógica
+		//model.addAttribute("funcionariosLicencasCid", funcionariosLicencasCid);
+		model.addAttribute("funcionariosLicencas", funcionariosLicencas);
+		model.addAttribute("listaLicencas", service.buscarPorFuncionario(funcionario) );////rever essa lógica
 		//model.addAttribute("funcionariosFeriasPeriodos", periodosService.buscarPorFuncionarioComDias(funcionario));
 	
-	return "funcionarioslicenca/cadastro"; 
+	return "funcionariolicenca/cadastro"; 
 	
 	}
+
+	@GetMapping("/licencas/{id}")
+	public String vinvulaLicencaComCid(@PathVariable("id") Long id, FuncionariosLicencasCid funcionariosLicencasCid, ModelMap model) {
+		
+		FuncionariosLicencas funcionariosLicencas = service.buscarPorId(id);		
+		funcionariosLicencasCid.setIdFuncionariosLicencasFk(funcionariosLicencas);		
+		model.addAttribute("funcionario", funcionariosLicencas.getIdFuncionarioFk());	
+		model.addAttribute("funcionariosLicencasCid", funcionariosLicencasCid);
+		model.addAttribute("cids", cidsService.buscarTodos());
+		  
+	return "funcionariolicenca/cadastrolicencacid"; 
+	}
+		
+	/*@GetMapping("/cids")
+	public String vinculaLicencas(Cids cids, ModelMap model) {
+					
+		model.addAttribute("cids", cidsService.buscarTodos());
+		
+		return "funcionarioslicenca/listacids"; 
+	}*/
+	
 	
 	//Recebe o id de funcionariosLicencasCid da tela de FuncionariosLicencas		
 	@GetMapping("/cid/{id}")
@@ -282,13 +303,15 @@ public class FuncionariosLicencasController {
 	public String salvar(FuncionariosLicencas funcionariosLicencas, RedirectAttributes attr) {
 		service.salvar(funcionariosLicencas);
 		attr.addFlashAttribute("success", "Inserido com sucesso.");
-		return "redirect:/funcionarioslicencas/cadastrar";
+		return "redirect:/funcionarioslicencas/licencas/cadastrar";
 	}
+	
+	
 	
 	@GetMapping("/editar/{id}")
 	public String preEditar(@PathVariable("id") Long id, ModelMap model) {
 		model.addAttribute("funcionariosLicencas", service.buscarPorId(id));
-		return "funcionarioslicenca/cadastro";
+		return "funcionariolicenca/cadastro";
 	}
 	
 	@PostMapping("/editar")
@@ -377,8 +400,11 @@ public class FuncionariosLicencasController {
 	public Long getIdFuncionarioSession() {
 		return Long.valueOf(request.getSession().getAttribute("idFuncionario").toString()) ;
 	}
-	
+	public Long getIdLicencasSession() {
+		return Long.valueOf(request.getSession().getAttribute("idLicencas").toString()) ;
+	}
 	public Long getIdCidSession() {
 		return Long.valueOf(request.getSession().getAttribute("idCid").toString()) ;
 	}
+	
 }

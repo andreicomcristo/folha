@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html layout:decorate="~{layout}">
+<head><meta charset="UTF-8"/></head> 
+<body>
+	<section class="layout-content" layout:fragment="corpo">
+		<nav class="navbar navbar-expand-md bg-light">		 				
+			<form th:each="d : ${funcionario}" th:action="@{/funcionarioslicencas/funcionarios/listar}"> 
+				<div class=" layout-content">
+					<a class="btn btn-outline-light oi oi-action-undo" type="button" href="javascript:history.back()"></a>
+					<a class="btn btn-outline-light oi oi-action-redo" type="button" href="javascript:history.forward()"></a>
+					<button class="btn btn-outline-dark" >Listar Funcionários</button>
+					<!--  <a class="btn btn-outline-dark btn-md" th:href="@{/funcionariosferias/ferias/{id}}"
+						role="button"> <span class="oi oi-plus" title="Cadastro"
+						aria-hidden="true"></span> <span>Novo</span>
+					</a>-->
+					<td style="font-size:11px;"  th:text="${d.idPessoaFk.nome +' | '}"></td>
+					<td style="font-size:11px;"  th:text="${d.idPessoaFk.cpf +' | '}"></td>
+					<td style="font-size:11px;"  th:text="${d.matricula +' | '}"></td>
+					<td style="font-size:11px;"  th:text="${d.idEspecialidadeAtualFk.idCargoFk.nomeCargo+'-'+d.idEspecialidadeAtualFk.nomeEspecialidadeCargo}"></td> 
+					<td colspan="2">
+				</div>
+			</form>
+		</nav>
+		<div class="container" id="cadastro">					    		   
+			<div th:replace="fragments/alert"></div>
+			<form
+				th:action="@{/funcionarioslicencas/salvar}"
+				th:object="${funcionariosLicencasCid}" method="POST">
+				<div class="form-row">
+
+					<div class="form-group col-md-12">
+						<label for="nome" class="fonte-tutulos-tamanho">Vincular Cids</label>
+						<p></p>	
+												
+					<div class="form-row">								
+						<div class="form-group col-md-3">		
+							<label for="nome" class=""> Id Licença</label>
+							<input type="text"	class="form-control form-control-md uppercase"  data-mask="00/00/0000" 
+							id="codigo" placeholder=" " th:field="*{idFuncionariosLicencasFk}" />
+							<p></p>
+						</div>	
+						<div class="form-group col-md-3">
+							<label for="nome" class="">CID</label>
+							<input type="text"	class="form-control form-control-md uppercase" data-mask="00/00/0000"
+							id="codigo" placeholder=" " th:field="*{idCidFk}" />								
+							<p></p>	
+						</div>																	
+																																																			
+					</div>	
+										
+																							
+					<input type="hidden" id="id" th:field="*{id}"/>											
+					<input type="hidden" id="id" th:field="*{dtCancelamento}"/>
+					<input type="hidden" id="id" th:field="*{idOperadorCancelamentoFk}"/>
+					
+						
+					<p></p>					
+					<button class="btn btn-outline-dark">Cadastrar</button>
+					
+					</div>
+				</div>
+			</form>
+				         
+		</div>	
+		
+		
+		<div class="container">
+	    	<p>                
+	        	<button class=" oi oi-magnifying-glass btn btn-outline-success my-2 my-sm-0" type="button" data-toggle="collapse" data-target="#collapseCodigo"
+	            		aria-controls="collapseCodigo">Filtrar Código
+	            </button>
+	            <button class=" oi oi-magnifying-glass btn btn-outline-success my-2 my-sm-0" type="button" data-toggle="collapse" data-target="#collapseDescricao"
+	            		aria-controls="collapseDescricao">Filtrar Descrição
+	            </button>
+	            
+	      </p>
+	      
+	      <div class="row">
+	      	<div class="col">
+	        	<div class="collapse" id="collapseCodigo">
+		            <nav class="navbar navbar-light bg-light">
+	    	           <form class="form-inline" method="GET" th:action="@{/cids/buscar/codigo}">
+	        	           <input class="form-control mr-sm-2" type="search" placeholder="Codigo" aria-label="Search"
+	                              th:name="codigo"/>
+	                       <button class="btn btn-outline-success my-2 my-sm-0">Buscar</button>
+	                   </form>
+	                </nav>
+	            </div>
+	    	</div>
+	    </div>
+	    
+	    <div class="row">
+	      	<div class="col">
+	        	<div class="collapse" id="collapseDescricao">
+		            <nav class="navbar navbar-light bg-light">
+	    	           <form class="form-inline" method="GET" th:action="@{/cids/buscar/descricao}">
+	        	           <input class="form-control mr-sm-2" type="search" placeholder="Descricao" aria-label="Search"
+	                              th:name="descricao"/>
+	                       <button class="btn btn-outline-success my-2 my-sm-0">Buscar</button>
+	                   </form>
+	                </nav>
+	            </div>
+	    	</div>
+	    </div>
+	    
+	    <div class="container" id="listagem">	        
+	    	<div th:replace="fragments/alert"></div>
+	    	
+	        <div style="height: 500px; overflow-y: auto;" class="table-responsive">
+	        	<table class="table table-striped table-hover table-sm myTable">
+	            	<thead>
+	          			<tr>
+		                	<th>#</th>
+		                    <th>Código</th>
+		                    <th>Descrição</th>
+		                    
+	                    </tr>
+	                </thead>                  
+	                <tbody>
+		            	<tr th:each="d : ${cids}">
+		                	<td th:text="${d.id}"></td>
+		                    <td th:text="${d.codCid}"></td>
+		                      <td th:text="${d.descricaoCid}"></td>		                    		                  
+						</tr>
+					</tbody>                    
+	            </table>
+	         </div>
+		</div>	   
+		
+		<nav aria-label="Page navigation example">
+		 <div> Quantidade de registros: [[${totalItems}]]<br>  Página: [[${currentePage}]] de [[${totalPages}]] </div> 
+		 <div>
+		 	<span >
+		 		<a></a>
+		 		<samp >[[${i}]]</samp> &nbsp; &nbsp;
+		 	</span>
+		 </div>
+		 	<ul class="pagination justify-content-center" >
+		 		<li class="page-item disabled" ></li>		 		
+	
+			 	<li ><a class="btn btn-light    btn-paginacao   oi oi-media-step-backward" th:if="${currentePage != i}"  th:href="@{'/cids/paginar/'+ 1 }" ></a></li>
+			 	
+			 	<li ><a class="btn btn-light    btn-paginacao    oi oi-media-skip-backward" th:if="${currentePage > 1}"  th:href="@{'/cids/paginar/'+ ${currentePage -1}}" ></a></li> 
+			 	
+			 	<li ><a class="btn btn-light    btn-paginacao"    th:if="${currentePage > 1000}"  th:href="@{'/cids/paginar/'+ ${currentePage-1000} }" >-1000</a></li>
+			 	
+			 	<li ><a class="btn btn-light    btn-paginacao"    th:if="${currentePage > 100}"  th:href="@{'/cids/paginar/'+ ${currentePage-100} }" >-100</a></li>
+			 	
+			 	<li ><a class="btn btn-light    btn-paginacao"    th:if="${currentePage > 10}"  th:href="@{'/cids/paginar/'+ ${currentePage-10} }" >-10</a></li>
+
+			 	<li ><a class="btn btn-light    btn-paginacao"    th:if="${currentePage < totalPages - 10}"  th:href="@{'/cids/paginar/'+ ${currentePage+10} }" >+10</a></li>
+			 	
+			 	<li ><a class="btn btn-light    btn-paginacao"    th:if="${currentePage < totalPages - 100}"  th:href="@{'/cids/paginar/'+ ${currentePage+100} }" >+100</a></li>
+			 	
+			 	<li ><a class="btn btn-light    btn-paginacao"    th:if="${currentePage < totalPages - 1000}"  th:href="@{'/cids/paginar/'+ ${currentePage+1000} }" >+1000</a></li>
+			 	
+			 	<li ><a class="btn btn-light    btn-paginacao    oi oi-media-skip-forward" th:if="${currentePage < totalPages}"  th:href="@{'/cids/paginar/' + ${currentePage +1}}"></a> </li>
+		 		
+		 		<li ><a class="btn btn-light    btn-paginacao    oi oi-media-step-forward"  th:if="${currentePage != i}"  th:href="@{'/cids/paginar/'+ ${totalPages} }" ></a></li> 
+		 	</ul>
+		</nav>
+		 <div th:replace="fragments/modal :: modal"></div>         
+	</section>
+</body>
+</html>
