@@ -93,6 +93,28 @@ public class RelatoriosExcepcionalidadesController {
 	
 	
 	
+	@GetMapping("/selecionarRubricas")
+	public String cadastrarRubricas(FonteMes fonteMes) {
+		return "relatoriosExcepcionalidades/selecionarRubricas";
+	}
+
+		
+	@PostMapping(value = "/selecionarRubricas/exporta/pdf", produces = MediaType.APPLICATION_PDF_VALUE)
+	public ResponseEntity<InputStreamResource> employeReportsSelecionarRubricas(HttpServletResponse response, FonteMes fonteMes) throws IOException {
+		
+		AnoMes anoMes = anoMesService.buscarPorId(fonteMes.getAnoMes().getId());
+		
+		ByteArrayInputStream bis = service.exportarVencimentosFuncionarioPdf(anoMes);
+		HttpHeaders headers = new HttpHeaders();
+		headers.add("Content-Disposition", "attachment;filename=dados.pdf");
+		return ResponseEntity.ok().headers(headers).contentType(MediaType.APPLICATION_PDF)
+				.body(new InputStreamResource(bis));
+	}
+	
+	
+	
+	
+	
 	@GetMapping("/selecionarFolhExt")
 	public String cadastrar(FonteMes fonteMes) {
 		return "relatoriosExcepcionalidades/selecionarFolhExt";
