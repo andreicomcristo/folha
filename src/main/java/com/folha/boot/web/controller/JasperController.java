@@ -53,6 +53,8 @@ public class JasperController {
 		return "reports";
 	}
 	
+	String preCaminho = "/jasper/";
+	
 	@GetMapping("/relatorio/pdf/jr1")
 /*	public void exibirRelatorio(@RequestParam("code") String code,   
 								@RequestParam("acao") String acao,
@@ -61,7 +63,7 @@ public class JasperController {
 		//System.out.println(code);
 		
 		service.addParametros("NOME_I", code);		
-		service.setCaminho("/jasper/funcionarios-01.jasper");
+		service.setCaminho(preCaminho+"funcionarios-01.jasper");
 		byte[] bytes = service.gerarRelatorio(); 
 		response.setContentType(MediaType.APPLICATION_PDF_VALUE);
 		//Faz o download
@@ -70,6 +72,50 @@ public class JasperController {
 		//response.setHeader("Content-disposition", "inline; filename=funcionarios-01.pdf");
 		response.getOutputStream().write(bytes);
 	}	
+	
+	
+	
+	//Maiores pagamentos considerando cargo
+	@GetMapping("/abrirRelatoriosFolha/maioresPagamentosConsiderandoCargo")
+	public String abrirRelatoriosMaioresPagamentosConsiderandoCargo() {		
+		return "reports/maioresPagamentosConsiderandoCargo";
+	}
+
+	@GetMapping("/relatoriosFolha/maioresPagamentosConsiderandoCargo")
+	public void exibirRelatoriosMaioresPagamentosConsiderandoCargo(@RequestParam("mes") Long mes, HttpServletResponse response) throws IOException {
+		
+		service.addParametros("ANO_MES_I", mes);
+		service.addParametros("mes", anoMesService.buscarPorId(mes).getNomeAnoMes());
+		service.setCaminho(preCaminho+"folha/maiores_salarios_com_cargo.jasper");
+		byte[] bytes = service.gerarRelatorio(); 
+		response.setContentType(MediaType.APPLICATION_PDF_VALUE);
+		//Faz o download
+		response.setHeader("Content-disposition", "attachment; filename=dados.pdf");
+		response.getOutputStream().write(bytes);
+	}	
+	
+	
+	
+	
+	//Maiores pagamentos
+	@GetMapping("/abrirRelatoriosFolha/maioresPagamentos")
+	public String abrirRelatoriosMaioresPagamentos() {		
+		return "reports/maioresPagamentos";
+	}
+
+	@GetMapping("/relatoriosFolha/maioresPagamentos")
+	public void exibirRelatoriosMaioresPagamentos(@RequestParam("mes") Long mes, HttpServletResponse response) throws IOException {
+		
+		service.addParametros("ANO_MES_I", mes);
+		service.addParametros("mes", anoMesService.buscarPorId(mes).getNomeAnoMes());
+		service.setCaminho(preCaminho+"folha/maiores_salarios.jasper");
+		byte[] bytes = service.gerarRelatorio(); 
+		response.setContentType(MediaType.APPLICATION_PDF_VALUE);
+		//Faz o download
+		response.setHeader("Content-disposition", "attachment; filename=dados.pdf");
+		response.getOutputStream().write(bytes);
+	}	
+	
 	
 
 	//variacaoCustoPorUnidade
@@ -82,7 +128,7 @@ public class JasperController {
 	public void exibirRelatoriosFolhaVariacaoCustoPorUnidade(@RequestParam("ano") String ano, HttpServletResponse response) throws IOException {
 		if(ano.length()==4) {ano = ano+"%";}
 		service.addParametros("ANO_I", ano);		
-		service.setCaminho("/jasper/folha/variacaoCustoPorUnidade.jasper");
+		service.setCaminho(preCaminho+"folha/variacaoCustoPorUnidade.jasper");
 		byte[] bytes = service.gerarRelatorio(); 
 		response.setContentType(MediaType.APPLICATION_PDF_VALUE);
 		//Faz o download
@@ -102,7 +148,7 @@ public class JasperController {
 	public void exibirRelatoriosFolhaVariacaoCustoPorUnidadeMediaLeito(@RequestParam("ano") String ano, HttpServletResponse response) throws IOException {
 		if(ano.length()==4) {ano = ano+"%";}
 		service.addParametros("ANO_I", ano);		
-		service.setCaminho("/jasper/folha/variacaoCustoPorUnidadeMediaLeito.jasper");
+		service.setCaminho(preCaminho+"folha/variacaoCustoPorUnidadeMediaLeito.jasper");
 		byte[] bytes = service.gerarRelatorio(); 
 		response.setContentType(MediaType.APPLICATION_PDF_VALUE);
 		//Faz o download
@@ -121,7 +167,7 @@ public class JasperController {
 	public void exibirRelatoriosFolhaVariacaoCustoPorUnidadeMediaLeitoCadastrado(@RequestParam("ano") String ano, HttpServletResponse response) throws IOException {
 		if(ano.length()==4) {ano = ano+"%";}
 		service.addParametros("ANO_I", ano);		
-		service.setCaminho("/jasper/folha/variacaoCustoPorUnidadeMediaLeitoCadastrado.jasper");
+		service.setCaminho(preCaminho+"folha/variacaoCustoPorUnidadeMediaLeitoCadastrado.jasper");
 		byte[] bytes = service.gerarRelatorio(); 
 		response.setContentType(MediaType.APPLICATION_PDF_VALUE);
 		//Faz o download
@@ -143,7 +189,7 @@ public class JasperController {
 	public void exibirRelatoriosFolhavariacaoCustoPorFonte(@RequestParam("ano") String ano, HttpServletResponse response) throws IOException {
 		if(ano.length()==4) {ano = ano+"%";}
 		service.addParametros("ANO_I", ano);		
-		service.setCaminho("/jasper/folha/variacaoCustoPorFonte.jasper");
+		service.setCaminho(preCaminho+"folha/variacaoCustoPorFonte.jasper");
 		byte[] bytes = service.gerarRelatorio(); 
 		response.setContentType(MediaType.APPLICATION_PDF_VALUE);
 		//Faz o download
@@ -163,7 +209,7 @@ public class JasperController {
 	public void exibirRelatoriosFolhavariacaoCustoPorMes(@RequestParam("ano") String ano, HttpServletResponse response) throws IOException {
 		if(ano.length()==4) {ano = ano+"%";}
 		service.addParametros("ANO_I", ano);		
-		service.setCaminho("/jasper/folha/variacaoCustoPorMes.jasper");
+		service.setCaminho(preCaminho+"folha/variacaoCustoPorMes.jasper");
 		byte[] bytes = service.gerarRelatorio(); 
 		response.setContentType(MediaType.APPLICATION_PDF_VALUE);
 		//Faz o download
@@ -184,7 +230,7 @@ public class JasperController {
 	public void exibirRelatoriosFolhavariacaoCustoPorUnidadeArea(@RequestParam("ano") String ano, HttpServletResponse response) throws IOException {
 		if(ano.length()==4) {ano = ano+"%";}
 		service.addParametros("ANO_I", ano);		
-		service.setCaminho("/jasper/folha/variacaoCustoPorUnidadeArea.jasper");
+		service.setCaminho(preCaminho+"folha/variacaoCustoPorUnidadeArea.jasper");
 		byte[] bytes = service.gerarRelatorio(); 
 		response.setContentType(MediaType.APPLICATION_PDF_VALUE);
 		//Faz o download
@@ -205,7 +251,7 @@ public class JasperController {
 	public void exibirRelatoriosFolhavariacaoCustoPorUnidadeFolha(@RequestParam("ano") String ano, HttpServletResponse response) throws IOException {
 		if(ano.length()==4) {ano = ano+"%";}
 		service.addParametros("ANO_I", ano);		
-		service.setCaminho("/jasper/folha/variacaoCustoPorUnidadeFolha.jasper");
+		service.setCaminho(preCaminho+"folha/variacaoCustoPorUnidadeFolha.jasper");
 		byte[] bytes = service.gerarRelatorio(); 
 		response.setContentType(MediaType.APPLICATION_PDF_VALUE);
 		//Faz o download
@@ -224,7 +270,7 @@ public class JasperController {
 	public void exibirRelatoriosFolhavariacaoCustoPorUnidadeNivel(@RequestParam("ano") String ano, HttpServletResponse response) throws IOException {
 		if(ano.length()==4) {ano = ano+"%";}
 		service.addParametros("ANO_I", ano);		
-		service.setCaminho("/jasper/folha/variacaoCustoPorUnidadeNivel.jasper");
+		service.setCaminho(preCaminho+"folha/variacaoCustoPorUnidadeNivel.jasper");
 		byte[] bytes = service.gerarRelatorio(); 
 		response.setContentType(MediaType.APPLICATION_PDF_VALUE);
 		//Faz o download
@@ -245,7 +291,7 @@ public class JasperController {
 	public void exibirRelatoriosFolhavariacaoCustoPorUnidadeNivelCargo(@RequestParam("ano") String ano, HttpServletResponse response) throws IOException {
 		if(ano.length()==4) {ano = ano+"%";}
 		service.addParametros("ANO_I", ano);		
-		service.setCaminho("/jasper/folha/variacaoCustoPorUnidadeNivelCargo.jasper");
+		service.setCaminho(preCaminho+"folha/variacaoCustoPorUnidadeNivelCargo.jasper");
 		byte[] bytes = service.gerarRelatorio(); 
 		response.setContentType(MediaType.APPLICATION_PDF_VALUE);
 		//Faz o download
@@ -275,7 +321,7 @@ public class JasperController {
 	public void exibirRelatoriosFolhavariacaoCustoPorMes_grafico(@RequestParam("ano") String ano, HttpServletResponse response) throws IOException {
 		if(ano.length()==4) {ano = ano+"%";}
 		service.addParametros("ANO_I", ano);		
-		service.setCaminho("/jasper/folha/variacaoCustoPorMes_grafico.jasper");
+		service.setCaminho(preCaminho+"folha/variacaoCustoPorMes_grafico.jasper");
 		byte[] bytes = service.gerarRelatorio(); 
 		response.setContentType(MediaType.APPLICATION_PDF_VALUE);
 		//Faz o download
@@ -295,7 +341,7 @@ public class JasperController {
 	public void exibirRelatoriosFolhavariacaoCustoPorMes_global_grafico(@RequestParam("ano") String ano, HttpServletResponse response) throws IOException {
 		if(ano.length()==4) {ano = ano+"%";}
 		service.addParametros("ANO_I", ano);		
-		service.setCaminho("/jasper/folha/variacaoCustoPorMes_global_grafico.jasper");
+		service.setCaminho(preCaminho+"folha/variacaoCustoPorMes_global_grafico.jasper");
 		byte[] bytes = service.gerarRelatorio(); 
 		response.setContentType(MediaType.APPLICATION_PDF_VALUE);
 		//Faz o download
@@ -316,7 +362,7 @@ public class JasperController {
 		service.addParametros("ANO_I", ano);		
 		service.addParametros("UNIDADE_I", unidade);
 		service.addParametros("UNIDADE_NOME_I", unidadesService.buscarPorId(unidade).getNomeFantasia());
-		service.setCaminho("/jasper/folha/VariacaoCustoPorNivel_unidade_grafico.jasper");
+		service.setCaminho(preCaminho+"folha/VariacaoCustoPorNivel_unidade_grafico.jasper");
 		byte[] bytes = service.gerarRelatorio(); 
 		response.setContentType(MediaType.APPLICATION_PDF_VALUE);
 		//Faz o download
@@ -339,7 +385,7 @@ public class JasperController {
 		service.addParametros("UNIDADE_NOME_I", unidadesService.buscarPorId(unidade).getNomeFantasia());
 		service.addParametros("NIVEL_I", nivel);
 		service.addParametros("NIVEL_NOME_I", niveisCargoService.buscarPorId(nivel).getNomeNivelCargo());
-		service.setCaminho("/jasper/folha/VariacaoCustoPorCargo_unidade_grafico.jasper");
+		service.setCaminho(preCaminho+"folha/VariacaoCustoPorCargo_unidade_grafico.jasper");
 		byte[] bytes = service.gerarRelatorio(); 
 		response.setContentType(MediaType.APPLICATION_PDF_VALUE);
 		//Faz o download
@@ -363,7 +409,7 @@ public class JasperController {
 		service.addParametros("UNIDADE_NOME_I", unidadesService.buscarPorId(unidade).getNomeFantasia());
 		service.addParametros("NIVEL_I", nivel);
 		service.addParametros("NIVEL_NOME_I", niveisCargoService.buscarPorId(nivel).getNomeNivelCargo());
-		service.setCaminho("/jasper/folha/VariacaoCustoPorEspecialidade_unidade_grafico.jasper");
+		service.setCaminho(preCaminho+"folha/VariacaoCustoPorEspecialidade_unidade_grafico.jasper");
 		byte[] bytes = service.gerarRelatorio(); 
 		response.setContentType(MediaType.APPLICATION_PDF_VALUE);
 		//Faz o download
@@ -386,7 +432,7 @@ public class JasperController {
 		service.addParametros("UNIDADE_NOME_I", unidadesService.buscarPorId(unidade).getNomeFantasia());
 		service.addParametros("ESPECIALIDADE_I", especialidade);
 		service.addParametros("ESPECIALIDADE_NOME_I", cargosEspecialidadeService.buscarPorId(especialidade).getIdCargoFk().getNomeCargo()+" - "+cargosEspecialidadeService.buscarPorId(especialidade).getNomeEspecialidadeCargo());
-		service.setCaminho("/jasper/folha/VariacaoCustoPorEspecialidade_na_unidade_grafico.jasper");
+		service.setCaminho(preCaminho+"folha/VariacaoCustoPorEspecialidade_na_unidade_grafico.jasper");
 		byte[] bytes = service.gerarRelatorio(); 
 		response.setContentType(MediaType.APPLICATION_PDF_VALUE);
 		//Faz o download
@@ -406,7 +452,7 @@ public class JasperController {
 		service.addParametros("MES_I", anoMesService.buscarPorId(mes).getNomeAnoMes());		
 		service.addParametros("UNIDADE_I", unidade);
 		service.addParametros("UNIDADE_NOME_I", unidadesService.buscarPorId(unidade).getNomeFantasia());
-		service.setCaminho("/jasper/folha/VariacaoCustoPorNivel_unidade_pizza_grafico.jasper");
+		service.setCaminho(preCaminho+"folha/VariacaoCustoPorNivel_unidade_pizza_grafico.jasper");
 		byte[] bytes = service.gerarRelatorio(); 
 		response.setContentType(MediaType.APPLICATION_PDF_VALUE);
 		//Faz o download
@@ -424,7 +470,7 @@ public class JasperController {
 	@GetMapping("/relatoriosFolha/VariacaoCustoPorUnidade_pizza_grafico")
 	public void exibirRelatoriosFolhaVariacaoCustoPorUnidade_pizza_grafico(@RequestParam("mes") Long mes,  HttpServletResponse response) throws IOException {
 		service.addParametros("MES_I", anoMesService.buscarPorId(mes).getNomeAnoMes());		
-		service.setCaminho("/jasper/folha/VariacaoCustoPorUnidade_pizza_grafico.jasper");
+		service.setCaminho(preCaminho+"folha/VariacaoCustoPorUnidade_pizza_grafico.jasper");
 		byte[] bytes = service.gerarRelatorio(); 
 		response.setContentType(MediaType.APPLICATION_PDF_VALUE);
 		//Faz o download
@@ -443,7 +489,7 @@ public class JasperController {
 	@GetMapping("/relatoriosFolha/VencimentosTodosPorMes")
 	public void exibirRelatoriosVencimentosTodosPorMes(@RequestParam("mes") Long mes, HttpServletResponse response) throws IOException {
 		service.addParametros("MES_I", mes);		
-		service.setCaminho("/jasper/folha/VencimentosTodosPorMes.jasper");
+		service.setCaminho(preCaminho+"folha/VencimentosTodosPorMes.jasper");
 		byte[] bytes = service.gerarRelatorio(); 
 		response.setContentType(MediaType.APPLICATION_PDF_VALUE);
 		//Faz o download
@@ -548,7 +594,7 @@ public class JasperController {
 			
 			
 			
-			service.setCaminho("/jasper/folha/processo_por_fonte7.jasper");
+			service.setCaminho(preCaminho+"folha/processo_por_fonte7.jasper");
 			byte[] bytes = service.gerarRelatorio(); 
 			response.setContentType(MediaType.APPLICATION_PDF_VALUE);
 			//Faz o download
@@ -645,7 +691,7 @@ public class JasperController {
 			
 			
 			
-			service.setCaminho("/jasper/folha/processo_por_fonte_e_unidade1.jasper");
+			service.setCaminho(preCaminho+"folha/processo_por_fonte_e_unidade1.jasper");
 			byte[] bytes = service.gerarRelatorio(); 
 			response.setContentType(MediaType.APPLICATION_PDF_VALUE);
 			//Faz o download
@@ -740,7 +786,7 @@ public class JasperController {
 			
 			
 			
-			service.setCaminho("/jasper/folha/processo_por_unidade2.jasper");
+			service.setCaminho(preCaminho+"folha/processo_por_unidade2.jasper");
 			byte[] bytes = service.gerarRelatorio(); 
 			response.setContentType(MediaType.APPLICATION_PDF_VALUE);
 			//Faz o download
