@@ -7,6 +7,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.io.ClassPathResource;
+import org.springframework.core.io.Resource;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -18,16 +20,19 @@ import com.folha.boot.domain.AnoMes;
 import com.folha.boot.domain.CargosEspecialidade;
 import com.folha.boot.domain.Fonte;
 import com.folha.boot.domain.NiveisCargo;
+import com.folha.boot.domain.RubricaPensaoObsVencimento;
 import com.folha.boot.domain.RubricaVencimento;
 import com.folha.boot.domain.Unidades;
 import com.folha.boot.service.AnoMesService;
 import com.folha.boot.service.CargosEspecialidadeService;
 import com.folha.boot.service.FonteService;
 import com.folha.boot.service.NiveisCargoService;
+import com.folha.boot.service.RubricaPensaoObsVencimentoService;
 import com.folha.boot.service.RubricaVencimentoService;
 import com.folha.boot.service.UnidadesService;
 import com.folha.boot.service.relatorios.JasperService;
 import com.folha.boot.service.util.Extenso;
+import com.folha.boot.service.util.UtilidadesDeCalendarioEEscala;
 import com.folha.boot.service.util.UtilidadesMatematicas;
 @RequestMapping("/jasper")
 @Controller
@@ -46,6 +51,8 @@ public class JasperController {
 	@Autowired
 	private RubricaVencimentoService rubricaVencimentoService;
 	@Autowired
+	private RubricaPensaoObsVencimentoService rubricaPensaoObsVencimentoService;
+	@Autowired
 	private JasperService service;
 	
 	@GetMapping("/reports")
@@ -53,7 +60,7 @@ public class JasperController {
 		return "reports";
 	}
 	
-	String preCaminho = "/jasper/";
+	
 	
 	@GetMapping("/relatorio/pdf/jr1")
 /*	public void exibirRelatorio(@RequestParam("code") String code,   
@@ -62,8 +69,10 @@ public class JasperController {
 	public void exibirRelatorio(@RequestParam("code") String code, HttpServletResponse response) throws IOException {
 		//System.out.println(code);
 		
-		service.addParametros("NOME_I", code);		
-		service.setCaminho(preCaminho+"funcionarios-01.jasper");
+		service.addParametros("NOME_I", code);	
+		Resource resource = new ClassPathResource("static/image/logo.png");
+		service.addParametros("LOGO", resource.getURL().toString().substring(6));
+		service.setCaminho("jasper/funcionarios-01.jasper");
 		byte[] bytes = service.gerarRelatorio(); 
 		response.setContentType(MediaType.APPLICATION_PDF_VALUE);
 		//Faz o download
@@ -86,8 +95,15 @@ public class JasperController {
 		
 		service.addParametros("ANO_MES_I", mes);
 		service.addParametros("mes", anoMesService.buscarPorId(mes).getNomeAnoMes());
-		service.setCaminho(preCaminho+"folha/maiores_salarios_com_cargo.jasper");
-		byte[] bytes = service.gerarRelatorio(); 
+		Resource resource = new ClassPathResource("static/image/logo.png");
+		service.addParametros("LOGO", resource.getURL().toString().substring(6));
+		
+		Resource resourceReport = new ClassPathResource("jasper/folha/maiores_salarios_com_cargo.jasper");
+		service.setCaminho( resourceReport.getURI().toString().substring(6) );
+		
+		//service.setCaminho( "/jasper/folha/maiores_salarios_com_cargo.jasper" );
+		//byte[] bytes = service.gerarRelatorio(); 
+		byte[] bytes = service.gerarRelatorio1();
 		response.setContentType(MediaType.APPLICATION_PDF_VALUE);
 		//Faz o download
 		response.setHeader("Content-disposition", "attachment; filename=dados.pdf");
@@ -108,8 +124,14 @@ public class JasperController {
 		
 		service.addParametros("ANO_MES_I", mes);
 		service.addParametros("mes", anoMesService.buscarPorId(mes).getNomeAnoMes());
-		service.setCaminho(preCaminho+"folha/maiores_salarios.jasper");
-		byte[] bytes = service.gerarRelatorio(); 
+		Resource resource = new ClassPathResource("static/image/logo.png");
+		service.addParametros("LOGO", resource.getURL().toString().substring(6));
+		
+		Resource resourceReport = new ClassPathResource("jasper/folha/maiores_salarios.jasper");
+		service.setCaminho( resourceReport.getURI().toString().substring(6) );
+		
+		//service.setCaminho("/jasper/folha/maiores_salarios.jasper");
+		byte[] bytes = service.gerarRelatorio1(); 
 		response.setContentType(MediaType.APPLICATION_PDF_VALUE);
 		//Faz o download
 		response.setHeader("Content-disposition", "attachment; filename=dados.pdf");
@@ -127,9 +149,15 @@ public class JasperController {
 	@GetMapping("/relatoriosFolha/variacaoCustoPorUnidade")
 	public void exibirRelatoriosFolhaVariacaoCustoPorUnidade(@RequestParam("ano") String ano, HttpServletResponse response) throws IOException {
 		if(ano.length()==4) {ano = ano+"%";}
-		service.addParametros("ANO_I", ano);		
-		service.setCaminho(preCaminho+"folha/variacaoCustoPorUnidade.jasper");
-		byte[] bytes = service.gerarRelatorio(); 
+		service.addParametros("ANO_I", ano);	
+		Resource resource = new ClassPathResource("static/image/logo.png");
+		service.addParametros("LOGO", resource.getURL().toString().substring(6));
+		
+		Resource resourceReport = new ClassPathResource("jasper/folha/variacaoCustoPorUnidade.jasper");
+		service.setCaminho( resourceReport.getURI().toString().substring(6) );
+		
+		//service.setCaminho("/jasper/folha/variacaoCustoPorUnidade.jasper");
+		byte[] bytes = service.gerarRelatorio1(); 
 		response.setContentType(MediaType.APPLICATION_PDF_VALUE);
 		//Faz o download
 		response.setHeader("Content-disposition", "attachment; filename=dados.pdf");
@@ -147,9 +175,15 @@ public class JasperController {
 	@GetMapping("/relatoriosFolha/variacaoCustoPorUnidadeMediaLeito")
 	public void exibirRelatoriosFolhaVariacaoCustoPorUnidadeMediaLeito(@RequestParam("ano") String ano, HttpServletResponse response) throws IOException {
 		if(ano.length()==4) {ano = ano+"%";}
-		service.addParametros("ANO_I", ano);		
-		service.setCaminho(preCaminho+"folha/variacaoCustoPorUnidadeMediaLeito.jasper");
-		byte[] bytes = service.gerarRelatorio(); 
+		service.addParametros("ANO_I", ano);	
+		Resource resource = new ClassPathResource("static/image/logo.png");
+		service.addParametros("LOGO", resource.getURL().toString().substring(6));
+		
+		Resource resourceReport = new ClassPathResource("jasper/folha/variacaoCustoPorUnidadeMediaLeito.jasper");
+		service.setCaminho( resourceReport.getURI().toString().substring(6) );
+		
+		//service.setCaminho("/jasper/folha/variacaoCustoPorUnidadeMediaLeito.jasper");
+		byte[] bytes = service.gerarRelatorio1(); 
 		response.setContentType(MediaType.APPLICATION_PDF_VALUE);
 		//Faz o download
 		response.setHeader("Content-disposition", "attachment; filename=dados.pdf");
@@ -166,9 +200,15 @@ public class JasperController {
 	@GetMapping("/relatoriosFolha/variacaoCustoPorUnidadeMediaLeitoCadastrado")
 	public void exibirRelatoriosFolhaVariacaoCustoPorUnidadeMediaLeitoCadastrado(@RequestParam("ano") String ano, HttpServletResponse response) throws IOException {
 		if(ano.length()==4) {ano = ano+"%";}
-		service.addParametros("ANO_I", ano);		
-		service.setCaminho(preCaminho+"folha/variacaoCustoPorUnidadeMediaLeitoCadastrado.jasper");
-		byte[] bytes = service.gerarRelatorio(); 
+		service.addParametros("ANO_I", ano);	
+		Resource resource = new ClassPathResource("static/image/logo.png");
+		service.addParametros("LOGO", resource.getURL().toString().substring(6));
+		
+		Resource resourceReport = new ClassPathResource("jasper/folha/variacaoCustoPorUnidadeMediaLeitoCadastrado.jasper");
+		service.setCaminho( resourceReport.getURI().toString().substring(6) );
+		
+		//service.setCaminho("/jasper/folha/variacaoCustoPorUnidadeMediaLeitoCadastrado.jasper");
+		byte[] bytes = service.gerarRelatorio1(); 
 		response.setContentType(MediaType.APPLICATION_PDF_VALUE);
 		//Faz o download
 		response.setHeader("Content-disposition", "attachment; filename=dados.pdf");
@@ -188,9 +228,15 @@ public class JasperController {
 	@GetMapping("/relatoriosFolha/variacaoCustoPorFonte")
 	public void exibirRelatoriosFolhavariacaoCustoPorFonte(@RequestParam("ano") String ano, HttpServletResponse response) throws IOException {
 		if(ano.length()==4) {ano = ano+"%";}
-		service.addParametros("ANO_I", ano);		
-		service.setCaminho(preCaminho+"folha/variacaoCustoPorFonte.jasper");
-		byte[] bytes = service.gerarRelatorio(); 
+		service.addParametros("ANO_I", ano);	
+		Resource resource = new ClassPathResource("static/image/logo.png");
+		service.addParametros("LOGO", resource.getURL().toString().substring(6));
+		
+		Resource resourceReport = new ClassPathResource("jasper/folha/variacaoCustoPorFonte.jasper");
+		service.setCaminho( resourceReport.getURI().toString().substring(6) );
+		
+		//service.setCaminho("/jasper/folha/variacaoCustoPorFonte.jasper");
+		byte[] bytes = service.gerarRelatorio1(); 
 		response.setContentType(MediaType.APPLICATION_PDF_VALUE);
 		//Faz o download
 		response.setHeader("Content-disposition", "attachment; filename=dados.pdf");
@@ -208,9 +254,15 @@ public class JasperController {
 	@GetMapping("/relatoriosFolha/variacaoCustoPorMes")
 	public void exibirRelatoriosFolhavariacaoCustoPorMes(@RequestParam("ano") String ano, HttpServletResponse response) throws IOException {
 		if(ano.length()==4) {ano = ano+"%";}
-		service.addParametros("ANO_I", ano);		
-		service.setCaminho(preCaminho+"folha/variacaoCustoPorMes.jasper");
-		byte[] bytes = service.gerarRelatorio(); 
+		service.addParametros("ANO_I", ano);	
+		Resource resource = new ClassPathResource("static/image/logo.png");
+		service.addParametros("LOGO", resource.getURL().toString().substring(6));
+		
+		Resource resourceReport = new ClassPathResource("jasper/folha/variacaoCustoPorMes.jasper");
+		service.setCaminho( resourceReport.getURI().toString().substring(6) );
+		
+		//service.setCaminho("/jasper/folha/variacaoCustoPorMes.jasper");
+		byte[] bytes = service.gerarRelatorio1(); 
 		response.setContentType(MediaType.APPLICATION_PDF_VALUE);
 		//Faz o download
 		response.setHeader("Content-disposition", "attachment; filename=dados.pdf");
@@ -229,9 +281,15 @@ public class JasperController {
 	@GetMapping("/relatoriosFolha/variacaoCustoPorUnidadeArea")
 	public void exibirRelatoriosFolhavariacaoCustoPorUnidadeArea(@RequestParam("ano") String ano, HttpServletResponse response) throws IOException {
 		if(ano.length()==4) {ano = ano+"%";}
-		service.addParametros("ANO_I", ano);		
-		service.setCaminho(preCaminho+"folha/variacaoCustoPorUnidadeArea.jasper");
-		byte[] bytes = service.gerarRelatorio(); 
+		service.addParametros("ANO_I", ano);	
+		Resource resource = new ClassPathResource("static/image/logo.png");
+		service.addParametros("LOGO", resource.getURL().toString().substring(6));
+		
+		Resource resourceReport = new ClassPathResource("jasper/folha/variacaoCustoPorUnidadeArea.jasper");
+		service.setCaminho( resourceReport.getURI().toString().substring(6) );
+		
+		//service.setCaminho("/jasper/folha/variacaoCustoPorUnidadeArea.jasper");
+		byte[] bytes = service.gerarRelatorio1(); 
 		response.setContentType(MediaType.APPLICATION_PDF_VALUE);
 		//Faz o download
 		response.setHeader("Content-disposition", "attachment; filename=dados.pdf");
@@ -250,9 +308,15 @@ public class JasperController {
 	@GetMapping("/relatoriosFolha/variacaoCustoPorUnidadeFolha")
 	public void exibirRelatoriosFolhavariacaoCustoPorUnidadeFolha(@RequestParam("ano") String ano, HttpServletResponse response) throws IOException {
 		if(ano.length()==4) {ano = ano+"%";}
-		service.addParametros("ANO_I", ano);		
-		service.setCaminho(preCaminho+"folha/variacaoCustoPorUnidadeFolha.jasper");
-		byte[] bytes = service.gerarRelatorio(); 
+		service.addParametros("ANO_I", ano);	
+		Resource resource = new ClassPathResource("static/image/logo.png");
+		service.addParametros("LOGO", resource.getURL().toString().substring(6));
+		
+		Resource resourceReport = new ClassPathResource("jasper/folha/variacaoCustoPorUnidadeFolha.jasper");
+		service.setCaminho( resourceReport.getURI().toString().substring(6) );
+		
+		//service.setCaminho("/jasper/folha/variacaoCustoPorUnidadeFolha.jasper");
+		byte[] bytes = service.gerarRelatorio1(); 
 		response.setContentType(MediaType.APPLICATION_PDF_VALUE);
 		//Faz o download
 		response.setHeader("Content-disposition", "attachment; filename=dados.pdf");
@@ -269,9 +333,15 @@ public class JasperController {
 	@GetMapping("/relatoriosFolha/variacaoCustoPorUnidadeNivel")
 	public void exibirRelatoriosFolhavariacaoCustoPorUnidadeNivel(@RequestParam("ano") String ano, HttpServletResponse response) throws IOException {
 		if(ano.length()==4) {ano = ano+"%";}
-		service.addParametros("ANO_I", ano);		
-		service.setCaminho(preCaminho+"folha/variacaoCustoPorUnidadeNivel.jasper");
-		byte[] bytes = service.gerarRelatorio(); 
+		service.addParametros("ANO_I", ano);	
+		Resource resource = new ClassPathResource("static/image/logo.png");
+		service.addParametros("LOGO", resource.getURL().toString().substring(6));
+		
+		Resource resourceReport = new ClassPathResource("jasper/folha/variacaoCustoPorUnidadeNivel.jasper");
+		service.setCaminho( resourceReport.getURI().toString().substring(6) );
+		
+		//service.setCaminho("/jasper/folha/variacaoCustoPorUnidadeNivel.jasper");
+		byte[] bytes = service.gerarRelatorio1(); 
 		response.setContentType(MediaType.APPLICATION_PDF_VALUE);
 		//Faz o download
 		response.setHeader("Content-disposition", "attachment; filename=dados.pdf");
@@ -290,9 +360,15 @@ public class JasperController {
 	@GetMapping("/relatoriosFolha/variacaoCustoPorUnidadeNivelCargo")
 	public void exibirRelatoriosFolhavariacaoCustoPorUnidadeNivelCargo(@RequestParam("ano") String ano, HttpServletResponse response) throws IOException {
 		if(ano.length()==4) {ano = ano+"%";}
-		service.addParametros("ANO_I", ano);		
-		service.setCaminho(preCaminho+"folha/variacaoCustoPorUnidadeNivelCargo.jasper");
-		byte[] bytes = service.gerarRelatorio(); 
+		service.addParametros("ANO_I", ano);
+		Resource resource = new ClassPathResource("static/image/logo.png");
+		service.addParametros("LOGO", resource.getURL().toString().substring(6));
+		
+		Resource resourceReport = new ClassPathResource("jasper/folha/variacaoCustoPorUnidadeNivelCargo.jasper");
+		service.setCaminho( resourceReport.getURI().toString().substring(6) );
+		
+		//service.setCaminho("/jasper/folha/variacaoCustoPorUnidadeNivelCargo.jasper");
+		byte[] bytes = service.gerarRelatorio1(); 
 		response.setContentType(MediaType.APPLICATION_PDF_VALUE);
 		//Faz o download
 		response.setHeader("Content-disposition", "attachment; filename=dados.pdf");
@@ -320,9 +396,15 @@ public class JasperController {
 	@GetMapping("/relatoriosFolha/variacaoCustoPorMes_grafico")
 	public void exibirRelatoriosFolhavariacaoCustoPorMes_grafico(@RequestParam("ano") String ano, HttpServletResponse response) throws IOException {
 		if(ano.length()==4) {ano = ano+"%";}
-		service.addParametros("ANO_I", ano);		
-		service.setCaminho(preCaminho+"folha/variacaoCustoPorMes_grafico.jasper");
-		byte[] bytes = service.gerarRelatorio(); 
+		service.addParametros("ANO_I", ano);	
+		Resource resource = new ClassPathResource("static/image/logo.png");
+		service.addParametros("LOGO", resource.getURL().toString().substring(6));
+		
+		Resource resourceReport = new ClassPathResource("jasper/folha/variacaoCustoPorMes_grafico.jasper");
+		service.setCaminho( resourceReport.getURI().toString().substring(6) );
+		
+		//service.setCaminho("/jasper/folha/variacaoCustoPorMes_grafico.jasper");
+		byte[] bytes = service.gerarRelatorio1(); 
 		response.setContentType(MediaType.APPLICATION_PDF_VALUE);
 		//Faz o download
 		response.setHeader("Content-disposition", "attachment; filename=dados.pdf");
@@ -340,9 +422,15 @@ public class JasperController {
 	@GetMapping("/relatoriosFolha/variacaoCustoPorMes_global_grafico")
 	public void exibirRelatoriosFolhavariacaoCustoPorMes_global_grafico(@RequestParam("ano") String ano, HttpServletResponse response) throws IOException {
 		if(ano.length()==4) {ano = ano+"%";}
-		service.addParametros("ANO_I", ano);		
-		service.setCaminho(preCaminho+"folha/variacaoCustoPorMes_global_grafico.jasper");
-		byte[] bytes = service.gerarRelatorio(); 
+		service.addParametros("ANO_I", ano);	
+		Resource resource = new ClassPathResource("static/image/logo.png");
+		service.addParametros("LOGO", resource.getURL().toString().substring(6));
+		
+		Resource resourceReport = new ClassPathResource("jasper/folha/variacaoCustoPorMes_global_grafico.jasper");
+		service.setCaminho( resourceReport.getURI().toString().substring(6) );
+		
+		//service.setCaminho("/jasper/folha/variacaoCustoPorMes_global_grafico.jasper");
+		byte[] bytes = service.gerarRelatorio1(); 
 		response.setContentType(MediaType.APPLICATION_PDF_VALUE);
 		//Faz o download
 		response.setHeader("Content-disposition", "attachment; filename=dados.pdf");
@@ -362,8 +450,14 @@ public class JasperController {
 		service.addParametros("ANO_I", ano);		
 		service.addParametros("UNIDADE_I", unidade);
 		service.addParametros("UNIDADE_NOME_I", unidadesService.buscarPorId(unidade).getNomeFantasia());
-		service.setCaminho(preCaminho+"folha/VariacaoCustoPorNivel_unidade_grafico.jasper");
-		byte[] bytes = service.gerarRelatorio(); 
+		Resource resource = new ClassPathResource("static/image/logo.png");
+		service.addParametros("LOGO", resource.getURL().toString().substring(6));
+		
+		Resource resourceReport = new ClassPathResource("jasper/folha/VariacaoCustoPorNivel_unidade_grafico.jasper");
+		service.setCaminho( resourceReport.getURI().toString().substring(6) );
+		
+		//service.setCaminho("/jasper/folha/VariacaoCustoPorNivel_unidade_grafico.jasper");
+		byte[] bytes = service.gerarRelatorio1(); 
 		response.setContentType(MediaType.APPLICATION_PDF_VALUE);
 		//Faz o download
 		response.setHeader("Content-disposition", "attachment; filename=dados.pdf");
@@ -385,8 +479,14 @@ public class JasperController {
 		service.addParametros("UNIDADE_NOME_I", unidadesService.buscarPorId(unidade).getNomeFantasia());
 		service.addParametros("NIVEL_I", nivel);
 		service.addParametros("NIVEL_NOME_I", niveisCargoService.buscarPorId(nivel).getNomeNivelCargo());
-		service.setCaminho(preCaminho+"folha/VariacaoCustoPorCargo_unidade_grafico.jasper");
-		byte[] bytes = service.gerarRelatorio(); 
+		Resource resource = new ClassPathResource("static/image/logo.png");
+		service.addParametros("LOGO", resource.getURL().toString().substring(6));
+		
+		Resource resourceReport = new ClassPathResource("jasper/folha/VariacaoCustoPorCargo_unidade_grafico.jasper");
+		service.setCaminho( resourceReport.getURI().toString().substring(6) );
+		
+		//service.setCaminho("/jasper/folha/VariacaoCustoPorCargo_unidade_grafico.jasper");
+		byte[] bytes = service.gerarRelatorio1(); 
 		response.setContentType(MediaType.APPLICATION_PDF_VALUE);
 		//Faz o download
 		response.setHeader("Content-disposition", "attachment; filename=dados.pdf");
@@ -409,8 +509,14 @@ public class JasperController {
 		service.addParametros("UNIDADE_NOME_I", unidadesService.buscarPorId(unidade).getNomeFantasia());
 		service.addParametros("NIVEL_I", nivel);
 		service.addParametros("NIVEL_NOME_I", niveisCargoService.buscarPorId(nivel).getNomeNivelCargo());
-		service.setCaminho(preCaminho+"folha/VariacaoCustoPorEspecialidade_unidade_grafico.jasper");
-		byte[] bytes = service.gerarRelatorio(); 
+		Resource resource = new ClassPathResource("static/image/logo.png");
+		service.addParametros("LOGO", resource.getURL().toString().substring(6));
+		
+		Resource resourceReport = new ClassPathResource("jasper/folha/VariacaoCustoPorEspecialidade_unidade_grafico.jasper");
+		service.setCaminho( resourceReport.getURI().toString().substring(6) );
+		
+		//service.setCaminho("/jasper/folha/VariacaoCustoPorEspecialidade_unidade_grafico.jasper");
+		byte[] bytes = service.gerarRelatorio1(); 
 		response.setContentType(MediaType.APPLICATION_PDF_VALUE);
 		//Faz o download
 		response.setHeader("Content-disposition", "attachment; filename=dados.pdf");
@@ -432,8 +538,14 @@ public class JasperController {
 		service.addParametros("UNIDADE_NOME_I", unidadesService.buscarPorId(unidade).getNomeFantasia());
 		service.addParametros("ESPECIALIDADE_I", especialidade);
 		service.addParametros("ESPECIALIDADE_NOME_I", cargosEspecialidadeService.buscarPorId(especialidade).getIdCargoFk().getNomeCargo()+" - "+cargosEspecialidadeService.buscarPorId(especialidade).getNomeEspecialidadeCargo());
-		service.setCaminho(preCaminho+"folha/VariacaoCustoPorEspecialidade_na_unidade_grafico.jasper");
-		byte[] bytes = service.gerarRelatorio(); 
+		Resource resource = new ClassPathResource("static/image/logo.png");
+		service.addParametros("LOGO", resource.getURL().toString().substring(6));
+		
+		Resource resourceReport = new ClassPathResource("jasper/folha/VariacaoCustoPorEspecialidade_na_unidade_grafico.jasper");
+		service.setCaminho( resourceReport.getURI().toString().substring(6) );
+		
+		//service.setCaminho("/jasper/folha/VariacaoCustoPorEspecialidade_na_unidade_grafico.jasper");
+		byte[] bytes = service.gerarRelatorio1(); 
 		response.setContentType(MediaType.APPLICATION_PDF_VALUE);
 		//Faz o download
 		response.setHeader("Content-disposition", "attachment; filename=dados.pdf");
@@ -452,8 +564,14 @@ public class JasperController {
 		service.addParametros("MES_I", anoMesService.buscarPorId(mes).getNomeAnoMes());		
 		service.addParametros("UNIDADE_I", unidade);
 		service.addParametros("UNIDADE_NOME_I", unidadesService.buscarPorId(unidade).getNomeFantasia());
-		service.setCaminho(preCaminho+"folha/VariacaoCustoPorNivel_unidade_pizza_grafico.jasper");
-		byte[] bytes = service.gerarRelatorio(); 
+		Resource resource = new ClassPathResource("static/image/logo.png");
+		service.addParametros("LOGO", resource.getURL().toString().substring(6));
+		
+		Resource resourceReport = new ClassPathResource("jasper/folha/VariacaoCustoPorNivel_unidade_pizza_grafico.jasper");
+		service.setCaminho( resourceReport.getURI().toString().substring(6) );
+		
+		//service.setCaminho("/jasper/folha/VariacaoCustoPorNivel_unidade_pizza_grafico.jasper");
+		byte[] bytes = service.gerarRelatorio1(); 
 		response.setContentType(MediaType.APPLICATION_PDF_VALUE);
 		//Faz o download
 		response.setHeader("Content-disposition", "attachment; filename=dados.pdf");
@@ -470,8 +588,14 @@ public class JasperController {
 	@GetMapping("/relatoriosFolha/VariacaoCustoPorUnidade_pizza_grafico")
 	public void exibirRelatoriosFolhaVariacaoCustoPorUnidade_pizza_grafico(@RequestParam("mes") Long mes,  HttpServletResponse response) throws IOException {
 		service.addParametros("MES_I", anoMesService.buscarPorId(mes).getNomeAnoMes());		
-		service.setCaminho(preCaminho+"folha/VariacaoCustoPorUnidade_pizza_grafico.jasper");
-		byte[] bytes = service.gerarRelatorio(); 
+		Resource resource = new ClassPathResource("static/image/logo.png");
+		service.addParametros("LOGO", resource.getURL().toString().substring(6));
+		
+		Resource resourceReport = new ClassPathResource("jasper/folha/VariacaoCustoPorUnidade_pizza_grafico.jasper");
+		service.setCaminho( resourceReport.getURI().toString().substring(6) );
+		
+		//service.setCaminho("/jasper/folha/VariacaoCustoPorUnidade_pizza_grafico.jasper");
+		byte[] bytes = service.gerarRelatorio1(); 
 		response.setContentType(MediaType.APPLICATION_PDF_VALUE);
 		//Faz o download
 		response.setHeader("Content-disposition", "attachment; filename=dados.pdf");
@@ -488,9 +612,15 @@ public class JasperController {
 
 	@GetMapping("/relatoriosFolha/VencimentosTodosPorMes")
 	public void exibirRelatoriosVencimentosTodosPorMes(@RequestParam("mes") Long mes, HttpServletResponse response) throws IOException {
-		service.addParametros("MES_I", mes);		
-		service.setCaminho(preCaminho+"folha/VencimentosTodosPorMes.jasper");
-		byte[] bytes = service.gerarRelatorio(); 
+		service.addParametros("MES_I", mes);
+		Resource resource = new ClassPathResource("static/image/logo.png");
+		service.addParametros("LOGO", resource.getURL().toString().substring(6));
+		
+		Resource resourceReport = new ClassPathResource("jasper/folha/VencimentosTodosPorMes.jasper");
+		service.setCaminho( resourceReport.getURI().toString().substring(6) );
+		
+		//service.setCaminho("/jasper/folha/VencimentosTodosPorMes.jasper");
+		byte[] bytes = service.gerarRelatorio1(); 
 		response.setContentType(MediaType.APPLICATION_PDF_VALUE);
 		//Faz o download
 		response.setHeader("Content-disposition", "attachment; filename=dados.pdf");
@@ -519,20 +649,30 @@ public class JasperController {
 			Double totalPatronal = 0.0;
 			Double totalLiquido = 0.0;
 			Double totalBrutoComPatronal = 0.0;
+			Double totalInssComPatronal = 0.0;
+			
 			
 			List<RubricaVencimento> lista = rubricaVencimentoService.buscarPorMesEFonteDescontoOuVantagem(anoMesService.buscarPorId(mes), fonteService.buscarPorId(fonte), "V");
 			
 			for(int i=0;i<lista.size();i++) {
-				totalBruto = totalBruto + lista.get(i).getValorBruto() - lista.get(i).getDescontoProp();
+				totalBruto = totalBruto + lista.get(i).getValorLiquido() + lista.get(i).getValorIr() + lista.get(i).getValorPrevidencia() + lista.get(i).getPensaoProp();
 				totalInss = totalInss + lista.get(i).getValorPrevidencia();
 				totalIr = totalIr + lista.get(i).getValorIr();
 				totalPensao = totalPensao + lista.get(i).getPensaoProp();
 				totalOutrosDescontos = totalOutrosDescontos + lista.get(i).getPensaoProp();
 				totalPatronal = totalPatronal + lista.get(i).getValorPatronal();
-				totalLiquido = totalLiquido + lista.get(i).getValorLiquido();
+				totalLiquido = totalLiquido + lista.get(i).getValorLiquido() ;
 			}
 			
 			totalBrutoComPatronal = totalBruto + totalPatronal;
+			totalInssComPatronal = totalInss + totalPatronal;
+			
+			//Colocando ir e liquido da pensao na conta
+			List<RubricaPensaoObsVencimento> listaPensoes = rubricaPensaoObsVencimentoService.buscarPorMes(anoMesService.buscarPorId(mes));
+			for(int i=0;i<listaPensoes.size();i++) {
+				totalIr = totalIr + listaPensoes.get(i).getValorIr();
+				totalLiquido = totalLiquido + listaPensoes.get(i).getValorLiqido();
+			}
 			
 			Extenso a = new Extenso(UtilidadesMatematicas.ajustaValorDecimal(totalBruto, 2));
 			String totalBrutoExtenso = a.toString() ;
@@ -566,8 +706,21 @@ public class JasperController {
 			String totalPensaoExtenso = h.toString() ;
 			if(totalPensaoExtenso.equalsIgnoreCase("")) {totalPensaoExtenso = "Zero real e Zero centavo";}
 			 
+			Extenso i = new Extenso(UtilidadesMatematicas.ajustaValorDecimal(totalInssComPatronal, 2));
+			String totalInssComPatronalExtenso = i.toString() ;
+			if(totalInssComPatronalExtenso.equalsIgnoreCase("")) {totalInssComPatronalExtenso = "Zero real e Zero centavo";}
+			
 			service.addParametros("mes", anoMesService.buscarPorId(mes).getNomeAnoMes());
 			service.addParametros("fonte", fonteService.buscarPorId(fonte).getNome());
+			
+			service.addParametros("NOME_MES_I", anoMesService.buscarPorId(mes).getNomeAnoMes().substring(4));
+			service.addParametros("NOME_ANO_I", anoMesService.buscarPorId(mes).getNomeAnoMes().substring(0,4)+"%");
+			
+			Long idMesAnterior = 0L;
+			List<AnoMes> listaMesesAnteriores = anoMesService.buscarPorNome( UtilidadesDeCalendarioEEscala.mesAnteriorAnterior(anoMesService.buscarPorId(mes).getNomeAnoMes() ) );
+			if(!listaMesesAnteriores.isEmpty()) {idMesAnterior = listaMesesAnteriores.get(0).getId();}
+			
+			service.addParametros("ID_ANO_MES_ANTERIOR_I", idMesAnterior);
 			
 			service.addParametros("ANO_MES_I", mes);		
 			service.addParametros("FONTE_I", fonte);
@@ -580,6 +733,7 @@ public class JasperController {
 			service.addParametros("VALOR_TOTAL_PATRONAL_I", "R$ "+UtilidadesMatematicas.ajustaValorDecimal(totalPatronal, 2));
 			service.addParametros("VALOR_TOTAL_LIQUIDO_I", "R$ "+UtilidadesMatematicas.ajustaValorDecimal(totalLiquido, 2));
 			service.addParametros("VALOR_TOTAL_BRUTO_COM_PATRONAL_I", "R$ "+UtilidadesMatematicas.ajustaValorDecimal(totalBrutoComPatronal, 2));
+			service.addParametros("VALOR_TOTAL_INSS_COM_PATRONAL_I", "R$ "+UtilidadesMatematicas.ajustaValorDecimal(totalInssComPatronal, 2));
 			
 			service.addParametros("TOTAL_BRUTO_I", totalBrutoExtenso);
 			service.addParametros("TOTAL_INSS_I", totalInssExtenso);
@@ -589,13 +743,39 @@ public class JasperController {
 			service.addParametros("TOTAL_PATRONAL_I", totalPatronalExtenso);
 			service.addParametros("TOTAL_LIQUIDO_I", totalLiquidoExtenso);
 			service.addParametros("TOTAL_BRUTO_COM_PATRONAL_I", totalBrutoComPatronalExtenso);
+			service.addParametros("TOTAL_INSS_COM_PATRONAL_I", totalInssComPatronalExtenso);
+			
+			//Colocando os subreport
+			
+			Resource resourceReport00 = new ClassPathResource("jasper/folha/processo_por_fonte_sub10.jasper");
+			service.addParametros("SUB_COMPARATIVO_MES_ANTERIOR", resourceReport00.getURI().toString().substring(6));
+			
+			Resource resourceReport0 = new ClassPathResource("jasper/folha/processo_por_fonte_sub_5.jasper");
+			service.addParametros("SUB_COMPARATIVO", resourceReport0.getURI().toString().substring(6));
+			
+			Resource resourceReport1 = new ClassPathResource("jasper/folha/processo_por_fonte_sub_6.jasper");
+			service.addParametros("SUB_VALORES", resourceReport1.getURI().toString().substring(6));
+			
+			Resource resourceReport2 = new ClassPathResource("jasper/folha/processo_por_fonte_sub8.jasper");
+			service.addParametros("SUB_HORAS", resourceReport2.getURI().toString().substring(6));
+			
+			Resource resourceReport3 = new ClassPathResource("jasper/folha/processo_por_fonte_sub1.jasper");
+			service.addParametros("SUB_PENSAO", resourceReport3.getURI().toString().substring(6));
+			
+			Resource resourceReport4 = new ClassPathResource("jasper/folha/processo_por_fonte_sub7.jasper");
+			service.addParametros("SUB_OBSERVACAO", resourceReport4.getURI().toString().substring(6));
 			
 			
 			
+			Resource resource = new ClassPathResource("static/image/logo.png");
+			service.addParametros("LOGO", resource.getURL().toString().substring(6));
+			
+			Resource resourceReport = new ClassPathResource("jasper/folha/processo_por_fonte7.jasper");
+			service.setCaminho( resourceReport.getURI().toString().substring(6) );
 			
 			
-			service.setCaminho(preCaminho+"folha/processo_por_fonte7.jasper");
-			byte[] bytes = service.gerarRelatorio(); 
+			//service.setCaminho("/jasper/folha/processo_por_fonte7.jasper");
+			byte[] bytes = service.gerarRelatorio1(); 
 			response.setContentType(MediaType.APPLICATION_PDF_VALUE);
 			//Faz o download
 			response.setHeader("Content-disposition", "attachment; filename=dados.pdf");
@@ -605,194 +785,6 @@ public class JasperController {
 	
 		
 		
-		
-		
-		//VencimentosTodosPorFonteEUnidade
-		@GetMapping("/abrirRelatoriosFolha/processoPorFonte/e/unidade")
-		public String abrirRelatoriosProcessoPorFonteEUnidade() {		
-			return "reports/ProcessoPorFonteEUnidade";
-		}
-
-		@GetMapping("/relatoriosFolha/processoPorFonte/e/unidade")
-		public void exibirRelatoriosProcessoPorFonteEUnidade(@RequestParam("mes") Long mes, @RequestParam("fonte") Long fonte, @RequestParam("unidade") Long unidade, HttpServletResponse response) throws IOException {
-			
-			
-			Double totalBruto = 0.0;
-			Double totalInss = 0.0;
-			Double totalIr = 0.0;
-			Double totalPensao = 0.0;
-			Double totalOutrosDescontos = 0.0;
-			Double totalPatronal = 0.0;
-			Double totalLiquido = 0.0;
-			Double totalBrutoComPatronal = 0.0;
-			
-			List<RubricaVencimento> lista = rubricaVencimentoService.buscarPorMesEFonteEunidadeDescontoOuVantagem(anoMesService.buscarPorId(mes), fonteService.buscarPorId(fonte), unidadesService.buscarPorId(unidade), "V");
-			
-			for(int i=0;i<lista.size();i++) {
-				totalBruto = totalBruto + lista.get(i).getValorBruto();
-				totalInss = totalInss + lista.get(i).getValorPrevidencia();
-				totalIr = totalIr + lista.get(i).getValorIr();
-				totalPensao = totalPensao + lista.get(i).getPensaoProp();
-				totalOutrosDescontos = totalOutrosDescontos + lista.get(i).getDescontoProp();
-				totalPatronal = totalPatronal + lista.get(i).getValorPatronal();
-				totalLiquido = totalLiquido + lista.get(i).getValorLiquido();
-			}
-			
-			totalBrutoComPatronal = totalBruto + totalPatronal;
-			
-			Extenso a = new Extenso(UtilidadesMatematicas.ajustaValorDecimal(totalBruto, 2));
-			String totalBrutoExtenso = a.toString() ;
-			
-			Extenso b = new Extenso(UtilidadesMatematicas.ajustaValorDecimal(totalInss, 2));
-			String totalInssExtenso = b.toString() ;
-					
-			Extenso c = new Extenso(UtilidadesMatematicas.ajustaValorDecimal(totalIr, 2));		
-			String totalIrExtenso = c.toString() ;
-					
-			Extenso d = new Extenso(UtilidadesMatematicas.ajustaValorDecimal(totalOutrosDescontos, 2));		
-			String totalOutrosDescontosExtenso = d.toString() ;
-					
-			Extenso e = new Extenso(UtilidadesMatematicas.ajustaValorDecimal(totalPatronal, 2));
-			String totalPatronalExtenso = e.toString() ;
-					
-			Extenso f = new Extenso(UtilidadesMatematicas.ajustaValorDecimal(totalLiquido, 2));
-			String totalLiquidoExtenso = f.toString() ;
-			
-			Extenso g = new Extenso(UtilidadesMatematicas.ajustaValorDecimal(totalBrutoComPatronal, 2));
-			String totalBrutoComPatronalExtenso = g.toString() ;
-			
-			Extenso h = new Extenso(UtilidadesMatematicas.ajustaValorDecimal(totalPensao, 2));
-			String totalPensaoExtenso = h.toString() ;
-			 
-			
-			service.addParametros("ANO_MES_I", mes);		
-			service.addParametros("FONTE_I", fonte);
-			service.addParametros("UNIDADE_I", unidade);
-			
-			service.addParametros("VALOR_TOTAL_BRUTO_I", "R$ "+UtilidadesMatematicas.ajustaValorDecimal(totalBruto, 2));
-			service.addParametros("VALOR_TOTAL_INSS_I", "R$ "+UtilidadesMatematicas.ajustaValorDecimal(totalInss, 2));
-			service.addParametros("VALOR_TOTAL_IR_I", "R$ "+UtilidadesMatematicas.ajustaValorDecimal(totalIr, 2));
-			service.addParametros("VALOR_TOTAL_PENSAO_I", "R$ "+UtilidadesMatematicas.ajustaValorDecimal(totalPensao, 2));
-			service.addParametros("VALOR_TOTAL_OUTROS_DESCONTOS_I", "R$ "+UtilidadesMatematicas.ajustaValorDecimal(totalOutrosDescontos, 2));
-			service.addParametros("VALOR_TOTAL_PATRONAL_I", "R$ "+UtilidadesMatematicas.ajustaValorDecimal(totalPatronal, 2));
-			service.addParametros("VALOR_TOTAL_LIQUIDO_I", "R$ "+UtilidadesMatematicas.ajustaValorDecimal(totalLiquido, 2));
-			service.addParametros("VALOR_TOTAL_BRUTO_COM_PATRONAL_I", "R$ "+UtilidadesMatematicas.ajustaValorDecimal(totalBrutoComPatronal, 2));
-			
-			service.addParametros("TOTAL_BRUTO_I", totalBrutoExtenso);
-			service.addParametros("TOTAL_INSS_I", totalInssExtenso);
-			service.addParametros("TOTAL_IR_I", totalIrExtenso);
-			service.addParametros("TOTAL_PENSAO_I", totalPensaoExtenso);
-			service.addParametros("TOTAL_OUTROS_DESCONTOS_I", totalOutrosDescontosExtenso);
-			service.addParametros("TOTAL_PATRONAL_I", totalPatronalExtenso);
-			service.addParametros("TOTAL_LIQUIDO_I", totalLiquidoExtenso);
-			service.addParametros("TOTAL_BRUTO_COM_PATRONAL_I", totalBrutoComPatronalExtenso);
-			
-			
-			
-			
-			
-			service.setCaminho(preCaminho+"folha/processo_por_fonte_e_unidade1.jasper");
-			byte[] bytes = service.gerarRelatorio(); 
-			response.setContentType(MediaType.APPLICATION_PDF_VALUE);
-			//Faz o download
-			response.setHeader("Content-disposition", "attachment; filename=dados.pdf");
-			response.getOutputStream().write(bytes);
-		}		
-	
-		
-		
-		
-		
-		//VencimentosTodosPorUnidade
-		@GetMapping("/abrirRelatoriosFolha/processoPorUnidade")
-		public String abrirRelatoriosProcessoPorUnidade() {		
-			return "reports/ProcessoPorUnidade";
-		}
-
-		@GetMapping("/relatoriosFolha/processoPorUnidade")
-		public void exibirRelatoriosProcessoPorUnidade(@RequestParam("mes") Long mes, @RequestParam("unidade") Long unidade, HttpServletResponse response) throws IOException {
-			
-			
-			Double totalBruto = 0.0;
-			Double totalInss = 0.0;
-			Double totalIr = 0.0;
-			Double totalPensao = 0.0;
-			Double totalOutrosDescontos = 0.0;
-			Double totalPatronal = 0.0;
-			Double totalLiquido = 0.0;
-			Double totalBrutoComPatronal = 0.0;
-			
-			List<RubricaVencimento> lista = rubricaVencimentoService.buscarPorMesEUnidadeDescontoOuVantagem(anoMesService.buscarPorId(mes), unidadesService.buscarPorId(unidade), "V");
-			
-			for(int i=0;i<lista.size();i++) {
-				totalBruto = totalBruto + lista.get(i).getValorBruto();
-				totalInss = totalInss + lista.get(i).getValorPrevidencia();
-				totalIr = totalIr + lista.get(i).getValorIr();
-				totalPensao = totalPensao + lista.get(i).getPensaoProp();
-				totalOutrosDescontos = totalOutrosDescontos + lista.get(i).getDescontoProp();
-				totalPatronal = totalPatronal + lista.get(i).getValorPatronal();
-				totalLiquido = totalLiquido + lista.get(i).getValorLiquido();
-			}
-			
-			totalBrutoComPatronal = totalBruto + totalPatronal;
-			
-			Extenso a = new Extenso(UtilidadesMatematicas.ajustaValorDecimal(totalBruto, 2));
-			String totalBrutoExtenso = a.toString() ;
-			
-			Extenso b = new Extenso(UtilidadesMatematicas.ajustaValorDecimal(totalInss, 2));
-			String totalInssExtenso = b.toString() ;
-					
-			Extenso c = new Extenso(UtilidadesMatematicas.ajustaValorDecimal(totalIr, 2));		
-			String totalIrExtenso = c.toString() ;
-					
-			Extenso d = new Extenso(UtilidadesMatematicas.ajustaValorDecimal(totalOutrosDescontos, 2));		
-			String totalOutrosDescontosExtenso = d.toString() ;
-					
-			Extenso e = new Extenso(UtilidadesMatematicas.ajustaValorDecimal(totalPatronal, 2));
-			String totalPatronalExtenso = e.toString() ;
-					
-			Extenso f = new Extenso(UtilidadesMatematicas.ajustaValorDecimal(totalLiquido, 2));
-			String totalLiquidoExtenso = f.toString() ;
-			
-			Extenso g = new Extenso(UtilidadesMatematicas.ajustaValorDecimal(totalBrutoComPatronal, 2));
-			String totalBrutoComPatronalExtenso = g.toString() ;
-			
-			Extenso h = new Extenso(UtilidadesMatematicas.ajustaValorDecimal(totalPensao, 2));
-			String totalPensaoExtenso = h.toString() ;
-			 
-			
-			service.addParametros("ANO_MES_I", mes);		
-			service.addParametros("UNIDADE_I", unidade);
-			
-			service.addParametros("VALOR_TOTAL_BRUTO_I", "R$ "+UtilidadesMatematicas.ajustaValorDecimal(totalBruto, 2));
-			service.addParametros("VALOR_TOTAL_INSS_I", "R$ "+UtilidadesMatematicas.ajustaValorDecimal(totalInss, 2));
-			service.addParametros("VALOR_TOTAL_IR_I", "R$ "+UtilidadesMatematicas.ajustaValorDecimal(totalIr, 2));
-			service.addParametros("VALOR_TOTAL_PENSAO_I", "R$ "+UtilidadesMatematicas.ajustaValorDecimal(totalPensao, 2));
-			service.addParametros("VALOR_TOTAL_OUTROS_DESCONTOS_I", "R$ "+UtilidadesMatematicas.ajustaValorDecimal(totalOutrosDescontos, 2));
-			service.addParametros("VALOR_TOTAL_PATRONAL_I", "R$ "+UtilidadesMatematicas.ajustaValorDecimal(totalPatronal, 2));
-			service.addParametros("VALOR_TOTAL_LIQUIDO_I", "R$ "+UtilidadesMatematicas.ajustaValorDecimal(totalLiquido, 2));
-			service.addParametros("VALOR_TOTAL_BRUTO_COM_PATRONAL_I", "R$ "+UtilidadesMatematicas.ajustaValorDecimal(totalBrutoComPatronal, 2));
-			
-			service.addParametros("TOTAL_BRUTO_I", totalBrutoExtenso);
-			service.addParametros("TOTAL_INSS_I", totalInssExtenso);
-			service.addParametros("TOTAL_IR_I", totalIrExtenso);
-			service.addParametros("TOTAL_PENSAO_I", totalPensaoExtenso);
-			service.addParametros("TOTAL_OUTROS_DESCONTOS_I", totalOutrosDescontosExtenso);
-			service.addParametros("TOTAL_PATRONAL_I", totalPatronalExtenso);
-			service.addParametros("TOTAL_LIQUIDO_I", totalLiquidoExtenso);
-			service.addParametros("TOTAL_BRUTO_COM_PATRONAL_I", totalBrutoComPatronalExtenso);
-			
-			
-			
-			
-			
-			service.setCaminho(preCaminho+"folha/processo_por_unidade2.jasper");
-			byte[] bytes = service.gerarRelatorio(); 
-			response.setContentType(MediaType.APPLICATION_PDF_VALUE);
-			//Faz o download
-			response.setHeader("Content-disposition", "attachment; filename=dados.pdf");
-			response.getOutputStream().write(bytes);
-		}		
 		
 		
 		

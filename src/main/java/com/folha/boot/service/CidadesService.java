@@ -7,6 +7,8 @@ import java.net.MalformedURLException;
 import java.util.Date;
 import java.util.List;
 
+import org.springframework.core.io.Resource;
+
 import org.apache.poi.ss.usermodel.Cell;
 import org.apache.poi.ss.usermodel.CellStyle;
 import org.apache.poi.ss.usermodel.FillPatternType;
@@ -16,6 +18,7 @@ import org.apache.poi.ss.usermodel.Sheet;
 import org.apache.poi.ss.usermodel.Workbook;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.io.ClassPathResource;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
@@ -288,7 +291,9 @@ public class CidadesService {
 			PdfPCell cellTitulo;
 			
 			// Colocando imagem
-			Image image = Image.getInstance("./src/main/resources/static/image/logo.png");
+			//Image image = Image.getInstance("static/image/logo.png");
+			Resource resource = new ClassPathResource("static/image/logo.png");
+			Image image = Image.getInstance(resource.getURL());
 			image.scaleAbsolute(30,30);
 						
 			cellTitulo = new PdfPCell( image );

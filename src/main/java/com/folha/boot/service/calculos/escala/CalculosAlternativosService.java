@@ -81,6 +81,7 @@ import com.folha.boot.service.TiposDeFolhaService;
 import com.folha.boot.service.TurnosService;
 import com.folha.boot.service.VencimentosFuncionarioService;
 import com.folha.boot.service.VinculosService;
+import com.folha.boot.service.calculos.folha.CalcularIrService;
 import com.folha.boot.service.calculos.folha.CalcularLiquidoService;
 import com.folha.boot.service.util.UtilidadesDeCalendarioEEscala;
 import com.folha.boot.service.util.UtilidadesMatematicas;
@@ -151,6 +152,8 @@ public class CalculosAlternativosService {
 	private TiposDeFolhaService tiposDeFolhaService;
 	@Autowired
 	private ConversaoFontePorFolhaService conversaoFontePorFolhaService;
+	@Autowired
+	private CalcularIrService calcularIrService;
 	
 	
 	
@@ -4349,6 +4352,10 @@ public class CalculosAlternativosService {
 						r.setIdRubricaPensaoObsFk(listaPensoes.get(i));
 						r.setIdRubricaVencimentoFk(listaVencimentos.get(k));
 						r.setValorDescontado(valor);
+						r.setValorIr( UtilidadesMatematicas.ajustaValorDecimal( calcularIrService.valorIr(valor, anoMes) , 2)   );
+						r.setValorLiqido(  UtilidadesMatematicas.ajustaValorDecimal( valor - r.getValorIr() , 2) );
+						
+						
 						rubricaPensaoObsVencimentoService.salvar(r);
 					}
 				}

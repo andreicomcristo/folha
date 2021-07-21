@@ -11,8 +11,15 @@ import javax.persistence.Table;
 @Table(name = "rubrica_pensao_obs_vencimento")
 public class RubricaPensaoObsVencimento extends AbstractEntity<Long> {
 	
+	@Column(name = "valor_liquido")
+    private Double valorLiqido;
+	
+	@Column(name = "valor_ir")
+    private Double valorIr;
+	
 	@Column(name = "valor_descontado")
     private Double valorDescontado;
+	
 	@JoinColumn(name = "id_ano_mes_fk", referencedColumnName = "id")
     @ManyToOne
     private AnoMes idAnoMesFk;
@@ -56,6 +63,22 @@ public class RubricaPensaoObsVencimento extends AbstractEntity<Long> {
 
 	public void setValorDescontado(Double valorDescontado) {
 		this.valorDescontado = valorDescontado;
+	}
+
+	public Double getValorLiqido() {
+		return valorLiqido;
+	}
+
+	public void setValorLiqido(Double valorLiqido) {
+		this.valorLiqido = valorLiqido;
+	}
+
+	public Double getValorIr() {
+		return valorIr;
+	}
+
+	public void setValorIr(Double valorIr) {
+		this.valorIr = valorIr;
 	}
     
 	

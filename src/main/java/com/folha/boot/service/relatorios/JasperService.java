@@ -1,11 +1,15 @@
 package com.folha.boot.service.relatorios;
 
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.InputStream;
 import java.sql.Connection;
 import java.util.HashMap;
 import java.util.Locale;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.io.Resource;
 import org.springframework.stereotype.Service;
 import net.sf.jasperreports.engine.JRException;
 import net.sf.jasperreports.engine.JasperExportManager;
@@ -28,10 +32,12 @@ public class JasperService {
 		this.caminho = caminho;
 	}
 
+	
 	public byte[] gerarRelatorio() {
 		byte[] bytes = null;
 		try {
-			var inputStream = this.getClass().getResourceAsStream(caminho);		
+			var inputStream = this.getClass().getResourceAsStream(caminho);	
+			
 			parametros.put("REPORT_LOCALE", new Locale("pt", "BR"));						
 			JasperPrint print = JasperFillManager.fillReport(inputStream, parametros, connection);		
 			bytes = JasperExportManager.exportReportToPdf(print);
@@ -42,4 +48,32 @@ public class JasperService {
 		}
 		return bytes;		
 	}
+	
+	
+	
+	
+	public byte[] gerarRelatorio1() {
+		byte[] bytes = null;
+		try {
+			InputStream inputStream = null;
+			try {
+				inputStream = new FileInputStream(caminho);
+			} catch (FileNotFoundException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}	
+			
+			parametros.put("REPORT_LOCALE", new Locale("pt", "BR"));						
+			JasperPrint print = JasperFillManager.fillReport(inputStream, parametros, connection);		
+			bytes = JasperExportManager.exportReportToPdf(print);
+			
+		} catch (JRException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return bytes;		
+	}
+
+	
+	
 }

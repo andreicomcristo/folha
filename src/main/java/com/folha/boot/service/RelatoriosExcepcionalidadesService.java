@@ -60,7 +60,8 @@ public class RelatoriosExcepcionalidadesService {
 	private RubricaService rubricaService;
 	
 	
-	String caminhoImagemLogo = "./src/main/resources/static/image/logo.png";
+	String caminhoImagemLogo = "static/image/logo.png";
+	//String caminhoImagemLogo = "./src/main/resources/static/image/logo.png";
 	
 	public ByteArrayInputStream exportarElegibilidadeSituacoesPdf() {
 

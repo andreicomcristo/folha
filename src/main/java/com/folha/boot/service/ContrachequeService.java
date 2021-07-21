@@ -9,6 +9,8 @@ import java.util.Date;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.io.ClassPathResource;
+import org.springframework.core.io.Resource;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -154,7 +156,9 @@ public class ContrachequeService {
 			PdfPCell cellTitulo0;
 			
 			// Colocando imagem
-			Image image = Image.getInstance("./src/main/resources/static/image/logo.png");
+			//Image image = Image.getInstance("./src/main/resources/static/image/logo.png");
+			Resource resource = new ClassPathResource("static/image/logo.png");
+			Image image = Image.getInstance(resource.getURL());
 			image.scaleAbsolute(30,30);
 									
 			cellTitulo0 = new PdfPCell( image );
