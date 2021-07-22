@@ -118,7 +118,7 @@ public class CalculosController {
 		model.addAttribute("anoMes", anoMes);
 		model.addAttribute("mesDoCalculo", mesDoCalculo);
 		model.addAttribute("idAnoMesFk",mesDoCalculo.getAnoMes() );
-		return "calculos/calcular";
+		return "calculos/Calcular";
 	}	
 	
 	
