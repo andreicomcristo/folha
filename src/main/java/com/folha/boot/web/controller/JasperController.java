@@ -105,7 +105,7 @@ public class JasperController {
 			Resource resourceReport = new ClassPathResource("jasper/folha/pagamentos_negativos_por_fonte.jasper");
 			service.setCaminho( resourceReport.getURI().toString().substring(6) );
 			
-			//service.setCaminho( "/jasper/folha/pagamentos_negativos_por_fonte.jasper" );
+			service.setCaminho( "/jasper/folha/pagamentos_negativos_por_fonte.jasper" );
 			//byte[] bytes = service.gerarRelatorio(); 
 			byte[] bytes = service.gerarRelatorio1();
 			response.setContentType(MediaType.APPLICATION_PDF_VALUE);
@@ -163,9 +163,8 @@ public class JasperController {
 			
 			//Resource resourceReport = new ClassPathResource("jasper/folha/maiores_salarios.jasper");
 			//service.setCaminho( resourceReport.getURI().toString().substring(6) );
-			
 						
-			service.setCaminho(new ClassPathResource( "jasper/folha/maiores_salarios.jasper" ).getURL().toString() );
+			service.setCaminho( "/jasper/folha/maiores_salarios.jasper"  );
 			
 			//service.setCaminho("/jasper/folha/maiores_salarios.jasper");
 			byte[] bytes = service.gerarRelatorio1(); 
@@ -660,7 +659,7 @@ public class JasperController {
 		Resource resourceReport = new ClassPathResource("jasper/folha/VencimentosTodosPorMes.jasper");
 		service.setCaminho( resourceReport.getURI().toString().substring(6) );
 		
-		//service.setCaminho("/jasper/folha/VencimentosTodosPorMes.jasper");
+		service.setCaminho("/jasper/folha/VencimentosTodosPorMes.jasper");
 		byte[] bytes = service.gerarRelatorio1(); 
 		response.setContentType(MediaType.APPLICATION_PDF_VALUE);
 		//Faz o download
@@ -813,10 +812,10 @@ public class JasperController {
 				service.addParametros("LOGO", resource.getURL().toString().substring(6));
 				
 				Resource resourceReport = new ClassPathResource("jasper/folha/processo_por_fonte7.jasper");
-				service.setCaminho( resourceReport.getURI().toString().substring(6) );
+				//service.setCaminho( resourceReport.getURI().toString().substring(6) );
 				
 				
-				//service.setCaminho("/jasper/folha/processo_por_fonte7.jasper");
+				service.setCaminho("/jasper/folha/processo_por_fonte7.jasper");
 				byte[] bytes = service.gerarRelatorio1(); 
 				response.setContentType(MediaType.APPLICATION_PDF_VALUE);
 				//Faz o download
