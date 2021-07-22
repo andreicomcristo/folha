@@ -57,8 +57,9 @@ public class JasperService {
 		try {
 			InputStream inputStream = null;
 			try {
-				inputStream = new FileInputStream(caminho);
-			} catch (FileNotFoundException e) {
+				//inputStream = new FileInputStream(caminho);
+				 inputStream = this.getClass().getResourceAsStream(caminho);
+			} catch (Exception e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}	

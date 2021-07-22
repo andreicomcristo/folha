@@ -155,20 +155,28 @@ public class JasperController {
 	@GetMapping("/relatoriosFolha/maioresPagamentos")
 	public void exibirRelatoriosMaioresPagamentos(@RequestParam("mes") Long mes, HttpServletResponse response) throws IOException {
 		
-		service.addParametros("ANO_MES_I", mes);
-		service.addParametros("mes", anoMesService.buscarPorId(mes).getNomeAnoMes());
-		Resource resource = new ClassPathResource("static/image/logo.png");
-		service.addParametros("LOGO", resource.getURL().toString().substring(6));
-		
-		Resource resourceReport = new ClassPathResource("jasper/folha/maiores_salarios.jasper");
-		service.setCaminho( resourceReport.getURI().toString().substring(6) );
-		
-		//service.setCaminho("/jasper/folha/maiores_salarios.jasper");
-		byte[] bytes = service.gerarRelatorio1(); 
-		response.setContentType(MediaType.APPLICATION_PDF_VALUE);
-		//Faz o download
-		response.setHeader("Content-disposition", "attachment; filename=dados.pdf");
-		response.getOutputStream().write(bytes);
+		try {
+			service.addParametros("ANO_MES_I", mes);
+			service.addParametros("mes", anoMesService.buscarPorId(mes).getNomeAnoMes());
+			Resource resource = new ClassPathResource("static/image/logo.png");
+			service.addParametros("LOGO", resource.getURL().toString().substring(6));
+			
+			//Resource resourceReport = new ClassPathResource("jasper/folha/maiores_salarios.jasper");
+			//service.setCaminho( resourceReport.getURI().toString().substring(6) );
+			
+						
+			service.setCaminho(new ClassPathResource( "jasper/folha/maiores_salarios.jasper" ).getURL().toString() );
+			
+			//service.setCaminho("/jasper/folha/maiores_salarios.jasper");
+			byte[] bytes = service.gerarRelatorio1(); 
+			response.setContentType(MediaType.APPLICATION_PDF_VALUE);
+			//Faz o download
+			response.setHeader("Content-disposition", "attachment; filename=dados.pdf");
+			response.getOutputStream().write(bytes);
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}	
 	
 	
@@ -674,145 +682,150 @@ public class JasperController {
 		public void exibirRelatoriosProcessoPorFonte(@RequestParam("mes") Long mes, @RequestParam("fonte") Long fonte, HttpServletResponse response) throws IOException {
 			
 			
-			Double totalBruto = 0.0;
-			Double totalInss = 0.0;
-			Double totalIr = 0.0;
-			Double totalPensao = 0.0;
-			Double totalOutrosDescontos = 0.0;
-			Double totalPatronal = 0.0;
-			Double totalLiquido = 0.0;
-			Double totalBrutoComPatronal = 0.0;
-			Double totalInssComPatronal = 0.0;
-			
-			
-			List<RubricaVencimento> lista = rubricaVencimentoService.buscarPorMesEFonteDescontoOuVantagem(anoMesService.buscarPorId(mes), fonteService.buscarPorId(fonte), "V");
-			
-			for(int i=0;i<lista.size();i++) {
-				totalBruto = totalBruto + lista.get(i).getValorLiquido() + lista.get(i).getValorIr() + lista.get(i).getValorPrevidencia() + lista.get(i).getPensaoProp();
-				totalInss = totalInss + lista.get(i).getValorPrevidencia();
-				totalIr = totalIr + lista.get(i).getValorIr();
-				totalPensao = totalPensao + lista.get(i).getPensaoProp();
-				totalOutrosDescontos = totalOutrosDescontos + lista.get(i).getPensaoProp();
-				totalPatronal = totalPatronal + lista.get(i).getValorPatronal();
-				totalLiquido = totalLiquido + lista.get(i).getValorLiquido() ;
+			try {
+				Double totalBruto = 0.0;
+				Double totalInss = 0.0;
+				Double totalIr = 0.0;
+				Double totalPensao = 0.0;
+				Double totalOutrosDescontos = 0.0;
+				Double totalPatronal = 0.0;
+				Double totalLiquido = 0.0;
+				Double totalBrutoComPatronal = 0.0;
+				Double totalInssComPatronal = 0.0;
+				
+				
+				List<RubricaVencimento> lista = rubricaVencimentoService.buscarPorMesEFonteDescontoOuVantagem(anoMesService.buscarPorId(mes), fonteService.buscarPorId(fonte), "V");
+				
+				for(int i=0;i<lista.size();i++) {
+					totalBruto = totalBruto + lista.get(i).getValorLiquido() + lista.get(i).getValorIr() + lista.get(i).getValorPrevidencia() + lista.get(i).getPensaoProp();
+					totalInss = totalInss + lista.get(i).getValorPrevidencia();
+					totalIr = totalIr + lista.get(i).getValorIr();
+					totalPensao = totalPensao + lista.get(i).getPensaoProp();
+					totalOutrosDescontos = totalOutrosDescontos + lista.get(i).getPensaoProp();
+					totalPatronal = totalPatronal + lista.get(i).getValorPatronal();
+					totalLiquido = totalLiquido + lista.get(i).getValorLiquido() ;
+				}
+				
+				totalBrutoComPatronal = totalBruto + totalPatronal;
+				totalInssComPatronal = totalInss + totalPatronal;
+				
+				//Colocando ir e liquido da pensao na conta
+				List<RubricaPensaoObsVencimento> listaPensoes = rubricaPensaoObsVencimentoService.buscarPorMes(anoMesService.buscarPorId(mes));
+				for(int i=0;i<listaPensoes.size();i++) {
+					totalIr = totalIr + listaPensoes.get(i).getValorIr();
+					totalLiquido = totalLiquido + listaPensoes.get(i).getValorLiqido();
+				}
+				
+				Extenso a = new Extenso(UtilidadesMatematicas.ajustaValorDecimal(totalBruto, 2));
+				String totalBrutoExtenso = a.toString() ;
+				if(totalBrutoExtenso.equalsIgnoreCase("")) {totalBrutoExtenso = "Zero real e Zero centavo";}
+				
+				Extenso b = new Extenso(UtilidadesMatematicas.ajustaValorDecimal(totalInss, 2));
+				String totalInssExtenso = b.toString() ;
+				if(totalInssExtenso.equalsIgnoreCase("")) {totalInssExtenso = "Zero real e Zero centavo";}
+						
+				Extenso c = new Extenso(UtilidadesMatematicas.ajustaValorDecimal(totalIr, 2));		
+				String totalIrExtenso = c.toString() ;
+				if(totalIrExtenso.equalsIgnoreCase("")) {totalIrExtenso = "Zero real e Zero centavo";}
+						
+				Extenso d = new Extenso(UtilidadesMatematicas.ajustaValorDecimal(totalOutrosDescontos, 2));		
+				String totalOutrosDescontosExtenso = d.toString() ;
+				if(totalOutrosDescontosExtenso.equalsIgnoreCase("")) {totalOutrosDescontosExtenso = "Zero real e Zero centavo";}
+						
+				Extenso e = new Extenso(UtilidadesMatematicas.ajustaValorDecimal(totalPatronal, 2));
+				String totalPatronalExtenso = e.toString() ;
+				if(totalPatronalExtenso.equalsIgnoreCase("")) {totalPatronalExtenso = "Zero real e Zero centavo";}
+						
+				Extenso f = new Extenso(UtilidadesMatematicas.ajustaValorDecimal(totalLiquido, 2));
+				String totalLiquidoExtenso = f.toString() ;
+				if(totalLiquidoExtenso.equalsIgnoreCase("")) {totalLiquidoExtenso = "Zero real e Zero centavo";}
+				
+				Extenso g = new Extenso(UtilidadesMatematicas.ajustaValorDecimal(totalBrutoComPatronal, 2));
+				String totalBrutoComPatronalExtenso = g.toString() ;
+				if(totalBrutoComPatronalExtenso.equalsIgnoreCase("")) {totalBrutoComPatronalExtenso = "Zero real e Zero centavo";}
+				
+				Extenso h = new Extenso(UtilidadesMatematicas.ajustaValorDecimal(totalPensao, 2));
+				String totalPensaoExtenso = h.toString() ;
+				if(totalPensaoExtenso.equalsIgnoreCase("")) {totalPensaoExtenso = "Zero real e Zero centavo";}
+				 
+				Extenso i = new Extenso(UtilidadesMatematicas.ajustaValorDecimal(totalInssComPatronal, 2));
+				String totalInssComPatronalExtenso = i.toString() ;
+				if(totalInssComPatronalExtenso.equalsIgnoreCase("")) {totalInssComPatronalExtenso = "Zero real e Zero centavo";}
+				
+				service.addParametros("mes", anoMesService.buscarPorId(mes).getNomeAnoMes());
+				service.addParametros("fonte", fonteService.buscarPorId(fonte).getNome());
+				
+				service.addParametros("NOME_MES_I", anoMesService.buscarPorId(mes).getNomeAnoMes().substring(4));
+				service.addParametros("NOME_ANO_I", anoMesService.buscarPorId(mes).getNomeAnoMes().substring(0,4)+"%");
+				
+				Long idMesAnterior = 0L;
+				List<AnoMes> listaMesesAnteriores = anoMesService.buscarPorNome( UtilidadesDeCalendarioEEscala.mesAnteriorAnterior(anoMesService.buscarPorId(mes).getNomeAnoMes() ) );
+				if(!listaMesesAnteriores.isEmpty()) {idMesAnterior = listaMesesAnteriores.get(0).getId();}
+				
+				service.addParametros("ID_ANO_MES_ANTERIOR_I", idMesAnterior);
+				
+				service.addParametros("ANO_MES_I", mes);		
+				service.addParametros("FONTE_I", fonte);
+				
+				service.addParametros("VALOR_TOTAL_BRUTO_I", "R$ "+UtilidadesMatematicas.ajustaValorDecimal(totalBruto, 2));
+				service.addParametros("VALOR_TOTAL_INSS_I", "R$ "+UtilidadesMatematicas.ajustaValorDecimal(totalInss, 2));
+				service.addParametros("VALOR_TOTAL_IR_I", "R$ "+UtilidadesMatematicas.ajustaValorDecimal(totalIr, 2));
+				service.addParametros("VALOR_TOTAL_PENSAO_I", "R$ "+UtilidadesMatematicas.ajustaValorDecimal(totalPensao, 2));
+				service.addParametros("VALOR_TOTAL_OUTROS_DESCONTOS_I", "R$ "+UtilidadesMatematicas.ajustaValorDecimal(totalOutrosDescontos, 2));
+				service.addParametros("VALOR_TOTAL_PATRONAL_I", "R$ "+UtilidadesMatematicas.ajustaValorDecimal(totalPatronal, 2));
+				service.addParametros("VALOR_TOTAL_LIQUIDO_I", "R$ "+UtilidadesMatematicas.ajustaValorDecimal(totalLiquido, 2));
+				service.addParametros("VALOR_TOTAL_BRUTO_COM_PATRONAL_I", "R$ "+UtilidadesMatematicas.ajustaValorDecimal(totalBrutoComPatronal, 2));
+				service.addParametros("VALOR_TOTAL_INSS_COM_PATRONAL_I", "R$ "+UtilidadesMatematicas.ajustaValorDecimal(totalInssComPatronal, 2));
+				
+				service.addParametros("TOTAL_BRUTO_I", totalBrutoExtenso);
+				service.addParametros("TOTAL_INSS_I", totalInssExtenso);
+				service.addParametros("TOTAL_IR_I", totalIrExtenso);
+				service.addParametros("TOTAL_PENSAO_I", totalPensaoExtenso);
+				service.addParametros("TOTAL_OUTROS_DESCONTOS_I", totalOutrosDescontosExtenso);
+				service.addParametros("TOTAL_PATRONAL_I", totalPatronalExtenso);
+				service.addParametros("TOTAL_LIQUIDO_I", totalLiquidoExtenso);
+				service.addParametros("TOTAL_BRUTO_COM_PATRONAL_I", totalBrutoComPatronalExtenso);
+				service.addParametros("TOTAL_INSS_COM_PATRONAL_I", totalInssComPatronalExtenso);
+				
+				//Colocando os subreport
+				
+				Resource resourceReport00 = new ClassPathResource("jasper/folha/processo_por_fonte_sub10.jasper");
+				service.addParametros("SUB_COMPARATIVO_MES_ANTERIOR", resourceReport00.getURI().toString().substring(6));
+				
+				Resource resourceReport0 = new ClassPathResource("jasper/folha/processo_por_fonte_sub_5.jasper");
+				service.addParametros("SUB_COMPARATIVO", resourceReport0.getURI().toString().substring(6));
+				
+				Resource resourceReport1 = new ClassPathResource("jasper/folha/processo_por_fonte_sub_6.jasper");
+				service.addParametros("SUB_VALORES", resourceReport1.getURI().toString().substring(6));
+				
+				Resource resourceReport2 = new ClassPathResource("jasper/folha/processo_por_fonte_sub8.jasper");
+				service.addParametros("SUB_HORAS", resourceReport2.getURI().toString().substring(6));
+				
+				Resource resourceReport3 = new ClassPathResource("jasper/folha/processo_por_fonte_sub1.jasper");
+				service.addParametros("SUB_PENSAO", resourceReport3.getURI().toString().substring(6));
+				
+				Resource resourceReport4 = new ClassPathResource("jasper/folha/processo_por_fonte_sub7.jasper");
+				service.addParametros("SUB_OBSERVACAO", resourceReport4.getURI().toString().substring(6));
+				
+				
+				
+				Resource resource = new ClassPathResource("static/image/logo.png");
+				service.addParametros("LOGO", resource.getURL().toString().substring(6));
+				
+				Resource resourceReport = new ClassPathResource("jasper/folha/processo_por_fonte7.jasper");
+				service.setCaminho( resourceReport.getURI().toString().substring(6) );
+				
+				
+				//service.setCaminho("/jasper/folha/processo_por_fonte7.jasper");
+				byte[] bytes = service.gerarRelatorio1(); 
+				response.setContentType(MediaType.APPLICATION_PDF_VALUE);
+				//Faz o download
+				response.setHeader("Content-disposition", "attachment; filename=dados.pdf");
+				response.getOutputStream().write(bytes);
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
 			}
-			
-			totalBrutoComPatronal = totalBruto + totalPatronal;
-			totalInssComPatronal = totalInss + totalPatronal;
-			
-			//Colocando ir e liquido da pensao na conta
-			List<RubricaPensaoObsVencimento> listaPensoes = rubricaPensaoObsVencimentoService.buscarPorMes(anoMesService.buscarPorId(mes));
-			for(int i=0;i<listaPensoes.size();i++) {
-				totalIr = totalIr + listaPensoes.get(i).getValorIr();
-				totalLiquido = totalLiquido + listaPensoes.get(i).getValorLiqido();
-			}
-			
-			Extenso a = new Extenso(UtilidadesMatematicas.ajustaValorDecimal(totalBruto, 2));
-			String totalBrutoExtenso = a.toString() ;
-			if(totalBrutoExtenso.equalsIgnoreCase("")) {totalBrutoExtenso = "Zero real e Zero centavo";}
-			
-			Extenso b = new Extenso(UtilidadesMatematicas.ajustaValorDecimal(totalInss, 2));
-			String totalInssExtenso = b.toString() ;
-			if(totalInssExtenso.equalsIgnoreCase("")) {totalInssExtenso = "Zero real e Zero centavo";}
-					
-			Extenso c = new Extenso(UtilidadesMatematicas.ajustaValorDecimal(totalIr, 2));		
-			String totalIrExtenso = c.toString() ;
-			if(totalIrExtenso.equalsIgnoreCase("")) {totalIrExtenso = "Zero real e Zero centavo";}
-					
-			Extenso d = new Extenso(UtilidadesMatematicas.ajustaValorDecimal(totalOutrosDescontos, 2));		
-			String totalOutrosDescontosExtenso = d.toString() ;
-			if(totalOutrosDescontosExtenso.equalsIgnoreCase("")) {totalOutrosDescontosExtenso = "Zero real e Zero centavo";}
-					
-			Extenso e = new Extenso(UtilidadesMatematicas.ajustaValorDecimal(totalPatronal, 2));
-			String totalPatronalExtenso = e.toString() ;
-			if(totalPatronalExtenso.equalsIgnoreCase("")) {totalPatronalExtenso = "Zero real e Zero centavo";}
-					
-			Extenso f = new Extenso(UtilidadesMatematicas.ajustaValorDecimal(totalLiquido, 2));
-			String totalLiquidoExtenso = f.toString() ;
-			if(totalLiquidoExtenso.equalsIgnoreCase("")) {totalLiquidoExtenso = "Zero real e Zero centavo";}
-			
-			Extenso g = new Extenso(UtilidadesMatematicas.ajustaValorDecimal(totalBrutoComPatronal, 2));
-			String totalBrutoComPatronalExtenso = g.toString() ;
-			if(totalBrutoComPatronalExtenso.equalsIgnoreCase("")) {totalBrutoComPatronalExtenso = "Zero real e Zero centavo";}
-			
-			Extenso h = new Extenso(UtilidadesMatematicas.ajustaValorDecimal(totalPensao, 2));
-			String totalPensaoExtenso = h.toString() ;
-			if(totalPensaoExtenso.equalsIgnoreCase("")) {totalPensaoExtenso = "Zero real e Zero centavo";}
-			 
-			Extenso i = new Extenso(UtilidadesMatematicas.ajustaValorDecimal(totalInssComPatronal, 2));
-			String totalInssComPatronalExtenso = i.toString() ;
-			if(totalInssComPatronalExtenso.equalsIgnoreCase("")) {totalInssComPatronalExtenso = "Zero real e Zero centavo";}
-			
-			service.addParametros("mes", anoMesService.buscarPorId(mes).getNomeAnoMes());
-			service.addParametros("fonte", fonteService.buscarPorId(fonte).getNome());
-			
-			service.addParametros("NOME_MES_I", anoMesService.buscarPorId(mes).getNomeAnoMes().substring(4));
-			service.addParametros("NOME_ANO_I", anoMesService.buscarPorId(mes).getNomeAnoMes().substring(0,4)+"%");
-			
-			Long idMesAnterior = 0L;
-			List<AnoMes> listaMesesAnteriores = anoMesService.buscarPorNome( UtilidadesDeCalendarioEEscala.mesAnteriorAnterior(anoMesService.buscarPorId(mes).getNomeAnoMes() ) );
-			if(!listaMesesAnteriores.isEmpty()) {idMesAnterior = listaMesesAnteriores.get(0).getId();}
-			
-			service.addParametros("ID_ANO_MES_ANTERIOR_I", idMesAnterior);
-			
-			service.addParametros("ANO_MES_I", mes);		
-			service.addParametros("FONTE_I", fonte);
-			
-			service.addParametros("VALOR_TOTAL_BRUTO_I", "R$ "+UtilidadesMatematicas.ajustaValorDecimal(totalBruto, 2));
-			service.addParametros("VALOR_TOTAL_INSS_I", "R$ "+UtilidadesMatematicas.ajustaValorDecimal(totalInss, 2));
-			service.addParametros("VALOR_TOTAL_IR_I", "R$ "+UtilidadesMatematicas.ajustaValorDecimal(totalIr, 2));
-			service.addParametros("VALOR_TOTAL_PENSAO_I", "R$ "+UtilidadesMatematicas.ajustaValorDecimal(totalPensao, 2));
-			service.addParametros("VALOR_TOTAL_OUTROS_DESCONTOS_I", "R$ "+UtilidadesMatematicas.ajustaValorDecimal(totalOutrosDescontos, 2));
-			service.addParametros("VALOR_TOTAL_PATRONAL_I", "R$ "+UtilidadesMatematicas.ajustaValorDecimal(totalPatronal, 2));
-			service.addParametros("VALOR_TOTAL_LIQUIDO_I", "R$ "+UtilidadesMatematicas.ajustaValorDecimal(totalLiquido, 2));
-			service.addParametros("VALOR_TOTAL_BRUTO_COM_PATRONAL_I", "R$ "+UtilidadesMatematicas.ajustaValorDecimal(totalBrutoComPatronal, 2));
-			service.addParametros("VALOR_TOTAL_INSS_COM_PATRONAL_I", "R$ "+UtilidadesMatematicas.ajustaValorDecimal(totalInssComPatronal, 2));
-			
-			service.addParametros("TOTAL_BRUTO_I", totalBrutoExtenso);
-			service.addParametros("TOTAL_INSS_I", totalInssExtenso);
-			service.addParametros("TOTAL_IR_I", totalIrExtenso);
-			service.addParametros("TOTAL_PENSAO_I", totalPensaoExtenso);
-			service.addParametros("TOTAL_OUTROS_DESCONTOS_I", totalOutrosDescontosExtenso);
-			service.addParametros("TOTAL_PATRONAL_I", totalPatronalExtenso);
-			service.addParametros("TOTAL_LIQUIDO_I", totalLiquidoExtenso);
-			service.addParametros("TOTAL_BRUTO_COM_PATRONAL_I", totalBrutoComPatronalExtenso);
-			service.addParametros("TOTAL_INSS_COM_PATRONAL_I", totalInssComPatronalExtenso);
-			
-			//Colocando os subreport
-			
-			Resource resourceReport00 = new ClassPathResource("jasper/folha/processo_por_fonte_sub10.jasper");
-			service.addParametros("SUB_COMPARATIVO_MES_ANTERIOR", resourceReport00.getURI().toString().substring(6));
-			
-			Resource resourceReport0 = new ClassPathResource("jasper/folha/processo_por_fonte_sub_5.jasper");
-			service.addParametros("SUB_COMPARATIVO", resourceReport0.getURI().toString().substring(6));
-			
-			Resource resourceReport1 = new ClassPathResource("jasper/folha/processo_por_fonte_sub_6.jasper");
-			service.addParametros("SUB_VALORES", resourceReport1.getURI().toString().substring(6));
-			
-			Resource resourceReport2 = new ClassPathResource("jasper/folha/processo_por_fonte_sub8.jasper");
-			service.addParametros("SUB_HORAS", resourceReport2.getURI().toString().substring(6));
-			
-			Resource resourceReport3 = new ClassPathResource("jasper/folha/processo_por_fonte_sub1.jasper");
-			service.addParametros("SUB_PENSAO", resourceReport3.getURI().toString().substring(6));
-			
-			Resource resourceReport4 = new ClassPathResource("jasper/folha/processo_por_fonte_sub7.jasper");
-			service.addParametros("SUB_OBSERVACAO", resourceReport4.getURI().toString().substring(6));
-			
-			
-			
-			Resource resource = new ClassPathResource("static/image/logo.png");
-			service.addParametros("LOGO", resource.getURL().toString().substring(6));
-			
-			Resource resourceReport = new ClassPathResource("jasper/folha/processo_por_fonte7.jasper");
-			service.setCaminho( resourceReport.getURI().toString().substring(6) );
-			
-			
-			//service.setCaminho("/jasper/folha/processo_por_fonte7.jasper");
-			byte[] bytes = service.gerarRelatorio1(); 
-			response.setContentType(MediaType.APPLICATION_PDF_VALUE);
-			//Faz o download
-			response.setHeader("Content-disposition", "attachment; filename=dados.pdf");
-			response.getOutputStream().write(bytes);
 		}	
 		
 	
