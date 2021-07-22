@@ -84,6 +84,39 @@ public class JasperController {
 	
 	
 	
+	
+		//Pagamentos Negativos
+		@GetMapping("/abrirRelatoriosFolha/pagamentosNegativos")
+		public String abrirRelatoriosPagamentosNegativos() {		
+			return "reports/pagamentosNegativos";
+		}
+
+		@GetMapping("/relatoriosFolha/pagamentosNegativos")
+		public void exibirRelatoriosMaioresPagamentosNegativos(@RequestParam("mes") Long mes, @RequestParam("fonte") Long fonte, HttpServletResponse response) throws IOException {
+			
+			service.addParametros("ID_ANO_MES_I", mes);
+			service.addParametros("mes", anoMesService.buscarPorId(mes).getNomeAnoMes());
+			service.addParametros("ID_FONTE_I", mes);
+			service.addParametros("fonte", fonteService.buscarPorId(fonte).getDescricao());
+			
+			Resource resource = new ClassPathResource("static/image/logo.png");
+			service.addParametros("LOGO", resource.getURL().toString().substring(6));
+			
+			Resource resourceReport = new ClassPathResource("jasper/folha/pagamentos_negativos_por_fonte.jasper");
+			service.setCaminho( resourceReport.getURI().toString().substring(6) );
+			
+			//service.setCaminho( "/jasper/folha/pagamentos_negativos_por_fonte.jasper" );
+			//byte[] bytes = service.gerarRelatorio(); 
+			byte[] bytes = service.gerarRelatorio1();
+			response.setContentType(MediaType.APPLICATION_PDF_VALUE);
+			//Faz o download
+			response.setHeader("Content-disposition", "attachment; filename=dados.pdf");
+			response.getOutputStream().write(bytes);
+		}	
+	
+	
+	
+	
 	//Maiores pagamentos considerando cargo
 	@GetMapping("/abrirRelatoriosFolha/maioresPagamentosConsiderandoCargo")
 	public String abrirRelatoriosMaioresPagamentosConsiderandoCargo() {		
